@@ -1,0 +1,29 @@
+<%= semantic_form_for [ :admin, field ] do |form| -%>
+  <%- unless @options -%>
+    <%= form.inputs :metadata_field do %>
+      <%= form.input :name %>
+      <%= form.input :title %>
+      <%= form.input :field_type, :as => :select, :collection => options_for_metadata_field_type, :input_html => { :disabled => !field.new_record? } %>
+      <%= form.input :hint, :input_html => { :rows => 4 } %>
+      <%= form.input :required %>
+      <%= form.input :cataloguing %>
+      <%= form.input :searchable, :hint => (sphinx_running? ? nil : t('formtastic.hints.metadata_field.searchable_no_sphinx')) %>
+      <%= form.input :show_in_listing %>
+    <% end %>
+  <%- end -%>
+  
+  <%- unless field.new_record? -%>
+    <%- if field.field_type == 'taxonomy' -%>
+      <%= form.inputs :metadata_field_options do %>
+        <%= form.input :multi %>
+      <% end %>
+    <%- end -%>
+  <%- end -%>
+  
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link admin_metadata_fields_path %>
+  <% end %>
+<% end -%>
+

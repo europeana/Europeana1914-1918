@@ -1,0 +1,118 @@
+en:
+  formtastic:
+    :yes: 'Yes'
+    :no: 'No'
+    :create: 'Create %{model}'
+    :update: 'Update %{model}'
+    :required: 'required'
+  
+    titles:
+      admin_user: "Sign in details"
+      contact_name: "Name"
+      contact_address: "Address"
+      contact_other: "Contact details"
+      contribution_attachments: "Attachments"
+      metadata: "Catalogue information"
+      cataloguing_metadata: "Cataloguing metadata"
+      contribution_terms: "Terms & conditions"
+      metadata_field_options: "Type-specific options"
+      personal_details: "Personal details"
+      account_details: "Sign in details"
+      fields: "Fields"
+      
+    labels:
+      contribution:
+        terms: "I accept the terms & conditions"
+      search: 
+        q: ""
+        
+    hints:
+      attachment:
+        new:
+          file: "Maximum file size: %{max}. Allowed file types: %{file_types}."
+        edit:
+          file: "Only upload a new file if you want to replace the existing one. Maximum file size: %{max}. Allowed file types: %{file_types}."
+      contact:
+        full_name: "This will be displayed publicly as the credit alongside approved contributions."
+      contribution:
+        title: "A title for this contribution as a whole. This is required."
+      password:
+        new:
+          email: "Enter your sign in email address and we will send you instructions for resetting your password."
+      taxonomy_term:
+        term: "Must be unique within the scope of its metadata field."
+        import: "Enter the taxonomy terms to add for this metadata field, one per line."
+      session:
+        email: ""
+        password: ""
+      user:
+        email: "You will sign in using this email address and the password you specify."
+        password: "Minimum 6 characters"
+        current_password: "Enter your current password if you want to change your account details."
+        update:
+          password: "Enter a new password if you want to change it, otherwise leave this blank. Minimum 6 characters."
+        edit:
+          password: "Enter a new password if you want to change it, otherwise leave this blank. Minimum 6 characters."
+      metadata_field:
+        name: "Database name for the field. Must be unique. Valid characters: a-z, 0-9, _"
+        title: "Descriptive title for the field, as displayed to contributors. Leave blank to guess from the name."
+        field_type: "Can not be changed once the field has been saved."
+        cataloguing: "Yes: only show this field in the admin interface, for cataloguing purposes. No: also show to contributors."
+        hint: "Text to display alongside the input field to guide contributors/cataloguers."
+        multi: "Allow selection of multiple terms per contribution/attachment."
+        required: "Yes: contributor must enter something for this field. No: this field is optional. Cataloguing fields must be optional."
+        searchable: "Yes: searching for contributions searches on this metadata field. No: this field is not searched. Note: After changing this value, you should re-index the search engine."
+        searchable_no_sphinx: "Note: Metadata fields are only searchable if the Sphinx search engine is running &mdash; currently it is not."
+        show_in_listing: "Display this field in listings such as search results."
+      metadata_record:
+        date: "Format: YYYY-MM-DD, YYYY-MM or YYYY, e.g. 1998-04-20, 1998-04 or 1998"
+        geo: "Format: LAT,LNG, e.g. 51.500,-0.126 (for London)"
+        
+      settings:
+        site_name: "The name of this website. By default, this will be displayed in page titles and header."
+        relative_url_root: "Root URL the website is accessed at, without a trailing slash. Leave blank for top-level URL."
+        registration_required: "If enabled, people must register a user account in order to contribute. If disabled, people can contribute as guests by providing their contact details."
+        publish_contributions: "Enable the public display of contributions. If not enabled, contributions can still be collected, but are not displayed publicly."
+        contribution_approval_required: "If enabled, contributions are only published after being approved. Otherwise, are published immediately after submission. Has no effect if \"Publish contributions\" is not enabled."
+        max_upload_size: "Maximum upload size in bytes."
+        allowed_upload_extensions: "Allowed file extensions for uploaded files, separated by commas, e.g. \"pdf,doc,jpg,gif\". Leave blank to allow all extensions."
+        gmap_api_key: "Google Maps API key. Without this key, Google Maps can not be used to enter geographical location data. Sign up for a key at <http://code.google.com/apis/maps/signup.html>."
+        uploadify: "Use Uploadify to handle attachment uploads, enabling multiple file uploads. See <http://www.uploadify.com/> for more information and demos."
+        ui_locales: "Locales to link to in the page header."
+        
+    actions:
+      attachment:
+        delete: "Delete attachment"
+        create: "Upload"
+        update: "Save"
+      contribution:
+        create: "Continue"
+        update: "Update contribution"
+        save_draft: "Save draft"
+        delete: "Delete contribution"
+        submit: "Submit contribution"
+      contributor:
+        create: "Register"
+      metadata_field:
+        delete: "Delete metadata field"
+        reindex: "Re-index search engine"
+      taxonomy_term:
+        import: "Import"
+      password:
+        create: "Submit"
+        update: "Change my password"
+      user:
+        create: "Register"
+        delete: "Delete account"
+        update: "Update"
+      search:
+        submit: "Search"
+      filter:
+        submit: "Update"
+      submit: "Save"
+      create: "Submit"
+      update: "Save changes"
+      delete: "Delete"
+      sign_in: "Sign in"
+      upload: "Upload"
+      

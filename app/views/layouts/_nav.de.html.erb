@@ -1,0 +1,23 @@
+<% nav = [
+  [ 'Home', home_path ],
+  [ 'Mitmachen', contributor_dashboard_path ],
+  [ 'Ansehen', page_path('browse') ],
+  [ 'Über uns', page_path('about') ],
+  [ 'Hilfe', page_path('help') ],
+  [ 'Bibliotheksprojekt', page_path('library'), { :title => 'Europeana Collections 1914-1918 ist ein EU gefördertes Projekt für Nationalbibliotheken' } ]
+] -%>
+<div id="navigation">
+  <ul>
+    <%- for link in nav -%>
+      <%- if current_page?(link[1]) -%>
+        <li class="selected"><%= link_to link.first, link[1] %></li>
+      <%- else -%>
+        <li><%= link_to link.first, link[1], link[2] %></li>
+      <%- end -%>
+    <%- end -%>
+	 </ul>
+	 <%= form_tag({}, { :id => 'langswitch' }) do %>
+      <%= select_tag 'dd_lang', options_for_select([ [ 'Choose a language', '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
+    <% end %>
+</div><!-- /#navigation -->
+

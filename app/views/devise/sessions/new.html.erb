@@ -1,0 +1,19 @@
+<% @title = t('views.devise.sessions.new.title') %>
+
+<p><%= t('views.devise.sessions.new.instructions') %></p>
+
+<%= render :partial => "devise/shared/links" %>
+
+<%= semantic_form_for resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'devise' } do |form| %>
+  <%= form.inputs "#{resource_name.to_s}_session".to_sym do %>
+    <%= form.input :email, :hint => t('formtastic.hints.session.email') %>
+    <%= form.input :password, :hint => t('formtastic.hints.session.password') %>
+    <% if devise_mapping.rememberable? -%>
+      <%= form.input :remember_me %>
+    <% end -%>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button :label => t('formtastic.actions.sign_in') %>
+  <% end %>
+
+<% end %>

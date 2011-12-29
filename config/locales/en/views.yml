@@ -1,0 +1,302 @@
+en:
+  views:
+    admin:
+      index:
+        title: "Admin"
+        links:
+          contributions:
+            text: "Contributions"
+            description: "Review and approve or reject contributions."
+          config:
+            text: "Configuration"
+            description: "Configure website settings."
+          export:
+            text: "Export as CSV"
+            description: "Export the collection contributions to CSV."
+          metadata_fields:
+            text: "Metadata fields"
+            description: "Configure the fields gathered during contributions."
+          reindex:
+            text: "Re-index search engine"
+            description: "Update the search engine index."
+          users:
+            text: "User accounts"
+            description: "Manage user accounts: administrators, cataloguers & contributors."
+            
+      config:
+        index:
+          title: "Configuration"
+          table:
+            caption: "Settings"
+            headings:
+              name: "Name"
+              value: "Value"
+          links:
+            edit: "Edit settings"
+        edit:
+          title: "Edit configuration settings"
+            
+      contributions:
+        index:
+          title: "Contributions"
+          captions:
+            approved: "Approved contributions (%{total} total)"
+            submitted: "Submitted contributions pending approval (%{total} total)"
+          empty:
+            all:
+              approved: "No approved contributions yet."
+              submitted: "No submitted contributions pending approval at present."
+            search:
+              submitted: "No submitted contributions matching your search."
+              approved: "No approved contributions matching your search."
+
+      metadata_fields:
+        confirm_reindex:
+          title: "Re-index search engine"
+          info: "After changing the searchable status of one or more metadata fields, or removing previously searchable fields, you should re-index the search engine using the button below."
+          note: "Note that you do not need to re-index the search engine when contributions are updated; this happens automatically."
+        delete:
+          title: "Delete metadata field"
+          question: "Are you sure you want to delete the metadata field %{field_name}?"
+          warning: "<strong>Warning:</strong> This will result in the deletion of any data in your collection already gathered for this field."
+          button_confirm: "Really delete this field?"
+        edit:
+          title: "Edit metadata field"
+          empty: "There are no metadata fields yet."
+          instructions: "Enter a number for the position of each field."
+        index:
+          title: "Metadata fields"
+          links:
+            new: "New field"
+            order: "Change field order"
+            terms: "Terms"
+          empty: "There are no metadata fields yet."
+          caption: "Metadata fields"
+        new:
+          title: "New metadata field"
+        order:
+          title: "Metadata field order"
+          
+      taxonomy_terms:
+        delete:
+          title: "Delete taxonomy term"
+          question: "Are you sure you want to delete the taxonomy term \"%{term}\"?"
+          warning: "<strong>Warning:</strong> This action will result in any contributions associated with this term losing that categorisation."
+        edit:
+          title: "Edit taxonomy term"
+        import:
+          title: "Import taxonomy terms"
+        index:
+          title: "Taxonomy terms"
+          links:
+            back: "list of metadata fields"
+            import: "Import terms from list"
+            new: "New term"
+          caption: "Taxonomy terms"
+          empty: "There are no taxonomy terms for this field yet."
+        new:
+          title: "New taxonomy term"
+          
+      users:
+        delete:
+          title: "Delete user account"
+          question: "Are you sure you want to delete the user account %{email}?"
+          warning: "<strong>Warning:</strong> This will also delete all the user's contributions."
+          button_confirm: "Really delete this user account?"
+        edit:
+          title: "Edit user account"
+        index:
+          title: "User accounts"
+          links:
+            new: "New user"
+            show:
+              title: "View full user details"
+          caption: "User accounts"
+          empty: "No user accounts to show."
+        new:
+          title: "New user account"
+        show:
+          title: "User account"
+          links:
+            back: "list of user accounts"
+            contributions: "Contributions"
+            edit: "Edit user account"
+          caption: "Personal details"
+          
+    attachments:
+      delete:
+        title: "Delete attachment"
+        question: "Are you sure you want to delete the attachment \"%{filename}\"?"
+      edit:
+        title: "Edit attachment"
+        caption:
+          current: "Current file"
+          uploaded: "Uploaded file"
+      index:
+        title: "Contribution attachments"
+        links:
+          new: "New attachment"
+        empty: "No attachments have been uploaded for this contribution."
+      new:
+        title: "New attachment"
+        caption: "Uploaded file"
+      show: 
+        title: "Attachment"
+      _summary:
+        caption: "Attachment information"
+      _table:
+        caption: "Attachments"
+        links:
+          preview:
+            title: "View full attachment details"
+        
+    contacts:
+      no_name: "no contact name"
+      edit:
+        title: "Edit personal details"
+      show: 
+        title: "Contact details"
+      
+    contributions:
+      no_title: "no title"
+      delete:
+        title: "Discard contribution"
+        question: "Are you sure you want to completely discard the contribution \"<strong>%{title}</strong>\"?"
+      edit:
+        title: "Contribution"
+      index:
+        title: "Contributions"
+        empty: "There are no contributions to show publicly, yet."
+      new:
+        title: "Contribution"
+      complete:
+        title: "Contribution completed"
+      search:
+        title: "Search results"
+        empty: "No matches. Please try again."
+        caption:
+          matching: "Contributions matching \"%{query}\""
+          all: "All contributions"
+        links:
+          show:
+            title: "View contribution"
+      show:
+        title: "Contribution"
+        empty_attachments: "This contribution has no attachments."
+        links:
+          new_attachment: "Add an attachment"
+        headings:
+          submit: "Submit contribution"
+        valid: "<strong>Finished?</strong> If you are happy with your contribution, go ahead and submit it! If not, click on EDIT below to change it or add more information"
+        invalid: "This contribution is not ready for submission yet. Click on 'Why not?' for an explanation. Click on EDIT below to add more information."
+        button_confirm: "Are you sure that you are ready to\nsubmit this contribution to the collection?"
+      status:
+        label: "Status"
+        approved: "Approved"
+        approved_by: "Approved by %{name}"
+        draft: "Draft &mdash; not submitted yet"
+        submitted: "Submitted &mdash; pending approval"
+        unknown: "Unknown"
+      _summary:
+        caption: "Summary"
+      _progress:
+        step_x_of_y: "Step %{x} of %{y}"
+    
+    contributor:
+      dashboard_contributor: 
+        title: "Contribution"
+        headings:
+          contributions: "Your contributions"
+        links:
+          new: "New contribution"
+        captions:
+          draft: "Drafts"
+          submitted: "Submitted"
+        empty:
+          all: "You have not started any contributions yet."
+          draft: "You have no draft contributions at the moment."
+          submitted: "You have not submitted any contributions yet."
+      dashboard_guest:
+        title: "Guest dashboard"
+        links:
+          edit_contact: "Edit contact details"
+          new: "New contribution"
+        notice: "%{name}, you are contributing as a guest."
+        identity: "(If you are not %{name}, press the \"Finished contributing\" button, below.)"
+        privacy: "When you have finished contributing, use the button below to clear your contact details. This helps protect your privacy on a shared computer."
+        button_text: "Finished contributing"
+        headings:
+          finished: "Finished contributing?"
+      registration_required:
+        title: "Add to the archive"
+        links:
+          register: "register"
+          sign_in: "sign in"
+        notice: "Please %{sign_in} or %{register} to be able to add your objects and stories to the First World War archive."
+      guests:
+        new:
+          title: "Guest contact details"
+          guest: "You are contributing as a guest."
+          notice: "If you want to store your contact details and track your contributions after they are submitted, %{sign_in} or %{register} before continuing."
+          links:
+            register: "register"
+            sign_in: "sign in"
+          contact_details: "Otherwise, please give us your contact details first:"
+        edit:
+          title: "Edit guest contact details"
+          
+    devise:
+      passwords:
+        edit:
+          title: "Change your password"
+        new:
+          title: "Forgot your password?"
+      registrations:
+        edit:
+          title: "Modify account details"
+        new:
+          title: "Register"
+      sessions:
+        new:
+          title: "Sign in"
+          instructions: "Please sign in with your account details:"
+      
+    users:
+      account:
+        title: "Your account"
+        links:
+          edit_user: "Edit sign in details"
+          edit_contact: "Edit personal details"
+        caption: "Personal details"
+      _summary:
+        caption: "Sign in details"
+    
+    errors:
+      bad_request:
+        title: "Bad request"
+        message: "There was a problem with the request you submitted, preventing it from being processed."
+      forbidden:
+        title: "Forbidden"
+        message: "You do not have permission to access the requested resource."
+      internal_server_error:
+        title: "Internal server error"
+        message: "There is a problem preventing us from processing your request."
+      not_found:
+        title: "Not found"
+        message: "The resource you requested was not found."
+      search_offline:
+        title: "Search offline"
+        message: "The search facility is temporarily unavailable. Please try again later."
+    
+    table:
+      header:
+        actions: "Actions"
+    
+    links:
+      back: "Back to %{link}"
+      help: "Help"
+      privacy_policy: "Privacy policy"
+      previous_step: "Previous page"
+      
+    common:
+      permanent: "This action can not be undone."

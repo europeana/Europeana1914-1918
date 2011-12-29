@@ -1,0 +1,22 @@
+<% @title = t('views.admin.config.edit.title') %>
+
+<%= semantic_form_for(@config, :as => :settings, :url => admin_config_path, :html => { :method => 'put' }) do |form| %>
+  <%= form.inputs :settings do %>
+    <%= form.input :site_name, :label => I18n.t('settings.site_name'), :hint => I18n.t('formtastic.hints.settings.site_name') %>
+    <%= form.input :relative_url_root, :label => I18n.t('settings.relative_url_root'), :hint => I18n.t('formtastic.hints.settings.relative_url_root') %>
+    <%= form.input :registration_required, :as => :boolean, :include_blank => false, :label => I18n.t('settings.registration_required'), :hint => I18n.t('formtastic.hints.settings.registration_required') %>
+    <%= form.input :publish_contributions, :as => :boolean, :include_blank => false, :label => I18n.t('settings.publish_contributions'), :hint => I18n.t('formtastic.hints.settings.publish_contributions') %>
+    <%= form.input :contribution_approval_required, :as => :boolean, :include_blank => false, :label => I18n.t('settings.contribution_approval_required'), :hint => I18n.t('formtastic.hints.settings.contribution_approval_required') %>
+    <%= form.input :max_upload_size, :label => I18n.t('settings.max_upload_size'), :hint => I18n.t('formtastic.hints.settings.max_upload_size') %>
+    <%= form.input :allowed_upload_extensions, :label => I18n.t('settings.allowed_upload_extensions'), :hint => I18n.t('formtastic.hints.settings.allowed_upload_extensions') %>
+    <%= form.input :gmap_api_key, :label => I18n.t('settings.gmap_api_key'), :hint => I18n.t('formtastic.hints.settings.gmap_api_key') %>
+    <%= form.input :uploadify, :as => :boolean, :include_blank => false, :label => I18n.t('settings.uploadify'), :hint => I18n.t('formtastic.hints.settings.uploadify') %>
+    <%= form.input :ui_locales, :as => :check_boxes, :label => I18n.t('settings.ui_locales'), :hint => I18n.t('formtastic.hints.settings.ui_locales'), :collection => ui_locales_collection %>
+  <% end %>
+  
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link admin_config_path %>
+  <% end %>
+<% end %>

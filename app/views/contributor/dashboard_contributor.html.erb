@@ -1,0 +1,34 @@
+<% @title = t('views.contributor.dashboard_contributor.title') %>
+<p>Thank you for offering to contribute to <%= configuration(:site_name) %>. Making a contribution is a simple process. Click on 'New contribution' below to begin. You will then be taken through the following steps:</p>
+
+<ol class="number"><li>Agree to the terms and conditions.</li>
+<li>Enter information about your contribution.</li>
+<li>Review contribution and (optionally) add one or more attachments (images, text documents, audio, video etc).</li>
+<li>Save as draft or submit to database.</li></ol>
+<p>A detailed guide with screenshots is available on the separate <a href="/en/help/" title="To the step-by-step guide" target="_blank">Step-by-step Guide to the Online Form page</a>.</p>
+
+<ul class="collection-actions">
+  <li><h2><%= link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path, :class => 'new-member' %></h2></li>
+</ul>
+<h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
+
+<% if current_user.contributions.present? %>
+  <div class="contributions-drafts">
+    <%- if current_user.contributions.draft.present? -%>
+      <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
+    <%- else -%>
+      <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
+    <%- end -%>
+  </div>
+
+  <div class="contributions-submitted">
+    <%- if current_user.contributions.submitted.present? -%>
+      <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.submitted, :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
+    <%- else -%>
+      <p><%= t('views.contributor.dashboard_contributor.empty.submitted') %></p>
+    <%- end -%>
+  </div>
+<% else %>
+  <p><%= t('views.contributor.dashboard_contributor.empty.all') %></p>
+<% end %>
+

@@ -1,0 +1,39 @@
+<% @javascripts[:prettyphoto] = true -%>
+<%
+colspan = 1
+if attachments.present?
+  if current_user.may_edit_attachment?(attachments.first)
+    colspan = colspan + 1
+  end
+  if current_user.may_delete_attachment?(attachments.first)
+    colspan = colspan + 1
+  end
+end
+-%>
+<% if attachments.present? %>
+  <table class="collection-members attachments">
+    <caption><%= t('views.attachments._table.caption') %></caption>
+    <tr>
+      <th scope="col"><%= t('activerecord.attributes.attachment.preview') %></th>
+      <th scope="col"><%= t 'activerecord.attributes.attachment.file_file_size' %></th>
+      <th scope="col" colspan="<%= colspan %>"><%= t 'views.table.header.actions' %></th>
+    </tr>
+    <%- for attachment in attachments %>
+      <%- unless attachment.new_record? %>
+        <tr>
+          <td><%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
+          <%#= link_to attachment_preview(attachment), [ attachment.contribution, attachment ], :title => t('views.attachments._table.links.preview.title') %></td>
+          <td><%= number_to_human_size(attachment.file.size) %></td>
+          <td><%= link_to t('actions.download'), attachment.file.url, :class => 'download-file' %></td>
+          <%- if current_user.may_edit_attachment?(attachment) -%>
+            <td><%= link_to t('actions.edit'), edit_contribution_attachment_path(attachment.contribution, attachment), :class => 'edit-member' %></td>
+          <%- end -%>
+          <%- if current_user.may_delete_attachment?(attachment) -%>
+            <td><%= link_to t('actions.delete'), delete_contribution_attachment_path(attachment.contribution, attachment), :class => 'delete-member' %></td>
+          <%- end -%>
+        </tr>
+      <%- end %>
+    <%- end %>
+  </table>
+<% end %>
+

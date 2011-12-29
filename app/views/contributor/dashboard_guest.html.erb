@@ -1,0 +1,23 @@
+<% @title = t('views.contributor.dashboard_guest.title') %>
+
+<div class="action-links">
+  <ul>
+    <li><%= link_to t('views.contributor.dashboard_guest.links.edit_contact'), edit_contributor_guest_path %></li>
+  </ul>
+</div>
+
+<p><strong><%= t 'views.contributor.dashboard_guest.notice', :name => contact_name(current_user.contact) %></strong> <%= t 'views.contributor.dashboard_guest.identity', :name => contact_name(current_user.contact) %></p>
+
+<ul class="collection-actions">
+  <li><%= link_to t('views.contributor.dashboard_guest.links.new'), new_contribution_path, :class => 'new-member' %></li>
+</ul>
+
+<h2><%= t('views.contributor.dashboard_guest.headings.finished') %></h2>
+
+<p><%= t('views.contributor.dashboard_guest.privacy') %></p>
+
+<%= form_tag forget_contributor_guest_path, { :method => :put, :class => 'formtastic' } do %>
+  <fieldset class="buttons"><ol>
+    <li class="commit"><%= submit_tag t('views.contributor.dashboard_guest.button_text'), :name => nil %></li>
+  </ol></fieldset>
+<% end %>

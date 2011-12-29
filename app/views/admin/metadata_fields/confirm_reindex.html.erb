@@ -1,0 +1,15 @@
+<% @title = t('views.admin.metadata_fields.confirm_reindex.title') %>
+
+<p><%= t 'views.admin.metadata_fields.confirm_reindex.info' %></p>
+
+<p><%= t 'views.admin.metadata_fields.confirm_reindex.note' %></p>
+
+<%= form_tag reindex_admin_metadata_fields_path, { :method => :put, :class => 'formtastic' } do %>
+  <fieldset class="buttons">
+    <ol>
+      <%= redirect_field %>
+      <li class="commit"><%= submit_tag t('formtastic.actions.metadata_field.reindex') %></li>
+      <%= form_cancel_link admin_root_path %>
+    </ol>
+  </fieldset>
+<% end -%>

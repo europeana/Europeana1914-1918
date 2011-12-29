@@ -1,0 +1,6 @@
+<% message ||= flash[status] -%>
+<% klass = { 'notice' => 'portlet-msg-success', 'error' => 'portlet-msg-error', 'alert' => 'portlet-msg-alert' }[status.to_s] -%>
+<div class="<%= klass %>">
+  <strong><%= message %></strong>
+</div>
+

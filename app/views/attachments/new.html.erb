@@ -1,0 +1,14 @@
+<% @title = t('views.attachments.new.title') %>
+
+<%- javascript_tag do -%>
+  CoCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
+<%- end -%>
+<%- @javascripts[:uploadify] = true -%>
+
+<%= render :partial => 'contribution', :object => @contribution %>
+
+<% if @attachment.file.dirty? -%>
+  <%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => t('views.attachments.new.caption') } %>
+<% end -%>
+
+<%= render :partial => 'form', :locals => { :attachment => @attachment } %>

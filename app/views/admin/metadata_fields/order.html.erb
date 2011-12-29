@@ -1,0 +1,28 @@
+<% @title = t('views.admin.metadata_fields.order.title') %>
+
+<% if @fields.blank? -%>
+  <p><%= t 'views.admin.metadata_fields.order.empty' %></p>
+<% else -%>
+  <p class="instructions"><%= t 'views.admin.metadata_fields.order.instructions' %></p>
+
+  <%= form_tag order_admin_metadata_fields_path, { :method => :put, :class => 'formtastic' } do %>
+    <fieldset class="inputs">
+      <ol id="metadata-fields">
+        <% for field in @fields %>
+          <li><%= label_tag "fields[#{field.id}][position]", field.title %><%= text_field_tag "fields[#{field.id}][position]", field.position, :size => 4 %></li>
+        <%- end %>
+      </ol>
+    </fieldset>
+
+    <%= javascript_include_tag 'admin/metadata-field-order' %>
+    
+    <fieldset class="buttons">
+      <ol>
+        <%= redirect_field %>
+        <li class="commit"><%= submit_tag t('actions.save') %></li>
+        <%= form_cancel_link admin_metadata_fields_path %>
+      </ol>
+    </fieldset>
+  <% end -%>
+<% end -%>
+

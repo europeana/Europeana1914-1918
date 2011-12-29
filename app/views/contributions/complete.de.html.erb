@@ -1,0 +1,9 @@
+<% @title = t('views.contributions.complete.title') %>
+
+<p>Vielen Dank für das Einreichen Ihres Beitrages. Ihr Beitrag wird von Mitarbeitern des Projektes  gesichtet und nach der Prüfung auf der Website erscheinen. Dies kann unter Umständen einige Wochen dauern. Wir bitten um Ihr Verständnis und Ihre Geduld.</p>
+
+<div class="link-buttons">
+  <%= link_to 'Meine Beiträge', contributor_dashboard_url %>
+</div>
+
+<%= render :partial => 'progress', :locals => { :step => 5 } %>

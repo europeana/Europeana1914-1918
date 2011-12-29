@@ -1,0 +1,56 @@
+<% @title = t('views.admin.metadata_fields.index.title') %>
+<p>Please do not make changes or add/remove fields after the collection has started (unless specifically authorized to do so).</p>
+<ul class="collection-actions">
+  <li><%= link_to t('views.admin.metadata_fields.index.links.new'), new_admin_metadata_field_path, :class => 'new-member' %></li>
+</ul>
+
+<% if @fields.blank? -%>
+  <p><%= t('views.admin.metadata_fields.index.empty') %></p>
+<% else -%>
+  <%- any_taxonomy_fields = @fields.collect { |field| field.field_type }.include?('taxonomy') -%>
+  <div class="action-links">
+    <ul>
+      <li><%= link_to t('views.admin.metadata_fields.index.links.order'), order_admin_metadata_fields_path %></li>
+    </ul>
+  </div>
+
+  <table class="collection-members metadata-fields" id="metadata-fields">
+    <caption><%= t('views.admin.metadata_fields.index.caption') %></caption>
+    <tr>
+      <th scope="col"><%= t 'activerecord.attributes.metadata_field.name' %></th>
+      <th scope="col"><%= t 'attributes.title' %></th>
+      <th scope="col"><%= t 'activerecord.attributes.metadata_field.field_type' %></th>
+      <th scope="col"><%= t 'activerecord.attributes.metadata_field.required' %></th>
+      <th scope="col"><%= t 'activerecord.attributes.metadata_field.cataloguing' %></th>
+      <th scope="col"><%= t 'activerecord.attributes.metadata_field.searchable' %></th>
+      <th scope="col" colspan="<%= any_taxonomy_fields ? '3' : '2' %>"><%= t 'views.table.header.actions' %></th>
+    </tr>
+    
+    <tr>
+      <td>title</td>
+      <td><%= t 'attributes.title' %></td>
+      <td><%= metadata_field_type_label('string') %></td>
+      <td><%= t 'common.yes' %></td>
+      <td><%= t 'common.no' %></td>
+      <td><%= t 'common.yes' %></td>
+      <td colspan="<%= any_taxonomy_fields ? '3' : '2' %>"></td>
+    </tr>
+
+    <%- for field in @fields %>
+      <tr>
+        <td><%= field.name %></td>
+        <td><%= field.title %></td>
+        <td><%= metadata_field_type_label(field.field_type) %></td>
+        <td><%= field.required? ? t('common.yes') : t('common.no') %></td>
+        <td><%= field.cataloguing? ? t('common.yes') : t('common.no') %></td>
+        <td><%= field.searchable? ? t('common.yes') : t('common.no') %></td>
+        <td><%= link_to t('actions.edit'), edit_admin_metadata_field_path(field), :class => 'edit-member' %></td>
+        <td><%= link_to t('actions.delete'), delete_admin_metadata_field_path(field), :class => 'delete-member' %></td>
+        <%- if any_taxonomy_fields -%>
+          <td><% if field.field_type == 'taxonomy' %><%= link_to t('views.admin.metadata_fields.index.links.terms'), admin_metadata_field_taxonomy_terms_path(field) %><% end %></td>
+        <%- end -%>
+      </tr>
+    <%- end %>
+  </table>
+<% end -%>
+

@@ -1,0 +1,9 @@
+<% @title = t('views.contributions.search.title') %>
+
+<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+
+<% if @contributions.size == 0 -%>
+  <p><%= t('views.contributions.search.empty') %></p>
+<% else -%>
+  <%= render :partial => 'listing', :locals => { :contributions => @contributions, :query => @query } %>
+<% end -%>

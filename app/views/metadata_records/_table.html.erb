@@ -1,0 +1,23 @@
+<%
+show_errors = false if local_assigns[:show_errors].nil?
+cataloguing = false if local_assigns[:cataloguing].nil?
+fields = metadata_record_fields(cataloguing)
+geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
+-%>
+<% unless fields.blank? || metadata.blank? -%>
+  <table class="member-record">
+    <caption><% if cataloguing %><%= t('formtastic.titles.cataloguing_metadata') %><% else %><%= t('formtastic.titles.metadata') %><% end %></caption>
+    <%- fields.each do |field| %>
+      <tr>
+        <th scope="row"><%= field.title %></th>
+        <td><%= metadata_record_field_value(metadata, field) %>
+        <%= inline_errors_for(metadata, (field.field_type == 'taxonomy' ? field.collection_id : field.column_name), { :content_tag => :div } ) if show_errors %>
+        </td>
+      </tr>
+    <%- end %>
+  </table>
+<% end -%>
+
+<%- if geo_field -%>
+  <% @javascripts[:gmap_show] = true %>
+<%- end -%>

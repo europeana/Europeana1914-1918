@@ -1,0 +1,42 @@
+<% @title = 'Ansehen - Stöbern Sie im Archiv' %>
+
+<p>Stöbern Sie im Archiv und schauen Sie sich an, was bereits beigetragen wurde. </p>
+
+<% if current_user.may_search_contributions? -%>
+  <%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+<% end -%>
+<p>Über die Suche können Sie Objekte finden, deren Beschreibung Ihr Suchwort enthält. Wenn Sie kein Suchwort eingeben, werden alle Einträge angezeigt und Sie können in der Sammlung blättern. <!--Zusätzlich wird es demnächst möglich sein, die Sammlung nach bestimmten Stichworten zu filtern.--></p>
+<p>Sie können außerdem durch die Sammlung browsen, indem Sie auf ein Stichwort klicken.
+</p>
+<p>
+<b>Suche:</b><br />
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Postkarte" title="Suche: 'Postkarte'">Postkarte</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Tagebuch" title="Suche: 'Tagebuch'">Tagebuch</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Milit%C3%A4rpass" title="Suche: 'Militärpass'">Militärpass</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Orden" title="Suche: 'Orden'">Orden</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Familie" title="Suche: 'Familie'">Familie</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Infanterie" title="Suche: 'Infanterie'">Infanterie</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Ostfront" title="Suche: 'Ostfront'">Ostfront</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Flandern" title="Suche: 'Flandern'">Flandern</a>]&nbsp;
+[<a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=Sch%C3%BCtzengraben" title="Suche: 'Schützengraben'">Schützengraben</a>]
+<ul><head><b>Material von den Aktionstagen in:
+</b></head>
+<li><a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=FR07" title="Suche - Frankfurt">Frankfurt, 31. März 2011
+</a></li>
+<li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=BE08" title="Suche - Berlin">Berlin, 2. April 2011
+</a></li>
+<li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=MU09" title="Suche - München">München, 6. April 2011</a></li>
+<li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=ST10" title="Suche - Stuttgart"> Stuttgart, 12. April 2011</a></li>
+<li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=EF11" title="Suche - Erfurt">Erfurt, 14. Juni 2011</a></li>
+<li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=DD12" title="Suche - Dresden">Dresden, 22. Juni 2011</a></li>
+ <li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=KI13" title="Suche - Kiel">Kiel, 29. Juni 2011</a></li>
+<li> <a href="http://www.europeana1914-1918.eu/de/contributions/search?utf8=%E2%9C%93&q=RG14" title="Suche - Regensburg">Regensburg, 20. Juli 2011</a></li>
+</ul>
+</p>
+
+
+<div class="editors-pick">
+  <h2>Editor's pick</h2>
+  <%= render :partial => 'editors_picks', :locals => { :locale => 'de' } %>
+  <p>&nbsp;</p>
+<p><b>Lesen Sie mehr über besondere Stücke in <a href="http://thegreatwararchive.blogspot.com/search/label/De" title="Blog">unserem Blog</a></b></p></div>

@@ -1,0 +1,42 @@
+<%-
+if local_assigns[:table_class].nil?
+  table_class = 'contributions'
+else
+  table_class = "contributions #{table_class}"
+end
+%>
+<% unless local_assigns[:contributions].blank? %>
+  <table class="<%= table_class %>">
+    <% unless local_assigns[:caption].blank? %>
+      <caption><%= caption %></caption>
+    <% end %>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col"><%= image_tag('style/icons/attachment.png', :alt => 'Attachments', :title => 'Attachments') %></th>
+      <th scope="col">Begonnen am</th>
+    </tr>
+    <% for contribution in contributions %>
+      <tr>
+        <% if contribution.submitted? %>
+          <td><%= link_to (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>no title</em>')), contribution, :title => 'View this contribution' %></td>
+        <% else %>
+          <td><%= link_to (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>no title</em>')), contribution, :title => 'Continue this contribution' %></td>
+        <% end %>
+        <%- if contribution.attachments.present? %>
+          <td><%= image_tag('style/icons/attachment.png', :alt => 'Attachments', :title => pluralize(contribution.attachments.size, 'attachment')) %></td>
+        <%- else %>
+          <td title="<%= pluralize(contribution.attachments.size, 'attachment') %>"></td>
+        <%- end %>
+        <td><%= l contribution.created_at, :format => :short %></td>
+      </tr>
+    <% end %>
+    <%- if contributions.respond_to?(:total_pages) && (contributions.total_pages > 1) %>
+      <tfoot>
+        <tr>
+          <td colspan="3"><%= will_paginate contributions %></td>
+        </tr>
+      </tfoot>
+    <%- end %>
+  </table>
+<% end %>
+

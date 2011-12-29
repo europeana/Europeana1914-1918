@@ -1,0 +1,295 @@
+en:
+  locale: "English"
+
+  errors:
+    # The default format to use in full error messages.
+    format: "%{attribute} %{message}"
+
+  attributes:
+    created_at: "Created at"
+    updated_at: "Updated at"
+    email: "Email"
+    title: "Title"
+    metadata_record: "Metadata"
+    contact: "Contact"
+    id: "ID"
+    url: "URL"
+    
+  activerecord:
+    models:
+      attachment: "Attachment"
+      contact: "Contact"
+      contribution: "Contribution"
+      metadata_field: "Metadata field"
+      metadata_record: "Metadata record"
+      taxonomy_term: "Taxonomy term"
+      user: "User"
+    attributes:
+      attachment:
+        file: "File"
+        file_file_name: "File name"
+        file_content_type: "Content type"
+        file_file_size: "File size"
+        file_created_at: "Created at"
+        file_updated_at: "Updated at"
+        preview: "Preview"
+        public: "Public"
+      contact:
+        full_name: "Full name"
+        street_address: "Street address"
+        locality: "Town/city"
+        region: "County"
+        postal_code: "Post code"
+        country: "Country of residence"
+        tel: "Telephone number"
+        age: "Age"
+        gender: "Gender"
+      contribution:
+        contributor: "Contributor"
+        submitted_at: "Submitted at"
+        approved_at: "Approved at"
+        approved_by: "Approved by"
+        published_at: "Published at"
+        terms: "Terms accepted"
+        attachments: "Attachments"
+        created_at: "Started at"
+        approver: "Approved by"
+      metadata_field:
+        field_type: "Type"
+        required: "Required"
+        name: "ID"
+        position: "Position"
+        cataloguing: "Cataloguing only"
+        searchable: "Searchable"
+        hint: "Hint"
+        multi: "Multiple-selection"
+        show_in_listing: "Show in listings"
+      setting:
+        name: "Name"
+        value: "Value"
+      taxonomy_term:
+        term: "Term"
+        metadata_field: "Field"
+      user:
+        password: "Password"
+        password_confirmation: "Repeat password"
+        role_name: "Role"
+        
+    options:
+      metadata_field:
+        field_type:
+          date: "Date"
+          geo: "Geographical location"
+          text: "Multi-line text"
+          string: "Single-line text"
+          taxonomy: "Taxonomy"
+      user:
+        role_name:
+          blank: "Any role"
+          administrator: "Administrator"
+          cataloguer: "Cataloguer"
+          contributor: "Contributor"
+      contact:
+        gender:
+          male: "Male"
+          female: "Female"
+    errors:
+      messages:
+        accepted: "You need to accept in order to proceed."
+        blank: "This field is required; it can not be blank."
+        invalid: "Invalid input; check the format of the value entered."
+        exclusion: "is reserved"
+        empty: "can't be empty"
+        too_long: "is too long (maximum is %{count} characters)"
+        too_short: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
+        not_an_integer: "must be an integer"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        odd: "must be odd"
+        even: "must be even"
+        confirmation: "Not the same as the confirmation."
+        inclusion: "Select a value from the list."
+        not_a_number: "This value is not a number, but it should be."
+        taken: "This field needs to be unique, but the value entered already exists on our system."
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: "This type of file is not allowed."
+              presence: "Select a file to upload."
+              size: "The uploaded file size is too large."
+        contribution:
+          attributes:
+            guest_id:
+              present: "Contact details are required for guest contributions."
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: "Cataloguing fields can not be required."
+            field_type:
+              constancy: "The field type can not be changed."
+            searchable:
+              field_type: "Taxonomy fields can not be searchable."
+        metadata_record:
+          taxonomy_field_single: "Only one term can be selected."
+          date_field_civil: "Not a valid calendar date."
+        setting:
+          attributes:
+            name:
+              inclusion: "is not a registered configuration setting"
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: "Taxonomy terms must be associated with a taxonomy metadata field."
+        user:
+          attributes:
+            email:
+              taken: "A user account with this email address already exists."
+ 
+  errors:
+    messages:
+      record_invalid: "Validation failed: %{errors}"
+
+        
+  flash:
+    status:
+      alert: "Alert: "
+      notice: "Notice: "
+    actions:
+      create:
+        alert: "There was a problem creating %{resource_name}. See the messages below."
+        notice: "Created new %{resource_name}."
+      update:
+        alert: "There was a problem updating %{resource_name}. See the messages below."
+        notice: "Updated %{resource_name}."
+      destroy:
+        alert: "There was a problem deleting %{resource_name}."
+        notice: "%{resource_name} was successfully deleted."
+    attachments:
+      create:
+        alert: "There was a problem saving your attachment."
+        notice: "Attachment saved."
+        invalid_files: "Some files could not be saved."
+      update:
+        alert: "There was a problem saving your attachment."
+        notice: "Attachment saved."
+      destroy:
+        alert: "There was a problem deleting your attachment."
+        notice: "Attachment deleted."
+    contacts:
+      create:
+        notice: "Created contact."
+        alert: "Failed to create contact."
+      update:
+        notice: "Updated contact."
+        alert: "Failed to update contact."
+    contributions:
+      draft:
+        create:
+          alert: "There was a problem starting a new contribution."
+          notice: "New draft contribution started."
+        update:
+          alert: "There was a problem saving your contribution."
+          notice: "Contribution saved."
+        submit:
+          alert: "There is a problem with your contribution. Please check the messages below."
+          notice: "Your contribution has been submitted. Thank you! It will be checked by the project staff and appear on the website when approved. At busy times, this may take several weeks. We ask for your understanding and patience."
+      submitted:
+        edit:
+          alert: "This contribution has already been submitted."
+      approve:
+        alert: "Failed to approve contribution."
+        notice: "Contribution successfully approved."
+      destroy:
+        alert: "Failed to delete contribution."
+        notice: "Contribution deleted."
+    contributors:
+      create:
+        alert: "Your account could not be created."
+      update:
+        alert: "Your account could not be updated."
+    fields:
+      reindexing: "Re-indexing search engine in background."
+    guest_contact:
+      create:
+        alert: "There is a problem with the details you supplied. Please correct them and try again."
+        notice: "Contact details received."
+      update:
+        alert: "There is a problem with the details you supplied. Please correct them and try again."
+        notice: "Contact details updated."
+      forget:
+        notice: "Contact details cleared."
+    metadata_fields:
+      update_order:
+        notice: "Metadata field order updated."
+    taxonomy:
+      imported: "Imported new taxonomy terms."
+    users:
+      register:
+        alert: "Registration failed. Please correct the details below and try again."
+        notice: "Registration successful. Welcome!"
+      create:
+        alert: "User account could not be created."
+        notice: "User account created."
+      update:
+        alert: "User account could not be updated."
+        notice: "User account updated."
+      destroy:
+        notice: "User deleted."
+    configuration:
+      update:
+        alert: "Failed to save configuration."
+        notice: "Configuration updated."
+  
+  media_types:
+    all: "All"
+    binary: "Binary file"
+    pdf: "PDF"
+    sound: "Sound file"
+    spreadsheet: "Spreadsheet"
+    txt: "Text file"
+    unknown: "Unknown document type"
+    video: "Video file"
+    wordprocessing: "Word processed document"
+  
+  actions:
+    approve: "Approve"
+    cancel: "Cancel"
+    delete: "Delete"
+    download: "Download"
+    edit: "Edit"
+    filter: "Filter"
+    new: "New"
+    save: "Save"
+    update: "Update"
+      
+  layout:
+    software_engine: "Powered by CoCoCo"
+    navigation:
+      home: "Home"
+      contribute: "Contribute"
+      about: "About"
+      help: "Help"
+      admin: "Admin"
+      contact: "Contact us"
+      browse: "Browse"
+  
+  common:
+    :yes: "Yes"
+    :no: "No"
+    
+  settings:
+    site_name: "Site name"
+    relative_url_root: "URL root"
+    registration_required: "Registration required"
+    publish_contributions: "Publish contributions"
+    contribution_approval_required: "Only publish approved contributions"
+    max_upload_size: "Maximum upload size"
+    allowed_upload_extensions: "Allowed upload types"
+    gmap_api_key: "Google Maps API key"
+    uploadify: "Enable Uploadify"
+    ui_locales: "Available locales"

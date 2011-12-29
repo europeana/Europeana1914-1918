@@ -1,0 +1,13 @@
+<% @title = t('views.contributions.edit.title') %>
+
+<% if current_user.may_delete_contribution?(@contribution) -%>
+  <div class="action-links">
+    <ul>
+      <li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li>
+    </ul>
+  </div>
+<% end -%>
+
+<%= render :partial => 'form', :locals => { :contribution => @contribution } %>
+
+<%= render :partial => 'progress', :locals => { :step => 3 } %>

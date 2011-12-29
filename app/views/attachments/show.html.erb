@@ -1,0 +1,23 @@
+<% @title = t('views.attachments.show.title') %>
+
+<%= render :partial => 'contribution', :object => @contribution %>
+
+<div class="action-links">
+  <ul>
+    <li><%= link_to t('actions.download'), @attachment.file.url %></li>
+    <%- if current_user.may_edit_attachment?(@attachment) -%>
+      <li><%= link_to t('actions.edit'), edit_contribution_attachment_path(@contribution, @attachment) %></li>
+    <%- end -%>
+    <%- if current_user.may_delete_attachment?(@attachment) -%>
+      <li><%= link_to t('actions.delete'), delete_contribution_attachment_path(@contribution, @attachment) %></li>
+    <%- end -%>
+  </ul>
+</div>
+
+<%= render :partial => 'summary', :locals => { :attachment => @attachment } %>
+
+<% if @attachment.contribution.submitted? && current_user.may_catalogue_contribution?(@attachment.contribution) -%>
+  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @attachment.metadata, :cataloguing => false } %>
+
+  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @attachment.metadata, :cataloguing => true } %>
+<% end -%>

@@ -1,0 +1,17 @@
+<% @title = t('views.contributions.new.title') %>
+
+<%= render :partial => 'terms' %>
+
+<%= semantic_form_for @contribution do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :terms, :as => :boolean %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form_previous_step_link contributor_dashboard_path %>
+    <%= form.commit_button %>
+    <%= form_cancel_link contributor_dashboard_path %>
+  <% end %>
+<% end %>
+
+<%= render :partial => 'progress', :locals => { :step => 2 } %>

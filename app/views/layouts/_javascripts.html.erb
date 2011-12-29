@@ -1,0 +1,56 @@
+<%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-ui-1.8.2.custom.min', 'i18n', 'translations', 'rails', 'cococo' %>
+
+<%= javascript_tag do -%>
+  var CoCoCo = {
+    relativeUrlRoot: '<%= configuration(:relative_url_root) %>'
+  }
+  I18n.locale = '<%= I18n.locale %>';
+<% end -%>
+
+<% if @javascripts[:datepicker] -%>
+  <%= javascript_include_tag("datepicker") %>
+<% end -%>
+
+<% if (@javascripts[:gmap_geo] || @javascripts[:gmap_show]) && configuration(:gmap_api_key).present? -%>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= configuration(:gmap_api_key) %>" type="text/javascript"></script>
+  <%- if @javascripts[:gmap_geo] -%>
+    <%= javascript_include_tag("gmap-geo-2") %>
+  <%- end -%>
+  <%- if @javascripts[:gmap_show] -%>
+    <%= javascript_include_tag("gmap-show") %>
+  <%- end -%>
+<% end -%>
+
+<%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
+  <%= stylesheet_link_tag "uploadify"  %>
+  <%= javascript_tag do -%>
+    CoCoCo['uploadify'] = {
+      maxUploadSize: <%= configuration(:max_upload_size) %>,
+      fileExt: '<%= uploadify_file_extensions %>',
+      fileDesc: '<%= uploadify_file_desc %>'
+    };
+    CoCoCo['authenticityToken'] = '<%= form_authenticity_token if protect_against_forgery? %>';
+    CoCoCo['sessionKeyName'] = '<%= session_key_name %>';
+    CoCoCo['sessionKey'] = '<%= cookies[session_key_name] %>';
+  <%- end -%>
+  <%= javascript_include_tag "uploadify/swfobject", "uploadify/jquery.uploadify.v2.1.4.min", "uploadify/attachments" %>
+<%- end -%>
+
+<% if @javascripts[:collapsible] -%>
+  <%= javascript_include_tag("jquery.collapsible") %>
+  <%= javascript_tag do -%>
+  $(document).ready(function() {
+    $("fieldset.collapsible").collapse();
+		$("fieldset.collapsed").collapse( { closed: true } );
+	});
+  <%- end -%>
+<% end -%>
+
+<% if @javascripts[:flowplayer] -%>
+  <%= javascript_include_tag("flowplayer/flowplayer-3.2.6.min") %>
+<% end -%>
+
+<% if @javascripts[:prettyphoto] -%>
+  <%= stylesheet_link_tag("prettyPhoto") %>
+  <%= javascript_include_tag("jquery.prettyPhoto-3.0.3.custom", "prettyphoto") %>
+<% end -%>

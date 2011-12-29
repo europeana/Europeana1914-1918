@@ -1,0 +1,28 @@
+<%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
+  <%= form.inputs :attachment_upload, :id => 'attachment_upload' do %>
+    <%= form.input :file, :hint => t((attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'), :max => max_upload_size, :file_types => allowed_file_types) %>
+  <% end %>
+
+  <%- if current_user.may_catalogue_contribution?(attachment.contribution) && attachment.contribution.submitted? -%>
+    <%= form.inputs :metadata, :id => 'metadata' do %>
+      <%= form.semantic_fields_for :metadata do |metadata| %>
+        <%= form.input :title %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :cataloguing => false } %>
+      <% end %>
+    <% end %>
+  
+    <%- if metadata_record_fields(true).present? -%>
+      <%= form.inputs :cataloguing_metadata, :id => 'cataloguing_metadata' do %>
+        <%= form.semantic_fields_for :metadata do |metadata| %>
+          <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :cataloguing => true } %>
+        <% end %>
+      <% end %>
+    <%- end -%>
+  <%- end -%>
+  
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link attachment.contribution %>
+  <% end %>
+<% end %>

@@ -1,0 +1,26 @@
+<% 
+if local_assigns[:caption].nil?
+  caption = t('views.attachments._summary.caption')
+end
+-%>
+<table class="member-record">
+  <caption><%= caption %></caption>
+  <tr>
+    <th scope="row"><%= t 'activerecord.attributes.attachment.file_file_name' %></th>
+    <td><%= attachment.file.original_filename %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t 'activerecord.attributes.attachment.file_file_size' %></th>
+    <td><%= number_to_human_size(attachment.file.size) %></td>
+  </tr>
+  <tr>
+    <th scope="row"><%= t 'activerecord.attributes.attachment.file_content_type' %></th>
+    <td><%= attachment.file.content_type %></td>
+  </tr>
+  <%- if attachment.image? && !attachment.file.dirty? %>
+    <tr>
+      <th scope="row"><%= t 'activerecord.attributes.attachment.preview' %></th>
+      <td><%= image_tag attachment.file.url(:thumb), :alt => '' %></td>
+    </tr>
+  <%- end %>
+</table>

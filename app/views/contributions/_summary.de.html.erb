@@ -1,0 +1,34 @@
+<table class="member-record">
+  <caption>Zusammenfassung</caption>
+  <tr>
+    <th scope="row">Titel</th>
+    <td>
+      <%= contribution_title(contribution) %>
+      <%- if contribution.submitting? && !contribution.valid? %>
+        <%= inline_errors_for(contribution, :title, { :content_tag => :div } ) %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th scope="row">Teilnehmer</th>
+    <td>
+      <%- if current_user.may_administer_users? -%>
+        <%- if contribution.by_guest? -%>
+          <%= link_to contact_name(contribution.contact), edit_contact_path(contribution.contact, :redirect => request_uri) %> (guest)
+        <%- else -%>
+          <%= link_to contact_name(contribution.contact), admin_user_path(contribution.contributor) %>        
+        <% end -%>
+      <%- else -%>
+        <%= contact_name(contribution.contact) %>
+      <%- end -%>
+    </td>
+  </tr>
+  <tr>
+    <th scope="row">Status</th>
+    <td><%= contribution_status(contribution) %></td>
+  </tr>
+  <tr>
+    <th scope="row">Begonnen am</th>
+    <td><%= l contribution.created_at, :format => :short %></td>
+  </tr>       
+</table>

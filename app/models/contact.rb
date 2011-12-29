@@ -1,0 +1,22 @@
+# The Contact model holds a person's contact details.
+#
+# Attributes:
+# * full_name
+# * street_address
+# * locality (city/town)
+# * region (state/county/province)
+# * postal_code
+# * country
+# * tel
+# * email
+class Contact < ActiveRecord::Base
+  attr_accessible :full_name, :street_address, :locality, :region,
+                  :postal_code, :country, :tel, :email,
+                  :age, :gender
+
+  # An associated user will not necessarily exist.
+  # If it does, this contact model will hold that user's contact details.
+  has_one :user, :dependent => :nullify
+  
+  validates_presence_of :full_name
+end

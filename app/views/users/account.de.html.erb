@@ -1,0 +1,19 @@
+<% @title = t('views.users.account.title') %>
+<p>Ihre persönlichen Angaben werden ausschließlich für die Registrierung in unserer Datenbank benötigt. Standardmäßig erscheint auf der Website nur Ihr Name oder der Name der Person, für die Sie am Projekt teilnehmen. Optional können Sie jedoch einstellen, dass Ihr Name nicht zusammen mit dem Objekt angezeigt wird. Er ist dann für andere Nutzer des Archivs nicht sichtbar. </p>
+<div class="action-links">
+  <ul>
+    <li><%= link_to t('views.users.account.links.edit_user'), edit_user_registration_path(:redirect => request_uri), :class => 'edit-member' %></li>
+  </ul>
+</div>
+<%= render :partial => 'summary', :locals => { :user => current_user } %>
+
+<% if current_user.contact -%>
+  <div class="action-links">
+    <ul>
+      <li><%= link_to t('views.users.account.links.edit_contact'), edit_contact_path(current_user.contact, :redirect => request_uri), :class => 'edit-member' %></li>
+      <li><%= link_to t('views.links.privacy_policy'), page_path('help/privacy') %></li>
+    </ul>
+  </div>
+  <%= render :partial => '/contacts/summary', :locals => { :contact => current_user.contact, :caption => t('views.users.account.caption'), :email => false } %>
+<% end -%>
+
