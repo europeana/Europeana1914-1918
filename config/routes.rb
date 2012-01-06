@@ -42,15 +42,16 @@ CoCoCo::Application.routes.draw do
     # Admin routes
     match 'admin' => 'admin#index', :as => 'admin_root'
     namespace :admin do
-      get 'export'
-    
       resources :users do
         get 'delete', :on => :member
       end
       
       resources :contributions, :controller => 'contributions', :only => [ :index ] do
-        get 'search', :on => :collection
-        put 'options', :on => :collection
+        collection do
+          get 'search'
+          put 'options'
+          get 'export'
+        end
       end
       
       resources :metadata_fields, :except => [ :show ] do

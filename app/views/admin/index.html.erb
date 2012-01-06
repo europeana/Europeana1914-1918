@@ -5,9 +5,11 @@
     <dt><%= link_to t('views.admin.index.links.contributions.text'), admin_contributions_path %></dt>
     <dd><%= t('views.admin.index.links.contributions.description') %></dd>
   <%- end -%>
-  <%- if current_user.may_export_collection_as_csv? -%>
-    <dt><%= link_to t('views.admin.index.links.export.text'), admin_export_path(:format => 'csv') %></dt>
-    <dd><%= t('views.admin.index.links.export.description') %></dd>
+  <%- if current_user.may_export_contributions? -%>
+    <dt><%= link_to t('views.admin.index.links.export_csv.text'), export_admin_contributions_path(:format => 'csv') %></dt>
+    <dd><%= t('views.admin.index.links.export_csv.description') %></dd>
+    <dt><%= link_to t('views.admin.index.links.export_xml.text'), export_admin_contributions_path(:format => 'xml') %></dt>
+    <dd><%= t('views.admin.index.links.export_xml.description') %></dd>
   <%- end -%>
   <%- if current_user.may_administer_metadata_fields? -%>
     <dt><%= link_to t('views.admin.index.links.metadata_fields.text'), admin_metadata_fields_path %></dt>

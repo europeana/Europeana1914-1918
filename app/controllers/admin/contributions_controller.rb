@@ -50,6 +50,24 @@ class Admin::ContributionsController < AdminController
     render :action => :index
   end
 
+  #--
+  # OPTIMIZE: These exports are _really_ slow and inefficient
+  #++
+  def export
+    current_user.may_export_contributions!
+
+    respond_to do |format|
+      format.csv do
+        send_data export_as_csv, :filename => "contributions.csv", :type => 'text/csv'
+      end
+      format.xml do
+        @contributions = Contribution.limit(10).order('created_at ASC')
+        @metadata_fields = MetadataField.all
+        send_data render_to_string, :filename => "contributions.xml", :type => 'application/xml'
+      end
+    end
+  end
+
   protected
   def authorize!
     current_user.may_administer_contributions!
@@ -60,6 +78,39 @@ class Admin::ContributionsController < AdminController
     session[:admin] ||= {}
     unless session[:admin][:fields].present?
       session[:admin][:fields] = [ 'title', 'attachments', 'field_cataloguer_terms' ]
+    end
+  end
+  
+  def export_as_csv
+    csv_class.generate do |csv|
+      # Column headings in first row
+      attributes = [ :id, :title, :contributor, :url, :created_at ] +
+        MetadataField.all.collect { |mf| mf.title }
+      csv << attributes.collect do |attribute|
+        if attribute.instance_of? Symbol
+          Contribution.human_attribute_name(attribute)
+        elsif attribute.instance_of? Array
+          attribute.first.human_attribute_name(attribute.last)
+        else
+          attribute
+        end
+      end
+
+      Contribution.order('created_at ASC').each do |c|
+        row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at ] +
+          MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
+        csv << row
+      end
+    end
+  end
+
+  def csv_class
+    if RUBY_VERSION >= "1.9"
+      require 'csv'
+      CSV
+    else
+      require 'fastercsv'
+      FasterCSV
     end
   end
 end

@@ -16,7 +16,7 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
   end
   
-  action :export_collection_as_csv do
+  action :may_export_contributions do
     deny :cataloguer
   end
 
