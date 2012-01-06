@@ -32,7 +32,7 @@ gem 'hpricot'
 gem 'globalize3', '~> 0.1.0.beta'
 gem 'i18n-js', '~> 1.0'
 gem 'feedzirra'
-gem "http_accept_language", :git => 'http://github.com/iain/http_accept_language.git'
+gem "http_accept_language", :git => 'https://github.com/iain/http_accept_language.git'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
