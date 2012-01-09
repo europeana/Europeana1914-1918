@@ -39,7 +39,7 @@ gem 'feedzirra'
 
 # 20120109 jaclu dev vers fails to compile
 #gem "http_accept_language", :git => 'https://github.com/iain/http_accept_language.git'
-+gem 'http_accept_language'
+gem 'http_accept_language'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
