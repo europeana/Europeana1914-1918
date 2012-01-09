@@ -1,0 +1,26 @@
+
+===   history   ===
+2012-01-09 jaclu initial far from complete version
+
+===   Background   ===
+
+Currently there is no obvious way to actually install this software,
+here I am trying to document the steps needed for a fresh start.
+This is a work in progress for the moment...
+
+===   setup database   ===
+
+In config/database.yml make sure you have prepared both development
+AND test with database,user and pw.   All doc tells you to only do development, but in order to
+run this test is also needed. 
+The test database will be created in the db:create step below, nothing
+will actually be put into it. To make life easier for you keep the
+dev,test and prod database privs separate, so you are sure how your
+system talks to your db.
+
+
+at prompt:
+
+rake db:create  
+rake db:schema:load
+rake db:sessions:create
