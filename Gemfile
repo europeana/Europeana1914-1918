@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.11'
 
 # MySQL database
-gem 'mysql2'
+gem 'mysql2', '< 0.3'
 
 # SQLite3 database
 # gem 'sqlite3-ruby', :require => 'sqlite3'
