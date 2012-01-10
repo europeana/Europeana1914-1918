@@ -1,25 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<%= I18n.locale %>">
-  <head>
-    <title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-    <%= render '/layouts/javascripts' %>
-
-    <%= stylesheet_link_tag 'formtastic', :media => 'screen,projection' %>
-    <%= stylesheet_link_tag "smoothness/jquery-ui-1.8.2.custom", :media => 'screen,projection' %>
-    <%= stylesheet_link_tag "http://version1.europeana.eu/europeana-theme/css/main.css", :media => 'screen,projection' %>
-    <%= stylesheet_link_tag 'eew10', :media => 'screen,projection' %>
-    
-    <link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
-    <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
-    
-    <%= csrf_meta_tag %>
-    
-  </head>
-
-  <body class="fixedwidthblack controls-visible public-page">
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+<meta charset="utf-8" />
+<title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
+<%= render '/layouts/javascripts' %>
+<%= stylesheet_link_tag 'formtastic', :media => 'screen,projection' %>
+<%= stylesheet_link_tag "smoothness/jquery-ui-1.8.2.custom", :media => 'screen,projection' %>
+<%= stylesheet_link_tag "main", :media => 'screen,projection' %>
+<%= stylesheet_link_tag 'eew10', :media => 'screen,projection' %>
+<link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
+<link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
+<%= csrf_meta_tag %>
+</head>
+<body class="fixedwidthblack controls-visible public-page">
 
     <div id="wrapper" style="background-image: url(<%= image_path('eew-background-right-' + (1 + rand(5)).to_s + '.jpg') %>);">
     
@@ -57,5 +50,5 @@
     </div><!-- /#wrapper -->
 
     <%= render '/layouts/google_analytics' %>
-  </body>
+</body>
 </html>
