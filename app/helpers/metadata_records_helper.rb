@@ -4,8 +4,10 @@ module MetadataRecordsHelper
   # The <tt>cataloguing</tt> parameter specifies which metadata fields to get:
   # * <tt>true</tt> gets fields where cataloguing = true
   # * <tt>false</tt> gets fields where cataloguing = false
-  def metadata_record_fields(cataloguing = false)
-    MetadataField.where('cataloguing=?', cataloguing).order('position ASC')
+  def metadata_record_fields(cataloguing = false, fields = nil)
+    conditions = { :cataloguing => cataloguing }
+    conditions[:name] = [ fields ].flatten unless fields.nil?
+    MetadataField.where(conditions).order('position ASC')
   end
   
   def metadata_field_hint(field)

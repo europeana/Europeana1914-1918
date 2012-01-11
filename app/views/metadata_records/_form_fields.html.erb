@@ -1,6 +1,7 @@
 <%
 cataloguing = false if local_assigns[:cataloguing].nil?
-fields = metadata_record_fields(cataloguing)
+fields = nil if local_assigns[:fields].nil?
+fields = metadata_record_fields(cataloguing, fields)
 -%>
 <% unless fields.blank? -%>
   <% fields.each do |field| %>
