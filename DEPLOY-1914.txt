@@ -8,6 +8,18 @@ Currently there is no obvious way to actually install this software,
 here I am trying to document the steps needed for a fresh start.
 This is a work in progress for the moment...
 
+===   setup environment   ===
+
+checkout this sourcetree
+
+Install ruby
+
+gem install bundle
+
+[in 1914 topdir]
+
+bundle install  [user needs sudo privs]
+
 ===   setup database   ===
 
 In config/database.yml make sure you have prepared both development
@@ -24,3 +36,16 @@ at prompt:
 rake db:create  
 rake db:schema:load
 rake db:sessions:create
+
+===   running server interactivly   ===
+[in 1914 topdir]
+
+rails server
+
+===   clear gems   ===
+this should hopefully remove all gems so you can start with a fresh
+environment.
+
+gem uninstall will_paginate warden tzinfo treetop thor thinking-sphinx sax-machine rspec-rails rspec-mocks rspec-expectations rspec-core rspec riddle rake railties rails rack-test rack-mount rack polyglot paperclip nokogiri mysql2 mime-types mail loofah i18n http_accept_language hpricot globalize3 formtastic feedzirra fastercsv erubis diff-lcs devise curb cocaine bundler bundle builder bcrypt-ruby arel aegis activesupport activeresource activerecord activemodel actionpack actionmailer abstract
+
+
