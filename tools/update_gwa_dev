@@ -32,13 +32,12 @@ echo "=============   install some basic gems   ==========="
 echo
 gem install bundle rake passenger
 
-# We also use a gem passenger, but it depends on a manual compile step
-# so this must be manually updated for apache interaction
-#gem install passenger
-#passenger-install-apache2-module
-# reading the output of passenger-install-apache2-module will 
-# tell you how to load the passenger module into apache
-
+# the gem passenger is for connecting apache to a rails app.
+# To actually update the apache stuff, you need to run:
+#   passenger-install-apache2-module
+# the output of this will help you with dependencies and apache config
+# we dont rebuild the apache stuff each time, but we keep the passenger gem
+# installed to ensure apache functionality
 
 echo
 echo "=============   bundle install   ==========="
