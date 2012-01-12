@@ -3,7 +3,7 @@
   <% @javascripts[:flowplayer] = true -%>
   
   <p><%= raw t 'home.p1' %></p>
-  <p><%= raw t('home.p2', :video_guide => link_to( t( 'home.links.video_guide' ), page_path('help/demo') ) ) %></p>
+  <p><%= raw t( 'home.p2', :video_guide => link_to( t( 'home.links.video_guide' ), page_path('help/demo') ) ) %></p>
   <p><%= raw t 'home.p3' %></p>
   
   <ul class="link-buttons">
@@ -16,16 +16,15 @@
 <div class="editors-pick">
   
   <h2><%= raw t 'home.editors_pick.heading' %></h2>
-  <%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
-
-  <p>&nbsp;</p>
-
-  <p><%= raw t 'home.editors_pick.p1' %></p>
+  
+	<%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
+	<p>&nbsp;</p>
+    <p><%= raw t( 'home.editors_pick.p1', :explore_archive => link_to( t( 'home.editors_pick.links.explore_archive' ), page_path('browse') ) ) %></p>
 
 </div>
 
 
-<h2><%= raw t 'home.otto.heading' %></h2>
+<h2><%= t 'home.otto.heading' %></h2>
 
   <div class="film-highlight">
   
@@ -40,8 +39,8 @@
   <!--<object type="application/x-shockwave-flash" width="425" height="355" wmode="transparent" data="http://dev.europeana.eu/objects/flvplayer.swf?file=Europeana-master.flv&amp;autoStart=FALSE"><param name="movie" value="http://dev.europeana.eu/objects/flvplayer.swf?file=Europeana-master.flv&amp;autoStart=false" /><param name="wmode" value="transparent" /></object>-->
   
   <div class="text-highlight">
-  
-	<p><%= raw t 'home.otto.p1' %></p>
+	
+	<p><%= raw t( 'home.otto.p1', :add_to_archive => link_to( t( 'home.otto.links.add_to_archive' ), contributor_dashboard_path ) ) %></p>
   
   </div>
   
