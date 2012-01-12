@@ -13,6 +13,11 @@
 
 # need to run this as root...
 
+
+# Indicate work in progress by killing webserver early
+/etc/init.d/apache2 stop
+
+
 cd /var/www/cococo
 svn up
 rm Gemfile.lock
@@ -20,10 +25,21 @@ rm Gemfile.lock
 # remove all gems, to ensure no remaining crapp...
 gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
-gem install bundle
+
+# install some basic gems
+gem install bundle rake
+
+# We also use a gem passenger, but it depends on a manual compile step
+# so this must be manually updated for apache interaction
+#gem install passenger
+#passenger-install-apache2-module
+# reading the output of passenger-install-apache2-module will 
+# tell you how to load the passenger module into apache
+
+
+# install all the ruby rails stuff
 bundle install
 
 
-/etc/init.d/apache2 stop
 /etc/init.d/apache2 start
 
