@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#=======================================
+#
+#  Updates dev environment after svn changes
+#  triggered from Hudson
+#
+#  Copyright: Europeana 2012
+#  License: EUPL
+#  By:  Jacob.Lundqvist@kb.nl
+#
+
+
+# need to run this as root...
+
+cd /var/www/cococo
+svn up
+gem install bundle
+
+/etc/init.d/apache2 stop
+/etc/init.d/apache2 start
+
