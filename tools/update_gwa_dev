@@ -14,12 +14,6 @@
 # need to run this as root...
 
 
-echo
-echo "=============   shutting down apache first   ==========="
-echo "=============   (will give passanger time to exit)   ==========="
-echo
-/etc/init.d/apache2 stop
-
 
 echo
 echo "=============   svn update   ==========="
@@ -53,4 +47,8 @@ rm Gemfile.lock
 bundle install
 
 
+echo
+echo "=============   restarting apache   ==========="
+echo
+/etc/init.d/apache2 stop
 /etc/init.d/apache2 start
