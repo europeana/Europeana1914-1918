@@ -18,16 +18,22 @@
 /etc/init.d/apache2 stop
 
 
+echo
+echo "=============   svn update   ==========="
+echo
 cd /var/www/cococo
 svn up
-rm Gemfile.lock
 
-# remove all gems, to ensure no remaining crapp...
+echo
+echo "=============   remove all gems   ==========="
+echo
 gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
 
-# install some basic gems
-gem install bundle rake
+echo
+echo "=============   install some basic gems   ==========="
+echo
+gem install bundle rake passenger
 
 # We also use a gem passenger, but it depends on a manual compile step
 # so this must be manually updated for apache interaction
@@ -37,9 +43,11 @@ gem install bundle rake
 # tell you how to load the passenger module into apache
 
 
-# install all the ruby rails stuff
+echo
+echo "=============   bundle install   ==========="
+echo
+rm Gemfile.lock
 bundle install
 
 
 /etc/init.d/apache2 start
-
