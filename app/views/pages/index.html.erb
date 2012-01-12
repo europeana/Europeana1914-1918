@@ -1,9 +1,9 @@
 <% @title = t 'home.heading' %>
   
   <% @javascripts[:flowplayer] = true -%>
-    
+  
   <p><%= raw t 'home.p1' %></p>
-  <p><%= raw t 'home.p2' %></p>
+  <p><%= raw t('home.p2', :video_guide => link_to( t( 'home.links.video_guide' ), page_path('help/demo') ) ) %></p>
   <p><%= raw t 'home.p3' %></p>
   
   <ul class="link-buttons">
