@@ -1,0 +1,54 @@
+<% @title = t 'home.heading' %>
+
+  <% @javascripts[:flowplayer] = true -%>
+  
+  <p><%= raw t 'home.p1' %></p>
+  <p><%= raw t 'home.p2' %></p>
+  <p><%= raw t 'home.p3' %></p>
+  <p><%= raw t 'home.p4' %></p>
+  
+  <ul class="link-buttons">
+	<li><%= raw t 'home.item1' %></li>
+	<li><%= raw t 'home.item2' %></li>
+	<li><%= raw t 'home.item3' %></li>
+  </ul>
+	
+
+<div class="editors-pick">
+  
+  <h2><%= raw t 'home.editors_pick.heading' %></h2>
+  <%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
+
+  <p>&nbsp;</p>
+
+  <p><%= raw t 'home.editors_pick.p1' %></p>
+
+</div>
+
+
+<h2><%= raw t 'home.otto.heading' %></h2>
+
+  <div class="film-highlight">
+  
+	<a href="<%= video_path('OttoBernard-FakePassport-English.flv') %>" id="player" class="flowplayer"><%= image_tag 'Europeana_Appeal_English_WebPurposes _WPlay.jpg' %></a>
+	<script type="text/javascript">
+	  flowplayer("player", "<%= javascript_path("flowplayer/flowplayer-3.2.7.swf") %>");
+	</script>
+	
+  </div>
+
+
+  <!--<object type="application/x-shockwave-flash" width="425" height="355" wmode="transparent" data="http://dev.europeana.eu/objects/flvplayer.swf?file=Europeana-master.flv&amp;autoStart=FALSE"><param name="movie" value="http://dev.europeana.eu/objects/flvplayer.swf?file=Europeana-master.flv&amp;autoStart=false" /><param name="wmode" value="transparent" /></object>-->
+  
+  <div class="text-highlight">
+  
+	<p><%= raw t 'home.otto.p1' %></p>
+  
+  </div>
+  
+  <!--
+  
+  <% if current_user.may_search_contributions? -%>
+	<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+  <% end -%>
+  -->
