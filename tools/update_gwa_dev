@@ -16,7 +16,13 @@
 cd /var/www/cococo
 svn up
 rm Gemfile.lock
+
+# remove all gems, to ensure no remaining crapp...
+gem list | cut -d" " -f1 | xargs gem uninstall -aIx
+
 gem install bundle
+bundle install
+
 
 /etc/init.d/apache2 stop
 /etc/init.d/apache2 start
