@@ -32,8 +32,7 @@ gem 'hpricot'
 gem 'globalize3', '~> 0.1.0.beta'
 
 # 20120109 jaclu current vers fails to compile
-gem 'i18n-js', '~> 2.0' 
-
+gem 'i18n-js', '~> 2.0'
 
 gem 'feedzirra'
 
