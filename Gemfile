@@ -24,7 +24,13 @@ gem 'paperclip', '~> 2.3.0'
 gem 'devise', '~> 1.1.0'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
 gem 'will_paginate', '~> 3.0.pre2'
-gem 'aegis', '~> 2.5.0'
+
+# 2012.01.13 dan entous
+# gem 'aegis', '~> 2.5.0'
+# pulling in github version eliminates deprecation warning
+# DEPRECATION WARNING: Base#after_initialize has been deprecated, please use Base.after_initialize :method instead. (called from define_method at /Users/dan/.rvm/gems/ruby-1.9.2-p290@1914-1918/gems/aegis-2.5.3/lib/aegis/has_role.rb:48)
+gem 'aegis', :git => 'https://github.com/makandra/aegis.git'
+
 gem 'mime-types', '1.16', :require => 'mime/types'
 gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem 'fastercsv', '~> 1.5.0'
