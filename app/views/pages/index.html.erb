@@ -1,30 +1,31 @@
-<% @title = t 'home.heading' %>
+<% @title = t 'views.home.heading' %>
   
   <% @javascripts[:flowplayer] = true -%>
   
-  <p><%= raw t 'home.p1' %></p>
-  <p><%= raw t( 'home.p2', :video_guide => link_to( t( 'home.links.video_guide' ), page_path('help/demo') ) ) %></p>
-  <p><%= raw t 'home.p3' %></p>
+  <p><%= raw t('views.home.p1') %></p>
+  <p><%= raw t('views.home.p2', :video_guide => link_to( t( 'common.links.video_guide' ), page_path('help/demo') ) ) %></p>
+  <p><%= raw t('views.home.p3') %></p>
+  <p><%= raw t('views.home.p4') %></p>
   
   <ul class="link-buttons">
-	<li><%= raw t 'home.item1' %></li>
-	<li><%= raw t 'home.item2' %></li>
-	<li><%= raw t 'home.item3' %></li>
+	<li><%= link_to( t('common.links.add_to_archive'), page_path('contributor') ) %></li>
+	<li><%= link_to( t('common.links.explore_archive'), page_path('browse') ) %></li>
+	<li><%= link_to( t('common.links.about'), page_path('about') ) %></li>
   </ul>
 	
 
 <div class="editors-pick">
   
-  <h2><%= raw t 'home.editors_pick.heading' %></h2>
+  <h2><%= t('common.editors_pick.heading') %></h2>
   
 	<%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
 	<p>&nbsp;</p>
-    <p><%= raw t( 'home.editors_pick.p1', :explore_archive => link_to( t( 'home.editors_pick.links.explore_archive' ), page_path('browse') ) ) %></p>
+    <p><%= raw t( 'common.editors_pick.more_stories', :explore_archive => link_to( t( 'common.editors_pick.links.explore_archive' ), page_path('browse') ) ) %></p>
 
 </div>
 
 
-<h2><%= t 'home.otto.heading' %></h2>
+<h2><%= t('views.home.otto.heading') %></h2>
 
   <div class="film-highlight">
   
@@ -40,7 +41,7 @@
   
   <div class="text-highlight">
 	
-	<p><%= raw t( 'home.otto.p1', :add_to_archive => link_to( t( 'home.otto.links.add_to_archive' ), contributor_dashboard_path ) ) %></p>
+	<p><%= raw t( 'views.home.otto.p1', :add_to_archive => link_to( t( 'common.links.add_to_archive' ), contributor_dashboard_path ) ) %></p>
   
   </div>
   
