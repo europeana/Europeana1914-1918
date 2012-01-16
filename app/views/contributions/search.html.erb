@@ -1,9 +1,15 @@
 <% @title = t('views.contributions.search.title') %>
 
-<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+  <p><%= link_to( t('common.links.takedown_policy'), page_path('about/takedown'), :title => t('common.links.titles.takedown') ) %></p>
+  
+  <%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
 
-<% if @contributions.size == 0 -%>
-  <p><%= t('views.contributions.search.empty') %></p>
-<% else -%>
-  <%= render :partial => 'listing', :locals => { :contributions => @contributions, :query => @query } %>
-<% end -%>
+  <% if @contributions.size == 0 -%>
+	
+	<p><%= t('views.contributions.search.empty') %></p>
+	
+  <% else -%>
+	
+	<%= render :partial => 'listing', :locals => { :contributions => @contributions, :query => @query } %>
+	
+  <% end -%>
