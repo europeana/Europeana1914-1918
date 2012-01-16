@@ -1,10 +1,12 @@
-<% nav = [
+<%
+nav = [
   [ t('common.menus.main.home'), home_path ],
   [ t('common.menus.main.add'), contributor_dashboard_path ],
   [ t('common.menus.main.explore'), page_path('explore') ],
   [ t('common.menus.main.about'), page_path('about') ],
-  [ t('common.menus.main.sign_in'), page_path('users/sign-in') ]
-] -%>
+  current_user.role.name == 'guest' ? [ t('common.menus.main.sign_in'), page_path('users/sign-in') ] : [ t('common.menus.main.sign_out'), page_path('users/sign-out') ]
+]
+-%>
 
 <div id="navigation">
   
