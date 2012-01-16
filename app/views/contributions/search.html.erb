@@ -1,12 +1,12 @@
-<% @title = t('views.contributions.search.title') %>
-
+<% @title = t('views.contributions.search.heading') %>
+  
   <p><%= link_to( t('common.links.takedown_policy'), page_path('about/takedown'), :title => t('common.links.titles.takedown') ) %></p>
   
   <%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
-
+  
   <% if @contributions.size == 0 -%>
 	
-	<p><%= t('views.contributions.search.empty') %></p>
+	<p><%= t('views.contributions.search.no_matches') %></p>
 	
   <% else -%>
 	
