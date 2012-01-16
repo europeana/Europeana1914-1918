@@ -52,3 +52,15 @@ environment.
 gem uninstall will_paginate warden tzinfo treetop thor thinking-sphinx sax-machine rspec-rails rspec-mocks rspec-expectations rspec-core rspec riddle rake railties rails rack-test rack-mount rack polyglot paperclip nokogiri mysql2 mime-types mail loofah i18n i18n-js http_accept_language hpricot globalize3 formtastic feedzirra fastercsv erubis diff-lcs devise curb cocaine bundler bundle builder bcrypt-ruby arel aegis activesupport activeresource activerecord activemodel actionpack actionmailer abstract passenger
 
 
+
+===  redirects  ===
+the following redirects will need to be implement on production at deployment.
+need some help in regards to writing them so that the root domain is inferred
+based on a regex so that the same .htaccess file can be used on development,
+test and production
+
+/en/help -> /en/about 301
+/de/help -> /de/about 301
+
+/en/library 410
+/de/library 410
