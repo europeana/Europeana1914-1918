@@ -1,9 +1,9 @@
 <% nav = [
-  [ t('menus.main.home'), home_path ],
-  [ t('menus.main.add'), contributor_dashboard_path ],
-  [ t('menus.main.explore'), page_path('browse') ],
-  [ t('menus.main.about'), page_path('about') ],
-  [ 'Help', page_path('help') ]
+  [ t('common.menus.main.home'), home_path ],
+  [ t('common.menus.main.add'), contributor_dashboard_path ],
+  [ t('common.menus.main.explore'), page_path('browse') ],
+  [ t('common.menus.main.about'), page_path('about') ],
+  [ t('common.menus.main.sign_in'), page_path('contributor') ]
 ] -%>
 
 <div id="navigation">
@@ -28,7 +28,7 @@
   
   <%= form_tag({}, { :id => 'langswitch' }) do %>
   
-	<%= select_tag 'dd_lang', options_for_select([ [ t( 'menus.select_language' ), '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
+	<%= select_tag 'dd_lang', options_for_select([ [ t( 'common.menus.main.select_language' ), '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
   
   <% end %>
   

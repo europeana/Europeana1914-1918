@@ -2,52 +2,40 @@
   
   <% @javascripts[:flowplayer] = true -%>
   
-  <p><%= raw t('views.home.p1') %></p>
-  <p><%= raw t('views.home.p2', :video_guide => link_to( t( 'common.links.video_guide' ), page_path('help/demo') ) ) %></p>
-  <p><%= raw t('views.home.p3') %></p>
-  <p><%= raw t('views.home.p4') %></p>
+  <p><%= raw t( 'views.home.p1', :across_europe => link_to( t('views.home.links.across_europe'), page_path('about') ) ) %></p>
+  <p><%= raw t('views.home.p2') %></p>
   
   <ul class="link-buttons">
-	<li><%= link_to( t('common.links.add_to_archive'), page_path('contributor') ) %></li>
-	<li><%= link_to( t('common.links.explore_archive'), page_path('browse') ) %></li>
-	<li><%= link_to( t('common.links.about'), page_path('about') ) %></li>
+	<li><%= link_to( t('common.links.add_your_story'), page_path('contributor') ) %></li>
+	<li><%= link_to( t('common.links.explore_stories'), page_path('browse') ) %></li>
+	<li><%= link_to( t('common.menus.main.about'), page_path('about') ) %></li>
   </ul>
 	
 
-<div class="editors-pick">
-  
-  <h2><%= t('common.editors_pick.heading') %></h2>
-  
-	<%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
-	<p>&nbsp;</p>
-    <p><%= raw t( 'common.editors_pick.more_stories', :explore_archive => link_to( t( 'common.editors_pick.links.explore_archive' ), page_path('browse') ) ) %></p>
-
-</div>
-
-
-<h2><%= t('views.home.otto.heading') %></h2>
-
-  <div class="film-highlight">
-  
-	<a href="<%= video_path('OttoBernard-FakePassport-English.flv') %>" id="player" class="flowplayer"><%= image_tag 'Europeana_Appeal_English_WebPurposes _WPlay.jpg' %></a>
-	<script type="text/javascript">
-	  flowplayer("player", "<%= javascript_path("flowplayer/flowplayer-3.2.7.swf") %>");
-	</script>
+  <div class="editors-pick">
 	
+	<h2><%= t('common.editors_pick.heading') %></h2>
+	
+	  <%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
+	  <p>&nbsp;</p>
+	  <p><%= raw t( 'common.editors_pick.more_stories', :explore_stories => link_to( t( 'common.links.explore_stories' ), page_path('browse') ) ) %></p>
+  
   </div>
 
 
-  <!--<object type="application/x-shockwave-flash" width="425" height="355" wmode="transparent" data="http://dev.europeana.eu/objects/flvplayer.swf?file=Europeana-master.flv&amp;autoStart=FALSE"><param name="movie" value="http://dev.europeana.eu/objects/flvplayer.swf?file=Europeana-master.flv&amp;autoStart=false" /><param name="wmode" value="transparent" /></object>-->
+  <h2><%= raw t('views.home.otto.heading') %></h2>
   
-  <div class="text-highlight">
+	<div class="film-highlight">
 	
-	<p><%= raw t( 'views.home.otto.p1', :add_to_archive => link_to( t( 'common.links.add_to_archive' ), contributor_dashboard_path ) ) %></p>
-  
-  </div>
-  
-  <!--
-  
-  <% if current_user.may_search_contributions? -%>
-	<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
-  <% end -%>
-  -->
+	  <a href="<%= video_path('OttoBernard-FakePassport-English.flv') %>" id="player" class="flowplayer"><%= image_tag 'Europeana_Appeal_English_WebPurposes _WPlay.jpg' %></a>
+	  <script type="text/javascript">
+		flowplayer("player", "<%= javascript_path("flowplayer/flowplayer-3.2.7.swf") %>");
+	  </script>
+	  
+	</div>
+	
+	<div class="text-highlight">
+	  
+	  <p><%= raw t( 'views.home.otto.p1', :add_your_story => link_to( t( 'common.links.add_your_story' ), contributor_dashboard_path ) ) %></p>
+	
+	</div>
