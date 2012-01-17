@@ -406,7 +406,170 @@ de:
       short: ! '%d. %B, %H:%M Uhr'
     pm: nachmittags
   views:
+    admin:
+      contributions:
+        index:
+          captions:
+            approved: Akzeptierte Beiträge (%{total})
+            submitted: Noch zu bestätigende eingereichte Beiträge (%{total})
+          empty:
+            all:
+              approved: Noch keine bestätigten Beiträge.
+              submitted: Zurzeit keine eingereichten Beiträge, die bestätigt werden
+                müssen.
+            search:
+              approved: Keine bestätigten Beiträge, die Ihrer Suchanfrage entsprechen.
+              submitted: Keine eingereichten Beiträge, die Ihrer Suchanfrage entsprechen.
+          title: Beiträge
+      index:
+        links:
+          contributions:
+            description: Überprüfen und bestätigen oder verwerfen Sie die Beiträge.
+            text: Beiträge
+          export_csv:
+            description: Sammlungsbeiträge nach CSV exportieren.
+            text: Als CSV exportieren
+          metadata_fields:
+            description: Felder, die für die Beiträge erfasst wurden, konfigurieren.
+            text: Metadaten-Felder
+          reindex:
+            description: Aktualisieren Sie den Suchmaschinenindex.
+            text: Suchmaschine re-indexieren
+          users:
+            description: ! 'Nutzerkonten verwalten: Administratoren, Katalogisierer
+              & Beiträger.'
+            text: Nutzerkonten
+        title: Admin
+      metadata_fields:
+        confirm_reindex:
+          info: Nachdem der Status der Suchbarkeit eines oder mehrerer Metadatenfelder
+            geändert wurde, oder nach der Entfernung zuvor suchbarer Felder sollten
+            Sie die Suchmaschine mit dem Button unten re-indexieren.
+          note: Bitte beachten Sie, dass Sie die Suchmaschine nicht re-indexieren
+            müssen, wenn Beiträge aktualisiert wurden; dies geschieht automatisch.
+          title: Suchmaschine re-indexieren
+        delete:
+          button_confirm: Möchten Sie dieses Feld wirklich löschen?
+          question: Sind Sie sicher, dass Sie das Metadatenfeld %{field_name} löschen
+            möchten?
+          title: Metadatenfeld löschen
+          warning: <strong>Achtung:</strong> Dies führt zur Löschung aller Daten,
+            die Sie in diesem Feld bereits für Ihre Sammlung erfasst haben.
+        edit:
+          empty: Zurzeit gibt es noch keine Metadatenfelder.
+          instructions: Geben Sie eine Zahl zur Positionierung jedes Feldes ein.
+          title: Metadatenfeld bearbeiten
+        index:
+          caption: Metadatenfelder
+          empty: Zurzeit gibt es noch keine Metadatenfelder.
+          links:
+            new: Neues Feld
+            order: Feldreihenfolge ändern
+            terms: Bezeichnungen
+          title: Metadatenfelder
+        new:
+          title: Neues Metadatenfeld
+        order:
+          title: Reihenfolge der Metadatenfelder
+      taxonomy_terms:
+        delete:
+          question: Sind Sie sicher, dass Sie das Schlagwort "%{term}" löschen möchten?
+          title: Schlagwort löschen
+          warning: <strong>Achtung:</strong> Durch das Löschen verlieren alle Beiträge,
+            die mit diesem Schlagwort verknüpft sind, diese Kategorisierung.
+        edit:
+          title: Schlagwort bearbeiten
+        import:
+          title: Schlagwörter importieren
+        index:
+          caption: Schlagwörter
+          empty: Für dieses Feld gibt es noch keine Schlagwörter.
+          links:
+            back: Liste der Metadatenfelder
+            import: Schlagwörter aus der Liste importieren
+            new: Neues Schlagwort
+          title: Schlagwörter
+        new:
+          title: Neues Schlagwort
+      users:
+        delete:
+          button_confirm: Dieses Nutzerkonto wirklich löschen?
+          question: Sind Sie sicher, dass Sie das Nutzerkonto %{email} löschen möchten?
+          title: Nutzerkonto löschen
+          warning: <strong>Achtung:</strong> Dies führt zur Löschung aller Beiträge
+            dieses Nutzers.
+        edit:
+          title: Nutzerkonto bearbeiten
+        index:
+          caption: Nutzerkonten
+          empty: Keine Nutzerkonten zum Anzeigen vorhanden.
+          links:
+            new: Neuer Nutzer
+            show:
+              title: Alle Nutzerdetails ansehen
+          title: Nutzerkonten
+        new:
+          title: Neues Nutzerkonto
+        show:
+          caption: Persönliche Details
+          links:
+            back: Liste der Nutzerkonten
+            contributions: Beiträge
+            edit: Nutzerkonto bearbeiten
+          title: Nutzerkonto
+    attachments:
+      _summary:
+        caption: Information über den Anhang
+      _table:
+        caption: Anhänge
+        links:
+          preview:
+            title: Details des Anhangs ansehen
+      delete:
+        question: Sind Sie sicher, dass Sie den Anhang "%{filename}" löschen möchten?
+        title: Anhang löschen
+      edit:
+        caption:
+          current: Diese Datei
+          uploaded: Hochgeladene Datei
+        title: Anhang bearbeiten
+      index:
+        empty: Für diesen Beitrag wurden keine Anhänge hochgeladen.
+        links:
+          new: Neuer Anhang
+        title: Anhänge zum Beitrag
+      new:
+        caption: Hochgeladene Datei
+        title: Neuer Anhang
+      show:
+        title: Anhang
+    common:
+      permanent: Diese Aktion kann nicht rückgängig gemacht werden.
+    contacts:
+      edit:
+        title: Persönliche Details bearbeiten
+      no_name: Kein Kontaktname
+      show:
+        title: Kontaktdetails
     contributions:
+      _progress:
+        step_x_of_y: Schritt %{x} von %{y}
+      _summary:
+        caption: Summary
+      complete:
+        title: Beitrag komplett
+      delete:
+        question: Sind Sie sicher, dass Sie den Beitrag "<strong>%{title}</strong>"
+          komplett verwerfen möchten?
+        title: Beitrag verwerfen
+      edit:
+        title: Beitragsformular
+      index:
+        empty: Es gibt noch keine Beiträge, die öffentlich gezeigt werden könnten.
+        title: Beiträge
+      new:
+        title: Mitmachen
+      no_title: Kein Titel
       search:
         captions:
           all: Alle Beiträge
@@ -416,14 +579,129 @@ de:
           titles:
             show_contribution: Beitrag ansehen
         no_matches: Keine Treffer. Bitte versuchen Sie es noch einmal.
+      show:
+        button_confirm: Sind Sie sicher, dass Sie diesen Beitrag zur Sammlung einreichen
+          möchten?
+        empty_attachments: Dieser Beitrag hat keine Anhänge.
+        headings:
+          submit: Beitrag einreichen
+        invalid: Dieser Beitrag kann noch nicht abgeschickt werden.Um eine Erklärung
+          zu lesen, klicken Sie auf 'Warum nicht?'. Klicken Sie auf 'Bearbeiten',
+          um Informationen zu ergänzen.
+        links:
+          new_attachment: Anhang beifügen
+        title: Beitrag
+        valid: <strong>Fertig?</strong> Wenn Sie mit Ihrem Beitrag zufrieden sind,
+          schicken Sie ihn ab! Wenn nicht, klicken Sie auf 'Bearbeiten', um Änderungen
+          vorzunehmen oder Informationen zu ergänzen.
+      status:
+        approved: Akzeptiert
+        approved_by: Akzeptiert von %{name}
+        draft: Entwurf &mdash; noch nicht eingereicht
+        label: Status
+        submitted: Eingereicht &mdash; muss noch bestätigt werden
+        unknown: Unbekannt
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Entwürfe
+          submitted: Eingereicht
+        empty:
+          all: Sie haben noch nicht mit Beiträgen begonnen.
+          draft: Zurzeit haben Sie keine Entwürfe.
+          submitted: Sie haben noch keine Beiträge eingereicht.
+        headings:
+          contributions: Meine Beiträge
+        links:
+          new: Neuer Beitrag
+        title: ''
+      dashboard_guest:
+        button_text: Beitrag beendet
+        headings:
+          finished: Beitrag beendet?
+        identity: (Falls Sie nicht %{name} sind, klicken Sie auf den "Beitrag beendet"
+          Button unten.)
+        links:
+          edit_contact: Kontaktdetails bearbeiten
+          new: Neuer Beitrag
+        notice: ! '%{name}, Sie tragen etwas als Gast bei.'
+        privacy: Wenn Sie Ihren Beitrag beendet haben, klicken Sie auf den Button
+          unten, um Ihre Kontaktdetails zu löschen. Dies schützt Ihre Privatsphäre
+          auf einem gemeinsam genutzten Computer.
+        title: Übersicht für Gäste
+      guests:
+        edit:
+          title: Gast-Kontaktdetails bearbeiten
+        new:
+          contact_details: ! 'Bitte nennen Sie uns zuerst Ihre Kontaktdetails:'
+          guest: Sie tragen als Gast bei.
+          links:
+            register: Registrieren
+            sign_in: Einloggen
+          notice: Falls Sie Ihre Kontaktdetails speichern und Ihre Beiträge nachverfolgen
+            möchten, nachdem Sie sie abgeschickt haben, %{sign_in} oder %{register}
+            bevor Sie fortfahren.
+          title: Gast-Kontaktdetails
+      registration_required:
+        links:
+          register: Registrieren
+          sign_in: Einloggen
+        notice: ! '%{register} Sie sich kostenlos! Wenn Sie sich %{sign_in} können
+          Sie etwas zur Sammlung beitragen.'
+        title: Mitmachen
     devise:
+      passwords:
+        edit:
+          title: Passwort ändern
+        new:
+          title: Passwort vergessen?
+      registrations:
+        edit:
+          title: Kontodetails ändern
+        new:
+          title: Registrieren
       sessions:
         new:
           instructions: ! 'Bitte melden Sie sich mit Ihren Nutzerdaten an:'
           title: Einloggen
+    errors:
+      bad_request:
+        message: Bei Ihrer Anfrage ist ein Fehler aufgetreten, sodass sie nicht bearbeitet
+          werden konnte.
+        title: Anfrage fehlgeschlagen
+      forbidden:
+        message: Sie haben keine Zugangsberechtigung zu den angeforderten Seiten.
+        title: Zugriff verweigert
+      internal_server_error:
+        message: Es ist ein Fehler aufgetreten, sodass wir Ihre Anfrage nicht bearbeiten
+          können.
+        title: Interner Serverfehler
+      not_found:
+        message: Die von Ihnen angefragte Seite wurde nicht gefunden.
+        title: Nicht gefunden
+      search_offline:
+        message: Die Suchfunktion ist vorübergehend nicht verfügbar. Bitte versuchen
+          Sie es später noch einmal.
+        title: Die Suchfunktion ist offline
     home:
       p1: ! '%{across_europe}'
       p2: ''
+    links:
+      back: Zurück zu %{link}
+      previous_step: Vorige Seite
+      privacy_policy: Datenschutzbestimmungen
+    table:
+      header:
+        actions: Aktionen
+    users:
+      _summary:
+        caption: Anmeldedetails
+      account:
+        caption: Persönliche Details
+        links:
+          edit_contact: Persönliche Details bearbeiten
+          edit_user: Anmeldedetails bearbeiten
+        title: Ihr Konto
   will_paginate:
     next_label: Weiter →
     previous_label: ← Vorige

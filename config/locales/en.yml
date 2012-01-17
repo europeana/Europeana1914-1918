@@ -787,6 +787,10 @@ en:
               of the Website and/or any impossibility of using it, or as a result
               of any unlawful act or otherwise, unless this exclusion of liability
               is not allowed under mandatory provisions of law.
+            item2: Europeana assumes no liability for the substance of the Content
+              and/or Metadata, nor, therefore, for damage or loss to Users or other
+              third parties that arises from any unlawful substance of the Content
+              and/or Metadata.
             item3: The User indemnifies Europeana against all third-party claims on
               any grounds whatever that relate to the compensation of damage, loss,
               costs or interest, in connection with or arising from his use of the
@@ -870,11 +874,188 @@ en:
           the Great War (1914-1918). This phase of the project is focussing on European
           items: letters, postcards, photographs and stories from Germany, Luxembourg,
           Ireland, Slovenia and the UK. Contributions can be made in two ways:'
+    admin:
+      config:
+        edit:
+          title: Edit configuration settings
+        index:
+          links:
+            edit: Edit settings
+          table:
+            caption: Settings
+            headings:
+              name: Name
+              value: Value
+          title: Configuration
+      contributions:
+        index:
+          captions:
+            approved: Approved contributions (%{total} total)
+            submitted: Submitted contributions pending approval (%{total} total)
+          empty:
+            all:
+              approved: No approved contributions yet.
+              submitted: No submitted contributions pending approval at present.
+            search:
+              approved: No approved contributions matching your search.
+              submitted: No submitted contributions matching your search.
+          title: Contributions
+      index:
+        links:
+          config:
+            description: Configure website settings.
+            text: Configuration
+          contributions:
+            description: Review and approve or reject contributions.
+            text: Contributions
+          export_csv:
+            description: Export the collection contributions to CSV.
+            text: Export as CSV
+          export_xml:
+            description: Export the collection contributions to XML.
+            text: Export as XML
+          metadata_fields:
+            description: Configure the fields gathered during contributions.
+            text: Metadata fields
+          reindex:
+            description: Update the search engine index.
+            text: Re-index search engine
+          users:
+            description: ! 'Manage user accounts: administrators, cataloguers & contributors.'
+            text: User accounts
+        title: Admin
+      metadata_fields:
+        confirm_reindex:
+          info: After changing the searchable status of one or more metadata fields,
+            or removing previously searchable fields, you should re-index the search
+            engine using the button below.
+          note: Note that you do not need to re-index the search engine when contributions
+            are updated; this happens automatically.
+          title: Re-index search engine
+        delete:
+          button_confirm: Really delete this field?
+          question: Are you sure you want to delete the metadata field %{field_name}?
+          title: Delete metadata field
+          warning: <strong>Warning:</strong> This will result in the deletion of any
+            data in your collection already gathered for this field.
+        edit:
+          empty: There are no metadata fields yet.
+          instructions: Enter a number for the position of each field.
+          title: Edit metadata field
+        index:
+          caption: Metadata fields
+          empty: There are no metadata fields yet.
+          links:
+            new: New field
+            order: Change field order
+            terms: Terms
+          title: Metadata fields
+        new:
+          title: New metadata field
+        order:
+          title: Metadata field order
+      taxonomy_terms:
+        delete:
+          question: Are you sure you want to delete the taxonomy term "%{term}"?
+          title: Delete taxonomy term
+          warning: <strong>Warning:</strong> This action will result in any contributions
+            associated with this term losing that categorisation.
+        edit:
+          title: Edit taxonomy term
+        import:
+          title: Import taxonomy terms
+        index:
+          caption: Taxonomy terms
+          empty: There are no taxonomy terms for this field yet.
+          links:
+            back: list of metadata fields
+            import: Import terms from list
+            new: New term
+          title: Taxonomy terms
+        new:
+          title: New taxonomy term
+      users:
+        delete:
+          button_confirm: Really delete this user account?
+          question: Are you sure you want to delete the user account %{email}?
+          title: Delete user account
+          warning: <strong>Warning:</strong> This will also delete all the user's
+            contributions.
+        edit:
+          title: Edit user account
+        index:
+          caption: User accounts
+          empty: No user accounts to show.
+          links:
+            new: New user
+            show:
+              title: View full user details
+          title: User accounts
+        new:
+          title: New user account
+        show:
+          caption: Personal details
+          links:
+            back: list of user accounts
+            contributions: Contributions
+            edit: Edit user account
+          title: User account
+    attachments:
+      _summary:
+        caption: Attachment information
+      _table:
+        caption: Attachments
+        links:
+          preview:
+            title: View full attachment details
+      delete:
+        question: Are you sure you want to delete the attachment "%{filename}"?
+        title: Delete attachment
+      edit:
+        caption:
+          current: Current file
+          uploaded: Uploaded file
+        title: Edit attachment
+      index:
+        empty: No attachments have been uploaded for this contribution.
+        links:
+          new: New attachment
+        title: Contribution attachments
+      new:
+        caption: Uploaded file
+        title: New attachment
+      show:
+        title: Attachment
+    common:
+      permanent: This action can not be undone.
     contact:
       heading: Contact us
       p1: To contact the Europeana 1914-1918 project team, please use the email address
         1914-1918 [@] europeana [.] eu
+    contacts:
+      edit:
+        title: Edit personal details
+      no_name: no contact name
+      show:
+        title: Contact details
     contributions:
+      _progress:
+        step_x_of_y: Step %{x} of %{y}
+      _summary:
+        caption: Summary
+      complete:
+        title: Contribution completed
+      delete:
+        question: Are you sure you want to completely discard the contribution "<strong>%{title}</strong>"?
+        title: Discard contribution
+      edit:
+        title: Contribution
+      index:
+        empty: There are no contributions to show publicly, yet.
+        title: Contributions
+      new:
+        title: Contribution
+      no_title: no title
       search:
         captions:
           all: All contributions
@@ -884,7 +1065,67 @@ en:
           titles:
             show_contribution: View contribution
         no_matches: No matches. Please try again.
+      show:
+        button_confirm: ! 'Are you sure that you are ready to
+
+          submit this contribution to the collection?'
+        empty_attachments: This contribution has no attachments.
+        headings:
+          submit: Submit contribution
+        invalid: This contribution is not ready for submission yet. Click on 'Why
+          not?' for an explanation. Click on EDIT below to add more information.
+        links:
+          new_attachment: Add an attachment
+        title: Contribution
+        valid: <strong>Finished?</strong> If you are happy with your contribution,
+          go ahead and submit it! If not, click on EDIT below to change it or add
+          more information
+      status:
+        approved: Approved
+        approved_by: Approved by %{name}
+        draft: Draft &mdash; not submitted yet
+        label: Status
+        submitted: Submitted &mdash; pending approval
+        unknown: Unknown
     contributor:
+      dashboard_contributor:
+        captions:
+          draft: Drafts
+          submitted: Submitted
+        empty:
+          all: You have not started any contributions yet.
+          draft: You have no draft contributions at the moment.
+          submitted: You have not submitted any contributions yet.
+        headings:
+          contributions: Your contributions
+        links:
+          new: New contribution
+        title: Contribution
+      dashboard_guest:
+        button_text: Finished contributing
+        headings:
+          finished: Finished contributing?
+        identity: (If you are not %{name}, press the "Finished contributing" button,
+          below.)
+        links:
+          edit_contact: Edit contact details
+          new: New contribution
+        notice: ! '%{name}, you are contributing as a guest.'
+        privacy: When you have finished contributing, use the button below to clear
+          your contact details. This helps protect your privacy on a shared computer.
+        title: Guest dashboard
+      guests:
+        edit:
+          title: Edit guest contact details
+        new:
+          contact_details: ! 'Otherwise, please give us your contact details first:'
+          guest: You are contributing as a guest.
+          links:
+            register: register
+            sign_in: sign in
+          notice: If you want to store your contact details and track your contributions
+            after they are submitted, %{sign_in} or %{register} before continuing.
+          title: Guest contact details
       help:
         add_something:
           heading: Adding something to Europeana 1914-1918
@@ -923,10 +1164,38 @@ en:
         p1: Please %{sign_in} or %{register} to be able to add your objects and stories
           to Europeana 1914-1918.
     devise:
+      passwords:
+        edit:
+          title: Change your password
+        new:
+          title: Forgot your password?
+      registrations:
+        edit:
+          title: Modify account details
+        new:
+          title: Register
       sessions:
         new:
           instructions: ! 'Please sign in with your account details:'
           title: Sign in
+    errors:
+      bad_request:
+        message: There was a problem with the request you submitted, preventing it
+          from being processed.
+        title: Bad request
+      forbidden:
+        message: You do not have permission to access the requested resource.
+        title: Forbidden
+      internal_server_error:
+        message: There is a problem preventing us from processing your request.
+        title: Internal server error
+      not_found:
+        message: The resource you requested was not found.
+        title: Not found
+      search_offline:
+        message: The search facility is temporarily unavailable. Please try again
+          later.
+        title: Search offline
     explore:
       heading: Explore stories
       links:
@@ -987,6 +1256,22 @@ en:
         1914-1918 relating to World War One? Do you have a story or anecdote to tell
         about those involved or affected? Please add it to the online story collection
         so the world can know about it.</b>
+    links:
+      back: Back to %{link}
+      previous_step: Previous page
+      privacy_policy: Privacy policy
+    table:
+      header:
+        actions: Actions
+    users:
+      _summary:
+        caption: Sign in details
+      account:
+        caption: Personal details
+        links:
+          edit_contact: Edit personal details
+          edit_user: Edit sign in details
+        title: Your account
   will_paginate:
     next_label: next →
     previous_label: ← previous
