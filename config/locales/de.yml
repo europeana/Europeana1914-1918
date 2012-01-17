@@ -136,6 +136,32 @@ de:
       month: Monat
       second: Sekunden
       year: Jahr
+  devise:
+    failure:
+      admin:
+        unauthenticated: Sie müssen sich einloggen, um fortzufahren.
+      invalid: Ungültige E-Mail-Adresse oder ungültiges Passwort.
+      invalid_token: Ungültiges Authentifizierungszeichen.
+      timeout: Ihre Sitzung wurde beendet, bitte melden Sie sich erneut an, um fortzufahren.
+      unauthenticated: Sie müssen sich registrieren oder einloggen, bevor Sie fortfahren
+        können.
+    mailer:
+      reset_password_instructions:
+        subject: Anleitung zum Zurücksetzen des Passworts
+    passwords:
+      link: Passwort vergessen?
+      send_instructions: Ihnen wurde eine E-Mail mit der Anleitung zum Zurücksetzen
+        des Passworts zugesendet.
+      updated: Ihr Passwort wurde erfolgreich geändert. Sie sind nun angemeldet.
+    registrations:
+      destroyed: Auf Wiedersehen! Ihr Konto wurde erfolgreich gelöscht.
+      link: Registrieren
+      signed_up: Sie haben sich erfolgreich registriert.
+      updated: Sie haben erfolgreich Ihr Konto aktualisiert.
+    sessions:
+      link: Einloggen
+      signed_in: Sie haben sich erfolgreich angemeldet.
+      signed_out: Sie haben sich erfolgreich abgemeldet.
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -165,6 +191,112 @@ de:
       header:
         one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
         other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  formtastic:
+    actions:
+      attachment:
+        create: Hochladen
+        delete: Anhang löschen
+        update: Aktualisieren
+      contribution:
+        create: Weiter
+        delete: Beitrag löschen
+        save_draft: Entwurf speichern
+        submit: Absenden
+        update: Beitrag aktualisieren
+      contributor:
+        create: Registrieren
+      create: Abschicken
+      delete: Löschen
+      metadata_field:
+        delete: Metadatenfeld löschen
+        reindex: Suchmaschine re-indexieren
+      password:
+        create: Abschicken
+        update: Passwort ändern
+      search:
+        submit: Suche
+      sign_in: Einloggen
+      taxonomy_term:
+        import: Importieren
+      update: Änderungen speichern
+      upload: Hochladen
+      user:
+        create: Registrieren
+        delete: Konto löschen
+        update: Aktualisieren
+    hints:
+      attachment:
+        edit:
+          file: ! 'Laden Sie nur dann eine neue Datei hoch, wenn Sie die bereits existierende
+            ersetzen möchten. Maximale Dateigröße: %{max}. Zulässige Dateiformate:
+            %{file_types}.'
+        new:
+          file: ! 'Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
+      contact:
+        full_name: Dieser Name wird öffentlich als Quelle des Beitrags angezeigt.
+      contribution:
+        title: Titel für den gesamten Beitrag. Dies ist ein Pflichtfeld.
+      metadata_field:
+        cataloguing: ! 'Ja: dieses Feld nur in der Admin-Ansicht für Katalogisierungszwecke
+          anzeigen. Nein: auch den Beiträgern anzeigen.'
+        field_type: Kann nicht mehr geändert werden, sobald das Feld gespeichert wurde.
+        hint: Text zur Anzeige neben dem Eingabefeld, zur Anleitung der Beiträger/Katalogisierer.
+        multi: Die Auswahl mehrerer Schlagwörter pro Beitrag/Anhang zulassen.
+        name: ! 'Bezeichnung für dieses Feld. Muss einmalig sein. Zulässige Zeichen:
+          a-z, 0-9, _'
+        required: ! 'Ja: Beiträger muss in dieses Feld etwas eintragen. Nein: dieses
+          Feld ist optional. Katalogisierungsfelder müssen optional sein.'
+        searchable: ! 'Ja: Suche nach Beiträgen sucht über dieses Metadatenfeld. Nein:
+          dieses Feld wird nicht in die Suche einbezogen. Anmerkung: Wenn Sie diesen
+          Wert verändert haben, sollten Sie die Suchmaschine re-indexieren.'
+        searchable_no_sphinx: ! 'Anmerkung: Metadatenfelder sind nur dann suchbar,
+          wenn die Sphinx-Suchmaschine läuft &mdash; zurzeit läuft sie nicht.'
+        title: Beschreibender Titel für das Feld, wie er den Beiträgern angezeigt
+          wird. Wird frei gelassen und aus dem Namen generiert.
+      metadata_record:
+        date: ! 'Format: JJJJ-MM-TT, JJJJJ-MM or JJJJ, z. B. 1998-04-20, 1998-04 oder
+          1998'
+        geo: ! 'Format: LAT,LON, z. B. 51.500,-0.126 (für London)'
+      password:
+        new:
+          email: Geben Sie Ihre E-Mail-Adresse ein, die Sie bei der Anmeldung eingegeben
+            haben, und wir schicken Ihnen die Anleitung zum Zurücksetzen Ihres Passworts.
+      session:
+        email: ''
+        password: ''
+      taxonomy_term:
+        import: Geben Sie die Schlagwörter für dieses Metadatenfeld ein, je eines
+          pro Zeile.
+        term: Muss innerhalb des Metadatenfeldes eindeutig sein.
+      user:
+        current_password: Geben Sie Ihr aktuelles Passwort ein, wenn Sie Ihre Kontodetails
+          ändern möchten.
+        edit:
+          password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern
+            möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
+        email: Mit dieser E-Mail-Adresse und dem von Ihnen gewählten Passwort melden
+          Sie sich künftig an.
+        password: Mindestens 6 Zeichen
+        update:
+          password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern
+            möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
+    labels:
+      contribution:
+        terms: Ich akzeptiere die Europeana Bedingungen für Benutzerbeiträge
+      search:
+        q: ''
+    titles:
+      account_details: Anmeldedetails
+      admin_user: Anmeldedetails
+      cataloguing_metadata: Metadaten katalogisieren
+      contact_address: Adresse
+      contact_name: Name
+      contact_other: Kontaktdetails
+      contribution_attachments: Anhänge
+      contribution_terms: Allgemeine Geschäftsbedingungen
+      metadata: Kataloginformation
+      metadata_field_options: Optionen nach Materialart
+      personal_details: Persönliche Details
   helpers:
     select:
       prompt: Bitte wählen
@@ -172,6 +304,41 @@ de:
       create: ! '%{model} erstellen'
       submit: ! '%{model} speichern'
       update: ! '%{model} aktualisieren'
+  javascripts:
+    admin:
+      metadata_fields:
+        order: Ziehen Sie die Felder in die gewünschte Reihenfolge. Klicken Sie "Sichern"
+          um die gewählte Reihenfolge zu speichern.
+    contribute:
+      errors_shown: ! 'Warum nicht? Siehe obige Hinweise. '
+      hide_errors: Fehlermeldungen verbergen.
+      show_errors: Warum nicht?
+    datepicker:
+      button_text: Kalender anzeigen
+    gmap:
+      canvas:
+        hide: Google Maps schließen
+        hint: Bewegen Sie die Markeirung zu der gewünschten Stelle"{{field}}".
+        label: Google Maps
+        show: Google Maps nutzen
+      errors:
+        empty: Adresse für die Suche eingeben.
+        present: Es wird bereits eine Karte angezeigt; bitte zuerst die geöffnete
+          Karte schließen.
+        unknown: Addresse unbekannt.
+      search:
+        button: Suchen
+        hint: Geben Sie eine Adresse für die Suche in der Karte ein.
+        label: Nach einer Adresse suchen
+      static:
+        hide: Karte schließen
+        show: In Google Maps anzeigen
+    uploadify:
+      basic_ui: Bei Problemen mit dem Hochladen, <a href="{{href}}">bitte hier</a>
+        versuchen.
+      button_text: Datei aussuchen
+      finished: Zurück zu Ihrem Beitrag
+      saved: Gesichert
   locale: Deutsch
   number:
     currency:
@@ -249,6 +416,11 @@ de:
           titles:
             show_contribution: Beitrag ansehen
         no_matches: Keine Treffer. Bitte versuchen Sie es noch einmal.
+    devise:
+      sessions:
+        new:
+          instructions: ! 'Bitte melden Sie sich mit Ihren Nutzerdaten an:'
+          title: Einloggen
     home:
       p1: ! '%{across_europe}'
       p2: ''
