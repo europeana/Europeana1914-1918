@@ -1,5 +1,7 @@
 <div class="action-links">
+  
   <ul class="<%= resource_name %>">
+  
     <%- if controller_name != 'sessions' %>
       <li><%= link_to t('devise.sessions.link'), new_session_path(resource_name) %></li>
     <% end -%>
@@ -19,6 +21,8 @@
     <%- if devise_mapping.lockable? && controller_name != 'unlocks' %>
       <li><%= link_to t('devise.unlocks.link'), new_unlock_path(resource_name) %></li>
     <% end -%>
+  
   </ul>
+  
 </div>
 
