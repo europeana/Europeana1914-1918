@@ -1,41 +1,165 @@
 en:
+  actions:
+    approve: Approve
+    cancel: Cancel
+    delete: Delete
+    download: Download
+    edit: Edit
+    filter: Filter
+    new: New
+    save: Save
+    update: Update
   activerecord:
+    attributes:
+      attachment:
+        file: File
+        file_content_type: Content type
+        file_created_at: Created at
+        file_file_name: File name
+        file_file_size: File size
+        file_updated_at: Updated at
+        preview: Preview
+        public: Public
+      contact:
+        age: Age
+        country: Country of residence
+        full_name: Full name
+        gender: Gender
+        locality: Town/city
+        postal_code: Post code
+        region: County
+        street_address: Street address
+        tel: Telephone number
+      contribution:
+        approved_at: Approved at
+        approved_by: Approved by
+        approver: Approved by
+        attachments: Attachments
+        contributor: Contributor
+        created_at: Started at
+        published_at: Published at
+        submitted_at: Submitted at
+        terms: Terms accepted
+      metadata_field:
+        cataloguing: Cataloguing only
+        field_type: Type
+        hint: Hint
+        multi: Multiple-selection
+        name: ID
+        position: Position
+        required: Required
+        searchable: Searchable
+        show_in_listing: Show in listings
+      setting:
+        name: Name
+        value: Value
+      taxonomy_term:
+        metadata_field: Field
+        term: Term
+      user:
+        password: Password
+        password_confirmation: Repeat password
+        role_name: Role
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
-        accepted: must be accepted
-        blank: can't be blank
-        confirmation: doesn't match confirmation
+        accepted: You need to accept in order to proceed.
+        blank: This field is required; it can not be blank.
+        confirmation: Not the same as the confirmation.
         empty: can't be empty
         equal_to: must be equal to %{count}
         even: must be even
         exclusion: is reserved
         greater_than: must be greater than %{count}
         greater_than_or_equal_to: must be greater than or equal to %{count}
-        inclusion: is not included in the list
-        invalid: is invalid
+        inclusion: Select a value from the list.
+        invalid: Invalid input; check the format of the value entered.
         less_than: must be less than %{count}
         less_than_or_equal_to: must be less than or equal to %{count}
-        not_a_number: is not a number
+        not_a_number: This value is not a number, but it should be.
         not_an_integer: must be an integer
         odd: must be odd
         record_invalid: ! 'Validation failed: %{errors}'
-        taken: has already been taken
-        too_long:
-          one: is too long (maximum is 1 character)
-          other: is too long (maximum is %{count} characters)
-        too_short:
-          one: is too short (minimum is 1 character)
-          other: is too short (minimum is %{count} characters)
-        wrong_length:
-          one: is the wrong length (should be 1 character)
-          other: is the wrong length (should be %{count} characters)
+        taken: This field needs to be unique, but the value entered already exists
+          on our system.
+        too_long: is too long (maximum is %{count} characters)
+        too_short: is too short (minimum is %{count} characters)
+        wrong_length: is the wrong length (should be %{count} characters)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: This type of file is not allowed.
+              presence: Select a file to upload.
+              size: The uploaded file size is too large.
+        contribution:
+          attributes:
+            guest_id:
+              present: Contact details are required for guest contributions.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Cataloguing fields can not be required.
+            field_type:
+              constancy: The field type can not be changed.
+            searchable:
+              field_type: Taxonomy fields can not be searchable.
+        metadata_record:
+          date_field_civil: Not a valid calendar date.
+          taxonomy_field_single: Only one term can be selected.
+        setting:
+          attributes:
+            name:
+              inclusion: is not a registered configuration setting
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Taxonomy terms must be associated with a taxonomy metadata field.
+        user:
+          attributes:
+            email:
+              taken: A user account with this email address already exists.
       template:
         body: ! 'There were problems with the following fields:'
         header:
           one: 1 error prohibited this %{model} from being saved
           other: ! '%{count} errors prohibited this %{model} from being saved'
+    models:
+      attachment: Attachment
+      contact: Contact
+      contribution: Contribution
+      metadata_field: Metadata field
+      metadata_record: Metadata record
+      taxonomy_term: Taxonomy term
+      user: User
+    options:
+      contact:
+        gender:
+          female: Female
+          male: Male
+      metadata_field:
+        field_type:
+          date: Date
+          geo: Geographical location
+          string: Single-line text
+          taxonomy: Taxonomy
+          text: Multi-line text
+      user:
+        role_name:
+          administrator: Administrator
+          blank: Any role
+          cataloguer: Cataloguer
+          contributor: Contributor
+  attributes:
+    contact: Contact
+    created_at: Created at
+    email: Email
+    id: ID
+    metadata_record: Metadata
+    title: Title
+    updated_at: Updated at
+    url: URL
   common:
     captions:
       contributor: Contributor
@@ -70,6 +194,8 @@ en:
         select_language: Select a language
         sign_in: Sign in
         sign_out: Sign out
+    'no': 'No'
+    'yes': 'Yes'
   date:
     abbr_day_names:
     - Sun
@@ -227,6 +353,101 @@ en:
       header:
         one: 1 error prohibited this %{model} from being saved
         other: ! '%{count} errors prohibited this %{model} from being saved'
+  flash:
+    actions:
+      create:
+        alert: There was a problem creating %{resource_name}. See the messages below.
+        notice: Created new %{resource_name}.
+      destroy:
+        alert: There was a problem deleting %{resource_name}.
+        notice: ! '%{resource_name} was successfully deleted.'
+      update:
+        alert: There was a problem updating %{resource_name}. See the messages below.
+        notice: Updated %{resource_name}.
+    attachments:
+      create:
+        alert: There was a problem saving your attachment.
+        invalid_files: Some files could not be saved.
+        notice: Attachment saved.
+      destroy:
+        alert: There was a problem deleting your attachment.
+        notice: Attachment deleted.
+      update:
+        alert: There was a problem saving your attachment.
+        notice: Attachment saved.
+    configuration:
+      update:
+        alert: Failed to save configuration.
+        notice: Configuration updated.
+    contacts:
+      create:
+        alert: Failed to create contact.
+        notice: Created contact.
+      update:
+        alert: Failed to update contact.
+        notice: Updated contact.
+    contributions:
+      approve:
+        alert: Failed to approve contribution.
+        notice: Contribution successfully approved.
+      destroy:
+        alert: Failed to delete contribution.
+        notice: Contribution deleted.
+      draft:
+        create:
+          alert: There was a problem starting a new contribution.
+          notice: New draft contribution started.
+        submit:
+          alert: There is a problem with your contribution. Please check the messages
+            below.
+          notice: Your contribution has been submitted. Thank you! It will be checked
+            by the project staff and appear on the website when approved. At busy
+            times, this may take several weeks. We ask for your understanding and
+            patience.
+        update:
+          alert: There was a problem saving your contribution.
+          notice: Contribution saved.
+      submitted:
+        edit:
+          alert: This contribution has already been submitted.
+    contributors:
+      create:
+        alert: Your account could not be created.
+      update:
+        alert: Your account could not be updated.
+    fields:
+      reindexing: Re-indexing search engine in background.
+    guest_contact:
+      create:
+        alert: There is a problem with the details you supplied. Please correct them
+          and try again.
+        notice: Contact details received.
+      forget:
+        notice: Contact details cleared.
+      update:
+        alert: There is a problem with the details you supplied. Please correct them
+          and try again.
+        notice: Contact details updated.
+    metadata_fields:
+      update_order:
+        notice: Metadata field order updated.
+    status:
+      alert: ! 'Alert: '
+      notice: ! 'Notice: '
+    taxonomy:
+      imported: Imported new taxonomy terms.
+    users:
+      create:
+        alert: User account could not be created.
+        notice: User account created.
+      destroy:
+        notice: User deleted.
+      register:
+        alert: Registration failed. Please correct the details below and try again.
+        notice: Registration successful. Welcome!
+      update:
+        alert: User account could not be updated.
+        notice: User account updated.
   formtastic:
     actions:
       attachment:
@@ -408,7 +629,27 @@ en:
     en: English
     fr: French
     sl: Slovenian
+  layout:
+    navigation:
+      about: About
+      admin: Admin
+      browse: Browse
+      contact: Contact us
+      contribute: Contribute
+      help: Help
+      home: Home
+    software_engine: Powered by RunCoCo
   locale: English
+  media_types:
+    all: All
+    binary: Binary file
+    pdf: PDF
+    sound: Sound file
+    spreadsheet: Spreadsheet
+    txt: Text file
+    unknown: Unknown document type
+    video: Video file
+    wordprocessing: Word processed document
   number:
     currency:
       format:
@@ -456,6 +697,17 @@ en:
     precision:
       format:
         delimiter: ''
+  settings:
+    allowed_upload_extensions: Allowed upload types
+    contribution_approval_required: Only publish approved contributions
+    gmap_api_key: Google Maps API key
+    max_upload_size: Maximum upload size
+    publish_contributions: Publish contributions
+    registration_required: Registration required
+    relative_url_root: URL root
+    site_name: Site name
+    ui_locales: Available locales
+    uploadify: Enable Uploadify
   support:
     array:
       last_word_connector: ! ', and '

@@ -1,35 +1,157 @@
 de:
+  actions:
+    approve: Absenden
+    cancel: Abbrechen
+    delete: Löschen
+    download: Herunterladen
+    edit: Bearbeiten
+    filter: Filtern
+    new: Neu
+    save: Sichern
+    update: Aktualisieren
   activerecord:
+    attributes:
+      attachment:
+        file: Datei
+        file_content_type: Materialart
+        file_created_at: Erstellt am
+        file_file_name: Dateiname
+        file_file_size: Dateigröße
+        file_updated_at: Aktualisiert am
+        preview: Vorschau
+        public: Öffentlich
+      contact:
+        age: Alter
+        country: Land
+        full_name: Vor-und Nachname
+        gender: Geschlecht
+        locality: Stadt
+        postal_code: Postleitzahl
+        region: ''
+        street_address: Straße
+        tel: Telefonnummer
+      contribution:
+        approved_at: Akzeptiert am
+        approved_by: Akzeptiert von
+        approver: Cataloguer
+        attachments: Attachments
+        contributor: Beiträger
+        created_at: Started at
+        published_at: Veröffentlicht am
+        submitted_at: Eingereicht am
+        terms: Bedingungen akzeptiert
+      metadata_field:
+        cataloguing: nur Katalogisieren
+        field_type: Kategorie
+        hint: Tipp
+        multi: Mehrfach-Auswahl
+        name: ID
+        position: Position
+        required: Pflicht
+        searchable: Suchbar
+      taxonomy_term:
+        metadata_field: Feld
+        term: Schlagwort
+      user:
+        password: Passwort
+        password_confirmation: Passwort wiederholen
+        role_name: Rolle
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
-        accepted: muss akzeptiert werden
-        blank: muss ausgefüllt werden
-        confirmation: stimmt nicht mit der Bestätigung überein
-        empty: muss ausgefüllt werden
-        equal_to: muss genau %{count} sein
-        even: muss gerade sein
-        exclusion: ist nicht verfügbar
+        accepted: Sie müssen akzeptieren, um fortzufahren.
+        blank: Dies ist ein Pflichtfeld, es darf nicht leer bleiben.
+        confirmation: Entspricht nicht der Bestätigung.
+        empty: darf nicht leer bleiben
+        equal_to: muss gleich %{count} sein
+        even: muss eine gerade Zahl sein
+        exclusion: ist reserviert
         greater_than: muss größer als %{count} sein
-        greater_than_or_equal_to: muss größer oder gleich %{count} sein
-        inclusion: ist kein gültiger Wert
-        invalid: ist nicht gültig
+        greater_than_or_equal_to: muss größer gleich %{count} sein
+        inclusion: Wählen Sie aus der Liste.
+        invalid: Ungültige Eingabe. Bitte Überprüfen Sie den eingegebenen Wert.
         less_than: muss kleiner als %{count} sein
-        less_than_or_equal_to: muss kleiner oder gleich %{count} sein
-        not_a_number: ist keine Zahl
-        not_an_integer: muss ganzzahlig sein
-        odd: muss ungerade sein
+        less_than_or_equal_to: muss kleiner gleich %{count} sein
+        not_a_number: Dies ist keine Zahl, muss es aber sein.
+        not_an_integer: muss eine ganze Zahl sein
+        odd: muss eine ungerade Zahl sein
         record_invalid: ! 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
-        taken: ist bereits vergeben
-        too_long: ist zu lang (nicht mehr als %{count} Zeichen)
-        too_short: ist zu kurz (nicht weniger als %{count} Zeichen)
-        wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
+        taken: Dieses Feld muss einmalig sein, aber der eingetragene Wert existiert
+          bereits in unserem System.
+        too_long: ist zu lang (maximal %{count} Zeichen)
+        too_short: ist zu kurz (mindestens %{count} Zeichen)
+        wrong_length: hat die falsche Länge (sollte %{count} Zeichen haben)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Dieses Dateiformat ist nicht zulässig.
+              presence: Wählen Sie eine Datei zum Hochladen.
+              size: Die hochgeladene Datei ist zu groß.
+        contribution:
+          attributes:
+            guest_id:
+              present: Für Beiträge von Gästen sind Kontaktdetails notwendig.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Katalogisierungsfelder können nicht angefordert werden.
+            field_type:
+              constancy: Der Feldtyp kann nicht geändert werden.
+            searchable:
+              field_type: Taxonomiefelder können nicht suchbar gemacht werden.
+        metadata_record:
+          date_field_civil: Kein gültiges Kalenderdatum.
+          taxonomy_field_single: Es kann nur ein Begriff ausgewählt werden.
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Taxonomiebegriffe müssen mit einem Taxonomiefeld verknüpft sein.
+        user:
+          attributes:
+            email:
+              taken: Es existiert bereits ein Nutzerkonto mit dieser E-Mail-Adresse.
       template:
         body: ! 'Bitte überprüfen Sie die folgenden Felder:'
         header:
           one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
           other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
+    models:
+      attachment: Anhang
+      contact: Kontakt
+      contribution: Beitrag
+      metadata_field: Metadatenfeld
+      metadata_record: Metadatensatz
+      taxonomy_term: Schlagwort
+      user: Nutzer
+    options:
+      contact:
+        gender:
+          female: Weiblich
+          male: Männlich
+      metadata_field:
+        field_type:
+          date: Datum
+          geo: Geografischer Ort
+          string: Einzeiliger Text
+          taxonomy: Taxonomie
+          text: Mehrzeiliger Text
+      user:
+        role_name:
+          administrator: Administrator
+          blank: Alle Rollen
+          cataloguer: Katalogisierer
+          contributor: Beiträger
+  attributes:
+    contact: Kontakt
+    created_at: Erstellt am
+    email: E-Mail
+    id: ID
+    metadata_record: Metadatensatz
+    title: Titel
+    updated_at: Aktualisiert am
+    url: URL
   common:
     captions:
       contributor: Beiträger
@@ -40,6 +162,8 @@ de:
     menus:
       main:
         select_language: Wählen Sie eine Sprache
+    'no': Nein
+    'yes': Ja
   date:
     abbr_day_names:
     - So
@@ -191,6 +315,100 @@ de:
       header:
         one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
         other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
+  flash:
+    actions:
+      create:
+        alert: Bei der Erstellung von %{resource_name} ist ein Problem aufgetreten.
+          Siehe untenstehende Hinweise.
+        notice: Neu erstellt %{resource_name}.
+      destroy:
+        alert: Bei der Löschung von %{resource_name} ist ein Problem aufgetreten.
+        notice: ! '%{resource_name} wurde erfolgreich gelöscht.'
+      update:
+        alert: Bei der Aktualisierung von %{resource_name} ist ein Problem aufgetreten.
+          Siehe untenstehende Hinweise.
+        notice: Aktualisiert %{resource_name}.
+    attachments:
+      create:
+        alert: Beim Speichern des Anhangs ist ein Problem aufgetreten.
+        invalid_files: Einige Dateien konnten nicht gesichert werden.
+        notice: Anhang gesichert.
+      destroy:
+        alert: Beim Löschen Ihres Anhangs ist ein Problem aufgetreten.
+        notice: Anhang gelöscht.
+      update:
+        alert: Beim Speichern Ihres Anhang ist ein Problem aufgetreten.
+        notice: Anhang gespeichert.
+    contacts:
+      create:
+        alert: Erstellen des Kontakts fehlgeschlagen.
+        notice: Kontakt erstellt.
+      update:
+        alert: Aktualisierung des Kontakts fehlgeschlagen.
+        notice: Kontakt aktualisiert.
+    contributions:
+      approve:
+        alert: Der Beitrag wurde nicht akzeptiert.
+        notice: Der Beitrag wurde erfolgreich akzeptiert.
+      destroy:
+        alert: Der Beitrag wurde nicht gelöscht.
+        notice: Beitrag gelöscht.
+      draft:
+        create:
+          alert: Beim Erstellen eines neuen Beitrags ist ein Problem aufgetreten.
+          notice: Neuer Beitragsentwurf begonnen.
+        submit:
+          alert: Bei Ihrem Beitrag ist ein Problem aufgetreten. Siehe untenstehende
+            Hinweise.
+          notice: Ihr Beitrag wurde eingereicht. Vielen Dank! Da wir bereits zahlreiche
+            Beiträge erhalten haben, die wir zurzeit bearbeiten, kann es einige Wochen
+            dauern, bis Ihr Beitrag online sichtbar wird. Wir bitten um etwas Geduld.
+            Herzlichen Dank.
+        update:
+          alert: Beim Speichern Ihres Beitrags ist ein Problem aufgetreten.
+          notice: Beitrag gesichert.
+      submitted:
+        edit:
+          alert: Dieser Beitrag wurde bereits eingereicht.
+    contributors:
+      create:
+        alert: Ihr Konto konnte nicht erstellt werden.
+      update:
+        alert: Ihr Konto konnte nicht aktualisiert werden.
+    fields:
+      reindexing: Suchmaschine wird im Hintergrund re-indexiert.
+    guest_contact:
+      create:
+        alert: Bei den von Ihnen übermittelten Details ist ein Fehler aufgetreten.
+          Bitte korrigieren Sie sie und versuchen Sie es noch einmal.
+        notice: Kontaktdetails erhalten.
+      forget:
+        notice: Kontaktdetails entfernt.
+      update:
+        alert: Bei den von Ihnen übermittelten Details ist ein Fehler aufgetreten.
+          Bitte korrigieren Sie sie und versuchen Sie es noch einmal.
+        notice: Kontaktdetails aktualisiert.
+    metadata_fields:
+      update_order:
+        notice: Reihenfolge der Metadatenfelder aktualisiert.
+    status:
+      alert: ! 'Warnung: '
+      notice: ! 'Hinweis: '
+    taxonomy:
+      imported: Neue Schlagworte importiert.
+    users:
+      create:
+        alert: Nutzerkonto konnte nicht erstellt werden.
+        notice: Nutzerkonto erstellt.
+      destroy:
+        notice: Nutzer entfernt.
+      register:
+        alert: Registrierung fehlgeschlagen. Bitte korrigieren Sie die untenstehenden
+          Details und versuchen Sie es noch einmal.
+        notice: Registrierung erfolgreich. Willkommen!
+      update:
+        alert: Nutzerkonto konnte nicht aktualisiert werden.
+        notice: Nutzerkonto aktualisiert.
   formtastic:
     actions:
       attachment:
@@ -339,7 +557,24 @@ de:
       button_text: Datei aussuchen
       finished: Zurück zu Ihrem Beitrag
       saved: Gesichert
+  layout:
+    navigation:
+      admin: Admin
+      contribute: Beitragen
+      help: Hilfe
+      home: Home
+    software_engine: Powered by RunCoCo
   locale: Deutsch
+  media_types:
+    all: alle
+    binary: Binärdatei
+    pdf: PDF
+    sound: Tondatei
+    spreadsheet: Tabelle
+    txt: Textdatei
+    unknown: Unbekannter Dokumententyp
+    video: Videodatei
+    wordprocessing: Textverarbeitungsdokument
   number:
     currency:
       format:
