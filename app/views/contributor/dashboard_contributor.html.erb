@@ -12,28 +12,59 @@
     <%= link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path, :class => 'new-member' %>
   </div>
   
+  <h2><%= raw t('common.links.help') %></h2>
+	
+    <p><%= raw t('views.contributor.help.p1', :about => link_to( t('common.menus.main.about'), page_path('about') ) ) %></p>
+    
+    <ul>
+        <li><%= raw t('views.contributor.help.item1') %></li>
+        <li><%= raw t('views.contributor.help.item2', :privacy_policy => link_to( t('common.links.privacy_policy'), page_path('help/privacy') ) ) %></li>
+        <li><%= raw t('views.contributor.help.item3', :takedown_policy => link_to( t('common.links.takedown_policy'), page_path('about/takedown') ) ) %></li>
+        <li><%= raw t('views.contributor.help.item4', :contribution_terms => link_to( t('common.links.contribution_terms'), page_path('about/terms') ) ) %></li>
+        <li><%= raw t('views.contributor.help.item5', :about_the_project => link_to( t('common.links.about_the_project'), page_path('about') ) ) %></li>
+    </ul>
+	
+	
+  <h2 id="add_something"><%= raw t('views.contributor.help.add_something.heading') %></h2>
+  
+    <p><%= raw t('views.contributor.help.add_something.p1') %></p>
+	
+	
+  <h2 id="add_something"><%= raw t('views.contributor.help.how_to_use.heading') %></h2>
+  
+    <p><%= raw t('views.contributor.help.how_to_use.p1', :sign_in => link_to(t('common.links.sign_in'), new_user_session_path), :register => link_to(t('common.links.register'), new_user_registration_path ) ) %></p>
+    <p><%= raw t('views.contributor.help.how_to_use.p2') %></p>
+    
+    <ol>
+        <li><%= raw t('views.contributor.help.how_to_use.item1', :sign_in => link_to(t('common.links.sign_in'), new_user_session_path), :register => link_to(t('common.links.register'), new_user_registration_path ) ) %></li>
+        <li><%= raw t('views.contributor.help.how_to_use.item2') %></li>
+        <li><%= raw t('views.contributor.help.how_to_use.item3') %></li>
+        <li><%= raw t('views.contributor.help.how_to_use.item4') %></li>
+    </ol>
+  
+  
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
 
-  <% if current_user.contributions.present? %>
+    <% if current_user.contributions.present? %>
+      
+      <div class="contributions-drafts">
+        <%- if current_user.contributions.draft.present? -%>
+          <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
+        <%- else -%>
+          <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
+        <%- end -%>
+      </div>
     
-    <div class="contributions-drafts">
-      <%- if current_user.contributions.draft.present? -%>
-        <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
-      <%- else -%>
-        <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
-      <%- end -%>
-    </div>
-  
-    <div class="contributions-submitted">
-      <%- if current_user.contributions.submitted.present? -%>
-        <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.submitted, :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
-      <%- else -%>
-        <p><%= t('views.contributor.dashboard_contributor.empty.submitted') %></p>
-      <%- end -%>
-    </div>
-    
-  <% else %>
-    
-    <p><%= t('views.contributor.dashboard_contributor.empty.all') %></p>
-    
-  <% end %>
+      <div class="contributions-submitted">
+        <%- if current_user.contributions.submitted.present? -%>
+          <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.submitted, :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
+        <%- else -%>
+          <p><%= t('views.contributor.dashboard_contributor.empty.submitted') %></p>
+        <%- end -%>
+      </div>
+      
+    <% else %>
+      
+      <p><%= t('views.contributor.dashboard_contributor.empty.all') %></p>
+      
+    <% end %>
