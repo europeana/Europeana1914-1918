@@ -37,7 +37,6 @@ class ContributorController < ApplicationController
   
   def registration_required
     render :action => 'registration_required'
-    #redirect_to page_path('users/sign-in')
   end
   
 end
