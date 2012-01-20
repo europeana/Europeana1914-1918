@@ -1,15 +1,15 @@
-<h2>step 1</h2>
+<h2><%= t('views.contributions.story.step1') %></h2>
 	
-	<form action="/story/step2">
+	<form action="/en/story/step2">
 		
 		<fieldset>
 			
-			<legend>Tell your story ...</legend>
+			<legend><%= t('views.contributions.story.labels.tell') %></legend>
 			
 			<ol>
 				
 				<li>
-					<label>Story title</label><br/>
+					<label><%= t('views.contributions.story.labels.title') %></label><br/>
 					<input type="text" />
 					<span class="mandatory">mandatory field</span>
 					A title for this contribution as a whole.<br/>
@@ -17,7 +17,7 @@
 				</li>
 			
 				<li>
-					<label>Story</label><br/>
+					<label><%= t('views.contributions.story.labels.story') %></label><br/>
 					<textarea></textarea>
 					<span class="mandatory">mandatory field</span>
 					Write down the story behind your contribution.<br/>
@@ -25,24 +25,25 @@
 				</li>
 				
 				<li>
-					<label>Language</label><br/>
-					<input type="checkbox" /> de<br/>
-					<input type="checkbox" /> en<br/>
-					<input type="checkbox" /> fr<br/>
+					<label><%= t('views.contributions.story.labels.language') %></label><br/>
+					<input type="checkbox" value="de" /> <%= t('languages.de') %><br/>
+					<input type="checkbox" value="en" /> <%= t('languages.en') %><br/>
+					<input type="checkbox" value="fr"/> <%= t('languages.fr') %><br/>
+					<input type="checkbox" value="sl"/> <%= t('languages.sl') %><br/>
 					<input type="checkbox" /> other
 					<input type="text" /><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Contributed on behalf of</label><br/>
+					<label><%= t('views.contributions.story.labels.on_behalf') %></label><br/>
 					<input type="text" /><br/>
 					Leave blank unless you are helping someone to make this contribution<br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>The story begins ...</label><br/>
+					<label><%= t('views.contributions.story.labels.story_begins') %></label><br/>
 					<select>
 						<option value="">year</option>
 						<option>1912</option>
@@ -72,7 +73,7 @@
 				</li>
 				
 				<li>
-					<label>The story ends ...</label><br/>
+					<label><%= t('views.contributions.story.labels.story_ends') %></label><br/>
 					<select>
 						<option value="">year</option>
 						<option>1912</option>
@@ -103,14 +104,14 @@
 				
 				
 				<li>
-					<label>The story takes place at ...</label><br/>
+					<label><%= t('views.contributions.story.labels.story_took_place') %></label><br/>
 					<input type="text" /><br/>
 					The place where the object was created, for example London.<br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Put your story on the map ...</label><br/>
+					<label><%= t('views.contributions.story.labels.story_took_place_coordinates') %></label><br/>
 					<input type="text" /><br/>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, <a href="http://europeana/1914-1918/step1-form.html">use google maps</a><br/>
 					<br/>
@@ -120,7 +121,7 @@
 					
 					<fieldset>
 						
-						<legend>Tag your story</legend>
+						<legend><%= t('views.contributions.story.labels.keywords') %></legend>
 						
 							<ol>
 								
@@ -144,7 +145,7 @@
 					
 					<fieldset>
 						
-						<legend>Which side in the war is this about</legend>
+						<legend><%= t('views.contributions.story.labels.forces') %></legend>
 						
 						<ol>
 							
@@ -176,58 +177,53 @@
 					
 					<fieldset>
 						
-						<legend>Which front is this story about</legend>
+						<legend><%= t('views.contributions.story.labels.front') %></legend>
 						
 						<ol>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Gallipoli Front</label>
+								<input type="checkbox" value="gallipoli_front" />
+								<label><%= t('views.contributions.story.options.gallipoli_front') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>African Wars</label>
+								<input type="checkbox" value="african_wars" />
+								<label><%= t('views.contributions.story.options.african_wars') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Balkans</label>
+								<input type="checkbox" value="balkans" />
+								<label><%= t('views.contributions.story.options.balkans') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Italian Front</label>
+								<input type="checkbox" value="italian_front" />
+								<label><%= t('views.contributions.story.options.italian_front') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Aerial Warfare</label>
+								<input type="checkbox" value="aerial_warfare" />
+								<label><%= t('views.contributions.story.options.aerial_warfare') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Middle East</label>
+								<input type="checkbox" value="middle_east" />
+								<label><%= t('views.contributions.story.options.middle_east') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Middle East</label>
+								<input type="checkbox" value="eastern_front"/>
+								<label><%= t('views.contributions.story.options.eastern_front') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Eastern Front</label>
+								<input type="checkbox" value="naval_warfare" />
+								<label><%= t('views.contributions.story.options.naval_warfare') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Naval Warfare</label>
-							</li>
-							
-							<li>
-								<input type="checkbox" />
-								<label>Western Front</label>
+								<input type="checkbox" value="western_front" />
+								<label><%= t('views.contributions.story.options.western_front') %></label>
 							</li>
 							
 						</ol>
@@ -242,15 +238,15 @@
 					
 					<fieldset>
 						
-						<legend>Cataloger only</legend>
+						<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
 						
 						<ol>
 							<li>
-								<input type="checkbox" /> <label>Editor's pick</label><br/>
+								<input type="checkbox" /> <label><%= t('views.contributions.story.options.editors_pick') %></label><br/>
 								<br/>
 							</li>
 							<li>
-								<label>Cataloguer</label><br/>
+								<label><%= t('views.contributions.story.labels.cataloguer') %></label><br/>
 								<select>
 									<option></option>
 									<option>Alun</option>
@@ -260,7 +256,7 @@
 							</li>
 							
 							<li>
-								<label>Collection day</label><br/>
+								<label><%= t('views.contributions.story.labels.collection_day') %></label><br/>
 								<select>
 									<option></option>
 									<option>RG14</option>
@@ -269,7 +265,7 @@
 							</li>
 							
 							<li>
-								<label>Cataloger's notes</label><br/>
+								<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
 								<textarea></textarea>
 							</li>
 							
@@ -282,7 +278,7 @@
 				</li>
 				
 				<li>
-					<input type="submit" value="Save story draft" />
+					<input type="submit" value="<%= t('views.contributions.story.labels.save_story') %>" />
 				</li>
 				
 			</ol>
