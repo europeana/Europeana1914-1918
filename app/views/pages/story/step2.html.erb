@@ -1,30 +1,38 @@
-<h2>step 2</h2>
+<h2><%= t('views.contributions.digital_object.step2') %></h2>
 <h3>the story title you gave in step 1</h3>
 	
 	<form>
 		<fieldset>
-			<p>Finished? If you are happy with your contribution, go ahead and submit it! If not, you can <a href="contribution.html">edit or add more information</a> or add attachments below</p>
+			
+			<p><%= raw t('views.contributions.digital_object.help_text.submit_contribution1', :edit_contribution => link_to( t('views.contributions.digital_object.links.edit'), page_path('contributor') ) ) %></p>
+			<p><%= raw t('views.contributions.digital_object.help_text.add_attachment') %></p>
 			
 			<ol>
 				<li>
 					<input type="checkbox" />
-					<label>I agree to the <a href="terms-of-use.html" target="_blank">terms</a></label><br/>
+					<label><%= raw t('views.register.terms.accept', :terms => link_to( t('views.register.terms.terms'), page_path('about/terms') ) ) %></label><br/>
 					<br/>
 				</li>
 			</ol>
 			
-			<input type="submit" value="Submit contribution" />
+			<input type="submit" value="<%= raw t('views.contributions.digital_object.help_text.submit_story_button') %>" /><br/>
+			
+			<%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %>
+			
 		</fieldset>
 	</form>
 	
-	<p>summary of attachments aready uploaded; initially there are none, however you can add as many as you wish</p>
+	<p></p>
+	<p><%= raw t('views.contributions.digital_object.help_text.summary') %></p>
+	
 	<table>
 		
 		<thead>
 			
-			<th>title</th>
-			<th>attachment</th>
-			<th>created</th>
+			<th><%= t('attributes.title') %></th>
+			<th><%= t('activerecord.attributes.contribution.attachments') %></th>
+			<th><%= t('activerecord.attributes.attachment.file_created_at') %></th>
+			<th><%= t('views.table.header.actions') %></th>
 				
 		</thead>
 		
@@ -33,6 +41,7 @@
 			<tr>
 				<td>attachment 1</td>
 				<td><img src="http://www.europeana1914-1918.eu/attachments/32308/2491.32308.original.jpg?1325753253" width="70"/></td>
+				<td>2012-01-19 19:19 GMT +1</td>
 				<td><a href="">delete</a></td>
 			</tr>
 			
@@ -162,9 +171,9 @@
 				
 				
 				<li>
-					<label>Date created</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.date_created') %></label><br/>
 					<select>
-						<option value="">year</option>
+						<option value=""><%= t('datetime.prompts.year') %></option>
 						<option>1912</option>
 						<option>1913</option>
 						<option>1914</option>
@@ -179,15 +188,47 @@
 						<option>1923</option>
 					</select>
 					<select>
-						<option>month</option>
-						<option>january</option>					
+						<option><%= t('datetime.prompts.month') %></option>
+						<% @month_names = t('date.month_names') %>
+						<% (1..12).each { |i| %>
+							<option><%= @month_names[i] %></option>
+						<% } %>
 					</select>
 					<select>
-						<option>day</option>
+						<option><%= t('datetime.prompts.day') %></option>
 						<option>1</option>
 						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
 					</select><br/>
-					Choose the date when the object was created (for example when the letter or begining of a series of letters was first written, the first of a diary or the photograph was taken). Please be as specific as possible, so if you only know the year only enter that, if you know the year and month enter those, etc.<br/>
+					<%= t('views.contributions.story.help_text.story_begins') %><br/>
 					<br/>
 				</li>
 				
@@ -225,19 +266,93 @@
 					
 					<fieldset>
 						
-						<legend>Tag your story</legend>
+						<legend><%= t('views.contributions.story.labels.keywords') %></legend>
 						
 							<ol>
 								
 								<li>
-									<label>
-										<input type="checkbox" value="63"> Anti-War Movement
-									</label>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.antiwar') %></label>
 								</li>
+								
 								<li>
-									<label for="attachment_metadata_attributes_field_keywords_term_ids_64"><input id="attachment_metadata_attributes_field_keywords_term_ids_64" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="64"> Artillery</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_65"><input id="attachment_metadata_attributes_field_keywords_term_ids_65" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="65"> Conscientious Objection</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_66"><input id="attachment_metadata_attributes_field_keywords_term_ids_66" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="66"> Gas Warfare</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_67"><input id="attachment_metadata_attributes_field_keywords_term_ids_67" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="67"> Home Front</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_68"><input id="attachment_metadata_attributes_field_keywords_term_ids_68" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="68"> Manufacture</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_69"><input id="attachment_metadata_attributes_field_keywords_term_ids_69" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="69"> Medical</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_70"><input id="attachment_metadata_attributes_field_keywords_term_ids_70" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="70"> Military Punishment</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_72"><input id="attachment_metadata_attributes_field_keywords_term_ids_72" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="72"> Prisoners of War</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_73"><input id="attachment_metadata_attributes_field_keywords_term_ids_73" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="73"> Propaganda</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_74"><input id="attachment_metadata_attributes_field_keywords_term_ids_74" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="74"> Recruitment and Conscription</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_75"><input id="attachment_metadata_attributes_field_keywords_term_ids_75" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="75"> Remembrance</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_76"><input id="attachment_metadata_attributes_field_keywords_term_ids_76" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="76"> Tanks and Armoured Fighting Vehicles</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_77"><input id="attachment_metadata_attributes_field_keywords_term_ids_77" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="77"> Transport</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_78"><input id="attachment_metadata_attributes_field_keywords_term_ids_78" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="78"> Trench Life</label></li><li><label for="attachment_metadata_attributes_field_keywords_term_ids_79"><input id="attachment_metadata_attributes_field_keywords_term_ids_79" name="attachment[metadata_attributes][field_keywords_term_ids][]" type="checkbox" value="79"> Women</label></li></ol>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.artillery') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.conscientious') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.gas') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.home_front') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.manufacture') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.medical') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.military_punishment') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.prisoners') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.propaganda') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.recruitment') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.rememberance') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.tanks') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.transport') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.trench_life') %></label>
+								</li>
+								
+								<li>
+									<input type="checkbox" value="antiwar">
+									<label><%= t('views.contributions.story.options.women') %></label>
+								</li>
 							
-						<p class="inline-hints">Only assign keywords which indicate or describe the main subject or broader concept which would help a user search for this content in the collection. If a relevant subject is not available please contact xxxx with details.</p>
+							</ol>
+							
+						<%= t('views.contributions.story.help_text.keywords') %>
 						
 					</fieldset>
 					
@@ -249,26 +364,28 @@
 					
 					<fieldset>
 						
-						<legend>Which side in the war is this about</legend>
+						<legend><%= t('views.contributions.story.labels.forces') %></legend>
 						
 						<ol>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Allied Forces</label>
+								<input type="checkbox" value="allied_forces">
+								<label><%= t('views.contributions.story.options.allied_forces') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Central Powers</label>
+								<input type="checkbox" value="central_powers">
+								<label><%= t('views.contributions.story.options.central_powers') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Imperial Forces</label>
+								<input type="checkbox" value="imperial_forces">
+								<label><%= t('views.contributions.story.options.imperial_forces') %></label>
 							</li>
 							
 						</ol>
+						
+						<%= t('views.contributions.story.help_text.relevant') %>
 						
 					</fieldset>
 					
@@ -281,61 +398,58 @@
 					
 					<fieldset>
 						
-						<legend>Which front is this story about</legend>
+						<legend><%= t('views.contributions.story.labels.front') %></legend>
 						
 						<ol>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Gallipoli Front</label>
+								<input type="checkbox" value="gallipoli_front" />
+								<label><%= t('views.contributions.story.options.gallipoli_front') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>African Wars</label>
+								<input type="checkbox" value="african_wars" />
+								<label><%= t('views.contributions.story.options.african_wars') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Balkans</label>
+								<input type="checkbox" value="balkans" />
+								<label><%= t('views.contributions.story.options.balkans') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Italian Front</label>
+								<input type="checkbox" value="italian_front" />
+								<label><%= t('views.contributions.story.options.italian_front') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Aerial Warfare</label>
+								<input type="checkbox" value="aerial_warfare" />
+								<label><%= t('views.contributions.story.options.aerial_warfare') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Middle East</label>
+								<input type="checkbox" value="middle_east" />
+								<label><%= t('views.contributions.story.options.middle_east') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Middle East</label>
+								<input type="checkbox" value="eastern_front"/>
+								<label><%= t('views.contributions.story.options.eastern_front') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Eastern Front</label>
+								<input type="checkbox" value="naval_warfare" />
+								<label><%= t('views.contributions.story.options.naval_warfare') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" />
-								<label>Naval Warfare</label>
-							</li>
-							
-							<li>
-								<input type="checkbox" />
-								<label>Western Front</label>
+								<input type="checkbox" value="western_front" />
+								<label><%= t('views.contributions.story.options.western_front') %></label>
 							</li>
 							
 						</ol>
+						
+						<%= t('views.contributions.story.help_text.relevant') %>
 						
 					</fieldset>
 					
