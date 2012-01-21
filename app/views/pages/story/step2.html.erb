@@ -1,11 +1,15 @@
 <h2><%= t('views.contributions.digital_object.step2') %></h2>
 <h3>the story title you gave in step 1</h3>
 	
-	<form>
+	<form id="submit-your-story">
+		
 		<fieldset>
 			
-			<p><%= raw t('views.contributions.digital_object.help_text.submit_contribution1', :edit_contribution => link_to( t('views.contributions.digital_object.links.edit'), page_path('contributor') ) ) %></p>
-			<p><%= raw t('views.contributions.digital_object.help_text.add_attachment') %></p>
+			<legend><%= t('views.contributions.digital_object.help_text.submit_your_story') %></legend>
+			
+			<p><%= raw t('views.contributions.digital_object.help_text.submit_contribution1', :edit_contribution => link_to( t('views.contributions.digital_object.links.edit'), page_path('contributor') ) ) %> [ link goes to step 1 in edit mode ]</p>
+			<% @nr_digital_objects = 0 %>
+			<p><%= raw t( 'views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects ) %></p>
 			
 			<ol>
 				<li>
@@ -15,52 +19,26 @@
 				</li>
 			</ol>
 			
-			<input type="submit" value="<%= raw t('views.contributions.digital_object.help_text.submit_story_button') %>" /><br/>
-			
-			<%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %>
+			<%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %><br/>
+			<input type="submit" value="<%= t('views.contributions.digital_object.help_text.submit_story_button') %>" />
 			
 		</fieldset>
+		
 	</form>
 	
-	<p></p>
-	<p><%= raw t('views.contributions.digital_object.help_text.summary') %></p>
-	
-	<table>
-		
-		<thead>
-			
-			<th><%= t('attributes.title') %></th>
-			<th><%= t('activerecord.attributes.contribution.attachments') %></th>
-			<th><%= t('activerecord.attributes.attachment.file_created_at') %></th>
-			<th><%= t('views.table.header.actions') %></th>
-				
-		</thead>
-		
-		<tbody>
-		
-			<tr>
-				<td>attachment 1</td>
-				<td><img src="http://www.europeana1914-1918.eu/attachments/32308/2491.32308.original.jpg?1325753253" width="70"/></td>
-				<td>2012-01-19 19:19 GMT +1</td>
-				<td><a href="">delete</a></td>
-			</tr>
-			
-		</tbody>
-		
-	</table>
-	
-	<form>
+	<form id="add-digital-object" style="margin-top: 20px;">
 		
 		<fieldset>
 			
-			<legend>Add a digital object</legend>
+			<legend><%= t('views.contributions.digital_object.help_text.add_digital_object') %></legend>
 			
 			<ol>
 				
 				<li>
-					<label>Upload the file</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.upload') %></label><br/>
 					<input type="file" />
-					<span class="mandatory">mandatory field</span>you can upload as many digital images as necessary; nb: if you upload many images you will be given the opportunity to speciy one as the “cover” image for your memorabilia collection<br/>
+					<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
+					<%= t('views.contributions.digital_object.help_text.upload') %><br/>
 					<br/>
 				</li>
 				
@@ -68,9 +46,8 @@
 					
 					<fieldset>
 						
-						<legend>Catalogers only</legend>
-						
-						<input type="submit" value="Save digital object"/>
+						<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>						
+						<input type="submit" value="<%= t('views.contributions.digital_object.labels.save_digital') %>"/>
 						
 					</fieldset>
 					
@@ -79,93 +56,93 @@
 				</li>
 				
 				<li>
-					<input type="checkbox" /> <label>Cover image</label><br/>
+					<input type="checkbox" />
+					<label><%= t('views.contributions.digital_object.labels.cover_image') %></label><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Page number</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.page_number') %></label><br/>
 					<input type="text"/><br/>
-					For an object of many pages write the individual page number<br/>
+					<%= t('views.contributions.digital_object.help_text.page_number') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Side</label><br/>
-					<input type="radio" /> front
-					<input type="radio" /> back<br/>
-					For an object with two sides, for example a postcard, indicate the side<br/>
+					<label><%= t('views.contributions.digital_object.labels.side') %></label><br/>
+					<input type="radio" /> <%= t('views.contributions.digital_object.options.front') %>
+					<input type="radio" /> <%= t('views.contributions.digital_object.options.back') %><br/>
+					<%= t('views.contributions.digital_object.help_text.side') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Title</label><br/>
+					<label><%= t('attributes.title') %></label><br/>
 					<input type="text" /><br/>
-					Short descriptive title or proper name of the object, for example, “My great grandfather, Otto Schmidt’s, Medal of Honor”<br/>
+					<%= t('views.contributions.digital_object.help_text.title') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Description</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.description') %></label><br/>
 					<textarea></textarea><br/>
-					Describe the object's physical characteristics as well as what it reprsents and means to you.<br/>
+					<%= t('views.contributions.digital_object.help_text.description') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Language</label><br/>
-					<input type="checkbox" /> de<br/>
-					<input type="checkbox" /> en<br/>
-					<input type="checkbox" /> fr<br/>
+					<label><%= t('views.contributions.story.labels.language') %></label><br/>
+					<input type="checkbox" value="de" /> <%= t('languages.de') %><br/>
+					<input type="checkbox" value="en" /> <%= t('languages.en') %><br/>
+					<input type="checkbox" value="fr"/> <%= t('languages.fr') %><br/>
+					<input type="checkbox" value="sl"/> <%= t('languages.sl') %><br/>
 					<input type="checkbox" /> other
 					<input type="text" /><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Type</label><br/>
+					<label><%= t('activerecord.attributes.metadata_field.field_type') %></label><br/>
 					<select>
 						<option></option>
-						<option>Diary</option>
-						<option>Letter</option>
-						<option>Medal</option>
-						<option>Photograph</option>
-						<option>Poem</option>
-						<option>others from the database ...</option>
+						<option><%= t('views.contributions.digital_object.options.diary') %></option>
+						<option><%= t('views.contributions.digital_object.options.letter') %></option>
+						<option><%= t('views.contributions.digital_object.options.medal') %></option>
+						<option><%= t('views.contributions.digital_object.options.photograph') %></option>
+						<option><%= t('views.contributions.digital_object.options.poem') %></option>
 					</select><br/>
-					What the object is (for example poem, letter, photograph); try to be as specific as possible<br/>
+					<%= t('views.contributions.digital_object.help_text.object_type') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Creator's Surname</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.creators_surname') %></label><br/>
 					<input type="text" /><br/>
 					<br/>
-					<label>Creator's first name</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.creators_first_name') %></label><br/>
 					<input type="text" /><br/>
-					Name of the person who created the original object, for example the author of a letter or diary or a photographer's name<br/>
-					<br/>
-				</li>
-				
-				<li>
-					<label>Subject</label><br/>
-					<input type="text" /><br/>
-					The person or place or object the contribution is about<br/>
+					<%= t('views.contributions.digital_object.help_text.creators_name') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Location (place name)</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.subject') %></label><br/>
 					<input type="text" /><br/>
-					The place where the object was created (where a letter was written from or a photograph taken), for example London.<br/>
+					<%= t('views.contributions.digital_object.help_text.subject') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Location (map)</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.location_place_name') %></label><br/>
 					<input type="text" /><br/>
-					Click on the link below to use Google Maps to pinpoint where the object was created (where a letter was written or a photograph taken). When the map appears, click on it or use the search box below the map to find the location. Format: LAT,LNG, e.g. 51.500,-0.126 (for London)
-					<a href="http://europeana/1914-1918/step1-form.html">use google maps</a><br/>
+					<%= t('views.contributions.digital_object.help_text.location_place_name') %><br/>
+					<br/>
+				</li>
+				
+				<li>
+					<label><%= t('views.contributions.digital_object.labels.location_map') %></label><br/>
+					<input type="text" /><br/>
+					<%= raw t('views.contributions.digital_object.help_text.location_map', :use_google_maps => link_to( t('views.contributions.story.help_text.use_google_maps'), '#', :class => 'gmap-show') ) %><br/>
 					<br/>
 				</li>
 				
@@ -228,14 +205,14 @@
 						<option>30</option>
 						<option>31</option>
 					</select><br/>
-					<%= t('views.contributions.story.help_text.story_begins') %><br/>
+					<%= t('views.contributions.digital_object.help_text.date_created') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label>Date range ending</label><br/>
+					<label><%= t('views.contributions.digital_object.labels.date_completed') %></label><br/>
 					<select>
-						<option value="">year</option>
+						<option value=""><%= t('datetime.prompts.year') %></option>
 						<option>1912</option>
 						<option>1913</option>
 						<option>1914</option>
@@ -250,15 +227,47 @@
 						<option>1923</option>
 					</select>
 					<select>
-						<option>month</option>
-						<option>january</option>					
+						<option><%= t('datetime.prompts.month') %></option>
+						<% @month_names = t('date.month_names') %>
+						<% (1..12).each { |i| %>
+							<option><%= @month_names[i] %></option>
+						<% } %>
 					</select>
 					<select>
-						<option>day</option>
+						<option><%= t('datetime.prompts.day') %></option>
 						<option>1</option>
 						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
 					</select><br/>
-					End the date for an object with a date range, like a diary.<br/>
+					<%= t('views.contributions.digital_object.help_text.date_completed') %><br/>
 					<br/>
 				</li>
 				
@@ -266,7 +275,7 @@
 					
 					<fieldset>
 						
-						<legend><%= t('views.contributions.story.labels.keywords') %></legend>
+						<legend><%= t('views.contributions.digital_object.labels.keywords') %></legend>
 						
 							<ol>
 								
@@ -364,7 +373,7 @@
 					
 					<fieldset>
 						
-						<legend><%= t('views.contributions.story.labels.forces') %></legend>
+						<legend><%= t('views.contributions.digital_object.labels.forces') %></legend>
 						
 						<ol>
 							
@@ -398,7 +407,7 @@
 					
 					<fieldset>
 						
-						<legend><%= t('views.contributions.story.labels.front') %></legend>
+						<legend><%= t('views.contributions.digital_object.labels.front') %></legend>
 						
 						<ol>
 							
@@ -461,94 +470,92 @@
 					
 					<fieldset>
 						
-						<legend>Cataloguers only</legend>
+						<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
 						
 						<ol>
 							
 							<li>
-								<label>Source</label><br/>
+								<label><%= t('views.contributions.digital_object.labels.source') %></label><br/>
 								<select>
 									<option value=""></option>
-									<option value="14">Other</option>
-									<option value="5">Artifact</option>
-									<option value="10">Leaf</option>
-									<option value="6">Book</option>
-									<option value="7">Film</option>
-									<option value="8">Folio</option>
-									<option value="15">Photograph</option>
-									<option value="13">Notebook</option>
-									<option value="16">Postcard</option>
-									<option value="19">Vinyl record</option>
-									<option value="17">Tape</option>
-									<option value="18">Unknown</option>
-									<option value="11">Multiple</option>
-									<option value="9">Journal</option>
-									<option value="12">Newspaper</option>
+									<option value="14"><%= t('views.contributions.digital_object.options.other_option') %></option>
+									<option value="5"><%= t('views.contributions.digital_object.options.artifact') %></option>
+									<option value="10"><%= t('views.contributions.digital_object.options.leaf') %></option>
+									<option value="6"><%= t('views.contributions.digital_object.options.book') %></option>
+									<option value="7"><%= t('views.contributions.digital_object.options.film') %></option>
+									<option value="8"><%= t('views.contributions.digital_object.options.folio') %></option>
+									<option value="15"><%= t('views.contributions.digital_object.options.photograph') %></option>
+									<option value="13"><%= t('views.contributions.digital_object.options.notebook') %></option>
+									<option value="16"><%= t('views.contributions.digital_object.options.postcard') %></option>
+									<option value="19"><%= t('views.contributions.digital_object.options.vinyl_record') %></option>
+									<option value="17"><%= t('views.contributions.digital_object.options.tape') %></option>
+									<option value="18"><%= t('views.contributions.digital_object.options.unknown') %></option>
+									<option value="11"><%= t('views.contributions.digital_object.options.multiple') %></option>
+									<option value="9"><%= t('views.contributions.digital_object.options.journal') %></option>
+									<option value="12"><%= t('views.contributions.digital_object.options.newspaper') %></option>
 								</select><br/>
-								The source that the item was digitised from (for example a leaf, a folio, a notebook, a reel of film).<br/>
+								<%= t('views.contributions.digital_object.help_text.source') %><br/>
 								<br/>
 							</li>
 							
 							<li>
-								<label>Medium</label><br/>
+								<label><%= t('views.contributions.digital_object.labels.medium') %></label><br/>
 								<select>
 									<option></option>
-									<option value="27">Other</option>
-									<option value="23">Digital</option>
-									<option value="29">Photographic paper</option>
-									<option value="35">Wood</option>
-									<option value="21">Card</option>
-									<option value="22">Ceramic/China</option>
-									<option value="24">Leather</option>
-									<option value="20">Canvas</option>
-									<option value="25">Metal</option>
-									<option value="26">Mixed</option>
-									<option value="28">Paper</option>
-									<option value="34">Vinyl</option>
-									<option value="31">Text: memoir</option>
-									<option value="32">Text: transcription</option>
-									<option value="30">Tape</option>
-									<option value="33">Unknown</option>
+									<option value="27"><%= t('views.contributions.digital_object.options.other_option') %></option>
+									<option value="23"><%= t('views.contributions.digital_object.options.digital') %></option>
+									<option value="29"><%= t('views.contributions.digital_object.options.photographic_paper') %></option>
+									<option value="35"><%= t('views.contributions.digital_object.options.wood') %></option>
+									<option value="21"><%= t('views.contributions.digital_object.options.card') %></option>
+									<option value="22"><%= t('views.contributions.digital_object.options.ceramic') %></option>
+									<option value="24"><%= t('views.contributions.digital_object.options.leather') %></option>
+									<option value="20"><%= t('views.contributions.digital_object.options.canvas') %></option>
+									<option value="25"><%= t('views.contributions.digital_object.options.metal') %></option>
+									<option value="26"><%= t('views.contributions.digital_object.options.mixed') %></option>
+									<option value="28"><%= t('views.contributions.digital_object.options.paper') %></option>
+									<option value="34"><%= t('views.contributions.digital_object.options.vinyl') %></option>
+									<option value="31"><%= t('views.contributions.digital_object.options.text_memoir') %></option>
+									<option value="32"><%= t('views.contributions.digital_object.options.text_transcript') %></option>
+									<option value="30"><%= t('views.contributions.digital_object.options.tape') %></option>
+									<option value="33"><%= t('views.contributions.digital_object.options.unknown') %></option>
 								</select><br/>
-								The material of the object that has been digitised (for example paper, card, tape).<br/>
+								<%= t('views.contributions.digital_object.help_text.medium') %><br/>
 								<br/>
 							</li>
 							
 							<li>
-								<label>Total number of pages</label><br/>
+								<label><%= t('views.contributions.digital_object.labels.page_number_total') %></label><br/>
 								<input type="text"/><br/>
 								<br/>
 							</li>
 							
 							<li>
-								<label>Cataloger's notes</label><br/>
+								<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
 								<textarea></textarea><br/>
 								<br/>
 							</li>
 							
 							
 							<li>
-								<label>media type</label><br/>
+								<label><%= t('views.contributions.digital_object.labels.media_type') %></label><br/>
 								<select>
-									<option>Text</option>
-									<option>Image</option>
-									<option>Video</option>
-									<option>Audio</option>
-									<option>3d</option>
+									<option><%= t('views.contributions.digital_object.options.text') %></option>
+									<option><%= t('views.contributions.digital_object.options.image') %></option>
+									<option><%= t('views.contributions.digital_object.options.video') %></option>
+									<option><%= t('views.contributions.digital_object.options.audio') %></option>
+									<option><%= t('views.contributions.digital_object.options.3d') %></option>
 								</select>
-								<span class="mandatory">mandatory field</span><br/>
+								<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
 								<br/>
 							</li>
 							
 							<li>
-								<label>License</label><br/>
+								<label><%= t('views.contributions.digital_object.labels.license') %></label><br/>
 								<select>
-									<option>cc-by-sa</option>
-									<option>public domain</option>
-									<option>others from the database ...</option>
+									<option><%= t('views.contributions.digital_object.options.cc_by_sa') %></option>
+									<option><%= t('views.contributions.digital_object.options.public_domain') %></option>
 								</select><br/>
-								<span class="mandatory">mandatory field</span>
-								this list should come from the db, default is cc-by-sa
+								<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
 							</li>
 							
 						</ol>
@@ -559,10 +566,38 @@
 				
 				</li>
 				
-				<input type="submit" value="Save digital object"/>
+				<input type="submit" value="<%= t('views.contributions.digital_object.labels.save_digital') %>"/>
 				
 			</ol>
 			
 		</fieldset>
 		
 	</form>
+	
+	
+	<h3 id="digital-objects"><%= raw t('views.contributions.digital_object.heading') %></h3>
+	<p><%= raw t('views.contributions.digital_object.help_text.summary') %></p>
+	
+	<table>
+		
+		<thead>
+			
+			<th><%= t('attributes.title') %></th>
+			<th><%= t('activerecord.attributes.contribution.attachments') %></th>
+			<th><%= t('activerecord.attributes.attachment.file_created_at') %></th>
+			<th><%= t('views.table.header.actions') %></th>
+				
+		</thead>
+		
+		<tbody>
+		
+			<tr>
+				<td>attachment 1</td>
+				<td><img src="http://www.europeana1914-1918.eu/attachments/32308/2491.32308.original.jpg?1325753253" width="70"/></td>
+				<td>2012-01-19 19:19 GMT +1</td>
+				<td><a href="">delete</a></td>
+			</tr>
+			
+		</tbody>
+		
+	</table>

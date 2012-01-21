@@ -169,8 +169,6 @@ en:
       more_stories: <b>More stories on the %{explore_stories} page.</b>
     help_text:
       mandatory: mandatory field
-    labels:
-      other: 
     links:
       about_the_project: About Europeana 1914-1918 project
       add_your_story: Add your story
@@ -1311,12 +1309,32 @@ en:
         question: Are you sure you want to completely discard the contribution "<strong>%{title}</strong>"?
         title: Discard contribution
       digital_object:
+        heading: Digital objects
         help_text:
           add_attachment: Don’t forget to add an attachments through the below “Step
-            2” if relevant
-          license: this list should come from the db, default is cc-by-sa
+            2” if relevant. There are currently <b>%{nr_digital_objects}</b> digital
+            objects attached to this story. You can see the listing of the current
+            digital objects attached to this story <a href="#digital-objects">here</a>.
+          add_digital_object: Add a digital object
+          creators_name: Name of the person who created the original object, for example
+            the author of a letter or diary or a photographer's name.
+          date_completed: The completion or end date for an object with a date range,
+            like a diary.
+          date_created: Tell us when the digital object was created. If you do not
+            know when exactly, please provide the year field only or year and month.
+            i.e. my grand-father was enrolled in 1915, or 1915 January.
+          description: Describe the object's physical characteristics as well as what
+            it represents and means to you.
+          location_map: ! '%{use_google_maps} to pinpoint where the object was created
+            (where a letter was written or a photograph taken). When the map appears,
+            click on it or use the search box below the map to find the location.
+            Format: LAT,LNG, e.g. 51.500,-0.126 (for London)'
+          location_place_name: The place where the object was created (where a letter
+            was written from or a photograph taken), for example London.
           medium: The material of the object that has been digitised (for example
             paper, card, tape).
+          object_type: What the object is (for example poem, letter, photograph);
+            try to be as specific as possible.
           page_number: For an object of many pages, write the individual page number
           save_digital: By clicking on “Save digital object”, you will save this digital
             object and have the change to add more digital objects or submit your
@@ -1325,20 +1343,37 @@ en:
             side
           source: The source that the item was digitised from (for example a leaf,
             a folio, a notebook, a reel of film).
+          subject: The person or place or object the contribution is about.
           submit_contribution1: Finished? If you are happy with your contribution,
             go ahead and submit it! If not, you can %{edit_contribution}.
-          submit_contribution2: By clicking on “Submit contribution”, you will finalise
-            your contribution submission
+          submit_contribution2: By clicking on “Submit story”, you will finalise your
+            story submission.
           submit_story_button: Submit story
+          submit_your_story: Submit your story
           summary: Summary of attachments already uploaded; initially there are none,
-            however you can add as many as you wish
+            however you can add as many as you wish. You can also edit your current
+            digital objects by clicking on the edit link next to it below. <a href="#add-digital-object">Add
+            a digital object</a> <a href="#submit-your-story">Submit your story</a>
+          title: Short descriptive title or proper name of the object, for example,
+            “My great grandfather, Otto Schmidt’s, Medal of Honor”
           upload: You can upload as many digital images as necessary. Note that if
             you upload many images you will be given the opportunity to mark one of
             the attachment as “cover” image for your contribution; i.e. a postcard
             or a diary.
         labels:
           cover_image: Cover image
+          creators_first_name: Creator’s first name
+          creators_surname: Creator’s surname
+          date_completed: Date completed
+          date_created: Date created
+          description: Description
+          forces: Does this digital object involve the
+          front: Which front is this digital object about
+          keywords: Help us expose your digital object by clicking one or several
+            of the following keywords.
           license: License
+          location_map: Location (map)
+          location_place_name: Location (place name)
           media_type: Media type
           medium: Medium
           page_number: Page number
@@ -1346,6 +1381,7 @@ en:
           save_digital: Save digital object
           side: Side
           source: Source
+          subject: Subject
           submit_contribution: Submit contribution
           upload: Upload the file
         links:
@@ -1360,6 +1396,7 @@ en:
           card: Card
           cc_by_sa: cc-by-sa
           ceramic: Ceramic/China
+          diary: Diary
           digital: Digital
           film: Film
           folio: Folio
@@ -1368,13 +1405,18 @@ en:
           journal: Journal
           leaf: Leaf
           leather: Leather
+          letter: Letter
+          medal: Medal
+          metal: Metal
           mixed: Mixed
           multiple: Multiple
           newspaper: Newspaper
           notebook: Notebook
+          other_option: Other
           paper: Paper
           photograph: Photograph
           photographic_paper: Photographic paper
+          poem: Poem
           postcard: Postcard
           public_domain: public domain
           tape: Tape
@@ -1429,7 +1471,6 @@ en:
       story:
         help_text:
           behalf_of: Leave empty unless you are helping someone to make this contribution
-          google_maps: use google maps
           keywords: ! 'Only assign keywords that describe the main subject or broader
             concept that you want to contribute. The purpose of these keywords is
             to help us highlight your story in our story collection. If a relevant
@@ -1452,7 +1493,8 @@ en:
             pinpoint where the object was created (where a letter was written or a
             photograph taken). When the map appears, click on it or use the search
             box below the map to find the location. Format: LAT,LNG, e.g. 51.500,-0.126
-            (for London) Please %{google_maps}'
+            (for London) Please %{use_google_maps}'
+          use_google_maps: Use Google Maps
         labels:
           cataloguer: Cataloguer
           cataloguer_notes: Cataloguer’s notes
