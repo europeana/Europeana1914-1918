@@ -361,7 +361,7 @@
 							
 							</ol>
 							
-						<%= t('views.contributions.story.help_text.keywords') %>
+						<%= t('views.contributions.story.help_text.keywords') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
 						
 					</fieldset>
 					
@@ -394,7 +394,7 @@
 							
 						</ol>
 						
-						<%= t('views.contributions.story.help_text.relevant') %>
+						<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
 						
 					</fieldset>
 					
@@ -458,7 +458,7 @@
 							
 						</ol>
 						
-						<%= t('views.contributions.story.help_text.relevant') %>
+						<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
 						
 					</fieldset>
 					
@@ -576,7 +576,12 @@
 	
 	
 	<h3 id="digital-objects"><%= raw t('views.contributions.digital_object.heading') %></h3>
+	<ul>
+		<li><%= link_to( t('views.contributions.digital_object.help_text.add_digital_object'), '#add-digital-object' ) %></li>
+		<li><%= link_to( t('views.contributions.digital_object.help_text.submit_your_story'), '#submit-your-story' ) %></li>
+	</ul>
 	<p><%= raw t('views.contributions.digital_object.help_text.summary') %></p>
+	
 	
 	<table>
 		
@@ -595,7 +600,7 @@
 				<td>attachment 1</td>
 				<td><img src="http://www.europeana1914-1918.eu/attachments/32308/2491.32308.original.jpg?1325753253" width="70"/></td>
 				<td>2012-01-19 19:19 GMT +1</td>
-				<td><a href="">delete</a></td>
+				<td><a href=""><%= t('actions.edit') %></a> <a href=""><%= t('actions.delete') %></td>
 			</tr>
 			
 		</tbody>
