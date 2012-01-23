@@ -70,7 +70,9 @@ class ApplicationController < ActionController::Base
 
   # Handle Devise redirects after sign in
   def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.is_a?(User) && resource_or_scope.may_access_admin_area?
+    if params[:redirect] && (params[:redirect] =~ /^\//)
+      params[:redirect]
+    elsif resource_or_scope.is_a?(User) && resource_or_scope.may_access_admin_area?
       admin_root_url
     elsif resource_or_scope.is_a?(User) && resource_or_scope.role_name == 'contributor'
       contributor_dashboard_url
