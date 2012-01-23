@@ -79,7 +79,11 @@ class AttachmentsController < ApplicationController
     @attachment.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@attachment.contribution)
     if @attachment.update_attributes(params[:attachment])
       flash[:notice] = t('flash.attachments.update.notice')
-      redirect_to @attachment.contribution
+      if @contribution.submitted?
+        redirect_to @attachment.contribution
+      else
+        redirect_to new_contribution_attachment_path(@contribution)
+      end
     else
       flash.now[:alert] = t('flash.attachments.update.alert')
       render :action => 'edit'
