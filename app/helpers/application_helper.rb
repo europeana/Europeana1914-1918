@@ -86,9 +86,9 @@ module ApplicationHelper
   
   # Returns configuration setting
   #
-  #   <%= configuration(:site_name) %> # => "CoCoCo"
+  #   <%= configuration(:site_name) %> # => "RunCoCo"
   def configuration(setting)
-    CoCoCo.configuration.send(setting)
+    RunCoCo.configuration.send(setting)
   end
   
   def yes_or_no(boolean)

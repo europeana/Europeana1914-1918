@@ -13,8 +13,8 @@ class Contribution < ActiveRecord::Base
 
   before_validation :set_metadata_validation
 
-  validates_presence_of :contributor_id, :if => Proc.new { CoCoCo.configuration.registration_required? }
-  validate :validate_contributor_or_contact, :unless => Proc.new { CoCoCo.configuration.registration_required? }
+  validates_presence_of :contributor_id, :if => Proc.new { RunCoCo.configuration.registration_required? }
+  validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validates_presence_of :title, :if => :submitting?
   validates_associated :metadata, :if => :submitting?
   validates_acceptance_of :terms, :allow_nil => false, :accept => true
@@ -114,8 +114,8 @@ class Contribution < ActiveRecord::Base
   #   required
   def set_published_at #:nodoc:
     self.published_at = (
-      CoCoCo.configuration.publish_contributions ? 
-      ( CoCoCo.configuration.contribution_approval_required ? self.approved_at : self.submitted_at) :
+      RunCoCo.configuration.publish_contributions ? 
+      ( RunCoCo.configuration.contribution_approval_required ? self.approved_at : self.submitted_at) :
       nil
     )
     true

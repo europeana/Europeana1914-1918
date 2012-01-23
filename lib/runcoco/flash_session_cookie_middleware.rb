@@ -1,7 +1,7 @@
 require 'rack/utils' 
-module CoCoCo
+module RunCoCo
   class FlashSessionCookieMiddleware 
-    def initialize(app, session_key = '_cococo_session') 
+    def initialize(app, session_key = '_runcoco_session') 
       @app = app 
       @session_key = session_key 
     end 

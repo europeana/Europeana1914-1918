@@ -15,13 +15,13 @@ jQuery().ready(function() {
   $('#attachment_upload').after(finishLink);
   
   var options = { 
-    uploader: CoCoCo.relativeUrlRoot + '/javascripts/uploadify/uploadify.swf',
-    script: CoCoCo.uploadify.script,
+    uploader: RunCoCo.relativeUrlRoot + '/javascripts/uploadify/uploadify.swf',
+    script: RunCoCo.uploadify.script,
     multi: true, 
-    cancelImg: CoCoCo.relativeUrlRoot + '/images/style/icons/cancel.png',
-    sizeLimit: CoCoCo.uploadify.maxUploadSize,
-    fileExt: CoCoCo.uploadify.fileExt,
-    fileDesc: CoCoCo.uploadify.fileDesc,
+    cancelImg: RunCoCo.relativeUrlRoot + '/images/style/icons/cancel.png',
+    sizeLimit: RunCoCo.uploadify.maxUploadSize,
+    fileExt: RunCoCo.uploadify.fileExt,
+    fileDesc: RunCoCo.uploadify.fileDesc,
     fileDataName: 'attachment[file]',
     buttonText: I18n.t('javascripts.uploadify.button_text'),
     onComplete: function(event, queueID, fileObj, response, data) { 
@@ -69,8 +69,8 @@ jQuery().ready(function() {
       format: 'json'
     };
     // Add auth tokens to scriptData
-    scriptData[CoCoCo.sessionKeyName] = encodeURIComponent(CoCoCo.sessionKey);
-    scriptData['authenticity_token'] = encodeURIComponent(CoCoCo.authenticityToken);
+    scriptData[RunCoCo.sessionKeyName] = encodeURIComponent(RunCoCo.sessionKey);
+    scriptData['authenticity_token'] = encodeURIComponent(RunCoCo.authenticityToken);
     // Add title and metadata form elements to scriptData
     $("[name='attachment\[title\]'],[name^='attachment\[metadata_attributes\]\[']").each(function() {
       scriptData[$(this).attr('name')] = encodeURIComponent($(this).val());

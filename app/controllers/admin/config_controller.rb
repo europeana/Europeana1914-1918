@@ -1,18 +1,18 @@
 class Admin::ConfigController < AdminController
   # GET /admin/config
   def index
-    @config = CoCoCo.configuration
+    @config = RunCoCo.configuration
   end
   
   # GET /admin/config/edit
   def edit
-    @config = CoCoCo.configuration
+    @config = RunCoCo.configuration
   end
 
   # PUT /admin/config  
   def update
     settings = process_from_form(params[:settings])
-    @config = CoCoCo::Configuration.new
+    @config = RunCoCo::Configuration.new
     
     settings.each_pair do |key, value|
       name = key.to_sym
@@ -23,7 +23,7 @@ class Admin::ConfigController < AdminController
     end
     
     if @config.save
-      CoCoCo.configuration.load
+      RunCoCo.configuration.load
       flash[:notice] = t('flash.configuration.update.notice')
       redirect_to admin_config_path
     else

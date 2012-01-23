@@ -1,5 +1,5 @@
 require 'active_support'
-module CoCoCo
+module RunCoCo
   class ErrorLogger < ActiveSupport::BufferedLogger
     SEVERITY_NAME = %w( DEBUG INFO WARN ERROR FATAL UNKNOWN )
 

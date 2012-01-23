@@ -1,14 +1,14 @@
 module AttachmentsHelper
   def allowed_file_types
-    if CoCoCo.configuration.allowed_upload_extensions.present?
-      CoCoCo.configuration.allowed_upload_extensions.split(',').sort.to_sentence
+    if RunCoCo.configuration.allowed_upload_extensions.present?
+      RunCoCo.configuration.allowed_upload_extensions.split(',').sort.to_sentence
     else
       I18n.t('media_types.all')
     end
   end
   
   def max_upload_size
-    number_to_human_size(CoCoCo.configuration.max_upload_size)
+    number_to_human_size(RunCoCo.configuration.max_upload_size)
   end
   
   def attachment_preview(attachment)

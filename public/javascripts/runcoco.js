@@ -1,7 +1,7 @@
 $(function() {
   $('.jquery-help').each(function(i) {
     var dialog = $(this);
-    var dialogLink = $('<a href=" " title="'+ $(this).attr('title')+'"><img src="'+ CoCoCo.relativeUrlRoot +'/images/style/icons/help.png" alt="'+ $(this).attr('title')+'" /></a>');
+    var dialogLink = $('<a href=" " title="'+ $(this).attr('title')+'"><img src="'+ RunCoCo.relativeUrlRoot +'/images/style/icons/help.png" alt="'+ $(this).attr('title')+'" /></a>');
     dialogLink.bind('click', function() {
       var x = $(this).offset().left + $(this).outerWidth() + 10;
       var y = $(this).offset().top;

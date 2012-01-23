@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Rescue "400 Bad Request" exceptions
-    rescue_from CoCoCo::BadRequest do |exception|
+    rescue_from RunCoCo::BadRequest do |exception|
       render_http_error(:bad_request, exception)
     end
 
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     end
     
     # Rescue attempts to search when Sphinx offline.
-    rescue_from CoCoCo::SearchOffline do |exception|
+    rescue_from RunCoCo::SearchOffline do |exception|
       render_http_error(:service_unavailable, exception, :template => "/errors/search_offline")
     end
 
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
     options.reverse_merge!(:log => true, :template => "/shared/error")
 
     if options[:log]
-      CoCoCo.error_logger.error("#{status.to_s.humanize} \"#{exception.message}\"\n#{Rails.backtrace_cleaner.clean(exception.backtrace).join("\n")}")
+      RunCoCo.error_logger.error("#{status.to_s.humanize} \"#{exception.message}\"\n#{Rails.backtrace_cleaner.clean(exception.backtrace).join("\n")}")
     end
     
     @status = status
@@ -209,7 +209,7 @@ class ApplicationController < ActionController::Base
   # Searches contributions using Sphinx.
   def sphinx_search_contributions(set, query = nil, options = {}) # :nodoc:
     unless sphinx_running?
-      raise CoCoCo::SearchOffline
+      raise RunCoCo::SearchOffline
     end
     
     options.merge! case set

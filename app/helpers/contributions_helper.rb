@@ -42,18 +42,18 @@ module ContributionsHelper
   end
   
   def uploadify_file_extensions
-    if CoCoCo.configuration.allowed_upload_extensions.blank?
+    if RunCoCo.configuration.allowed_upload_extensions.blank?
       ''
     else
-      CoCoCo.configuration.allowed_upload_extensions.split(',').map { |ext| "*.#{ext}" }.join(';')
+      RunCoCo.configuration.allowed_upload_extensions.split(',').map { |ext| "*.#{ext}" }.join(';')
     end
   end
   
   def uploadify_file_desc
-    if CoCoCo.configuration.allowed_upload_extensions.blank?
+    if RunCoCo.configuration.allowed_upload_extensions.blank?
       ''
     else
-      CoCoCo.configuration.allowed_upload_extensions.split(',').to_sentence
+      RunCoCo.configuration.allowed_upload_extensions.split(',').to_sentence
     end
   end
   

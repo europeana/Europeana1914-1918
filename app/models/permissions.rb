@@ -47,7 +47,7 @@ class Permissions < Aegis::Permissions
   end
   
   action :search_contributions do
-    if CoCoCo.configuration.publish_contributions?
+    if RunCoCo.configuration.publish_contributions?
       allow :everyone
     else
       deny :everyone
@@ -57,7 +57,7 @@ class Permissions < Aegis::Permissions
   action :create_contribution do
     allow :contributor
     allow :guest do
-      !CoCoCo.configuration.registration_required? && user.contact.present?
+      !RunCoCo.configuration.registration_required? && user.contact.present?
     end
   end
   
@@ -65,11 +65,11 @@ class Permissions < Aegis::Permissions
     allow :administrator
     allow :cataloguer
     allow :guest do |contribution|
-      (CoCoCo.configuration.publish_contributions? && contribution.published?) ||
-      (!CoCoCo.configuration.registration_required? && (contribution.contact == user.contact))
+      (RunCoCo.configuration.publish_contributions? && contribution.published?) ||
+      (!RunCoCo.configuration.registration_required? && (contribution.contact == user.contact))
     end
     allow :contributor do |contribution|
-      (CoCoCo.configuration.publish_contributions? && contribution.published?) || 
+      (RunCoCo.configuration.publish_contributions? && contribution.published?) || 
       (contribution.contributor == user)
     end
   end
@@ -79,7 +79,7 @@ class Permissions < Aegis::Permissions
       (contribution.contributor == user) && !contribution.submitted?
     end
     allow :guest do |contribution|
-      !CoCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
+      !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
     end
   end
 
@@ -88,7 +88,7 @@ class Permissions < Aegis::Permissions
       (contribution.contributor == user) && !contribution.submitted?
     end
     allow :guest do |contribution|
-      !CoCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
+      !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
     end
   end
   
@@ -96,12 +96,12 @@ class Permissions < Aegis::Permissions
     allow :administrator
     allow :cataloguer
     allow :contributor do |contribution|
-      (CoCoCo.configuration.publish_contributions? && contribution.published?) ||
+      (RunCoCo.configuration.publish_contributions? && contribution.published?) ||
       (contribution.contributor == user)
     end
     allow :guest do |contribution|
-      (CoCoCo.configuration.publish_contributions? && contribution.published?) ||
-      (!CoCoCo.configuration.registration_required? && (contribution.contact == user.contact))
+      (RunCoCo.configuration.publish_contributions? && contribution.published?) ||
+      (!RunCoCo.configuration.registration_required? && (contribution.contact == user.contact))
     end
   end
 
@@ -112,7 +112,7 @@ class Permissions < Aegis::Permissions
       (contribution.contributor == user) && !contribution.submitted?
     end
     allow :guest do |contribution|
-      !CoCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
+      !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
     end
   end
 
@@ -120,12 +120,12 @@ class Permissions < Aegis::Permissions
     allow :administrator
     allow :cataloguer
     allow :contributor do |attachment|
-      (CoCoCo.configuration.publish_contributions? && attachment.public?) || 
+      (RunCoCo.configuration.publish_contributions? && attachment.public?) || 
       (attachment.contribution.contributor == user)
     end
     allow :guest do |attachment|
-      (CoCoCo.configuration.publish_contributions? && attachment.public?) ||
-      (!CoCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact))
+      (RunCoCo.configuration.publish_contributions? && attachment.public?) ||
+      (!RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact))
     end
   end
   
@@ -134,7 +134,7 @@ class Permissions < Aegis::Permissions
       (attachment.contribution.contributor == user) && !attachment.contribution.submitted?
     end
     allow :guest do |attachment|
-      !CoCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && !attachment.contribution.submitted?
+      !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && !attachment.contribution.submitted?
     end
   end
   
@@ -143,7 +143,7 @@ class Permissions < Aegis::Permissions
       (attachment.contribution.contributor == user) && !attachment.contribution.submitted?
     end
     allow :guest do |attachment|
-      !CoCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && !attachment.contribution.submitted?
+      !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && !attachment.contribution.submitted?
     end
   end
   
@@ -164,7 +164,7 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
     deny :administrator
     allow :guest do
-      !CoCoCo.configuration.registration_required? && user.contact_id.nil?
+      !RunCoCo.configuration.registration_required? && user.contact_id.nil?
     end
   end
   
@@ -172,7 +172,7 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
     deny :administrator
     allow :guest do
-      !CoCoCo.configuration.registration_required?
+      !RunCoCo.configuration.registration_required?
     end
   end
 end

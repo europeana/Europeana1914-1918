@@ -1,6 +1,6 @@
 /**
  * CHANGES
- *         - Customised for CoCoCo.
+ *         - Customised for RunCoCo.
  * v.2.1.3 - Made it $.noConflict() compatible
  * v.2.1.2 - Fixed bug in which nested fieldsets do not work correctly.
  * v.2.1.1 - Forgot to put the new filter from v.2.1 into the if (settings.closed)

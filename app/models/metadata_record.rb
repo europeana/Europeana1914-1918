@@ -28,11 +28,11 @@ class MetadataRecord < ActiveRecord::Base
     # Adds column to the db table for custom field
     def add_field(field_name, type, options = {})
       unless field_name.match(FIELD_NAME_FORMAT)
-        raise CoCoCo::FieldNameInvalid, "Invalid characters in field name \"#{field_name}\""
+        raise RunCoCo::FieldNameInvalid, "Invalid characters in field name \"#{field_name}\""
       end
       column_name = column_name(field_name)
       if column_names.include?(column_name)
-        raise CoCoCo::FieldNameInvalid, "#{table_name} already includes the field \"#{field_name}\""
+        raise RunCoCo::FieldNameInvalid, "#{table_name} already includes the field \"#{field_name}\""
       end
       unless COLUMN_TYPES.include?(type)
         raise ArgumentError, "#{type.inspect} is not one of the allowed column types: #{COLUMN_TYPES.inspect}"
@@ -46,7 +46,7 @@ class MetadataRecord < ActiveRecord::Base
       column_name = column_name(field_name)
       new_column_name = column_name(new_field_name)
       unless column_names.include?(column_name)
-        raise CoCoCo::FieldNameInvalid, "#{table_name} does not have the field \"#{field_name}\""
+        raise RunCoCo::FieldNameInvalid, "#{table_name} does not have the field \"#{field_name}\""
       end
       connection.rename_column(table_name, column_name, new_column_name)
       reset_column_information
@@ -56,7 +56,7 @@ class MetadataRecord < ActiveRecord::Base
     def remove_field(field_name)
       column_name = column_name(field_name)
       unless column_names.include?(column_name)
-        raise CoCoCo::FieldNameInvalid, "#{table_name} does not have the field \"#{field_name}\""
+        raise RunCoCo::FieldNameInvalid, "#{table_name} does not have the field \"#{field_name}\""
       end
       connection.remove_column(table_name, column_name)
       reset_column_information

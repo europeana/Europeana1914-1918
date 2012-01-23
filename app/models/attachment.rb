@@ -66,7 +66,7 @@ class Attachment < ActiveRecord::Base
   validates_presence_of :contribution_id
 
   validates_attachment_presence :file, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.presence')
-  validates_attachment_size :file, :less_than => CoCoCo.configuration.max_upload_size, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.size')
+  validates_attachment_size :file, :less_than => RunCoCo.configuration.max_upload_size, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.size')
 
 
   # Old file directory queued for deletion after public/private change  
@@ -83,12 +83,12 @@ class Attachment < ActiveRecord::Base
     true
   end
   
-  # Cached array of content types, derived from +CoCoCo.configuration.allowed_upload_extensions+.
+  # Cached array of content types, derived from +RunCoCo.configuration.allowed_upload_extensions+.
   @@paperclip_content_types = nil
   
   # Returns an array of the content types to be accepted by Paperclip,
   # based on the permitted file name extensions configured through
-  # +CoCoCo.configuration.allowed_upload_extensions+.
+  # +RunCoCo.configuration.allowed_upload_extensions+.
   #
   # Uses mime-types module to determine content types from file name
   # extensions. For IE compatibility, adds "image/pjpeg" for .jpg &
@@ -98,10 +98,10 @@ class Attachment < ActiveRecord::Base
   # reload parameter is +true+.
   def self.paperclip_content_types(reload = false)
     if reload || @@paperclip_content_types.nil?
-      if CoCoCo.configuration.allowed_upload_extensions.blank?
+      if RunCoCo.configuration.allowed_upload_extensions.blank?
         @@paperclip_content_types = []
       else
-        @@paperclip_content_types = CoCoCo.configuration.allowed_upload_extensions.collect { |ext|
+        @@paperclip_content_types = RunCoCo.configuration.allowed_upload_extensions.collect { |ext|
           ext.downcase!
           mime_types = MIME::Types.type_for(ext).collect { |mime_type| mime_type.content_type }
           mime_types << 'image/pjpeg' if (ext == 'jpg' || ext == 'jpeg')

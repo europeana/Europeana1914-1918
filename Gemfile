@@ -50,4 +50,5 @@ group :development, :test do
   gem 'rspec-rails', ' ~> 2.4'
 #  gem 'faker', '~> 0.9'
 #  gem 'machinist', '~> 1.0'
+  gem 'thin'
 end

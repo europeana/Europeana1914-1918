@@ -45,7 +45,7 @@ class Contributor::GuestsController < ApplicationController
         render :action => 'edit'
       end
     else
-      raise CoCoCo::BadRequest
+      raise RunCoCo::BadRequest
     end
   end
   
@@ -56,7 +56,7 @@ class Contributor::GuestsController < ApplicationController
       flash[:notice] = t('flash.guest_contact.forget.notice')
       redirect_to home_path
     else
-      raise CoCoCo::BadRequest
+      raise RunCoCo::BadRequest
     end
   end
 end

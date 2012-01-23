@@ -1,7 +1,7 @@
-<%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-ui-1.8.2.custom.min', 'i18n', 'translations', 'rails', 'cococo' %>
+<%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-ui-1.8.2.custom.min', 'i18n', 'translations', 'rails', 'runcoco' %>
 
 <%= javascript_tag do -%>
-  var CoCoCo = {
+  var RunCoCo = {
     relativeUrlRoot: '<%= configuration(:relative_url_root) %>'
   }
   I18n.locale = '<%= I18n.locale %>';
@@ -24,14 +24,14 @@
 <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
   <%= stylesheet_link_tag "uploadify"  %>
   <%= javascript_tag do -%>
-    CoCoCo['uploadify'] = {
+    RunCoCo['uploadify'] = {
       maxUploadSize: <%= configuration(:max_upload_size) %>,
       fileExt: '<%= uploadify_file_extensions %>',
       fileDesc: '<%= uploadify_file_desc %>'
     };
-    CoCoCo['authenticityToken'] = '<%= form_authenticity_token if protect_against_forgery? %>';
-    CoCoCo['sessionKeyName'] = '<%= session_key_name %>';
-    CoCoCo['sessionKey'] = '<%= cookies[session_key_name] %>';
+    RunCoCo['authenticityToken'] = '<%= form_authenticity_token if protect_against_forgery? %>';
+    RunCoCo['sessionKeyName'] = '<%= session_key_name %>';
+    RunCoCo['sessionKey'] = '<%= cookies[session_key_name] %>';
   <%- end -%>
   <%= javascript_include_tag "uploadify/swfobject", "uploadify/jquery.uploadify.v2.1.4.min", "uploadify/attachments" %>
 <%- end -%>

@@ -8,7 +8,7 @@ module Admin::ConfigHelper
   end
   
   def ui_locales_sentence
-    locales = CoCoCo.configuration.ui_locales
+    locales = RunCoCo.configuration.ui_locales
     if locales.is_a? Array
       locales.map do |locale|
         I18n.t('locale', :locale => locale)

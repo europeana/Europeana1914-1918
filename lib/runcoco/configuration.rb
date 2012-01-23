@@ -1,9 +1,9 @@
-module CoCoCo
+module RunCoCo
   # App configuration, modified through web UI at /admin/config.
   # 
   # Available settings:
-  # * +site_name+: Website name. Default is 'CoCoCo'.
-  # * +relative_url_root+: Relative URL root, e.g. '/cococo'.
+  # * +site_name+: Website name. Default is 'RunCoCo'.
+  # * +relative_url_root+: Relative URL root, e.g. '/RunCoCo'.
   #   Default is '', i.e. application is intalled at root URL.
   #   Only used by JavaScripts.
   # * +registration_required+: If +true+, people have to register a user account 
@@ -16,7 +16,7 @@ module CoCoCo
   #   Default is +true+. Has no effect if +publish_contributions+ is +false+.
   # * +max_upload_size+: Maximum upload size in bytes. Default is 5 megabytes.
   # * +allowed_upload_extensions+: Allowed file extensions for uploaded files.
-  #   If blank, CoCoCo will allow any file type to be uploaded (the default).
+  #   If blank, RunCoCo will allow any file type to be uploaded (the default).
   # * +uploadify+: Use Uploadify to handle attachment file uploads.
   #   See <http://www.uploadify.com/>. Default +false+.  
   # * +gmap_api_key+: Google Maps API key. If not set, Google Maps can not be
@@ -28,7 +28,7 @@ module CoCoCo
     include ActiveModel::Validations
     
     DEFAULTS = {
-      :site_name => 'CoCoCo',
+      :site_name => 'Run a Community Collection',
       :relative_url_root => '',
       :registration_required => true,
       :publish_contributions => true,
@@ -61,16 +61,16 @@ module CoCoCo
       end
     end
     
-    # Returns true if CoCoCo is configured to require registration.
+    # Returns true if RunCoCo is configured to require registration.
     #
-    # Set via +CoCoCo.configuration.registration_required+
+    # Set via +RunCoCo.configuration.registration_required+
     def registration_required?
       self[:registration_required] == true
     end
     
-    # Returns true if CoCoCo is configured to publish contributions.
+    # Returns true if RunCoCo is configured to publish contributions.
     #
-    # Set via +CoCoCo.configuration.publish_contributions+
+    # Set via +RunCoCo.configuration.publish_contributions+
     def publish_contributions?
       self[:publish_contributions] == true
     end

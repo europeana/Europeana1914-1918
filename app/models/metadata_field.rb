@@ -142,7 +142,7 @@ class MetadataField < ActiveRecord::Base
 
   def remove_field_from_metadata_record
     MetadataRecord.remove_field(self.name) unless self.column_type.nil?
-  rescue CoCoCo::FieldNameInvalid
+  rescue RunCoCo::FieldNameInvalid
   end
 
   def auto_set_title

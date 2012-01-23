@@ -9,4 +9,4 @@ admin = User.new(:email => 'admin@example.com', :password => 'secret', :password
 admin.role_name = 'administrator'
 admin.save
 
-CoCoCo.configuration.save
+RunCoCo.configuration.save

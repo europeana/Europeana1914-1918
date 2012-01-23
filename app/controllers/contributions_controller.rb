@@ -3,7 +3,7 @@ class ContributionsController < ApplicationController
 
   # GET /contributions
   def index
-    if CoCoCo.configuration.publish_contributions?
+    if RunCoCo.configuration.publish_contributions?
       search
     else
       @contributions = []
@@ -18,7 +18,7 @@ class ContributionsController < ApplicationController
 
   # POST /contributions
   def create
-    if (current_user.role.name == 'guest') && !CoCoCo.configuration.registration_required?
+    if (current_user.role.name == 'guest') && !RunCoCo.configuration.registration_required?
       if session[:guest][:contribution_id].present?
         redirect_to edit_contribution_path(session[:guest][:contribution_id])
         return

@@ -1,8 +1,8 @@
-# CoCoCo application library.
-module CoCoCo
-  autoload :Configuration, 'cococo/configuration'
-  autoload :ErrorLogger, 'cococo/error_logger'
-  autoload :FlashSessionCookieMiddleware, 'cococo/flash_session_cookie_middleware'
+# RunCoCo application library.
+module RunCoCo
+  autoload :Configuration, 'runcoco/configuration'
+  autoload :ErrorLogger, 'runcoco/error_logger'
+  autoload :FlashSessionCookieMiddleware, 'runcoco/flash_session_cookie_middleware'
 
   class FieldNameInvalid < Exception; end # :nodoc:
   class BadRequest < Exception; end # :nodoc:
@@ -18,16 +18,16 @@ module CoCoCo
     # Returns the error logger.
     #
     # Error log file will be $RAILS_ROOT/log/$RAILS_ENV.error.log,
-    # for example "/var/www/cococo/log/production.error.log".
+    # for example "/var/www/runcoco/log/production.error.log".
     def error_logger
-      @@error_logger ||= CoCoCo::ErrorLogger.new
+      @@error_logger ||= RunCoCo::ErrorLogger.new
     end
     
     # Returns the configuration object.
     #
-    #   CoCoCo.configuration.site_name # => "CoCoCo"
+    #   RunCoCo.configuration.site_name # => "RunCoCo"
     def configuration
-      @@configuration ||= CoCoCo::Configuration.new
+      @@configuration ||= RunCoCo::Configuration.new
     end
   end
 end

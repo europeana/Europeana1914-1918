@@ -1,7 +1,7 @@
 <% @title = t('views.attachments.new.title') %>
 
 <%- javascript_tag do -%>
-  CoCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
+  RunCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
 <%- end -%>
 <%- @javascripts[:uploadify] = true -%>
 

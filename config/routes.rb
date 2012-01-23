@@ -1,4 +1,4 @@
-CoCoCo::Application.routes.draw do
+RunCoCo::Application.routes.draw do
   # Attachments
   scope '/attachments/:id' do
     match ':contribution_id.:id.original.:extension' => 'attachments#download', :as => 'download_contribution_attachment'

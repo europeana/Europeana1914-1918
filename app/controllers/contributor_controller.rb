@@ -3,7 +3,7 @@ class ContributorController < ApplicationController
   def dashboard
     
     if current_user.role.name == 'guest'
-      CoCoCo.configuration.registration_required? ? registration_required : dashboard_guest
+      RunCoCo.configuration.registration_required? ? registration_required : dashboard_guest
     else
       dashboard_contributor
     end
