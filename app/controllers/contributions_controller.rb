@@ -28,8 +28,9 @@ class ContributionsController < ApplicationController
       end
     end
     current_user.may_create_contribution!
+    
     @contribution = Contribution.new 
-    @contribution.terms = params[:contribution][:terms]
+    @contribution.attributes = params[:contribution]
 
     if current_user.role.name == 'guest'
       @contribution.guest = current_user.contact
@@ -42,7 +43,7 @@ class ContributionsController < ApplicationController
         session[:guest][:contribution_id] = @contribution.id
       end
       flash[:notice] = t('flash.contributions.draft.create.notice')
-      redirect_to edit_contribution_url(@contribution)
+      redirect_to @contribution
     else
       flash[:alert] = t('flash.contributions.draft.create.alert')
       render :action => 'new'
@@ -52,8 +53,6 @@ class ContributionsController < ApplicationController
   # GET /contributions/:id
   def show
     current_user.may_view_contribution!(@contribution)
-    # Show error messages
-    @contribution.submitting = true unless @contribution.submitted?
   end
 
   # GET /contributions/:id/edit
@@ -66,10 +65,6 @@ class ContributionsController < ApplicationController
       end
     end
     current_user.may_edit_contribution!(@contribution)
-    
-    # Enable validation_reflection
-    @contribution.submitting = true 
-    @contribution.metadata.validating = true
   end
 
   # PUT /contributions/:id
@@ -91,8 +86,7 @@ class ContributionsController < ApplicationController
   # PUT /contributions/:id/submit
   def submit
     current_user.may_edit_contribution!(@contribution)
-    @contribution.submitting = true
-    if @contribution.save
+    if @contribution.submit
       if current_user.role.name == 'guest'
         session[:guest].delete(:contribution_id)
       end

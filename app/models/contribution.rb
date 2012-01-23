@@ -11,18 +11,14 @@ class Contribution < ActiveRecord::Base
   
   accepts_nested_attributes_for :metadata
 
-  before_validation :set_metadata_validation
-
   validates_presence_of :contributor_id, :if => Proc.new { RunCoCo.configuration.registration_required? }
   validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
-  validates_presence_of :title, :if => :submitting?
-  validates_associated :metadata, :if => :submitting?
-  validates_acceptance_of :terms, :allow_nil => false, :accept => true
+  validates_presence_of :title
+  validates_associated :metadata
+#  validates_acceptance_of :terms, :allow_nil => false, :accept => true
 
-  attr_accessor :submitting
-  attr_accessible :metadata_attributes, :title, :submitting
+  attr_accessible :metadata_attributes, :title
 
-  before_save :set_submitted_at, :if => Proc.new { |c| c.submitting? }
   before_save :set_published_at
   
   after_initialize :build_metadata_unless_present
@@ -74,19 +70,22 @@ class Contribution < ActiveRecord::Base
     contributor.blank?
   end
 
-  def submitting?
-    @submitting == true
+  ##
+  # Submits the contribution for approval.
+  #
+  # Sets {@submitted_at} to the current time and saves to the database. Returns
+  # the result of {#save}.
+  #
+  # @return [Boolean]
+  def submit
+    self.submitted_at = Time.zone.now
+    self.save
   end
 
   def submitted?
     self.submitted_at != nil
   end
   
-  def set_submitted_at
-    self.submitted_at = Time.zone.now
-    true
-  end
-
   def draft?
     !self.submitted?
   end
@@ -121,13 +120,6 @@ class Contribution < ActiveRecord::Base
     true
   end
 
-  def set_metadata_validation
-    if self.submitting?
-      self.metadata.validating = true
-    end
-    true
-  end
-  
   def validate_contributor_or_contact
     if self.contributor_id.blank? && self.guest_id.blank?
       self.errors.add(:guest_id, 'activerecord.errors.models.contribution.attributes.guest_id.present')

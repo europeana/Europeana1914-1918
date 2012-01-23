@@ -4,7 +4,7 @@
     <th scope="row"><%= t('attributes.title') %></th>
     <td>
       <%= contribution_title(contribution) %>
-      <%- if contribution.submitting? && !contribution.valid? %>
+      <%- if !contribution.valid? %>
         <%= inline_errors_for(contribution, :title, { :content_tag => :div } ) %>
       <% end %>
     </td>

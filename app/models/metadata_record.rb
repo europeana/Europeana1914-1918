@@ -7,9 +7,8 @@
 # added, modified and removed by creating, updating and deleting
 # MetadataField instances.
 class MetadataRecord < ActiveRecord::Base
-  attr_writer :validating
   attr_writer :cataloguing
-  attr_protected :id, :updated_at, :created_at, :validating, :cataloguing
+  attr_protected :id, :updated_at, :created_at, :cataloguing
 
   has_one :contribution
   has_one :attachment
@@ -99,9 +98,9 @@ class MetadataRecord < ActiveRecord::Base
       # Required fields
       MetadataField.where('required = ?', true).each do |required_field|
         if required_field.field_type == 'taxonomy'
-          validates_presence_of "field_#{required_field.name}_terms", :if => :validating?
+          validates_presence_of "field_#{required_field.name}_terms"
         else
-          validates_presence_of column_name(required_field.name), :if => :validating?
+          validates_presence_of column_name(required_field.name)
         end
       end
 
@@ -141,11 +140,6 @@ class MetadataRecord < ActiveRecord::Base
 
   # Initialise model properties based on custom metadata fields.
   adapt_to_metadata_fields
-
-  # Returns true if record flagged for validation
-  def validating?
-    @validating == true
-  end
 
   # Returns true if record flagged for cataloguing
   def cataloguing?

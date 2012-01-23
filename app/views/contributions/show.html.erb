@@ -2,7 +2,7 @@
 
 <%= render :partial => 'summary', :locals => { :contribution => @contribution } %>
 
-<%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :cataloguing => false, :show_errors => @contribution.submitting? } %>
+<%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :cataloguing => false } %>
 
 <% if current_user.may_catalogue_contribution?(@contribution) -%>
   <%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :cataloguing => true } %>
