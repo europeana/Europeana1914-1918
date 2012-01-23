@@ -22,18 +22,7 @@
 <% end -%>
 
 <% if @contribution.draft? -%>
-  <h2><%= t 'views.contributions.show.headings.submit' %></h2>
-  <%- if @contribution.valid? -%>
-    <p><%= raw t 'views.contributions.show.valid' %></p>
-	<%= semantic_form_for @contribution, :url => submit_contribution_path(@contribution) do |form| %>
-      <%= form.buttons do %>
-        <%= form.commit_button :label => t('formtastic.actions.contribution.submit'), :button_html => { :confirm => t('views.contributions.show.button_confirm') } %>
-      <%- end %>
-    <%- end %>
-	<%- else %>
-	<p id="contribution-invalid-notice"><%= raw t 'views.contributions.show.invalid' %></p>
-	<%= javascript_include_tag 'contribution-invalid' %>
-	<%- end %>
+  <%= render :partial => 'submit_form', :locals => { :contribution => @contribution } %>
 <% end -%>
 
 <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>

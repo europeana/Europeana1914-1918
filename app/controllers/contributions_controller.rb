@@ -43,7 +43,7 @@ class ContributionsController < ApplicationController
         session[:guest][:contribution_id] = @contribution.id
       end
       flash[:notice] = t('flash.contributions.draft.create.notice')
-      redirect_to @contribution
+      redirect_to new_contribution_attachment_path(@contribution)
     else
       flash[:alert] = t('flash.contributions.draft.create.alert')
       render :action => 'new'

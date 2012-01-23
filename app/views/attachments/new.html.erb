@@ -1,14 +1,23 @@
 <% @title = t('views.attachments.new.title') %>
 
-<%- javascript_tag do -%>
-  RunCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
-<%- end -%>
-<%- @javascripts[:uploadify] = true -%>
+<% unless @contribution.submitted? -%>
+  <%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
+<%- end %>
 
-<%= render :partial => 'contribution', :object => @contribution %>
+<%#= render :partial => 'contribution', :object => @contribution %>
 
 <% if @attachment.file.dirty? -%>
   <%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => t('views.attachments.new.caption') } %>
 <% end -%>
 
 <%= render :partial => 'form', :locals => { :attachment => @attachment } %>
+
+<% if @contribution.attachments.present? -%>
+  <%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
+<% else -%>
+  <p><%= t'views.attachments.index.empty' %></p>
+<% end -%>
+
+<% unless @contribution.submitted? -%>
+  <%= render :partial => '/contributions/progress', :locals => { :step => 2 } %>
+<% end -%>
