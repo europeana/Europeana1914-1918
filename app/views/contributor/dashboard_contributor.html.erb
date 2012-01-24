@@ -2,35 +2,28 @@
 
   <p><%= t('views.contributor.index.p1') %></p>
   <ol class="number">
-    <li><%= t('views.contributor.index.item1') %></li>
-    <li><%= t('views.contributor.index.item2') %></li>
-    <li><%= t('views.contributor.index.item3') %></li>
-    <li><%= t('views.contributor.index.item4') %></li>
+    <li>Enter information about your story.</li>
+    <li>Save your story as a draft.</li>
+    <li>Add one or more digital objects (images, text documents, audio, video etc).</li>
+    <li>Confirm your agreement to the terms and conditions and submit for review.</li>
   </ol>
+  
+  
   
   <div class="link-buttons">
     <!-- link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path, :class => 'new-member' -->
-    <%= link_to t('views.contributor.dashboard_contributor.links.new'), page_path('story') %>
+    <!-- #link_to t('views.contributor.dashboard_contributor.links.new'), page_path('story') -->
+    <a href="/en/story">Add a new story</a> 
   </div>
   
-  <h2><%= raw t('common.links.help') %></h2>
-	
-    <p><%= raw t('views.contributor.help.p1', :about => link_to( t('common.menus.main.about'), page_path('about') ) ) %></p>
-    
-    <ul>
-        <li><%= raw t('views.contributor.help.item1') %></li>
-        <li><%= raw t('views.contributor.help.item2', :privacy_policy => link_to( t('common.links.privacy_policy'), page_path('help/privacy') ) ) %></li>
-        <li><%= raw t('views.contributor.help.item3', :takedown_policy => link_to( t('common.links.takedown_policy'), page_path('about/takedown') ) ) %></li>
-        <li><%= raw t('views.contributor.help.item4', :contribution_terms => link_to( t('common.links.contribution_terms'), page_path('about/terms') ) ) %></li>
-        <li><%= raw t('views.contributor.help.item5', :about_the_project => link_to( t('common.links.about_the_project'), page_path('about') ) ) %></li>
-    </ul>
   
   
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
 
+    <p>Below are the stories you have already added. Edit or delete them as necessary.</p>
     <% if current_user.contributions.present? %>
       
-      <div class="contributions-drafts">
+      <div class="contributions-drafts" style="float: none;">
         <%- if current_user.contributions.draft.present? -%>
           <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
         <%- else -%>
@@ -38,7 +31,7 @@
         <%- end -%>
       </div>
     
-      <div class="contributions-submitted">
+      <div style="clear: both;" class="contributions-submitted">
         <%- if current_user.contributions.submitted.present? -%>
           <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.submitted, :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
         <%- else -%>
