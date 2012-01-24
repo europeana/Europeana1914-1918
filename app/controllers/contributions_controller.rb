@@ -93,7 +93,6 @@ class ContributionsController < ApplicationController
       redirect_to complete_contributions_url
     else
       flash.now[:alert] = t('flash.contributions.draft.submit.alert')
-      render :action => 'show'
     end
   end
   

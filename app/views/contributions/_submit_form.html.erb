@@ -1,9 +1,10 @@
-<h2><%= t 'views.contributions.show.headings.submit' %></h2>
 <%= semantic_form_for contribution, :url => submit_contribution_path(contribution) do |form| %>
   <%= form.inputs :submit, :id => 'submit' do %>
-    <p><%= raw t 'views.contributions.show.valid' %></p>
+    <%= form.input :terms, :as => :boolean %>
+    <p><%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %></p>
     <%= form.buttons do %>
       <%= form.commit_button :label => t('formtastic.actions.contribution.submit'), :button_html => { :confirm => t('views.contributions.show.button_confirm') } %>
     <%- end %>
   <% end %>
 <%- end %>
+

@@ -15,7 +15,7 @@ class Contribution < ActiveRecord::Base
   validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validates_presence_of :title
   validates_associated :metadata
-#  validates_acceptance_of :terms, :allow_nil => false, :accept => true
+  validates_acceptance_of :terms, :allow_nil => false, :accept => true, :if => :submitting?
 
   attr_accessible :metadata_attributes, :title
 
@@ -80,6 +80,10 @@ class Contribution < ActiveRecord::Base
   def submit
     self.submitted_at = Time.zone.now
     self.save
+  end
+  
+  def submitting?
+    self.submitted_at.present? && self.submitted_at_changed?
   end
 
   def submitted?

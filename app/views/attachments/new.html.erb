@@ -1,10 +1,9 @@
-<% @title = t('views.attachments.new.title') %>
+<% @title = @contribution.title %>
 
-<% unless @contribution.submitted? -%>
+<% if @contribution.attachments.present? && @contribution.draft? -%>
+  <h2><%= t 'views.contributions.show.headings.submit' %></h2>
   <%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
 <%- end %>
-
-<%#= render :partial => 'contribution', :object => @contribution %>
 
 <% if @attachment.file.dirty? -%>
   <%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => t('views.attachments.new.caption') } %>
