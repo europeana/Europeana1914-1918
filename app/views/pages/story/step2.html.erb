@@ -1,36 +1,55 @@
 <h2>the story title you gave in step 1</h2>
-<h2><%= t('views.contributions.digital_object.step2') %></h2>
+
+<script>
+	function reveal() {
+		
+		document.getElementById('submit').style.display == 'none' ? document.getElementById('submit').style.display = 'block' : document.getElementById('submit').style.display = 'none';
+		
+	}
+</script>
+<p>[ only show if there is at least one digital object ]<br/>
+If you are finished with your contribution, <a href="#" onclick="reveal();">continue to the submission step</a>.</p>
+
+
+<div id="submit" style="display: none">
+
+<form action="/en/contributions/complete" id="submit-your-story">
+		
+	<fieldset>
+		
+		<legend><%= t('views.contributions.digital_object.help_text.submit_your_story') %></legend>
+				
+		<ol>
+			<li>
+				<input type="checkbox" />
+				<label><%= raw t('views.register.terms.accept', :terms => link_to( t('views.register.terms.terms'), page_path('about/terms') ) ) %></label><br/>
+				<br/>
+			</li>
+		</ol>
+		
+		<%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %> Once your contribution has been submitted it will be reviewed by an expert and become available for others.<br/>
+		<input type="submit" value="<%= t('views.contributions.digital_object.help_text.submit_story_button') %>" />
+		
+	</fieldset>
 	
-	<form action="/en/contributions/complete" id="submit-your-story">
+</form>
+</div>
+
+			
+<h2><!-- t('views.contributions.digital_object.step2') %> - Add the digital object(s) related to your story-->
+Step 2 - Add your memorabilia</h2>
+<% @nr_digital_objects = 0 %>
+<p>
+	Remember to add at least one item to your story. There are currently 0 items attached to this story. [ only show if there is at least 1 item ] <a href="#digital-objects">Click to view and edit them</a>.
+<!-- raw t( 'views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects )-->
+
+</p>
+	
+	<form id="add-item" style="margin-top: 20px;">
 		
 		<fieldset>
 			
-			<legend><%= t('views.contributions.digital_object.help_text.submit_your_story') %></legend>
-			
-			<p><%= raw t('views.contributions.digital_object.help_text.submit_contribution1', :edit_contribution => link_to( t('views.contributions.digital_object.links.edit'), page_path('contributor') ) ) %> [ link goes to step 1 in edit mode ]</p>
-			<% @nr_digital_objects = 0 %>
-			<p><%= raw t( 'views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects ) %></p>
-			
-			<ol>
-				<li>
-					<input type="checkbox" />
-					<label><%= raw t('views.register.terms.accept', :terms => link_to( t('views.register.terms.terms'), page_path('about/terms') ) ) %></label><br/>
-					<br/>
-				</li>
-			</ol>
-			
-			<%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %><br/>
-			<input type="submit" value="<%= t('views.contributions.digital_object.help_text.submit_story_button') %>" />
-			
-		</fieldset>
-		
-	</form>
-	
-	<form id="add-digital-object" style="margin-top: 20px;">
-		
-		<fieldset>
-			
-			<legend><%= t('views.contributions.digital_object.help_text.add_digital_object') %></legend>
+			<legend>Describe your item<!-- t('views.contributions.digital_object.help_text.add_digital_object') --></legend>
 			
 			<ol>
 				
@@ -84,6 +103,16 @@
 				</li>
 				
 				<li>
+					<label><%= t('views.contributions.digital_object.labels.creators_surname') %></label><br/>
+					<input type="text" /><br/>
+					<br/>
+					<label><%= t('views.contributions.digital_object.labels.creators_first_name') %></label><br/>
+					<input type="text" /><br/>
+					<%= t('views.contributions.digital_object.help_text.creators_name') %><br/>
+					<br/>
+				</li>
+				
+				<li>
 					<label><%= t('views.contributions.digital_object.labels.description') %></label><br/>
 					<textarea></textarea><br/>
 					<%= t('views.contributions.digital_object.help_text.description') %><br/>
@@ -116,39 +145,38 @@
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.creators_surname') %></label><br/>
-					<input type="text" /><br/>
-					<br/>
-					<label><%= t('views.contributions.digital_object.labels.creators_first_name') %></label><br/>
-					<input type="text" /><br/>
-					<%= t('views.contributions.digital_object.help_text.creators_name') %><br/>
-					<br/>
-				</li>
-				
-				<li>
 					<label><%= t('views.contributions.digital_object.labels.subject') %></label><br/>
 					<input type="text" /><br/>
 					<%= t('views.contributions.digital_object.help_text.subject') %><br/>
 					<br/>
 				</li>
 				
+				<!--
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.location_place_name') %></label><br/>
+					<label> t('views.contributions.digital_object.labels.location_place_name')</label><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.digital_object.help_text.location_place_name') %><br/>
+					t('views.contributions.digital_object.help_text.location_place_name')<br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.location_map') %></label><br/>
+					<label>t('views.contributions.digital_object.labels.location_map')</label><br/>
 					<input type="text" /><br/>
-					<%= raw t('views.contributions.digital_object.help_text.location_map', :use_google_maps => link_to( t('views.contributions.story.help_text.use_google_maps'), '#', :class => 'gmap-show') ) %><br/>
+					raw t('views.contributions.digital_object.help_text.location_map', :use_google_maps => link_to( t('views.contributions.story.help_text.use_google_maps'), '#', :class => 'gmap-show') )<br/>
+					<br/>
+				</li>
+				-->
+				<li>
+					<label><%= t('views.contributions.story.labels.story_took_place_coordinates') %></label><br/>
+					<input type="text" /><br/>
+					Enter the name of a city, i.e., London or Paris. Alternatively use the map to pinpoint where the story took place by dragging the marker to the location. You can zoom in and out using the + and - at the left of the map.<br/>
+					<!-- raw t( 'views.contributions.story.help_text.took_place_coordinates', :use_google_maps => link_to( t('views.contributions.story.help_text.use_google_maps'), '#', :class => 'gmap-show' ) ) %><br/> -->
 					<br/>
 				</li>
 				
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.date_created') %></label><br/>
+					<label><%= t('views.contributions.digital_object.labels.date_created') %> / Start date</label><br/>
 					<select>
 						<option value=""><%= t('datetime.prompts.year') %></option>
 						<option>1912</option>
@@ -205,12 +233,13 @@
 						<option>30</option>
 						<option>31</option>
 					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.date_created') %><br/>
+					Tell us when the object was created for example when a letter was written or when the object was begun, for example when a diary was started. If you do not know the exact date, please provide a year only or a year and a month.<br/>
+					<!-- t('views.contributions.digital_object.help_text.date_created') %><br/> -->
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.date_completed') %></label><br/>
+					<label>End date<!-- t('views.contributions.digital_object.labels.date_completed') --></label><br/>
 					<select>
 						<option value=""><%= t('datetime.prompts.year') %></option>
 						<option>1912</option>
@@ -267,7 +296,9 @@
 						<option>30</option>
 						<option>31</option>
 					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.date_completed') %><br/>
+					<!-- t('views.contributions.digital_object.help_text.date_completed') %><br/> -->
+					The end date for an object, for example, the last date of a diary.
+					<br/>
 					<br/>
 				</li>
 				
@@ -368,39 +399,6 @@
 					<br/>
 				
 				</li>
-		
-				<li>
-					
-					<fieldset>
-						
-						<legend><%= t('views.contributions.digital_object.labels.forces') %></legend>
-						
-						<ol>
-							
-							<li>
-								<input type="checkbox" value="allied_forces">
-								<label><%= t('views.contributions.story.options.allied_forces') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="central_powers">
-								<label><%= t('views.contributions.story.options.central_powers') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="imperial_forces">
-								<label><%= t('views.contributions.story.options.imperial_forces') %></label>
-							</li>
-							
-						</ol>
-						
-						<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
-						
-					</fieldset>
-					
-					<br/>
-					
-				</li>
 				
 				
 				<li>
@@ -473,6 +471,39 @@
 						<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
 						
 						<ol>
+							
+							<li>
+					
+								<fieldset>
+									
+									<legend><%= t('views.contributions.digital_object.labels.forces') %></legend>
+									
+									<ol>
+										
+										<li>
+											<input type="checkbox" value="allied_forces">
+											<label><%= t('views.contributions.story.options.allied_forces') %></label>
+										</li>
+										
+										<li>
+											<input type="checkbox" value="central_powers">
+											<label><%= t('views.contributions.story.options.central_powers') %></label>
+										</li>
+										
+										<li>
+											<input type="checkbox" value="imperial_forces">
+											<label><%= t('views.contributions.story.options.imperial_forces') %></label>
+										</li>
+										
+									</ol>
+									
+									<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+									
+								</fieldset>
+								
+								<br/>
+								
+							</li>
 							
 							<li>
 								<label><%= t('views.contributions.digital_object.labels.source') %></label><br/>
@@ -566,7 +597,8 @@
 				
 				</li>
 				
-				<input type="submit" value="<%= t('views.contributions.digital_object.labels.save_digital') %>"/>
+				<input type="submit" value="Save item draft"/>
+				<!-- t('views.contributions.digital_object.labels.save_digital') -->
 				
 			</ol>
 			
@@ -577,8 +609,8 @@
 	
 	<h3 id="digital-objects"><%= raw t('views.contributions.digital_object.heading') %></h3>
 	<ul>
-		<li><%= link_to( t('views.contributions.digital_object.help_text.add_digital_object'), '#add-digital-object' ) %></li>
-		<li><%= link_to( t('views.contributions.digital_object.help_text.submit_your_story'), '#submit-your-story' ) %></li>
+		<li><a href="#add-item">Add another item</a><!-- link_to( t('views.contributions.digital_object.help_text.add_digital_object'), '#add-digital-object' ) --></li>
+		<li><%= link_to( t('views.contributions.digital_object.help_text.submit_your_story'), '/en/story/step3' ) %></li>
 	</ul>
 	<p><%= raw t('views.contributions.digital_object.help_text.summary') %></p>
 	
