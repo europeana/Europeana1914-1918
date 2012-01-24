@@ -6,18 +6,16 @@
   <%= form.inputs :metadata, :id => 'metadata' do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
       <%= form.input :title %>
-      <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :cataloguing => false } %>
+      <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%- if current_user.may_catalogue_contribution?(attachment.contribution) && attachment.contribution.submitted? -%>
-    <%- if metadata_record_fields(true).present? -%>
-      <%= form.inputs :cataloguing_metadata, :id => 'cataloguing_metadata' do %>
-        <%= form.semantic_fields_for :metadata do |metadata| %>
-          <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :cataloguing => true } %>
-        <% end %>
+    <%= form.inputs :cataloguing_metadata, :id => 'cataloguing_metadata' do %>
+      <%= form.semantic_fields_for :metadata do |metadata| %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :cataloguing => true, :attachment => true } } %>
       <% end %>
-    <%- end -%>
+    <% end %>
   <%- end -%>
   
   <%= form.buttons do %>

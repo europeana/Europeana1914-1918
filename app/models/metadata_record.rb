@@ -95,12 +95,21 @@ class MetadataRecord < ActiveRecord::Base
     def set_validate_callbacks
       @validate_callbacks = []
 
-      # Required fields
-      MetadataField.where('required = ?', true).each do |required_field|
+      # Required fields on contributions
+      MetadataField.where(:required => true, :contribution => true).each do |required_field|
         if required_field.field_type == 'taxonomy'
-          validates_presence_of "field_#{required_field.name}_terms"
+          validates_presence_of "field_#{required_field.name}_terms", :if => Proc.new { |r| r.contribution.present? }
         else
-          validates_presence_of column_name(required_field.name)
+          validates_presence_of column_name(required_field.name), :if => Proc.new { |r| r.contribution.present? }
+        end
+      end
+      
+      # Required fields on attachments
+      MetadataField.where(:required => true, :attachment => true).each do |required_field|
+        if required_field.field_type == 'taxonomy'
+          validates_presence_of "field_#{required_field.name}_terms", :if => Proc.new { |r| r.attachment.present? }
+        else
+          validates_presence_of column_name(required_field.name), :if => Proc.new { |r| r.attachment.present? }
         end
       end
 

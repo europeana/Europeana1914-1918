@@ -1,12 +1,12 @@
 <%
 show_errors = false if local_assigns[:show_errors].nil?
-cataloguing = false if local_assigns[:cataloguing].nil?
-fields = metadata_record_fields(cataloguing)
+field_options = {} if local_assigns[:field_options].nil?
+fields = metadata_record_fields(field_options)
 geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
 -%>
 <% unless fields.blank? || metadata.blank? -%>
   <table class="member-record">
-    <caption><% if cataloguing %><%= t('formtastic.titles.cataloguing_metadata') %><% else %><%= t('formtastic.titles.metadata') %><% end %></caption>
+    <caption><% if field_options[:cataloguing] %><%= t('formtastic.titles.cataloguing_metadata') %><% else %><%= t('formtastic.titles.metadata') %><% end %></caption>
     <%- fields.each do |field| %>
       <tr>
         <th scope="row"><%= field.title %></th>

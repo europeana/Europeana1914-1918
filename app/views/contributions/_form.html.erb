@@ -2,14 +2,14 @@
   <%= form.inputs :metadata, :id => 'metadata' do %>
     <%= form.input :title %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :cataloguing => false } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :cataloguing => false, :contribution => true } } %>
     <% end %>
   <% end %>
   
-  <%- if current_user.may_catalogue_contribution?(contribution) && metadata_record_fields(true).present? -%>
+  <%- if current_user.may_catalogue_contribution?(contribution) -%>
     <%= form.inputs :cataloguing_metadata do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :cataloguing => true } %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :cataloguing => true, :contribution => true } } %>
       <% end %>
     <% end %>
   <%- end -%>

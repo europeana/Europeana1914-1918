@@ -1,12 +1,15 @@
 module MetadataRecordsHelper
-  # Gets the custom metadata fields for use on contribution and cataloguing forms
+  ##
+  # Gets the metadata fields to display on contribution/attachment forms
   #
-  # The <tt>cataloguing</tt> parameter specifies which metadata fields to get:
-  # * <tt>true</tt> gets fields where cataloguing = true
-  # * <tt>false</tt> gets fields where cataloguing = false
-  def metadata_record_fields(cataloguing = false, fields = nil)
-    conditions = { :cataloguing => cataloguing }
-    conditions[:name] = [ fields ].flatten unless fields.nil?
+  # @param  [Hash{Symbol => Object}]  options
+  # @option options [Boolean] :attachment  (nil)
+  # @option options [Boolean] :cataloguing  (nil)
+  # @option options [Boolean] :contribution  (nil)
+  def metadata_record_fields(options = {})
+    options.assert_valid_keys(:attachment, :cataloguing, :contribution)
+    conditions = options.dup
+    logger.debug "== Options: #{options.inspect}"
     MetadataField.where(conditions).order('position ASC')
   end
   

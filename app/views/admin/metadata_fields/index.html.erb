@@ -1,19 +1,20 @@
 <% @title = t('views.admin.metadata_fields.index.title') %>
 <p>Please do not make changes or add/remove fields after the collection has started (unless specifically authorized to do so).</p>
-<ul class="collection-actions">
-  <li><%= link_to t('views.admin.metadata_fields.index.links.new'), new_admin_metadata_field_path, :class => 'new-member' %></li>
-</ul>
+
+<div class="action-links">
+  <ul>
+    <li><%= link_to t('views.admin.metadata_fields.index.links.new'), new_admin_metadata_field_path, :class => 'new-member' %></li>
+    <%- if @fields.present? -%>
+      <li><%= link_to t('views.admin.metadata_fields.index.links.order'), order_admin_metadata_fields_path %></li>
+    <%- end -%>
+  </ul>
+</div>
 
 <% if @fields.blank? -%>
   <p><%= t('views.admin.metadata_fields.index.empty') %></p>
 <% else -%>
   <%- any_taxonomy_fields = @fields.collect { |field| field.field_type }.include?('taxonomy') -%>
-  <div class="action-links">
-    <ul>
-      <li><%= link_to t('views.admin.metadata_fields.index.links.order'), order_admin_metadata_fields_path %></li>
-    </ul>
-  </div>
-
+  
   <table class="collection-members metadata-fields" id="metadata-fields">
     <caption><%= t('views.admin.metadata_fields.index.caption') %></caption>
     <tr>

@@ -101,6 +101,8 @@ en:
           attributes:
             cataloguing:
               optional: Cataloguing fields can not be required.
+            contribution:
+              or_attachment: A field must apply to contributions and/or attachments
             field_type:
               constancy: The field type can not be changed.
             searchable:
@@ -503,8 +505,10 @@ en:
       contribution:
         title: A title for this contribution as a whole. This is required.
       metadata_field:
+        attachment: Specify whether this field applies to attachments.
         cataloguing: ! 'Yes: only show this field in the admin interface, for cataloguing
           purposes. No: also show to contributors.'
+        contribution: Specify whether this field applies to contributions.
         field_type: Can not be changed once the field has been saved.
         hint: Text to display alongside the input field to guide contributors/cataloguers.
         multi: Allow selection of multiple terms per contribution/attachment.
@@ -569,6 +573,8 @@ en:
     labels:
       contribution:
         terms: I accept the terms & conditions
+      metadata_field:
+        contribution: Contribution
       search:
         q: ''
     'no': 'No'

@@ -50,7 +50,7 @@ class MetadataField < ActiveRecord::Base
       end
     end
   end
-   attr_accessible :name, :title, :field_type, :required, :position, :cataloguing, :taxonomy_terms_attributes, :searchable, :hint, :multi, :show_in_listing
+   attr_accessible :name, :title, :field_type, :required, :position, :cataloguing, :taxonomy_terms_attributes, :searchable, :hint, :multi, :show_in_listing, :contribution, :attachment
   accepts_nested_attributes_for :taxonomy_terms
   
   translates :title, :hint # Globalize3
@@ -63,6 +63,8 @@ class MetadataField < ActiveRecord::Base
   validates_inclusion_of :required, :in => [ true, false ]
   validates_inclusion_of :cataloguing, :in => [ true, false ]
   validates_inclusion_of :searchable, :in => [ true, false ]
+  validates_inclusion_of :contribution, :in => [ true, false ]
+  validates_inclusion_of :attachment, :in => [ true, false ]
   validates_inclusion_of :field_type, :in => FIELD_TYPES, :on => :create
   validates_format_of :name, :with => MetadataRecord::FIELD_NAME_FORMAT, :allow_blank => true
   validates_uniqueness_of :name
@@ -71,6 +73,7 @@ class MetadataField < ActiveRecord::Base
   validate :validate_cataloguing_optional
   validate :validate_field_type_constancy, :on => :update
   validate :validate_searchable_type
+  validate :validate_contribution_or_attachment
 
   before_save :auto_set_title, :unless => Proc.new { |f| f.title.present? }
   after_save :adapt_other_models
@@ -163,6 +166,10 @@ class MetadataField < ActiveRecord::Base
   
   def validate_searchable_type
     self.errors.add(:searchable, I18n.t('activerecord.errors.models.metadata_field.attributes.searchable.field_type')) if (self.searchable? && self.field_type == 'taxonomy')
+  end
+  
+  def validate_contribution_or_attachment
+    self.errors.add(:contribution, I18n.t('activerecord.errors.models.metadata_field.attributes.contribution.or_attachment')) unless (self.contribution? || self.attachment?)
   end
   
   # Initializes options for the metadata field based on its field type.

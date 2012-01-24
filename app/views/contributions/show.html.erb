@@ -2,10 +2,10 @@
 
 <%= render :partial => 'summary', :locals => { :contribution => @contribution } %>
 
-<%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :cataloguing => false } %>
+<%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :field_options => { :cataloguing => false, :contribution => true } } %>
 
 <% if current_user.may_catalogue_contribution?(@contribution) -%>
-  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :cataloguing => true } %>
+  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :field_options => { :cataloguing => true, :contribution => true } } %>
 <% end -%>
 
 <% if @contribution.attachments.present? -%>
