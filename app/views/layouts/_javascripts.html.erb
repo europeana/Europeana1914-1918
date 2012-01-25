@@ -1,4 +1,15 @@
-<%= javascript_include_tag 'jquery-1.4.4.min', 'jquery-ui-1.8.2.custom.min', 'i18n', 'translations', 'rails', 'runcoco' %>
+<%
+  script_files = [
+	'jquery-1.4.4.min',
+	'jquery-ui-1.8.2.custom.min',
+	'i18n',
+	'translations',
+	'rails',
+	'runcoco'
+  ]
+-%>
+
+<%= javascript_include_tag script_files %>
 
 <%= javascript_tag do -%>
   var RunCoCo = {
