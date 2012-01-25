@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125163715) do
+ActiveRecord::Schema.define(:version => 20120125170806) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
