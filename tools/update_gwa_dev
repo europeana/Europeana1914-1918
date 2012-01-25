@@ -44,7 +44,7 @@ echo "=============   bundle install   ==========="
 echo
 rm Gemfile.lock
 bundle install
-
+bundle exec rake db:migrate
 
 echo
 echo "=============   restarting apache   ==========="
