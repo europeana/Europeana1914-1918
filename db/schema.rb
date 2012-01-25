@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125170806) do
+ActiveRecord::Schema.define(:version => 20120125174325) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(:version => 20120125170806) do
     t.string   "field_subject"
     t.string   "field_date"
     t.text     "field_description"
-    t.string   "field_date_from",          :limit => 10
-    t.string   "field_date_to",            :limit => 10
+    t.string   "field_date_from",           :limit => 10
+    t.string   "field_date_to",             :limit => 10
     t.string   "field_location_map"
     t.string   "field_location_placename"
     t.string   "field_contributor_behalf"
@@ -114,6 +114,9 @@ ActiveRecord::Schema.define(:version => 20120125170806) do
     t.text     "field_notes"
     t.string   "field_collection_day"
     t.string   "field_lang_other"
+    t.string   "field_creator_family_name"
+    t.string   "field_creator_given_name"
+    t.string   "field_license"
   end
 
   create_table "metadata_records_taxonomy_terms", :id => false, :force => true do |t|
