@@ -2,8 +2,7 @@
 <% unless fields.blank? -%>
   <% fields.each do |field| %>
     <%- if field.field_type == 'date' %>
-      <%- @javascripts[:datepicker] = true %>
-      <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :string, :input_html => { :class => 'datepicker' } %>
+      <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :string_date, :start_year => 1912, :end_year => 1923 %>
     <%- elsif field.field_type == 'geo' %>
       <%- @javascripts[:gmap_geo] = true %>
       <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :input_html => { :class => 'geo' } %>

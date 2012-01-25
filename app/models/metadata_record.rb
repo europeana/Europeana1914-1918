@@ -173,6 +173,25 @@ class MetadataRecord < ActiveRecord::Base
     end
     @fields
   end
+  
+  ##
+  # Alters incoming params hash for date fields input via select fields.
+  def attributes=(new_attributes, guard_protected_attributes = true)
+    return unless new_attributes.is_a?(Hash)
+    attributes = new_attributes.stringify_keys
+    
+    MetadataField.where(:field_type => 'date').each do |f|
+      datekey = f.column_name
+      if attributes.has_key?("#{datekey}(1i)")
+        year = attributes.delete("#{datekey}(1i)")
+        month = attributes.delete("#{datekey}(2i)").rjust(2, '0')
+        day = attributes.delete("#{datekey}(3i)").rjust(2, '0')
+        attributes[datekey] = [ year, month, day ].reject { |x| x == '00' || x.empty? }.join('-')
+      end
+    end
+    
+    super(attributes, guard_protected_attributes)
+  end
 
   protected
   # Restores all cataloguing fields to stored values unless cataloguing in process
