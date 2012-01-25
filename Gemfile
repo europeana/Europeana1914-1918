@@ -19,7 +19,7 @@ gem 'mysql2', '< 0.3'
 # gem 'ruby-debug19'
 
 # Bundle the extra gems:
-gem 'formtastic', '~> 1.2.0'
+gem 'formtastic', '~> 2.0.0'
 gem 'paperclip', '~> 2.3.0'
 gem 'devise', '~> 1.1.0'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
