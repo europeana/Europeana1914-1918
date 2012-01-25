@@ -153,7 +153,7 @@ class MetadataField < ActiveRecord::Base
   end
   
   def auto_set_position
-    unless self.position.present?
+    unless self.position.present? && (self.position > 0)
       self.position = (self.class.maximum(:position) || 0) + 1
     end
   end

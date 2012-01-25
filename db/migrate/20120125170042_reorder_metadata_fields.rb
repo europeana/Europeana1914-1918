@@ -13,7 +13,7 @@ class ReorderMetadataFields < ActiveRecord::Migration
   end
 
   def self.down
-    OLD_ORDER.each do |name|
+    OLD_ORDER.each_pair do |name, position|
       MetadataField.find_by_name(name).update_attribute(:position, position)
     end
   end
