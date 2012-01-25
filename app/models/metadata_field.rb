@@ -153,7 +153,9 @@ class MetadataField < ActiveRecord::Base
   end
   
   def auto_set_position
-    self.position = (self.class.maximum(:position) || 0) + 1
+    unless self.position.present?
+      self.position = (self.class.maximum(:position) || 0) + 1
+    end
   end
 
   def validate_field_type_constancy

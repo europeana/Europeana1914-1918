@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125163028) do
+ActiveRecord::Schema.define(:version => 20120125163715) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20120125163028) do
     t.string   "field_page_total"
     t.text     "field_notes"
     t.string   "field_collection_day"
+    t.string   "field_lang_other"
   end
 
   create_table "metadata_records_taxonomy_terms", :id => false, :force => true do |t|
