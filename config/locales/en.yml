@@ -198,6 +198,10 @@ en:
         sign_in: Sign in
         sign_out: Sign out
     'no': 'No'
+    options:
+      close: Close
+      open: Open
+      other_option: Other
     other:
       contributor: Contributor
       preview: Preview
@@ -637,9 +641,12 @@ en:
       finished: Back to contribution
       saved: Saved
   languages:
+    da: Danish
     de: German
     en: English
     fr: French
+    ga: Irish
+    nl: Dutch
     sl: Slovenian
   layout:
     navigation:
@@ -1316,45 +1323,42 @@ en:
         question: Are you sure you want to completely discard the contribution "<strong>%{title}</strong>"?
         title: Discard contribution
       digital_object:
-        heading: Digital objects
+        heading: Items attached to your story
         help_text:
-          add_attachment: Don’t forget to add an attachment through the below <b>Add
-            your digital object</b> form if relevant. There are currently <b>%{nr_digital_objects}</b>
-            digital objects attached to this story. You can see the listing of the
-            current digital objects attached to this story <a href="#digital-objects">here</a>.
-          add_digital_object: Add your digital object
+          add_attachment: Remember to add at least one item to your story. There are
+            currently <b>%{nr_digital_objects}</b> items attached to this story.
           creators_name: Name of the person who created the original object, for example
             the author of a letter or diary or a photographer's name.
-          date_completed: The completion or end date for an object with a date range,
-            like a diary.
-          date_created: Tell us when the digital object was created. If you do not
-            know when exactly, please provide the year field only or year and month.
-            i.e. my grand-father was enrolled in 1915, or 1915 January.
-          description: Describe the object's physical characteristics as well as what
+          date_completed: The end date for an item, for example, the last date of
+            a diary.
+          date_created: Tell us when the item was created, for example, when a letter
+            was written or when the object was begun, for example when a diary was
+            started. If you do not know the exact date, please provide a year only
+            or a year and a month.
+          describe_item: Describe your item
+          description: Describe the item’s physical characteristics as well as what
             it represents and means to you.
-          location_map: ! '%{use_google_maps} to pinpoint where the object was created
-            (where a letter was written or a photograph taken). When the map appears,
-            click on it or use the search box below the map to find the location.
-            Format: LAT,LNG, e.g. 51.500,-0.126 (for London)'
-          location_place_name: The place where the object was created (where a letter
-            was written from or a photograph taken), for example London.
-          medium: The material of the object that has been digitised (for example
-            paper, card, tape).
-          object_type: What the object is (for example poem, letter, photograph);
-            try to be as specific as possible.
-          page_number: For an object of many pages, write the individual page number
-          save_digital: By clicking on “Save digital object”, you will save this digital
-            object and have the change to add more digital objects or submit your
-            contribution as a whole.
-          side: For an object with two sides, for example a postcard, indicate the
-            side
+          medium: The material of the item that has been digitised (for example paper,
+            card, tape).
+          object_type: What the item is (for example poem, letter, photograph); try
+            to be as specific as possible.
+          page_number: For an item of many pages, write the individual page number
+          place_created: Enter the name of a city where the item was created (where
+            a letter was written from or a photograph taken), i.e., London or Paris.
+            Alternatively use the map to pinpoint where the story took place by dragging
+            the marker to the location. You can zoom in and out using the + and -
+            at the left of the map.
+          save_digital: By clicking on “Save item”, you will save this item and have
+            the change to add more items or submit your contribution as a whole.
+          side: For an item with two sides, for example a postcard, indicate the side
           source: The source that the item was digitised from (for example a leaf,
             a folio, a notebook, a reel of film).
-          subject: The person or place or object the contribution is about.
-          submit_contribution1: Finished? If you are happy with your contribution,
-            go ahead and submit it! If not, you can %{edit_contribution}.
+          subject: The person or place or object the item is about.
+          submit_contribution1: If you are finished with your contribution, <a href="#continue-to-submission">continue
+            to the submission step</a>.
           submit_contribution2: By clicking on “Submit story”, you will finalise your
-            story submission.
+            story submission. Once your contribution has been submitted it will be
+            reviewed by an expert and become available for others.
           submit_story_button: Submit story
           submit_your_story: Submit your story
           summary: Below is a summary of attachments already contributed; initially
@@ -1367,12 +1371,13 @@ en:
             you upload many images you will be given the opportunity to mark one of
             the attachments as “cover” image for your contribution; i.e. a postcard
             or a diary.
+          view_attachments: <a href="#digital-objects">Click to view and edit them</a>.
         labels:
           cover_image: Cover image
           creators_first_name: Creator’s first name
           creators_surname: Creator’s surname
-          date_completed: Date completed
-          date_created: Date created
+          date_completed: End Date
+          date_created: Date created / Start date
           description: Description
           forces: Does this digital object involve the
           front: Which front is this digital object about
@@ -1385,13 +1390,16 @@ en:
           medium: Medium
           page_number: Page number
           page_number_total: Total number of pages
+          place_created: Locate where your item was created.
           save_digital: Save digital object
+          save_item_draft: Save item draft
           side: Side
           source: Source
           subject: Subject
           submit_contribution: Submit contribution
           upload: Upload the file
         links:
+          add_another: Add another item
           edit: edit or add more information
         options:
           3d: 3D
@@ -1435,7 +1443,7 @@ en:
           vinyl: Vinyl
           vinyl_record: Vinyl record
           wood: Wood
-        step2: Step 2
+        step2: Step 2 - Add your memorabilia
       edit:
         title: Contribution
       index:
@@ -1496,13 +1504,10 @@ en:
           story_title: A title for this contribution as a whole.
           suggest_keyword: ! 'If a relevant keyword is not available please email
             us at: 1914-1918 [@] europeana [.] eu'
-          took_place: Tell us where the object was created, i.e. This postcard was
-            written in Brussels.
-          took_place_coordinates: ! 'Click on the link below to use Google Maps to
-            pinpoint where the object was created (where a letter was written or a
-            photograph taken). When the map appears, click on it or use the search
-            box below the map to find the location. Format: LAT,LNG, e.g. 51.500,-0.126
-            (for London) Please %{use_google_maps}'
+          took_place: Enter the name of a city, i.e., London or Paris. Alternatively
+            use the map to pinpoint where the story took place by dragging the marker
+            to the location. You can zoom in and out using the + and - at the left
+            of the map.
           use_google_maps: Use Google Maps
         labels:
           cataloguer: Cataloguer
@@ -1519,10 +1524,9 @@ en:
           story: Story
           story_begins: The story begins ...
           story_ends: The story ends ...
-          story_took_place: The story took place in ...
-          story_took_place_coordinates: Locate where your story took place
           tell: Tell your story ...
           title: Story title
+          took_place: Locate where your story took place
         options:
           aerial_warfare: Aerial Warfare
           african_wars: African Wars
@@ -1594,15 +1598,17 @@ en:
             after they are submitted, %{sign_in} or %{register} before continuing.
           title: Guest contact details
       help:
-        add_something:
-          heading: Adding something to Europeana 1914-1918
-          p1: You can add something to Europeana 1914-1918 by using the online collection
+        adding_your_story:
+          heading: Adding your story to Europeana 1914-1918
+          p1: You can add your story to Europeana 1914-1918 by using the online collection
             form on this website. You simply type in some information about your contribution,
             saying what it is (a postcard sent from XX, a diary, etc) and add any
             story that you want to share (for example about the person in the photograph,
             how you got it, what you know about the object). You can then attach a
             digital version of the object, for example a scanned or photographed copy
-            of the picture, diary, uniform or whatever it is you are sharing.
+            of the picture, diary, uniform or whatever it is you are sharing. Once
+            your contribution has been submitted it will be reviewed by an expert
+            and become available for others.
         how_to_use:
           heading: How to use the online story collection interface
           item1: ! '%{register} to get an account (you only need to do this once)
@@ -1617,7 +1623,7 @@ en:
           p2: There you will be asked to complete the following four steps. You do
             not have to complete the whole process at once but you can save your contribution
             and return to it later.
-        item1: Adding Something to Europeana 1914-1918 – See below
+        item1: Adding your story to Europeana 1914-1918 – See below
         item2: ! '%{privacy_policy} - Separate page'
         item3: ! '%{takedown_policy} - Separate page'
         item4: ! '%{contribution_terms} - Separate page'

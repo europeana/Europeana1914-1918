@@ -33,10 +33,10 @@
 					<input type="checkbox" value="en" /> <%= t('languages.en') %><br/>
 					<input type="checkbox" value="fr"/> <%= t('languages.fr') %><br/>
 					<input type="checkbox" value="sl"/> <%= t('languages.sl') %><br/>
-					dutch<br/>
-					irish/gaelic<br/>
-					danish<br/>
-					<input type="checkbox" /> other
+					<input type="checkbox" value="nl"/> <%= t('languages.nl') %><br/>
+					<input type="checkbox" value="nl"/> <%= t('languages.ga') %><br/>
+					<input type="checkbox" value="nl"/> <%= t('languages.da') %><br/>
+					<input type="checkbox" /> <%= t('common.options.other_option') %><br/>
 					<input type="text" /><br/>
 					<br/>
 				</li>
@@ -171,26 +171,14 @@
 					<br/>
 				</li>
 				
-				<!--
 				<li>
-					<label> t('views.contributions.story.labels.story_took_place')</label><br/>
+					<label><%= t('views.contributions.story.labels.took_place') %></label><br/>
 					<input type="text" /><br/>
-					t('views.contributions.story.help_text.took_place')<br/>
-					<br/>
-				</li>
-				-->
-				
-				<li>
-					<label><%= t('views.contributions.story.labels.story_took_place_coordinates') %></label><br/>
-					<input type="text" /><br/>
-					Enter the name of a city, i.e., London or Paris. Alternatively use the map to pinpoint where the story took place by dragging the marker to the location. You can zoom in and out using the + and - at the left of the map.<br/>
-					<!-- raw t( 'views.contributions.story.help_text.took_place_coordinates', :use_google_maps => link_to( t('views.contributions.story.help_text.use_google_maps'), '#', :class => 'gmap-show' ) ) %><br/> -->
+					<%= t('views.contributions.story.help_text.took_place') %><br/>
 					<br/>
 				</li>
 				
-				<p>sections below are collapsed by default for regular users, open for cataloguers</p>
-				
-				open/close
+				<p><span class="highlight">[ sections below are collapsed by default for regular users, open for cataloguers ]</span></p>
 				
 				<li>
 					
@@ -401,7 +389,7 @@
 							</li>
 							
 							<li>
-								default based on my login<br/>
+								[ default based on my login ]<br/>
 								<label><%= t('views.contributions.story.labels.cataloguer') %></label><br/>
 								
 								<select>
@@ -413,7 +401,7 @@
 							</li>
 							
 							<li>
-								deafult based on config value<br/>
+								[ default based on config value ]<br/>
 								<label><%= t('views.contributions.story.labels.collection_day') %></label><br/>
 								<select>
 									<option></option>
