@@ -2,6 +2,8 @@
 ===   history   ===
 2012-01-12 jaclu added setup instructions
 2012-01-09 jaclu initial far from complete version
+2012-01-17 dan entous : added redirects
+2012-01-24 dan entous : added secret token and db migrate
 
 dummy text testing hudson autobuild
 
@@ -52,6 +54,19 @@ environment.
 gem uninstall will_paginate warden tzinfo treetop thor thinking-sphinx sax-machine rspec-rails rspec-mocks rspec-expectations rspec-core rspec riddle rake railties rails rack-test rack-mount rack polyglot paperclip nokogiri mysql2 mime-types mail loofah i18n i18n-js http_accept_language hpricot globalize3 formtastic feedzirra fastercsv erubis diff-lcs devise curb cocaine bundler bundle builder bcrypt-ruby arel aegis activesupport activeresource activerecord activemodel actionpack actionmailer abstract passenger
 
 
+
+
+
+=== secret_token ===
+/config/initializers/secret_token.rb
+change CoCoCo::Application.config.secret_token
+to RunCoCo::Application.config.secret_token
+
+
+=== db updates ===
+Run `bundle exec rake db:migrate` on existing installations to :
+    1. apply changes to db structure for contribution/attachment field distinction.
+    2. make existing fields contributor-editable, and set them as applicable to the story, digital object or both.
 
 ===  redirects  ===
 the following redirects will need to be implement on production at deployment.
