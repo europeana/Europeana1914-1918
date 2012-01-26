@@ -35,15 +35,6 @@ class Permissions < Aegis::Permissions
   end
 
   action :catalogue_contribution do
-    # Even administrators can not catalogue contributions until they are submitted
-    deny :administrator
-    allow :administrator do |contribution|
-      contribution.submitted?
-    end
-    deny :cataloguer
-    allow :cataloguer do |contribution|
-      contribution.submitted?
-    end
   end
   
   action :search_contributions do
