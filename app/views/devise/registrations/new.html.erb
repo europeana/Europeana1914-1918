@@ -37,6 +37,9 @@
     
     <%= render :partial => 'terms' %>    
     
+    <%= form.inputs :accept_terms do %>
+      <%= form.input :terms, :as => :boolean %>
+    <% end %>
     
     <%= form.buttons do %>
       <%= redirect_field %>

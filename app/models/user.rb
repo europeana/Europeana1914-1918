@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   belongs_to :contact, :dependent => :destroy
 
   accepts_nested_attributes_for :contact
-  attr_accessible :email, :password, :password_confirmation, :contact_attributes
+  attr_accessible :email, :password, :password_confirmation, :contact_attributes, :terms
   
   # Default role for saved accounts is contributor
   before_validation lambda { |u| u.role_name = 'contributor' if u.role_name.to_s == 'guest' }, :on => :create
@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   
   validates_presence_of :role_name, :contact
   validates_associated :contact
+  validates_acceptance_of :terms, :allow_nil => false, :accept => true, :if => Proc.new { |u| u.role_name == 'contributor' }
 
   # Sets contact email to user email
   # It is expected that the contact email field would be hidden
