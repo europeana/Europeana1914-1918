@@ -25,7 +25,7 @@
       
       <div class="contributions-drafts" style="float: none;">
         <%- if current_user.contributions.draft.present? -%>
-          <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
+          <%= render :partial => 'drafts', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
         <%- else -%>
           <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
         <%- end -%>

@@ -73,7 +73,8 @@ module ContributionsHelper
     elsif field_name == 'approver'
       contribution.approver ? contribution.approver.contact.full_name : ''
     elsif field_name == 'title'
-      link_to (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>' + t('views.contributions.no_title') + '</em>')), contribution
+      title_text = (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>' + t('views.contributions.no_title') + '</em>'))
+      contribution.draft? ? title_text : link_to(title_text, contribution)
     elsif field_name == 'created_at'
       l contribution.created_at, :format => :short
     elsif contribution.respond_to? field_name

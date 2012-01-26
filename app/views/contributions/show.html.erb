@@ -41,7 +41,3 @@
     </ul>
   </div>
 <% end -%>
-
-<% if @contribution.draft? && current_user.may_edit_contribution?(@contribution) -%>
-  <%#= render :partial => 'progress', :locals => { :step => 4 } %>
-<% end -%>

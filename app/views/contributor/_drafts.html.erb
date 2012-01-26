@@ -1,0 +1,50 @@
+<%-
+if local_assigns[:table_class].nil?
+  table_class = 'contributions'
+else
+  table_class = "contributions #{table_class}"
+end
+
+if local_assigns[:fields].nil?
+  fields = [ 'title', 'attachments', 'created_at' ]
+end
+%>
+<% unless local_assigns[:contributions].blank? %>
+  <table class="<%= table_class %>">
+    <% unless local_assigns[:caption].blank? %>
+      <caption><%= caption %></caption>
+    <% end %>
+    <tr>
+      <%- for field_name in fields -%>
+        <th scope="col"><%= contribution_field_title(field_name) %></th>
+      <%- end -%>
+      <th scope="col" colspan="3"><%= t 'views.table.header.actions' %></th>
+    </tr>
+    <% for contribution in contributions %>
+      <tr>
+        <%- for field_name in fields -%>
+          <td><%= contribution_field_value(contribution, field_name) %></td>
+        <%- end -%>
+        <%- if current_user.may_edit_contribution?(contribution) -%>
+          <td><%= link_to t('actions.edit'), edit_contribution_path(contribution), :class => 'edit-member' %></td>
+          <td>
+            <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
+              <%= link_to t('actions.submit'), new_contribution_attachment_path(contribution) %>
+            <%- end -%>
+          </td>
+        <%- end -%>
+        <%- if current_user.may_delete_contribution?(contribution) -%>
+          <td><%= link_to t('actions.delete'), delete_contribution_path(contribution), :class => 'delete-member' %></td>
+        <%- end -%>
+      </tr>
+    <% end %>
+    <%- if contributions.respond_to?(:total_pages) && (contributions.total_pages > 1) %>
+      <tfoot>
+        <tr>
+          <td colspan="3"><%= will_paginate contributions %></td>
+        </tr>
+      </tfoot>
+    <%- end %>
+  </table>
+<% end %>
+
