@@ -1,7 +1,4 @@
-
-
-
-<h2><%= t('views.contributions.story.step1') %> - Telling your Story</h2>
+<h2><%= t('views.contributions.story.step1') %></h2>
 	
 	<form action="/en/story/step2">
 		
@@ -49,138 +46,194 @@
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.story_begins') %></label><br/>
-					<select>
-						<option value=""><%= t('datetime.prompts.year') %></option>
-						<option>1912</option>
-						<option>1913</option>
-						<option>1914</option>
-						<option>1915</option>
-						<option>1916</option>
-						<option>1917</option>
-						<option>1918</option>
-						<option>1919</option>
-						<option>1920</option>
-						<option>1921</option>
-						<option>1922</option>
-						<option>1923</option>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.month') %></option>
-						<% @month_names = t('date.month_names') %>
-						<% (1..12).each { |i| %>
-							<option><%= @month_names[i] %></option>
-						<% } %>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.day') %></option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-						<option>11</option>
-						<option>12</option>
-						<option>13</option>
-						<option>14</option>
-						<option>15</option>
-						<option>16</option>
-						<option>17</option>
-						<option>18</option>
-						<option>19</option>
-						<option>20</option>
-						<option>21</option>
-						<option>22</option>
-						<option>23</option>
-						<option>24</option>
-						<option>25</option>
-						<option>26</option>
-						<option>27</option>
-						<option>28</option>
-						<option>29</option>
-						<option>30</option>
-						<option>31</option>
-					</select><br/>
-					<%= t('views.contributions.story.help_text.story_begins') %><br/>
-					<br/>
+					<fieldset>
+						<legend>Tell us who this story is about</legend>
+						<ol>
+							<li>
+								<label>surname</label><br/>
+								<input type="text" /><br/>
+								<br/>
+							</li>
+							<li>
+								<label>first name</label><br/>
+								<input type="text" /><br/>
+								<br/>
+							</li>
+							<li><input type="button" value="add another person" />
+							<p>You can add more than one person.</p></li>
+						</ol>
+						
+					</fieldset>
+					
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.story_ends') %></label><br/>
-					<select>
-						<option value=""><%= t('datetime.prompts.year') %></option>
-						<option>1912</option>
-						<option>1913</option>
-						<option>1914</option>
-						<option>1915</option>
-						<option>1916</option>
-						<option>1917</option>
-						<option>1918</option>
-						<option>1919</option>
-						<option>1920</option>
-						<option>1921</option>
-						<option>1922</option>
-						<option>1923</option>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.month') %></option>
-						<% (1..12).each { |i| %>
-							<option><%= @month_names[i] %></option>
-						<% } %>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.day') %></option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-						<option>11</option>
-						<option>12</option>
-						<option>13</option>
-						<option>14</option>
-						<option>15</option>
-						<option>16</option>
-						<option>17</option>
-						<option>18</option>
-						<option>19</option>
-						<option>20</option>
-						<option>21</option>
-						<option>22</option>
-						<option>23</option>
-						<option>24</option>
-						<option>25</option>
-						<option>26</option>
-						<option>27</option>
-						<option>28</option>
-						<option>29</option>
-						<option>30</option>
-						<option>31</option>
-					</select><br/>
-					<%= t('views.contributions.story.help_text.story_ends') %><br/>
-					<br/>
+					
+					<fieldset>
+						
+						<legend>When did this story take palce</legend>
+						
+						<ol>
+							
+							<li>
+								
+								<label><%= t('views.contributions.story.labels.story_begins') %></label><br/>
+								<select>
+									<option value=""><%= t('datetime.prompts.year') %></option>
+									<option>1912</option>
+									<option>1913</option>
+									<option>1914</option>
+									<option>1915</option>
+									<option>1916</option>
+									<option>1917</option>
+									<option>1918</option>
+									<option>1919</option>
+									<option>1920</option>
+									<option>1921</option>
+									<option>1922</option>
+									<option>1923</option>
+								</select>
+								<select>
+									<option><%= t('datetime.prompts.month') %></option>
+									<% @month_names = t('date.month_names') %>
+									<% (1..12).each { |i| %>
+										<option><%= @month_names[i] %></option>
+									<% } %>
+								</select>
+								<select>
+									<option><%= t('datetime.prompts.day') %></option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option>17</option>
+									<option>18</option>
+									<option>19</option>
+									<option>20</option>
+									<option>21</option>
+									<option>22</option>
+									<option>23</option>
+									<option>24</option>
+									<option>25</option>
+									<option>26</option>
+									<option>27</option>
+									<option>28</option>
+									<option>29</option>
+									<option>30</option>
+									<option>31</option>
+								</select><br/>
+								<%= t('views.contributions.story.help_text.story_begins') %><br/>
+								<br/>
+							</li>
+							
+							
+							<li>
+								
+								<label><%= t('views.contributions.story.labels.story_ends') %></label><br/>
+								<select>
+									<option value=""><%= t('datetime.prompts.year') %></option>
+									<option>1912</option>
+									<option>1913</option>
+									<option>1914</option>
+									<option>1915</option>
+									<option>1916</option>
+									<option>1917</option>
+									<option>1918</option>
+									<option>1919</option>
+									<option>1920</option>
+									<option>1921</option>
+									<option>1922</option>
+									<option>1923</option>
+								</select>
+								<select>
+									<option><%= t('datetime.prompts.month') %></option>
+									<% (1..12).each { |i| %>
+										<option><%= @month_names[i] %></option>
+									<% } %>
+								</select>
+								<select>
+									<option><%= t('datetime.prompts.day') %></option>
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option>5</option>
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
+									<option>9</option>
+									<option>10</option>
+									<option>11</option>
+									<option>12</option>
+									<option>13</option>
+									<option>14</option>
+									<option>15</option>
+									<option>16</option>
+									<option>17</option>
+									<option>18</option>
+									<option>19</option>
+									<option>20</option>
+									<option>21</option>
+									<option>22</option>
+									<option>23</option>
+									<option>24</option>
+									<option>25</option>
+									<option>26</option>
+									<option>27</option>
+									<option>28</option>
+									<option>29</option>
+									<option>30</option>
+									<option>31</option>
+								</select><br/>
+								<%= t('views.contributions.story.help_text.story_ends') %><br/>
+								<br/>
+								
+							</li>
+							
+						</ol>
+						
+					</fieldset>
+					
 				</li>
+				
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.took_place') %></label><br/>
-					<input type="text" /><br/>
-					<%= t('views.contributions.story.help_text.took_place') %><br/>
-					<br/>
+					
+					<fieldset>
+						
+						<legend>Where did this story take place</legend>
+						
+						<ol>
+							
+							<li>
+								
+								<label><%= t('views.contributions.story.labels.took_place') %></label><br/>
+								<input type="text" /><br/>
+								<%= t('views.contributions.story.help_text.took_place') %><br/>
+								<br/>
+								
+							</li>
+							
+						</ol>
+						
+					</fieldset>
+					
 				</li>
 				
-				<p><span class="highlight">[ sections below are collapsed by default for regular users, open for cataloguers ]</span></p>
 				
-				<li class="collapsible-section">
+				<li>
 					
 					<fieldset>
 						
@@ -279,7 +332,7 @@
 				</li>
 				
 				
-				<li class="collapsible-section">
+				<li>
 					
 					<fieldset>
 						
@@ -343,7 +396,7 @@
 				</li>
 				
 				
-				<li class="collapsible-section">
+				<li>
 					
 					<fieldset>
 						
@@ -390,7 +443,7 @@
 							</li>
 							
 							<li>
-								[ default based on my login ]<br/>
+								<span class="highlight">[ default based on my login ]</span><br/>
 								<label><%= t('views.contributions.story.labels.cataloguer') %></label><br/>
 								
 								<select>
@@ -402,7 +455,7 @@
 							</li>
 							
 							<li>
-								[ default based on config value ]<br/>
+								<span class="highlight">[ default based on config value ]</span><br/>
 								<label><%= t('views.contributions.story.labels.collection_day') %></label><br/>
 								<select>
 									<option></option>
@@ -424,9 +477,12 @@
 					
 				</li>
 				
+				
 				<li>
+					
 					<input type="submit" value="<%= t('views.contributions.story.labels.save_story') %>" /><br/>
 					<%= t('views.contributions.story.help_text.save_story') %>
+					
 				</li>
 				
 			</ol>

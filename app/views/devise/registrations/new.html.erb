@@ -23,14 +23,21 @@
       <% end %>
     <% end %>
     
+    <img src="/images/profile-placeholder.jpg" alt="profile placeholder" /><br/>
+    <label><%= t('views.register.labels.profile_photo') %></label><br/>
+    <input type="file" />
+    <p><%= t('views.register.help_text.profile_photo') %></p>
+    
+    
     <%= form.inputs :account_details do %>
       <%= form.input :email %>
       <%= form.input :password %>
       <%= form.input :password_confirmation %>
     <% end %>
     
-    <%= render :partial => 'terms' %>
-      
+    <%= render :partial => 'terms' %>    
+    
+    
     <%= form.buttons do %>
       <%= redirect_field %>
       <%= form.commit_button %>
