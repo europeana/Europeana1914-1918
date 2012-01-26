@@ -25,6 +25,7 @@
 				</li>
 				
 				<li>
+					
 					<label><%= t('views.contributions.story.labels.language') %></label><br/>
 					<input type="checkbox" value="de" /> <%= t('languages.de') %><br/>
 					<input type="checkbox" value="en" /> <%= t('languages.en') %><br/>
@@ -36,353 +37,382 @@
 					<input type="checkbox" /> <%= t('common.options.other_option') %><br/>
 					<input type="text" /><br/>
 					<br/>
+					
 				</li>
 				
 				<li>
+					
 					<label><%= t('views.contributions.story.labels.on_behalf') %></label><br/>
 					<input type="text" /><br/>
 					<br/>
 					<br/>
-				</li>
-				
-				<li>
-					<fieldset>
-						<legend>Tell us who this story is about</legend>
-						<ol>
-							<li>
-								<label>surname</label><br/>
-								<input type="text" /><br/>
-								<br/>
-							</li>
-							<li>
-								<label>first name</label><br/>
-								<input type="text" /><br/>
-								<br/>
-							</li>
-							<li><input type="button" value="add another person" />
-							<p>You can add more than one person.</p></li>
-						</ol>
-						
-					</fieldset>
 					
 				</li>
 				
+			</ol>
+			
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend>Tell us who this story is about</legend>
+			
+			<ol>
 				<li>
-					
-					<fieldset>
-						
-						<legend>When did this story take palce</legend>
-						
-						<ol>
-							
-							<li>
-								
-								<label><%= t('views.contributions.story.labels.story_begins') %></label><br/>
-								<select>
-									<option value=""><%= t('datetime.prompts.year') %></option>
-									<option>1912</option>
-									<option>1913</option>
-									<option>1914</option>
-									<option>1915</option>
-									<option>1916</option>
-									<option>1917</option>
-									<option>1918</option>
-									<option>1919</option>
-									<option>1920</option>
-									<option>1921</option>
-									<option>1922</option>
-									<option>1923</option>
-								</select>
-								<select>
-									<option><%= t('datetime.prompts.month') %></option>
-									<% @month_names = t('date.month_names') %>
-									<% (1..12).each { |i| %>
-										<option><%= @month_names[i] %></option>
-									<% } %>
-								</select>
-								<select>
-									<option><%= t('datetime.prompts.day') %></option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-									<option>8</option>
-									<option>9</option>
-									<option>10</option>
-									<option>11</option>
-									<option>12</option>
-									<option>13</option>
-									<option>14</option>
-									<option>15</option>
-									<option>16</option>
-									<option>17</option>
-									<option>18</option>
-									<option>19</option>
-									<option>20</option>
-									<option>21</option>
-									<option>22</option>
-									<option>23</option>
-									<option>24</option>
-									<option>25</option>
-									<option>26</option>
-									<option>27</option>
-									<option>28</option>
-									<option>29</option>
-									<option>30</option>
-									<option>31</option>
-								</select><br/>
-								<%= t('views.contributions.story.help_text.story_begins') %><br/>
-								<br/>
-							</li>
-							
-							
-							<li>
-								
-								<label><%= t('views.contributions.story.labels.story_ends') %></label><br/>
-								<select>
-									<option value=""><%= t('datetime.prompts.year') %></option>
-									<option>1912</option>
-									<option>1913</option>
-									<option>1914</option>
-									<option>1915</option>
-									<option>1916</option>
-									<option>1917</option>
-									<option>1918</option>
-									<option>1919</option>
-									<option>1920</option>
-									<option>1921</option>
-									<option>1922</option>
-									<option>1923</option>
-								</select>
-								<select>
-									<option><%= t('datetime.prompts.month') %></option>
-									<% (1..12).each { |i| %>
-										<option><%= @month_names[i] %></option>
-									<% } %>
-								</select>
-								<select>
-									<option><%= t('datetime.prompts.day') %></option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
-									<option>6</option>
-									<option>7</option>
-									<option>8</option>
-									<option>9</option>
-									<option>10</option>
-									<option>11</option>
-									<option>12</option>
-									<option>13</option>
-									<option>14</option>
-									<option>15</option>
-									<option>16</option>
-									<option>17</option>
-									<option>18</option>
-									<option>19</option>
-									<option>20</option>
-									<option>21</option>
-									<option>22</option>
-									<option>23</option>
-									<option>24</option>
-									<option>25</option>
-									<option>26</option>
-									<option>27</option>
-									<option>28</option>
-									<option>29</option>
-									<option>30</option>
-									<option>31</option>
-								</select><br/>
-								<%= t('views.contributions.story.help_text.story_ends') %><br/>
-								<br/>
-								
-							</li>
-							
-						</ol>
-						
-					</fieldset>
-					
-				</li>
-				
-				
-				<li>
-					
-					<fieldset>
-						
-						<legend>Where did this story take place</legend>
-						
-						<ol>
-							
-							<li>
-								
-								<label><%= t('views.contributions.story.labels.took_place') %></label><br/>
-								<input type="text" /><br/>
-								<%= t('views.contributions.story.help_text.took_place') %><br/>
-								<br/>
-								
-							</li>
-							
-						</ol>
-						
-					</fieldset>
-					
-				</li>
-				
-				
-				<li>
-					
-					<fieldset>
-						
-						<legend><%= t('views.contributions.story.labels.keywords') %></legend>
-						
-							<ol>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.antiwar') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.artillery') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.conscientious') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.gas') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.home_front') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.manufacture') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.medical') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.military_punishment') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.prisoners') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.propaganda') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.recruitment') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.rememberance') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.tanks') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.transport') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.trench_life') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.women') %></label>
-								</li>
-							
-							</ol>
-							
-						<%= t('views.contributions.story.help_text.keywords') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
-						
-					</fieldset>
-					
+					<label>surname</label><br/>
+					<input type="text" /><br/>
 					<br/>
+				</li>
+				<li>
+					<label>first name</label><br/>
+					<input type="text" /><br/>
+					<br/>
+				</li>
+				<li><input type="button" value="add another person" />
+				<p>You can add more than one person.</p></li>
+			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend>When did this story take palce</legend>
+			
+			<ol>
 				
+				<li>
+					
+					<label><%= t('views.contributions.story.labels.story_begins') %></label><br/>
+					<select>
+						<option value=""><%= t('datetime.prompts.year') %></option>
+						<option>1912</option>
+						<option>1913</option>
+						<option>1914</option>
+						<option>1915</option>
+						<option>1916</option>
+						<option>1917</option>
+						<option>1918</option>
+						<option>1919</option>
+						<option>1920</option>
+						<option>1921</option>
+						<option>1922</option>
+						<option>1923</option>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.month') %></option>
+						<% @month_names = t('date.month_names') %>
+						<% (1..12).each { |i| %>
+							<option><%= @month_names[i] %></option>
+						<% } %>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.day') %></option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					</select><br/>
+					<%= t('views.contributions.story.help_text.story_begins') %><br/>
+					<br/>
 				</li>
 				
 				
 				<li>
 					
+					<label><%= t('views.contributions.story.labels.story_ends') %></label><br/>
+					<select>
+						<option value=""><%= t('datetime.prompts.year') %></option>
+						<option>1912</option>
+						<option>1913</option>
+						<option>1914</option>
+						<option>1915</option>
+						<option>1916</option>
+						<option>1917</option>
+						<option>1918</option>
+						<option>1919</option>
+						<option>1920</option>
+						<option>1921</option>
+						<option>1922</option>
+						<option>1923</option>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.month') %></option>
+						<% (1..12).each { |i| %>
+							<option><%= @month_names[i] %></option>
+						<% } %>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.day') %></option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					</select><br/>
+					<%= t('views.contributions.story.help_text.story_ends') %><br/>
+					<br/>
+					
+				</li>
+				
+			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend>Where did this story take place</legend>
+			
+			<ol>
+				
+				<li>
+					
+					<label><%= t('views.contributions.story.labels.took_place') %></label><br/>
+					<input type="text" /><br/>
+					<%= t('views.contributions.story.help_text.took_place') %><br/>
+					<br/>
+					
+				</li>
+				
+			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend><%= t('views.contributions.story.labels.keywords') %></legend>
+			
+				<ol>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.antiwar') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.artillery') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.conscientious') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.gas') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.home_front') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.manufacture') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.medical') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.military_punishment') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.prisoners') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.propaganda') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.recruitment') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.rememberance') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.tanks') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.transport') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.trench_life') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.women') %></label>
+					</li>
+				
+				</ol>
+				
+			<%= t('views.contributions.story.help_text.keywords') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend><%= t('views.contributions.story.labels.front') %></legend>
+			
+			<ol>
+				
+				<li>
+					<input type="checkbox" value="gallipoli_front" />
+					<label><%= t('views.contributions.story.options.gallipoli_front') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="african_wars" />
+					<label><%= t('views.contributions.story.options.african_wars') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="balkans" />
+					<label><%= t('views.contributions.story.options.balkans') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="italian_front" />
+					<label><%= t('views.contributions.story.options.italian_front') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="aerial_warfare" />
+					<label><%= t('views.contributions.story.options.aerial_warfare') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="middle_east" />
+					<label><%= t('views.contributions.story.options.middle_east') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="eastern_front"/>
+					<label><%= t('views.contributions.story.options.eastern_front') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="naval_warfare" />
+					<label><%= t('views.contributions.story.options.naval_warfare') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="western_front" />
+					<label><%= t('views.contributions.story.options.western_front') %></label>
+				</li>
+				
+			</ol>
+			
+			<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
+			
+			<ol>
+				
+				<li>
+			
 					<fieldset>
 						
-						<legend><%= t('views.contributions.story.labels.front') %></legend>
+						<legend><%= t('views.contributions.story.labels.forces') %></legend>
 						
 						<ol>
 							
 							<li>
-								<input type="checkbox" value="gallipoli_front" />
-								<label><%= t('views.contributions.story.options.gallipoli_front') %></label>
+								<input type="checkbox" value="allied_forces">
+								<label><%= t('views.contributions.story.options.allied_forces') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" value="african_wars" />
-								<label><%= t('views.contributions.story.options.african_wars') %></label>
+								<input type="checkbox" value="central_powers">
+								<label><%= t('views.contributions.story.options.central_powers') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" value="balkans" />
-								<label><%= t('views.contributions.story.options.balkans') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="italian_front" />
-								<label><%= t('views.contributions.story.options.italian_front') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="aerial_warfare" />
-								<label><%= t('views.contributions.story.options.aerial_warfare') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="middle_east" />
-								<label><%= t('views.contributions.story.options.middle_east') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="eastern_front"/>
-								<label><%= t('views.contributions.story.options.eastern_front') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="naval_warfare" />
-								<label><%= t('views.contributions.story.options.naval_warfare') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="western_front" />
-								<label><%= t('views.contributions.story.options.western_front') %></label>
+								<input type="checkbox" value="imperial_forces">
+								<label><%= t('views.contributions.story.options.imperial_forces') %></label>
 							</li>
 							
 						</ol>
@@ -395,97 +425,47 @@
 					
 				</li>
 				
-				
 				<li>
-					
-					<fieldset>
-						
-						<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
-						
-						<ol>
-							
-							<li>
-						
-								<fieldset>
-									
-									<legend><%= t('views.contributions.story.labels.forces') %></legend>
-									
-									<ol>
-										
-										<li>
-											<input type="checkbox" value="allied_forces">
-											<label><%= t('views.contributions.story.options.allied_forces') %></label>
-										</li>
-										
-										<li>
-											<input type="checkbox" value="central_powers">
-											<label><%= t('views.contributions.story.options.central_powers') %></label>
-										</li>
-										
-										<li>
-											<input type="checkbox" value="imperial_forces">
-											<label><%= t('views.contributions.story.options.imperial_forces') %></label>
-										</li>
-										
-									</ol>
-									
-									<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
-									
-								</fieldset>
-								
-								<br/>
-								
-							</li>
-							
-							<li>
-								<input type="checkbox" /> <label><%= t('views.contributions.story.options.editors_pick') %></label><br/>
-								<br/>
-							</li>
-							
-							<li>
-								<span class="highlight">[ default based on my login ]</span><br/>
-								<label><%= t('views.contributions.story.labels.cataloguer') %></label><br/>
-								
-								<select>
-									<option></option>
-									<option>Alun</option>
-									<option>Ylva</option>
-								</select><br/>
-								<br/>
-							</li>
-							
-							<li>
-								<span class="highlight">[ default based on config value ]</span><br/>
-								<label><%= t('views.contributions.story.labels.collection_day') %></label><br/>
-								<select>
-									<option></option>
-									<option>RG14</option>
-								</select><br/>
-								<br/>
-							</li>
-							
-							<li>
-								<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
-								<textarea></textarea>
-							</li>
-							
-						</ol>
-						
-					</fieldset>
-					
+					<input type="checkbox" /> <label><%= t('views.contributions.story.options.editors_pick') %></label><br/>
 					<br/>
-					
 				</li>
 				
+				<li>
+					<span class="highlight">[ default based on my login ]</span><br/>
+					<label><%= t('views.contributions.story.labels.cataloguer') %></label><br/>
+					
+					<select>
+						<option></option>
+						<option>Alun</option>
+						<option>Ylva</option>
+					</select><br/>
+					<br/>
+				</li>
 				
 				<li>
-					
-					<input type="submit" value="<%= t('views.contributions.story.labels.save_story') %>" /><br/>
-					<%= t('views.contributions.story.help_text.save_story') %>
-					
+					<span class="highlight">[ default based on config value ]</span><br/>
+					<label><%= t('views.contributions.story.labels.collection_day') %></label><br/>
+					<select>
+						<option></option>
+						<option>RG14</option>
+					</select><br/>
+					<br/>
+				</li>
+				
+				<li>
+					<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
+					<textarea></textarea>
 				</li>
 				
 			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+		
+			<input type="submit" value="<%= t('views.contributions.story.labels.save_story') %>" /><br/>
+			<%= t('views.contributions.story.help_text.save_story') %>
 			
 		</fieldset>
 		

@@ -32,11 +32,12 @@
 			
 <h2><%= t('views.contributions.digital_object.step2') %></h2>
 <% @nr_digital_objects = 0 %>
-<p>	
-	<%= raw t( 'views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects )%>
-	<span class="highlight">[ only show this link if there is at least 1 item ]</span>
-	<%= raw t('views.contributions.digital_object.help_text.view_attachments') %>
-</p>
+
+	<p>	
+		<%= raw t( 'views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects )%>
+		<span class="highlight">[ only show this link if there is at least 1 item ]</span>
+		<%= raw t('views.contributions.digital_object.help_text.view_attachments') %>
+	</p>
 	
 	<form id="add-item" style="margin-top: 20px;">
 		
@@ -148,6 +149,16 @@
 					<br/>
 				</li>
 				
+			</ol>
+			
+		</fieldset>
+		
+		<fieldset>
+			
+			<legend>Where was this item created</legend>
+			
+			<ol>
+				
 				<li>
 					<label><%= t('views.contributions.digital_object.labels.place_created') %></label><br/>
 					<input type="text" /><br/>
@@ -155,6 +166,16 @@
 					<br/>
 				</li>
 				
+			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend>When was this item created</legend>
+				
+			<ol>
 				
 				<li>
 					<label><%= t('views.contributions.digital_object.labels.date_created') %></label><br/>
@@ -280,158 +301,192 @@
 					
 					<br/>
 					<br/>
+					
+				</li>
+				
+			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend><%= t('views.contributions.digital_object.labels.keywords') %></legend>
+			
+				<ol>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.antiwar') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.artillery') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.conscientious') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.gas') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.home_front') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.manufacture') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.medical') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.military_punishment') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.prisoners') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.propaganda') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.recruitment') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.rememberance') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.tanks') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.transport') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.trench_life') %></label>
+					</li>
+					
+					<li>
+						<input type="checkbox" value="antiwar">
+						<label><%= t('views.contributions.story.options.women') %></label>
+					</li>
+				
+				</ol>
+				
+			<%= t('views.contributions.story.help_text.keywords') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend><%= t('views.contributions.digital_object.labels.front') %></legend>
+			
+			<ol>
+				
+				<li>
+					<input type="checkbox" value="gallipoli_front" />
+					<label><%= t('views.contributions.story.options.gallipoli_front') %></label>
 				</li>
 				
 				<li>
-					
-					<fieldset>
-						
-						<legend><%= t('views.contributions.digital_object.labels.keywords') %></legend>
-						
-							<ol>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.antiwar') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.artillery') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.conscientious') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.gas') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.home_front') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.manufacture') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.medical') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.military_punishment') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.prisoners') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.propaganda') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.recruitment') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.rememberance') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.tanks') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.transport') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.trench_life') %></label>
-								</li>
-								
-								<li>
-									<input type="checkbox" value="antiwar">
-									<label><%= t('views.contributions.story.options.women') %></label>
-								</li>
-							
-							</ol>
-							
-						<%= t('views.contributions.story.help_text.keywords') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
-						
-					</fieldset>
-					
-					<br/>
-				
+					<input type="checkbox" value="african_wars" />
+					<label><%= t('views.contributions.story.options.african_wars') %></label>
 				</li>
 				
+				<li>
+					<input type="checkbox" value="balkans" />
+					<label><%= t('views.contributions.story.options.balkans') %></label>
+				</li>
 				
 				<li>
-					
+					<input type="checkbox" value="italian_front" />
+					<label><%= t('views.contributions.story.options.italian_front') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="aerial_warfare" />
+					<label><%= t('views.contributions.story.options.aerial_warfare') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="middle_east" />
+					<label><%= t('views.contributions.story.options.middle_east') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="eastern_front"/>
+					<label><%= t('views.contributions.story.options.eastern_front') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="naval_warfare" />
+					<label><%= t('views.contributions.story.options.naval_warfare') %></label>
+				</li>
+				
+				<li>
+					<input type="checkbox" value="western_front" />
+					<label><%= t('views.contributions.story.options.western_front') %></label>
+				</li>
+				
+			</ol>
+			
+			<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
+			
+			<ol>
+				
+				<li>
+		
 					<fieldset>
 						
-						<legend><%= t('views.contributions.digital_object.labels.front') %></legend>
+						<legend><%= t('views.contributions.digital_object.labels.forces') %></legend>
 						
 						<ol>
 							
 							<li>
-								<input type="checkbox" value="gallipoli_front" />
-								<label><%= t('views.contributions.story.options.gallipoli_front') %></label>
+								<input type="checkbox" value="allied_forces">
+								<label><%= t('views.contributions.story.options.allied_forces') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" value="african_wars" />
-								<label><%= t('views.contributions.story.options.african_wars') %></label>
+								<input type="checkbox" value="central_powers">
+								<label><%= t('views.contributions.story.options.central_powers') %></label>
 							</li>
 							
 							<li>
-								<input type="checkbox" value="balkans" />
-								<label><%= t('views.contributions.story.options.balkans') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="italian_front" />
-								<label><%= t('views.contributions.story.options.italian_front') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="aerial_warfare" />
-								<label><%= t('views.contributions.story.options.aerial_warfare') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="middle_east" />
-								<label><%= t('views.contributions.story.options.middle_east') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="eastern_front"/>
-								<label><%= t('views.contributions.story.options.eastern_front') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="naval_warfare" />
-								<label><%= t('views.contributions.story.options.naval_warfare') %></label>
-							</li>
-							
-							<li>
-								<input type="checkbox" value="western_front" />
-								<label><%= t('views.contributions.story.options.western_front') %></label>
+								<input type="checkbox" value="imperial_forces">
+								<label><%= t('views.contributions.story.options.imperial_forces') %></label>
 							</li>
 							
 						</ol>
@@ -445,141 +500,97 @@
 				</li>
 				
 				<li>
-					
-					<fieldset>
-						
-						<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
-						
-						<ol>
-							
-							<li>
-					
-								<fieldset>
-									
-									<legend><%= t('views.contributions.digital_object.labels.forces') %></legend>
-									
-									<ol>
-										
-										<li>
-											<input type="checkbox" value="allied_forces">
-											<label><%= t('views.contributions.story.options.allied_forces') %></label>
-										</li>
-										
-										<li>
-											<input type="checkbox" value="central_powers">
-											<label><%= t('views.contributions.story.options.central_powers') %></label>
-										</li>
-										
-										<li>
-											<input type="checkbox" value="imperial_forces">
-											<label><%= t('views.contributions.story.options.imperial_forces') %></label>
-										</li>
-										
-									</ol>
-									
-									<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
-									
-								</fieldset>
-								
-								<br/>
-								
-							</li>
-							
-							<li>
-								<label><%= t('views.contributions.digital_object.labels.source') %></label><br/>
-								<select>
-									<option value=""></option>
-									<option value="14"><%= t('views.contributions.digital_object.options.other_option') %></option>
-									<option value="5"><%= t('views.contributions.digital_object.options.artifact') %></option>
-									<option value="10"><%= t('views.contributions.digital_object.options.leaf') %></option>
-									<option value="6"><%= t('views.contributions.digital_object.options.book') %></option>
-									<option value="7"><%= t('views.contributions.digital_object.options.film') %></option>
-									<option value="8"><%= t('views.contributions.digital_object.options.folio') %></option>
-									<option value="15"><%= t('views.contributions.digital_object.options.photograph') %></option>
-									<option value="13"><%= t('views.contributions.digital_object.options.notebook') %></option>
-									<option value="16"><%= t('views.contributions.digital_object.options.postcard') %></option>
-									<option value="19"><%= t('views.contributions.digital_object.options.vinyl_record') %></option>
-									<option value="17"><%= t('views.contributions.digital_object.options.tape') %></option>
-									<option value="18"><%= t('views.contributions.digital_object.options.unknown') %></option>
-									<option value="11"><%= t('views.contributions.digital_object.options.multiple') %></option>
-									<option value="9"><%= t('views.contributions.digital_object.options.journal') %></option>
-									<option value="12"><%= t('views.contributions.digital_object.options.newspaper') %></option>
-								</select><br/>
-								<%= t('views.contributions.digital_object.help_text.source') %><br/>
-								<br/>
-							</li>
-							
-							<li>
-								<label><%= t('views.contributions.digital_object.labels.medium') %></label><br/>
-								<select>
-									<option></option>
-									<option value="27"><%= t('views.contributions.digital_object.options.other_option') %></option>
-									<option value="23"><%= t('views.contributions.digital_object.options.digital') %></option>
-									<option value="29"><%= t('views.contributions.digital_object.options.photographic_paper') %></option>
-									<option value="35"><%= t('views.contributions.digital_object.options.wood') %></option>
-									<option value="21"><%= t('views.contributions.digital_object.options.card') %></option>
-									<option value="22"><%= t('views.contributions.digital_object.options.ceramic') %></option>
-									<option value="24"><%= t('views.contributions.digital_object.options.leather') %></option>
-									<option value="20"><%= t('views.contributions.digital_object.options.canvas') %></option>
-									<option value="25"><%= t('views.contributions.digital_object.options.metal') %></option>
-									<option value="26"><%= t('views.contributions.digital_object.options.mixed') %></option>
-									<option value="28"><%= t('views.contributions.digital_object.options.paper') %></option>
-									<option value="34"><%= t('views.contributions.digital_object.options.vinyl') %></option>
-									<option value="31"><%= t('views.contributions.digital_object.options.text_memoir') %></option>
-									<option value="32"><%= t('views.contributions.digital_object.options.text_transcript') %></option>
-									<option value="30"><%= t('views.contributions.digital_object.options.tape') %></option>
-									<option value="33"><%= t('views.contributions.digital_object.options.unknown') %></option>
-								</select><br/>
-								<%= t('views.contributions.digital_object.help_text.medium') %><br/>
-								<br/>
-							</li>
-							
-							<li>
-								<label><%= t('views.contributions.digital_object.labels.page_number_total') %></label><br/>
-								<input type="text"/><br/>
-								<br/>
-							</li>
-							
-							<li>
-								<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
-								<textarea></textarea><br/>
-								<br/>
-							</li>
-							
-							
-							<li>
-								<label><%= t('views.contributions.digital_object.labels.media_type') %></label><br/>
-								<select>
-									<option><%= t('views.contributions.digital_object.options.text') %></option>
-									<option><%= t('views.contributions.digital_object.options.image') %></option>
-									<option><%= t('views.contributions.digital_object.options.video') %></option>
-									<option><%= t('views.contributions.digital_object.options.audio') %></option>
-									<option><%= t('views.contributions.digital_object.options.3d') %></option>
-								</select>
-								<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
-								<br/>
-							</li>
-							
-							<li>
-								<label><%= t('views.contributions.digital_object.labels.license') %></label><br/>
-								<select>
-									<option><%= t('views.contributions.digital_object.options.cc_by_sa') %></option>
-									<option><%= t('views.contributions.digital_object.options.public_domain') %></option>
-								</select><br/>
-								<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
-							</li>
-							
-						</ol>
-						
-					</fieldset>
-					
+					<label><%= t('views.contributions.digital_object.labels.source') %></label><br/>
+					<select>
+						<option value=""></option>
+						<option value="14"><%= t('views.contributions.digital_object.options.other_option') %></option>
+						<option value="5"><%= t('views.contributions.digital_object.options.artifact') %></option>
+						<option value="10"><%= t('views.contributions.digital_object.options.leaf') %></option>
+						<option value="6"><%= t('views.contributions.digital_object.options.book') %></option>
+						<option value="7"><%= t('views.contributions.digital_object.options.film') %></option>
+						<option value="8"><%= t('views.contributions.digital_object.options.folio') %></option>
+						<option value="15"><%= t('views.contributions.digital_object.options.photograph') %></option>
+						<option value="13"><%= t('views.contributions.digital_object.options.notebook') %></option>
+						<option value="16"><%= t('views.contributions.digital_object.options.postcard') %></option>
+						<option value="19"><%= t('views.contributions.digital_object.options.vinyl_record') %></option>
+						<option value="17"><%= t('views.contributions.digital_object.options.tape') %></option>
+						<option value="18"><%= t('views.contributions.digital_object.options.unknown') %></option>
+						<option value="11"><%= t('views.contributions.digital_object.options.multiple') %></option>
+						<option value="9"><%= t('views.contributions.digital_object.options.journal') %></option>
+						<option value="12"><%= t('views.contributions.digital_object.options.newspaper') %></option>
+					</select><br/>
+					<%= t('views.contributions.digital_object.help_text.source') %><br/>
 					<br/>
-				
 				</li>
 				
-				<input type="submit" value="<%= t('views.contributions.digital_object.labels.save_item_draft') %>" />
+				<li>
+					<label><%= t('views.contributions.digital_object.labels.medium') %></label><br/>
+					<select>
+						<option></option>
+						<option value="27"><%= t('views.contributions.digital_object.options.other_option') %></option>
+						<option value="23"><%= t('views.contributions.digital_object.options.digital') %></option>
+						<option value="29"><%= t('views.contributions.digital_object.options.photographic_paper') %></option>
+						<option value="35"><%= t('views.contributions.digital_object.options.wood') %></option>
+						<option value="21"><%= t('views.contributions.digital_object.options.card') %></option>
+						<option value="22"><%= t('views.contributions.digital_object.options.ceramic') %></option>
+						<option value="24"><%= t('views.contributions.digital_object.options.leather') %></option>
+						<option value="20"><%= t('views.contributions.digital_object.options.canvas') %></option>
+						<option value="25"><%= t('views.contributions.digital_object.options.metal') %></option>
+						<option value="26"><%= t('views.contributions.digital_object.options.mixed') %></option>
+						<option value="28"><%= t('views.contributions.digital_object.options.paper') %></option>
+						<option value="34"><%= t('views.contributions.digital_object.options.vinyl') %></option>
+						<option value="31"><%= t('views.contributions.digital_object.options.text_memoir') %></option>
+						<option value="32"><%= t('views.contributions.digital_object.options.text_transcript') %></option>
+						<option value="30"><%= t('views.contributions.digital_object.options.tape') %></option>
+						<option value="33"><%= t('views.contributions.digital_object.options.unknown') %></option>
+					</select><br/>
+					<%= t('views.contributions.digital_object.help_text.medium') %><br/>
+					<br/>
+				</li>
+				
+				<li>
+					<label><%= t('views.contributions.digital_object.labels.page_number_total') %></label><br/>
+					<input type="text"/><br/>
+					<br/>
+				</li>
+				
+				<li>
+					<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
+					<textarea></textarea><br/>
+					<br/>
+				</li>
+				
+				
+				<li>
+					<label><%= t('views.contributions.digital_object.labels.media_type') %></label><br/>
+					<select>
+						<option><%= t('views.contributions.digital_object.options.text') %></option>
+						<option><%= t('views.contributions.digital_object.options.image') %></option>
+						<option><%= t('views.contributions.digital_object.options.video') %></option>
+						<option><%= t('views.contributions.digital_object.options.audio') %></option>
+						<option><%= t('views.contributions.digital_object.options.3d') %></option>
+					</select>
+					<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
+					<br/>
+				</li>
+				
+				<li>
+					<label><%= t('views.contributions.digital_object.labels.license') %></label><br/>
+					<select>
+						<option><%= t('views.contributions.digital_object.options.cc_by_sa') %></option>
+						<option><%= t('views.contributions.digital_object.options.public_domain') %></option>
+					</select><br/>
+					<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
+				</li>
 				
 			</ol>
+			
+		</fieldset>
+		
+		
+		<fieldset>
+			
+			<input type="submit" value="<%= t('views.contributions.digital_object.labels.save_item_draft') %>" />
 			
 		</fieldset>
 		
