@@ -38,9 +38,45 @@
 		},
 		
 		
+		showSubmission : function( evt ) {
+			
+			var $target = jQuery( jQuery(this).attr('href') );
+			
+			evt.preventDefault();
+			
+			jQuery('body').animate({
+				
+				scrollTop : 0,
+				duration : 800
+				
+			});
+			
+			if ( $target.is(':hidden') ) {
+				
+				$target.toggle('height');
+				
+			}
+			
+		},
+		
+		
+		setupShowSubmission : function() {
+			
+			var self = this;
+			
+			jQuery('a[href="#continue-to-submission"]').each(function() {
+			
+				jQuery(this).bind( 'click', self.showSubmission );
+				
+			});
+			
+		},
+		
+		
 		init : function() {
 			
 			this.setupCollapsibleSections();
+			this.setupShowSubmission();
 			
 		}
 		

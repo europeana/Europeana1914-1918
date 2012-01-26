@@ -1,4 +1,4 @@
-<h2><span class="highlight">[ the story title you gave in step 1 ]</span></h2>
+<h2 id="add-item"><span class="highlight">[ the story title you gave in step 1 ]</span></h2>
 
 	<p><span class="highlight">[ only show this sentence if there is at least one attached item ]</span><br/>
 	<%= raw t('views.contributions.digital_object.help_text.submit_contribution1') %></p>
@@ -39,7 +39,7 @@
 		<%= raw t('views.contributions.digital_object.help_text.view_attachments') %>
 	</p>
 	
-	<form id="add-item" style="margin-top: 20px;">
+	<form style="margin-top: 20px;">
 		
 		<fieldset>
 			
@@ -152,6 +152,10 @@
 			</ol>
 			
 		</fieldset>
+		
+		
+		<p>&nbsp;</p>
+		<p><%= t('views.contributions.story.help_text.sections') %></p>
 		
 		
 		<fieldset class="collapsible">
@@ -598,7 +602,7 @@
 	</form>
 	
 	
-	<h3 id="digital-objects"><%= raw t('views.contributions.digital_object.heading') %></h3>
+	<h3 id="attached-items"><%= raw t('views.contributions.digital_object.heading') %></h3>
 	<ul>
 		<li><%= link_to( t('views.contributions.digital_object.links.add_another'), '#add-item' ) %></li>
 		<li><%= link_to( t('views.contributions.digital_object.help_text.submit_your_story'), '#continue-to-submission' ) %></li>
