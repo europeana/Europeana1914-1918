@@ -18,9 +18,13 @@ class User < ActiveRecord::Base
   end
   has_many :approved_contributions, :class_name => 'Contribution', :foreign_key => 'approved_by', :dependent => :nullify
   belongs_to :contact, :dependent => :destroy
+  
+  has_attached_file :picture, :styles => { :thumb => "100x100>" }, 
+    :path => ":rails_root/public/images/users/:id/:style/:filename",
+    :url => "/images/users/:id/:style/:filename"
 
   accepts_nested_attributes_for :contact
-  attr_accessible :email, :password, :password_confirmation, :contact_attributes, :terms
+  attr_accessible :email, :password, :password_confirmation, :contact_attributes, :terms, :picture
   
   # Default role for saved accounts is contributor
   before_validation lambda { |u| u.role_name = 'contributor' if u.role_name.to_s == 'guest' }, :on => :create

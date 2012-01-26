@@ -10,7 +10,7 @@
     </ul>
   </div>
   
-  <%= semantic_form_for @user, :as => 'user', :url => user_registration_path, :html => { :class => 'devise' } do |form| -%>
+  <%= semantic_form_for @user, :as => 'user', :url => user_registration_path, :html => { :class => 'devise', :multipart => true } do |form| -%>
     
     <%= form.inputs :personal_details do %>
       <%- form.object.build_contact unless form.object.contact.present? -%>
@@ -21,13 +21,8 @@
         <%= contact.input :gender, :as => :select, :collection => { t('activerecord.options.contact.gender.female') => 'F', t('activerecord.options.contact.gender.male') => 'M' } %>
         <%= contact.input :age, :as => :select, :collection => %w(0-17 18-24 25-44 45-59 60+) %>
       <% end %>
+      <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
     <% end %>
-    
-    <img src="/images/profile-placeholder.png" alt="profile placeholder" /><br/>
-    <label><%= t('views.register.labels.profile_photo') %></label><br/>
-    <input type="file" />
-    <p><%= t('views.register.help_text.profile_photo') %></p>
-    
     
     <%= form.inputs :account_details do %>
       <%= form.input :email %>

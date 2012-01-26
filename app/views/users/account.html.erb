@@ -6,13 +6,6 @@
   </ul>
 </div>
 <%= render :partial => 'summary', :locals => { :user => current_user } %>
-
-
-    <img src="/images/profile-placeholder.png" alt="profile placeholder" /><br/>
-    <label><%= t('views.register.labels.profile_photo') %></label><br/>
-    <input type="file" />
-    <p><%= t('views.register.help_text.profile_photo') %></p>
-    
     
 <% if current_user.contact -%>
   <div class="action-links">

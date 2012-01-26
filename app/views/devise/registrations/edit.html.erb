@@ -4,7 +4,7 @@
   <% flash.now[:alert] = t("flash.users.update.alert") %>
 <% end %>
 
-<%= semantic_form_for 'user', @user, :url => user_registration_path, :html => { :method => :put, :class => 'devise' } do |form| -%>
+<%= semantic_form_for 'user', @user, :url => user_registration_path, :html => { :method => :put, :class => 'devise', :multipart => true } do |form| -%>
   <%= form.inputs :user_current_password do %>
     <%= form.input :current_password, :required => true %>
   <% end %>
@@ -12,6 +12,8 @@
     <%= form.input :email %>
     <%= form.input :password %>
     <%= form.input :password_confirmation %>
+    <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
+    <li><%= image_tag(@user.picture.url(:thumb)) %></li>
   <% end %>
   <%= form.buttons do %>
     <%= redirect_field %>
