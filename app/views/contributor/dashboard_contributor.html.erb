@@ -19,6 +19,8 @@
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
 
     <p><%= t('views.contributor.dashboard_contributor.p1') %></p>
+    <p style="clear:both;"><span class="highlight">[ link on title to be removed; add actions column with options edit delete submit ( submit only present if not yet submitted ) ]</span></p>
+    
     <% if current_user.contributions.present? %>
       
       <div class="contributions-drafts" style="float: none;">
@@ -28,7 +30,7 @@
           <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
         <%- end -%>
       </div>
-    
+      
       <div style="clear: both;" class="contributions-submitted">
         <%- if current_user.contributions.submitted.present? -%>
           <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.submitted, :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
