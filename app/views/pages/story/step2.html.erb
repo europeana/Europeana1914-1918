@@ -71,7 +71,7 @@
 				<li>
 					<input type="checkbox" />
 					<label><%= t('views.contributions.digital_object.labels.cover_image') %></label><br/>
-					A cover image represents your story in our collection; it is similar to the cover of a book. it could be a photo of who this story is about, the front page of a diary or a picture of a medal.<br/>
+					<%= t('views.contributions.digital_object.help_text.cover_image') %><br/>
 					<br/>
 				</li>
 				
@@ -153,9 +153,10 @@
 			
 		</fieldset>
 		
-		<fieldset>
+		
+		<fieldset class="collapsible">
 			
-			<legend>Where was this item created</legend>
+			<legend><%= t('views.contributions.digital_object.help_text.where') %></legend>
 			
 			<ol>
 				
@@ -171,9 +172,9 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
-			<legend>When was this item created</legend>
+			<legend><%= t('views.contributions.digital_object.help_text.when') %></legend>
 				
 			<ol>
 				
@@ -309,7 +310,7 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.digital_object.labels.keywords') %></legend>
 			
@@ -402,7 +403,7 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.digital_object.labels.front') %></legend>
 			
@@ -460,7 +461,7 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
 			

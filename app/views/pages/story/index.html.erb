@@ -15,7 +15,7 @@
 					<%= t('views.contributions.story.help_text.story_title') %><br/>
 					<br/>
 				</li>
-			
+				
 				<li>
 					<label><%= t('views.contributions.story.labels.story') %></label><br/>
 					<textarea></textarea>
@@ -54,32 +54,36 @@
 			
 		</fieldset>
 		
+		<p>&nbsp;</p>
+		<p><%= t('views.contributions.story.help_text.sections') %></p>
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
-			<legend>Tell us who this story is about</legend>
+			<legend><%= t('views.contributions.story.help_text.who') %></legend>
 			
 			<ol>
 				<li>
-					<label>surname</label><br/>
+					<label><%= t('views.contributions.story.labels.surname') %></label><br/>
 					<input type="text" /><br/>
 					<br/>
 				</li>
 				<li>
-					<label>first name</label><br/>
+					<label><%= t('views.contributions.story.labels.first_name') %></label><br/>
 					<input type="text" /><br/>
 					<br/>
 				</li>
-				<li><input type="button" value="add another person" />
-				<p>You can add more than one person.</p></li>
+				<li>
+					<input type="button" value="<%= t('views.contributions.story.labels.add_another_person') %>" />
+					<p><%= t('views.contributions.story.help_text.add_another_person') %></p>
+				</li>
 			</ol>
 			
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
-			<legend>When did this story take palce</legend>
+			<legend><%= t('views.contributions.story.help_text.when') %></legend>
 			
 			<ol>
 				
@@ -215,9 +219,9 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
-			<legend>Where did this story take place</legend>
+			<legend><%= t('views.contributions.story.help_text.where') %></legend>
 			
 			<ol>
 				
@@ -235,7 +239,7 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.story.labels.keywords') %></legend>
 			
@@ -328,7 +332,7 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.story.labels.front') %></legend>
 			
@@ -386,7 +390,7 @@
 		</fieldset>
 		
 		
-		<fieldset>
+		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
 			

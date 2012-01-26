@@ -27,7 +27,7 @@
 			
 			var self = this;
 			
-			jQuery('.collapsible-section').each(function() {
+			jQuery('.collapsible').each(function() {
 			
 				var $elm = jQuery(this);
 				$elm.find('legend').eq(0).bind( 'click', { self : self }, self.toggleCollapsibleSection );
