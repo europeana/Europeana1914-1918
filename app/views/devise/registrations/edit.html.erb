@@ -12,10 +12,6 @@
     <%= form.input :email %>
     <%= form.input :password %>
     <%= form.input :password_confirmation %>
-    <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
-    <%- if @user.picture.present? -%>
-      <li><%= image_tag(@user.picture.url(:thumb)) %></li>
-    <%- end -%>
   <% end %>
   <%= form.buttons do %>
     <%= redirect_field %>

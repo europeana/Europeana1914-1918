@@ -4,10 +4,4 @@
     <th scope="row"><%= User.human_attribute_name(:email) %></th>
     <td><%= user.email %></td>
   </tr>
-  <tr>
-    <th scope="row"><%= t('views.register.labels.profile_photo') %></th>
-    <td>
-      <%- if user.picture.present? -%><%= image_tag(user.picture.url(:thumb)) %><%- end -%>
-    </td>
-  </tr>
 </table>

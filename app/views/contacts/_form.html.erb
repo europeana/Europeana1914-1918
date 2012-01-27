@@ -1,4 +1,4 @@
-<%= semantic_form_for contact, :as => :contact, :url => contact_path(contact) do |form| %>
+<%= semantic_form_for contact, :as => :contact, :url => contact_path(contact), :html => { :multipart => true} do |form| %>
   <%= render :partial => 'form_fields', :locals => { :form => form } %>
   <%= form.buttons do %>
     <%= redirect_field %>

@@ -56,4 +56,12 @@ end
       </tr>
     <%- end %>
   </tbody>
+  <%- if contact.user.present? -%>
+    <tr>
+      <th scope="row"><%= t('views.register.labels.profile_photo') %></th>
+      <td>
+        <%- if contact.user.picture.present? -%><%= image_tag(contact.user.picture.url(:thumb)) %><%- end -%>
+      </td>
+    </tr>
+  <%- end -%>
 </table>

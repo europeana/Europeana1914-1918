@@ -16,3 +16,14 @@
     <%= form.input :email %>
   <%- end %>
 <% end %>
+<% if form.object.user.present? -%>
+  <%= form.inputs :user_picture do %>
+    <%= form.semantic_fields_for :user do |user| %>
+      <%= user.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
+      <%- if form.object.user.picture.present? -%>
+        <li><%= image_tag(form.object.user.picture.url(:thumb)) %></li>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<% end -%>
+
