@@ -107,11 +107,11 @@ class MetadataField < ActiveRecord::Base
   
   def form_input_name
     if self.field_type == 'taxonomy'
-      :"#{self.collection_id.to_s.singularize}_ids"
+      self.collection_id
     else
       self.column_name.to_sym
     end
-  end      
+  end
 
   class << self
     def destroy_all(conditions = nil)

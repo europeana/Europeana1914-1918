@@ -29,18 +29,6 @@ module ContributionsHelper
     end
   end
   
-  # Gets a collection of taxonomy terms for the given metadata field
-  #
-  # Suitable for use with Formtastic select fields.
-  def metadata_field_taxonomy_terms(metadata_field)
-    case metadata_field.field_type
-    when 'taxonomy'
-      metadata_field.taxonomy_terms.collect { |term| [ term.term, term.id ] }
-    else
-      nil
-    end
-  end
-  
   def uploadify_file_extensions
     if RunCoCo.configuration.allowed_upload_extensions.blank?
       ''
