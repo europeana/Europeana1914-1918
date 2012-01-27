@@ -8,7 +8,7 @@
       <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :input_html => { :class => 'geo' } %>
     <%- elsif field.field_type == 'taxonomy' %>
       <%- if field.multi -%>
-        <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :check_boxes, :collection => metadata_field_taxonomy_terms(field), :required => field.required?, :wrapper_html => { :class => (current_user.role == 'cataloguer' ? 'collapsible collapsed' : 'collapsible') } %>
+        <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :check_boxes, :collection => metadata_field_taxonomy_terms(field), :required => field.required? %>
       <%- else -%>
         <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :select, :collection => metadata_field_taxonomy_terms(field), :required => field.required? %>
       <%- end -%>
