@@ -19,8 +19,17 @@ This is a work in progress for the moment...
   == system dependencies ==
   
     = imagemagick =
-      aptitude install imagemagic
       http://www.imagemagick.org/
+	  aptitude install imagemagic
+      
+	  make sure jpeg deligate is installed : at console "convert -list configure",
+	  you should see something like this : "DELEGATES     bzlib jpeg x11 xml zlib"
+	  
+	  if not you'll need to install the jpeg delegate library
+	  http://www.imagemagick.org/download/delegates/jpegsrc.v8b.tar.gz
+	  
+	  and then re-run ImageMagick/GraphicsMagick's ./configure script
+	  sudo make and sudo make install
 
     = sphinx =
       http://sphinxsearch.com/
