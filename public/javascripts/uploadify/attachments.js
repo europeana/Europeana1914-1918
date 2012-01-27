@@ -11,8 +11,8 @@ jQuery().ready(function() {
     event.preventDefault(); 
   });
   
-  var finishLink = $('<p><a href="' + $('li.cancel a').attr('href') + '">' + I18n.t('javascripts.uploadify.finished') + '</a></p>').hide();
-  $('#attachment_upload').after(finishLink);
+//  var finishLink = $('<p><a href="' + $('li.cancel a').attr('href') + '">' + I18n.t('javascripts.uploadify.finished') + '</a></p>').hide();
+//  $('#attachment_upload').after(finishLink);
   
   var options = { 
     uploader: RunCoCo.relativeUrlRoot + '/javascripts/uploadify/uploadify.swf',
@@ -28,41 +28,45 @@ jQuery().ready(function() {
         var dat = eval('(' + response + ')'); 
         
         if (dat.result == 'error') {
-          $('.percentage', $("#attachment_file" + queueID)).text(' - ' + dat.msg);
-        	$("#attachment_file" + queueID).addClass('uploadifyError');
+          $('.percentage', $("#uploadify_file" + queueID)).text(' - ' + dat.msg);
+          $("#attachment_file" + queueID).addClass('uploadifyError');
         } else {
-          $('.percentage', $("#attachment_file" + queueID)).text(' - ').append($('<strong>' + I18n.t('javascripts.uploadify.saved') + '</strong>'));
-          var cancelLink = $('.cancel a', $("#attachment_file" + queueID));
+          $('.percentage', $("#uploadify_file" + queueID)).text(' - ').append($('<strong>' + I18n.t('javascripts.uploadify.saved') + '</strong>'));
+          var cancelLink = $('.cancel a', $("#uploadify_file" + queueID));
           cancelLink.attr('href', " ");
           cancelLink.bind('click', function() {
             $(this).parent().parent().remove();
             return false;
           });
-          $("#attachment_file" + queueID).addClass('uploadifyComplete');
+          $("#uploadify_file" + queueID).addClass('uploadifyComplete');
         }
 
-    	return false; 
+      return false; 
     },
     onAllComplete: function(event, data) {
-      $('#attachment_fileUploader').hide();
-      finishLink.fadeIn();
+//      $('#uploadify_fileQueue').delay(5000).fadeOut();
+//      $('#uploadify_fileUploader').hide();
+//      finishLink.fadeIn();
     }
   };
   
-  $('#attachment_file').uploadify(options);
-  
-  $('#attachment_submit').click(function(event) { 
+  var uploadifyFieldset = $('<fieldset id="uploadify_upload" class="inputs"><ol><li id="uploadify_file_input" class="file input optional"><label class=" label" for="uploadify_file"></label></li></li></ol></fieldset>');
+  $('label', uploadifyFieldset).text($('label[for="attachment_file"]').text());
+  var uploadifyFileControl = $('#attachment_file').clone().attr('id', 'uploadify_file');
+  $('li', uploadifyFieldset).append(uploadifyFileControl);
+  var uploadifySubmit = $('#attachment_submit').clone().attr('id', 'uploadify_submit');
+  uploadifySubmit.click(function(event) { 
     event.preventDefault();
 
-    if ($('#attachment_fileQueue .uploadifyQueueItem').length == 0) {
+    if ($('#uploadify_fileQueue .uploadifyQueueItem').length == 0) {
       return;
     }
     
-    window.location.hash = '#new_attachment';
+//    window.location.hash = '#new_attachment';
     
-    $('#metadata').hide();
-    $('#cataloguing_metadata').hide();
-    $('fieldset.buttons').hide();
+//    $('#metadata').hide();
+//    $('#cataloguing_metadata').hide();
+//    $('fieldset.buttons').hide();
     
     var scriptData = {
       uploadify: '1',
@@ -72,25 +76,35 @@ jQuery().ready(function() {
     scriptData[RunCoCo.sessionKeyName] = encodeURIComponent(RunCoCo.sessionKey);
     scriptData['authenticity_token'] = encodeURIComponent(RunCoCo.authenticityToken);
     // Add title and metadata form elements to scriptData
-    $("[name='attachment\[title\]'],[name^='attachment\[metadata_attributes\]\[']").each(function() {
-      scriptData[$(this).attr('name')] = encodeURIComponent($(this).val());
-    });
-    $('#attachment_file').uploadifySettings('scriptData', scriptData);
+//    $("[name='attachment\[title\]'],[name^='attachment\[metadata_attributes\]\[']").each(function() {
+//      scriptData[$(this).attr('name')] = encodeURIComponent($(this).val());
+//    });
+    $('#uploadify_file').uploadifySettings('scriptData', scriptData);
     
     setTimeout(function() {
-      $('#attachment_file').uploadifyUpload();
+      $('#uploadify_file').uploadifyUpload();
     }, 100);
     
-  }); 
+  });
+  $('#attachment_upload').before(uploadifyFieldset);
+  $('#uploadify_file').uploadify(options);
+  $('#uploadify_fileQueue').after(uploadifySubmit);
   
-  var basicLinkSearch = window.location.search;
-  if (basicLinkSearch.length == 0) {
-    basicLinkSearch = basicLinkSearch + '?ui=basic';
-  } else {
-    basicLinkSearch = basicLinkSearch + '&ui=basic';
-  }
-  var basicLinkHref = window.location.protocol + '//' + window.location.host + window.location.pathname + basicLinkSearch;
-  var basicLink = $('<p>' + I18n.t('javascripts.uploadify.basic_ui', { href: basicLinkHref }) + '</p>');
-  $('form#new_attachment').after(basicLink);
+//  var basicLinkSearch = window.location.search;
+//  if (basicLinkSearch.length == 0) {
+//    basicLinkSearch = '?ui=basic';
+//  } else {
+//    basicLinkSearch = basicLinkSearch + '&ui=basic';
+//  }
+//  var basicLinkHref = window.location.protocol + '//' + window.location.host + window.location.pathname + basicLinkSearch;
+//  var basicLink = $('<p class="inline-hints">' + I18n.t('javascripts.uploadify.basic_ui', { href: basicLinkHref }) + '</p>');
+//  $('a', basicLink).click(function() {
+//    $('#attachment_file').show();
+//    $('#attachment_fileUploader').hide();
+//    $('#attachment_fileQueue').hide();
+//    $(this).parents('p').first().hide();
+//    return false;
+//  });
+//  $('#attachment_file_input').append(basicLink);
 }); 
 

@@ -1,5 +1,12 @@
 <% @title = @contribution.title %>
 
+<% if current_user.role.name == 'cataloguer' -%>
+  <%- javascript_tag do -%>
+    RunCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
+  <%- end -%>
+  <%- @javascripts[:uploadify] = true -%>
+<% end -%>
+
 <% if @contribution.attachments.present? && @contribution.draft? -%>
   <h2><%= t 'views.contributions.show.headings.submit' %></h2>
   <%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
