@@ -76,7 +76,7 @@ class ContributionsController < ApplicationController
 
     if @contribution.save
       flash[:notice] = t('flash.contributions.draft.update.notice')
-      redirect_to @contribution
+      redirect_to (@contribution.draft? ? new_contribution_attachment_path(@contribution) : @contribution)
     else
       flash.now[:alert] = t('flash.contributions.draft.update.alert')
       render :action => 'edit'
