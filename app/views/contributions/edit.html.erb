@@ -10,4 +10,6 @@
 
 <%= render :partial => 'form', :locals => { :contribution => @contribution } %>
 
-<%= render :partial => 'progress', :locals => { :step => 3 } %>
+<% if @contribution.draft? -%>
+  <%= render :partial => 'progress', :locals => { :step => 1 } %>
+<% end -%>
