@@ -6,10 +6,10 @@ module MetadataRecordsHelper
   # @option options [Boolean] :attachment  (nil)
   # @option options [Boolean] :cataloguing  (nil)
   # @option options [Boolean] :contribution  (nil)
+  # @option options [Array{String}] :name  (nil)
   def metadata_record_fields(options = {})
-    options.assert_valid_keys(:attachment, :cataloguing, :contribution)
+    options.assert_valid_keys(:attachment, :cataloguing, :contribution, :name)
     conditions = options.dup
-    logger.debug "== Options: #{options.inspect}"
     MetadataField.where(conditions).order('position ASC')
   end
   

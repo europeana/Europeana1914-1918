@@ -1,26 +1,57 @@
+<% collapsible_class = (current_user.role.name == 'cataloguer' ? 'collapsible' : 'collapsible collapsed') %>
 <%= semantic_form_for contribution do |form| %>
-  <%= form.inputs :metadata, :id => 'metadata' do %>
+  <%= form.inputs :story_basics do %>
     <%= form.input :title %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :cataloguing => false, :contribution => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'description', 'lang', 'lang_other', 'contributor_behalf' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <p><%= t('views.contributions.story.help_text.sections') %></p>
+  
+  <%= form.inputs :story_characters, :class => collapsible_class do %>
+    <p class="highlight">Add new fields for character(s)</p>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [  ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%= form.inputs :story_dates, :class => collapsible_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%= form.inputs :story_location, :class => collapsible_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'location_placename', 'location_map' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%= form.inputs :story_keywords, :class => collapsible_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%= form.inputs :story_front, :class => collapsible_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :contribution => true } } %>
     <% end %>
   <% end %>
   
   <%- if current_user.may_catalogue_contribution?(contribution) -%>
-    <%= form.inputs :cataloguing_metadata do %>
+    <%= form.inputs :cataloguing_metadata, :class => collapsible_class do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :cataloguing => true, :contribution => true } } %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'forces', 'editor_pick', 'cataloguer', 'collection_day', 'notes' ], :cataloguing => true, :contribution => true } } %>
       <% end %>
     <% end %>
   <%- end -%>
   
   <%= form.buttons do %>
-    <%= redirect_field %>
-    <%- unless form.object.submitted? -%>
-      <%= form_previous_step_link (new_contribution_path) %>
-    <%- end -%>
+    <li><%= redirect_field %></li>
     <%= form.commit_button :label => (form.object.submitted? ? t('formtastic.actions.contribution.update') : t('formtastic.actions.contribution.save_draft')) %>
-    <%= form_cancel_link (contribution.new_record? ? contributor_dashboard_path : contribution) %>
+    <li><%= t('views.contributions.story.help_text.save_story') %></li>
   <% end %>
 <% end %>
 
