@@ -1,3 +1,4 @@
+<%# @javascripts[:collapsible] = true %>
 <% collapsible_class = (current_user.role.name == 'cataloguer' ? 'collapsible' : 'collapsible collapsed') %>
 <%= semantic_form_for contribution do |form| %>
   <%= form.inputs :story_basics do %>

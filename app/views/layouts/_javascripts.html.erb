@@ -65,3 +65,7 @@
   <%= stylesheet_link_tag("prettyPhoto") %>
   <%= javascript_include_tag("jquery.prettyPhoto-3.0.3.custom", "prettyphoto") %>
 <% end -%>
+
+<% if @javascripts[:clone_metadata] -%>
+  <%= javascript_include_tag("clone-metadata") %>
+<% end -%>

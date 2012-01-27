@@ -1,3 +1,4 @@
+<%# @javascripts[:collapsible] = true %>
 <% collapsible_class = (current_user.role.name == 'cataloguer' ? 'collapsible' : 'collapsible collapsed') %>
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   <%= form.inputs :attachment_upload, :id => 'attachment_upload' do %>
@@ -50,3 +51,9 @@
     <%= form.commit_button %>
   <% end %>
 <% end %>
+
+<%- @javascripts[:clone_metadata] = true -%>
+<%= javascript_tag do -%>
+  var contributionMetadata = <%= raw metadata_json(attachment.contribution) %>;
+  var contributionTitle = '<%= attachment.contribution.title %>';
+<% end -%>

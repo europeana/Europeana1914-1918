@@ -37,4 +37,12 @@ module MetadataRecordsHelper
       value
     end
   end
+  
+  def metadata_json(obj)
+    associations = MetadataField.where(:field_type => 'taxonomy').collect do |taxonomy_field|
+#      taxonomy_field.collection_id
+      :"field_#{taxonomy_field.name}_term_ids"
+    end
+    obj.metadata.to_json(:except => [ :created_at, :id, :updated_at ], :methods => associations)
+  end
 end
