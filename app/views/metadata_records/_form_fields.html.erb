@@ -10,7 +10,7 @@
       <%- if field.multi -%>
         <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :check_boxes, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required? %>
       <%- else -%>
-        <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :select, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required? %>
+        <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :select, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required?, :input_html => { :multiple => false } %>
       <%- end -%>
     <%- else %>
       <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field) %>
