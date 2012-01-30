@@ -39,7 +39,7 @@ class MetadataRecord < ActiveRecord::Base
       connection.add_column(table_name, column_name, type, options)
       reset_column_information
     end
-
+    
     # Renames column in the db table
     def rename_field(field_name, new_field_name)
       column_name = column_name(field_name)
@@ -145,6 +145,18 @@ class MetadataRecord < ActiveRecord::Base
       set_associations  
       set_validate_callbacks
     end
+    
+    def reset_column_information
+      @fields = nil
+      super
+    end
+    
+    def fields(reload = false)
+      unless reload || (defined?(@fields) && @fields)
+        @fields = MetadataField.all
+      end
+      @fields
+    end
   end
 
   # Initialise model properties based on custom metadata fields.
@@ -160,7 +172,7 @@ class MetadataRecord < ActiveRecord::Base
   def fields
     unless defined?(@fields) && @fields
       @fields = {}
-      MetadataField.all.each do |mf| 
+      self.class.fields.each do |mf| 
         @fields[mf.name] = if mf.field_type == 'taxonomy'
           taxonomy_terms = self.send(mf.collection_id)
           if taxonomy_terms.present?

@@ -9,8 +9,8 @@
       end
       xml.created_at c.created_at
       @metadata_fields.each do |mf|
-        [ c.metadata.fields[mf.name] ].flatten.each do |mfv|
-          xml.send mf.name, mfv || ''
+        [ c.metadata.fields[mf] ].flatten.each do |mfv|
+          xml.send mf, mfv || ''
         end
       end
     end

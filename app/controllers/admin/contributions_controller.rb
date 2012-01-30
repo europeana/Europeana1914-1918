@@ -50,9 +50,6 @@ class Admin::ContributionsController < AdminController
     render :action => :index
   end
 
-  #--
-  # OPTIMIZE: These exports are _really_ slow and inefficient
-  #++
   def export
     current_user.may_export_contributions!
 
@@ -61,8 +58,8 @@ class Admin::ContributionsController < AdminController
         send_data export_as_csv, :filename => "contributions.csv", :type => 'text/csv'
       end
       format.xml do
-        @contributions = Contribution.order('created_at ASC')
-        @metadata_fields = MetadataField.all
+        @contributions = export_dataset
+        @metadata_fields = MetadataField.all.collect { |mf| mf.name }
         send_data render_to_string, :filename => "contributions.xml", :type => 'application/xml'
       end
     end
@@ -81,6 +78,13 @@ class Admin::ContributionsController < AdminController
     end
   end
   
+  def export_dataset
+    taxonomy_associations = MetadataField.where(:field_type => 'taxonomy').collect do |taxonomy_field|
+      { taxonomy_field.collection_id => 'translations' }
+    end
+    Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => :metadata }, { :metadata => taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
+  end
+  
   def export_as_csv
     csv_class.generate do |csv|
       # Column headings in first row
@@ -96,7 +100,7 @@ class Admin::ContributionsController < AdminController
         end
       end
 
-      Contribution.order('created_at ASC').each do |c|
+      export_dataset.each do |c|
         row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at ] +
           MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
         csv << row
