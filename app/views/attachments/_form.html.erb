@@ -1,5 +1,5 @@
-<%# @javascripts[:collapsible] = true %>
-<% collapsible_class = (current_user.role.name == 'cataloguer' ? 'collapsible' : 'collapsible collapsed') %>
+<% @javascripts[:collapsible] = true %>
+<% collapsible_class = (current_user.role.name == 'cataloguer' ? 'collapsible' : 'collapsed') %>
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   <%= form.inputs :attachment_upload, :id => 'attachment_upload' do %>
     <%= form.input :file, :hint => t((attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'), :max => max_upload_size, :file_types => allowed_file_types) %>

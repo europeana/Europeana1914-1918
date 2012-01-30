@@ -12,30 +12,30 @@
 	eu.europeana.wwi = {
 		
 		
-		toggleCollapsibleSection : function() {
-			
-			jQuery(this).parent().find('ol').toggle('height');
-			
-		},
+//		toggleCollapsibleSection : function() {
+//			
+//			jQuery(this).parent().find('ol').toggle('height');
+//			
+//		},
 		
 		
 		/**
 		 *	collapses sections based on class="collapse"
 		 *	assumes that legend is present and will become the clickable trigger
 		 */
-		setupCollapsibleSections : function() {
-			
-			var self = this;
-			
-			jQuery('.collapsible').each(function() {
-			
-				var $elm = jQuery(this);
-				$elm.find('legend').eq(0).bind( 'click', { self : self }, self.toggleCollapsibleSection );
-				
-			});
-			
-			
-		},
+//		setupCollapsibleSections : function() {
+//			
+//			var self = this;
+//			
+//			jQuery('.collapsible').each(function() {
+//			
+//				var $elm = jQuery(this);
+//				$elm.find('legend').eq(0).bind( 'click', { self : self }, self.toggleCollapsibleSection );
+//				
+//			});
+//			
+//			
+//		},
 		
 		
 		showSubmission : function( evt ) {
@@ -76,7 +76,7 @@
 		init : function() {
 			
 			// this.setupCollapsibleSections();
-			this.setupShowSubmission();
+//			this.setupShowSubmission();
 			
 		}
 		
