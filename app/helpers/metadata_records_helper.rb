@@ -13,10 +13,6 @@ module MetadataRecordsHelper
     MetadataField.where(conditions).order('position ASC')
   end
   
-  def metadata_field_hint(field)
-    raw [ h(field.hint), t("formtastic.hints.metadata_record.#{field.field_type}", :default => '') ].select { |h| h.present? }.join('<br />')
-  end
-  
   def metadata_record_field_value(metadata, field)
     value = metadata[field.column_name]
     if (field.field_type == 'geo') && !value.blank?
@@ -40,7 +36,6 @@ module MetadataRecordsHelper
   
   def metadata_json(obj)
     associations = MetadataField.where(:field_type => 'taxonomy').collect do |taxonomy_field|
-#      taxonomy_field.collection_id
       :"field_#{taxonomy_field.name}_term_ids"
     end
     obj.metadata.to_json(:except => [ :created_at, :id, :updated_at ], :methods => associations)

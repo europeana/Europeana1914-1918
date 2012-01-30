@@ -2,18 +2,18 @@
 <% unless fields.blank? -%>
   <% fields.each do |field| %>
     <%- if field.field_type == 'date' %>
-      <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :string_date, :start_year => 1912, :end_year => 1923 %>
+      <%= form.input field.form_input_name, :label => metadata_field_label(field), :hint => metadata_field_hint(field), :as => :string_date, :start_year => 1912, :end_year => 1923 %>
     <%- elsif field.field_type == 'geo' %>
       <%- @javascripts[:gmap_geo] = true %>
-      <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :input_html => { :class => 'geo' } %>
+      <%= form.input field.form_input_name, :label => metadata_field_label(field), :hint => metadata_field_hint(field), :input_html => { :class => 'geo' } %>
     <%- elsif field.field_type == 'taxonomy' %>
       <%- if field.multi -%>
-        <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :check_boxes, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required? %>
+        <%= form.input field.form_input_name, :label => metadata_field_label(field), :hint => metadata_field_hint(field), :as => :check_boxes, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required? %>
       <%- else -%>
-        <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field), :as => :select, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required?, :input_html => { :multiple => false } %>
+        <%= form.input field.form_input_name, :label => metadata_field_label(field), :hint => metadata_field_hint(field), :as => :select, :collection => metadata_field_taxonomy_terms(field), :member_label => :term, :required => field.required?, :input_html => { :multiple => false } %>
       <%- end -%>
     <%- else %>
-      <%= form.input field.form_input_name, :label => field.title, :hint => metadata_field_hint(field) %>
+      <%= form.input field.form_input_name, :label => metadata_field_label(field), :hint => metadata_field_hint(field) %>
     <%- end %>
   <% end %>
 <% end -%>

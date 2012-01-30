@@ -11,4 +11,12 @@ module MetadataFieldsHelper
       nil
     end
   end
+  
+  def metadata_field_hint(field)
+    t("formtastic.hints.metadata_record.#{field.name}", :default => '')
+  end
+  
+  def metadata_field_label(field)
+    t("formtastic.labels.metadata_record.#{field.name}", :default => '')
+  end
 end
