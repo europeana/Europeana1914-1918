@@ -61,7 +61,7 @@ class Admin::ContributionsController < AdminController
         send_data export_as_csv, :filename => "contributions.csv", :type => 'text/csv'
       end
       format.xml do
-        @contributions = Contribution.limit(10).order('created_at ASC')
+        @contributions = Contribution.order('created_at ASC')
         @metadata_fields = MetadataField.all
         send_data render_to_string, :filename => "contributions.xml", :type => 'application/xml'
       end
