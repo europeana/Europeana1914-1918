@@ -5,8 +5,9 @@
 2012-01-17 dan entous : added redirects
 2012-01-24 dan entous : added secret token and db migrate
 2012-01-26 jaclu: started to list system dependencies
+2012-01-31 jaclu: cleanup
 
-dummy text testing hudson autobuild
+
 
 ===   Background   ===
 
@@ -39,8 +40,8 @@ This is a work in progress for the moment...
       
 
 ---   Install ruby   ---
-aptitude install ruby-dev rdoc rubygems rubygems-doc
-gem install rdoc-data bundle
+aptitude install ruby-dev rubygems  ## rdoc rubygems-doc
+gem install rdoc-data bundle rake
   
   it seems you dont need to do the aditional steps rdoc-data suggests
 
@@ -102,11 +103,15 @@ rails server
 
 
 ===   running it behind apache   ===
-gem install passanger
 
 install passanger apache stuff, described in
 http://www.modrails.com/install.html
 
+gem install passanger
+
+To actually update the apache stuff, you need to run:
+    passenger-install-apache2-module
+ the output of this will help you with dependencies and apache config
 
 
 ===   remove all installed stuff, so we can redo installation   ===
@@ -118,15 +123,11 @@ dpkg --get-selections | grep ruby
 'dpkg -P' on all remaining packets
 
 --- clear gems ---
+- nicer aproach -
+gem list | cut -d" " -f1 | xargs gem uninstall -aIx
+
 - brutal aproach -
 rm /usr/lib/ruby -r
-
-- nicer aproach -
-this list need to updated every now and then to be complete,
-this should hopefully remove all gems so you can start with a fresh environment.
-
-gem uninstall will_paginate warden tzinfo treetop thor thinking-sphinx sax-machine rspec-rails rspec-mocks rspec-expectations rspec-core rspec riddle rake railties rails rack-test rack-mount rack polyglot paperclip nokogiri mysql2 mime-types mail loofah i18n i18n-js http_accept_language hpricot globalize3 formtastic feedzirra fastercsv erubis diff-lcs devise curb cocaine bundler bundle builder bcrypt-ruby arel aegis activesupport activeresource activerecord activemodel actionpack actionmailer abstract passenger
-
 
 - clear dot dir cache -
 rm ~/.gem -r
