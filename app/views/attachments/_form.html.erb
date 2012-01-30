@@ -54,6 +54,8 @@
 
 <%- @javascripts[:clone_metadata] = true -%>
 <%= javascript_tag do -%>
-  var contributionMetadata = <%= raw metadata_json(attachment.contribution) %>;
-  var contributionTitle = '<%= attachment.contribution.title %>';
+  RunCoCo['contribution'] = {
+    title: '<%= attachment.contribution.title %>',
+    metadata: <%= raw metadata_json(attachment.contribution) %>
+  };
 <% end -%>

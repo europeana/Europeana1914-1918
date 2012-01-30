@@ -1,10 +1,10 @@
 $(document).ready(function(){
-  if (contributionMetadata['metadata_record']) {
+  if (RunCoCo.contribution) {
     var cloneButton = $('<input type="button" value="Copy from contribution" />');
     cloneButton.click(function() {
-      $('#attachment_title').val(contributionTitle);
-      for (var key in contributionMetadata['metadata_record']) {
-        var fieldValue = contributionMetadata['metadata_record'][key];
+      $('#attachment_title').val(RunCoCo.contribution.title);
+      for (var key in RunCoCo.contribution.metadata['metadata_record']) {
+        var fieldValue = RunCoCo.contribution.metadata['metadata_record'][key];
         
         // if metadata value is an array, look for individual input elements with ids
         // like 'attachment_metadata_attributes_field_keywords_term_ids_63'
