@@ -11,9 +11,8 @@
   <p><%= t('views.contributions.story.help_text.sections') %></p>
   
   <%= form.inputs :story_characters, :class => collapsible_class do %>
-    <p class="highlight">Add new fields for character(s)</p>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [  ], :cataloguing => false, :contribution => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'character1_family_name', 'character1_given_name', 'character2_family_name', 'character2_given_name' ], :cataloguing => false, :contribution => true } } %>
     <% end %>
   <% end %>
   
