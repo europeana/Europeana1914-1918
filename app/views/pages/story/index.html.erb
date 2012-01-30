@@ -36,15 +36,15 @@
 					<input type="checkbox" value="nl"/> <%= t('languages.da') %><br/>
 					<input type="checkbox" /> <%= t('common.options.other_option') %><br/>
 					<input type="text" /><br/>
+					<%= t('views.contributions.story.help_text.language') %><br/>
 					<br/>
-					
 				</li>
 				
 				<li>
 					
 					<label><%= t('views.contributions.story.labels.on_behalf') %></label><br/>
 					<input type="text" /><br/>
-					<br/>
+					<%= t('views.contributions.story.help_text.on_behalf') %><br/>
 					<br/>
 					
 				</li>
@@ -60,23 +60,46 @@
 		<fieldset class="collapsible">
 			
 			<legend><%= t('views.contributions.story.help_text.who') %></legend>
+			<p><%= t('views.contributions.story.labels.people') %></p>
 			
-			<ol>
-				<li>
-					<label><%= t('views.contributions.story.labels.surname') %></label><br/>
-					<input type="text" /><br/>
-					<br/>
-				</li>
-				<li>
-					<label><%= t('views.contributions.story.labels.first_name') %></label><br/>
-					<input type="text" /><br/>
-					<br/>
-				</li>
-				<li>
-					<input type="button" value="<%= t('views.contributions.story.labels.add_another_person') %>" />
-					<p><%= t('views.contributions.story.help_text.add_another_person') %></p>
-				</li>
-			</ol>
+			<fieldset>
+				
+				<legend><%= t('common.labels.person') %> 1</legend>
+				
+				<ol>
+					<li>
+						<label><%= t('views.contributions.story.labels.surname') %></label><br/>
+						<input type="text" /><br/>
+						<br/>
+					</li>
+					<li>
+						<label><%= t('views.contributions.story.labels.first_name') %></label><br/>
+						<input type="text" /><br/>
+						<br/>
+					</li>		
+				</ol>
+				
+			</fieldset>
+			
+			
+			<fieldset>
+				
+				<legend><%= t('common.labels.person') %> 2</legend>
+				
+				<ol>
+					<li>
+						<label><%= t('views.contributions.story.labels.surname') %></label><br/>
+						<input type="text" /><br/>
+						<br/>
+					</li>
+					<li>
+						<label><%= t('views.contributions.story.labels.first_name') %></label><br/>
+						<input type="text" /><br/>
+						<br/>
+					</li>		
+				</ol>
+				
+			</fieldset>
 			
 		</fieldset>
 		
