@@ -11,7 +11,8 @@
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'creator_family_name', 'creator_given_name', 'description', 'lang', 'lang_other', 'content', 'subject' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
-
+  
+  <p>&nbsp;</p>
   <p><%= t('views.contributions.story.help_text.sections') %></p>
   
   <%= form.inputs :story_dates, :class => collapsible_class do %>
