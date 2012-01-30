@@ -1,7 +1,4 @@
-<% @title = t('views.contributions.new.title') %>
+<% @title = t('views.contributions.story.step1') %>
 
-<p><%= raw t('views.contributor.help.add_something.p1') %></p>
-
-<%= render :partial => 'form', :locals => { :contribution => @contribution } %>
-
-<%= render :partial => 'progress', :locals => { :step => 1 } %>
+  <%= render :partial => 'form', :locals => { :contribution => @contribution } %>
+  <%= render :partial => 'progress', :locals => { :step => 1 } %>
