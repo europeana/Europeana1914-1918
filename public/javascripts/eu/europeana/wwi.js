@@ -75,7 +75,7 @@
 		
 		init : function() {
 			
-			this.setupCollapsibleSections();
+			// this.setupCollapsibleSections();
 			this.setupShowSubmission();
 			
 		}
