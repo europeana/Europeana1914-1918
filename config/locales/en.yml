@@ -513,7 +513,29 @@ en:
         full_name: This will be displayed publicly as the credit alongside approved
           contributions.
       contribution:
-        title: A title for this contribution as a whole. This is required.
+        metadata:
+          contributor_behalf: Leave blank unless you are helping someone to make this
+            contribution.
+          date_from: Tell us when the story took place. If you do not know when exactly,
+            please provide the year field only. i.e. my grand-father was enrolled
+            in 1915, etc.
+          date_to: Tell us when the story ended. If you do not know when exactly,
+            please provide the year field only. i.e. my grand-father was injured in
+            1916, etc.
+          description: Write down the story behind your contribution.
+          forces: ! 'Please do not click if it is not relevant. If a relevant keyword
+            is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          keywords: Only assign keywords that describe the main subject or broader
+            concept that you want to contribute. The purpose of these keywords is
+            to help us highlight your story in our story collection.
+          lang: Indicate the language that this story is written in.
+          location_placename: Enter the name of a city, i.e., London or Paris. Alternatively
+            use the map to pinpoint where the story took place by dragging the marker
+            to the location. You can zoom in and out using the + and - at the left
+            of the map.
+          theatres: ! 'Please do not click if it is not relevant. If a relevant keyword
+            is not available please email us at: 1914-1918 [@] europeana [.] eu'
+        title: A title for this contribution as a whole.
       metadata_field:
         attachment: Specify whether this field applies to attachments.
         cataloguing: ! 'Yes: only show this field in the admin interface, for cataloguing
@@ -582,6 +604,26 @@ en:
             this blank. Minimum 6 characters.
     labels:
       contribution:
+        metadata:
+          cataloguer: Cataloguer
+          character1_family_name: Surname
+          character1_given_name: First name
+          character2_family_name: Surname
+          character2_given_name: First name
+          collection_day: Collection day
+          contributor_behalf: Contributed on behalf of
+          date_from: The story begins ...
+          date_to: The story ends ...
+          description: Story
+          editor_pick: Editor’s pick
+          forces: Does your story involve the
+          keywords: ''
+          lang: Language
+          lang_other: Language (other)
+          location_map: Map
+          location_placename: Locate where your story took place
+          notes: Cataloguer’s notes
+          theatres: ''
         terms: I accept the terms & conditions
         title: Story title
       metadata_field:
@@ -606,8 +648,10 @@ en:
       metadata_field_options: Type-specific options
       personal_details: Personal details
       story_basics: Tell your story…
+      story_character1: Person 1
+      story_character2: Person 2
       story_characters: Tell us who this story is about
-      story_dates: When did this story take palace
+      story_dates: When did this story take place
       story_front: Which front is this story about
       story_keywords: Help us expose your story by clicking one or several of the
         following keywords.
@@ -1515,55 +1559,26 @@ en:
         help_text:
           add_another_person: You can add more than one person.
           behalf_of: Leave empty unless you are helping someone to make this contribution
-          keywords: Only assign keywords that describe the main subject or broader
-            concept that you want to contribute. The purpose of these keywords is
-            to help us highlight your story in our story collection.
-          language: Indicate the language that this story is written in.
-          on_behalf: Leave blank unless you are helping someone to make this contribution.
           relevant: Please do not click if it is not relevant.
           save_story: By clicking on “Save story draft”, you will be led to the following
             contribution step
           sections: Click on the section titles below to open and close them; each
             section contains additional information you can add to your story.
-          story: Write down the story behind your contribution.
-          story_begins: Tell us when the story took place. If you do not know when
-            exactly, please provide the year field only. i.e. my grand-father was
-            enrolled in 1915, etc.
-          story_ends: Tell us when the story ended. If you do not know when exactly,
-            please provide the year field only. i.e. my grand-father was injured in
-            1916, etc.
           story_title: A title for this contribution as a whole.
           suggest_keyword: ! 'If a relevant keyword is not available please email
             us at: 1914-1918 [@] europeana [.] eu'
-          took_place: Enter the name of a city, i.e., London or Paris. Alternatively
-            use the map to pinpoint where the story took place by dragging the marker
-            to the location. You can zoom in and out using the + and - at the left
-            of the map.
           use_google_maps: Use Google Maps
           when: When did this story take palace
           where: Where did this story take place
           who: Tell us who this story is about
         labels:
-          cataloguer: Cataloguer
-          cataloguer_notes: Cataloguer’s notes
           cataloguer_only: Cataloguer only
-          collection_day: Collection day
           first_name: First name
-          forces: Does your story involve the
-          front: Which front is this story about
-          keywords: Help us expose your story by clicking one or several of the following
-            keywords.
-          language: Language
-          on_behalf: Contributed on behalf of
           people: Add the names of the people this story is about.
           save_story: Save story draft
-          story: Story
-          story_begins: The story begins ...
-          story_ends: The story ends ...
           surname: Surname
           tell: Tell your story ...
           title: Story title
-          took_place: Locate where your story took place
         options:
           aerial_warfare: Aerial Warfare
           african_wars: African Wars
@@ -1574,7 +1589,6 @@ en:
           central_powers: Central Powers
           conscientious: Conscientious Objection
           eastern_front: Eastern Front
-          editors_pick: Editor’s pick
           gallipoli_front: Gallipoli Front
           gas: Gas Warfare
           home_front: Home Front

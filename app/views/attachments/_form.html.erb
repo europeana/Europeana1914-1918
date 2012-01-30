@@ -4,11 +4,11 @@
   <%= form.inputs :attachment_upload, :id => 'attachment_upload' do %>
     <%= form.input :file, :hint => t((attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'), :max => max_upload_size, :file_types => allowed_file_types) %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'cover_image', 'page_number', 'object_side' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'cover_image', 'page_number', 'object_side' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
     <%= form.input :title %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'creator_family_name', 'creator_given_name', 'description', 'lang', 'lang_other', 'content', 'subject' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'creator_family_name', 'creator_given_name', 'description', 'lang', 'lang_other', 'content', 'subject' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
@@ -17,32 +17,32 @@
   
   <%= form.inputs :story_dates, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%= form.inputs :story_location, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'location_placename', 'location_map' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'location_placename', 'location_map' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%= form.inputs :story_keywords, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%= form.inputs :story_front, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%- if current_user.may_catalogue_contribution?(attachment.contribution) -%>
     <%= form.inputs :cataloguing_metadata, :class => collapsible_class do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license' ], :cataloguing => true, :attachment => true } } %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license' ], :cataloguing => true, :attachment => true } } %>
       <% end %>
     <% end %>
   <%- end -%>

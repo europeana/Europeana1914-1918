@@ -12,11 +12,27 @@ module MetadataFieldsHelper
     end
   end
   
-  def metadata_field_hint(field)
-    t("formtastic.hints.metadata_record.#{field.name}", :default => '')
+  def metadata_field_hint(field, type)
+    key = case type
+    when :contribution
+      "formtastic.hints.contribution.metadata.#{field.name}"
+    when :attachment
+      "formtastic.hints.attachment.metadata.#{field.name}"
+    else
+      "formtastic.hints.metadata_record.#{field.name}"
+    end
+    t(key, :default => '')
   end
   
-  def metadata_field_label(field)
-    t("formtastic.labels.metadata_record.#{field.name}", :default => '')
+  def metadata_field_label(field, type)
+    key = case type
+    when :contribution
+      "formtastic.labels.contribution.metadata.#{field.name}"
+    when :attachment
+      "formtastic.labels.attachment.metadata.#{field.name}"
+    else
+      "formtastic.labels.metadata_record.#{field.name}"
+    end
+    t(key)
   end
 end
