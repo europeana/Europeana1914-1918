@@ -39,6 +39,12 @@ gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
 
 echo
+echo "=============   show installed gems   ==========="
+echo
+gem list
+
+
+echo
 echo "=============   install some basic gems   ==========="
 echo
 # gem install bundle rake passenger
@@ -56,7 +62,19 @@ echo "=============   bundle install   ==========="
 echo
 #rm Gemfile.lock
 bundle install
+
+
+echo
+echo "=============   show installed gems   ==========="
+echo
+gem list
+
+
+echo
+echo "=============   update database schema  ==========="
+echo
 bundle exec rake db:migrate
+
 
 echo
 echo "=============   restarting apache   ==========="
