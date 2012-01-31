@@ -24,13 +24,15 @@ svn up
 echo
 echo "=============   remove all gems   ==========="
 echo
+rm Gemfile.lock
 gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
 
 echo
 echo "=============   install some basic gems   ==========="
 echo
-gem install bundle rake passenger
+# gem install bundle rake passenger
+gem install bundle passenger
 
 # the gem passenger is for connecting apache to a rails app.
 # To actually update the apache stuff, you need to run:
@@ -42,7 +44,7 @@ gem install bundle rake passenger
 echo
 echo "=============   bundle install   ==========="
 echo
-rm Gemfile.lock
+#rm Gemfile.lock
 bundle install
 bundle exec rake db:migrate
 
