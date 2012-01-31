@@ -52,6 +52,14 @@ gem install rdoc-data bundle rake
 checkout this sourcetree
 
 [in 1914 topdir]
+
+--- for updates ---
+  rm Gemfile~
+  rm Gemfile.lock
+  rm .bundle -r
+  rm ts\:config -r
+
+
 bundle install  [user needs sudo privs]
 
 make sure no errors or warnings, if you get some try to solve and add
@@ -116,12 +124,6 @@ To actually update the apache stuff, you need to run:
 
 ===   remove all installed stuff, so we can redo installation   ===
 
----   uninstall ruby   ---
-aptitude remove ruby-dev rubygems rubygems-doc rubygems1.8 ruby1.8
-
-dpkg --get-selections | grep ruby
-'dpkg -P' on all remaining packets
-
 --- clear gems ---
 - nicer aproach -
 gem list | cut -d" " -f1 | xargs gem uninstall -aIx
@@ -131,6 +133,12 @@ rm /usr/lib/ruby -r
 
 - clear dot dir cache -
 rm ~/.gem -r
+
+---   uninstall ruby   ---
+aptitude remove ruby-dev rubygems rubygems-doc rubygems1.8 ruby1.8
+
+dpkg --get-selections | grep ruby
+'dpkg -P' on all remaining packets
 
 
 
