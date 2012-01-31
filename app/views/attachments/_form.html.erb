@@ -15,25 +15,25 @@
   <p>&nbsp;</p>
   <p><%= t('views.contributions.story.help_text.sections') %></p>
   
-  <%= form.inputs :story_dates, :class => collapsible_class do %>
+  <%= form.inputs :attachment_dates, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
-  <%= form.inputs :story_location, :class => collapsible_class do %>
+  <%= form.inputs :attachment_location, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'location_placename', 'location_map' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
-  <%= form.inputs :story_keywords, :class => collapsible_class do %>
+  <%= form.inputs :attachment_keywords, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
-  <%= form.inputs :story_front, :class => collapsible_class do %>
+  <%= form.inputs :attachment_front, :class => collapsible_class do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
