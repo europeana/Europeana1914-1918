@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20120131125905) do
     t.string   "field_character1_given_name"
     t.string   "field_character2_family_name"
     t.string   "field_character2_given_name"
-    t.string   "field_attachment_description"
+    t.text     "field_attachment_description"
   end
 
   create_table "metadata_records_taxonomy_terms", :id => false, :force => true do |t|

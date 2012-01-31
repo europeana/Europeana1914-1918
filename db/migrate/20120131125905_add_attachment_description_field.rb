@@ -7,7 +7,7 @@ class AddAttachmentDescriptionField < ActiveRecord::Migration
   }
   
   def self.up
-    MetadataField.create(:name => 'attachment_description', :field_type => 'string', :title => "Attachment description", :cataloguing => false, :contribution => false, :attachment => true, :searchable => true, :required => false, :show_in_listing => false)
+    MetadataField.create(:name => 'attachment_description', :field_type => 'text', :title => "Attachment description", :cataloguing => false, :contribution => false, :attachment => true, :searchable => true, :required => false, :show_in_listing => false)
     
     MetadataField.find_by_name('description').update_attribute(:attachment, false)
     
