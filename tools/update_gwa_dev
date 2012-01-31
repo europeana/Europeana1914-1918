@@ -39,6 +39,11 @@ gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
 
 echo
+echo "=============   clearing ts:config tree   ==========="
+echo
+rm -r ts\:config
+
+echo
 echo "=============   show installed gems   ==========="
 echo
 gem list
@@ -56,6 +61,12 @@ gem install bundle passenger
 # the output of this will help you with dependencies and apache config
 # we dont rebuild the apache stuff each time, but we keep the passenger gem
 # installed to ensure apache functionality
+
+echo
+echo "=============   show installed gems   ==========="
+echo
+gem list
+
 
 echo
 echo "=============   bundle install   ==========="
