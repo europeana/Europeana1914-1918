@@ -162,15 +162,135 @@
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.digital_object.help_text.where') %></legend>
-			
+			<legend><%= t('views.contributions.digital_object.help_text.when') %></legend>
+				
 			<ol>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.place_created') %></label><br/>
-					<input type="text" /><br/>
-					<%= t('views.contributions.digital_object.help_text.place_created') %><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.date_from') %></label><br/>
+					<select>
+						<option value=""><%= t('datetime.prompts.year') %></option>
+						<option>1912</option>
+						<option>1913</option>
+						<option>1914</option>
+						<option>1915</option>
+						<option>1916</option>
+						<option>1917</option>
+						<option>1918</option>
+						<option>1919</option>
+						<option>1920</option>
+						<option>1921</option>
+						<option>1922</option>
+						<option>1923</option>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.month') %></option>
+						<% @month_names = t('date.month_names') %>
+						<% (1..12).each { |i| %>
+							<option><%= @month_names[i] %></option>
+						<% } %>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.day') %></option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					</select><br/>
+					<%= t('formtastic.hints.attachment.metadata.date_from') %><br/>
 					<br/>
+				</li>
+				
+				<li>
+					<label><%= t('formtastic.labels.attachment.metadata.date_to') %></label><br/>
+					<select>
+						<option value=""><%= t('datetime.prompts.year') %></option>
+						<option>1912</option>
+						<option>1913</option>
+						<option>1914</option>
+						<option>1915</option>
+						<option>1916</option>
+						<option>1917</option>
+						<option>1918</option>
+						<option>1919</option>
+						<option>1920</option>
+						<option>1921</option>
+						<option>1922</option>
+						<option>1923</option>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.month') %></option>
+						<% @month_names = t('date.month_names') %>
+						<% (1..12).each { |i| %>
+							<option><%= @month_names[i] %></option>
+						<% } %>
+					</select>
+					<select>
+						<option><%= t('datetime.prompts.day') %></option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+						<option>24</option>
+						<option>25</option>
+						<option>26</option>
+						<option>27</option>
+						<option>28</option>
+						<option>29</option>
+						<option>30</option>
+						<option>31</option>
+					</select><br/>
+					<%= t('formtastic.hints.attachment.metadata.date_to') %><br/>
+					
+					<br/>
+					<br/>
+					
 				</li>
 				
 			</ol>
@@ -180,135 +300,15 @@
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.digital_object.help_text.when') %></legend>
-				
+			<legend><%= t('views.contributions.digital_object.help_text.where') %></legend>
+			
 			<ol>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.date_created') %></label><br/>
-					<select>
-						<option value=""><%= t('datetime.prompts.year') %></option>
-						<option>1912</option>
-						<option>1913</option>
-						<option>1914</option>
-						<option>1915</option>
-						<option>1916</option>
-						<option>1917</option>
-						<option>1918</option>
-						<option>1919</option>
-						<option>1920</option>
-						<option>1921</option>
-						<option>1922</option>
-						<option>1923</option>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.month') %></option>
-						<% @month_names = t('date.month_names') %>
-						<% (1..12).each { |i| %>
-							<option><%= @month_names[i] %></option>
-						<% } %>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.day') %></option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-						<option>11</option>
-						<option>12</option>
-						<option>13</option>
-						<option>14</option>
-						<option>15</option>
-						<option>16</option>
-						<option>17</option>
-						<option>18</option>
-						<option>19</option>
-						<option>20</option>
-						<option>21</option>
-						<option>22</option>
-						<option>23</option>
-						<option>24</option>
-						<option>25</option>
-						<option>26</option>
-						<option>27</option>
-						<option>28</option>
-						<option>29</option>
-						<option>30</option>
-						<option>31</option>
-					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.date_created') %><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.location_placename') %></label><br/>
+					<input type="text" /><br/>
+					<%= t('formtastic.hints.attachment.metadata.location_placename') %><br/>
 					<br/>
-				</li>
-				
-				<li>
-					<label><%= t('views.contributions.digital_object.labels.date_completed') %></label><br/>
-					<select>
-						<option value=""><%= t('datetime.prompts.year') %></option>
-						<option>1912</option>
-						<option>1913</option>
-						<option>1914</option>
-						<option>1915</option>
-						<option>1916</option>
-						<option>1917</option>
-						<option>1918</option>
-						<option>1919</option>
-						<option>1920</option>
-						<option>1921</option>
-						<option>1922</option>
-						<option>1923</option>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.month') %></option>
-						<% @month_names = t('date.month_names') %>
-						<% (1..12).each { |i| %>
-							<option><%= @month_names[i] %></option>
-						<% } %>
-					</select>
-					<select>
-						<option><%= t('datetime.prompts.day') %></option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
-						<option>10</option>
-						<option>11</option>
-						<option>12</option>
-						<option>13</option>
-						<option>14</option>
-						<option>15</option>
-						<option>16</option>
-						<option>17</option>
-						<option>18</option>
-						<option>19</option>
-						<option>20</option>
-						<option>21</option>
-						<option>22</option>
-						<option>23</option>
-						<option>24</option>
-						<option>25</option>
-						<option>26</option>
-						<option>27</option>
-						<option>28</option>
-						<option>29</option>
-						<option>30</option>
-						<option>31</option>
-					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.date_completed') %><br/>
-					
-					<br/>
-					<br/>
-					
 				</li>
 				
 			</ol>
@@ -477,7 +477,7 @@
 		
 					<fieldset>
 						
-						<legend><%= t('views.contributions.digital_object.labels.forces') %></legend>
+						<legend><%= t('formtastic.labels.attachment.metadata.forces') %></legend>
 						
 						<ol>
 							
@@ -498,7 +498,7 @@
 							
 						</ol>
 						
-						<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+						<%= t('formtastic.hints.attachment.metadata.forces') %>
 						
 					</fieldset>
 					
@@ -507,7 +507,7 @@
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.source') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.source') %></label><br/>
 					<select>
 						<option value=""></option>
 						<option value="14"><%= t('views.contributions.digital_object.options.other_option') %></option>
@@ -526,12 +526,12 @@
 						<option value="9"><%= t('views.contributions.digital_object.options.journal') %></option>
 						<option value="12"><%= t('views.contributions.digital_object.options.newspaper') %></option>
 					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.source') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.source') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.medium') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.format') %></label><br/>
 					<select>
 						<option></option>
 						<option value="27"><%= t('views.contributions.digital_object.options.other_option') %></option>
@@ -551,25 +551,25 @@
 						<option value="30"><%= t('views.contributions.digital_object.options.tape') %></option>
 						<option value="33"><%= t('views.contributions.digital_object.options.unknown') %></option>
 					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.medium') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.format') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.page_number_total') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.page_total') %></label><br/>
 					<input type="text"/><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.notes') %></label><br/>
 					<textarea></textarea><br/>
 					<br/>
 				</li>
 				
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.media_type') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.file_type') %></label><br/>
 					<select>
 						<option><%= t('views.contributions.digital_object.options.text') %></option>
 						<option><%= t('views.contributions.digital_object.options.image') %></option>
@@ -582,7 +582,7 @@
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.license') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.license') %></label><br/>
 					<select>
 						<option><%= t('views.contributions.digital_object.options.cc_by_sa') %></option>
 						<option><%= t('views.contributions.digital_object.options.public_domain') %></option>
