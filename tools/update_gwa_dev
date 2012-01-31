@@ -13,18 +13,28 @@
 
 # need to run this as root...
 
+echo
+echo "=============   cd to source directory   ==========="
+echo
+cd /var/www/cococo
+
+
+echo
+echo "=============   remove gemfile   ==========="
+echo
+rm Gemfile~
+rm Gemfile.lock
 
 
 echo
 echo "=============   svn update   ==========="
 echo
-cd /var/www/cococo
 svn up
+
 
 echo
 echo "=============   remove all gems   ==========="
 echo
-rm Gemfile.lock
 gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
 
