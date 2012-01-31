@@ -53,8 +53,6 @@ class MetadataField < ActiveRecord::Base
    attr_accessible :name, :title, :field_type, :required, :position, :cataloguing, :taxonomy_terms_attributes, :searchable, :hint, :multi, :show_in_listing, :contribution, :attachment
   accepts_nested_attributes_for :taxonomy_terms
   
-  translates :title, :hint # Globalize3
-
   default_scope order('position')
 
   FIELD_TYPES = [ 'text', 'string', 'date', 'geo', 'taxonomy' ]

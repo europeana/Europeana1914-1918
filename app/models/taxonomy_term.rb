@@ -1,8 +1,6 @@
 class TaxonomyTerm < ActiveRecord::Base
   attr_accessible :term
-  translates :term
   
-  # TODO: Name this association "taxonomy_vocabulary"
   belongs_to :metadata_field
   has_and_belongs_to_many :metadata_records
   
@@ -15,5 +13,10 @@ class TaxonomyTerm < ActiveRecord::Base
   
   def validate_metadata_field_taxonomy
     self.errors.add(:metadata_field_id, I18n.t('activerecord.errors.models.taxonomy_term.attributes.metadata_field.type')) unless self.metadata_field.field_type == 'taxonomy'
+  end
+  
+  def translated_term
+    key = "formtastic.labels.taxonomy_term.#{metadata_field.name}.#{term}"
+    I18n.t(key, :default => term)
   end
 end
