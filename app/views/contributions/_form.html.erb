@@ -2,7 +2,7 @@
 <% collapsible_class = (current_user.role.name == 'cataloguer' ? 'collapsible' : 'collapsed') %>
 <%= semantic_form_for contribution do |form| %>
   <%= form.inputs :story_basics do %>
-    <%= form.input :title %>
+    <%= form.input :title, :hint => raw('<span class="mandatory">'+ t('common.help_text.mandatory') + '</span><br />' + t('formtastic.hints.contribution.title')) %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'description', 'lang', 'lang_other', 'contributor_behalf' ], :cataloguing => false, :contribution => true } } %>
     <% end %>
