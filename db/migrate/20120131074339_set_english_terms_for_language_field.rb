@@ -7,7 +7,7 @@ class SetEnglishTermsForLanguageField < ActiveRecord::Migration
     
     MAP.each_pair do |from, to|
       tt = TaxonomyTerm.where(:metadata_field_id => language_field.id, :term => from).first
-      tt.update_attribute(:term, to)
+      tt.update_attribute(:term, to) unless tt.nil?
     end
     
     NEW.each do |term|
@@ -27,7 +27,7 @@ class SetEnglishTermsForLanguageField < ActiveRecord::Migration
     
     MAP.each_pair do |from, to|
       tt = TaxonomyTerm.where(:metadata_field_id => language_field.id, :term => to).first
-      tt.update_attribute(:term, from)
+      tt.update_attribute(:term, from) unless tt.nil?
     end
   end
 end
