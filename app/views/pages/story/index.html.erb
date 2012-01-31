@@ -4,29 +4,29 @@
 		
 		<fieldset>
 			
-			<legend><%= t('views.contributions.story.labels.tell') %></legend>
+			<legend><%= t('formtastic.titles.story_basics') %></legend>
 			
 			<ol>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.title') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.title') %></label><br/>
 					<input type="text" />
 					<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
-					<%= t('views.contributions.story.help_text.story_title') %><br/>
+					<%= t('formtastic.hints.contribution.title') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.story') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.description') %></label><br/>
 					<textarea></textarea>
 					<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
-					<%= t('views.contributions.story.help_text.story') %><br/>
+					<%= t('formtastic.hints.contribution.metadata.description') %><br/>
 					<br/>
 				</li>
 				
 				<li>
 					
-					<label><%= t('views.contributions.story.labels.language') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.lang') %></label><br/>
 					<input type="checkbox" value="de" /> <%= t('languages.de') %><br/>
 					<input type="checkbox" value="en" /> <%= t('languages.en') %><br/>
 					<input type="checkbox" value="fr"/> <%= t('languages.fr') %><br/>
@@ -36,15 +36,15 @@
 					<input type="checkbox" value="nl"/> <%= t('languages.da') %><br/>
 					<input type="checkbox" /> <%= t('common.options.other_option') %><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.story.help_text.language') %><br/>
+					<%= t('formtastic.hints.contribution.metadata.lang') %><br/>
 					<br/>
 				</li>
 				
 				<li>
 					
-					<label><%= t('views.contributions.story.labels.on_behalf') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.contributor_behalf') %></label><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.story.help_text.on_behalf') %><br/>
+					<%= t('formtastic.hints.contribution.metadata.contributor_behalf') %><br/>
 					<br/>
 					
 				</li>
@@ -59,21 +59,21 @@
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.story.help_text.who') %></legend>
+			<legend><%= t('formtastic.titles.story_characters') %></legend>
 			<p><%= t('views.contributions.story.labels.people') %></p>
 			
 			<fieldset>
 				
-				<legend><%= t('common.labels.person') %> 1</legend>
+				<legend><%= t('formtastic.titles.story_character1') %></legend>
 				
 				<ol>
 					<li>
-						<label><%= t('views.contributions.story.labels.surname') %></label><br/>
+						<label><%= t('formtastic.labels.contribution.metadata.character1_family_name') %></label><br/>
 						<input type="text" /><br/>
 						<br/>
 					</li>
 					<li>
-						<label><%= t('views.contributions.story.labels.first_name') %></label><br/>
+						<label><%= t('formtastic.labels.contribution.metadata.character1_given_name') %></label><br/>
 						<input type="text" /><br/>
 						<br/>
 					</li>		
@@ -84,16 +84,16 @@
 			
 			<fieldset>
 				
-				<legend><%= t('common.labels.person') %> 2</legend>
+				<legend><%= t('formtastic.titles.story_character2') %></legend>
 				
 				<ol>
 					<li>
-						<label><%= t('views.contributions.story.labels.surname') %></label><br/>
+						<label><%= t('formtastic.labels.contribution.metadata.character2_family_name') %></label><br/>
 						<input type="text" /><br/>
 						<br/>
 					</li>
 					<li>
-						<label><%= t('views.contributions.story.labels.first_name') %></label><br/>
+						<label><%= t('formtastic.labels.contribution.metadata.character2_given_name') %></label><br/>
 						<input type="text" /><br/>
 						<br/>
 					</li>		
@@ -106,13 +106,13 @@
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.story.help_text.when') %></legend>
+			<legend><%= t('formtastic.titles.story_dates') %></legend>
 			
 			<ol>
 				
 				<li>
 					
-					<label><%= t('views.contributions.story.labels.story_begins') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.date_from') %></label><br/>
 					<select>
 						<option value=""><%= t('datetime.prompts.year') %></option>
 						<option>1912</option>
@@ -169,14 +169,14 @@
 						<option>30</option>
 						<option>31</option>
 					</select><br/>
-					<%= t('views.contributions.story.help_text.story_begins') %><br/>
+					<%= t('formtastic.hints.contribution.metadata.date_from') %><br/>
 					<br/>
 				</li>
 				
 				
 				<li>
 					
-					<label><%= t('views.contributions.story.labels.story_ends') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.date_to') %></label><br/>
 					<select>
 						<option value=""><%= t('datetime.prompts.year') %></option>
 						<option>1912</option>
@@ -232,7 +232,7 @@
 						<option>30</option>
 						<option>31</option>
 					</select><br/>
-					<%= t('views.contributions.story.help_text.story_ends') %><br/>
+					<%= t('formtastic.hints.contribution.metadata.date_to') %><br/>
 					<br/>
 					
 				</li>
@@ -244,15 +244,15 @@
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.story.help_text.where') %></legend>
+			<legend><%= t('formtastic.titles.story_location') %></legend>
 			
 			<ol>
 				
 				<li>
 					
-					<label><%= t('views.contributions.story.labels.took_place') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.location_placename') %></label><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.story.help_text.took_place') %><br/>
+					<%= t('formtastic.hints.contribution.metadata.location_placename') %><br/>
 					<br/>
 					
 				</li>
@@ -264,7 +264,7 @@
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.story.labels.keywords') %></legend>
+			<legend><%= t('formtastic.titles.story_keywords') %></legend>
 			
 				<ol>
 					
@@ -350,14 +350,14 @@
 				
 				</ol>
 				
-			<%= t('views.contributions.story.help_text.keywords') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+			<%= t('formtastic.hints.contribution.metadata.keywords') %>
 			
 		</fieldset>
 		
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.story.labels.front') %></legend>
+			<legend><%= t('formtastic.titles.story_front') %></legend>
 			
 			<ol>
 				
@@ -408,14 +408,14 @@
 				
 			</ol>
 			
-			<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+			<%= t('formtastic.hints.contribution.metadata.theatres') %>
 			
 		</fieldset>
 		
 		
 		<fieldset class="collapsible">
 			
-			<legend><%= t('views.contributions.story.labels.cataloguer_only') %></legend>
+			<legend><%= t('formtastic.titles.cataloguing_metadata') %></legend>
 			
 			<ol>
 				
@@ -423,7 +423,7 @@
 			
 					<fieldset>
 						
-						<legend><%= t('views.contributions.story.labels.forces') %></legend>
+						<legend><%= t('formtastic.labels.contribution.metadata.forces') %></legend>
 						
 						<ol>
 							
@@ -444,7 +444,7 @@
 							
 						</ol>
 						
-						<%= t('views.contributions.story.help_text.relevant') %> <%= t('views.contributions.story.help_text.suggest_keyword') %>
+						<%= t('formtastic.hints.contribution.metadata.forces') %>
 						
 					</fieldset>
 					
@@ -453,13 +453,13 @@
 				</li>
 				
 				<li>
-					<input type="checkbox" /> <label><%= t('views.contributions.story.options.editors_pick') %></label><br/>
+					<input type="checkbox" /> <label><%= t('formtastic.labels.contribution.metadata.editor_pick') %></label><br/>
 					<br/>
 				</li>
 				
 				<li>
 					<span class="highlight">[ default based on my login ]</span><br/>
-					<label><%= t('views.contributions.story.labels.cataloguer') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.cataloguer') %></label><br/>
 					
 					<select>
 						<option></option>
@@ -471,7 +471,7 @@
 				
 				<li>
 					<span class="highlight">[ default based on config value ]</span><br/>
-					<label><%= t('views.contributions.story.labels.collection_day') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.collection_day') %></label><br/>
 					<select>
 						<option></option>
 						<option>RG14</option>
@@ -480,7 +480,7 @@
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.cataloguer_notes') %></label><br/>
+					<label><%= t('formtastic.labels.contribution.metadata.notes') %></label><br/>
 					<textarea></textarea>
 				</li>
 				
@@ -491,7 +491,7 @@
 		
 		<fieldset>
 		
-			<input type="submit" value="<%= t('views.contributions.story.labels.save_story') %>" /><br/>
+			<input type="submit" value="<%= t('formtastic.actions.contribution.save_draft') %>" /><br/>
 			<%= t('views.contributions.story.help_text.save_story') %>
 			
 		</fieldset>
