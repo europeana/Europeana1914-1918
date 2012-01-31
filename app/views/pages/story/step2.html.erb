@@ -51,7 +51,7 @@
 					<label><%= t('views.contributions.digital_object.labels.upload') %></label><br/>
 					<input type="file" />
 					<span class="mandatory"><%= t('common.help_text.mandatory') %></span>
-					<%= t('views.contributions.digital_object.help_text.upload') %><br/>
+					<%= t('formtastic.hints.attachment.new.file') %><br/>
 					<br/>
 				</li>
 				
@@ -71,23 +71,23 @@
 				
 				<li>
 					<input type="checkbox" />
-					<label><%= t('views.contributions.digital_object.labels.cover_image') %></label><br/>
-					<%= t('views.contributions.digital_object.help_text.cover_image') %><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.cover_image') %></label><br/>
+					<%= t('formtastic.hints.attachment.metadata.cover_image') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.page_number') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.page_number') %></label><br/>
 					<input type="text"/><br/>
-					<%= t('views.contributions.digital_object.help_text.page_number') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.page_number') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.side') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.object_side') %></label><br/>
 					<input type="radio" /> <%= t('views.contributions.digital_object.options.front') %>
 					<input type="radio" /> <%= t('views.contributions.digital_object.options.back') %><br/>
-					<%= t('views.contributions.digital_object.help_text.side') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.object_side') %><br/>
 					<br/>
 				</li>
 				
@@ -99,24 +99,24 @@
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.creators_surname') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.creator_family_name') %></label><br/>
 					<input type="text" /><br/>
 					<br/>
-					<label><%= t('views.contributions.digital_object.labels.creators_first_name') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.creator_given_name') %></label><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.digital_object.help_text.creators_name') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.creator_given_name') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.description') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.description') %></label><br/>
 					<textarea></textarea><br/>
-					<%= t('views.contributions.digital_object.help_text.description') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.description') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.story.labels.language') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.lang') %></label><br/>
 					<input type="checkbox" value="de" /> <%= t('languages.de') %><br/>
 					<input type="checkbox" value="en" /> <%= t('languages.en') %><br/>
 					<input type="checkbox" value="fr"/> <%= t('languages.fr') %><br/>
@@ -126,12 +126,12 @@
 					<input type="checkbox" value="nl"/> <%= t('languages.da') %><br/>
 					<input type="checkbox" /> <%= t('common.options.other_option') %><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.digital_object.help_text.language') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.lang') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('activerecord.attributes.metadata_field.field_type') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.content') %></label><br/>
 					<select>
 						<option></option>
 						<option><%= t('views.contributions.digital_object.options.diary') %></option>
@@ -140,14 +140,14 @@
 						<option><%= t('views.contributions.digital_object.options.photograph') %></option>
 						<option><%= t('views.contributions.digital_object.options.poem') %></option>
 					</select><br/>
-					<%= t('views.contributions.digital_object.help_text.object_type') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.content') %><br/>
 					<br/>
 				</li>
 				
 				<li>
-					<label><%= t('views.contributions.digital_object.labels.subject') %></label><br/>
+					<label><%= t('formtastic.labels.attachment.metadata.subject') %></label><br/>
 					<input type="text" /><br/>
-					<%= t('views.contributions.digital_object.help_text.subject') %><br/>
+					<%= t('formtastic.hints.attachment.metadata.subject') %><br/>
 					<br/>
 				</li>
 				

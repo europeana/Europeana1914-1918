@@ -505,8 +505,27 @@ en:
         edit:
           file: ! 'Only upload a new file if you want to replace the existing one.
             Maximum file size: %{max}. Allowed file types: %{file_types}.'
+        metadata:
+          content: What the item is (for example poem, letter, photograph); try to
+            be as specific as possible.
+          cover_image: A cover image represents your story in our collection; it is
+            similar to the cover of a book. it could be a photo of who this story
+            is about, the front page of a diary or a picture of a medal.
+          creator_given_name: Name of the person who created the original object,
+            for example the author of a letter or diary or a photographer's name.
+          description: Describe the item’s physical characteristics as well as what
+            it represents and means to you.
+          lang: Indicate the language used in the item, for example, the language(s)
+            used in a diary.
+          object_side: For an item with two sides, for example a postcard, indicate
+            the side
+          page_number: For an item of many pages, write the individual page number
+          subject: The person or place or object the item is about.
         new:
-          file: ! 'Maximum file size: %{max}. Allowed file types: %{file_types}.'
+          file: ! 'You can upload as many files as necessary; one at a time. Note
+            that if you upload many files you will be given the opportunity to mark
+            one of them as a “cover image” for your story; i.e., a postcard or diary.
+            Maximum file size: %{max}. Allowed file types: %{file_types}.'
       contact:
         full_name: This will be displayed publicly as the credit alongside approved
           contributions.
@@ -604,6 +623,17 @@ en:
           password: Enter a new password if you want to change it, otherwise leave
             this blank. Minimum 6 characters.
     labels:
+      attachment:
+        metadata:
+          content: Type
+          cover_image: Cover image
+          creator_family_name: Creator’s surname
+          creator_given_name: Creator’s first name
+          description: Description
+          lang: Language
+          object_side: Side
+          page_number: Page number
+          subject: Subject
       contribution:
         metadata:
           cataloguer: Cataloguer
@@ -1388,11 +1418,6 @@ en:
         help_text:
           add_attachment: Remember to add at least one item to your story. There are
             currently <b>%{nr_digital_objects}</b> items attached to this story.
-          cover_image: A cover image represents your story in our collection; it is
-            similar to the cover of a book. it could be a photo of who this story
-            is about, the front page of a diary or a picture of a medal.
-          creators_name: Name of the person who created the original object, for example
-            the author of a letter or diary or a photographer's name.
           date_completed: The end date for an item, for example, the last date of
             a diary.
           date_created: Tell us when the item was created, for example, when a letter
@@ -1400,18 +1425,14 @@ en:
             started. If you do not know the exact date, please provide a year only
             or a year and a month.
           describe_item: Describe your item
-          description: Describe the item’s physical characteristics as well as what
-            it represents and means to you.
           language: Indicate the language used in the item, for example, the language(s)
             used in a diary.
           medium: The material of the item that has been digitised (for example paper,
             card, tape).
           object_type: What the item is (for example poem, letter, photograph); try
             to be as specific as possible.
-          page_number: For an item of many pages, write the individual page number
           save_digital: By clicking on “Save item”, you will save this item and have
             the change to add more items or submit your contribution as a whole.
-          side: For an item with two sides, for example a postcard, indicate the side
           source: The source that the item was digitised from (for example a leaf,
             a folio, a notebook, a reel of film).
           subject: The person or place or object the item is about.
@@ -1428,9 +1449,6 @@ en:
             below.
           title: Short descriptive title or proper name of the object, for example,
             “My great grandfather, Otto Schmidt’s, Medal of Honor”
-          upload: You can upload as many files as necessary; one at a time. Note that
-            if you upload many files you will be given the opportunity to mark one
-            of them as a “cover image” for your story; i.e., a postcard or diary.
           upload_multiple: ! 'You can upload multiple files as a batch. Each file
             will automatically become a seperate item that you can then edit individually.
             Note: For the multiple file upload to work you need to have Flash installed
@@ -1439,12 +1457,8 @@ en:
           when: When was this item created
           where: Where was this item created
         labels:
-          cover_image: Cover image
-          creators_first_name: Creator’s first name
-          creators_surname: Creator’s surname
           date_completed: End Date
           date_created: Date created / Start date
-          description: Description
           forces: Does this digital object involve the
           front: Which front is this digital object about
           keywords: ! 'Help others find your item by adding one or several of the
@@ -1454,14 +1468,11 @@ en:
           location_place_name: Location (place name)
           media_type: Media type
           medium: Medium
-          page_number: Page number
           page_number_total: Total number of pages
           place_created: Locate where your item was created.
           save_digital: Save digital object
           save_item_draft: Save item draft
-          side: Side
           source: Source
-          subject: Subject
           submit_contribution: Submit contribution
           upload: Upload the file
         links:
