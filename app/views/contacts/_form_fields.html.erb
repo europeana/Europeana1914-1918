@@ -21,7 +21,10 @@
     <%= form.semantic_fields_for :user do |user| %>
       <%= user.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
       <%- if form.object.user.picture.present? -%>
-        <li><%= image_tag(form.object.user.picture.url(:thumb)) %></li>
+        <li class="input optional">
+          <p class="inline-hints"><%= image_tag(form.object.user.picture.url(:thumb)) %></p>
+          <p class="inline-hints"><label for="delete_picture"><%= check_box_tag 'delete_picture' %> <%= t('formtastic.labels.user.delete_picture') %></label></p>
+        </li>
       <%- end -%>
     <%- end -%>
   <%- end -%>

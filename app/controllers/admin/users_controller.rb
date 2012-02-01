@@ -53,6 +53,11 @@ class Admin::UsersController < AdminController
     if params[:user].has_key?(:role_name)
       @user.role_name = params[:user].delete(:role_name)
     end
+    
+    if params[:delete_picture] && !params[:user][:contact_attributes][:user_attributes][:picture] && @user.picture.present?
+      @user.picture.destroy
+    end
+    
     @user.attributes = params[:user]
     if @user.save
       flash[:notice] = t('flash.users.update.notice')

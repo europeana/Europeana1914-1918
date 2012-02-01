@@ -15,6 +15,11 @@ class ContactsController < ApplicationController
   # PUT /contacts/:id
   def update
     current_user.may_edit_contact!(@contact)
+
+    if params[:delete_picture] && !params[:contact][:user_attributes][:picture] && @contact.user && @contact.user.picture.present?
+      @contact.user.picture.destroy
+    end
+
     @contact.attributes = params[:contact]
     if @contact.save
       flash[:notice] = t('flash.contacts.update.notice')
