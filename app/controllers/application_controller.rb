@@ -114,7 +114,8 @@ class ApplicationController < ActionController::Base
       :datepicker => false,
       :gmap_geo => false,
       :uploadify => false,
-      :collapsible => false
+      :collapsible => false,
+      :language_other => false
     }
   end
   
