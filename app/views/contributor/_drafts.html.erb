@@ -30,13 +30,11 @@ end
           <td>
             <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
               <%= link_to t('actions.submit'), new_contribution_attachment_path(contribution) %>
+            <%- else -%>
+              '&nbsp;
             <%- end -%>
           </td>
-          <td>
-            <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
-              <%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution) + '#attachments' ) %>
-            <%- end -%>
-          </td>
+          <td><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution) + '#attachments' ) %></td>
         <%- end -%>
         <%- if current_user.may_delete_contribution?(contribution) -%>
           <td><%= link_to t('actions.delete'), delete_contribution_path(contribution), :class => 'delete-member' %></td>
