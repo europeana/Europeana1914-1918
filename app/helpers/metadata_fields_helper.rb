@@ -10,7 +10,7 @@ module MetadataFieldsHelper
       if metadata_field.name == 'lang'
         other_term_index = nil
         terms.each_index do |index|
-          if terms[index].term == 'Other'
+          if terms[index].term.downcase == 'other'
             other_term_index = index
           end
         end
