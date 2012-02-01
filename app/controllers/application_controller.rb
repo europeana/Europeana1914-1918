@@ -44,6 +44,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   protected
+  ##
   # Displays error message for application errors, sending HTTP status code.
   #
   # +status+ is a symbol representing the HTTP error code, e.g. +:not_found+
@@ -53,9 +54,6 @@ class ApplicationController < ActionController::Base
   # Configuration options:
   # * +:log+ - Specifies whether to log the error (default is +true+).
   # * +:template+ - Path to the template to render (default is derived from +status+, e.g. "/errors/not_found").
-  #--
-  # FIXME: rescue_from blocks should only render HTML if request is for HTML.
-  #++
   def render_http_error(status, exception, *args)
     options = args.extract_options!
     options.reverse_merge!(:log => true, :template => "/shared/error")
@@ -64,8 +62,15 @@ class ApplicationController < ActionController::Base
       RunCoCo.error_logger.error("#{status.to_s.humanize} \"#{exception.message}\"\n#{Rails.backtrace_cleaner.clean(exception.backtrace).join("\n")}")
     end
     
-    @status = status
-    render :template => options[:template], :status => status
+    respond_to do |format|
+      format.html do
+        @status = status
+        render :template => options[:template], :status => status
+      end
+      format.any(:xml, :text, :csv, :json) do
+        render :text => status.to_s.humanize, :status => status, :content_type => 'text/plain'
+      end
+    end
   end
 
   # Handle Devise redirects after sign in
