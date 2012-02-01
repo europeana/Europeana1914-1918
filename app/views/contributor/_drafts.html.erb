@@ -18,7 +18,7 @@ end
       <%- for field_name in fields -%>
         <th scope="col"><%= contribution_field_title(field_name) %></th>
       <%- end -%>
-      <th scope="col" colspan="3"><%= t 'views.table.header.actions' %></th>
+      <th scope="col" colspan="4"><%= t 'views.table.header.actions' %></th>
     </tr>
     <% for contribution in contributions %>
       <tr>
@@ -30,6 +30,11 @@ end
           <td>
             <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
               <%= link_to t('actions.submit'), new_contribution_attachment_path(contribution) %>
+            <%- end -%>
+          </td>
+          <td>
+            <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
+              <%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution) + '#attachments' ) %>
             <%- end -%>
           </td>
         <%- end -%>

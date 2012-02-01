@@ -1,6 +1,6 @@
 <% @title = t('views.contributions.digital_object.step2') %>
   
-  <% @nr_digital_objects = 0 %>
+  <% @nr_digital_objects = @contribution.attachments.size %>
   <p>
 	<%= raw t('views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects ) %>
 	<% if @contribution.attachments.present? -%><%= raw t('views.contributions.digital_object.help_text.view_attachments') %><% end -%>
