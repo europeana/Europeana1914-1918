@@ -31,7 +31,7 @@ end
             <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
               <%= link_to t('actions.submit'), new_contribution_attachment_path(contribution) %>
             <%- else -%>
-              '&nbsp;
+              &nbsp;
             <%- end -%>
           </td>
           <td><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution) + '#attachments' ) %></td>
