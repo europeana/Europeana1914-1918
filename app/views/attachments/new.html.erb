@@ -3,7 +3,11 @@
   <% @nr_digital_objects = @contribution.attachments.size %>
   <p>
 	<%= raw t('views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects ) %>
-	<% if @contribution.attachments.present? -%><%= raw t('views.contributions.digital_object.help_text.view_attachments') %><% end -%>
+	<% if @contribution.attachments.present? -%>
+	  <%= raw t('views.contributions.digital_object.help_text.view_attachments') %>
+	<% end -%>
+	<br/>
+	<%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %>
   </p>
 
   <% if configuration(:uploadify) && (current_user.role.name == 'cataloguer') -%>
@@ -29,8 +33,14 @@
   <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
   
   <ul>
-	<li><%= link_to( t('views.contributions.digital_object.links.add_another'), '#layout-grid' ) %></li>
-	<li><%= link_to( t('formtastic.titles.submit'), '#submit' ) %></li>
+	<% if @contribution.attachments.present? -%>
+	  <li><%= link_to( t('views.contributions.digital_object.links.add_another'), '#attachment_upload' ) %></li>
+	<% else %>
+	  <li><%= link_to( t('views.contributions.digital_object.links.add_item'), '#attachment_upload' ) %></li>
+	<% end -%>
+	<% if @contribution.attachments.present? -%>
+	  <li><%= link_to( t('formtastic.titles.submit'), '#submit' ) %></li>
+	<% end -%>
   </ul>
   
   <% if @contribution.attachments.present? -%>
