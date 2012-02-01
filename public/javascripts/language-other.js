@@ -8,7 +8,7 @@
 
 $(document).ready(function() {
 	
-	var $lang_other_checkbox = jQuery('#contribution_metadata_attributes_field_lang_term_ids_95').length === 1 ? jQuery('#attachment_metadata_attributes_field_lang_term_ids_95') : jQuery('#attachment_metadata_attributes_field_lang_term_ids_95'),
+	var $lang_other_checkbox = jQuery('#contribution_metadata_attributes_field_lang_term_ids_95').length === 1 ? jQuery('#contribution_metadata_attributes_field_lang_term_ids_95') : jQuery('#attachment_metadata_attributes_field_lang_term_ids_95'),
 		$lang_other_li = jQuery('#contribution_metadata_attributes_field_lang_other_input').length === 1 ? jQuery('#contribution_metadata_attributes_field_lang_other_input') : jQuery('#attachment_metadata_attributes_field_lang_other_input'),
 		$lang_other_input = jQuery('#contribution_metadata_attributes_field_lang_other').length === 1 ? jQuery('#contribution_metadata_attributes_field_lang_other') : jQuery('#attachment_metadata_attributes_field_lang_other');
 	
