@@ -1,6 +1,8 @@
 $(document).ready(function(){
   if (RunCoCo.contribution) {
-    var cloneButton = $('<input type="button" value="Copy from contribution" />');
+    
+    var cloneButtonHtml = '<label></label><input type="button" value="' + I18n.t('javascripts.digital_object.links.copy_from_story') + '" />' + '<p class="inline-hints">' + I18n.t('javascripts.digital_object.hints.copy_from_story') + '</p>',
+        cloneButton = $( cloneButtonHtml );
     cloneButton.click(function() {
       $('#attachment_title').val(RunCoCo.contribution.title);
       for (var key in RunCoCo.contribution.metadata['metadata_record']) {
