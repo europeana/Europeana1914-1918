@@ -36,7 +36,7 @@ module MetadataFieldsHelper
       field_hints << content_tag('span', t('common.help_text.mandatory'), :class => "mandatory")
     end
     field_hints << t(key, :default => '')
-    raw field_hints.join('<br />')
+    raw field_hints.join()
   end
   
   def metadata_field_label(field, type)
