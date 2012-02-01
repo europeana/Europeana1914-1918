@@ -6,7 +6,16 @@ module MetadataFieldsHelper
   def metadata_field_taxonomy_terms(metadata_field)
     case metadata_field.field_type
     when 'taxonomy'
-      metadata_field.taxonomy_terms
+      terms = metadata_field.taxonomy_terms
+      if metadata_field.name == 'lang'
+        other_term_index = nil
+        terms.each_index do |index|
+          if terms[index].term == 'Other'
+            other_term_index = index
+          end
+        end
+        terms << terms.delete_at(other_term_index) unless other_term_index.nil?
+      end
     else
       nil
     end
