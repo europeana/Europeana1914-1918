@@ -19,7 +19,7 @@ end
     </tr>
     <tr>
       <th scope="row"><%= Contact.human_attribute_name(:gender) %></th>
-      <td><%= { t('activerecord.options.contact.gender.female') => 'F', t('activerecord.options.contact.gender.male') => 'M' }.index(contact.gender) %></td>
+      <td><%= { t('activerecord.options.contact.gender.female') => 'F', t('activerecord.options.contact.gender.male') => 'M' }.key(contact.gender) %></td>
     </tr>
   </tbody>
   <tbody title="<%= t('formtastic.titles.contact_address') %>">
