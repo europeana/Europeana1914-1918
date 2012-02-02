@@ -31,6 +31,9 @@ $(document).ready(function(){
             var fieldType = $(this).attr('type').toLowerCase();
             if (fieldType == 'text') {
               $(this).val(fieldValue);
+            } else if (fieldType == 'hidden') {
+              $(this).val(fieldValue);
+              $(this).change();
             } else { 
 //              alert(fieldType); 
             }

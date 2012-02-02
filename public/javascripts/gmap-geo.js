@@ -13,6 +13,15 @@ $(function() {
   }
 });
 
+function rccStringToLatLng(string) {
+  var latLng = string.match(/^\s?(-?\d+(\.\d+)?),(-?\d+(\.\d+)?)\s?$/); // Check valid LAT,LNG format
+  if (latLng) {
+    return new GLatLng(latLng[1], latLng[3]); 
+  } else {
+    return null;
+  }
+}
+
 function rccShowGmapHere() {
   if (map) {
     alert(I18n.t('javascripts.gmap.errors.present'));
@@ -23,6 +32,11 @@ function rccShowGmapHere() {
   hiddenInput.attr('id', $(this).attr('id'));
   hiddenInput.attr('name', $(this).attr('name'));
   hiddenInput.attr('value', $(this).attr('value'));
+  hiddenInput.change(function() {
+    var latlng = rccStringToLatLng($(this).attr('value'));
+    marker.setLatLng(latlng);
+    rccSetGeoInputLatLng(latlng);
+  });
   
   var gmapContainer = $('<div id="gmap-container"></div>');
   var gmapCanvas = $('<div id="gmap-canvas"></div>');
@@ -31,11 +45,8 @@ function rccShowGmapHere() {
   gmapContainer.append(gmapCanvas).append(gmapCanvasHint);
   $(this).after(gmapContainer);
   
-  var geoVal = $(this).attr('value');
-  var latLng = geoVal.match(/^\s?(-?\d+(\.\d+)?),(-?\d+(\.\d+)?)\s?$/); // Check valid LAT,LNG format
-  if (latLng) {
-    var point = new GLatLng(latLng[1], latLng[3]); // Centre over current value
-  } else {
+  var point = rccStringToLatLng($(this).attr('value'));
+  if (!point) {
     var point = new GLatLng(50.083333, 14.416667); // Centre over Prague
   }
 
