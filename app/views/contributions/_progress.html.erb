@@ -1,5 +1,7 @@
 <% max = 3 %>
-<div class="progress">
-  <div class="progress-meter" style="width: <%= (step.to_f / max.to_f) * 100 %>%"></div>
-  <div class="progress-step"><%= t 'views.contributions._progress.step_x_of_y', :x => step.to_s, :y => max.to_s %></div>
-</div>
+<% if step <= max -%>
+  <div class="progress">
+    <div class="progress-meter" style="width: <%= (step.to_f / max.to_f) * 100 %>%"></div>
+    <div class="progress-step"><%= t 'views.contributions._progress.step_x_of_y', :x => step.to_s, :y => max.to_s %></div>
+  </div>
+<% end -%>
