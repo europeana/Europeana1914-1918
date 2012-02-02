@@ -84,6 +84,12 @@ bundle exec rake db:migrate
 
 
 echo
+echo "=============   update translations.js  ==========="
+echo
+bundle exec rake i18n:js:update
+
+
+echo
 echo "=============   restarting apache   ==========="
 echo
 /etc/init.d/apache2 stop
