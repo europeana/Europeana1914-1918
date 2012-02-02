@@ -75,7 +75,7 @@ class ContributionsController < ApplicationController
     current_user.may_edit_contribution!(@contribution)
 
     @contribution.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@contribution)
-    @contribution.attributes = params[:contribution]  
+    @contribution.attributes = params[:contribution]
 
     if @contribution.save
       flash[:notice] = t('flash.contributions.draft.update.notice')
@@ -89,6 +89,7 @@ class ContributionsController < ApplicationController
   # PUT /contributions/:id/submit
   def submit
     current_user.may_edit_contribution!(@contribution)
+    @contribution.terms = params[:contribution][:terms]
     if @contribution.submit
       if current_user.role.name == 'guest'
         session[:guest].delete(:contribution_id)
