@@ -1,8 +1,7 @@
 <% @title = t('views.contributions.digital_object.step2') %>
   
-  <% @nr_digital_objects = @contribution.attachments.size %>
   <p>
-	<%= raw t('views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @nr_digital_objects ) %>
+	<%= raw t('views.contributions.digital_object.help_text.add_attachment', :nr_digital_objects => @contribution.attachments.size ) %>
 	<% if @contribution.attachments.present? -%>
 	  <%= raw t('views.contributions.digital_object.help_text.view_attachments') %>
 	<% end -%>
@@ -17,7 +16,7 @@
 	<%- @javascripts[:uploadify] = true -%>
   <% end -%>
   
-  <% if @contribution.attachments.present? && @contribution.draft? -%>
+  <% if @contribution.attachments.present? && @contribution.draft? && @contribution.valid? -%>
 	<%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
   <%- end %>
   
