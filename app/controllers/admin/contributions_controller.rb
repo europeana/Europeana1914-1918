@@ -79,10 +79,7 @@ class Admin::ContributionsController < AdminController
   end
   
   def export_dataset
-    taxonomy_associations = MetadataField.where(:field_type => 'taxonomy').collect do |taxonomy_field|
-      taxonomy_field.collection_id
-    end
-    Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => :metadata }, { :metadata => taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
+    Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => :metadata }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
   end
   
   def export_as_csv

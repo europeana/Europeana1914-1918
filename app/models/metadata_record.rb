@@ -147,7 +147,7 @@ class MetadataRecord < ActiveRecord::Base
     end
     
     def reset_column_information
-      @fields = nil
+      @fields = @taxonomy_associations = nil
       super
     end
     
@@ -156,6 +156,15 @@ class MetadataRecord < ActiveRecord::Base
         @fields = MetadataField.all
       end
       @fields
+    end
+    
+    def taxonomy_associations
+      unless defined?(@taxonomy_associations) && @taxonomy_associations
+        @taxonomy_associations = MetadataField.where(:field_type => 'taxonomy').collect do |taxonomy_field|
+          taxonomy_field.collection_id
+        end
+      end
+      @taxonomy_associations
     end
   end
 
