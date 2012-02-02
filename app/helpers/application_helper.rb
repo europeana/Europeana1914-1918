@@ -28,6 +28,18 @@ module ApplicationHelper
       nil
     end
   end
+  
+  ##
+  # Generates path to static page.
+  #
+  # Overriden standard routing helper for scoped and globbed paths, to
+  # prevent errors being produced by :path being interpreted as :locale.
+  #
+  # @param Path of static page to link to
+  # @return [String] URL path
+  def page_path(path)
+    super(:path => path)
+  end  
 
   def redirect_field(path = nil)
     hidden_field_tag 'redirect', (path.nil? ? redirect_path : path)
