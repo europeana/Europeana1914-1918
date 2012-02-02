@@ -15,7 +15,7 @@ class AttachmentsController < ApplicationController
     @attachment.contribution = @contribution
     @attachment.build_metadata
     
-    text = MetadataField.find_by_name('file_type').taxonomy_terms.select { |tt| tt.term == 'Text' }.first
+    text = MetadataField.find_by_name('file_type').taxonomy_terms.select { |tt| tt.term == 'TEXT' }.first
     @attachment.metadata.field_file_type_term_ids = [ text.id ]
     license = MetadataField.find_by_name('license').taxonomy_terms.select { |tt| tt.term == 'cc-by-sa' }.first
     @attachment.metadata.field_license_term_ids = [ license.id ]
