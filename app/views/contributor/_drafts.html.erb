@@ -34,7 +34,7 @@ end
               &nbsp;
             <%- end -%>
           </td>
-          <td><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution) + '#attachments' ) %></td>
+          <td><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution, :anchor => 'attachments') ) %></td>
         <%- end -%>
         <%- if current_user.may_delete_contribution?(contribution) -%>
           <td><%= link_to t('actions.delete'), delete_contribution_path(contribution), :class => 'delete-member' %></td>

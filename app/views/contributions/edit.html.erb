@@ -4,7 +4,7 @@
   <div class="action-links">
     <ul>
       <li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li>
-      <li><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(@contribution) + '#attachments' ) %></li>
+      <li><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(@contribution, :anchor => 'attachments', :anchor => 'attachments')) %></li>
     </ul>
   </div>
 <% end -%>
