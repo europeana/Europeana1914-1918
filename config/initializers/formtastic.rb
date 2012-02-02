@@ -30,7 +30,7 @@ Formtastic::FormBuilder.default_text_area_height = 10
 # '<abbr title="required">*</abbr>'. In other words, if you configure formtastic.required
 # in your locale, it will replace the abbr title properly. But if you don't want to use
 # abbr tag, you can simply give a string as below
-# Formtastic::FormBuilder.required_string = "(required)"
+Formtastic::FormBuilder.required_string = ""
 
 # Set the string that will be appended to the labels/fieldsets which are optional
 # Defaults to an empty string ("") and also accepts procs (see required_string above)
@@ -83,3 +83,37 @@ Formtastic::FormBuilder.i18n_lookups_by_default = true
 
 # Countries to prioritise at top of country select.
 Formtastic::FormBuilder.priority_countries = ['AU', 'CA', 'DE', 'GB', 'US']
+
+module Formtastic
+  module Inputs
+    module Base
+      def mandatory_notice
+        template.content_tag(
+          :span, 
+          ::I18n.t('common.help_text.mandatory'), 
+          :class => 'mandatory'
+        )
+      end
+    
+      def hint_html
+        hints = []
+        
+        if required?
+          hints << mandatory_notice
+        end
+        if hint?
+          hints << Formtastic::Util.html_safe(hint_text)
+        end
+        
+        if hints.length > 0
+          template.content_tag(
+            :p, 
+            hints.join(' '), 
+            { :class => (options[:hint_class] || builder.default_hint_class) },
+            false
+          )
+        end
+      end
+    end
+  end
+end
