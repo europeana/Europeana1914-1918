@@ -163,15 +163,23 @@ change CoCoCo::Application.config.secret_token
 to RunCoCo::Application.config.secret_token
 
 
-=== db updates ===
+===    db updates    ===
 Run `bundle exec rake db:migrate` on existing installations to :
     1. apply changes to db structure for contribution/attachment field distinction.
     2. make existing fields contributor-editable, and set them as applicable to the story, digital object or both.
 
 
-=== user picture images ===
+===    user picture images    ===
 create the directory "public/images/users"
 make sure the webserver has write access on the directory
+
+
+===    backup site documents    ===
+these directories contain data uploaded by users and need to be backed-up
+	
+	private/attachments
+	public/attachments
+	public/images/users
 
 
 ===  redirects  ===
