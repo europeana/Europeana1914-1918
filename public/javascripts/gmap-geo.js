@@ -36,6 +36,7 @@ function rccShowGmapHere() {
     var latlng = rccStringToLatLng($(this).attr('value'));
     marker.setLatLng(latlng);
     rccSetGeoInputLatLng(latlng);
+    map.setCenter(latlng);
   });
   
   var gmapContainer = $('<div id="gmap-container"></div>');
