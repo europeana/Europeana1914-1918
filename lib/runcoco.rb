@@ -1,3 +1,5 @@
+require 'runcoco/formtastic'
+
 # RunCoCo application library.
 module RunCoCo
   autoload :Configuration, 'runcoco/configuration'
