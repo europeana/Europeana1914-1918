@@ -79,7 +79,22 @@ class Admin::ContributionsController < AdminController
   end
   
   def export_dataset
-    Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => :metadata }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
+    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => :metadata }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
+    
+    if params[:exclude]
+      ext = params[:exclude]
+      unless ext[0] == '.'
+        ext = '.' + ext
+      end
+      
+      contributions.each do |c|
+        c.attachments.reject! do |a|
+          File.extname(a.file.path) == ext
+        end
+      end
+    end
+    
+    contributions
   end
   
   def export_as_csv
