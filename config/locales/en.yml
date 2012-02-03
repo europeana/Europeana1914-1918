@@ -35,7 +35,7 @@ en:
         approved_at: Approved at
         approved_by: Approved by
         approver: Approved by
-        attachments: Attachments
+        attachments: Items
         contributor: Contributor
         created_at: Started at
         published_at: Published at
@@ -131,9 +131,9 @@ en:
           one: 1 error prohibited this %{model} from being saved
           other: ! '%{count} errors prohibited this %{model} from being saved'
     models:
-      attachment: Attachment
+      attachment: Item
       contact: Contact
-      contribution: Contribution
+      contribution: Story
       metadata_field: Metadata field
       metadata_record: Metadata record
       taxonomy_term: Taxonomy term
@@ -386,13 +386,13 @@ en:
       create:
         alert: There was a problem saving your attachment.
         invalid_files: Some files could not be saved.
-        notice: Attachment saved.
+        notice: Item saved.
       destroy:
         alert: There was a problem deleting your attachment.
         notice: Attachment deleted.
       update:
         alert: There was a problem saving your attachment.
-        notice: Attachment saved.
+        notice: Item saved.
     configuration:
       update:
         alert: Failed to save configuration.
@@ -410,7 +410,7 @@ en:
         notice: Contribution successfully approved.
       destroy:
         alert: Failed to delete story.
-        notice: Contribution deleted.
+        notice: Story deleted.
       draft:
         create:
           alert: There was a problem starting a new contribution.
@@ -470,7 +470,7 @@ en:
     actions:
       attachment:
         create: Upload
-        delete: Delete attachment
+        delete: Delete item
         update: Save
       contribution:
         create: Continue
@@ -755,7 +755,7 @@ en:
       contact_address: Address
       contact_name: Name
       contact_other: Contact details
-      contribution_attachments: Attachments
+      contribution_attachments: Items
       contribution_terms: Terms & conditions
       fields: Fields
       metadata: Catalogue information
@@ -1465,23 +1465,23 @@ en:
       _summary:
         caption: Attachment information
       _table:
-        caption: Attachments
+        caption: Items
         links:
           preview:
             title: View full attachment details
       delete:
-        question: Are you sure you want to delete the attachment "%{filename}"?
-        title: Delete attachment
+        question: Are you sure you want to delete the item "%{filename}"?
+        title: Delete item
       edit:
         caption:
           current: Current file
           uploaded: Uploaded file
         title: Edit attachment
       index:
-        empty: No attachments have been uploaded for this contribution.
+        empty: No items have been uploaded for this story.
         links:
           new: New attachment
-        title: Contribution attachments
+        title: Items
       new:
         caption: Uploaded file
         title: New attachment
@@ -1510,8 +1510,8 @@ en:
           this may take several weeks. We ask for your understanding and patience.
         title: Contribution completed
       delete:
-        question: Are you sure you want to completely discard the story “<b>%{title}</b>”
-          and all of its attachments?
+        question: Are you sure you want to completely discard the story “<strong>%{title}</strong>”
+          and all of its items?
         title: Discard story
       digital_object:
         heading: Items attached to your story
@@ -1617,7 +1617,7 @@ en:
         button_confirm: ! 'Are you sure that you are ready to
 
           submit this contribution to the collection?'
-        empty_attachments: This contribution has no attachments.
+        empty_attachments: This story has no items.
         headings:
           submit: Submit contribution
         invalid: This contribution is not ready for submission yet. Click on 'Why
