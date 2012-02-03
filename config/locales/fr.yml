@@ -1,5 +1,66 @@
 fr:
+  actions:
+    approve: Approuver
+    cancel: Annuler
+    delete: Supprimer
+    download: Télécharger
+    edit: Éditer
+    filter: Filtrer
+    new: Nouveau
+    save: Enregistrer
+    submit: Soumettre
+    update: Actualiser
   activerecord:
+    attributes:
+      attachment:
+        file: Fichier
+        file_content_type: Type de contenu
+        file_created_at: Créé par
+        file_file_name: Nom de fichier
+        file_file_size: Taille du fichier
+        file_updated_at: Actualisé par
+        preview: Prévisualiser
+        public: Public
+      contact:
+        age: Age
+        country: Pays de résidence
+        full_name: Nom complet
+        gender: Sexe
+        locality: ! 'Ville '
+        postal_code: Code postal
+        region: Pays
+        street_address: Rue
+        tel: Téléphone
+      contribution:
+        approved_at: Approuvé à
+        approved_by: Approuvé par
+        approver: Approuvé par
+        attachments: Fichiers joints
+        contributor: Contributeur
+        created_at: Démarré à
+        published_at: Publié à
+        submitted_at: ! 'Soumis à '
+        terms: Termes acceptés
+      metadata_field:
+        cataloguing: Catalogue uniquement
+        field_type: Type
+        hint: Conseil
+        multi: Sélection multiple
+        name: ID
+        position: Position
+        required: Requis
+        searchable: Pouvant être recherché
+        show_in_listing: Montrer dans des listings
+      setting:
+        name: Nom
+        value: Valeur
+      taxonomy_term:
+        metadata_field: Champ
+        term: Terme
+      user:
+        password: Mot de passe
+        password_confirmation: Répétez le mot de passe
+        role_name: Rôle
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -31,15 +92,122 @@ fr:
         wrong_length:
           one: ne fait pas la bonne longueur (doit comporter un seul caractère)
           other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Ce type de fichier n'est pas autorisé.
+              presence: Sélectionnez un fichier à télécharger.
+              size: La taille du fichier à télécharger est trop importante.
+        contribution:
+          attributes:
+            guest_id:
+              present: Les détails de contact sont nécessaires pour les contributions
+                de quête.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Les champs de catalogue ne peuvent être requis.
+            contribution:
+              or_attachment: Un champ doit s'appliquer aux contributions et/ou aux
+                fichiers joints.
+            field_type:
+              constancy: Impossible de modifier le type de champ.
+            searchable:
+              field_type: Les champs taxinomiques ne peuvent être recherchés.
+        metadata_record:
+          date_field_civil: Date de calendrier non valable.
+          taxonomy_field_single: Seul un terme peut être sélectionné
+        setting:
+          attributes:
+            name:
+              inclusion: Il ne s'agit pas d'un paramètre de configuration enregistré
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Des termes taxonomiques doivent être associés à un champ de métadonnées
+                taxonomiques
+        user:
+          attributes:
+            email:
+              taken: Un compte utilisateur existe déjà pour cette adresse e-mail.
+            picture:
+              content_type: La photo de profil doit être au format GIF ou JPEG.
       template:
         body: ! 'Veuillez vérifier les champs suivants : '
         header:
           one: ! 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
           other: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+    models:
+      attachment: Fichier joint
+      contact: Contact
+      contribution: Contribution
+      metadata_field: Champ de métadonnées
+      metadata_record: Enregistrement de métadonnées
+      taxonomy_term: Terme taxinomique
+      user: Utilisateur
+    options:
+      contact:
+        gender:
+          female: Femme
+          male: Homme
+      metadata_field:
+        field_type:
+          date: Date
+          geo: Localisation géographique
+          string: Ligne de texte unique
+          taxonomy: Taxinomie
+          text: Lignes de texte multiples
+      user:
+        role_name:
+          administrator: Administrateur
+          blank: N'importe quel rôle
+          cataloguer: Cataloguer
+          contributor: Contributeur
+  attributes:
+    contact: Contact
+    created_at: Créé à
+    email: E-mail
+    id: ID
+    metadata_record: Métadonnée
+    title: Titre
+    updated_at: Actualisé à
+    url: URL
   common:
+    editors_blog:
+      more_stories: Davantage d'hitoires sur <a href="http://thegreatwararchive.blogspot.com/search/label/en">Editor’s
+        pick blog</a>
+    editors_pick:
+      heading: Le choix de l'éditeur
+      more_stories: <b>Davantage d'histoires sur la page %{explore_stories}.</b>
+    help_text:
+      mandatory: Champ obligatoire
+    labels:
+      co_funded: cofinancé par l'Union européenne
+    links:
+      about_the_project: À propos du projet Europeana 1914-1918
+      add_your_story: Ajoutez votre histoire
+      contact_us: ! 'Contactez-nous '
+      contribution_terms: Les Conditions d'Europeana pour les Contributions des Utilisateurs
+      explore_stories: Explorer les histoires
+      help: Aide
+      my_account: Mon compte
+      my_stories: Mes histoires
+      privacy_policy: Politique de confidentialité
+      project_website: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Veuillez consulter le site de notre projet pour de plus amples
+        informations</a>
     menus:
       main:
         select_language: Sélectionnez une langue
+    options:
+      open: Ouvrir
+      other_option: Autre
+    other:
+      contributor: Contributeur
+      preview: Prévisualiser
+      title: Titre
+    'yes': Oui
   date:
     abbr_day_names:
     - dim
@@ -138,6 +306,33 @@ fr:
       month: Mois
       second: Seconde
       year: Année
+  devise:
+    failure:
+      admin:
+        unauthenticated: Vous devez vous identifier avant de continuer
+      invalid: E-mail ou mot de passe incorrect.
+      invalid_token: Token d'identification non valable.
+      timeout: Votre session a expiré. Veuillez vous identifier à nouveau pour continuer.
+      unauthenticated: Vous devez vous identifier avant de continuer.
+    mailer:
+      reset_password_instructions:
+        subject: Instructions pour la réinitialisation du mot de passe.
+    passwords:
+      link: Mot de passe oublié ?
+      send_instructions: Un e-mail de réiniatilisation du mot de passe vous a été
+        envoyé.
+      updated: ! 'Votre mot de passe a été correctement modifié. Vous êtes maintenant
+        connecté. '
+    registrations:
+      destroyed: Au revoir ! Votre compte a été supprimé. Nous espérons vous revoir
+        bientôt.
+      link: S'enregistrer
+      signed_up: Vous êtes maintenant connecté.
+      updated: Vous avez correctement mis votre compte à jour.
+    sessions:
+      link: Se connecter
+      signed_in: Connexion réussie.
+      signed_out: Déconnexion réussie.
   errors:
     format: Le %{attribute} %{message}
     messages:
@@ -173,6 +368,80 @@ fr:
       header:
         one: ! 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+  flash:
+    actions:
+      create:
+        alert: Problème lors de la création de %{resource_name}. Consultez les messages
+          ci-dessous.
+        notice: Nouveau %{resource_name} créé.
+      destroy:
+        alert: ! 'Il y a eu un problème lors de la suppression de %{resource_name}. '
+        notice: ! '%{resource_name} a été correctement supprimé.'
+      update:
+        alert: Problème lors de la mise à jour de %{resource_name}. Consultez les
+          messages ci-dessous.
+        notice: Actualisé %{resource_name}.
+    attachments:
+      create:
+        alert: Problème lors de sauvegarde de votre fichier joint.
+        invalid_files: Certains fichiers n'ont pas pu être enregistrés.
+        notice: Item enregistré.
+      destroy:
+        alert: Problème rencontré lors de la suppression de votre fichier joint.
+        notice: Fichier joint supprimé.
+      update:
+        alert: Problème rencontré lors de la sauvegarde de votre fichier joint.
+        notice: Item enregistré.
+    configuration:
+      update:
+        alert: Échec de la sauvegarde de la configuration.
+        notice: Configuration actualisée.
+    contacts:
+      create:
+        alert: Échec lors de la création d'un contact.
+        notice: Contact créé.
+      update:
+        alert: Échec lors de la mise à jour du contact.
+        notice: Contact actualisé.
+    contributions:
+      approve:
+        alert: Échec lors de l'approbation de la contribution.
+        notice: Contribution correctement approuvée.
+      destroy:
+        alert: Échec lors de la suppression de l'histoire.
+        notice: Contribution effacée.
+      draft:
+        create:
+          alert: Problème rencontré lors du démarrage de la nouvelle contribution.
+          notice: Nouveau projet de contribution lancé.
+        submit:
+          alert: Votre contribution pose problème. Consultez les messages ci-dessous.
+          notice: Votre contribution a été soumise. Merci ! Elle sera contrôlée par
+            l'équipe du projet et apparaîtra sur le site une fois approuvée. Si l'équipe
+            est débordée, cela peut prendre plusieurs semaines. Nous vous remercions
+            de votre compréhension et de votre patience.
+        update:
+          alert: Problème rencontré lors de la sauvegarde de votre contribution.
+          notice: Contribution enregistrée.
+      submitted:
+        edit:
+          alert: Cette contribution a déjà été soumise.
+    contributors:
+      create:
+        alert: Votre compte n'a pas pu être créé.
+      update:
+        alert: Votre compte n'a pas pu être actualisé.
+    fields:
+      reindexing: Réindexation du moteur de recherche en arrière-plan.
+    guest_contact:
+      create:
+        alert: Les détails fournis posent problème. Veuillez les corriger et réessayer.
+        notice: Détails de contact reçus.
+      forget:
+        notice: Détails de contact effacés.
+      update:
+        alert: Les détails fournis posent problème. Veuillez les corriger et réessayer.
+        notice: Détails de contact actualisés.
   helpers:
     select:
       prompt: Veuillez sélectionner

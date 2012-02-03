@@ -8,6 +8,7 @@ de:
     filter: Filtern
     new: Neu
     save: Sichern
+    submit: Senden
     update: Aktualisieren
   activerecord:
     attributes:
@@ -49,6 +50,10 @@ de:
         position: Position
         required: Pflicht
         searchable: Suchbar
+        show_in_listing: In Liste anzeigen
+      setting:
+        name: Name
+        value: Wert
       taxonomy_term:
         metadata_field: Feld
         term: Schlagwort
@@ -97,6 +102,8 @@ de:
           attributes:
             cataloguing:
               optional: Katalogisierungsfelder können nicht angefordert werden.
+            contribution:
+              or_attachment: Ein Feld muss sich auf Beiträge und/oder Anhänge beziehen.
             field_type:
               constancy: Der Feldtyp kann nicht geändert werden.
             searchable:
@@ -104,6 +111,10 @@ de:
         metadata_record:
           date_field_civil: Kein gültiges Kalenderdatum.
           taxonomy_field_single: Es kann nur ein Begriff ausgewählt werden.
+        setting:
+          attributes:
+            name:
+              inclusion: ist keine registrierte Konfigurationseinstellung
         taxonomy_term:
           attributes:
             metadata_field:
@@ -153,14 +164,47 @@ de:
     updated_at: Aktualisiert am
     url: URL
   common:
+    editors_blog:
+      more_stories: Weitere Geschichten im <a href="http://thegreatwararchive.blogspot.com/search/label/en">Blog
+        mit der Auswahl des Herausgebers</a>
+    editors_pick:
+      heading: Auswahl des Herausgebers
+      more_stories: <b>Weitere Geschichten auf der Seite %{explore_stories}.</b>
+    help_text:
+      mandatory: Pflichtfeld
     labels:
       co_funded: von der Europäischen Union mitfinanziert
     links:
+      about_the_project: Über das Projekt Europeana 1914-1918
+      add_your_story: Eigene Geschichte hinzufügen
+      contact_us: Kontakt
+      contribution_terms: Bedingungen für Benutzerbeiträge auf Europeana
+      explore_stories: Geschichten erkunden
       help: Hilfe
+      my_account: Mein Konto
+      my_stories: Meine Geschichten
+      privacy_policy: Datenschutz
+      project_website: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Weitere Informationen entnehmen Sie bitte unserer Projekt-Website.</a>
+      register: Registrieren
+      sign_in: Anmelden
+      titles:
+        contribution_terms: ! 'Siehe die Bedingungen für Benutzerbeiträge zur Europeana '
+        great_war: Great War Archive der Universität Oxford
     menus:
       main:
+        about: Info
+        add: Hinzufügen
+        explore: Erkunden
+        home: Home
         select_language: Wählen Sie eine Sprache
+        sign_in: Anmelden
+        sign_out: Abmelden
     'no': Nein
+    options:
+      close: Schließen
+      open: Öffnen
+      other_option: Sonstige
     other:
       contributor: Beiträger
       preview: Vorschau
@@ -341,6 +385,10 @@ de:
       update:
         alert: Beim Speichern Ihres Anhang ist ein Problem aufgetreten.
         notice: Anhang gespeichert.
+    configuration:
+      update:
+        alert: Konfiguration konnte nicht gespeichert werden.
+        notice: Konfiguration wurde aktualisiert.
     contacts:
       create:
         alert: Erstellen des Kontakts fehlgeschlagen.
@@ -427,6 +475,8 @@ de:
         create: Registrieren
       create: Abschicken
       delete: Löschen
+      filter:
+        submit: Aktualisieren
       metadata_field:
         delete: Metadatenfeld löschen
         reindex: Suchmaschine re-indexieren
@@ -436,6 +486,7 @@ de:
       search:
         submit: Suche
       sign_in: Einloggen
+      submit: Speichern
       taxonomy_term:
         import: Importieren
       update: Änderungen speichern
@@ -444,21 +495,94 @@ de:
         create: Registrieren
         delete: Konto löschen
         update: Aktualisieren
+    create: ! '%{model} erstellen'
     hints:
       attachment:
         edit:
           file: ! 'Laden Sie nur dann eine neue Datei hoch, wenn Sie die bereits existierende
             ersetzen möchten. Maximale Dateigröße: %{max}. Zulässige Dateiformate:
             %{file_types}.'
+        file: Datei hochladen
+        metadata:
+          attachment_description: Beschreiben Sie die physischen Merkmale des Gegenstands,
+            seine Funktion und welche Bedeutung er für Sie hat.
+          content: Worum es sich bei dem Gegenstand handelt (z.B. Gedicht, Brief,
+            Foto); machen Sie möglichst konkrete Angaben.
+          cover_image: Ein Titelbild repräsentiert Ihre Geschichte in unserer Sammlung.
+            Es ähnelt dem Deckblatt eines Buchs. Es kann sich dabei um ein Foto von
+            der Person, um die es in dieser Geschichte geht, oder um das Deckblatt
+            eines Tagesbuchs oder das Bild einer Medaille handeln.
+          creator_given_name: Name der Person, der den Gegenstand begründet hat, etwa
+            der Verfasser eines Briefs oder Tagebuchs oder der Name des Fotografen.
+          date_from: Lassen Sie uns wissen, wann dieser Gegenstand entstanden ist,
+            z.B. wann ein Brief verfasst oder mit einem Gegenstand begonnen wurde,
+            z.B. wann ein Tagebuch angefangen wurde. Wenn Sie das genaue Datum nicht
+            wissen, geben Sie bitte nur ein Jahr oder Jahr und Monat ein.
+          date_to: Das Enddatum eines Gegenstands, wie etwa das letzte Datum in einem
+            Tagebuch.
+          forces: Bitte nicht anklicken, wenn kein relevantes Schlagwort vorhanden
+            ist. Bitte senden Sie uns in diesem Fall eine E-Mail an 1914-1918 [@]
+            europeana [.] eu.
+          format: Das Material des digitalisierten Gegenstands (z.B. Papier, Karte,
+            Band).
+          keywords: Weisen Sie nur Schlagwörter zu, die den Hauptgegenstand oder das
+            Thema Ihres Beitrags erfassen. Anhand der Schlagwörter können wir Ihre
+            Geschichte in unserer Sammlung entsprechend hervorheben. Falls kein passendes
+            Schlagwort verfügbar ist, senden Sie bitte eine E-Mail an 1914-1918 [@]
+            europeana [.] eu.
+          lang: Geben Sie die Sprache an, die bei diesem Gegenstand verwendet wurde,
+            z.B. die Sprache(n) des Tagebuchs.
+          location_placename: Geben Sie den Namen der Stadt ein, in der der Gegenstand
+            erstellt wurde (in der ein Brief geschrieben oder ein Foto aufgenommen
+            wurde), z.B. London oder Paris, und drücken Sie dann auf "Los". Wird der
+            Ort gefunden, zeigt die Landkarte den eingegebenen Ort an. Sie können
+            auch eine konkrete Adresse eingeben. Alternativ können Sie auch den roten
+            Landkartenzeiger auf den Ort verschieben. Mit Hilfe von + und - auf der
+            linken Seite der Landkarte können Sie die Ansicht vergrößern oder verkleinern.
+          object_side: Geben Sie bei Gegenständen mit Vorder- und Rückseite, wie etwa
+            bei einer Postkarte, bitte an, um welche Seite es sich handelt.
+          page_number: Geben Sie bei Gegenständen mit vielen Seiten die Seitennummer
+            an.
+          source: Die Quelle, von der der Gegenstand digitalisiert wurde (z.B. eine
+            Seite, ein Notizbuch, einen Filmspule).
+          subject: Die Person, der Ort oder der Gegenstand, um die bzw. den es geht.
+          theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist.
+            Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
         new:
           file: ! 'Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
+        title: Kurzer, aussagekräftger Titel oder Eigenname des Gegenstands, z.B.
+          "Mein Urgroßvater, Otto Schmidt, Tapferkeitsmedaille".
       contact:
         full_name: Dieser Name wird öffentlich als Quelle des Beitrags angezeigt.
       contribution:
+        metadata:
+          contributor_behalf: Bitte lassen Sie dieses Feld leer, außer Sie helfen
+            jemandem bei der Erstellung dieses Beitrags.
+          date_from: Sagen Sie uns, wann das Ereignis stattgefunden hat. Wenn Sie
+            es nicht genau wissen, geben Sie lediglich das Jahr an, z.B. mein Großvater
+            wurde 1915 eingezogen.
+          date_to: Sagen Sie uns, wann die Geschichte zu Ende gegangen ist. Wenn Sie
+            es nicht genau wissen, geben Sie lediglich das Jahr an, z.B. mein Großvater
+            wurde 1916 verletzt.
+          description: Verfassen Sie die Geschichte für Ihren Beitrag.
+          forces: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist.
+            Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
+          lang: Geben Sie die Sprache an, in der dieser Beitrag verfasst ist.
+          location_placename: Geben Sie den Namen der Stadt ein, in der die Geschichte
+            stattgefunden hat, z.B. London oder Paris, und drücken Sie dann auf "Los".
+            Wird der Ort gefunden, zeigt die Landkarte den eingegebenen Ort an. Sie
+            können auch eine konkrete Adresse eingeben. Alternativ können Sie auch
+            den roten Landkartenzeiger auf den Ort verschieben. Mit Hilfe von + und
+            - auf der linken Seite der Landkarte können Sie die Ansicht vergrößern
+            oder verkleinern.
+          theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist.
+            Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
         title: Titel für den gesamten Beitrag. Dies ist ein Pflichtfeld.
       metadata_field:
+        attachment: Geben Sie an, ob sich dieses Feld auf Anhänge bezieht.
         cataloguing: ! 'Ja: dieses Feld nur in der Admin-Ansicht für Katalogisierungszwecke
           anzeigen. Nein: auch den Beiträgern anzeigen.'
+        contribution: Geben Sie an, ob sich dieses Feld auf Beiträge bezieht.
         field_type: Kann nicht mehr geändert werden, sobald das Feld gespeichert wurde.
         hint: Text zur Anzeige neben dem Eingabefeld, zur Anleitung der Beiträger/Katalogisierer.
         multi: Die Auswahl mehrerer Schlagwörter pro Beitrag/Anhang zulassen.
