@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   validates_associated :contact
   validates_acceptance_of :terms, :allow_nil => false, :accept => true, :if => Proc.new { |u| u.role_name == 'contributor' }
   
-  validates_attachment_content_type :picture, :content_type => [ 'image/jpeg', 'image/pjpeg', 'image/gif' ]
+  validates_attachment_content_type :picture, :content_type => [ 'image/jpeg', 'image/pjpeg', 'image/gif' ], :message => I18n.t('activerecord.errors.models.user.attributes.picture.content_type')
 
   # Sets contact email to user email
   # It is expected that the contact email field would be hidden
