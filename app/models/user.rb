@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :approved_contributions, :class_name => 'Contribution', :foreign_key => 'approved_by', :dependent => :nullify
   belongs_to :contact, :dependent => :destroy
   
-  has_attached_file :picture, :styles => { :thumb => "100x100>" }, 
+  has_attached_file :picture, :styles => { :thumb => "100x100>", :medium => "200x200>" }, 
     :path => ":rails_root/public/images/users/:id/:style/:filename",
     :url => "/images/users/:id/:style/:filename"
 
@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
   validates_presence_of :role_name, :contact
   validates_associated :contact
   validates_acceptance_of :terms, :allow_nil => false, :accept => true, :if => Proc.new { |u| u.role_name == 'contributor' }
+  
+  validates_attachment_content_type :picture, :content_type => [ 'image/jpeg', 'image/pjpeg', 'image/gif' ]
 
   # Sets contact email to user email
   # It is expected that the contact email field would be hidden
