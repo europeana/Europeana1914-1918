@@ -64,7 +64,7 @@ module ContributionsHelper
       title_text = (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>' + t('views.contributions.no_title') + '</em>'))
       contribution.draft? ? title_text : link_to(title_text, contribution)
     elsif field_name == 'created_at'
-      l contribution.created_at, :format => :short
+      l contribution.created_at, :format => :timestamp
     elsif contribution.respond_to? field_name
       contribution.send(field_name)
     elsif contribution.metadata.respond_to? field_name
