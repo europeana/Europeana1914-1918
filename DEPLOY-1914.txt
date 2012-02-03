@@ -87,7 +87,40 @@ rake db:schema:load
 rake db:sessions:create
 
 
+---		configuring sphinx		---
+
+			1. make sure sphinx.conf exists in the sphinx/etc directory
+				 if not, sudo cp sphinx/etc/sphinx.conf.dist sphinx.conf
+			
+			2. test the db connection with a db user for sphinx
+				 - make sure a test database exists in mysql for testing sphinx, e.g., db=test
+				 - make sure the db does not have the tables documents or tags in it
+				 - make sure there is a user sphinx can use to access the test db, e.g., un=sphinx
+				 - at the command line populate the mysql test db with the example.sql provided in the
+				   sphinx distribution, e.g., from sphinx/etc run mysql -u sphinx -p < example.sql
+				 - this should populate the mysql test db with two tables : documents and tags
+			
+			3. edit the sphinx.conf file and make sure the following settings are correct
+				 - sql_host
+				 - sql_user
+				 - sql_pass
+				 - sql_db
+				 - sql_port
+			
+			4. create an index on the mysql test db
+				 - sudo indexer --all
+			
+			5. make sure the search daemon is running
+				 - sudo searchd
+				 
+			6. verify api
+				 - in the sphinx src there's a dir api
+				 - run the php script api/php test.php test to verify connection via the api to sphinx			
+			
+
+
 ---   configuring sphinx environ for this site   ---
+
       From the RunCoCo application installation directory, run:
       
         RAILS_ENV=production bundle exec ts:config
