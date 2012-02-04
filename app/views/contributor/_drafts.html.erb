@@ -16,7 +16,7 @@ end
     <% end %>
     <tr>
       <%- for field_name in fields -%>
-        <th scope="col"><%= contribution_field_title(field_name) %></th>
+        <th scope="col" style="text-align:left;"><%= contribution_field_title(field_name) %></th>
       <%- end -%>
       <th scope="col" colspan="4"><%= t 'views.table.header.actions' %></th>
     </tr>
@@ -37,7 +37,7 @@ end
           <%- if current_user.may_delete_contribution?(contribution) -%>
             <td><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(contribution), :class => 'delete-member' %></td>
           <%- end -%>
-          <td><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution, :anchor => 'attachments') ) %></td>
+          <td><%= link_to t('formtastic.titles.contribution_attachments'), ( new_contribution_attachment_path(contribution, :anchor => 'attachments') ) %> (<%= contribution.attachments.size %>)</td>
         <%- end -%>
       </tr>
     <% end %>
