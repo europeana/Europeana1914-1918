@@ -1,1 +1,10 @@
-<p><strong><%= t('activerecord.models.contribution') %>:</strong> <%= link_to_contribution(contribution) %></p>
+<h3><%= contribution.title %></h3>
+
+  <% if current_user.may_delete_contribution?(@contribution) -%>
+	<div class="action-links">
+	  <ul>
+		<li><%= link_to t('actions.edit_story'), edit_contribution_path(contribution) %></li>
+        <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(contribution, :anchor => 'attachments', :anchor => 'attachments')) %> (<%= contribution.attachments.size %>)</li>
+	  </ul>
+	</div>
+  <% end -%>
