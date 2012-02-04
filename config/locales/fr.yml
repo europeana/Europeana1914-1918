@@ -197,10 +197,26 @@ fr:
       project_website: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
         target="_blank">Veuillez consulter le site de notre projet pour de plus amples
         informations</a>
+      register: Enregistrer
+      sign_in: Connectez-vous
+      takedown_policy: Politique takedown
+      titles:
+        contribution_terms: Consultez les Conditions d'Europeana pour les Contributions
+          d'Utilisateur
+        great_war: Archives de la Grande Guerre de l'Université d'Oxford
+        takedown: Vers la page de la politique de takedown
     menus:
       main:
+        about: À propos
+        add: Ajouter
+        explore: Explorer
+        home: Accueil
         select_language: Sélectionnez une langue
+        sign_in: Connectez-vous
+        sign_out: Déconnectez-vous
+    'no': Non
     options:
+      close: Fermer
       open: Ouvrir
       other_option: Autre
     other:
@@ -442,6 +458,85 @@ fr:
       update:
         alert: Les détails fournis posent problème. Veuillez les corriger et réessayer.
         notice: Détails de contact actualisés.
+  formtastic:
+    actions:
+      submit: Enregistrer
+      taxonomy_term:
+        import: Importer
+      update: Enregistrer les changements
+      upload: Télécharger
+      user:
+        create: Enregistrer
+        delete: Supprimer le compte
+        update: ! 'Actualiser
+
+'
+    create: Créer %{model}
+    hints:
+      attachment:
+        edit:
+          file: ! 'Ne téléchargez un fichier que si vous voulez remplacer le fichier
+            existant. Taille maximale du fichier : %{max}. Types de fichiers autorisés
+            : %{file_types}.'
+        file: Téléchargez le fichier
+        metadata:
+          attachment_description: Décrivez les caractéristiques physiques de l'item
+            ainsi que ce qu'il représente et signifie pour vous.
+          content: ! 'Décrivez l''item (par exemple un poème, une lettre, une photographie)
+            : essayez d''être aussi précis que possible.'
+          cover_image: ! 'Une image de couverture illustre votre histoire dans notre
+            collection : elle est similaire à la couverture d''un livre. '
+          creator_given_name: Le nom de la personne qui a créé l'objet original, par
+            exemple l'auteur d'une lettre ou d'un journal, ou le nom du photographe.
+          date_from: Dites-nous quand l'objet a été créé, par exemple, quand une lettre
+            a été rédigée ou quand l'objet a été commencé (dans le cas d'un journal,
+            par exemple). Si vous ne connaissez pas la date exacte, veuillez indiquer
+            une année, ou une année et un mois.
+          date_to: La date de fin pour un item. La dernière date d'un journal, par
+            exemple.
+          forces: Ne cliquez pas si ce n'est pas pertinent. Si un mot-clé pertinent
+            n'est pas disponible, envoyez-nous un e-mail à 1914-1918 [@] europeana
+            [.] eu
+          format: Le matériau de l'item qui a été numérisé (papier, carte, bande,
+            par exemple).
+          keywords: N'attribuez que des mots-clé qui décrivent le sujet principal
+            ou le concept plus vaste auquel vous voulez contribuer. Le but de ces
+            mots-clé est de nouds aider à mettre votre histoire en évidence dans notre
+            collection. Si un mot-clé pertinent n'est pas disponible, envoyez-nous
+            un e-mail à 1914-1918 [@] europeana [.] eu
+          lang: Indiquez la langue utilisée dans l'item, par exemple la ou les langues
+            utilisées dans un journal.
+          location_placename: Indiquez le nom de la ville où l'item a été créé (où
+            une lettre a été rédigée, une photo prise...), comme par exemple Londres
+            ou Paris, et cliquez sur le bouton "Go". Si la ville est trouvée, la carte
+            zoomera sur le lieu indiqué. Vous pouvez également indiquer une adresse,
+            ou déplacez le marqueur rouge de la carte. Vous pouvez zoomer à l'aide
+            du + et du - sur le côté gauche de la carte.
+          object_side: Pour un item avec deux faces, comme une carte postale, indiquez
+            la face.
+          page_number: Pour un item de plusieurs pages, indiquez le numéro de page
+            individuel.
+          source: La source au départ de laquelle l'item a été numérisé (une feuille,
+            un folio, un carnet de note, une bobine de film).
+          subject: La personne ou l'endroit dont question dans l'item.
+          theatres: Ne cliquez pas si ce n'est pas pertinent. Si un mot-clé pertinent
+            n'est pas disponible, envoyez-nous un e-mail à 1914-1918 [@] europeana
+            [.] eu
+        new:
+          file: ! 'Vous pouvez télécharger autant de fichiers que nécessaire, un par
+            un. Veuillez noter que si vous téléchargez un grand nombre de fichiers,
+            vous pouvez en marquer un comme étant l''image de couverture de votre
+            histoire (comme une carte postale ou un journal). Taille maximale du fichier
+            : %{max}. Types de fichiers autorisés: %{file_types}.'
+        title: Titre descriptif ou nom propre de l'objet, par exemple "Mon arrière-grand-père,
+          Otto Schmidt. Médaille d'Honneur".
+      contact:
+        full_name: Ceci sera mentionné publiquement comme étant le crédit de contributions
+          approuvées.
+      contribution:
+        metadata:
+          contributor_behalf: Laissez vierge, sauf si vous aidez quelqu'un à faire
+            cette contribution.
   helpers:
     select:
       prompt: Veuillez sélectionner
