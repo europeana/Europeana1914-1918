@@ -29,7 +29,7 @@ end
           <td><%= link_to t('actions.edit_story'), edit_contribution_path(contribution), :class => 'edit-member' %></td>
           <td>
             <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
-              <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution) + '#submit' %>
+              <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution, :anchor => 'submit') %>
             <%- else -%>
               &nbsp;
             <%- end -%>
@@ -37,7 +37,7 @@ end
           <%- if current_user.may_delete_contribution?(contribution) -%>
             <td><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(contribution), :class => 'delete-member' %></td>
           <%- end -%>
-          <td><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(contribution, :anchor => 'attachments') ) %> (<%= contribution.attachments.size %>)</td>
+          <td><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(contribution, :anchor => 'attachment_upload') ) %> (<%= contribution.attachments.size %>)</td>
         <%- end -%>
       </tr>
     <% end %>

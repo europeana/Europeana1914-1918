@@ -56,6 +56,6 @@
 		
 	}
 	
-	submit.init();
+	//submit.init();
 
 }());

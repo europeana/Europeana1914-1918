@@ -1,3 +1,4 @@
+<%- @javascripts[:uploadify] = true -%>
 <% @title = t('views.contributions.digital_object.step2') %>
   
   <p>
@@ -11,19 +12,26 @@
 	<%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %>
   </p>
   
-  <% if configuration(:uploadify) && (current_user.role.name == 'cataloguer') -%>	
-	<%- javascript_tag do -%>	  
-	  RunCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';	  
-	<%- end -%>	
-	<%- @javascripts[:uploadify] = true -%>	
+  <% if configuration(:uploadify) -%>
+	
+	<%- javascript_tag do -%>
+	
+	  RunCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
+	  
+	<%- end -%>
+	
   <% end -%>
   
-  <% if @contribution.attachments.present? && @contribution.draft? && @contribution.valid? -%>	
-	<%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>	
+  <% if @contribution.attachments.present? && @contribution.draft? && @contribution.valid? -%>
+  
+	<%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
+	
   <%- end %>
   
-  <% if @attachment.file.dirty? -%>	
+  <% if @attachment.file.dirty? -%>
+  
 	<%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => t('views.attachments.new.caption') } %>
+	
   <% end -%>
   
   <%= render :partial => 'form', :locals => { :attachment => @attachment } %>
@@ -34,14 +42,21 @@
   <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
   
   <ul>
-  <% if @contribution.attachments.present? -%>
-    <li><%= link_to( t('views.contributions.digital_object.links.add_another'), '#attachment_upload' ) %></li>
-  <% else %>
-    <li><%= link_to( t('views.contributions.digital_object.links.add_item'), '#attachment_upload' ) %></li>
-  <% end -%>
-  <% if @contribution.attachments.present? -%>
-    <li><%= link_to( t('formtastic.titles.submit'), '#submit' ) %></li>
-  <% end -%>
+	<% if @contribution.attachments.present? -%>
+	  
+	  <li><%= link_to( t('views.contributions.digital_object.links.add_another'), :anchor => 'attachment_upload' ) %></li>
+	  
+	<% else %>
+	  
+	  <li><%= link_to( t('views.contributions.digital_object.links.add_item'), :anchor => 'attachment_upload' ) %></li>
+	  
+	<% end -%>
+	
+	<% if @contribution.attachments.present? -%>
+	  
+	  <li><%= link_to( t('formtastic.titles.submit'), :anchor => 'submit' ) %></li>
+	  
+	<% end -%>
   </ul>
   
   <% if @contribution.attachments.present? -%>
