@@ -115,6 +115,17 @@ class Attachment < ActiveRecord::Base
   
   validates_attachment_content_type :file, :content_type => Attachment.paperclip_content_types, :unless => Proc.new { Attachment.paperclip_content_types.blank? }, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.content_type')
   
+  alias :"rails_metadata_attributes=" :"metadata_attributes="
+  def metadata_attributes=(*args)
+    self.send(:"rails_metadata_attributes=", *args)
+    self.metadata.for_attachment = true
+  end
+  
+  def build_metadata
+    super
+    self.metadata.for_attachment = true
+  end
+  
   protected
   # Moves files between public/private paths when public attr changed
   def relocate_files #:nodoc:

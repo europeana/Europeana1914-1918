@@ -130,6 +130,17 @@ class Contribution < ActiveRecord::Base
     end
   end
   
+  alias :"rails_metadata_attributes=" :"metadata_attributes="
+  def metadata_attributes=(*args)
+    self.send(:"rails_metadata_attributes=", *args)
+    self.metadata.for_contribution = true
+  end
+  
+  def build_metadata
+    super
+    self.metadata.for_contribution = true
+  end
+  
   protected
   def build_metadata_unless_present
     self.build_metadata unless self.metadata.present?

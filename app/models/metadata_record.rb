@@ -8,7 +8,9 @@
 # MetadataField instances.
 class MetadataRecord < ActiveRecord::Base
   attr_writer :cataloguing
-  attr_protected :id, :updated_at, :created_at, :cataloguing
+  attr_accessor :for_attachment, :for_contribution
+  attr_protected :id, :updated_at, :created_at, :cataloguing, :for_attachment, 
+    :for_contribution
 
   has_one :contribution
   has_one :attachment
@@ -98,18 +100,18 @@ class MetadataRecord < ActiveRecord::Base
       # Required fields on contributions
       MetadataField.where(:required => true, :contribution => true).each do |required_field|
         if required_field.field_type == 'taxonomy'
-          validates_presence_of "field_#{required_field.name}_terms", :if => Proc.new { |r| r.contribution.present? }
+          validates_presence_of "field_#{required_field.name}_terms", :if => :for_contribution?
         else
-          validates_presence_of column_name(required_field.name), :if => Proc.new { |r| r.contribution.present? }
+          validates_presence_of column_name(required_field.name), :if => :for_contribution?
         end
       end
       
       # Required fields on attachments
       MetadataField.where(:required => true, :attachment => true).each do |required_field|
         if required_field.field_type == 'taxonomy'
-          validates_presence_of "field_#{required_field.name}_terms", :if => Proc.new { |r| r.attachment.present? }
+          validates_presence_of "field_#{required_field.name}_terms", :if => :for_attachment?
         else
-          validates_presence_of column_name(required_field.name), :if => Proc.new { |r| r.attachment.present? }
+          validates_presence_of column_name(required_field.name), :if => :for_attachment?
         end
       end
 
@@ -212,6 +214,14 @@ class MetadataRecord < ActiveRecord::Base
     end
     
     super(attributes, guard_protected_attributes)
+  end
+  
+  def for_contribution?
+    (self.contribution.present? || @for_contribution) ? true : false
+  end
+  
+  def for_attachment?
+    (self.attachment.present? || @for_attachment) ? true : false
   end
 
   protected
