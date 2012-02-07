@@ -3,7 +3,7 @@ var geocoder = null;
 var marker = null;
 
 $(function() {
-  if (GBrowserIsCompatible()) {
+  if ( 'undefined' !== typeof GBrowserIsCompatible && GBrowserIsCompatible() ) {
     $('input.geo').each(function(index) {
       rccShowGmapHere.call(this);
     });

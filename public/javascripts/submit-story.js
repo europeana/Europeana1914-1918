@@ -14,7 +14,7 @@
 				$attachment_upload = jQuery('#attachment_upload');
 			
 			
-			if ( hash && '#wrapper' === hash ) {
+			if ( hash && '#submit' === hash ) {
 				
 				if ( !$attachment_upload.hasClass('collapsed') && !$attachment_upload.hasClass('collapsible') ) {
 					
@@ -29,6 +29,8 @@
 					
 				}
 				
+				window.location.hash = '';
+				
 			}
 			
 			if ( hash && '#attachment_upload' === hash ) {
@@ -39,9 +41,9 @@
 					
 				}
 				
+				window.location.hash = '';
+				
 			}
-			
-			window.location.hash = '';
 			
 		},
 		
