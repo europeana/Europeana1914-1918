@@ -7,10 +7,6 @@ jQuery().ready(function() {
     return;
   }
 
-  $('#attachment_file').click(function(event){ 
-    event.preventDefault(); 
-  });
-  
   var options = { 
     uploader: RunCoCo.relativeUrlRoot + '/javascripts/uploadify/uploadify.swf',
     script: RunCoCo.uploadify.script,
