@@ -136,8 +136,9 @@ class Contribution < ActiveRecord::Base
     self.metadata.for_contribution = true
   end
   
+  alias :rails_build_metadata :build_metadata
   def build_metadata
-    super
+    rails_build_metadata
     self.metadata.for_contribution = true
   end
   
