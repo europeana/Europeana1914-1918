@@ -122,8 +122,8 @@ class Attachment < ActiveRecord::Base
   end
   
   alias :rails_build_metadata :build_metadata
-  def build_metadata
-    rails_build_metadata
+  def build_metadata(*args)
+    rails_build_metadata(*args)
     self.metadata.for_attachment = true
   end
   
