@@ -38,3 +38,15 @@
     <%- end %>
   <% end -%>
 </div>
+
+<div class="admin-contributions-draft">
+  <% if @draft.present? -%>
+    <%= render :partial => '/contributions/table', :locals => { :contributions => @draft, :caption => t('views.admin.contributions.index.captions.draft', :total => @draft.total_entries), :fields => @options.fields } %>
+  <% else -%>
+    <%- if @query %>
+      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.draft' %></p>
+    <%- else %>
+      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.draft' %></p>
+    <%- end %>
+  <% end -%>
+</div>

@@ -6,7 +6,8 @@ class Admin::ContributionsController < AdminController
   def index
     wheres = {
       :submitted => [ 'submitted_at IS NOT NULL AND approved_at IS NULL' ],
-      :approved => [ 'submitted_at IS NOT NULL AND approved_at IS NOT NULL' ]
+      :approved => [ 'submitted_at IS NOT NULL AND approved_at IS NOT NULL' ],
+      :draft => [ 'submitted_at IS NULL AND approved_at IS NULL' ],
     }
     
     if params[:contributor_id].present?
@@ -22,6 +23,7 @@ class Admin::ContributionsController < AdminController
     
     @submitted = Contribution.where(wheres[:submitted]).order('submitted_at ASC').paginate(:page => params[:page])
     @approved = Contribution.where(wheres[:approved]).order('approved_at DESC').paginate(:page => params[:page])
+    @draft = Contribution.where(wheres[:draft]).order('created_at DESC').paginate(:page => params[:page])
   end
   
   def options
