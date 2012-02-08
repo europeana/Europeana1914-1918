@@ -4,7 +4,7 @@
 <% if @contributor -%>
   <div><strong><%= t 'activerecord.options.user.role_name.contributor' %></strong> <%= @contributor.contact.full_name %></div>
 <% else -%>
- <p>These are the submitted contributions that are pending approval or have been approved. Click on a title to see details about a contribution. Once the details are displayed, you can opt to edit the metadata, delete the contribution, or (for contributions pending approval) approve the contribution.</p>
+ <p><%= t('views.admin.contributions.p1') %></p>
   <%= render :partial => '/shared/search_form', :locals => { :url => search_admin_contributions_path, :query => @query } %>
 <% end -%>
 
