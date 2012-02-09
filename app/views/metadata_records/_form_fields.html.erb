@@ -3,10 +3,10 @@
 <% unless fields.blank? -%>
   
   <% fields.each do |field| %>
-  
+    
     <%- if field.field_type == 'date' %>
     
-      <%= form.input field.form_input_name, :label => metadata_field_label(field, local_assigns[:type]), :hint => metadata_field_hint(field, local_assigns[:type]), :as => :string_date, :start_year => 1912, :end_year => 1923 %>
+      <%= form.input field.form_input_name, :label => metadata_field_label(field, local_assigns[:type]), :hint => metadata_field_hint(field, local_assigns[:type]), :as => :string_date, :start_year => 1800, :end_year => 2012 %>
     
     <%- elsif field.field_type == 'geo' %>
     

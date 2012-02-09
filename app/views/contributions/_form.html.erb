@@ -52,10 +52,16 @@
     <% end %>
   <% end %>
   
+  <%= form.inputs :story_forces, :class => collapsible_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'forces' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
   <%- if current_user.may_catalogue_contribution?(contribution) -%>
     <%= form.inputs :cataloguing_metadata, :class => collapsible_class do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'forces', 'editor_pick', 'cataloguer', 'collection_day', 'notes' ], :cataloguing => true, :contribution => true } } %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'alternative', 'editor_pick', 'cataloguer', 'collection_day', 'notes' ], :cataloguing => true, :contribution => true } } %>
       <% end %>
     <% end %>
   <%- end -%>
@@ -66,4 +72,3 @@
     <li><%= t('views.contributions.story.help_text.save_story') %></li>
   <% end %>
 <% end %>
-
