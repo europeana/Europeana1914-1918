@@ -22,7 +22,7 @@
 	
   <% end -%>
   
-  <% if @contribution.attachments.present? && @contribution.draft? && @contribution.valid? -%>
+  <% if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid? -%>
   
 	<%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
 	

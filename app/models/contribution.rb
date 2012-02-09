@@ -2,12 +2,17 @@
 class Contribution < ActiveRecord::Base
   belongs_to :contributor, :class_name => 'User'
   belongs_to :approver, :class_name => 'User', :foreign_key => 'approved_by'
-  has_many :attachments, :class_name => '::Attachment', :dependent => :destroy, :include => :metadata
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   #--
   # FIXME: Destroy associated contact when contribution destroyed, *IF* this is a guest contribution, *AND* there are no other associated contributions
   #++
   belongs_to :guest
+
+  has_many :attachments, :class_name => '::Attachment', :dependent => :destroy, :include => :metadata do
+    def with_file
+      select { |attachment| attachment.file.present? }
+    end
+  end
   
   accepts_nested_attributes_for :metadata
 
@@ -16,6 +21,7 @@ class Contribution < ActiveRecord::Base
   validates_presence_of :title
   validates_associated :metadata
   validates_acceptance_of :terms, :allow_nil => false, :accept => true, :if => :submitting?
+  validate :validate_attachment_file_presence, :if => :submitting?
 
   attr_accessible :metadata_attributes, :title
 
@@ -126,8 +132,12 @@ class Contribution < ActiveRecord::Base
 
   def validate_contributor_or_contact
     if self.contributor_id.blank? && self.guest_id.blank?
-      self.errors.add(:guest_id, 'activerecord.errors.models.contribution.attributes.guest_id.present')
+      self.errors.add(:guest_id, I18n.t('activerecord.errors.models.contribution.attributes.guest_id.present'))
     end
+  end
+  
+  def validate_attachment_file_presence
+    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file.present?
   end
   
   alias :"rails_metadata_attributes=" :"metadata_attributes="

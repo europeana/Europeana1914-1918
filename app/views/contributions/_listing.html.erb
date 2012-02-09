@@ -12,8 +12,8 @@
   <%- for contribution in contributions.each -%>
     <tr>
       <td>
-        <%- if contribution.attachments.present? -%>
-          <%= link_to attachment_preview(contribution.attachments.first), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
+        <%- if contribution.attachments.with_file.present? -%>
+          <%= link_to attachment_preview(contribution.attachments.with_file.first), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
         <%- end -%>
       </td>
       <td><%= link_to contribution.title, contribution, :title => t('views.contributions.search.links.titles.show_contribution') %></td>

@@ -4,7 +4,9 @@
 
 <div class="action-links">
   <ul>
-    <li><%= link_to t('actions.download'), @attachment.file.url %></li>
+    <%- if @attachment.file.present? -%>
+      <li><%= link_to t('actions.download'), @attachment.file.url %></li>
+    <%- end -%>
     <%- if current_user.may_edit_attachment?(@attachment) -%>
       <li><%= link_to t('actions.edit'), edit_contribution_attachment_path(@contribution, @attachment) %></li>
     <%- end -%>

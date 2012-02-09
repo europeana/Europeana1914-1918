@@ -21,9 +21,17 @@ end
     <%- for attachment in attachments %>
       <%- unless attachment.new_record? %>
         <tr>
-          <td><%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %></td>
+          <td>
+            <%- if attachment.file.present? -%>
+              <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
+            <%- end -%>
+          </td>
           <td><%= number_to_human_size(attachment.file.size) %></td>
-          <td><%= link_to t('actions.download'), attachment.file.url, :class => 'download-file' %></td>
+          <td>
+            <%- if attachment.file.present? -%>
+              <%= link_to t('actions.download'), attachment.file.url, :class => 'download-file' %>
+            <%- end -%>
+          </td>
           <%- if current_user.may_edit_attachment?(attachment) -%>
             <td><%= link_to t('actions.edit'), edit_contribution_attachment_path(attachment.contribution, attachment), :class => 'edit-member' %></td>
           <%- end -%>

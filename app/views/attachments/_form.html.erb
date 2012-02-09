@@ -5,7 +5,7 @@
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   <%= form.inputs :attachment_upload, :id => 'attachment_upload' do %>
-    <%= form.input :file, :required => true, :hint => t((attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'), :max => max_upload_size, :file_types => allowed_file_types) %>
+    <%= form.input :file, :hint => t((attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'), :max => max_upload_size, :file_types => allowed_file_types) %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'cover_image', 'page_number', 'object_side' ], :cataloguing => false, :attachment => true } } %>
     <% end %>

@@ -65,7 +65,6 @@ class Attachment < ActiveRecord::Base
   validates_associated :metadata
   validates_presence_of :contribution_id
 
-  validates_attachment_presence :file, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.presence')
   validates_attachment_size :file, :less_than => RunCoCo.configuration.max_upload_size, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.size')
 
 
