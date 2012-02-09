@@ -8,7 +8,7 @@ module AttachmentsHelper
   end
   
   def max_upload_size
-    number_to_human_size(RunCoCo.configuration.max_upload_size)
+    number_to_human_size(RunCoCo.configuration.max_upload_size, :precision => 2)
   end
   
   def attachment_preview(attachment)
