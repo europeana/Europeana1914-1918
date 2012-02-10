@@ -19,8 +19,8 @@
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
 
     <% if current_user.contributions.present? %>
-      <p><%= t('views.contributor.dashboard_contributor.p1') %></p>  
-      <div class="contributions-drafts" style="float: none;">
+      <p><%= t('views.contributor.dashboard_contributor.p1') %></p>
+      <div class="contributions-drafts">
         <%- if current_user.contributions.draft.present? -%>
           <%= render :partial => 'drafts', :locals => { :contributions => current_user.contributions.draft, :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
         <%- else -%>
@@ -28,7 +28,7 @@
         <%- end -%>
       </div>
       
-      <div style="clear: both;" class="contributions-submitted">
+      <div class="contributions-submitted">
         <%- if current_user.contributions.submitted.present? -%>
           <%= render :partial => '/contributions/table', :locals => { :contributions => current_user.contributions.submitted, :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
         <%- else -%>
