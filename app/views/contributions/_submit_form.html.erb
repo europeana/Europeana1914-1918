@@ -1,10 +1,27 @@
+<%
+  collapsible_class = 'collapsible'
+  if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
+    describe_class = 'collapsed'
+    upload_class = 'collapsed'
+  end 
+%>
+
 <%= semantic_form_for contribution, :url => submit_contribution_path(contribution) do |form| %>
-  <%= form.inputs :submit, :id => 'submit' do %>
+
+  <%= form.inputs :submit, :id => 'submit', :class => collapsible_class do %>
+  
     <%= form.input :terms, :as => :boolean %>
     <p><%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %></p>
+    
     <%= form.buttons do %>
-      <%= form.commit_button :label => t('formtastic.actions.contribution.submit'), :button_html => { :confirm => t('views.contributions.show.button_confirm') } %>
+      <%=
+        form.commit_button :label => t('formtastic.actions.contribution.submit'),
+        :button_html => {
+          :confirm => t('views.contributions.show.button_confirm')
+        }
+      %>
     <%- end %>
+    
   <% end %>
+  
 <%- end %>
-
