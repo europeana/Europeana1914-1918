@@ -11,7 +11,7 @@ end
   </tr>
   <tr>
     <th scope="row"><%= t 'activerecord.attributes.attachment.file_file_size' %></th>
-    <td><%= number_to_human_size(attachment.file.size) %></td>
+    <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
   </tr>
   <tr>
     <th scope="row"><%= t 'activerecord.attributes.attachment.file_content_type' %></th>

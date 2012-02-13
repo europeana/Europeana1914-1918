@@ -26,7 +26,7 @@ end
               <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
             <%- end -%>
           </td>
-          <td><%= number_to_human_size(attachment.file.size) %></td>
+          <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
           <td>
             <%- if attachment.file.present? -%>
               <%= link_to t('actions.download'), attachment.file.url, :class => 'download-file' %>
