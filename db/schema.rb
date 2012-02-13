@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120203121418) do
+ActiveRecord::Schema.define(:version => 20120213115708) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20120203121418) do
     t.string   "field_character2_family_name"
     t.string   "field_character2_given_name"
     t.text     "field_attachment_description"
+    t.text     "field_summary"
   end
 
   create_table "metadata_records_taxonomy_terms", :id => false, :force => true do |t|

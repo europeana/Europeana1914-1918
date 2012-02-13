@@ -6,7 +6,7 @@
   <%= form.inputs :story_basics do %>
     <%= form.input :title %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'description', 'lang', 'lang_other', 'contributor_behalf' ], :cataloguing => false, :contribution => true } } %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'description', 'summary', 'lang', 'lang_other', 'contributor_behalf' ], :cataloguing => false, :contribution => true } } %>
     <% end %>
   <% end %>
   
