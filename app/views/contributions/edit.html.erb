@@ -1,12 +1,12 @@
 <% @title = t('views.contributions.story.step1') %>
 
 <% if current_user.may_delete_contribution?(@contribution) -%>
-  <div class="action-links">
-    <ul>
+    <ul class="action-links">
+      
       <li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
       <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution, :anchor => 'attachments', :anchor => 'attachments')) %> (<%= @contribution.attachments.size %>)</li>
+      
     </ul>
-  </div>
 <% end -%>
 
 <%= render :partial => 'form', :locals => { :contribution => @contribution } %>

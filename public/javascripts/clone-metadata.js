@@ -1,7 +1,10 @@
 $(document).ready(function(){
   if (RunCoCo.contribution) {
     
-    var cloneButtonHtml = '<label></label><input type="button" value="' + I18n.t('javascripts.digital_object.links.copy_from_story') + '" />' + '<p class="inline-hints">' + I18n.t('javascripts.digital_object.hints.copy_from_story') + '</p>',
+    var cloneButtonHtml =
+          '<label>' + I18n.t('javascripts.digital_object.labels.copy_from_story') + '</label>' +
+          '<input type="button" value="' + I18n.t('javascripts.digital_object.links.copy_from_story') + '" />' +
+          '<p class="inline-hints">' + I18n.t('javascripts.digital_object.hints.copy_from_story') + '</p>',
         cloneButton = $( cloneButtonHtml );
     cloneButton.click(function() {
       $('#attachment_title').val(RunCoCo.contribution.title);
@@ -48,6 +51,6 @@ $(document).ready(function(){
       }
       return false;
     });
-    $('#attachment_file_input').after($('<li></li>').append(cloneButton));
+    $('#attachment_metadata_attributes_field_cover_image_terms_input').before($('<li></li>').append(cloneButton));
   }
 });
