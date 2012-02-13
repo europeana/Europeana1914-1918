@@ -46,7 +46,11 @@ module ContributionsHelper
   end
   
   def listing_fields
-    @listing_fields ||= MetadataField.where(:show_in_listing => true)
+    if current_user.may_catalogue_contribution?
+      @listing_fields ||= MetadataField.where(:show_in_listing => true)
+    else
+      @public_listing_fields ||= MetadataField.where(:show_in_listing => true, :cataloguing => false)
+    end
   end
   
   def contribution_field_title(field_name)
