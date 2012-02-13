@@ -10,10 +10,10 @@ class User < ActiveRecord::Base
   
   has_many :contributions, :foreign_key => 'contributor_id', :dependent => :destroy do
     def submitted
-      where("submitted_at IS NOT NULL").includes(:attachments)
+      where("submitted_at IS NOT NULL").includes([{:attachments => :metadata}, :metadata ])
     end
     def draft
-      where("submitted_at IS NULL").includes(:attachments)
+      where("submitted_at IS NULL").includes([{:attachments => :metadata}, :metadata ])
     end
   end
   has_many :approved_contributions, :class_name => 'Contribution', :foreign_key => 'approved_by', :dependent => :nullify

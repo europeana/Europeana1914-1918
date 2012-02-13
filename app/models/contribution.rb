@@ -24,6 +24,7 @@ class Contribution < ActiveRecord::Base
   validate :validate_attachment_file_presence, :if => :submitting?
 
   attr_accessible :metadata_attributes, :title
+  attr_accessor :submitting
 
   before_save :set_published_at
   
@@ -89,11 +90,25 @@ class Contribution < ActiveRecord::Base
   end
   
   def submitting?
-    self.submitted_at.present? && self.submitted_at_changed?
+    @submitting || (self.submitted_at.present? && self.submitted_at_changed?)
   end
 
   def submitted?
     self.submitted_at != nil
+  end
+
+  def ready_to_submit?
+    if @ready_to_submit.nil?
+      if !draft?
+        @ready_to_submit = false
+      else
+        submitting_was = @submitting
+        @submitting = true
+        @ready_to_submit = valid?
+        @submitting = submitting_was
+      end
+    end
+    @ready_to_submit
   end
   
   def draft?
@@ -137,7 +152,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def validate_attachment_file_presence
-    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file.present?
+    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file.count == attachments.count
   end
   
   alias :"rails_metadata_attributes=" :"metadata_attributes="

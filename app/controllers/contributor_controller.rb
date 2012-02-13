@@ -12,10 +12,9 @@ class ContributorController < ApplicationController
   
   
   def dashboard_contributor
-    
-    @contribution = Contribution.new
+    @draft_contributions = current_user.contributions.draft
+    @submitted_contributions = current_user.contributions.submitted
     render :action => 'dashboard_contributor'
-    
   end
   
   

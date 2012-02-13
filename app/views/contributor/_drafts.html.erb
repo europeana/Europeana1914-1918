@@ -28,7 +28,7 @@ end
         <%- if current_user.may_edit_contribution?(contribution) -%>
           <td><%= link_to t('actions.edit_story'), edit_contribution_path(contribution), :class => 'edit-member' %></td>
           <td>
-            <%- if contribution.draft? && (contribution.attachments.size > 0) -%>
+            <%- if contribution.ready_to_submit? -%>
               <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution, :anchor => 'submit') %>
             <%- else -%>
               &nbsp;
