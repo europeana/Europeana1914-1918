@@ -256,7 +256,7 @@ jQuery(function() {
       50
     );
     
-    jQuery('#submit a').eq(0).click(function(evt) {
+    jQuery('#terms-conditions').click(function(evt) {
       
       evt.preventDefault();
       jQuery('#submit #terms-of-use').toggle('height');
