@@ -21,17 +21,20 @@
   You can choose to do one of the following:</p>
   
     <ol id="attachment-help">
-      <li><a href="#single-item" id="single-item">work on a single item</a>
+      <li><a href="#single-item" id="single-item">Add a single item</a>
         <ul>
           <li>enter metadata about that item</li>
           <li>upload a single file representing that item</li>
         </ul>
-      <li><a href="#multiple-items" id="multiple-items">upload several item attachments at once</a>
+      <li><a href="#multiple-items" id="multiple-items">Add multiple items at once</a>
         <ul>
-          <li>each attachment represents a single item</li>
-          <li>you can edit those items later adding metadata if available</li>
+          <li>You first upload several attachments representing multiple items</li>
+          <li>You then editted each of those items adding metadata if available</li>
         </ul>
       </li>
+	  <% if @contribution.ready_to_submit? -%>
+		<li><a href="#submit-story" id="submit-story">Submit your story</a></li>
+	  <% end %>
     </ol>
   
   <!--
@@ -46,7 +49,10 @@
   <% end -%>
   
   <% if @contribution.ready_to_submit? -%>
-  <%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
+	<%- javascript_tag do -%>
+	  RunCoCo.ready_to_submit = true;
+	<%- end -%>
+	<%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
   <%- end %>
   
   <% if @attachment.file.dirty? -%>

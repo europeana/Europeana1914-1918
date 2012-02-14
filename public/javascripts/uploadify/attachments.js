@@ -105,15 +105,14 @@ jQuery(function() {
   function init() {
     
     $fieldsets = jQuery('fieldset');
-    $fieldset_upload = jQuery('#attachment_upload');
     $single_upload = jQuery('#attachment_file_input').html();
+    $attachment_help_links = jQuery('#attachment-help a');
     
-    
-    function openFieldsetUpload() {
+    function openFieldset( id ) {
       
-      if ( $fieldset_upload.hasClass('collapsed') ) {
+      if ( jQuery(id).hasClass('collapsed') ) {
         
-        jQuery('#attachment_upload legend').trigger('click');
+        jQuery(id,'legend').trigger('click');
         
       }
       
@@ -125,21 +124,46 @@ jQuery(function() {
         
         var $elm = jQuery(this);
         
-        if ( 'attachment_upload' === $elm.attr('id') ) {
+        switch ( section ) {
           
-          if ( $elm.is(':hidden') ) {
+          case 'submit' :
             
-            $elm.fadeIn();
+            if ( 'submit' === $elm.attr('id') && $elm.is(':hidden') ) {
+              
+              $elm.fadeIn();
+              
+            } else if ( $elm.is(':visible') ) {
+              
+              $elm.fadeOut();
+              
+            }
             
-          }
+            openFieldset('#submit');
+            
+            break;
           
-        } else if ( 'single' === section && $elm.is(':hidden') ) {
           
-          $elm.fadeIn();
+          default :
           
-        } else if ( 'multiple' === section && $elm.is(':visible') ) {
-          console.log($elm);
-          $elm.fadeOut();
+            if ( 'attachment_upload' === $elm.attr('id') && $elm.is(':hidden') ) {
+              
+              $elm.fadeIn();
+              
+            }
+            
+            if ( 'single' === section && $elm.is(':hidden') ) {
+          
+              $elm.fadeIn();
+              
+            } else if ( 'multiple' === section && $elm.is(':visible') ) {
+              
+              $elm.fadeOut();
+              
+            }
+            
+            openFieldset('#attachment_upload');
+            
+            break;
           
         }
         
@@ -148,39 +172,74 @@ jQuery(function() {
       
     }
     
+    function highlightClick( id ) {
+      
+      $attachment_help_links.each( function() {
+        
+        var $elm = jQuery(this);
+        
+        if ( id === $elm.attr('id') ) {
+          
+          $elm.css('font-weight','bold');
+          
+        } else {
+          
+          $elm.css('font-weight','normal');
+          
+        }
+        
+      });     
+      
+    }
+    
     jQuery('#single-item').click(function(evt) {
       
       evt.preventDefault();      
       jQuery('#attachment_file_input').html( $single_upload );
-      
+      highlightClick( jQuery(this).attr('id') );
       adjustFieldsets('single');
-      openFieldsetUpload();
       
     });
     
     jQuery('#multiple-items').click(function(evt) {
       
       evt.preventDefault();
+      highlightClick( jQuery(this).attr('id') );
       addUploadify();
+      adjustFieldsets('multiple');
       
-      adjustFieldsets('multiple');      
-      openFieldsetUpload();
+    });
+    
+    jQuery('#submit-story').click(function(evt) {
+      
+      evt.preventDefault();
+      highlightClick( jQuery(this).attr('id') );
+      adjustFieldsets('submit');
       
     });
     
     
     setTimeout( function() {
-        if ( RunCoCo.cataloguer ) {
-          
-          jQuery('#multiple-items').trigger('click');
+        if ( !RunCoCo.ready_to_submit ) {
+        
+          if ( RunCoCo.cataloguer ) {
+            
+            jQuery('#multiple-items').trigger('click');
+            
+          } else {
+            
+            jQuery('#single-item').trigger('click');
+            
+          }
           
         } else {
           
-          jQuery('#single-item').trigger('click');
+          jQuery('#submit-story').trigger('click');
           
         }
+      
       },
-      500
+      50
     );
     
   }
