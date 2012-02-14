@@ -132,13 +132,13 @@ jQuery(function() {
           
             if ( $elm.is(':hidden') ) {
             
-              $elm.toggle();
+              $elm.toggle('height');
               
             }
             
           } else if ( $elm.is(':visible') ) {
             
-            $elm.toggle();
+            $elm.toggle('height');
             
           }
           
@@ -150,7 +150,7 @@ jQuery(function() {
             
             if ( $elm.is(':hidden') ) {
               
-              $elm.toggle();
+              $elm.toggle('height');
               
             }
             
@@ -158,17 +158,17 @@ jQuery(function() {
             
             if ( $elm.is(':visible') ) {
               
-              $elm.toggle();
+              $elm.toggle('height');
               
             }
             
           } else if ( 'single' === type && $elm.is(':hidden') ) {
             
-            $elm.toggle();
+            $elm.toggle('height');
             
           } else if ( 'multiple' === type && $elm.is(':visible') ) {
             
-            $elm.toggle();
+            $elm.toggle('height');
             
           }
           
