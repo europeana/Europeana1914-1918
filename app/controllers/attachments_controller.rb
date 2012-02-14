@@ -48,7 +48,7 @@ class AttachmentsController < ApplicationController
       flash.now[:alert] = t('flash.attachments.create.alert')
       respond_to do |format| 
         format.html { render :action => 'new', :status => :bad_request }
-        format.json  { render :json => { :result => 'error', :msg => @attachment.errors[:file] } } 
+        format.json  { render :json => { :result => 'error', :msg => @attachment.errors.values.flatten.to_sentence } } 
       end
     end
   end

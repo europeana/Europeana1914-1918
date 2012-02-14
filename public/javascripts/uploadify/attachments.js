@@ -31,9 +31,10 @@ jQuery(function() {
           var dat = eval('(' + response + ')'); 
           
           if (dat.result == 'error') {
-            
-            $('.percentage', $("#uploadify_file" + queueID)).text(' - ' + dat.msg);
-            $("#attachment_file" + queueID).addClass('uploadifyError');
+
+            var queueDiv = jQuery("#uploadify_file" + queueID);
+            $('.percentage', queueDiv).text(' - ' + dat.msg);
+            queueDiv.addClass('uploadifyError');
             
           } else {
             
