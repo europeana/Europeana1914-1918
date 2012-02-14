@@ -24,7 +24,6 @@ class Contribution < ActiveRecord::Base
   validate :validate_attachment_file_presence, :if => :submitting?
 
   attr_accessible :metadata_attributes, :title
-  attr_accessor :submitting
 
   before_save :set_published_at
   
@@ -90,7 +89,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def submitting?
-    @submitting || (self.submitted_at.present? && self.submitted_at_changed?)
+    self.submitted_at.present? && self.submitted_at_changed?
   end
 
   def submitted?
@@ -99,13 +98,12 @@ class Contribution < ActiveRecord::Base
 
   def ready_to_submit?
     if @ready_to_submit.nil?
-      if !draft?
+      if !draft? || attachments.blank?
         @ready_to_submit = false
       else
-        submitting_was = @submitting
-        @submitting = true
-        @ready_to_submit = valid?
-        @submitting = submitting_was
+        valid?
+        validate_attachment_file_presence
+        @ready_to_submit = self.errors.blank?
       end
     end
     @ready_to_submit
