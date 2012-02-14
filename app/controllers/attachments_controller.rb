@@ -105,7 +105,7 @@ class AttachmentsController < ApplicationController
     current_user.may_delete_attachment!(@attachment)
     if @attachment.destroy
       flash[:notice] = t('flash.attachments.destroy.notice')
-      redirect_to @attachment.contribution
+      redirect_to new_contribution_attachment_path(@contribution)
     else
       flash.now[:alert] = t('flash.attachments.destroy.alert')
       render :template => 'delete'
