@@ -103,7 +103,7 @@ jQuery(function() {
       
     });
     
-    jQuery('li', uploadifyHtml).append(uploadifySubmit);
+    jQuery(uploadifyHtml).append(uploadifySubmit);
     jQuery('#attachment_upload ol').append(uploadifyHtml);
     jQuery('#uploadify_file').uploadify(options);
     
