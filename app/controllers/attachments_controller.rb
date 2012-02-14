@@ -25,7 +25,7 @@ class AttachmentsController < ApplicationController
   def create
     current_user.may_create_contribution_attachment!(@contribution)
     if params[:uploadify]
-      params[:attachment][:file].content_type = MIME::Types.type_for(params[:attachment][:file].original_filename).to_s 
+      params[:attachment][:file].content_type = MIME::Types.type_for(params[:attachment][:file].original_filename).first
     end
     @attachment = Attachment.new
     @attachment.build_metadata
