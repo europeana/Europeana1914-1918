@@ -93,7 +93,7 @@
   <%- if current_user.may_catalogue_contribution?(attachment.contribution) -%>
     <%= form.inputs :cataloguing_metadata, :class => collapsible_class do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license', 'ticket' ], :cataloguing => true, :attachment => true } } %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license' ], :cataloguing => true, :attachment => true } } %>
       <% end %>
     <% end %>
   <%- end -%>
