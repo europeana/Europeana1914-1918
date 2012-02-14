@@ -4,27 +4,25 @@
     <div class="action-links">
   <ul>
     
-    <li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
-    <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution, :anchor => 'attachments', :anchor => 'attachments')) %> (<%= @contribution.attachments.size %>)</li>
+    <li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
+	<li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
     
   </ul>  
   </div>
   
-  <% if !@contribution.attachments.present? -%>
     <p>
     <%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %>
-    <%= raw t('views.contributions.digital_object.help_text.add_attachment') %>
+    <% if !@contribution.attachments.present? -%>
+	  <%= raw t('views.contributions.digital_object.help_text.add_attachment') %>
+	<% end -%>
+	You can choose to do one of the following:
     </p>
-  <% end -%>
-  
-  <p>
-  You can choose to do one of the following:</p>
   
     <ol id="attachment-help">
       <li><a href="#single-item" id="single-item">Add a single item</a>
         <ul>
-          <li>enter metadata about that item</li>
-          <li>upload a single file representing that item</li>
+          <li>Enter metadata about that item</li>
+          <li>Upload a single file representing that item</li>
         </ul>
       <li><a href="#multiple-items" id="multiple-items">Add multiple items at once</a>
         <ul>

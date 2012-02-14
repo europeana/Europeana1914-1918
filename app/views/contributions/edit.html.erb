@@ -5,7 +5,7 @@
       <ul>
         
         <li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
-        <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution, :anchor => 'attachments', :anchor => 'attachments')) %> (<%= @contribution.attachments.size %>)</li>
+        <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
         
       </ul>
     </div>
