@@ -116,8 +116,6 @@ jQuery(function() {
     addUploadify();
     
     var $fieldsets = jQuery('fieldset'),
-        $single_upload = jQuery('#attachment_file_input'),
-        $multiple_upload = jQuery('#uploadify_upload'),
         $attachment_help_links = jQuery('#attachment-help a');
     
     
@@ -192,37 +190,20 @@ jQuery(function() {
       
       evt.preventDefault();
       highlightClick( jQuery(this).attr('id') );
+      jQuery('#attachment_file_input').show();
+      jQuery('#uploadify_upload').hide();
       adjustFieldsets('single');
-      /*
-      if ( $single_upload.is(':hidden') ) {
-        $single_upload.toggle('height');
-      }
-      if ( $multiple_upload.is(':visible') ) {
-        $multiple_upload.toggle('height');
-      }
       
-      
-      */
     });
     
     jQuery('#multiple-items').click(function(evt) {
       
       evt.preventDefault();
       highlightClick( jQuery(this).attr('id') );
+      jQuery('#attachment_file_input').hide();
+      jQuery('#uploadify_upload').show();
       adjustFieldsets('multiple');
       
-      /*
-      if ( $single_upload.is(':visible') ) {
-        $single_upload.toggle('height');
-      }
-      
-      if ( $multiple_upload.is(':hidden') ) {
-        $multiple_upload.toggle('height');
-        
-      }
-      
-      
-      */
     });
     
     jQuery('#submit-story').click(function(evt) {
