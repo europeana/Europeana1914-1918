@@ -16,6 +16,9 @@ end
     <tr>
       <th scope="col"><%= t('activerecord.attributes.attachment.preview') %></th>
       <th scope="col"><%= t 'activerecord.attributes.attachment.file_file_size' %></th>
+      <%- if current_user.may_catalogue_contribution? -%>
+        <th scope="col"><%= t 'formtastic.labels.contribution.metadata.ticket' %></th>
+      <%- end -%>
       <th scope="col" colspan="<%= colspan %>"><%= t 'views.table.header.actions' %></th>
     </tr>
     <%- for attachment in attachments %>
@@ -27,6 +30,9 @@ end
             <%- end -%>
           </td>
           <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
+          <%- if current_user.may_catalogue_contribution? -%>
+            <td><%= contribution_field_value(attachment.contribution, 'field_ticket') %></td>
+          <%- end -%>
           <td>
             <%- if attachment.file.present? -%>
               <%= link_to t('actions.download'), attachment.file.url, :class => 'download-file' %>

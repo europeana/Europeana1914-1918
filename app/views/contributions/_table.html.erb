@@ -7,6 +7,7 @@ end
 
 if local_assigns[:fields].nil?
   fields = [ 'title', 'attachments', 'created_at' ]
+  fields << 'field_ticket' if current_user.may_catalogue_contribution?
 end
 %>
 <% unless local_assigns[:contributions].blank? %>

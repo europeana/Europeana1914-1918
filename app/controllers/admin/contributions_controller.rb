@@ -76,7 +76,7 @@ class Admin::ContributionsController < AdminController
     super
     session[:admin] ||= {}
     unless session[:admin][:fields].present?
-      session[:admin][:fields] = [ 'title', 'attachments', 'field_cataloguer_terms' ]
+      session[:admin][:fields] = [ 'title', 'attachments', 'field_cataloguer_terms', 'field_ticket' ]
     end
   end
   
