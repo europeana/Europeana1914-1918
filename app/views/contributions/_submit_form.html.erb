@@ -4,7 +4,7 @@
 
   <%= form.inputs :submit, :id => 'submit', :class => collapsible_class do %>
   
-    <%= form.input :terms, :as => :boolean, :label => ( raw t( 'views.register.terms.accept', :terms => link_to( t('views.register.terms.terms'), :anchor => 'terms-conditions', :id => 'terms-conditions' ) ) ) %>
+    <%= form.input :terms, :as => :boolean, :label => ( raw t( 'views.register.terms.accept', :terms => link_to( t('views.register.terms.terms'), { :anchor => 'terms-conditions' }, :id => 'terms-conditions') ) ) %>
     
     <div id="terms-of-use">
       <%= render :partial => 'devise/registrations/terms' %>
