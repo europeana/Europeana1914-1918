@@ -15,6 +15,9 @@
   var RunCoCo = {
     relativeUrlRoot: '<%= configuration(:relative_url_root) %>'
   }
+  <% if 'cataloguer' === current_user.role.name %>
+	RunCoCo.cataloguer = true;
+  <% end %>
   I18n.locale = '<%= I18n.locale %>';
 <% end -%>
 
@@ -73,10 +76,3 @@
 <% if @javascripts[:language_other] -%>
   <%= javascript_include_tag("language-other") %>
 <% end -%>
-
-
-<% if 'cataloguer' === current_user.role.name %>
-  <%= javascript_tag do -%>
-	RunCoCo.cataloguer = true;
-  <% end %>  
-<% end %>

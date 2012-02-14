@@ -1,9 +1,5 @@
 <%
   collapsible_class = 'collapsible'
-  if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
-    describe_class = 'collapsed'
-    upload_class = 'collapsed'
-  end 
 %>
 
 <%= semantic_form_for contribution, :url => submit_contribution_path(contribution) do |form| %>

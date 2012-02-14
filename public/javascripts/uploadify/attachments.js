@@ -60,13 +60,15 @@ jQuery(function() {
     
     //var uploadifyFieldset = $('<fieldset id="uploadify_upload" class="inputs"><ol><li id="uploadify_file_input" class="file input optional"><label class=" label" for="uploadify_file"></label></li></ol></fieldset>');
     var uploadifyHtml = jQuery(
+        '<ol>' +
         '<li id="uploadify_upload" class="inputs">' +
           //'<ol>' +
             '<div id="uploadify_file_input" class="file input optional">' +
               '<label class=" label" for="uploadify_file">' + I18n.t('javascripts.uploadify.label') + '</label>' +
             '</div>' +
           //'</ol>' +
-        '</li>'
+        '</li>' +
+        '</ol>'
       ),
       uploadifyFileControl = $('#attachment_file').clone().attr('id', 'uploadify_file'),
       uploadifyHint = $('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint') + '</p>'),
@@ -112,58 +114,65 @@ jQuery(function() {
       
       if ( jQuery(id).hasClass('collapsed') ) {
         
-        jQuery(id,'legend').trigger('click');
+        jQuery(id + ' legend').trigger('click');
         
       }
       
     }
     
-    function adjustFieldsets( section ) {
+    function adjustFieldsets( type ) {
       
       $fieldsets.each(function() {
         
         var $elm = jQuery(this);
         
-        switch ( section ) {
+        if ( 'submit' === type ) {
           
-          case 'submit' :
+          if ( 'submit' === $elm.attr('id') ) {
+          
+            if ( $elm.is(':hidden') ) {
             
-            if ( 'submit' === $elm.attr('id') && $elm.is(':hidden') ) {
-              
-              $elm.fadeIn();
-              
-            } else if ( $elm.is(':visible') ) {
-              
-              $elm.fadeOut();
+              $elm.toggle();
               
             }
             
-            openFieldset('#submit');
+          } else if ( $elm.is(':visible') ) {
             
-            break;
+            $elm.toggle();
+            
+          }
           
+          openFieldset('#submit');
           
-          default :
+        } else if ( 'single' === type || 'multiple' === type )  {
           
-            if ( 'attachment_upload' === $elm.attr('id') && $elm.is(':hidden') ) {
+          if ( 'attachment_upload' === $elm.attr('id') ) {
+            
+            if ( $elm.is(':hidden') ) {
               
-              $elm.fadeIn();
+              $elm.toggle();
               
             }
             
-            if ( 'single' === section && $elm.is(':hidden') ) {
-          
-              $elm.fadeIn();
+          } else if ( 'submit' === $elm.attr('id') ) {
+            
+            if ( $elm.is(':visible') ) {
               
-            } else if ( 'multiple' === section && $elm.is(':visible') ) {
-              
-              $elm.fadeOut();
+              $elm.toggle();
               
             }
             
-            openFieldset('#attachment_upload');
+          } else if ( 'single' === type && $elm.is(':hidden') ) {
             
-            break;
+            $elm.toggle();
+            
+          } else if ( 'multiple' === type && $elm.is(':visible') ) {
+            
+            $elm.toggle();
+            
+          }
+          
+          openFieldset('#attachment_upload');
           
         }
         
@@ -220,8 +229,13 @@ jQuery(function() {
     
     
     setTimeout( function() {
-        if ( !RunCoCo.ready_to_submit ) {
-        
+      
+        if ( RunCoCo.ready_to_submit ) {
+          
+          jQuery('#submit-story').trigger('click');
+          
+        } else {
+          
           if ( RunCoCo.cataloguer ) {
             
             jQuery('#multiple-items').trigger('click');
@@ -231,10 +245,6 @@ jQuery(function() {
             jQuery('#single-item').trigger('click');
             
           }
-          
-        } else {
-          
-          jQuery('#submit-story').trigger('click');
           
         }
       
