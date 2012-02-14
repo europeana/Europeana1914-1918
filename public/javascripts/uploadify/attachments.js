@@ -105,23 +105,83 @@ jQuery(function() {
   function init() {
     
     $fieldsets = jQuery('fieldset');
+    $fieldset_upload = jQuery('#attachment_upload');
     $single_upload = jQuery('#attachment_file_input').html();
     
-    jQuery('#single-item').click(function(evt) {
-      evt.preventDefault();
-      $fieldsets.each(function(){
-        jQuery(this).fadeIn();
-        jQuery('#attachment_file_input').html( $single_upload );
+    
+    function openFieldsetUpload() {
+      
+      if ( $fieldset_upload.hasClass('collapsed') ) {
+        
         jQuery('#attachment_upload legend').trigger('click');
+        
+      }
+      
+    }
+    
+    function adjustFieldsets( section ) {
+      
+      $fieldsets.each(function() {
+        
+        var $elm = jQuery(this);
+        
+        if ( 'attachment_upload' === $elm.attr('id') ) {
+          
+          if ( $elm.is(':hidden') ) {
+            
+            $elm.fadeIn();
+            
+          }
+          
+        } else if ( 'single' === section && $elm.is(':hidden') ) {
+          
+          $elm.fadeIn();
+          
+        } else if ( 'multiple' === section && $elm.is(':visible') ) {
+          console.log($elm);
+          $elm.fadeOut();
+          
+        }
+        
       });
+      
+      
+    }
+    
+    jQuery('#single-item').click(function(evt) {
+      
+      evt.preventDefault();      
+      jQuery('#attachment_file_input').html( $single_upload );
+      
+      adjustFieldsets('single');
+      openFieldsetUpload();
+      
     });
     
     jQuery('#multiple-items').click(function(evt) {
+      
       evt.preventDefault();
-      jQuery('#attachment_upload').fadeIn();
       addUploadify();
-      jQuery('#attachment_upload legend').trigger('click');
+      
+      adjustFieldsets('multiple');      
+      openFieldsetUpload();
+      
     });
+    
+    
+    setTimeout( function() {
+        if ( RunCoCo.cataloguer ) {
+          
+          jQuery('#multiple-items').trigger('click');
+          
+        } else {
+          
+          jQuery('#single-item').trigger('click');
+          
+        }
+      },
+      500
+    );
     
   }
   
