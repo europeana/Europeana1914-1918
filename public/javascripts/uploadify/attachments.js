@@ -97,14 +97,31 @@ jQuery(function() {
     });
     $('li', uploadifyHtml).append(uploadifySubmit);
     //$('#attachment_upload').before(uploadifyHtml);
-    jQuery('#attachment_file_input').after(uploadifyHtml);
+    jQuery('#attachment_file_input').html(uploadifyHtml);
     $('#uploadify_file').uploadify(options);
     
   }
   
   function init() {
     
+    $fieldsets = jQuery('fieldset');
+    
+    jQuery('#single-item').click(function(evt) {
+      evt.preventDefault();
+      $fieldsets.each(function(){
+        jQuery(this).fadeIn();
+      });
+    });
+    
+    jQuery('#multiple-items').click(function(evt) {
+      evt.preventDefault();
+      jQuery('#attachment_upload').fadeIn();
+      addUploadify();
+      jQuery('#attachment_upload legend').trigger('click');
+    });
     
   }
+  
+  init();
   
 });

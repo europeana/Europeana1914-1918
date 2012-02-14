@@ -1,6 +1,5 @@
 <%
   @javascripts[:collapsible] = true
-  @javascripts[:submit_story] = true
   @javascripts[:language_other] = true
 
   collapsible_class = 'collapsed'
@@ -18,30 +17,6 @@
 %>
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
-  
-  
-  <p>&nbsp;</p>
-  <p>You can choose to do one of the following:</p>
-  <p>&nbsp;</p>
-  
-    <ol id="attachment-help">
-      <li><a href="#single-item">work on a single item</a>
-        <ul>
-          <li>enter metadata about that item</li>
-          <li>upload a single file representing that item</li>
-        </ul>
-      <li><a href="#batch-upload">upload several item attachments at once</a>
-        <ul>
-          <li>each attachment represents a single item</li>
-          <li>you can edit those items later adding metadata if available</li>
-        </ul>
-      </li>
-    </ol>
-  
-  <!--
-  <p>&nbsp;</p>
-  <p><%= t('views.contributions.story.help_text.sections') %></p>
-  -->
   
   <%= form.inputs :attachment_upload, :id => 'attachment_upload', :class => upload_class do %>
     

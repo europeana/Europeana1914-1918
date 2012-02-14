@@ -4,23 +4,37 @@
     <div class="action-links">
 	<ul>
 	  
-	  <li><%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %></li>
 	  <li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
 	  <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution, :anchor => 'attachments', :anchor => 'attachments')) %> (<%= @contribution.attachments.size %>)</li>
+	  <li><%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %></li>
 	  
 	</ul>	
   </div>
-	
+  
   <p>
-  <%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %>
-  <% if @contribution.attachments.present? -%>
-    <%= raw t('views.contributions.digital_object.help_text.view_attachments') %>
-  <%- else -%>
-    <%= raw t('views.contributions.digital_object.help_text.add_attachment') %>
-  <% end -%>
-  <br/>
-  <%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %>
-  </p>
+	<% if !@contribution.attachments.present? -%>
+	  <%= raw t('views.contributions.digital_object.help_text.add_attachment') %><br/>
+	<% end -%>
+	You can choose to do one of the following:</p>
+	
+    <ol id="attachment-help">
+      <li><a href="#single-item" id="single-item">work on a single item</a>
+        <ul>
+          <li>enter metadata about that item</li>
+          <li>upload a single file representing that item</li>
+        </ul>
+      <li><a href="#multiple-items" id="multiple-items">upload several item attachments at once</a>
+        <ul>
+          <li>each attachment represents a single item</li>
+          <li>you can edit those items later adding metadata if available</li>
+        </ul>
+      </li>
+    </ol>
+  
+  <!--
+  <p>&nbsp;</p>
+  <p><%= t('views.contributions.story.help_text.sections') %></p>
+  -->
   
   <% if configuration(:uploadify) -%>
   
