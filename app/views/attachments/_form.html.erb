@@ -72,7 +72,7 @@
     <% end %>
   <% end %>
   
-  <%= form.inputs :attachment_location, :class => collapsible_class do %>
+  <%= form.inputs :attachment_location, :class => collapsible_class, :id => 'attachment_location' do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'location_placename', 'location_map' ], :cataloguing => false, :attachment => true } } %>
     <% end %>

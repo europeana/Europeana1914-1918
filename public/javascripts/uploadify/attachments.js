@@ -1,19 +1,16 @@
 jQuery(function() {
   
+  var uploadify_added = false;
+  
   function addUploadify() {
     
-    if ( !swfobject.hasFlashPlayerVersion("9.0.24") ) {
-      
+    if ( uploadify_added
+          || !swfobject.hasFlashPlayerVersion("9.0.24")
+          || (window.location.search.indexOf('?ui=basic') != -1)
+          || (window.location.search.indexOf('&ui=basic') != -1) ) {     
       return;
-      
     }
     
-    if (  (window.location.search.indexOf('?ui=basic') != -1)
-          || (window.location.search.indexOf('&ui=basic') != -1) ) {
-      
-      return;
-      
-    }
   
     var options = {
         
@@ -55,20 +52,23 @@ jQuery(function() {
           
           return false;
           
+        },
+        onAllComplete: function( event, data ) {
+          
+          if ( 0 === data.errors ) {
+            window.location = window.location.href;
+          }
+          
         }
         
       };
     
     var uploadifyHtml = jQuery(
-        '<ol>' +
-        '<li id="uploadify_upload" class="inputs">' +
-          //'<ol>' +
-            '<div id="uploadify_file_input" class="file input optional">' +
-              '<label class=" label" for="uploadify_file">' + I18n.t('javascripts.uploadify.label') + '</label>' +
-            '</div>' +
-          //'</ol>' +
-        '</li>' +
-        '</ol>'
+        '<li id="uploadify_upload" class="inputs" style="display:none;">' +
+          '<div id="uploadify_file_input" class="file input optional">' +
+            '<label class=" label" for="uploadify_file">' + I18n.t('javascripts.uploadify.label') + '</label>' +
+          '</div>' +
+        '</li>'
       ),
       uploadifyFileControl = $('#attachment_file').clone().attr('id', 'uploadify_file'),
       uploadifyHint = $('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint', { types: RunCoCo.uploadify.fileDesc, size: RunCoCo.uploadify.maxUploadSize }) + '</p>'),
@@ -104,23 +104,27 @@ jQuery(function() {
     });
     
     jQuery('li', uploadifyHtml).append(uploadifySubmit);
-    jQuery('#attachment_file_input').html(uploadifyHtml);
+    jQuery('#attachment_upload ol').append(uploadifyHtml);
     jQuery('#uploadify_file').uploadify(options);
+    
+    uploadify_added = true;
     
   }
   
   function init() {
     
-    $fieldsets = jQuery('fieldset');
-    $single_upload = jQuery('#attachment_file_input').html();
-    $attachment_help_links = jQuery('#attachment-help a');
+    addUploadify();
+    
+    var $fieldsets = jQuery('fieldset'),
+        $single_upload = jQuery('#attachment_file_input'),
+        $multiple_upload = jQuery('#uploadify_upload'),
+        $attachment_help_links = jQuery('#attachment-help a');
+    
     
     function openFieldset( id ) {
       
-      if ( jQuery(id).hasClass('collapsed') ) {
-        
-        jQuery(id + ' legend').trigger('click');
-        
+      if ( jQuery(id).hasClass('collapsed') ) {        
+        jQuery(id + ' legend').trigger('click');        
       }
       
     }
@@ -133,51 +137,33 @@ jQuery(function() {
         
         if ( 'submit' === type ) {
           
-          if ( 'submit' === $elm.attr('id') ) {
-          
-            if ( $elm.is(':hidden') ) {
-            
-              $elm.toggle('height');
-              
-            }
-            
-          } else if ( $elm.is(':visible') ) {
-            
-            $elm.toggle('height');
-            
+          if ( 'submit' === $elm.attr('id') ) {          
+            if ( $elm.is(':hidden') ) {            
+              $elm.toggle('height');              
+            }            
+          } else if ( $elm.is(':visible') ) {            
+            $elm.toggle('height');            
           }
           
-          openFieldset('#submit');
+          //openFieldset('#submit');
           
         } else if ( 'single' === type || 'multiple' === type )  {
           
-          if ( 'attachment_upload' === $elm.attr('id') ) {
-            
-            if ( $elm.is(':hidden') ) {
-              
+          if ( 'attachment_upload' === $elm.attr('id') ) {            
+            if ( $elm.is(':hidden') ) {           
               $elm.toggle('height');
-              
-            }
-            
-          } else if ( 'submit' === $elm.attr('id') ) {
-            
-            if ( $elm.is(':visible') ) {
-              
-              $elm.toggle('height');
-              
-            }
-            
-          } else if ( 'single' === type && $elm.is(':hidden') ) {
-            
+            }            
+          } else if ( 'submit' === $elm.attr('id') ) {    
+            if ( $elm.is(':visible') ) {              
+              $elm.toggle('height');              
+            }            
+          } else if ( 'single' === type && $elm.is(':hidden') ) {        
             $elm.toggle('height');
-            
-          } else if ( 'multiple' === type && $elm.is(':visible') ) {
-            
+          } else if ( 'multiple' === type && $elm.is(':visible') ) {            
             $elm.toggle('height');
-            
           }
           
-          openFieldset('#attachment_upload');
+          //openFieldset('#attachment_upload');
           
         }
         
@@ -192,14 +178,10 @@ jQuery(function() {
         
         var $elm = jQuery(this);
         
-        if ( id === $elm.attr('id') ) {
-          
-          $elm.css('font-weight','bold');
-          
-        } else {
-          
-          $elm.css('font-weight','normal');
-          
+        if ( id === $elm.attr('id') ) {          
+          $elm.css('font-weight','bold');          
+        } else {          
+          $elm.css('font-weight','normal');          
         }
         
       });     
@@ -208,20 +190,39 @@ jQuery(function() {
     
     jQuery('#single-item').click(function(evt) {
       
-      evt.preventDefault();      
-      jQuery('#attachment_file_input').html( $single_upload );
+      evt.preventDefault();
       highlightClick( jQuery(this).attr('id') );
       adjustFieldsets('single');
+      /*
+      if ( $single_upload.is(':hidden') ) {
+        $single_upload.toggle('height');
+      }
+      if ( $multiple_upload.is(':visible') ) {
+        $multiple_upload.toggle('height');
+      }
       
+      
+      */
     });
     
     jQuery('#multiple-items').click(function(evt) {
       
       evt.preventDefault();
       highlightClick( jQuery(this).attr('id') );
-      addUploadify();
       adjustFieldsets('multiple');
       
+      /*
+      if ( $single_upload.is(':visible') ) {
+        $single_upload.toggle('height');
+      }
+      
+      if ( $multiple_upload.is(':hidden') ) {
+        $multiple_upload.toggle('height');
+        
+      }
+      
+      
+      */
     });
     
     jQuery('#submit-story').click(function(evt) {
@@ -233,29 +234,22 @@ jQuery(function() {
     });
     
     
-    setTimeout( function() {
+    setTimeout(function() {
       
-        if ( RunCoCo.ready_to_submit ) {
-          
-          jQuery('#submit-story').trigger('click');
-          
+        if ( RunCoCo.ready_to_submit ) {          
+          jQuery('#submit-story').trigger('click');          
         } else {
-          
-          if ( RunCoCo.cataloguer ) {
-            
-            jQuery('#multiple-items').trigger('click');
-            
+          if ( RunCoCo.cataloguer ) {            
+            jQuery('#multiple-items').trigger('click');    
           } else {
-            
             jQuery('#single-item').trigger('click');
-            
-          }
-          
+          }          
         }
       
       },
-      50
+      500
     );
+    
     
     jQuery('#terms-conditions').click(function(evt) {
       
