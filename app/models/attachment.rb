@@ -100,7 +100,7 @@ class Attachment < ActiveRecord::Base
       if RunCoCo.configuration.allowed_upload_extensions.blank?
         @@paperclip_content_types = []
       else
-        @@paperclip_content_types = RunCoCo.configuration.allowed_upload_extensions.collect { |ext|
+        @@paperclip_content_types = RunCoCo.configuration.allowed_upload_extensions.split(',').collect { |ext|
           ext.downcase!
           mime_types = MIME::Types.type_for(ext).collect { |mime_type| mime_type.content_type }
           mime_types << 'image/pjpeg' if (ext == 'jpg' || ext == 'jpeg')
