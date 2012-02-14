@@ -6,15 +6,18 @@
 	  
 	  <li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
 	  <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution, :anchor => 'attachments', :anchor => 'attachments')) %> (<%= @contribution.attachments.size %>)</li>
-	  <li><%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %></li>
 	  
 	</ul>	
   </div>
   
+  <% if !@contribution.attachments.present? -%>
+	  <p>
+		<%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %>
+		<%= raw t('views.contributions.digital_object.help_text.add_attachment') %>
+	  </p>
+  <% end -%>
+  
   <p>
-	<% if !@contribution.attachments.present? -%>
-	  <%= raw t('views.contributions.digital_object.help_text.add_attachment') %><br/>
-	<% end -%>
 	You can choose to do one of the following:</p>
 	
     <ol id="attachment-help">

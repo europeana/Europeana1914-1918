@@ -105,11 +105,14 @@ jQuery(function() {
   function init() {
     
     $fieldsets = jQuery('fieldset');
+    $single_upload = jQuery('#attachment_file_input').html();
     
     jQuery('#single-item').click(function(evt) {
       evt.preventDefault();
       $fieldsets.each(function(){
         jQuery(this).fadeIn();
+        jQuery('#attachment_file_input').html( $single_upload );
+        jQuery('#attachment_upload legend').trigger('click');
       });
     });
     
