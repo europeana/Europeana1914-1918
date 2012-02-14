@@ -58,7 +58,6 @@ jQuery(function() {
         
       };
     
-    //var uploadifyFieldset = $('<fieldset id="uploadify_upload" class="inputs"><ol><li id="uploadify_file_input" class="file input optional"><label class=" label" for="uploadify_file"></label></li></ol></fieldset>');
     var uploadifyHtml = jQuery(
         '<ol>' +
         '<li id="uploadify_upload" class="inputs">' +
@@ -74,33 +73,38 @@ jQuery(function() {
       uploadifyHint = $('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint') + '</p>'),
       uploadifySubmit = $('#attachment_submit').clone().attr('id', 'uploadify_submit');
     
-    //$('label', uploadifyHtml).text($('label[for="attachment_file"]').text());
+    
     jQuery('div', uploadifyHtml).append(uploadifyFileControl).append(uploadifyHint);
-    uploadifySubmit.click(function(event) { 
-      event.preventDefault();
-  
-      if ($('#uploadify_fileQueue .uploadifyQueueItem').length == 0) {
+    
+    uploadifySubmit.click(function(evt) {
+      
+      evt.preventDefault();
+      
+      if ( jQuery('#uploadify_fileQueue .uploadifyQueueItem').length == 0 ) {
+        
         return;
+        
       }
   
       var scriptData = {
         uploadify: '1',
         format: 'json'
       };
+      
       // Add auth tokens to scriptData
       scriptData[RunCoCo.sessionKeyName] = encodeURIComponent(RunCoCo.sessionKey);
       scriptData['authenticity_token'] = encodeURIComponent(RunCoCo.authenticityToken);
-      $('#uploadify_file').uploadifySettings('scriptData', scriptData);
+      jQuery('#uploadify_file').uploadifySettings('scriptData', scriptData);
       
       setTimeout(function() {
-        $('#uploadify_file').uploadifyUpload();
+        jQuery('#uploadify_file').uploadifyUpload();
       }, 100);
       
     });
-    $('li', uploadifyHtml).append(uploadifySubmit);
-    //$('#attachment_upload').before(uploadifyHtml);
+    
+    jQuery('li', uploadifyHtml).append(uploadifySubmit);
     jQuery('#attachment_file_input').html(uploadifyHtml);
-    $('#uploadify_file').uploadify(options);
+    jQuery('#uploadify_file').uploadify(options);
     
   }
   
