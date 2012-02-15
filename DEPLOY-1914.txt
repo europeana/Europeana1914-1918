@@ -89,15 +89,17 @@ rake db:sessions:create
 
 ---		configuring sphinx		---
 
-			1. make sure sphinx.conf exists in the sphinx/etc directory
-				 if not, sudo cp sphinx/etc/sphinx.conf.dist sphinx.conf
+			1. make sure the sphinx.conf file exists in the sphinx application directory,
+				 e.g., /usr/local/sphinx/etc/sphinx.conf if not,
+				 $ sudo cp /usr/local/sphinx/etc/sphinx.conf.dist to /usr/local/sphinx/etc/sphinx.conf
 			
 			2. test the db connection with a db user for sphinx
 				 - make sure a test database exists in mysql for testing sphinx, e.g., db=test
-				 - make sure the db does not have the tables documents or tags in it
+				 - make sure the db does not have the tables, documents or tags, in it
 				 - make sure there is a user sphinx can use to access the test db, e.g., un=sphinx
 				 - at the command line populate the mysql test db with the example.sql provided in the
-				   sphinx distribution, e.g., from sphinx/etc run mysql -u sphinx -p < example.sql
+				   sphinx distribution
+					 $ /usr/local/sphinx/etc/mysql -u sphinx -p < example.sql
 				 - this should populate the mysql test db with two tables : documents and tags
 			
 			3. edit the sphinx.conf file and make sure the following settings are correct
@@ -107,11 +109,11 @@ rake db:sessions:create
 				 - sql_db
 				 - sql_port
 			
-			4. create an index on the mysql test db
-				 - sudo indexer --all
+			4. create an index on the mysql test db, at the commandline
+				 $ sudo indexer --all
 			
-			5. make sure the search daemon is running
-				 - sudo searchd
+			5. make sure the search daemon is running, at the commandline
+				 $ sudo searchd
 				 
 			6. verify api
 				 - in the sphinx src there's a dir api
@@ -119,35 +121,34 @@ rake db:sessions:create
 			
 
 
----   configuring sphinx environ for this site   ---
+--- configuring sphinx environ for this site ---
 
       From the RunCoCo application installation directory, at the commandline :
-			http://freelancing-god.github.com/ts/en/rake_tasks.html
 			
-				1. create a configuration file for sphinx
-				
-					 note: uses the database.yml settings to determine how to connect to the
-					 database so they need to be correct for each environment in order to
-					 properly configure sphinx
+				1. create a development.sphinx.conf and/or production.sphinx.conf file
+					 in the /config directory. nb: this file is generated with the commands
+					 below and uses the database.yml settings to determine how to connect to
+					 the database for each environment
 					 
-					 --trace is optional
+					--trace at the end of the commands is optional
 					 
-					 - for development
-							rake ts:config --trace
+					- for development, at commandline
+						$ rake ts:config --trace
 							
-					 - for production
-							RAILS_ENV=production rake ts:config --trace
+					- for production, at commandline
+						$RAILS_ENV=production rake ts:config --trace
 					 
 				2. start sphinx at the commandline :
-					 - rake ts:start --trace
+						$ rake ts:start --trace
 					 
-				3. how to stop sphinx at the commandline :
-					 - rake ts:stop --trace
+				3. stop sphinx at the commandline :
+						$ rake ts:stop --trace
 					 
-				4. creating the first index
-						- you can run “Re-index search engine” in the admin i/f
-						- at the commandline
-							rake ts:index
+				4. creating the first index using the commandline :
+						$ rake ts:index
+				
+				
+				reference: http://freelancing-god.github.com/ts/en/rake_tasks.html
 			
 			
 			***  richard doe’s notes ***
