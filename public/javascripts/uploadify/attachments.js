@@ -127,7 +127,7 @@ jQuery(function() {
       
     }
     
-    function adjustFieldsets( type ) {
+    function adjustFieldsets( type, callback ) {
       
       $fieldsets.each(function() {
         
@@ -167,6 +167,9 @@ jQuery(function() {
         
       });
       
+      if ( callback ) {
+        setTimeout( function() { callback(); }, 300 );
+      }
       
     }
     
@@ -190,6 +193,7 @@ jQuery(function() {
       
       evt.preventDefault();
       highlightClick( jQuery(this).attr('id') );
+      openFieldset('#attachment_upload');
       jQuery('#attachment_file_input').show();
       jQuery('#uploadify_upload').hide();
       adjustFieldsets('single');
@@ -200,6 +204,7 @@ jQuery(function() {
       
       evt.preventDefault();
       highlightClick( jQuery(this).attr('id') );
+      openFieldset('#attachment_upload');
       jQuery('#attachment_file_input').hide();
       jQuery('#uploadify_upload').show();
       adjustFieldsets('multiple');
