@@ -18,7 +18,7 @@
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   
-  <%= form.inputs :attachment_upload, :id => 'attachment_upload', :class => upload_class do %>
+  <%= form.inputs :attachment_upload, :id => 'attachment_upload', :title => t(attachment.new_record? ? 'formtastic.titles.attachment_upload' : 'formtastic.titles.attachment_replace'), :class => upload_class do %>
     
     <%=
       form.input :file,
