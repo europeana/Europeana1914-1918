@@ -143,9 +143,14 @@ jQuery(function() {
     
     
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    
+      
       infowindow.close();
       var place = autocomplete.getPlace();
+      
+      if ( 'undefined' === typeof place.geometry ) {
+        return;
+      }
+      
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
       } else {
@@ -273,13 +278,25 @@ jQuery(function() {
     return false;
   }
   
+  function preventEnterOnLocation(evt) {
+    
+    if ( evt.which === 13 ) {
+      evt.preventDefault();
+    }
+    
+  }
+  
+  
   function mapSetup( evt ) {
+    
+    var $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]');
     
     if ( 'undefined' !== typeof map ) {
       return;
     }
     
-    addGetAddressButton( jQuery('input[id$="_metadata_attributes_field_location_placename"]') );
+    $placename.bind('keypress', preventEnterOnLocation);
+    addGetAddressButton( $placename );
     addMapToPage( jQuery('li[id$="_metadata_attributes_field_location_placename_input"]') );
     addMapAutoComplete();
     
