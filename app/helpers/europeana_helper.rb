@@ -27,6 +27,24 @@ module EuropeanaHelper
     (picks = editors_picks(locale)) ? picks.first : nil
   end
   
+  def news_items(locale)
+    require 'feedzirra'
+    url = case locale
+    when 'en'
+        "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en/news"
+    when 'de'
+        "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/de/news"
+    else
+        "http://thegreatwararchive.blogspot.com/feeds/posts/default"
+    end
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    feed.respond_to?(:entries) ? feed.entries : nil
+  end
+  
+  def news_item(locale)
+    (items = news_items(locale)) ? items.first : nil
+  end
+  
   def form_previous_step_link(url)
     content_tag 'li', :class => 'back' do
       link_to I18n.t('views.links.previous_step'), url
