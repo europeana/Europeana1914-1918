@@ -120,7 +120,8 @@ class ApplicationController < ActionController::Base
       :gmap_geo => false,
       :uploadify => false,
       :collapsible => false,
-      :language_other => false
+      :language_other => false,
+      :generate_password => false
     }
   end
   

@@ -4,5 +4,9 @@
 <%= stylesheet_link_tag 'eew10', :media => 'screen,projection' %>
 <%= stylesheet_link_tag 'wwi', :media => 'screen,projection' %>
 
+<% if @javascripts[:generate_password] -%>
+  <%= stylesheet_link_tag 'generate-password', :media => 'screen,projection' %>
+<% end -%>
+
 <link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
 <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />

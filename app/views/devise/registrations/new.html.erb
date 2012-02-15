@@ -1,3 +1,4 @@
+<% @javascripts[:generate_password] = true %>
 <% @title = t('views.devise.registrations.new.title') %>
 
   <% if @user.errors.present? %>
@@ -26,7 +27,12 @@
     
     <%= form.inputs :account_details do %>
       <%= form.input :email %>
-      <%= form.input :password %>
+      <%= form.input :password, :input_html => { :type => 'text' } %>
+      <li>
+        <label class="no-script">Password strength</label>
+        <div id="password-strength" class="is0 no-script"></div>
+        <a href="#" id="password-generate" class="no-script">generate password</a>
+      </li>
       <%= form.input :password_confirmation %>
     <% end %>
     
