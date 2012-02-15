@@ -10,17 +10,16 @@
 	<li><%= link_to( t('common.links.explore_stories'), page_path('explore') ) %></li>
 	<li><%= link_to( t('common.menus.main.about'), page_path('about') ) %></li>
   </ul>
-	
-
-  <div id="news-item">
-	<%= render :partial => 'news_item', :locals => { :locale => 'en' } %>
+  
+  <div>
+	<%= render :partial => 'news_item', :locals => { :locale => I18n.locale } %>
   </div>
   
   <div class="editors-pick">
 	
 	<h2><%= t('common.editors_pick.heading') %></h2>
-	
-	  <%= render :partial => 'editors_pick', :locals => { :locale => 'en' } %>
+	  
+	  <%= render :partial => 'editors_pick', :locals => { :locale => I18n.locale } %>
 	  <p>&nbsp;</p>
 	  <p><%= raw t( 'common.editors_pick.more_stories', :explore_stories => link_to( t( 'common.links.explore_stories' ), page_path('explore') ) ) %></p>
   
