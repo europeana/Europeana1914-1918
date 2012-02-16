@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120214103316) do
+ActiveRecord::Schema.define(:version => 20120216100343) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
@@ -171,9 +171,11 @@ ActiveRecord::Schema.define(:version => 20120214103316) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.string   "username",                           :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

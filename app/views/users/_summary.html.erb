@@ -1,6 +1,10 @@
 <table class="member-record">
   <caption><%= t('views.users._summary.caption') %></caption>
   <tr>
+    <th scope="row"><%= User.human_attribute_name(:username) %></th>
+    <td><%= user.username %></td>
+  </tr>
+  <tr>
     <th scope="row"><%= User.human_attribute_name(:email) %></th>
     <td><%= user.email %></td>
   </tr>

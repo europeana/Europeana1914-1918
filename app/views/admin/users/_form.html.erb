@@ -1,5 +1,6 @@
 <%= semantic_form_for ['admin', user], :html => { :multipart => true } do |form| -%>
   <%= form.inputs :admin_user do %>
+    <%= form.input :username %>
     <%= form.input :email %>
     <%= form.input :role_name, :as => :select, :collection => user_roles %>
     <%= form.input :password %>

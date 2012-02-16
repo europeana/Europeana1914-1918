@@ -18,14 +18,14 @@
     <caption><%= t('views.admin.users.index.caption') %></caption>
     <tr>
       <th scope="col"><%= t 'activerecord.attributes.contact.full_name' %></th>
-      <th scope="col"><%= t 'attributes.email' %></th>
+      <th scope="col"><%= t 'attributes.username' %></th>
       <th scope="col"><%= t 'activerecord.attributes.user.role_name' %></th>
       <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
     </tr>
     <% for user in @users %>
       <tr>
         <td><%= link_to contact_name(user.contact), ['admin', user], :title => t('views.admin.users.index.links.show.title') %></td>
-        <td><%= user.email %></td>
+        <td><%= user.username %></td>
         <td><%= user.role.name.titleize %></td>
         <td><%= link_to t('actions.edit'), edit_admin_user_path(user), :class => 'edit-member' %></td>
         <td><%= link_to t('actions.delete'), delete_admin_user_path(user), :class => 'delete-member' %></td>
