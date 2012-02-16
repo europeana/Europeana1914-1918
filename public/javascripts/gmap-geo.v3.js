@@ -10,22 +10,126 @@ jQuery(function() {
       $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]');
   
   
-  function addGetAddressButton( $after_field ) {
+  function updateLatLng( latlng ) {
     
-    var getAddressButton =
-        jQuery(
-          '<input ' +
-            'type="button" ' +
-            'value="' + I18n.t('javascripts.gmap.search.button') + '" ' +
-            ' />'
-          )
-          .click( showAddress );
-    
-    $after_field.after( getAddressButton );
+    jQuery('input[id$="_metadata_attributes_field_location_map"]').val( latlng );
     
   }
   
-  function createMarker() {
+  
+  function updateMarker( place ) {
+    
+    var address,
+        info_content = '';
+    
+    place = place ? place : autocomplete.getPlace();
+    
+    if ( 'undefined' === typeof place
+          || 'undefined' === typeof place.geometry ) {
+      return;
+    }
+    
+    if ( place.geometry.viewport ) {      
+      map.fitBounds( place.geometry.viewport );      
+    } else {      
+      map.setCenter( place.geometry.location );      
+    }
+    
+    infowindow.close();
+    map.setZoom( 11 );
+    marker.setPosition( place.geometry.location );
+    updateLatLng( place.geometry.location );
+    
+    if ( place.address_components ) {
+      
+      address = [
+        (place.address_components[0] &&
+        place.address_components[0].short_name || ''),
+        (place.address_components[1] &&
+        place.address_components[1].short_name || ''),
+        (place.address_components[2] &&
+        place.address_components[2].short_name || '')
+      ].join(' ');
+      
+    }
+    
+    if ( 'undefined' !== typeof place.name ) {
+      
+      info_content += '<b>' + place.name + '</b><br/>';
+      
+    }
+    
+    if ( 'undefined' !== typeof address  ) {
+      
+      info_content += address;
+      $placename.val( address );
+      
+    }
+    
+    if ( 'undefined' !== typeof info_content ) {
+    
+      infowindow.setContent( '<div>' + info_content + '</div>' );
+      infowindow.open( map, marker );
+      
+    }
+  
+  }
+  
+  
+  function addMapAutoComplete() {
+    
+    var input =
+      document.getElementById('contribution_metadata_attributes_field_location_placename')
+      || document.getElementById('attachment_metadata_attributes_field_location_placename');
+    
+    
+    if ( 'undefined' === typeof input ) {      
+      return;      
+    }
+    
+    autocomplete = new google.maps.places.Autocomplete( input );
+    autocomplete.bindTo('bounds', map);
+    google.maps.event.addListener( autocomplete, 'place_changed', updateMarker );
+    
+  }
+  
+  
+  function addZoomLevelListener() {
+    
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      
+      console.log(map.getZoom());
+      
+    });
+    
+  }
+  
+  function addMarkerDragendListener() {
+    
+    google.maps.event.addListener(marker, 'dragend', function( evt ) {
+      
+      placeMarker( evt.latLng.Qa + ', ' + evt.latLng.Ra );
+      
+    });
+    
+  }
+  
+  
+  function addMarkerClickListener() {
+    
+    google.maps.event.addListener(marker, 'click', function() {
+      
+      if ( infowindow ) {
+        
+        infowindow.open( map, marker );
+        
+      }
+      
+    });
+    
+  }
+  
+    function createMarker() {
     
     return new google.maps.Marker({
 		
@@ -94,103 +198,31 @@ jQuery(function() {
   }
   
   
-  function updateLatLng( latlng ) {
+  /**
+   *
+   */
+  function placeMarker( address ) {
     
-    jQuery('input[id$="_metadata_attributes_field_location_map"]').val( latlng );
-    
-  }
-  
-  
-  function updateMarker( place ) {
-    
-    var address,
-        place_name,
-        info_content = '';
-    
-    place = place ? place : autocomplete.getPlace();
-    
-    if ( 'undefined' === typeof place
-          || 'undefined' === typeof place.geometry ) {
+    if ( 'undefined' === typeof address
+          || 0 === address.length ) {
       return;
     }
     
-    infowindow.close();
-    
-    if ( place.geometry.viewport ) {
+    geocoder.geocode(
       
-      map.fitBounds( place.geometry.viewport );
+      { 'address': address },
       
-    } else {
+      function( results, status ) {
       
-      map.setCenter( place.geometry.location );
-      map.setZoom( 17 );  // Why 17? Because it looks good.
-      
-    }
-    
-    marker.setPosition( place.geometry.location );
-    
-    
-    if ( place.name ) {
-      place_name = place.name;
-    }
-    
-    if ( place.address_components ) {
-      
-      address = [
-        (place.address_components[0] &&
-        place.address_components[0].short_name || ''),
-        (place.address_components[1] &&
-        place.address_components[1].short_name || ''),
-        (place.address_components[2] &&
-        place.address_components[2].short_name || '')
-      ].join(' ');
-      
-      if ( 'undefined' === typeof place_name ) {
-        
-        place_name = place.address_components[0].long_name;
+        if ( status == google.maps.GeocoderStatus.OK ) {          
+          updateMarker( results[0] );          
+        } else {          
+          alert("Geocode was not successful for the following reason: " + status);          
+        }
         
       }
       
-    }
-    
-    if ( 'undefined' !== typeof place_name ) {
-      
-      info_content += '<b>' + place_name + '</b><br/>';
-      
-    }
-    
-    if ( 'undefined' !== typeof address  ) {
-      
-      info_content += address;
-      
-    }
-    
-    if ( 'undefined' !== typeof info_content ) {
-    
-      infowindow.setContent( '<div>' + info_content + '</div>' );
-      infowindow.open( map, marker );
-      
-    }
-    
-    updateLatLng( place.geometry.location );
-  
-  }
-  
-  
-  function addMapAutoComplete() {
-    
-    var input =
-      document.getElementById('contribution_metadata_attributes_field_location_placename')
-      || document.getElementById('attachment_metadata_attributes_field_location_placename');
-    
-    
-    if ( 'undefined' === typeof input ) {      
-      return;      
-    }
-    
-    autocomplete = new google.maps.places.Autocomplete( input );
-    autocomplete.bindTo('bounds', map);
-    google.maps.event.addListener( autocomplete, 'place_changed', updateMarker );
+    );
     
   }
   
@@ -216,74 +248,41 @@ jQuery(function() {
     infowindow =  new google.maps.InfoWindow();
     marker =      createMarker();
     
-    
-    google.maps.event.addListener(marker, 'click', function() {
-      if ( infowindow ) {
-        infowindow.open( map, marker );
-      }
-    });
-    
-    google.maps.event.addListener(marker, 'dragend', function( evt ) {
-      
-      getAddressFromLatLng( evt.latLng );
-      
-    });
+    addZoomLevelListener();
+    addMarkerClickListener();
+    addMarkerDragendListener();
     
   }
   
   
-  function showAddress( evt ) {
+  function mapSetup( evt ) {
     
-    var address = $placename.val();
-    evt.preventDefault();
+    if ( 'undefined' !== typeof map ) {
+      return;
+    }
     
+    addMapToPage( jQuery('li[id$="_metadata_attributes_field_location_placename_input"]') );
+    addMapAutoComplete();
+    placeMarker( $placename.val() );
     
-    geocoder.geocode(
-      
-      { 'address': address },
-      
-      function( results, status ) {
-      
-        if ( status == google.maps.GeocoderStatus.OK ) {
-          
-          updateMarker( results[0] );
-          
-        } else {
-          
-          alert("Geocode was not successful for the following reason: " + status);
-          
-        }
-        
-      }
-      
-    );
-  
   }
   
   
-  function getAddressFromLatLng( latlng ) {
-  
-    latlng = latlng.Qa + ', ' + latlng.Ra;
+  function addGoButton( $after_field ) {
     
-    geocoder.geocode(
-      
-      { 'address': latlng },
-      
-      function( results, status ) {
-      
-        if ( status == google.maps.GeocoderStatus.OK ) {
-          
-          updateMarker( results[0] );
-          
-        } else {
-          
-          alert("Geocode was not successful for the following reason: " + status);
-          
-        }
-        
-      }
-      
-    );
+    var goButton =
+        jQuery(
+          '<input ' +
+            'type="button" ' +
+            'value="' + I18n.t('javascripts.gmap.search.button') + '" ' +
+            ' />'
+          )
+          .click(function( evt ) {
+            evt.preventDefault();
+            placeMarker( $placename.val() );
+          });
+    
+    $after_field.after( goButton );
     
   }
   
@@ -297,28 +296,16 @@ jQuery(function() {
   }
   
   
-  function mapSetup( evt ) {
+  function initialize() {
     
-    if ( 'undefined' !== typeof map ) {
-      return;
+    if ( 'undefined' === typeof window.google
+          || 'undefined' === typeof google.maps ) {      
+      return;      
     }
     
     $placename.bind( 'keypress', preventEnterOnLocation );
     $placename.css('font-size','14px');
-    addGetAddressButton( $placename );
-    addMapToPage( jQuery('li[id$="_metadata_attributes_field_location_placename_input"]') );
-    addMapAutoComplete();
-    
-  }
-  
-  function initialize() {
-    
-    if ( 'undefined' === typeof window.google
-          || 'undefined' === typeof google.maps ) {
-      
-      return;
-      
-    }
+    addGoButton( $placename );
     
     jQuery('fieldset[id$="_location"] legend').bind( 'click', mapSetup );
     
