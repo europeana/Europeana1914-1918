@@ -228,7 +228,7 @@ jQuery(function() {
         if ( status == google.maps.GeocoderStatus.OK ) {          
           updateMarker( results[0] );          
         } else {          
-          alert("Geocode was not successful for the following reason: " + status);          
+          alert( I18n.t('javascripts.gmap.errors.unknown') + '\n[' + status + ']' );
         }
         
       }
