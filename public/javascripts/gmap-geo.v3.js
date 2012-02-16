@@ -23,7 +23,9 @@ jQuery(function() {
   function updateMarker( place ) {
     
     var address,
-        info_content = '';
+        info_content = '',
+        // map.fitBounds defaults to zoom level 17, so we need to save the user's zoom level
+        save_zoom_level = zoom_in_to;
     
     place = place ? place : autocomplete.getPlace();
     
@@ -32,16 +34,20 @@ jQuery(function() {
       return;
     }
     
-    if ( place.geometry.viewport ) {      
-      map.fitBounds( place.geometry.viewport );      
+    if ( place.geometry.viewport ) {
+      map.fitBounds( place.geometry.viewport );
     } else {      
-      map.setCenter( place.geometry.location );      
+      map.setCenter( place.geometry.location );
     }
     
     infowindow.close();
-    map.setZoom( parseInt( zoom_in_to, 10 ) );
+    
+    zoom_in_to = save_zoom_level;
+    map.setZoom( zoom_in_to );
+    
     marker.setPosition( place.geometry.location );
     updateLatLng( place.geometry.location );
+    
     
     if ( place.address_components ) {
       
@@ -97,20 +103,13 @@ jQuery(function() {
   }
   
   
-  function getSavedZoom() {
-      
-      if ( parseInt( $zoom_level_saved.val(), 10 ) > 0 ) {
-        zoom_in_to = $zoom_level_saved.val();
-      }
-      
-  }
-  
-  
   function addZoomLevelListener() {
     
     google.maps.event.addListener(map, 'zoom_changed', function() {
       
-      $zoom_level_saved.val( map.getSavedZoom() );
+      // $zoom_level_saved.val( map.getZoom() );
+      zoom_in_to = map.getZoom();
+      $zoom_level_saved.val( zoom_in_to );
       
     });
     
@@ -236,6 +235,15 @@ jQuery(function() {
       
     );
     
+  }
+  
+  
+  function getSavedZoom() {
+      
+      if ( parseInt( $zoom_level_saved.val(), 10 ) > 0 ) {
+        zoom_in_to = parseInt( $zoom_level_saved.val(), 10 );
+      }
+      
   }
   
   
