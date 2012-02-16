@@ -7,7 +7,10 @@ jQuery(function() {
       service,
       autocomplete,
       infowindow,
-      $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]');
+      $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]'),
+      $zoom_level_saved = jQuery('input[id$="_metadata_attributes_field_location_zoom"]'),
+      zoom_inital = 3,
+      zoom_in_to = 11;
   
   
   function updateLatLng( latlng ) {
@@ -36,7 +39,7 @@ jQuery(function() {
     }
     
     infowindow.close();
-    map.setZoom( 11 );
+    map.setZoom( parseInt( zoom_in_to, 10 ) );
     marker.setPosition( place.geometry.location );
     updateLatLng( place.geometry.location );
     
@@ -94,11 +97,20 @@ jQuery(function() {
   }
   
   
+  function getSavedZoom() {
+      
+      if ( parseInt( $zoom_level_saved.val(), 10 ) > 0 ) {
+        zoom_in_to = $zoom_level_saved.val();
+      }
+      
+  }
+  
+  
   function addZoomLevelListener() {
     
     google.maps.event.addListener(map, 'zoom_changed', function() {
       
-      console.log(map.getZoom());
+      $zoom_level_saved.val( map.getSavedZoom() );
       
     });
     
@@ -237,7 +249,7 @@ jQuery(function() {
         gmap_canvas = jQuery('<li id="gmap-container"><div id="gmap-canvas"></div></li>'),
         map_options = {
             center: prague,
-            zoom: 3,
+            zoom: parseInt( zoom_inital, 10 ),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
     
@@ -261,6 +273,7 @@ jQuery(function() {
       return;
     }
     
+    getSavedZoom();
     addMapToPage( jQuery('li[id$="_metadata_attributes_field_location_placename_input"]') );
     addMapAutoComplete();
     placeMarker( $placename.val() );
