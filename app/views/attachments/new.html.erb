@@ -19,19 +19,9 @@
     </p>
   
     <ol id="attachment-help">
-      <li><a href="#single-item" id="single-item">Add a single item</a>
-        <ul>
-          <li>Enter metadata about that item</li>
-          <li>Upload a single file representing that item</li>
-        </ul>
-      <li><a href="#multiple-items" id="multiple-items">Add multiple items at once</a>
-        <ul>
-          <li>You first upload several attachments representing multiple items</li>
-          <li>You then editted each of those items adding metadata if available</li>
-        </ul>
-      </li>
+      <%= raw t('views.attachments.attachment_help') %>
 	  <% if @contribution.ready_to_submit? -%>
-		<li><a href="#submit-story" id="submit-story">Submit your story</a></li>
+		<li><a href="#submit-story" id="submit-story"><%= t('formtastic.titles.submit') %></a></li>
 	  <% end %>
     </ol>
   

@@ -40,7 +40,7 @@
     <% end %>
   <% end %>
   
-  <%= form.inputs :story_location, :class => collapsible_class do %>
+  <%= form.inputs :story_location, :class => collapsible_class, :id => 'story_location' do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'location_placename', 'location_map' ], :cataloguing => false, :contribution => true } } %>
     <% end %>

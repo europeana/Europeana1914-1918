@@ -4,14 +4,14 @@
 
   collapsible_class = 'collapsed'
   describe_class = 'collapsed'
-  upload_class = 'collapsible'
+  upload_class = 'collapsed'
   
   if 'cataloguer' === current_user.role.name
     collapsible_class = 'collapsible'
   end
   
   if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
-    upload_class = 'collapsible'
+    upload_class = 'collapsed'
     describe_class = 'collapsed'
   end  
 %>
