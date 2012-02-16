@@ -5,79 +5,29 @@ jQuery(function() {
       geocoder,
       marker,
       service,
-      autocomplete;
-  
-  
-  function stringToLatLng(string) {
-    
-    var latLng = string.match(/^\s?(-?\d+(\.\d+)?),(-?\d+(\.\d+)?)\s?$/); // Check valid LAT,LNG format
-    
-    if (latLng) {
-      
-      return new GLatLng(latLng[1], latLng[3]);
-      
-    } else {
-      
-      return null;
-      
-    }
-    
-  }
+      autocomplete,
+      infowindow,
+      $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]');
   
   
   function addGetAddressButton( $after_field ) {
     
     var getAddressButton =
-      jQuery(
-        '<input ' +
-          'type="button" ' +
-          'value="' + I18n.t('javascripts.gmap.search.button') + '" ' +
-          ' />'
-        )
-        .click( rccShowAddress );
+        jQuery(
+          '<input ' +
+            'type="button" ' +
+            'value="' + I18n.t('javascripts.gmap.search.button') + '" ' +
+            ' />'
+          )
+          .click( showAddress );
     
     $after_field.after( getAddressButton );
     
   }
   
-  /**
-   *  @param {jQuery Object} $after_element
-   *  represents the dom element that will receive the google map after it
-   */
-  function addMapToPage( $after_element ) {
+  function createMarker() {
     
-    var prague = new google.maps.LatLng(50.083333, 14.416667),
-        old_center = new google.maps.LatLng(-34.397, 150.644),
-        gmap_canvas = jQuery('<li id="gmap-container"><div id="gmap-canvas"></div></li>'),
-        map_options = {
-            center: prague,
-            zoom: 3,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-    
-    $after_element.after( gmap_canvas );
-    map = new google.maps.Map( document.getElementById('gmap-canvas'), map_options );
-    
-  }
-  
-  
-  function addMapAutoComplete() {
-    
-    var input =
-      document.getElementById('contribution_metadata_attributes_field_location_placename')
-      || document.getElementById('attachment_metadata_attributes_field_location_placename');
-    
-    if ( 'undefined' === typeof input ) {
-      return;
-    }
-    
-    //service = new google.maps.places.PlacesService( map );
-    autocomplete = new google.maps.places.Autocomplete( input );
-    autocomplete.bindTo('bounds', map);
-    
-    
-    var infowindow = new google.maps.InfoWindow();
-    var marker = new google.maps.Marker({
+    return new google.maps.Marker({
 		
 		// Which animation to play when marker is added to a map.
 		// BOUNCE | DROP
@@ -89,7 +39,7 @@ jQuery(function() {
 		
 		// Mouse cursor to show on hover
 		// string
-		cursor : 'wait',
+		cursor : undefined,
 		
 		// If true, the marker can be dragged. Default value is false.
 		// boolean
@@ -113,7 +63,7 @@ jQuery(function() {
 		
 		// Marker position. Required.
 		// LatLng
-		//position : place.geometry.location,
+		position : undefined,
 		
 		// If false, disables raising and lowering the marker on drag. This option is true by default.
 		// boolean
@@ -129,7 +79,7 @@ jQuery(function() {
 		
 		// Rollover text
 		// string
-		//title : place.name,
+		title : undefined,
 		
 		// If true, the marker is visible
 		// boolean
@@ -141,142 +91,202 @@ jQuery(function() {
 		
 	});
     
-    
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      
-      infowindow.close();
-      var place = autocomplete.getPlace();
-      
-      if ( 'undefined' === typeof place.geometry ) {
-        return;
-      }
-      
-      if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-      } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);  // Why 17? Because it looks good.
-      }
-      
-      marker.setPosition(place.geometry.location);
-
-      var address = '';
-      if (place.address_components) {
-        address = [(place.address_components[0] &&
-                    place.address_components[0].short_name || ''),
-                   (place.address_components[1] &&
-                    place.address_components[1].short_name || ''),
-                   (place.address_components[2] &&
-                    place.address_components[2].short_name || '')
-                  ].join(' ');
-      }
-
-      infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-      infowindow.open(map, marker);
-    
-    });
-    
   }
   
-  function getLatLngFromMap() {
+  
+  function updateLatLng( latlng ) {
     
-    var latlng = rccStringToLatLng($(this).attr('value'));
-      marker.setLatLng(latlng);
-      rccSetGeoInputLatLng(latlng);
-      map.setCenter(latlng);
+    jQuery('input[id$="_metadata_attributes_field_location_map"]').val( latlng );
     
   }
   
   
-  function rccShowGmapHere() {
+  function updateMarker( place ) {
     
-    var gmapContainer = $('<div id="gmap-container"></div>');
-    var gmapCanvas = $('<div id="gmap-canvas"></div>');
-    var gmapCanvasHint = $('<p class="inline-hints">' + I18n.t('javascripts.gmap.canvas.hint', {field: $(this).parents('li').children('label').first().text()}) + '</p>');
-  
-    gmapContainer.append(gmapCanvas).append(gmapCanvasHint);
-    $(this).after(gmapContainer);
+    var address,
+        place_name,
+        info_content = '';
     
-    var point = rccStringToLatLng($(this).attr('value'));
-    if (!point) {
-      var point = new GLatLng(50.083333, 14.416667); // Centre over Prague
+    place = place ? place : autocomplete.getPlace();
+    
+    if ( 'undefined' === typeof place
+          || 'undefined' === typeof place.geometry ) {
+      return;
     }
+    
+    infowindow.close();
+    
+    if ( place.geometry.viewport ) {
+      
+      map.fitBounds( place.geometry.viewport );
+      
+    } else {
+      
+      map.setCenter( place.geometry.location );
+      map.setZoom( 17 );  // Why 17? Because it looks good.
+      
+    }
+    
+    marker.setPosition( place.geometry.location );
+    
+    
+    if ( place.name ) {
+      place_name = place.name;
+    }
+    
+    if ( place.address_components ) {
+      
+      address = [
+        (place.address_components[0] &&
+        place.address_components[0].short_name || ''),
+        (place.address_components[1] &&
+        place.address_components[1].short_name || ''),
+        (place.address_components[2] &&
+        place.address_components[2].short_name || '')
+      ].join(' ');
+      
+      if ( 'undefined' === typeof place_name ) {
+        
+        place_name = place.address_components[0].long_name;
+        
+      }
+      
+    }
+    
+    if ( 'undefined' !== typeof place_name ) {
+      
+      info_content += '<b>' + place_name + '</b><br/>';
+      
+    }
+    
+    if ( 'undefined' !== typeof address  ) {
+      
+      info_content += address;
+      
+    }
+    
+    if ( 'undefined' !== typeof info_content ) {
+    
+      infowindow.setContent( '<div>' + info_content + '</div>' );
+      infowindow.open( map, marker );
+      
+    }
+    
+    updateLatLng( place.geometry.location );
   
-    var gmapUI = new GMapUIOptions();
-    gmapUI.keyboard = false;
-    gmapUI.maptypes = { normal: true };
-    gmapUI.controls = { largemapcontrol3d: true };
-    gmapUI.zoom = { doubleclick: false, scrollwheel: true };
-    
-    map = new GMap2(document.getElementById('gmap-canvas'), { size: new GSize(470, 470) } );
-    map.setUI(gmapUI);
-    map.setCenter(point, 5);
-    marker = new GMarker(point, { draggable: true });
-    map.addOverlay(marker);
-    GEvent.addListener(map, "dblclick", function(overlay, latlng) {
-      marker.setLatLng(latlng);
-      rccSetGeoInputLatLng(latlng);
-    });
-    GEvent.addListener(marker, "dragend", function(latlng) {
-      rccSetGeoInputLatLng(latlng);
-      rccLookupPlaceName(latlng);
-    });
-    geocoder = new GClientGeocoder();
-    
-    $(this).replaceWith(hiddenInput);
-    
-    return false;
   }
   
-  function rccSetGeoInputLatLng(latlng) {
-    $('#gmap-container').siblings('input[type="hidden"]').first().attr('value', latlng.lat() + ',' + latlng.lng());
+  
+  function addMapAutoComplete() {
+    
+    var input =
+      document.getElementById('contribution_metadata_attributes_field_location_placename')
+      || document.getElementById('attachment_metadata_attributes_field_location_placename');
+    
+    
+    if ( 'undefined' === typeof input ) {      
+      return;      
+    }
+    
+    autocomplete = new google.maps.places.Autocomplete( input );
+    autocomplete.bindTo('bounds', map);
+    google.maps.event.addListener( autocomplete, 'place_changed', updateMarker );
+    
   }
   
-  function rccLookupPlaceName(latlng) {
-    if (geocoder) {
-      geocoder.getLocations(latlng, function(response) {
-        if (response && response.Status.code == 200) {
-          place = response.Placemark[0];
-          var placeNameField = $('input[id$="_metadata_attributes_field_location_placename"]');
-          var placeName = placeNameField.attr('value');
   
-          if (typeof place.AddressDetails.Country.AdministrativeArea === "undefined") {
-            placeName = place.address;
-          } else if (typeof place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea === "undefined") {
-            placeName = place.AddressDetails.Country.AdministrativeArea.AdministrativeAreaName;
-          } else if (typeof place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality === "undefined") {
-            placeName = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName;
-          } else {
-            placeName = place.AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName;
-          }
-          placeNameField.attr('value', placeName);
+  /**
+   *  @param {jQuery Object} $after_element
+   *  represents the dom element that will receive the google map after it
+   */
+  function addMapToPage( $after_element ) {
+    
+    var prague = new google.maps.LatLng(50.083333, 14.416667),
+        gmap_canvas = jQuery('<li id="gmap-container"><div id="gmap-canvas"></div></li>'),
+        map_options = {
+            center: prague,
+            zoom: 3,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+    
+    $after_element.after( gmap_canvas );
+    
+    map =         new google.maps.Map( document.getElementById('gmap-canvas'), map_options );
+    geocoder =    new google.maps.Geocoder();
+    infowindow =  new google.maps.InfoWindow();
+    marker =      createMarker();
+    
+    
+    google.maps.event.addListener(marker, 'click', function() {
+      if ( infowindow ) {
+        infowindow.open( map, marker );
+      }
+    });
+    
+    google.maps.event.addListener(marker, 'dragend', function( evt ) {
+      
+      getAddressFromLatLng( evt.latLng );
+      
+    });
+    
+  }
+  
+  
+  function showAddress( evt ) {
+    
+    var address = $placename.val();
+    evt.preventDefault();
+    
+    
+    geocoder.geocode(
+      
+      { 'address': address },
+      
+      function( results, status ) {
+      
+        if ( status == google.maps.GeocoderStatus.OK ) {
+          
+          updateMarker( results[0] );
+          
+        } else {
+          
+          alert("Geocode was not successful for the following reason: " + status);
+          
         }
-      });
-    }
+        
+      }
+      
+    );
+  
   }
   
-  function rccShowAddress() {
-    if (geocoder) {
-      var address = $(this).siblings('input[type="text"]').attr('value');
-      if (address.match(/^\s?$/)) {
-        alert(I18n.t('javascripts.gmap.errors.empty'));
-        return false;
-      }
-      geocoder.getLatLng(
-        address,
-        function(point) {
-          if (!point) {
-            alert(I18n.t('javascripts.gmap.errors.unknown'));
-          } else {
-            map.setCenter(point, 13);
-            marker.setLatLng(point);
-            rccSetGeoInputLatLng(point);
-          }
+  
+  function getAddressFromLatLng( latlng ) {
+  
+    latlng = latlng.Qa + ', ' + latlng.Ra;
+    
+    geocoder.geocode(
+      
+      { 'address': latlng },
+      
+      function( results, status ) {
+      
+        if ( status == google.maps.GeocoderStatus.OK ) {
+          
+          updateMarker( results[0] );
+          
+        } else {
+          
+          alert("Geocode was not successful for the following reason: " + status);
+          
         }
-      );
-    }
-    return false;
+        
+      }
+      
+    );
+    
   }
+  
   
   function preventEnterOnLocation(evt) {
     
@@ -289,18 +299,15 @@ jQuery(function() {
   
   function mapSetup( evt ) {
     
-    var $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]');
-    
     if ( 'undefined' !== typeof map ) {
       return;
     }
     
-    $placename.bind('keypress', preventEnterOnLocation);
+    $placename.bind( 'keypress', preventEnterOnLocation );
+    $placename.css('font-size','14px');
     addGetAddressButton( $placename );
     addMapToPage( jQuery('li[id$="_metadata_attributes_field_location_placename_input"]') );
     addMapAutoComplete();
-    
-    //jQuery('input[id$="_metadata_attributes_field_location_map"]').change( getLatLngFromMap );
     
   }
   
@@ -313,7 +320,7 @@ jQuery(function() {
       
     }
     
-    jQuery('#attachment_location legend').bind( 'click', mapSetup );
+    jQuery('fieldset[id$="_location"] legend').bind( 'click', mapSetup );
     
   }
   
