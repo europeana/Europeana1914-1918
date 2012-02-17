@@ -13,21 +13,8 @@
   
   <%= semantic_form_for @user, :as => 'user', :url => user_registration_path, :html => { :class => 'devise', :multipart => true } do |form| -%>
     
-    <%= form.inputs :personal_details do %>
-      <%- form.object.build_contact unless form.object.contact.present? -%>
-      <%= form.semantic_fields_for :contact do |contact| %>
-        <%= contact.input :full_name %>
-        <%= contact.input :postal_code %>
-        <%= contact.input :country, :priority_countries => ['AU', 'CA', 'DE', 'GB', 'US'], :include_blank => '' %>
-        <%= contact.input :gender, :as => :select, :collection => { t('activerecord.options.contact.gender.female') => 'F', t('activerecord.options.contact.gender.male') => 'M' } %>
-        <%= contact.input :age, :as => :select, :collection => %w(0-17 18-24 25-44 45-59 60+) %>
-      <% end %>
-      <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
-    <% end %>
-    
     <%= form.inputs :account_details do %>
       <%= form.input :username %>
-      <%= form.input :email %>
       <%= form.input :password, :input_html => { :type => 'text' } %>
       <li>
         <label class="no-script">Password strength</label>
@@ -35,6 +22,25 @@
         <a href="#" id="password-generate" class="no-script">generate password</a>
       </li>
       <%= form.input :password_confirmation %>
+    <% end %>
+    
+    <%- form.object.build_contact unless form.object.contact.present? -%>
+    
+    <%= form.inputs :optional_details do %>
+      <%= form.semantic_fields_for :contact do |contact| %>
+        <%= contact.input :full_name %>
+      <% end %>
+      <%= form.input :email %>
+      <%= form.semantic_fields_for :contact do |contact| %>
+        <%= contact.input :street_address, :input_html => { :rows => 4 } %>
+        <%= contact.input :locality %>
+        <%= contact.input :region %>
+        <%= contact.input :postal_code %>
+        <%= contact.input :country, :priority_countries => ['AU', 'CA', 'DE', 'GB', 'US'], :include_blank => '' %>
+        <%= contact.input :gender, :as => :select, :collection => { t('activerecord.options.contact.gender.female') => 'F', t('activerecord.options.contact.gender.male') => 'M' } %>
+        <%= contact.input :age, :as => :select, :collection => %w(0-17 18-24 25-44 45-59 60+) %>
+      <% end %>
+      <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
     <% end %>
     
     <%= render :partial => 'terms' %>
