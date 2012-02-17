@@ -67,6 +67,8 @@ class Attachment < ActiveRecord::Base
 
   validates_attachment_size :file, :less_than => RunCoCo.configuration.max_upload_size, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.size')
 
+  # Europeana 1914-1918 metadata specific validations
+  validate :validate_max_one_cover_image_per_contribution
 
   # Old file directory queued for deletion after public/private change  
   attr_reader :old_file_dir #:nodoc:
@@ -155,6 +157,17 @@ class Attachment < ActiveRecord::Base
     end
     @old_file_dir = nil
   end
-  
+
+  def validate_max_one_cover_image_per_contribution
+    if contribution.present? && metadata.field_cover_image_terms.present? && metadata.field_cover_image_terms.first.term == 'yes'
+      others = contribution.attachments
+      others.reject! { |a| a.id == self.id } unless new_record?
+      others.reject! { |a| a.metadata.field_cover_image_terms.blank? || (a.metadata.field_cover_image_terms.first.term != 'yes') }
+      unless others.blank?
+        self.errors.add('field_cover_image_terms', I18n.t('activerecord.errors.models.metadata_record.one_cover_image')) 
+        metadata.errors.add('field_cover_image_terms', I18n.t('activerecord.errors.models.metadata_record.one_cover_image'))
+      end
+    end
+  end  
 end
 
