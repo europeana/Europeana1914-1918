@@ -31,11 +31,11 @@ module EuropeanaHelper
     require 'feedzirra'
     url = case locale
     when 'en'
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/En-news"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
     when 'de'
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De-news"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/de-news"
     else
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/En-news"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
     end
     feed = Feedzirra::Feed.fetch_and_parse(url)
     feed.respond_to?(:entries) ? feed.entries : nil
