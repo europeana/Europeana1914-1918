@@ -15,7 +15,7 @@
   </div>
   
   <%= semantic_form_for @user, :as => 'user', :url => user_registration_path, :html => { :class => 'devise', :multipart => true } do |form| -%>
-    
+    <%- form.object.build_contact unless form.object.contact.present? -%>
     <%= form.inputs :account_details do %>
       <%= form.input :username %>
       <%= form.semantic_fields_for :contact do |contact| %>
@@ -31,8 +31,6 @@
       </li>
       <%= form.input :password_confirmation %>
     <% end %>
-    
-    <%- form.object.build_contact unless form.object.contact.present? -%>
     
     <%= form.inputs :optional_details, :class => 'collapsed' do %>
       
