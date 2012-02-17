@@ -1,4 +1,7 @@
-<% @javascripts[:generate_password] = true %>
+<%
+  @javascripts[:generate_password] = true
+  @javascripts[:collapsible] = true
+%>
 <% @title = t('views.devise.registrations.new.title') %>
 
   <% if @user.errors.present? %>
@@ -15,6 +18,11 @@
     
     <%= form.inputs :account_details do %>
       <%= form.input :username %>
+      <%= form.semantic_fields_for :contact do |contact| %>
+        <%= contact.input :full_name %>
+      <% end %>
+      <%= form.input :email %>
+      <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
       <%= form.input :password, :input_html => { :type => 'text' } %>
       <li>
         <label class="no-script">Password strength</label>
@@ -26,11 +34,8 @@
     
     <%- form.object.build_contact unless form.object.contact.present? -%>
     
-    <%= form.inputs :optional_details do %>
-      <%= form.semantic_fields_for :contact do |contact| %>
-        <%= contact.input :full_name %>
-      <% end %>
-      <%= form.input :email %>
+    <%= form.inputs :optional_details, :class => 'collapsed' do %>
+      
       <%= form.semantic_fields_for :contact do |contact| %>
         <%= contact.input :street_address, :input_html => { :rows => 4 } %>
         <%= contact.input :locality %>
@@ -40,7 +45,7 @@
         <%= contact.input :gender, :as => :select, :collection => { t('activerecord.options.contact.gender.female') => 'F', t('activerecord.options.contact.gender.male') => 'M' } %>
         <%= contact.input :age, :as => :select, :collection => %w(0-17 18-24 25-44 45-59 60+) %>
       <% end %>
-      <%= form.input :picture, :label => t('views.register.labels.profile_photo'), :hint => t('views.register.help_text.profile_photo') %>
+      
     <% end %>
     
     <%= render :partial => 'terms' %>
