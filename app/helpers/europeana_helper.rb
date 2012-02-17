@@ -11,13 +11,13 @@ module EuropeanaHelper
   
   def editors_picks(locale)
     require 'feedzirra'
-    url = case locale
+    url = case locale.to_s
     when 'en'
-        "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
     when 'de'
-        "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De"
     else
-        "http://thegreatwararchive.blogspot.com/feeds/posts/default"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default"
     end
     feed = Feedzirra::Feed.fetch_and_parse(url)
     feed.respond_to?(:entries) ? feed.entries : nil
@@ -29,7 +29,7 @@ module EuropeanaHelper
   
   def news_items(locale)
     require 'feedzirra'
-    url = case locale
+    url = case locale.to_s
     when 'en'
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
     when 'de'
