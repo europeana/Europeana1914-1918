@@ -20,6 +20,4 @@ class Contact < ActiveRecord::Base
   has_one :user, :dependent => :nullify
 
   accepts_nested_attributes_for :user
-  
-  validates_presence_of :full_name
 end
