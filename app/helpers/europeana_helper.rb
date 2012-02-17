@@ -32,6 +32,8 @@ module EuropeanaHelper
     url = case locale.to_s
     when 'en'
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
+    when 'de'
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/de-news"
     else
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
     end
