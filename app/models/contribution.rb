@@ -20,7 +20,6 @@ class Contribution < ActiveRecord::Base
   validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validates_presence_of :title
   validates_associated :metadata
-  validates_acceptance_of :terms, :allow_nil => false, :accept => true, :if => :submitting?
   validate :validate_attachment_file_presence, :if => :submitting?
 
   attr_accessible :metadata_attributes, :title

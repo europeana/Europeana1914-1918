@@ -89,7 +89,6 @@ class ContributionsController < ApplicationController
   # PUT /contributions/:id/submit
   def submit
     current_user.may_edit_contribution!(@contribution)
-    @contribution.terms = params[:contribution][:terms]
     if @contribution.submit
       if current_user.role.name == 'guest'
         session[:guest].delete(:contribution_id)
