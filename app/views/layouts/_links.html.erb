@@ -8,5 +8,9 @@
   <%= stylesheet_link_tag 'generate-password', :media => 'screen,projection' %>
 <% end -%>
 
+<%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
+	<%= stylesheet_link_tag "uploadify"  %>
+<% end -%>
+
 <link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
 <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />

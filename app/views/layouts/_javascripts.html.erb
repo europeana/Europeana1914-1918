@@ -21,22 +21,7 @@
   I18n.locale = '<%= I18n.locale %>';
 <% end -%>
 
-<% if @javascripts[:datepicker] -%>
-  <%= javascript_include_tag("datepicker") %>
-<% end -%>
-
-<% if (@javascripts[:gmap_geo] || @javascripts[:gmap_show]) && configuration(:gmap_api_key).present? -%>
-  <script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>" type="text/javascript"></script>
-  <%- if @javascripts[:gmap_geo] -%>
-    <%= javascript_include_tag("gmap-geo.v3") %>
-  <%- end -%>
-  <%- if @javascripts[:gmap_show] -%>
-    <%= javascript_include_tag("gmap-show") %>
-  <%- end -%>
-<% end -%>
-
 <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
-  <%= stylesheet_link_tag "uploadify"  %>
   <%= javascript_tag do -%>
     RunCoCo['uploadify'] = {
       maxUploadSize: <%= configuration(:max_upload_size) %>,
@@ -47,36 +32,4 @@
     RunCoCo['sessionKeyName'] = '<%= session_key_name %>';
     RunCoCo['sessionKey'] = '<%= cookies[session_key_name] %>';
   <%- end -%>
-  <%= javascript_include_tag "uploadify/swfobject", "uploadify/jquery.uploadify.v2.1.4.min", "uploadify/attachments" %>
-<%- end -%>
-
-<% if @javascripts[:collapsible] -%>
-  <%= javascript_include_tag("jquery.collapsible") %>
-  <%= javascript_tag do -%>
-  jQuery(document).ready(function() {
-    jQuery("fieldset.collapsible").collapse();
-    jQuery("fieldset.collapsed").collapse( { closed: true } );
-  });
-  <%- end -%>
-<% end -%>
-
-<% if @javascripts[:flowplayer] -%>
-  <%= javascript_include_tag("flowplayer/flowplayer-3.2.6.min") %>
-<% end -%>
-
-<% if @javascripts[:prettyphoto] -%>
-  <%= stylesheet_link_tag("prettyPhoto") %>
-  <%= javascript_include_tag("jquery.prettyPhoto-3.0.3.custom", "prettyphoto") %>
-<% end -%>
-
-<% if @javascripts[:clone_metadata] -%>
-  <%= javascript_include_tag("clone-metadata") %>
-<% end -%>
-
-<% if @javascripts[:language_other] -%>
-  <%= javascript_include_tag("language-other") %>
-<% end -%>
-
-<% if @javascripts[:generate_password] -%>
-  <%= javascript_include_tag("generate-password") %>
-<% end -%>
+<% end %>

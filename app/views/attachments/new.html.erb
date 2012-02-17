@@ -1,4 +1,3 @@
-<%- @javascripts[:uploadify] = true -%>
 <% @title = t('views.contributions.digital_object.step2') %>
   
     <div class="action-links">
@@ -56,9 +55,9 @@
   
   <ul>
   <% if @contribution.attachments.present? -%>
-    <li><%= link_to( t('views.contributions.digital_object.links.add_another'), :anchor => 'attachment_upload' ) %></li>
+    <li><a href="#attachment_upload"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
   <% else %>    
-    <li><%= link_to( t('views.contributions.digital_object.links.add_item'), :anchor => 'attachment_upload' ) %></li>
+    <li><a href="#attachment_upload"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
   <% end -%>
   
   <% if @contribution.ready_to_submit? -%>

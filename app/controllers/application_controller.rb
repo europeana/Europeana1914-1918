@@ -121,7 +121,8 @@ class ApplicationController < ActionController::Base
       :uploadify => false,
       :collapsible => false,
       :language_other => false,
-      :generate_password => false
+      :generate_password => false,
+      :attachments => false
     }
   end
   
