@@ -4,7 +4,7 @@
   <% flash.now[:alert] = t("flash.users.update.alert") %>
 <% end %>
 
-<%= semantic_form_for 'user', @user, :url => user_registration_path, :html => { :method => :put, :class => 'devise', :multipart => true } do |form| -%>
+<%= semantic_form_for @user, :url => user_registration_path, :html => { :method => :put, :class => 'devise', :multipart => true } do |form| -%>
   <%= form.inputs :user_current_password do %>
     <%= form.input :current_password, :required => true %>
   <% end %>
