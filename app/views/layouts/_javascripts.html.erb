@@ -1,35 +1,29 @@
-<%
-  script_files = [
-  'com/jquery/jquery-1.6.4.min',
-  'jquery-ui-1.8.2.custom.min',
-  'i18n',
-  'translations',
-  'rails',
-  'runcoco'
-  ]
--%>
-
-<%= javascript_include_tag script_files %>
-
 <%= javascript_tag do -%>
-  var RunCoCo = {
-    relativeUrlRoot: '<%= configuration(:relative_url_root) %>'
-  }
-  <% if 'cataloguer' === current_user.role.name %>
-	RunCoCo.cataloguer = true;
-  <% end %>
-  I18n.locale = '<%= I18n.locale %>';
-<% end -%>
 
-<%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
-  <%= javascript_tag do -%>
-    RunCoCo['uploadify'] = {
+  var I18n = I18n || {};
+  I18n.locale = '<%= I18n.locale %>';
+  
+  var RunCoCo = {};
+  RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
+  
+  <% if 'cataloguer' === current_user.role.name %>
+	
+	RunCoCo.cataloguer = true;
+	
+  <% end %>
+  
+  <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
+
+    RunCoCo.uploadify = {
       maxUploadSize: <%= configuration(:max_upload_size) %>,
       fileExt: '<%= uploadify_file_extensions %>',
       fileDesc: '<%= uploadify_file_desc %>'
     };
-    RunCoCo['authenticityToken'] = '<%= form_authenticity_token if protect_against_forgery? %>';
-    RunCoCo['sessionKeyName'] = '<%= session_key_name %>';
-    RunCoCo['sessionKey'] = '<%= cookies[session_key_name] %>';
-  <%- end -%>
-<% end %>
+	
+    RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
+    RunCoCo.sessionKeyName = '<%= session_key_name %>';
+    RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
+	
+  <% end %>
+
+<% end -%>
