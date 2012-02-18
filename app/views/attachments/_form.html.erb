@@ -18,11 +18,14 @@
     describe_class = 'collapsed'
   end
   
-  if @contribution.ready_to_submit?
-    fieldset_style = 'display: none;'
-  end
-  
 %>
+
+<% if @contribution.ready_to_submit? %>
+  <% fieldset_style = 'display: none;' %>
+  <%= javascript_tag do -%>
+    RunCoCo.ready_for_submit = true;
+  <% end %>
+<% end %>
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   

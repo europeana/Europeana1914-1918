@@ -233,7 +233,7 @@
 		
 		jQuery('#single-item').bind( 'click', singleItemHandler );
 		jQuery('#multiple-items').bind( 'click', multipleItemHandler );
-		jQuery('#submit-story').bind( 'click', submitStoryHandler );
+		jQuery('#submit-story').bind( 'click', submitStoryHandler );		
 		
 	}
 	

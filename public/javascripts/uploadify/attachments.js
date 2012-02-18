@@ -63,8 +63,9 @@
         
       };
     
-    var uploadifyHtml = jQuery(
-        '<li id="uploadify_upload" class="inputs">' +
+    var li_style = ( !RunCoCo.ready_for_submit && !RunCoCo.cataloguer ) ? 'style="display:none;"' : '',
+        uploadifyHtml = jQuery(
+        '<li id="uploadify_upload" class="inputs"' + li_style + '>' +
           '<div id="uploadify_file_input" class="file input optional">' +
             '<label class=" label" for="uploadify_file">' + I18n.t('javascripts.uploadify.label') + '</label>' +
           '</div>' +
