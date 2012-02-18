@@ -42,6 +42,12 @@
 	}
 	
 	
+	/**
+	 *	opens a collapsed fieldset
+	 *	
+	 *	@param {jQuery Object} $elm
+	 *	represents the fieldset that needs to be un-collapased
+	 */
 	function openFieldset( $elm ) {
 		
 		if ( $elm.hasClass( 'collapsed' ) ) {
@@ -53,6 +59,12 @@
 	}
 	
 	
+	/**
+	 *	closes a collapsed fieldset
+	 *	
+	 *	@param {jQuery Object} $elm
+	 *	represents the fieldset that needs to be collapased
+	 */
 	function closeFieldset( $elm ) {
 		
 		if ( $elm.hasClass( 'collapsible' ) ) {
@@ -73,6 +85,12 @@
 		if ( $elm.is(':hidden') ) {
 			
 			$elm.toggle('height');
+			
+		}
+		
+		if ( RunCoCo.cataloguer ) {
+			
+			openFieldset( $elm );
 			
 		}
 		

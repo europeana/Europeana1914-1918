@@ -8,9 +8,14 @@
   collapsible_class = 'collapsed'
   describe_class = 'collapsed'
   upload_class = 'collapsible'
+  single_file_style = ''
   
   if 'cataloguer' === current_user.role.name
-    collapsible_class = 'collapsible'
+    collapsible_class = 'collapsed'
+    describe_class = 'collapsed'
+    upload_fieldset_style = ''
+    single_file_style = 'display: none;'
+    fieldset_style = 'display: none;'
   end
   
   if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
@@ -20,12 +25,17 @@
   
 %>
 
-<% if @contribution.ready_to_submit? %>
-  <% fieldset_style = 'display: none;' %>
-  <%= javascript_tag do -%>
-    RunCoCo.ready_for_submit = true;
-  <% end %>
-<% end %>
+<%
+  if @contribution.ready_to_submit?
+    fieldset_style = 'display: none;'
+    upload_fieldset_style = 'display: none;'
+    javascript_tag do
+  %>
+      RunCoCo.ready_for_submit = true;
+  <%
+    end
+  end
+%>
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   
@@ -34,7 +44,7 @@
     :id => 'attachment_upload',
     :title => t(attachment.new_record? ? 'formtastic.titles.attachment_upload' : 'formtastic.titles.attachment_replace'),
     :class => upload_class,
-    :style => fieldset_style do
+    :style => upload_fieldset_style do
   %>
     
     <%=
@@ -44,7 +54,8 @@
         (attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'),
         :max => max_upload_size,
         :file_types => allowed_file_types
-      )
+      ),
+      :wrapper_html => { :style => single_file_style }
     %>
   
   <% end %>
