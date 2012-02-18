@@ -1,12 +1,34 @@
+<%
+  
+  single_item_class = 'highlighted-option'
+  multiple_item_class = ''
+  submit_class = ''
+  
+  if 'cataloguer' === current_user.role.name
+	single_item_class = ''
+	multiple_item_class = 'highlighted-option'
+  end
+  
+  if @contribution.ready_to_submit?
+	single_item_class = ''
+	multiple_item_class = ''
+	submit_class = 'highlighted-option'
+  end
+    
+%>
+
+
 <% @title = t('views.contributions.digital_object.step2') %>
   
-    <div class="action-links">
-  <ul>
-    
-    <li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
-	<li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
+  <div class="action-links">
 	
-  </ul>  
+	<ul>
+	  
+	  <li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
+	  <li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
+	  
+	</ul>
+	
   </div>
   
     <p>
@@ -18,27 +40,28 @@
     </p>
   
     <ol id="attachment-help">
-      <%= raw t('views.attachments.attachment_help') %>
+	  
+      
+	  <li><a href="#single-item" id="single-item" class="<%= single_item_class %>"><%= t('views.attachments.attachment_help.item1') %></a>
+		<ul>
+		  <li><%= t('views.attachments.attachment_help.item1-subitem1') %></li>
+		  <li><%= t('views.attachments.attachment_help.item1-subitem2') %></li>
+		</ul>
+	  </li>
+	  
+	  <li><a href="#multiple-items" id="multiple-items" class="<%= multiple_item_class %>"><%= t('views.attachments.attachment_help.item2') %></a>
+		<ul>
+		  <li><%= t('views.attachments.attachment_help.item2-subitem1') %></li>
+		</ul>
+	  </li>
+	  
 	  <% if @contribution.ready_to_submit? -%>
-		<li><a href="#submit-story" id="submit-story"><%= t('formtastic.titles.submit') %></a></li>
+	  <li><a href="#submit-story" id="submit-story" class="<%= submit_class %>"><%= t('formtastic.titles.submit') %></a></li>
 	  <% end %>
+	  
     </ol>
   
-  <!--
-  <p>&nbsp;</p>
-  <p><%= t('views.contributions.story.help_text.sections') %></p>
-  -->
-  
-  <% if configuration(:uploadify) -%>
-  <%- javascript_tag do -%>
-    RunCoCo.uploadify['script'] = '<%= contribution_attachments_path(@contribution) %>';
-  <%- end -%>
-  <% end -%>
-  
   <% if @contribution.ready_to_submit? -%>
-	<%- javascript_tag do -%>
-	  RunCoCo.ready_to_submit = true;
-	<%- end -%>
 	<%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
   <%- end %>
   

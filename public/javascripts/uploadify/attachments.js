@@ -1,4 +1,4 @@
-jQuery(function() {
+(function() {
   
   var uploadify_added = false;
   
@@ -113,4 +113,4 @@ jQuery(function() {
   
   addUploadify();
   
-});
+}());

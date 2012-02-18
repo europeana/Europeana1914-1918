@@ -1,184 +1,244 @@
 (function() {
 	
 	'use strict';
-	var $fieldsets = jQuery('fieldset'),
-        $attachment_help_links = jQuery('#attachment-help a');
-    
-    
-    function openFieldset( id ) {
-      
-      if ( jQuery(id).hasClass('collapsed') ) {        
-        jQuery(id + ' legend').trigger('click');        
-      }
-      
-    }
-    
-    function adjustFieldsets( type ) {
-      
-      $fieldsets.each(function() {
-        
-        var $elm = jQuery(this);
-        
-        switch ( type ) {
-          
-          case 'submit' :
-            
-            if ( 'submit' === $elm.attr('id') ) {
-              
-              if ( $elm.is(':hidden') ) {
-                
-                $elm.toggle('height');
-                
-              }
-              
-            } else if ( $elm.is(':visible') ) {
-              
-              $elm.toggle('height');
-              
-            }
-            
-            break;
-          
-          
-          case 'single' :
-            
-            if ( 'attachment_upload' === $elm.attr('id') ) {
-              
-              if ( $elm.is(':hidden') ) {
-                
-                $elm.toggle('height');
-                
-              }
-            
-            } else if ( 'submit' === $elm.attr('id') && $elm.is(':visible') ) {
-              
-              $elm.toggle('height');
-              
-            } else if ( $elm.is(':hidden') ) {
-              
-              $elm.toggle('height');
-              
-            }
-            
-            break;
-          
-          case 'multiple' :
-            
-            if ( 'attachment_upload' === $elm.attr('id') ) {
-              
-              if ( $elm.is(':hidden') ) {
-                
-                $elm.toggle('height');
-                
-              }
-            
-            } else if ( 'submit' === $elm.attr('id') && $elm.is(':visible') ) {
-              
-              $elm.toggle('height');
-              
-            } else if ( $elm.is(':visible') ) {
-              
-              $elm.toggle('height');
-              
-            }
-            
-            break;
-          
-        }
-        
-      });
-      
-    }
-    
-    function highlightClick( id ) {
+	
+	var $fieldsets = jQuery('form > fieldset'),
+        $attachment_help_links = jQuery('#attachment-help a'),
+		$single_file = jQuery('#attachment_file_input'),
+		$multiple_file = jQuery('#uploadify_upload');
+	
+	
+	function hideSingleFile() {
+		
+		if ( $single_file.is(':visible') ) {
+			
+			$single_file.toggle('height');
+			
+		}
+		
+		if ( $multiple_file.is(':hidden') ) {
+			
+			$multiple_file.toggle('height');
+			
+		}
+		
+	}
+	
+	
+	function hideMultipleFile() {
+		
+		if ( $single_file.is(':hidden') ) {
+			
+			$single_file.toggle('height');
+			
+		}
+		
+		if ( $multiple_file.is(':visible') ) {
+			
+			$multiple_file.toggle('height');
+			
+		}
+		
+	}
+	
+	
+	function openFieldset( $elm ) {
+		
+		if ( $elm.hasClass( 'collapsed' ) ) {
+			
+			$elm.find('legend').eq(0).trigger('click');
+			
+		}
+		
+	}
+	
+	
+	function closeFieldset( $elm ) {
+		
+		if ( $elm.hasClass( 'collapsible' ) ) {
+			
+			$elm.find('legend').eq(0).trigger('click');
+			
+		}
+		
+	}
+	
+	
+	/**
+	 *	@param {jQuery Object} $elm
+	 *	jQuery Object representing the fieldset that should be opened
+	 */
+	function showFieldset( $elm ) {
+		
+		if ( $elm.is(':hidden') ) {
+			
+			$elm.toggle('height');
+			
+		}
+		
+	}
+	
+	
+	/**
+	 *	@param {jQuery Object} $elm
+	 *	jQuery Object representing the fieldset that should be closed
+	 */
+	function hideFieldset( $elm ) {
+		
+		if ( $elm.is(':visible') ) {
+			
+			$elm.toggle('height');
+			
+		}
+		
+	}
+	
+	
+	/**
+	 *	@param {String} except_id
+	 *	the id of the fieldset that should stay open
+	 *
+	 *	@param {Enum hide|show} other_fieldsets
+	 *	whether to hide or show the other fieldsets
+	 */
+	function toggleFieldsets( except_id, other_fieldsets ) {
+		
+		var $elm;
+		
+		$fieldsets.each(function() {
+			
+			$elm = jQuery(this);
+			
+			if ( except_id === $elm.attr('id') ) {
+				
+				if ( 'submit' === $elm.attr('id') ) {
+					
+					openFieldset( $elm );
+					
+				}
+				
+				if ( 'attachment_upload' === $elm.attr('id') ) {
+					
+					openFieldset( $elm );
+					
+				}
+				
+				showFieldset( $elm );
+				
+			} else {
+			
+				switch ( other_fieldsets ) {
+					
+					case 'hide' :
+						
+						closeFieldset( $elm );
+						hideFieldset( $elm );
+						break;
+					
+					case 'show' :
+						
+						if ( 'attachment_upload' === $elm.attr('id')
+							&& ( 'single-item' === except_id
+								|| 'multiple-item' === except_id )
+							) {
+							
+							openFieldset( $elm );
+							
+						} else {
+							
+							closeFieldset( $elm );
+							
+						}
+						
+						if ( 'single-item' === except_id
+							&& 'submit' === $elm.attr('id') ) {
+							
+							hideFieldset( $elm );
+							
+						} else {
+							
+							showFieldset( $elm );
+							
+						}
+						
+						break;
+					
+				}
+				
+			}
+			
+		});
+		
+		if ( 'single-item' == except_id ) {
+			
+			hideMultipleFile();
+			
+		} else if ( 'attachment_upload' == except_id ) {
+			
+			hideSingleFile();
+			
+		}
+		
+	}
+	
+	
+	function highlightOption( id ) {
       
       $attachment_help_links.each( function() {
         
         var $elm = jQuery(this);
         
-        if ( id === $elm.attr('id') ) {          
-          $elm.css('font-weight','bold');          
-        } else {          
-          $elm.css('font-weight','normal');          
+        if ( id === $elm.attr('id') ) {
+			
+          $elm.addClass('highlighted-option');
+		  
+        } else {
+			
+          $elm.removeClass('highlighted-option');
+		  
         }
         
-      });     
+      });
       
     }
-    
-    jQuery('#single-item').click(function(evt) {
-      
-      evt.preventDefault();
-      highlightClick( jQuery(this).attr('id') );
-      adjustFieldsets('single');
-      
-      if ( jQuery('#uploadify_upload').is(':visible') ) {
-        jQuery('#uploadify_upload').toggle('height', function() {
-          if ( jQuery('#attachment_file_input').is(':hidden') ) {
-            jQuery('#attachment_file_input').toggle('height');
-          }
-        });
-      }
-      
-      if ( jQuery('#attachment_file_input').is(':hidden') ) {
-        jQuery('#attachment_file_input').toggle('height');
-      }
-      
-    });
-    
-    jQuery('#multiple-items').click(function(evt) {
-      
-      evt.preventDefault();
-      highlightClick( jQuery(this).attr('id') );
-      adjustFieldsets('multiple');
-      
-      if ( jQuery('#attachment_file_input').is(':visible') ) {
-        jQuery('#attachment_file_input').toggle('height', function() {
-          if ( jQuery('#uploadify_upload').is(':hidden') ) {
-            jQuery('#uploadify_upload').toggle('height');
-          }
-        });
-      }
-      
-      if ( jQuery('#uploadify_upload').is(':hidden') ) {
-        jQuery('#uploadify_upload').toggle('height');
-      }
-      
-    });
-    
-    jQuery('#submit-story').click(function(evt) {
-      
-      evt.preventDefault();
-      highlightClick( jQuery(this).attr('id') );
-      adjustFieldsets('submit');
-      
-    });
-    
-    
-    setTimeout(function() {
-      
-        if ( RunCoCo.ready_to_submit ) {          
-          jQuery('#submit-story').trigger('click');          
-        } else {
-          if ( RunCoCo.cataloguer ) {            
-            jQuery('#multiple-items').trigger('click');    
-          } else {
-            jQuery('#single-item').trigger('click');
-          }          
-        }
-      
-      },
-      500
-    );
-    
-    
-    jQuery('#terms-conditions').click(function(evt) {
-      
-      evt.preventDefault();
-      jQuery('#submit #terms-of-use').toggle('height');
-      
-    });
-    
-  }
+	
+	
+	function singleItemHandler( evt ) {
+		
+		evt.preventDefault();
+		highlightOption('single-item');
+		toggleFieldsets( 'single-item', 'show' );
+		
+	}
+	
+	
+	function multipleItemHandler( evt ) {
+		
+		evt.preventDefault();
+		highlightOption('multiple-items');
+		toggleFieldsets( 'attachment_upload', 'hide' );
+		
+	}
+	
+	function submitStoryHandler( evt ) {
+		
+		evt.preventDefault();
+		highlightOption('submit-story');
+		toggleFieldsets( 'submit', 'hide' );
+		
+	}
+	
+	
+	function init() {
+		
+		jQuery('#single-item').bind( 'click', singleItemHandler );
+		jQuery('#multiple-items').bind( 'click', multipleItemHandler );
+		jQuery('#submit-story').bind( 'click', submitStoryHandler );
+		
+	}
+	
+	
+	init();
+	
   
 }());

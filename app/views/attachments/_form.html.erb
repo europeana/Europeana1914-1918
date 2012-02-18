@@ -3,6 +3,7 @@
   @javascripts[:language_other] = true
   @javascripts[:uploadify] = true
   @javascripts[:attachments] = true
+  @javascripts[:clone_metadata] = true
 
   collapsible_class = 'collapsed'
   describe_class = 'collapsed'
@@ -15,12 +16,23 @@
   if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
     upload_class = 'collapsed'
     describe_class = 'collapsed'
-  end  
+  end
+  
+  if @contribution.ready_to_submit?
+    fieldset_style = 'display: none;'
+  end
+  
 %>
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   
-  <%= form.inputs :attachment_upload, :id => 'attachment_upload', :title => t(attachment.new_record? ? 'formtastic.titles.attachment_upload' : 'formtastic.titles.attachment_replace'), :class => upload_class do %>
+  <%=
+    form.inputs :attachment_upload,
+    :id => 'attachment_upload',
+    :title => t(attachment.new_record? ? 'formtastic.titles.attachment_upload' : 'formtastic.titles.attachment_replace'),
+    :class => upload_class,
+    :style => fieldset_style do
+  %>
     
     <%=
       form.input :file,
@@ -34,7 +46,7 @@
   
   <% end %>
   
-  <%= form.inputs :attachment_details, :id => 'attachment_details', :class => describe_class do %>
+  <%= form.inputs :attachment_details, :id => 'attachment_details', :class => describe_class, :style => fieldset_style do %>
   
     <%= form.semantic_fields_for :metadata do |metadata| %>
       <%=
@@ -68,46 +80,45 @@
     
   <% end %>
   
-  <%= form.inputs :attachment_dates, :class => collapsible_class do %>
+  <%= form.inputs :attachment_dates, :class => collapsible_class, :style => fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
-  <%= form.inputs :attachment_location, :class => collapsible_class, :id => 'attachment_location' do %>
+  <%= form.inputs :attachment_location, :class => collapsible_class, :id => 'attachment_location', :style => fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'location_placename', 'location_map', 'location_zoom' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
-  <%= form.inputs :attachment_keywords, :class => collapsible_class do %>
+  <%= form.inputs :attachment_keywords, :class => collapsible_class, :style => fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
-  <%= form.inputs :attachment_front, :class => collapsible_class do %>
+  <%= form.inputs :attachment_front, :class => collapsible_class, :style => fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%- if current_user.may_catalogue_contribution?(attachment.contribution) -%>
-    <%= form.inputs :cataloguing_metadata, :class => collapsible_class do %>
+    <%= form.inputs :cataloguing_metadata, :class => collapsible_class, :style => fieldset_style do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
         <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license' ], :cataloguing => true, :attachment => true } } %>
       <% end %>
     <% end %>
   <%- end -%>
   
-  <%= form.buttons do %>
+  <%= form.buttons :style => fieldset_style do %>
     <%= redirect_field %>
     <%= form.commit_button :label => 'Save' %>
   <% end %>
   
 <% end %>
 
-<%- @javascripts[:clone_metadata] = true -%>
 <%= javascript_tag do -%>
   RunCoCo['contribution'] = {
     title: '<%= attachment.contribution.title %>',

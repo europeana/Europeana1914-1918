@@ -6,18 +6,14 @@
   var RunCoCo = {};
   RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
   
-  <% if 'cataloguer' === current_user.role.name %>
-	
-	RunCoCo.cataloguer = true;
-	
-  <% end %>
   
   <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
 
     RunCoCo.uploadify = {
       maxUploadSize: <%= configuration(:max_upload_size) %>,
       fileExt: '<%= uploadify_file_extensions %>',
-      fileDesc: '<%= uploadify_file_desc %>'
+      fileDesc: '<%= uploadify_file_desc %>',
+	  script: '<%= contribution_attachments_path(@contribution) %>'
     };
 	
     RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
@@ -25,5 +21,9 @@
     RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 	
   <% end %>
-
+  
+  <% if 'cataloguer' === current_user.role.name %>	
+	RunCoCo.cataloguer = true;
+  <% end %>
+  
 <% end -%>

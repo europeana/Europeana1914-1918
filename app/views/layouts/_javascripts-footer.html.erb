@@ -10,7 +10,7 @@
 -%>
 
 <%= javascript_include_tag script_files %>
-
+  
 <% if @javascripts[:datepicker] -%>
   <%= javascript_include_tag("datepicker") %>
 <% end -%>
@@ -61,4 +61,9 @@
 
 <% if @javascripts[:generate_password] -%>
   <%= javascript_include_tag("generate-password") %>
+<% end -%>
+
+
+<% if @javascripts[:attachments] -%>
+  <%= javascript_include_tag("attachments") %>
 <% end -%>
