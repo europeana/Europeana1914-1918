@@ -4,26 +4,43 @@ class Admin::ContributionsController < AdminController
   end
   
   def index
-    wheres = {
-      :submitted => [ 'submitted_at IS NOT NULL AND approved_at IS NULL' ],
-      :approved => [ 'submitted_at IS NOT NULL AND approved_at IS NOT NULL' ],
-      :draft => [ 'submitted_at IS NULL AND approved_at IS NULL' ],
+    @contributions = {
+      :submitted  => Contribution.where('submitted_at IS NOT NULL AND approved_at IS NULL').order('submitted_at ASC'),
+      :approved   => Contribution.where('submitted_at IS NOT NULL AND approved_at IS NOT NULL').order('approved_at DESC'),
+      :draft      => Contribution.where('submitted_at IS NULL AND approved_at IS NULL').order('created_at DESC'),
     }
-    
-    if params[:contributor_id].present?
-      @contributor = User.find(params[:contributor_id])
-      wheres.each_key do |key| 
-        wheres[key][0] << ' AND contributor_id=?'
-        wheres[key] << params[:contributor_id]
-      end
-    end
     
     @options = Options.new
     @options.fields = session[:admin][:fields]
+
+    joins = :metadata
+
+    @contributor = params[:contributor_id].present? ? User.find(params[:contributor_id]) : nil
+    if params[:sort].present?
+      @sort = params[:sort]
+      if MetadataRecord.taxonomy_associations.include?(@sort.to_sym)
+        sort_col = "taxonomy_terms.term"
+        joins = { :metadata => @sort.to_sym }
+      elsif @sort == 'contributor'
+        sort_col = "contacts.full_name"
+        joins = [ :metadata, { :contributor => :contact } ]
+      elsif @sort == 'approver'
+        sort_col = "contacts.full_name"
+        joins = [ :metadata, { :approver => :contact } ]
+#      elsif @sort == 'attachments'
+#        sort_col = "COUNT(attachments.id)"
+#        joins = "INNER JOIN `metadata_records` ON `metadata_records`.`id` = `contributions`.`metadata_record_id` LEFT JOIN `attachments` ON `attachments`.`contribution_id` = `contributions`.`id`"
+      else
+        sort_col = @sort
+      end
+    end
+    @order = (params[:order].present? && [ 'DESC', 'ASC' ].include?(params[:order].upcase)) ? params[:order] : 'ASC'
     
-    @submitted = Contribution.where(wheres[:submitted]).order('submitted_at ASC').paginate(:page => params[:page])
-    @approved = Contribution.where(wheres[:approved]).order('approved_at DESC').paginate(:page => params[:page])
-    @draft = Contribution.where(wheres[:draft]).order('created_at DESC').paginate(:page => params[:page])
+    @contributions.each_key do |key|
+      @contributions[key] = @contributions[key].where(:contributor_id => @contributor.id) unless @contributor.nil?
+      @contributions[key] = @contributions[key].reorder("#{sort_col} #{@order}") unless @sort.nil?
+      @contributions[key] = @contributions[key].joins(joins).paginate(:page => params[:page])
+    end
   end
   
   def options

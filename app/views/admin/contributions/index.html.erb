@@ -16,8 +16,8 @@
 <% end %>
 
 <div class="admin-contributions-submitted">
-  <% if @submitted.present? -%>
-    <%= render :partial => '/contributions/table', :locals => { :contributions => @submitted, :caption => t('views.admin.contributions.index.captions.submitted', :total => @submitted.total_entries), :fields => @options.fields } %>
+  <% if @contributions[:submitted].present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => @contributions[:submitted], :caption => t('views.admin.contributions.index.captions.submitted', :total => @contributions[:submitted].total_entries), :fields => @options.fields } %>
   <% else -%>
     <%- if @query %>
       <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.submitted' %></p>
@@ -28,8 +28,8 @@
 </div>
 
 <div class="admin-contributions-approved">
-  <% if @approved.present? -%>
-    <%= render :partial => '/contributions/table', :locals => { :contributions => @approved, :caption => t('views.admin.contributions.index.captions.approved', :total => @approved.total_entries), :fields => @options.fields } %>
+  <% if @contributions[:approved].present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => @contributions[:approved], :caption => t('views.admin.contributions.index.captions.approved', :total => @contributions[:approved].total_entries), :fields => @options.fields } %>
   <% else -%>
     <%- if @query %>
       <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.approved' %></p>
@@ -40,8 +40,8 @@
 </div>
 
 <div class="admin-contributions-draft">
-  <% if @draft.present? -%>
-    <%= render :partial => '/contributions/table', :locals => { :contributions => @draft, :caption => t('views.admin.contributions.index.captions.draft', :total => @draft.total_entries), :fields => @options.fields } %>
+  <% if @contributions[:draft].present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => @contributions[:draft], :caption => t('views.admin.contributions.index.captions.draft', :total => @contributions[:draft].total_entries), :fields => @options.fields } %>
   <% else -%>
     <%- if @query %>
       <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.draft' %></p>

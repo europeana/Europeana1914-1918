@@ -57,7 +57,9 @@ module ContributionsHelper
     contribution_fields.select { |f| f.last == field_name }.flatten.first
   end
   
-  def contribution_field_value(contribution, field_name)
+  def contribution_field_value(contribution, field_name, options = {})
+    options.assert_valid_keys(:limit)
+    
     if field_name == 'attachments'
       contribution.attachments.size
     elsif field_name == 'contributor'
@@ -76,7 +78,11 @@ module ContributionsHelper
       if value.is_a?(Array) && value.first.is_a?(TaxonomyTerm)
         value.collect { |tt| tt.term }.to_sentence
       else
-        value
+        if options[:limit] && value.respond_to?(:truncate)
+          truncate(value, :length => options[:limit])
+        else
+          value
+        end
       end
     else
       ''
