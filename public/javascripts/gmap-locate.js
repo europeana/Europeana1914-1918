@@ -104,13 +104,13 @@
 		addGoButton( $placename );
 		createMapContainer();
 		
-		if ( RunCoCo.cataloguer ) {
+		if ( jQuery('fieldset[id$="_location"]').hasClass('collapsed') ) {
 			
-			mapSetup();
+			jQuery('fieldset[id$="_location"] legend').bind( 'click', mapSetup );
 			
 		} else {
-		
-			jQuery('fieldset[id$="_location"] legend').bind( 'click', mapSetup );
+			
+			mapSetup();
 			
 		}
     
