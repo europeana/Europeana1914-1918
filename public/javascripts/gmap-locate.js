@@ -103,7 +103,16 @@
 		$placename.bind( 'keypress', preventEnterOnLocation );
 		addGoButton( $placename );
 		createMapContainer();
-		jQuery('fieldset[id$="_location"] legend').bind( 'click', mapSetup );
+		
+		if ( RunCoCo.cataloguer ) {
+			
+			mapSetup();
+			
+		} else {
+		
+			jQuery('fieldset[id$="_location"] legend').bind( 'click', mapSetup );
+			
+		}
     
 	}
   
