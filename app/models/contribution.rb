@@ -17,10 +17,12 @@ class Contribution < ActiveRecord::Base
   accepts_nested_attributes_for :metadata
 
   validates_presence_of :contributor_id, :if => Proc.new { RunCoCo.configuration.registration_required? }
-  validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validates_presence_of :title
   validates_associated :metadata
+
+  validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validate :validate_attachment_file_presence, :if => :submitting?
+  validate :validate_alternative_title_presence, :if => :approving?
 
   attr_accessible :metadata_attributes, :title
 
@@ -115,6 +117,10 @@ class Contribution < ActiveRecord::Base
   def approved?
     self.approved_at != nil
   end
+
+  def approving?
+    self.approved_at.present? && self.approved_at_changed?
+  end
   
   def approve_by(approver)
     self.approver = approver
@@ -150,6 +156,13 @@ class Contribution < ActiveRecord::Base
   
   def validate_attachment_file_presence
     self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file.count == attachments.count
+  end
+  
+  def validate_alternative_title_presence
+    unless metadata.field_alternative.present?
+      self.errors.add(:metadata, I18n.t('activerecord.errors.messages.blank'))
+      metadata.errors.add(:field_alternative, I18n.t('activerecord.errors.messages.blank'))
+    end
   end
   
   alias :"rails_metadata_attributes=" :"metadata_attributes="
