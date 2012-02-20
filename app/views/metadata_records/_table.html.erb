@@ -9,10 +9,25 @@ geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_na
     <caption><% if field_options[:cataloguing] %><%= t('formtastic.titles.cataloguing_metadata') %><% else %><%= t('formtastic.titles.metadata') %><% end %></caption>
     <%- fields.each do |field| %>
       <tr>
-        <th scope="row"><%= field.title %></th>
-        <td><%= metadata_record_field_value(metadata, field) %>
-        <%= inline_errors_for(metadata, (field.field_type == 'taxonomy' ? field.collection_id : field.column_name), { :content_tag => :div } ) if show_errors %>
-        </td>
+        <% if ( 'location_zoom' == field.name ) %>
+          <th scope="row"><%= field.title %></th>
+          <td>
+            <%= metadata_record_field_value(metadata, field) %>
+            <input type="hidden" id="location-zoom" value="<%= metadata['field_location_zoom'] %>" />
+          </td>
+        <% elsif ( 'location_map' == field.name ) %>
+          <th scope="row"><%= field.title %></th>
+          <td>
+            <%= metadata_record_field_value(metadata, field) %>
+            <input type="hidden" id="location-map" value="<%= metadata['field_location_map'] %>" />
+          </td>
+        <% else %>
+          <th scope="row"><%= field.title %></th>
+          <td>
+            <%= metadata_record_field_value(metadata, field) %>
+            <%= inline_errors_for(metadata, (field.field_type == 'taxonomy' ? field.collection_id : field.column_name), { :content_tag => :div } ) if show_errors %>
+          </td>
+        <% end %>
       </tr>
     <%- end %>
   </table>
