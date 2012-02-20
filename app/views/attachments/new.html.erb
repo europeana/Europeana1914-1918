@@ -1,5 +1,7 @@
 <%
   
+  @javascripts[:uploadify] = true
+  
   single_item_class = 'highlighted-option'
   multiple_item_class = ''
   submit_class = ''
@@ -7,12 +9,18 @@
   if 'cataloguer' === current_user.role.name
 	single_item_class = ''
 	multiple_item_class = 'highlighted-option'
+	
+	upload_fieldset_style = ''
+    single_file_style = 'display: none;'
+    fieldset_style = 'display: none;'
   end
   
   if @contribution.ready_to_submit?
 	single_item_class = ''
 	multiple_item_class = ''
 	submit_class = 'highlighted-option'
+	fieldset_style = 'display: none;'
+	upload_fieldset_style = 'display: none;'
   end
     
 %>

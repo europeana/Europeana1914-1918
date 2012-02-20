@@ -1,22 +1,21 @@
 <%
   @javascripts[:collapsible] = true
   @javascripts[:language_other] = true
-  @javascripts[:uploadify] = true
   @javascripts[:attachments] = true
   @javascripts[:clone_metadata] = true
   @javascripts[:gmap_locate] = true
-
+  
   collapsible_class = 'collapsed'
   describe_class = 'collapsed'
   upload_class = 'collapsible'
+  
+  upload_fieldset_style = ''
   single_file_style = ''
+  fieldset_style = ''
   
   if 'cataloguer' === current_user.role.name
     collapsible_class = 'collapsed'
     describe_class = 'collapsed'
-    upload_fieldset_style = ''
-    single_file_style = 'display: none;'
-    fieldset_style = 'display: none;'
   end
   
   if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
@@ -26,17 +25,9 @@
   
 %>
 
-<%
-  if @contribution.ready_to_submit?
-    fieldset_style = 'display: none;'
-    upload_fieldset_style = 'display: none;'
-    javascript_tag do
-  %>
-      RunCoCo.ready_for_submit = true;
-  <%
-    end
-  end
-%>
+<% if @contribution.ready_to_submit? %>
+<script>RunCoCo.ready_for_submit = true;</script>
+<% end %>
 
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   

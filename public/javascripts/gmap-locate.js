@@ -74,7 +74,7 @@
 				' />'
 			).click(function( evt ) {
 				evt.preventDefault();
-				placeMarker( $placename.val() );
+				RunCoCo.GMap.placeMarker( $placename.val() );
 			});
 		
 		$after_field.after( goButton );
