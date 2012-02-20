@@ -1,3 +1,5 @@
+require 'feedzirra'
+
 module EuropeanaHelper
   def nav_links
     links = []
@@ -9,36 +11,50 @@ module EuropeanaHelper
     links
   end
   
-  def editors_picks(locale)
-    require 'feedzirra'
+  def editors_picks(locale = nil)
     url = case locale.to_s
     when 'en'
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
     when 'de'
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De"
     else
+      default = true
       "http://thegreatwararchive.blogspot.com/feeds/posts/default"
     end
+    
     feed = Feedzirra::Feed.fetch_and_parse(url)
-    feed.respond_to?(:entries) ? feed.entries : nil
+    if feed.respond_to?(:entries)
+      feed.entries
+    elsif default
+      nil
+    else
+      editors_pick
+    end
   end
   
   def editors_pick(locale)
     (picks = editors_picks(locale)) ? picks.first : nil
   end
   
-  def news_items(locale)
-    require 'feedzirra'
+  def news_items(locale = nil)
     url = case locale.to_s
     when 'en'
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
     when 'de'
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/de-news"
     else
+      default = true
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
     end
+    
     feed = Feedzirra::Feed.fetch_and_parse(url)
-    feed.respond_to?(:entries) ? feed.entries : nil
+    if feed.respond_to?(:entries)
+      feed.entries
+    elsif default
+      nil
+    else
+      news_items
+    end
   end
   
   def news_item(locale)
