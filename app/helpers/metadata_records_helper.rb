@@ -16,13 +16,14 @@ module MetadataRecordsHelper
   def metadata_record_field_value(metadata, field)
     value = metadata[field.column_name]
     if (field.field_type == 'geo') && !value.blank?
-      content_tag(:span, value, :class => 'geo') +
-      content_tag(:noscript, 
-        content_tag(:div, 
-          image_tag("http://maps.google.com/maps/api/staticmap?center=#{value}&amp;size=470x470&amp;zoom=13&amp;sensor=false", :alt => ''),
-          :class => 'gmap-static'
-        )
-      )
+      content_tag(:span, value, :class => 'geo')
+#      content_tag(:span, value, :class => 'geo') +
+#      content_tag(:noscript, 
+#        content_tag(:div, 
+#          image_tag("http://maps.google.com/maps/api/staticmap?center=#{value}&amp;size=470x470&amp;zoom=13&amp;sensor=false", :alt => ''),
+#          :class => 'gmap-static'
+#        )
+#      )
     elsif field.field_type == 'taxonomy'
       if metadata.fields[field.name].present?
         metadata.fields[field.name].to_sentence
