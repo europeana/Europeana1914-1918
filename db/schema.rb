@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120217131937) do
+ActiveRecord::Schema.define(:version => 20120220130330) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120217131937) do
     t.boolean  "public"
   end
 
+  add_index "attachments", ["contribution_id"], :name => "index_attachments_on_contribution_id"
   add_index "attachments", ["metadata_record_id"], :name => "index_attachments_on_metadata_record_id"
 
   create_table "classifications", :force => true do |t|
