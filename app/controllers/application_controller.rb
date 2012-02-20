@@ -116,13 +116,14 @@ class ApplicationController < ActionController::Base
     # Views or controllers can set these to true to enable inclusion of 
     # the relevant javascript.
     @javascripts = {
-      :datepicker => false,
-      :gmap_geo => false,
-      :uploadify => false,
+      :attachments => false,
       :collapsible => false,
-      :language_other => false,
+      :datepicker => false,
       :generate_password => false,
-      :attachments => false
+      :gmap_locate => false,
+      :gmap_display => false,
+      :language_other => false,
+      :uploadify => false,
     }
   end
   

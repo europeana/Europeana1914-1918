@@ -1,8 +1,12 @@
 <%
-show_errors = false if local_assigns[:show_errors].nil?
-field_options = {} if local_assigns[:field_options].nil?
-fields = metadata_record_fields(field_options)
-geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
+  show_errors = false if local_assigns[:show_errors].nil?
+  field_options = {} if local_assigns[:field_options].nil?
+  fields = metadata_record_fields(field_options)
+  geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
+  
+  if geo_field
+    @javascripts[:gmap_display] = true
+  end
 -%>
 <% unless fields.blank? || metadata.blank? -%>
   <table class="member-record">
@@ -32,7 +36,3 @@ geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_na
     <%- end %>
   </table>
 <% end -%>
-
-<%- if geo_field -%>
-  <% @javascripts[:gmap_show] = true %>
-<%- end -%>

@@ -15,14 +15,19 @@
   <%= javascript_include_tag("datepicker") %>
 <% end -%>
 
-<% if (@javascripts[:gmap_geo] || @javascripts[:gmap_show]) && configuration(:gmap_api_key).present? -%>
+<% if (@javascripts[:gmap_locate] || @javascripts[:gmap_display]) && configuration(:gmap_api_key).present? -%>
+  
   <script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>" type="text/javascript"></script>
-  <%- if @javascripts[:gmap_geo] -%>
-    <%= javascript_include_tag("gmap-geo.v3") %>
-  <%- end -%>
-  <%- if @javascripts[:gmap_show] -%>
-    <%= javascript_include_tag("gmap-show") %>
-  <%- end -%>
+  <%= javascript_include_tag("gmap-geo.v3") %>
+	
+  <% if @javascripts[:gmap_locate] %>
+	  <%= javascript_include_tag "gmap-locate" %>
+  <% end %>
+	
+  <% if @javascripts[:gmap_display] %>
+	<%= javascript_include_tag "gmap-display" %>
+  <% end %>
+  
 <% end -%>
 
 <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>

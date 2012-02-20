@@ -16,8 +16,7 @@
       %>
     
     <%- elsif field.field_type == 'geo' %>
-    
-      <%- @javascripts[:gmap_geo] = true %>
+      
       <%=
         form.input field.form_input_name,
         :label => metadata_field_label(field, local_assigns[:type]),

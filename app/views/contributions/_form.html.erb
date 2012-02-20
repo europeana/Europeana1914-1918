@@ -1,7 +1,9 @@
 <%
   @javascripts[:collapsible] = true
   @javascripts[:language_other] = true
+  @javascripts[:gmap_locate] = true
   collapsible_class = 'collapsed'
+  
   if 'cataloguer' === current_user.role.name
     collapsible_class = 'collapsible'
   end
