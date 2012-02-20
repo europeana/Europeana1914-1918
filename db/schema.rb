@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220130330) do
+ActiveRecord::Schema.define(:version => 20120220145201) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "contribution_id"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20120220130330) do
   end
 
   add_index "contributions", ["contributor_id"], :name => "index_contributions_on_contributor_id"
+  add_index "contributions", ["guest_id"], :name => "index_contributions_on_guest_id"
   add_index "contributions", ["metadata_record_id"], :name => "index_contributions_on_metadata_record_id"
 
   create_table "metadata_field_translations", :force => true do |t|
@@ -134,6 +135,8 @@ ActiveRecord::Schema.define(:version => 20120220130330) do
     t.integer "taxonomy_term_id"
   end
 
+  add_index "metadata_records_taxonomy_terms", ["metadata_record_id", "taxonomy_term_id"], :name => "index", :unique => true
+
   create_table "settings", :force => true do |t|
     t.string   "name"
     t.text     "value"
@@ -158,6 +161,8 @@ ActiveRecord::Schema.define(:version => 20120220130330) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "taxonomy_terms", ["metadata_field_id"], :name => "index_taxonomy_terms_on_metadata_field_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                              :null => false
