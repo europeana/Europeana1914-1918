@@ -30,6 +30,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.new
     @attachment.build_metadata
     @attachment.attributes = params[:attachment]
+    @attachment.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@attachment.contribution)
     @attachment.contribution = @contribution
 
     if @attachment.save

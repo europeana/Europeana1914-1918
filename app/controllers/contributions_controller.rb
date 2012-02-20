@@ -31,6 +31,7 @@ class ContributionsController < ApplicationController
     
     @contribution = Contribution.new 
     @contribution.attributes = params[:contribution]
+    @contribution.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@contribution)
 
     if current_user.role.name == 'guest'
       @contribution.guest = current_user.contact
@@ -74,8 +75,8 @@ class ContributionsController < ApplicationController
   def update
     current_user.may_edit_contribution!(@contribution)
 
-    @contribution.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@contribution)
     @contribution.attributes = params[:contribution]
+    @contribution.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@contribution)
 
     if @contribution.save
       flash[:notice] = t('flash.contributions.draft.update.notice')
