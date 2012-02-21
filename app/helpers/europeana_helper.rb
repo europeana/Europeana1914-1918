@@ -19,7 +19,7 @@ module EuropeanaHelper
       "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De"
     else
       default = true
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default"
+      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
     end
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
