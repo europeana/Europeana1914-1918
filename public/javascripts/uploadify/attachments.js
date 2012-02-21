@@ -1,5 +1,8 @@
 (function() {
   
+  'use strict';
+  
+  
   var uploadify_added = false;
   
   function addUploadify() {
