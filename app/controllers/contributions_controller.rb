@@ -107,6 +107,7 @@ class ContributionsController < ApplicationController
       flash[:notice] = t('flash.contributions.approve.notice')
       redirect_to admin_contributions_url
     else
+      @show_errors = true
       flash.now[:alert] = t('flash.contributions.approve.alert')
       render :action => 'show'
     end
