@@ -4,45 +4,18 @@ class Admin::ContributionsController < AdminController
   end
   
   def index
-    if @contributions.nil?
-      @contributions = {
-        :submitted  => Contribution.where('submitted_at IS NOT NULL AND approved_at IS NULL').order('submitted_at ASC'),
-        :approved   => Contribution.where('approved_at IS NOT NULL').order('approved_at DESC'),
-        :draft      => Contribution.where('submitted_at IS NULL AND approved_at IS NULL').order('created_at DESC'),
-      }
-    end
-    
     @options = Options.new
     @options.fields = session[:admin][:fields]
 
-    joins = :metadata
-
-    @contributor = params[:contributor_id].present? ? User.find(params[:contributor_id]) : nil
-    if params[:sort].present?
-      @sort = params[:sort]
-      if MetadataRecord.taxonomy_associations.include?(@sort.to_sym)
-        sort_col = "taxonomy_terms.term"
-        joins = { :metadata => @sort.to_sym }
-      elsif @sort == 'contributor'
-        sort_col = "contacts.full_name"
-        joins = [ :metadata, { :contributor => :contact } ]
-      elsif @sort == 'approver'
-        sort_col = "contacts.full_name"
-        joins = [ :metadata, { :approver => :contact } ]
-#      elsif @sort == 'attachments'
-#        sort_col = "COUNT(attachments.id)"
-#        joins = "INNER JOIN `metadata_records` ON `metadata_records`.`id` = `contributions`.`metadata_record_id` LEFT JOIN `attachments` ON `attachments`.`contribution_id` = `contributions`.`id`"
-      else
-        sort_col = @sort
-      end
-    end
+    @sort = params[:sort]
     @order = (params[:order].present? && [ 'DESC', 'ASC' ].include?(params[:order].upcase)) ? params[:order] : 'ASC'
+    @contributor = params[:contributor_id].present? ? User.find(params[:contributor_id]) : nil
     
-    @contributions.each_key do |key|
-      @contributions[key] = @contributions[key].where(:contributor_id => @contributor.id) unless @contributor.nil?
-      @contributions[key] = @contributions[key].reorder("#{sort_col} #{@order}") unless @sort.nil?
-      @contributions[key] = @contributions[key].joins(joins).paginate(:page => params[:page])
-    end
+    @contributions = {
+      :draft      => search_contributions(:draft, @query, search_options),
+      :submitted  => search_contributions(:submitted, @query, search_options),
+      :approved   => search_contributions(:approved, @query, search_options),
+    }
   end
   
   def options
@@ -56,13 +29,7 @@ class Admin::ContributionsController < AdminController
   def search
     if params[:q].present?
       @query = params[:q]
-      @contributions = {
-        :submitted  => search_contributions(:submitted, @query, :page => params[:page], :order => 'submitted_at ASC'),
-        :approved   => search_contributions(:approved, @query, :page => params[:page], :order => 'approved_at DESC'),
-        :draft      => search_contributions(:draft, @query, :page => params[:page], :order => 'created_at DESC'),
-      }
     end
-
     index
     render :action => :index
   end
@@ -145,5 +112,13 @@ class Admin::ContributionsController < AdminController
       require 'fastercsv'
       FasterCSV
     end
+  end
+  
+  def search_options
+    search_options = {}
+    [ :page, :order, :sort, :contributor_id ].each do |key|
+      search_options[key] = params[key]
+    end
+    search_options
   end
 end

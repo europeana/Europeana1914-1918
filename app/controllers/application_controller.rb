@@ -187,11 +187,16 @@ class ApplicationController < ActionController::Base
   #   Defaults to +nil+, returning all contributions in the named set.
   #
   # @param [Hash] options Search options
-  # @option options [String] :order How to order the results, e.g 
-  #   "approved_at DESC". Default is not to specify an order.
+  # @option options [Integer,String] :contributor_id Only return results from
+  #   the contributor with this ID.
   # @option options [Integer,String] :page Number of page of results to return.
   # @option options [Integer,String] :per_page Number of results to return per 
   #   page.
+  # @option options [String] :order Direction to order the results: 'ASC' or 
+  #   'DESC'. Default is 'ASC' provided +sort+ param also present, otherwise
+  #   set-specific.
+  # @option options [String] :sort Column to sort on, e.g. 'created_at'. 
+  #   Default is set-specific.
   # @option options Any other options valid for ThinkingSphinx or ActiveRecord 
   #   queries.
   #
@@ -247,19 +252,42 @@ class ApplicationController < ActionController::Base
   #
   # Only intended as a backup if Sphinx is not running.
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
-    where = [ {
+    set_where = {
       :draft      => 'submitted_at IS NULL AND approved_at IS NULL',
       :submitted  => 'submitted_at IS NOT NULL AND approved_at IS NULL',
       :approved   => 'approved_at IS NOT NULL',
       :published  => 'published_at IS NOT NULL',
-    }[set] ]
+    }[set]
     
-    unless query.nil?
-      where[0] << ' AND title LIKE ?'
-      where << "%#{query}%"
+    query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
+    
+    joins = :metadata
+    if (sort = options.delete(:sort)).present?
+      if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
+        sort_col = "taxonomy_terms.term"
+        joins = { :metadata => sort.to_sym }
+      elsif sort == 'contributor'
+        sort_col = "contacts.full_name"
+        joins = [ :metadata, { :contributor => :contact } ]
+      elsif sort == 'approver'
+        sort_col = "contacts.full_name"
+        joins = [ :metadata, { :approver => :contact } ]
+      else
+        sort_col = sort
+      end
+
+      order = options.delete(:order)
+      order = (order.present? && [ 'DESC', 'ASC' ].include?(order.upcase)) ? order : 'ASC'
+      
+      sort_order = "#{sort_col} #{order}"
+    else
+      sort_order = Contribution.default_sort_order(set)
     end
     
-    results = Contribution.where(where).order(options[:order])
+    contributor_id = options.delete(:contributor_id)
+    contributor_where = contributor_id.present? ? [ :contributor_id => contributor_id ] : nil
+    
+    results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).order(sort_order)
       
     if options.has_key?(:page)
       results = results.paginate(options)
@@ -270,6 +298,9 @@ class ApplicationController < ActionController::Base
   
   ##
   # Searches contributions using Sphinx.
+  #
+  # Always does word-end wildcard queries by appending * to query if not already
+  # present.
   def sphinx_search_contributions(set, query = nil, options = {}) # :nodoc:
     unless sphinx_running?
       raise RunCoCo::SearchOffline
@@ -286,10 +317,29 @@ class ApplicationController < ActionController::Base
       { :without => { :published_at => 0 } }
     end
     
-    if query.nil?
+    order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
+    
+    if sort = options.delete(:sort)
+      if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
+        sort_col = nil
+      elsif sort =~ /^field_/
+        # Convert field name to index alias
+        sort_col = sort.sub(/^field_/, 'metadata_')
+      else
+        sort_col = sort
+      end
+      
+      options[:sort_mode] = order
+      options[:order] = sort_col
+    else
+      options[:order] = Contribution.default_sort_order(set)
+    end
+    
+    if query.blank?
       Contribution.search(options)
     else
-      Contribution.search(query, options)
+      wildcard_query = query + (query.last == '*' ? '' : '*')
+      Contribution.search(wildcard_query, options)
     end
   end
 end

@@ -50,16 +50,19 @@ class Contribution < ActiveRecord::Base
   def self.set_search_index
     define_index_str = "define_index do\n"
     define_index_str << "  set_property :delta => true\n"
-    define_index_str << "  indexes title\n"
-    define_index_str << "  has approved_at\n"
+    define_index_str << "  indexes title, :sortable => true\n"
+    define_index_str << "  indexes contributor.contact.full_name, :sortable => true, :as => :contributor\n"
+    define_index_str << "  indexes approver.contact.full_name, :sortable => true, :as => :approver\n"
+    define_index_str << "  has created_at\n"
     define_index_str << "  has submitted_at\n"
+    define_index_str << "  has approved_at\n"
     define_index_str << "  has published_at\n"
 
     searchable_fields = MetadataField.where('searchable = ? AND field_type <> ?', true, 'taxonomy')
     unless searchable_fields.count == 0
       searchable_fields.each do |field|
         index_alias = "metadata_#{field.name}"
-        define_index_str << "  indexes metadata.#{MetadataRecord.column_name(field.name)}, :as => :#{index_alias}\n"
+        define_index_str << "  indexes metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}\n"
       end
     end
     
@@ -175,6 +178,15 @@ class Contribution < ActiveRecord::Base
   def build_metadata(*args)
     rails_build_metadata(*args)
     self.metadata.for_contribution = true
+  end
+  
+  def self.default_sort_order(set)
+    {
+      :draft      => 'created_at DESC',
+      :submitted  => 'submitted_at ASC',
+      :approved   => 'approved_at DESC',
+      :published  => 'published_at DESC',
+    }[set]
   end
   
   protected
