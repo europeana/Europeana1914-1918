@@ -15,6 +15,7 @@ end
     <caption><%= t('views.attachments._table.caption') %></caption>
     <tr>
       <th scope="col"><%= t('activerecord.attributes.attachment.preview') %></th>
+      <th scope="col"><%= t 'attributes.title' %></th>
       <th scope="col"><%= t 'activerecord.attributes.attachment.file_file_size' %></th>
       <%- if current_user.may_catalogue_contribution? -%>
         <th scope="col"><%= t 'formtastic.labels.contribution.metadata.ticket' %></th>
@@ -27,8 +28,11 @@ end
           <td>
             <%- if attachment.file.present? -%>
               <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
+            <% else %>
+              <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
             <%- end -%>
           </td>
+          <td><%= attachment.title %></td>
           <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
           <%- if current_user.may_catalogue_contribution? -%>
             <td><%= contribution_field_value(attachment.contribution, 'field_ticket') %></td>

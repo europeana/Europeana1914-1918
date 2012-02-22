@@ -103,23 +103,23 @@
   <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
   
   <ul>
-  <% if @contribution.attachments.present? -%>
-    <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
-  <% else %>
-    <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
-  <% end -%>
-  
-  <% if @contribution.ready_to_submit? -%>
-	<li><a href="#submit-story" id="submit-your-story"><%= t('formtastic.titles.submit') %></a></li>
-  <% end -%>
+	<% if @contribution.attachments.present? -%>
+	  <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
+	<% else %>
+	  <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
+	<% end -%>
+	
+	<% if @contribution.ready_to_submit? -%>
+	  <li><a href="#submit-story" id="submit-your-story"><%= t('formtastic.titles.submit') %></a></li>
+	<% end -%>
   </ul>
   
   <% if @contribution.attachments.present? -%>
-  <%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
+	<%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
   <% else -%>
-  <p><%= t 'views.attachments.index.empty' %></p>
+	<p><%= t 'views.attachments.index.empty' %></p>
   <% end -%>
   
   <% unless @contribution.submitted? -%>
-  <%= render :partial => '/contributions/progress', :locals => { :step => 2 } %>
+	<%= render :partial => '/contributions/progress', :locals => { :step => 2 } %>
   <% end -%>
