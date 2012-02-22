@@ -27,18 +27,6 @@
   <% end -%>
 </div>
 
-<div class="admin-contributions-approved">
-  <% if @contributions[:approved].present? -%>
-    <%= render :partial => 'table', :locals => { :contributions => @contributions[:approved], :caption => t('views.admin.contributions.index.captions.approved', :total => @contributions[:approved].total_entries), :fields => @options.fields } %>
-  <% else -%>
-    <%- if @query %>
-      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.approved' %></p>
-    <%- else %>
-      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.approved' %></p>
-    <%- end %>
-  <% end -%>
-</div>
-
 <div class="admin-contributions-draft">
   <% if @contributions[:draft].present? -%>
     <%= render :partial => 'table', :locals => { :contributions => @contributions[:draft], :caption => t('views.admin.contributions.index.captions.draft', :total => @contributions[:draft].total_entries), :fields => @options.fields } %>
@@ -47,6 +35,18 @@
       <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.draft' %></p>
     <%- else %>
       <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.draft' %></p>
+    <%- end %>
+  <% end -%>
+</div>
+
+<div class="admin-contributions-approved">
+  <% if @contributions[:approved].present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => @contributions[:approved], :caption => t('views.admin.contributions.index.captions.approved', :total => @contributions[:approved].total_entries), :fields => @options.fields } %>
+  <% else -%>
+    <%- if @query %>
+      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.approved' %></p>
+    <%- else %>
+      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.approved' %></p>
     <%- end %>
   <% end -%>
 </div>
