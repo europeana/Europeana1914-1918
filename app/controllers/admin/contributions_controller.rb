@@ -4,11 +4,13 @@ class Admin::ContributionsController < AdminController
   end
   
   def index
-    @contributions = {
-      :submitted  => Contribution.where('submitted_at IS NOT NULL AND approved_at IS NULL').order('submitted_at ASC'),
-      :approved   => Contribution.where('submitted_at IS NOT NULL AND approved_at IS NOT NULL').order('approved_at DESC'),
-      :draft      => Contribution.where('submitted_at IS NULL AND approved_at IS NULL').order('created_at DESC'),
-    }
+    if @contributions.nil?
+      @contributions = {
+        :submitted  => Contribution.where('submitted_at IS NOT NULL AND approved_at IS NULL').order('submitted_at ASC'),
+        :approved   => Contribution.where('approved_at IS NOT NULL').order('approved_at DESC'),
+        :draft      => Contribution.where('submitted_at IS NULL AND approved_at IS NULL').order('created_at DESC'),
+      }
+    end
     
     @options = Options.new
     @options.fields = session[:admin][:fields]
@@ -52,20 +54,16 @@ class Admin::ContributionsController < AdminController
   end
 
   def search
-    unless params[:q].present?
-      index
-      render :action => :index
-      return
+    if params[:q].present?
+      @query = params[:q]
+      @contributions = {
+        :submitted  => search_contributions(:submitted, @query, :page => params[:page], :order => 'submitted_at ASC'),
+        :approved   => search_contributions(:approved, @query, :page => params[:page], :order => 'approved_at DESC'),
+        :draft      => search_contributions(:draft, @query, :page => params[:page], :order => 'created_at DESC'),
+      }
     end
-    
-    @query = params[:q]
-    
-    @submitted = search_contributions(:submitted, @query, :page => params[:page], :order => 'submitted_at ASC')
-    @approved = search_contributions(:approved, @query, :page => params[:page], :order => 'approved_at DESC')
 
-    @options = Options.new
-    @options.fields = session[:admin][:fields]
-
+    index
     render :action => :index
   end
 

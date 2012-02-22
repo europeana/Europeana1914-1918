@@ -115,11 +115,16 @@ class ContributionsController < ApplicationController
   # GET /contributions/search
   def search
     current_user.may_search_contributions!
-
-    @query = params[:q]
+    @query = wildcard_query = params[:q]
+    
     if @query.present?
-      star_query = @query + (@query.last == '*' ? '' : '*')
-      @contributions = search_contributions(:published, star_query, :page => params[:page], :per_page => 10)
+      # Always do word-end wildcard queries on Sphinx. ActiveRecord fallback
+      # search always gets SQL wildcards pre- and appended in 
+      # ApplicationController#activerecord_search_contributions
+      if sphinx_running?
+        wildcard_query = wildcard_query + (wildcard_query.last == '*' ? '' : '*')
+      end
+      @contributions = search_contributions(:published, wildcard_query, :page => params[:page], :per_page => 10)
     else
       @contributions = Contribution.where('approved_at IS NOT NULL').paginate(:page => params[:page], :per_page => 10)
     end

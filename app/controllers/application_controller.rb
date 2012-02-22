@@ -33,7 +33,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def default_url_options(options={})
+  ##
+  # Adds user's locale to default URL options
+  #
+  # @return [Hash] Default URL options
+  def default_url_options(options = {})
     { :locale => I18n.locale }
   end
   
@@ -47,15 +51,16 @@ class ApplicationController < ActionController::Base
   ##
   # Displays error message for application errors, sending HTTP status code.
   #
-  # +status+ is a symbol representing the HTTP error code, e.g. +:not_found+
-  # 
-  # +exception+ is the Ruby exception raised.
-  #
-  # Configuration options:
-  # * +:log+ - Specifies whether to log the error (default is +true+).
-  # * +:template+ - Path to the template to render (default is derived from +status+, e.g. "/errors/not_found").
-  def render_http_error(status, exception, *args)
-    options = args.extract_options!
+  # @param [Symbol] status HTTP error code, e.g. :not_found
+  # @param [Exception] exception the Ruby exception raised
+  # @param [Hash] options error handling options
+  # @option options [Boolean] :log Specifies whether to log the error. Default 
+  #   is +true+.
+  # @option options [String] :template Path to the template to render. Default 
+  #   is derived from +status+, e.g. "/errors/not_found" when status => 
+  #   :not_found.
+  def render_http_error(status, exception, options = {})
+    options.assert_valid_keys(:log, :template)
     options.reverse_merge!(:log => true, :template => "/shared/error")
 
     if options[:log]
@@ -73,7 +78,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  ##
   # Handle Devise redirects after sign in
+  # 
+  # @param (see Devise::Controllers::Helpers#after_sign_in_path_for)
+  # @return [String] URL to redirect to
   def after_sign_in_path_for(resource_or_scope)
     if params[:redirect] && (params[:redirect] =~ /^\//)
       params[:redirect]
@@ -86,11 +95,22 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  ##
   #  Devise redirects after sign out
+  #
+  # @param (see Devise::Controllers::Helpers#after_sign_out_path_for)
+  # @return [String] URL to redirect to 
   def after_sign_out_path_for(resource_or_scope)
     home_path
   end
   
+  ##
+  # Allow "redirect" URL parameter to override redirect requests.
+  #
+  # Restricted to local redirects.
+  #
+  # @param (see ActionController::Redirecting#redirect_to)
+  # @return (see ActionController::Redirecting#redirect_to)
   def redirect_to(options = {}, response_status = {})
     if params[:redirect] && (params[:redirect] =~ /^\//)
       super(params[:redirect], response_status)
@@ -99,6 +119,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  ##
   # Initialise session.
   def init_session # :nodoc:
     # Store guest user details in session
@@ -110,6 +131,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  ##
   # Initialise instance variables for views.
   def init_views # :nodoc:
     # Flags for optional javascripts.
@@ -127,6 +149,7 @@ class ApplicationController < ActionController::Base
     }
   end
   
+  ##
   # Set locale from URL param or HTTP Accept-Language header
   def set_locale # :nodoc:
     if params[:locale].blank?
@@ -141,28 +164,43 @@ class ApplicationController < ActionController::Base
     (Rails.configuration.action_mailer.default_url_options ||= {}).merge!(:locale => params[:locale])
   end
 
+  ##
   # Search contributions.
   #
   # Uses ThinkingSphinx if available. If not, falls back to a simple
   # non-indexed SQL query.
   #
-  # +set+ specifies which contributions to search: +:approved+, +:submitted+ or +:published+.
-  #
-  # +query+ contains the full-text query to pass to the search engine (default is +nil+).
   # With ThinkingSphinx, this will search against contribution titles and
-  # any metadata fields flagged as searchable. The SQL fallback will only search
-  # the contribution titles. If +nil+, returns all contributions, (unless
-  # Sphinx search conditions given in +options+).
+  # any metadata fields flagged as searchable. The SQL fallback will only 
+  # search the contribution titles. 
   #
-  # Options:
-  # * +:order+ - How to order the results, e.g "approved_at DESC" (default is unordered).
-  # * +:page+ - Page of results to return.
-  # * +:per_page+ - Number of results to return per page.
+  # If query param is +nil+, returns all contributions, unless other search
+  # conditions given in options param.
   #
-  # You can also pass any valid ThinkingSphinx +search+ options.
-  # See http://freelancing-god.github.com/ts/en/searching.html
+  # @param [Symbol] set Which set of contributions to search. Valid values:
+  #   * +:approved+
+  #   * +:submitted+
+  #   * +:published+
+  #   * +:draft+
+  #
+  # @param [String] query The full-text query to pass to the search engine.
+  #   Defaults to +nil+, returning all contributions in the named set.
+  #
+  # @param [Hash] options Search options
+  # @option options [String] :order How to order the results, e.g 
+  #   "approved_at DESC". Default is not to specify an order.
+  # @option options [Integer,String] :page Number of page of results to return.
+  # @option options [Integer,String] :per_page Number of results to return per 
+  #   page.
+  # @option options Any other options valid for ThinkingSphinx or ActiveRecord 
+  #   queries.
+  #
+  # @return [Array<Contribution>] Search results
+  #
+  # @see http://freelancing-god.github.com/ts/en/searching.html ThinkingSphinx 
+  #   search options
   def search_contributions(set, query = nil, options = {})
-    raise ArgumentError, "set should be :published, :approved or :submitted, got #{set.inspect}" unless [ :approved, :submitted, :published ].include?(set)
+    raise ArgumentError, "set should be :draft, :submitted, :approved or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published ].include?(set)
     
     if sphinx_running?
       sphinx_search_contributions(set, query, options)
@@ -171,11 +209,25 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  ##
+  # Tests whether Sphinx search engine is running.
+  #
+  # @return (see ThinkingSphinx.sphinx_running?)
   def sphinx_running?
     ThinkingSphinx.sphinx_running?
   end
   helper_method :sphinx_running?
   
+  ##
+  # Returns the fields associated with contributions.
+  #
+  # This includes title, attachments (i.e. number of), created at timestamp, 
+  # contributor (i.e. full name)
+  #
+  # @return [Array<Array>] Contribution fields. Each array contains two members:
+  #   the first is the I18n'd field name, the second an identifier that can be
+  #   passed to ContributionsHelper#contribution_field_value as the 
+  #   +field_name+ param
   def contribution_fields
     @contribution_fields ||= [
       [ t('attributes.title'), 'title'], 
@@ -183,24 +235,23 @@ class ApplicationController < ActionController::Base
       [ t('activerecord.attributes.contribution.created_at'), 'created_at' ],
       [ t('activerecord.attributes.contribution.contributor'), 'contributor' ],
       [ t('activerecord.attributes.contribution.approver'), 'approver' ]
-    ] + MetadataField.all.collect do |field| 
+    ] + MetadataField.where(:contribution => true).collect do |field| 
       [ field.title, (field.field_type == 'taxonomy' ? field.collection_id.to_s : field.column_name) ]
     end
   end
   helper_method :contribution_fields
   
   protected
+  ##
   # Simple text query against contributions.
   #
   # Only intended as a backup if Sphinx is not running.
-  #--
-  # FIXME: For Rails 3's ActiveRecord
-  #++
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
     where = [ {
-      :approved => 'approved_at IS NOT NULL',
-      :submitted => 'approved_at IS NULL AND submitted_at IS NOT NULL',
-      :published => 'published_at IS NOT NULL'
+      :draft      => 'submitted_at IS NULL AND approved_at IS NULL',
+      :submitted  => 'submitted_at IS NOT NULL AND approved_at IS NULL',
+      :approved   => 'approved_at IS NOT NULL',
+      :published  => 'published_at IS NOT NULL',
     }[set] ]
     
     unless query.nil?
@@ -217,6 +268,7 @@ class ApplicationController < ActionController::Base
     results
   end  
   
+  ##
   # Searches contributions using Sphinx.
   def sphinx_search_contributions(set, query = nil, options = {}) # :nodoc:
     unless sphinx_running?
@@ -224,10 +276,12 @@ class ApplicationController < ActionController::Base
     end
     
     options.merge! case set
-    when :approved
-      { :without => { :approved_at => 0 } }
+    when :draft
+      { :with => { :submitted_at => 0 }, :with => { :approved_at => 0 } } 
     when :submitted
       { :without => { :submitted_at => 0 }, :with => { :approved_at => 0 } }
+    when :approved
+      { :without => { :approved_at => 0 } }
     when :published
       { :without => { :published_at => 0 } }
     end
