@@ -223,9 +223,10 @@
 	
 	function singleItemHandler( evt ) {
 		
-		//evt.preventDefault();
+		evt.preventDefault();
 		highlightOption('single-item');
 		toggleFieldsets( 'single-item', 'show' );
+		window.scrollTo( 0, 0 );
 		
 	}
 	
@@ -235,14 +236,16 @@
 		evt.preventDefault();
 		highlightOption('multiple-items');
 		toggleFieldsets( 'attachment_upload', 'hide' );
+		window.scrollTo( 0, 0 );
 		
 	}
 	
 	function submitStoryHandler( evt ) {
 		
-		//evt.preventDefault();
+		evt.preventDefault();
 		highlightOption('submit-story');
 		toggleFieldsets( 'submit', 'hide' );
+		window.scrollTo( 0, 0 );
 		
 	}
 	
