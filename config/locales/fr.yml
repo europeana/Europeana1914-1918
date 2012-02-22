@@ -16,10 +16,10 @@ fr:
       attachment:
         file: Fichier
         file_content_type: Type de contenu
-        file_created_at: Créé par
+        file_created_at: Créé à
         file_file_name: Nom de fichier
         file_file_size: Taille du fichier
-        file_updated_at: Actualisé par
+        file_updated_at: Actualisé à
         preview: Prévisualiser
         public: Public
       contact:
@@ -36,7 +36,7 @@ fr:
         approved_at: Approuvé à
         approved_by: Approuvé par
         approver: Approuvé par
-        attachments: Fichiers joints
+        attachments: Items
         contributor: Contributeur
         created_at: Démarré à
         published_at: Publié à
@@ -66,24 +66,25 @@ fr:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
-        accepted: Vous devez accepter pour permettre le traitement
+        accepted: Vous devez accepter pour continuer.
         blank: Ce champ doit être complété, il ne peut être vierge.
-        confirmation: Ne concorde pas avec la confirmation
-        empty: doit être rempli(e)
+        confirmation: Ne concorde pas avec la confirmation.
+        empty: doit être complété
         equal_to: doit être égal à %{count}
         even: doit être pair
         exclusion: est réservé
         greater_than: doit être supérieur à %{count}
         greater_than_or_equal_to: doit être supérieur ou égal à %{count}
-        inclusion: n'est pas inclus(e) dans la liste
-        invalid: n'est pas valide
+        inclusion: Sélectionnez une valeur dans la liste.
+        invalid: Valeur incorrecte. Contrôlez le format de la valeur introduite.
         less_than: doit être inférieur à %{count}
         less_than_or_equal_to: doit être inférieur ou égal à %{count}
-        not_a_number: n'est pas un nombre
+        not_a_number: Cette valeur n'est pas un nombre et devrait l'être.
         not_an_integer: doit être un nombre entier
         odd: doit être impair
         record_invalid: ! 'La validation a échoué : %{errors}'
-        taken: n'est pas disponible
+        taken: Ce champ doit être unique, mais la valeur introduite existe déjà dans
+          notre système.
         too_long:
           one: est trop long (pas plus d'un caractère)
           other: est trop long (pas plus de %{count} caractères)
@@ -103,12 +104,12 @@ fr:
         contribution:
           attributes:
             guest_id:
-              present: Les détails de contact sont nécessaires pour les contributions
-                de quête.
+              present: Les coordonnées de contact sont nécessaires pour les contributions
+                des invités.
         metadata_field:
           attributes:
             cataloguing:
-              optional: Les champs de catalogue ne peuvent être requis.
+              optional: Les champs de catalogage ne peuvent être requis.
             contribution:
               or_attachment: Un champ doit s'appliquer aux contributions et/ou aux
                 fichiers joints.
@@ -118,6 +119,8 @@ fr:
               field_type: Les champs taxinomiques ne peuvent être recherchés.
         metadata_record:
           date_field_civil: Date de calendrier non valable.
+          one_cover_image: Vous ne pouvez sélectionnez qu'un seul item comme image
+            de couverture pour votre histoire.
           taxonomy_field_single: Seul un terme peut être sélectionné.
         setting:
           attributes:
@@ -127,22 +130,24 @@ fr:
           attributes:
             metadata_field:
               type: Des termes taxinomiques doivent être associés à un champ de métadonnées
-                taxinomiques
+                taxinomiques.
         user:
           attributes:
+            current_password:
+              invalid: Mot de passe incorrect
             email:
               taken: Un compte utilisateur existe déjà pour cette adresse e-mail.
             picture:
               content_type: La photo de profil doit être au format GIF ou JPEG.
       template:
-        body: ! 'Veuillez vérifier les champs suivants : '
+        body: ! 'Des problèmes sont survenus pour les champs suivants :'
         header:
           one: ! 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
           other: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
     models:
-      attachment: Fichier joint
+      attachment: Item
       contact: Contact
-      contribution: Contribution
+      contribution: Histoire
       metadata_field: Champ de métadonnées
       metadata_record: Enregistrement de métadonnées
       taxonomy_term: Terme taxinomique
@@ -158,7 +163,7 @@ fr:
           geo: Localisation géographique
           string: Ligne de texte unique
           taxonomy: Taxinomie
-          text: Lignes de texte multiples
+          text: Texte de plusieurs lignes
       user:
         role_name:
           administrator: Administrateur
@@ -176,7 +181,7 @@ fr:
     url: URL
   common:
     editors_blog:
-      more_stories: Davantage d'hitoires sur <a href="http://thegreatwararchive.blogspot.com/search/label/en">Le
+      more_stories: Davantage d'histoires sur <a href="http://thegreatwararchive.blogspot.com/search/label/en">Le
         blog du choix de l'éditeur</a>
     editors_pick:
       heading: Le choix de l'éditeur
@@ -198,8 +203,8 @@ fr:
       project_website: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
         target="_blank">Veuillez consulter le site de notre projet pour de plus amples
         informations</a>
-      register: Enregistrer
-      sign_in: Connectez-vous
+      register: S'enregistrer
+      sign_in: S'identifier
       takedown_policy: Politique de takedown
       titles:
         contribution_terms: Consultez les Conditions d'Europeana pour les Contributions
@@ -213,8 +218,10 @@ fr:
         explore: Explorer
         home: Accueil
         select_language: Sélectionnez une langue
-        sign_in: Connectez-vous
-        sign_out: Déconnectez-vous
+        sign_in: Identifiez-vous
+        sign_out: Déconnexion
+    news_item:
+      heading: Nouvelles journées d'histoire familiale
     'no': Non
     options:
       close: Fermer
@@ -275,9 +282,9 @@ fr:
     - novembre
     - décembre
     order:
-    - :year
-    - :month
-    - :day
+    - :année
+    - :mois
+    - :jour
   datetime:
     distance_in_words:
       about_x_hours:
@@ -326,8 +333,8 @@ fr:
   devise:
     failure:
       admin:
-        unauthenticated: Vous devez vous identifier avant de continuer
-      invalid: E-mail ou mot de passe incorrect.
+        unauthenticated: Vous devez vous identifier avant de continuer.
+      invalid: E-mail ou nom d'utilisateur incorrect.
       invalid_token: Token d'identification non valable.
       timeout: Votre session a expiré. Veuillez vous identifier à nouveau pour continuer.
       unauthenticated: Vous devez vous identifier avant de continuer.
@@ -347,14 +354,14 @@ fr:
       signed_up: Vous êtes maintenant connecté.
       updated: Vous avez correctement mis votre compte à jour.
     sessions:
-      link: Se connecter
+      link: Identifiez-vous
       signed_in: Connexion réussie.
       signed_out: Déconnexion réussie.
   errors:
     format: Le %{attribute} %{message}
     messages:
       accepted: doit être accepté(e)
-      blank: doit être rempli(e)
+      blank: ne peut être vierge
       confirmation: ne concorde pas avec la confirmation
       empty: doit être rempli(e)
       equal_to: doit être égal à %{count}
@@ -369,7 +376,7 @@ fr:
       not_a_number: n'est pas un nombre
       not_an_integer: doit être un nombre entier
       odd: doit être impair
-      record_invalid: ! 'La validation a échoué : %{errors}'
+      record_invalid: ! 'Échec de la validation : %{errors}'
       taken: n'est pas disponible
       too_long:
         one: est trop long (pas plus d'un caractère)
@@ -381,7 +388,7 @@ fr:
         one: ne fait pas la bonne longueur (doit comporter un seul caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
     template:
-      body: ! 'Veuillez vérifier les champs suivants : '
+      body: ! 'Des problèmes sont survenus pour les champs suivants : '
       header:
         one: ! 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
@@ -429,10 +436,10 @@ fr:
         notice: Contribution correctement approuvée.
       destroy:
         alert: Échec lors de la suppression de l'histoire.
-        notice: Contribution effacée.
+        notice: Histoire effacée.
       draft:
         create:
-          alert: Problème rencontré lors du démarrage de la nouvelle contribution.
+          alert: Un problème est survenu lors du démarrage de la nouvelle contribution.
           notice: Nouveau projet de contribution lancé.
         submit:
           alert: Votre contribution pose problème. Consultez les messages ci-dessous.
@@ -441,7 +448,7 @@ fr:
             est débordée, cela peut prendre plusieurs semaines. Nous vous remercions
             de votre compréhension et de votre patience.
         update:
-          alert: Problème rencontré lors de la sauvegarde de votre contribution.
+          alert: Un problème est survenu lors de la sauvegarde de votre contribution.
           notice: Contribution enregistrée.
       submitted:
         edit:
@@ -456,7 +463,7 @@ fr:
     guest_contact:
       create:
         alert: Les détails fournis posent problème. Veuillez les corriger et réessayer.
-        notice: Détails de contact reçus.
+        notice: Coordonnées de contact reçues.
       forget:
         notice: Détails de contact effacés.
       update:
@@ -1932,7 +1939,7 @@ fr:
         p1: Si vous disposez de plus amples informations sur Otto Arndt, veuillez
           %{add_your_story} à la collection d'histoires en ligne et les partager avec
           tout le monde.
-      p1: <em>Europeana 1914-1918</em> rassemble du matériel dans %{video_guide}.
+      p1: <em>Europeana 1914-1918</em> rassemble du matériel dans %{across_europe}
       p2: <b>Avez-vous des photos, des lettres, des cartes postales, des souvenirs
         ou d'autres objets datant de la période 1914-1918 en relation avec la Première
         Guerre Mondiale ? Vous avez une histoire ou une anecdote à raconter sur les

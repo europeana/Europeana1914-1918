@@ -2,9 +2,9 @@
   
   <% @javascripts[:flowplayer] = true -%>
   
-  <p><%= raw t( 'views.home.p1', :video_guide => link_to( t('views.home.links.video_guide'), page_path('help/demo') ) ) %></p>
-  <p><%= raw t('views.home.p2', :europeana => link_to( 'Europeana', 'http://www.europeana.eu/', :target => '_blank' ), :oxford => link_to( 'Oxford University', 'http://www.ox.ac.uk/', :target => '_blank' ) ) %></p>
-  
+  <p><%= raw t( 'views.home.p1', :across_europe => link_to( t('views.home.links.across_europe'), page_path('about') ) ) %></p>
+  <p><%= raw t('views.home.p2') %></p>
+    
   <ul class="link-buttons">
 	<li><%= link_to( t('common.links.add_your_story'), page_path('contributor') ) %></li>
 	<li><%= link_to( t('common.links.explore_stories'), page_path('explore') ) %></li>
