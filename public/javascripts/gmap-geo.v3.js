@@ -23,17 +23,18 @@
 		/**
 		 *	@param {String} address
 		 *	can be a street address | latlng | city | country
+		 *
+		 *	@see http://code.google.com/apis/maps/documentation/javascript/geocoding.html#GeocodingRequests
 		 */
-		placeMarker : function( address ) {
+		placeMarker : function( options ) {
 	   
-		   if ( 'undefined' === typeof address
-				 || 0 === address.length ) {
-			 return;
+		   if ( 'object' !== typeof options ) {
+				return;
 		   }
 	   
 		   RunCoCo.GMap.geocoder.geocode(
 			 
-			   { 'address': address },
+			   options,
 			   
 			   function( results, status ) {
 			   
@@ -79,15 +80,18 @@
 				}
 		  
 			});
-	  
+			
 		},
 		
 		
+		/**
+		 *	@see http://code.google.com/apis/maps/documentation/javascript/geocoding.html#GeocodingRequests
+		 */
 		addMarkerDragEndListener : function() {
 			
 			google.maps.event.addListener( RunCoCo.GMap.marker, 'dragend', function( evt ) {
 				
-				RunCoCo.GMap.placeMarker( evt.latLng.Qa + ', ' + evt.latLng.Ra );
+				RunCoCo.GMap.placeMarker( { latLng : evt.latLng } );
 				
 			});
 		
