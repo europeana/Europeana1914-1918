@@ -111,6 +111,8 @@ de:
               field_type: Taxonomiefelder können nicht suchbar gemacht werden.
         metadata_record:
           date_field_civil: Kein gültiges Kalenderdatum.
+          one_cover_image: Sie können nur ein Element als Cover-Bild für Ihren Beitrag
+            auswählen.
           taxonomy_field_single: Es kann nur ein Begriff ausgewählt werden.
         setting:
           attributes:
@@ -122,6 +124,8 @@ de:
               type: Taxonomiebegriffe müssen mit einem Taxonomiefeld verknüpft sein.
         user:
           attributes:
+            current_password:
+              invalid: Passwort falsch
             email:
               taken: Es existiert bereits ein Nutzerkonto mit dieser E-Mail-Adresse.
             picture:
@@ -389,6 +393,9 @@ de:
       destroy:
         alert: Beim Löschen Ihres Anhangs ist ein Problem aufgetreten.
         notice: Anhang gelöscht.
+      links:
+        view-attachments_html: <a href="#attachments">Klicken Sie für eine Anzeige
+          und Bearbeitung</a>.
       update:
         alert: Beim Speichern Ihres Anhangs ist ein Problem aufgetreten.
         notice: Anhang gespeichert.
@@ -539,6 +546,8 @@ de:
             europeana [.] eu.
           lang: Geben Sie die Sprache an, die bei diesem Objekt verwendet wurde, z.B.
             die Sprache(n) des Tagebuchs.
+          location_map: Dieses Feld kann nicht bearbeitet werden. Die darin enthaltenen
+            Werte werden automatisch übernommen und hier nur als Referenz angezeigt.
           location_placename: Geben Sie den Namen der Stadt ein, in der das Objekt
             erstellt wurde (in der ein Brief geschrieben oder ein Foto aufgenommen
             wurde), z.B. London oder Paris, und drücken Sie dann auf "Los". Wird der
@@ -584,6 +593,8 @@ de:
             Schlagwort verfügbar ist, senden Sie bitte eine E-Mail an 1914-1918 [@]
             europeana [.] eu.
           lang: Geben Sie die Sprache an, in der dieser Beitrag verfasst ist.
+          location_map: Dieses Feld kann nicht bearbeitet werden. Die darin enthaltenen
+            Werte werden automatisch übernommen und hier nur als Referenz angezeigt.
           location_placename: Geben Sie den Namen der Stadt ein, in der die Geschichte
             stattgefunden hat, z.B. London oder Paris, und drücken Sie dann auf "Los".
             Wird der Ort gefunden, zeigt die Landkarte den eingegebenen Ort an. Sie
@@ -670,10 +681,13 @@ de:
         update:
           password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern
             möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
+        username: ! 'Mindestens 6 Zeichen erforderlich. Gültige Eingabe: a-z A-Z 0-9
+          - _ . @'
     labels:
       attachment:
         metadata:
           attachment_description: Beschreibung
+          attachment_file: Einzelne Datei
           content: Typ
           cover_image: Titelbild
           creator_family_name: Nachname des Erstellers
@@ -693,8 +707,10 @@ de:
           page_total: Anzahl Seiten gesamt
           source: Quelle
           subject: Thema
+          ticket: Ticketnummer
       contribution:
         metadata:
+          alternative: Zweite Überschrift
           cataloguer: Katalogisierer
           character1_family_name: Nachname
           character1_given_name: Vorname
@@ -712,6 +728,8 @@ de:
           location_map: Latitude & longitude
           location_placename: Legen Sie fest, wo Ihr Beitrag stattgefunden hat
           notes: Notizen des Katalogisierers
+          summary: Zusammenfassende Beschreibung der Objekte
+          ticket: Ticketnummer
         terms: Ich akzeptiere die Europeana Bedingungen für Benutzerbeiträge
         title: Titel des Beitrags
       metadata_field:
@@ -764,6 +782,7 @@ de:
       attachment_keywords: Erleichtern Sie anderen Personen die Suche nach Ihrem Objekt,
         indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen
       attachment_location: Wo wurde dieses Objekt erstellt
+      attachment_replace: Anhang ersetzen
       attachment_upload: Datei hochladen
       cataloguing_metadata: Metadaten katalogisieren
       contact_address: Adresse
@@ -774,6 +793,7 @@ de:
       fields: Felder
       metadata: Kataloginformation
       metadata_field_options: Optionen nach Materialart
+      optional_details: Weitere optionale personenbezogene Daten
       personal_details: Persönliche Details
       story_basics: Erzählen Sie Ihre Geschichte...
       story_character1: Person 1
@@ -810,6 +830,8 @@ de:
       hints:
         copy_from_story: Wenn Sie auf die Schaltfläche oben klicken, werden ähnliche
           Metadaten aus dem Beitrag in diesen Gegenstand kopiert.
+      labels:
+        copy_from_story: Metadaten kopieren
       links:
         copy_from_story: Aus Beitrag kopieren
     gmap:
@@ -839,6 +861,7 @@ de:
         automatisch ein separates Objekt, das Sie dann individuell bearbeiten können.
         Hinweis: Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert sein.
         Maximale Dateigröße: {{size}}. Zulässige Dateiformate: {{types}}.'
+      label: Mehrere Dateien
       saved: Gesichert
   languages:
     da: Dänisch
@@ -1394,16 +1417,26 @@ de:
         index:
           captions:
             approved: Akzeptierte Beiträge (%{total})
+            draft: Entwürfe für Beiträge (%{total} total)
             submitted: Noch zu bestätigende eingereichte Beiträge (%{total})
           empty:
             all:
               approved: Noch keine bestätigten Beiträge.
+              draft: Noch keine Entwürfe für Beiträge vorhanden.
               submitted: Zurzeit keine eingereichten Beiträge, die bestätigt werden
                 müssen.
             search:
               approved: Keine bestätigten Beiträge, die Ihrer Suchanfrage entsprechen.
+              draft: Es gibt keine Entwürfe für Beiträge, die Ihren Suchkriterien
+                entsprechen.
               submitted: Keine eingereichten Beiträge, die Ihrer Suchanfrage entsprechen.
           title: Beiträge
+        p1: Nachfolgend finden Sie drei Tabellen mit Beiträgen, die noch nicht zur
+          Genehmigung eingereicht wurden, auf Genehmigung warten bzw. bereits genehmigt
+          wurden. Klicken Sie auf einen Titel, um Details zu einem Beitrag anzuzeigen.
+          Sobald die Details angezeigt werden, können Sie die Metadaten kopieren,
+          den Beitrag löschen oder (für Beiträge, die auf Genehmigung warten) den
+          Beitrag genehmigen.
       index:
         headings:
           export: Exportieren
@@ -1520,6 +1553,13 @@ de:
         links:
           preview:
             title: Details des Anhangs ansehen
+      attachment_help:
+        item1: Einzelnes Objekt bzw. einzelne Datei hinzufügen
+        item1-subitem1: Bes
+        item1-subitem2: Dateianhang hochladen
+        item2: Mehrere Objekte und Dateien hinzufügen
+        item2-subitem1: Mehrere Dateianhänge für mehrere Objekte hochladen
+        item2-subitem2: Sie können die Objekte individuell beschreiben.
       delete:
         question: Sind Sie sicher, dass Sie den Anhang "%{filename}" löschen möchten?
         title: Anhang löschen
@@ -1545,6 +1585,7 @@ de:
       p1: Um das Projektteam von Europeana 1914-1918 zu kontaktieren, senden Sie bitte
         eine E-Mail an 1914-1918 [@] europeana [.] eu.
     contacts:
+      anonymous: Anonym
       edit:
         title: Persönliche Details bearbeiten
       no_name: Kein Kontaktname
@@ -1591,8 +1632,6 @@ de:
             doch Sie können beliebig viele hinzufügen. Sie können auch die aktuellen
             Objekte bearbeiten, indem Sie in der nachstehenden Liste auf den Link
             daneben klicken.
-          view_attachments: <a href="#attachments">Klicken Sie für eine Anzeige und
-            Bearbeitung</a>.
           when: Wann dieses Objekt erstellt wurde
           where: Wo dieses Objekt erstellt wurde
         labels:
@@ -1774,6 +1813,9 @@ de:
           item3: (optional) Hängen Sie eine digitale Version Ihres Objekts (Foto,
             gescannter Text, Video, Audio etc) an.
           item4: Senden Sie Ihren Beitrag zur Online-Sammlung
+          item5: Ihr Beitrag wird von einem Katalogisierer der Europeana geprüft.
+            Sobald Ihr Beitrag geprüft und akzeptiert wurde, wird er für andere sichtbar
+            angezeigt.
           p1: Um etwas zu unserer Online-Sammlung von Beiträgen hinzuzufügen, müssen
             Sie sich zunächst %{sign_in} oder %{register}. Danach können Sie Ihre
             Objekte und Beiträge zur Europeana 1914-1918 hinzufügen.
@@ -1894,6 +1936,7 @@ de:
       heading: Der Erste Weltkrieg in Bildern, Briefen und Erinnerungsstücken
       links:
         across_europe: in ganz Europa
+        video_guide: Schritt-für-Schritt-Videoanleitung
       otto:
         heading: Otto &amp; Bernard
         p1: Falls Sie Informationen über Otto Arndt haben, %{add_your_story} zur Online-Geschichtensammlung

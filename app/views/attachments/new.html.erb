@@ -59,6 +59,9 @@
     <% if !@contribution.attachments.present? -%>
 	  <%= raw t('views.contributions.digital_object.help_text.add_attachment') %>
 	<% end -%>
+	<% if @contribution.attachments.present? -%>
+	  <%= raw t('flash.attachments.links.view-attachments_html') %>
+	<% end -%>
 	You can choose to do one of the following:
     </p>
   
@@ -101,13 +104,13 @@
   
   <ul>
   <% if @contribution.attachments.present? -%>
-    <li><a href="#attachment_upload"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
-  <% else %>    
-    <li><a href="#attachment_upload"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
+    <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
+  <% else %>
+    <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
   <% end -%>
   
   <% if @contribution.ready_to_submit? -%>
-    <li><%= link_to( t('formtastic.titles.submit'), :anchor => 'submit' ) %></li>    
+	<li><a href="#submit-story" id="submit-your-story"><%= t('formtastic.titles.submit') %></a></li>
   <% end -%>
   </ul>
   

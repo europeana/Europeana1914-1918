@@ -35,7 +35,7 @@ class AttachmentsController < ApplicationController
 
     if @attachment.save
       respond_to do |format| 
-        flash[:notice] = t('flash.attachments.create.notice')
+        flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
         format.html do
           if @contribution.submitted?
             redirect_to @attachment.contribution

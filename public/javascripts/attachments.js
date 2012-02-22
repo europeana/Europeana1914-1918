@@ -223,7 +223,7 @@
 	
 	function singleItemHandler( evt ) {
 		
-		evt.preventDefault();
+		//evt.preventDefault();
 		highlightOption('single-item');
 		toggleFieldsets( 'single-item', 'show' );
 		
@@ -240,7 +240,7 @@
 	
 	function submitStoryHandler( evt ) {
 		
-		evt.preventDefault();
+		//evt.preventDefault();
 		highlightOption('submit-story');
 		toggleFieldsets( 'submit', 'hide' );
 		
@@ -251,7 +251,10 @@
 		
 		jQuery('#single-item').bind( 'click', singleItemHandler );
 		jQuery('#multiple-items').bind( 'click', multipleItemHandler );
-		jQuery('#submit-story').bind( 'click', submitStoryHandler );		
+		jQuery('#submit-story').bind( 'click', submitStoryHandler );
+		
+		jQuery('#add-another-attachment').bind( 'click', singleItemHandler );
+		jQuery('#submit-your-story').bind( 'click', submitStoryHandler );
 		
 	}
 	
