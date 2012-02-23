@@ -116,16 +116,18 @@ ActiveRecord::Schema.define(:version => 20120223103353) do
     t.string   "field_page_total"
     t.text     "field_notes"
     t.string   "field_collection_day"
+    t.string   "field_lang_other"
+    t.string   "field_object_side"
+    t.string   "field_cover_image"
     t.string   "field_creator_family_name"
     t.string   "field_creator_given_name"
     t.string   "field_license"
-    t.string   "field_lang_other"
     t.string   "field_character1_family_name"
     t.string   "field_character1_given_name"
     t.string   "field_character2_family_name"
     t.string   "field_character2_given_name"
-    t.text     "field_attachment_description"
-    t.text     "field_summary"
+    t.string   "field_attachment_description"
+    t.string   "field_summary"
     t.string   "field_ticket"
     t.string   "field_location_zoom"
   end
@@ -181,6 +183,7 @@ ActiveRecord::Schema.define(:version => 20120223103353) do
     t.string   "username",                           :null => false
   end
 
+  add_index "users", ["contact_id"], :name => "index_users_on_contact_id"
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
