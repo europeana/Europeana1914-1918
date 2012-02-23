@@ -27,6 +27,12 @@
 		RunCoCo.GMap.addMarkerClickListener();
 		RunCoCo.GMap.placeMarker( { address : $location_map.val() } );
 		
+		if ( $location_map.val().length > 0 ) {
+			
+			RunCoCo.GMap.placeMarker( { address: $location_map.val() } );
+			
+		}
+		
 	}
 	
 	

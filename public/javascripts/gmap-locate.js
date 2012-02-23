@@ -52,7 +52,12 @@
 		
 		RunCoCo.GMap.updateLatLng = updateLatLng;
 		RunCoCo.GMap.updatePlaceName = updatePlaceName;
-		RunCoCo.GMap.placeMarker( { address: $placename.val() } );
+		
+		if ( $placename.val().length > 0 ) {
+			
+			RunCoCo.GMap.placeMarker( { address: $placename.val() } );
+			
+		}
 		
 	}
 
