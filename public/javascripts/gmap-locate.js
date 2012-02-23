@@ -23,7 +23,7 @@
 			return;
 		}
 		
-		jQuery('input[id$="_metadata_attributes_field_location_map"]').val( latlng.lat() + ', ' + latlng.lng() );
+		jQuery('input[id$="_metadata_attributes_field_location_map"]').val( latlng.lat() + ',' + latlng.lng() );
 		
 	}
 	
