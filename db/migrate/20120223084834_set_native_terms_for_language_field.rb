@@ -1,6 +1,6 @@
-class SetEnglishTermsForLanguageField < ActiveRecord::Migration
-  MAP = { 'Deutsch' => 'German', 'Francais' => 'French', 'Nederlands' => 'Dutch', 'other' => 'Other' }
-  NEW = [ 'Slovenian', 'Irish', 'Danish' ]
+class SetNativeTermsForLanguageField < ActiveRecord::Migration
+  MAP = { 'Francais' => "Fran\u00E7ais", 'other' => 'Other' }
+  NEW = [ "Sloven\u0161\u010Dina", 'Gaeilge' ]
   
   def self.up
     language_field = MetadataField.find_by_name('lang')
