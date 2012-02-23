@@ -14,10 +14,21 @@
 # need to run this as root...
 
 echo
+echo "=============   stoping apache   ==========="
+echo
+/etc/init.d/apache2 stop
+
+
+echo
 echo "=============   cd to source directory   ==========="
 echo
 cd /var/www/cococo
 
+
+echo
+echo "=============   stop indexer  ==========="
+echo
+rake ts:stop --trace
 
 echo
 echo "=============   remove old gemfile and stuff   ==========="
@@ -30,7 +41,7 @@ rm .bundle -r
 echo
 echo "=============   svn update   ==========="
 echo
-svn up
+sudo -u gwa svn up
 
 
 echo
@@ -67,7 +78,7 @@ gem list
 echo
 echo "=============   bundle install   ==========="
 echo
-#rm Gemfile.lock
+rm Gemfile.lock
 bundle install
 
 
@@ -90,7 +101,17 @@ bundle exec rake i18n:js:export
 
 
 echo
-echo "=============   restarting apache   ==========="
+echo "==========   update sphinx config  ==========="
 echo
-/etc/init.d/apache2 stop
+rake ts:config --trace
+
+echo
+echo "=============   start indexer  ==========="
+echo
+rake ts:start --trace
+
+
+echo
+echo "=============   starting apache   ==========="
+echo
 /etc/init.d/apache2 start
