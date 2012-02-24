@@ -6,13 +6,14 @@
 	
 	'use strict';
 	
-	var $placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]'),
+	var $location_map = jQuery('input[id$="_metadata_attributes_field_location_map"]'),
+		$location_placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]'),
 		$location_zoom = jQuery('input[id$="_metadata_attributes_field_location_zoom"]');
 	
 	
 	function updatePlaceName( address ) {
 		
-		$placename.val( address );
+		$location_placename.val( address );
 		
 	}
 	
@@ -24,6 +25,7 @@
 		}
 		
 		jQuery('input[id$="_metadata_attributes_field_location_map"]').val( latlng.lat() + ',' + latlng.lng() );
+		jQuery('#location-map-placholder').html( latlng.lat() + ',' + latlng.lng() );
 		
 	}
 	
@@ -53,9 +55,13 @@
 		RunCoCo.GMap.updateLatLng = updateLatLng;
 		RunCoCo.GMap.updatePlaceName = updatePlaceName;
 		
-		if ( $placename.val().length > 0 ) {
+		if ( $location_map.val().length > 0 ) {
 			
-			RunCoCo.GMap.placeMarker( { address: $placename.val() } );
+			RunCoCo.GMap.placeMarker( { address: $location_map.val() } );
+			
+		} else if ( $location_placename.val().length > 0 ) {
+			
+			RunCoCo.GMap.placeMarker( { address: $location_placename.val() } );
 			
 		}
 		
@@ -73,7 +79,7 @@
 	function goButtonHandler( evt ) {
 		
 		evt.preventDefault();
-		RunCoCo.GMap.placeMarker( { address : $placename.val() } );
+		RunCoCo.GMap.placeMarker( { address : $location_placename.val() } );
 		
 	}
 	
@@ -110,8 +116,8 @@
 			return;
 		}
 		
-		$placename.bind( 'keypress', preventEnterOnLocation );
-		addGoButton( $placename );
+		$location_placename.bind( 'keypress', preventEnterOnLocation );
+		addGoButton( $location_placename );
 		createMapContainer();
 		
 		if ( jQuery('fieldset[id$="_location"]').hasClass('collapsed') ) {

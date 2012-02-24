@@ -28,10 +28,9 @@
 		 */
 		placeMarker : function( options ) {
 	   
-			if ( 'object' !== typeof options
-				|| options.address.length < 1 ) {
-				return;
-			}
+			if ( 'object' !== typeof options ) { return; }			
+			if ( options.address && options.address.length < 1 ) { return; }
+			if ( options.latLng && options.latLng.length < 1 ) { return; }
 			
 			
 			RunCoCo.GMap.geocoder.geocode(
