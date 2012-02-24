@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   
   validates_presence_of :username
   validates_uniqueness_of :username
-  validates_length_of :username, :minimum => 6, :allow_blank => true
+  validates_length_of :username, :minimum => 3, :allow_blank => true
   validates_format_of :username, :with => /^[a-zA-Z0-9\-\_\.\@]+$/, :allow_blank => true, :if => Proc.new { |u| u.new_record? || u.username_changed? }
   
   validates_presence_of :role_name, :contact
