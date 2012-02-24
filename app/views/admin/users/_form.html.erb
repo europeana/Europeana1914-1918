@@ -11,6 +11,10 @@
   <%= form.semantic_fields_for :contact do |contact| %>
     <%= render :partial => '/contacts/form_fields', :locals => { :form => contact } %>
   <% end %>
+  
+  <%= form.inputs :accept_terms do %>
+    <%= form.input :terms, :as => :boolean %>
+  <% end %>
 
   <%= form.buttons do %>
     <%= redirect_field %>
