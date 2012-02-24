@@ -28,27 +28,35 @@
 		 */
 		placeMarker : function( options ) {
 	   
-		   if ( 'object' !== typeof options ) {
+			if ( 'object' !== typeof options
+				|| options.address.length < 1 ) {
 				return;
-		   }
-	   
-		   RunCoCo.GMap.geocoder.geocode(
+			}
+			
+			
+			RunCoCo.GMap.geocoder.geocode(
 			 
-			   options,
+				options,
 			   
-			   function( results, status ) {
+				function( results, status ) {
 			   
-				 if ( status === google.maps.GeocoderStatus.OK ) {
-				   
-				   RunCoCo.GMap.updateMarker( results[0] );
-				   
-				 } else {
-				   
-				   alert( I18n.t('javascripts.gmap.errors.unknown') + '\n[' + status + ']' );
-				   
-				 }
+					if ( status === google.maps.GeocoderStatus.OK ) {
+					   
+						RunCoCo.GMap.updateMarker( results[0] );
+					   
+					} else {
+					   
+						if ( window.console ) {
+							
+							console.log( I18n.t('javascripts.gmap.errors.unknown') );
+							console.log( status );
+							console.log( options );
+							
+						}
+					   
+					}
 				 
-			   }
+				}
 			 
 		   );
 		   

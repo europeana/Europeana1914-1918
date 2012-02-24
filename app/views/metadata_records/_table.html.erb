@@ -19,6 +19,12 @@
             <%= metadata_record_field_value(metadata, field) %>
             <input type="hidden" id="location-zoom" value="<%= metadata['field_location_zoom'] %>" />
           </td>
+        <% elsif ( 'location_placename' == field.name ) %>
+          <th scope="row"><%= field.title %></th>
+          <td>
+            <%= metadata_record_field_value(metadata, field) %>
+            <input type="hidden" id="location-placename" value="<%= metadata['field_location_placename'] %>" />
+          </td>
         <% elsif ( 'location_map' == field.name ) %>
           <th scope="row"><%= field.title %></th>
           <td>

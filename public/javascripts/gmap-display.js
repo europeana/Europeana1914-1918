@@ -8,6 +8,7 @@
 	
 	
 	var $location_map = jQuery('#location-map'),
+		$location_placename = jQuery('#location-placename'),
 		$location_zoom = jQuery('#location-zoom');
 	
 	
@@ -30,6 +31,10 @@
 		if ( $location_map.val().length > 0 ) {
 			
 			RunCoCo.GMap.placeMarker( { address: $location_map.val() } );
+			
+		} else if ( $location_placename.val().length > 0 ) {
+			
+			RunCoCo.GMap.placeMarker( { address: $location_placename.val() } );
 			
 		}
 		
