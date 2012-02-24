@@ -86,7 +86,7 @@ class MetadataField < ActiveRecord::Base
   end
   
   def column_type_with_options
-    @@column_type_with_options ||= { 
+    { 
       'text' => :text, 
       'string' => :string, 
       'date' => [ :string, { :limit => 10 } ],
@@ -96,7 +96,7 @@ class MetadataField < ActiveRecord::Base
   end
   
   def column_type
-    @@column_type ||= [ column_type_with_options ].flatten.first
+    [ column_type_with_options ].flatten.first
   end
   
   def collection_id
