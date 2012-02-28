@@ -38,9 +38,11 @@
   <% end %>
   
   <%= form.inputs :story_location, :class => @fieldset_class, :id => 'story_location' do %>
+    
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'location_placename', 'location_map', 'location_zoom' ], :cataloguing => false, :contribution => true } } %>
     <% end %>
+    
   <% end %>
   
   <%= form.inputs :story_keywords, :class => @fieldset_class do %>

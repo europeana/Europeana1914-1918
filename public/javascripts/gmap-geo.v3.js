@@ -1,6 +1,6 @@
 /**
  *	@author dan entous contact@gmtplusone.com
- *	@version 2012-02-20 19.00 gmt +1
+ *	@version 2012-02-28 13:57 gmt +1
  */
 (function() {
 
@@ -14,6 +14,7 @@
 		service : undefined,
 		autocomplete : undefined,
 		infowindow : undefined,
+		$location_placename : undefined,
 		zoom_inital : 3,
 		zoom_in_to : 11,
 		updateLatLng : function(){},
@@ -110,9 +111,31 @@
 			google.maps.event.addListener( RunCoCo.GMap.map, 'zoom_changed', function() {
 				
 				RunCoCo.GMap.zoom_in_to = RunCoCo.GMap.map.getZoom();
-				$location_zoom.val( RunCoCo.GMap.zoom_in_to );
+				
+				if ( $location_zoom.is('input') ) {
+					
+					$location_zoom.val( RunCoCo.GMap.zoom_in_to );
+				
+				} else {
+					
+					$location_zoom.html( RunCoCo.GMap.zoom_in_to );
+					
+				}
 				
 			});
+			
+		},
+		
+		
+		updateInfoWindow : function( content ) {
+			
+			
+			if ( content.length > 0 ) {
+				
+				RunCoCo.GMap.infowindow.setContent( '<div>' + content + '</div>' );
+				RunCoCo.GMap.infowindow.open( RunCoCo.GMap.map, RunCoCo.GMap.marker );
+				
+			}
 			
 		},
 		
@@ -147,39 +170,9 @@
 			RunCoCo.GMap.map.setZoom( RunCoCo.GMap.zoom_in_to );
 			
 			RunCoCo.GMap.marker.setPosition( place.geometry.location );
-			RunCoCo.GMap.updateLatLng( place.geometry.location );
+			RunCoCo.GMap.updateLatLng( place.geometry.location );			
+			RunCoCo.GMap.updateInfoWindow( RunCoCo.GMap.$location_placename.val() );
 			
-			
-			if ( place.address_components ) {
-			
-				address = [
-					( ( place.address_components[0] && place.address_components[0].short_name ) || '' ),
-					( ( place.address_components[1] && place.address_components[1].short_name ) || '' ),
-					( ( place.address_components[2] && place.address_components[2].short_name ) || '' )
-				].join(' ');
-			
-			}
-			
-			if ( 'undefined' !== typeof place.name ) {
-			
-				info_content += '<b>' + place.name + '</b><br/>';
-			
-			}
-			
-			if ( 'undefined' !== typeof address  ) {
-			
-				info_content += address;
-				RunCoCo.GMap.updatePlaceName( address );
-			
-			}
-			
-			if ( 'undefined' !== typeof info_content ) {
-			
-				RunCoCo.GMap.infowindow.setContent( '<div>' + info_content + '</div>' );
-				RunCoCo.GMap.infowindow.open( RunCoCo.GMap.map, RunCoCo.GMap.marker );
-			
-			}
-	
 		},
 		
 		
