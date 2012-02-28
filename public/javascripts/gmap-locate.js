@@ -61,10 +61,6 @@
 			
 			RunCoCo.GMap.placeMarker( { address: $location_map.val() } );
 			
-		} else if ( $google_places.val().length > 0 ) {
-			
-			RunCoCo.GMap.placeMarker( { address: $google_places.val() } );
-			
 		}
 		
 	}

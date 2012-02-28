@@ -14,7 +14,7 @@
 		service : undefined,
 		autocomplete : undefined,
 		infowindow : undefined,
-		$location_placename : undefined,
+		location_placename : undefined,
 		zoom_inital : 3,
 		zoom_in_to : 11,
 		updateLatLng : function(){},
@@ -129,13 +129,10 @@
 		
 		updateInfoWindow : function( content ) {
 			
+			if ( !content || content.length < 1 ) { return; }
 			
-			if ( content.length > 0 ) {
-				
-				RunCoCo.GMap.infowindow.setContent( '<div>' + content + '</div>' );
-				RunCoCo.GMap.infowindow.open( RunCoCo.GMap.map, RunCoCo.GMap.marker );
-				
-			}
+			RunCoCo.GMap.infowindow.setContent( '<div>' + content + '</div>' );
+			RunCoCo.GMap.infowindow.open( RunCoCo.GMap.map, RunCoCo.GMap.marker );
 			
 		},
 		
@@ -171,7 +168,7 @@
 			
 			RunCoCo.GMap.marker.setPosition( place.geometry.location );
 			RunCoCo.GMap.updateLatLng( place.geometry.location );			
-			RunCoCo.GMap.updateInfoWindow( RunCoCo.GMap.$location_placename.val() );
+			RunCoCo.GMap.updateInfoWindow( RunCoCo.GMap.location_placename );
 			
 		},
 		

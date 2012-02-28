@@ -26,15 +26,12 @@
 		RunCoCo.GMap.getSavedZoom( $location_zoom );
 		
 		RunCoCo.GMap.addMarkerClickListener();
+		RunCoCo.GMap.location_placename = $location_placename.val();
 		RunCoCo.GMap.placeMarker( { address : $location_map.val() } );
 		
 		if ( $location_map.val().length > 0 ) {
 			
 			RunCoCo.GMap.placeMarker( { address: $location_map.val() } );
-			
-		} else if ( $location_placename.val().length > 0 ) {
-			
-			RunCoCo.GMap.placeMarker( { address: $location_placename.val() } );
 			
 		}
 		
