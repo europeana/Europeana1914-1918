@@ -8,7 +8,7 @@ class Admin::ContributionsController < AdminController
     @options.fields = session[:admin][:fields]
 
     @sort = params[:sort]
-    @order = (params[:order].present? && [ 'DESC', 'ASC' ].include?(params[:order].upcase)) ? params[:order] : 'ASC'
+    @order = (params[:order].present? && [ 'DESC', 'ASC' ].include?(params[:order].upcase)) ? params[:order] : 'DESC'
     @contributor = params[:contributor_id].present? ? User.find(params[:contributor_id]) : nil
     
     @contributions = {
@@ -58,7 +58,7 @@ class Admin::ContributionsController < AdminController
     super
     session[:admin] ||= {}
     unless session[:admin][:fields].present?
-      session[:admin][:fields] = [ 'title', 'attachments', 'field_cataloguer_terms', 'field_ticket' ]
+      session[:admin][:fields] = [ 'title', 'attachments', 'created_at', 'field_cataloguer_terms', 'field_ticket' ]
     end
   end
   
@@ -118,6 +118,12 @@ class Admin::ContributionsController < AdminController
     search_options = {}
     [ :page, :order, :sort, :contributor_id ].each do |key|
       search_options[key] = params[key]
+    end
+    if search_options[:order].blank? 
+      search_options[:order] = 'DESC'
+    end
+    if search_options[:sort].blank? 
+      search_options[:sort] = 'created_at'
     end
     search_options
   end
