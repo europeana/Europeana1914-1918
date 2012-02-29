@@ -68,7 +68,6 @@ class MetadataField < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_numericality_of :position, :greater_than => 0, :only_integer => true
 
-  validate :validate_cataloguing_optional
   validate :validate_field_type_constancy, :on => :update
   validate :validate_searchable_type
   validate :validate_contribution_or_attachment
@@ -160,10 +159,6 @@ class MetadataField < ActiveRecord::Base
     self.errors.add(:field_type, I18n.t('activerecord.errors.models.metadata_field.attributes.field_type.constancy')) if self.field_type_changed?
   end
 
-  def validate_cataloguing_optional
-    self.errors.add(:cataloguing, I18n.t('activerecord.errors.models.metadata_field.attributes.cataloguing.optional')) if (self.cataloguing? && self.required?)
-  end
-  
   def validate_searchable_type
     self.errors.add(:searchable, I18n.t('activerecord.errors.models.metadata_field.attributes.searchable.field_type')) if (self.searchable? && self.field_type == 'taxonomy')
   end

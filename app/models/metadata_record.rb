@@ -98,7 +98,7 @@ class MetadataRecord < ActiveRecord::Base
       @validate_callbacks = []
 
       # Required fields on contributions
-      MetadataField.where(:required => true, :contribution => true).each do |required_field|
+      MetadataField.where(:required => true, :cataloguing => false, :contribution => true).each do |required_field|
         if required_field.field_type == 'taxonomy'
           validates_presence_of "field_#{required_field.name}_terms", :if => :for_contribution?
         else
@@ -107,11 +107,29 @@ class MetadataRecord < ActiveRecord::Base
       end
       
       # Required fields on attachments
-      MetadataField.where(:required => true, :attachment => true).each do |required_field|
+      MetadataField.where(:required => true, :cataloguing => false, :attachment => true).each do |required_field|
         if required_field.field_type == 'taxonomy'
           validates_presence_of "field_#{required_field.name}_terms", :if => :for_attachment?
         else
           validates_presence_of column_name(required_field.name), :if => :for_attachment?
+        end
+      end
+      
+      # Required cataloguing fields on contributions
+      MetadataField.where(:required => true, :cataloguing => true, :contribution => true).each do |required_field|
+        if required_field.field_type == 'taxonomy'
+          validates_presence_of "field_#{required_field.name}_terms", :if => Proc.new { |mr| mr.cataloguing? && mr.for_contribution? }
+        else
+          validates_presence_of column_name(required_field.name), :if => Proc.new { |mr| mr.cataloguing? && mr.for_contribution? }
+        end
+      end
+      
+      # Required cataloguing fields on attachments
+      MetadataField.where(:required => true, :cataloguing => true, :attachment => true).each do |required_field|
+        if required_field.field_type == 'taxonomy'
+          validates_presence_of "field_#{required_field.name}_terms", :if => Proc.new { |mr| mr.cataloguing? && mr.for_attachment? }
+        else
+          validates_presence_of column_name(required_field.name), :if => Proc.new { |mr| mr.cataloguing? && mr.for_attachment? }
         end
       end
 

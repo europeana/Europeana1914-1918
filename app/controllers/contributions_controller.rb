@@ -62,7 +62,9 @@ class ContributionsController < ApplicationController
   # GET /contributions/:id/edit
   def edit
     if @contribution.submitted? && (@contribution.contributor == current_user)
-      unless current_user.may_catalogue_contributions?
+      if current_user.may_catalogue_contributions?
+        @contribution.metadata.cataloguing = true
+      else
         flash[:alert] = t('flash.contributions.submitted.edit.alert')
         redirect_to @contribution
         return
