@@ -19,11 +19,11 @@
       form.input :file,
       :label => t('formtastic.labels.attachment.metadata.attachment_file'),
       :hint => t(
-        (attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'),
-        :max => max_upload_size,
-        :file_types => allowed_file_types
-      )#,
-      #:wrapper_html => { :style => single_file_style }
+          (attachment.new_record? ? 'formtastic.hints.attachment.new.file' : 'formtastic.hints.attachment.edit.file'),
+          :max => max_upload_size,
+          :file_types => allowed_file_types        
+        ),
+      :wrapper_html => { :style => @single_upload_style }
     %>
   
   <% end %>

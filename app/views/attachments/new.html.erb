@@ -15,11 +15,13 @@
   option_multiple_item_class = ''
   option_submit_class = ''
   
+  @single_upload_style = ''
   
   if 'cataloguer' === current_user.role.name
 	option_single_item_class = ''
 	option_multiple_item_class = 'highlighted-option'
 	option_submit_class = ''
+	@single_upload_style = 'display:none;'
   end
   
   if @contribution.ready_to_submit?	

@@ -66,7 +66,7 @@
         
       };
     
-    var li_style = ( !RunCoCo.ready_for_submit && !RunCoCo.cataloguer ) ? 'style="display:none;"' : '',
+    var li_style = ( !RunCoCo.cataloguer ) ? 'style="display:none;"' : '',
         uploadifyHtml = jQuery(
         '<li id="uploadify_upload" class="inputs"' + li_style + '>' +
           '<div id="uploadify_file_input" class="file input optional">' +
