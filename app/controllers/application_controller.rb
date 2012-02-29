@@ -308,7 +308,7 @@ class ApplicationController < ActionController::Base
     
     options.merge! case set
     when :draft
-      { :with => { :submitted_at => 0 }, :with => { :approved_at => 0 } } 
+      { :with => { :submitted_at => 0, :approved_at => 0 } } 
     when :submitted
       { :without => { :submitted_at => 0 }, :with => { :approved_at => 0 } }
     when :approved
