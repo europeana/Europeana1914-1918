@@ -46,6 +46,7 @@ class ContributionsController < ApplicationController
       flash[:notice] = t('flash.contributions.draft.create.notice')
       redirect_to new_contribution_attachment_path(@contribution)
     else
+      RunCoCo.error_logger.debug("Contribution creation failed: #{@contribution.errors.inspect}")
       flash[:alert] = t('flash.contributions.draft.create.alert')
       render :action => 'new'
     end
