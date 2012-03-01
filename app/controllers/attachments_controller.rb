@@ -38,6 +38,11 @@ class AttachmentsController < ApplicationController
       @attachment.metadata.field_license_term_ids = [ license.id ]
     end
     
+    unless params.has_key?(:attachment) && params[:attachment].has_key?(:metadata_attributes) && params[:attachment][:metadata_attributes].has_key?(:field_file_type_term_ids)
+      text = MetadataField.find_by_name('file_type').taxonomy_terms.select { |tt| tt.term == 'TEXT' }.first
+      @attachment.metadata.field_file_type_term_ids = [ text.id ]
+    end
+    
     if @attachment.save
       respond_to do |format| 
         flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
