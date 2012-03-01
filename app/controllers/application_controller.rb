@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+  theme :theme_resolver
 
   before_filter :init_session, :init_views, :set_locale
   
@@ -48,6 +49,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   protected
+  
+  
   ##
   # Displays error message for application errors, sending HTTP status code.
   #
@@ -162,6 +165,17 @@ class ApplicationController < ActionController::Base
     
     I18n.locale = locale
     (Rails.configuration.action_mailer.default_url_options ||= {}).merge!(:locale => params[:locale])
+  end
+  
+  ##
+  # Return the name of the theme to use, for the theme_for_rails gem
+  # 
+  # @see https://github.com/lucasefe/themes_for_rails
+  def theme_resolver
+    if params[:theme]
+      session[:theme] = params[:theme]
+    end
+    session[:theme]
   end
 
   ##

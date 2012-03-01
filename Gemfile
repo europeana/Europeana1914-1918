@@ -30,6 +30,7 @@ gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem 'fastercsv', '~> 1.5.0'
 gem 'hpricot'
 gem 'globalize3', '~> 0.1.0.beta'
+gem 'themes_for_rails', '~> 0.4.0'
 
 # 20120109 jaclu current vers fails to compile
 gem 'i18n-js', '~> 2.0'
