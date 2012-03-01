@@ -33,7 +33,7 @@ class AttachmentsController < ApplicationController
     @attachment.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@attachment.contribution)
     @attachment.contribution = @contribution
     
-    unless params[:attachment][:metadata_attributes].has_key?(:field_license_term_ids)
+    unless params.has_key?(:attachment) && params[:attachment].has_key?(:metadata_attributes) && params[:attachment][:metadata_attributes].has_key?(:field_license_term_ids)
       license = MetadataField.find_by_name('license').taxonomy_terms.select { |tt| tt.term == 'http://creativecommons.org/licenses/by-sa/3.0/' }.first
       @attachment.metadata.field_license_term_ids = [ license.id ]
     end
