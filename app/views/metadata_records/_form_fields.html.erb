@@ -25,13 +25,11 @@
       %>
       
       <li id="gmap-container">
-        <label>Use Google Maps (optional)</label>
+        <label><%= raw t('common.google_maps.label') %></label>
         <input type="text" id="google-places" />
         <input type="button" id="google-places-button" value="<%= I18n.t('javascripts.gmap.search.button') %>" />
         <ul class="inline-hints google">
-          <li><b>Auto-suggest</b> : Enter the name of a country, city, or address; as you type Google Maps will attempt to offer a possible location; select it if it matches what you are looking for.</li>
-          <li><b>Specific address</b> : Enter a specific address or geo-coordinate and click on the “Go” button; ignore any of the auto-suggestions made by Google Maps</li>
-          <li><b>Map marker</b> : When a map marker is present on the map, for example, after you have entered an address, you can move it to any location you wish. Google Maps will fill-in an address in the input field next to the “Go” button, however the text in the “Locate where your story took place” field will be used for the info window</li>
+          <%= raw t('common.google_maps.help_text') %>
         </ul>
         <div id="gmap-locate"></div>
       </li>

@@ -43,7 +43,7 @@
 		RunCoCo.GMap.addMapToPage('gmap-locate');
 		RunCoCo.GMap.addGeocoder();
 		RunCoCo.GMap.addInfoWindow();
-		RunCoCo.GMap.$location_placename = $location_placename;
+		RunCoCo.GMap.location_placename = $location_placename.val();
 		RunCoCo.GMap.addMarker();
 		
 		RunCoCo.GMap.getSavedZoom( $location_zoom );
