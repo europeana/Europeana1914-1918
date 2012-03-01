@@ -184,7 +184,7 @@ sl:
         stran</a>"
       register: Registracija
       sign_in: Prijava
-      takedown_policy: Pravilnik o zapisovanju
+      takedown_policy: Lastništvo podatko
       titles:
         contribution_terms: Glejte Evropski pogoji za prispevke uporabnikov
         great_war: Arhiv svetovne vojne na univerzi v Oxfordu
@@ -515,11 +515,7 @@ sl:
 '
           location_placename: ! 'Vnesite ime mesta, kjer je bil predmet ustvarjen
             (kje je bilo pismo napisano ali kje je bila narejena fotografija), npr.
-            London ali Pariz. Ali uporabite zemljevid in da označite, kje se zgodba
-            odvija s potegom označevalca na lokacijo. Sliko lahko povečate in pomanjšajte
-            z uporabo + in - levo na zemljevidu.
-
-'
+            London ali Pariz. '
           object_side: Pri predmetu z dvema stranema, na primer, razglednico, označite
             stran.
           page_number: Pri predmetu, ki ima več strani, napišite posamične številke
@@ -571,15 +567,8 @@ sl:
             ni na voljo, nam prosimo, pošljite e-sporočilo na: 1914-1918 [@] europeana
             [.] eu'"
           lang: Označite jezik, v katerem je ta zgodba napisana.
-          location_placename: ! 'Vnesite ime mesta, kjer je bil predmet ustvarjen
-            (kje je bilo pismo napisano ali kje je bila narejena fotografija), npr.
-            London ali Pariz. Ali uporabite zemljevid in da označite, kje se zgodba
-            odvija
-
-            s potegom označevalca na lokacijo. Sliko lahko povečate in pomanjšajte
-            z uporabo + in - levo na zemljevidu.
-
-'
+          location_placename: Vpišite ime mesta kjer se je zgodba dogajala i.e. London
+            ali Pariz
           theatres: ! 'Prosimo, ne kliknite, če ni pomembno. Če ustrezna ključna beseda
             ni na voljo, nam prosimo, pošljite e-sporočilo na: 1914-1918 [@] europeana
             [.] eu'''
@@ -766,7 +755,7 @@ sl:
       account_details: Vpiši podatke
       admin_user: Vpiši podatke
       attachment_dates: Kdaj je bil ta predmet ustvarjen
-      attachment_front: Na katero fronto se nanaša digitalni predmet
+      attachment_front: Na katero fronto se nanaša ta predmet
       attachment_keywords: Pomagajte drugim, da najdejo svoj predmet tako, da dodate
         eno ali več         sledečih ključnih besed
       attachment_location: Kje je bil ta predmet ustvarjen
@@ -812,6 +801,9 @@ sl:
       show_errors: Zakaj ne?
     datepicker:
       button_text: Prikaži koledar
+    digital_object:
+      labels:
+        copy_from_story: Kopirajte informacijo
     gmap:
       canvas:
         hide: Zapri Google Maps
@@ -964,13 +956,11 @@ sl:
         p2: Dnevi zbiranja so se predhodno odvijali po Evropi.
       online_collection:
         heading: Spletna zbirka zgodb
-        p1: ! 'Spletna zbirka zgodb je bila odprta marca 2011. Na spletni strani,
-          lahko vsakdo doda predmete v zbirko, skupaj z zadevnimi zgodbami. Več informacij
-          o tem, kako dodati predmet v zbirko, lahko najdete na strani “%{add_your_story}”.
-          Oddane predmete pregleda projektna skupina in jih nato da na voljo preko
-          Europeana.
-
-'
+        p1: ! 'Spletna zbirka zgodb je bila odprta marca 2011. Na spletni strani lahko
+          v zbirko vsakdo doda predmete, skupaj z zgodbami, ki jih opisujejo. Več
+          informacij o tem, kako dodati predmet v zbirko, lahko najdete na strani
+          “%{add_your_story}”. Oddane predmete pregleda projektna skupina in so kasneje
+          dostopni preko Europeane. '
       privacy_policy:
         p1: ! 'Vaše ime bo javno prikazano poleg vaših prispevkov, če so ti potrjeni.
 
@@ -1416,16 +1406,14 @@ sl:
       help:
         adding_your_story:
           heading: Dodajanje vaše zgodbe v Europeana 1914-1918
-          p1: ! 'Lahko dodate zgodbo v Europeana 1914-1918 s pomočjo obrazca spletne
-            zbirke na tej spletni strani. Enostavno vpišite nekaj informacij o svojem
-            prispevku, in poveste kaj to je (razglednica, poslani iz XX, dnevnik,
-            itd.) in dodate zgodbo, ki jo želite deliti (na primer o osebi na fotografiji,
-            kako razumete, kaj veste o predmetu). Nato lahko priložite digitalno različico
+          p1: ! 'Zgodbo lahko dodate v Europeano 1914-1918 s pomočjo obrazca  na tej
+            spletni strani. Vpišite nekaj informacij o svojem prispevku, in povejte
+            za kaj gre (razglednica, poslana iz XX, dnevnik, itd.). Dodate zgodbo,
+            ki jo želite deliti (na primer o osebi na fotografiji, kako ste predmet
+            pridobili, kaj veste o njem). Nato lahko priložite digitalno različico
             predmeta, na primer skeniran ali fotografiran izvod slike, dnevnika, uniforme
-            ali karkoli je to, kar želite deliti. Enkrat ko je prispevek oddan, ga
-            bo pregledal strokovnjak in postal bo viden za druge.
-
-'
+            ali karkoli  želite deliti. Ko je prispevek oddan, ga bo pregledal strokovnjak
+            in postal bo viden tudi drugim. '
         how_to_use:
           heading: Kako uporabiti vmesnik spletne zbirke zgodb
           item1: ! ' izvedite ''%{register} za pridobitev računa (to morate opraviti
@@ -1438,30 +1426,22 @@ sl:
 
 '
           item4: Oddaj prispevek v spletno zbirko zgodb
-          p1: ! 'Če želite dodati nekaj v našo spletno zbirko zgodb, morate najprej
-            izvesti %{sign_in} ali %{register}. Nato boste lahko dodajali predmete
-            in zgodbe v Europeana 1914-1918.
-
-'
-          p2: ! 'Tukaj bo od vas zahtevano, da dokončate sledeče štiri korake. Ni
-            vam
-
-            potrebno zaključiti celotnega postopka naenkrat, ampak lahko shranite
+          p1: Če želite dodati podatke v našo spletno zbirko zgodb, se morate najprej  %{sign_in}
+            ali %{register}. Nato boste lahko dodajali predmete in zgodbe v Europeano
+            1914-1918
+          p2: Program bo od vas zahteval, da dokončate naslednje štiri korake. Ni
+            vam potrebno zaključiti celotnega postopka naenkrat, ampak lahko shranite
             vaš prispevek in se k njemu vrnete kasneje.
-
-'
         item1: Dodajanje vaše zgodbe v Europeana 1914-1918; Glejte spodaj
         item2: ! '%{privacy_policy} – Ločena stran'
         item3: ! '%{takedown_policy} - Ločena stran'
         item4: ! '%{contribution_terms} - Ločena stran'
         item5: ! '%{about_the_project} - Ločena stran'
-        p1: ! 'Cilj projekta ‘Europeana 1914-1918’ je, zbrati materila, ki se navezuje
+        p1: ! 'Cilj projekta ‘Europeana 1914-1918’ je zbrati gradivo, ki se navezuje
           na svetovno vojno (1914-1918) in tiste, ki so v njej sodelovali ali bili
-          prizadeti. V   trenutni fazi zbiramo material in zgodbe iz Britanije, Nemčije,
-          Slovenije, Luksemburga, Irske, itd. Več informacij o projektu in vrsti materiala,
-          ki ga zbiramo, lahko najdete na strani %{about}.
-
-'
+          prizadeti. V letošnjem letu zbiramo gradivo in zgodbe iz Britanije, Nemčije,
+          Slovenije, Luksemburga, Irske, itd. Več informacij o projektu in vrsti gradiva,
+          ki ga zbiramo, lahko najdete na strani %{about}. '
       index:
         item1: Vnesite informacije o svoji zgodbi.
         item2: Shranite svojo zgodbo kot osnutek.
@@ -1615,11 +1595,11 @@ sl:
           v spletno zbirko zgodb in jo delite z drugimi.
 
 '
-      p1: <em>Europeana 1914-1918</em> zbira material iz %{across_europe}.
-      p2: <b>Ali imate slike, pisma, razglednice, suvenirje ali druge predmete iz         1914-1918,
+      p1: <em>Europeana 1914-1918</em> zbira gradivo po %{across_europe}.
+      p2: <b>Ali imate slike, pisma, razglednice, spominke ali druge predmete iz 1914-1918,
         ki se nanašajo na prvo svetovno vojno? Ali imate zgodbo ali anekdoto, ki bo
         jo želeli povedati o tistih, ki so v njej sodelovali ali bili prizadeti? Prosimo,
-        dodajte jo v spletno zbirko zgodb, da bo lahko svet vedel o njej.</b>
+        dodajte jo v spletno zbirko zgodb, da jo bodo spoznali tudi drugi.</b>
     links:
       back: Nazaj na %{link}
       previous_step: Prejšnja stran

@@ -259,9 +259,17 @@
 		jQuery('#add-another-attachment').bind( 'click', singleItemHandler );
 		jQuery('#submit-your-story').bind( 'click', submitStoryHandler );
 		
-		if ( !RunCoCo.ready_to_submit && RunCoCo.cataloguer ) {
+		if ( RunCoCo.cataloguer ) {
 			
-			jQuery('#multiple-items').trigger('click');
+			if ( RunCoCo.ready_for_submit ) {
+				
+				jQuery('#submit-your-story').trigger('click');
+				
+			} else {
+				
+				jQuery('#multiple-items').trigger('click');
+				
+			}
 			
 		}
 		

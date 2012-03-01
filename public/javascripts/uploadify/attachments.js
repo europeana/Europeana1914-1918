@@ -68,19 +68,21 @@
     
     var li_style = ( !RunCoCo.cataloguer ) ? 'style="display:none;"' : '',
         uploadifyHtml = jQuery(
-        '<li id="uploadify_upload" class="inputs"' + li_style + '>' +
-          '<div id="uploadify_file_input" class="file input optional">' +
-            '<label class=" label" for="uploadify_file">' + I18n.t('javascripts.uploadify.label') + '</label>' +
-          '</div>' +
-        '</li>'
-      ),
-      uploadifyFileControl = $('#attachment_file').clone().attr('id', 'uploadify_file'),
-      uploadifyHint = $('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint', { types: RunCoCo.uploadify.fileDesc, size: RunCoCo.uploadify.maxUploadSize }) + '</p>'),
-      uploadifySubmit = $('#attachment_submit').clone().attr('id', 'uploadify_submit');
+			'<li id="uploadify_upload" class="inputs"' + li_style + '>' +
+			  '<div id="uploadify_file_input" class="file input optional">' +
+				'<label class=" label" for="uploadify_file">' + I18n.t('javascripts.uploadify.label') + '</label>' +
+			  '</div>' +
+			'</li>'
+		  ),
+		ajax_loader_html = '<div id="ajax-message"><img src="/images/europeana-theme/progress_bar/loading_animation.gif" height="32" width="32" alt="loading animation" /></div>',
+		uploadifyFileControl = $('#attachment_file').clone().attr('id', 'uploadify_file'),
+		uploadifyHint = $('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint', { types: RunCoCo.uploadify.fileDesc, size: RunCoCo.uploadify.maxUploadSize }) + '</p>'),
+		uploadifySubmit = $('#attachment_submit').clone().attr('id', 'uploadify_submit');
     
     
     jQuery('div', uploadifyHtml).append(uploadifyFileControl).append(uploadifyHint);
-    
+	jQuery('#attachment-help').after( ajax_loader_html );
+	
     uploadifySubmit.click(function(evt) {
       
       evt.preventDefault();
@@ -101,6 +103,8 @@
       scriptData['authenticity_token'] = encodeURIComponent(RunCoCo.authenticityToken);
       jQuery('#uploadify_file').uploadifySettings('scriptData', scriptData);
       
+	  jQuery('#ajax-message').show();
+	  
       setTimeout(function() {
         jQuery('#uploadify_file').uploadifyUpload();
       }, 100);
