@@ -31,6 +31,10 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
   end
   
+  action :view_logs do
+    deny :cataloguer
+  end
+  
   action :approve_contributions do
   end
 

@@ -21,6 +21,10 @@
     <dt><%= link_to t('views.admin.index.links.config.text'), admin_config_path %></dt>
     <dd><%= t('views.admin.index.links.config.description') %></dd>
   <%- end -%>
+  <%- if current_user.may_view_logs? -%>
+    <dt><%= link_to 'Log files', admin_logs_path %></dt>
+    <dd>View application log files</dd>
+  <%- end -%>
 </dl>
 
 <%- if current_user.may_export_contributions? -%>
