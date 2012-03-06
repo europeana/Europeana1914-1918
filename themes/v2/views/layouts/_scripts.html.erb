@@ -1,0 +1,15 @@
+<%
+	script_files = []
+
+	if @javascripts[:listing]
+		script_files = [
+			'com/jquery/jquery-1.7.1.min',
+			'com/jquery/masonry/jquery.masonry.min.js',
+			'com/jquery/infinitescroll/jquery.infinitescroll.min.js',
+			'eu/europeana/listing.js'
+		]
+	end
+
+%>
+
+<%= javascript_include_tag script_files %>

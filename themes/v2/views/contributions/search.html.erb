@@ -1,0 +1,11 @@
+<% @title = t('views.contributions.search.heading') %>
+  
+  <% if @contributions.size == 0 -%>
+	
+	<p><%= t('views.contributions.search.no_matches') %></p>
+	
+  <% else -%>
+	
+	<%= render :partial => 'listing', :locals => { :contributions => @contributions, :query => @query } %>
+	
+  <% end -%>

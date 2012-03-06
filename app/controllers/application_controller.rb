@@ -149,6 +149,7 @@ class ApplicationController < ActionController::Base
       :gmap_display => false,
       :language_other => false,
       :uploadify => false,
+      :listing => false
     }
   end
   

@@ -21,7 +21,7 @@
     <p><%= t('views.contributions.story.labels.people') %></p>
     <%= form.inputs :story_character1 do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-         <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'character1_given_name', 'character1_family_name' ], :cataloguing => false, :contribution => true } } %>
+         <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'character1_given_name', 'character1_family_name', 'character1_pob', 'character1_pod', 'character1_dob', 'character1_dod' ], :cataloguing => false, :contribution => true } } %>
       <% end %>
     <% end %>
     <%= form.inputs :story_character2 do %>

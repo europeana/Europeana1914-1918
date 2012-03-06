@@ -1,0 +1,25 @@
+<%
+nav = [
+  [ t('common.menus.main.home'), home_path ],
+  [ t('common.menus.main.add'), ( current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path ) ],
+  [ t('common.menus.main.explore'), page_path('explore') ]
+]
+%>
+
+<ul id="navigation-main" class="menu">
+  
+  <%- for link in nav -%>
+  
+	<%- if current_page?(link[1]) -%>
+	  
+	  <li class="selected"><%= link_to link.first, link[1], link[2] %></li>
+	  
+	<%- else -%>
+	  
+	  <li><%= link_to link.first, link[1], link[2] %></li>
+	  
+	<%- end -%>
+  
+  <%- end -%>
+    
+</ul>
