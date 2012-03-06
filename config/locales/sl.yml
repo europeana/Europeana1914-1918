@@ -111,6 +111,7 @@ sl:
               field_type: Iskanje taksonomskih polj ni možno.
         metadata_record:
           date_field_civil: Ni veljaven koledarski datum.
+          one_cover_image: Lahko izberete samo eno predstavitveno sliko za vašo zgodbo
           taxonomy_field_single: ena postavka je lahko izbrana.
         setting:
           attributes:
@@ -121,7 +122,16 @@ sl:
             metadata_field:
               type: Taksonomski izrazi morajo biti povezani s taksonomskim poljem
                 metapodatkov.
+        user:
+          attributes:
+            current_password:
+              invalid: Napačno geslo
+            email:
+              taken: Uporabniški račun s tem e-poštnim naslovom že obstaja.
+            picture:
+              content_type: Slika profila mora biti GIF ali JPEG
       template:
+        body: Pri naslednjih poljih so se pojavile težave
         header: 1 napaka prepovedala shranjevanje tega %{model} ! '%{count} napak
           prepovedalo shranjevanje tega %{model}'
     models:
@@ -165,6 +175,23 @@ sl:
     editors_pick:
       heading: Izbor urednika
       more_stories: <b>Več zgodb na strani %{explore_stories}.</b>
+    google_maps:
+      help_text: ! '<li><b>Auto-suggest</b> : Vpišite ime države, mesta ali naslov.
+        Google zemljevid vam bo ponudil možno lokacijo. Izberite tisto, ki je najbolj
+        ustrezna.</li>
+
+        <li><b>Specific address</b> : Vpišite določen naslov ali geo koordinate in
+        potrdite z gumbom “Naprej”. Ignorirajte avtomatske predloge, ki jih ponudi
+        Google zemljevid.</li>
+
+        <li><b>Map marker</b> : Kadar se označevalec pojavi na zemljevidu, na primer
+        potem ko ste vpisali naslov, ga lahko premikate na katerokoli lokacijo.</li>
+
+        <li><b>Zoom</b> : Sliko lahko povečate ali pomanjšate z uporabo + ali – na
+        drsniku v levem kotu zemljevida.</li>
+
+'
+      label: ! "Uporabite Google Zemljevid\n "
     help_text:
       mandatory: obvezno polje
     labels:
@@ -198,6 +225,8 @@ sl:
         select_language: Izberi jezik
         sign_in: Prijava
         sign_out: Odjava
+    news_item:
+      heading: Nov Dan zbiranja spominov
     'no': Ne
     options:
       close: Zapri
@@ -340,6 +369,7 @@ sl:
           sporočila.
         notice: Ustvaril novo %{resource_name}.
       destroy:
+        alert: Pri brisanju vaše priponke %{resource_name}.
         notice: ! '! ''%{resource_name} je bilo uspešno izbrisano.'''
       update:
         alert: Pri posodabljanju %{resource_name} se je pojavila težava. Glejte spodnja
@@ -436,6 +466,7 @@ sl:
   formtastic:
     actions:
       attachment:
+        add_edit: Dodajte/Uredite zapis
         create: Naloži
         delete: Izbriši priponko
         update: Shrani
@@ -477,6 +508,8 @@ sl:
             velikost datoteke: %{max}. Dovoljene vrste datoteke: %{file_types}.'''
         file: Naloži datoteko
         metadata:
+          attachment_description: Opišite značilnosti predmeta in tudi kaj pomeni
+            in predstavlja vam osebno
           content: Kaj je predmet (na primer pesem, pismo, fotografija) – poskušajte
             biti čim bolj konkretni.
           cover_image: Naslovna slika predstavlja vašo zgodbo v naši zbirki in je
@@ -555,7 +588,7 @@ sl:
             1916, itd.
 
 '
-          description: Zapišite zgodbo za vašim prispevkom.
+          description: Napišite zgodbo, ki opiše vaš predmet
           forces: ! 'Prosimo, ne kliknite, če ni pomembno. Če ustrezna ključna beseda
             ni na voljo, nam prosimo, pošljite e-sporočilo na: 1914-1918 [@] europeana
             [.] eu''
@@ -572,7 +605,7 @@ sl:
           theatres: ! 'Prosimo, ne kliknite, če ni pomembno. Če ustrezna ključna beseda
             ni na voljo, nam prosimo, pošljite e-sporočilo na: 1914-1918 [@] europeana
             [.] eu'''
-        title: Naslov za ta prispevek kot celoto.
+        title: Naslov prispevka kot celote
       metadata_field:
         attachment: Določite, če se polje sklicuje na priponke.
         cataloguing: ! 'Da: to polje prikaži le v vmesniku skrbnika, za katalogizacijo.
@@ -668,10 +701,12 @@ sl:
             pustite prazno. Vsaj 6 znakov.
 
 '
+        username: Najmanj trije znaki. Veljavni znaki so od A do Z, 0-9 -_.@
     labels:
       attachment:
         metadata:
           attachment_description: Opis
+          attachment_file: Datoteka
           content: ! 'Vrsta '
           cover_image: Naslovna slika
           creator_family_name: Priimek ustvarjalca
@@ -691,8 +726,12 @@ sl:
           page_total: Skupno število strani
           source: Vir
           subject: Zadeva
+          ticket: ! 'Številka predmeta
+
+'
       contribution:
         metadata:
+          alternative: Alternativni naslov
           cataloguer: Katalogizator
           character1_family_name: Priimek
           character1_given_name: Ime
@@ -709,7 +748,10 @@ sl:
           lang_other: Jezik (drug)
           location_map: Latitude & longitude
           location_placename: Označite, kjer se je zgodila vaša zgodba
+          location_zoom: Približanje lokacije
           notes: Beležke katalogizatorja
+          summary: Povzetek opisov predmetov
+          ticket: Številka predmeta
         terms: Strinjam se z določili in pogoji
         title: Naslov zgodbe
       metadata_field:
@@ -755,10 +797,13 @@ sl:
       account_details: Vpiši podatke
       admin_user: Vpiši podatke
       attachment_dates: Kdaj je bil ta predmet ustvarjen
+      attachment_details: Opišite svoj predmet
       attachment_front: Na katero fronto se nanaša ta predmet
       attachment_keywords: Pomagajte drugim, da najdejo svoj predmet tako, da dodate
         eno ali več         sledečih ključnih besed
       attachment_location: Kje je bil ta predmet ustvarjen
+      attachment_replace: zamenjati priponko
+      attachment_upload: Dodaj priponko
       cataloguing_metadata: Metapodatki katalogizacije
       contact_address: Naslov
       contact_name: Ime
@@ -768,6 +813,9 @@ sl:
       fields: Polja
       metadata: Kotaloške informacije
       metadata_field_options: Določene možnosti
+      optional_details: ! 'Ostale osebne informacije
+
+'
       personal_details: Osebni podatki
       story_basics: Povejte svojo zgodbo …
       story_character1: Oseba 1
@@ -802,8 +850,15 @@ sl:
     datepicker:
       button_text: Prikaži koledar
     digital_object:
+      hints:
+        copy_from_story: ! 'S pritiskom na gumb boste kopirali metapodatke iz zgodbe
+          na to mesto
+
+'
       labels:
         copy_from_story: Kopirajte informacijo
+      links:
+        copy_from_story: Kopirajte iz zgodbe
     gmap:
       canvas:
         hide: Zapri Google Maps
@@ -830,6 +885,7 @@ sl:
         boste lahko označili eno izmed datotek kot “naslovno sliko” za vašo zgodbo,
         npr. razglednica ali dnevnik. Največja velikost datoteke: {{size}}. Dovoljene
         vrste datoteke: {{types}}.'
+      label: Več datotek
       saved: Shranjeno
   languages:
     da: Danščina
@@ -979,10 +1035,8 @@ sl:
         item1: <a href="http://www.ox.ac.uk" target="_blank">University of Oxford</a>
         item2: <a href="http://www.d-nb.de" target="_blank">German National Library
           – die Deutsche Nationalbibliothek</a>
-        item3: ! '<a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">National
-          Library of Luxembourg – Bibliothèque du Luxembourg</a>
-
-'
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">National
+          Library of Luxembourg – Bibliothèque nationale du Luxembourg</a>
         item4: <a href="http://www.nli.ie" target="_blank">National Library of Ireland</a>
         item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">National
           Library of Slovenia – Narodna in univerzitetna knjižnica</a>
@@ -996,17 +1050,20 @@ sl:
         item1: Vaši kontaktni podatki
         item2: Celotni podatki o materialu
         item3: ! 'Točen url, kjer ste našli material (t.j.: http://www.europeana1914-1918.eu/en/contributions/96)'''
-        item4: ! 'preverite, da ste lastnik avtorskih pravic ali pooblaščeni zastopnik
+        item4: dokažite, da ste lastnik avtorskih pravic ali pooblaščeni zastopnik
           lastnika avtorskih pravic
-
-'
         item5: ! 'Pošljite nam e-sporočilo: 1914-1918 [@] europeana [.] eu'''
         p1: ! 'Če ste lastnik avtorskih pravic in vas skrbi, da ste na naši spletni
-          strani našli material, za katerega niste dali dovoljenja, ga bomo seveda
-          odstranili. Prosimo, obrnite se na nas z e-sporočilom in pri tem potrdite
-          sledeče:''
-
-'
+          strani našli gradivo, za katerega niste dali dovoljenja, ga bomo seveda
+          odstranili. Prosimo, obrnite se na nas z e-sporočilom z naslednjimi podatki:'
+      terms:
+        full_details:
+          heading: Pogoji uporabe v celoti na voljo le v angleškem jeziku
+        heading: Pogiji uporabe
+        summary:
+          heading: Europeana pogoji uporabe - povzetek
+          item1: Gradivo, ki ste ga priložili ni avtorsko pravno zasciten
+          item2: ! 'Imate avtorske pravice na to gradivo: ali'
       what_we_do:
         heading: Kaj počnemo
         item1: Preko spletne strani Europeana 1914-1918 dodajte sliko predmeta ali
@@ -1350,11 +1407,8 @@ sl:
             koraka prispevka.
 
 '
-          sections: ! 'Kliknite na razdelek z naslovi spodaj, da jih odprete in zaprete,
-            vsak razdelek vsebuje dodatne informacije, ki jih lahko dodate k svoji
-            zgodbi.
-
-'
+          sections: V spustnem meniju izberite sklop, ki ga želite izpolniti. Vsako
+            poglavje vsebuje dodatne informacije, ki jih dodate svoji zgodbi.
           use_google_maps: Uporabi Google Maps
         labels:
           people: Dodajte imena oseb v tej zgodbi.
@@ -1571,13 +1625,9 @@ sl:
 
 '
       p1: Tukaj lahko vidite, kaj je bilo doslej dodano v našo spletno zbirko zgodb.
-      p2: ! 'Tukaj lahko vidite, kaj je bilo doslej dodano v našo spletno zbirko zgodb.
-
-        Uporabite iskalno polje za iskanje predmetov, ki se <b>ujemajo s posebnimi
+      p2: Uporabite iskalno polje za iskanje predmetov, ki se <b>ujemajo s posebnimi
         besedami ali frazami</b>. Da <b>bi videli vse</b>, kar je bilo doslej dodano
         spletni zbirki zgodb, kliknite ‘iskanje’ (polje pustite prazno).
-
-'
       p3: ! 'Lahko tudi <b>brskate po zbirki zgodb</b>. Kliknite na spodnji vzorčni
         iskalni izraz za zagon iskanja ustrezne besede. Število rezultatov se poveča
         z dodajanjem materiala v arhiv.
@@ -1622,7 +1672,7 @@ sl:
         password: Geslo
         password_repeat: Ponovi geslo
         profile_image: Slika profila
-        profile_photo: Fotografija profila
+        profile_photo: Vaša fotografija
         residence:
           country: Izberi svojo državo bivanja
           post_code: Poštna številka
@@ -1637,6 +1687,9 @@ sl:
           edit_contact: Uredi osebne podatke
           edit_user: Uredi vpisane podatke
         title: Vaš račun
+      sign-in:
+        help: Za prijavo lahko uporabite svoje uporabniško ime ali naslov e-pošte.
+          Ni treba uporabiti obeh.  Uporabniško ime.
   will_paginate:
     next_label: naslednji →
     previous_label: ← prejšnji

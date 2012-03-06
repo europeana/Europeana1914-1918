@@ -4,6 +4,6 @@
   end
 %>
 <%= form_tag( url, { :method => :get, :class => 'search' } ) do %>
-  <%= label_tag 'q', t('formtastic.labels.search.q') %> <%= text_field_tag 'q', query, { :size => 30 } %> <%= submit_tag t('formtastic.actions.search.submit'), :name => nil %>
+  <%= text_field_tag 'q', query, { :size => 30 } %> <%= submit_tag t('formtastic.actions.search.submit'), :name => nil %>
 <% end %>
 
