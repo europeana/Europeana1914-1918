@@ -26,9 +26,9 @@ module EuropeanaHelper
     if feed.respond_to?(:entries)
       feed.entries
     elsif default
-      nil
+      []
     else
-      editors_pick
+      editors_picks
     end
   end
   
