@@ -62,8 +62,14 @@ class Admin::ContributionsController < AdminController
     end
   end
   
-  def export_dataset
-    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => :metadata }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
+  ##
+  # Fetch all contributions for export.
+  #
+  # Only approved and published contributions are included.
+  #
+  # @return [Array<Contribution>]
+  def export_dataset # :nodoc:
+    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
     
     if params[:exclude]
       ext = params[:exclude]
@@ -80,6 +86,36 @@ class Admin::ContributionsController < AdminController
     
     contributions
   end
+  
+  ##
+  # Fetch contributions for export in batches and yield each.
+  #
+  # Alternative to {#export_dataset}, less memory-intensive, but much slower.
+  #
+  # @see export_dataset
+  def export_contributions # :nodoc:
+    if params[:exclude]
+      ext = params[:exclude]
+      unless ext[0] == '.'
+        ext = '.' + ext
+      end
+    end
+    
+    Contribution.find_each(
+      :conditions => 'approved_at IS NOT NULL AND published_at IS NOT NULL',
+      :include => [ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]
+    ) do |contribution|
+    
+      if params[:exclude]
+        contribution.attachments.reject! do |a|
+          File.extname(a.file.path) == ext
+        end
+      end
+    
+      yield contribution
+    end
+  end
+  helper_method :export_contributions
   
   def export_as_csv
     csv_class.generate do |csv|
