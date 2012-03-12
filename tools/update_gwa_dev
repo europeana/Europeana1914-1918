@@ -29,7 +29,8 @@ cd /var/www/cococo
 echo
 echo "=============   stop indexer  ==========="
 echo
-rake ts:stop --trace
+/usr/local/bin/sphinxd stop
+
 
 echo
 echo "=============   remove old gemfile and stuff   ==========="
@@ -104,12 +105,13 @@ bundle exec rake i18n:js:export
 echo
 echo "==========   update sphinx config  ==========="
 echo
-rake ts:config --trace
+sudo -u gwa /usr/local/bin/sphinxd config
+
 
 echo
 echo "=============   start indexer  ==========="
 echo
-rake ts:start --trace
+sudo -u gwa /usr/local/bin/sphinxd start
 
 
 echo
