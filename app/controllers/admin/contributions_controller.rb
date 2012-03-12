@@ -68,9 +68,11 @@ class Admin::ContributionsController < AdminController
         end
       end
       format.csv do
+        RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
         send_data export_as_csv, :filename => "collection-#{timestamp}.csv", :type => 'text/csv'
       end
       format.xml do
+        RunCoCo.export_logger.info("Export to XML by #{current_user.username}")
         @contributions = export_dataset
         @metadata_fields = MetadataField.all.collect { |mf| mf.name }
         send_data render_to_string, :filename => "collection-#{timestamp}.xml", :type => 'application/xml'

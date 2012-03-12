@@ -1,10 +1,11 @@
 require 'active_support'
+
 module RunCoCo
-  class ErrorLogger < ActiveSupport::BufferedLogger
+  class Logger < ActiveSupport::BufferedLogger
     SEVERITY_NAME = %w( DEBUG INFO WARN ERROR FATAL UNKNOWN )
 
-    def initialize(level = DEBUG)
-      log = File.join(Rails.root, 'log', "#{Rails.env}.error.log")
+    def initialize(name, level = DEBUG)
+      log = File.join(Rails.root, 'log', "#{Rails.env}.#{name}.log")
       super(log, level)
     end
 
