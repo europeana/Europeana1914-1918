@@ -1,7 +1,7 @@
 xml.instruct!
 xml.collection do
-  @contributions.each do |c|
-  
+  with_exported_contributions do |c|
+
     xml.contribution do
       xml.story do
         xml.id c.id

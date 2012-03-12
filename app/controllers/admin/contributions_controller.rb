@@ -68,14 +68,14 @@ class Admin::ContributionsController < AdminController
         end
       end
       format.csv do
-        RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
         send_data export_as_csv, :filename => "collection-#{timestamp}.csv", :type => 'text/csv'
+        RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
       end
       format.xml do
-        RunCoCo.export_logger.info("Export to XML by #{current_user.username}")
-        @contributions = export_dataset
+#        @contributions = export_dataset
         @metadata_fields = MetadataField.all.collect { |mf| mf.name }
         send_data render_to_string, :filename => "collection-#{timestamp}.xml", :type => 'application/xml'
+        RunCoCo.export_logger.info("Export to XML by #{current_user.username}")
       end
     end
   end
@@ -94,45 +94,12 @@ class Admin::ContributionsController < AdminController
   end
   
   ##
-  # Fetch all contributions for export.
-  #
-  # Only approved and published contributions are included.
-  #
-  # @return [Array<Contribution>]
-  def export_dataset # :nodoc:
-    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
-    
-    if @settings.start_date.present?
-      contributions = contributions.where([ 'published_at >= ?', @settings.start_date ])
-    end
-    
-    if @settings.end_date.present?
-      contributions = contributions.where([ 'published_at <= ?', @settings.end_date ])
-    end
-    
-    if @settings.exclude.present?
-      ext = @settings.exclude
-      unless ext[0] == '.'
-        ext = '.' + ext
-      end
-      
-      contributions.each do |c|
-        c.attachments.reject! do |a|
-          File.extname(a.file.path) == ext
-        end
-      end
-    end
-    
-    contributions
-  end
-  
-  ##
   # Fetch contributions for export in batches and yield each.
   #
   # Alternative to {#export_dataset}, less memory-intensive, but much slower.
   #
   # @see export_dataset
-  def export_contributions # :nodoc:
+  def with_exported_contributions # :nodoc:
     if @settings.exclude.present?
       ext = @settings.exclude
       unless ext[0] == '.'
@@ -154,7 +121,8 @@ class Admin::ContributionsController < AdminController
     
     Contribution.find_each(
       :conditions => conditions,
-      :include => [ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]
+      :include => [ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ],
+      :batch_size => 25
     ) do |contribution|
     
       if params[:exclude]
@@ -166,7 +134,7 @@ class Admin::ContributionsController < AdminController
       yield contribution
     end
   end
-  helper_method :export_contributions
+  helper_method :with_exported_contributions
   
   def export_as_csv
     csv_class.generate do |csv|
@@ -183,7 +151,7 @@ class Admin::ContributionsController < AdminController
         end
       end
 
-      export_dataset.each do |c|
+      with_exported_contributions do |c|
         row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at ] +
           MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
         csv << row
