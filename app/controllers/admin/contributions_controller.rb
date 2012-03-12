@@ -98,7 +98,7 @@ class Admin::ContributionsController < AdminController
   #
   # @return [Array<Contribution>]
   def export_dataset # :nodoc:
-    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC').limit(100)
+    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
     
     if @settings.start_date.present?
       contributions = contributions.where([ 'published_at >= ?', @settings.start_date ])
