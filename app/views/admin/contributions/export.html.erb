@@ -1,0 +1,14 @@
+<% @title = t('views.admin.contributions.export.title') %>
+
+<%= semantic_form_for(@settings, :as => 'settings', :url => export_admin_contributions_path, :html => { :method => 'get' }) do |form| %>
+  <%= form.inputs :settings, :class => 'inputs' do %>
+    <%= form.input :format, :as => :select, :collection => [ 'csv', 'xml' ], :include_blank => false, :required => false %>
+    <%= form.input :exclude, :as => :string, :required => false %>
+    <%= form.input :start_date, :as => :datetime, :include_blank => false, :required => false %>
+    <%= form.input :end_date, :as => :datetime, :include_blank => false, :required => false %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button :label => t('actions.submit') %>
+  <% end %>
+<% end %>
+

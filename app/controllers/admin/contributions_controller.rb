@@ -3,6 +3,11 @@ class Admin::ContributionsController < AdminController
     attr_accessor :fields
   end
   
+  class ExportSettings
+    attr_accessor :format, :start_date, :end_date, :exclude
+  end
+  
+  # GET /admin/contributions
   def index
     @options = Options.new
     @options.fields = session[:admin][:fields]
@@ -18,6 +23,7 @@ class Admin::ContributionsController < AdminController
     }
   end
   
+  # PUT /admin/contributions/options
   def options
     if params[:options] && params[:options][:fields]
       field_names = contribution_fields.collect { |f| f.last }
@@ -25,7 +31,8 @@ class Admin::ContributionsController < AdminController
     end
     redirect_to :action => :index
   end
-
+  
+  # GET /admin/contributions/search
   def search
     if params[:q].present?
       @query = params[:q]
@@ -34,17 +41,39 @@ class Admin::ContributionsController < AdminController
     render :action => :index
   end
 
+  # GET /admin/contributions/export
   def export
     current_user.may_export_contributions!
 
+    @settings = ExportSettings.new
+    if params[:settings]
+      @settings.format = params[:settings][:format]
+      @settings.exclude = params[:settings][:exclude]
+      @settings.start_date = DateTime.civil(params[:settings]["start_date(1i)"].to_i, params[:settings]["start_date(2i)"].to_i, params[:settings]["start_date(3i)"].to_i, params[:settings]["start_date(4i)"].to_i, params[:settings]["start_date(5i)"].to_i)
+      @settings.end_date = DateTime.civil(params[:settings]["end_date(1i)"].to_i, params[:settings]["end_date(2i)"].to_i, params[:settings]["end_date(3i)"].to_i, params[:settings]["end_date(4i)"].to_i, params[:settings]["end_date(5i)"].to_i)
+    else
+      @settings.start_date = Time.now - 1.year
+      @settings.end_date = Time.now
+      @settings.format = 'xml'
+    end
+    
+    timestamp = Time.now.strftime('%Y%m%d%H%M%S')
+    
     respond_to do |format|
+      format.html do
+        if params[:settings].present? && params[:settings][:format].present?
+          settings = params[:settings].clone
+          format = settings.delete('format')
+          redirect_to export_admin_contributions_url(:format => format, :settings => settings)
+        end
+      end
       format.csv do
-        send_data export_as_csv, :filename => "contributions.csv", :type => 'text/csv'
+        send_data export_as_csv, :filename => "collection-#{timestamp}.csv", :type => 'text/csv'
       end
       format.xml do
         @contributions = export_dataset
         @metadata_fields = MetadataField.all.collect { |mf| mf.name }
-        send_data render_to_string, :filename => "contributions.xml", :type => 'application/xml'
+        send_data render_to_string, :filename => "collection-#{timestamp}.xml", :type => 'application/xml'
       end
     end
   end
@@ -69,10 +98,18 @@ class Admin::ContributionsController < AdminController
   #
   # @return [Array<Contribution>]
   def export_dataset # :nodoc:
-    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC')
+    contributions = Contribution.where('approved_at IS NOT NULL AND published_at IS NOT NULL').includes([ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]).order('created_at ASC').limit(100)
     
-    if params[:exclude]
-      ext = params[:exclude]
+    if @settings.start_date.present?
+      contributions = contributions.where([ 'published_at >= ?', @settings.start_date ])
+    end
+    
+    if @settings.end_date.present?
+      contributions = contributions.where([ 'published_at <= ?', @settings.end_date ])
+    end
+    
+    if @settings.exclude.present?
+      ext = @settings.exclude
       unless ext[0] == '.'
         ext = '.' + ext
       end
@@ -94,15 +131,27 @@ class Admin::ContributionsController < AdminController
   #
   # @see export_dataset
   def export_contributions # :nodoc:
-    if params[:exclude]
-      ext = params[:exclude]
+    if @settings.exclude.present?
+      ext = @settings.exclude
       unless ext[0] == '.'
         ext = '.' + ext
       end
     end
     
+    conditions = [ 'approved_at IS NOT NULL AND published_at IS NOT NULL' ]
+    
+    if @settings.start_date.present?
+      conditions[0] << ' AND published_at >= ?'
+      conditions << @settings.start_date
+    end
+    
+    if @settings.end_date.present?
+      conditions[0] << ' AND published_at <= ?'
+      conditions << @settings.end_date
+    end
+    
     Contribution.find_each(
-      :conditions => 'approved_at IS NOT NULL AND published_at IS NOT NULL',
+      :conditions => conditions,
       :include => [ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ]
     ) do |contribution|
     
