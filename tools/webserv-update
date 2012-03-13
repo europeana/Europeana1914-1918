@@ -15,6 +15,7 @@
 # read local settings
 . /usr/local/etc/gwa-sphinx.conf
 
+touch $WEB_UPDATE_BLOCKER
 
 export RAILS_ENV=production
 
@@ -129,3 +130,5 @@ echo
 echo "=============   starting apache   ==========="
 echo
 /etc/init.d/apache2 start
+
+rm $WEB_UPDATE_BLOCKER

@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# read local settings
+. /usr/local/etc/gwa-sphinx.conf
+
+if [ -e $WEB_UPDATE_BLOCKER ]
+then
+    echo "oncommit updates blocked by existance of" $WEB_UPDATE_BLOCKER
+    exit 1
+fi
+
+
 
 export RAILS_ENV=production
 
