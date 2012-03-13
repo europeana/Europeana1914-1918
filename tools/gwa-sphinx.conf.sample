@@ -16,6 +16,11 @@ GWA_SPHINX=/usr/local/gwa-sphinx
 # start/stop script
 SPHINX_CONF=/usr/local/etc/production.sphinx.conf
 
+# where this cococo app is located
+# things will get soo complex if they are not the same on
+# both ends...
+DEPLOY_DIR=/data/cococo
+
 
 
 #
@@ -27,9 +32,10 @@ SPHINX_CONF=/usr/local/etc/production.sphinx.conf
 # hostname or ip# of remote sphinx server
 SPHINX_SERVER='127.0.0.1'
 
+
 # location of generated sphinx config on web server
 # (to be sent to sphinx server)
-WEB_SPHINX_CONF=/var/www/cococo/config/production.sphinx.conf
+WEB_SPHINX_CONF=$DEPLOY_DIR/config/production.sphinx.conf
 
 
 # block file to prevent oncommit from running during
@@ -52,7 +58,7 @@ WEB_UPDATE_BLOCKER=/tmp/gwa_web_is_updating
 # and
 #   updating sphinx server
 # from webserv-update
-SPHINX_DB_DIR=/var/www/cococo/db/sphinx/production
+SPHINX_DB_DIR=$DEPLOY_DIR/db/sphinx/production
 
 # GWA user to run stuff as
 GWA_USER='gwa'
