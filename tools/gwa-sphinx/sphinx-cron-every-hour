@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#
+# Only do hourly task if not a cron blocker is set
+#
+
+# read local settings
+. /usr/local/etc/gwa-spinx.conf
+
+
+. $GWA_SPHINX/cron-blocker-check
+
+
+$GWA_SPHINX/do_cron_hourly

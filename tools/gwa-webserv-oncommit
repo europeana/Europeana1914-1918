@@ -1,0 +1,40 @@
+#!/bin/sh
+
+
+export RAILS_ENV=production
+
+
+echo
+echo "=============   cd to source directory   ==========="
+echo
+cd /var/www/cococo
+
+
+echo
+echo "=============   remove old gemfile and stuff   ==========="
+echo
+rm Gemfile~
+rm Gemfile.lock
+rm .bundle -r
+
+
+echo
+echo "=============   svn update   ==========="
+echo
+sudo -u gwa svn up
+
+echo
+echo "=============   bundle update   ==========="
+echo
+bundle update
+
+echo
+echo "=============   stoping apache   ==========="
+echo
+/etc/init.d/apache2 stop
+
+echo
+echo "=============   starting apache   ==========="
+echo
+/etc/init.d/apache2 start
+

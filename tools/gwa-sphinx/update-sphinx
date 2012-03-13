@@ -1,0 +1,32 @@
+#!/bin/sh
+
+#
+# Create initial sphinx data, run this after a new config file is defined by webserver
+#
+
+# read local settings
+. /usr/local/etc/gwa-spinx.conf
+
+
+touch $CRONBLOCKER
+
+# ensure running cronjobs can complete
+echo "==========>  Waiting $CRON_WAIT secs for cronjobs to complete"
+sleep $CRON_WAIT
+
+echo "==========>  Stoping sphinx"
+$SPHINX_START_STOP_SCRIPT stop
+
+echo "==========>  removing previous sphinx idx"
+rm $SPHINX_DB_DIR/*
+
+echo "==========>  force run hourly idx rebuild"
+sudo -u $GWA_USER /usr/local/gwa-sphinx/do_cron_hourly
+
+echo "==========>  force run minutely idx update"
+sudo -u $GWA_USER /usr/local/gwa-sphinx/do_cron_minute
+
+echo "==========>  Starting sphinx"
+$SPHINX_START_STOP_SCRIPT start
+
+rm $CRONBLOCKER

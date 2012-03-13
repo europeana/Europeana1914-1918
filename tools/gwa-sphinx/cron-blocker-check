@@ -1,0 +1,8 @@
+
+. /usr/local/etc/gwa-spinx.conf
+
+if [ -e $CRONBLOCKER ]
+then
+    echo "cronjobbs blocked by existance of" $CRONBLOCKER
+    exit 1
+fi

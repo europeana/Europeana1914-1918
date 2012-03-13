@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# read local settings
+. /usr/local/etc/gwa-spinx.conf
+
+
+. $GWA_SPHINX/cron-blocker-check
+
+
+$GWA_SPHINX/do_cron_minute

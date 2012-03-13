@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#
+# actually do the hourly task
+#
+
+# read local settings
+. /usr/local/etc/gwa-spinx.conf
+
+$INDEXER_BIN --config $SPHINX_CONF --rotate contribution_core
+
