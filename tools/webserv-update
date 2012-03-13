@@ -12,6 +12,10 @@
 
 # need to run this as root...
 
+# read local settings
+. /usr/local/etc/gwa-sphinx.conf
+
+
 export RAILS_ENV=production
 
 echo
@@ -109,9 +113,16 @@ bundle exec rake ts:config --trace
 
 
 echo
+echo "=============   sending new sphinx config    ==========="
+echo
+scp $WEB_SPHINX_CONF root@$SPHINX_SERVER:$SPHINX_CONF
+
+
+
+echo
 echo "=============   updating sphinx server   ==========="
 echo
-ssh roo@$SPHINX_SERVER /usr/local/gwa-sphinx/update-sphinx
+ssh root@$SPHINX_SERVER /usr/local/gwa-sphinx/update-sphinx
 
 
 echo
