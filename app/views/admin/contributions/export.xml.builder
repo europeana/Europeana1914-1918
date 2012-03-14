@@ -18,9 +18,9 @@ xml.collection do
       
     end
     
-    xml.record do
+    c.attachments.each do |a|
       
-      c.attachments.each do |a|
+      xml.record do
         
         xml.storyid c.id
         xml.itemid a.id
