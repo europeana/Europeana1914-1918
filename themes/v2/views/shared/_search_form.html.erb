@@ -3,7 +3,7 @@
     url = search_contributions_path 
   end
 %>
-<%= form_tag( url, { :method => :get, :class => 'search' } ) do %>
-  <%= text_field_tag 'q', query, { :size => 30 } %> <%= submit_tag t('formtastic.actions.search.submit'), :name => nil %>
+<%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
+  <%= text_field_tag 'q', query, { :type => 'search', :placeholder => 'search Europeana 1914-1918' } %>
 <% end %>
 

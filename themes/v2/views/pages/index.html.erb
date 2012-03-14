@@ -1,2 +1,30 @@
 <% @title = t 'views.home.heading' %>
 <h1><%= @title %></h1>
+
+<ul id="stories">
+	
+	<li><a href="" id="your-story"><%= theme_image_tag( 'vertical-text/your-story.png' ) %></a>
+		
+		<ul>
+			
+			<li><%= theme_image_tag( 'tests/moon.jpg', :alt => 'moon', :width => '90%' ) %></li>
+			<li><%= theme_image_tag( 'tests/beach.jpg', :alt => 'beach', :width => 300 ) %></li>
+			<li><%= theme_image_tag( 'tests/sea.jpg', :alt => 'sea', :width => 300 ) %></li>
+			
+		</ul>
+		
+	</li>
+	
+	<li><a href="" id="archive-stories"><%= theme_image_tag( 'vertical-text/archive-stories.png' ) %></a>
+	
+		<ul>
+			
+			<li><%= theme_image_tag( 'tests/sea.jpg', :alt => 'sea', :width => 300 ) %></li>
+			<li><%= theme_image_tag( 'tests/beach.jpg', :alt => 'beach', :width => 300 ) %></li>
+			<li><%= theme_image_tag( 'tests/moon.jpg', :alt => 'moon', :width => 300 ) %></li>
+		
+		</ul>
+		
+	</li>
+	
+</ul>

@@ -12,4 +12,22 @@
 
 %>
 
+
+<script>
+	
+	var RunCoCo = {};
+	
+	<% if @contribution && @contribution.ready_to_submit? %>
+		RunCoCo.ready_for_submit = true;
+	<% end %>
+	
+	<% if @attachment %>
+		RunCoCo.contribution = {
+			title: '<%= @attachment.contribution.title %>',
+			metadata: <%= raw metadata_json(@attachment.contribution) %>
+		};
+	<% end -%>
+
+</script>
+
 <%= javascript_include_tag script_files %>
