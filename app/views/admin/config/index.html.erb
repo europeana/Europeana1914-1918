@@ -50,4 +50,12 @@
     <td><%=t 'settings.ui_locales' %></td>
     <td><%= ui_locales_sentence %></td>
   </tr>
+  <tr>
+    <td><%=t 'settings.banner_active' %></td>
+    <td><%= yes_or_no @config[:banner_active] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.banner_text' %></td>
+    <td><%= @config[:banner_text] %></td>
+  </tr>
 </table>

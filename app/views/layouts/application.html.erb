@@ -11,6 +11,10 @@
 	
     <div id="wrapper" style="background-image: url(<%= image_path('eew-background-right-' + (1 + rand(5)).to_s + '.jpg') %>);">
     
+      <%- if configuration(:banner_active) -%>
+        <div id="maintenance-banner"><%= configuration(:banner_text) %></div>
+      <%- end -%>
+    
   		<%= render '/layouts/header' %>
   		
       <%= render '/layouts/nav' %>

@@ -37,7 +37,9 @@ module RunCoCo
       :allowed_upload_extensions => [],
       :gmap_api_key => nil,
       :uploadify => false,
-      :ui_locales => nil
+      :ui_locales => nil,
+      :banner_active => false,
+      :banner_text => '',
     }
 
     DEFAULTS.each_key do |name|
@@ -61,6 +63,7 @@ module RunCoCo
       end
     end
     
+    ##
     # Returns true if RunCoCo is configured to require registration.
     #
     # Set via +RunCoCo.configuration.registration_required+
@@ -68,11 +71,20 @@ module RunCoCo
       self[:registration_required] == true
     end
     
+    ##
     # Returns true if RunCoCo is configured to publish contributions.
     #
     # Set via +RunCoCo.configuration.publish_contributions+
     def publish_contributions?
       self[:publish_contributions] == true
+    end
+    
+    ##
+    # Returns true if the banner is active
+    #
+    # Set via +RunCoCo.configuration.banner_active+
+    def banner_active?
+      self[:banner_active] == true
     end
 
     # Loads configuration settings from database
@@ -116,7 +128,7 @@ module RunCoCo
       self[:max_upload_size] = self[:max_upload_size].to_i
       
       [ :publish_contributions, :registration_required, 
-        :contribution_approval_required, :uploadify ].each do |boolean|
+        :contribution_approval_required, :uploadify, :banner_active ].each do |boolean|
         self[boolean] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(self[boolean])
       end
     end
