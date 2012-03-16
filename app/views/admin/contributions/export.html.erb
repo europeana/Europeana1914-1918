@@ -1,4 +1,5 @@
 <% @title = t('views.admin.contributions.export.title') %>
+<p>if no start or end date is indicated no date filter will be applied and the entire approved collection will be exported.</p>
 
 <%= semantic_form_for(@settings, :as => 'settings', :url => export_admin_contributions_path, :html => { :method => 'get' }) do |form| %>
   <%= form.inputs :settings, :class => 'inputs' do %>
