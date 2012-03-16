@@ -54,7 +54,7 @@ xml.collection do
         # does not include the locale
         # this url is not viewable, that's okay
         # e.g. http://www.europeana1914-1918.eu/attachments/12873/1370.12873.original.12873.JPG
-          xml.id_europeanaURI ''
+          xml.id_europeanaURI download_contribution_attachment_url(:id => a.id, :contribution_id => c.id, :extension => a.id, :format => File.extname(a.file_file_name)[1..-1], :locale => nil, :host => 'www.europeana1914-1918.eu')
         
         # this is the viewable url for the story, defaulting to the en locale
         # ( europeana:isShownAt, dcTermsPartOf, relation )
