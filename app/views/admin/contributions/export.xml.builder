@@ -72,7 +72,7 @@ xml.collection do
         # using the .full version will take care of that
         # ( europeana:isShownBy, for the lightbox as well )
         # e.g. http://www.europeana1914-1918.eu/attachments/12873/1370.12873.full.JPG
-        xml.item_url download_contribution_attachment_url(:id => a.id, :contribution_id => c.id, :extension => File.extname(a.file_file_name)[1..-1], :locale => nil, :host => 'www.europeana1914-1918.eu', :port => 80)
+        xml.item_url download_contribution_attachment_url(:id => a.id, :contribution_id => c.id, :extension => File.extname(a.file_file_name)[1..-1], :locale => nil, :host => 'www.europeana1914-1918.eu')
         
         # these fields are in the meta_fields.each loop
         # if no description is available it should be inherited from the story
