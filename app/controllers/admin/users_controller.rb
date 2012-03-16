@@ -1,7 +1,7 @@
 # Duplicates functionality of Devise's RegistrationsController
 # which can not be readily sub-classed pre v1.1
 class Admin::UsersController < AdminController
-  before_filter :find_user, :except => [ :index, :new, :create ]
+  before_filter :find_user, :except => [ :index, :new, :create, :export ]
   
   # GET /admin/users
   # TODO: Search user list
@@ -75,6 +75,19 @@ class Admin::UsersController < AdminController
     redirect_to admin_users_path
   end
 
+  # GET /admin/users/export(.:format)
+  def export
+    current_user.may_administer_users!
+    
+    timestamp = Time.now.strftime('%Y%m%d%H%M%S')
+    
+    respond_to do |format|
+      format.csv do
+        send_data export_as_csv, :filename => "users-#{timestamp}.csv", :type => 'text/csv'
+      end
+    end
+  end
+
   protected
   def find_user
     @user = User.find(params[:id])
@@ -82,6 +95,24 @@ class Admin::UsersController < AdminController
 
   def authorize!
     current_user.may_administer_users!
+  end
+  
+  def export_as_csv
+#    SELECT u.username, u.email, c.full_name, c.street_address, c.locality, c.region, c.postal_code, c.country, c.tel, c.email, c.gender, c.age FROM users u INNER JOIN contacts c ON u.contact_id=c.id WHERE u.role_name='contributor' AND (SELECT COUNT(id) FROM contributions WHERE contributor_id=u.id) > 0;
+    contributors = User.includes(:contact).where(:role_name => 'contributor').where("(SELECT COUNT(id) FROM contributions WHERE contributor_id=users.id) > 0")
+    
+    csv_class.generate do |csv|
+      # Column headings in first row
+      attributes = [ 
+        :username, :email, :full_name, :street_address, :locality, 
+        :region, :postal_code, :country, :tel, :email, :gender, :age ]
+      csv << attributes.collect { |attribute| Contribution.human_attribute_name(attribute) }
+
+      contributors.each do |u|
+        c = u.contact
+        csv << [ u.username, u.email, c.full_name, c.street_address, c.locality, c.region, c.postal_code, c.country, c.tel, c.email, c.gender, c.age ]
+      end
+    end
   end
 end
 

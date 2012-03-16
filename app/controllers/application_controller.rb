@@ -357,5 +357,15 @@ class ApplicationController < ActionController::Base
       Contribution.search(wildcard_query, options)
     end
   end
+  
+  def csv_class
+    if RUBY_VERSION >= "1.9"
+      require 'csv'
+      CSV
+    else
+      require 'fastercsv'
+      FasterCSV
+    end
+  end
 end
 

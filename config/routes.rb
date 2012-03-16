@@ -48,6 +48,7 @@ RunCoCo::Application.routes.draw do
     namespace :admin do
       resources :users do
         get 'delete', :on => :member
+        get 'export', :on => :collection
       end
       
       resources :contributions, :controller => 'contributions', :only => [ :index ] do

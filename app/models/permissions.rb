@@ -16,10 +16,6 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
   end
   
-  action :may_export_contributions do
-    deny :cataloguer
-  end
-
   action :administer_metadata_fields do
     deny :cataloguer
   end

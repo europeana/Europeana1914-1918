@@ -43,7 +43,7 @@ class Admin::ContributionsController < AdminController
 
   # GET /admin/contributions/export
   def export
-    current_user.may_export_contributions!
+    current_user.may_administer_contributions!
 
     @settings = ExportSettings.new
     if params[:settings]
@@ -169,16 +169,6 @@ class Admin::ContributionsController < AdminController
     end
   end
 
-  def csv_class
-    if RUBY_VERSION >= "1.9"
-      require 'csv'
-      CSV
-    else
-      require 'fastercsv'
-      FasterCSV
-    end
-  end
-  
   def search_options
     search_options = {}
     [ :page, :order, :sort, :contributor_id ].each do |key|
