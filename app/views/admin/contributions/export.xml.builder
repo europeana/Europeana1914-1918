@@ -17,6 +17,7 @@ xml.collection do
       # this is the viewable url for the story, defaulting to the en locale ( europeana:isShownAt )
       # e.g. http://www.europeana1914-1918.eu/en/contributions/1370
       xml.story_url contribution_url(:id => c.id, :host => 'www.europeana1914-1918.eu')
+      xml.record_url contribution_url(:id => c.id, :host => 'www.europeana1914-1918.eu')
       
       xml.contributor c.contributor.contact.full_name
       
