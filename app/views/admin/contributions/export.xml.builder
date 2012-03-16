@@ -45,8 +45,9 @@ xml.collection do
       
     end
     
-    
+    item_pos = titleless_items = 0
     c.attachments.each do |a|
+      item_pos = item_pos + 1
       
       xml.record do
         
@@ -56,7 +57,14 @@ xml.collection do
         
         # needs to get the story's title if not present and be sequenced
         # e.g., my grand father's story, item 1, my grand father's story, item 2
-        xml.title a.title
+        if a.title.present?
+          xml.title a.title
+        else
+          titleless_items = titleless_items + 1
+          # For sequential item counts when some have title and some don't,
+          # change item_pos to titleless_items here.
+          xml.title c.title + ', item ' + item_pos.to_s
+        end
         
         # id_europeanaURI - used to create hashtag for europeana ingestion ( europeana:object )
         # does not include the locale
