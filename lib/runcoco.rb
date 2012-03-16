@@ -1,3 +1,4 @@
+require 'runcoco/devise'
 require 'runcoco/formtastic'
 
 ##

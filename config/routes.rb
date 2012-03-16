@@ -28,7 +28,7 @@ RunCoCo::Application.routes.draw do
     end
     
     # Users
-    devise_for :users, :controllers => { :sessions => "users/sessions" },
+    devise_for :users,
       :path_names => { :sign_in => 'sign-in', :sign_out => 'sign-out', :sign_up => 'register' }
     match 'users/account' => 'users#account', :as => :user_account
 
