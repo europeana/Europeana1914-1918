@@ -12,7 +12,7 @@ xml.collection do
       # id_europeanaURI - used to create hashtag for europeana ingestion ( europeana:object )
       # this url will not work in a browser because there is no locale, but that's okay
       # e.g. http://www.europeana1914-1918.eu/contributions/1370
-        xml.id_europeanaURI ''
+        xml.id_europeanaURI localeless_contribution_url(:id => c.id, :host => 'www.europeana1914-1918.eu')
       
       # this is the viewable url for the story, defaulting to the en locale ( europeana:isShownAt )
       # e.g. http://www.europeana1914-1918.eu/en/contributions/1370

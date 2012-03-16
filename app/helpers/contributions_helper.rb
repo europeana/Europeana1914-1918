@@ -88,4 +88,29 @@ module ContributionsHelper
       ''
     end
   end
+  
+  ##
+  # Gets the URL path for a contribution without the :locale prefix.
+  #
+  # @example
+  #   localeless_contribution_path(:id => 1234) #=> "/contributions/1234"
+  #
+  # @param [Hash] options URL generation options passed to #url_for
+  # @return [String] the URL path
+  def localeless_contribution_path(options)
+    contribution_path(options).sub(/^\/\w+/, '')
+  end
+  
+  ##
+  # Gets the URL for a contribution without the :locale prefix.
+  #
+  # @example
+  #   localeless_contribution_url(:id => 1234)
+  #     #=> "http://www.example.org/contributions/1234"
+  #
+  # @param [Hash] options URL generation options passed to #url_for
+  # @return [String] the URL
+  def localeless_contribution_url(options)
+    contribution_url(options).match(/(^\w+:\/\/[^\/]+)\/\w+(.*)$/)[1..2].join
+  end
 end
