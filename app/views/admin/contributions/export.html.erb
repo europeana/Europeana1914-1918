@@ -4,8 +4,8 @@
   <%= form.inputs :settings, :class => 'inputs' do %>
     <%= form.input :format, :as => :select, :collection => [ 'csv', 'xml' ], :include_blank => false, :required => false %>
     <%= form.input :exclude, :as => :string, :required => false %>
-    <%= form.input :start_date, :as => :datetime, :include_blank => false, :required => false %>
-    <%= form.input :end_date, :as => :datetime, :include_blank => false, :required => false %>
+    <%= form.input :start_date, :as => :datetime, :required => false %>
+    <%= form.input :end_date, :as => :datetime, :required => false %>
   <% end %>
   <%= form.buttons do %>
     <%= form.commit_button :label => t('actions.submit') %>

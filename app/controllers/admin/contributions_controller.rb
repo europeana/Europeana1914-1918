@@ -49,11 +49,13 @@ class Admin::ContributionsController < AdminController
     if params[:settings]
       @settings.format = params[:settings][:format]
       @settings.exclude = params[:settings][:exclude]
-      @settings.start_date = DateTime.civil(params[:settings]["start_date(1i)"].to_i, params[:settings]["start_date(2i)"].to_i, params[:settings]["start_date(3i)"].to_i, params[:settings]["start_date(4i)"].to_i, params[:settings]["start_date(5i)"].to_i)
-      @settings.end_date = DateTime.civil(params[:settings]["end_date(1i)"].to_i, params[:settings]["end_date(2i)"].to_i, params[:settings]["end_date(3i)"].to_i, params[:settings]["end_date(4i)"].to_i, params[:settings]["end_date(5i)"].to_i)
+      if (1..5).inject(true) { |present, i| present && params[:settings]["start_date(#{i}i)"].present? }
+        @settings.start_date = DateTime.civil(params[:settings]["start_date(1i)"].to_i, params[:settings]["start_date(2i)"].to_i, params[:settings]["start_date(3i)"].to_i, params[:settings]["start_date(4i)"].to_i, params[:settings]["start_date(5i)"].to_i)
+      end
+      if (1..5).inject(true) { |present, i| present && params[:settings]["end_date(#{i}i)"].present? }
+        @settings.end_date = DateTime.civil(params[:settings]["end_date(1i)"].to_i, params[:settings]["end_date(2i)"].to_i, params[:settings]["end_date(3i)"].to_i, params[:settings]["end_date(4i)"].to_i, params[:settings]["end_date(5i)"].to_i)
+      end
     else
-      @settings.start_date = Time.now - 1.year
-      @settings.end_date = Time.now
       @settings.format = 'xml'
     end
     
@@ -72,7 +74,6 @@ class Admin::ContributionsController < AdminController
         RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
       end
       format.xml do
-#        @contributions = export_dataset
         @metadata_fields = MetadataField.all.collect { |mf| mf.name }
         send_data render_to_string, :filename => "collection-#{timestamp}.xml", :type => 'application/xml'
         RunCoCo.export_logger.info("Export to XML by #{current_user.username}")
@@ -96,9 +97,18 @@ class Admin::ContributionsController < AdminController
   ##
   # Fetch contributions for export in batches and yield each.
   #
-  # Alternative to {#export_dataset}, less memory-intensive, but much slower.
+  # Looks to @settings controller instance variable for export options:
+  # * @settings.exclude: exclude attachment records with files having this 
+  #   extension
+  # * @settings.start_date: only yield contributions published on or after
+  #   this date/time
+  # * @settings.end_date: only yield contributions published on or before
+  #   this date/time
   #
-  # @see export_dataset
+  # @example
+  #   with_exported_contributions do |contribution|
+  #     puts contribution.title
+  #   end
   def with_exported_contributions # :nodoc:
     if @settings.exclude.present?
       ext = @settings.exclude
