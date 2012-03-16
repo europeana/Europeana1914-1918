@@ -12,18 +12,17 @@ module EuropeanaHelper
   end
   
   def editors_picks(locale = nil)
-    url = case locale.to_s
-    when 'en'
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
-    when 'de'
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De"
-    else
+    if locale.nil?
       default = true
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
+      url = "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en"
+    elsif locale.to_s == 'de'
+      url = "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/De"
+    else
+      url = "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/#{locale.to_s}"
     end
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
-    if feed.respond_to?(:entries)
+    if feed.respond_to?(:entries) && feed.entries.present?
       feed.entries
     elsif default
       []
@@ -37,18 +36,15 @@ module EuropeanaHelper
   end
   
   def news_items(locale = nil)
-    url = case locale.to_s
-    when 'en'
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
-    when 'de'
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/de-news"
-    else
+    if locale.nil?
       default = true
-      "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
+      url = "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/en-news"
+    else
+      url = "http://thegreatwararchive.blogspot.com/feeds/posts/default/-/#{locale.to_s}-news"
     end
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
-    if feed.respond_to?(:entries)
+    if feed.respond_to?(:entries) && feed.entries.present?
       feed.entries
     elsif default
       nil
