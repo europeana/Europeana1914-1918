@@ -234,9 +234,10 @@
 		addMapToPage : function( id, options ) {
     
 			var map_options = {
-					center: new google.maps.LatLng(50.083333, 14.416667), // prague
-					zoom: RunCoCo.GMap.zoom_inital,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
+					center : new google.maps.LatLng(50.083333, 14.416667), // prague
+					zoom : RunCoCo.GMap.zoom_inital,
+					mapTypeId : google.maps.MapTypeId.ROADMAP,
+					scrollwheel : false
 				};
 			
 			
