@@ -83,10 +83,20 @@ xml.collection do
         # e.g. http://www.europeana1914-1918.eu/attachments/12873/1370.12873.full.JPG
         xml.record_url inline_contribution_attachment_url(:id => a.id, :contribution_id => c.id, :style => 'full', :extension => File.extname(a.file_file_name)[1..-1], :locale => nil, :host => 'www.europeana1914-1918.eu')
         
-        # these fields are in the meta_fields.each loop
-        # if no description is available it should be inherited from the story
-        # if no keywords are available, they should be inherited by the story
         xml.created_at a.created_at
+        
+        # these fields are in the @metadata_fields.each loop
+        # if no description is available it should be inherited from the story
+        if a.metadata.fields['attachment_description'].blank?
+          a.metadata.fields['attachment_description'] = c.metadata.fields['description']
+        end
+        [ 'keywords', 'theatres', 'forces' ].each do |field_name|
+          if a.metadata.fields[field_name].blank?
+            a.metadata.fields[field_name] = c.metadata.fields[field_name]
+          end
+        end
+        # if no keywords are available, they should be inherited by the story
+        
         @metadata_fields.each do |mf|
           [ a.metadata.fields[mf] ].flatten.each do |mfv|
             xml.tag! mf, (mfv || '')
