@@ -73,9 +73,13 @@ xml.collection do
         xml.id_europeanaURI download_contribution_attachment_url(:id => a.id, :contribution_id => c.id, :extension => a.id, :format => File.extname(a.file_file_name)[1..-1], :locale => nil, :host => 'www.europeana1914-1918.eu')
         
         # this is the viewable url for the story, defaulting to the en locale
-        # ( europeana:isShownAt, dcTermsPartOf, relation )
+        # ( europeana:isShownAt )
         # e.g. http://www.europeana1914-1918.eu/en/contributions/1370
         xml.story_url contribution_url(:id => c.id, :host => 'www.europeana1914-1918.eu')
+        
+        # this is the visible url for the story, defaulting to the en locale
+        # ( dc:relation )
+        xml.relation_url contribution_url(:id => c.id, :host => 'www.europeana1914-1918.eu')
         
         # record_url should be viewable in the browser
         # using the .full version will take care of that
