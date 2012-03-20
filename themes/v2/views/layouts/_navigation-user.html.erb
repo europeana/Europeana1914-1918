@@ -1,5 +1,9 @@
 <ul id="navigation-user" class="menu">
   
+  <% if user_signed_in? %>
+	<li class="username"><%= current_user.email %></li>
+  <% end %>
+  
   <li>
 	
 	<%= form_tag do %>
@@ -17,13 +21,22 @@
 	<li>
 	  <a href="<%= page_path('users/register') %>"><%= t('common.links.register') %></a>
 	</li>
-  
-  <% else %>
-	
-	<li>
-	  <a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %></a>
-	</li>
 	
   <% end %>
   
 </ul>
+
+<% if user_signed_in? %>
+	
+	<ul id="navigation-user-menu" class="menu">
+	  
+	  <li><%= link_to t('common.links.my_stories'), contributor_dashboard_path %></li>
+	  <li><%= link_to t('common.links.my_account'), user_account_path %></li>
+	  <% if current_user.may_access_admin_area? %>
+		<li><%= link_to t('layout.navigation.admin'), admin_root_path %></li>
+	  <% end %>
+	  <li><a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %></a></li>
+	  
+	</ul>
+
+<% end %>

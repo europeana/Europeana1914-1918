@@ -1,30 +1,92 @@
 <% @title = t 'views.home.heading' %>
-<h1><%= @title %></h1>
+<% @javascripts[:listing] = true %>
 
-<ul id="stories">
+<div id="slidedeck_frame" class="skin-slidedeck">
 	
-	<li><a href="" id="your-story"><%= theme_image_tag( 'vertical-text/your-story.png' ) %></a>
+	<dl class="slidedeck">
 		
-		<ul>
+		<dt>stories from the archive</dt>
+		<dd>
 			
-			<li><%= theme_image_tag( 'tests/moon.jpg', :alt => 'moon', :width => '90%' ) %></li>
-			<li><%= theme_image_tag( 'tests/beach.jpg', :alt => 'beach', :width => 300 ) %></li>
-			<li><%= theme_image_tag( 'tests/sea.jpg', :alt => 'sea', :width => 300 ) %></li>
+			<ul>
+				
+				<li>
+					<img src="/themes/v2/images/from-the-archive/munitions-factories.jpg" alt="In the Munitions Factories" height="200" />
+					The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.
+				</li>
+				
+				<li>
+					<img src="/themes/v2/images/from-the-archive/christmas-postcard.jpg" alt="Christmas Postcard" height="300" />
+					Postcard from the Westerfront.
+				</li>
+				
+				<li>
+					<img src="/themes/v2/images/from-the-archive/marine-hk-berlin.jpg" alt="Marine HK Berlin" height="300" />
+					The thrilling diary and the field postcards were a contribution by Bernd Rossberg to the Europeana 1914-1918 collection at the public participation day in Dresden on 22/6/2011.
+				</li>
+				<!--
+				<li>
+					<img src="images/beach.jpg" alt="beach" width="400"/>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				
+				<li>
+					<img src="images/moon.jpg" alt="moon" width="400"/>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				
+				<li>
+					<h3>landing on the moon: july 20, 1969</h3>
+					<iframe width="420" height="315" src="http://www.youtube.com/embed/sTBIr65cL_E" frameborder="0" allowfullscreen></iframe>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				
+				<li>
+					<img src="images/sea.jpg" alt="sea" width="400"/>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				-->
+				
+			</ul>
+		
+		</dd>
+		
+		<dt>tell us <b>your</b> story</dt>
+		<dd>
 			
-		</ul>
-		
-	</li>
-	
-	<li><a href="" id="archive-stories"><%= theme_image_tag( 'vertical-text/archive-stories.png' ) %></a>
-	
-		<ul>
+			<ul>
+				
+				<li>
+					<a href="<%= video_path('OttoBernard-FakePassport-English.flv') %>" id="player" class="flowplayer"><%= image_tag 'Europeana_Appeal_English_WebPurposes _WPlay.jpg' %></a>
+				</li>
+				
+				<!--
+				<li>
+					<img src="images/beach.jpg" alt="beach" width="400"/>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				
+				<li>
+					<img src="images/moon.jpg" alt="moon" width="400"/>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				
+				<li>
+					<h3>landing on the moon: july 20, 1969</h3>
+					<iframe width="420" height="315" src="http://www.youtube.com/embed/sTBIr65cL_E" frameborder="0" allowfullscreen></iframe>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				
+				<li>
+					<img src="images/sea.jpg" alt="sea" width="400"/>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+				-->
+				
+			</ul>
 			
-			<li><%= theme_image_tag( 'tests/sea.jpg', :alt => 'sea', :width => 300 ) %></li>
-			<li><%= theme_image_tag( 'tests/beach.jpg', :alt => 'beach', :width => 300 ) %></li>
-			<li><%= theme_image_tag( 'tests/moon.jpg', :alt => 'moon', :width => 300 ) %></li>
+		</dd>
 		
-		</ul>
-		
-	</li>
+	</dl>
 	
-</ul>
+</div>

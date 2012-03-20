@@ -2,16 +2,6 @@
  *	menu
  */
 	
-	#navigation-user {
-		position: absolute;
-		top: 0;
-		right: 0;
-	}
-	
-	#navigation-user form {
-		padding: 3px 11px;
-	}
-	
 	#navigation-main {
 		position: absolute;
 		top: 0;
@@ -27,6 +17,7 @@
 	
 	#navigation-main.menu li,
 	#navigation-user.menu li,
+	#navigation-user-menu.menu li,
 	#navigation-footer.menu li {
 		float: left;
 	}
@@ -49,8 +40,35 @@
 	
 	.menu a:hover {
 		background-color: #eaeaea;
+	}	
+
+
+/**
+ * navigation user
+ */
+
+	#navigation-user {
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 	
-	#eu-credit {
-		float: right;
+	#navigation-user form {
+		padding: 3px 11px;
+	}	
+
+
+/**
+ * navigation user menu
+ */
+
+	#navigation-user-menu {
+		position: absolute;
+		z-index: 100;
+		top: 30px;
+		right: 0;
+	}
+	
+	.username {
+		padding: 5px 10px 0 0;
 	}
