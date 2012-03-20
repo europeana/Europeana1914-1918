@@ -34,9 +34,4 @@
       }
     );
 	
-	jQuery('.slidedeck').slidedeck();
-	jQuery('#featured').orbit({
-		advanceSpeed : 10000
-	});
-	
 }());
