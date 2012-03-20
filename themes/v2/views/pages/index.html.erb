@@ -1,44 +1,34 @@
 <% @title = t 'views.home.heading' %>
 <% @javascripts[:listing] = true %>
 
-<div id="slidedeck_frame" class="skin-slidedeck">
+<div id="carousel" class="es-carousel-wrapper">
 	
-	<dl class="slidedeck">
+	<div class="es-carousel">
 		
-		<dt>stories from the archive</dt>
-		<dd>
+		<ul>
 			
-			<div class="container">
-				
-				<div id="featured">
-					
-					<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories"><img src="/themes/v2/images/from-the-archive/munitions-factories.jpg" width="750" height="450" data-caption="#munitionsFactories" /></a>
-					<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard"><img src="/themes/v2/images/from-the-archive/christmas-postcard.jpg" width="750" height="450" data-caption="#christmasPostcard" /></a>
-					<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin"><img src="/themes/v2/images/from-the-archive/marine-hk-berlin.jpg" width="750" height="450" data-caption="#marineHkBerlin" /></a>
-					
-				</div>
-				
-				<span class="orbit-caption" id="munitionsFactories">The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.</span>
-				<span class="orbit-caption" id="christmasPostcard">Postcard from the Westerfront.</span>
-				<span class="orbit-caption" id="marineHkBerlin">The thrilling diary and the field postcards were a contribution by Bernd Rossberg to the Europeana 1914-1918 collection at the public participation day in Dresden on 22/6/2011.</span>
-				
-			</div>
-		
-		</dd>
-		
-		<dt>tell us <b>your</b> story</dt>
-		<dd>
+			<li>
+				<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories">
+					<img src="/themes/v2/images/from-the-archive/munitions-factories.jpg" width="900" data-caption="#munitionsFactories" />
+				</a>
+			</li>
+			<li>
+				<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard">
+					<img src="/themes/v2/images/from-the-archive/christmas-postcard.jpg" width="900" data-caption="#christmasPostcard" />
+				</a>
+			</li>
+			<li>
+				<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin">
+					<img src="/themes/v2/images/from-the-archive/marine-hk-berlin.jpg" width="900" data-caption="#marineHkBerlin" />
+				</a>
+			</li>
 			
-			<ul>
-				
-				<li>
-					<a href="<%= video_path('OttoBernard-FakePassport-English.flv') %>" id="player" class="flowplayer"><%= image_tag 'Europeana_Appeal_English_WebPurposes _WPlay.jpg' %></a>
-				</li>
-				
-			</ul>
-			
-		</dd>
+		</ul>
 		
-	</dl>
-	
+	</div>
+	<!--
+	<span class="orbit-caption" id="munitionsFactories">The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.</span>
+	<span class="orbit-caption" id="christmasPostcard">Postcard from the Westerfront.</span>
+	<span class="orbit-caption" id="marineHkBerlin">The thrilling diary and the field postcards were a contribution by Bernd Rossberg to the Europeana 1914-1918 collection at the public participation day in Dresden on 22/6/2011.</span>
+	-->
 </div>

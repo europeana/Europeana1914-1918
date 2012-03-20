@@ -2,14 +2,15 @@
 <html lang="<%= I18n.locale %>">
 <head>
 <meta charset="utf-8" />
-<title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<%= csrf_meta_tag %>
 <%= render '/layouts/links' %>
 <link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
 <link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
-<%= csrf_meta_tag %>
+<title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
 </head>
 <body>
-	
+	<%= @view %>
 	<%= render '/layouts/header' %>
 	
 	<div id="content">
