@@ -94,12 +94,14 @@ xml.collection do
         if a.metadata.fields['attachment_description'].blank?
           a.metadata.fields['attachment_description'] = c.metadata.fields['description']
         end
+        
+        # if these fields are not available they should be inherited from the story
+        # keywords, theatres or forces
         [ 'keywords', 'theatres', 'forces' ].each do |field_name|
           if a.metadata.fields[field_name].blank?
             a.metadata.fields[field_name] = c.metadata.fields[field_name]
           end
         end
-        # if no keywords are available, they should be inherited by the story
         
         @metadata_fields.each do |mf|
           [ a.metadata.fields[mf] ].flatten.each do |mfv|
