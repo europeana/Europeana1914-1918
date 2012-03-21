@@ -1,11 +1,16 @@
 <% @javascripts[:gmap_display] = true %>
 <% @title = t('views.contributions.show.title') %>
 
-<%= @contribution.attachments %>
+
 
 
 <div id="story-images">
   
+  <ul id="story-images-carousel">
+    <% @contribution.attachments.each do |attachment| %>
+      <li><a href="/<%= I18n.locale %>/"><img src="<%= attachment.file %>" alt="<%= attachment.title %>" /></a></li>
+    <% end %>
+  </ul>
 </div>
 
 
@@ -23,13 +28,17 @@
 
 </dl>
 
+
 <div id="story-translate">
+  
   <b>Translate details:</b><br/>
-  <select>
-    <option></option>
+  
+  <select>    
+    <option></option>    
   </select>
   
 </div>
+
 
 <div id="story-map">
   
