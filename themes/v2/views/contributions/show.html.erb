@@ -1,0 +1,36 @@
+<% @javascripts[:gmap_display] = true %>
+<% @title = t('views.contributions.show.title') %>
+
+<%= @contribution.attachments %>
+
+
+<div id="story-images">
+  
+</div>
+
+
+<dl id="story-metadata">
+  
+  <dt>Title:</dt>
+  <dd><%= @contribution.title %></dd>
+  
+  <% @contribution.metadata.fields.each do |field| %>
+    
+    <dt><%= field[0] %>:</dt>
+    <dd><%= field[1] %></dd>
+    
+  <% end %>
+
+</dl>
+
+<div id="story-translate">
+  <b>Translate details:</b><br/>
+  <select>
+    <option></option>
+  </select>
+  
+</div>
+
+<div id="story-map">
+  
+</div>
