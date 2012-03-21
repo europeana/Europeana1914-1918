@@ -34,4 +34,16 @@
       }
     );
 	
+	function createCarousel() {
+		
+		if ( !window.eu ) { window.eu = {}; }
+		if ( !eu.europeana ) { eu.europeana = {}; }
+		eu.europeana.carousel = {};
+		eu.europeana.carousel.index = new com.gmtplusone.carousel( '#carousel' );
+		eu.europeana.carousel.index.init();
+		
+	}
+	
+	createCarousel();
+	
 }());

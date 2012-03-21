@@ -1,34 +1,85 @@
 <% @title = t 'views.home.heading' %>
-<% @javascripts[:listing] = true %>
 
-<div id="carousel" class="es-carousel-wrapper">
+
+
+<div id="featured">
 	
-	<div class="es-carousel">
+	<dl class="slidedeck">
 		
-		<ul>
-			
-			<li>
-				<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories">
-					<img src="/themes/v2/images/from-the-archive/munitions-factories.jpg" width="900" data-caption="#munitionsFactories" />
+		<dt><h2 class="slidedeck-spine">stories from the archive</dt>
+		
+			<dd class="carousel">
+				
+				<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories, The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.">
+					<img src="/themes/v2/images/from-the-archive/400/munitions-factories.jpg" />
 				</a>
-			</li>
-			<li>
 				<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard">
-					<img src="/themes/v2/images/from-the-archive/christmas-postcard.jpg" width="900" data-caption="#christmasPostcard" />
+					<img src="/themes/v2/images/from-the-archive/400/christmas-postcard.jpg" />
 				</a>
-			</li>
-			<li>
 				<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin">
-					<img src="/themes/v2/images/from-the-archive/marine-hk-berlin.jpg" width="900" data-caption="#marineHkBerlin" />
+					<img src="/themes/v2/images/from-the-archive/400/marine-hk-berlin.jpg" />
 				</a>
-			</li>
-			
-		</ul>
+				
+			</dd>
 		
-	</div>
+		<dt><h2 class="slidedeck-spine">tell us <b>your</b> story</h2></dt>
+		
+	</ul>
+	
+	
 	<!--
-	<span class="orbit-caption" id="munitionsFactories">The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.</span>
-	<span class="orbit-caption" id="christmasPostcard">Postcard from the Westerfront.</span>
-	<span class="orbit-caption" id="marineHkBerlin">The thrilling diary and the field postcards were a contribution by Bernd Rossberg to the Europeana 1914-1918 collection at the public participation day in Dresden on 22/6/2011.</span>
+	<dl>
+		
+		<dt>from the archive</dt>
+		
+		<dd id="carousel" class="carousel">
+			
+			<div class="carousel-container">
+				
+				<ul id="carousel" class="carousel">
+					
+					<li>
+						<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories, The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.">
+							<img src="/themes/v2/images/from-the-archive/400/munitions-factories.jpg" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard">
+							<img src="/themes/v2/images/from-the-archive/400/christmas-postcard.jpg" />
+						</a>
+					</li>
+					
+					<li>
+						<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin">
+							<img src="/themes/v2/images/from-the-archive/400/marine-hk-berlin.jpg" />
+						</a>
+					</li>
+					
+				</ul>
+				
+			</div>
+			
+		</dd>
+	
+	</dl>
+	
 	-->
+	
+	
+	
 </div>
+
+<ul id="collection-days">
+	
+	<li><a href=""><b>Erfurt</b> 14 June 2011</a></li>
+	<li><a href=""><b>Dresden</b> 20 June 2011</a></li>
+	<li><a href=""><b>Kiel</b> 29 June 2011</a></li>
+	<li><a href=""><b>Regensburg</b> 20 July 2011</a></li>
+	<li><a href=""><b>Luxembourg</b> 6 March 2012</a></li>
+	<li><a href=""><b>Lancashire</b> 10 March 2012</a></li>
+	<li><a href=""><b>Dublin</b> 21 March 2012</a></li>
+	<li><a href=""><b>Nova Gorica</b> 28 March 2012</a></li>
+	<li><a href=""><b>Sonderborg Gorica</b> 24 April 2012</a></li>
+	
+</ul>
