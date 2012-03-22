@@ -87,6 +87,10 @@ xml.collection do
         # e.g. http://www.europeana1914-1918.eu/attachments/12873/1370.12873.full.JPG
         xml.record_url inline_contribution_attachment_url(:id => a.id, :contribution_id => c.id, :style => 'full', :extension => File.extname(a.file_file_name)[1..-1], :locale => nil, :host => 'www.europeana1914-1918.eu')
         
+        # contributor is set at the contribution/story level, so duplicate fomr
+        # there
+        xml.contributor c.contributor.contact.full_name
+        
         xml.created_at a.created_at
         
         # these fields are in the @metadata_fields.each loop
@@ -97,7 +101,7 @@ xml.collection do
         
         # if these fields are not available they should be inherited from the story
         # keywords, theatres or forces
-        [ 'keywords', 'theatres', 'forces' ].each do |field_name|
+        [ 'keywords', 'theatres', 'forces', 'creator' ].each do |field_name|
           if a.metadata.fields[field_name].blank?
             a.metadata.fields[field_name] = c.metadata.fields[field_name]
           end
