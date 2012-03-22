@@ -30,5 +30,11 @@
   <tr>
     <th scope="row"><%= t('activerecord.attributes.contribution.created_at') %></th>
     <td><%= l contribution.created_at, :format => :short %></td>
-  </tr>       
+  </tr>
+  <%- if current_user.may_catalogue_contributions? -%>
+    <tr>
+      <th scope="row"><%= t('activerecord.attributes.contribution.catalogued_by') %></th>
+      <td><%= contribution.cataloguer.present? ? contribution.cataloguer.contact.full_name : '' %></td>
+    </tr>
+  <%- end -%>
 </table>

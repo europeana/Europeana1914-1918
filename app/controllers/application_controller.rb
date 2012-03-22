@@ -252,6 +252,7 @@ class ApplicationController < ActionController::Base
     @contribution_fields ||= [
       [ t('attributes.title'), 'title'], 
       [ t('activerecord.attributes.contribution.attachments'), 'attachments' ], 
+      [ t('activerecord.attributes.contribution.cataloguer'), 'cataloguer' ],
       [ t('activerecord.attributes.contribution.created_at'), 'created_at' ],
       [ t('activerecord.attributes.contribution.contributor'), 'contributor' ],
       [ t('activerecord.attributes.contribution.approver'), 'approver' ]

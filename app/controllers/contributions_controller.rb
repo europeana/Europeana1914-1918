@@ -14,6 +14,9 @@ class ContributionsController < ApplicationController
   def new
     current_user.may_create_contribution!
     @contribution = Contribution.new
+    if current_user.may_catalogue_contributions? && @contribution.catalogued_by.blank?
+      @contribution.catalogued_by = current_user.id
+    end
   end
 
   # POST /contributions
@@ -30,8 +33,10 @@ class ContributionsController < ApplicationController
     current_user.may_create_contribution!
     
     @contribution = Contribution.new 
+    if current_user.may_catalogue_contributions?
+      @contribution.catalogued_by = params[:contribution].delete(:catalogued_by)
+    end
     @contribution.attributes = params[:contribution]
-    @contribution.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@contribution)
 
     if current_user.role.name == 'guest'
       @contribution.guest = current_user.contact
@@ -71,6 +76,11 @@ class ContributionsController < ApplicationController
         return
       end
     end
+
+    if current_user.may_catalogue_contributions? && @contribution.catalogued_by.blank?
+      @contribution.catalogued_by = current_user.id
+    end
+    
     current_user.may_edit_contribution!(@contribution)
   end
 
@@ -78,8 +88,13 @@ class ContributionsController < ApplicationController
   def update
     current_user.may_edit_contribution!(@contribution)
 
+    if current_user.may_catalogue_contributions?
+      @contribution.catalogued_by = params[:contribution].delete(:catalogued_by)
+    end
     @contribution.attributes = params[:contribution]
-    @contribution.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@contribution)
+    if current_user.may_catalogue_contributions?
+      @contribution.metadata.cataloguing = true
+    end
 
     if @contribution.save
       flash[:notice] = t('flash.contributions.draft.update.notice')

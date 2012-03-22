@@ -66,6 +66,8 @@ module ContributionsHelper
       contribution.contact.full_name
     elsif field_name == 'approver'
       contribution.approver ? contribution.approver.contact.full_name : ''
+    elsif field_name == 'cataloguer'
+      contribution.cataloguer ? contribution.cataloguer.contact.full_name : ''
     elsif field_name == 'title'
       title_text = (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>' + t('views.contributions.no_title') + '</em>'))
       link_to(title_text, contribution)

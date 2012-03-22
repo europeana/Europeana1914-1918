@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
     end
   end
   has_many :approved_contributions, :class_name => 'Contribution', :foreign_key => 'approved_by', :dependent => :nullify
+  has_many :catalogued_contributions, :class_name => 'Contribution', :foreign_key => 'catalogued_by', :dependent => :nullify
   belongs_to :contact, :dependent => :destroy
   
   has_attached_file :picture, :styles => { :thumb => "100x100>", :medium => "200x200>" }, 

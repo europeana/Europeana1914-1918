@@ -14,4 +14,8 @@ module UsersHelper
       raw('<em>' + t('views.contacts.no_name') + '</em>')
     end
   end
+  
+  def cataloguing_users
+    User.where(:role_name => [ 'administrator', 'cataloguer' ]).includes(:contact).order('contacts.full_name')
+  end
 end

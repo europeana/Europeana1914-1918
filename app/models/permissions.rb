@@ -37,6 +37,9 @@ class Permissions < Aegis::Permissions
   action :catalogue_contribution do
   end
   
+  action :catalogue_contributions do
+  end
+  
   action :search_contributions do
     if RunCoCo.configuration.publish_contributions?
       allow :everyone

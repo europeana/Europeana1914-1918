@@ -6,7 +6,7 @@ else
 end
 
 if local_assigns[:fields].nil?
-  fields = [ 'title', 'attachments', 'created_at' ]
+  fields = [ 'title', 'attachments', 'created_at', 'cataloguer' ]
   fields << 'field_ticket' if current_user.may_catalogue_contribution?
 end
 %>

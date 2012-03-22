@@ -2,6 +2,7 @@
 class Contribution < ActiveRecord::Base
   belongs_to :contributor, :class_name => 'User'
   belongs_to :approver, :class_name => 'User', :foreign_key => 'approved_by'
+  belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   #--
   # FIXME: Destroy associated contact when contribution destroyed, *IF* this is a guest contribution, *AND* there are no other associated contributions
@@ -22,6 +23,7 @@ class Contribution < ActiveRecord::Base
 
   validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validate :validate_attachment_file_presence, :if => :submitting?
+  validate :validate_cataloguer_role, :if => Proc.new { |c| c.catalogued_by.present? }
 
   attr_accessible :metadata_attributes, :title
 
@@ -159,6 +161,10 @@ class Contribution < ActiveRecord::Base
   
   def validate_attachment_file_presence
     self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file.count == attachments.count
+  end
+  
+  def validate_cataloguer_role
+    self.errors.add(:catalogued_by, I18n.t('activerecord.errors.models.contribution.attributes.catalogued_by.role_name')) unless [ 'administrator', 'cataloguer' ].include?(User.find(catalogued_by).role_name)
   end
   
   alias :"rails_metadata_attributes=" :"metadata_attributes="
