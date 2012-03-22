@@ -6,8 +6,18 @@
 			'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js',
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.infinitescroll.min.js',
-			'/themes/v2/javascripts/com/gmtplusone/carousel.js',
+			'/themes/v2/javascripts/org/flowplayer/flowplayer-3.2.8.min.js',
 			'/themes/v2/javascripts/eu/europeana/listing.js'
+		]
+	end
+	
+	
+	if @javascripts[:gmap_display]
+		script_files = [
+			'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
+			'/themes/v2/javascripts/com/google/gmap-geo.v3.js',
+			'/themes/v2/javascripts/com/google/gmap-display.js',
+			'/themes/v2/javascripts/eu/europeana/contributions.js'
 		]
 	end
 
@@ -30,5 +40,9 @@
 	<% end -%>
 
 </script>
+
+<% if @javascripts[:gmap_display] %>
+<script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>"></script>
+<% end %>
 
 <%= javascript_include_tag script_files %>

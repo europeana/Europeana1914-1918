@@ -44,6 +44,7 @@
 		
 	}
 	
-	createCarousel();
+	
+	flowplayer("player", "/themes/v2/javascripts/org/flowplayer/flowplayer-3.2.8.swf");
 	
 }());

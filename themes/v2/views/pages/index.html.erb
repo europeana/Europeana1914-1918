@@ -1,72 +1,48 @@
 <% @title = t 'views.home.heading' %>
+<% @javascripts[:listing] = true -%>
+  
+<ol id="featured">
 
-
-
-<div id="featured">
-	
-	<dl class="slidedeck">
+	<li>
 		
-		<dt><h2 class="slidedeck-spine">stories from the archive</dt>
+		<h2>stories from the archive</h2>
 		
-			<dd class="carousel">
-				
-				<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories, The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.">
+		<ul>
+			
+			<li>
+				<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories">
 					<img src="/themes/v2/images/from-the-archive/400/munitions-factories.jpg" />
 				</a>
+				<div class="caption">Munitions Factories, The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.</div>
+			</li>
+			
+			<li>
 				<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard">
 					<img src="/themes/v2/images/from-the-archive/400/christmas-postcard.jpg" />
 				</a>
+				<div class="caption">A Christmas Postcard from our collection</div>
+			</li>
+			
+			<li>
 				<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin">
 					<img src="/themes/v2/images/from-the-archive/400/marine-hk-berlin.jpg" />
 				</a>
-				
-			</dd>
-		
-		<dt><h2 class="slidedeck-spine">tell us <b>your</b> story</h2></dt>
-		
-	</ul>
-	
-	
-	<!--
-	<dl>
-		
-		<dt>from the archive</dt>
-		
-		<dd id="carousel" class="carousel">
+				<div class="caption">The crew of the Marien HK Berlin</div>
+			</li>
 			
-			<div class="carousel-container">
-				
-				<ul id="carousel" class="carousel">
-					
-					<li>
-						<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories, The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.">
-							<img src="/themes/v2/images/from-the-archive/400/munitions-factories.jpg" />
-						</a>
-					</li>
-					
-					<li>
-						<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard">
-							<img src="/themes/v2/images/from-the-archive/400/christmas-postcard.jpg" />
-						</a>
-					</li>
-					
-					<li>
-						<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin">
-							<img src="/themes/v2/images/from-the-archive/400/marine-hk-berlin.jpg" />
-						</a>
-					</li>
-					
-				</ul>
-				
-			</div>
-			
-		</dd>
+		</ul>
+		
+	</li>
 	
-	</dl>
-	
-	-->
-	
-</div>
+	<li>
+		
+		<h2>tell us <b>your</b> story</h2>
+		
+			<a href="/videos/OttoBernard-FakePassport-English.flv" id="player" class="flowplayer"><img alt="Europeana_appeal_english_webpurposes _wplay" src="/images/Europeana_Appeal_English_WebPurposes _WPlay.jpg" /></a>
+		
+	</li>
+
+</ol>
 
 <p><b>collection days</b>: see stories from past collection days, and learn how you can <b>bring your stories</b> to future days.</p>
 

@@ -2,8 +2,6 @@
 <% @title = t('views.contributions.show.title') %>
 
 
-
-
 <div id="story-images">
   
   <ul id="story-images-carousel">
@@ -16,15 +14,16 @@
 
 <dl id="story-metadata">
   
-  <dt>Title:</dt>
-  <dd><%= @contribution.title %></dd>
   
-  <% @contribution.metadata.fields.each do |field| %>
+  
+  <%= render :partial => '/metadata/display', :locals => { :contribution => @contribution, :metadata => @contribution.metadata } %>
+  
+  <!--<% %>#@contribution.metadata.fields.each do |field| %>-->
     
-    <dt><%= field[0] %>:</dt>
-    <dd><%= field[1] %></dd>
+    <!-- <dt><% %>#field[0] %>:</dt> -->
+    <!-- <dd><% %>#field[1] %></dd> -->
     
-  <% end %>
+  <!--<% %>#end %> -->
 
 </dl>
 
