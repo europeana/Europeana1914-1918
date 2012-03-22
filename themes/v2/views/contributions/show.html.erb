@@ -16,7 +16,7 @@
   
   
   
-  <%= render :partial => '/metadata/display', :locals => { :contribution => @contribution, :metadata => @contribution.metadata } %>
+  <%= render :partial => '/metadata/display', :locals => { :contribution => @contribution, :metadata => @contribution.metadata, :field_options => { :name => [ 'keywords', 'description' ] } } %>
   
   <!--<% %>#@contribution.metadata.fields.each do |field| %>-->
     
