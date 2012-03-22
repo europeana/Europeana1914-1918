@@ -49,6 +49,7 @@
 				throw new Error('Google Maps has not been loaded');
 			}
 			
+			if ( this.$location_map.length < 1 ) { console.log('returning'); return; }
 			this.mapSetup( map_container );
 			
 		}

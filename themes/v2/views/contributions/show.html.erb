@@ -9,22 +9,66 @@
       <li><a href="/<%= I18n.locale %>/"><img src="<%= attachment.file %>" alt="<%= attachment.title %>" /></a></li>
     <% end %>
   </ul>
+  
+  <% if @contribution.attachments.present? -%>
+  <%= render :partial => '/attachments/table', :locals => { :attachments => @contribution.attachments } %>
+  <% end %>
 </div>
 
 
 <dl id="story-metadata">
   
+    <%=
+    render :partial => '/metadata/display',
+    :locals => {
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :name => [
+          'description',
+          'alternative',
+          'author',
+          'subject',
+          'keywords',
+          # 'date',
+          'date_from', # use this field to summarize the date fields
+          'date_to',
+          'location_map',
+          'location_placename',
+          'file_type',
+          'source',
+          'format',
+          'content',
+          'contributor_behalf',
+          'page_number',
+          'page_total',
+          'editor_pick',
+          'cataloguer',
+          'notes',
+          'lang',
+          'forces',
+          'theatres',
+          'collection_day',
+          'lang_other',
+          'object_side',
+          'cover_image',
+          'creator_family_name',
+          'creator_given_name',
+          'license',
+          'character1_family_name',
+          'character1_given_name',
+          'character2_family_name',
+          'character2_given_name',
+          'attachment_description',
+          'summary',
+          'ticket',
+          'location_zoom'
+        ],
+        :name_order => true
+      }
+    }
+  %>
   
-  
-  <%= render :partial => '/metadata/display', :locals => { :contribution => @contribution, :metadata => @contribution.metadata, :field_options => { :name => [ 'keywords', 'description', 'date_from', 'date_to' ], :name_order => true } } %>
-  
-  <!--<% %>#@contribution.metadata.fields.each do |field| %>-->
-    
-    <!-- <dt><% %>#field[0] %>:</dt> -->
-    <!-- <dd><% %>#field[1] %></dd> -->
-    
-  <!--<% %>#end %> -->
-
 </dl>
 
 
