@@ -4,15 +4,18 @@
 
 <div id="story-images">
   
-  <ul id="story-images-carousel">
-    <% @contribution.attachments.each do |attachment| %>
-      <li><a href="/<%= I18n.locale %>/"><img src="<%= attachment.file %>" alt="<%= attachment.title %>" /></a></li>
+  <ul id="image-viewer">
+    <% if @contribution.attachments.present? -%>
+      <%= render :partial => '/attachments/display-view' %>
     <% end %>
   </ul>
   
-  <% if @contribution.attachments.present? -%>
-  <%= render :partial => '/attachments/table', :locals => { :attachments => @contribution.attachments } %>
-  <% end %>
+  <ul id="thumbnail-viewer">
+    <% if @contribution.attachments.present? -%>
+      <%= render :partial => '/attachments/display-thumbnails' %>
+    <% end %>
+  </ul>
+  
 </div>
 
 

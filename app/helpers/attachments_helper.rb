@@ -19,6 +19,15 @@ module AttachmentsHelper
       image_tag(image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}"), :class => 'media-type-icon')
     end
   end
+
+  def attachment_view(attachment)
+    if attachment.image? && File.exists?(attachment.file.path(:original))
+      image_tag(attachment.file.url(:original), :alt => '')
+    else
+      media_type = file_media_type(attachment.file.original_filename)
+      image_tag(image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}"), :class => 'media-type-icon')
+    end
+  end
   
   def file_media_type(filename)
     mime_type_map = {  
