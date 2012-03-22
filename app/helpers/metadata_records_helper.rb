@@ -15,7 +15,7 @@ module MetadataRecordsHelper
   
   def metadata_record_field_value(metadata, field)
     value = metadata[field.column_name]
-    if (field.field_type == 'geo') && !value.blank?
+    if (field.field_type == 'geo') && value.present?
       content_tag(:span, value, :class => 'geo')
 #      content_tag(:span, value, :class => 'geo') +
 #      content_tag(:noscript, 
@@ -28,7 +28,7 @@ module MetadataRecordsHelper
       if metadata.fields[field.name].present?
         metadata.fields[field.name].to_sentence
       end
-    elsif field.field_type == 'text'
+    elsif field.field_type == 'text' && value.present?
       content_tag(:div, value, :class => 'metadata-text')
     else
       value

@@ -13,17 +13,17 @@
 -%>
 <% unless fields.blank? || metadata.blank? -%>
   <%- fields.each do |field| %>
-        <% if ( 'location_zoom' == field.name ) %>
-          <input type="hidden" id="location-zoom" value="<%= metadata['field_location_zoom'] %>" />
-        <% elsif ( 'location_placename' == field.name ) %>
-          <input type="hidden" id="location-placename" value="<%= metadata['field_location_placename'] %>" />
-        <% elsif ( 'location_map' == field.name ) %>
-          <input type="hidden" id="location-map" value="<%= metadata['field_location_map'] %>" />
-        <% else %>
-          <dt><b><%= field.title %></b></dt>
-          <dd><%= metadata_record_field_value(metadata, field) %></dd>
-        <% end %>
-    <%- end %>
+    <%- if [ 'location_zoom', 'location_placename', 'location_map' ].include?(field.name) -%>
+      <%- unless metadata['field_' + field.name].blank? -%>
+        <input type="hidden" id="<%= field.name.gsub('_', '-') %>" value="<%= metadata['field_' + field.name] %>" />
+      <%- end -%>
+    <%- else -%>
+      <%- unless (field_value = metadata_record_field_value(metadata, field)).blank? -%> 
+        <dt><b><%= field.title %></b></dt>
+        <dd><%= field_value %></dd>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
 <% end -%>
 
 
