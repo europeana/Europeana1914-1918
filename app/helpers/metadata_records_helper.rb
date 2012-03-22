@@ -33,10 +33,16 @@ module MetadataRecordsHelper
     fields
   end
   
-  def metadata_record_field_value(metadata, field)
+  def metadata_record_field_value(metadata, field, fmt_date = false)
     value = metadata[field.column_name]
-    if (field.field_type == 'geo') && value.present?
-      content_tag(:span, value, :class => 'geo')
+    if field.field_type == 'taxonomy'
+      if metadata.fields[field.name].present?
+        metadata.fields[field.name].to_sentence
+      end
+    elsif value.present?
+      case field.field_type
+      when 'geo'
+        content_tag(:span, value, :class => 'geo')
 #      content_tag(:span, value, :class => 'geo') +
 #      content_tag(:noscript, 
 #        content_tag(:div, 
@@ -44,14 +50,26 @@ module MetadataRecordsHelper
 #          :class => 'gmap-static'
 #        )
 #      )
-    elsif field.field_type == 'taxonomy'
-      if metadata.fields[field.name].present?
-        metadata.fields[field.name].to_sentence
+      when 'text'
+        content_tag(:div, value, :class => 'metadata-text')
+      when 'date'
+        if fmt_date
+          year, month, day = value.split('-')
+          if day.present?
+            year + ' ' + I18n.t('date.month_names')[month.to_i] + ' ' + day.to_i.to_s
+          elsif month.present?
+            year + ' ' + I18n.t('date.month_names')[month.to_i]
+          else
+            year
+          end
+        else
+          value
+        end
+      else
+        value
       end
-    elsif field.field_type == 'text' && value.present?
-      content_tag(:div, value, :class => 'metadata-text')
     else
-      value
+      ''
     end
   end
   
