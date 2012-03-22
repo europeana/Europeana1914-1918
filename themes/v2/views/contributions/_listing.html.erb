@@ -1,5 +1,3 @@
-<% @javascripts[:listing] = true %>
-
 <%= will_paginate contributions %>
   
   <ul id="stories">
@@ -8,7 +6,7 @@
     
       <%- if contribution.attachments.with_file.present? -%>
         
-        <li class="story"><%= link_to attachment_preview(contribution.attachments.with_file.first), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %></li>
+        <li class="story"><%= link_to attachment_preview(contribution.attachments.with_file.first, :preview), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %></li>
         
       <%- end -%>
       
