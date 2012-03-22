@@ -11,18 +11,10 @@ module AttachmentsHelper
     number_to_human_size(RunCoCo.configuration.max_upload_size, :precision => 2)
   end
   
-  def attachment_preview(attachment)
-    if attachment.image? && File.exists?(attachment.file.path(:thumb))
-      image_tag(attachment.file.url(:thumb), :alt => '')
-    else
-      media_type = file_media_type(attachment.file.original_filename)
-      image_tag(image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}"), :class => 'media-type-icon')
-    end
-  end
-
-  def attachment_view(attachment)
-    if attachment.image? && File.exists?(attachment.file.path(:original))
-      image_tag(attachment.file.url(:original), :alt => '')
+  # :thumb, :preview, :original
+  def attachment_preview(attachment, size = :thumb)
+    if attachment.image? && File.exists?(attachment.file.path(size))
+      image_tag(attachment.file.url(size), :alt => (attachment.title.present? ? attachment.title : attachment.file.original_filename) )
     else
       media_type = file_media_type(attachment.file.original_filename)
       image_tag(image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}"), :class => 'media-type-icon')
