@@ -1,16 +1,36 @@
 module MetadataRecordsHelper
   ##
-  # Gets the metadata fields to display on contribution/attachment forms
+  # Gets the metadata fields to display on contribution/attachment forms.
   #
-  # @param  [Hash{Symbol => Object}]  options
-  # @option options [Boolean] :attachment  (nil)
-  # @option options [Boolean] :cataloguing  (nil)
-  # @option options [Boolean] :contribution  (nil)
-  # @option options [Array{String}] :name  (nil)
+  # By default the returned array of fields will be ordered by the position
+  # field in the {
+  # @param [Hash] options
+  # @option options [Boolean] :attachment Restrict to fields with this value
+  #   for their attachment metadata record flag
+  # @option options [Boolean] :cataloguing Restrict to fields with this value
+  #   for their cataloguing-only flag
+  # @option options [Boolean] :contribution Restrict to fields with this value
+  #   for their contribution metadata record flag
+  # @option options [Array<String>] :name Restrict to fields with these names
+  # @option options [Boolean] :name_order If true, order returned fields as per
+  #   the order given in the :name option; otherwise as per the position field.
+  # @return [Array<MetadataField>]
   def metadata_record_fields(options = {})
-    options.assert_valid_keys(:attachment, :cataloguing, :contribution, :name)
+    options.assert_valid_keys(:attachment, :cataloguing, :contribution, :name, :name_order)
     conditions = options.dup
-    MetadataField.where(conditions).order('position ASC')
+    name_order = conditions.delete(:name_order)
+    
+    fields = MetadataField.where(conditions).order('position ASC')
+    
+    if name_order && options[:name].present?
+      ordered_fields = []
+      options[:name].each do |field_name|
+        ordered_fields << fields.select { |field| field.name == field_name }
+      end
+      fields = ordered_fields.flatten
+    end
+
+    fields
   end
   
   def metadata_record_field_value(metadata, field)
