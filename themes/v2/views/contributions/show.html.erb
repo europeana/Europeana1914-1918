@@ -6,13 +6,13 @@
   
   <ul id="image-viewer">
     <% if @contribution.attachments.present? -%>
-      <%= render :partial => '/attachments/display-view' %>
+      <%= render :partial => '/attachments/display-images', :locals => { :size => :original } %>
     <% end %>
   </ul>
   
   <ul id="thumbnail-viewer">
     <% if @contribution.attachments.present? -%>
-      <%= render :partial => '/attachments/display-thumbnails' %>
+      <%= render :partial => '/attachments/display-images', :locals => { :size => :preview } %>
     <% end %>
   </ul>
   
