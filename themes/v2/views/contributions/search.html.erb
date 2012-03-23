@@ -1,11 +1,40 @@
-<% @title = t('views.contributions.search.heading') %>
+<%- @javascripts[:search] = true -%>
+<%- @title = t('views.contributions.search.heading') -%>
   
-  <% if @contributions.size == 0 -%>
+  <div id="facets">
 	
-	<p><%= t('views.contributions.search.no_matches') %></p>
+	<b>Filter your search:</b>
 	
-  <% else -%>
+	<ol>
+	  
+	  <li>
+		By object type
+		<ul>
+		  <li>postcard</li>
+		  <li>letter</li>
+		  <li>diary</li>
+		  <li>none</li>
+		</ul>
+	  </li>
+	  <li>By theme</li>
+	  <li>By date</li>
+	  <li>By location</li>
+	  <li>By language</li>
+	  
+	</ol>
 	
-	<%= render :partial => 'listing', :locals => { :contributions => @contributions, :query => @query } %>
+  </div>
+  
+  <div id="results">
 	
-  <% end -%>
+	<% if @contributions.size == 0 -%>
+	  
+	  <p><%= t('views.contributions.search.no_matches') %></p>
+	  
+	<% else -%>
+	  
+	  <%= render :partial => 'search-results', :locals => { :contributions => @contributions, :query => @query } %>
+	  
+	<% end -%>
+	
+  </div>

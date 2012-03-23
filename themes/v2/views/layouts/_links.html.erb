@@ -7,11 +7,21 @@
 <%= theme_stylesheet_link_tag( 'content' ) %>
 <%= theme_stylesheet_link_tag( 'footer' ) %>
 
-<%= theme_stylesheet_link_tag( 'index' ) %>
-<%= theme_stylesheet_link_tag( 'featured' ) %>
-<%= theme_stylesheet_link_tag( 'collection-days' ) %>
-<%= theme_stylesheet_link_tag( 'liteaccordion' ) %>
-<%= theme_stylesheet_link_tag( 'listing' ) %>
-<%= theme_stylesheet_link_tag( 'story' ) %>
+<%- if @javascripts[:index] -%>
+	<%= theme_stylesheet_link_tag( 'index' ) %>
+	<%= theme_stylesheet_link_tag( 'featured' ) %>
+	<%= theme_stylesheet_link_tag( 'collection-days' ) %>
+<%- end -%>
+
+<%- if @javascripts[:search] -%>
+	<%= theme_stylesheet_link_tag( 'search' ) %>
+<%- end -%>
+
+<%- if @javascripts[:story] -%>
+	<%= theme_stylesheet_link_tag( 'story' ) %>
+<%- end -%>
+
+<%- if @javascripts[:index] -%>
+<%- end -%>
 
 <%= theme_stylesheet_link_tag( 'media-queries' ) %>

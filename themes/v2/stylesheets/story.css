@@ -1,14 +1,18 @@
 /**
- *	story
+ *	story-info
  */
 
+	#story-info {
+		float: left;
+		width: 28%;
+	}
+	
+	
 	/**
 	 *	metadata
 	 */
 		
 		#story-metadata {
-			float: left;
-			width: 28%;
 			height: 260px;
 			overflow-y: scroll;
 			border: 1px solid #dadada;
@@ -25,9 +29,6 @@
 	 */
 	
 		#story-translate {
-			width: 28%;
-			float: left;
-			overflow: hidden;
 			margin: 0 0 2% 0;
 		}
 	
@@ -37,53 +38,93 @@
 	 */
 	
 		#story-map {
-			float: left;
-			overflow: hidden;
-			width: 28%;
 			height: 260px;
 			border: 1px solid #dadada;
 		}
 	
 	
+/**
+ *	story-images
+ */
+	
+	#story-images {
+		width: 70%;
+		float: right;
+	}
+	
+	
 	/**
-	 *	images
+	 *	image viewer
 	 */
 		
-		#story-images {
-			width: 70%;
-			float: right;
-			background-color: #dadada;
-		}
+		#image-viewer {
+			height: 360px;
+			overflow-y: scroll;
+			background-color: #797979;
+			margin: 0;
+			list-style: none;
+		}			
 		
-		#story-images img {
+		#image-viewer img {
 			max-width: 100%;
 		}
 		
-		#story-images ul {
+		#image-viewer li {
+			display: inline;
+		}
+	
+	
+	/**
+	 *	thumbnail viewer
+	 */
+		
+		#thumbnail-viewer {		
+			height: 120px;
+			overflow-y: scroll;
+			background-color: #797979;
+			margin: 0;
 			list-style: none;
 		}
 		
-		
-		/**
-		 *	image viewer
-		 */
-			
-			#image-viewer {
-				max-height: 452px;
-				overflow-y: scroll;
-			}
-		
-		
-		/**
-		 *	thumbnail viewer
-		 */
-			
-			#thumbnail-viewer {		
-				max-height: 120px;
-				overflow-y: scroll;
-			}
-			
-			#thumbnail-viewer li {
-				display: inline;
-			}
+		#thumbnail-viewer li {
+			display: inline;
+		}
 	
+	
+	/**
+	 *	images extra
+	 */
+	
+		#images-extra {
+			background-color: #d6d6d6;
+			margin: 0 0 2% 0;
+			padding: 10px;
+			list-style: none;
+			overflow: hidden;
+			text-align: center;
+		}
+		
+		#images-extra li {
+			float: left;
+			width: 25%;
+		}
+		
+		#images-extra a {
+			background-color: #797979;
+			color: #fff;
+			text-decoration: none;
+			padding: 5px 10px;
+			text-transform: uppercase;
+			font-size: 90%;
+		}
+	
+	
+	/**
+	 *	banner
+	 */
+	
+		#banner {
+			height: 40px;
+			background-color: #d6d6d6;
+			text-align: center;
+		}

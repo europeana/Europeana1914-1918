@@ -17,7 +17,7 @@ module AttachmentsHelper
       image_tag(attachment.file.url(size), :alt => (attachment.title.present? ? attachment.title : attachment.file.original_filename) )
     else
       media_type = file_media_type(attachment.file.original_filename)
-      image_tag(image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}"), :class => 'media-type-icon')
+      image_tag( image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}") )
     end
   end
   
