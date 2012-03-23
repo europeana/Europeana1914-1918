@@ -13,6 +13,10 @@ class Contribution < ActiveRecord::Base
     def with_file
       select { |attachment| attachment.file.present? }
     end
+
+    def to_json(options = nil)
+      proxy_owner.attachments.collect { |a| a.to_hash }.to_json(options)
+    end
   end
   
   accepts_nested_attributes_for :metadata

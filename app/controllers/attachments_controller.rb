@@ -6,6 +6,12 @@ class AttachmentsController < ApplicationController
   def index
     current_user.may_view_contribution_attachments!(@contribution)
     @attachments = @contribution.attachments
+    respond_to do |format|
+      format.html
+      format.json do
+        render :json => @attachments
+      end
+    end
   end
 
   # GET /contributions/:contribution_id/attachments/new

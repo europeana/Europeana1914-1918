@@ -128,6 +128,18 @@ class Attachment < ActiveRecord::Base
     self.metadata.for_attachment = true
   end
   
+  def to_hash
+    hash = { :title => title }
+    MetadataField.where(:attachment => true).each do |field|
+      hash[field.name] = metadata.fields[field.name]
+    end
+    hash
+  end
+  
+  def to_json(options = nil)
+    ActiveSupport::JSON.encode(to_hash, options)
+  end
+  
   protected
   # Moves files between public/private paths when public attr changed
   def relocate_files #:nodoc:
