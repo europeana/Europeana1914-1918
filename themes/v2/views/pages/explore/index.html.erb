@@ -1,43 +1,42 @@
-<% @title = t 'views.explore.heading' %>
+<% @javascripts[:explore] = true -%>
+<%- @title = t 'views.explore.heading' -%>
 
-	<p><%= raw t 'views.explore.p1' %></p>	
+<div id="explore-introduction">
+
+	<p><%= raw t 'views.explore.p1' %></p>
 	<p><%= raw t('views.explore.p2') %></p>
 	<p><%= raw t('views.explore.p3') %></p>
 
-	<p>
-		<%= raw t('views.explore.search_for') %><br/>
-		[ <%= raw t('views.explore.links.postcard') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.diary') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.military_passport') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.medal') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.family') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.eastern_front') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.flanders') %> ]&nbsp;
-		[ <%= raw t('views.explore.links.trenches') %> ]
-	</p>
+</div>
 	
-	<p><%= raw t('views.explore.p5') %></p>
-		
-		<ul>
-			
-			<li><%= raw t('views.explore.links.roadshows.frankfurt_2011_03') %></li>
-			<li><%= raw t('views.explore.links.roadshows.berlin_2011_04') %></li>
-			<li><%= raw t('views.explore.links.roadshows.munich_2011_04') %></li>
-			<li><%= raw t('views.explore.links.roadshows.stuttgart_2011_04') %></li>
-			<li><%= raw t('views.explore.links.roadshows.erfurt_2011_06') %></li>
-			<li><%= raw t('views.explore.links.roadshows.dresden_2011_06') %></li>
-			<li><%= raw t('views.explore.links.roadshows.kiel_2011_06') %></li>
-			<li><%= raw t('views.explore.links.roadshows.regensburg_2011_07') %></li>
-			
-		</ul>
-		
-	</p>
+<ol id="editors-picks">
 	
-	<div class="editors-pick">
-		
-		<h2><%= t('common.editors_pick.heading') %></h2>
-		<%= render :partial => 'editors_picks', :locals => { :locale => I18n.locale } %>
-		<p>&nbsp;</p>
-		<p><%= raw t('common.editors_blog.more_stories') %></p>
-		
-	</div>
+	<%= render :partial => 'editors_picks', :locals => { :locale => I18n.locale } %>
+	
+</ol>
+
+<div id="explore-by-object">
+	
+	<div class="section-heading">explore by story <b>object</b></div>
+	
+	<ol>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Postkarte" title="Postcard"><img src="/attachments/40374/2961.40374.preview.jpg" alt="Postcard" /></a></li>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Tagebuch" title="Postcard"><img src="/attachments/17200/1524.17200.preview.jpg" alt="Diary" /></a></li>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Militärpass" title="Passport"><img src="/attachments/34968/2724.34968.preview.jpg" alt="Passport" /></a></li>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Orden" title="Medal"><img src="/attachments/33884/2676.33884.preview.jpg" alt="Medal" /></a></li>
+	</ol>
+	
+</div>
+
+<div id="explore-by-theme">
+	
+	<div class="section-heading">explore by story <b>theme</b></div>
+	
+	<ol>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Familie" title="Family"><img src="/attachments/38422/3090.38422.preview.jpg" alt="Family" /></a></li>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Flandern" title="Flanders"><img src="/attachments/28691/2170.28691.preview.jpg" alt="Flanders" /></a></li>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Ostfront" title="Eastern Front"><img src="/attachments/33416/2631.33416.preview.jpg" alt="Eastern-Front" /></a></li>
+		<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=Schützengraben" title="Trenches"><img src="/attachments/39254/3131.39254.preview.jpg" alt="Trenches" /></a></li>
+	</ol>
+	
+</div>
