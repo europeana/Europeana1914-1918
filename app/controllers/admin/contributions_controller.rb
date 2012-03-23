@@ -75,8 +75,18 @@ class Admin::ContributionsController < AdminController
       end
       format.xml do
         @metadata_fields = MetadataField.all.collect { |mf| mf.name }
-        send_data render_to_string, :filename => "collection-#{timestamp}.xml", :type => 'application/xml'
-        RunCoCo.export_logger.info("Export to XML by #{current_user.username}")
+
+        xml_filename = "collection-#{timestamp}.xml"
+        xml_filepath = File.join(Rails.root, 'private', 'exports', xml_filename)
+        
+        spawn_block do
+          file = File.new(xml_filepath, 'w')
+          file.puts(render_to_string)
+          RunCoCo.export_logger.info("Export to XML by #{current_user.username} saved as #{xml_filename}")
+        end
+        
+        flash[:notice] = "Generating XML export in the file #{xml_filename}"
+        redirect_to admin_root_url
       end
     end
   end
@@ -94,53 +104,13 @@ class Admin::ContributionsController < AdminController
     end
   end
   
-  ##
-  # Fetch contributions for export in batches and yield each.
-  #
-  # Looks to @settings controller instance variable for export options:
-  # * @settings.exclude: exclude attachment records with files having this 
-  #   extension
-  # * @settings.start_date: only yield contributions published on or after
-  #   this date/time
-  # * @settings.end_date: only yield contributions published on or before
-  #   this date/time
-  #
-  # @example
-  #   with_exported_contributions do |contribution|
-  #     puts contribution.title
-  #   end
-  def with_exported_contributions # :nodoc:
-    if @settings.exclude.present?
-      ext = @settings.exclude
-      unless ext[0] == '.'
-        ext = '.' + ext
-      end
-    end
-    
-    conditions = [ 'approved_at IS NOT NULL AND published_at IS NOT NULL' ]
-    
-    if @settings.start_date.present?
-      conditions[0] << ' AND published_at >= ?'
-      conditions << @settings.start_date
-    end
-    
-    if @settings.end_date.present?
-      conditions[0] << ' AND published_at <= ?'
-      conditions << @settings.end_date
-    end
-    
-    Contribution.find_each(
-      :conditions => conditions,
-      :include => [ { :attachments => { :metadata => MetadataRecord.taxonomy_associations } }, { :metadata => MetadataRecord.taxonomy_associations }, { :contributor => :contact } ],
-      :batch_size => 25
-    ) do |contribution|
-    
-      if params[:exclude]
-        contribution.attachments.reject! do |a|
-          File.extname(a.file.path) == ext
-        end
-      end
-    
+  def with_exported_contributions
+    settings_hash = { 
+      :exclude => @settings.exclude,
+      :start_date => @settings.start_date,
+      :end_date => @settings.end_date,
+    }
+    Contribution.export(settings_hash) do |contribution|
       yield contribution
     end
   end

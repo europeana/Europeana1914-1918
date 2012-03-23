@@ -188,6 +188,70 @@ class Contribution < ActiveRecord::Base
     }[set]
   end
   
+  ##
+  # Fetches and yields approved & published contributions for export.
+  #
+  # @example
+  #   Contribution.export(:batch_size => 50) do |contribution|
+  #     puts contribution.title
+  #   end
+  #
+  # @param [Hash] options Export options
+  # @option options [String] :exclude Exclude attachment records with files 
+  #   having this extension
+  # @option options [DateTime] :start_date only yield contributions published 
+  #   on or after this date & time
+  # @option options [DateTime] :end_date only yield contributions published on 
+  #   or before this date & time
+  # @option options [Integer] :batch_size (50) export in batches of this size; 
+  #   passed to {#find_each}
+  # @yieldreturn [Contribution] exported contributions
+  def self.export(options)
+    options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size)
+    options.reverse_merge!(:batch_size => 50)
+    
+    if options[:exclude].present?
+      ext = options[:exclude].exclude
+      unless ext[0] == '.'
+        ext = '.' + ext
+      end
+    end
+    
+    conditions = [ 'approved_at IS NOT NULL AND published_at IS NOT NULL' ]
+    
+    if options[:start_date].present?
+      conditions[0] << ' AND published_at >= ?'
+      conditions << options[:start_date]
+    end
+    
+    if options[:end_date].present?
+      conditions[0] << ' AND published_at <= ?'
+      conditions << options[:end_date]
+    end
+    
+    taxonomy_associations = MetadataRecord.taxonomy_associations
+    includes = [ 
+      { :attachments => { :metadata => taxonomy_associations } }, 
+      { :metadata => taxonomy_associations }, 
+      { :contributor => :contact } 
+    ]
+    
+    Contribution.find_each(
+      :conditions => conditions,
+      :include => includes,
+      :batch_size => options[:batch_size],
+    ) do |contribution|
+    
+      if options[:exclude]
+        contribution.attachments.reject! do |a|
+          File.extname(a.file.path) == ext
+        end
+      end
+    
+      yield contribution
+    end
+  end
+  
   protected
   def build_metadata_unless_present
     self.build_metadata unless self.metadata.present?
