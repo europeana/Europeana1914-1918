@@ -15,9 +15,27 @@
 export PATH=/var/lib/gems/1.8/bin:$PATH
 
 
-
 # read local settings
 . /usr/local/etc/gwa-sphinx.conf
+
+
+echo 
+echo ">>>>>>>>>>  running $0  <<<<<<<<<<<<"
+echo
+
+
+if [ -z $WEB_UPDATE_BLOCKER ]
+then
+   echo "***"
+   echo "***"
+   echo "***  Serious error, WEB_UPDATE_BLOCKER not defined, aborting"
+   echo "***"
+   exit 1
+fi
+
+
+
+
 
 touch $WEB_UPDATE_BLOCKER
 
@@ -111,12 +129,14 @@ echo
 bundle exec rake ts:config --trace
 
 
-
 echo
 echo "=============   sending new sphinx config    ==========="
 echo
 scp $WEB_SPHINX_CONF root@$SPHINX_SERVER:$SPHINX_CONF
 
+
+echo "=============  Generating index   ============="
+RAILS_ENV=production rake ts:index
 
 
 echo
