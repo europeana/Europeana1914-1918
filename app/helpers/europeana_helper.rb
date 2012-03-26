@@ -1,6 +1,7 @@
 require 'feedzirra'
 
 module EuropeanaHelper
+  
   def nav_links
     links = []
     links << [ t('layout.navigation.contribute'), contributor_dashboard_path ]
@@ -9,6 +10,12 @@ module EuropeanaHelper
     links << [ t('layout.navigation.contact'), page_path('contact') ]
     links << [ t('layout.navigation.help'), page_path('help') ]
     links
+  end
+  
+  def form_previous_step_link(url)
+    content_tag 'li', :class => 'back' do
+      link_to I18n.t('views.links.previous_step'), url
+    end
   end
   
   def editors_picks(locale = nil)
@@ -57,9 +64,40 @@ module EuropeanaHelper
     (items = news_items(locale)) ? items.first : nil
   end
   
-  def form_previous_step_link(url)
-    content_tag 'li', :class => 'back' do
-      link_to I18n.t('views.links.previous_step'), url
+  def stories_from_the_archive(locale = nil)
+    if locale.nil?
+      default = true
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/stories-from-the-archive-en"
+    else
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/#{locale.to_s}"
+    end
+    
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if feed.respond_to?(:entries) && feed.entries.present?
+      feed.entries
+    elsif default
+      []
+    else
+      stories_from_the_archive
     end
   end
+  
+  def tell_us_your_story(locale = nil)
+    if locale.nil?
+      default = true
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/tell-us-your-story-en"
+    else
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/#{locale.to_s}"
+    end
+    
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if feed.respond_to?(:entries) && feed.entries.present?
+      feed.entries
+    elsif default
+      []
+    else
+      tell_us_your_story
+    end
+  end
+  
 end

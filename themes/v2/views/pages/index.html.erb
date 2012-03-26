@@ -9,26 +9,7 @@
 		
 		<ul>
 			
-			<li>
-				<a href="/<%= I18n.locale %>/contributions/1086" title="Munitions Factories">
-					<img src="/themes/v2/images/from-the-archive/400/munitions-factories.jpg" />
-				</a>
-				<div class="caption">Munitions Factories, The First World War saw large numbers of women recruited all over Europe to help the war effort on the home front. In Germany this sat uneasily with policies intended to support the family, but demand for munitions grew rapidly.</div>
-			</li>
-			
-			<li>
-				<a href="/<%= I18n.locale %>/contributions/1701" title="Christmas Postcard">
-					<img src="/themes/v2/images/from-the-archive/400/christmas-postcard.jpg" />
-				</a>
-				<div class="caption">A Christmas Postcard from our collection</div>
-			</li>
-			
-			<li>
-				<a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=rudolf+Kämmerer" title="Marien HK Berlin">
-					<img src="/themes/v2/images/from-the-archive/400/marine-hk-berlin.jpg" />
-				</a>
-				<div class="caption">The crew of the Marien HK Berlin</div>
-			</li>
+			<%= render :partial => 'stories_from_the_archive', :locals => { :locale => I18n.locale } %>
 			
 		</ul>
 		
@@ -38,7 +19,11 @@
 		
 		<h2>tell us <b>your</b> story</h2>
 		
-			<a href="/videos/OttoBernard-FakePassport-English.flv" id="player" class="flowplayer"><img alt="Europeana_appeal_english_webpurposes _wplay" src="/images/Europeana_Appeal_English_WebPurposes _WPlay.jpg" /></a>
+		<ul>
+			
+			<%= render :partial => 'tell_us_your_story', :locals => { :locale => I18n.locale } %>
+			
+		</ul>
 		
 	</li>
 
