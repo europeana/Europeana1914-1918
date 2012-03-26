@@ -243,7 +243,7 @@ class Contribution < ActiveRecord::Base
     Contribution.find_each(
       :conditions => conditions,
       :include => includes,
-      :batch_size => options[:batch_size],
+      :batch_size => options[:batch_size]
     ) do |contribution|
     
       if options[:exclude]
