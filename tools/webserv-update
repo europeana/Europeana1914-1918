@@ -62,9 +62,17 @@ gem list
 
 
 echo
+echo "=============   bundle install   ==========="
+echo
+rm Gemfile.lock
+bundle install
+
+
+echo
 echo "=============   install some basic gems   ==========="
 echo
-gem install rdoc-data bundler rake passenger
+#gem install rdoc-data rake passenger
+gem install passenger
 
 echo "The above warning rdoc-data is required for JRuby.... can be ignored"
 echo "rdoc-data --install is being run"
@@ -76,20 +84,6 @@ rdoc-data --install
 # the output of this will help you with dependencies and apache config
 # we dont rebuild the apache stuff each time, but we keep the passenger gem
 # installed to ensure apache functionality
-
-
-
-echo
-echo "=============   show installed gems   ==========="
-echo
-gem list
-
-
-echo
-echo "=============   bundle install   ==========="
-echo
-rm Gemfile.lock
-bundle install
 
 
 echo
