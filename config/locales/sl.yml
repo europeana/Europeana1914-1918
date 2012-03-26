@@ -198,7 +198,7 @@ sl:
       co_funded: sofinancirala Evropska unija
     links:
       about_the_project: O projektu Europeana 1914-1918
-      add_your_story: Dodaj svojo zgodbo
+      add_your_story: Dodajte svojo zgodbo
       contact_us: Stopite v stik z nami
       contribution_terms: Evropski pogoji za prispevke uporabnikov
       explore_stories: Raziskujte zgodbe
@@ -210,7 +210,7 @@ sl:
         \       target=\"_blank\">Za več informacij si poglejte našo projektno spletno
         stran</a>"
       register: Registrirati
-      sign_in: ! 'Prijaviti '
+      sign_in: ! 'Prijavite '
       takedown_policy: ! 'Lastništvo podatkov '
       titles:
         contribution_terms: Glejte Evropski pogoji za prispevke uporabnikov
@@ -219,11 +219,11 @@ sl:
     menus:
       main:
         about: O nas
-        add: Dodaj
+        add: Dodajte
         explore: Raziskujte
         home: Domov
         select_language: Izberi jezik
-        sign_in: ! 'Prijaviti '
+        sign_in: ! 'Prijavite '
         sign_out: Odjava
     news_item:
       heading: Nov Dan zbiranja spominov
@@ -331,10 +331,11 @@ sl:
       signed_up: Uspešno ste se vpisali.
       updated: Uspešno ste posodobili svoj račun.
     sessions:
-      link: ! 'Prijaviti '
+      link: ! 'Prijavite   '
       signed_in: Uspešno ste se prijavili.
       signed_out: Uspešno ste ste odjavili.
   errors:
+    format: ! '%{attribute} %{message}'
     messages:
       accepted: mora biti sprejeto
       blank: ne sme ostati prazno
@@ -477,7 +478,7 @@ sl:
         submit: Oddaj zgodbo
         update: Posodobi prispevek
       contributor:
-        create: Registracija
+        create: Registrirate
       create: Oddaj
       delete: Izbriši
       filter:
@@ -490,14 +491,14 @@ sl:
         update: Spremeni moje geslo
       search:
         submit: Iskanje
-      sign_in: ! 'Prijaviti '
+      sign_in: ! 'Prijavite '
       submit: Shrani
       taxonomy_term:
         import: Uvozi
       update: Shrani spremembe
       upload: Naloži
       user:
-        create: Registracija
+        create: Registrirate
         delete: Izbriši račun
         update: Posodobi
     create: Ustvari %{model}
@@ -938,7 +939,9 @@ sl:
           quadrillion: kvadrilijon
           thousand: tisoč
           trillion: trilijon
+          unit: ''
       format:
+        delimiter: ''
         precision: '3'
         significant: pravilna
         strip_insignificant_zeros: pravilna
@@ -950,6 +953,12 @@ sl:
           kb: KB
           mb: MB
           tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
   settings:
     allowed_upload_extensions: Dovoljene vrste nalaganja
     contribution_approval_required: Objavi le potrjene prispevke
@@ -1003,8 +1012,8 @@ sl:
 '
       collection_days:
         heading: Dnevi zbiranja
-        p1: Na dogodke ob dnevih zbiranja so posamezniki povabljeni,  da prinesejo
-          dokumente, izdelke in zgodbe iz 1. svetovne vojne, ki jih bo arhiviralo
+        p1: Posamezniki so posamezniki povabljeni,  da na dogodke ob dnevih zbiranja
+          prinesejo dokumente, izdelke in zgodbe iz 1. svetovne vojne, ki jih bo arhiviralo
           projektno osebje.
         p2: Dnevi zbiranja so se predhodno odvijali po Evropi.
       online_collection:
@@ -1055,12 +1064,17 @@ sl:
           odstranili. Prosimo, obrnite se na nas z e-sporočilom z naslednjimi podatki:'
       terms:
         full_details:
-          heading: Pogoji uporabe v celoti na voljo le v angleškem jeziku
+          heading: Pogoji uporabe so  v celoti na voljo le v angleškem jeziku
         heading: Pogoji uporabe
         summary:
           heading: Europeana pogoji uporabe - povzetek
           item1: Gradivo, ki ste ga priložili ni avtorsko pravno zasciten
           item2: ! 'Imate avtorske pravice na to gradivo: ali'
+          p1: ! 'Preden posredujete vaše  gradivo Europeani, se morate strinjati s
+            Pogoji za posredovanje gradiva. Pogoji so v celoti dostopni na spletni
+            strani - preberite zgornje besedilo.
+
+            Med najpomembnejšimi pogoji so naslednji:'
       what_we_do:
         heading: Kaj počnemo
         item1: Preko spletne strani Europeana 1914-1918 dodajte sliko predmeta ali
@@ -1073,10 +1087,8 @@ sl:
 '
         p1: ! 'Projekt zbira spomine in zgodbe iz obdobja svetovne vojne (1914-1918).
           Ta faza projekta se osredotoča na evropske predmete: pisma, razglednice,
-          fotografije in zgodbe iz Nemčije, Luksemburga, Irske, Slovenije in ZK. Prispevke
-          lahko podate na dva načina:
-
-'
+          fotografije in zgodbe iz Nemčije, Luksemburga, Irske, Slovenije in Velike
+          Britanije. Prispevke lahko podate na dva načina:'
     admin:
       config:
         edit:
@@ -1266,8 +1278,8 @@ sl:
       digital_object:
         heading: Priponke, dodane vaši zgodbi
         help_text:
-          add_attachment: ! 'Ne pozabite dodati vsaj en predmet k vaši zgodbi. Lahko
-            storite naslednje:'
+          add_attachment: ! 'Ne pozabite dodati vsaj ene k vaši zgodbi. Lahko storite
+            naslednje:'
           attachment_count: trenutni je k vaši zgodbi pripetih <b>%{nr_digital_objects}</b>
             priponk.
           language: Navedite jezik pri tekstovnem zapisu, na primer jezik, uporabljen
@@ -1424,7 +1436,7 @@ sl:
         links:
           new: Dodaj novo zgodbo
         p1: Spodaj so zgodbe, ki ste jih že dodali. Po potrebi jih uredite ali izbrišite.
-        title: Dodaj svojo zgodbo
+        title: Dodajte svojo zgodbo
       dashboard_guest:
         button_text: Zaključeni prispevek
         headings:
@@ -1447,8 +1459,8 @@ sl:
             podatke:'
           guest: Prispevate kot gost.
           links:
-            register: registracija
-            sign_in: ! 'Prijaviti '
+            register: Registrirate
+            sign_in: ! 'Prijavite '
           notice: ! 'Če želite shraniti svoje osebne podatke in slediti vašim prispevkom
             po njihovi oddaji, izvedite %{sign_in} ali %{register} pred nadaljevanjem.
 
@@ -1476,7 +1488,7 @@ sl:
             skenirano besedilo, video, avdio itd.).
 
 '
-          item4: Oddaj prispevek v spletno zbirko zgodb
+          item4: Oddajte prispevek v spletno zbirko zgodb
           item5: Vaš prispevek bodo pregledali katalogizatorji. Ko bodo prispevek
             pregledali in potrdili, bo viden tudi drugim.
           p1: Če želite dodati podatke v našo spletno zbirko zgodb, se morate najprej  %{sign_in}
@@ -1523,7 +1535,7 @@ sl:
       sessions:
         new:
           instructions: ! 'Prosimo, prijavite se s svojimi podatki računa:'
-          title: ! 'Prijaviti '
+          title: ! 'Prijavite '
     errors:
       bad_request:
         message: ! 'Prišlo je do težave z zahtevo, ki ste jo poslali. Zahteva se ne
@@ -1649,10 +1661,10 @@ sl:
 
 '
       p1: <em>Europeana 1914-1918</em> zbira gradivo %{across_europe}.
-      p2: <b>Ali imate slike, pisma, razglednice, spominke ali druge predmete iz 1914-1918,
-        ki se nanašajo na prvo svetovno vojno? Ali imate zgodbo ali anekdoto, ki bo
-        jo želeli povedati o tistih, ki so v njej sodelovali ali bili prizadeti? Prosimo,
-        dodajte jo v spletno zbirko zgodb, da jo bodo spoznali tudi drugi.</b>
+      p2: <b>Ali imate slike, pisma, razglednice, spominke ali druge predmete iz obdobja
+        1914-1918, ki se nanašajo na prvo svetovno vojno? Ali imate zgodbo ali anekdoto,
+        ki bo jo želeli povedati o tistih, ki so v njej sodelovali ali bili prizadeti?
+        Prosimo, dodajte jo v spletno zbirko zgodb, da jo bodo spoznali tudi drugi.</b>
     links:
       back: Nazaj na %{link}
       previous_step: Prejšnja stran
