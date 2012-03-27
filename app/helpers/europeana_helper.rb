@@ -122,6 +122,8 @@ module EuropeanaHelper
     if locale.nil?
       default = true
       url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/explore-by-theme-en"
+    else
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/#{locale.to_s}"
     end
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
@@ -138,6 +140,8 @@ module EuropeanaHelper
     if locale.nil?
       default = true
       url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/explore-by-object-en"
+    else
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/#{locale.to_s}"
     end
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
