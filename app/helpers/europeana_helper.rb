@@ -118,6 +118,10 @@ module EuropeanaHelper
     end
   end
   
+  def relocale_link(link)
+    link.sub(/href="/, 'href="/' + I18n.locale.to_s + '/')
+  end
+  
   def explore_by_theme(locale = nil)
     if locale.nil?
       default = true
