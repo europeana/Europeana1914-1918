@@ -92,10 +92,11 @@ bundle install
 
 
 echo
-echo "=============   install some basic gems   ==========="
+echo "=============   install passenger   ==========="
 echo
-#gem install rdoc-data rake passenger
+#gem install rdoc-data
 gem install passenger
+passenger-install-apache2-module
 
 # echo "The above warning rdoc-data is required for JRuby.... can be ignored"
 # echo "rdoc-data --install is being run"
