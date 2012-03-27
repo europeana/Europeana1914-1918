@@ -4,7 +4,7 @@ gem 'rails', '3.0.11'
 
 gem 'mysql2', '< 0.3'
 gem 'formtastic', '~> 2.0.0'
-gem 'paperclip', '~> 2.4.0'
+gem 'paperclip', '~> 2.7.0'
 gem 'devise', '~> 1.1.0'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
 gem 'will_paginate', '~> 3.0.pre2'
