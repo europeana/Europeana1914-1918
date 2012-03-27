@@ -132,7 +132,7 @@ module EuropeanaHelper
     elsif default
       []
     else
-      collection_days
+      explore_by_theme
     end
   end
   
@@ -150,7 +150,7 @@ module EuropeanaHelper
     elsif default
       []
     else
-      collection_days
+      explore_by_object
     end
   end
   
