@@ -118,4 +118,36 @@ module EuropeanaHelper
     end
   end
   
+  def explore_by_theme(locale = nil)
+    if locale.nil?
+      default = true
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/explore-by-theme-en"
+    end
+    
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if feed.respond_to?(:entries) && feed.entries.present?
+      feed.entries
+    elsif default
+      []
+    else
+      collection_days
+    end
+  end
+  
+  def explore_by_object(locale = nil)
+    if locale.nil?
+      default = true
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/explore-by-object-en"
+    end
+    
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if feed.respond_to?(:entries) && feed.entries.present?
+      feed.entries
+    elsif default
+      []
+    else
+      collection_days
+    end
+  end
+  
 end
