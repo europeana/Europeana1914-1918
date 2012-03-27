@@ -51,8 +51,8 @@ class Attachment < ActiveRecord::Base
   #     e.g. :new_size => "500x500>"
   # and make sure to add the routing to routes.rb
   #    :constraints => { :style => /(thumb|preview|medium|large|full|new_size)/ }
-  # run the following to create/update the medium and large sizes
-  # bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment STYLES=medium,large
+  # run the following to create the new_size version or update it if the dimmensions changed
+  #     bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment STYLES=new_size
   has_attached_file :file,
     :path => ':env_file_root/:access_dir/:class/:id/:contribution_id.:id.:style.:extension',
     :url => "/:class/:id/:contribution_id.:id.:style.:extension",
