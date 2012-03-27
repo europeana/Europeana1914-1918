@@ -70,25 +70,33 @@
    }
    
    #collection-days li {
-	  display: inline;
+	  display: inline-block;
+	  background-image: url('/themes/v2/images/silhouette.png');
+	  background-repeat: no-repeat;
+	  background-position: center;
    }
    
    #collection-days a {
 	  float: left;
-	  width: 80px;
+	  width: 100px;
 	  height: 60px;
 	  margin: -1px 0 0 -1px;
 	  padding: 10px 3px;
-	  border: 1px solid #dadada;
 	  overflow: hidden;
 	  font-size: 90%;
 	  text-align: center;
+	  line-height: 130%;
 	  color: #000;
 	  text-decoration: none;
-	  background-color: rgba( 255, 255, 255, .7);
+	  background: transparent;
+	  -moz-transition: 0.4s ease-in;
+	  -webkit-transition: 0.4s ease-in;
+	  transition: 0.4s ease-in;
+	  background-color: rgba( 255, 255, 255, .5);
+	  background-position: center;
    }
    
    #collection-days a:hover {
-	  background-color: rgba(0,0,0,.6);
-	  color: #fff;
+		background-color: rgba(0,0,0,.6);
+		color: #fff;
    }
