@@ -2,6 +2,8 @@
 <%- locale = I18n.locale if local_assigns[:locale].nil? -%>
 <%- cache("tell_us_your_story_#{locale}", :expires_in => expires_in) do -%>
 
+<ul>
+
   <%- for entry in tell_us_your_story(locale) -%>
   
     <%- unless entry.blank? -%>
@@ -15,5 +17,7 @@
     <%- end -%>
     
   <%- end -%>
-  
+
+</ul>
+
 <% end -%>

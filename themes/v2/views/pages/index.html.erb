@@ -7,11 +7,7 @@
 		
 		<h2>stories from the archive</h2>
 		
-		<ul>
-			
 			<%= render :partial => 'stories_from_the_archive', :locals => { :locale => I18n.locale } %>
-			
-		</ul>
 		
 	</li>
 	
@@ -19,11 +15,7 @@
 		
 		<h2>tell us <b>your</b> story</h2>
 		
-		<ul>
-			
 			<%= render :partial => 'tell_us_your_story', :locals => { :locale => I18n.locale } %>
-			
-		</ul>
 		
 	</li>
 
@@ -33,20 +25,6 @@
 
 <ul id="collection-days">
 	
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=FR07"><b>Frankfurt</b> 31 March 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=BE08"><b>Berlin</b> 2 April 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=MU09"><b>Munich</b> 6 April 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=ST10"><b>Stuttgart</b> 11 April 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=EF11"><b>Erfurt</b> 14 June 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=DD12"><b>Dresden</b> 20 June 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=KI13"><b>Kiel</b> 29 June 2011</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=RG14"><b>Regensburg</b> 20 July 2011</a></li>
-	
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=LU17"><b>Amberg</b> 26 January 2012</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=LU17"><b>Luxembourg</b> 6 March 2012</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q=PR17"><b>Preston</b> 10 March 2012</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q="><b>Dublin</b> 21 March 2012</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q="><b>Nova Gorica</b> 28 March 2012</a></li>
-	<li><a href="/<%= I18n.locale %>/contributions/search?utf8=✓&q="><b>Sonderborg Gorica</b> 24 April 2012</a></li>
+	<%= render :partial => 'collection_days', :locals => { :locale => I18n.locale } %>
 	
 </ul>
