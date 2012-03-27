@@ -96,7 +96,6 @@ echo "=============   install passenger   ==========="
 echo
 #gem install rdoc-data
 gem install passenger
-passenger-install-apache2-module
 
 # echo "The above warning rdoc-data is required for JRuby.... can be ignored"
 # echo "rdoc-data --install is being run"
@@ -108,6 +107,12 @@ passenger-install-apache2-module
 # the output of this will help you with dependencies and apache config
 # we dont rebuild the apache stuff each time, but we keep the passenger gem
 # installed to ensure apache functionality
+
+
+echo
+echo "=============   install passenger apache2 module  ==========="
+echo
+passenger-install-apache2-module
 
 
 echo
