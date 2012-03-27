@@ -155,7 +155,7 @@ class MetadataRecord < ActiveRecord::Base
       MetadataField.where('field_type = ?', 'taxonomy').each do |taxonomy_field|
         # Association name derivation duplicates MetadataField#collection_id,
         # which causes app to fail on boot if used here.
-        has_and_belongs_to_many :"field_#{taxonomy_field.name}_terms", :class_name => 'TaxonomyTerm', :conditions => { 'taxonomy_terms.metadata_field_id' => taxonomy_field.id }
+        has_and_belongs_to_many :"field_#{taxonomy_field.name}_terms", :class_name => 'TaxonomyTerm', :conditions => { :metadata_field_id => taxonomy_field.id }
       end
       nil
     end

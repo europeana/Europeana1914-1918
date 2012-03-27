@@ -1,3 +1,4 @@
+##
 # MetadataField allows custom fields to be configured for metadata
 # collection on contributions and attachments.
 # 
@@ -28,21 +29,22 @@
 # Saving a metadata field adds an equivalent attribute to 
 # the MetadataRecord model. Destroying a metadata field removes the
 # attribute from the MetadataRecord model.
-#
-# TODO: Allow custom grouping of fields
 class MetadataField < ActiveRecord::Base
   has_many :taxonomy_terms, :order => 'term ASC', :dependent => :destroy do
+    ##
     # Creates multiple taxonomy terms associated with this metadata field.
     # 
-    # <tt>taxonomy_terms_list</tt> is a string containing multiple terms,
-    # by default one per line, each of which will result in a taxonomy term 
-    # record.
-    #
-    # Pass a pattern to split by something other than line breaks. For example:
-    # <tt>MetadataField.taxonomy_terms.create_from_list("red,blue,green", ",")</tt>
-    #
     # Whitespace will be stripped from the start and end of each term, and 
     # duplicates will be silently ignored.
+    #
+    # @example Split by commas
+    #   MetadataField.first.taxonomy_terms.create_from_list("red,blue,green", ",")
+    #
+    # @param [String] taxonomy_terms_list string containing multiple terms,
+    #   separated by {pattern}, each of which will result in a taxonomy term 
+    #   record.
+    # @param [RegExp] pattern (/(\r|\n|\r\n)+/) The pattern by which to split
+    #   the string containing the terms, new lines by default.
     def create_from_list(taxonomy_terms_list, pattern = /(\r|\n|\r\n)+/)
       taxonomy_terms_list.strip.split(pattern).each do |term|
         term.strip!
@@ -69,7 +71,6 @@ class MetadataField < ActiveRecord::Base
   validates_numericality_of :position, :greater_than => 0, :only_integer => true
 
   validate :validate_field_type_constancy, :on => :update
-  validate :validate_searchable_type
   validate :validate_contribution_or_attachment
 
   before_save :auto_set_title, :unless => Proc.new { |f| f.title.present? }
@@ -157,10 +158,6 @@ class MetadataField < ActiveRecord::Base
 
   def validate_field_type_constancy
     self.errors.add(:field_type, I18n.t('activerecord.errors.models.metadata_field.attributes.field_type.constancy')) if self.field_type_changed?
-  end
-
-  def validate_searchable_type
-    self.errors.add(:searchable, I18n.t('activerecord.errors.models.metadata_field.attributes.searchable.field_type')) if (self.searchable? && self.field_type == 'taxonomy')
   end
   
   def validate_contribution_or_attachment

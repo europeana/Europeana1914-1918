@@ -63,11 +63,15 @@ class Contribution < ActiveRecord::Base
     define_index_str << "  has approved_at\n"
     define_index_str << "  has published_at\n"
 
-    searchable_fields = MetadataField.where('searchable = ? AND field_type <> ?', true, 'taxonomy')
+    searchable_fields = MetadataField.where('searchable = ?', true)
     unless searchable_fields.count == 0
       searchable_fields.each do |field|
         index_alias = "metadata_#{field.name}"
-        define_index_str << "  indexes metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}\n"
+        if field.field_type == 'taxonomy'
+          define_index_str << "  indexes metadata.field_#{field.name}_terms.term, :sortable => true, :as => :#{index_alias}\n"
+        else
+          define_index_str << "  indexes metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}\n"
+        end
       end
     end
     
