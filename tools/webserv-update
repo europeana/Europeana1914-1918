@@ -139,6 +139,8 @@ bundle exec rake i18n:js:export
 echo
 echo "==========   update sphinx config  ==========="
 echo
+# This step and "sending new sphinx config" should happen before
+# update procedure is done on sphinx server...
 bundle exec rake ts:config --trace
 
 
@@ -147,9 +149,6 @@ echo "=============   sending new sphinx config    ==========="
 echo
 scp $WEB_SPHINX_CONF root@$SPHINX_SERVER:$SPHINX_CONF
 
-
-echo "=============  Generating index   ============="
-RAILS_ENV=production rake ts:index
 
 
 echo
@@ -162,6 +161,9 @@ echo "<<<<<<"
 echo "<<<<<<  back to webserver $0"
 echo "<<<<<<"
 echo
+
+echo "=============  Generating index   ============="
+RAILS_ENV=production rake ts:index
 
 echo
 echo "=============   starting apache   ==========="
