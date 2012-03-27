@@ -5,7 +5,7 @@ RunCoCo::Application.routes.draw do
   # Attachments
   scope '/attachments/:id' do
     match ':contribution_id.:id.original.:extension' => 'attachments#download', :as => 'download_contribution_attachment'
-    match ':contribution_id.:id.:style.:extension' => 'attachments#inline', :constraints => { :style => /(thumb|preview|full)/ }, :as => 'inline_contribution_attachment'
+    match ':contribution_id.:id.:style.:extension' => 'attachments#inline', :constraints => { :style => /(thumb|preview|medium|large|full)/ }, :as => 'inline_contribution_attachment'
   end
 
   scope "/:locale" do

@@ -1,3 +1,4 @@
+##
 # A file accompanying a contribution.
 #
 # Uses Paperclip to store file uploads. See Paperclip docs at
@@ -49,7 +50,7 @@ class Attachment < ActiveRecord::Base
   has_attached_file :file,
     :path => ':env_file_root/:access_dir/:class/:id/:contribution_id.:id.:style.:extension',
     :url => "/:class/:id/:contribution_id.:id.:style.:extension",
-    :styles => { :thumb => "100x100>", :preview => "160x120>" }
+    :styles => { :thumb => "100x100>", :preview => "160x120>", :medium => "400x400>", :large => "600x600>" }
 
   # TODO: Does this need to cope with new file uploaded at same time?
   before_save :relocate_files, :if => Proc.new { |a| a.public_changed? }, :unless => Proc.new { |a| a.new_record? }
