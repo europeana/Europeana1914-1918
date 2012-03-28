@@ -15,6 +15,8 @@ class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
       43  => "Stephen Bull",
       292 => "Imke W",
       796 => "Other",
+      994 => "Ciara Boylan",
+      973 => "Liz Danskin",
     } )
     
     say_with_time "Setting `contributions`.`catalogued_by` values from cataloguer taxonomy" do
@@ -30,6 +32,9 @@ class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
     
     say "Set #{set_count} `contributions`.`catalogued_by` values from cataloguer taxonomy"
     say "#{unset_count} contributions remain with unknown cataloguer taxonomy terms"
+    
+    # To view the above mentioned unknown cataloguer taxonomy terms:
+    #   Contribution.scoped.joins({ :metadata => { :taxonomy_terms => :metadata_field } }).where('metadata_fields.name = ?', 'cataloguer').where('catalogued_by IS NULL').where('taxonomy_terms.term IS NOT NULL').collect {|c|c.metadata.fields['cataloguer']}.flatten.uniq
   end
 
   def self.down
