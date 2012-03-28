@@ -98,19 +98,18 @@ class Admin::UsersController < AdminController
   end
   
   def export_as_csv
-#    SELECT u.username, u.email, c.full_name, c.street_address, c.locality, c.region, c.postal_code, c.country, c.tel, c.email, c.gender, c.age FROM users u INNER JOIN contacts c ON u.contact_id=c.id WHERE u.role_name='contributor' AND (SELECT COUNT(id) FROM contributions WHERE contributor_id=u.id) > 0;
     contributors = User.includes(:contact).where(:role_name => 'contributor').where("(SELECT COUNT(id) FROM contributions WHERE contributor_id=users.id) > 0")
     
     csv_class.generate do |csv|
       # Column headings in first row
       attributes = [ 
-        :username, :email, :full_name, :street_address, :locality, 
-        :region, :postal_code, :country, :tel, :email, :gender, :age ]
+        :id, :username, :email, :full_name, :street_address, :locality, 
+        :region, :postal_code, :country, :tel, :email, :gender, :age, :url ]
       csv << attributes.collect { |attribute| Contribution.human_attribute_name(attribute) }
 
       contributors.each do |u|
         c = u.contact
-        csv << [ u.username, u.email, c.full_name, c.street_address, c.locality, c.region, c.postal_code, c.country, c.tel, c.email, c.gender, c.age ]
+        csv << [ u.id, u.username, u.email, c.full_name, c.street_address, c.locality, c.region, c.postal_code, c.country, c.tel, c.email, c.gender, c.age, admin_user_url(u) ]
       end
     end
   end
