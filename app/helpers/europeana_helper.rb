@@ -158,4 +158,22 @@ module EuropeanaHelper
     end
   end
   
+  def explore_introduction(locale = nil)
+    if locale.nil?
+      default = true
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/explore-introduction-en"
+    else
+      url = "http://europeana1914-1918.blogspot.com/feeds/posts/default/-/#{locale.to_s}"
+    end
+    
+    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if feed.respond_to?(:entries) && feed.entries.present?
+      feed.entries
+    elsif default
+      []
+    else
+      explore_introduction
+    end
+  end
+  
 end
