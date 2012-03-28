@@ -122,6 +122,8 @@ class ContributionsController < ApplicationController
   def approve
     current_user.may_approve_contributions!
     if @contribution.approve_by(current_user)
+      ContributionsMailer.published(@contribution).deliver
+      Rails.logger.debug(ActionMailer::Base.deliveries.last)
       flash[:notice] = t('flash.contributions.approve.notice')
       redirect_to admin_contributions_url
     else
