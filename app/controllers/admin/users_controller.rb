@@ -4,12 +4,31 @@ class Admin::UsersController < AdminController
   before_filter :find_user, :except => [ :index, :new, :create, :export ]
   
   # GET /admin/users
-  # TODO: Search user list
-  # TODO: Sort user list
   def index
-    @role = params[:role]
-    conditions = @role.present? ? [ 'role_name=?', params[:role] ] : nil
-    @users = User.where(conditions).order('email ASC').paginate(:page => params[:page])
+    @role, @sort, @order, @query = params[:role], params[:sort], params[:order], params[:q]
+    
+    order_col = case @sort
+    when 'name'
+      'contacts.full_name'
+    when 'username'
+      'users.username'
+    when 'email'
+      'users.email'
+    else
+      'users.created_at'
+    end
+    order_dir = (@order.present? && [ 'ASC', 'DESC' ].include?(@order.upcase)) ? @order : 'DESC'
+    
+    @users = User.includes(:contact).order("#{order_col} #{order_dir}").paginate(:page => params[:page])
+    
+    if @role.present?
+      @users = @users.where(:role_name => @role )
+    end
+    
+    if @query.present?
+      wildcard_query = "%#{@query}%"
+      @users = @users.where("(users.username LIKE ? OR contacts.full_name LIKE ? OR users.email LIKE ?)", wildcard_query, wildcard_query, wildcard_query)
+    end
   end
 
   # GET /admin/users/new
@@ -87,6 +106,21 @@ class Admin::UsersController < AdminController
       end
     end
   end
+  
+  def index_params(override_params = {})
+    index_params = HashWithIndifferentAccess.new
+    [ 'sort', 'role', 'order', 'q' ].each do |key|
+      index_params[key] = params[key]
+    end
+    index_params.merge!(override_params)
+    
+    if (params['sort'] || 'created_at') == override_params['sort']
+      index_params['order'] = (params['order'].blank? || (params['order'].upcase == 'DESC') ? 'ASC' : 'DESC')
+    end
+    
+    index_params
+  end
+  helper_method :index_params
 
   protected
   def find_user
