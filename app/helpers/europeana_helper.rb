@@ -20,7 +20,7 @@ module EuropeanaHelper
   end
   
   def relocale_link(link)
-    link.sub(/href="\//, 'href="/' + I18n.locale.to_s + '/')
+    link.gsub(/href="\//, 'href="/' + I18n.locale.to_s + '/')
   end
   
   ##
