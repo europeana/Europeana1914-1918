@@ -14,8 +14,9 @@
   <div class="news-item">
 	
 	<h2><%= t('common.news_item.heading') %></h2>
-	  
-	  <%= render :partial => 'news_item', :locals => { :locale => I18n.locale } %>
+    <div class="feedcontent">
+  	  <%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :titles => true, :category => 'news', :limit => 1 } %>
+	  </div>
 	  <p>&nbsp;</p>
 	  <p><%= raw t( 'common.editors_pick.more_stories', :explore_stories => link_to( t( 'common.links.explore_stories' ), page_path('explore') ) ) %></p>
   

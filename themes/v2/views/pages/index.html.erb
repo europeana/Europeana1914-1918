@@ -7,15 +7,18 @@
 		
 		<h2>stories from the archive</h2>
 		
-			<%= render :partial => 'stories_from_the_archive', :locals => { :locale => I18n.locale } %>
-		
+		<ul>
+			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
+		</ul>
 	</li>
 	
 	<li>
 		
 		<h2>tell us <b>your</b> story</h2>
 		
-			<%= render :partial => 'tell_us_your_story', :locals => { :locale => I18n.locale } %>
+		<ul>
+    	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'tell-us-your-story', :tag => :li, :relocale => true } %>
+  	</ul>
 		
 	</li>
 
@@ -25,7 +28,7 @@
 
 <ul id="collection-days">
 	
-	<%= render :partial => 'collection_days', :locals => { :locale => I18n.locale } %>
+	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'collection-days', :tag => :li, :relocale => true } %>
 	
 </ul>
 
@@ -33,6 +36,6 @@
   
   <h2><%= t('common.news_item.heading') %></h2>
 	
-	<%= render :partial => 'news_item', :locals => { :locale => I18n.locale } %>
+	<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true } %>
 
 </div>

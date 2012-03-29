@@ -43,7 +43,9 @@
 	<div class="editors-pick">
 		
 		<h2><%= t('common.editors_pick.heading') %></h2>
-		<%= render :partial => 'editors_picks', :locals => { :locale => I18n.locale } %>
+		<div class="feedcontent">
+  		<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :titles => true } %>
+		</div>
 		<p>&nbsp;</p>
 		<p><%= raw t('common.editors_blog.more_stories') %></p>
 		

@@ -3,14 +3,14 @@
 
 <div id="explore-introduction">
 
-	<%= render :partial => 'pages/explore/explore_introduction', :locals => { :locale => I18n.locale } %>
+	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'explore-introduction' } %>
 
 </div>
 
 
 <ol id="stories-from-the-archive">
 	
-	<%= render :partial => 'stories_from_the_archive', :locals => { :locale => I18n.locale } %>
+	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
 	
 </ol>
 
@@ -20,7 +20,9 @@
 		
 		<h2 class="section-heading">explore by story <b>object</b></h2>
 		
-		<%= render :partial => 'pages/explore/explore_by_object', :locals => { :locale => I18n.locale } %>
+		<ol>
+  	  <%= render :partial => '/shared/blog_posts', :locals => { :category => 'explore-by-object', :tag => :li, :relocale => true } %>
+	  </ol>
 		
 	</div>
 		
@@ -28,7 +30,9 @@
 		
 		<h2 class="section-heading">explore by story <b>theme</b></h2>
 		
-		<%= render :partial => 'pages/explore/explore_by_theme', :locals => { :locale => I18n.locale } %>
+		<ol>
+  		<%= render :partial => '/shared/blog_posts', :locals => { :category => 'explore-by-theme', :tag => :li, :relocale => true } %>
+		</ol>
 		
 	</div>
 
@@ -38,7 +42,7 @@
 <div id="editors-picks">
 	
 	<h2><%= t('common.editors_pick.heading') %></h2>
-	<%= render :partial => 'editors_picks', :locals => { :locale => I18n.locale } %>
+	<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :titles => true } %>
 	<p>&nbsp;</p>
 	<p><%= raw t('common.editors_blog.more_stories') %></p>
 	
