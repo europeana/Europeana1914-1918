@@ -1,4 +1,3 @@
-# Problem: Taxonomy fields can not be searchable...
 class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
   def self.up
     say_with_time "Changing collection day field to taxonomy type" do
