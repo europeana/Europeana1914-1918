@@ -84,7 +84,7 @@ da:
         odd: skal være et ulige tal
         record_invalid: ! 'Godkendelse gik galt: %{errors}'
         taken: er allerede brugt
-        too_long: er for lang (højest %{count} tegn)
+        too_long: er for lang (højst %{count} tegn)
         too_short: er for kort (mindst %{count} tegn)
         wrong_length: har forkert længde (skulle være %{count} tegn)
       models:
@@ -111,7 +111,7 @@ da:
               field_type: Taksonomifelter kan ikke være søgbare.
         metadata_record:
           date_field_civil: Datoen er ikke gyldig.
-          one_cover_image: Du må kun vælge én genstand som cover billede til din historie.
+          one_cover_image: Du må kun vælge én genstand som coverbillede til din historie.
           taxonomy_field_single: Du kan kun vælge én term.
         setting:
           attributes:
@@ -128,7 +128,7 @@ da:
             email:
               taken: Der findes allerede en brugerkonto med denne e-mail.
             picture:
-              content_type: Profilbilledet skal være et GIF- eller JPEG-format
+              content_type: Profilbilledet skal være i GIF- eller JPEG-format
       template:
         body: ! 'Der var problemer med følgende felter:'
         header:
@@ -140,7 +140,7 @@ da:
       contribution: Beretning
       metadata_field: Metadata-felt
       metadata_record: Metadata record
-      taxonomy_term: Taksonomi-term
+      taxonomy_term: Taksonomiterm
       user: Bruger
     options:
       contact:
@@ -153,7 +153,7 @@ da:
           geo: Geografisk placering
           string: Enkelt tekstlinje
           taxonomy: Taksonomi
-          text: Flerlinje-tekst
+          text: Flerlinjetekst
       user:
         role_name:
           administrator: Administrator
@@ -198,14 +198,14 @@ da:
       about_the_project: Om projektet Europeana 1914-1918
       add_your_story: Tilføj din beretning
       contact_us: Kontakt os
-      contribution_terms: Europeana Betingelser for bruger-bidrag
-      explore_stories: Udforsk beretninger
+      contribution_terms: Europeana Betingelser for brugerbidrag
+      explore_stories: Se beretninger
       help: Hjælp
       my_account: Min konto
       my_stories: Mine beretninger
       privacy_policy: Databeskyttelse
       project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Se
-        venligst vores projekt-hjemmeside for mere information</a>
+        venligst vores projekthjemmeside for mere information</a>
       register: Registrer
       sign_in: Log ind
       takedown_policy: Takedown-politik
@@ -218,7 +218,7 @@ da:
       main:
         about: Om Europeana
         add: Tilføj
-        explore: Udforsk
+        explore: Gennemse
         home: Forside
         select_language: Vælg et sprog
         sign_in: Log ind
@@ -285,9 +285,9 @@ da:
     - november
     - december
     order:
-    - :day
-    - :month
-    - :year
+    - :dag
+    - :måned
+    - :år
   datetime:
     distance_in_words:
       about_x_hours:
@@ -344,8 +344,8 @@ da:
         subject: Instruktioner til at nulstille kodeord
     passwords:
       link: Glemt kodeord?
-      send_instructions: Der er sendt en e-mail til dig, med instruktioner til at
-        nulstille dit kodeord
+      send_instructions: Der er sendt en e-mail til dig med instruktioner til at nulstille
+        dit kodeord
       updated: Dit kodeord blev ændret. Du er nu logget ind.
     registrations:
       destroyed: Farvel! Din konto blev slettet. Vi håber at se dig snart igen.
@@ -377,9 +377,15 @@ da:
       odd: skal være et ulige tal
       record_invalid: ! 'Godkendelse gik galt: %{errors}'
       taken: er allerede brugt
-      too_long: er for lang (højest %{count} tegn)
-      too_short: er for kort (mindst %{count} tegn)
-      wrong_length: har forkert længde (skulle være %{count} tegn)
+      too_long:
+        one: er for lang (højst 1 tegn)
+        other: er for lang (højst %{count} tegn)
+      too_short:
+        one: er for kort (mindst 1 tegn)
+        other: er for kort (mindst %{count} tegn)
+      wrong_length:
+        one: har forkert længde (skulle være 1 tegn)
+        other: har forkert længde (skulle være %{count} tegn)
     template:
       body: ! 'Der var problemer med følgende felter:'
       header:
@@ -464,12 +470,12 @@ da:
         notice: Kontaktoplysninger blev opdateret.
     metadata_fields:
       update_order:
-        notice: Rækkefølge i metadata-felter blev opdateret.
+        notice: Rækkefølge i metadatafelter blev opdateret.
     status:
       alert: ! 'Advarsel:'
       notice: ! 'OBS:'
     taxonomy:
-      imported: Nye taksonomi-termer importeret
+      imported: Nye taksonomitermer importeret
     users:
       create:
         alert: Brugerkonto kunne ikke oprettes.
@@ -503,7 +509,7 @@ da:
       filter:
         submit: Opdater
       metadata_field:
-        delete: Slet metadata-felt
+        delete: Slet metadatafelt
         reindex: Genindekser søgemaskine
       password:
         create: Send
@@ -546,7 +552,7 @@ da:
           forces: ! 'Klik venligst ikke på nogen muligheder, hvis du ikke finder et
             relevant nøgleord. Hvis et relevant nøgleord ikke er til rådighed bedes
             du e-maile os på: 1914-1918 [@] europeana [.] eu'
-          format: Dan digitaliserede genstands materiale (f.eks papir, kort, bånd)
+          format: Den digitaliserede genstands materiale (f.eks papir, kort, bånd)
           keywords: ! 'Tildel nøgleord som udelukkende beskriver hovedtemaet eller
             et bredere begreb i dit bidrag. Formålet med disse nøgleord er at hjælpe
             os med at fremhæve din historie i vores historie-samling. Hvis et relevant
@@ -608,7 +614,7 @@ da:
         field_type: Kan ikke ændres, når feltet er gemt.
         hint: Tekst der vises ved siden af tastefeltet for at vejlede bidragydere/katalogisatorer.
         multi: Tillad valg af flere termer per bidrag/vedhæftet fil.
-        name: ! 'Database-navn til feltet. Skal være unikt. Gyldige tegn: a-z, 0-9,
+        name: ! 'Databasenavn til feltet. Skal være unikt. Gyldige tegn: a-z, 0-9,
           _'
         required: ! 'Ja: Bidragyder skal indtaste noget i dette felt. Nej: dette felt
           er valgfrit. Katalogiseringsfelter skal være valgfrie.'
@@ -634,7 +640,7 @@ da:
           typenavne."
         banner_active: Hvis aktiveret, vil en vedligeholdelses-besked blive vist hen
           over siden med teksten, der indtastes nedenfor.
-        banner_text: Tekst der vises i vedligeholdelses-beskeden, hvis aktiveret ovenfor.
+        banner_text: Tekst der vises i vedligeholdelsesbeskeden, hvis aktiveret ovenfor.
         contribution_approval_required: Hvis aktiveret, bliver bidrag kun offentliggjort
           efter godkendelse. Ellers offentliggøres de straks efter afsendelse. Har
           ingen effekt hvis "Offentliggør bidrag" ikke er aktiv.
@@ -653,12 +659,12 @@ da:
           sidetitler og overskrifter.
         ui_locales: Locales at linke til i sideoverskriften.
         uploadify: Brug Uploadify til at håndtere upload af vedhæftede filer, aktivere
-          uploads af flere filer. Se <http://www.uploadify.com/> for mere information
+          upload af flere filer. Se <http://www.uploadify.com/> for mere information
           og demoer.
       taxonomy_term:
-        import: Indtast de taksonomi-termer, der skal tilføjes til dette metadata-felt,
+        import: Indtast de taksonomitermer, der skal tilføjes til dette metadatafelt,
           en per linje.
-        term: Skal være unikt inden for rammerne af dens metadata-felt.
+        term: Skal være unikt inden for rammerne af dens metadatafelt.
       user:
         current_password: Indtast dit nuværende kodeord, hvis du vil ændre dine kontooplysninger.
         edit:
@@ -687,7 +693,7 @@ da:
           format: Medie
           lang: Sprog
           lang_other: Sprog (andre)
-          license: License
+          license: Licens
           location_map: Breddegrad & længdegrad
           location_placename: Placer, hvor dine genstande blev skabt.
           notes: Katalogisators noter
@@ -723,8 +729,8 @@ da:
           lang: Sprog
           lang_other: Sprog (andre)
           location_map: Breddegrad & længdegrad
-          location_placename: Placer hvor din historie foregik
-          location_zoom: Location zoom
+          location_placename: Angiv hvor din historie foregik
+          location_zoom: Zoom ind på sted
           notes: Katalogisators noter
           summary: Sammenfattende beskrivelse af genstande
           ticket: Sagsnummer
@@ -870,12 +876,12 @@ da:
     navigation:
       about: Om Europeana
       admin: Admin
-      browse: Browse
+      browse: Gennemse
       contact: Kontakt os
       contribute: Bidrag
       help: Hjælp
       home: Forside
-    software_engine: Powered by RunCoCo
+    software_engine: Drevet af RunCoCo
   locale: Dansk
   media_types:
     all: Alle
@@ -939,11 +945,11 @@ da:
     banner_active: Vedligeholdelsesbanner aktiveret
     banner_text: Tekst på vedligeholdelsesbanner
     contribution_approval_required: Offentliggør kun godkendte bidrag
-    gmap_api_key: Google Maps API nøgle
-    max_upload_size: Maksimal upload-størrelse
+    gmap_api_key: Google Maps API-nøgle
+    max_upload_size: Maksimal uploadstørrelse
     publish_contributions: Offentliggør bidrag
     registration_required: Registrering påkrævet
-    relative_url_root: URL rod
+    relative_url_root: URL-rod
     site_name: Hjemmesidenavn
     ui_locales: Tilgængelige Locales
     uploadify: Aktiver Uploadify
@@ -955,7 +961,7 @@ da:
     select:
       prompt: Vælg...
   time:
-    am: ''
+    am: ! ' '
     formats:
       default: ! '%e. %B %Y, %H.%M'
       long: ! '%A d. %e. %B %Y, %H.%M'
@@ -968,17 +974,18 @@ da:
         heading: Baggrund
         p1: <b>Europeana 1914-1918</b> er baseret på et initiativ fra University of
           Oxford, hvor folk fra hele Storbritannien blev bedt om at komme med familiens
-          breve, fotos og souvenirs fra krigen for at få dem digitaliseret. Den vellykkede
-          ide - som blev til The Great War Archive (1. Verdenskrigs Arkiv) - opmuntrede
-          Europeana, Europas digitale arkiv, bibliotek og museum til at få andre nationale
-          eller lokale institutioner over hele Europa til at samarbejde med Oxford
-          Universitetet. Gennem samarbejdet oprettes Europæiske beretninger online
-          ved siden af deres britiske, tyske, slovenske, luxemburgske, irske, etc.
-          modstykker i en samling af beretninger fra 1. verdenskrig.
+          breve, fotos og souvenirs fra krigen for at få dem digitaliseret. Med baggrund
+          i det vellykkede projekt - som blev til The Great War Archive (1. Verdenskrigs
+          Arkiv) - blev Europeana, Europas digitale arkiv, bibliotek og museum, inspireret
+          til at få andre nationale eller lokale institutioner over hele Europa til
+          at samarbejde med Oxford Universitety. Gennem samarbejdet oprettes Europæiske
+          beretninger online som sidestykke til  deres britiske, tyske, slovenske,
+          luxemburgske, irske, etc. modstykker i en samling af beretninger fra 1.
+          verdenskrig.
         p2: ! '<b>Europeana Collections 1914-1918</b> er et andet projekt end Europeana
-          1914-1918: ‘Europeana Collection 1914-1918’ er et <b>biblioteksprojekt</b>.
-          Det vil frem til 2014 – 100året for første verdenskrigs udbrud – skabe en
-          omfattende digital samling af materiale fra nationale samlinger fra biblioteker
+          1914-1918: ‘Europeana Collections 1914-1918’ er et <b>biblioteksprojekt</b>.
+          Det vil frem til 2014 – 100-året for første verdenskrigs udbrud – skabe
+          en omfattende digital samling af materiale fra nationale bibliotekers samlinger
           i otte lande, som befandt sig på hver deres side af den historiske konflikt.
           <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Se
           venligst ‘Europeana Collections 1914-1918’ projekt hjemmeside</a> for mere
@@ -992,18 +999,18 @@ da:
         p2: ! 'Vi har før holdt indsamlingsdage i hele Europa. '
       online_collection:
         heading: Online indsamling af beretninger
-        p1: Online-indsamlingen af beretninger startede i marts 2011. På hjemmesiden
+        p1: Onlineindsamlingen af beretninger startede i marts 2011. På hjemmesiden
           kan enhver tilføje deres genstande til samlingen sammen med deres beretninger.
-          Du kan finde mere information om, hvordan du bidrager med noget til samlingen
-          på siden “%{add_your_story}”. Genstandene, som sendes, gennemses af projekt-teamet
+          Du finder mere information om, hvordan du bidrager med noget til samlingen,
+          på siden “%{add_your_story}”. Genstandene, som sendes, gennemses af projektteamet
           og gøres derefter tilgængelige gennem Europeana.
       privacy_policy:
-        p1: Vi vil vise dit navn offentligt ved siden af dit bidrag, hvis det godkendes.
-        p2: Vi vil udelukkende bruge dine andre kontaktoplysninger, incl. din e-mail-adresse
+        p1: Dit navn offentliggøres ved siden af dit bidrag, hvis det godkendes.
+        p2: Vi bruger udelukkende dine øvrige kontaktoplysninger, incl. din e-mail-adresse,
           til at kontakte dig om dine bidrag til denne samling.
-        p3: Vi vil aldrig give dine kontaktoplysninger videre til andre.
+        p3: Vi videregiver ikke dine kontaktoplysninger til andre.
         p4: Læs mere om vores databeskyttelse på <a http://www.europeana.eu/portal/privacy.html
-          target="_blank">Europeana</a> hjemmeside.
+          target="_blank">Europeana</a> hjemmesiden.
       project_partners:
         heading: Projektets partnere
         item1: <a href="http://www.ox.ac.uk" target="_blank">University of Oxford</a>
@@ -1053,8 +1060,8 @@ da:
           item7: Parternes ansvar i tilfælde af skade eller tab (artikel 9)
           p1: Dette dokument indeholder de betingelser, der gælder for brugere, som
             bidrager med indhold og metadata til Europeana.eu hjemmesiden hos Europeana
-            Foundation. Brugeren skal være klar over at Europeana Foundation tilstræber
-            at gøre al indhold og metafata tilgængeligt til genbrug med et minimum
+            Foundation. Brugeren skal være klar over, at Europeana Foundation tilstræber
+            at gøre alt indhold og metafata tilgængeligt til genbrug med et minimum
             af restriktioner.
           p2: ''
           p3: ''
@@ -1065,10 +1072,10 @@ da:
           p7: ! 'Der er flere sider om dette projekt:'
       what_we_do:
         heading: Hvad vi laver
-        item1: Via Europeana 1914-1918 hjemmeside - tilføj et billede af genstanden
+        item1: Via Europeana 1914-1918 hjemmesiden - tilføj et billede af genstanden
           eller indtast beretningen online.
         item2: På indsamlingsdagene - medbring genstanden(e) til eventet, hvor medarbejderne
-          på projektet vil fotografere genstandene og optage de tilhørende beretningerne
+          på projektet vil fotografere genstandene og optage de tilhørende beretninger
         p1: ! 'Projektet går ud på at samle minder og beretninger fra 1. verdenskrig
           (1914-1918). I denne fase af projektet fokuserer vi på europæiske genstande:
           breve, postkort, fotos samt på beretninger fra Tyskland, Luxemburg, Slovenien
@@ -1114,7 +1121,7 @@ da:
           export: Eksporter
         links:
           config:
-            description: Konfigurer hjemmeside-indstillinger.
+            description: Konfigurer hjemmesideindstillinger.
             text: Konfiguration
           contributions:
             description: Gennemse og godkend eller afvis bidrag.
@@ -1126,7 +1133,7 @@ da:
             description: Eksporter bidragene i samlingen til CSV.
             text: Eksporter som CSV
           export_users:
-            description: Eksporter til CSV brugerdata for alle bidragydere, som har
+            description: Eksporter til CSV-brugerdata for alle bidragydere, som har
               bidraget med mindst et emne.
             text: Eksporter bidragydere
           export_xml:
@@ -1134,14 +1141,14 @@ da:
             text: Eksporter som XML.
           export_xml_nozip:
             description: Eksporter samlingens bidrag & vedhæftede filer til XML, undtagen
-              .zip filer.
-            text: Eksporter som XML (undtagen .zip filer)
+              .zip-filer.
+            text: Eksporter som XML (undtagen .zip-filer)
           logs:
             description: Se applikationens logfiler.
             text: Logfiler
           metadata_fields:
             description: Konfigurer felterne, der er indsamlet under bidragene.
-            text: Metadata-felter
+            text: Metadatafelter
           reindex:
             description: Opdater søgemaskinens index.
             text: Genindekser søgemaskinen
@@ -1152,54 +1159,54 @@ da:
         title: Admin
       metadata_fields:
         confirm_reindex:
-          info: Når den søgbare status er ændret på en eller flere metadata-felter,
+          info: Når den søgbare status er ændret for et eller flere metadatafelter,
             eller når før søgbare felter er blevet fjernet, bør du genindeksere søgemaskinen
             ved at bruge knappen nedenfor.
           note: Bemærk at du ikke behøver at genindeksere søgemaskinen, når bidrag
-            er blevet opdateret, det sker automatisk.
+            er blevet opdateret. Det sker automatisk.
           title: Genindekser søgemaskine
         delete:
           button_confirm: Vil du virkelig slette dette felt?
-          question: Er du sikker på, at du vil slette metadata-feltet %{field_name}?
-          title: Slet metadata-feltet
+          question: Er du sikker på, at du vil slette metadatafeltet %{field_name}?
+          title: Slet metadatafeltet
           warning: <strong>Advarsel:</strong> Dette vil slette alle oplysninger i
             din samling, som er samlet til dette felt.
         edit:
-          empty: Der er ingen metadata-felter endnu.
+          empty: Der er ingen metadatafelter endnu.
           instructions: Indtast et nummer til hvert felts position
-          title: Rediger metadata-felt
+          title: Rediger metadatafelt
         index:
-          caption: Metadata-felter
-          empty: Der er ingen metadata-felter endnu.
+          caption: Metadatafelter
+          empty: Der er ingen metadatafelter endnu.
           links:
             new: Nyt felt
             order: Ændr felternes rækkefølge
             terms: Termer
-          title: Metadata-felter
+          title: Metadatafelter
         new:
-          title: Nyt metadata-felt
+          title: Nyt metadatafelt
         order:
-          title: Metadata-feltets rækkefølge
+          title: Metadatafeltets rækkefølge
       taxonomy_terms:
         delete:
-          question: Er du sikker på, at du vil slette taksonomi-termen "%{term}"?
-          title: Slet taksonomi-termen
+          question: Er du sikker på, at du vil slette taksonomitermen "%{term}"?
+          title: Slet taksonomitermen
           warning: <strong>Advarsel:</strong> Denne handling vil resultere i, at ethvert
             bidrag forbundet med denne term vil miste denne kategorisering.
         edit:
-          title: Rediger taksonomi-term
+          title: Rediger taksonomiterm
         import:
-          title: Importer taksonomi-term
+          title: Importer taksonomiterm
         index:
-          caption: Taksonomi-term
-          empty: Der er ingen taksonomi-termer for dette felt endnu.
+          caption: Taksonomiterm
+          empty: Der er ingen taksonomitermer for dette felt endnu.
           links:
-            back: liste over metadata-felter
+            back: liste over metadatafelter
             import: Importer termer fra liste
             new: Ny term
-          title: Taksonomi-term
+          title: Taksonomiterm
         new:
-          title: Ny taksonomi-term
+          title: Ny taksonomiterm
       users:
         delete:
           button_confirm: Vil du virkelig slette denne brugerkonto?
@@ -1263,7 +1270,7 @@ da:
       permanent: Denne handling kan ikke fortrydes.
     contact:
       heading: Kontakt os
-      p1: For at kontakte Europeana 1914-1918 projektteam, bedes du anvende e-mail-adressen
+      p1: For at kontakte Europeana 1914-1918 projektteamet, bedes du anvende e-mail-adressen
         1914-1918 [@] europeana [.] eu
     contacts:
       anonymous: Anonym
@@ -1297,7 +1304,7 @@ da:
             en dagbog er skrevet på.
           object_type: Hvad emnet er (f.eks. digt, brev, foto), prøv at være så præcis
             som muligt.
-          save_digital: Ved at klikke "Gem fil" gemmer du denne fil og har muligheden
+          save_digital: Ved at klikke "Gem fil" gemmer du denne fil og har mulighed
             for at tilføje flere filer eller sende hele dit bidrag på én gang.
           subject: Personen eller stedet eller genstanden som emnet omhandler.
           submit_contribution1: ! 'Hvis du erfærdig med dit bidrag, <a href="#continue-to-submission">fortsæt
@@ -1413,7 +1420,7 @@ da:
             og tålmodighed. '
         help_text:
           add_another_person: Du kan tilføje mere end én person.
-          behalf_of: Lad stå tom, medmindre du hjælper nogen med at lave dette bidrag
+          behalf_of: Lad stå tomt, medmindre du hjælper nogen med at lave dette bidrag
           save_story: Ved at klikke på "Gem udkast til beretning" ledes du videre
             til det næste trin
           sections: Klik på titlernes sektioner nedenfor for at åbne og lukke dem,
@@ -1463,11 +1470,11 @@ da:
             sign_in: log ind
           notice: Hvis du vil gemme dine kontaktoplysninger og kunne finde dine bidrag,
             når de er blevet sendt, %{sign_in} eller %{register} før du fortsætter.
-          title: Gæste-kontaktoplysninger
+          title: Gæstekontaktoplysninger
       help:
         adding_your_story:
           heading: Hvordan du tilføjer din beretning på Europeana 1914-1918
-          p1: Du kan tilføje din beretning på Europeana 1914-1918 ved at anvende online-formularen
+          p1: Du kan tilføje din beretning på Europeana 1914-1918 ved at anvende onlineformularen
             på denne hjemmeside. Du indtaster ganske enkelt nogle informationer om
             dit bidrag, hvor du fortæller, hvad det er (et postkort sendt fra XX,
             en dagbog, etc.) og tilføjer den beretning, du vil dele (f.eks. om personen
@@ -1477,13 +1484,13 @@ da:
             Når dit bidrag er blevet sendt, vil det blive gennemset af en ekspert
             og blive tilgængeligt for andre.
         how_to_use:
-          heading: Hvordan du bruger online-samlingens brugerflade
+          heading: Hvordan du bruger onlinesamlingens brugerflade
           item1: ! '%{register} for at få en konto (du behøver kun at gøre dette én
             gang) eller %{sign_in}, hvis du allerede er registreret.'
           item2: Tilføj information om dit bidrag
           item3: (valgfrit) Vedhæft en digital version af din genstand (foto, scannet
             tekst, video, lydfil etc.)
-          item4: Send bidraget til online-samlingen
+          item4: Send bidraget til onlinesamlingen
           item5: Dit bidrag vil blive gennemset af en af Europeanas katalogisatorer.
             Når dit bidrag er blevet gennemset og godkendt, vil det blive synligt
             for andre.
@@ -1502,7 +1509,7 @@ da:
           til 1. verdenskrig (1914-1918) samt til de involverede eller berørte. I
           den nuværende fase indsamler vi materiale og beretninger fra Storbitannien,
           Tyskland, Slovenien, Luxemburg, Irland, etc. Du kan finde mere information
-          om projektet og den slags materiale vi indsamler her %{about}.
+          om projektet og den slags materiale, vi indsamler, her %{about}.
       index:
         item1: Indtast information om dit bidrag.
         item2: Gem dit bidrag som udkast.
@@ -1534,13 +1541,13 @@ da:
       bad_request:
         message: Der opstod et problem med din sendte forespørgsel, som forhindrede
           den i at blive behandlet.
-        title: Bad request
+        title: Fejl ved forespørgsel
       forbidden:
         message: Du har ikke adgang til de efterspurgte sider.
         title: Forbudt
       internal_server_error:
         message: Der er et problem, der forhindrer os i at behandle din forespørgsel.
-        title: Intern server fejl
+        title: Intern serverfejl
       not_found:
         message: Siden, du efterspurgte, blev ikke fundet.
         title: Ikke fundet
@@ -1549,13 +1556,14 @@ da:
           senere. '
         title: Søg offline
     explore:
-      heading: Udforsk beretninger
+      heading: Gennemse beretninger
       links:
         diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="Søg efter ‘Dagbog’">dagbog</a>
         eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Søg
           efter ‘Østfront’">Østfront</a>
         family: <a href="contributions/search?utf8=✓&q=Familie" title="Søg efter ‘Familie’">familie</a>
-        flanders: <a href="contributions/search?utf8=✓&q=Flandern" title="Søg ‘Flandern’">Flandern</a>
+        flanders: <a href="contributions/search?utf8=✓&q=Flandern" title="Søg efter
+          ‘Flandern’">Flandern</a>
         infantry: <a href="contributions/search?utf8=✓&q=Infanterie" title="Søg efter
           ‘Infanteri’">infanteri</a>
         medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="Søg efter
@@ -1593,8 +1601,8 @@ da:
         indtil nu.
       p2: Brug søgeboksen til at finde genstande som <b>svarer til et bestemt ord
         eller en bestemt sætning</b>. For at <b>se alt</b> hvad der er blevet tilføjet
-        til din samling indtil nu, klik 'søg' (lad boksen stå tom).
-      p3: Du kan også<b>browse samlingen</b>. Klik på ét af de givne søgeord nedenfor
+        til din samling indtil nu, klik 'søg' (lad feltet stå tomt).
+      p3: Du kan også<b>gennemse samlingen</b>. Klik på ét af de givne søgeord nedenfor
         for at søge på ordet. Antallet af søgeresultater øges i takt med, at mere
         materiale tilføjes til arkivet.
       p5: <b>Materiale indsamlet på de offentlige indsamlingsdage:</b>
@@ -1603,16 +1611,16 @@ da:
       heading: Din families historie fra 1. verdenskrig
       links:
         across_europe: hele Europa
-        video_guide: trin-for-trin video-guide
+        video_guide: trin-for-trin videoguide
       otto:
         heading: Otto &amp; Bernard
-        p1: ! 'Hvis du har mere information om Otto Arndt, %{add_your_story} til online
-          samlingen og del den med alle. '
+        p1: ! 'Hvis du har mere information om Otto Arndt, %{add_your_story} til onlinesamlingen
+          og del den med alle. '
       p1: <em>Europeana 1914-1918</em> indsamler materiale fra %{across_europe}.
       p2: <b>Har du billeder, breve, postkort, souvenirs eller andre genstande fra
-        1914-1918 der relaterer til 1. verdenskrig? Har du en beretning eller anekdote
-        at fortælle om de involverede eller de berørte? Tilføj den venligst til online
-        samlingen, sådan at hele verden kan høre den.</b>
+        1914-1918, der relaterer til 1. verdenskrig? Har du en beretning eller anekdote
+        at fortælle om de involverede eller de berørte? Tilføj den venligst til onlinesamlingen,
+        sådan at hele verden kan høre den.</b>
     links:
       back: Tilbage til %{link}
       previous_step: En side tilbage
@@ -1643,7 +1651,7 @@ da:
       terms:
         accept: Jeg accepterer %{terms}
         heading: Betingelser for brug
-        item1: det digitale materiale, du sender er ikke beskyttet af ophavsretten,
+        item1: det digitale materiale, du sender, er ikke beskyttet af ophavsretten,
           eller
         item2: du ejer retten til dette digitale materiale, eller
         item3: ejeren af disse rettigheder har givet dig beføjelse til at sende det
