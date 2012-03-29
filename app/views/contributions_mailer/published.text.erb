@@ -1,8 +1,7 @@
-Dear <%= @contribution.contact.full_name %>,
+<%= t('mail.contributions.published.greeting') %>
 
-Your contribution to Europeana 1914-1918 "<%= @contribution.title %>" has been accepted and published online:
+<%= t('mail.contributions.published.thanks') %>
 
     <%= contribution_url(@contribution) %>
-
-Many thanks for taking the time to share your story!
-
+ 
+<%= t('mail.contributions.published.signature') %>
