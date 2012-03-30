@@ -4,10 +4,10 @@
 
 	html {
 		font-family: Arial, Helvetica, sans-serif;
-		font-size: 1em;
+		font-size: 100%;
 		font-style: normal;
 		font-weight: 400;
-		line-height: 1.48em;
+		line-height: 140%;
 	}
 	
 	body {
@@ -18,7 +18,7 @@
 	}
 	
 	h1, h2, h3 {
-		margin: 0 0 1em 0;
+		margin: 0 0 2% 0;
 		line-height: 120%;
 	}
 	
@@ -31,16 +31,13 @@
 	}
 	
 	p {
-		font-size: 100%;
-		line-height: 140%;
-		margin: 0 0 1em 0;
+		margin: 0 0 2% 0;
 	}
 	
 	ol, ul {
-		margin: 0 0 1em 0;
+		margin: 0 0 2% 0;
 		padding: 0;
 		list-style: none;
-		font-size: 100%;
 	}
 
 
@@ -101,6 +98,20 @@
 		color: #c00;
 		display: block;
 	}
+	
+	.boxed {
+		padding: 2%;
+		border: 1px solid #dadada;
+		overflow: hidden;
+	}
+	
+	.boxed img {
+		max-width: 100%;
+	}
+	
+	.boxed iframe {
+		max-width: 100%;
+	}
 
 
 /**
@@ -118,44 +129,78 @@
 
    #collection-days {
 	  position: relative;
-	  width: auto;
 	  height: 80px;
-	  border: 1px solid #dadada;
-	  list-style: none;
-	  padding: 2%;
-	  margin: 0 auto 2% auto;
-	  text-align: center;
-	  overflow-y: scroll;
    }
    
-   #collection-days li {
-	  display: inline-block;
-	  background-image: url('/themes/v2/images/silhouette.png');
-	  background-repeat: no-repeat;
-	  background-position: center;
-   }
+	#collection-days ul {
+		margin: 0;
+	}
    
-   #collection-days a {
-	  float: left;
-	  width: 100px;
-	  height: 60px;
-	  margin: -1px 0 0 -1px;
-	  padding: 10px 3px;
-	  overflow: hidden;
-	  font-size: 90%;
-	  text-align: center;
-	  line-height: 130%;
-	  color: #000;
-	  text-decoration: none;
-	  background: transparent;
-	  -moz-transition: 0.4s ease-in;
-	  -webkit-transition: 0.4s ease-in;
-	  transition: 0.4s ease-in;
-	  background-color: rgba( 255, 255, 255, .5);
-	  background-position: center;
-   }
+	#collection-days li {
+		float: left;
+		background-image: url('/themes/v2/images/silhouette.png');
+		background-repeat: no-repeat;
+		background-position: center;
+	}
    
-   #collection-days a:hover {
+	#collection-days a {
+		float: left;
+		overflow: hidden;
+		width: 100px;
+		height: 60px;
+		padding: 10px 3px;
+		line-height: 130%;
+		color: #000;
+		font-size: 90%;
+		text-decoration: none;
+		text-align: center;
+		background-color: rgba( 255, 255, 255, .5);
+		-moz-transition: 0.4s ease-in;
+		-webkit-transition: 0.4s ease-in;
+		transition: 0.4s ease-in;
+	}
+   
+	#collection-days a:hover {
 		background-color: rgba(0,0,0,.6);
 		color: #fff;
-   }
+	}
+
+
+/**
+ *	elastislide
+ */
+
+	.es-carousel {
+		margin: 0 24px;
+		overflow: hidden;
+	}
+	
+	.es-nav span {
+		position:absolute;
+		top:50%;
+		left:12px;
+		
+		width: 16px;
+		height: 26px;
+		background-image: url('/themes/v2/images/icons/sprite.png');
+		background-repeat: no-repeat;
+		background-position: 0 -108px;
+		
+		margin-top:-13px;
+		text-indent:-9000px;
+		cursor:pointer;
+		opacity:0.3;
+		
+		-moz-transition: 0.4s ease-in;
+		-webkit-transition: 0.4s ease-in;
+		transition: 0.4s ease-in;
+	}
+	.es-nav span.es-nav-next{
+		right: 12px;
+		left: auto;
+		background-position: 0 -144px;
+	}
+	.es-nav span:hover{
+		opacity:1.0;
+	}
+	

@@ -1,41 +1,51 @@
 <% @javascripts[:index] = true -%>
 <% @title = t 'views.home.heading' %>
   
-<ol id="featured">
+<ol id="featured" class="boxed">
 
 	<li>
 		
 		<h2>stories from the archive</h2>
+			
+			<div id="stories-from-the-archive" class="">
+				<div class="">
+					<ul>
+						<!-- render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>-->
+					</ul>
+				</div>
+			</div>
 		
-		<ul>
-			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
-		</ul>
 	</li>
 	
 	<li>
 		
 		<h2>tell us <b>your</b> story</h2>
-		
-		<ul>
-    	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'tell-us-your-story', :tag => :li, :relocale => true } %>
-  	</ul>
+			
+			<ul>
+				<!-- render :partial => '/shared/blog_posts', :locals => { :category => 'tell-us-your-story', :tag => :li, :relocale => true } %>-->
+			</ul>
 		
 	</li>
 
 </ol>
 
+
 <p><b>collection days</b>: see stories from past collection days, and learn how you can <b>bring your stories</b> to future days.</p>
 
-<ul id="collection-days">
-	
-	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'collection-days', :tag => :li, :relocale => true } %>
-	
-</ul>
+
+<div id="collection-days" class="es-carousel-wrapper boxed">
+	<div class="es-carousel">
+		<ul>
+			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'collection-days', :tag => :li, :relocale => true } %>
+		</ul>
+	</div>
+</div>
+
 
 <div class="news-item">
   
   <h2><%= t('common.news_item.heading') %></h2>
 	
-	<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true } %>
+	<!-- render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true } %>-->
 
 </div>
