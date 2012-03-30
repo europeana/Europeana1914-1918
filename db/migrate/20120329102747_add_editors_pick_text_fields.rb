@@ -1,4 +1,6 @@
 class AddEditorsPickTextFields < ActiveRecord::Migration
+  class MetadataField < ActiveRecord::Base; end
+
   def self.up
     position = MetadataField.find_by_name('editor_pick').position
     MetadataField.update_all('position=position+2', [ 'position > ?', position ])

@@ -1,4 +1,19 @@
 class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
+  class Contribution < ActiveRecord::Base
+    belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
+  end
+  class MetadataField < ActiveRecord::Base
+    has_many :taxonomy_terms
+  end
+  class MetadataRecord < ActiveRecord::Base
+    has_one :contribution
+    has_and_belongs_to_many :taxonomy_terms
+  end
+  class TaxonomyTerm < ActiveRecord::Base
+    has_and_belongs_to_many :metadata_records
+    belongs_to :metadata_field
+  end
+
   def self.up
     say_with_time "Changing collection day field to taxonomy type" do
       string_field = MetadataField.find_by_name('collection_day')
@@ -26,7 +41,7 @@ class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
       tax_field.taxonomy_terms.each do |tt|
         say "Collection day \"#{tt.term}\"", true
         MetadataRecord.where('field_collection_day' => tt.term).each do |mr|
-          mr.field_collection_day_code_terms << tt
+          mr.taxonomy_terms << tt
         end
       end
       
@@ -40,7 +55,7 @@ class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
       say "Setting approved contributions without collection_day value to \"UNKNOWN\""
       unknown_term = tax_field.taxonomy_terms.where(:term => 'UNKNOWN').first
       Contribution.where("(metadata_records.field_collection_day IS NULL OR metadata_records.field_collection_day = '') AND approved_at IS NOT NULL").includes(:metadata).each do |contribution|
-        contribution.metadata.field_collection_day_code_terms << unknown_term
+        contribution.metadata.taxonomy_terms << unknown_term
       end
       
       say "Deleting collection_day string field"
