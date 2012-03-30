@@ -1,4 +1,25 @@
 class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
+  class Contribution < ActiveRecord::Base
+    belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
+  end
+  class MetadataField < ActiveRecord::Base
+    has_many :taxonomy_terms
+  end
+  class MetadataRecord < ActiveRecord::Base
+    has_one :contribution
+    has_and_belongs_to_many :taxonomy_terms
+  end
+  class TaxonomyTerm < ActiveRecord::Base
+    has_and_belongs_to_many :metadata_records
+    belongs_to :metadata_field
+  end
+  class User < ActiveRecord::Base
+    belongs_to :contact, :dependent => :destroy
+  end
+  class Contact < ActiveRecord::Base
+    has_one :user
+    has_many :contributions, :foreign_key => 'contributor_id'
+  end
   def self.up
     set_count = 0
     

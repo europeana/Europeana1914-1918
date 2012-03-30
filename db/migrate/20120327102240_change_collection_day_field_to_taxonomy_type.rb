@@ -60,6 +60,7 @@ class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
       
       say "Deleting collection_day string field"
       string_field.destroy
+      remove_column("metadata_records", "field_collection_day")
 
       say "Setting position of collection_day_code field to that of deleted string field"
       tax_field.update_attributes!(:position => position)
@@ -87,6 +88,7 @@ class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
         :field_type => 'string', :contribution => true, :attachment => false, 
         :required => false, :cataloguing => true, :searchable => true,
         :title => tax_field.title, :hint => tax_field.hint)
+      add_column("metadata_records", "field_collection_day", :string)
     
       say "Populating string field from taxonomy field"
       tax_field.taxonomy_terms.each do |tt|
