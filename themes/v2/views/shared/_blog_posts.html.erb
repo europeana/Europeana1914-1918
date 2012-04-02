@@ -1,0 +1,33 @@
+<%
+# Options recognised by this partial when passed in the :locals hash:
+#
+# * :blog The blog to retrieve posts from, either "euro" or "gwa"; defaults to
+#   "euro".
+# * :category The blog category to retrieve posts from, without the locale;
+#   defaults to none.
+# * :expires_in Number of seconds to cache this partial; defaults to 60 seconds.
+#   Partials are cached by blog name, category and locale.
+# * :limit Only output a maximum of this many posts.
+# * :locale The locale to retrieve posts for.
+# * :relocale If true, reapply the locale to absolute local links in the posts'
+#   content.
+# * :tag If set, wrap each post in an HTML element of this type, e.g. 'li'.
+# * :titles If true, output the post title wrapped in an h3 element before the
+#   post content.
+#
+cache_fragment = (local_assigns[:blog] || 'europeana') + '_' + (local_assigns[:category] || 'blog-posts').sub('-', '_') + '_' + (local_assigns[:locale] || I18n.locale).to_s 
+options = { :category => local_assigns[:category], :locale => local_assigns[:locale], :relocale => local_assigns[:category] }
+blog_posts_method = (local_assigns[:blog] || 'europeana') + '_blog_posts'
+blog_posts = send(blog_posts_method.to_sym, options)
+if local_assigns[:limit]
+  blog_posts = blog_posts[0...local_assigns[:limit]]
+end
+%>
+<%- cache(cache_fragment, :expires_in => (local_assigns[:expires_in] || 60.minutes)) do -%>
+  <%- for entry in blog_posts -%>
+    <% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
+    <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
+    <%= raw entry.content %>
+    <% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %>
+  <%- end -%>
+<% end -%>
