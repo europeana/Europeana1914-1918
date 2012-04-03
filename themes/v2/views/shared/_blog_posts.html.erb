@@ -26,10 +26,8 @@ end
 <%- cache(cache_fragment, :expires_in => (local_assigns[:expires_in] || 60.minutes)) do -%>
   <%- for entry in blog_posts -%>
     <% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
-      <div class="blog-post">
         <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
         <%= raw entry.content %>
-      </div>
     <% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %>
   <%- end -%>
 <% end -%>
