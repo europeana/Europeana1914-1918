@@ -1,7 +1,15 @@
 (function(){
 
 	'use strict';
-	//RunCoCo.GMap.Display.init('story-map');
+	if ( jQuery('#location-map').length > 0 ) {
+		
+		RunCoCo.GMap.Display.init('story-map');
+		
+	} else {
+		
+		jQuery('#location-map').hide();
+		
+	}
 	
 	jQuery('#image-viewer').elastislide({
 		imageW : jQuery('#image-viewer div > ul').eq(0).outerWidth(true) - 4,
