@@ -160,26 +160,30 @@
 
 
 /**
- *	stories from the archive
+ *	featured items
  */
 
-	#stories-from-the-archive.pg-index {
+	.featured {
 		position: relative;
-		max-height: 400px;
 		background-image: url('/themes/v2/images/backgrounds/background.jpg');
 		background-repeat: no-repeat;
 		background-position: center;
 		margin-bottom: 3%;
 	}
 	
-	#stories-from-the-archive.pg-index img {
-		max-width: 100%;
-	}
-	
-	#stories-from-the-archive .caption a {
+	.featured.caption a {
 		float: none;
 	}
 	
+	.featured img {
+		max-width: 100%;
+	}
+	
+	.featured li {
+		position: relative;
+		float: left;
+		text-align: center;
+	}
 
 /**
  *	explore
@@ -190,24 +194,6 @@
 		width: 29%;
 		height: 340px;
 		overflow: auto;
-	}
-	
-	#stories-from-the-archive {
-		
-	}
-	
-	#stories-from-the-archive img {
-		max-width: 100%;
-	}
-	
-	#stories-from-the-archive li {
-		position: relative;
-		float: left;
-		text-align: center;
-	}
-	
-	#stories-from-the-archive a {
-		
 	}
 	
 	#explore-by {
@@ -257,8 +243,6 @@
  */
 
 	#story-info {
-		float: left;
-		width: 28%;
 	}
 	
 	
@@ -267,21 +251,10 @@
 	 */
 		
 		#story-metadata {
-			height: 260px;
-			overflow-y: scroll;
 			margin: 0 0 2% 0;
 		}
 		
 		#story-metadata dd {
-			margin: 0 0 2% 0;
-		}
-	
-	
-	/**
-	 *	translate
-	 */
-	
-		#story-translate {
 			margin: 0 0 2% 0;
 		}
 	
@@ -292,7 +265,8 @@
 	
 		#story-map {
 			height: 260px;
-			border: 1px solid #dadada;
+			width: 33%;
+			float: right;
 		}
 	
 	
@@ -302,29 +276,8 @@
 	
 	#story-images {
 		position: relative;
-		width: 70%;
-		float: right;
+		margin: 0 0 3% 0;
 	}
-	
-	
-	/**
-	 *	image viewer
-	 */
-		
-		#image-viewer {
-			height: 400px;
-			overflow: hidden;
-			margin: 0;
-			list-style: none;
-		}			
-		
-		#image-viewer img {
-			max-width: 100%;
-		}
-		
-		#image-viewer li {
-			float: left;
-		}
 	
 	
 	/**
@@ -375,7 +328,13 @@
 	 */
 	
 		#banner {
-			height: 40px;
 			background-color: #d6d6d6;
-			text-align: center;
+			margin: 0 0 3% 0;
+			padding: 10px;
+			overflow: hidden;
+		}
+		
+		#banner img {
+			float: left;
+			margin-right: 10px;
 		}

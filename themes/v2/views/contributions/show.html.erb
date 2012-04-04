@@ -1,47 +1,56 @@
 <%- @javascripts[:gmap_display] = true -%>
-<% @javascripts[:story] = true %>
+<%- @javascripts[:contributions] = true -%>
 <%- @title = t('views.contributions.show.title') -%>
 
-
-<div id="story-images">
-  
-  <div id="image-viewer" class="es-carousel-wrapper">
-    <div class="es-carousel">
-      <ul>
-        <% if @contribution.attachments.present? -%>
-          <%= render :partial => '/attachments/display-images', :locals => { :size => :large } %>
-        <% end %>
-      </ul>
-    </div>
+<h2><%= contribution_title(@contribution) %></h2>
+<div id="image-viewer" class="es-carousel-wrapper boxed featured">
+  <div class="es-carousel">
+    <ul>
+      <% if @contribution.attachments.present? -%>
+        <%= render :partial => '/attachments/display-images', :locals => { :size => :large } %>
+      <% end %>
+    </ul>
   </div>
-  
-  <div id="thumbnail-viewer" class="es-carousel-wrapper">
-    <div class="es-carousel">
-      <ul>
-        <% if @contribution.attachments.present? -%>
-          <%= render :partial => '/attachments/display-images', :locals => { :size => :preview } %>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-  
-  <ul id="images-extra">
-    <li>image x of x <%= @contribution.attachments.size %></li>
-    <li>license</li>
-    <li><a href="#hide-captions">hide captions</a></li>
-    <li><a href="#start-slideshow">start slideshow</a></li>
-  </ul>
-
-  <div id="banner">call to action banner</div>
-  
 </div>
 
+<div id="thumbnail-viewer" class="es-carousel-wrapper boxed">
+  <div class="es-carousel">
+    <ul>
+      <% if @contribution.attachments.present? -%>
+        <%= render :partial => '/attachments/display-images', :locals => { :size => :preview } %>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
+<ul id="images-extra">
+  <li>image x of x <%= @contribution.attachments.size %></li>
+  <li>license</li>
+</ul>
+
+<div id="banner">
+	<div>
+		<a href="contributor"><img src="/themes/v2/images/banners/tell-us-your-story.jpg" alt="Tell us your story" /></a>
+		<h2><a href="contributor">Tell us your story</a></h2>
+		Was someone in your family involved in the First World War?<br/>
+		Do you have a collection of maps or items used in the trenches?
+	</div>
+</div>
 
 
 
 <div id="story-info">
   
+	<b>Translate details:</b><br/>
+    
+    <select>    
+      <option></option>    
+    </select>
+	
+	
+	<div id="story-map" class="boxed"></div>
+	
+	
   <dl id="story-metadata">
     
       <%=
@@ -95,20 +104,6 @@
       }
     %>
     
-</dl>
-
-
-  <div id="story-translate">
-    
-    <b>Translate details:</b><br/>
-    
-    <select>    
-      <option></option>    
-    </select>
-    
-  </div>
-
-
-  <div id="story-map"></div>
+	</dl>
 
 </div>

@@ -1,19 +1,22 @@
 <% @javascripts[:index] = true -%>
 <% @title = t 'views.home.heading' %>
 
-<div id="stories-from-the-archive" class="es-carousel-wrapper boxed pg-index">
+<div id="stories-from-the-archive" class="es-carousel-wrapper boxed featured">
+
 	<div class="es-carousel">
+
 		<ul>
 			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
 		</ul>
+
 	</div>
+
 </div>
 
 
 <div class="news-item">
   
   <h2><%= t('common.news_item.heading') %></h2>
-	
-	<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true } %>
+		<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true } %>
 
 </div>
