@@ -20,7 +20,7 @@
 	
 	
 	jQuery('#thumbnail-viewer').elastislide({
-		imageW : jQuery('#thumbnail-viewer').eq(0).outerWidth(true),
+		imageW : jQuery('#thumbnail-viewer li').eq(0).outerWidth(true),
 		border : 0,
 		margin : 0,
 		onClick : function( $item ) { return true; }
