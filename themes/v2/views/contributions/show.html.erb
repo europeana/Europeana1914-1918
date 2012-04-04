@@ -5,17 +5,25 @@
 
 <div id="story-images">
   
-  <ul id="image-viewer">
-    <% if @contribution.attachments.present? -%>
-      <%= render :partial => '/attachments/display-images', :locals => { :size => :large } %>
-    <% end %>
-  </ul>
+  <div id="image-viewer" class="es-carousel-wrapper">
+    <div class="es-carousel">
+      <ul>
+        <% if @contribution.attachments.present? -%>
+          <%= render :partial => '/attachments/display-images', :locals => { :size => :large } %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
   
-  <ul id="thumbnail-viewer">
-    <% if @contribution.attachments.present? -%>
-      <%= render :partial => '/attachments/display-images', :locals => { :size => :preview } %>
-    <% end %>
-  </ul>
+  <div id="thumbnail-viewer" class="es-carousel-wrapper">
+    <div class="es-carousel">
+      <ul>
+        <% if @contribution.attachments.present? -%>
+          <%= render :partial => '/attachments/display-images', :locals => { :size => :preview } %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
   
   <ul id="images-extra">
     <li>image x of x <%= @contribution.attachments.size %></li>

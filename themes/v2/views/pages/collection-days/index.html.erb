@@ -1,0 +1,13 @@
+<% @javascripts[:collection_days] = true -%>
+<%- @title = t 'views.collection-days.heading' -%>
+
+<p><b>collection days</b>: see stories from past collection days, and learn how you can <b>bring your stories</b> to future days.</p>
+
+
+<div id="collection-days" class="es-carousel-wrapper boxed">
+	<div class="es-carousel">
+		<ul>
+			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'collection-days', :tag => :li, :relocale => true } %>
+		</ul>
+	</div>
+</div>
