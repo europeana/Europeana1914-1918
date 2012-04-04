@@ -22,7 +22,7 @@
 	jQuery('#thumbnail-viewer').elastislide({
 		imageW : jQuery('#thumbnail-viewer li').eq(0).outerWidth(true),
 		border : 0,
-		margin : 0,
+		margin : 5,
 		onClick : function( $item ) { return true; }
 	});
 	
