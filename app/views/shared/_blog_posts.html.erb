@@ -10,6 +10,7 @@
 #   Partials are cached by blog name, category and locale.
 # * :limit Only output a maximum of this many posts.
 # * :locale The locale to retrieve posts for.
+# * :offset Retrieve entry(ies) starting from this offset
 # * :relocale If true, reapply the locale to absolute local links in the posts'
 #   content.
 # * :tag If set, wrap each post in an HTML element of this type, e.g. 'li'.
@@ -17,12 +18,9 @@
 #   post content.
 #
 cache_fragment = (local_assigns[:blog] || 'europeana') + '_' + (local_assigns[:category] || 'blog-posts').sub('-', '_') + '_' + (local_assigns[:locale] || I18n.locale).to_s 
-options = { :category => local_assigns[:category], :deblogger => local_assigns[:deblogger], :locale => local_assigns[:locale], :relocale => local_assigns[:relocale] }
+options = local_assigns.reject { |key, value| [ :blog, :expires_in, :tag, :titles ].include?(key) }
 blog_posts_method = (local_assigns[:blog] || 'europeana') + '_blog_posts'
 blog_posts = send(blog_posts_method.to_sym, options)
-if local_assigns[:limit]
-  blog_posts = blog_posts[0...local_assigns[:limit]]
-end
 %>
 <%- cache(cache_fragment, :expires_in => (local_assigns[:expires_in] || 60.minutes)) do -%>
   <%- for entry in blog_posts -%>

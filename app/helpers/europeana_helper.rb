@@ -54,20 +54,15 @@ module EuropeanaHelper
   # @example Get all links in an entry
   #   (europeana_blog_posts.first.content/"//a")
   #
-  # @param [Hash] options Options
+  # @param [Hash] options Options; additional options will be passed to 
+  #   {#filter_links}
   # @option options [String] :category The blog category, without the locale.
   #   If not specified, blog entries retrieved will not be filtered by category.
   # @option options [String,Symbol] :locale The locale to retrieve blog entries 
   #   for. If none are found for this locale, those from the English blog will 
   #   be returned instead.
-  # @option options [Boolean] :deblogger If true, run entry content through
-  #   {#deblogger}
-  # @option options [Boolean] :relocale If true, run entry content through
-  #   {#relocale_link}
   # @return Array<Feedzirra::Parser::AtomEntry> array of feed entries
-  # @see #deblogger
-  # @see #relocale_link
-  # @see https://github.com/hpricot/hpricot
+  # @see #filter_links
   #
   def europeana_blog_posts(options = {})
     url = "http://europeana1914-1918.blogspot.com/feeds/posts/default"
@@ -86,16 +81,7 @@ module EuropeanaHelper
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
     if feed.respond_to?(:entries) && feed.entries.present?
-      feed.entries.each do |entry| 
-        if options[:relocale]
-          entry.content = relocale_link(entry.content)
-        end
-        if options[:deblogger]
-          entry.content = deblogger(entry.content)
-        end
-        entry.content = Hpricot(entry.content)
-      end
-      feed.entries
+      filter_blog_posts(feed.entries, options.merge(:hpricot => true))
     elsif options[:locale] == 'en'
       []
     else
@@ -110,6 +96,7 @@ module EuropeanaHelper
   # content through Hpricot.
   #
   # @see #europeana_blog_posts
+  #
   def gwa_blog_posts(options = {})
     url = "http://thegreatwararchive.blogspot.com/feeds/posts/default"
     url = url + "/-/"
@@ -130,19 +117,49 @@ module EuropeanaHelper
     
     feed = Feedzirra::Feed.fetch_and_parse(url)
     if feed.respond_to?(:entries) && feed.entries.present?
-      feed.entries.each do |entry| 
-        if options[:relocale]
-          entry.content = relocale_link(entry.content)
-        end
-        if options[:deblogger]
-          entry.content = deblogger(entry.content)
-        end
-      end
-      feed.entries.reject { |entry| entry.blank? }
+      filter_blog_posts(feed.entries, options.merge(:hpricot => false))
     elsif options[:locale] == 'en'
       []
     else
       gwa_blog_posts(options.merge(:locale => 'en'))
     end
+  end
+  
+  protected
+  ##
+  # Filters an array of blog posts according to the supplied options
+  # 
+  # @param [Array<Feedzirra::Parser::AtomEntry>] Unfiltered array of posts
+  # @param [Hash] options Options
+  # @option options [Boolean] :deblogger If true, run entry content through
+  #   {#deblogger}
+  # @options options [Boolean] :hpricot If true, run entry content
+  # @option options [Integer] :limit Only return max this number of posts;
+  #   default is to return all
+  # @option options [Integer] :offset (1) Return posts starting from this 
+  #   offset. First post is number 1.
+  # @option options [Boolean] :relocale If true, run entry content through
+  #   {#relocale_link}
+  # @return [Array<Feedzirra::Parser::AtomEntry>] Filtered array of posts
+  # @see #deblogger
+  # @see #relocale_link
+  # @see https://github.com/hpricot/hpricot
+  #
+  def filter_blog_posts(posts, options = {})
+    posts = posts.reject { |entry| entry.blank? }
+    posts.each do |entry| 
+      if options[:relocale]
+        entry.content = relocale_link(entry.content)
+      end
+      if options[:deblogger]
+        entry.content = deblogger(entry.content)
+      end
+      if options[:hpricot]
+        entry.content = Hpricot(entry.content)
+      end
+    end
+    posts = [ posts[((options[:offset] || 1)-1)..-1] ].flatten
+    posts = posts[0..((options[:limit] || 0)-1)]
+    posts
   end
 end
