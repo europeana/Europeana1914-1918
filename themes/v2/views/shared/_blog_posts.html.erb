@@ -5,6 +5,7 @@
 #   "euro".
 # * :category The blog category to retrieve posts from, without the locale;
 #   defaults to none.
+# * :deblogger If true, remove Blogger elements from entry HTML content
 # * :expires_in Number of seconds to cache this partial; defaults to 60 seconds.
 #   Partials are cached by blog name, category and locale.
 # * :limit Only output a maximum of this many posts.
@@ -16,7 +17,7 @@
 #   post content.
 #
 cache_fragment = (local_assigns[:blog] || 'europeana') + '_' + (local_assigns[:category] || 'blog-posts').sub('-', '_') + '_' + (local_assigns[:locale] || I18n.locale).to_s 
-options = { :category => local_assigns[:category], :locale => local_assigns[:locale], :relocale => local_assigns[:category] }
+options = { :category => local_assigns[:category], :deblogger => local_assigns[:deblogger], :locale => local_assigns[:locale], :relocale => local_assigns[:relocale] }
 blog_posts_method = (local_assigns[:blog] || 'europeana') + '_blog_posts'
 blog_posts = send(blog_posts_method.to_sym, options)
 if local_assigns[:limit]

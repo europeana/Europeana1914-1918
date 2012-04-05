@@ -6,7 +6,7 @@
 	<div class="es-carousel">
 
 		<ul>
-			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
+			<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
 
 	</div>
@@ -17,6 +17,6 @@
 <div class="news-item">
   
   <h2><%= t('common.news_item.heading') %></h2>
-		<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true } %>
+		<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :category => 'news', :titles => true, :deblogger => true } %>
 
 </div>
