@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render :json => @attachments
+        render :json => @attachments.paginate(:page => params[:page], :per_page => params[:count])
       end
     end
   end
