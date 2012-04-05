@@ -73,6 +73,12 @@ class AttachmentsController < ApplicationController
   # GET /contributions/:contribution_id/attachments/:id
   def show
     current_user.may_view_attachment!(@attachment)
+    respond_to do |format|
+      format.html
+      format.json do
+        render :json => @attachment
+      end
+    end
   end
 
   # GET /contributions/:contribution_id/attachments/:id/:style/:filename
