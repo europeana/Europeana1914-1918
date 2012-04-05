@@ -1,65 +1,57 @@
 <%
-	script_files = []
+	script_files = [
+		'I18n',
+		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js'
+	]
 
 	if @javascripts[:listing]
-		script_files = [
-			'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
+		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js',
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.infinitescroll.min.js',
-			'/themes/v2/javascripts/org/flowplayer/flowplayer-3.2.8.min.js',
 			'/themes/v2/javascripts/eu/europeana/listing.js'
-		]
+		)
 	end
 	
 	if @javascripts[:index]
-		script_files = [
-			'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
+		script_files.push(
 			#'/themes/v2/javascripts/com/jquery/plugins/jquery.easing.1.3.js',
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.elastislide.min.js',
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.elastislide.js',
 			'/themes/v2/javascripts/eu/europeana/index.js'
-		]
+		)
 	end
 	
 	if @javascripts[:contributions]
-		script_files = [
-			'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
+		script_files.push(			
 			'/themes/v2/javascripts/com/google/gmap-geo.v3.js',
 			'/themes/v2/javascripts/com/google/gmap-display.js',
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.elastislide.min.js',
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.elastislide.js',
 			'/themes/v2/javascripts/eu/europeana/contributions.js'
-		]
+		)
 	end
 	
 	if @javascripts[:collection_days]
-		script_files = [
-			'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
+		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.elastislide.min.js',
 			'/themes/v2/javascripts/eu/europeana/collection-days.js'
-		]
+		)
 	end
 
 %>
 
-
 <script>
-	
-	var RunCoCo = {};
-	
-	<% if @contribution && @contribution.ready_to_submit? %>
-		RunCoCo.ready_for_submit = true;
-	<% end %>
-	
-	<% if @attachment %>
-		RunCoCo.contribution = {
-			title: '<%= @attachment.contribution.title %>',
-			metadata: <%= raw metadata_json(@attachment.contribution) %>
-		};
-	<% end -%>
-
-</script>
-
-<% if @javascripts[:gmap_display] %>
-	<script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>"></script>
+var RunCoCo = {};
+<% if @contribution && @contribution.ready_to_submit? %>
+RunCoCo.ready_for_submit = true;
 <% end %>
-
+<% if @attachment %>
+RunCoCo.contribution = {
+	title: '<%= @attachment.contribution.title %>',
+	metadata: <%= raw metadata_json(@attachment.contribution) %>
+};
+<% end %>
+</script>
+<%- if @javascripts[:gmap_display] -%>
+<script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>"></script>
+<%- end -%>
 <%= javascript_include_tag script_files %>
+<script>I18n = { locale : '<%= I18n.locale %>' };</script>

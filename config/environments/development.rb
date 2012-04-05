@@ -10,6 +10,8 @@ RunCoCo::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
+  # set config.consider_all_requests_local to false if you want to see the error message shown
+  # in production - you'll need to restart the server after this change
   config.consider_all_requests_local       = true
   config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false

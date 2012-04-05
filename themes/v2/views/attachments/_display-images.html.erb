@@ -5,7 +5,16 @@
 	<li>
 	  
 	  <%- if attachment.file.present? -%>
-		<%= link_to attachment_preview(attachment,size), attachment.file.url, :target => '_blank' %>
+		<%=
+		  link_to(
+			attachment_preview( attachment, size ),
+			attachment.file.url,
+			:target => '_blank',
+			:title => attachment.title,
+			'data-attachment-id' => attachment.id,
+			'data-contribution-id' => @contribution.id
+		  )
+		%>
 	  <%- else -%>
 		<img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
 	  <%- end -%>
