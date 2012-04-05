@@ -58,6 +58,9 @@ module EuropeanaHelper
   #   {#filter_links}
   # @option options [String] :category The blog category, without the locale.
   #   If not specified, blog entries retrieved will not be filtered by category.
+  # @option options [Integer] :expires_in Number of seconds to cache the blog
+  #   feed; defaults to 60 minutes. Setting category and locale options results
+  #   in independent retrieval and caching of the feed for those options.
   # @option options [String,Symbol] :locale The locale to retrieve blog entries 
   #   for. If none are found for this locale, those from the English blog will 
   #   be returned instead.
@@ -79,7 +82,13 @@ module EuropeanaHelper
     
     url = url + options[:locale]
     
-    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if controller.fragment_exist?(url)
+      feed = YAML::load(controller.read_fragment(url))
+    else
+      feed = Feedzirra::Feed.fetch_and_parse(url)
+      controller.write_fragment(url, feed.to_yaml,:expires_in => (options[:expires_in] || 60.minutes))
+    end
+    
     if feed.respond_to?(:entries) && feed.entries.present?
       filter_blog_posts(feed.entries, options.merge(:hpricot => true))
     elsif options[:locale] == 'en'
@@ -115,7 +124,13 @@ module EuropeanaHelper
       url = url + '-' + options[:category]
     end
     
-    feed = Feedzirra::Feed.fetch_and_parse(url)
+    if controller.fragment_exist?(url)
+      feed = YAML::load(controller.read_fragment(url))
+    else
+      feed = Feedzirra::Feed.fetch_and_parse(url)
+      controller.write_fragment(url, feed.to_yaml,:expires_in => (options[:expires_in] || 60.minutes))
+    end
+
     if feed.respond_to?(:entries) && feed.entries.present?
       filter_blog_posts(feed.entries, options.merge(:hpricot => false))
     elsif options[:locale] == 'en'
@@ -124,6 +139,18 @@ module EuropeanaHelper
       gwa_blog_posts(options.merge(:locale => 'en'))
     end
   end
+  
+#  def blog_post_cache_fragment(options = {})
+#    defaults = HashWithIndifferentAccess.new( :blog => 'europeana', :category => 'blog-posts', :locale => I18n.locale )
+#    options = options.dup
+#    options.reverse_merge!(defaults)
+#    
+#    blog = options[:blog].sub('-', '_')
+#    category = options[:category]
+#    locale = options[:locale].to_s
+#    
+#    "#{blog}_#{category}_#{locale}"
+#  end
   
   protected
   ##

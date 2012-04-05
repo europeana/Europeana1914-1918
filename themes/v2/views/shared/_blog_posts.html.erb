@@ -6,8 +6,6 @@
 # * :category The blog category to retrieve posts from, without the locale;
 #   defaults to none.
 # * :deblogger If true, remove Blogger elements from entry HTML content
-# * :expires_in Number of seconds to cache this partial; defaults to 60 seconds.
-#   Partials are cached by blog name, category and locale.
 # * :limit Only output a maximum of this many posts.
 # * :locale The locale to retrieve posts for.
 # * :offset Retrieve entry(ies) starting from this offset
@@ -17,16 +15,14 @@
 # * :titles If true, output the post title wrapped in an h3 element before the
 #   post content.
 #
-cache_fragment = (local_assigns[:blog] || 'europeana') + '_' + (local_assigns[:category] || 'blog-posts').sub('-', '_') + '_' + (local_assigns[:locale] || I18n.locale).to_s 
-options = local_assigns.reject { |key, value| [ :blog, :expires_in, :tag, :titles ].include?(key) }
+options = local_assigns.reject { |key, value| [ :blog, :tag, :titles ].include?(key) }
 blog_posts_method = (local_assigns[:blog] || 'europeana') + '_blog_posts'
 blog_posts = send(blog_posts_method.to_sym, options)
 %>
-<%- cache(cache_fragment, :expires_in => (local_assigns[:expires_in] || 60.minutes)) do -%>
-  <%- for entry in blog_posts -%>
-    <% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
-        <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
-        <%= raw entry.content %>
-    <% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %>
-  <%- end -%>
-<% end -%>
+<%- for entry in blog_posts -%>
+  <% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
+      <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
+      <%= raw entry.content %>
+  <% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %>
+<%- end -%>
+
