@@ -43,6 +43,10 @@ RunCoCo::Application.routes.draw do
       end
     end
 
+    # Blog posts
+    match 'blog/:blog(/:category)' => 'blog_posts#show', :as => :blog_post, 
+      :constraints => { :blog => /(europeana|gwa)/ }, :via => :get
+
     # Admin routes
     match 'admin' => 'admin#index', :as => 'admin_root'
     namespace :admin do

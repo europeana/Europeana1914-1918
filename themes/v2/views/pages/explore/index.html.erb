@@ -3,14 +3,14 @@
 
 <div id="explore-introduction">
 
-	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'explore-introduction' } %>
+	<%= render :partial => '/blog_posts/index', :locals => { :category => 'explore-introduction' } %>
 
 </div>
 
 
 <ol id="stories-from-the-archive" class="two-thirds-right boxed">
 	
-	<%= render :partial => '/shared/blog_posts', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
+	<%= render :partial => '/blog_posts/list', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
 	
 </ol>
 
@@ -21,7 +21,7 @@
 		<h2 class="section-heading">explore by story <b>object</b></h2>
 		
 		<ol>
-  	  <%= render :partial => '/shared/blog_posts', :locals => { :category => 'explore-by-object', :tag => :li, :relocale => true } %>
+  	  <%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-by-object', :tag => :li, :relocale => true } %>
 	  </ol>
 		
 	</div>
@@ -31,7 +31,7 @@
 		<h2 class="section-heading">explore by story <b>theme</b></h2>
 		
 		<ol>
-  		<%= render :partial => '/shared/blog_posts', :locals => { :category => 'explore-by-theme', :tag => :li, :relocale => true } %>
+  		<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-by-theme', :tag => :li, :relocale => true } %>
 		</ol>
 		
 	</div>
@@ -42,7 +42,7 @@
 <div id="editors-picks">
 	
 	<h2><%= t('common.editors_pick.heading') %></h2>
-	<%= render :partial => '/shared/blog_posts', :locals => { :blog => 'gwa', :titles => true } %>
+	<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :titles => true } %>
 	<p>&nbsp;</p>
 	<p><%= raw t('common.editors_blog.more_stories') %></p>
 	

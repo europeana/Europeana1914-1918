@@ -15,14 +15,11 @@
 # * :titles If true, output the post title wrapped in an h3 element before the
 #   post content.
 #
-options = local_assigns.reject { |key, value| [ :blog, :tag, :titles ].include?(key) }
-blog_posts_method = (local_assigns[:blog] || 'europeana') + '_blog_posts'
-blog_posts = send(blog_posts_method.to_sym, options)
+options = local_assigns.reject { |key, value| [ :tag, :titles ].include?(key) }
 %>
-<%- for entry in blog_posts -%>
+<%- for entry in blog_posts(options) -%>
   <% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
-      <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
-      <%= raw entry.content %>
+  <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
+  <%= raw entry.content %>
   <% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %>
 <%- end -%>
-
