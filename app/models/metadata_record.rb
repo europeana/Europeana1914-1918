@@ -16,6 +16,10 @@ class MetadataRecord < ActiveRecord::Base
   has_one :attachment
   has_and_belongs_to_many :taxonomy_terms
   
+  # This next association supports a hack used in the Contribution index
+  # @see Contribution.set_search_index
+  has_and_belongs_to_many :null_taxonomy_terms, :class_name => 'TaxonomyTerm', :conditions => { :metadata_field_id => nil }
+  
   COLUMN_TYPES = [ :string, :text, :date, :integer ]
   FIELD_NAME_FORMAT = /\A[a-z0-9_]+\Z/
   
@@ -187,7 +191,7 @@ class MetadataRecord < ActiveRecord::Base
       @taxonomy_associations
     end
   end
-
+  
   # Initialise model properties based on custom metadata fields.
   adapt_to_metadata_fields
 
@@ -206,7 +210,7 @@ class MetadataRecord < ActiveRecord::Base
           taxonomy_terms = self.send(mf.collection_id)
           if taxonomy_terms.present?
             taxonomy_terms.collect { |t| t.term }
-          end        
+          end
         else
           self.send(mf.column_name.to_sym)
         end

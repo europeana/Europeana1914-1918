@@ -58,25 +58,30 @@ class Contribution < ActiveRecord::Base
     define_index_str << "  indexes title, :sortable => true\n"
     define_index_str << "  indexes contributor.contact.full_name, :sortable => true, :as => :contributor\n"
     define_index_str << "  indexes approver.contact.full_name, :sortable => true, :as => :approver\n"
+    # This next one is a hack to ensure subsequent has/indexes calls for
+    # taxonomy terms always get aliased table names.
+    define_index_str << "  indexes metadata.null_taxonomy_terms.term, :as => :null_taxonomy_terms\n"
     define_index_str << "  has created_at\n"
     define_index_str << "  has submitted_at\n"
     define_index_str << "  has approved_at\n"
     define_index_str << "  has published_at\n"
 
-    searchable_fields = MetadataField.where('searchable = ?', true)
-    unless searchable_fields.count == 0
-      searchable_fields.each do |field|
+    fields = MetadataField.where('(searchable = ? OR facet = ?)', true, true)
+    unless fields.count == 0
+      fields.each do |field|
         index_alias = "metadata_#{field.name}"
+        indexes_or_has = field.searchable? ? 'indexes' : 'has'
+        facet = field.facet? ? 'true' : 'false'
         if field.field_type == 'taxonomy'
-          define_index_str << "  indexes metadata.field_#{field.name}_terms.term, :sortable => true, :as => :#{index_alias}\n"
+          define_index_str << "  #{indexes_or_has} metadata.field_#{field.name}_terms.term, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
         else
-          define_index_str << "  indexes metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}\n"
+          define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
         end
       end
     end
     
     define_index_str << "end\n"
-    
+
     class_eval(define_index_str, __FILE__, __LINE__)
   end
   set_search_index

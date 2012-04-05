@@ -15,6 +15,7 @@
 # * position: Position of the field as an integer, for ordering on forms
 #   and displays. Lower values are displayed first.
 # * searchable: Whether this field can be searched (true/false).
+# * facet: Whether this field should be used as a search facet.
 # * hint: Text displayed on metadata form to assist contributors/
 #   cataloguers with field input.
 #
@@ -52,7 +53,7 @@ class MetadataField < ActiveRecord::Base
       end
     end
   end
-   attr_accessible :name, :title, :field_type, :required, :position, :cataloguing, :taxonomy_terms_attributes, :searchable, :hint, :multi, :show_in_listing, :contribution, :attachment
+
   accepts_nested_attributes_for :taxonomy_terms
   
   default_scope order('position')
@@ -63,6 +64,7 @@ class MetadataField < ActiveRecord::Base
   validates_inclusion_of :required, :in => [ true, false ]
   validates_inclusion_of :cataloguing, :in => [ true, false ]
   validates_inclusion_of :searchable, :in => [ true, false ]
+  validates_inclusion_of :facet, :in => [ true, false ]
   validates_inclusion_of :contribution, :in => [ true, false ]
   validates_inclusion_of :attachment, :in => [ true, false ]
   validates_inclusion_of :field_type, :in => FIELD_TYPES, :on => :create
