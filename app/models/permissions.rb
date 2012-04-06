@@ -33,6 +33,9 @@ class Permissions < Aegis::Permissions
   
   action :approve_contributions do
   end
+  
+  action :reject_contributions do
+  end
 
   action :catalogue_contribution do
   end

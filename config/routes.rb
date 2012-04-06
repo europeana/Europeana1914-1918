@@ -17,8 +17,9 @@ RunCoCo::Application.routes.draw do
       end
       member do
         get 'delete'
-        put 'approve'
         put 'submit'
+        put 'approve'
+        put 'reject'
       end
       
       # Attachment sub-resources

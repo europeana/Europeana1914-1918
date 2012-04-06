@@ -8,6 +8,7 @@ en:
     edit_story: Edit story
     filter: Filter
     new: New
+    reject: Reject
     save: Save
     submit: Submit
     update: Update
@@ -453,6 +454,9 @@ en:
         update:
           alert: There was a problem saving your contribution.
           notice: Contribution saved.
+      reject:
+        alert: Failed to reject contribution.
+        notice: Contribution successfully rejected.
       submitted:
         edit:
           alert: This contribution has already been submitted.
@@ -1143,15 +1147,18 @@ en:
           captions:
             approved: Approved contributions (%{total} total)
             draft: Draft contributions (%{total} total)
+            rejected: Rejected contributions (%{total} total)
             submitted: Submitted contributions pending approval (%{total} total)
           empty:
             all:
               approved: No approved contributions yet.
               draft: No draft contributions yet.
+              rejected: No rejected contributions yet.
               submitted: No submitted contributions pending approval at present.
             search:
               approved: No approved contributions matching your search.
               draft: No draft contributions matching your search.
+              rejected: No rejected contributions matching your search.
               submitted: No submitted contributions matching your search.
           title: Contributions
         p1: ! 'Below are three tables containing contributions that have: not been
@@ -1450,6 +1457,8 @@ en:
         approved_by: Approved by %{name}
         draft: Draft &mdash; not submitted yet
         label: Status
+        rejected: Rejected
+        rejected_by: Rejected by %{name}
         submitted: Submitted &mdash; pending approval
         unknown: Unknown
       story:

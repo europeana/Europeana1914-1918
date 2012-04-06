@@ -132,6 +132,20 @@ class ContributionsController < ApplicationController
     end
   end
   
+  # PUT /contributions/:id/reject
+  def reject
+    current_user.may_reject_contributions!
+    if @contribution.reject_by(current_user)
+#      ContributionsMailer.published(@contribution).deliver
+      flash[:notice] = t('flash.contributions.reject.notice')
+      redirect_to admin_contributions_url
+    else
+      @show_errors = true
+      flash.now[:alert] = t('flash.contributions.reject.alert')
+      render :action => 'show'
+    end
+  end
+  
   # GET /contributions/search
   def search
     current_user.may_search_contributions!

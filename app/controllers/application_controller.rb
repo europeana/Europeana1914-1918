@@ -215,6 +215,7 @@ class ApplicationController < ActionController::Base
   #   * +:submitted+
   #   * +:published+
   #   * +:draft+
+  #   * +:rejected+
   #
   # @param [String] query The full-text query to pass to the search engine.
   #   Defaults to +nil+, returning all contributions in the named set.
@@ -239,7 +240,7 @@ class ApplicationController < ActionController::Base
   #   search options
   #
   def search_contributions(set, query = nil, options = {})
-    raise ArgumentError, "set should be :draft, :submitted, :approved or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published ].include?(set)
+    raise ArgumentError, "set should be :draft, :submitted, :approved or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :rejected ].include?(set)
     
     if sphinx_running?
       sphinx_search_contributions(set, query, options)
@@ -288,10 +289,11 @@ class ApplicationController < ActionController::Base
   #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
     set_where = {
-      :draft      => 'submitted_at IS NULL AND approved_at IS NULL',
-      :submitted  => 'submitted_at IS NOT NULL AND approved_at IS NULL',
+      :draft      => 'submitted_at IS NULL AND approved_at IS NULL AND rejected_at IS NULL',
+      :submitted  => 'submitted_at IS NOT NULL AND approved_at IS NULL AND rejected_at IS NULL',
       :approved   => 'approved_at IS NOT NULL',
       :published  => 'published_at IS NOT NULL',
+      :rejected   => 'rejected_at IS NOT NULL',
     }[set]
     
     query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
@@ -344,13 +346,15 @@ class ApplicationController < ActionController::Base
     
     options.merge! case set
     when :draft
-      { :with => { :submitted_at => 0, :approved_at => 0 } } 
+      { :with => { :submitted_at => 0, :approved_at => 0, :rejected_at => 0 } } 
     when :submitted
-      { :without => { :submitted_at => 0 }, :with => { :approved_at => 0 } }
+      { :without => { :submitted_at => 0 }, :with => { :approved_at => 0, :rejected_at => 0 } }
     when :approved
       { :without => { :approved_at => 0 } }
     when :published
       { :without => { :published_at => 0 } }
+    when :rejected
+      { :without => { :rejected_at => 0 } }
     end
     
     order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc

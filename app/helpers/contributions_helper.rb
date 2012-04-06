@@ -9,9 +9,14 @@ module ContributionsHelper
 
   # Returns a description of a contribution's submission/approval status
   def contribution_status(contribution)
-    if contribution.approved?
+    case contribution.status
+    when :draft
+      raw(I18n.t('views.contributions.status.draft'))
+    when :submitted
+      raw(I18n.t('views.contributions.status.submitted'))
+    when :approved
       if contribution.approver.present? && current_user.may_approve_contributions?
-        if current_user.may_administer_user?
+        if current_user.may_administer_users?
           link = link_to(contribution.approver.contact.full_name, admin_user_path(contribution.approver))
           raw(I18n.t('views.contributions.status.approved_by', :name => link))
         else
@@ -20,10 +25,17 @@ module ContributionsHelper
       else
         raw(I18n.t('views.contributions.status.approved'))
       end
-    elsif contribution.submitted?
-      raw(I18n.t('views.contributions.status.submitted'))
-    elsif contribution.draft?
-      raw(I18n.t('views.contributions.status.draft'))
+    when :rejected
+      if contribution.rejecter.present? && current_user.may_reject_contributions?
+        if current_user.may_administer_users?
+          link = link_to(contribution.rejecter.contact.full_name, admin_user_path(contribution.rejecter))
+          raw(I18n.t('views.contributions.status.rejected_by', :name => link))
+        else
+          raw(I18n.t('views.contributions.status.rejected_by', :name => contribution.rejecter.contact.full_name))
+        end      
+      else
+        raw(I18n.t('views.contributions.status.rejected'))
+      end
     else
       raw(I18n.t('views.contributions.status.unknown'))
     end

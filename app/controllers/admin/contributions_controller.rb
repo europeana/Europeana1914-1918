@@ -20,6 +20,7 @@ class Admin::ContributionsController < AdminController
       :draft      => search_contributions(:draft, @query, search_options),
       :submitted  => search_contributions(:submitted, @query, search_options),
       :approved   => search_contributions(:approved, @query, search_options),
+      :rejected   => search_contributions(:rejected, @query, search_options),
     }
   end
   

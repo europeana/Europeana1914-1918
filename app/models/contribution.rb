@@ -3,6 +3,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :contributor, :class_name => 'User'
   belongs_to :approver, :class_name => 'User', :foreign_key => 'approved_by'
   belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
+  belongs_to :rejecter, :class_name => 'User', :foreign_key => 'rejected_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   #--
   # FIXME: Destroy associated contact when contribution destroyed, *IF* this is a guest contribution, *AND* there are no other associated contributions
@@ -65,6 +66,7 @@ class Contribution < ActiveRecord::Base
     define_index_str << "  has submitted_at\n"
     define_index_str << "  has approved_at\n"
     define_index_str << "  has published_at\n"
+    define_index_str << "  has rejected_at\n"
 
     fields = MetadataField.where('(searchable = ? OR facet = ?)', true, true)
     unless fields.count == 0
@@ -146,6 +148,16 @@ class Contribution < ActiveRecord::Base
     self.save
   end
   
+  def rejected?
+    self.rejected_at != nil
+  end
+
+  def reject_by(rejecter)
+    self.rejecter = rejecter
+    self.rejected_at = Time.zone.now
+    self.save
+  end
+  
   def published?
     self.published_at != nil
   end
@@ -198,6 +210,7 @@ class Contribution < ActiveRecord::Base
       :submitted  => 'submitted_at ASC',
       :approved   => 'approved_at DESC',
       :published  => 'published_at DESC',
+      :rejected   => 'rejected_at DESC',
     }[set]
   end
   
@@ -262,6 +275,32 @@ class Contribution < ActiveRecord::Base
       end
     
       yield contribution
+    end
+  end
+  
+  ##
+  # Returns a symbol describing this contribution's status
+  #
+  # Return value will be one of:
+  # * :draft
+  # * :submitted
+  # * :approved
+  # * :rejected
+  # * :unknown
+  #
+  # @return [Symbol] The contribution's current status
+  #
+  def status
+    if draft?
+      :draft    
+    elsif approved?
+      :approved
+    elsif rejected?
+      :rejected
+    elsif submitted?
+      :submitted
+    else
+      :unknown
     end
   end
   

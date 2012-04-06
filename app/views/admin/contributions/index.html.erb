@@ -50,3 +50,15 @@
     <%- end %>
   <% end -%>
 </div>
+
+<div class="admin-contributions-rejected">
+  <% if @contributions[:rejected].present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => @contributions[:rejected], :caption => t('views.admin.contributions.index.captions.rejected', :total => @contributions[:rejected].total_entries), :fields => @options.fields } %>
+  <% else -%>
+    <%- if @query %>
+      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.rejected' %></p>
+    <%- else %>
+      <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.rejected' %></p>
+    <%- end %>
+  <% end -%>
+</div>
