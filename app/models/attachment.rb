@@ -114,6 +114,11 @@ class Attachment < ActiveRecord::Base
           mime_types = MIME::Types.type_for(ext).collect { |mime_type| mime_type.content_type }
           mime_types << 'image/pjpeg' if (ext == 'jpg' || ext == 'jpeg')
           mime_types << 'image/x-png' if (ext == 'png')
+          if ext == 'mp3'
+             mime_types << 'audio/x-mpeg' << 'audio/mp3' << 'audio/x-mp3' <<
+              'audio/mpeg3' << 'audio/x-mpeg3' << 'audio/mpg'<< 
+              'audio/x-mpg' << 'audio/x-mpegaudio'
+          end
           mime_types
         }.flatten.reject { |content_type| content_type.blank? }
       end
