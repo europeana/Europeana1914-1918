@@ -136,7 +136,6 @@ class ContributionsController < ApplicationController
   def reject
     current_user.may_reject_contributions!
     if @contribution.reject_by(current_user)
-#      ContributionsMailer.published(@contribution).deliver
       flash[:notice] = t('flash.contributions.reject.notice')
       redirect_to admin_contributions_url
     else
