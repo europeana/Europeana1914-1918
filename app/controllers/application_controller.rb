@@ -2,7 +2,10 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  helper_method :sphinx_running?, :current_user, :contribution_fields
+  
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
+
   theme :theme_resolver
 
   before_filter :init_session, :init_views, :set_locale
@@ -46,10 +49,8 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= (super || User.new)
   end
-  helper_method :current_user
 
   protected
-  
   
   ##
   # Displays error message for application errors, sending HTTP status code.
@@ -62,6 +63,7 @@ class ApplicationController < ActionController::Base
   # @option options [String] :template Path to the template to render. Default 
   #   is derived from +status+, e.g. "/errors/not_found" when status => 
   #   :not_found.
+  #
   def render_http_error(status, exception, options = {})
     options.assert_valid_keys(:log, :template)
     options.reverse_merge!(:log => true, :template => "/shared/error")
@@ -86,6 +88,7 @@ class ApplicationController < ActionController::Base
   # 
   # @param (see Devise::Controllers::Helpers#after_sign_in_path_for)
   # @return [String] URL to redirect to
+  #
   def after_sign_in_path_for(resource_or_scope)
     if params[:redirect] && (params[:redirect] =~ /^\//)
       params[:redirect]
@@ -103,6 +106,7 @@ class ApplicationController < ActionController::Base
   #
   # @param (see Devise::Controllers::Helpers#after_sign_out_path_for)
   # @return [String] URL to redirect to 
+  #
   def after_sign_out_path_for(resource_or_scope)
     home_path
   end
@@ -114,6 +118,7 @@ class ApplicationController < ActionController::Base
   #
   # @param (see ActionController::Redirecting#redirect_to)
   # @return (see ActionController::Redirecting#redirect_to)
+  #
   def redirect_to(options = {}, response_status = {})
     if params[:redirect] && (params[:redirect] =~ /^\//)
       super(params[:redirect], response_status)
@@ -124,6 +129,7 @@ class ApplicationController < ActionController::Base
   
   ##
   # Initialise session.
+  #
   def init_session # :nodoc:
     # Store guest user details in session
     if current_user.role.name == 'guest'
@@ -136,6 +142,7 @@ class ApplicationController < ActionController::Base
   
   ##
   # Initialise instance variables for views.
+  #
   def init_views # :nodoc:
     # Flags for optional javascripts.
     # Views or controllers can set these to true to enable inclusion of 
@@ -155,6 +162,7 @@ class ApplicationController < ActionController::Base
   
   ##
   # Set locale from URL param or HTTP Accept-Language header
+  #
   def set_locale # :nodoc:
     if params[:locale].blank?
       # Uses http_accept_language plugin
@@ -172,6 +180,7 @@ class ApplicationController < ActionController::Base
   # Return the name of the theme to use, for the theme_for_rails gem
   # 
   # @see https://github.com/lucasefe/themes_for_rails
+  #
   def theme_resolver
     if params[:theme]
       session[:theme] = params[:theme]
@@ -219,6 +228,7 @@ class ApplicationController < ActionController::Base
   #
   # @see http://freelancing-god.github.com/ts/en/searching.html ThinkingSphinx 
   #   search options
+  #
   def search_contributions(set, query = nil, options = {})
     raise ArgumentError, "set should be :draft, :submitted, :approved or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published ].include?(set)
     
@@ -233,10 +243,10 @@ class ApplicationController < ActionController::Base
   # Tests whether Sphinx search engine is running.
   #
   # @return (see ThinkingSphinx.sphinx_running?)
+  #
   def sphinx_running?
     ThinkingSphinx.sphinx_running?
   end
-  helper_method :sphinx_running?
   
   ##
   # Returns the fields associated with contributions.
@@ -248,6 +258,7 @@ class ApplicationController < ActionController::Base
   #   the first is the I18n'd field name, the second an identifier that can be
   #   passed to ContributionsHelper#contribution_field_value as the 
   #   +field_name+ param
+  #
   def contribution_fields
     @contribution_fields ||= [
       [ t('attributes.title'), 'title'], 
@@ -260,13 +271,12 @@ class ApplicationController < ActionController::Base
       [ field.title, (field.field_type == 'taxonomy' ? field.collection_id.to_s : field.column_name) ]
     end
   end
-  helper_method :contribution_fields
   
-  protected
   ##
   # Simple text query against contributions.
   #
   # Only intended as a backup if Sphinx is not running.
+  #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
     set_where = {
       :draft      => 'submitted_at IS NULL AND approved_at IS NULL',
@@ -317,6 +327,7 @@ class ApplicationController < ActionController::Base
   #
   # Always does word-end wildcard queries by appending * to query if not already
   # present.
+  #
   def sphinx_search_contributions(set, query = nil, options = {}) # :nodoc:
     unless sphinx_running?
       raise RunCoCo::SearchOffline
@@ -359,7 +370,14 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def csv_class
+  ##
+  # Requires and returns the Ruby-version-specific library used for CSV processing
+  #
+  # For Ruby >= 1.9, returns CSV, otherwise FasterCSV.
+  #
+  # @return [Class] CSV class
+  #
+  def csv_class # :nodoc:
     if RUBY_VERSION >= "1.9"
       require 'csv'
       CSV
