@@ -13,7 +13,7 @@
 	jQuery('#news-articles').infinitescroll({
 		navSelector  	: '.next-article',
 		nextSelector 	: '.next-article',
-		itemSelector 	: 'table',
+		itemSelector 	: 'article',
 		debug		 	: false,
 		dataType	 	: 'html',
 		
