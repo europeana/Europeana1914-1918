@@ -149,7 +149,7 @@ class ContributionsController < ApplicationController
   def search
     current_user.may_search_contributions!
     @query = params[:q]
-    @contributions = search_contributions(:published, @query, :page => params[:page], :per_page => 10)
+    @contributions = search_contributions(:published, @query, :page => params[:page], :per_page => (params[:count] || 10))
   end
   
   # GET /contributions/:id/delete
