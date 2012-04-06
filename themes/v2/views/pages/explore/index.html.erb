@@ -8,7 +8,7 @@
 </div>
 
 
-<ol id="stories-from-the-archive" class="two-thirds-right boxed">
+<ol id="explore-stories-from-the-archive" class="two-thirds-right boxed">
 	
 	<%= render :partial => '/blog_posts/list', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
 	
@@ -42,7 +42,8 @@
 <div id="editors-picks">
 	
 	<h2><%= t('common.editors_pick.heading') %></h2>
-	<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :titles => true } %>
+	<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :tag => 'article', :limit => 2, :titles => true } %>
+	<a class="next-article" href="/<%= I18n.locale %>/blog/gwa?offset=3&limit=2&tag=article&deblogger=true">next page</a>
 	<p>&nbsp;</p>
 	<p><%= raw t('common.editors_blog.more_stories') %></p>
 	
