@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   #
   def render_http_error(status, exception, options = {})
     options.assert_valid_keys(:log, :template)
-    options.reverse_merge!(:log => true, :template => "/shared/error")
+    options.reverse_merge!(:log => true, :template => "/pages/error")
 
     if options[:log]
       RunCoCo.error_logger.error("#{status.to_s.humanize} \"#{exception.message}\"\n#{Rails.backtrace_cleaner.clean(exception.backtrace).join("\n")}")
