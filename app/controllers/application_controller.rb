@@ -30,10 +30,19 @@ class ApplicationController < ActionController::Base
     rescue_from RunCoCo::SearchOffline do |exception|
       render_http_error(:service_unavailable, exception, :template => "/errors/search_offline")
     end
-
-    # Rescue "404 Not Found" exceptions
-    rescue_from ActionController::MissingFile, ActiveRecord::RecordNotFound, ActionController::RoutingError, ActionController::UnknownAction, ActionController::MethodNotAllowed, ActionView::MissingTemplate do |exception|
-      render_http_error(:not_found, exception)
+  end
+  
+  # Rescue "404 Not Found" exceptions
+  #
+  # First tries to redirect to the same path with the locale prefixed if it's 
+  # not already in the request params.
+  rescue_from ActionController::MissingFile, ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::MethodNotAllowed, ActionController::RoutingError, ActionView::MissingTemplate do |exception|
+    if (params[:locale] != I18n.locale.to_s) && !request.fullpath.match(/^\/attachments\//)
+      redirect_to "/#{I18n.locale.to_s}#{request.fullpath}"
+    else
+      unless Rails.configuration.consider_all_requests_local
+        render_http_error(:not_found, exception)
+      end
     end
   end
   
