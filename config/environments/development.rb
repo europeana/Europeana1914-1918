@@ -1,3 +1,4 @@
+# Restart the webserver after making any changes to this file.
 RunCoCo::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -10,10 +11,9 @@ RunCoCo::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  # set config.consider_all_requests_local to false if you want to see the error message shown
-  # in production - you'll need to restart the server after this change
+  # Set consider_all_requests_local to false if you want to see the 
+  # human-friendly error pages as shown in production.
   config.consider_all_requests_local       = true
-  config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
