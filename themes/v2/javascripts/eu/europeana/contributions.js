@@ -4,14 +4,18 @@
 	
 	
 	function lightBoxIt( $elm, data ) {
+		
 		$elm.before( '<div class="item-metadata">' + JSON.stringify(data) + '</div>' );
+		
 	}
 	
 	function handleImageViewerImageClicks( evt ) {
 		
 		evt.preventDefault();
 		var $elm = jQuery(this),
-			json_url = '/' + I18n.locale + '/contributions/' + $elm.attr('data-contribution-id') + '/attachments/' + $elm.attr('data-attachment-id') + '.json';
+				json_url =	'/' + I18n.locale +
+										'/contributions/' + $elm.attr('data-contribution-id') +
+										'/attachments/' + $elm.attr('data-attachment-id') + '.json';
 		
 		jQuery.ajax({
 			url : json_url,
@@ -28,7 +32,7 @@
 	if ( jQuery('#location-map').length > 0 ) {
 		
 		jQuery('#location-map').hide();
-		// setTimeout( function() { RunCoCo.GMap.Display.init('story-map'); }, 1000 );
+		setTimeout( function() { RunCoCo.GMap.Display.init('story-map'); }, 1000 );
 		
 	} else {
 		

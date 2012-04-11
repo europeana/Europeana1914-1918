@@ -1,30 +1,6 @@
 <%- @javascripts[:search] = true -%>
 <%- @title = t('views.contributions.search.heading') -%>
   
-  <div id="facets">
-	
-	<b>Filter your search:</b>
-	
-	<ol>
-	  
-	  <li>
-		By object type
-		<ul>
-		  <li>postcard</li>
-		  <li>letter</li>
-		  <li>diary</li>
-		  <li>none</li>
-		</ul>
-	  </li>
-	  <li>By theme</li>
-	  <li>By date</li>
-	  <li>By location</li>
-	  <li>By language</li>
-	  
-	</ol>
-	
-  </div>
-  
   <div id="results">
 	
 	<% if @contributions.size == 0 -%>
@@ -33,7 +9,7 @@
 	  
 	<% else -%>
 	  
-	  <%= render :partial => 'search-results', :locals => { :contributions => @contributions, :query => @query } %>
+	  <%= render :partial => 'search-results', :locals => { :contributions => @contributions, :query => @query, :limit => 20 } %>
 	  
 	<% end -%>
 	

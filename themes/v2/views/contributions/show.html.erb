@@ -1,8 +1,10 @@
 <%- @javascripts[:gmap_display] = true -%>
 <%- @javascripts[:contributions] = true -%>
+<%- @javascripts[:lightbox] = true -%>
 <%- @title = t('views.contributions.show.title') -%>
 
 <h2><%= contribution_title(@contribution) %></h2>
+
 <div id="image-viewer" class="es-carousel-wrapper boxed featured">
   <div class="es-carousel">
     <ul>
@@ -13,7 +15,7 @@
   </div>
 </div>
 
-<div id="thumbnail-viewer" class="es-carousel-wrapper boxed">
+<div id="thumbnail-viewer" class="es-carousel-wrapper boxed-grey">
   <div class="es-carousel">
     <ul>
       <% if @contribution.attachments.present? -%>
@@ -30,16 +32,25 @@
 
 
 <div id="story-info">
-  
-	<b>Translate details:</b><br/>
+	
+	
+	<div style="overflow: hidden;">
+		<div id="story-map"></div>
+		<div id="avatar" class="boxed">
+		  <img src="/images/profile-placeholder.jpg" width="200" />
+		  <%= @contribution.metadata.fields['contributor_behalf'] %> shared this story about
+		  <%= @contribution.metadata.fields['character1_given_name'] %> <%= @contribution.metadata.fields['character1_family_name'] %> and
+		  <%= @contribution.metadata.fields['character2_given_name'] %> <%= @contribution.metadata.fields['character2_family_name'] %>
+		</div>
+	</div>
+	
+	<div style="text-align: right;">
+		<b>Translate details:</b><br/>
     
     <select>    
       <option></option>    
     </select>
-	
-	
-	<div id="story-map"></div>
-	
+	</div>
 	
   <dl id="story-metadata">
     
@@ -98,7 +109,7 @@
 
 </div>
 
-<div id="banner">
+<div id="banner" class="boxed-grey">
 	<div>
 		<a href="contributor"><img src="/themes/v2/images/banners/tell-us-your-story.jpg" alt="Tell us your story" /></a>
 		<h2><a href="contributor">Tell us your story</a></h2>
