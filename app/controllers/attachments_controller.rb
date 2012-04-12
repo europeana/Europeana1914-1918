@@ -30,29 +30,36 @@ class AttachmentsController < ApplicationController
   # POST /contributions/:contribution_id/attachments 
   def create
     current_user.may_create_contribution_attachment!(@contribution)
-    if params[:uploadify]
-      params[:attachment][:file].content_type = MIME::Types.type_for(params[:attachment][:file].original_filename).first
-    end
+    
     @attachment = Attachment.new
     @attachment.build_metadata
-    @attachment.attributes = params[:attachment]
+    
+    if params[:uploadify]
+      attachment_attributes = (params[:attachment].is_a?(String) ? JSON.parse(params[:attachment]) : params[:attachment])
+      attachment_attributes[:file] = params[:attachment_file]
+      attachment_attributes[:file].content_type = MIME::Types.type_for(attachment_attributes[:file].original_filename).first
+    else
+      attachment_attributes = params[:attachment]
+    end
+    
+    @attachment.attributes = attachment_attributes
     @attachment.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@attachment.contribution)
     @attachment.contribution = @contribution
     
-    unless params.has_key?(:attachment) && params[:attachment].has_key?(:metadata_attributes) && params[:attachment][:metadata_attributes].has_key?(:field_license_term_ids)
+    unless attachment_attributes.is_a?(Hash) && attachment_attributes.has_key?(:metadata_attributes) && attachment_attributes[:metadata_attributes].has_key?(:field_license_term_ids)
       license = MetadataField.find_by_name('license').taxonomy_terms.select { |tt| tt.term == 'http://creativecommons.org/licenses/by-sa/3.0/' }.first
       @attachment.metadata.field_license_term_ids = [ license.id ]
     end
     
-    unless params.has_key?(:attachment) && params[:attachment].has_key?(:metadata_attributes) && params[:attachment][:metadata_attributes].has_key?(:field_file_type_term_ids)
+    unless attachment_attributes.is_a?(Hash) && attachment_attributes.has_key?(:metadata_attributes) && attachment_attributes[:metadata_attributes].has_key?(:field_file_type_term_ids)
       text = MetadataField.find_by_name('file_type').taxonomy_terms.select { |tt| tt.term == 'TEXT' }.first
       @attachment.metadata.field_file_type_term_ids = [ text.id ]
     end
     
     if @attachment.save
       respond_to do |format| 
-        flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
         format.html do
+          flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
           if @contribution.submitted?
             redirect_to @attachment.contribution
           else
@@ -62,10 +69,12 @@ class AttachmentsController < ApplicationController
         format.json  { render :json => { :result => 'success', :url => contribution_attachment_path(@contribution, @attachment) } } 
       end 
     else
-      flash.now[:alert] = t('flash.attachments.create.alert')
       respond_to do |format| 
-        format.html { render :action => 'new', :status => :bad_request }
-        format.json  { render :json => { :result => 'error', :msg => @attachment.errors.values.flatten.to_sentence } } 
+        format.html do
+          flash.now[:alert] = t('flash.attachments.create.alert')
+          render :action => 'new', :status => :bad_request
+        end
+        format.json  { render :json => { :result => 'error', :msg => @attachment.errors.values.flatten.to_sentence }, :status => :bad_request } 
       end
     end
   end
