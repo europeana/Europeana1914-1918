@@ -3,7 +3,7 @@ class ChangeCollectionDayFieldToTaxonomyType < ActiveRecord::Migration
     belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   end
   class MetadataField < ActiveRecord::Base
-    has_many :taxonomy_terms
+    has_many :taxonomy_terms, :dependent => :destroy
   end
   class MetadataRecord < ActiveRecord::Base
     has_one :contribution

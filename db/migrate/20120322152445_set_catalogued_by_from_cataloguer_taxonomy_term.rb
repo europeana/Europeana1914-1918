@@ -3,7 +3,7 @@ class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
     belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   end
   class MetadataField < ActiveRecord::Base
-    has_many :taxonomy_terms
+    has_many :taxonomy_terms, :dependent => :destroy
   end
   class MetadataRecord < ActiveRecord::Base
     has_one :contribution
@@ -20,6 +20,7 @@ class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
     has_one :user
     has_many :contributions, :foreign_key => 'contributor_id'
   end
+  
   def self.up
     set_count = 0
     
@@ -32,12 +33,14 @@ class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
       cataloguer_users[user.id] = user.contact.full_name
     end
     cataloguer_users.merge!( {
-      37  => "Frank Drauschke",
-      43  => "Stephen Bull",
-      292 => "Imke W",
-      796 => "Other",
-      994 => "Ciara Boylan",
-      973 => "Liz Danskin",
+      37   => "Frank Drauschke",
+      43   => "Stephen Bull",
+      292  => "Imke W",
+      796  => "Other",
+      802  => "Christine.Kremer",
+      973  => "Liz Danskin",
+      976  => "Brid O'Sullivan",
+      994  => "Ciara Boylan",
       1379 => "Everett Sharp",
     } )
     
@@ -55,7 +58,9 @@ class SetCataloguedByFromCataloguerTaxonomyTerm < ActiveRecord::Migration
     unset_contributions = contributions.where('taxonomy_terms.term IS NOT NULL')
     unset_count = unset_contributions.count
     if unset_count > 0
-      unset_cataloguers = unset_contributions.collect { |c| c.metadata.fields['cataloguer'] }.flatten.uniq.join(', ')
+      unset_cataloguers = unset_contributions.collect do |c|
+        c.metadata.taxonomy_terms.select { |tt| tt.metadata_field.name == 'cataloguer' }.collect { |tt| tt.term }
+      end.flatten.uniq.join(', ')
       say "#{unset_count} contributions remain with unknown cataloguer taxonomy terms: #{unset_cataloguers}"
     end
   end
