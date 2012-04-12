@@ -65,12 +65,6 @@
           }
           
         },
-//        onError: function (event, queueID, fileObj, errorObj) {
-//          alert(errorObj.type + ' Error: ' + errorObj.info);
-//          var queueDiv = jQuery("#uploadify_file" + queueID);
-//          jQuery('.percentage', queueDiv).text(' - ' + dat.msg);
-//          queueDiv.addClass('uploadifyError');
-//        }
         
       };
     
@@ -134,14 +128,14 @@
               fieldValue = jQuery(this).val();
             }
           } else {
-            alert('input[type="' + fieldType + '"]'); 
+//            alert('input[type="' + fieldType + '"]'); 
           }
         } else if (fieldTagName == 'textarea') {
           fieldValue = jQuery(this).val();
         } else if (fieldTagName == 'select') {
           fieldValue = jQuery('option', this).filter(':selected').val();
         } else { 
-          alert(fieldTagName); 
+//          alert(fieldTagName); 
         }
         
         if (fieldValue !== null) {
