@@ -18,7 +18,7 @@ class FixCollectionDayFieldInconsistencies < ActiveRecord::Migration
                     "Dubin, National Library of Ireland, 21/03/2012", "Du18",
                     "Dublin, National Library of Ireland, 21 March 2012. ",
                     "21 March 2012, National Library of Ireland" ],
-        "NG19" => "28.03.2012"
+        "NG19" => [ "28.03.2012", "Ng19" ]
       }.each_pair do |to, froms|
         [ froms ].flatten.each do |from|
           say "Changing \"#{from}\" to \"#{to}\"", true
