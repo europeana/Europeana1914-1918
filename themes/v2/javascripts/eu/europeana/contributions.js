@@ -2,6 +2,8 @@
 
 	'use strict';
 	
+	var $metadata; // represents the metadata container that is used by the active lightbox item
+	
 	function buildMetaDataDiv( data ) {
 		
 		var i,
@@ -128,25 +130,36 @@
 	function handleMetaDataClick( evt ) {
 		
 		var $elm = jQuery(this),
-				$metadata = jQuery( $elm.attr('href') ),
-				$pic_holder = jQuery('#pp_full_res');
+				$pic_holder = jQuery('#pp_full_res'),
+				position = $pic_holder.position();
 		
+		evt.preventDefault();
+		$metadata = jQuery( $elm.attr('href') );
 		
-		evt.preventDefault();		
-		var position = $pic_holder.position();
+		if ( !$metadata.data.cloned ) {
+			
+			$metadata.data.cloned = $metadata.clone().appendTo($pic_holder);
+			$metadata.data.cloned.css({
+				height : $pic_holder.find('img').height() - parseInt( $metadata.css('padding-top'), 10 ) - parseInt( $metadata.css('padding-bottom'), 10 )
+			});
+			
+		}
 		
-		$metadata.css({
-			position : 'absolute',
-			top : 0,
-			left : 13,
-			right : 18,
-			height : $pic_holder.find('img').height(),
-			padding : '30px 10px 10px 10px',
-			background : 'rgba(255,255,255,.7)'
-		});
+		$metadata.data.cloned.slideToggle();
 		
-		$metadata.appendTo($pic_holder).slideToggle();
+	}
+	
+	function addLightBoxDescriptionClickHandler() {
 		
+		/**
+		 *	this refers to the generated lightbox div
+		 *	the div is removed each time the lightbox is closed
+		 *	so these elements need to be added back to the div
+		 *	with each open
+		 */
+		jQuery(this)
+			.find('.pp_description a').first()
+			.on('click', handleMetaDataClick );
 		
 	}
 	
@@ -154,13 +167,8 @@
 	jQuery("a[rel^='prettyPhoto']").prettyPhoto({
 		
 		description_src : 'data-description',
-		changepicturecallback : function() {
-			
-			jQuery(this)
-				.find('.pp_description a').first()
-				.on('click', handleMetaDataClick );
-			
-		}
+		changepicturecallback : addLightBoxDescriptionClickHandler,
+		callback : function() { $metadata.data.cloned = false; }
 		
 	});
 	
