@@ -3,102 +3,86 @@
 <% if @contribution.attachments.present? %>
   
   <% for attachment in @contribution.attachments %>
-	
-	<li>
-	  
-	  <% if !prettyphoto %>
-	  
-		<% if attachment.file.present? %>
-		  <%=
-			link_to(
-			  attachment_preview( attachment, size ),
-			  attachment.file.url,
-			  :target => '_blank',
-			  :title => attachment.title,
-			  'data-attachment-id' => attachment.id,
-			  'data-contribution-id' => @contribution.id
-			)
-		  %>
-		<% else %>
-		  <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
-		<% end %>
-		
-	  <% else %>
-		
-		<% if attachment.file.present? %>
-		  <%=
-			link_to(
-			  attachment_preview( attachment, size ),
-			  attachment.file.url,
-			  :target => '_blank',
-			  :title => attachment.title,
-			  'data-attachment-id' => attachment.id,
-			  'data-contribution-id' => @contribution.id,
-			  'data-description' => '<a href="#inline-' + inline.to_s + '" rel="prettyPhoto">additional information</a>',
-			  :rel => 'prettyPhoto'
-			)
-		  %>
-		<% else %>
-		  <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
-		<% end %>
-		
-		<div class="lightbox-metadata" id="inline-<%= inline.to_s %>">
-		  <%=
-			render :partial => '/metadata/display',
-			:locals => {
-			  :contribution => @contribution,
-			  :metadata => attachment.metadata,
-			  :field_options => {
-				:name => [
-				  'description',
-				  'alternative',
-				  'author',
-				  'subject',
-				  'keywords',
-				  # 'date',
-				  'date_from', # use this field to summarize the date fields
-				  'date_to',
-				  'location_map',
-				  'location_placename',
-				  'file_type',
-				  'source',
-				  'format',
-				  'content',
-				  'contributor_behalf',
-				  'page_number',
-				  'page_total',
-				  'editor_pick',
-				  'cataloguer',
-				  'notes',
-				  'lang',
-				  'forces',
-				  'theatres',
-				  'collection_day',
-				  'lang_other',
-				  'object_side',
-				  'cover_image',
-				  'creator_family_name',
-				  'creator_given_name',
-				  'license',
-				  'character1_family_name',
-				  'character1_given_name',
-				  'character2_family_name',
-				  'character2_given_name',
-				  'attachment_description',
-				  'summary',
-				  'ticket',
-				  'location_zoom'
-				],
-				:name_order => true
-			  }
-			}
-		  %>
-		</div>
-		
-	  <% end %>
-	  <% inline += 1 %>
-	</li>
-	
+  
+  <li>
+    
+    <% if attachment.file.present? %>
+      <% 
+      link_attrs = {
+        :target => '_blank',
+        :title => attachment.title,
+        'data-attachment-id' => attachment.id,
+        'data-contribution-id' => @contribution.id
+      }
+      link_attrs.merge!( {
+        'data-description' => '<a href="#inline-' + inline.to_s + '" rel="prettyPhoto">additional information</a>',
+         :rel => 'prettyPhoto'
+      } ) if prettyphoto
+      %>
+      <%=  link_to(attachment_preview( attachment, size ), attachment.file.url,link_attrs) %>
+    <% else %>
+      <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
+    <% end %>
+    
+    <% if prettyphoto %>
+    
+    <div class="lightbox-metadata" id="inline-<%= inline.to_s %>">
+      <%=
+      render :partial => '/metadata/display',
+      :locals => {
+        :contribution => @contribution,
+        :metadata => attachment.metadata,
+        :field_options => {
+        :name => [
+          'description',
+          'alternative',
+          'author',
+          'subject',
+          'keywords',
+          # 'date',
+          'date_from', # use this field to summarize the date fields
+          'date_to',
+          'location_map',
+          'location_placename',
+          'file_type',
+          'source',
+          'format',
+          'content',
+          'contributor_behalf',
+          'page_number',
+          'page_total',
+          'editor_pick',
+          'cataloguer',
+          'notes',
+          'lang',
+          'forces',
+          'theatres',
+          'collection_day',
+          'lang_other',
+          'object_side',
+          'cover_image',
+          'creator_family_name',
+          'creator_given_name',
+          'license',
+          'character1_family_name',
+          'character1_given_name',
+          'character2_family_name',
+          'character2_given_name',
+          'attachment_description',
+          'summary',
+          'ticket',
+          'location_zoom'
+        ],
+        :name_order => true
+        }
+      }
+      %>
+    </div>
+    
+    <% end %>
+    <% inline += 1 %>
+  </li>
+  
   <% end %>
   
 <% end %>
