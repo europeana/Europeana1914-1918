@@ -15,23 +15,23 @@ module ContributionsHelper
     when :submitted
       raw(I18n.t('views.contributions.status.submitted'))
     when :approved
-      if contribution.approver.present? && current_user.may_approve_contributions?
+      if contribution.current_status.user.present? && current_user.may_approve_contributions?
         if current_user.may_administer_users?
-          link = link_to(contribution.approver.contact.full_name, admin_user_path(contribution.approver))
+          link = link_to(contribution.current_status.user.contact.full_name, admin_user_path(contribution.current_status.user))
           raw(I18n.t('views.contributions.status.approved_by', :name => link))
         else
-          raw(I18n.t('views.contributions.status.approved_by', :name => contribution.approver.contact.full_name))
+          raw(I18n.t('views.contributions.status.approved_by', :name => contribution.current_status.user.contact.full_name))
         end      
       else
         raw(I18n.t('views.contributions.status.approved'))
       end
     when :rejected
-      if contribution.rejecter.present? && current_user.may_reject_contributions?
+      if contribution.current_status.user.present? && current_user.may_reject_contributions?
         if current_user.may_administer_users?
-          link = link_to(contribution.rejecter.contact.full_name, admin_user_path(contribution.rejecter))
+          link = link_to(contribution.current_status.user.contact.full_name, admin_user_path(contribution.current_status.user))
           raw(I18n.t('views.contributions.status.rejected_by', :name => link))
         else
-          raw(I18n.t('views.contributions.status.rejected_by', :name => contribution.rejecter.contact.full_name))
+          raw(I18n.t('views.contributions.status.rejected_by', :name => contribution.current_status.user.contact.full_name))
         end      
       else
         raw(I18n.t('views.contributions.status.rejected'))
@@ -76,8 +76,6 @@ module ContributionsHelper
       contribution.attachments.size
     elsif field_name == 'contributor'
       contribution.contact.full_name
-    elsif field_name == 'approver'
-      contribution.approver ? contribution.approver.contact.full_name : ''
     elsif field_name == 'cataloguer'
       contribution.cataloguer ? contribution.cataloguer.contact.full_name : ''
     elsif field_name == 'title'

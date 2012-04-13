@@ -1,14 +1,13 @@
 # Contribution consisiting of files and metadata.
 class Contribution < ActiveRecord::Base
   belongs_to :contributor, :class_name => 'User'
-  belongs_to :approver, :class_name => 'User', :foreign_key => 'approved_by'
   belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
-  belongs_to :rejecter, :class_name => 'User', :foreign_key => 'rejected_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   #--
   # FIXME: Destroy associated contact when contribution destroyed, *IF* this is a guest contribution, *AND* there are no other associated contributions
   #++
   belongs_to :guest
+  belongs_to :current_status, :class_name => 'ContributionStatus'
 
   has_many :attachments, :class_name => '::Attachment', :dependent => :destroy, :include => :metadata do
     def with_file
@@ -19,6 +18,8 @@ class Contribution < ActiveRecord::Base
       proxy_owner.attachments.collect { |a| a.to_hash }.to_json(options)
     end
   end
+  
+  has_many :statuses, :class_name => 'ContributionStatus', :dependent => :destroy
   
   accepts_nested_attributes_for :metadata
 
@@ -32,7 +33,7 @@ class Contribution < ActiveRecord::Base
 
   attr_accessible :metadata_attributes, :title
 
-  before_save :set_published_at
+  after_create :create_draft_status
   
   after_initialize :build_metadata_unless_present
 
@@ -58,15 +59,12 @@ class Contribution < ActiveRecord::Base
     define_index_str << "  set_property :delta => true\n"
     define_index_str << "  indexes title, :sortable => true\n"
     define_index_str << "  indexes contributor.contact.full_name, :sortable => true, :as => :contributor\n"
-    define_index_str << "  indexes approver.contact.full_name, :sortable => true, :as => :approver\n"
     # This next one is a hack to ensure subsequent has/indexes calls for
     # taxonomy terms always get aliased table names.
     define_index_str << "  indexes metadata.null_taxonomy_terms.term, :as => :null_taxonomy_terms\n"
     define_index_str << "  has created_at\n"
-    define_index_str << "  has submitted_at\n"
-    define_index_str << "  has approved_at\n"
-    define_index_str << "  has published_at\n"
-    define_index_str << "  has rejected_at\n"
+    define_index_str << "  has current_status.status, :as => :status\n"
+    define_index_str << "  has current_status.created_at, :as => :status_timestamp\n"
 
     fields = MetadataField.where('(searchable = ? OR facet = ?)', true, true)
     unless fields.count == 0
@@ -97,23 +95,46 @@ class Contribution < ActiveRecord::Base
   end
 
   ##
+  # Returns a symbol describing this contribution's status
+  #
+  # Return value will be one of:
+  # * :draft
+  # * :submitted
+  # * :approved
+  # * :rejected
+  # * :unknown
+  #
+  # @return [Symbol] The contribution's current status
+  # @see ContributionStatus.to_sym
+  #
+  def status
+    current_status.nil? ? nil : current_status.to_sym
+  end
+
+  ##
   # Submits the contribution for approval.
   #
-  # Sets {@submitted_at} to the current time and saves to the database. Returns
-  # the result of {#save}.
+  # Creates a {ContributionStatus} record with status = 
+  # {ContributionStatus::SUBMITTED}.
   #
-  # @return [Boolean]
+  # @return [Boolean] True if {ContributionStatus} record saved.
+  #
   def submit
-    self.submitted_at = Time.zone.now
-    self.save
+    @submitting = true
+    if valid?
+      status = ContributionStatus.create(:contribution_id => id, :user_id => contributor_id, :status => ContributionStatus::SUBMITTED)
+      status.id.present?
+    else
+      false
+    end
   end
   
   def submitting?
-    self.submitted_at.present? && self.submitted_at_changed?
+    @submitting == true
   end
 
   def submitted?
-    self.submitted_at != nil
+    status == :submitted
   end
 
   def ready_to_submit?
@@ -130,54 +151,44 @@ class Contribution < ActiveRecord::Base
   end
   
   def draft?
-    !self.submitted?
+    status == :draft
   end
 
   def approved?
-    self.approved_at != nil
+    status == :approved
   end
 
-  def approving?
-    self.approved_at.present? && self.approved_at_changed?
-  end
-  
   def approve_by(approver)
-    self.approver = approver
-    self.approved_at = Time.zone.now
-    self.metadata.cataloguing = true
-    self.save
+    metadata.cataloguing = true
+    if valid?
+      status = ContributionStatus.create(:contribution_id => id, :user_id => approver.id, :status => ContributionStatus::APPROVED)
+      status.id.present?
+    else
+      false
+    end
   end
   
   def rejected?
-    self.rejected_at != nil
+    status == :rejected
   end
 
   def reject_by(rejecter)
-    self.rejecter = rejecter
-    self.rejected_at = Time.zone.now
-    self.save
+    status = ContributionStatus.create(:contribution_id => id, :user_id => rejecter.id, :status => ContributionStatus::REJECTED)
+    status.id.present?
   end
   
   def published?
-    self.published_at != nil
+    if !RunCoCo.configuration.publish_contributions
+      false
+    else
+      if RunCoCo.configuration.contribution_approval_required
+        status == :approved
+      else
+        status == :submitted
+      end
+    end
   end
   
-  # Derives and sets the value of the published_at attribute.
-  # 
-  # The publication time will be:
-  # * nil if contributions are not to be made public at all;
-  # * the time the contribution was approved if approval is required;
-  # * the time the contribution was submitted if approval is not
-  #   required
-  def set_published_at #:nodoc:
-    self.published_at = (
-      RunCoCo.configuration.publish_contributions ? 
-      ( RunCoCo.configuration.contribution_approval_required ? self.approved_at : self.submitted_at) :
-      nil
-    )
-    true
-  end
-
   def validate_contributor_or_contact
     if self.contributor_id.blank? && self.guest_id.blank?
       self.errors.add(:guest_id, I18n.t('activerecord.errors.models.contribution.attributes.guest_id.present'))
@@ -203,17 +214,7 @@ class Contribution < ActiveRecord::Base
     rails_build_metadata(*args)
     self.metadata.for_contribution = true
   end
-  
-  def self.default_sort_order(set)
-    {
-      :draft      => 'created_at DESC',
-      :submitted  => 'submitted_at ASC',
-      :approved   => 'approved_at DESC',
-      :published  => 'published_at DESC',
-      :rejected   => 'rejected_at DESC',
-    }[set]
-  end
-  
+    
   ##
   # Fetches and yields approved & published contributions for export.
   #
@@ -243,23 +244,27 @@ class Contribution < ActiveRecord::Base
       end
     end
     
-    conditions = [ 'approved_at IS NOT NULL AND published_at IS NOT NULL' ]
+    if RunCoCo.configuration.contribution_approval_required
+      conditions = [ 'contribution_statuses.status=?', ContributionStatus::APPROVED ]
+    else
+      conditions = [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
+    end
     
     if options[:start_date].present?
-      conditions[0] << ' AND published_at >= ?'
+      conditions[0] << ' AND contribution_statuses.created_at >= ?'
       conditions << options[:start_date]
     end
     
     if options[:end_date].present?
-      conditions[0] << ' AND published_at <= ?'
+      conditions[0] << ' AND contribution_statuses.created_at <= ?'
       conditions << options[:end_date]
     end
     
-    taxonomy_associations = MetadataRecord.taxonomy_associations
     includes = [ 
-      { :attachments => { :metadata => taxonomy_associations } }, 
-      { :metadata => taxonomy_associations }, 
-      { :contributor => :contact } 
+      { :attachments => { :metadata => :taxonomy_terms } }, 
+      { :metadata => :taxonomy_terms }, 
+      { :contributor => :contact },
+      :current_status
     ]
     
     Contribution.find_each(
@@ -278,35 +283,17 @@ class Contribution < ActiveRecord::Base
     end
   end
   
-  ##
-  # Returns a symbol describing this contribution's status
-  #
-  # Return value will be one of:
-  # * :draft
-  # * :submitted
-  # * :approved
-  # * :rejected
-  # * :unknown
-  #
-  # @return [Symbol] The contribution's current status
-  #
-  def status
-    if draft?
-      :draft    
-    elsif approved?
-      :approved
-    elsif rejected?
-      :rejected
-    elsif submitted?
-      :submitted
-    else
-      :unknown
-    end
-  end
-  
   protected
   def build_metadata_unless_present
     self.build_metadata unless self.metadata.present?
+  end
+  
+  ##
+  # Creates a {ContributionStatus} record with status = 
+  # {ContributionStatus::DRAFT}
+  #
+  def create_draft_status
+    ContributionStatus.create!(:contribution_id => id, :user_id => contributor_id, :status => ContributionStatus::DRAFT)
   end
 end
 

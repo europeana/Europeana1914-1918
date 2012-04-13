@@ -11,13 +11,12 @@ class User < ActiveRecord::Base
   
   has_many :contributions, :foreign_key => 'contributor_id', :dependent => :destroy do
     def submitted
-      where("submitted_at IS NOT NULL").includes([{:attachments => :metadata}, :metadata ])
+      where([ 'contribution_statuses.status IN (?)', [ ContributionStatus::SUBMITTED, ContributionStatus::APPROVED ] ]).includes([{:attachments => :metadata}, :metadata, :current_status ])
     end
     def draft
-      where("submitted_at IS NULL").includes([{:attachments => :metadata}, :metadata ])
+      where([ 'contribution_statuses.status=?', ContributionStatus::DRAFT ]).includes([{:attachments => :metadata}, :metadata, :current_status ])
     end
   end
-  has_many :approved_contributions, :class_name => 'Contribution', :foreign_key => 'approved_by', :dependent => :nullify
   has_many :catalogued_contributions, :class_name => 'Contribution', :foreign_key => 'catalogued_by', :dependent => :nullify
   belongs_to :contact, :dependent => :destroy
   

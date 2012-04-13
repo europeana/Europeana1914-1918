@@ -276,7 +276,6 @@ class ApplicationController < ActionController::Base
       [ t('activerecord.attributes.contribution.cataloguer'), 'cataloguer' ],
       [ t('activerecord.attributes.contribution.created_at'), 'created_at' ],
       [ t('activerecord.attributes.contribution.contributor'), 'contributor' ],
-      [ t('activerecord.attributes.contribution.approver'), 'approver' ]
     ] + MetadataField.where(:contribution => true).collect do |field| 
       [ field.title, (field.field_type == 'taxonomy' ? field.collection_id.to_s : field.column_name) ]
     end
@@ -288,27 +287,37 @@ class ApplicationController < ActionController::Base
   # Only intended as a backup if Sphinx is not running.
   #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
-    set_where = {
-      :draft      => 'submitted_at IS NULL AND approved_at IS NULL AND rejected_at IS NULL',
-      :submitted  => 'submitted_at IS NOT NULL AND approved_at IS NULL AND rejected_at IS NULL',
-      :approved   => 'approved_at IS NOT NULL',
-      :published  => 'published_at IS NOT NULL',
-      :rejected   => 'rejected_at IS NOT NULL',
-    }[set]
+    set_where = case set
+    when :draft
+      [ 'contribution_statuses.status=?', ContributionStatus::DRAFT ]
+    when :submitted
+      [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
+    when :approved
+      [ 'contribution_statuses.status=?', ContributionStatus::APPROVED ]
+    when :published
+      if !RunCoCo.configuration.publish_contributions
+        [ 'contribution_statuses.status=?', 0 ] # i.e. never
+      else
+        if RunCoCo.configuration.contribution_approval_required
+          [ 'contribution_statuses.status=?', ContributionStatus::APPROVED ]
+        else
+          [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
+        end
+      end
+    when :rejected
+      [ 'contribution_statuses.status=?', ContributionStatus::REJECTED ]
+    end
     
     query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
     
-    joins = :metadata
+    joins = [ :metadata, :current_status ]
     if (sort = options.delete(:sort)).present?
       if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
         sort_col = "taxonomy_terms.term"
-        joins = { :metadata => sort.to_sym }
+        joins = [ { :metadata => sort.to_sym }, :current_status ]
       elsif sort == 'contributor'
         sort_col = "contacts.full_name"
-        joins = [ :metadata, { :contributor => :contact } ]
-      elsif sort == 'approver'
-        sort_col = "contacts.full_name"
-        joins = [ :metadata, { :approver => :contact } ]
+        joins = [ :metadata, { :contributor => :contact }, :current_status ]
       else
         sort_col = sort
       end
@@ -318,7 +327,11 @@ class ApplicationController < ActionController::Base
       
       sort_order = "#{sort_col} #{order}"
     else
-      sort_order = Contribution.default_sort_order(set)
+      if set == :submitted
+        options[:order] = 'contribution_statuses.created_at ASC'
+      else
+        options[:order] = 'contribution_statuses.created_at DESC'
+      end
     end
     
     contributor_id = options.delete(:contributor_id)
@@ -346,15 +359,23 @@ class ApplicationController < ActionController::Base
     
     options.merge! case set
     when :draft
-      { :with => { :submitted_at => 0, :approved_at => 0, :rejected_at => 0 } } 
+      { :with => { :status => ContributionStatus::DRAFT } }
     when :submitted
-      { :without => { :submitted_at => 0 }, :with => { :approved_at => 0, :rejected_at => 0 } }
+      { :with => { :status => ContributionStatus::SUBMITTED } }
     when :approved
-      { :without => { :approved_at => 0 } }
+      { :with => { :status => ContributionStatus::APPROVED } }
     when :published
-      { :without => { :published_at => 0 } }
+      if !RunCoCo.configuration.publish_contributions
+        { :with => { :status => 0 } } # i.e. never
+      else
+        if RunCoCo.configuration.contribution_approval_required
+          { :with => { :status => ContributionStatus::APPROVED } }
+        else
+          { :with => { :status => ContributionStatus::SUBMITTED } }
+        end
+      end
     when :rejected
-      { :without => { :rejected_at => 0 } }
+      { :with => { :status => ContributionStatus::REJECTED } }
     end
     
     order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
@@ -372,7 +393,11 @@ class ApplicationController < ActionController::Base
       options[:sort_mode] = order
       options[:order] = sort_col
     else
-      options[:order] = Contribution.default_sort_order(set)
+      if set == :submitted
+        options[:order] = 'status_timestamp ASC'
+      else
+        options[:order] = 'status_timestamp DESC'
+      end
     end
     
     if query.blank?

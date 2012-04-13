@@ -207,10 +207,14 @@ class MetadataRecord < ActiveRecord::Base
       @fields = {}
       self.class.fields.each do |mf| 
         @fields[mf.name] = if mf.field_type == 'taxonomy'
-          taxonomy_terms = self.send(mf.collection_id)
-          if taxonomy_terms.present?
-            taxonomy_terms.collect { |t| t.term }
+          field_terms = self.taxonomy_terms.select { |tt| tt.metadata_field_id == mf.id }
+          if field_terms.present?
+            field_terms.collect { |t| t.term }
           end
+#          field_terms = self.send(mf.collection_id)
+#          if field_terms.present?
+#            field_terms.collect { |t| t.term }
+#          end
         else
           self.send(mf.column_name.to_sym)
         end
