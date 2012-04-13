@@ -1,7 +1,9 @@
-<%- @javascripts[:gmap_display] = true -%>
-<%- @javascripts[:contributions] = true -%>
-<%- @javascripts[:lightbox] = true -%>
-<%- @title = t('views.contributions.show.title') -%>
+<%
+  @javascripts[:gmap_display] = true
+  @javascripts[:contributions] = true
+  @javascripts[:lightbox] = true
+  @title = t('views.contributions.show.title')
+%>
 
 <h2><%= contribution_title(@contribution) %></h2>
 
@@ -9,7 +11,7 @@
   <div class="es-carousel">
     <ul>
       <% if @contribution.attachments.present? -%>
-        <%= render :partial => '/attachments/display-images', :locals => { :size => :medium } %>
+        <%= render :partial => '/attachments/display-images', :locals => { :size => :medium, :prettyphoto => true } %>
       <% end %>
     </ul>
   </div>

@@ -21,6 +21,12 @@
 		)
 	end
 	
+	if @javascripts[:lightbox]
+		script_files.push(
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.prettyphoto.min.js'
+		)
+	end
+	
 	if @javascripts[:contributions]
 		script_files.push(
 			'/themes/v2/javascripts/com/google/gmap-geo.v3.js',
@@ -41,12 +47,6 @@
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.infinitescroll.min.js',
 			'/themes/v2/javascripts/eu/europeana/explore.js'
-		)
-	end
-	
-	if @javascripts[:lightbox]
-		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.colorbox.js'
 		)
 	end
 
