@@ -19,7 +19,7 @@
   
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
 
-    <% if @draft_contributions.present? || @submitted_contributions.present? %>
+    <% if @draft_contributions.present? || @submitted_contributions.present? || @approved_contributions.present? %>
       <p><%= t('views.contributor.dashboard_contributor.p1') %></p>
       <div class="contributions-drafts">
         <%- if @draft_contributions.present? -%>
