@@ -73,10 +73,10 @@ class Permissions < Aegis::Permissions
 
   action :edit_contribution do
     allow :contributor do |contribution|
-      (contribution.contributor == user) && !contribution.submitted?
+      (contribution.contributor == user) && [:draft, :submitted].include?(contribution.status)
     end
     allow :guest do |contribution|
-      !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && !contribution.submitted?
+      !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && [:draft, :submitted].include?(contribution.status)
     end
   end
 
@@ -128,7 +128,7 @@ class Permissions < Aegis::Permissions
   
   action :edit_attachment do
     allow :contributor do |attachment|
-      (attachment.contribution.contributor == user) && !attachment.contribution.submitted?
+      (attachment.contribution.contributor == user) && [:draft, :submitted].include?(attachment.contribution.status)
     end
     allow :guest do |attachment|
       !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && !attachment.contribution.submitted?
@@ -137,7 +137,7 @@ class Permissions < Aegis::Permissions
   
   action :delete_attachment do
     allow :contributor do |attachment| 
-      (attachment.contribution.contributor == user) && !attachment.contribution.submitted?
+      (attachment.contribution.contributor == user) && [:draft, :submitted].include?(attachment.contribution.status)
     end
     allow :guest do |attachment|
       !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && !attachment.contribution.submitted?

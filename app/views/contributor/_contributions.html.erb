@@ -26,26 +26,32 @@ end
         <%- for field_name in fields -%>
           <td><%= contribution_field_value(contribution, field_name) %></td>
         <%- end -%>
-        <%- if current_user.may_edit_contribution?(contribution) -%>
-          <td><%= link_to t('actions.edit_story'), edit_contribution_path(contribution), :class => 'edit-member' %></td>
-          <td>
-            <%- if contribution.ready_to_submit? -%>
-              <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution ) %>
-            <%- else -%>
-              &nbsp;
-            <%- end -%>
-          </td>
-          <%- if current_user.may_delete_contribution?(contribution) -%>
-            <td><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(contribution), :class => 'delete-member' %></td>
+        <td>
+          <%- if current_user.may_edit_contribution?(contribution) -%>
+            <%= link_to t('actions.edit_story'), edit_contribution_path(contribution), :class => 'edit-member' %>
+          <%- end -%>  
+        </td>
+        <td>
+          <%- if contribution.ready_to_submit? -%>
+            <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution ) %>
           <%- end -%>
-          <td><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(contribution ) ) %> (<%= contribution.attachments.size %>)</td>
-        <%- end -%>
+        </td>
+        <td>
+          <%- if current_user.may_delete_contribution?(contribution) -%>
+            <%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(contribution), :class => 'delete-member' %>
+          <%- end -%>
+        </td>
+        <td>
+          <%- if current_user.may_create_contribution_attachment?(contribution) -%>
+            <%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(contribution ) ) %> (<%= contribution.attachments.size %>)
+          <%- end -%>
+        </td>
       </tr>
     <% end %>
     <%- if contributions.respond_to?(:total_pages) && (contributions.total_pages > 1) %>
       <tfoot>
         <tr>
-          <td colspan="3"><%= will_paginate contributions %></td>
+          <td colspan="<%= fields.size + 4 %>"><%= will_paginate contributions %></td>
         </tr>
       </tfoot>
     <%- end %>

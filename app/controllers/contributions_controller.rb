@@ -67,28 +67,21 @@ class ContributionsController < ApplicationController
 
   # GET /contributions/:id/edit
   def edit
-    if @contribution.submitted? && (@contribution.contributor == current_user)
-      if current_user.may_catalogue_contributions?
-        @contribution.metadata.cataloguing = true
-      else
-        flash[:alert] = t('flash.contributions.submitted.edit.alert')
-        redirect_to @contribution
-        return
+    current_user.may_edit_contribution!(@contribution)
+    
+    if current_user.may_catalogue_contributions?
+      @contribution.metadata.cataloguing = true
+      if @contribution.catalogued_by.blank?
+        @contribution.catalogued_by = current_user.id
       end
     end
-
-    if current_user.may_catalogue_contributions? && @contribution.catalogued_by.blank?
-      @contribution.catalogued_by = current_user.id
-    end
-    
-    current_user.may_edit_contribution!(@contribution)
   end
 
   # PUT /contributions/:id
   def update
     current_user.may_edit_contribution!(@contribution)
 
-    if current_user.may_catalogue_contributions?
+    if current_user.may_catalogue_contributions? && @contribution.catalogued_by.blank?
       @contribution.catalogued_by = params[:contribution].delete(:catalogued_by)
     end
     @contribution.attributes = params[:contribution]
@@ -122,7 +115,10 @@ class ContributionsController < ApplicationController
   def approve
     current_user.may_approve_contributions!
     if @contribution.approve_by(current_user)
-      ContributionsMailer.published(@contribution).deliver
+      email = @contribution.by_guest? ? @contribution.contact.email : @contribution.contributor.email
+      if email.present?
+        ContributionsMailer.published(email, @contribution).deliver
+      end
       flash[:notice] = t('flash.contributions.approve.notice')
       redirect_to admin_contributions_url
     else
