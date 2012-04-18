@@ -12,6 +12,8 @@ class ContributionStatus < ActiveRecord::Base
   validates_inclusion_of :status, :in => [ DRAFT, SUBMITTED, APPROVED, REJECTED ]
   
   after_create :set_contribution_current_status
+  after_destroy :rollback_contribution_current_status
+  before_destroy :preserve_last_contribution_status
   
   def to_sym
     case status
@@ -35,6 +37,21 @@ class ContributionStatus < ActiveRecord::Base
       # is set.
       contribution.current_status_id = id
       contribution.save
+    end
+  end
+  
+  def rollback_contribution_current_status
+    if contribution_id && (contribution = Contribution.find(contribution_id))
+      if contribution.current_status_id == id
+        contribution.current_status_id = contribution.statuses.last.id
+        contribution.save
+      end
+    end
+  end
+  
+  def preserve_last_contribution_status
+    if contribution_id && (contribution = Contribution.find(contribution_id))
+      contribution.statuses.size > 1
     end
   end
 end
