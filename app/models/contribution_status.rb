@@ -13,7 +13,6 @@ class ContributionStatus < ActiveRecord::Base
   
   after_create :set_contribution_current_status
   after_destroy :rollback_contribution_current_status
-  before_destroy :preserve_last_contribution_status
   
   def to_sym
     case status
@@ -32,7 +31,7 @@ class ContributionStatus < ActiveRecord::Base
   
   protected
   def set_contribution_current_status
-    if contribution_id && (contribution = Contribution.find(contribution_id))
+    if contribution = Contribution.find(contribution_id)
       # Do this instead of update_attribute so that contribution's delta index
       # is set.
       contribution.current_status_id = id
@@ -41,17 +40,11 @@ class ContributionStatus < ActiveRecord::Base
   end
   
   def rollback_contribution_current_status
-    if contribution_id && (contribution = Contribution.find(contribution_id))
-      if contribution.current_status_id == id
+    if (contribution = Contribution.find(contribution_id)) && (contribution.current_status_id == id)
+      if contribution.statuses.present? && (contribution.statuses.last.id != id)
         contribution.current_status_id = contribution.statuses.last.id
         contribution.save
       end
-    end
-  end
-  
-  def preserve_last_contribution_status
-    if contribution_id && (contribution = Contribution.find(contribution_id))
-      contribution.statuses.size > 1
     end
   end
 end
