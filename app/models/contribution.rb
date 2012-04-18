@@ -33,7 +33,7 @@ class Contribution < ActiveRecord::Base
 
   attr_accessible :metadata_attributes, :title
 
-  after_create :create_draft_status
+  after_create :set_draft_status
   
   after_initialize :build_metadata_unless_present
 
@@ -95,20 +95,39 @@ class Contribution < ActiveRecord::Base
   end
 
   ##
-  # Returns a symbol describing this contribution's status
+  # Returns a symbol representing this contribution's current status
   #
-  # Return value will be one of:
-  # * :draft
-  # * :submitted
-  # * :approved
-  # * :rejected
-  # * :unknown
-  #
-  # @return [Symbol] The contribution's current status
-  # @see ContributionStatus.to_sym
+  # @return [Symbol] (see ContributionStatus#to_sym)
   #
   def status
     current_status.nil? ? nil : current_status.to_sym
+  end
+
+  ##
+  # Changes the contribution's current status to that specified
+  #
+  # Creates a new ContributionStatus record.
+  #
+  # If the status param is a symbol, is should be one of those returned by 
+  # {ContributionStatus#to_sym}. If it is an integer, is should be one of the
+  # status constants defined in ContributionStatus, e.g. 
+  # {ContributionStatus::SUBMITTED}.
+  #
+  # @param [Symbol,Integer] The status to change this contribution to.
+  #
+  def change_status_to(status, user_id = nil)
+    if status.is_a?(Symbol)
+      status = ContributionStatus.const_get(status.to_s.upcase)
+    end
+    user_id ||= contributor_id
+
+    status_record = ContributionStatus.create(:contribution_id => id, :user_id => user_id, :status => status)
+    if status_record.id.present?
+      self.current_status_id = status_record.id
+      save
+    else
+      false
+    end
   end
 
   ##
@@ -122,8 +141,7 @@ class Contribution < ActiveRecord::Base
   def submit
     @submitting = true
     if valid?
-      status = ContributionStatus.create(:contribution_id => id, :user_id => contributor_id, :status => ContributionStatus::SUBMITTED)
-      status.id.present?
+      change_status_to(:submitted)
     else
       false
     end
@@ -161,11 +179,14 @@ class Contribution < ActiveRecord::Base
   def approve_by(approver)
     metadata.cataloguing = true
     if valid?
-      status = ContributionStatus.create(:contribution_id => id, :user_id => approver.id, :status => ContributionStatus::APPROVED)
-      status.id.present?
+      change_status_to(:approved, approver.id)
     else
       false
     end
+  end
+  
+  def pending_approval?
+    [ :submitted, :revised ].include?(status)
   end
   
   def rejected?
@@ -173,8 +194,7 @@ class Contribution < ActiveRecord::Base
   end
 
   def reject_by(rejecter)
-    status = ContributionStatus.create(:contribution_id => id, :user_id => rejecter.id, :status => ContributionStatus::REJECTED)
-    status.id.present?
+    change_status_to(:rejected, rejecter.id)
   end
   
   def published?
@@ -292,8 +312,8 @@ class Contribution < ActiveRecord::Base
   # Creates a {ContributionStatus} record with status = 
   # {ContributionStatus::DRAFT}
   #
-  def create_draft_status
-    ContributionStatus.create!(:contribution_id => id, :user_id => contributor_id, :status => ContributionStatus::DRAFT)
+  def set_draft_status
+    change_status_to(:draft)
   end
 end
 

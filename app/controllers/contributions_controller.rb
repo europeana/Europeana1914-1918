@@ -90,6 +90,11 @@ class ContributionsController < ApplicationController
     end
 
     if @contribution.save
+      # Updates made by non-cataloguers change the contribution's status to
+      # :revised
+      if !current_user.may_catalogue_contributions? && (@contribution.status == :approved)
+        @contribution.change_status_to(:revised, current_user.id)
+      end
       flash[:notice] = t('flash.contributions.draft.update.notice')
       redirect_to (@contribution.draft? ? new_contribution_attachment_path(@contribution) : @contribution)
     else

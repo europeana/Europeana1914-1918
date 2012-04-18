@@ -36,10 +36,10 @@
         <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
       <% end %>
       <% if current_user.may_edit_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
-      <%- if current_user.may_approve_contributions? && (@contribution.status == :submitted) %>
+      <%- if current_user.may_approve_contributions? && @contribution.pending_approval? %>
         <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
       <%- end %>
-      <%- if current_user.may_reject_contributions? && (@contribution.status == :submitted) %>
+      <%- if current_user.may_reject_contributions? && @contribution.pending_approval? %>
         <li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
       <%- end %>
     </ul>

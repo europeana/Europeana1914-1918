@@ -36,6 +36,8 @@ module ContributionsHelper
       else
         raw(I18n.t('views.contributions.status.rejected'))
       end
+    when :revised
+      raw(I18n.t('views.contributions.status.revised'))
     else
       raw(I18n.t('views.contributions.status.unknown'))
     end
