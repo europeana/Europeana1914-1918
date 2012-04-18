@@ -19,7 +19,7 @@ class Contribution < ActiveRecord::Base
     end
   end
   
-  has_many :statuses, :class_name => 'ContributionStatus', :dependent => :destroy
+  has_many :statuses, :class_name => 'ContributionStatus', :dependent => :destroy, :order => 'created_at ASC'
   
   accepts_nested_attributes_for :metadata
 
