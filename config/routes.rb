@@ -24,7 +24,11 @@ RunCoCo::Application.routes.draw do
       
       # Attachment sub-resources
       resources :attachments do
-        get 'delete', :on => :member
+        member do
+          get 'delete'
+          get 'copy'
+          put 'duplicate'
+        end
       end
     end
     

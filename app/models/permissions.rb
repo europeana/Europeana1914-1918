@@ -135,6 +135,9 @@ class Permissions < Aegis::Permissions
     end
   end
   
+  action :copy_attachment_metadata do
+  end
+  
   action :delete_attachment do
     allow :contributor do |attachment| 
       (attachment.contribution.contributor == user) && [ :draft, :submitted ].include?(attachment.contribution.status)

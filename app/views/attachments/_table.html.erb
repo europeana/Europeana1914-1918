@@ -8,6 +8,9 @@ if attachments.present?
   if current_user.may_delete_attachment?(attachments.first)
     colspan = colspan + 1
   end
+  if current_user.may_copy_attachment_metadata?(attachments.first)
+    colspan = colspan + 1
+  end
 end
 -%>
 <% if attachments.present? %>
@@ -34,7 +37,7 @@ end
           </td>
           <td><%= attachment.title %></td>
           <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
-          <%- if current_user.may_catalogue_contribution? -%>
+          <%- if current_user.may_catalogue_contributions? -%>
             <td><%= contribution_field_value(attachment.contribution, 'field_ticket') %></td>
           <%- end -%>
           <td>
@@ -44,6 +47,9 @@ end
           </td>
           <%- if current_user.may_edit_attachment?(attachment) -%>
             <td><%= link_to t('actions.edit'), edit_contribution_attachment_path(attachment.contribution, attachment), :class => 'edit-member' %></td>
+          <%- end -%>
+          <%- if current_user.may_copy_attachment_metadata?(attachment) -%>
+            <td><%= link_to t('actions.copy'), copy_contribution_attachment_path(attachment.contribution, attachment) %></td>
           <%- end -%>
           <%- if current_user.may_delete_attachment?(attachment) -%>
             <td><%= link_to t('actions.delete'), delete_contribution_attachment_path(attachment.contribution, attachment), :class => 'delete-member' %></td>

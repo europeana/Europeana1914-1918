@@ -127,6 +127,35 @@ class AttachmentsController < ApplicationController
     end
   end
 
+  # GET /contributions/:contribution_id/attachments/:id/copy
+  def copy
+    current_user.may_copy_attachment_metadata!(@attachment)
+  end
+  
+  # PUT /contributions/:contribution_id/attachments/:id/duplicate
+  def duplicate
+    current_user.may_copy_attachment_metadata!(@attachment)
+    if params[:targets].present?
+      params[:targets].each do |attachment_id|
+        if attachment = Attachment.find(attachment_id, :include => :metadata)
+          if attachment.contribution_id == @attachment.contribution_id
+            attachment.title = @attachment.title
+            attachment.metadata.taxonomy_terms = @attachment.metadata.taxonomy_terms
+            MetadataRecord.fields.each do |mf| 
+              if mf.field_type != 'taxonomy'
+                attachment.metadata.send(:"#{mf.column_name}=", @attachment.metadata.send(mf.column_name))
+              end
+            end
+            attachment.save
+          end
+        end
+      end
+    end
+    
+    flash[:notice] = t('flash.attachments.duplicate.notice')
+    redirect_to @attachment.contribution
+  end
+
   # GET /contributions/:contribution_id/attachments/:id/delete
   def delete
     current_user.may_delete_attachment!(@attachment)
