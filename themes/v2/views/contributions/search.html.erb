@@ -1,7 +1,12 @@
 <%- @javascripts[:search] = true -%>
 <%- @title = t('views.contributions.search.heading') -%>
+
+
+<section class="border-top">
   
   <div id="results">
+	
+	<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
 	
 	<% if @contributions.size == 0 -%>
 	  
@@ -14,3 +19,5 @@
 	<% end -%>
 	
   </div>
+  
+</section>

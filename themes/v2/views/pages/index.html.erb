@@ -1,23 +1,45 @@
 <% @javascripts[:index] = true -%>
 <% @title = t 'views.home.heading' %>
 
-<div id="stories-from-the-archive" class="es-carousel-wrapper boxed featured">
 
-	<div class="es-carousel">
-
+<section class="border-top">
+	
+	<div id="index-introduction" class="one-third-left">	
+		<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-introduction', :titles => true, :deblogger => true } %>
+	</div>
+	
+	<div id="index-featured" class="carousel two-thirds-right">	
 		<ul>
 			<%= render :partial => '/blog_posts/list', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
-
+		<div class="carousel-overlay"></div>	
 	</div>
+	
+	<div id="index-follow-us">
+		Follow the project at:<br/>
+		<a href="https://www.facebook.com/Europeana19141918" target="_blank" title="Follow us on Facebook!"><img src="/themes/v2/images/logos/facebook.png" alt="Follow us on Facebook!"></a>
+		<a href="https://twitter.com/#!/Europeana1914" target="_blank" title="Follow us on Twitter!"><img src="/themes/v2/images/logos/twitter.png" alt="Follow us on Twitter!"></a>
+		<a href="http://blog.europeana.eu/category/europeana1914-1918/" target="_blank">blog</a>		
+	</div>
+	
+</section>
 
-</div>
 
-
-<div id="news-articles">
-  
-  <h2>News Items</h2>
-		<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :category => 'news', :tag => :article, :titles => true, :limit => 1, :deblogger => true } %>
-		<a class="next-article" href="/<%= I18n.locale %>/blog/gwa/news?offset=2&limit=1&tag=article&deblogger=true">next page</a>
+<section class="border-top">
+	
+	<div id="upcoming-collection-days" class="one-third-left-boxed grey">
 		
-</div>
+		<%= render :partial => '/blog_posts/list', :locals => { :category => 'upcoming-collection-days', :titles => true, :deblogger => true } %>
+		
+	</div>
+	
+	
+	<div id="news-articles">
+	  
+	  <h2>News Items</h2>
+			<%= render :partial => '/blog_posts/list', :locals => { :category => 'news', :tag => :article, :titles => true, :limit => 3, :deblogger => true } %>
+			<a class="next-article" href="/<%= I18n.locale %>/blog/gwa/news?offset=2&limit=1&tag=article&deblogger=true">next page</a>
+			
+	</div>
+	
+</section>

@@ -15,11 +15,21 @@
 # * :titles If true, output the post title wrapped in an h3 element before the
 #   post content.
 #
+#
+# NOTE: spacing is important for html rendering, especially when using
+#		display : inline-block e.g., below the 2nd example will receive
+#		whitespace between the two li elements which creates an issue
+#		in a carousel. maybe there's a ruby method to trim all whitespace
+#		for this output between the elements and not within the elements?
+#
+#		<li></li><li>
+#		vs
+#		<li></li>
+#		<li></li>
+#
 options = local_assigns.reject { |key, value| [ :tag, :titles ].include?(key) }
 %>
 <%- for entry in blog_posts(options) -%>
-  <% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
+<% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
   <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
-  <%= raw entry.content %>
-  <% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %>
-<%- end -%>
+  <%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>

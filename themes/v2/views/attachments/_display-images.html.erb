@@ -1,11 +1,7 @@
 <% prettyphoto = prettyphoto ? prettyphoto : false %>
 <% inline = 0 %>
 <% if @contribution.attachments.present? %>
-  
-  <% for attachment in @contribution.attachments %>
-  
-  <li>
-    
+  <% for attachment in @contribution.attachments %><li>
     <% if attachment.file.present? %>
       <% 
       link_attrs = {
@@ -19,7 +15,7 @@
          :rel => 'prettyPhoto'
       } ) if prettyphoto
       %>
-      <%=  link_to(attachment_preview( attachment, size ), attachment.file.url,link_attrs) %>
+      <%=  link_to(attachment_preview( attachment, size ), attachment.file.url, link_attrs ) %>
     <% else %>
       <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
     <% end %>
@@ -30,59 +26,44 @@
       <%=
       render :partial => '/metadata/display',
       :locals => {
+		:show_title => false,
         :contribution => @contribution,
         :metadata => attachment.metadata,
         :field_options => {
         :name => [
-          'description',
-          'alternative',
-          'author',
-          'subject',
-          'keywords',
-          # 'date',
-          'date_from', # use this field to summarize the date fields
-          'date_to',
-          'location_map',
-          'location_placename',
-          'file_type',
-          'source',
-          'format',
-          'content',
-          'contributor_behalf',
-          'page_number',
-          'page_total',
-          'editor_pick',
-          'cataloguer',
-          'notes',
-          'lang',
-          'forces',
-          'theatres',
-          'collection_day',
-          'lang_other',
-          'object_side',
-          'cover_image',
-          'creator_family_name',
-          'creator_given_name',
-          'license',
-          'character1_family_name',
-          'character1_given_name',
-          'character2_family_name',
-          'character2_given_name',
-          'attachment_description',
-          'summary',
-          'ticket',
-          'location_zoom'
+		  'cover_image',
+		  'page_number',
+		  'object_side',
+		  'creator_given_name',
+		  'creator_family_name',
+		  'attachment_description',
+		  'lang',
+		  'lang_other',
+		  'content',
+		  'subject',
+		  'date',
+		  'date_from',
+		  'date_to',
+		  'location_placename',
+		  'location_map',
+		  'location_zoom',
+		  'keywords',
+		  'theatres',
+		  'forces',
+		  'source',
+		  'format',
+		  'page_total',
+		  'notes',
+		  'full_type',
+		  'license',
+		  'creator'
         ],
         :name_order => true
         }
       }
       %>
-    </div>
-    
-    <% end %>
-    <% inline += 1 %>
-  </li>
-  
-  <% end %>
+	</div><% end %><% inline += 1 %>
+	
+  </li><% end %>
   
 <% end %>

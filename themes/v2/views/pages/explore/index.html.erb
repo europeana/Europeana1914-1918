@@ -1,50 +1,62 @@
-<% @javascripts[:explore] = true -%>
-<%- @title = t 'views.explore.heading' -%>
-
-<div id="explore-introduction">
-
-	<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-introduction' } %>
-
-</div>
+<% @javascripts[:explore] = true %>
+<% @title = t 'views.explore.heading' %>
 
 
-<ol id="explore-stories-from-the-archive" class="two-thirds-right boxed">
+<section class="border-top">
 	
-	<%= render :partial => '/blog_posts/list', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
-	
-</ol>
-
-<div id="explore-by">
-	
-	<div id="explore-by-object">
-		
-		<h2 class="section-heading">explore by story <b>object</b></h2>
-		
-		<ol>
-  	  <%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-by-object', :tag => :li, :relocale => true } %>
-	  </ol>
-		
+	<div id="explore-introduction" class="one-third-left">		
+		<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+		<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-introduction', :titles => true } %>
 	</div>
-		
-	<div id="explore-by-theme">
-		
-		<h2 class="section-heading">explore by story <b>theme</b></h2>
+	
+	<div id="explore-featured" class="carousel two-thirds-right">		
+		<ul>
+			<%= render :partial => '/blog_posts/list', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true } %>
+		</ul>
+		<div class="carousel-overlay"></div>
+	</div>	
+	
+</section>
+
+
+<section class="border-top">
+	
+	<h2>Browse Featured Categories</h2>
+	
+	<div id="explore-featured-categories">
 		
 		<ol>
-  		<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-by-theme', :tag => :li, :relocale => true } %>
+			
+			<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-by-object', :tag => :li, :relocale => true } %>
+			<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-by-theme', :tag => :li, :relocale => true } %>
+			
 		</ol>
 		
 	</div>
 
-</div>
+</section>
 
+
+<section class="border-top">
 	
-<div id="editors-picks">
+	<h2>Browse Collection Days</h2>
 	
-	<h2><%= t('common.editors_pick.heading') %></h2>
-	<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :tag => 'article', :limit => 2, :titles => true } %>
-	<a class="next-article" href="/<%= I18n.locale %>/blog/gwa?offset=3&limit=2&tag=article&deblogger=true">next page</a>
-	<p>&nbsp;</p>
-	<p><%= raw t('common.editors_blog.more_stories') %></p>
+	<div id="explore-collection-days" class="carousel"></div>
+	(slider)
 	
-</div>
+</section>
+
+
+<section class="border-top">
+	
+	<div id="explore-editors-picks">
+		
+		<h2><%= t('common.editors_pick.heading') %></h2>
+		<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :tag => 'article', :limit => 2, :titles => true } %>
+		<a class="next-article" href="/<%= I18n.locale %>/blog/gwa?offset=3&limit=2&tag=article&deblogger=true">next page</a>
+		<p>&nbsp;</p>
+		<p><%= raw t('common.editors_blog.more_stories') %></p>
+		
+	</div>
+
+</section>

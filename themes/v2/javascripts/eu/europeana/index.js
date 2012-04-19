@@ -1,7 +1,18 @@
-(function(){
+(function( undefined ){
 	
 	'use strict';
 	
+	var carousels = {
+		
+		init : function() {
+			
+			jQuery('#index-featured').rCarousel();
+			
+		}
+		
+	}
+	
+	/*
 	jQuery('#stories-from-the-archive').elastislide({
 		imageW : jQuery('#stories-from-the-archive div > ul').eq(0).outerWidth(true),
 		border : 0,
@@ -28,5 +39,15 @@
 			start: undefined
 		}
 	});
+	*/
+	
+	function init() {
+		
+		carousels.init();
+		
+	}
+	
+	
+	init();
 	
 }());
