@@ -240,7 +240,7 @@ class ApplicationController < ActionController::Base
   #   search options
   #
   def search_contributions(set, query = nil, options = {})
-    raise ArgumentError, "set should be :draft, :submitted, :approved or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :rejected ].include?(set)
+    raise ArgumentError, "set should be :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
     
     if sphinx_running?
       sphinx_search_contributions(set, query, options)
@@ -287,14 +287,7 @@ class ApplicationController < ActionController::Base
   # Only intended as a backup if Sphinx is not running.
   #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
-    set_where = case set
-    when :draft
-      [ 'contribution_statuses.status=?', ContributionStatus::DRAFT ]
-    when :submitted
-      [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
-    when :approved
-      [ 'contribution_statuses.status=?', ContributionStatus::APPROVED ]
-    when :published
+    set_where = if (set == :published)
       if !RunCoCo.configuration.publish_contributions
         [ 'contribution_statuses.status=?', 0 ] # i.e. never
       else
@@ -304,8 +297,8 @@ class ApplicationController < ActionController::Base
           [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
         end
       end
-    when :rejected
-      [ 'contribution_statuses.status=?', ContributionStatus::REJECTED ]
+    else
+      [ 'contribution_statuses.status=?', ContributionStatus.const_get(set.to_s.upcase) ]
     end
     
     query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
@@ -357,14 +350,7 @@ class ApplicationController < ActionController::Base
       raise RunCoCo::SearchOffline
     end
     
-    options.merge! case set
-    when :draft
-      { :with => { :status => ContributionStatus::DRAFT } }
-    when :submitted
-      { :with => { :status => ContributionStatus::SUBMITTED } }
-    when :approved
-      { :with => { :status => ContributionStatus::APPROVED } }
-    when :published
+    status_option = if (set == :published)
       if !RunCoCo.configuration.publish_contributions
         { :with => { :status => 0 } } # i.e. never
       else
@@ -374,9 +360,11 @@ class ApplicationController < ActionController::Base
           { :with => { :status => ContributionStatus::SUBMITTED } }
         end
       end
-    when :rejected
-      { :with => { :status => ContributionStatus::REJECTED } }
+    else
+      { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
     end
+    
+    options.merge!(status_option)
     
     order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
     

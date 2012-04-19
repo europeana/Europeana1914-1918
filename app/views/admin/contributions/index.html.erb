@@ -15,42 +15,16 @@
   <% end %>
 <% end %>
 
-<% if @contributions[:submitted].present? -%>
-  <%= render :partial => 'table', :locals => { :contributions => @contributions[:submitted], :caption => t('views.admin.contributions.index.captions.submitted', :total => @contributions[:submitted].total_entries), :fields => @options.fields } %>
-<% else -%>
-  <%- if @query %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.submitted' %></p>
-  <%- else %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.submitted' %></p>
-  <%- end %>
-<% end -%>
+<% @contributions.each_pair do |set, contributions| -%>
 
-<% if @contributions[:draft].present? -%>
-  <%= render :partial => 'table', :locals => { :contributions => @contributions[:draft], :caption => t('views.admin.contributions.index.captions.draft', :total => @contributions[:draft].total_entries), :fields => @options.fields } %>
-<% else -%>
-  <%- if @query %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.draft' %></p>
-  <%- else %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.draft' %></p>
-  <%- end %>
-<% end -%>
-
-<% if @contributions[:approved].present? -%>
-  <%= render :partial => 'table', :locals => { :contributions => @contributions[:approved], :caption => t('views.admin.contributions.index.captions.approved', :total => @contributions[:approved].total_entries), :fields => @options.fields } %>
-<% else -%>
-  <%- if @query %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.approved' %></p>
-  <%- else %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.approved' %></p>
-  <%- end %>
-<% end -%>
-
-<% if @contributions[:rejected].present? -%>
-  <%= render :partial => 'table', :locals => { :contributions => @contributions[:rejected], :caption => t('views.admin.contributions.index.captions.rejected', :total => @contributions[:rejected].total_entries), :fields => @options.fields } %>
-<% else -%>
-  <%- if @query %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.search.rejected' %></p>
-  <%- else %>
-    <p class="empty-table-notice"><%= t 'views.admin.contributions.index.empty.all.rejected' %></p>
-  <%- end %>
-<% end -%>
+  <%- if contributions.present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => contributions, :caption => t("views.admin.contributions.index.captions.#{set.to_s}", :total => contributions.total_entries), :fields => @options.fields } %>
+  <%- else -%>
+    <%- if @query -%>
+      <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.search.#{set.to_s}" %></p>
+    <%- else -%>
+      <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.all.#{set.to_s}" %></p>
+    <%- end -%>
+  <%- end -%>
+  
+<%- end -%>
