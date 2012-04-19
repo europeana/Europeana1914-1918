@@ -9,20 +9,7 @@ class User < ActiveRecord::Base
   # Aegis roles
   has_role :default => 'guest'
   
-  has_many :contributions, :foreign_key => 'contributor_id', :dependent => :destroy do
-    def draft
-      where([ 'contribution_statuses.status=?', ContributionStatus::DRAFT ]).includes([{:attachments => :metadata}, :metadata, :current_status ])
-    end
-    def submitted
-      where([ 'contribution_statuses.status = ?', ContributionStatus::SUBMITTED ]).includes([{:attachments => :metadata}, :metadata, :current_status ])
-    end
-    def approved
-      where([ 'contribution_statuses.status = ?', ContributionStatus::APPROVED ]).includes([{:attachments => :metadata}, :metadata, :current_status ])
-    end
-    def rejected
-      where([ 'contribution_statuses.status = ?', ContributionStatus::REJECTED ]).includes([{:attachments => :metadata}, :metadata, :current_status ])
-    end
-  end
+  has_many :contributions, :foreign_key => 'contributor_id', :dependent => :destroy
   has_many :catalogued_contributions, :class_name => 'Contribution', :foreign_key => 'catalogued_by', :dependent => :nullify
   belongs_to :contact, :dependent => :destroy
   
