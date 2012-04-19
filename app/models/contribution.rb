@@ -186,7 +186,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def pending_approval?
-    [ :submitted, :revised ].include?(status)
+    [ :submitted, :revised, :withdrawn ].include?(status)
   end
   
   def rejected?

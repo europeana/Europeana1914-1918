@@ -19,7 +19,7 @@ end
       <%- for field_name in fields -%>
         <th scope="col" style="text-align:left;"><%= contribution_field_title(field_name) %></th>
       <%- end -%>
-      <th scope="col" colspan="4"><%= t 'views.table.header.actions' %></th>
+      <th scope="col" colspan="5"><%= t 'views.table.header.actions' %></th>
     </tr>
     <% for contribution in contributions %>
       <tr>
@@ -34,6 +34,11 @@ end
         <td>
           <%- if contribution.ready_to_submit? -%>
             <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution ) %>
+          <%- end -%>
+        </td>
+        <td>
+          <%- if current_user.may_withdraw_contribution?(contribution) -%>
+            <%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(contribution ) ) %>
           <%- end -%>
         </td>
         <td>

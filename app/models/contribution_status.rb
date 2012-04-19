@@ -4,13 +4,14 @@ class ContributionStatus < ActiveRecord::Base
   APPROVED  = 3
   REJECTED  = 4
   REVISED   = 5
+  WITHDRAWN = 6
   
   belongs_to :user
   belongs_to :contribution
   
   validates_presence_of :contribution_id, :status
   validates_presence_of :user_id, :if => Proc.new { RunCoCo.configuration.registration_required? }
-  validates_inclusion_of :status, :in => [ DRAFT, SUBMITTED, APPROVED, REJECTED, REVISED ]
+  validates_inclusion_of :status, :in => [ DRAFT, SUBMITTED, APPROVED, REJECTED, REVISED, WITHDRAWN ]
   
 #  after_create :set_contribution_current_status
   after_destroy :rollback_contribution_current_status
@@ -24,6 +25,7 @@ class ContributionStatus < ActiveRecord::Base
   # * :approved
   # * :rejected
   # * :revised
+  # * :withdrawn
   # * nil if status is unknown
   # 
   # @return [Symbol]
@@ -39,6 +41,8 @@ class ContributionStatus < ActiveRecord::Base
       :rejected
     when REVISED
       :revised
+    when WITHDRAWN
+      :withdrawn
     else
       nil
     end

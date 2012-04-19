@@ -35,7 +35,10 @@
         <% end %>
         <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
       <% end %>
-      <% if current_user.may_edit_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
+      <%- if current_user.may_withdraw_contribution?(@contribution) -%>
+        <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
+      <%- end -%>
+      <% if current_user.may_delete_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
       <%- if current_user.may_approve_contributions? && @contribution.pending_approval? %>
         <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
       <%- end %>

@@ -20,6 +20,8 @@ RunCoCo::Application.routes.draw do
         put 'submit'
         put 'approve'
         put 'reject'
+        get 'withdraw'
+        put 'set_withdrawn'
       end
       
       # Attachment sub-resources

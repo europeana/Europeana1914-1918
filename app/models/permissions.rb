@@ -31,15 +31,6 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
   end
   
-  action :approve_contributions do
-  end
-  
-  action :reject_contributions do
-  end
-
-  action :catalogue_contribution do
-  end
-  
   action :catalogue_contributions do
   end
   
@@ -79,6 +70,12 @@ class Permissions < Aegis::Permissions
       !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && (contribution.status == :draft)
     end
   end
+  
+  action :approve_contributions do
+  end
+  
+  action :reject_contributions do
+  end
 
   action :delete_contribution do
     allow :contributor do |contribution|
@@ -86,6 +83,12 @@ class Permissions < Aegis::Permissions
     end
     allow :guest do |contribution|
       !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && (contribution.status == :draft)
+    end
+  end
+  
+  action :withdraw_contribution do
+    allow :contributor, :cataloguer, :administrator do |contribution|
+      (contribution.contributor == user) && ([ :submitted, :approved, :revised ].include?(contribution.status))
     end
   end
   
