@@ -12,10 +12,19 @@ class ContributorController < ApplicationController
   
   
   def dashboard_contributor
-    @draft_contributions = current_user.contributions.draft
-    @submitted_contributions = current_user.contributions.submitted
-    @approved_contributions = current_user.contributions.approved
-    @rejected_contributions = current_user.contributions.rejected
+    search_options = { :page => params[:page], :contributor_id => current_user.id }
+  
+    @contributions = {
+      :draft      => search_contributions(:draft, @query, search_options),
+      :submitted  => search_contributions(:submitted, @query, search_options),
+      :approved   => search_contributions(:approved, @query, search_options),
+      :revised    => search_contributions(:revised, @query, search_options),
+      :withdrawn  => search_contributions(:withdrawn, @query, search_options),
+      :rejected   => search_contributions(:rejected, @query, search_options),
+    }
+    
+    @total = @contributions.inject(0) { |sum, set| sum + set.size }
+    
     render :action => 'dashboard_contributor'
   end
   

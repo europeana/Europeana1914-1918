@@ -62,6 +62,7 @@ class Contribution < ActiveRecord::Base
     # This next one is a hack to ensure subsequent has/indexes calls for
     # taxonomy terms always get aliased table names.
     define_index_str << "  indexes metadata.null_taxonomy_terms.term, :as => :null_taxonomy_terms\n"
+    define_index_str << "  has contributor_id\n"
     define_index_str << "  has created_at\n"
     define_index_str << "  has current_status.status, :as => :status\n"
     define_index_str << "  has current_status.created_at, :as => :status_timestamp\n"

@@ -287,6 +287,8 @@ class ApplicationController < ActionController::Base
   # Only intended as a backup if Sphinx is not running.
   #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
+    options = options.dup
+    
     set_where = if (set == :published)
       if !RunCoCo.configuration.publish_contributions
         [ 'contribution_statuses.status=?', 0 ] # i.e. never
@@ -350,6 +352,8 @@ class ApplicationController < ActionController::Base
       raise RunCoCo::SearchOffline
     end
     
+    options = options.dup
+    
     status_option = if (set == :published)
       if !RunCoCo.configuration.publish_contributions
         { :with => { :status => 0 } } # i.e. never
@@ -386,6 +390,11 @@ class ApplicationController < ActionController::Base
       else
         options[:order] = 'status_timestamp DESC'
       end
+    end
+    
+    contributor_id = options.delete(:contributor_id)
+    if contributor_id.present?
+      options[:with][:contributor_id] = contributor_id
     end
     
     if query.blank?
