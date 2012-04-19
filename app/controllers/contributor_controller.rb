@@ -15,6 +15,7 @@ class ContributorController < ApplicationController
     @draft_contributions = current_user.contributions.draft
     @submitted_contributions = current_user.contributions.submitted
     @approved_contributions = current_user.contributions.approved
+    @rejected_contributions = current_user.contributions.rejected
     render :action => 'dashboard_contributor'
   end
   

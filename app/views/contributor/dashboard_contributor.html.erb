@@ -19,32 +19,31 @@
   
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
 
-    <% if @draft_contributions.present? || @submitted_contributions.present? || @approved_contributions.present? %>
+    <% if @draft_contributions.present? || @submitted_contributions.present? || @approved_contributions.present? || @rejected_contributions.present? %>
       <p><%= t('views.contributor.dashboard_contributor.p1') %></p>
-      <div class="contributions-drafts">
-        <%- if @draft_contributions.present? -%>
-          <%= render :partial => 'contributions', :object => @draft_contributions, :locals => { :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
-        <%- else -%>
-          <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
-        <%- end -%>
-      </div>
+
+      <%- if @draft_contributions.present? -%>
+        <%= render :partial => 'contributions', :object => @draft_contributions, :locals => { :caption => t('views.contributor.dashboard_contributor.captions.draft') } %>
+      <%- else -%>
+        <p><%= t('views.contributor.dashboard_contributor.empty.draft') %></p>
+      <%- end -%>
       
-      <div class="contributions-submitted">
-        <%- if @submitted_contributions.present? -%>
-          <%= render :partial => 'contributions', :object => @submitted_contributions, :locals => { :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
-        <%- else -%>
-          <p><%= t('views.contributor.dashboard_contributor.empty.submitted') %></p>
-        <%- end -%>
-      </div>
+      <%- if @submitted_contributions.present? -%>
+        <%= render :partial => 'contributions', :object => @submitted_contributions, :locals => { :caption => t('views.contributor.dashboard_contributor.captions.submitted') } %>
+      <%- else -%>
+        <p><%= t('views.contributor.dashboard_contributor.empty.submitted') %></p>
+      <%- end -%>
       
-      <div class="contributions-approved">
-        <%- if @approved_contributions.present? -%>
-          <%= render :partial => 'contributions', :object => @approved_contributions, :locals => { :caption => t('views.contributions.status.approved') } %>
-        <%- else -%>
-          <p><%= t('views.contributor.dashboard_contributor.empty.approved') %></p>
-        <%- end -%>
-      </div>
+      <%- if @approved_contributions.present? -%>
+        <%= render :partial => 'contributions', :object => @approved_contributions, :locals => { :caption => t('views.contributions.status.approved') } %>
+      <%- else -%>
+        <p><%= t('views.contributor.dashboard_contributor.empty.approved') %></p>
+      <%- end -%>
       
+      <%- if @rejected_contributions.present? -%>
+        <%= render :partial => 'contributions', :object => @rejected_contributions, :locals => { :caption => t('views.contributions.status.rejected') } %>
+      <%- end -%>
+            
     <% else %>
       
       <p><%= t('views.contributor.dashboard_contributor.empty.all') %></p>
