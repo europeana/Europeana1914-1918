@@ -87,7 +87,10 @@ class Permissions < Aegis::Permissions
   end
   
   action :withdraw_contribution do
-    allow :contributor, :cataloguer, :administrator do |contribution|
+    allow :cataloguer, :administrator do |contribution|
+      [ :submitted, :approved, :revised ].include?(contribution.status)
+    end
+    allow :contributor do |contribution|
       (contribution.contributor == user) && ([ :submitted, :approved, :revised ].include?(contribution.status))
     end
   end
