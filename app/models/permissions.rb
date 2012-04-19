@@ -1,8 +1,8 @@
+##
 # Aegis roles and permissions.
 #
-# See Aegis documentation at <http://wiki.github.com/makandra/aegis/>.
+# @see <http://wiki.github.com/makandra/aegis/>.
 #
-# TODO: Make more RESTful, as per <http://wiki.github.com/makandra/aegis/defining-permissions-with-resources>
 class Permissions < Aegis::Permissions
   role :guest
   role :contributor
@@ -112,7 +112,7 @@ class Permissions < Aegis::Permissions
     allow :administrator
     allow :cataloguer
     allow :contributor do |contribution|
-      (contribution.contributor == user) && (contribution.status == :draft)
+      (contribution.contributor == user) && ([ :draft, :submitted ].include?(contribution.status))
     end
     allow :guest do |contribution|
       !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && (contribution.status == :draft)
