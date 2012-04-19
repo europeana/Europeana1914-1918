@@ -96,8 +96,6 @@ class Permissions < Aegis::Permissions
   end
   
   action :view_contribution_attachments do
-    allow :administrator
-    allow :cataloguer
     allow :contributor do |contribution|
       (RunCoCo.configuration.publish_contributions? && contribution.published?) ||
       (contribution.contributor == user)
@@ -109,10 +107,8 @@ class Permissions < Aegis::Permissions
   end
 
   action :create_contribution_attachment do
-    allow :administrator
-    allow :cataloguer
     allow :contributor do |contribution|
-      (contribution.contributor == user) && ([ :draft, :submitted ].include?(contribution.status))
+      (contribution.contributor == user) && ([ :draft, :submitted, :revised ].include?(contribution.status))
     end
     allow :guest do |contribution|
       !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && (contribution.status == :draft)
@@ -120,8 +116,6 @@ class Permissions < Aegis::Permissions
   end
 
   action :view_attachment do
-    allow :administrator
-    allow :cataloguer
     allow :contributor do |attachment|
       (RunCoCo.configuration.publish_contributions? && attachment.public?) || 
       (attachment.contribution.contributor == user)
@@ -134,7 +128,7 @@ class Permissions < Aegis::Permissions
   
   action :edit_attachment do
     allow :contributor do |attachment|
-      (attachment.contribution.contributor == user) && [ :draft, :submitted ].include?(attachment.contribution.status)
+      (attachment.contribution.contributor == user) && [ :draft, :submitted, :revised ].include?(attachment.contribution.status)
     end
     allow :guest do |attachment|
       !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && (attachment.contribution.status == :draft)
@@ -146,7 +140,7 @@ class Permissions < Aegis::Permissions
   
   action :delete_attachment do
     allow :contributor do |attachment| 
-      (attachment.contribution.contributor == user) && [ :draft, :submitted ].include?(attachment.contribution.status)
+      (attachment.contribution.contributor == user) && [ :draft, :submitted, :revised ].include?(attachment.contribution.status)
     end
     allow :guest do |attachment|
       !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && (attachment.contribution.status == :draft)
