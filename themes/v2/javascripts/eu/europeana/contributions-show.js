@@ -85,6 +85,18 @@
 		
 		$metadata : undefined,
 		
+		
+		handleLightBoxClose : function() {
+			
+			if ( self.$metadata && self.$metadata.data ) {
+				
+				self.$metadata.data.cloned = false;
+				
+			}
+			
+		},
+		
+		
 		handleMetaDataClick : function( evt ) {
 			
 			var self = evt.data.self,
@@ -108,6 +120,7 @@
 			
 		},
 		
+		
 		addLightBoxDescriptionClickHandler : function() {
 			
 			/**
@@ -121,7 +134,8 @@
 				.on('click', { self : lightbox }, lightbox.handleMetaDataClick );
 			
 		},
-	
+		
+		
 		setupPrettyPhoto : function() {
 			
 			var self = this;
@@ -130,7 +144,7 @@
 				
 				description_src : 'data-description',
 				changepicturecallback : this.addLightBoxDescriptionClickHandler,
-				callback : function() { self.$metadata.data.cloned = false; }
+				callback : this.handleLightBoxClose
 				
 			});
 			
