@@ -3,27 +3,56 @@
 
 <% if @contributor -%>
   <div><strong><%= t 'activerecord.options.user.role_name.contributor' %></strong> <%= @contributor.contact.full_name %></div>
-<% else -%>
- <p><%= t('views.admin.contributions.p1') %></p>
-  <%= render :partial => '/shared/search_form', :locals => { :url => search_admin_contributions_path, :query => @query } %>
 <% end -%>
 
-<%= semantic_form_for(@options, :as => :options, :url => options_admin_contributions_path, :html => { :method => 'put' }) do |form| %>
-  <%= form.inputs :fields, :class => 'inputs options collapsed' do %>
-    <%= form.input :fields, :as => :check_boxes, :collection => contribution_fields, :label => false %>
-    <%= form.commit_button %>
+<% if @contributions.present? -%>
+  <!-- <p><%= t('views.admin.contributions.p1') %></p> -->
+
+  <%= semantic_form_for(@options, :as => :options, :url => options_admin_contributions_path, :html => { :method => 'put' }) do |form| %>
+    <%= form.inputs :fields, :class => 'inputs options collapsed' do %>
+      <%= form.input :fields, :as => :check_boxes, :collection => contribution_fields, :label => false %>
+      <%= hidden_field_tag 'redirect', controller.request.request_uri %>
+      <%= form.commit_button %>
+    <% end %>
   <% end %>
-<% end %>
+  
+  <%= form_tag( search_admin_contributions_path, { :method => :get, :class => 'search' } ) do %>
+    <div>
+      <%= text_field_tag 'q', @query, { :size => 30 } %> <%= submit_tag t('formtastic.actions.search.submit'), :name => nil %>
+      <%= hidden_field_tag 'status', @status %>
+      <%= hidden_field_tag 'sort', @sort %>
+      <%= hidden_field_tag 'order', @order %>
+      <% if @contributor -%>
+        <%= hidden_field_tag 'contributor_id', @contributor.id %>
+      <% end -%>
+    </div>
+  <% end %>
+<% end -%>
 
-<% @contributions.each_pair do |set, contributions| -%>
+<% if @contributor -%>
 
-  <%- if contributions.present? -%>
-    <%= render :partial => 'table', :locals => { :contributions => contributions, :caption => t("views.admin.contributions.index.captions.#{set.to_s}", :total => contributions.total_entries), :fields => @options.fields } %>
+  <% @contributions.each_pair do |status, contributions| -%>
+    <%- if contributions.present? -%>
+      <%= render :partial => 'table', :locals => { :contributions => contributions, :caption => t("views.admin.contributions.index.captions.#{status.to_s}", :total => contributions.total_entries), :fields => @options.fields } %>
+    <%- end -%>
+  <%- end -%>
+
+<% elsif @contributions.nil? -%>
+  <ul>
+    <% @counts.each_pair do |status, count| -%>
+      <li><%= link_to t("views.admin.contributions.index.captions.#{status.to_s}", :total => count.to_s), admin_contributions_path(:status => status.to_s) %></li>
+    <%- end -%>
+  </ul>
+  
+<%- else -%>
+  
+  <%- if @contributions.present? -%>
+    <%= render :partial => 'table', :locals => { :contributions => @contributions, :caption => t("views.admin.contributions.index.captions.#{@status}", :total => @contributions.total_entries), :fields => @options.fields } %>
   <%- else -%>
     <%- if @query -%>
-      <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.search.#{set.to_s}" %></p>
+      <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.search.#{@status}" %></p>
     <%- else -%>
-      <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.all.#{set.to_s}" %></p>
+      <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.all.#{@status}" %></p>
     <%- end -%>
   <%- end -%>
   

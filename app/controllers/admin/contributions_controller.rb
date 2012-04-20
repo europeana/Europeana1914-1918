@@ -15,15 +15,23 @@ class Admin::ContributionsController < AdminController
     @sort = params[:sort]
     @order = (params[:order].present? && [ 'DESC', 'ASC' ].include?(params[:order].upcase)) ? params[:order] : 'DESC'
     @contributor = params[:contributor_id].present? ? User.find(params[:contributor_id]) : nil
+    @status = params[:status]
     
-    @contributions = {
-      :draft      => search_contributions(:draft, @query, search_options),
-      :submitted  => search_contributions(:submitted, @query, search_options),
-      :approved   => search_contributions(:approved, @query, search_options),
-      :revised    => search_contributions(:revised, @query, search_options),
-      :withdrawn  => search_contributions(:withdrawn, @query, search_options),
-      :rejected   => search_contributions(:rejected, @query, search_options),
-    }
+    statuses = [ :draft, :submitted, :approved, :revised, :withdrawn, :rejected ]
+    
+    if @contributor
+      @contributions = {}
+      statuses.each do |status|
+        @contributions[status] = search_contributions(status, @query, search_options)
+      end
+    elsif @status.present? && statuses.include?(@status.to_sym)
+      @contributions = search_contributions(@status.to_sym, @query, search_options)
+    else
+      @counts = {}
+      statuses.each do |status|
+        @counts[status] = search_contributions(status, @query, search_options).total_entries
+      end
+    end
   end
   
   # PUT /admin/contributions/options
