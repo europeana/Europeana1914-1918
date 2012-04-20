@@ -2,7 +2,7 @@
 
 <p><%= raw t 'views.contributions.withdraw.question', :title => contribution_title(@contribution) %></p>
 
-<%= semantic_form_for @contribution, :url => set_withdrawn_contribution_path(@contribution), :html => { :method => :put } do |form| %>
+<%= semantic_form_for @contribution, :url => withdraw_contribution_path(@contribution), :html => { :method => :put } do |form| %>
   <%= form.buttons do %>
     <%= redirect_field %>
     <%= form.commit_button :label => t('formtastic.actions.contribution.withdraw') %>

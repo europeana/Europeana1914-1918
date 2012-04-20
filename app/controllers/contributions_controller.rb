@@ -179,7 +179,7 @@ class ContributionsController < ApplicationController
     current_user.may_withdraw_contribution!(@contribution)
   end
   
-  # PUT /contributions/:id/set_withdrawn
+  # PUT /contributions/:id/withdraw
   def set_withdrawn
     current_user.may_withdraw_contribution!(@contribution)
     if @contribution.change_status_to(:withdrawn)

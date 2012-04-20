@@ -21,7 +21,7 @@ RunCoCo::Application.routes.draw do
         put 'approve'
         put 'reject'
         get 'withdraw'
-        put 'set_withdrawn'
+        put 'withdraw', :action => 'set_withdrawn'
       end
       
       # Attachment sub-resources
