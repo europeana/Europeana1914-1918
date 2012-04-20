@@ -1,9 +1,11 @@
 <%
+
 	@javascripts[:contributions_edit] = true
 	@fieldset_class = 'collapsed'
 	if 'cataloguer' == current_user.role.name
 		@fieldset_class = 'collapsible'
 	end
+	
 %>
 <% @title = t('views.contributions.story.step1') %>
 

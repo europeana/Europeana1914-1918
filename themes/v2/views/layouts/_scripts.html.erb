@@ -1,9 +1,25 @@
 <%
+	
+	# supporting scripts
+	
 	script_files = [
 		'I18n',
 		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js'
 	]
-
+	
+	
+	if @javascripts[:uploadify] && configuration(:uploadify)
+		script_files.push(
+			#'json2',
+			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
+			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
+		)
+	end
+	
+	
+	
+	# page scripts
+	
 	if @javascripts[:listing]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js',
@@ -46,6 +62,13 @@
 		)
 	end
 	
+	if @javascripts[:contributions_new]
+		script_files.push(
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/contributions-new.js'
+		)
+	end
+	
 	if @javascripts[:attachments_new]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
@@ -68,32 +91,47 @@
 		)
 	end
 	
-	if @javascripts[:uploadify] && configuration(:uploadify)
-		script_files.push(
-			#'json2',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/attachments.js',
-			'/themes/v2/javascripts/eu/europeana/attachments.js'
-		)
-	end
-	
 %>
 <script>
-if ( !window.RunCoCo ) { window.RunCoCo = {}; }
+	
+	if ( !window.RunCoCo ) { window.RunCoCo = {}; }
+	RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
+	
 <% if @contribution && @contribution.ready_to_submit? %>
-RunCoCo.ready_for_submit = true;
+	RunCoCo.ready_for_submit = true;
 <% end %>
 
 <% if @attachment %>
-RunCoCo.contribution = {
-	title: '<%= @attachment.contribution.title %>',
-	metadata: <%= raw metadata_json(@attachment.contribution) %>
-};
+	RunCoCo.contribution = {
+		title: '<%= @attachment.contribution.title %>',
+		metadata: <%= raw metadata_json(@attachment.contribution) %>
+	};
 <% end %>
+	
+<% if @javascripts[:uploadify] && configuration(:uploadify) %>
+	RunCoCo.uploadify = {
+		maxUploadSize: <%= configuration(:max_upload_size) %>,
+		fileExt: '<%= uploadify_file_extensions %>',
+		fileDesc: '<%= uploadify_file_desc %>',
+		script: '<%= contribution_attachments_path(@contribution) %>'
+	};
+	
+	RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
+	RunCoCo.sessionKeyName = '<%= session_key_name %>';
+	RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';	
+<% end %>
+	
+<% if 'cataloguer' === current_user.role.name %>	
+	RunCoCo.cataloguer = true;
+<% end %>
+
 </script>
+
 <%- if @javascripts[:gmap_display] -%>
 <script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>"></script>
 <%- end -%>
+
 <%= javascript_include_tag script_files %>
+
+<% # need this here because loading I18n will overwrite if value is set before load %>
 <script>I18n = { locale : '<%= I18n.locale %>' };</script>

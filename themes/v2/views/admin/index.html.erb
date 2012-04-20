@@ -1,6 +1,8 @@
 <% @title = t('views.admin.index.title') %>
 <section class="border-top">
   
+  <h2><%= @title %></h2>
+  
   <dl class="action-menu">
     <%- if current_user.may_administer_contributions? -%>
       <dt><%= link_to t('views.admin.index.links.contributions.text'), admin_contributions_path %></dt>

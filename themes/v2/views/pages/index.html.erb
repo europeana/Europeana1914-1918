@@ -10,7 +10,7 @@
 	
 	<div id="index-featured" class="carousel two-thirds-right">	
 		<ul>
-			<%= render :partial => '/blog_posts/list', :locals => { :category => 'stories-from-the-archive', :tag => :li, :relocale => true, :deblogger => true } %>
+			<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
 		<div class="carousel-overlay"></div>	
 	</div>
@@ -27,10 +27,8 @@
 
 <section class="border-top">
 	
-	<div id="upcoming-collection-days" class="one-third-left-boxed grey">
-		
+	<div id="upcoming-collection-days" class="one-third-left-boxed box-gradient">
 		<%= render :partial => '/blog_posts/list', :locals => { :category => 'upcoming-collection-days', :titles => true, :deblogger => true } %>
-		
 	</div>
 	
 	

@@ -1,21 +1,21 @@
 <% @title = t('views.contributor.dashboard_contributor.title') %>
 <section class="border-top">
   
-  <p><%= t('views.contributor.index.p1') %></p>
-  <ol class="number">
-    <li><%= t('views.contributor.index.item1') %></li>
-    <li><%= t('views.contributor.index.item2') %></li>
-    <li><%= t('views.contributor.index.item3') %></li>
-    <li><%= t('views.contributor.index.item4') %></li>
-    <li><%= raw t('views.contributor.help.how_to_use.item5') %></li>
-  </ol>
+  <h2><%= @title %></h2>
   
-  
-  
-  <div class="link-buttons">
-    <%= link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path %>
-  </div>
-  
+    <p><%= t('views.contributor.index.p1') %></p>
+    
+    <ol class="number">
+      <li><%= t('views.contributor.index.item1') %></li>
+      <li><%= t('views.contributor.index.item2') %></li>
+      <li><%= t('views.contributor.index.item3') %></li>
+      <li><%= t('views.contributor.index.item4') %></li>
+      <li><%= raw t('views.contributor.help.how_to_use.item5') %></li>
+    </ol>
+    
+    <div class="link-buttons">
+      <%= link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path %>
+    </div>  
   
   
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
