@@ -50,8 +50,6 @@ class Permissions < Aegis::Permissions
   end
   
   action :view_contribution do
-    allow :administrator
-    allow :cataloguer
     allow :guest do |contribution|
       (RunCoCo.configuration.publish_contributions? && contribution.published?) ||
       (!RunCoCo.configuration.registration_required? && (contribution.contact == user.contact))
@@ -59,6 +57,12 @@ class Permissions < Aegis::Permissions
     allow :contributor do |contribution|
       (RunCoCo.configuration.publish_contributions? && contribution.published?) || 
       (contribution.contributor == user)
+    end
+  end
+  
+  action :view_contribution_status_log do
+    allow :contributor do |contribution|
+      contribution.contributor == user
     end
   end
 

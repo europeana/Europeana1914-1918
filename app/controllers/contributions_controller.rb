@@ -64,6 +64,14 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution)
     end
   end
+  
+  # GET /contributions/:id/status
+  def status
+    current_user.may_view_contribution_status_log!(@contribution)
+    if @contribution.draft? && current_user.may_edit_contribution?(@contribution)
+      redirect_to edit_contribution_path(@contribution)
+    end
+  end
 
   # GET /contributions/:id/edit
   def edit

@@ -25,7 +25,12 @@
   </tr>
   <tr>
     <th scope="row"><%= t('views.contributions.status.label') %></th>
-    <td><%= contribution_status(contribution) %></td>
+    <td>
+      <%= contribution_status(contribution) %>
+      <%- if current_user.may_view_contribution_status_log?(contribution) -%>
+        <br /><%= current_page?(status_contribution_path(contribution)) ? '' : link_to( t('views.contributions.status.title'), status_contribution_path(contribution) ) %>
+      <%- end -%>
+    </td>
   </tr>
   <tr>
     <th scope="row"><%= t('activerecord.attributes.contribution.created_at') %></th>
