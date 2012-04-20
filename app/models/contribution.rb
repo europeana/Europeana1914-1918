@@ -76,13 +76,12 @@ class Contribution < ActiveRecord::Base
         if field.field_type == 'taxonomy'
           define_index_str << "  #{indexes_or_has} metadata.field_#{field.name}_terms.term, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
         else
-          define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
+          define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
         end
       end
     end
     
     define_index_str << "end\n"
-
     class_eval(define_index_str, __FILE__, __LINE__)
   end
   set_search_index
