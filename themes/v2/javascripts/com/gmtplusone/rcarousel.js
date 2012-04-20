@@ -24,7 +24,7 @@
 		$overlay : null,
 		$prev : null,
 		$next : null,
-		$nav : null,
+		// $nav : null,
 		
 		carousel_width : 0,
 		item_width : 0,
@@ -174,7 +174,7 @@
 			//self.$next = jQuery('<button/>', { 'data-dir' : 'next', text : 'next' }),
 			self.$prev = jQuery('<input/>', { 'data-dir' : 'prev', type : 'image', alt : 'previous', src : '/themes/v2/images/icons/carousel-arrow-left.png' });
 			self.$next = jQuery('<input/>', { 'data-dir' : 'next', type : 'image', alt : 'next', src : '/themes/v2/images/icons/carousel-arrow-right.png' });
-			self.$nav = jQuery('<div/>', { class : 'carousel-nav' });
+			// self.$nav = jQuery('<div/>', { class : 'carousel-nav' });
 			
 		},
 		

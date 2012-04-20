@@ -12,7 +12,8 @@
 		script_files.push(
 			#'json2',
 			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js'
+			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
+			'/themes/v2/javascripts/eu/europeana/uploadify.js'
 		)
 	end
 	
@@ -32,13 +33,25 @@
 	
 	
 	
-	# page scripts	
+	# page scripts
+	
 	if @javascripts[:attachments_new]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/language-other.js',
+			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/attachments-new.js'
 		)
 	end	
+	
+	if @javascripts[:attachments_edit]
+		script_files.push(
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/language-other.js',
+			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
+			'/themes/v2/javascripts/eu/europeana/attachments-edit.js'
+		)
+	end
 	
 	if @javascripts[:collection_days]
 		script_files.push(
@@ -49,6 +62,8 @@
 	if @javascripts[:contributions_edit]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/language-other.js',
+			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-edit.js'
 		)
 	end
@@ -56,6 +71,8 @@
 	if @javascripts[:contributions_new]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/language-other.js',
+			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-new.js'
 		)
 	end

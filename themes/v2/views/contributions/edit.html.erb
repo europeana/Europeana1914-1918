@@ -16,19 +16,16 @@
 	
 	  <% if current_user.may_delete_contribution?(@contribution) -%>
 		  <div class="action-links">
-			<ul>
-			  
-			  <li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
-			  <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
-			  
-			  <% if @contribution.ready_to_submit? %>
-				  <li><%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path( @contribution ) %></li>
-			  <% end %>
-			  
-			</ul>
+				<ul>					
+					<li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
+					<li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
+					<% if @contribution.ready_to_submit? %>
+						<li><%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path( @contribution ) %></li>
+					<% end %>					
+				</ul>
 		  </div>
 	  <% end -%>
-	  
+		
 	  <%= render :partial => 'form', :locals => { :contribution => @contribution } %>
 	  
 	  <% if @contribution.draft? -%>
