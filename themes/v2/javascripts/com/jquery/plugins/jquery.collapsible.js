@@ -37,8 +37,11 @@
 					
 				} else {
 					
-					obj.removeClass('collapsible').addClass('collapsed');
-					obj.children().not('legend').slideToggle();
+					obj.children().not('legend').slideToggle(function() {
+						
+						obj.removeClass('collapsible').addClass('collapsed');
+						
+					});					
 					
 				}
 				

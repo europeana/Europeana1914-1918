@@ -212,7 +212,9 @@
 	
 	.action-links ul {
 		margin: 0;
+		padding: 0;
 		overflow: hidden;
+		list-style: none;
 	}
 	
 	.action-links li {
@@ -632,6 +634,16 @@
  *	formtastic
  */
 
+	form.formtastic {
+		font-size: 90%;
+	}
+	
+	form.formtastic ul,
+	form.formtastic ol {
+		margin: 0;
+		padding: 0;
+	}
+	
 	form.formtastic li {
 		margin-bottom: 2em;
 	}
@@ -666,8 +678,11 @@
 	fieldset.collapsible,
 	fieldset.collapsed {
 		border: 1px dotted #bfbfbf;
-		padding-bottom: 0;
-		padding-top: 0;
+	}
+	
+	fieldset.collapsed {
+		padding: 0 2%;
+		height: 12px;
 	}
 	
 	fieldset.collapsible > legend {
@@ -688,3 +703,6 @@
 		background-position: right center;
 	}
 	
+	.inline-hints.google li {
+		margin: 0 0 0 19px;
+	}
