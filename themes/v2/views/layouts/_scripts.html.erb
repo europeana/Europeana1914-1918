@@ -31,24 +31,32 @@
 		)
 	end
 	
+	if @javascripts[:language_other]
+		script_files.push(
+			'/themes/v2/javascripts/eu/europeana/language-other.js'
+		)
+	end
+	
+	if @javascripts[:collapsible]
+		script_files.push(
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js'
+		)
+	end
+	
+	
 	
 	
 	# page scripts
 	
 	if @javascripts[:attachments_new]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
-			'/themes/v2/javascripts/eu/europeana/language-other.js',
-			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/attachments-new.js'
 		)
 	end	
 	
 	if @javascripts[:attachments_edit]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
-			'/themes/v2/javascripts/eu/europeana/language-other.js',
-			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/attachments-edit.js'
 		)
 	end
@@ -61,18 +69,12 @@
 	
 	if @javascripts[:contributions_edit]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
-			'/themes/v2/javascripts/eu/europeana/language-other.js',
-			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-edit.js'
 		)
 	end
 	
 	if @javascripts[:contributions_new]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
-			'/themes/v2/javascripts/eu/europeana/language-other.js',
-			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-new.js'
 		)
 	end
