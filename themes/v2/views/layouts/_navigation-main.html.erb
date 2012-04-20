@@ -14,11 +14,11 @@
   
 	<%- if current_page?(link[1]) -%>
 	  
-	  <li class="selected"><%= link_to link.first, link[1], link[2] %></li>
+	  <li><%= link_to link.first, link[1], { :class => 'selected' } %></li>
 	  
 	<%- else -%>
 	  
-	  <li><%= link_to link.first, link[1], link[2] %></li>
+	  <li><%= link_to link.first, link[1] %></li>
 	  
 	<%- end -%>
   
