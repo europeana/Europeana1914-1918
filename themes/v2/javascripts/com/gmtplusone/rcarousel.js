@@ -117,7 +117,12 @@
 			//self.$nav.append( $prev, $next ).insertAfter( $carousel_container );
 			self.$carousel_container.append( self.$prev, self.$next );
 			self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
-			jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
+			
+			if ( self.options.listen_to_arrows ) {
+				
+				jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
+				
+			}
 			
 		},
 		
@@ -182,8 +187,10 @@
 			self.createNavElements();
 			self.deriveCarouselElements( carousel_container );
 			self.resizeItems({ data : { self : self } });
-			self.addNavigation();
 			jQuery(window).on( 'resize', { self : self }, self.handleWindowResize );
+			
+			if ( self.$items.length > 1 ) { self.addNavigation(); }
+			
 			self.$overlay.fadeOut();
 			
 		}
@@ -204,7 +211,7 @@
 	
 	
 	jQuery.fn.rCarousel.options = {
-		
+		listen_to_arrows : true
 	};
 	
 	

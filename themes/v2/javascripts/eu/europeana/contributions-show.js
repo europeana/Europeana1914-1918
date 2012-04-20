@@ -7,7 +7,7 @@
 		init : function() {
 			
 			jQuery('#contributions-featured').rCarousel();
-			jQuery('#contributions-thumbnails').rCarousel();
+			jQuery('#contributions-thumbnails').rCarousel({ listen_to_arrows : false });
 			
 			//setTimeout( function() {
 			//jQuery('#contributions-thumbnails').rCarousel();
