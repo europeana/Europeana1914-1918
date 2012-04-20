@@ -13,7 +13,7 @@ end
 <% unless local_assigns[:contributions].blank? %>
   <table class="<%= table_class %>">
     <% unless local_assigns[:caption].blank? %>
-      <caption><%= caption %></caption>
+      <caption><%= raw caption %></caption>
     <% end %>
     <tr>
       <%- for field_name in fields -%>
