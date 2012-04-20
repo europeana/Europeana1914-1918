@@ -115,11 +115,16 @@ class AttachmentsController < ApplicationController
     @attachment.build_metadata unless @attachment.metadata.present?
     @attachment.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@attachment.contribution)
     if @attachment.update_attributes(params[:attachment])
+      # Updates made by non-cataloguers change the contribution's status to
+      # :revised
+      if !current_user.may_catalogue_contributions? && (@attachment.contribution.status == :approved)
+        @attachment.contribution.change_status_to(:revised, current_user.id)
+      end
       flash[:notice] = t('flash.attachments.update.notice')
-      if @contribution.submitted?
-        redirect_to @attachment.contribution
-      else
+      if @contribution.status == :draft
         redirect_to new_contribution_attachment_path(@contribution)
+      else
+        redirect_to @attachment.contribution
       end
     else
       flash.now[:alert] = t('flash.attachments.update.alert')
