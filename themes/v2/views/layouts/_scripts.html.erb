@@ -57,6 +57,8 @@
 	
 	if @javascripts[:contributions_edit]
 		script_files.push(
+			'/themes/v2/javascripts/com/google/gmap-geo.v3.js',
+			'/themes/v2/javascripts/com/google/gmap-locate.js',
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-edit.js'
 		)
@@ -127,9 +129,9 @@
 
 </script>
 
-<%- if @javascripts[:gmap_display] -%>
+<% if @javascripts[:gmap_display] || @javascripts[:gmap_locate] %>
 <script src="http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=<%= configuration(:gmap_api_key) %>"></script>
-<%- end -%>
+<% end %>
 
 <%= javascript_include_tag script_files %>
 
