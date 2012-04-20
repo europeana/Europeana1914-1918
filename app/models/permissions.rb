@@ -144,7 +144,7 @@ class Permissions < Aegis::Permissions
   
   action :delete_attachment do
     allow :contributor do |attachment| 
-      (attachment.contribution.contributor == user) && [ :draft, :submitted, :revised ].include?(attachment.contribution.status)
+      (attachment.contribution.contributor == user) && [ :draft, :submitted ].include?(attachment.contribution.status)
     end
     allow :guest do |attachment|
       !RunCoCo.configuration.registration_required? && (attachment.contribution.contact == user.contact) && (attachment.contribution.status == :draft)
