@@ -7,19 +7,16 @@
 		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js'
 	]
 	
-	
-	if @javascripts[:uploadify] && configuration(:uploadify)
+	if @javascripts[:carousel]
 		script_files.push(
-			#'json2',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
-			'/themes/v2/javascripts/eu/europeana/uploadify.js'
+			'/themes/v2/javascripts/com/gmtplusone/rcarousel.js'
 		)
 	end
 	
-	if @javascripts[:lightbox]
+	if @javascripts[:collapsible]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.prettyphoto.min.js'
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js'
 		)
 	end
 	
@@ -31,18 +28,37 @@
 		)
 	end
 	
+	
 	if @javascripts[:language_other]
 		script_files.push(
 			'/themes/v2/javascripts/eu/europeana/language-other.js'
 		)
 	end
 	
-	if @javascripts[:collapsible]
+	
+	if @javascripts[:lightbox]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
-			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js'
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.prettyphoto.min.js'
 		)
 	end
+	
+	
+	if @javascripts[:readmore]
+		script_files.push(
+			'/themes/v2/javascripts/com/gmtplusone/readmore.js'
+		)
+	end
+	
+	
+	if @javascripts[:uploadify] && configuration(:uploadify)
+		script_files.push(
+			#'json2',
+			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
+			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
+			'/themes/v2/javascripts/eu/europeana/uploadify.js'
+		)
+	end
+	
 	
 	
 	
@@ -81,16 +97,19 @@
 	
 	if @javascripts[:contributions_show]
 		script_files.push(
-			'/themes/v2/javascripts/com/gmtplusone/rcarousel.js',
 			'/themes/v2/javascripts/com/gmtplusone/truncate.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-show.js'
 		)
 	end
 	
+	if @javascripts[:explore]
+		script_files.push(
+			'/themes/v2/javascripts/eu/europeana/explore.js'
+		)
+	end
+	
 	if @javascripts[:index]
 		script_files.push(
-			'/themes/v2/javascripts/com/gmtplusone/rcarousel.js',
-			#'/themes/v2/javascripts/com/jquery/plugins/jquery.infinitescroll.min.js',
 			'/themes/v2/javascripts/eu/europeana/index.js'
 		)
 	end
@@ -100,14 +119,6 @@
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js',
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.infinitescroll.min.js',
 			'/themes/v2/javascripts/eu/europeana/listing.js'
-		)
-	end	
-	
-	
-	if @javascripts[:explore]
-		script_files.push(
-			'/themes/v2/javascripts/com/gmtplusone/rcarousel.js',
-			'/themes/v2/javascripts/eu/europeana/explore.js'
 		)
 	end
 	

@@ -6,7 +6,7 @@
 	jQuery("fieldset.collapsed").collapse( { closed: true } );
 	
 	RunCoCo.languageOther.init();
-	RunCoCo.fieldsetButtons.init();	
+	RunCoCo.fieldsetButtons.init();
 	//RunCoCo.uploadify.init();
 	
 }());

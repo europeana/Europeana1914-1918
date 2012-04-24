@@ -1,0 +1,24 @@
+<%
+
+	@javascripts[:gmap_locate] = true
+  @javascripts[:uploadify] = true
+  @javascripts[:language_other] = true
+  @javascripts[:collapsible] = true
+  @javascripts[:attachments_edit] = true
+  
+	@attachment_upload_class = 'collapsible'
+	@fieldset_class = 'collapsible'
+	@submit_class = 'collapsible'
+	
+%>
+<% @title = t('views.contributions.digital_object.step2') %>
+
+<section class="border-top">
+	
+	<h2><%= @title %></h2>
+	
+		<%= render :partial => 'contribution', :object => @attachment.contribution %>
+		<%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => (@attachment.file.dirty? ? t('views.attachments.edit.caption.uploaded') : t('views.attachments.edit.caption.current')) } %>
+		<%= render :partial => 'form', :locals => { :attachment => @attachment } %>
+	
+</section>

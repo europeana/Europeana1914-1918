@@ -27,9 +27,85 @@
 #		<li></li>
 #		<li></li>
 #
+
 options = local_assigns.reject { |key, value| [ :tag, :titles ].include?(key) }
+
+
+url = URI.parse(request.url)
+if !url.query.nil?
+  params = CGI.parse(url.query)  
+end
+
+limit = 0
+offset = 0
+read_more = false
+deblogger = 'true'
+
+if !local_assigns[:blog].nil?
+  blog = local_assigns[:blog]
+end
+
+if !local_assigns[:category].nil?
+  category = local_assigns[:category]
+end
+
+if !local_assigns[:tag].nil?
+  tag = local_assigns[:tag]
+end
+
+if !local_assigns[:limit].nil?
+  limit = local_assigns[:limit]
+end
+
+if !local_assigns[:offset].nil?
+  offset = Integer(local_assigns[:offset]) + Integer(limit)
+end
+
+if !local_assigns[:read_more].nil?
+  read_more = local_assigns[:read_more]
+end
+
+if !local_assigns[:deblogger].nil?
+  deblogger = local_assigns[:deblogger]
+end
+
+
+if !params.nil?
+  
+  if !params['blog'].first.nil?
+	blog = params['blog'].first
+  end
+  
+  if !params['category'].first.nil?
+	category = params['category'].first
+  end
+  
+  if !params['tag'].first.nil?
+	tag = params['tag'].first
+  end
+  
+  if !params['limit'].first.nil?
+	limit = params['limit'].first
+  end
+  
+  if !params['offset'].first.nil?
+	offset = Integer(local_assigns[:offset]) + Integer(limit)
+  end
+  
+  if !params['deblogger'].first.nil?
+	deblogger = params['deblogger'].first
+  end
+  
+  if params['read_more'].first == 'true'
+	read_more = true
+  end
+  
+end
+
+if offset == 0
+  offset = Integer(limit) + 1
+end
+
 %>
-<%- for entry in blog_posts(options) -%>
-<% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %>
-  <% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %>
-  <%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
+<%- for entry in blog_posts(options) -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
+<% if read_more %><a id="read-more" href="/<%= I18n.locale %>/blog/<%= blog %>?category=<%= category %>&amp;offset=<%= offset %>&amp;limit=<%= limit %>&amp;tag=<%= tag %>&amp;deblogger=<%= deblogger %>&amp;read_more=true">read more</a><% end %>

@@ -1,7 +1,11 @@
-<% @javascripts[:explore] = true %>
-<% @title = t 'views.explore.heading' %>
+<%
 
+	@javascripts[:explore] = true
+	@javascripts[:carousel] = true
+	@javascripts[:readmore] = true	
+	@title = t 'views.explore.heading'
 
+%>
 <section class="border-top">
 	
 	<div id="explore-introduction" class="one-third-left">		
@@ -11,7 +15,7 @@
 	
 	<div id="explore-featured" class="carousel two-thirds-right">		
 		<ul>
-			<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-the-archive', :tag => :li, :relocale => true } %>
+			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'explore-the-archive', :tag => :li, :relocale => true } %>
 		</ul>
 		<div class="carousel-overlay"></div>
 	</div>	
@@ -25,7 +29,7 @@
 	
 		<div id="explore-featured-categories">		
 			<ol>
-				<%= render :partial => '/blog_posts/list', :locals => { :category => 'featured-categories', :tag => :li, :relocale => true } %>			
+				<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'featured-categories', :tag => :li, :relocale => true } %>			
 			</ol>
 		</div>
 
@@ -42,17 +46,10 @@
 </section>
 
 
-<section class="border-top">
+<section id="explore-editors-picks" class="border-top">
 	
-	<div id="explore-editors-picks">
+	<h2><%= t('common.editors_pick.heading') %></h2>
 		
-		<h2><%= t('common.editors_pick.heading') %></h2>
-		
-			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :tag => 'article', :limit => 2, :titles => true } %>
-			<a class="next-article" href="/<%= I18n.locale %>/blog/gwa?offset=3&limit=2&tag=article&deblogger=true">next page</a>
-			<p>&nbsp;</p>
-			<p><%= raw t('common.editors_blog.more_stories') %></p>
-		
-	</div>
-
+		<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :tag => 'article', :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
+	
 </section>

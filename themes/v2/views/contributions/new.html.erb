@@ -1,0 +1,23 @@
+<%
+	
+	@javascripts[:language_other] = true
+	@javascripts[:collapsible] = true
+	@javascripts[:contributions_new] = true
+	
+	@fieldset_class = 'collapsed'
+	@title = t('views.contributions.story.step1')
+	
+	
+	if 'cataloguer' == current_user.role.name
+		@fieldset_class = 'collapsible'
+	end
+	
+%>
+<section class="border-top">
+
+	<h2><%= @title %></h2>
+
+		<%= render :partial => 'form', :locals => { :contribution => @contribution } %>
+		<%= render :partial => 'progress', :locals => { :step => 1 } %>
+
+</section>
