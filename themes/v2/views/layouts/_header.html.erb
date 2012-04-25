@@ -6,11 +6,12 @@
 		</a>
 	</h1>
 	
-	<%= render '/layouts/navigation-user' %>
+	<%= render :partial => '/layouts/navigation/user' %>
 	
-	<%= render '/layouts/navigation-main' %>
+	<%= render :partial => '/layouts/navigation/main' %>
 	
 	<% render :partial => '/shared/search_form', :locals => { :query => @query } %>
-	<img src="/themes/v2/images/shareicons.png" id="shareicons"/>
+	
+	<%= render :partial => '/layouts/navigation/sharethis' %>
 	
 </div>

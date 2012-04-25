@@ -122,9 +122,18 @@
 		)
 	end
 	
+	
+	# share-this
+	
+	script_files.push(
+		'//w.sharethis.com/button/buttons.js',
+		'/themes/v2/javascripts/com/sharethis/sharethis.js'
+	)
+	
 %>
 <script>
 	
+	var switchTo5x=true; // for share-this
 	if ( !window.RunCoCo ) { window.RunCoCo = {}; }
 	RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
 	
