@@ -7,7 +7,6 @@ class Contribution < ActiveRecord::Base
   # FIXME: Destroy associated contact when contribution destroyed, *IF* this is a guest contribution, *AND* there are no other associated contributions
   #++
   belongs_to :guest
-  belongs_to :current_status, :class_name => 'ContributionStatus'
 
   has_many :attachments, :class_name => '::Attachment', :dependent => :destroy, :include => :metadata do
     def with_file
@@ -64,8 +63,8 @@ class Contribution < ActiveRecord::Base
     define_index_str << "  indexes metadata.null_taxonomy_terms.term, :as => :null_taxonomy_terms\n"
     define_index_str << "  has contributor_id\n"
     define_index_str << "  has created_at\n"
-    define_index_str << "  has current_status.status, :as => :status\n"
-    define_index_str << "  has current_status.created_at, :as => :status_timestamp\n"
+    define_index_str << "  has current_status, :as => :status\n"
+    define_index_str << "  has status_timestamp\n"
 
     fields = MetadataField.where('(searchable = ? OR facet = ?)', true, true)
     unless fields.count == 0
@@ -100,7 +99,7 @@ class Contribution < ActiveRecord::Base
   # @return [Symbol] (see ContributionStatus#to_sym)
   #
   def status
-    current_status.nil? ? nil : current_status.to_sym
+    current_status.nil? ? nil : ContributionStatus.to_sym(current_status)
   end
 
   ##
@@ -123,7 +122,8 @@ class Contribution < ActiveRecord::Base
 
     status_record = ContributionStatus.create(:contribution_id => id, :user_id => user_id, :status => status)
     if status_record.id.present?
-      self.current_status_id = status_record.id
+      self.current_status = status_record.status
+      self.status_timestamp = status_record.created_at
       save
     else
       false
@@ -265,26 +265,26 @@ class Contribution < ActiveRecord::Base
     end
     
     if RunCoCo.configuration.contribution_approval_required
-      conditions = [ 'contribution_statuses.status=?', ContributionStatus::APPROVED ]
+      conditions = [ 'current_status=?', ContributionStatus::APPROVED ]
     else
-      conditions = [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
+      conditions = [ 'current_status=?', ContributionStatus::SUBMITTED ]
     end
     
     if options[:start_date].present?
-      conditions[0] << ' AND contribution_statuses.created_at >= ?'
+      conditions[0] << ' AND status_timestamp >= ?'
       conditions << options[:start_date]
     end
     
     if options[:end_date].present?
-      conditions[0] << ' AND contribution_statuses.created_at <= ?'
+      conditions[0] << ' AND status_timestamp <= ?'
       conditions << options[:end_date]
     end
     
+#    taxonomy_associations = MetadataRecord.taxonomy_associations
     includes = [ 
       { :attachments => { :metadata => :taxonomy_terms } }, 
       { :metadata => :taxonomy_terms }, 
-      { :contributor => :contact },
-      :current_status
+      { :contributor => :contact }
     ]
     
     Contribution.find_each(

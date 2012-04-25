@@ -16,7 +16,7 @@ RunCoCo::Application.routes.draw do
         get 'complete'
       end
       member do
-        get 'status'
+        get 'status', :action => 'status_log'
         get 'delete'
         put 'submit'
         put 'approve'

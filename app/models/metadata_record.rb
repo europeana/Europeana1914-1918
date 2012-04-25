@@ -211,10 +211,6 @@ class MetadataRecord < ActiveRecord::Base
           if field_terms.present?
             field_terms.collect { |t| t.term }
           end
-#          field_terms = self.send(mf.collection_id)
-#          if field_terms.present?
-#            field_terms.collect { |t| t.term }
-#          end
         else
           self.send(mf.column_name.to_sym)
         end

@@ -291,28 +291,28 @@ class ApplicationController < ActionController::Base
     
     set_where = if (set == :published)
       if !RunCoCo.configuration.publish_contributions
-        [ 'contribution_statuses.status=?', 0 ] # i.e. never
+        [ 'current_status=?', 0 ] # i.e. never
       else
         if RunCoCo.configuration.contribution_approval_required
-          [ 'contribution_statuses.status=?', ContributionStatus::APPROVED ]
+          [ 'current_status=?', ContributionStatus::APPROVED ]
         else
-          [ 'contribution_statuses.status=?', ContributionStatus::SUBMITTED ]
+          [ 'current_status=?', ContributionStatus::SUBMITTED ]
         end
       end
     else
-      [ 'contribution_statuses.status=?', ContributionStatus.const_get(set.to_s.upcase) ]
+      [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
     end
     
     query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
     
-    joins = [ :metadata, :current_status ]
+    joins = [ :metadata ]
     if (sort = options.delete(:sort)).present?
       if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
         sort_col = "taxonomy_terms.term"
-        joins = [ { :metadata => sort.to_sym }, :current_status ]
+        joins = [ { :metadata => sort.to_sym } ]
       elsif sort == 'contributor'
         sort_col = "contacts.full_name"
-        joins = [ :metadata, { :contributor => :contact }, :current_status ]
+        joins = [ :metadata, { :contributor => :contact } ]
       else
         sort_col = sort
       end
@@ -323,9 +323,9 @@ class ApplicationController < ActionController::Base
       sort_order = "#{sort_col} #{order}"
     else
       if set == :submitted
-        options[:order] = 'contribution_statuses.created_at ASC'
+        options[:order] = 'status_timestamp ASC'
       else
-        options[:order] = 'contribution_statuses.created_at DESC'
+        options[:order] = 'status_timestamp DESC'
       end
     end
     
