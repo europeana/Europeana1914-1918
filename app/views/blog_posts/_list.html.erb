@@ -1,107 +1,28 @@
 <%
 # Options recognised by this partial when passed in the :locals hash:
 #
-# * :blog		The blog to retrieve posts from, either "europeana" or "gwa"; defaults to "europeana".
-# * :category	The blog category to retrieve posts from, without the locale; defaults to none.
-# * :deblogger	If true, remove Blogger elements from entry HTML content
-# * :limit		Only output a maximum of this many posts.
-# * :locale		The locale to retrieve posts for.
-# * :offset		Retrieve entry(ies) starting from this offset
-# * :relocale	If true, reapply the locale to absolute local links in the posts' content.
-# * :tag		If set, wrap each post in an HTML element of this type, e.g. 'li'.
-# * :titles		If true, output the post title wrapped in an h3 element before the post content.
-#
+# * :blog       The blog to retrieve posts from, either "europeana" or "gwa"; defaults to "europeana".
+# * :category   The blog category to retrieve posts from, without the locale; defaults to none.
+# * :deblogger  If true, remove Blogger elements from entry HTML content
+# * :limit      Only output a maximum of this many posts.
+# * :locale     The locale to retrieve posts for.
+# * :offset     Retrieve entry(ies) starting from this offset
+# * :read_more  If true, display a read more link
+# * :relocale   If true, reapply the locale to absolute local links in the posts' content.
+# * :tag        If set, wrap each post in an HTML element of this type, e.g. 'li'.
+# * :titles     If true, output the post title wrapped in an h3 element before the post content.
 #
 # NOTE: spacing is important for html rendering, especially when using
-#		display : inline-block e.g., below the 2nd example will receive
-#		whitespace between the two li elements which creates an issue
-#		in a carousel. maybe there's a ruby method to trim all whitespace
-#		for this output between the elements and not within the elements?
+#    display : inline-block e.g., below the 2nd example will receive
+#    whitespace between the two li elements which creates an issue
+#    in a carousel. maybe there's a ruby method to trim all whitespace
+#    for this output between the elements and not within the elements?
 #
-#		<li></li><li>
-#		vs
-#		<li></li>
-#		<li></li>
+#    <li></li><li>
+#    vs
+#    <li></li>
+#    <li></li>
 #
-
-options = local_assigns.reject { |key, value| [ :tag, :titles ].include?(key) }
-
-
-url = URI.parse(request.url)
-if !url.query.nil?
-  params = CGI.parse(url.query)  
-end
-
-limit = 0
-offset = 0
-read_more = false
-deblogger = 'true'
-
-if !local_assigns[:blog].nil?
-  blog = local_assigns[:blog]
-end
-
-if !local_assigns[:category].nil?
-  category = 'category=' + local_assigns[:category]
-end
-
-if !local_assigns[:tag].nil?
-  tag = local_assigns[:tag]
-end
-
-if !local_assigns[:limit].nil?
-  limit = local_assigns[:limit]
-end
-
-if !local_assigns[:offset].nil?
-  offset = Integer(local_assigns[:offset]) + Integer(limit)
-end
-
-if !local_assigns[:read_more].nil?
-  read_more = local_assigns[:read_more]
-end
-
-if !local_assigns[:deblogger].nil?
-  deblogger = local_assigns[:deblogger]
-end
-
-
-if !params.nil?
-  
-  if !params['blog'].first.nil?
-	blog = params['blog'].first
-  end
-  
-  if !params['category'].first.nil?
-	category = 'category=' + params['category'].first
-  end
-  
-  if !params['tag'].first.nil?
-	tag = params['tag'].first
-  end
-  
-  if !params['limit'].first.nil?
-	limit = params['limit'].first
-  end
-  
-  if !params['offset'].first.nil?
-	offset = Integer(local_assigns[:offset]) + Integer(limit)
-  end
-  
-  if !params['deblogger'].first.nil?
-	deblogger = params['deblogger'].first
-  end
-  
-  if params['read_more'].first == 'true'
-	read_more = true
-  end
-  
-end
-
-if offset == 0
-  offset = Integer(limit) + 1
-end
-
 %>
-<%- for entry in blog_posts(options) -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
-<% if read_more %><a id="read-more" href="/<%= I18n.locale %>/blog/<%= blog %>?offset=<%= offset %>&amp;limit=<%= limit %>&amp;<%= category %>&amp;tag=<%= tag %>&amp;deblogger=<%= deblogger %>&amp;read_more=true">read more</a><% end %>
+<%- for entry in blog_posts(local_assigns) -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
+<% if local_assigns[:read_more] %><%= read_more_link(local_assigns) %><% end %>

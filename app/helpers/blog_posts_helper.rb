@@ -43,6 +43,7 @@ module BlogPostsHelper
   # @see #gwa_blog_posts
   #
   def blog_posts(options = {})
+    options = options.dup
     blog = options.delete(:blog)
     case blog
     when 'europeana', nil
@@ -52,6 +53,13 @@ module BlogPostsHelper
     else
       raise Exception, "Unknown blog \"#{blog.to_s}\""
     end
+  end
+  
+  def read_more_link(options = {})
+    options = options.dup
+    options[:offset] = (options[:offset] || 1).to_i + options[:limit].to_i
+    options[:read_more] ||= 'true'
+    link_to('read more', blog_post_path(options), :id => 'read-more')
   end
   
   protected
