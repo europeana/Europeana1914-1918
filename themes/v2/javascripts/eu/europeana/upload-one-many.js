@@ -235,7 +235,7 @@
 		
 		evt.preventDefault();
 		highlightOption('multiple-items');
-		toggleFieldsets( 'attachment_upload', 'hide' );
+		toggleFieldsets( 'attachment_upload', 'show' );
 		window.scrollTo( 0, 0 );
 		
 	}
