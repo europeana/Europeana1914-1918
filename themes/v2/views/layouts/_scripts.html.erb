@@ -152,7 +152,7 @@
 <% end %>
 	
 <% if @javascripts[:uploadify] && configuration(:uploadify) %>
-	RunCoCo.uploadify = {
+	RunCoCo.uploadify_settings = {
 		maxUploadSize: <%= configuration(:max_upload_size) %>,
 		fileExt: '<%= uploadify_file_extensions %>',
 		fileDesc: '<%= uploadify_file_desc %>',
