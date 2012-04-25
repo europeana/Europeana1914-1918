@@ -352,7 +352,7 @@ class ApplicationController < ActionController::Base
       raise RunCoCo::SearchOffline
     end
     
-    options = options.dup
+    options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)
     
     status_option = if (set == :published)
       if !RunCoCo.configuration.publish_contributions
