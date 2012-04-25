@@ -24,7 +24,6 @@
 		$overlay : null,
 		$prev : null,
 		$next : null,
-		// $nav : null,
 		
 		carousel_width : 0,
 		item_width : 0,
@@ -48,13 +47,24 @@
 		},
 		
 		
-		handleWindowResize : function( evt ) {
+		transitionit : function( coords ) {
 			
-			var self = evt.data.self;
-			//clearTimeout(this.id);
-			//this.id = setTimeout(resizeItems, 500);
-			self.resizeItems({ data : { self : self } });
+			this.$carousel_ul.animate({
+				'margin-left': coords || -( this.current * this.item_width )
+			});
 			
+		},
+		
+		
+		setCurrent : function( dir ) {
+			
+			var pos = this.current;
+			
+			pos += ( ~~( dir === 'next' ) || -1 );
+			this.current = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
+			
+			return pos;
+		
 		},
 		
 		
@@ -76,6 +86,16 @@
 					break;
 				
 			}
+			
+		},
+		
+		newNavClick : function( evt ) {
+			
+			var self = evt.data.self,
+					$elm = jQuery(this);
+			
+			self.setCurrent( $elm.data('dir') );
+			self.transitionit();
 			
 		},
 		
@@ -114,9 +134,9 @@
 		addNavigation : function() {
 			
 			var self = this;
-			//self.$nav.append( $prev, $next ).insertAfter( $carousel_container );
 			self.$carousel_container.append( self.$prev, self.$next );
 			self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
+			//self.$prev.add( self.$next ).on( 'click', { self : self }, self.newNavClick );
 			
 			if ( self.options.listen_to_arrows ) {
 				
@@ -133,7 +153,10 @@
 			self.item_width = self.$carousel_container.width();
 			self.items_length = self.$items.length;
 			self.items_total_width = self.items_length * self.item_width;
-			self.$carousel_ul.css( 'width', self.items_total_width );
+			self.$carousel_ul.css({
+				width : self.items_total_width,
+				'margin-left' : -( self.current * self.item_width - self.item_width )
+			});
 			
 		},
 		
@@ -149,6 +172,16 @@
 				$item.css('width', self.item_width );
 				
 			});
+			
+		},
+		
+		
+		handleWindowResize : function( evt ) {
+			
+			var self = evt.data.self;
+			//clearTimeout(this.id);
+			//this.id = setTimeout(resizeItems, 500);
+			self.resizeItems( evt );
 			
 		},
 		
@@ -170,11 +203,8 @@
 			
 			var self = this;
 			
-			//self.$prev = jQuery('<button/>', { 'data-dir' : 'prev', text : 'previous' }),
-			//self.$next = jQuery('<button/>', { 'data-dir' : 'next', text : 'next' }),
 			self.$prev = jQuery('<input/>', { 'data-dir' : 'prev', type : 'image', alt : 'previous', src : '/themes/v2/images/icons/carousel-arrow-left.png' });
 			self.$next = jQuery('<input/>', { 'data-dir' : 'next', type : 'image', alt : 'next', src : '/themes/v2/images/icons/carousel-arrow-right.png' });
-			// self.$nav = jQuery('<div/>', { class : 'carousel-nav' });
 			
 		},
 		
@@ -187,8 +217,7 @@
 			self.createNavElements();
 			self.deriveCarouselElements( carousel_container );
 			self.resizeItems({ data : { self : self } });
-			jQuery(window).on( 'resize', { self : self }, self.handleWindowResize );
-			
+			jQuery(window).on( 'resize', { self : self }, self.handleWindowResize );			
 			if ( self.$items.length > 1 ) { self.addNavigation(); }
 			
 			self.$overlay.fadeOut();
