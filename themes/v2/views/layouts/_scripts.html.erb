@@ -3,7 +3,8 @@
 	# supporting scripts
 	
 	script_files = [
-		'i18n',
+		'i18n.js',
+		'translations.js',
 		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js'
 	]
 	
@@ -67,13 +68,15 @@
 	
 	if @javascripts[:attachments_new]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/attachments-new.js'
+			'/themes/v2/javascripts/eu/europeana/attachments-new.js',
+			'/themes/v2/javascripts/eu/europeana/upload-one-many.js'
 		)
 	end	
 	
 	if @javascripts[:attachments_edit]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/attachments-edit.js'
+			'/themes/v2/javascripts/eu/europeana/attachments-edit.js',
+			'/themes/v2/javascripts/eu/europeana/upload-one-many.js'
 		)
 	end
 	

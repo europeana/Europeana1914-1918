@@ -7,6 +7,6 @@
 	
 	RunCoCo.languageOther.init();
 	RunCoCo.fieldsetButtons.init();
-	//RunCoCo.uploadify.init();
+	RunCoCo.uploadify.init();
 	
 }());

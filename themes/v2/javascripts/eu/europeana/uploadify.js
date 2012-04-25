@@ -154,7 +154,7 @@
 		setupHtml : function() {
 			
 			var li_style = ( !RunCoCo.cataloguer ) ? 'style="display:none;"' : '',					
-					ajax_loader_html = '<div id="ajax-message"><img src="/images/europeana-theme/progress_bar/loading_animation.gif" height="32" width="32" alt="loading animation" /></div>',
+					ajax_loader_html = '<div id="ajax-message" style="display:none;"><img src="/images/europeana-theme/progress_bar/loading_animation.gif" height="32" width="32" alt="loading animation" /></div>',
 					uploadifyFileControl = jQuery('#attachment_file').clone().attr('id', 'uploadify_file'),
 					uploadifyHint = jQuery('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint', { types: RunCoCo.uploadify.fileDesc, size: RunCoCo.uploadify.maxUploadSize }) + '</p>');
 			
