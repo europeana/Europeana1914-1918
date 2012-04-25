@@ -8,6 +8,7 @@
 		
 		$collapse : null,
 		$open : null,
+		$buttons : null,
 		
 		
 		handleButtonClick : function( evt ) {
@@ -39,9 +40,11 @@
 		
 		addButtons : function() {
 			
-			var self = this;
+			var self = this,
+					$open_li = jQuery('<li/>', { html : self.$open }),
+					$collapse_li = jQuery('<li/>', { html : self.$collapse });
 			
-			self.$open.add( self.$collapse ).insertAfter( jQuery('.action-links') );
+			jQuery('.action-links ul').append( $open_li.add( $collapse_li ) );
 			self.$open.add( self.$collapse ).on( 'click', { self : self }, self.handleButtonClick );
 			
 		},
