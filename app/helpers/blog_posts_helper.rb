@@ -59,7 +59,11 @@ module BlogPostsHelper
     options = options.dup
     options[:offset] = (options[:offset] || 1).to_i + options[:limit].to_i
     options[:read_more] ||= 'true'
-    link_to('read more', blog_post_path(options), :id => 'read-more')
+    if blog_posts(options).present?
+      link_to('read more', blog_post_path(options), :id => 'read-more')
+    else
+      ''
+    end
   end
   
   protected
@@ -206,6 +210,6 @@ module BlogPostsHelper
     end
     posts = [ posts[((options[:offset] || 1).to_i - 1)..-1] ].flatten
     posts = posts[0..((options[:limit] || 0).to_i - 1)]
-    posts
+    posts.reject { |post| post.blank? }
   end
 end
