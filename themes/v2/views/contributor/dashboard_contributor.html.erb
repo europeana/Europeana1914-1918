@@ -12,14 +12,14 @@
       <li><%= t('views.contributor.index.item4') %></li>
       <li><%= raw t('views.contributor.help.how_to_use.item5') %></li>
     </ol>
-    
-    <div class="link-buttons">
-      <%= link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path %>
-    </div>  
   
   
   <h2><%= t('views.contributor.dashboard_contributor.headings.contributions') %></h2>
-
+    
+    <div class="link-buttons">
+      <%= link_to t('views.contributor.dashboard_contributor.links.new'), new_contribution_path %>
+    </div>
+    
     <% if @total > 0 %>
       <p><%= t('views.contributor.dashboard_contributor.p1') %></p>
 
