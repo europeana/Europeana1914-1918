@@ -37,7 +37,8 @@
 			
 			var self = this,
 					i,
-					ii;
+					ii,
+					$content;
 			
 			
 			if ( self.ajax_load_processed ) { return; }
@@ -54,7 +55,9 @@
 				
 			}
 			
-			self.$target.append( self.$new_content );
+			$content = jQuery(self.$new_content).hide();
+			self.$target.append( $content );
+			$content.fadeIn();
 			self.$loading_feedback.fadeToggle('slow');
 			self.ajax_load_processed = true
 			
@@ -91,7 +94,7 @@
 			
 			evt.preventDefault();
 			self.$loading_feedback.fadeToggle('slow');
-			$elm.fadeOut().remove();
+			$elm.fadeTo(null,.01).attr('id','');
 			self.retrieveContent( $elm.attr('href') );
 			
 		},
