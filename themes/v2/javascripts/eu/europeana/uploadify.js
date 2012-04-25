@@ -81,8 +81,10 @@
 			var attachmentMetadata = { };
 			
 			// Add metadata from form to scriptData
-			jQuery("[name^='attachment\[metadata_attributes\]\[']").each(function() {
-					
+			var metadataElements = jQuery("[name^='attachment\[metadata_attributes\]\[']");
+      metadataElements = metadataElements.not("[name*='\[field_page_number\]'],[name*='\[field_object_side_term_ids\]'],[name*='\[field_cover_image_term_ids\]']");
+      metadataElements.each(function() {
+				
 				var re = /\[([^\]]+)\](\[\])?$/;
 				var result = re.exec(jQuery(this).attr('name'));
 				var fieldName = result[1];
