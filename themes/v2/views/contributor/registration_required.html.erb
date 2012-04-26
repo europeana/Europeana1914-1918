@@ -1,8 +1,9 @@
 <% @title = t('common.links.add_your_story') %>
-
 <section class="border-top">
 	
-	<p><%= raw t('views.contributor.registration_required.p1', :sign_in => link_to(t('common.links.sign_in'), new_user_session_path(:redirect => new_contribution_path)), :register => link_to(t('common.links.register'), new_user_registration_path ) ) %></p>
+	<h2><%= @title %></h2>
+	
+		<p><%= raw t('views.contributor.registration_required.p1', :sign_in => link_to(t('common.links.sign_in'), new_user_session_path(:redirect => new_contribution_path)), :register => link_to(t('common.links.register'), new_user_registration_path ) ) %></p>
 	
 	
 	<h2><%= raw t('common.links.help') %></h2>

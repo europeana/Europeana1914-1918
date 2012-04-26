@@ -52,6 +52,12 @@
 		)
 	end	
 	
+	if @javascripts[:masonry]
+		script_files.push(
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js'
+		)
+	end
+	
 	if @javascripts[:readmore]
 		script_files.push(
 			'/themes/v2/javascripts/com/gmtplusone/readmore.js'
@@ -129,11 +135,9 @@
 		)
 	end
 	
-	if @javascripts[:listing]
+	if @javascripts[:search]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js',
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.infinitescroll.min.js',
-			'/themes/v2/javascripts/eu/europeana/listing.js'
+			'/themes/v2/javascripts/eu/europeana/search.js'
 		)
 	end
 	

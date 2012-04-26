@@ -1,9 +1,11 @@
-<%- @javascripts[:search] = true -%>
-<%- @title = t('views.contributions.search.heading') -%>
-
-
+<%
+  @javascripts[:masonry] = true
+  @javascripts[:search] = true
+  @title = t('views.contributions.search.heading')
+%>
 <section class="border-top">
   
+  <h2><%= @title %></h2>
   <div id="results">
 	
 	<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
@@ -14,7 +16,14 @@
 	  
 	<% else -%>
 	  
-	  <%= render :partial => 'search-results', :locals => { :contributions => @contributions, :query => @query, :limit => 20 } %>
+	  <%=
+		render :partial => 'search-results',
+		:locals => {
+		  :contributions => @contributions,
+		  :query => @query,
+		  :limit => 20
+		}
+	  %>
 	  
 	<% end -%>
 	
