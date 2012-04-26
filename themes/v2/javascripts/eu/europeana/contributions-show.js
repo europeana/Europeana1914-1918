@@ -9,38 +9,7 @@
 			jQuery('#contributions-featured').rCarousel();
 			jQuery('#contributions-thumbnails').rCarousel({ listen_to_arrows : false });
 			
-			//setTimeout( function() {
-			//jQuery('#contributions-thumbnails').rCarousel();
-			//}, 10000);
-			
 		}
-		
-		/*
-		elastislide : function() {
-			
-			jQuery('#image-viewer').elastislide({
-				imageW : jQuery('#image-viewer div > ul').eq(0).outerWidth(true) - 4,
-				border : 0,
-				margin : 0,
-				onClick : function( $item ) { return true; },
-				complete : function() { setTimeout( function() { jQuery('#image-viewer div.es-carousel').removeClass('opacity-0'); }, 1000); }
-			});
-			
-		},
-		
-		thumbnails : function() {
-			
-			jQuery('#thumbnail-viewer').elastislide({
-				imageW : jQuery('#thumbnail-viewer li').eq(0).outerWidth(true),
-				border : 0,
-				margin : 5,
-				onClick : function( $item ) { return true; },
-				complete : function() { console.log('my callback'); }
-			});
-			
-		},
-		
-		*/
 		
 	};
 	
@@ -161,9 +130,9 @@
 	
 	function init() {
 		
-		//jQuery('#story-metadata').truncate({
-		//	limit : { pixels : carousels.$featured.height() }
-		//});
+		jQuery('#story-metadata').truncate({
+			limit : { pixels : 400 }
+		});
 		
 		carousels.init();
 		map.init();

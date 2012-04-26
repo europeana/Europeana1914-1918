@@ -1,5 +1,5 @@
 /**
- *	@author dan entous contact@gmtplusone.com
+ *	@author dan entous <contact@gmtplusone.com>
  *	@version 2012-03-22 10:24 gmt +1
  */
 (function() {

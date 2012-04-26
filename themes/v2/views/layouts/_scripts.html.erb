@@ -24,25 +24,33 @@
 	if @javascripts[:gmap_display] || @javascripts[:gmap_locate]
 		script_files.push(
 			'http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=' + configuration(:gmap_api_key),
-			'/themes/v2/javascripts/com/google/gmap-geo.v3.js',
-			'/themes/v2/javascripts/com/google/gmap-locate.js'
+			'/themes/v2/javascripts/com/google/gmap-geo.v3.js'
 		)
 	end
 	
+	if @javascripts[:gmap_display]
+		script_files.push(
+			'/themes/v2/javascripts/com/google/gmap-display.js'
+		)
+	end
+	
+	if @javascripts[:gmap_locate]
+		script_files.push(
+			'/themes/v2/javascripts/com/google/gmap-locate.js'
+		)
+	end
 	
 	if @javascripts[:language_other]
 		script_files.push(
 			'/themes/v2/javascripts/eu/europeana/language-other.js'
 		)
-	end
-	
+	end	
 	
 	if @javascripts[:lightbox]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.prettyphoto.min.js'
 		)
-	end
-	
+	end	
 	
 	if @javascripts[:readmore]
 		script_files.push(
@@ -50,6 +58,11 @@
 		)
 	end
 	
+	if @javascripts[:truncate]
+		script_files.push(
+			'/themes/v2/javascripts/com/gmtplusone/truncate.js'
+		)
+	end
 	
 	if @javascripts[:uploadify] && configuration(:uploadify)
 		script_files.push(
@@ -100,7 +113,6 @@
 	
 	if @javascripts[:contributions_show]
 		script_files.push(
-			'/themes/v2/javascripts/com/gmtplusone/truncate.js',
 			'/themes/v2/javascripts/eu/europeana/contributions-show.js'
 		)
 	end
@@ -135,42 +147,19 @@
 	
 %>
 <script>
-	
-	var switchTo5x=true; // for share-this
-	if ( !window.RunCoCo ) { window.RunCoCo = {}; }
-	RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
-	
-<% if @contribution && @contribution.ready_to_submit? %>
-	RunCoCo.ready_for_submit = true;
-<% end %>
-
-<% if @attachment %>
-	RunCoCo.contribution = {
-		title: '<%= @attachment.contribution.title %>',
-		metadata: <%= raw metadata_json(@attachment.contribution) %>
-	};
-<% end %>
-	
+var switchTo5x = true;<% 'for share-this' %>
+if ( !window.RunCoCo ) { window.RunCoCo = {}; }
+RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
+<% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
+<% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
 <% if @javascripts[:uploadify] && configuration(:uploadify) %>
-	RunCoCo.uploadify_settings = {
-		maxUploadSize: <%= configuration(:max_upload_size) %>,
-		fileExt: '<%= uploadify_file_extensions %>',
-		fileDesc: '<%= uploadify_file_desc %>',
-		script: '<%= contribution_attachments_path(@contribution) %>'
-	};
-	
-	RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
-	RunCoCo.sessionKeyName = '<%= session_key_name %>';
-	RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';	
+RunCoCo.uploadify_settings = { maxUploadSize: <%= configuration(:max_upload_size) %>, fileExt: '<%= uploadify_file_extensions %>', fileDesc: '<%= uploadify_file_desc %>', script: '<%= contribution_attachments_path(@contribution) %>' };
+RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
+RunCoCo.sessionKeyName = '<%= session_key_name %>';
+RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';	
 <% end %>
-	
-<% if 'cataloguer' === current_user.role.name %>	
-	RunCoCo.cataloguer = true;
-<% end %>
-
+<% if 'cataloguer' === current_user.role.name %>RunCoCo.cataloguer = true;<% end %>
 </script>
-
 <%= javascript_include_tag script_files %>
-
 <% # need this here because loading I18n will overwrite if value is set before load %>
 <script>I18n = { locale : '<%= I18n.locale %>' };</script>
