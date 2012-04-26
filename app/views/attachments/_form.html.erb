@@ -28,6 +28,16 @@
   
   <% end %>
   
+  <%- if dropbox_authorized? -%>
+    <fieldset>
+      <legend>Dropbox</legend>
+      <p>Copy a file from your Dropbox folder. <%= link_to 'Logout from your Dropbox account', dropbox_logout_path(:redirect => controller.request.fullpath) %>.</p>
+      <%= render :partial => 'dropbox/radio_buttons' %>
+    </fieldset>
+  <%- else -%>
+    <p>If you have a Dropbox account, you can send us files directly from your Dropbox folder. If you would like to use this facility, please <%= link_to 'login to your Dropbox account', dropbox_login_path(:redirect => controller.request.fullpath) %>.</p>
+  <%- end -%>
+  
   <%= form.inputs :attachment_details, :id => 'attachment_details', :class => @fieldset_class, :style => @fieldset_style do %>
   
     <%= form.semantic_fields_for :metadata do |metadata| %>

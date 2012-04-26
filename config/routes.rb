@@ -98,6 +98,10 @@ RunCoCo::Application.routes.draw do
       end
     end
 
+    # Dropbox
+    match 'dropbox/login' => 'dropbox#login', :as => 'dropbox_login'
+    match 'dropbox/logout' => 'dropbox#logout', :as => 'dropbox_logout'
+
     # Help documents and custom pages
     match '*path' => 'pages#show', :as => 'page'
   end

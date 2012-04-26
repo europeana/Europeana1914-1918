@@ -2,7 +2,8 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :sphinx_running?, :current_user, :contribution_fields
+  helper_method :sphinx_running?, :current_user, :contribution_fields, 
+    :dropbox_authorized?, :dropbox_client
   
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -57,6 +58,21 @@ class ApplicationController < ActionController::Base
   # Returns the logged-in user object, or initialises a new instance if not logged in.
   def current_user
     @current_user ||= (super || User.new)
+  end
+
+  def dropbox_authorized?
+    return false unless session.has_key?(:dropbox_session)
+    begin
+      true
+      dropbox_client
+    rescue DropboxAuthError
+      false
+    end
+  end
+  
+  def dropbox_client
+    dbsession = DropboxSession.deserialize(session[:dropbox_session])
+    DropboxClient.new(dbsession, :app_folder)
   end
 
   protected
@@ -125,11 +141,13 @@ class ApplicationController < ActionController::Base
   #
   # Restricted to local redirects.
   #
-  # @param (see ActionController::Redirecting#redirect_to)
+  # @param options (see ActionController::Redirecting#redirect_to)
+  # @param response_status (see ActionController::Redirecting#redirect_to)
+  # @param [Boolean] check_params If false, do not check for URL redirect param
   # @return (see ActionController::Redirecting#redirect_to)
   #
-  def redirect_to(options = {}, response_status = {})
-    if params[:redirect] && (params[:redirect] =~ /^\//)
+  def redirect_to(options = {}, response_status = {}, check_params = true)
+    if check_params && params[:redirect] && (params[:redirect] =~ /^\//)
       super(params[:redirect], response_status)
     else
       super(options, response_status)

@@ -1,0 +1,12 @@
+<% items = dropbox_contents -%>
+<% if items.size > 0 -%>
+  <% count = 0 -%>
+  <ul>
+    <%- items.each do |item| -%>
+      <%- count = count + 1 -%>
+      <li>    
+        <%= radio_button_tag 'dropbox_path', item['path'], false, :id => "dropbox-#{count}" %><%= label_tag "dropbox-#{count}", item['name'] -%>
+      </li>
+    <%- end -%>
+  </ul>
+<% end -%>

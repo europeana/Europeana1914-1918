@@ -18,6 +18,7 @@ gem 'i18n-js', '~> 2.0'
 gem 'feedzirra'
 gem 'http_accept_language'
 gem 'spawn', :git => 'git://github.com/rfc2822/spawn'
+gem 'dropbox-sdk', '~> 1.3', :require => 'dropbox_sdk'
 
 if RUBY_VERSION < "1.9"
   gem 'fastercsv', '~> 1.5.0'
