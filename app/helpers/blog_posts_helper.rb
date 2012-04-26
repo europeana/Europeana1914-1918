@@ -60,7 +60,7 @@ module BlogPostsHelper
     options[:offset] = (options[:offset] || 1).to_i + options[:limit].to_i
     options[:read_more] ||= 'true'
     if blog_posts(options).present?
-      link_to('read more', blog_post_path(options), :id => 'read-more')
+      link_to(t('views.blog_posts.read_more'), blog_post_path(options), :id => 'read-more')
     else
       ''
     end
