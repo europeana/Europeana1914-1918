@@ -40,7 +40,7 @@ class AttachmentsController < ApplicationController
       attachment_attributes[:file].content_type = MIME::Types.type_for(attachment_attributes[:file].original_filename).first
     else
       attachment_attributes = params[:attachment]
-      if params[:dropbox_path] && dropbox_authorized?
+      if params[:dropbox_path] && dropbox_configured? && dropbox_authorized?
         client = dropbox_client
         dropbox_file, dropbox_metadata = client.get_file_and_metadata(params[:dropbox_path])
         attachment_attributes[:file] = StringIO.new(dropbox_file)

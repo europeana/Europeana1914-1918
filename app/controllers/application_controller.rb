@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sphinx_running?, :current_user, :contribution_fields, 
-    :dropbox_authorized?, :dropbox_client
+    :dropbox_authorized?, :dropbox_client, :dropbox_configured?
   
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -58,6 +58,10 @@ class ApplicationController < ActionController::Base
   # Returns the logged-in user object, or initialises a new instance if not logged in.
   def current_user
     @current_user ||= (super || User.new)
+  end
+
+  def dropbox_configured?
+    Kernel.const_defined?('DROPBOX_APP_KEY') && Kernel.const_defined?('DROPBOX_APP_SECRET')
   end
 
   def dropbox_authorized?

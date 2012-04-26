@@ -1,6 +1,6 @@
 module DropboxHelper
   def dropbox_contents
-    if dropbox_authorized?
+    if dropbox_configured? && dropbox_authorized?
       dropbox_client.metadata('/')['contents'].collect do |item|
         { 
           'name' => File.basename(item['path']),
