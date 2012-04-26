@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
 
   def dropbox_configured?
-    Kernel.const_defined?('DROPBOX_APP_KEY') && Kernel.const_defined?('DROPBOX_APP_SECRET')
+    defined?(DROPBOX_APP_KEY) && defined?(DROPBOX_APP_SECRET)
   end
 
   def dropbox_authorized?
