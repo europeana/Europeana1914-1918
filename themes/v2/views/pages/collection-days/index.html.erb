@@ -4,23 +4,15 @@
 %>
 <section class="border-top">
 	
-	<h2><%= @title %></h2>
-	
-		<p><b>collection days</b>: see stories from past collection days, and learn how you can <b>bring your stories</b> to future days.</p>
-		
-		<div id="collection-days" class="es-carousel-wrapper boxed">
-				<ul>
-					<%=
-						render :partial => '/blog_posts/list',
-						:locals => {
-							:category => 'collection-days',
-							:tag => :li,
-							:relocale => true,
-							:deblogger => true
-						}
-					%>
-				</ul>
-			</div>
-		</div>
+	<%=
+		render :partial => '/blog_posts/list',
+		:locals => {
+			:blog => 'europeana',
+			:category => 'collection-day-info',
+			:titles => true,
+			:relocale => true,
+			:deblogger => true
+		}
+	%>
 
 </section>

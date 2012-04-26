@@ -147,12 +147,45 @@
 		},
 		
 		
+		getItemWidth : function() {
+			
+			var self = this,
+					i,
+					ii = self.items_length,
+					width = 0;
+			
+			if ( self.options.item_width_is_container_width ) {
+				
+				return self.$carousel_container.width();
+				
+			}
+			
+			for ( i = 0; i < ii; i += 1) {
+				
+				if ( self.$items.eq(i).width() > width ) {
+					
+					width = self.$items.eq(i).width();
+					
+				}
+				
+			}
+			
+			return width;
+			
+		},
+		
+		
 		calculateDimmensions : function() {
 			
 			var self = this;
-			self.item_width = self.$carousel_container.width();
+			
 			self.items_length = self.$items.length;
+			self.item_width = self.getItemWidth();
+			
 			self.items_total_width = self.items_length * self.item_width;
+			
+			console.log(self.items_length);
+			console.log(self.item_width);
 			self.$carousel_ul.css({
 				width : self.items_total_width,
 				'margin-left' : -( self.current * self.item_width - self.item_width )
@@ -240,7 +273,10 @@
 	
 	
 	jQuery.fn.rCarousel.options = {
-		listen_to_arrows : true
+		
+		listen_to_arrows : true,
+		item_width_is_container_width : true
+		
 	};
 	
 	

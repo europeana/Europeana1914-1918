@@ -1,4 +1,4 @@
-(function( undefined ) {
+(function() {
 	
 	'use strict';
 	
@@ -6,6 +6,7 @@
 	function init() {
 		
 		jQuery('#explore-featured').rCarousel();
+		jQuery('#explore-collection-days').rCarousel({ item_width_is_container_width : false });
 		jQuery('#explore-editors-picks').readMore({ read_more_link : '#read-more' });
 		
 		var $container = jQuery('#explore-featured-categories ol');
