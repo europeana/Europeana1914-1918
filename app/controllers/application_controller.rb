@@ -75,8 +75,11 @@ class ApplicationController < ActionController::Base
   end
   
   def dropbox_client
-    dbsession = DropboxSession.deserialize(session[:dropbox_session])
-    DropboxClient.new(dbsession, :app_folder)
+    unless @dropbox_client.present?
+      dbsession = DropboxSession.deserialize(session[:dropbox_session])
+      @dropbox_client = DropboxClient.new(dbsession, :app_folder)
+    end
+    @dropbox_client
   end
 
   protected

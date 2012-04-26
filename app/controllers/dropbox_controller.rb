@@ -1,5 +1,3 @@
-require 'dropbox_sdk'
-
 class DropboxController < ApplicationController
   # GET /dropbox/login
   def login
@@ -10,8 +8,7 @@ class DropboxController < ApplicationController
 
       # pass to get_authorize_url a callback url that will return the user here
       require 'cgi' unless defined?(CGI) && defined?(CGI::escape)
-      logger.debug("==== " + dbsession.get_authorize_url(CGI.escape(dropbox_login_url(request.query_parameters))))
-#      return
+
       redirect_to dbsession.get_authorize_url(dropbox_login_url(request.query_parameters)), {}, false
     else
       # the user has returned from Dropbox

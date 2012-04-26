@@ -32,7 +32,7 @@
     <%- if dropbox_authorized? -%>
       <fieldset>
         <legend>Dropbox</legend>
-        <p>Copy a file from your Dropbox folder. <%= link_to 'Logout from your Dropbox account', dropbox_logout_path(:redirect => controller.request.fullpath) %>.</p>
+        <p>You are logged into Dropbox as <strong><%= dropbox_user %></strong>. <%= link_to 'Logout from your Dropbox account', dropbox_logout_path(:redirect => controller.request.fullpath) %>.</p>
         <%= render :partial => 'dropbox/radio_buttons' %>
       </fieldset>
     <%- else -%>

@@ -11,4 +11,12 @@ module DropboxHelper
       []
     end
   end
+  
+  def dropbox_user
+    if dropbox_configured? && dropbox_authorized?
+      dropbox_client.account_info["display_name"]
+    else
+      ''
+    end
+  end
 end
