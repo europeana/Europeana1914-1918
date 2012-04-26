@@ -1,4 +1,11 @@
 <%
+  # to change default result count, 10, add a hidden fireld to the form
+  # <input type="hidden" name="count" value="20">
+  #
+  # or ?count=20 to a link that points to the search page
+  #
+  #
+  
   if local_assigns[:url].nil?
     url = search_contributions_path 
   end
@@ -6,4 +13,3 @@
 <%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
   <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
 <% end %>
-

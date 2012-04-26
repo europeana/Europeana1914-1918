@@ -19,7 +19,7 @@
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'explore-the-archive', :tag => :li, :relocale => true } %>
 		</ul>
 		<div class="carousel-overlay"></div>
-	</div>	
+	</div>
 	
 </section>
 
@@ -44,12 +44,25 @@
 </section>
 
 
-<section id="explore-collection-days" class="border-top">
+<section class="border-top">
 	
 	<h2>Browse Collection Days</h2>
 	
-		<div class="carousel"></div>
-		(slider)
+		<div id="explore-collection-days" class="carousel">
+			<ul>
+				<%=
+					render :partial => '/blog_posts/list',
+					:locals => {
+						:category => 'collection-days',
+						:tag => :li,
+						:relocale => true,
+						:deblogger => true
+					}
+				%>
+			</ul>
+			<div class="carousel-overlay"></div>
+		</div>
+
 	
 </section>
 
