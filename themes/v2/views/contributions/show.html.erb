@@ -51,7 +51,6 @@
 	  %>
 	</div>
 	
-	
   </div>
   
   
@@ -59,7 +58,7 @@
 	
 	<h2><%= contribution_title(@contribution) %></h2>
 	
-	<dl id="story-metadata">
+	<dl id="story-metadata" class="translate">
 	  <%=
 		render :partial => '/metadata/display',
 		:locals => {
@@ -110,7 +109,7 @@
 			:name_order => true
 		  }
 		}
-	  %>	
+	  %>
 	</dl>
 	
 	<div id="avatar" class="responsive-box">
@@ -120,13 +119,6 @@
 	  <%= @contribution.metadata.fields['character1_given_name'] %> <%= @contribution.metadata.fields['character1_family_name'] %> and
 	  <%= @contribution.metadata.fields['character2_given_name'] %> <%= @contribution.metadata.fields['character2_family_name'] %>
 	
-	</div>
-	
-	<div id="translate-details">
-	  
-	  <b>Translate details:</b><br/>	  
-	  <select><option></option></select>
-	  
 	</div>
 	
   </div>

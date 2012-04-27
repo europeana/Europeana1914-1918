@@ -137,6 +137,7 @@
 		carousels.init();
 		map.init();
 		lightbox.init();
+		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		
 	}
 	

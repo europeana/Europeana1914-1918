@@ -29,6 +29,10 @@
 		padding-top: 3%;
 	}
 	
+	.top {
+		margin-top: 3%;
+	}
+	
 	.border-bottom {
 		border-bottom: 1px solid #dadada;
 		padding-bottom: 3%;
@@ -324,14 +328,29 @@
 	
 	.carousel input {
 		position: absolute;
-		top: 50%;
-		margin-top: -50px;
 		opacity: 0.8;
 		-webkit-transition: opacity .3s ease-out;
 		-moz-transition: opacity .3s ease-out;
 		-ms-transition: opacity .3s ease-out;
 		-o-transition: opacity .3s ease-out;
 		transition: opacity .3s ease-out;
+	}
+	
+	.carousel input.large {
+		top: 50%;
+		margin-top: -50px;
+	}
+	
+	.carousel input.medium {
+		top: 50%;
+		margin-top: -40px;
+		height: 75px;
+	}
+	
+	.carousel input.small {
+		top: 50%;
+		height: 50px;
+		margin-top: -25px;
 	}
 	
 	.carousel input:hover {
@@ -500,8 +519,11 @@
 	 */
 	
 		#story-map {
+			position: relative;
+			display: block;
 			margin-top: 1em;
 			height: 260px;
+			z-index: 1;
 		}
 	
 	
@@ -531,6 +553,16 @@
 	
 		#translate-details {
 			text-align: right;
+		}
+		
+		#translation-services {
+			font-size: 80%;
+			border: 1px solid #dadada;
+			padding: 3%;
+		}
+		
+		#microsoft-translate-element select {
+			display: block;
 		}
 
 

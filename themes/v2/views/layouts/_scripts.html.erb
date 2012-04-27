@@ -5,7 +5,8 @@
 	script_files = [
 		'i18n.js',
 		'translations.js',
-		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js'
+		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
+		'/themes/v2/javascripts/js/console.js'
 	]
 	
 	if @javascripts[:carousel]
@@ -64,6 +65,14 @@
 		)
 	end
 	
+	if @javascripts[:translate]
+		script_files.push(
+			'/themes/v2/javascripts/js/loader.js',
+			'/themes/v2/javascripts/com/microsoft/translator.js',
+			'/themes/v2/javascripts/eu/europeana/translation-services.js'
+		)
+	end
+	
 	if @javascripts[:truncate]
 		script_files.push(
 			'/themes/v2/javascripts/com/gmtplusone/truncate.js'
@@ -119,7 +128,7 @@
 	
 	if @javascripts[:contributions_show]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/contributions-show.js'
+			'/themes/v2/javascripts/eu/europeana/contributions-show.js'			
 		)
 	end
 	
@@ -155,6 +164,7 @@ var switchTo5x = true;<% 'for share-this' %>
 if ( !window.RunCoCo ) { window.RunCoCo = {}; }
 RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
 <% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
+<% if @javascripts[:translate] %>RunCoCo.bing_translate_key = '28A86FF39138EFE1BC1D9E9E90B8AF5FC9A950E6';<% end %>
 <% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
 <% if @javascripts[:uploadify] && configuration(:uploadify) %>
 RunCoCo.uploadify_settings = { maxUploadSize: <%= configuration(:max_upload_size) %>, fileExt: '<%= uploadify_file_extensions %>', fileDesc: '<%= uploadify_file_desc %>', script: '<%= contribution_attachments_path(@contribution) %>' };
@@ -165,5 +175,5 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 <% if 'cataloguer' === current_user.role.name %>RunCoCo.cataloguer = true;<% end %>
 </script>
 <%= javascript_include_tag script_files %>
-<% # need this here because loading I18n will overwrite if value is set before load %>
-<script>I18n = { locale : '<%= I18n.locale %>' };</script>
+<%	# need this here because loading I18n will overwrite if value is set before load %>
+<script>I18n.locale = '<%= I18n.locale %>';</script>

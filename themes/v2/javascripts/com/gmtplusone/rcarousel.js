@@ -17,7 +17,7 @@
 	
 	var RCarousel = {
 		
-		options : null,
+		options : null,		
 		$carousel_container : null,
 		$carousel_ul : null,
 		$items : null,
@@ -25,10 +25,11 @@
 		$prev : null,
 		$next : null,
 		
-		carousel_width : 0,
+		carousel_container_width : 0,
 		item_width : 0,
 		items_length : 0,
 		items_total_width : 0,
+		items_per_container : 0,
 		current : 1,
 		
 		
@@ -105,26 +106,38 @@
 			var $elm = jQuery(this),
 					self = evt.data.self,
 					dir = $elm.data('dir'),
-					loc = self.item_width;
+					loc = self.options.item_width_is_container_width ? self.item_width : self.carousel_container_width,
+					current_increment = self.options.item_width_is_container_width ? 1 : self.items_per_container;
+			
+			
 			
 			
 			dir === 'next'
-				? self.current += 1
-				: self.current -= 1;
+				? self.current += current_increment
+				: self.current -= current_increment;
 			
-			// if first image
-			if ( self.current === 0 ) {
+			console.log('before');
+			console.log(loc);
+			console.log(current_increment);
+			console.log(self.current);
+			
+			if ( self.current <= 0 ) {
 				
 				self.current = self.items_length;
 				dir = 'next';
 				loc = self.items_total_width - self.item_width;
 				
-			} else if ( self.current - 1 === self.items_length ) {
+			} else if ( self.current - current_increment >= self.items_length ) {
 				
 				self.current = 1;
 				loc = 0;
 				
 			}
+			
+			console.log('after');
+			console.log(loc);
+			console.log(current_increment);
+			console.log(self.current);
 			
 			self.transition( self.$carousel_ul, loc, dir );
 			
@@ -156,7 +169,7 @@
 			
 			if ( self.options.item_width_is_container_width ) {
 				
-				return self.$carousel_container.width();
+				return self.carousel_container_width;
 				
 			}
 			
@@ -180,12 +193,12 @@
 			var self = this;
 			
 			self.items_length = self.$items.length;
+			self.carousel_container_width = self.$carousel_container.width();
 			self.item_width = self.getItemWidth();
 			
 			self.items_total_width = self.items_length * self.item_width;
+			self.items_per_container = Math.ceil( self.carousel_container_width / self.item_width );
 			
-			console.log(self.items_length);
-			console.log(self.item_width);
 			self.$carousel_ul.css({
 				width : self.items_total_width,
 				'margin-left' : -( self.current * self.item_width - self.item_width )
@@ -236,8 +249,21 @@
 			
 			var self = this;
 			
-			self.$prev = jQuery('<input/>', { 'data-dir' : 'prev', type : 'image', alt : 'previous', src : '/themes/v2/images/icons/carousel-arrow-left.png' });
-			self.$next = jQuery('<input/>', { 'data-dir' : 'next', type : 'image', alt : 'next', src : '/themes/v2/images/icons/carousel-arrow-right.png' });
+			self.$prev = jQuery('<input/>', {
+				type : 'image',
+				class : self.options.nav_button_size,
+				alt : 'previous',
+				src : '/themes/v2/images/icons/carousel-arrow-left.png',
+				'data-dir' : 'prev'
+			});
+			
+			self.$next = jQuery('<input/>', {
+				type : 'image',
+				class : self.options.nav_button_size,
+				alt : 'next',
+				src : '/themes/v2/images/icons/carousel-arrow-right.png',
+				'data-dir' : 'next'
+			});
 			
 		},
 		
@@ -275,7 +301,8 @@
 	jQuery.fn.rCarousel.options = {
 		
 		listen_to_arrows : true,
-		item_width_is_container_width : true
+		item_width_is_container_width : true,
+		nav_button_size : 'medium'
 		
 	};
 	
