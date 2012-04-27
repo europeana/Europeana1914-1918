@@ -106,6 +106,9 @@ RunCoCo::Application.routes.draw do
     match '*path' => 'pages#show', :as => 'page'
   end
   
+  # Suggest search index words for auto-complete
+  match 'suggest' => 'search_index_words#suggest', :as => 'suggest'
+  
   # Home page with locale, e.g. /en, /de
   match '/:locale' => "pages#show", :as => 'home'
   
