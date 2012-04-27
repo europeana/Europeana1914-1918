@@ -4,6 +4,7 @@
   @javascripts[:carousel] = true
   @javascripts[:truncate] = true
   @javascripts[:lightbox] = true
+  @javascripts[:translate] = true
   @javascripts[:contributions_show] = true
   @title = t('views.contributions.show.title')
   
@@ -38,11 +39,16 @@
 	</ul>
 	
 	
-	<div id="banner">	  
-		<a href="contributor"><img src="/themes/v2/images/banners/tell-us-your-story.jpg" alt="Tell us your story" /></a>
-		<h2><a href="contributor">Tell us your story</a></h2>
-		Was someone in your family involved in the First World War?<br/>
-		Do you have a collection of maps or items used in the trenches?		
+	<div id="banner">
+	  <%=
+		render :partial => '/blog_posts/list',
+		:locals => {
+			:blog => 'europeana',
+			:category => 'story-banner',
+			:relocale => true,
+			:deblogger => true
+		}
+	  %>
 	</div>
 	
 	
