@@ -4,9 +4,13 @@
 # Used for auto-complete functionality on the collection search form.
 #
 class SearchIndexWord < ActiveRecord::Base
+  # Minimum length of word to index and return as an auto-complete suggestion.
+  # Needs to be 1 for phrase searches to work.
+  MIN_PREFIX_LEN = 1
+  
   validates_presence_of :text
   validates_uniqueness_of :text
-  validates_length_of :text, :minimum => ThinkingSphinx::Configuration.instance.index_options[:min_prefix_len]
+  validates_length_of :text, :minimum => MIN_PREFIX_LEN
   
   ##
   # Populates the table from a Sphinx stop words file.
@@ -29,7 +33,7 @@ class SearchIndexWord < ActiveRecord::Base
     end
     
     stop_words.reject! do |word|
-      word.length < ThinkingSphinx::Configuration.instance.index_options[:min_prefix_len] || 
+      word.length < MIN_PREFIX_LEN
       word.match(/^\d+$/) # Ignore numbers
     end
     
@@ -48,5 +52,7 @@ class SearchIndexWord < ActiveRecord::Base
   #
   define_index do
     indexes text
+    set_property :enable_star => 0
+    set_property :min_prefix_len => MIN_PREFIX_LEN
   end
 end
