@@ -13,7 +13,7 @@
 		$container.imagesLoaded(function() {
 			$container.masonry({
 				itemSelector : 'li',
-				columnWidth : 93,
+				columnWidth : 1,
 				isFitWidth : true,
 				isAnimated : true
 			});
