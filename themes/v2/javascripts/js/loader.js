@@ -19,6 +19,7 @@
 	
 	js.loader = {
 		
+		debug : false,
 		loader_status : {},
 		check_interval : 50,
 		load_attempt_limit : 150,
@@ -108,7 +109,7 @@
 				
 			}
 			
-			js.console.log( 'load : ' + script.file + ', ' + script.path );
+			if (this.debug ) { js.console.log( 'load : ' + script.file + ', ' + script.path ); }
 			
 		},
 		
@@ -182,7 +183,7 @@
 				
 			}
 			
-			js.console.log( 'loaded : ' + script.name );
+			if (this.debug ) { js.console.log( 'loaded : ' + script.name ); }
 			this.loader_status[ script.name ].script_loaded = true;
 			if ( script.callback ) { script.callback.call(); }
 			

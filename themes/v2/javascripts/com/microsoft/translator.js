@@ -27,6 +27,7 @@
 		var default_options = {
 			
 			BING_API_KEY : null,
+			debug : false,
 			
 			// standard callback method
 			callback : 'com.microsoft.translator.callback',
@@ -97,7 +98,7 @@
 		 */
 		com.microsoft.translator.prototype.callback = function( response ) {
 			
-			js.console.log( response );
+			if ( this.options.debug ) {	js.console.log( response );	}
 		
 		};
 		
@@ -109,7 +110,6 @@
 		com.microsoft.translator.prototype.addTranslatorToContainer = function() {
 			
 			this.options.$translator_selector = jQuery( this.options.translator_selector_html );
-			console.log(this.options.$container_for_selector);
 			this.options.$container_for_selector.append( this.options.$translator_selector );
 			this.getLanguagesForTranslate();
 			

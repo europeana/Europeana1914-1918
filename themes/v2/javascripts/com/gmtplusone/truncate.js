@@ -15,6 +15,7 @@
 	
 	'use strict';
 	
+	
 	if ( 'function' !== typeof Object.create ) {
 		
 		Object.create = function( obj ) {
@@ -30,8 +31,13 @@
 	
 	var Truncate = {
 		
+		$target : null,
 		options : null,
+		$toggle_link : null,
 		height : {},
+		
+		$content_tester : jQuery('<div/>', { class: 'metadata', style : 'position: absolute; visibility: hidden;' } ),
+		
 		default_options : {
 				limit : {
 				pixels : 100,
@@ -48,19 +54,24 @@
 			
 			
 			evt.preventDefault();
+			self.determineHeight();
 			
 			if ( self.$target.outerHeight(true) < self.height.total ) {
 				
-				self.$target.next().html( self.options.toggle_html.less );
-				self.$target.next().removeClass( self.options.toggle_html.more_class );
-				self.$target.next().addClass( self.options.toggle_html.less_class );
+				self.$toggle_link
+					.html( self.options.toggle_html.less )
+					.removeClass( self.options.toggle_html.more_class )
+					.addClass( self.options.toggle_html.less_class );
+				
 				self.$target.animate( { height: height.total }, 500 );
 				
 			} else {
 				
-				self.$target.next().html( self.options.toggle_html.more );
-				self.$target.next().removeClass( self.options.toggle_html.less_class );
-				self.$target.next().addClass( self.options.toggle_html.more_class );
+				self.$toggle_link
+					.html( self.options.toggle_html.more )
+					.removeClass( self.options.toggle_html.less_class )
+					.addClass( self.options.toggle_html.more_class );
+				
 				self.$target.animate( { height: height.truncated }, 500 );
 				
 			}
@@ -76,16 +87,12 @@
 				
 				self.$target
 					.css({ height : self.height.truncated, overflow : 'hidden' })
-					.slideDown()
-					.after( self.options.toggle_html.container )
-					.next()
-					.html( self.options.toggle_html.more )
-					.addClass( self.options.toggle_html.more_class )
-					.on(
-						'click',
-						{ self : self, height : self.height }, 
-						self.handleToggleClick
-					);
+				
+				self.$toggle_link.on(
+					'click',
+					{ self : self, height : self.height }, 
+					self.handleToggleClick
+				);
 				
 			} else {
 				
@@ -119,12 +126,13 @@
 		},
 		
 		
-		determineHeight : function() {
+		determineHeight : function( evt ) {
 			
-			var self = this;
+			var self = evt ? evt.data.self : this;
 			
-			self.height.total = self.$target.outerHeight(true);
-			self.height.line_height = parseInt( self.$target.css('line-height'), 10 );
+			self.$content_tester.html( self.$target.html() );			
+			self.height.total = self.$content_tester.outerHeight();
+			self.height.line_height = parseInt( self.$content_tester.css('line-height'), 10 );
 			self.height.truncated = self.getTruncatedHeight();
 			
 		},
@@ -149,18 +157,28 @@
 					? self.options.limit.use_pixels
 					: self.default_options.limit.use_pixels;
 			
+			self.$toggle_link =
+				jQuery( self.options.toggle_html.container )
+				.addClass( self.options.toggle_html.more_class )
+				.html( self.options.toggle_html.more );
+			
+			self.$content_tester.insertAfter( self.$target );
+			
 		},
+		
 		
 		init : function( options, target ) {
 			
 			var self = this;
 					self.$target = jQuery(target);
 			
-			self.options = $.extend( {}, $.fn.truncate.options, options );
+			self.options = $.extend( true, {}, $.fn.truncate.options, options );
 			
 			self.prepOptions();
 			self.determineHeight();
+			self.$target.after( self.$toggle_link );
 			self.adjustHeight( self.height );
+			//self.watchContent();
 			
 			if ( self.options.callback ) { self.options.callback.call( $target ); }
 			
@@ -190,7 +208,7 @@
 		},
 		
 		toggle_html : {
-			container : '<a href=""></a>',
+			container : '<a href="" class="truncate-toggle"></a>',
 			more : 'show more ...',
 			less : 'show less ...',
 			more_class : '',

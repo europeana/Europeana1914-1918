@@ -17,7 +17,7 @@
 	  <ul>		
 		<% if @contribution.attachments.present? -%>
 		  <%= render :partial => '/attachments/display-images', :locals => { :size => :medium, :prettyphoto => true } %>
-		<% end %>		
+		<% end %>
 	  </ul>	  
 	  <div class="carousel-overlay"></div>	
 	</div>
@@ -58,7 +58,7 @@
 	
 	<h2><%= contribution_title(@contribution) %></h2>
 	
-	<dl id="story-metadata">
+	<dl id="story-metadata" class="metadata">
 	  <%=
 		render :partial => '/metadata/display',
 		:locals => {

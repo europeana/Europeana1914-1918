@@ -131,13 +131,17 @@
 	function init() {
 		
 		jQuery('#story-metadata').truncate({
-			limit : { pixels : 400 }
+			limit : { pixels : 400 },
+			toggle_html : {
+				more : I18n.t('javascripts.truncate.show-more'),
+				less : I18n.t('javascripts.truncate.show-less')
+			}
 		});
 		
 		carousels.init();
 		map.init();
 		lightbox.init();
-		RunCoCo.translation_services.init( jQuery('#story-metadata') );
+		RunCoCo.translation_services.init( jQuery('.truncate-toggle') );
 		
 	}
 	
