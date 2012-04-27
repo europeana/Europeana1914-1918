@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
 
   def dropbox_configured?
-    defined?(DROPBOX_APP_KEY) && defined?(DROPBOX_APP_SECRET)
+    RunCoCo::Dropbox.app_key.present? && RunCoCo::Dropbox.app_secret.present?
   end
 
   def dropbox_authorized?

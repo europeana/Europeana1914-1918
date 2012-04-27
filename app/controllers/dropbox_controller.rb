@@ -1,8 +1,10 @@
 class DropboxController < ApplicationController
+  before_filter :check_dropbox_configured
+  
   # GET /dropbox/login
   def login
     if !params[:oauth_token] then
-      dbsession = DropboxSession.new(DROPBOX_APP_KEY, DROPBOX_APP_SECRET)
+      dbsession = DropboxSession.new(RunCoCo::Dropbox.app_key, RunCoCo::Dropbox.app_secret)
 
       session[:dropbox_session] = dbsession.serialize # serialize and save this DropboxSession
 
@@ -24,5 +26,10 @@ class DropboxController < ApplicationController
   def logout
     session.delete(:dropbox_session)
     redirect_to root_url
+  end
+  
+  protected
+  def check_dropbox_configured
+    raise Exception, "Dropbox not configured" unless dropbox_configured?
   end
 end
