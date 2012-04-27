@@ -24,7 +24,7 @@
 	
 	
 	<div id="contributions-thumbnails" class="carousel">		
-		<ul>		  
+		<ul>
 		  <% if @contribution.attachments.present? -%>
 			<%= render :partial => '/attachments/display-images', :locals => { :size => :preview } %>
 		  <% end %>		  
@@ -58,7 +58,7 @@
 	
 	<h2><%= contribution_title(@contribution) %></h2>
 	
-	<dl id="story-metadata" class="translate">
+	<dl id="story-metadata">
 	  <%=
 		render :partial => '/metadata/display',
 		:locals => {

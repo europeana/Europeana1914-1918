@@ -105,8 +105,18 @@
 		},
 		
 		
+		flashHighlight : function( $elm, start_color, end_color, duration ) {
+			
+			$elm
+				.stop()
+				.css('background-color', start_color )
+				.animate({ backgroundColor: end_color }, duration);
+			
+		},
+		
+		
 		addReturnToOriginal : function() {
-	
+			
 			if ( this.links.$return_to_original.is(':hidden') ) {
 				
 				this.containers.$translation_services
@@ -160,6 +170,7 @@
 					'</div>'
 				
 			});
+			
 			
 			self.microsoft.init(
 				
