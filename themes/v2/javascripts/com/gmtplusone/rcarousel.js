@@ -61,7 +61,6 @@
 				this.current = this.current + pos;
 				if ( this.current >= this.items_length ) { this.current = 0; }
 				if ( this.current < 0 ) { this.current = this.items_length - this.items_per_container; }
-				console.log( this.items_per_container);
 				
 			} else {
 				
