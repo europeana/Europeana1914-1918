@@ -4,12 +4,18 @@
 	@javascripts[:carousel] = true
 	@javascripts[:readmore] = true
 	@title = t 'views.home.heading'
+	require 'hpricot'
 	
 %>
 <section class="border-top">
 	
+	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
+	
+	<h2><%= (doc/'h3').inner_html %></h2>
+	
 	<div id="index-introduction" class="one-third-left">	
-		<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } %>
+		<% (doc/'h3').remove %>
+		<%= (doc).to_html %>
 	</div>
 	
 	<div id="index-featured" class="carousel two-thirds-right">	
