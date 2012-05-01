@@ -30,25 +30,10 @@
 		items_length : 0,
 		items_total_width : 0,
 		items_per_container : 0,
-		current : 1,
+		current : 0,
 		
 		
-		transition : function( $container, loc, dir ) {
-			
-			var unit;
-			
-			if ( dir && loc != 0) {
-				unit = ( dir === 'next' ) ? '-=' : '+=';
-			}
-			
-			$container.animate(
-				{ 'margin-left' : unit ? (unit + loc) : loc }
-			);
-			
-		},
-		
-		
-		transitionit : function( coords ) {
+		transition : function( coords ) {
 			
 			this.$carousel_ul.animate({
 				'margin-left': coords || -( this.current * this.item_width )
@@ -57,15 +42,38 @@
 		},
 		
 		
+		goToIndex : function( index ) {
+			
+			this.current = index;
+			this.transition();
+			
+		},
+		
+		
 		setCurrent : function( dir ) {
 			
 			var pos = this.current;
 			
-			pos += ( ~~( dir === 'next' ) || -1 );
-			this.current = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
+			if ( !this.options.item_width_is_container_width ) {
+				
+				pos = dir == 'next' ? this.items_per_container : -1 * this.items_per_container;				
+				
+				this.current = this.current + pos;
+				if ( this.current >= this.items_length ) { this.current = 0; }
+				if ( this.current < 0 ) { this.current = this.items_length - this.items_per_container; }
+				console.log( this.items_per_container);
+				
+			} else {
+				
+				pos += ( ~~( dir === 'next' ) || -1 );
+				this.current = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
+				if ( pos >= this.items_length ) { this.current = 0; }
+				
+			}
+			
 			
 			return pos;
-		
+			
 		},
 		
 		
@@ -90,56 +98,15 @@
 			
 		},
 		
-		newNavClick : function( evt ) {
+		
+		handleNavClick : function( evt ) {
 			
 			var self = evt.data.self,
 					$elm = jQuery(this);
 			
+			
 			self.setCurrent( $elm.data('dir') );
-			self.transitionit();
-			
-		},
-		
-		
-		handleNavClick : function( evt ) {
-			
-			var $elm = jQuery(this),
-					self = evt.data.self,
-					dir = $elm.data('dir'),
-					loc = self.options.item_width_is_container_width ? self.item_width : self.carousel_container_width,
-					current_increment = self.options.item_width_is_container_width ? 1 : self.items_per_container;
-			
-			
-			
-			
-			dir === 'next'
-				? self.current += current_increment
-				: self.current -= current_increment;
-			
-			console.log('before');
-			console.log(loc);
-			console.log(current_increment);
-			console.log(self.current);
-			
-			if ( self.current <= 0 ) {
-				
-				self.current = self.items_length;
-				dir = 'next';
-				loc = self.items_total_width - self.item_width;
-				
-			} else if ( self.current - current_increment >= self.items_length ) {
-				
-				self.current = 1;
-				loc = 0;
-				
-			}
-			
-			console.log('after');
-			console.log(loc);
-			console.log(current_increment);
-			console.log(self.current);
-			
-			self.transition( self.$carousel_ul, loc, dir );
+			self.transition();
 			
 		},
 		
@@ -147,9 +114,9 @@
 		addNavigation : function() {
 			
 			var self = this;
+			
 			self.$carousel_container.append( self.$prev, self.$next );
 			self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
-			//self.$prev.add( self.$next ).on( 'click', { self : self }, self.newNavClick );
 			
 			if ( self.options.listen_to_arrows ) {
 				
@@ -190,18 +157,19 @@
 		
 		calculateDimmensions : function() {
 			
-			var self = this;
+			var self = this,
+					pos = self.current == 0 ? 1 : self.current;
 			
 			self.items_length = self.$items.length;
 			self.carousel_container_width = self.$carousel_container.width();
 			self.item_width = self.getItemWidth();
 			
 			self.items_total_width = self.items_length * self.item_width;
-			self.items_per_container = Math.ceil( self.carousel_container_width / self.item_width );
+			self.items_per_container = Math.floor( self.carousel_container_width / self.item_width );
 			
 			self.$carousel_ul.css({
 				width : self.items_total_width,
-				'margin-left' : -( self.current * self.item_width - self.item_width )
+				'margin-left' : -( pos * self.item_width - self.item_width )
 			});
 			
 		},
@@ -209,7 +177,7 @@
 		
 		resizeItems : function( evt ) {
 			
-			var self = evt.data.self;
+			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 			
 			self.$items.each(function() {
@@ -225,8 +193,6 @@
 		handleWindowResize : function( evt ) {
 			
 			var self = evt.data.self;
-			//clearTimeout(this.id);
-			//this.id = setTimeout(resizeItems, 500);
 			self.resizeItems( evt );
 			
 		},
@@ -275,7 +241,7 @@
 			self.options = $.extend( {}, $.fn.rCarousel.options, options );
 			self.createNavElements();
 			self.deriveCarouselElements( carousel_container );
-			self.resizeItems({ data : { self : self } });
+			self.resizeItems();
 			jQuery(window).on( 'resize', { self : self }, self.handleWindowResize );			
 			if ( self.$items.length > 1 ) { self.addNavigation(); }
 			
@@ -292,6 +258,7 @@
 			
 			var rcarousel = Object.create( RCarousel );
 			rcarousel.init( options, this );
+			jQuery(this).data( 'rCarousel', rcarousel );
 			
 		});
 		

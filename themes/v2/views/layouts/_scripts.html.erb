@@ -42,6 +42,12 @@
 		)
 	end
 	
+	if @javascripts[:images_loaded]
+		script_files.push(
+			'/themes/v2/javascripts/com/jquery/plugins/jquery.imagesloaded.min.js'
+		)
+	end
+	
 	if @javascripts[:language_other]
 		script_files.push(
 			'/themes/v2/javascripts/eu/europeana/language-other.js'

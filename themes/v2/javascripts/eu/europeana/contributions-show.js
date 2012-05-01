@@ -3,11 +3,20 @@
 	'use strict';	
 	
 	var carousels = {
-	
+		
+		$featured : null,
+		$thumbnail : null,
+		
 		init : function() {
 			
-			jQuery('#contributions-featured').rCarousel();
-			jQuery('#contributions-thumbnails').rCarousel({ listen_to_arrows : false, item_width_is_container_width : false });
+			this.$featured = jQuery('#contributions-featured').rCarousel();
+			
+			this.$thumbnail = jQuery('#contributions-thumbnails').imagesLoaded(function() {
+				this.rCarousel({
+					listen_to_arrows : false,
+					item_width_is_container_width : false
+				});
+			});
 			
 		}
 		
@@ -20,7 +29,8 @@
 		
 		addMapContainer : function() {
 			
-			jQuery('#story-info')
+			//jQuery('#story-info')
+			jQuery('#footer')
 				.append( jQuery('<div/>', { id : 'story-map', class : 'responsive-box' } ) );
 			
 		},
@@ -128,6 +138,16 @@
 	}
 	
 	
+	function handleThumbnailClick( evt ) {
+		
+		var index = evt.data.index;
+		
+		evt.preventDefault();
+		carousels.$featured.data( 'rCarousel' ).goToIndex(index);
+		
+	}
+	
+	
 	function init() {
 		
 		jQuery('#story-metadata').truncate({
@@ -139,8 +159,9 @@
 		});
 		
 		carousels.init();
-		map.init();
+		//map.init();
 		lightbox.init();
+		jQuery('#contributions-thumbnails ul a').each(function(index) { jQuery(this).on( 'click', { index : index }, handleThumbnailClick ); });
 		RunCoCo.translation_services.init( jQuery('.truncate-toggle') );
 		
 	}
