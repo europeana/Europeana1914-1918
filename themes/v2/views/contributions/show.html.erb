@@ -19,7 +19,13 @@
 	  <div id="contributions-featured" class="carousel">	
 		<ul>		
 		  <% if @contribution.attachments.present? -%>
-			<%= render :partial => '/attachments/display-images', :locals => { :size => :medium, :prettyphoto => true } %>
+			<%=
+			  render :partial => '/attachments/display-images',
+			  :locals => {
+				:size => :medium,
+				:prettyphoto => true
+			  }
+			%>
 		  <% end %>
 		</ul>	  
 		<div class="carousel-overlay"></div>

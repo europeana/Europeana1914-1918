@@ -4,6 +4,7 @@
 	@javascripts[:carousel] = true
 	@javascripts[:readmore] = true
 	@javascripts[:masonry] = true
+	@javascripts[:autocomplete] = true
 	@title = t 'views.explore.heading'
 
 %>
@@ -18,7 +19,15 @@
 	
 		<div id="explore-featured" class="carousel two-thirds-right">
 			<ul>
-				<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'explore-the-archive', :tag => :li, :relocale => true } %>
+				<%=
+					render :partial => '/blog_posts/list',
+					:locals => {
+						:blog => 'europeana',
+						:category => 'explore-the-archive',
+						:tag => :li,
+						:relocale => true
+					}
+				%>
 			</ul>
 			<div class="carousel-overlay"></div>
 		</div>

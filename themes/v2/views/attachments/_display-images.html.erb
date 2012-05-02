@@ -11,8 +11,8 @@
         'data-contribution-id' => @contribution.id
       }
       link_attrs.merge!( {
-        'data-description' => '<a href="#inline-' + inline.to_s + '" rel="prettyPhoto">additional information</a>',
-         :rel => 'prettyPhoto'
+        'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>',
+        :rel => 'prettyPhoto[gallery]'
       } ) if prettyphoto
       %>
       <%=  link_to(attachment_preview( attachment, size ), attachment.file.url, link_attrs ) %>
