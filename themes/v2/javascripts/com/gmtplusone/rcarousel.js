@@ -33,6 +33,19 @@
 		current : 0,
 		
 		
+		getTotal : function() {
+			
+			return this.items_length;
+			
+		},
+		
+		
+		getCurrent : function() {
+			
+			return this.current + 1;
+			
+		},
+		
 		transition : function( coords ) {
 			
 			this.$carousel_ul.animate({

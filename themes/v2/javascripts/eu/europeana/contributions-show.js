@@ -6,6 +6,7 @@
 		
 		$featured : null,
 		$thumbnail : null,
+		$thumbnail_counts : jQuery('#thumbnail-counts'),
 		
 		init : function() {
 			
@@ -20,6 +21,11 @@
 						nav_button_size : 'small'
 					});
 				});
+			
+			this.$thumbnail_counts.html(
+				I18n.t('javascripts.thumbnails.item') + ' ' + carousels.$featured.data( 'rCarousel' ).getCurrent() +
+				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + carousels.$featured.data( 'rCarousel' ).getTotal()
+			);
 			
 		}
 		
