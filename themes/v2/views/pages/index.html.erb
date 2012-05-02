@@ -39,13 +39,14 @@
 	
 	<div id="news-articles">
 	  
-		<h2>News Items</h2>
-		<div id="index-follow-us">
-			<span>More at:</span>
-			<a href="https://www.facebook.com/Europeana19141918" target="_blank" title="Follow us on Facebook!"><img src="/themes/v2/images/logos/facebook.png" alt="Follow us on Facebook!"></a>
-			<a href="https://twitter.com/#!/Europeana1914" target="_blank" title="Follow us on Twitter!"><img src="/themes/v2/images/logos/twitter.png" alt="Follow us on Twitter!"></a>
-			<a href="http://blog.europeana.eu/category/europeana1914-1918/" target="_blank" title="Europena 1914-1918 Blog"><img src="/themes/v2/images/icons/blog.png" alt="Europena 1914-1918 Blog"></a>
-		</div>
+		<h2><%= t('common.news') %></h2>
+		
+			<div id="index-follow-us">
+				<span><%= t('common.more-at') %>:</span>
+				<a href="https://www.facebook.com/Europeana19141918" target="_blank" title="Follow us on Facebook!"><img src="/themes/v2/images/logos/facebook.png" alt="Follow us on Facebook!"></a>
+				<a href="https://twitter.com/#!/Europeana1914" target="_blank" title="Follow us on Twitter!"><img src="/themes/v2/images/logos/twitter.png" alt="Follow us on Twitter!"></a>
+				<a href="http://blog.europeana.eu/category/europeana1914-1918/" target="_blank" title="Europena 1914-1918 Blog"><img src="/themes/v2/images/icons/blog.png" alt="Europena 1914-1918 Blog"></a>
+			</div>
 			
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'news', :tag => :article, :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
 		
