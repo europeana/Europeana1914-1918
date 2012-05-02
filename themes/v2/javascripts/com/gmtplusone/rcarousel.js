@@ -157,7 +157,9 @@
 		calculateDimmensions : function() {
 			
 			var self = this,
-					pos = self.current == 0 ? 1 : self.current;
+					pos = self.current == 0 ? 1 : self.current,
+					new_margin_left = -( pos * self.item_width - self.item_width ),
+					new_margin_right = '';
 			
 			self.items_length = self.$items.length;
 			self.carousel_container_width = self.$carousel_container.width();
@@ -166,9 +168,19 @@
 			self.items_total_width = self.items_length * self.item_width;
 			self.items_per_container = Math.floor( self.carousel_container_width / self.item_width );
 			
+			
+			if ( !self.options.item_width_is_container_width
+					&& self.$items.length <= self.items_per_container ) {
+				
+				new_margin_left = 'auto';
+				new_margin_right = 'auto';
+				
+			}
+			
 			self.$carousel_ul.css({
 				width : self.items_total_width,
-				'margin-left' : -( pos * self.item_width - self.item_width )
+				'margin-left' : new_margin_left,
+				'margin-right' : new_margin_right
 			});
 			
 		},
@@ -242,7 +254,16 @@
 			self.deriveCarouselElements( carousel_container );
 			self.resizeItems();
 			jQuery(window).on( 'resize', { self : self }, self.handleWindowResize );			
-			if ( self.$items.length > 1 ) { self.addNavigation(); }
+			
+			if ( self.options.item_width_is_container_width ) {
+				
+				if ( self.$items.length > 1 ) { self.addNavigation(); }
+				
+			} else {
+				
+				if ( self.$items.length > self.items_per_container ) { self.addNavigation(); }
+				
+			}
 			
 			self.$overlay.fadeOut();
 			
