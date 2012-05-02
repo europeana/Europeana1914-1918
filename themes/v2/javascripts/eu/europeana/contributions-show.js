@@ -9,14 +9,17 @@
 		
 		init : function() {
 			
-			this.$featured = jQuery('#contributions-featured').rCarousel();
+			this.$featured =
+				jQuery('#contributions-featured').rCarousel();
 			
-			this.$thumbnail = jQuery('#contributions-thumbnails').imagesLoaded(function() {
-				this.rCarousel({
-					listen_to_arrows : false,
-					item_width_is_container_width : false
+			this.$thumbnail =
+				jQuery('#contributions-thumbnails').imagesLoaded(function() {
+					this.rCarousel({
+						listen_to_arrows : false,
+						item_width_is_container_width : false,
+						nav_button_size : 'small'
+					});
 				});
-			});
 			
 		}
 		
