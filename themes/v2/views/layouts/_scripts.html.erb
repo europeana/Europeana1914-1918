@@ -10,6 +10,12 @@
 		'/themes/v2/javascripts/js/console.js'
 	]
 	
+	if @javascripts[:autocomplete]
+		script_files.push(
+			'/themes/v2/javascripts/com/gmtplusone/autocomplete.js'
+		)
+	end
+	
 	if @javascripts[:carousel]
 		script_files.push(
 			'/themes/v2/javascripts/com/gmtplusone/rcarousel.js'
