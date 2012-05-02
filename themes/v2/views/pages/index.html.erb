@@ -16,6 +16,7 @@
 	<div id="index-introduction" class="one-third-left">	
 		<% (doc/'h3').remove %>
 		<%= raw( (doc).to_html ) %>
+		<a href="<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>" class="button"><%= t('common.links.add_your_story') %></a>
 	</div>
 	
 	<div id="index-featured" class="carousel two-thirds-right">	
