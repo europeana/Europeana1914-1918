@@ -61,7 +61,11 @@ class AttachmentsController < ApplicationController
     
     if params[:attachment][:dropbox_path].present? && dropbox_configured? && dropbox_authorized?
       begin
-        dropbox_file, dropbox_metadata = dropbox_client.get_file_and_metadata(params[:attachment][:dropbox_path])
+        dropbox_metadata = dropbox_client.metadata(params[:attachment][:dropbox_path])
+        if dropbox_metadata['bytes'] > RunCoCo.configuration.max_upload_size
+          raise DropboxError, t('activerecord.errors.models.attachment.attributes.file.size')
+        end
+        dropbox_file = dropbox_client.get_file(params[:attachment][:dropbox_path])
         attachment_file = StringIO.new(dropbox_file)
         attachment_file.original_filename = File.basename(params[:attachment][:dropbox_path])
         attachment_file.content_type = dropbox_metadata['mime_type']

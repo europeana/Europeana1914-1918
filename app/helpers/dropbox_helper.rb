@@ -15,7 +15,7 @@ module DropboxHelper
         metadata = YAML::load(session[:dropbox][:metadata])
         if metadata.has_key?('contents')
           metadata['contents'].each do |item|
-            unless item['is_dir']
+            if !item['is_dir'] && Attachment.paperclip_content_types.include?(item['mime_type'])
               @dropbox_contents[File.basename(item['path'])] = item['path']
             end
           end
