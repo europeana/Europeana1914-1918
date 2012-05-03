@@ -30,8 +30,8 @@
   <% end %>
   
   <%- if dropbox_configured? && @attachment.new_record? -%>
-    <%- if dropbox_authorized? -%>
-      <%= form.inputs :dropbox, :class => @fieldset_class, :style => @fieldset_style do %>
+    <%= form.inputs :dropbox, :class => @fieldset_class, :style => @fieldset_style do %>
+      <%- if dropbox_authorized? -%>
         <ul>
           <li><%= t('views.attachments._form.dropbox.connected_html', :user => dropbox_user) %></li>
           <li><%= link_to t('views.attachments._form.dropbox.disconnect'), dropbox_disconnect_path(:redirect => new_contribution_attachment_path(@attachment.contribution)) %></li>
@@ -42,10 +42,10 @@
         <%- else -%>
           <p><%= t('views.attachments._form.dropbox.empty') %></p>
         <% end -%>
-      <% end %>
-    <%- else -%>
-      <p><%= t('views.attachments._form.dropbox.connect_html', :href => dropbox_connect_path(:redirect => new_contribution_attachment_path(@attachment.contribution))) %></p>
-    <%- end -%>
+      <%- else -%>
+        <p><%= t('views.attachments._form.dropbox.connect_html', :href => dropbox_connect_path(:redirect => new_contribution_attachment_path(@attachment.contribution))) %></p>
+      <%- end -%>
+    <% end %>
   <%- end -%>
   
   <%= form.inputs :attachment_details, :id => 'attachment_details', :class => @fieldset_class, :style => @fieldset_style do %>
