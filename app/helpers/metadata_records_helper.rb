@@ -37,7 +37,28 @@ module MetadataRecordsHelper
     value = metadata[field.column_name]
     if field.field_type == 'taxonomy'
       if metadata.fields[field.name].present?
-        metadata.fields[field.name].to_sentence
+        case metadata.fields[field.name].to_sentence
+        when 'http://creativecommons.org/licenses/by-sa/3.0/'
+          link_to(
+            image_tag(
+              image_path('http://i.creativecommons.org/l/by-sa/3.0/88x31.png'),
+              :alt => 'by-sa'
+            ),
+            'http://creativecommons.org/licenses/by-sa/3.0/',
+            :target => '_blank'
+          )
+        when 'http://creativecommons.org/publicdomain/mark/1.0/'
+          link_to(
+            image_tag(
+              image_path('http://i.creativecommons.org/p/mark/1.0/88x31.png'),
+              :alt => 'public domain mark'
+            ),
+            'http://creativecommons.org/publicdomain/mark/1.0/',
+            :target => '_blank'
+          )
+        else
+          metadata.fields[field.name].to_sentence
+        end
       end
     elsif value.present?
       case field.field_type
