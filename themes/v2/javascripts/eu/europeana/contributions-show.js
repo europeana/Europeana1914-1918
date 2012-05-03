@@ -15,7 +15,7 @@
 			
 			this.$thumbnail_links.each(function(index) {
 					
-					var $elm = jQuery(this);
+					var $elm = jQuery(this).parent();
 					
 					if ( index === selected_index && !$elm.hasClass('selected') ) {
 						
@@ -32,11 +32,31 @@
 		},
 		
 		
+		updateTumbnailCarouselPosition : function() {
+			
+			// determine which page the current item is on
+			// determine which page we're on
+			// go to appropriate page if necessary
+			var current_index = carousels.$featured.data( 'rCarousel' ).get('current_item_index'),
+					items_per_container = carousels.$thumbnail.data( 'rCarousel' ).get('items_per_container');
+			
+				//console.log('index : ' + current_index);
+				//console.log( 'items per container : ' + items_per_container);
+				//console.log('page : ' + Math.ceil( current_index / items_per_container ));
+			
+			carousels.$thumbnail.data( 'rCarousel' ).goToPage(
+				carousels.$featured.data( 'rCarousel' ).determinePage( current_index, items_per_container ),
+				current_index
+			);
+			
+		},
+		
+		
 		updateCounts : function() {
 			
 			this.$thumbnail_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' + carousels.$featured.data( 'rCarousel' ).getCurrent() +
-				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + carousels.$featured.data( 'rCarousel' ).getTotal()
+				I18n.t('javascripts.thumbnails.item') + ' ' + ( carousels.$featured.data( 'rCarousel' ).get('current_item_index') + 1 ) +
+				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + carousels.$featured.data( 'rCarousel' ).get('items_length')
 			);
 			
 		},
@@ -80,7 +100,7 @@
 			
 			this.$featured =
 				jQuery('#contributions-featured').rCarousel({
-					nav_callback : function() { self.updateCounts(); }
+					nav_callback : function() { self.updateCounts(); self.updateTumbnailCarouselPosition(); }
 				});
 			
 			this.$thumbnail =
@@ -94,6 +114,7 @@
 			
 			this.addThumbnailClickHandlers();
 			this.updateCounts();
+			this.toggleSelected( this.$featured.data( 'rCarousel' ).get('current_item_index') );
 			
 		}
 		

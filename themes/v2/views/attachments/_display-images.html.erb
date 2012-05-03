@@ -4,16 +4,18 @@
   <% for attachment in @contribution.attachments %><li>
     <% if attachment.file.present? %>
       <% 
-      link_attrs = {
-        :target => '_blank',
-        :title => attachment.title,
-        'data-attachment-id' => attachment.id,
-        'data-contribution-id' => @contribution.id
-      }
-      link_attrs.merge!( {
-        'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>',
-        :rel => 'prettyPhoto[gallery]'
-      } ) if prettyphoto
+		link_attrs = {
+		  :target => '_blank',
+		  :title => attachment.title,
+		  'data-attachment-id' => attachment.id,
+		  'data-contribution-id' => @contribution.id
+		}
+		link_attrs.merge!( {
+		  'data-description' =>
+			'<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
+			' <a href="' + attachment.file.url + '"><img src="" alt="Download"/></a>',
+		  :rel => 'prettyPhoto[gallery]'
+		} ) if prettyphoto
       %>
       <%=  link_to(attachment_preview( attachment, size ), attachment.file.url, link_attrs ) %>
     <% else %>
