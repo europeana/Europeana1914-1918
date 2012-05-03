@@ -8,15 +8,70 @@
 		$featured : null,
 		$thumbnail : null,
 		$thumbnail_counts : jQuery('#thumbnail-counts'),
+		$thumbnail_links : jQuery('#contributions-thumbnails ul a'),
+		
+		
+		toggleSelected : function( selected_index ) {
+			
+			this.$thumbnail_links.each(function(index) {
+					
+					var $elm = jQuery(this);
+					
+					if ( index === selected_index && !$elm.hasClass('selected') ) {
+						
+						$elm.addClass('selected');
+						
+					} else {
+						
+						$elm.removeClass('selected');
+						
+					}
+					
+			});
+			
+		},
+		
+		
+		updateCounts : function() {
+			
+			this.$thumbnail_counts.html(
+				I18n.t('javascripts.thumbnails.item') + ' ' + carousels.$featured.data( 'rCarousel' ).getCurrent() +
+				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + carousels.$featured.data( 'rCarousel' ).getTotal()
+			);
+			
+		},
+		
 		
 		handleThumbnailClick : function( evt ) {
 			
-			var index = evt.data.index;
+			var self = evt.data.self,
+					index = evt.data.index,
+					$elm = jQuery(this);
+			
 			
 			evt.preventDefault();
+			
+			self.toggleSelected(index);
 			carousels.$featured.data( 'rCarousel' ).goToIndex(index);
+			self.updateCounts();
 			
 		},
+		
+		
+		addThumbnailClickHandlers : function() {
+			
+			var self = this;
+			
+			self.$thumbnail_links.each(function(index) {
+					
+					var $elm = jQuery(this);
+					
+					$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
+					
+			});
+			
+		},
+		
 	
 		init : function() {
 			
@@ -32,15 +87,8 @@
 					});
 				});
 			
-			this.$thumbnail_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' + carousels.$featured.data( 'rCarousel' ).getCurrent() +
-				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + carousels.$featured.data( 'rCarousel' ).getTotal()
-			);
-			
-			jQuery('#contributions-thumbnails ul a')
-				.each(function(index) {
-					jQuery(this).on( 'click', { index : index }, carousels.handleThumbnailClick );
-				});
+			this.addThumbnailClickHandlers();
+			this.updateCounts();
 			
 		}
 		
