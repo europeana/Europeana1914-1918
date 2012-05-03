@@ -48,6 +48,18 @@ class ContributionStatus < ActiveRecord::Base
     end
   end
   
+  def self.published
+    if !RunCoCo.configuration.publish_contributions
+      -1
+    else
+      if RunCoCo.configuration.contribution_approval_required
+        APPROVED
+      else
+        SUBMITTED
+      end
+    end
+  end
+  
   ##
   # Symbol representing this status
   #
