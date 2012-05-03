@@ -35,30 +35,13 @@ module MetadataRecordsHelper
   
   def metadata_record_field_value(metadata, field, fmt_date = false)
     value = metadata[field.column_name]
-    if field.field_type == 'taxonomy'
+    if field.name == 'license'
       if metadata.fields[field.name].present?
-        case metadata.fields[field.name].to_sentence
-        when 'http://creativecommons.org/licenses/by-sa/3.0/'
-          link_to(
-            image_tag(
-              image_path('http://i.creativecommons.org/l/by-sa/3.0/88x31.png'),
-              :alt => 'by-sa'
-            ),
-            'http://creativecommons.org/licenses/by-sa/3.0/',
-            :target => '_blank'
-          )
-        when 'http://creativecommons.org/publicdomain/mark/1.0/'
-          link_to(
-            image_tag(
-              image_path('http://i.creativecommons.org/p/mark/1.0/88x31.png'),
-              :alt => 'public domain mark'
-            ),
-            'http://creativecommons.org/publicdomain/mark/1.0/',
-            :target => '_blank'
-          )
-        else
-          metadata.fields[field.name].to_sentence
-        end
+        license_image(metadata.fields[field.name].first)
+      end
+    elsif field.field_type == 'taxonomy'
+      if metadata.fields[field.name].present?
+        metadata.fields[field.name].to_sentence
       end
     elsif value.present?
       case field.field_type
@@ -92,6 +75,21 @@ module MetadataRecordsHelper
     else
       ''
     end
+  end
+  
+  def license_image(license)
+    image = {
+      'http://creativecommons.org/licenses/by-sa/3.0/' => {
+        :alt => 'by-sa',
+        :src => 'http://i.creativecommons.org/l/by-sa/3.0/88x31.png'
+      },
+      'http://creativecommons.org/publicdomain/mark/1.0/' => {
+        :alt => 'public domain mark',
+        :src => 'http://i.creativecommons.org/p/mark/1.0/88x31.png'
+      }
+    }[license]
+    
+    image.present? ? link_to(image_tag(image[:src], :alt => image[:alt]), license, :target => '_blank') : license
   end
   
   def metadata_json(obj)
