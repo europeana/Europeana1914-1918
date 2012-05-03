@@ -75,8 +75,13 @@
 	
 		init : function() {
 			
+			var self = this;
+			
+			
 			this.$featured =
-				jQuery('#contributions-featured').rCarousel();
+				jQuery('#contributions-featured').rCarousel({
+					nav_callback : function() { self.updateCounts(); }
+				});
 			
 			this.$thumbnail =
 				jQuery('#contributions-thumbnails').imagesLoaded(function() {

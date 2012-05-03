@@ -46,6 +46,7 @@
 			
 		},
 		
+		
 		transition : function( coords ) {
 			
 			this.$carousel_ul.animate({
@@ -119,6 +120,12 @@
 			
 			self.setCurrent( $elm.data('dir') );
 			self.transition();
+			
+			if ( 'function' === typeof self.options.nav_callback ) {
+				
+				self.options.nav_callback.call(this);
+				
+			}
 			
 		},
 		
@@ -302,7 +309,8 @@
 		
 		listen_to_arrows : true,
 		item_width_is_container_width : true,
-		nav_button_size : 'medium'
+		nav_button_size : 'medium',
+		nav_callback : null
 		
 	};
 	
