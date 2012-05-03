@@ -1,20 +1,33 @@
 module DropboxHelper
+  ##
+  # Returns a hash of the files in the top-level of the user's Dropbox app
+  # folder.
+  #
+  # Keys are file names, values are paths, i.e. suitable for use as a form 
+  # field collection (select/radio/etc).
+  #
+  # @return Hash top-level Dropbox app folder contents
+  #
   def dropbox_contents
-    if dropbox_configured? && dropbox_authorized?
-      dropbox_client.metadata('/')['contents'].collect do |item|
-        { 
-          'name' => File.basename(item['path']),
-          'path' => item['path']
-        }
+    unless @dropbox_contents.present?
+      @dropbox_contents = {}
+      if session[:dropbox][:metadata].present?
+        metadata = YAML::load(session[:dropbox][:metadata])
+        if metadata.has_key?('contents')
+          metadata['contents'].each do |item|
+            unless item['is_dir']
+              @dropbox_contents[File.basename(item['path'])] = item['path']
+            end
+          end
+        end
       end
-    else
-      []
     end
+    @dropbox_contents
   end
   
   def dropbox_user
     if dropbox_configured? && dropbox_authorized?
-      dropbox_client.account_info["display_name"]
+      YAML::load(session[:dropbox][:account_info])['display_name']
     else
       ''
     end

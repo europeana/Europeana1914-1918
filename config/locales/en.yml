@@ -16,6 +16,7 @@ en:
   activerecord:
     attributes:
       attachment:
+        dropbox_path: Dropbox file
         file: File
         file_content_type: Content type
         file_created_at: Created at
@@ -553,6 +554,7 @@ en:
     create: Create %{model}
     hints:
       attachment:
+        dropbox_path: Select a file to copy from your Dropbox folder
         edit:
           file: ! 'Only upload a new file if you want to replace the existing one.
             Maximum file size: %{max}. Allowed file types: %{file_types}.'
@@ -815,6 +817,7 @@ en:
       contact_other: Contact details
       contribution_attachments: Items
       contribution_terms: Terms & conditions
+      dropbox: Dropbox
       fields: Fields
       metadata: Catalogue information
       metadata_field_options: Type-specific options
@@ -1313,6 +1316,17 @@ en:
             edit: Edit user account
           title: User account
     attachments:
+      _form:
+        dropbox:
+          connect_html: If you have a Dropbox account, you can send us files directly
+            from your Dropbox folder. If you would like to use this facility, please
+            <a href="%{href}">connect to your Dropbox account</a>.
+          connected_html: You are connected to Dropbox as <strong>%{user}</strong>
+          disconnect: Disconnect from your Dropbox account
+          empty: Copy some files into the folder named "/Apps/Europeana 1914-1918"
+            in your Dropbox account, and they will show up here after you click "Refresh
+            file list".
+          refresh: Refresh file list
       _summary:
         caption: Attachment information
       _table:

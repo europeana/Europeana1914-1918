@@ -280,7 +280,6 @@ class Contribution < ActiveRecord::Base
       conditions << options[:end_date]
     end
     
-#    taxonomy_associations = MetadataRecord.taxonomy_associations
     includes = [ 
       { :attachments => { :metadata => :taxonomy_terms } }, 
       { :metadata => :taxonomy_terms }, 

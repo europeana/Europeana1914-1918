@@ -5,6 +5,7 @@
   @javascripts[:gmap_locate] = true
   @javascripts[:language_other] = true
 %>
+
 <%= semantic_form_for [ attachment.contribution, attachment ], :html => { :multipart => true } do |form| %>
   
   <%=
@@ -28,15 +29,22 @@
   
   <% end %>
   
-  <%- if dropbox_configured? -%>
+  <%- if dropbox_configured? && @attachment.new_record? -%>
     <%- if dropbox_authorized? -%>
-      <fieldset>
-        <legend>Dropbox</legend>
-        <p>You are logged into Dropbox as <strong><%= dropbox_user %></strong>. <%= link_to 'Logout from your Dropbox account', dropbox_logout_path(:redirect => controller.request.fullpath) %>.</p>
-        <%= render :partial => 'dropbox/radio_buttons' %>
-      </fieldset>
+      <%= form.inputs :dropbox, :class => @fieldset_class, :style => @fieldset_style do %>
+        <ul>
+          <li><%= t('views.attachments._form.dropbox.connected_html', :user => dropbox_user) %></li>
+          <li><%= link_to t('views.attachments._form.dropbox.disconnect'), dropbox_disconnect_path(:redirect => new_contribution_attachment_path(@attachment.contribution)) %></li>
+          <li><%= link_to t('views.attachments._form.dropbox.refresh'), dropbox_refresh_path(:redirect => new_contribution_attachment_path(@attachment.contribution)) %></li>
+        </ul>
+        <% if dropbox_contents.size > 0 -%>
+          <%= form.input :dropbox_path, :as => :select, :collection => dropbox_contents %>
+        <%- else -%>
+          <p><%= t('views.attachments._form.dropbox.empty') %></p>
+        <% end -%>
+      <% end %>
     <%- else -%>
-      <p>If you have a Dropbox account, you can send us files directly from your Dropbox folder. If you would like to use this facility, please <%= link_to 'login to your Dropbox account', dropbox_login_path(:redirect => controller.request.fullpath) %>.</p>
+      <p><%= t('views.attachments._form.dropbox.connect_html', :href => dropbox_connect_path(:redirect => new_contribution_attachment_path(@attachment.contribution))) %></p>
     <%- end -%>
   <%- end -%>
   

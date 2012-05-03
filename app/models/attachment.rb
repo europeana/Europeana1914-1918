@@ -23,7 +23,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   accepts_nested_attributes_for :metadata
   
-  attr_accessible :title, :file, :metadata_attributes
+  attr_accessible :title, :file, :metadata_attributes, :dropbox_path
 
   # Custom Paperclip interpolations for has_attached_file
   
@@ -79,6 +79,10 @@ class Attachment < ActiveRecord::Base
 
   # Old file directory queued for deletion after public/private change  
   attr_reader :old_file_dir #:nodoc:
+  
+  # Path of Dropbox file to copy. 
+  # User and session dependent, so handled by controller logic.
+  attr_accessor :dropbox_path
 
   # Returns true if the attached file is an image.
   def image?

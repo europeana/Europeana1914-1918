@@ -40,17 +40,13 @@ class AttachmentsController < ApplicationController
       attachment_attributes[:file].content_type = MIME::Types.type_for(attachment_attributes[:file].original_filename).first
     else
       attachment_attributes = params[:attachment]
-      if params[:dropbox_path] && dropbox_configured? && dropbox_authorized?
-        client = dropbox_client
-        dropbox_file, dropbox_metadata = client.get_file_and_metadata(params[:dropbox_path])
-        attachment_attributes[:file] = StringIO.new(dropbox_file)
-        attachment_attributes[:file].original_filename = File.basename(params[:dropbox_path])
-        attachment_attributes[:file].content_type = dropbox_metadata['mime_type']
+      if params[:attachment][:dropbox_path].present?
+        attachment_attributes.delete(:file)
       end
     end
     
     @attachment.attributes = attachment_attributes
-    @attachment.metadata.cataloguing = true if current_user.may_catalogue_contribution?(@attachment.contribution)
+    @attachment.metadata.cataloguing = true if current_user.may_catalogue_contributions?
     @attachment.contribution = @contribution
     
     unless attachment_attributes.is_a?(Hash) && attachment_attributes.has_key?(:metadata_attributes) && attachment_attributes[:metadata_attributes].has_key?(:field_license_term_ids)
@@ -63,7 +59,19 @@ class AttachmentsController < ApplicationController
       @attachment.metadata.field_file_type_term_ids = [ text.id ]
     end
     
-    if @attachment.save
+    if params[:attachment][:dropbox_path].present? && dropbox_configured? && dropbox_authorized?
+      begin
+        dropbox_file, dropbox_metadata = dropbox_client.get_file_and_metadata(params[:attachment][:dropbox_path])
+        attachment_file = StringIO.new(dropbox_file)
+        attachment_file.original_filename = File.basename(params[:attachment][:dropbox_path])
+        attachment_file.content_type = dropbox_metadata['mime_type']
+        @attachment.file = attachment_file
+      rescue DropboxError => exception
+        dropbox_error = exception.error
+      end
+    end
+    
+    if dropbox_error.blank? && @attachment.save
       respond_to do |format| 
         format.html do
           flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
@@ -76,6 +84,10 @@ class AttachmentsController < ApplicationController
         format.json  { render :json => { :result => 'success', :url => contribution_attachment_path(@contribution, @attachment) } } 
       end 
     else
+      if dropbox_error.present?
+        @attachment.valid?
+        @attachment.errors.add(:dropbox_path, dropbox_error)
+      end
       respond_to do |format| 
         format.html do
           flash.now[:alert] = t('flash.attachments.create.alert')

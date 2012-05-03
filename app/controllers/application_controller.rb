@@ -31,6 +31,11 @@ class ApplicationController < ActionController::Base
     rescue_from RunCoCo::SearchOffline do |exception|
       render_http_error(:service_unavailable, exception, :template => "/errors/search_offline")
     end
+    
+    # Rescue Dropbox auth errors.
+    rescue_from DropboxAuthError do |exception|
+      redirect_to dropbox_connect_path(:redirect => controller.request.fullpath)
+    end
   end
   
   # Rescue "404 Not Found" exceptions
@@ -65,18 +70,13 @@ class ApplicationController < ActionController::Base
   end
 
   def dropbox_authorized?
-    return false unless session.has_key?(:dropbox_session)
-    begin
-      true
-      dropbox_client
-    rescue DropboxAuthError
-      false
-    end
+    session.has_key?(:dropbox) && session[:dropbox].has_key?(:session)
   end
-  
+
   def dropbox_client
+    return false unless session.has_key?(:dropbox) && session[:dropbox].has_key?(:session)
     unless @dropbox_client.present?
-      dbsession = DropboxSession.deserialize(session[:dropbox_session])
+      dbsession = DropboxSession.deserialize(session[:dropbox][:session])
       @dropbox_client = DropboxClient.new(dbsession, :app_folder)
     end
     @dropbox_client
