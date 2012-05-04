@@ -18,10 +18,16 @@ class SearchSuggestion < ActiveRecord::Base
   mattr_accessor :max_matches
   self.max_matches = 30
   
+  # Minimum frequency to store words
+  mattr_accessor :min_frequency
+  self.min_frequency = 5
+  
   validates_presence_of :text
   validates_uniqueness_of :text, :case_sensitive => false
-  validates_inclusion_of :stop_word, :in => [ true, false ]
   validates_length_of :text, :minimum => self.min_word_length
+  validates_format_of :text, :without => /^\d+$/ # Ignore numbers
+  validates_inclusion_of :stop_word, :in => [ true, false ]
+  validates_numericality_of :frequency, :greater_than_or_equal_to => self.min_frequency
   
   ##
   # Populates the table from a Sphinx stop words file.
@@ -50,23 +56,29 @@ class SearchSuggestion < ActiveRecord::Base
   def self.from_stop_words_file!(path)
     raise Exception, "Stop words file \"#{path}\" not found" unless File.exists?(path)
     
+    # @todo Rework this to not blanket delete
+    #   - Assemble the hash of stop words and freqs
+    #   - Delete all from db flagged as a stop word but not in the incoming stop word file
+    #   - Update frequency of any in db with that in stop word file
+    #   - Insert new ones
+    
     self.delete_all(:stop_word => true)
     
-    stop_words_and_freqs = File.open(path, "r").collect do |line|
+    stop_word_freqs = {}
+    File.open(path, "r").each do |line|
       line.sub!(Regexp.new("#{$/}$"), '') # Remove line separator
-      line.split(' ')
+      word, freq = line.split(' ')
+      stop_word_freqs[word] = freq.to_i
     end
     
-    stop_words_and_freqs.reject! do |word_and_freq|
-      word = word_and_freq.first
-      word.length < self.min_word_length || # Ignore words shorter than the minimum length
-      word.match(/^\d+$/) # Ignore numbers
+    # Get rid of those that will fail validation.
+    # (Much faster than going to ActiveModel::Validations)
+    stop_word_freqs.reject! do |phrase, freq|
+      (phrase.length < self.min_word_length) || (freq < self.min_frequency) || phrase.match(/^\d+$/)
     end
     
-    stop_words_and_freqs.each do |word_and_freq|
-      word, freq = word_and_freq
-      # This will silently fail validation if the word is already in the db.
-      self.create(:text => word, :frequency => freq, :stop_word => true) 
+    stop_word_freqs.each_pair do |word, freq|
+      self.create(:text => word, :frequency => freq, :stop_word => true) # silently fails if invalid
     end
     
     self.where(:stop_word => true).count
@@ -94,9 +106,10 @@ class SearchSuggestion < ActiveRecord::Base
   def self.from_collection_metadata!
     self.delete_all(:stop_word => false)
     
-    # Taxonomy terms
-    phrases_and_freqs = [ ]
+    # Hash of frequencies keyed by phrase
+    phrase_freqs = { }
     
+    # Taxonomy terms
     fields = [ 'keywords', 'theatres', 'forces', 'file_type' ]
     fields.each do |name|
       field = MetadataField.find_by_name(name)
@@ -104,14 +117,10 @@ class SearchSuggestion < ActiveRecord::Base
         field.taxonomy_terms.each do |tt|
           if tt.term.match(/\s/) || self.where(:text => tt.term).first.blank?
             freq = Contribution.select('id').where(:id => tt.metadata_record_ids).size
-            phrases_and_freqs << [ tt.term, freq ]
+            phrase_freqs[tt.term] = freq
           end
         end
       end
-    end
-    
-    phrases_and_freqs.each do |phrase_and_freq|
-      self.create(:text => phrase_and_freq[0], :stop_word => false, :frequency => phrase_and_freq[1]) 
     end
     
     # Contribution-specific metadata
@@ -127,18 +136,26 @@ class SearchSuggestion < ActiveRecord::Base
       phrases << contribution.metadata.fields['subject']
       phrases << contribution.metadata.fields['location_placename']
       
+      # Only *phrases*, i.e. with a space
       phrases.reject! { |phrase| phrase.blank? || !phrase.match(/\s/) }
       
       phrases.each do |phrase|
-        existing = self.where(:text => phrase).first
-        if existing.present?
-          if !existing.stop_word
-            existing.update_attributes(:frequency => (existing.frequency + 1))
-          end
+        if phrase_freqs.has_key?(phrase)
+          phrase_freqs[phrase] = phrase_freqs[phrase] + 1
         else
-          self.create(:text => phrase, :stop_word => false, :frequency => 1) 
+          phrase_freqs[phrase] = 1
         end
       end
+    end
+    
+    # Get rid of those that will fail validation.
+    # (Much faster than going to ActiveModel::Validations)
+    phrase_freqs.reject! do |phrase, freq|
+      (phrase.length < self.min_word_length) || (freq < self.min_frequency) || phrase.match(/^\d+$/)
+    end
+    
+    phrase_freqs.each_pair do |phrase, freq|
+      self.create(:text => phrase, :stop_word => false, :frequency => freq) 
     end
     
     self.where(:stop_word => false).count
