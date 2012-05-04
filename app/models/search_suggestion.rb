@@ -62,14 +62,6 @@ class SearchSuggestion < ActiveRecord::Base
   def self.from_stop_words_file!(path)
     raise Exception, "Stop words file \"#{path}\" not found" unless File.exists?(path)
     
-    # @todo Rework this to not blanket delete
-    #   - Assemble the hash of stop words and freqs
-    #   - Delete all from db flagged as a stop word but not in the incoming stop word file
-    #   - Update frequency of any in db with that in stop word file
-    #   - Insert new ones
-    
-    self.delete_all(:stop_word => true)
-    
     stop_word_freqs = {}
     File.open(path, "r").each do |line|
       line.sub!(Regexp.new("#{$/}$"), '') # Remove line separator
@@ -83,8 +75,23 @@ class SearchSuggestion < ActiveRecord::Base
       (phrase.length < self.min_word_length) || (freq < self.min_frequency) || phrase.match(/^\d+$/)
     end
     
+    lower_words = stop_word_freqs.keys.collect { |word| word.downcase }
+    
+    self.delete_all([ 'stop_word = ? AND text NOT IN (?)', true, lower_words ])
+    
+    existing_word_freqs = {}
+    self.where(:stop_word => true, :text => lower_words).select([ :text, :frequency ]).each do |word|
+      existing_word_freqs[word.text] = word.frequency
+    end
+    
     stop_word_freqs.each_pair do |word, freq|
-      self.create(:text => word, :frequency => freq, :stop_word => true) # silently fails if invalid
+      if existing_word_freqs.has_key?(word)
+        unless existing_word_freqs[word] == freq
+          self.update_all({ :frequency => freq }, { :stop_word => true, :text => word })
+        end
+      else
+        self.create(:text => word, :frequency => freq, :stop_word => true) # silently fails if invalid
+      end
     end
     
     self.where(:stop_word => true).count
@@ -121,9 +128,10 @@ class SearchSuggestion < ActiveRecord::Base
       field = MetadataField.find_by_name(name)
       if field.present?
         field.taxonomy_terms.each do |tt|
-          if tt.term.match(/\s/) || self.where(:text => tt.term).first.blank?
+          term = tt.term.downcase
+          if tt.term.match(/\s/) || self.where(:text => term).first.blank?
             freq = Contribution.select('id').where(:id => tt.metadata_record_ids).size
-            phrase_freqs[tt.term] = freq
+            phrase_freqs[term] = freq
           end
         end
       end
@@ -146,10 +154,11 @@ class SearchSuggestion < ActiveRecord::Base
       phrases.reject! { |phrase| phrase.blank? || !phrase.match(/\s/) }
       
       phrases.each do |phrase|
-        if phrase_freqs.has_key?(phrase)
-          phrase_freqs[phrase] = phrase_freqs[phrase] + 1
+        lphrase = phrase.downcase
+        if phrase_freqs.has_key?(lphrase)
+          phrase_freqs[lphrase] = phrase_freqs[lphrase] + 1
         else
-          phrase_freqs[phrase] = 1
+          phrase_freqs[lphrase] = 1
         end
       end
     end
