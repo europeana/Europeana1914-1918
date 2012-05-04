@@ -37,14 +37,6 @@
 		current_item_index : 0,
 		
 		
-		determinePage : function( current_item_index, items_per_container ) {
-			
-			if ( current_item_index === 0 ) { return 1; }
-			return Math.ceil( current_item_index / items_per_container );
-			
-		},
-		
-		
 		get : function( property ) {
 			
 			return this[property];
@@ -61,20 +53,35 @@
 		},
 		
 		
-		goToPage : function( go_to_page, index ) {
+		determinePage : function( current_item_index, items_per_container ) {
 			
-			console.log( 'go to index: ' + index);
-			console.log( 'current page: ' + this.carousel_current_page);
-			console.log( 'go to page: ' + go_to_page);
+			var current_item = current_item_index + 1,
+					nr_of_pgs = Math.ceil( this.items_length / items_per_container ),
+					page_nr = Math.ceil( current_item / nr_of_pgs );
 			
-			if ( this.carousel_current_page != go_to_page ) {
-				
-				this.goToIndex( index );
-				this.carousel_current_page = this.determinePage( this.current_item_index, this.items_per_container );
-				
-			}
+			return {
+				nr_of_pgs : nr_of_pgs,
+				page_nr : page_nr,
+				page_first_item_index : ( page_nr * items_per_container ) - items_per_container
+			};
 			
 		},
+		
+		
+		//goToPage : function( go_to_page, index ) {
+		//	
+		//	var page_info;
+		//	
+		//	if ( this.carousel_current_page != go_to_page ) {
+		//		
+		//		page_info = this.determinePage( this.current_item_index, this.items_per_container );
+		//		console.log(page_info);
+		//		this.carousel_current_page = page_info.page_nr;
+		//		this.goToIndex( page_info.page_first_item_index );
+		//		
+		//	}
+		//	
+		//},
 		
 		
 		goToIndex : function( index ) {
@@ -103,8 +110,7 @@
 				this.current_item_index = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
 				if ( pos >= this.items_length ) { this.current_item_index = 0; }
 				
-			}
-			
+			}			
 			
 			return pos;
 			
@@ -202,7 +208,8 @@
 			var self = this,
 					pos = self.current_item_index == 0 ? 1 : self.current_item_index,
 					new_margin_left = -( pos * self.item_width - self.item_width ),
-					new_margin_right = '';
+					new_margin_right = '',
+					page_info;
 			
 			
 			self.items_length = self.$items.length;
@@ -213,7 +220,11 @@
 			self.items_per_container = Math.floor( self.carousel_container_width / self.item_width );
 			
 			self.carousel_pages = Math.ceil( self.items_length / self.items_per_container );
-			self.carousel_current_page = self.determinePage( self.current_item_index, self.items_per_container );
+			
+			// needs to be called after items_length is determined
+			page_info = self.determinePage( self.current_item_index, self.items_per_container );
+			self.carousel_current_page = page_info.page_nr;
+			
 			
 			if ( !self.options.item_width_is_container_width
 					&& self.$items.length <= self.items_per_container ) {

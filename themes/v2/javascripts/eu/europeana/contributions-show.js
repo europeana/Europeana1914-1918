@@ -34,20 +34,11 @@
 		
 		updateTumbnailCarouselPosition : function() {
 			
-			// determine which page the current item is on
-			// determine which page we're on
-			// go to appropriate page if necessary
 			var current_index = carousels.$featured.data( 'rCarousel' ).get('current_item_index'),
-					items_per_container = carousels.$thumbnail.data( 'rCarousel' ).get('items_per_container');
+					items_per_container = carousels.$thumbnail.data( 'rCarousel' ).get('items_per_container'),
+					page_info = carousels.$featured.data( 'rCarousel' ).determinePage( current_index, items_per_container );
 			
-				//console.log('index : ' + current_index);
-				//console.log( 'items per container : ' + items_per_container);
-				//console.log('page : ' + Math.ceil( current_index / items_per_container ));
-			
-			carousels.$thumbnail.data( 'rCarousel' ).goToPage(
-				carousels.$featured.data( 'rCarousel' ).determinePage( current_index, items_per_container ),
-				current_index
-			);
+			carousels.$thumbnail.data( 'rCarousel' ).goToIndex( page_info.page_first_item_index );
 			
 		},
 		
