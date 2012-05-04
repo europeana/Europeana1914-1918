@@ -26,23 +26,28 @@
 		$next : null,
 		
 		carousel_container_width : 0,
+		carousel_pages : 0,
+		carousel_current_page : 0,
+		
 		item_width : 0,
 		items_length : 0,
 		items_total_width : 0,
 		items_per_container : 0,
-		current : 0,
+		
+		current_item_index : 0,
 		
 		
-		getTotal : function() {
+		determinePage : function( current_item_index, items_per_container ) {
 			
-			return this.items_length;
+			if ( current_item_index === 0 ) { return 1; }
+			return Math.ceil( current_item_index / items_per_container );
 			
 		},
 		
 		
-		getCurrent : function() {
+		get : function( property ) {
 			
-			return this.current + 1;
+			return this[property];
 			
 		},
 		
@@ -50,37 +55,53 @@
 		transition : function( coords ) {
 			
 			this.$carousel_ul.animate({
-				'margin-left': coords || -( this.current * this.item_width )
+				'margin-left': coords || -( this.current_item_index * this.item_width )
 			});
+			
+		},
+		
+		
+		goToPage : function( go_to_page, index ) {
+			
+			console.log( 'go to index: ' + index);
+			console.log( 'current page: ' + this.carousel_current_page);
+			console.log( 'go to page: ' + go_to_page);
+			
+			if ( this.carousel_current_page != go_to_page ) {
+				
+				this.goToIndex( index );
+				this.carousel_current_page = this.determinePage( this.current_item_index, this.items_per_container );
+				
+			}
 			
 		},
 		
 		
 		goToIndex : function( index ) {
 			
-			this.current = index;
+			this.current_item_index = index;
 			this.transition();
 			
 		},
 		
 		
-		setCurrent : function( dir ) {
+		setCurrentItemIndex : function( dir ) {
 			
-			var pos = this.current;
+			var pos = this.current_item_index;
 			
 			if ( !this.options.item_width_is_container_width ) {
 				
 				pos = dir == 'next' ? this.items_per_container : -1 * this.items_per_container;				
 				
-				this.current = this.current + pos;
-				if ( this.current >= this.items_length ) { this.current = 0; }
-				if ( this.current < 0 ) { this.current = this.items_length - this.items_per_container; }
+				this.current_item_index = this.current_item_index + pos;
+				if ( this.current_item_index >= this.items_length ) { this.current_item_index = 0; }
+				if ( this.current_item_index < 0 ) { this.current_item_index = this.items_length - this.items_per_container; }
 				
 			} else {
 				
 				pos += ( ~~( dir === 'next' ) || -1 );
-				this.current = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
-				if ( pos >= this.items_length ) { this.current = 0; }
+				this.current_item_index = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
+				if ( pos >= this.items_length ) { this.current_item_index = 0; }
 				
 			}
 			
@@ -118,7 +139,7 @@
 					$elm = jQuery(this);
 			
 			
-			self.setCurrent( $elm.data('dir') );
+			self.setCurrentItemIndex( $elm.data('dir') );
 			self.transition();
 			
 			if ( 'function' === typeof self.options.nav_callback ) {
@@ -161,9 +182,11 @@
 			
 			for ( i = 0; i < ii; i += 1) {
 				
-				if ( self.$items.eq(i).width() > width ) {
+				//if ( self.$items.eq(i).width() > width ) {
+				if ( self.$items.eq(i).outerWidth(true) > width ) {
 					
-					width = self.$items.eq(i).width();
+					//width = self.$items.eq(i).width();
+					width = self.$items.eq(i).outerWidth(true);
 					
 				}
 				
@@ -177,9 +200,10 @@
 		calculateDimmensions : function() {
 			
 			var self = this,
-					pos = self.current == 0 ? 1 : self.current,
+					pos = self.current_item_index == 0 ? 1 : self.current_item_index,
 					new_margin_left = -( pos * self.item_width - self.item_width ),
 					new_margin_right = '';
+			
 			
 			self.items_length = self.$items.length;
 			self.carousel_container_width = self.$carousel_container.width();
@@ -188,6 +212,8 @@
 			self.items_total_width = self.items_length * self.item_width;
 			self.items_per_container = Math.floor( self.carousel_container_width / self.item_width );
 			
+			self.carousel_pages = Math.ceil( self.items_length / self.items_per_container );
+			self.carousel_current_page = self.determinePage( self.current_item_index, self.items_per_container );
 			
 			if ( !self.options.item_width_is_container_width
 					&& self.$items.length <= self.items_per_container ) {
@@ -286,6 +312,8 @@
 			}
 			
 			self.$overlay.fadeOut();
+			
+			console.log( 'current page: ' + this.carousel_current_page);
 			
 		}
 		
