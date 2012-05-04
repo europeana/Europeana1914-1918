@@ -4,14 +4,14 @@ namespace :auto_complete do
     path = ENV['FILE'] || File.join(Rails.root, 'tmp', 'sphinx-stop-words.txt')
     
     puts "Importing auto-complete words from \"#{path}\"..."
-    count = SearchIndexWord.from_stop_words_file!(path)
+    count = SearchSuggestion.from_stop_words_file!(path)
     puts "Imported #{count} auto-complete words."
   end
   
   desc "Get phrases from the collection metadata."
   task :phrases => :environment do
     puts "Getting auto-complete phrases from collection metadata..."
-    count = SearchIndexWord.from_collection_metadata!
+    count = SearchSuggestion.from_collection_metadata!
     puts "Got #{count} auto-complete phrases."
   end
   

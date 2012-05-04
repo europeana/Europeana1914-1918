@@ -3,21 +3,25 @@
 #
 # Used for auto-complete functionality on the collection search form.
 #
-class SearchIndexWord < ActiveRecord::Base
+class SearchSuggestion < ActiveRecord::Base
   # Minimum length of word to index and return as an auto-complete suggestion.
   # Needs to be 1 for phrase searches to work.
-#  MIN_PREFIX_LEN = 1
+  # [Only relevant if Sphinx used to index and search this model's db table.]
+  #mattr_accessor :min_prefix_length
+  #self.min_prefix_length = 1
   
   # Only save words of a minimum of this length
-  MIN_WORD_LEN = 3
+  mattr_accessor :min_word_length
+  self.min_word_length = 3
   
   # Maximum number of matches to return
-  MAX_MATCHES = 30
+  mattr_accessor :max_matches
+  self.max_matches = 30
   
   validates_presence_of :text
-  validates_uniqueness_of :text
+  validates_uniqueness_of :text, :case_sensitive => false
   validates_inclusion_of :stop_word, :in => [ true, false ]
-  validates_length_of :text, :minimum => MIN_WORD_LEN
+  validates_length_of :text, :minimum => self.min_word_length
   
   ##
   # Populates the table from a Sphinx stop words file.
@@ -43,11 +47,6 @@ class SearchIndexWord < ActiveRecord::Base
   # @param [String] path Path to the stop words file
   # @return [Fixnum] Resulting number of stop word records in the database
   #
-  #--
-  # @todo A single multi-row insert directly into the db would make this much 
-  #   faster.
-  #++
-  #
   def self.from_stop_words_file!(path)
     raise Exception, "Stop words file \"#{path}\" not found" unless File.exists?(path)
     
@@ -60,7 +59,7 @@ class SearchIndexWord < ActiveRecord::Base
     
     stop_words_and_freqs.reject! do |word_and_freq|
       word = word_and_freq.first
-      word.length < MIN_WORD_LEN || # Ignore words shorter than the minimum length
+      word.length < self.min_word_length || # Ignore words shorter than the minimum length
       word.match(/^\d+$/) # Ignore numbers
     end
     
@@ -148,13 +147,14 @@ class SearchIndexWord < ActiveRecord::Base
   ##
   # ThinkingSphinx index block
   #
-#  define_index do
-#    indexes text
-#    has frequency
-#    set_property :enable_star => 0
-#    set_property :min_prefix_len => MIN_PREFIX_LEN
-#    set_property :max_matches => MAX_MATCHES
-#  end
+  # [Commented out as ActiveRecord query used for searches against this table.]
+  #define_index do
+  #  indexes text
+  #  has frequency
+  #  set_property :enable_star => 0
+  #  set_property :min_prefix_len => self.min_prefix_length
+  #  set_property :max_matches => self.max_matches
+  #end
   
   protected
   def self.full_name(given, family)
