@@ -28,11 +28,11 @@
 				});
 			});
 		
-		//jQuery("#q").autocomplete({
-		//	serviceUrl : '/suggest.json',
-		//	minChars: 3,
-		//	maxHeight : 100
-		//});
+		jQuery('#q').autocomplete({
+			minLength : 3,
+			source : document.location.protocol + '//' + document.location.host + '/suggest.json'
+		});
+		
 		
 	}
 	
