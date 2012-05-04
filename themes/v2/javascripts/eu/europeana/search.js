@@ -16,6 +16,11 @@
 			});
 		});
 		
+		jQuery('#q').autocomplete({
+			minLength : 3,
+			source : document.location.protocol + '//' + document.location.host + '/suggest.json'
+		});
+		
 	}
 	
 	init();

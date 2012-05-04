@@ -1,6 +1,6 @@
 class SearchSuggestionsController < ApplicationController
   def query
-    query = params[:q]
+    query = params[:term]
     
     # Do not make suggestions beneath a minimum length
     words = if query.blank? || query.length < SearchSuggestion.min_word_length

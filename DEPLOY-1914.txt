@@ -219,6 +219,31 @@ dpkg --get-selections | grep ruby
 
 
 
+=== updating auto-complete suggestion ===
+bundle exec rake auto_complete:phrases
+
+Note: This empties and repopulates auto-complete phrases from the collection metadata. While it is running, auto-complete suggestions will return an abbreviated list.
+Then, run one of the following sets of commands, depending on whether Sphinx is running on the same server as the web application, or is on a remote server.
+
+--- local sphinx ---
+bundle exec rake auto_complete:generate COUNT=1000
+bundle exec rake auto_complete:import
+
+COUNT should be set to the maximum number of stop words you want to extract from the main contribution search index, and defaults to 1000.
+Note: This empties and repopulates auto-complete stop words. While it is running, auto-complete suggestions will return an abbreviated list.
+
+
+--- remote sphinx ---
+/usb/bin/indexer --config /etc/sphinx.conf --buildstops sphinx-stop-words.txt 1000 --buildfreqs contribution_core
+This will extract a maximum of 1000 stop words and save to the file "sphinx-stop-words.txt" which should be copied over to the web server where you would then need to run the command:
+
+bundle exec rake auto_complete:import FILE=/path/to/sphinx-stop-words.txt
+Note: This empties and repopulates auto-complete stop words. While it is running, auto-complete suggestions will return an abbreviated list.
+
+
+--- use ---
+/suggest.json?q=ord
+
 
 
 === secret_token ===
