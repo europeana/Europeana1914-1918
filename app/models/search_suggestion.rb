@@ -10,20 +10,21 @@ class SearchSuggestion < ActiveRecord::Base
   #mattr_accessor :min_prefix_length
   #self.min_prefix_length = 1
   
-  # Only save words of a minimum of this length
+  # Only suggest words/phrases with a minimum of this length
   mattr_accessor :min_word_length
   self.min_word_length = 3
   
-  # Maximum number of matches to return
+  # Maximum number of suggestions to return in one query
   mattr_accessor :max_matches
   self.max_matches = 30
   
-  # Minimum frequency to store words
+  # Minimum frequency for words/phrases to be stored as a suggestion
   mattr_accessor :min_frequency
   self.min_frequency = 5
   
-  # Default number of stopwords to extract from main contribution search index
-  # when using the rake task "auto_complete:stops:generate"
+  # Default number of stop words to extract from main contribution search index
+  # when using the rake task "auto_complete:stops:generate". Can be overriden
+  # with the COUNT environment variable.
   mattr_accessor :max_stops
   self.max_stops = 1000
   
