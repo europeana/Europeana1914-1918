@@ -22,6 +22,11 @@ class SearchSuggestion < ActiveRecord::Base
   mattr_accessor :min_frequency
   self.min_frequency = 5
   
+  # Default number of stopwords to extract from main contribution search index
+  # when using the rake task "auto_complete:stops:generate"
+  mattr_accessor :max_stops
+  self.max_stops = 1000
+  
   validates_presence_of :text
   validates_uniqueness_of :text, :case_sensitive => false
   validates_length_of :text, :minimum => self.min_word_length
