@@ -226,8 +226,8 @@ Note: This empties and repopulates auto-complete phrases from the collection met
 Then, run one of the following sets of commands, depending on whether Sphinx is running on the same server as the web application, or is on a remote server.
 
 --- local sphinx ---
-bundle exec rake auto_complete:generate COUNT=1000
-bundle exec rake auto_complete:import
+bundle exec rake auto_complete:stops:generate COUNT=1000
+bundle exec rake auto_complete:stops:import
 
 COUNT should be set to the maximum number of stop words you want to extract from the main contribution search index, and defaults to 1000.
 Note: This empties and repopulates auto-complete stop words. While it is running, auto-complete suggestions will return an abbreviated list.
@@ -237,12 +237,22 @@ Note: This empties and repopulates auto-complete stop words. While it is running
 /usb/bin/indexer --config /etc/sphinx.conf --buildstops sphinx-stop-words.txt 1000 --buildfreqs contribution_core
 This will extract a maximum of 1000 stop words and save to the file "sphinx-stop-words.txt" which should be copied over to the web server where you would then need to run the command:
 
-bundle exec rake auto_complete:import FILE=/path/to/sphinx-stop-words.txt
+bundle exec rake auto_complete:stops:import FILE=/path/to/sphinx-stop-words.txt
 Note: This empties and repopulates auto-complete stop words. While it is running, auto-complete suggestions will return an abbreviated list.
 
+On europeana-harvester run this:
+/usr/local/bin/indexer --config /usr/local/etc/production.sphinx.conf
+--buildstops /home/gwa/sphinx-stop-words.txt 6000 --buildfreqs contribution_core
+
+Then SCP the file "/home/gwa/sphinx-stop-words.txt" across to europeana-gwa, also as  "/home/gwa/sphinx-stop-words.txt".
+
+Then, on europeana-gwa, from within the directory "/data/cococo", run the two commands:
+RAILS_ENV=production bundle exec rake auto_complete:stops:import FILE=/home/gwa/sphinx-stop-words.txt
+RAILS_ENV=production bundle exec rake auto_complete:phrases
 
 --- use ---
-/suggest.json?q=ord
+/suggest.json?term=ord
+the query term can be changed, query = params[:term], if necessary in /app/controllers/search_suggestions_controller.rb
 
 
 
