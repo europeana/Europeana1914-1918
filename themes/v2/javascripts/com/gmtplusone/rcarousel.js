@@ -128,8 +128,6 @@
 			var self = this;
 			
 			self.setCurrentItemIndex( dir );
-			
-			self.setCurrentItemIndex( $elm.data('dir') );
 			self.transition();
 			
 			if ( 'function' === typeof self.options.nav_callback ) {
