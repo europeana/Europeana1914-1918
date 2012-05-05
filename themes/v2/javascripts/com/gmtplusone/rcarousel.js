@@ -68,22 +68,6 @@
 		},
 		
 		
-		//goToPage : function( go_to_page, index ) {
-		//	
-		//	var page_info;
-		//	
-		//	if ( this.carousel_current_page != go_to_page ) {
-		//		
-		//		page_info = this.determinePage( this.current_item_index, this.items_per_container );
-		//		console.log(page_info);
-		//		this.carousel_current_page = page_info.page_nr;
-		//		this.goToIndex( page_info.page_first_item_index );
-		//		
-		//	}
-		//	
-		//},
-		
-		
 		goToIndex : function( index ) {
 			
 			this.current_item_index = index;
@@ -139,6 +123,24 @@
 		},
 		
 		
+		handleSwipe : function( dir ) {
+			
+			var self = this;
+			
+			self.setCurrentItemIndex( dir );
+			
+			self.setCurrentItemIndex( $elm.data('dir') );
+			self.transition();
+			
+			if ( 'function' === typeof self.options.nav_callback ) {
+				
+				self.options.nav_callback.call(this);
+				
+			}
+			
+		},
+		
+		
 		handleNavClick : function( evt ) {
 			
 			var self = evt.data.self,
@@ -164,9 +166,21 @@
 			self.$carousel_container.append( self.$prev, self.$next );
 			self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
 			
+			// add keyboard arrow support
 			if ( self.options.listen_to_arrows ) {
 				
 				jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
+				
+			}
+			
+			// add touch swipe support
+			// http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
+			if ( jQuery().touchwipe ) {
+				
+				self.$carousel_container.touchwipe({
+					WipeLeft : self.handleSwipe('next'),
+					WipeRight : self.handleSwipe('prev')
+				});
 				
 			}
 			
@@ -323,8 +337,6 @@
 			}
 			
 			self.$overlay.fadeOut();
-			
-			console.log( 'current page: ' + this.carousel_current_page);
 			
 		}
 		
