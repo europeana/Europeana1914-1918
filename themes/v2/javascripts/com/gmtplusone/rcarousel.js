@@ -173,14 +173,14 @@
 			
 			// add touch swipe support
 			// http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
-			if ( jQuery().touchwipe ) {
-				
-				self.$carousel_container.touchwipe({
-					WipeLeft : self.handleSwipe('next'),
-					WipeRight : self.handleSwipe('prev')
-				});
-				
-			}
+			//if ( jQuery().touchwipe ) {
+			//	
+			//	self.$carousel_container.touchwipe({
+			//		WipeLeft : self.handleSwipe('next'),
+			//		WipeRight : self.handleSwipe('prev')
+			//	});
+			//	
+			//}
 			
 		},
 		
