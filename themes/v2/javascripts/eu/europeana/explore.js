@@ -9,6 +9,7 @@
 		
 		jQuery('#explore-collection-days')
 			.rCarousel({
+				listen_to_arrows : false,
 				item_width_is_container_width : false,
 				nav_button_size : 'small'
 			});
