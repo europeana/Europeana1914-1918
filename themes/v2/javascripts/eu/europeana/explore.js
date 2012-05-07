@@ -31,7 +31,8 @@
 		
 		jQuery('#q').autocomplete({
 			minLength : 3,
-			source : document.location.protocol + '//' + document.location.host + '/suggest.json'
+			source : document.location.protocol + '//' + document.location.host + '/suggest.json',
+			select: function(event, ui) { jQuery(this).closest('form').submit(); }
 		});
 		
 		
