@@ -108,6 +108,13 @@
 	
 	# page scripts
 	
+	if @javascripts[:admin_contributions]
+		script_files.push(
+			'/themes/v2/javascripts/eu/europeana/admin-contributions.js'
+		)
+	end
+	
+	
 	if @javascripts[:attachments_new]
 		script_files.push(
 			'/themes/v2/javascripts/eu/europeana/attachments-new.js',
