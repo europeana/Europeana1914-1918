@@ -10,25 +10,25 @@
 %>
 <section class="top">
 	
+	<div id="explore-featured" class="carousel two-thirds-right">
+		<ul>
+			<%=
+				render :partial => '/blog_posts/list',
+				:locals => {
+					:blog => 'europeana',
+					:category => 'explore-the-archive',
+					:tag => :li,
+					:relocale => true
+				}
+			%>
+		</ul>
+		<div class="carousel-overlay"></div>
+	</div>
+	
 	<div id="explore-introduction" class="one-third-left">		
 		<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
 		<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-introduction', :titles => true } %>
 	</div>
-	
-		<div id="explore-featured" class="carousel two-thirds-right">
-			<ul>
-				<%=
-					render :partial => '/blog_posts/list',
-					:locals => {
-						:blog => 'europeana',
-						:category => 'explore-the-archive',
-						:tag => :li,
-						:relocale => true
-					}
-				%>
-			</ul>
-			<div class="carousel-overlay"></div>
-		</div>
 	
 </section>
 
