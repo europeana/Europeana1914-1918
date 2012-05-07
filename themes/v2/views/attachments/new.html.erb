@@ -38,8 +38,6 @@
 	@submit_class = 'collapsible'
   end
   
-  # if @contribution.attachments.with_file.present? && @contribution.draft? && @contribution.valid?
-  
   @title = t('views.contributions.digital_object.step2')
   
 %>
@@ -66,7 +64,7 @@
 	<% if @contribution.attachments.present? -%>
 	  <%= raw t('flash.attachments.links.view-attachments_html') %>
 	<% end -%>
-	You can choose to do one of the following:
+	<%= t('views.attachments.attachment_help.one-of-the-following') %>
     </p>
 	
     <ol id="attachment-help">

@@ -119,8 +119,8 @@
 	  <div id="avatar" class="responsive-box">
 		
 		<img src="/images/profile-placeholder.jpg" width="200" />
-		<%= @contribution.metadata.fields['contributor_behalf'] %> shared this story about
-		<%= @contribution.metadata.fields['character1_given_name'] %> <%= @contribution.metadata.fields['character1_family_name'] %> and
+		<%= @contribution.metadata.fields['contributor_behalf'] %> <%= t('views.contributions.show.shared-this-story') %>
+		<%= @contribution.metadata.fields['character1_given_name'] %> <%= @contribution.metadata.fields['character1_family_name'] %> <%= t('support.array.two_words_connector') %>
 		<%= @contribution.metadata.fields['character2_given_name'] %> <%= @contribution.metadata.fields['character2_family_name'] %>
 		
 	  </div>
