@@ -12,7 +12,7 @@ module AttachmentsHelper
   end
   
   # :thumb, :preview, :original
-  def attachment_preview(attachment, size = :thumb)
+  def attachment_preview(attachment, size = :preview)
     if attachment.image? && File.exists?(attachment.file.path(size))
       image_tag(attachment.file.url(size), :alt => (attachment.title.present? ? attachment.title : attachment.file.original_filename) )
     else
