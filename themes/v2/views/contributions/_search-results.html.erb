@@ -5,7 +5,9 @@
       <% if contribution.attachments.with_file.present? %>
         <li>
           <%= link_to attachment_preview(contribution.attachments.with_file.first, :preview), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
-          <%= contribution.title %>
+          <b><%= contribution.title %></b><br/>
+          <br/>
+          <%= contribution.metadata['field_alternative'] %>
         </li>
       <% end %>
     <% end %>  
