@@ -15,7 +15,7 @@
 			'<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
 			' <a href="' + attachment.file.url + '" class="download"></a>',
 		  :rel => 'prettyPhoto[gallery]'
-		} ) if prettyphoto && ( (attachment.file.url.include? '.gif') || (attachment.file.url.include? '.jp2') || (attachment.file.url.include? '.jpg') || (attachment.file.url.include? '.jpeg') || (attachment.file.url.include? '.jpx') || (attachment.file.url.include? '.png') || (attachment.file.url.include? '.tiff') )
+		} ) if prettyphoto && ( (attachment.file.url.include? '.gif') || (attachment.file.url.include? '.jp2') || (attachment.file.url.include? '.jpg') || (attachment.file.url.include? '.JPG') || (attachment.file.url.include? '.jpeg') || (attachment.file.url.include? '.jpx') || (attachment.file.url.include? '.png') || (attachment.file.url.include? '.tiff') )
       %>
       <%=  link_to(attachment_preview( attachment, size ), attachment.file.url, link_attrs ) %>
     <% else %>
