@@ -122,8 +122,9 @@
 		addMapContainer : function() {
 			
 			//jQuery('#story-info')
-			jQuery('#footer')
-				.append( jQuery('<div/>', { id : 'story-map', class : 'responsive-box' } ) );
+			jQuery('#thumbnail-counts')
+				.after(	jQuery('<div/>', { id : 'story-map', class : 'responsive-box' } )	)
+				.after( jQuery('#location-took-place').val() );
 			
 		},
 		
@@ -275,7 +276,7 @@
 		
 		truncate.init();
 		carousels.init();
-		//map.init();
+		map.init();
 		if ( jQuery(window).width() >= 768 ) { lightbox.init(); }
 		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		

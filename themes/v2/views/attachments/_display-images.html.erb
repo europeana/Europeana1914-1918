@@ -24,7 +24,7 @@
     
     <% if prettyphoto %>
     
-    <div class="lightbox-metadata" id="inline-<%= inline.to_s %>">
+    <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
       <%=
       render :partial => '/metadata/display',
       :locals => {
@@ -64,7 +64,7 @@
         }
       }
       %>
-	</div><% end %><% inline += 1 %>
+	</dl><% end %><% inline += 1 %>
 	
   </li><% end %>
   

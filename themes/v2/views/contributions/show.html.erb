@@ -108,8 +108,6 @@
 				
 				#'content',
 				#'author',
-				#'location_map',
-				#'location_placename',
 				#'page_number',
 				#'page_total',
 				#'notes',
@@ -117,7 +115,12 @@
 				#'cover_image',
 				#'license',
 				#'attachment_description',
-				#'location_zoom'
+				
+				# need these to be available for google map
+				# they are output as input type="hidden"
+				'location_map',
+				'location_placename',
+				'location_zoom'
 			  ],
 			  :name_order => true
 			}
@@ -127,7 +130,7 @@
 	  
 	  <div id="avatar" class="responsive-box">
 		
-		<img src="/images/profile-placeholder.jpg" width="200" />
+		<img src="/images/profile-placeholder.jpg" width="200" alt="profile placeholder" />
 		<%= @contribution.metadata.fields['contributor_behalf'] %> <%= t('views.contributions.show.shared-this-story') %>
 		<%= @contribution.metadata.fields['character1_given_name'] %> <%= @contribution.metadata.fields['character1_family_name'] %> <%= t('support.array.two_words_connector') %>
 		<%= @contribution.metadata.fields['character2_given_name'] %> <%= @contribution.metadata.fields['character2_family_name'] %>
