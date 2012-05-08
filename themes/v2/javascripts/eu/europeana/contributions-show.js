@@ -276,7 +276,7 @@
 		truncate.init();
 		carousels.init();
 		//map.init();
-		lightbox.init();
+		if ( jQuery(window).width() >= 768 ) { lightbox.init(); }
 		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		
 	}());
