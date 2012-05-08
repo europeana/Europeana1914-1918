@@ -36,15 +36,15 @@
 		},
 		
 		
-		updateTumbnailCarouselPosition : function() {
-			
-			var current_index = carousels.$featured.data( 'rCarousel' ).get('current_item_index'),
-					items_per_container = carousels.$thumbnail.data( 'rCarousel' ).get('items_per_container'),
-					page_info = carousels.$featured.data( 'rCarousel' ).determinePage( current_index, items_per_container );
-			
-			carousels.$thumbnail.data( 'rCarousel' ).goToIndex( page_info.page_first_item_index );
-			
-		},
+		//updateTumbnailCarouselPosition : function() {
+		//	
+		//	var current_index = carousels.$featured.data( 'rCarousel' ).get('current_item_index'),
+		//			items_per_container = carousels.$thumbnail.data( 'rCarousel' ).get('items_per_container'),
+		//			page_info = carousels.$featured.data( 'rCarousel' ).determinePage( current_index, items_per_container );
+		//	
+		//	carousels.$thumbnail.data( 'rCarousel' ).goToIndex( page_info.page_first_item_index );
+		//	
+		//},
 		
 		
 		updateCounts : function() {
@@ -66,7 +66,7 @@
 			
 			evt.preventDefault();
 			
-			self.toggleSelected(index);
+			//self.toggleSelected(index);
 			carousels.$featured.data( 'rCarousel' ).goToIndex(index);
 			self.updateCounts();
 			
@@ -79,8 +79,7 @@
 			
 			self.$thumbnail_links.each(function(index) {
 					
-					var $elm = jQuery(this);
-					
+					var $elm = jQuery(this);					
 					$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
 					
 			});
@@ -95,13 +94,13 @@
 			
 			this.$featured =
 				jQuery('#contributions-featured').rCarousel({
-					nav_callback : function() { self.updateCounts(); self.updateTumbnailCarouselPosition(); }
+					nav_callback : function() { self.updateCounts(); /* self.updateTumbnailCarouselPosition(); */ }
 				});
 			
 			this.$thumbnail =
 				jQuery('#contributions-thumbnails').imagesLoaded(function() {
 					this.rCarousel({
-						listen_to_arrows : false,
+						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small'
 					});
@@ -109,7 +108,7 @@
 			
 			this.addThumbnailClickHandlers();
 			this.updateCounts();
-			this.toggleSelected( this.$featured.data( 'rCarousel' ).get('current_item_index') );
+			//this.toggleSelected( this.$featured.data( 'rCarousel' ).get('current_item_index') );
 			
 		}
 		
@@ -278,7 +277,7 @@
 		carousels.init();
 		//map.init();
 		lightbox.init();
-		RunCoCo.translation_services.init( jQuery('#story-metadata dd').eq(0) );
+		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		
 	}());
 	

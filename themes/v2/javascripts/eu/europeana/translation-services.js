@@ -73,7 +73,7 @@
 				
 			}
 			
-			self.containers.$loading_animation.fadeToggle();
+			self.containers.$loading_animation.delay(3000).fadeToggle();
 			
 		},
 		
@@ -245,7 +245,7 @@
 		 */
 		init : function( $elm ) {
 			
-			$elm.after( this.containers.$translation_services.append( this.containers.$loading_animation) );
+			$elm.prepend( this.containers.$translation_services.append( this.containers.$loading_animation) );
 			this.captureOriginalTextNodes();
 			this.setUpCallbacks('microsoft');
 			this.addTranslatorMicrosoft();

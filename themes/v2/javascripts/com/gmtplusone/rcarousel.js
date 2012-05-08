@@ -165,7 +165,7 @@
 			self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
 			
 			// add keyboard arrow support
-			if ( self.options.listen_to_arrows ) {
+			if ( self.options.listen_to_arrow_keys ) {
 				
 				jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
 				
@@ -356,7 +356,7 @@
 	
 	jQuery.fn.rCarousel.options = {
 		
-		listen_to_arrows : true,
+		listen_to_arrow_keys : true,
 		item_width_is_container_width : true,
 		nav_button_size : 'medium',
 		nav_callback : null
