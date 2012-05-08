@@ -118,13 +118,31 @@
 	var map = {
 		
 		$map : jQuery('#location-map'),
+		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
+		$story_map : jQuery('<div/>', { id : 'story-map' }),
+		$google_map : jQuery('<div/>', { id : "google-map" }),
+		
 		
 		addMapContainer : function() {
 			
-			//jQuery('#story-info')
 			jQuery('#thumbnail-counts')
-				.after(	jQuery('<div/>', { id : 'story-map', class : 'responsive-box' } )	)
-				.after( jQuery('#location-took-place').val() );
+				.after(
+					jQuery( this.$google_map )
+						.append( jQuery('#location-took-place').val() )
+						.append( this.$story_map )
+						.append( this.$overlay )
+				);
+			
+		},
+		
+		
+		removeOverlay : function() {
+			
+			if ( map.$overlay.is(':visible') ) {
+				
+				map.$overlay.fadeOut();
+				
+			}
 			
 		},
 		
@@ -134,11 +152,8 @@
 			if ( this.$map.length === 1 ) {
 				
 				this.addMapContainer();
-				setTimeout( function() { RunCoCo.GMap.Display.init('story-map'); }, 1000 );
-				
-			} else {
-				
-				this.$map.hide();
+				//setTimeout( function() { RunCoCo.GMap.Display.init('story-map'); }, 1000 );
+				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
 				
 			}
 			

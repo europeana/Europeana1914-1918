@@ -14,6 +14,7 @@
 		$location_map : jQuery('#location-map'),
 		$location_placename : jQuery('#location-placename'),
 		$location_zoom : jQuery('#location-zoom'),
+		callback_map_idle : null,
 	
 	
 		mapSetup : function( map_container ) {
@@ -22,7 +23,15 @@
 				return;
 			}
 			
+			
 			RunCoCo.GMap.addMapToPage( map_container );
+			
+			if ( typeof this.callback_map_idle === 'function' ) {
+				
+				google.maps.event.addListener( RunCoCo.GMap.map, 'idle', this.callback_map_idle );
+				
+			}
+			
 			RunCoCo.GMap.addGeocoder();
 			RunCoCo.GMap.addInfoWindow();
 			RunCoCo.GMap.addMarker({ draggable: false });
@@ -42,14 +51,16 @@
 		},
 		
 		
-		init : function( map_container ) {
+		init : function( map_container, callback ) {
 			
 			if ( 'undefined' === typeof window.google
 				|| 'undefined' === typeof google.maps ) {
 				throw new Error('Google Maps has not been loaded');
 			}
 			
-			if ( this.$location_map.length < 1 ) { console.log('returning'); return; }
+			if ( this.$location_map.length < 1 ) { return; }
+			
+			this.callback_map_idle = callback;
 			this.mapSetup( map_container );
 			
 		}
