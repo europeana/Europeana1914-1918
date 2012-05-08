@@ -1,12 +1,9 @@
-(function( undefined ){
+(function() {
 	
-	'use strict';	
+	'use strict';
 	
-	(function init() {
-		
-		jQuery('#index-featured').rCarousel();
-		jQuery('#news-articles').readMore({ read_more_link : '#read-more' });
-		
-	}());
+	jQuery('#index-featured').rCarousel();
+	jQuery('#news-articles').readMore({ read_more_link : '#read-more' });
+
 	
 }());

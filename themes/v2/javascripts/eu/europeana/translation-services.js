@@ -1,3 +1,7 @@
+/**
+ *	@author dan entous <contact@gmtplusone.com>
+ *	@version 2012-05-08 10:47 gmt +1
+ */
 (function() {
 	
 	'use strict';
@@ -7,13 +11,14 @@
 		
 		links : {
 			
-			$return_to_original : jQuery( '<a href="" style="display:none;">' + I18n.t('javascripts.translate.return-to-language') + '</a>' )
+			$return_to_original : jQuery( '<a/>', { href : '', text : I18n.t('javascripts.translate.return-to-language') } )
 			
 		},
 		
 		containers : {
 			
-			$translation_services : jQuery( '<div id="translation-services"></div>' )
+			$loading_animation : jQuery('<img/>', { src : "/images/europeana-theme/progress_bar/loading_animation.gif", height : 32, width : 32, alt : "loading animation"} ),
+			$translation_services : jQuery( '<div/>', { id : "translation-services" } )
 			
 		},
 		
@@ -47,6 +52,7 @@
 			RunCoCo.translation_services[translator].options.to_locale = self.to_locale;
 			
 			self.addReturnToOriginal();
+			self.containers.$loading_animation.fadeToggle();
 			
 			for ( i = 0; i < ii; i = i + 1 ) {
 				
@@ -66,6 +72,8 @@
 				}
 				
 			}
+			
+			self.containers.$loading_animation.fadeToggle();
 			
 		},
 		
@@ -112,7 +120,7 @@
 				this.containers.$translation_services
 					.append(
 						this.links.$return_to_original.bind('click', { self : this }, this.handleReturnToOriginal )
-						.fadeIn()
+						.fadeToggle()
 					);
 				
 			}
@@ -237,7 +245,7 @@
 		 */
 		init : function( $elm ) {
 			
-			$elm.after( this.containers.$translation_services );
+			$elm.after( this.containers.$translation_services.append( this.containers.$loading_animation) );
 			this.captureOriginalTextNodes();
 			this.setUpCallbacks('microsoft');
 			this.addTranslatorMicrosoft();

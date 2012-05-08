@@ -1,4 +1,8 @@
-(function( undefined ) {
+/**
+ *	@author dan entous <contact@gmtplusone.com>
+ *	@version 2012-05-08 10:47 gmt +1
+ */
+(function() {
 
 	'use strict';	
 	
@@ -274,7 +278,7 @@
 		carousels.init();
 		//map.init();
 		lightbox.init();
-		RunCoCo.translation_services.init( jQuery('.truncate-toggle') );
+		RunCoCo.translation_services.init( jQuery('#story-metadata dd').eq(0) );
 		
 	}());
 	
