@@ -144,8 +144,8 @@
 		handleSwipe : function( dir ) {
 			
 			var self = this,
-					scroll_by = 200,
-					scroll_speed = 100;
+					scroll_by = 400,
+					scroll_speed = 700;
 			
 			switch ( dir ) {
 				
