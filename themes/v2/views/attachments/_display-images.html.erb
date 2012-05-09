@@ -13,7 +13,7 @@
 		link_attrs.merge!( {
 		  'data-description' =>
 			'<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
-			' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '"></a>',
+			' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
 		  :rel => 'prettyPhoto[gallery]'
 		} ) if (prettyphoto && attachment.image?)
       %>
