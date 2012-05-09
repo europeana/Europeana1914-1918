@@ -144,17 +144,19 @@
 			var self = this,
 					targetOffset = self.$carousel_container.offset();
 			
-			
 			switch ( dir ) {
 				
 				case 'up':
 					
+					console.log(jQuery.scrollTop());
+					console.log(jQuery.scrollTop()-30);
 					jQuery('html,body').animate({scrollTop: jQuery.scrollTop() - 30}, 1000);
 					break;
 				
 				
 				case 'down':
-					
+					console.log(jQuery.scrollTop());
+					console.log(jQuery.scrollTop()-30);
 					jQuery('html,body').animate({ scrollTop: jQuery.scrollTop() + 30 }, 1000);
 					break;
 				
