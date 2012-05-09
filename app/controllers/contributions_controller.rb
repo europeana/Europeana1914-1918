@@ -167,11 +167,14 @@ class ContributionsController < ApplicationController
   def search_by_taxonomy_term
     current_user.may_search_contributions!
     field = MetadataField.find_by_name!(params[:field_name])
-    term = field.taxonomy_terms.find_by_term!(params[:term])
-    mr_ids = term.metadata_record_ids
-    search_options = { :metadata_record_id => mr_ids, :page => params[:page], :per_page => (params[:count] || 10) }
-    @contributions = search_contributions(:published, nil, search_options)
-    @term = term.term
+    if term = field.taxonomy_terms.find_by_term(params[:term])
+      mr_ids = term.metadata_record_ids
+      search_options = { :metadata_record_id => mr_ids, :page => params[:page], :per_page => (params[:count] || 10) }
+      @contributions = search_contributions(:published, nil, search_options)
+    else
+      @contributions = []
+    end
+    @term = params[:term]
     render :action => 'search'
   end
   
