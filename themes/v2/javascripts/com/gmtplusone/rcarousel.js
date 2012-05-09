@@ -144,19 +144,20 @@
 		handleSwipe : function( dir ) {
 			
 			var self = this,
-					scroll_by = 50;
+					scroll_by = 200,
+					speed = 100;
 			
 			switch ( dir ) {
 				
 				case 'up':
 					
-					jQuery('html,body').animate({scrollTop: window.pageYOffset - scroll_by });
+					jQuery('html,body').animate({scrollTop: window.pageYOffset - scroll_by }, scroll_speed);
 					break;
 				
 				
 				case 'down':
 					
-					jQuery('html,body').animate({ scrollTop: window.pageYOffset + scroll_by });
+					jQuery('html,body').animate({ scrollTop: window.pageYOffset + scroll_by }, scroll_speed);
 					break;
 				
 				
