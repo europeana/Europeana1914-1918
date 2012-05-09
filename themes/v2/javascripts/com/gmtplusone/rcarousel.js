@@ -127,7 +127,7 @@
 			var self = evt.data.self,
 					$elm = jQuery(this);
 			
-			console.log(self.$carousel_container.offset());
+			
 			self.setCurrentItemIndex( $elm.data('dir') );
 			self.transition();
 			
@@ -149,13 +149,13 @@
 				
 				case 'up':
 					alert('swipe up');
-					jQuery(window).animate({ scrollTop: targetOffset.top + 20 });
+					jQuery('html,body').animate({scrollTop: targetOffset.top + 20});
 					break;
 				
 				
 				case 'down':
 					alert('swipe down');
-					jQuery(window).animate({ scrollTop: targetOffset.top + self.$carousel_container.height() + 20 });
+					jQuery('html,body').animate({ scrollTop: targetOffset.top + self.$carousel_container.height() + 20 });
 					break;
 				
 				
