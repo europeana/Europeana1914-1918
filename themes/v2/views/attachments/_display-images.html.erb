@@ -17,7 +17,7 @@
 		  :rel => 'prettyPhoto[gallery]'
 		} ) if (prettyphoto && attachment.image?)
       %>
-      <%=  link_to( attachment_preview( attachment, size ), attachment_preview( attachment, size, false ), link_attrs ) %>
+      <%=  link_to( attachment_preview( attachment, size ), attachment_url(attachment, 'large'), link_attrs ) %>
     <% else %>
       <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
     <% end %>

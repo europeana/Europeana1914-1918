@@ -12,17 +12,17 @@ module AttachmentsHelper
   end
   
   # :thumb, :preview, :original, :large
-  def attachment_preview(attachment, size = :preview, image = :image )
+  def attachment_preview(attachment, size = :preview)
     if attachment.image? && File.exists?(attachment.file.path(size))
-      if image
-        image_tag(attachment.file.url(size), :alt => (attachment.title.present? ? attachment.title : attachment.file.original_filename) )
-      else
-        attachment.file.url('large')
-      end
+      image_tag(attachment.file.url(size), :alt => (attachment.title.present? ? attachment.title : attachment.file.original_filename) )
     else
       media_type = file_media_type(attachment.file.original_filename)
       image_tag( image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}") )
     end
+  end
+  
+  def attachment_url(attachment, size = :preview)
+    attachment.image? ? attachment.file.url(size) : attachment.file.url
   end
   
   def file_media_type(filename)
