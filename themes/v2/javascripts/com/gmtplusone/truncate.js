@@ -36,7 +36,7 @@
 		$toggle_link : null,
 		height : {},
 		
-		$content_tester : jQuery('<div/>', { class: 'metadata', style : 'position: absolute; visibility: hidden;' } ),
+		$content_tester : jQuery('<div/>', { 'class': 'metadata', style : 'position: absolute; visibility: hidden;' } ),
 		
 		default_options : {
 				limit : {
