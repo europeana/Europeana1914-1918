@@ -121,7 +121,7 @@
 		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
 		$story_map : jQuery('<div/>', { id : 'story-map' }),
 		$google_map : jQuery('<div/>', { id : "google-map" }),
-		$story_took_place : jQuery('<h2/>').append( jQuery('#location-took-place').val() ),
+		$story_took_place : jQuery('<b/>').append( jQuery('#location-took-place').val() ),
 		
 		
 		addMapContainer : function() {
