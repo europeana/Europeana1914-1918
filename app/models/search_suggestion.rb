@@ -121,20 +121,16 @@ class SearchSuggestion < ActiveRecord::Base
     # Hash of frequencies keyed by phrase
     phrase_freqs = { }
     
-    # Taxonomy terms
-#    fields = [ 'keywords', 'theatres', 'forces', 'file_type' ]
-#    fields.each do |name|
-#      field = MetadataField.includes(:taxonomy_terms).where(:name => name).first
-#      if field.present?
-#        field.taxonomy_terms.each do |tt|
-#          term = tt.term.downcase
-#          if tt.term.match(/\s/) || self.where(:text => term).first.blank?
-#            freq = Contribution.select('id').where(:id => tt.metadata_record_ids).size
-#            phrase_freqs[term] = freq
-#          end
-#        end
-#      end
-#    end
+    # Searchable taxonomy terms
+    MetadataField.includes(:taxonomy_terms).where(:field_type => 'taxonomy', :searchable => true).each do |field|
+      field.taxonomy_terms.each do |tt|
+        term = tt.term.downcase
+        if tt.term.match(/\s/) || self.where(:text => term).first.blank?
+          freq = Contribution.select('id').where(:id => tt.metadata_record_ids).size
+          phrase_freqs[term] = freq
+        end
+      end
+    end
     
     # Contribution-specific metadata
     includes = [ 
