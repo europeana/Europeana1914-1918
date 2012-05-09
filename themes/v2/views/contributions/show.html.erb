@@ -128,14 +128,27 @@
 		%>
 	  </dl>
 	  
-	  <div id="avatar" class="responsive-box">
-		
-		<img src="/images/profile-placeholder.jpg" width="200" alt="profile placeholder" />
-		<%= @contribution.metadata.fields['contributor_behalf'] %> <%= t('views.contributions.show.shared-this-story') %>
-		<%= @contribution.metadata.fields['character1_given_name'] %> <%= @contribution.metadata.fields['character1_family_name'] %> <%= t('support.array.two_words_connector') %>
-		<%= @contribution.metadata.fields['character2_given_name'] %> <%= @contribution.metadata.fields['character2_family_name'] %>
-		
-	  </div>
+	  <%- if @contribution.contributor.picture.present? -%>
+	    <%
+	      people = {
+	        :contributor => @contribution.contact.full_name,
+	        :principal =>   @contribution.metadata.fields['contributor_behalf'],
+	        :character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
+	        :character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
+        } 
+	    %>
+	    <div id="avatar" class="responsive-box">
+		    <%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
+		    <%- if people[:contributor].present? -%>
+		      <%= people[:contributor] %>
+		      <%#= people[:principal] %> 
+		      <% if people[:character1].present? || people[:character2].present? -%>
+  		      <%= t('views.contributions.show.shared-this-story') %>
+		        <%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
+  	      <%- end -%>
+	      <%- end -%>
+		  </div>
+		<%- end -%>
 	  
 	</div>
 

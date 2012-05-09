@@ -20,4 +20,8 @@ class Contact < ActiveRecord::Base
   has_one :user, :dependent => :nullify
 
   accepts_nested_attributes_for :user
+  
+  def self.full_name(given, family)
+    [ given, family ].reject { |part| part.blank? }.join(' ')
+  end
 end

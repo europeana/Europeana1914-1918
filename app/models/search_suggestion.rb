@@ -141,11 +141,11 @@ class SearchSuggestion < ActiveRecord::Base
       phrases = [ ]
       phrases << contribution.title
       phrases << contribution.metadata.fields['alternative']
-      phrases << full_name(contribution.metadata.fields['character1_given_name'], contribution.metadata.fields['character1_family_name'])
-      phrases << full_name(contribution.metadata.fields['character2_given_name'], contribution.metadata.fields['character2_family_name'])
+      phrases << Contact.full_name(contribution.metadata.fields['character1_given_name'], contribution.metadata.fields['character1_family_name'])
+      phrases << Contact.full_name(contribution.metadata.fields['character2_given_name'], contribution.metadata.fields['character2_family_name'])
       phrases << contribution.contact.full_name
       phrases << contribution.metadata.fields['contributor_behalf']
-      phrases << full_name(contribution.metadata.fields['creator_given_name'], contribution.metadata.fields['creator_family_name'])
+      phrases << Contact.full_name(contribution.metadata.fields['creator_given_name'], contribution.metadata.fields['creator_family_name'])
       phrases << contribution.metadata.fields['subject']
       phrases << contribution.metadata.fields['location_placename']
       
@@ -200,9 +200,4 @@ class SearchSuggestion < ActiveRecord::Base
   #  set_property :min_prefix_len => self.min_prefix_length
   #  set_property :max_matches => self.max_matches
   #end
-  
-  protected
-  def self.full_name(given, family)
-    [ given, family ].reject { |part| part.blank? }.join(' ')
-  end
 end
