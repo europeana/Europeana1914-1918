@@ -35,6 +35,8 @@ RunCoCo::Application.routes.draw do
       end
     end
     
+    match 'explore/:field_name/:term' => 'contributions#search_by_taxonomy_term', :as => 'term_search_contributions', :via => :get
+    
     # Users
     devise_for :users,
       :path_names => { :sign_in => 'sign-in', :sign_out => 'sign-out', :sign_up => 'register' }

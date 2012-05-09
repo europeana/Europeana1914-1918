@@ -1,6 +1,14 @@
 <%= will_paginate contributions %>
 <table class="search-results">
-  <caption><%= local_assigns[:query].present? ? t('views.contributions.search.captions.matching', :query => query) : t('views.contributions.search.captions.all') %></caption>
+  <caption>
+  <% if local_assigns[:query].present? %>
+    <%= t('views.contributions.search.captions.matching', :query => query) %>
+  <% elsif local_assigns[:term].present? %>
+    <%= t('views.contributions.search.captions.matching', :query => term) %>
+  <% else -%>
+    <%= t('views.contributions.search.captions.all') %>
+  <% end -%>
+  </caption>
   <tr>
     <th scope="col"><%= t('common.captions.preview') %></th>
     <th scope="col"><%= t('common.captions.title') %></th>

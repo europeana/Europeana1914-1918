@@ -1,4 +1,4 @@
-<b><%= t('views.contributions.search.matches-for') %></b> <%= query %> ( <%= @contributions.size %> stories  )
+<b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= @contributions.size %> stories  )
   
   <ul id="stories">    
     <% for contribution in contributions.each %>

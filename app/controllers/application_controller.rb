@@ -248,6 +248,8 @@ class ApplicationController < ActionController::Base
   # @param [Hash] options Search options
   # @option options [Integer,String] :contributor_id Only return results from
   #   the contributor with this ID.
+  # @option options [Integer,Array<Integer>] :metadata_record_id Only return 
+  #   results having one of these metadata record IDs.
   # @option options [Integer,String] :page Number of page of results to return.
   # @option options [Integer,String] :per_page Number of results to return per 
   #   page.
@@ -357,7 +359,10 @@ class ApplicationController < ActionController::Base
     contributor_id = options.delete(:contributor_id)
     contributor_where = contributor_id.present? ? [ :contributor_id => contributor_id ] : nil
     
-    results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).order(sort_order)
+    metadata_record_id = options.delete(:metadata_record_id)
+    metadata_record_where = metadata_record_id.present? ? [ :metadata_record_id => metadata_record_id ] : nil
+    
+    results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).where(metadata_record_where).order(sort_order)
       
     if options.has_key?(:page)
       results = results.paginate(options)
@@ -420,6 +425,11 @@ class ApplicationController < ActionController::Base
     contributor_id = options.delete(:contributor_id)
     if contributor_id.present?
       options[:with][:contributor_id] = contributor_id
+    end
+    
+    metadata_record_id = options.delete(:metadata_record_id)
+    if metadata_record_id.present?
+      options[:with][:metadata_record_id] = metadata_record_id
     end
     
     if query.blank?
