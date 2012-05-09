@@ -173,17 +173,14 @@
 		current : 0,
 		
 		
-		handleMetaDataClick : function( evt ) {
+		addMetaDataOverlay : function( $elm ) {
 			
-			var self = evt.data.self,
+			var self = this,
 					$metadata,
 					$clone,
-					$elm = jQuery(this),
-					$pic_holder = jQuery('#pp_full_res'),
+					$pic_full_res = jQuery('#pp_full_res'),
 					$pp_content = jQuery('.pp_content'),
 					position = $pp_content.position();
-			
-			evt.preventDefault();
 			
 			
 			if ( !self.$metadata[ self.current ]) {
@@ -201,14 +198,23 @@
 				$metadata.data('clone').appendTo( $pp_content );
 				
 				$metadata.data('clone').css({
-					height : $pic_holder.find('img').height() - parseInt( $metadata.data('clone').css('padding-top'), 10 ) - parseInt( $metadata.data('clone').css('padding-bottom'), 10 )
+					height : $pic_full_res.find('img').height() - parseInt( $metadata.data('clone').css('padding-top'), 10 ) - parseInt( $metadata.data('clone').css('padding-bottom'), 10 )
 				});
 				
+				$pic_full_res.append( $metadata.find('.metadata-license').html() );
 				$metadata.data('cloned', true);
 				
 			}
 			
-			$metadata.data('clone').slideToggle();
+		},
+		
+		
+		handleMetaDataClick : function( evt ) {
+			
+			var self = evt.data.self;
+			
+			evt.preventDefault();	
+			self.$metadata[self.current].data('clone').slideToggle();
 			
 		},
 		
@@ -221,28 +227,30 @@
 		 */
 		handlePictureChange : function() {
 			
-			var $elm = jQuery(this),
+			var self = lightbox,
+					$elm = jQuery(this),
 					$additional_info_link = $elm.find('.pp_description a').first();			
 			
 			
-			if ( lightbox.$metadata[lightbox.current] ) {
+			if ( self.$metadata[self.current] ) {
 				
-				if ( lightbox.$metadata[lightbox.current].data('clone').is(':visible') ) {
+				if ( self.$metadata[self.current].data('clone').is(':visible') ) {
 					
-					lightbox.$metadata[lightbox.current].data('clone').hide();
+					self.$metadata[self.current].data('clone').hide();
 					
 				}
 				
-				if ( lightbox.$metadata[lightbox.current].data('cloned') ) {
+				if ( self.$metadata[self.current].data('cloned') ) {
 					
-					lightbox.$metadata[lightbox.current].data('cloned', false);
+					self.$metadata[self.current].data('cloned', false);
 					
 				}
 				
 			}
 			
-			$additional_info_link.on('click', { self : lightbox }, lightbox.handleMetaDataClick );
-			lightbox.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
+			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
+			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
+			self.addMetaDataOverlay( $additional_info_link );
 			
 		},
 		
