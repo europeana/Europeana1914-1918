@@ -46,6 +46,7 @@
 		
 		transition : function( coords ) {
 			
+			js.console.log('transition current item index:' + this.current_item_index);
 			this.$carousel_ul.animate({
 				'margin-left': coords || -( this.current_item_index * this.item_width )
 			});
@@ -94,9 +95,7 @@
 				this.current_item_index = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
 				if ( pos >= this.items_length ) { this.current_item_index = 0; }
 				
-			}			
-			
-			return pos;
+			}
 			
 		},
 		
