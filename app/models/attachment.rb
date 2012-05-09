@@ -52,11 +52,11 @@ class Attachment < ActiveRecord::Base
   # and make sure to add the routing to routes.rb
   #    :constraints => { :style => /(thumb|preview|medium|large|full|new_size)/ }
   # run the following to create the new_size version or update it if the dimmensions changed
-  #     bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment STYLES=new_size --trace
+  #     bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment STYLES=new_size_name --trace
   has_attached_file :file,
     :path => ':env_file_root/:access_dir/:class/:id/:contribution_id.:id.:style.:extension',
     :url => "/:class/:id/:contribution_id.:id.:style.:extension",
-    :styles => { :thumb => "100x100>", :preview => "160x120>", :medium => "400x400>", :large => "600x600>" }
+    :styles => { :thumb => "100x100>", :preview => "160x120>", :medium => "400x400>", :large => "1024x768>" }
 
   # TODO: Does this need to cope with new file uploaded at same time?
   before_save :relocate_files, :if => Proc.new { |a| a.public_changed? }, :unless => Proc.new { |a| a.new_record? }

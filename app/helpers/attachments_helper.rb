@@ -11,7 +11,7 @@ module AttachmentsHelper
     number_to_human_size(RunCoCo.configuration.max_upload_size, :precision => 2)
   end
   
-  # :thumb, :preview, :original
+  # :thumb, :preview, :original, :large
   def attachment_preview(attachment, size = :preview, image = :image )
     if attachment.image? && File.exists?(attachment.file.path(size))
       if image
