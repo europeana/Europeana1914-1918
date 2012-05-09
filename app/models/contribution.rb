@@ -16,6 +16,10 @@ class Contribution < ActiveRecord::Base
     def to_json(options = nil)
       proxy_owner.attachments.collect { |a| a.to_hash }.to_json(options)
     end
+    
+    def cover_image
+      with_file.select { |attachment| attachment.metadata.fields['cover_image'].present? }.first || with_file.first
+    end
   end
   
   has_many :statuses, :class_name => 'ContributionStatus', :dependent => :destroy, :order => 'created_at ASC'

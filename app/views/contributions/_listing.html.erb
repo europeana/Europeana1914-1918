@@ -21,7 +21,7 @@
     <tr>
       <td>
         <%- if contribution.attachments.with_file.present? -%>
-          <%= link_to attachment_preview(contribution.attachments.with_file.first), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
+          <%= link_to attachment_preview(contribution.attachments.cover_image), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
         <%- end -%>
       </td>
       <td><%= link_to contribution.title, contribution, :title => t('views.contributions.search.links.titles.show_contribution') %></td>
