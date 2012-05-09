@@ -300,10 +300,23 @@
 	(function() {
 		
 		truncate.init();
+		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		carousels.init();
 		map.init();
-		if ( jQuery(window).width() >= 768 ) { lightbox.init(); }
-		RunCoCo.translation_services.init( jQuery('#story-metadata') );
+		
+		if ( jQuery(window).width() >= 768 ) {
+			
+			lightbox.init();
+			
+		} else {
+			
+			jQuery('#contributions-featured a').each(function() {
+				
+				jQuery(this).on('click', function(evt) { evt.preventDefault(); });
+				
+			});
+			
+		}
 		
 	}());
 	
