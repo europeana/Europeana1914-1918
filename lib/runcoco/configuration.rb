@@ -36,6 +36,8 @@ module RunCoCo
       :max_upload_size => 5.megabytes,
       :allowed_upload_extensions => [],
       :gmap_api_key => nil,
+      :google_analytics_key => nil,
+      :bing_translate_key => nil,
       :uploadify => false,
       :ui_locales => nil,
       :banner_active => false,
