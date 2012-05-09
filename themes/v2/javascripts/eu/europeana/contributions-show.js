@@ -19,7 +19,7 @@
 			
 			this.$thumbnail_links.each(function(index) {
 					
-					var $elm = jQuery(this).parent();
+					var $elm = jQuery(this);
 					
 					if ( index === selected_index && !$elm.hasClass('selected') ) {
 						
@@ -66,7 +66,7 @@
 			
 			evt.preventDefault();
 			
-			//self.toggleSelected(index);
+			self.toggleSelected(index);
 			carousels.$featured.data( 'rCarousel' ).goToIndex(index);
 			self.updateCounts();
 			
@@ -79,7 +79,7 @@
 			
 			self.$thumbnail_links.each(function(index) {
 					
-					var $elm = jQuery(this);					
+					var $elm = jQuery(this);
 					$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
 					
 			});
@@ -108,7 +108,7 @@
 			
 			this.addThumbnailClickHandlers();
 			this.updateCounts();
-			//this.toggleSelected( this.$featured.data( 'rCarousel' ).get('current_item_index') );
+			this.toggleSelected( this.$featured.data( 'rCarousel' ).get('current_item_index') );
 			
 		}
 		
@@ -140,7 +140,7 @@
 			
 			if ( map.$overlay.is(':visible') ) {
 				
-				map.$overlay.fadeOut();
+				setTimeout( function() { map.$overlay.fadeOut(); }, 200 );
 				
 			}
 			
@@ -152,7 +152,6 @@
 			if ( this.$map.length === 1 ) {
 				
 				this.addMapContainer();
-				//setTimeout( function() { RunCoCo.GMap.Display.init('story-map'); }, 1000 );
 				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
 				
 			}

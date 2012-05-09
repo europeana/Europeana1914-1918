@@ -123,22 +123,6 @@
 		},
 		
 		
-		handleSwipe : function( dir ) {
-			
-			var self = this;
-			
-			self.setCurrentItemIndex( dir );
-			self.transition();
-			
-			if ( 'function' === typeof self.options.nav_callback ) {
-				
-				self.options.nav_callback.call(this);
-				
-			}
-			
-		},
-		
-		
 		handleNavClick : function( evt ) {
 			
 			var self = evt.data.self,
@@ -173,14 +157,14 @@
 			
 			// add touch swipe support
 			// http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
-			//if ( jQuery().touchwipe ) {
-			//	
-			//	self.$carousel_container.touchwipe({
-			//		WipeLeft : self.handleSwipe('next'),
-			//		WipeRight : self.handleSwipe('prev')
-			//	});
-			//	
-			//}
+			if ( jQuery().touchwipe ) {
+				
+				self.$carousel_container.touchwipe({
+					WipeLeft : function() { self.$prev.trigger('click'); },
+					WipeRight : function() { self.$next.trigger('click'); }
+				});
+				
+			}
 			
 		},
 		
