@@ -121,6 +121,7 @@
 		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
 		$story_map : jQuery('<div/>', { id : 'story-map' }),
 		$google_map : jQuery('<div/>', { id : "google-map" }),
+		$story_took_place : jQuery('<h2/>').append( jQuery('#location-took-place').val() ),
 		
 		
 		addMapContainer : function() {
@@ -128,10 +129,12 @@
 			jQuery('#thumbnail-counts')
 				.after(
 					jQuery( this.$google_map )
-						.append( jQuery('#location-took-place').val() )
+						.append( this.$story_took_place )
 						.append( this.$story_map )
 						.append( this.$overlay )
 				);
+			
+			this.$story_map.css( 'height', jQuery('.one-half-right').width() );
 			
 		},
 		
