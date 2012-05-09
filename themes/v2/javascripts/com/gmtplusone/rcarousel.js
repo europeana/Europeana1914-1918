@@ -46,7 +46,6 @@
 		
 		transition : function( coords ) {
 			
-			js.console.log('transition current item index:' + this.current_item_index);
 			this.$carousel_ul.animate({
 				'margin-left': coords || -( this.current_item_index * this.item_width )
 			});
@@ -86,6 +85,9 @@
 				pos = dir == 'next' ? this.items_per_container : -1 * this.items_per_container;				
 				
 				this.current_item_index = this.current_item_index + pos;
+				
+				//console.log( this.determinePage(this.current_item_index, this.items_per_container ) );
+				
 				if ( this.current_item_index >= this.items_length ) { this.current_item_index = 0; }
 				if ( this.current_item_index < 0 ) { this.current_item_index = this.items_length - this.items_per_container; }
 				
@@ -142,19 +144,19 @@
 		handleSwipe : function( dir ) {
 			
 			var self = this,
-					currentScrollTop = jQuery('html,body').scrollTop();
+					scroll_by = 30;
 			
 			switch ( dir ) {
 				
 				case 'up':
-					console.log(currentScrollTop);
-					jQuery('html,body').animate({scrollTop: currentScrollTop - 30}, 1000);
+					
+					jQuery('html,body').animate({scrollTop: window.pageYOffset - scroll_by }, 1000);
 					break;
 				
 				
 				case 'down':
-					console.log(currentScrollTop);
-					jQuery('html,body').animate({ scrollTop: currentScrollTop + 30 }, 1000);
+					
+					jQuery('html,body').animate({ scrollTop: window.pageYOffset + scroll_by }, 1000);
 					break;
 				
 				
