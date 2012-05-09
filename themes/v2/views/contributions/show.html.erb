@@ -59,8 +59,7 @@
 	  
 	</div>
   
-  
-	<div id="story-info" class="one-half-left">
+  <div id="story-info" class="one-half-left">
 	  
 	  <dl id="story-metadata" class="metadata">
 		<%=
@@ -70,12 +69,31 @@
 			:contribution => @contribution,
 			:metadata => @contribution.metadata,
 			:field_options => {
+			  :cataloguing => false, 
+			  :contribution => true,
 			  :name => [
 				'alternative',
-				
 				'creator_family_name',
 				'creator_given_name',
-				'contributor', # is this the same as the creator fields above?
+			  ],
+			  :name_order => true
+			}
+		  }
+		%>
+		
+		<dt class="translate"><b><%= contribution_field_title('contributor') %></b></dt>
+    <dd><%= contribution_field_value(@contribution, 'contributor') %></dd>
+    
+    <%=
+		  render :partial => '/metadata/display',
+		  :locals => {
+			:show_title => false,
+			:contribution => @contribution,
+			:metadata => @contribution.metadata,
+			:field_options => {
+			  :cataloguing => false, 
+			  :contribution => true,
+			  :name => [
 				
 				'contributor_behalf',
 				'character1_family_name',
@@ -94,17 +112,6 @@
 				'keywords',
 				'theatres',
 				'forces',
-				
-				
-				'ticket',
-				'cataloguer',
-				'file_type',
-				'source',
-				'format', # this can also be considered the medium
-				'collection_day',
-				'editor_pick',
-				'date',
-				
 				
 				#'content',
 				#'author',
@@ -126,6 +133,34 @@
 			}
 		  }
 		%>
+		
+	  <% if current_user.may_catalogue_contributions? -%>
+	    <%=
+		    render :partial => '/metadata/display',
+		      :locals => {
+			      :show_title => false,
+			      :contribution => @contribution,
+			      :metadata => @contribution.metadata,
+			      :field_options => {
+			        :cataloguing => true, 
+      			  :contribution => true,
+			        :name => [
+				        'ticket',
+				        'cataloguer',
+				        'file_type',
+				        'source',
+				        'format', # this can also be considered the medium
+				        'collection_day',
+				        'editor_pick_text',
+				        'editor_pick_sig',
+				        'editor_pick',
+				        'date',
+				        ],
+			        :name_order => true
+			      }
+		      }
+		  %>
+      <% end -%>
 	  </dl>
 	  
 	  <%- if @contribution.contributor.picture.present? -%>
