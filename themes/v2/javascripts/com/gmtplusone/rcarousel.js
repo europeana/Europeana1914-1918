@@ -127,7 +127,7 @@
 			var self = evt.data.self,
 					$elm = jQuery(this);
 			
-			
+			console.log(self.$carousel_container.offset());
 			self.setCurrentItemIndex( $elm.data('dir') );
 			self.transition();
 			
@@ -139,6 +139,30 @@
 			
 		},
 		
+		handleSwipe : function( dir ) {
+			
+			var self = this,
+					targetOffset = self.$carousel_container.offset();
+			
+			
+			switch ( dir ) {
+				
+				case 'up':
+					
+					jQuery(window).animate({ scrollTop: targetOffset.top + 20 });
+					break;
+				
+				
+				case 'down':
+					
+					jQuery(window).animate({ scrollTop: targetOffset.top + self.$carousel_container.height() + 20 });
+					break;
+				
+				
+			}
+			
+			
+		},
 		
 		addNavigation : function() {
 			
@@ -159,8 +183,10 @@
 			if ( jQuery().touchwipe ) {
 				
 				self.$carousel_container.touchwipe({
-					WipeLeft : function() { self.$prev.trigger('click'); },
-					WipeRight : function() { self.$next.trigger('click'); }
+					wipeLeft : function() { self.$prev.trigger('click'); },
+					wipeRight : function() { self.$next.trigger('click'); },
+					wipeUp : function() { self.handleSwipe('up') },
+					wipeDown : function() { self.handleSwipe('down') }
 				});
 				
 			}
