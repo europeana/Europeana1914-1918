@@ -1,3 +1,7 @@
+/**
+ *	@author dan entous <contact@gmtplusone.com>
+ *	@version 2012-05-09 20:38 gmt +1
+ */
 (function() {
 
 	'use strict';	
@@ -6,7 +10,7 @@
 		
 		Object.create = function( obj ) {
 			
-			function F() {};
+			function F() {}
 			F.prototype = obj;
 			return new F();
 			
@@ -82,7 +86,7 @@
 			
 			if ( !this.options.item_width_is_container_width ) {
 				
-				pos = dir == 'next' ? this.items_per_container : -1 * this.items_per_container;				
+				pos = dir === 'next' ? this.items_per_container : -1 * this.items_per_container;				
 				
 				this.current_item_index = this.current_item_index + pos;
 				
@@ -143,9 +147,9 @@
 		
 		handleSwipe : function( dir ) {
 			
-			var self = this,
-					scroll_by = 400,
+			var scroll_by = 400,
 					scroll_speed = 700;
+			
 			
 			switch ( dir ) {
 				
@@ -187,8 +191,8 @@
 				self.$carousel_container.touchwipe({
 					wipeLeft : function() { self.$prev.trigger('click'); },
 					wipeRight : function() { self.$next.trigger('click'); },
-					wipeUp : function() { self.handleSwipe('up') },
-					wipeDown : function() { self.handleSwipe('down') }
+					wipeUp : function() { self.handleSwipe('up'); },
+					wipeDown : function() { self.handleSwipe('down'); }
 				});
 				
 			}
@@ -229,7 +233,7 @@
 		calculateDimmensions : function() {
 			
 			var self = this,
-					pos = self.current_item_index == 0 ? 1 : self.current_item_index,
+					pos = self.current_item_index === 0 ? 1 : self.current_item_index,
 					new_margin_left = -( pos * self.item_width - self.item_width ),
 					new_margin_right = '',
 					page_info;
@@ -329,7 +333,7 @@
 			
 			var self = this;
 			
-			self.options = $.extend( {}, $.fn.rCarousel.options, options );
+			self.options = jQuery.extend( {}, jQuery.fn.rCarousel.options, options );
 			self.createNavElements();
 			self.deriveCarouselElements( carousel_container );
 			self.resizeItems();

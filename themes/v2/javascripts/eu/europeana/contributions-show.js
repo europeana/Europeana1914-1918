@@ -60,8 +60,7 @@
 		handleThumbnailClick : function( evt ) {
 			
 			var self = evt.data.self,
-					index = evt.data.index,
-					$elm = jQuery(this);
+					index = evt.data.index;
 			
 			
 			evt.preventDefault();
@@ -112,10 +111,10 @@
 			
 		}
 		
-	};
+	},
 	
 	
-	var map = {
+	map = {
 		
 		$map : jQuery('#location-map'),
 		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
@@ -167,10 +166,10 @@
 			
 		}
 		
-	};
+	},
 	
 	
-	var lightbox = {
+	lightbox = {
 		
 		$metadata : [],
 		current : 0,
@@ -180,10 +179,8 @@
 			
 			var self = this,
 					$metadata,
-					$clone,
 					$pic_full_res = jQuery('#pp_full_res'),
-					$pp_content = jQuery('.pp_content'),
-					position = $pp_content.position();
+					$pp_content = jQuery('.pp_content');
 			
 			
 			if ( !self.$metadata[ self.current ]) {
@@ -265,7 +262,7 @@
 			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
 				
 				description_src : 'data-description',
-				changepicturecallback : this.handlePictureChange
+				changepicturecallback : self.handlePictureChange
 				
 			});
 			
@@ -277,10 +274,10 @@
 			
 		}
 		
-	};
+	},
 	
 	
-	var truncate = {
+	truncate = {
 		
 		init : function() {
 			

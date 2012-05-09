@@ -1,3 +1,7 @@
+/**
+ *	@author dan entous <contact@gmtplusone.com>
+ *	@version 2012-05-09 20:38 gmt +1
+ */
 (function() {
 
 	'use strict';	
@@ -6,7 +10,7 @@
 		
 		Object.create = function( obj ) {
 			
-			function F() {};
+			function F() {}
 			F.prototype = obj;
 			return new F();
 			
@@ -59,7 +63,7 @@
 			self.$target.append( $content );
 			$content.fadeIn();
 			self.$loading_feedback.fadeToggle('slow');
-			self.ajax_load_processed = true
+			self.ajax_load_processed = true;
 			
 		},
 		
@@ -94,7 +98,7 @@
 			
 			evt.preventDefault();
 			self.$loading_feedback.fadeToggle('slow');
-			$elm.fadeTo(null,.01).attr('id','');
+			$elm.fadeTo( null, 0.01 ).attr('id','');
 			self.retrieveContent( $elm.attr('href') );
 			
 		},
@@ -117,7 +121,7 @@
 			var self = this;
 					self.$target = jQuery(target);
 			
-			self.options = $.extend( {}, $.fn.readMore.options, options );
+			self.options = jQuery.extend( {}, jQuery.fn.readMore.options, options );
 			
 			self.$loading_feedback = jQuery( self.options.loading_feedback );
 			self.$target.prepend( self.$loading_feedback );
@@ -150,4 +154,3 @@
 	
 	
 }());
-	

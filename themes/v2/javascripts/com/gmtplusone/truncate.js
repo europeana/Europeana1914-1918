@@ -20,7 +20,7 @@
 		
 		Object.create = function( obj ) {
 			
-			function F() {};
+			function F() {}
 			F.prototype = obj;
 			return new F();
 			
@@ -41,7 +41,7 @@
 		default_options : {
 				limit : {
 				pixels : 100,
-				percent : .33,
+				percent : 0.33,
 				use_pixels : true
 			}
 		},
@@ -79,14 +79,14 @@
 		},
 		
 		
-		adjustHeight : function( height ) {
+		adjustHeight : function() {
 			
 			var self = this;
 			
 			if ( self.height.total > self.height.truncated ) {
 				
 				self.$target
-					.css({ height : self.height.truncated, overflow : 'hidden' })
+					.css({ height : self.height.truncated, overflow : 'hidden' });
 				
 				self.$toggle_link.on(
 					'click',
@@ -170,9 +170,9 @@
 		init : function( options, target ) {
 			
 			var self = this;
-					self.$target = jQuery(target);
+				self.$target = jQuery(target);
 			
-			self.options = $.extend( true, {}, $.fn.truncate.options, options );
+			self.options = jQuery.extend( true, {}, jQuery.fn.truncate.options, options );
 			
 			self.prepOptions();
 			self.determineHeight();
@@ -180,7 +180,7 @@
 			self.adjustHeight( self.height );
 			//self.watchContent();
 			
-			if ( self.options.callback ) { self.options.callback.call( $target ); }
+			if ( self.options.callback ) { self.options.callback.call( self.$target ); }
 			
 		}
 		
@@ -203,7 +203,7 @@
 		
 		limit : {
 			pixels : 100,
-			percent : .33,
+			percent : 0.33,
 			use_pixels : true
 		},
 		

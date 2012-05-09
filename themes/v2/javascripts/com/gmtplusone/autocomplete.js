@@ -6,7 +6,7 @@
 		
 		Object.create = function( obj ) {
 			
-			function F() {};
+			function F() {}
 			F.prototype = obj;
 			return new F();
 			
@@ -35,7 +35,7 @@
 		
 		handleAjaxSuccess : function( data, textStatus, jqXHR ) {
 			
-			console.log( data );
+			// console.log( data );
 			
 		},
 		
@@ -53,7 +53,7 @@
 				data : {  'q' : val },
 				dataType : 'json',
 				timeout : self.options.timeout,
-				success: function( data, textStatus, jqXHR ) { self.handleAjaxSuccess( data, textStatus, jqXHR ) },
+				success: function( data, textStatus, jqXHR ) { self.handleAjaxSuccess( data, textStatus, jqXHR ); },
 				error: function( jqXHR, textStatus, errorThrown ) { self.handleAjaxError( jqXHR, textStatus, errorThrown ); }
 			});
 			
@@ -82,9 +82,9 @@
 			var self = this;
 				self.$target = jQuery(target);
 			
-			self.options = $.extend( {}, $.fn.autoComplete.options, options );
+			self.options = jQuery.extend( {}, jQuery.fn.autoComplete.options, options );
 			self.$target.on('keyup', { self : self }, self.handleKeyup );
-			console.log(self.options);
+			
 		}
 		
 	};

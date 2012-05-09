@@ -1,3 +1,7 @@
+/**
+ *	@author dan entous <contact@gmtplusone.com>
+ *	@version 2012-05-09 20:38 gmt +1
+ */
 (function() {
 	
 	'use strict';	
@@ -30,8 +34,8 @@
 	jQuery('#q').autocomplete({
 		minLength : 3,
 		source : document.location.protocol + '//' + document.location.host + '/suggest.json',
-		select: function(event, ui) { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
+		select: function() { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 	});
-	
-	
+
+
 }());
