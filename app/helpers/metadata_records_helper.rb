@@ -33,7 +33,7 @@ module MetadataRecordsHelper
     fields
   end
   
-  def metadata_record_field_value(metadata, field, fmt_date = false)
+  def metadata_record_field_value(metadata, field, fmt_date = false, link = false)
     value = metadata[field.column_name]
     if field.name == 'license'
       if metadata.fields[field.name].present?
@@ -41,7 +41,13 @@ module MetadataRecordsHelper
       end
     elsif field.field_type == 'taxonomy'
       if metadata.fields[field.name].present?
-        metadata.fields[field.name].to_sentence
+        if link
+          metadata.fields[field.name].collect do |term| 
+            link_to(h(term), term_search_contributions_path(field.name, h(term)))
+          end.to_sentence
+        else
+          metadata.fields[field.name].to_sentence
+        end
       end
     elsif value.present?
       case field.field_type

@@ -56,9 +56,9 @@
     
     <%- else -%>
     
-      <%- unless (field_value = metadata_record_field_value(metadata, field, true)).blank? -%> 
+      <%- unless (field_value = metadata_record_field_value(metadata, field, true, true)).blank? -%> 
         <dt class="translate"><b><%= field.title %></b></dt>
-        <dd class="translate"><%= field_value %></dd>
+        <dd class="translate"><%= raw field_value %></dd>
       <%- end -%>
       
     <%- end -%>
