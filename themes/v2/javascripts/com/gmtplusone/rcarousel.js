@@ -145,7 +145,7 @@
 			
 			var self = this,
 					scroll_by = 200,
-					speed = 100;
+					scroll_speed = 100;
 			
 			switch ( dir ) {
 				
