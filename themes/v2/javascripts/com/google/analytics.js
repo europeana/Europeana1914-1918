@@ -31,7 +31,7 @@
 	
 	com.google.analytics = {
 		
-		gaId : 'UX-XXXXXXXX-1',
+		gaId : 'UA-XXXXXXXX-1',
 		
 		
 		createAnalyticsArray : function() {
