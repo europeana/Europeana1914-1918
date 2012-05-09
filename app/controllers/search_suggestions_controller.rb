@@ -1,3 +1,4 @@
+# encoding: utf-8
 class SearchSuggestionsController < ApplicationController
   def query
     query = params[:term]
@@ -12,7 +13,9 @@ class SearchSuggestionsController < ApplicationController
       # This queries using ActiveRecord
       results = SearchSuggestion.where("text LIKE '#{query}%'").order('frequency DESC').limit(SearchSuggestion.max_matches)
       
-      results.reject { |word| word.blank? }.collect { |word| word.text }
+      results.reject { |word| word.blank? }.collect do |word| 
+        word.text.truncate(30 + query.length, :separator => ' ', :omission => '…')
+      end
     end
     
     respond_to do |format|
