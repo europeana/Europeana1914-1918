@@ -149,13 +149,13 @@
 				
 				case 'up':
 					
-					jQuery('html,body').animate({scrollTop: targetOffset.top + 30}, 1000);
+					jQuery('html,body').animate({scrollTop: jQuery.scrollTop() - 30}, 1000);
 					break;
 				
 				
 				case 'down':
 					
-					jQuery('html,body').animate({ scrollTop: targetOffset.top + self.$carousel_container.height() + 40 }, 1000);
+					jQuery('html,body').animate({ scrollTop: jQuery.scrollTop() + 30 }, 1000);
 					break;
 				
 				
