@@ -280,7 +280,7 @@
 			
 			self.$prev = jQuery('<input/>', {
 				type : 'image',
-				class : self.options.nav_button_size,
+				'class' : self.options.nav_button_size,
 				alt : 'previous',
 				src : '/themes/v2/images/icons/carousel-arrow-left.png',
 				'data-dir' : 'prev'
@@ -288,7 +288,7 @@
 			
 			self.$next = jQuery('<input/>', {
 				type : 'image',
-				class : self.options.nav_button_size,
+				'class' : self.options.nav_button_size,
 				alt : 'next',
 				src : '/themes/v2/images/icons/carousel-arrow-right.png',
 				'data-dir' : 'next'
