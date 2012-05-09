@@ -17,7 +17,7 @@
 		  :rel => 'prettyPhoto[gallery]'
 		} ) if prettyphoto && ( (attachment.file.url.include? '.gif') || (attachment.file.url.include? '.jp2') || (attachment.file.url.include? '.jpg') || (attachment.file.url.include? '.JPG') || (attachment.file.url.include? '.jpeg') || (attachment.file.url.include? '.jpx') || (attachment.file.url.include? '.png') || (attachment.file.url.include? '.tiff') )
       %>
-      <%=  link_to(attachment_preview( attachment, size ), attachment.file.url, link_attrs ) %>
+      <%=  link_to( attachment_preview( attachment, size ), attachment_preview( attachment, size, false ), link_attrs ) %>
     <% else %>
       <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
     <% end %>
