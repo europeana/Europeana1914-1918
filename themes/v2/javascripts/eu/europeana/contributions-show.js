@@ -120,7 +120,9 @@
 		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
 		$story_map : jQuery('<div/>', { id : 'story-map' }),
 		$google_map : jQuery('<div/>', { id : "google-map" }),
-		$story_took_place : jQuery('<b/>').append( jQuery('#location-took-place').val() ),
+		placename : jQuery('#location-placename').val(),
+		$placename_link : jQuery('<a/>'),
+		$story_took_place : jQuery('<b/>'),
 		
 		
 		addMapContainer : function() {
@@ -160,8 +162,19 @@
 			
 		},
 		
+		
 		init : function() {
 			
+			var self = this;
+			
+			self.$placename_link
+				.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
+				.html( self.placename );
+				
+			self.$story_took_place
+				.append( ' ' + I18n.t('javascripts.story.took-place') )
+				.append(map.$placename_link);
+		
 			this.locationMap();
 			
 		}

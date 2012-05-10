@@ -29,9 +29,6 @@
     
       <%- unless metadata['field_' + field.name].blank? -%>
         <dd><input type="hidden" id="<%= field.name.gsub('_','-') %>" value="<%= metadata['field_' + field.name] %>" /></dd>
-        <%- if field.name == 'location_placename' -%>
-          <dd><input type="hidden" id="location-took-place" value="<%= t('views.contributions.show.story-took-place') + ' ' + metadata['field_' + field.name] %>"/></dd>
-        <%- end -%>
       <%- end -%>
       
     <%- elsif field.name == 'date_from' %>
