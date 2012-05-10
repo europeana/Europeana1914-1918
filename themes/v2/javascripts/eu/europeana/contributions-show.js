@@ -296,7 +296,12 @@
 	
 	(function() {
 		
-		truncate.init();
+		if ( jQuery('#avatar').length > 0 ) {
+			
+			truncate.init();
+			
+		}
+		
 		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		carousels.init();
 		map.init();
