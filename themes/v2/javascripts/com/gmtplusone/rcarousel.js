@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-09 20:38 gmt +1
+ *	@version 2012-05-10 05:26 gmt +1
  */
 (function() {
 
@@ -82,7 +82,8 @@
 		
 		setCurrentItemIndex : function( dir ) {
 			
-			var pos = this.current_item_index;
+			var pos = this.current_item_index,
+					previous_index = this.current_item_index;
 			
 			if ( !this.options.item_width_is_container_width ) {
 				
@@ -90,10 +91,20 @@
 				
 				this.current_item_index = this.current_item_index + pos;
 				
-				//console.log( this.determinePage(this.current_item_index, this.items_per_container ) );
-				
 				if ( this.current_item_index >= this.items_length ) { this.current_item_index = 0; }
-				if ( this.current_item_index < 0 ) { this.current_item_index = this.items_length - this.items_per_container; }
+				if ( this.current_item_index < 0 ) {
+					
+					if ( previous_index !== 0 ) {
+						
+						this.current_item_index = 0;
+						
+					} else {
+						
+						this.current_item_index = this.items_length - this.items_per_container;
+						
+					}
+					
+				}
 				
 			} else {
 				
