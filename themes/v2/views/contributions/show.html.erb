@@ -81,8 +81,10 @@
 		  }
 		%>
 		
-		<dt><b><%= contribution_field_title('contributor') %></b></dt>
-    <dd><%= contribution_field_value(@contribution, 'contributor') %></dd>
+		<%- unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
+  		<dt><b><%= contribution_field_title('contributor') %></b></dt>
+      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
+    <%- end -%>
     
     <%=
 		  render :partial => '/metadata/display',
@@ -102,14 +104,12 @@
 		  }
 		%>
 		
-		<% character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']) %>
-		<% if character1.present? %>
+		<% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? %>
 		  <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
 		  <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
 	  <% end -%>
 	  
-	  <% character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name']) %>
-		<% if character2.present? %>
+	  <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
 		  <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
 		  <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
 	  <% end -%>
