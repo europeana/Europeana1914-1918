@@ -48,7 +48,6 @@
 		
 		onAllComplete : function( event, data ) {
 			
-			js.console.log(arguments);
 			jQuery('#ajax-message').hide();
 			
 			// Can not just check size of data.errors as Uploadify does not
@@ -56,6 +55,10 @@
 			if (jQuery('.uploadifyError').size() === 0) {
 				
 				window.location = window.location.href;
+				
+			} else {
+				
+				js.console.log(arguments);
 				
 			}
 			
