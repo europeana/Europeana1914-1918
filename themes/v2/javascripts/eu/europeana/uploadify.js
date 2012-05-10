@@ -160,7 +160,7 @@
 					uploadifyFileControl = jQuery('#attachment_file').clone().attr('id', 'uploadify_file'),
 					uploadifyHint = jQuery('<p class="inline-hints">' + I18n.t('javascripts.uploadify.hint', { types: RunCoCo.uploadify_settings.fileDesc, size: RunCoCo.uploadify_settings.maxUploadSize }) + '</p>');
 			
-			console.log(RunCoCo);
+			
 			this.uploadifySubmit = jQuery('#attachment_submit').clone().attr('id', 'uploadify_submit');
 			this.uploadifyHtml =
 				jQuery(

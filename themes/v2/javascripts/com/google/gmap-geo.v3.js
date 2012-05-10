@@ -48,13 +48,9 @@
 					   
 					} else {
 					   
-						if ( window.console ) {
-							
-							console.log( I18n.t('javascripts.gmap.errors.unknown') );
-							console.log( status );
-							console.log( options );
-							
-						}
+						js.console.log( I18n.t('javascripts.gmap.errors.unknown') );
+						js.console.log( status );
+						js.console.log( options );
 					   
 					}
 				 
