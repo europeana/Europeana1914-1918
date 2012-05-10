@@ -14,7 +14,6 @@
 		
 		onComplete : function(event, queueID, fileObj, response, data) {
 			
-			console.log(arguments);
 			var dat = eval('(' + response + ')'),
 					queueDiv,
 					cancelLink; 
@@ -49,6 +48,7 @@
 		
 		onAllComplete : function( event, data ) {
 			
+			console.log(arguments);
 			jQuery('#ajax-message').hide();
 			
 			// Can not just check size of data.errors as Uploadify does not
