@@ -95,11 +95,36 @@
 			  :contribution => true,
 			  :name => [
 				
-				'contributor_behalf',
-				'character1_family_name',
-				'character1_given_name',
-				'character2_family_name',
-				'character2_given_name',
+				'contributor_behalf'
+			  ],
+			  :name_order => true
+			}
+		  }
+		%>
+		
+		<% character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']) %>
+		<% if character1.present? %>
+		  <dt><b>Character 1</b></dt>
+		  <dd><%= character1 %></dd>
+	  <% end -%>
+	  
+	  <% character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name']) %>
+		<% if character2.present? %>
+		  <dt><b>Character 2</b></dt>
+		  <dd><%= character2 %></dd>
+	  <% end -%>
+	  
+		<%=
+		  render :partial => '/metadata/display',
+		  :locals => {
+			:show_title => false,
+			:contribution => @contribution,
+			:metadata => @contribution.metadata,
+			:field_options => {
+			  :cataloguing => false, 
+			  :contribution => true,
+			  :name => [
+				
 				'subject',
 				'description',
 				'summary',
