@@ -7,7 +7,22 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
+  ##
+  # Theme support via themes_for_rails gem.
+  #
+  # Only one of the following "theme..." lines should be active at a time.
+  #
+  
+  # Use the #theme_resolver method to determine which theme to display,
+  # allowing override via the "theme" query param, stored in the user's
+  # session.
   theme :theme_resolver
+  
+  # Always use the v2 theme
+  #theme 'v2'
+  
+  #
+  ##
   
   before_filter :init_session, :init_views, :set_locale
   
