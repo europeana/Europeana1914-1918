@@ -24,7 +24,7 @@
 			}
 			
 			
-			RunCoCo.GMap.addMapToPage( map_container );
+			RunCoCo.GMap.addMapToPage( map_container, { draggable : false } );
 			
 			if ( typeof this.callback_map_idle === 'function' ) {
 				
