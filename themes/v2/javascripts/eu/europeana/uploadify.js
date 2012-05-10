@@ -48,7 +48,7 @@
 		
 		onAllComplete : function( event, data ) {
 			
-			console.log(arguments);
+			js.console.log(arguments);
 			jQuery('#ajax-message').hide();
 			
 			// Can not just check size of data.errors as Uploadify does not
