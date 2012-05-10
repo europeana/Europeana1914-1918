@@ -65,7 +65,7 @@
   <%- if current_user.may_catalogue_contributions? -%>
     <%= form.inputs :cataloguing_metadata, :class => @fieldset_class do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'alternative', 'editor_pick', 'editor_pick_text', 'editor_pick_sig', 'cataloguer' ], :cataloguing => true, :contribution => true } } %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'alternative', 'editor_pick', 'editor_pick_text', 'editor_pick_sig' ], :cataloguing => true, :contribution => true } } %>
         <%= form.input :catalogued_by, :as => :select, :input_html => { :multiple => false }, :collection => cataloguing_users, :member_label => Proc.new { |cataloguer| cataloguer.contact.full_name }, :label => t('activerecord.attributes.contribution.cataloguer') %>
         <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'collection_day', 'notes', 'ticket', 'forces' ], :cataloguing => true, :contribution => true } } %>
       <% end %>
