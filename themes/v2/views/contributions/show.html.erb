@@ -81,7 +81,7 @@
 		  }
 		%>
 		
-		<dt class="translate"><b><%= contribution_field_title('contributor') %></b></dt>
+		<dt><b><%= contribution_field_title('contributor') %></b></dt>
     <dd><%= contribution_field_value(@contribution, 'contributor') %></dd>
     
     <%=
@@ -146,7 +146,26 @@
       			  :contribution => true,
 			        :name => [
 				        'ticket',
-				        'cataloguer',
+#				        'cataloguer', # this is the old cataloguer field (see story 074)
+				        ],
+			        :name_order => true
+			      }
+		      }
+		  %>
+      
+      <dt><b><%= t('activerecord.attributes.contribution.catalogued_by') %></b></dt>
+      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
+  
+      <%=
+		    render :partial => '/metadata/display',
+		      :locals => {
+			      :show_title => false,
+			      :contribution => @contribution,
+			      :metadata => @contribution.metadata,
+			      :field_options => {
+			        :cataloguing => true, 
+      			  :contribution => true,
+			        :name => [
 				        'file_type',
 				        'source',
 				        'format', # this can also be considered the medium
@@ -160,7 +179,11 @@
 			      }
 		      }
 		  %>
-      <% end -%>
+     
+      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
+      <dd><%= l @contribution.created_at, :format => :short %></dd>
+      
+      <% end -%>      
 	  </dl>
 	  
 	  <%- if @contribution.contributor.picture.present? -%>
