@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   theme :theme_resolver
-
+  
   before_filter :init_session, :init_views, :set_locale
   
   unless Rails.configuration.consider_all_requests_local 
@@ -218,6 +218,8 @@ class ApplicationController < ActionController::Base
   def theme_resolver
     if params[:theme]
       session[:theme] = params[:theme]
+    elsif session[:theme].nil?
+      session[:theme] = 'v2'
     end
     session[:theme]
   end
