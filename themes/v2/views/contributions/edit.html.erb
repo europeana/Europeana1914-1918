@@ -24,7 +24,10 @@
 					<li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
 					<% if @contribution.ready_to_submit? %>
 						<li><%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path( @contribution ) %></li>
-					<% end %>					
+					<% end %>
+					<%- if current_user.may_view_contribution_status_log?(@contribution) -%>
+            <%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %>
+          <%- end -%>
 				</ul>
 		  </div>
 	  <% end -%>

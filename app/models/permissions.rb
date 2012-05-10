@@ -61,9 +61,9 @@ class Permissions < Aegis::Permissions
   end
   
   action :view_contribution_status_log do
-    allow :contributor do |contribution|
-      contribution.contributor == user
-    end
+#    allow :contributor do |contribution|
+#      contribution.contributor == user
+#    end
   end
 
   action :edit_contribution do
