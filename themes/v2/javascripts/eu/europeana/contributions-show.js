@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-08 10:47 gmt +1
+ *	@version 2012-05-10 10:02 gmt +1
  */
 (function() {
 
@@ -172,8 +172,8 @@
 				.html( self.placename );
 				
 			self.$story_took_place
-				.append( ' ' + I18n.t('javascripts.story.took-place') )
-				.append(map.$placename_link);
+				.append( I18n.t('javascripts.story.took-place') + ' ' )
+				.append( self.$placename_link );
 		
 			this.locationMap();
 			
