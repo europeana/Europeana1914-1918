@@ -167,10 +167,14 @@
 			
 			var self = this;
 			
-			self.$placename_link
-				.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
-				.html( self.placename );
+			if ( self.placename ) {
 				
+				self.$placename_link
+					.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
+					.html( self.placename );
+					
+			}
+			
 			self.$story_took_place
 				.append( I18n.t('javascripts.story.took-place') + ' ' )
 				.append( self.$placename_link );
