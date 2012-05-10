@@ -14,6 +14,7 @@
 		
 		onComplete : function(event, queueID, fileObj, response, data) {
 			
+			console.log(arguments);
 			var dat = eval('(' + response + ')'),
 					queueDiv,
 					cancelLink; 
@@ -84,9 +85,6 @@
 			// Add auth tokens to scriptData
 			scriptData[RunCoCo.sessionKeyName] = encodeURIComponent(RunCoCo.sessionKey);
 			scriptData.authenticity_token = encodeURIComponent(RunCoCo.authenticityToken);
-			
-			console.log(scriptData[RunCoCo.sessionKeyName]);
-			console.log(scriptData.authenticity_token);
 			
 			
 			// Add metadata from form to scriptData
