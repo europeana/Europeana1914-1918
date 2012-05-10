@@ -14,18 +14,20 @@
 		
 		onComplete : function(event, queueID, fileObj, response, data) {
 			
-			var dat = eval('(' + response + ')'); 
+			var dat = eval('(' + response + ')'),
+					queueDiv,
+					cancelLink; 
 			
-			if (dat.result == 'error') {
+			if (dat.result === 'error') {
 				
-				var queueDiv = jQuery("#uploadify_file" + queueID);
+				queueDiv = jQuery("#uploadify_file" + queueID);
 				jQuery('.percentage', queueDiv).text(' - ' + dat.msg);
 				queueDiv.addClass('uploadifyError');
 				
 			} else {
 				
 				jQuery('.percentage', jQuery("#uploadify_file" + queueID)).text(' - ').append(jQuery('<strong>' + I18n.t('javascripts.uploadify.saved') + '</strong>'));
-				var cancelLink = jQuery('.cancel a', jQuery("#uploadify_file" + queueID));
+				cancelLink = jQuery('.cancel a', jQuery("#uploadify_file" + queueID));
 				cancelLink.attr('href', " ");
 				
 				cancelLink.bind('click', function() {
@@ -50,8 +52,10 @@
 			
 			// Can not just check size of data.errors as Uploadify does not
 			// detect HTTP 400 status code as an error.
-			if (jQuery('.uploadifyError').size() == 0) {
+			if (jQuery('.uploadifyError').size() === 0) {
+				
 				window.location = window.location.href;
+				
 			}
 			
 		},
@@ -61,88 +65,113 @@
 			
 			evt.preventDefault();
 			
-			if ( jQuery('#uploadify_fileQueue .uploadifyQueueItem').length == 0 ) {
+			if ( jQuery('#uploadify_fileQueue .uploadifyQueueItem').length === 0 ) {
 				
 				return;
 				
 			}
 			
 			var scriptData = {
-				
-				uploadify: '1',
-				format: 'json'
-				
-			};
+						
+						uploadify: '1',
+						format: 'json'
+						
+					},
+					metadataElements = jQuery("[name^='attachment\[metadata_attributes\]\[']"),
+					attachmentMetadata = {},
+					attachmentParams = {};
 			
 			// Add auth tokens to scriptData
 			scriptData[RunCoCo.sessionKeyName] = encodeURIComponent(RunCoCo.sessionKey);
-			scriptData['authenticity_token'] = encodeURIComponent(RunCoCo.authenticityToken);
+			scriptData.authenticity_token = encodeURIComponent(RunCoCo.authenticityToken);
 			
-			var attachmentMetadata = { };
+			console.log(scriptData[RunCoCo.sessionKeyName]);
+			console.log(scriptData.authenticity_token);
+			
 			
 			// Add metadata from form to scriptData
-			var metadataElements = jQuery("[name^='attachment\[metadata_attributes\]\[']");
-      metadataElements = metadataElements.not("[name*='\[field_page_number\]'],[name*='\[field_object_side_term_ids\]'],[name*='\[field_cover_image_term_ids\]']");
-      metadataElements.each(function() {
+			metadataElements = metadataElements.not("[name*='\[field_page_number\]'],[name*='\[field_object_side_term_ids\]'],[name*='\[field_cover_image_term_ids\]']");
+			
+			metadataElements.each(function() {
 				
-				var re = /\[([^\]]+)\](\[\])?$/;
-				var result = re.exec(jQuery(this).attr('name'));
-				var fieldName = result[1];
-				var isArrayField = (result[2] == '[]');
+				var re = /\[([^\]]+)\](\[\])?$/,
+						result = re.exec(jQuery(this).attr('name')),
+						fieldName = result[1],
+						isArrayField = (result[2] === '[]'),
+						fieldTagName = this.tagName.toLowerCase(),
+						fieldValue = null,
+						fieldType;
 				
-				var fieldTagName = this.tagName.toLowerCase();
-				var fieldValue = null;
-				
-				if (fieldTagName == 'input') {
-					var fieldType = jQuery(this).attr('type').toLowerCase();
-					if (fieldType == 'text') {
+				if (fieldTagName === 'input') {
+					
+					fieldType = jQuery(this).attr('type').toLowerCase();
+					
+					if (fieldType === 'text') {
+						
 						fieldValue = jQuery(this).val();
-					} else if (fieldType == 'hidden') {
+						
+					} else if (fieldType === 'hidden') {
+						
 						fieldValue = jQuery(this).val();
-					} else if (fieldType == 'checkbox') {
+						
+					} else if (fieldType === 'checkbox') {
+						
 						if (jQuery(this).is(":checked")) {
+							
 							fieldValue = jQuery(this).val();
+							
 						}
+						
 					} else {
-						// alert('input[type="' + fieldType + '"]'); 
+						
+						js.console.log('input[type="' + fieldType + '"]');
+						
 					}
 					
-				} else if (fieldTagName == 'textarea') {
+				} else if (fieldTagName === 'textarea') {
 					
 					fieldValue = jQuery(this).val();
 					
-				} else if (fieldTagName == 'select') {
+				} else if (fieldTagName === 'select') {
 					
 					fieldValue = jQuery('option', this).filter(':selected').val();
 					
 				} else {
 					
-					// alert(fieldTagName);
+					js.console.log(fieldTagName);
 					
 				}
 				
 				if (fieldValue !== null) {
+					
 					if (isArrayField) {
+						
 						if (!attachmentMetadata[fieldName]) {
-							attachmentMetadata[fieldName] = new Array();
+							
+							attachmentMetadata[fieldName] = [];
+							
 						}
+						
 						attachmentMetadata[fieldName].push(fieldValue);
+						
 					} else {
+						
 						attachmentMetadata[fieldName] = fieldValue;
+						
 					}
 					
 				}
 				
 			});
 			
-			var attachmentParams = {
+			attachmentParams = {
 				
 				title: jQuery('#attachment_title').val(),
 				metadata_attributes: attachmentMetadata
 				
 			};
 
-			scriptData['attachment'] = encodeURIComponent(JSON.stringify(attachmentParams));			
+			scriptData.attachment = encodeURIComponent(JSON.stringify(attachmentParams));			
 			jQuery('#uploadify_file').uploadifySettings('scriptData', scriptData);			
 			jQuery('#ajax-message').show();
 		
@@ -205,8 +234,8 @@
 			if ( this.uploadify_added
 					 || !window.swfobject
 					 || !swfobject.hasFlashPlayerVersion("9.0.24")
-					 || (window.location.search.indexOf('?ui=basic') != -1)
-					 || (window.location.search.indexOf('&ui=basic') != -1)
+					 || (window.location.search.indexOf('?ui=basic') !== -1)
+					 || (window.location.search.indexOf('&ui=basic') !== -1)
 			) { return; }
 			
 			this.setOptions();
