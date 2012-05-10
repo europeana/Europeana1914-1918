@@ -12,8 +12,6 @@
   date_to_field = fields.select { |f| f.name == 'date_to' }.first
   fields.delete(date_to_field)
   
-  #field.name.gsub('_', '-')
-  
   if geo_field
     @javascripts[:gmap_display] = true
   end
