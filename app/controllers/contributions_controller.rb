@@ -170,7 +170,7 @@ class ContributionsController < ApplicationController
     if term = field.taxonomy_terms.find_by_term(params[:term])
       mr_ids = term.metadata_record_ids
       search_options = { :metadata_record_id => mr_ids, :page => params[:page], :per_page => (params[:count] || 48) }
-      @contributions = search_contributions(:published, nil, search_options)
+      @contributions = activerecord_search_contributions(:published, nil, search_options)
     else
       @contributions = []
     end

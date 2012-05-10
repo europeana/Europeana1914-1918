@@ -374,10 +374,10 @@ class ApplicationController < ActionController::Base
     end
     
     contributor_id = options.delete(:contributor_id)
-    contributor_where = contributor_id.present? ? [ :contributor_id => contributor_id ] : nil
+    contributor_where = contributor_id.present? ? { :contributor_id => contributor_id } : nil
     
     metadata_record_id = options.delete(:metadata_record_id)
-    metadata_record_where = metadata_record_id.present? ? [ :metadata_record_id => metadata_record_id ] : nil
+    metadata_record_where = metadata_record_id.present? ? { :metadata_record_id => metadata_record_id } : nil
     
     results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).where(metadata_record_where).order(sort_order)
       
@@ -444,10 +444,10 @@ class ApplicationController < ActionController::Base
       options[:with][:contributor_id] = contributor_id
     end
     
-    metadata_record_id = options.delete(:metadata_record_id)
-    if metadata_record_id.present?
-      options[:with][:metadata_record_id] = metadata_record_id
-    end
+#    metadata_record_id = options.delete(:metadata_record_id)
+#    if metadata_record_id.present?
+#      options[:with][:metadata_record_id] = metadata_record_id
+#    end
     
     if query.blank?
       Contribution.search(options)
