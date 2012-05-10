@@ -301,7 +301,7 @@
 		carousels.init();
 		map.init();
 		
-		if ( jQuery(window).width() >= 768 ) {
+		if ( jQuery(window).width() >= 768 && jQuery.window.height() >= 216 ) {
 			
 			lightbox.init();
 			
