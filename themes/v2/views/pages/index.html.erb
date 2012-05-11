@@ -7,52 +7,52 @@
 	require 'hpricot'
 	
 %>
-<section class="top">
+<div class='section top'>
 	
 	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
 	
 	<h2><%= (doc/'h3').inner_html %></h2>
 	
-	<div id="index-featured" class="carousel two-thirds-right">	
+	<div id='index-featured' class='carousel two-thirds-right'>	
 		<ul>
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
-		<div class="carousel-overlay"></div>	
+		<div class='carousel-overlay'></div>	
 	</div>
 	
-	<div id="index-introduction" class="one-third-left">
+	<div id='index-introduction' class='one-third-left'>
 		<% (doc/'h3').remove %>
 		<%= raw( (doc).to_html ) %>		
 		<div id='index-call-to-action'>
-			<a href="<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>" class="button"><%= t('common.links.add-your-story') %></a><a href="<%= page_path('explore') %>" class="button"><%= t('common.links.explore-the-stories') %></a>
+			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'><%= t('common.links.add-your-story') %></a><a href='<%= page_path('explore') %>' class='button'><%= t('common.links.explore-the-stories') %></a>
 		</div>		
 	</div>
 	
-</section>
+</div>
 
 
-<section class="border-top">
+<div class='section border-top'>
 	
-	<div id="index-aside" class="one-third-left-boxed box-gradient">
+	<div id='index-aside' class='one-third-left-boxed box-gradient'>
 		
 		<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
 		
 	</div>
 	
 	
-	<div id="news-articles">
+	<div id='news-articles'>
 	  
 		<h2><%= t('common.news') %></h2>
 		
-			<div id="index-follow-us">
+			<div id='index-follow-us'>
 				<span><%= t('common.more-at') %>:</span>
-				<a href="https://www.facebook.com/Europeana19141918" target="_blank" title="Follow us on Facebook!"><img src="/themes/v2/images/logos/facebook.png" alt="Follow us on Facebook!"></a>
-				<a href="https://twitter.com/#!/Europeana1914" target="_blank" title="Follow us on Twitter!"><img src="/themes/v2/images/logos/twitter.png" alt="Follow us on Twitter!"></a>
-				<a href="http://blog.europeana.eu/category/europeana1914-1918/" target="_blank" title="Europena 1914-1918 Blog"><img src="/themes/v2/images/icons/blog.png" alt="Europena 1914-1918 Blog"></a>
+				<a href='https://www.facebook.com/Europeana19141918' target='_blank' title='Follow us on Facebook!'><img src='/themes/v2/images/logos/facebook.png' alt='Follow us on Facebook!'></a>
+				<a href='https://twitter.com/#!/Europeana1914' target='_blank' title='Follow us on Twitter!'><img src='/themes/v2/images/logos/twitter.png' alt='Follow us on Twitter!'></a>
+				<a href='http://blog.europeana.eu/category/europeana1914-1918/' target='_blank' title='Europena 1914-1918 Blog'><img src='/themes/v2/images/icons/blog.png' alt='Europena 1914-1918 Blog'></a>
 			</div>
 			
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'news', :tag => :article, :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
 		
 	</div>
 	
-</section>
+</div>

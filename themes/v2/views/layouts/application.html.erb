@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale %>">
+<html lang='<%= I18n.locale %>'>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset='utf-8'/>
+<meta name='viewport' content='width=device-width, initial-scale=1'/>
 <%= csrf_meta_tag %>
-<!--[if lt IE 9]><script>'article section'.replace(/\w+/g,function(n){document.createElement(n)})</script><![endif]-->
 <%= render '/layouts/links' %>
-<link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
-<link rel="shortcut icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
+<link rel='icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
+<link rel='shortcut icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
 </head>
 <body>
 	
 	<%= render '/layouts/header' %>
 	
-	<section id="content">
+	<div id='content' class='section'>
 		
 		<%= flash_message(:alert) unless flash[:alert].blank? %>
 		<%= flash_message(:notice) unless flash[:notice].blank? %>
 		<%= yield :layout %>
 		
-	</section>
+	</div>
 	
 	<%= render '/layouts/footer' %>
 	<%= render '/layouts/scripts' %>
