@@ -198,20 +198,20 @@
 			
 			// add touch swipe support
 			// http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
-			//if ( jQuery().touchwipe ) {
-			//	
-			//	self.$items.each(function() {
-			//		
-			//		jQuery(this).touchwipe({
-			//			wipeLeft : function() { self.$prev.trigger('click'); },
-			//			wipeRight : function() { self.$next.trigger('click'); }
-			//			//wipeUp : function() { self.handleSwipe('up'); },
-			//			//wipeDown : function() { self.handleSwipe('down'); }
-			//		});
-			//		
-			//	});
-			//	
-			//}
+			if ( jQuery().touchwipe ) {
+				
+				self.$items.each(function() {
+					
+					jQuery(this).touchwipe({
+						wipeLeft : function() { self.$prev.trigger('click'); },
+						wipeRight : function() { self.$next.trigger('click'); }
+						//wipeUp : function() { self.handleSwipe('up'); },
+						//wipeDown : function() { self.handleSwipe('down'); }
+					});
+					
+				});
+				
+			}
 			
 		},
 		
