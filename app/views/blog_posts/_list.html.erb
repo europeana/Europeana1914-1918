@@ -30,6 +30,6 @@
 blog_post_entries = blog_posts(local_assigns) 
 -%>
 <% if blog_post_entries.present? -%>
-  <%- for entry in blog_post_entries -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s}>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
+  <%- for entry in blog_post_entries -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s} class='article'>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
   <%- if local_assigns[:read_more] %><%= read_more_link(local_assigns) %><% end %>
 <% end -%>
