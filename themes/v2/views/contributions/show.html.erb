@@ -12,7 +12,7 @@
 %>
 
 <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>
-	<section class="action-links top">
+	<div class="section action-links top">
 	  <ul>
 		<% if current_user.may_edit_contribution?(@contribution) %>
 		  <% if @contribution.draft? %>
@@ -31,10 +31,10 @@
 		  <li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
 		<%- end %>
 	  </ul>
-	</section>
+	</div>
   <% end -%>
 
-<section class="top">
+<div class="section top">
   
   <h2><%= contribution_title(@contribution) %></h2>
   
@@ -258,4 +258,4 @@
 	  
   </div>
 
-</section>
+</div>
