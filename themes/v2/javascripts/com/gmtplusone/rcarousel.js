@@ -306,6 +306,35 @@
 			var self = evt.data.self;
 			self.resizeItems( evt );
 			
+			//var self = this,
+			//		window_resize_timeout;
+			//
+			//jQuery(window).on(
+			//	
+			//	'resize',
+			//	{ self : self },
+			//	
+			//	function(evt) {
+			//		
+			//		clearTimeout( window_resize_timeout );
+			//		
+			//		window_resize_timeout = setTimeout(
+			//			
+			//			function() {
+			//				
+			//					self.resizeItems( evt );
+			//					self.goToIndex();
+			//					
+			//				
+			//			},
+			//			
+			//			200
+			//			
+			//		);
+			//		
+			//	}
+			//);
+			
 		},
 		
 		
