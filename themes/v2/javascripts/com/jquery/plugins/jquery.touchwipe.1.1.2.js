@@ -17,10 +17,10 @@
  			wipeUp: function() { },
  			wipeDown: function() { },
 			preventDefaultEvents: {
-			   up : true,
+			   up : false,
 			   right : true,
 			   down : false,
-			   left : false
+			   left : true
 			}
 	 };
      
