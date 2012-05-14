@@ -93,6 +93,8 @@
 			
 			function onTouchStart( evt ) {
 				
+				if ( !evt.touches ) { return; }
+				
 				if ( evt.touches.length === 1 ) {
 					
 					startX = evt.touches[0].pageX;
@@ -106,7 +108,7 @@
 			
 			if ( 'undefined' !== typeof document.documentElement.ontouchstart ) {
 				
-				$elm.on( 'touchstart', onTouchStart);
+				$elm.on( 'touchstart', onTouchStart );
 				
 			}
 			
