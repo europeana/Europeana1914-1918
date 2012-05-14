@@ -203,10 +203,10 @@
 				self.$items.each(function() {
 					
 					jQuery(this).touchwipe({
-						wipeLeft : function() { self.$next.trigger('click'); },
-						wipeRight : function() { self.$prev.trigger('click'); }
-						//wipeUp : function() { self.handleSwipe('up'); },
-						//wipeDown : function() { self.handleSwipe('down'); }
+						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
+						wipeUp : function( evt ) {},
+						wipeDown : function( evt ) {}
 					});
 					
 				});
