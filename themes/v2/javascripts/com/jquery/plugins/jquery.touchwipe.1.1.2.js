@@ -3,6 +3,11 @@
  * Common usage: wipe images (left and right to show the previous or next image)
  * 
  * @author Andreas Waltl, netCU Internetagentur (http://www.netcu.de)
+ * @version 1.1.2 dan entous <contact@gmtplusone.com>
+ * 	updated event binding to jQuery().on
+ * 	removed preventDefaultEvents so that they can be set externally per direction per script
+ * 	ran the script thru jslint and addressed issues found
+ * 	reduced default min movement
  * @version 1.1.1 (9th December 2010) - fix bug (older IE's had problems)
  * @version 1.1 (1st September 2010) - support wipe up and wipe down
  * @version 1.0 (15th July 2010)
@@ -16,12 +21,12 @@
 		
 		var $target = this,
 				config = {
-					min_move_x: 20,
-					min_move_y: 20,
-					wipeLeft: function() { },
-					wipeRight: function() { },
-					wipeUp: function() { },
-					wipeDown: function() { }
+					min_move_x: 8,
+					min_move_y: 8,
+					wipeLeft: function() {},
+					wipeRight: function() {},
+					wipeUp: function() {},
+					wipeDown: function() {}
 				};
     
 		
@@ -51,11 +56,10 @@
 				
 				if ( isMoving ) {
 					
-					var x = evt.touches[0].pageX,
-							y = evt.touches[0].pageY,
+					var x = evt.originalEvent.touches[0].pageX,
+							y = evt.originalEvent.touches[0].pageY,
 							dx = startX - x,
 							dy = startY - y;
-					
 					
 					if ( Math.abs(dx) >= config.min_move_x ) {
 						
@@ -93,14 +97,10 @@
 			
 			function onTouchStart( evt ) {
 				
-				if ( !evt.touches ) { return; }
-				
-				console.log('touch');
-				
-				if ( evt.touches.length === 1 ) {
+				if ( evt.originalEvent.touches.length === 1 ) {
 					
-					startX = evt.touches[0].pageX;
-					startY = evt.touches[0].pageY;
+					startX = evt.originalEvent.touches[0].pageX;
+					startY = evt.originalEvent.touches[0].pageY;
 					isMoving = true;
 					$elm.on( 'touchmove', onTouchMove );
 					
