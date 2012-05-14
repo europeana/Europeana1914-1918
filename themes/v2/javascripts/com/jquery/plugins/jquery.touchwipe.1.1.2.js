@@ -92,8 +92,11 @@
 			}
 			
 			function onTouchStart( evt ) {
-				console.log(evt.touches);
-				console.log(evt.touches.length);
+				
+				if ( !evt.touches ) { return; }
+				
+				console.log('touch');
+				
 				if ( evt.touches.length === 1 ) {
 					
 					startX = evt.touches[0].pageX;
