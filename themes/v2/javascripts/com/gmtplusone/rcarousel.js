@@ -156,31 +156,6 @@
 			
 		},
 		
-		handleSwipe : function( dir ) {
-			
-			var scroll_by = 400,
-					scroll_speed = 700;
-			
-			
-			switch ( dir ) {
-				
-				case 'up':
-					
-					jQuery('html,body').animate({scrollTop: window.pageYOffset - scroll_by }, scroll_speed);
-					break;
-				
-				
-				case 'down':
-					
-					jQuery('html,body').animate({ scrollTop: window.pageYOffset + scroll_by }, scroll_speed);
-					break;
-				
-				
-			}
-			
-			
-		},
-		
 		
 		addNavigation : function() {
 			
@@ -203,8 +178,8 @@
 				self.$items.each(function() {
 					
 					jQuery(this).touchwipe({
-						wipeLeft : function( evt ) { console.log('next'); evt.preventDefault(); self.$next.trigger('click'); },
-						wipeRight : function( evt ) { console.log('prev'); evt.preventDefault(); self.$prev.trigger('click'); },
+						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
 						wipeUp : function( evt ) {},
 						wipeDown : function( evt ) {}
 					});
