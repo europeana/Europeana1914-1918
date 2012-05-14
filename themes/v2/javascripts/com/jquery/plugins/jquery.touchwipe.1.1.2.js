@@ -3,7 +3,9 @@
  * Common usage: wipe images (left and right to show the previous or next image)
  * 
  * @author Andreas Waltl, netCU Internetagentur (http://www.netcu.de)
- * @version 1.1.2 dan entous <contact@gmtplusone.com>
+ * @version 1.1.2
+ * 	2012-05-15 23:51 gmt +1
+ * 	dan entous <contact@gmtplusone.com>
  * 	updated event binding to jQuery().on
  * 	removed preventDefaultEvents so that they can be set externally per direction per script
  * 	ran the script thru jslint and addressed issues found
@@ -21,8 +23,8 @@
 		
 		var $target = this,
 				config = {
-					min_move_x: 8,
-					min_move_y: 8,
+					min_move_x: 10,
+					min_move_y: 10,
 					wipeLeft: function() {},
 					wipeRight: function() {},
 					wipeUp: function() {},
