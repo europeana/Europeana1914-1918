@@ -175,23 +175,16 @@
 			// http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
 			if ( jQuery().touchwipe ) {
 				
-				self.$carousel_container.touchwipe({
-					wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
-					wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-					wipeUp : function( evt ) {},
-					wipeDown : function( evt ) {}
+				self.$items.each(function() {
+					
+					jQuery(this).touchwipe({
+						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
+						wipeUp : function( evt ) {},
+						wipeDown : function( evt ) {}
+					});
+					
 				});
-				
-				//self.$items.each(function() {
-				//	
-				//	jQuery(this).touchwipe({
-				//		wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
-				//		wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-				//		wipeUp : function( evt ) {},
-				//		wipeDown : function( evt ) {}
-				//	});
-				//	
-				//});
 				
 			}
 			
