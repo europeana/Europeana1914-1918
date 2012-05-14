@@ -70,7 +70,7 @@ class Contribution < ActiveRecord::Base
 
     # Index all searchable taxonomy terms at once, on a single join
     define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
-    define_index_str << "  has metadata.searchable_taxonomy_terms.id, :as => :taxonomy_term_ids\n"
+    define_index_str << "  has metadata.searchable_taxonomy_terms(:id), :as => :taxonomy_term_ids\n"
 
     fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
     unless fields.count == 0
