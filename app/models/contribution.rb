@@ -200,15 +200,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def published?
-    if !RunCoCo.configuration.publish_contributions
-      false
-    else
-      if RunCoCo.configuration.contribution_approval_required
-        status == :approved
-      else
-        status == :submitted
-      end
-    end
+    current_status == ContributionStatus.published
   end
   
   def validate_contributor_or_contact
@@ -266,11 +258,7 @@ class Contribution < ActiveRecord::Base
       end
     end
     
-    if RunCoCo.configuration.contribution_approval_required
-      conditions = [ 'current_status=?', ContributionStatus::APPROVED ]
-    else
-      conditions = [ 'current_status=?', ContributionStatus::SUBMITTED ]
-    end
+    conditions = [ 'current_status=?', ContributionStatus.published ]
     
     if options[:start_date].present?
       conditions[0] << ' AND status_timestamp >= ?'

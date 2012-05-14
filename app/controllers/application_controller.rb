@@ -334,15 +334,7 @@ class ApplicationController < ActionController::Base
     options = options.dup
     
     set_where = if (set == :published)
-      if !RunCoCo.configuration.publish_contributions
-        [ 'current_status=?', 0 ] # i.e. never
-      else
-        if RunCoCo.configuration.contribution_approval_required
-          [ 'current_status=?', ContributionStatus::APPROVED ]
-        else
-          [ 'current_status=?', ContributionStatus::SUBMITTED ]
-        end
-      end
+      [ 'current_status=?', ContributionStatus.published ]
     else
       [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
     end
@@ -415,15 +407,7 @@ class ApplicationController < ActionController::Base
     options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)
     
     status_option = if (set == :published)
-      if !RunCoCo.configuration.publish_contributions
-        { :with => { :status => 0 } } # i.e. never
-      else
-        if RunCoCo.configuration.contribution_approval_required
-          { :with => { :status => ContributionStatus::APPROVED } }
-        else
-          { :with => { :status => ContributionStatus::SUBMITTED } }
-        end
-      end
+      { :with => { :status => ContributionStatus.published } }
     else
       { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
     end
