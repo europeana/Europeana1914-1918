@@ -62,26 +62,23 @@ class Contribution < ActiveRecord::Base
     define_index_str << "  set_property :delta => true\n"
     define_index_str << "  indexes title, :sortable => true\n"
     define_index_str << "  indexes contributor.contact.full_name, :sortable => true, :as => :contributor\n"
-    # This next one is a hack to ensure subsequent has/indexes calls for
-    # taxonomy terms always get aliased table names.
-    define_index_str << "  indexes metadata.null_taxonomy_terms.term, :as => :null_taxonomy_terms\n"
     define_index_str << "  has contributor_id\n"
     define_index_str << "  has metadata_record_id\n"
     define_index_str << "  has created_at\n"
     define_index_str << "  has current_status, :as => :status\n"
     define_index_str << "  has status_timestamp\n"
 
-    fields = MetadataField.where('(searchable = ? OR facet = ?)', true, true)
+    # Index all searchable taxonomy terms at once, on a single join
+    define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
+    define_index_str << "  has metadata.searchable_taxonomy_terms.id, :as => :taxonomy_term_ids\n"
+
+    fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
     unless fields.count == 0
       fields.each do |field|
         index_alias = "metadata_#{field.name}"
         indexes_or_has = field.searchable? ? 'indexes' : 'has'
         facet = field.facet? ? 'true' : 'false'
-        if field.field_type == 'taxonomy'
-          define_index_str << "  #{indexes_or_has} metadata.field_#{field.name}_terms.term, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
-        else
-          define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
-        end
+        define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
       end
     end
     

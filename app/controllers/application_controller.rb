@@ -265,8 +265,8 @@ class ApplicationController < ActionController::Base
   # @param [Hash] options Search options
   # @option options [Integer,String] :contributor_id Only return results from
   #   the contributor with this ID.
-  # @option options [Integer,Array<Integer>] :metadata_record_id Only return 
-  #   results having one of these metadata record IDs.
+  # @option options [TaxonomyTerm] :taxonomy_term Only return results
+  #   categorised with this taxonomy term.
   # @option options [Integer,String] :page Number of page of results to return.
   # @option options [Integer,String] :per_page Number of results to return per 
   #   page.
@@ -349,14 +349,15 @@ class ApplicationController < ActionController::Base
     
     query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
     
-    joins = [ :metadata ]
+    metadata_joins = []
+    joins = [ ]
     if (sort = options.delete(:sort)).present?
       if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
         sort_col = "taxonomy_terms.term"
-        joins = [ { :metadata => sort.to_sym } ]
+        metadata_joins << sort.to_sym
       elsif sort == 'contributor'
         sort_col = "contacts.full_name"
-        joins = [ :metadata, { :contributor => :contact } ]
+        joins << { :contributor => :contact }
       else
         sort_col = sort
       end
@@ -376,10 +377,22 @@ class ApplicationController < ActionController::Base
     contributor_id = options.delete(:contributor_id)
     contributor_where = contributor_id.present? ? { :contributor_id => contributor_id } : nil
     
-    metadata_record_id = options.delete(:metadata_record_id)
-    metadata_record_where = metadata_record_id.present? ? { :metadata_record_id => metadata_record_id } : nil
+    taxonomy_term = options.delete(:taxonomy_term)
+    if taxonomy_term.present?
+      taxonomy_field_alias = taxonomy_term.metadata_field.collection_id
+      metadata_joins << taxonomy_field_alias
+      if sort_col == "taxonomy_terms.term"
+        taxonomy_term_where = { "#{taxonomy_field_alias}.id" => taxonomy_term.id }
+      else
+        taxonomy_term_where = { "taxonomy_terms.id" => taxonomy_term.id }
+      end
+    else
+      taxonomy_term_where = nil
+    end
     
-    results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).where(metadata_record_where).order(sort_order)
+    joins << { :metadata => metadata_joins }
+    
+    results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).order(sort_order)
       
     if options.has_key?(:page)
       results = results.paginate(options)
@@ -444,10 +457,10 @@ class ApplicationController < ActionController::Base
       options[:with][:contributor_id] = contributor_id
     end
     
-#    metadata_record_id = options.delete(:metadata_record_id)
-#    if metadata_record_id.present?
-#      options[:with][:metadata_record_id] = metadata_record_id
-#    end
+    taxonomy_term = options.delete(:taxonomy_term)
+    if taxonomy_term.present?
+      options[:with][:taxonomy_term_ids] = taxonomy_term.id
+    end
     
     if query.blank?
       Contribution.search(options)

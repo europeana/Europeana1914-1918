@@ -7,6 +7,9 @@
 # added, modified and removed by creating, updating and deleting
 # MetadataField instances.
 class MetadataRecord < ActiveRecord::Base
+  COLUMN_TYPES = [ :string, :text, :date, :integer ]
+  FIELD_NAME_FORMAT = /\A[a-z0-9_]+\Z/
+  
   attr_writer :cataloguing
   attr_accessor :for_attachment, :for_contribution
   attr_protected :id, :updated_at, :created_at, :cataloguing, :for_attachment, 
@@ -16,12 +19,7 @@ class MetadataRecord < ActiveRecord::Base
   has_one :attachment
   has_and_belongs_to_many :taxonomy_terms
   
-  # This next association supports a hack used in the Contribution index
-  # @see Contribution.set_search_index
-  has_and_belongs_to_many :null_taxonomy_terms, :class_name => 'TaxonomyTerm', :conditions => { :metadata_field_id => nil }
-  
-  COLUMN_TYPES = [ :string, :text, :date, :integer ]
-  FIELD_NAME_FORMAT = /\A[a-z0-9_]+\Z/
+  has_and_belongs_to_many :searchable_taxonomy_terms, :class_name => 'TaxonomyTerm', :conditions => { :metadata_field_id => MetadataField.where(:field_type => 'taxonomy', :searchable => true).collect { |mf| mf.id } }
   
   before_save :protect_cataloguing_fields
   after_save :set_contribution_delta_flag
