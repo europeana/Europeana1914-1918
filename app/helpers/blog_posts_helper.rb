@@ -120,8 +120,8 @@ module BlogPostsHelper
     if controller.fragment_exist?(url)
       feed = YAML::load(controller.read_fragment(url))
     else
-      feed = Feedzirra::Feed.fetch_and_parse(url)
-      controller.write_fragment(url, feed.to_yaml,:expires_in => (options[:expires_in] || 60.minutes))
+      feed = Feedzirra::Feed.fetch_and_parse(url,
+        :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) })
     end
     
     if feed.respond_to?(:entries) && feed.entries.present?
@@ -163,8 +163,8 @@ module BlogPostsHelper
     if controller.fragment_exist?(url)
       feed = YAML::load(controller.read_fragment(url))
     else
-      feed = Feedzirra::Feed.fetch_and_parse(url)
-      controller.write_fragment(url, feed.to_yaml,:expires_in => (options[:expires_in] || 60.minutes))
+      feed = Feedzirra::Feed.fetch_and_parse(url,
+        :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) })
     end
 
     if feed.respond_to?(:entries) && feed.entries.present?
@@ -179,7 +179,7 @@ module BlogPostsHelper
   ##
   # Filters and processes an array of blog posts
   # 
-  # @param [Array<Feedzirra::Parser::AtomEntry>] Unfiltered array of posts
+  # @param [Array<Feedzirra::Parser::AtomEntry>] posts Unfiltered array of posts
   # @param [Hash] options Options
   # @option options [Boolean] :deblogger If true, run entry content through
   #   {#deblogger}
@@ -211,5 +211,19 @@ module BlogPostsHelper
     posts = [ posts[((options[:offset] || 1).to_i - 1)..-1] ].flatten
     posts = posts[0..((options[:limit] || 0).to_i - 1)]
     posts.reject { |post| post.blank? }
+  end
+  
+  private
+  ##
+  # Caches a blog feed
+  #
+  # @param [String] key Cache fragment key
+  # @param feed Feed to cache, converted to YAML
+  # @param [Integer] expires_in (60 minutes) Time in seconds to cache feed for.
+  # 
+  def cache_blog_feed(key, feed, expires_in = nil)
+    if feed.respond_to?(:entries) && feed.entries.present?
+      controller.write_fragment(key, feed.to_yaml,:expires_in => (expires_in || 60.minutes))
+    end
   end
 end
