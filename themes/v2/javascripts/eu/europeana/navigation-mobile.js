@@ -22,6 +22,7 @@
 	function handleClick( evt ) {
 		
 		evt.stopPropagation();
+		if ( jQuery(window).width() >= 768 ) { return; }
 		
 		if ( this.id === 'navigation-mobile' ) {
 			
