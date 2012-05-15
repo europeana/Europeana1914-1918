@@ -21,6 +21,7 @@
 	
 	function handleClick( evt ) {
 		
+		evt.preventDefault();
 		evt.stopPropagation();
 		
 		
