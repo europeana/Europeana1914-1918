@@ -81,6 +81,17 @@
 	
 	<h2><%= t('common.editors_pick.heading') %></h2>
 		
-		<%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :tag => 'div', :html_class => 'article', :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
+		<%=
+			render :partial => '/blog_posts/list',
+			:locals => {
+				:blog => 'gwa',
+				:tag => 'div',
+				:html_class => 'article',
+				:titles => true,
+				:limit => 2,
+				:deblogger => true,
+				:read_more => true
+			}
+		%>
 	
 </div>
