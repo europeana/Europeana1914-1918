@@ -22,16 +22,26 @@
 	function handleClick( evt ) {
 		
 		evt.stopPropagation();
-		if ( jQuery(window).width() >= 768 ) { return; }
+		
+		
+		if ( jQuery(window).width() >= 768 ) {
+			
+			if ( !$navigation_user.is(':visible') ) {
+				
+				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
+				
+			}
+			
+			return;
+			
+		}
 		
 		if ( this.id === 'navigation-mobile' ) {
 			
 			if ( !$navigation_user.is(':visible') ) {
 				
-				$navigation_user.add( $navigation_main )
-					.fadeSlideToggle(500);
-				
-				$navigation_mobile.fadeOut();
+				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
+				$navigation_mobile.fadeToggle();
 				
 			}
 			
@@ -39,10 +49,8 @@
 			
 			if ( $navigation_user.is(':visible') ) {
 				
-				$navigation_user.add( $navigation_main )
-					.fadeSlideToggle(500);
-				
-				$navigation_mobile.fadeIn();
+				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
+				$navigation_mobile.fadeToggle();
 				
 			}
 			
