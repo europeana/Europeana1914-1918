@@ -8,16 +8,8 @@ class Admin::LogsController < AdminController
   def show
     raise ActionController::RoutingError unless log_file_names.include?(params[:id])
     @log_file_name = params[:id]
-    log_lines = []
-    File.open(File.join(Rails.root, 'log', params[:id])) do |f|
-      f.each do |l|
-        log_lines << l
-        if log_lines.size > 100
-          log_lines.shift
-        end
-      end
-    end
-    @log = log_lines.join
+    log_file_path = File.join(Rails.root, 'log', params[:id])
+    @log = `tail -n 100 #{log_file_path}`
   end
   
   protected
