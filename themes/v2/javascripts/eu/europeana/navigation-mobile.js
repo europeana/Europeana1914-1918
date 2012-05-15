@@ -4,7 +4,8 @@
 	
 	var $navigation_mobile = jQuery('#navigation-mobile'),
 			$navigation_user = jQuery('#navigation-user'),
-			$navigation_main = jQuery('#navigation-main');
+			$navigation_main = jQuery('#navigation-main'),
+			resizeTimer;
 	
 	
 	$.fn.fadeSlideToggle = function(speed, fn) {
@@ -18,12 +19,7 @@
 		
 	};
 	
-	
-	function handleClick( evt ) {
-		
-		evt.preventDefault();
-		evt.stopPropagation();
-		
+	function handleWindowResize() {
 		
 		if ( jQuery(window).width() >= 768 ) {
 			
@@ -32,6 +28,16 @@
 				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
 				
 			}
+			
+		}
+		
+	}	
+	
+	function handleClick( evt ) {
+		
+		evt.stopPropagation();
+		
+		if ( jQuery(window).width() >= 768 ) {
 			
 			return;
 			
@@ -60,5 +66,12 @@
 	}
 	
 	$navigation_mobile.add(document).on('click', handleClick);
+	
+	jQuery(window).on('resize', function() {
+		
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout( function() { handleWindowResize(); }, 100 );
+		
+	});
 	
 }());
