@@ -77,12 +77,14 @@ class SearchSuggestion < ActiveRecord::Base
     end
     
     lower_words = stop_word_freqs.keys.collect { |word| word.downcase }
-    
-    self.delete_all([ 'stop_word = ? AND text NOT IN (?)', true, lower_words ])
-    
     existing_word_freqs = {}
-    self.where(:stop_word => true, :text => lower_words).select([ :text, :frequency ]).each do |word|
-      existing_word_freqs[word.text] = word.frequency
+
+    self.where(:stop_word => true).find_each do |word|
+      if lower_words.include?(word.text)
+        existing_word_freqs[word.text] = word.frequency
+      else
+        word.destroy
+      end
     end
     
     stop_word_freqs.each_pair do |word, freq|
@@ -117,6 +119,8 @@ class SearchSuggestion < ActiveRecord::Base
   # * Theatres of War
   # * File type
   #
+  # @todo Fix consecutive runs of this getting different numbers of phrases.
+  #
   def self.from_collection_metadata!
     # Hash of frequencies keyed by phrase
     phrase_freqs = { }
@@ -124,8 +128,8 @@ class SearchSuggestion < ActiveRecord::Base
     # Searchable taxonomy terms
     MetadataField.includes(:taxonomy_terms).where(:field_type => 'taxonomy', :searchable => true).each do |field|
       field.taxonomy_terms.each do |tt|
-        term = tt.term.downcase
-        if tt.term.match(/\s/) || self.where(:text => term).first.blank?
+        term = tt.term.downcase.strip
+        if term.match(/\s/) || self.where(:text => term).first.blank?
           freq = Contribution.select('id').where(:id => tt.metadata_record_ids).size
           phrase_freqs[term] = freq
         end
@@ -150,7 +154,7 @@ class SearchSuggestion < ActiveRecord::Base
       phrases << contribution.metadata.fields['location_placename']
       
       # Only *phrases*, i.e. with a space
-      phrases.reject! { |phrase| phrase.blank? || !phrase.match(/\s/) }
+      phrases.reject! { |phrase| phrase.blank? || !phrase.strip.match(/\s/) }
       
       phrases.each do |phrase|
         key = phrase.downcase.strip
@@ -169,11 +173,14 @@ class SearchSuggestion < ActiveRecord::Base
     end
     
     lower_phrases = phrase_freqs.keys
-    self.delete_all([ 'stop_word = ? AND text NOT IN (?)', false, lower_phrases ])
-    
     existing_phrase_freqs = {}
-    self.where(:stop_word => false, :text => lower_phrases).select([ :text, :frequency ]).each do |phrase|
-      existing_phrase_freqs[phrase.text] = phrase.frequency
+    
+    self.where(:stop_word => false).find_each do |phrase|
+      if lower_phrases.include?(phrase.text)
+        existing_phrase_freqs[phrase.text] = phrase.frequency
+      else
+        phrase.destroy 
+      end
     end
     
     phrase_freqs.each_pair do |phrase, freq|
