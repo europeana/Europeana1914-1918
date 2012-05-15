@@ -4,6 +4,7 @@
 	
 	var $navigation_mobile = jQuery('#navigation-mobile'),
 			$navigation_user = jQuery('#navigation-user'),
+			$navigation_user_menu = jQuery('#navigation-user-menu'),
 			$navigation_main = jQuery('#navigation-main'),
 			resizeTimer;
 	
@@ -25,7 +26,7 @@
 			
 			if ( !$navigation_user.is(':visible') ) {
 				
-				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
+				$navigation_user.add( $navigation_main ).add( $navigation_user_menu ).fadeSlideToggle(500);
 				
 			}
 			
@@ -47,7 +48,7 @@
 			
 			if ( !$navigation_user.is(':visible') ) {
 				
-				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
+				$navigation_user.add( $navigation_main ).add( $navigation_user_menu ).fadeSlideToggle(500);
 				$navigation_mobile.fadeToggle();
 				
 			}
@@ -56,7 +57,7 @@
 			
 			if ( $navigation_user.is(':visible') ) {
 				
-				$navigation_user.add( $navigation_main ).fadeSlideToggle(500);
+				$navigation_user.add( $navigation_main ).add( $navigation_user_menu ).fadeSlideToggle(500);
 				$navigation_mobile.fadeToggle();
 				
 			}
@@ -66,6 +67,10 @@
 	}
 	
 	$navigation_mobile.add(document).on('click', handleClick);
+	
+	if ( $navigation_user_menu.length === 1 ) {
+		$navigation_main.css('top','214px');
+	}
 	
 	jQuery(window).on('resize', function() {
 		

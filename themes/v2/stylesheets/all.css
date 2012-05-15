@@ -1323,7 +1323,8 @@
 		}
 		
 		#navigation-user,
-		#navigation-main {
+		#navigation-main,
+		#navigation-user-menu {
 			position: absolute;
 			left: -3%;
 			width: 99%;
@@ -1340,18 +1341,38 @@
 			margin-top: 0;
 		}
 		
+		#navigation-user-menu {
+			top: 57px;
+			margin-top: 0;
+		}
+		
 		#navigation-main {
 			top: 93px;
 		}
 		
 		#navigation-user.menu a,
-		#navigation-main.menu a {
+		#navigation-main.menu a,
+		#navigation-user-menu.menu a {
 			color: #f5f5f5;
 		}
 		
 		#navigation-user.menu a:hover,
-		#navigation-main.menu a:hover {
+		#navigation-main.menu a:hover,
+		#navigation-user-menu.menu a:hover {
 			color: #333;
+		}
+		
+		#navigation-user.menu a.selected,
+		#navigation-main.menu a.selected,
+		#navigation-user-menu.menu a.selected {
+			background: none;
+		}
+		
+		#navigation-user.menu a.selected:hover,
+		#navigation-main.menu a.selected:hover,
+		#navigation-user-menu.menu a.selected:hover {
+			color: #333;
+			background-color: #eaeaea;
 		}
 		
 		#shareicons {

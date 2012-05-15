@@ -1,0 +1,14 @@
+<% @title = t('views.contacts.edit.title') %>
+<div class="section top">
+  
+  <h2><%= @title %></h2>
+  
+    <div class="action-links">
+      <ul>
+        <li><%= link_to t('views.links.privacy_policy'), page_path('help/privacy') %></li>
+      </ul>
+    </div>
+    
+    <%= render :partial => 'form', :locals => { :contact => @contact } %>
+
+</div>
