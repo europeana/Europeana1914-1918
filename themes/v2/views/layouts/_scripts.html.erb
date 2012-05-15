@@ -34,6 +34,12 @@
 		)
 	end
 	
+	if @javascripts[:generate_password]
+		script_files.push(
+			'/themes/v2/javascripts/com/benjaminsterling/generate-password.js'
+		)
+	end
+	
 	if @javascripts[:gmap_display] || @javascripts[:gmap_locate]
 		script_files.push(
 			'http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=' + configuration(:gmap_api_key),
@@ -165,6 +171,12 @@
 	if @javascripts[:index]
 		script_files.push(
 			'/themes/v2/javascripts/eu/europeana/index.js'
+		)
+	end
+	
+	if @javascripts[:register]
+		script_files.push(
+			'/themes/v2/javascripts/eu/europeana/register.js'			
 		)
 	end
 	
