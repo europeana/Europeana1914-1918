@@ -7,7 +7,9 @@
 	'use strict';	
 	
 	
-	jQuery('#explore-featured').rCarousel();
+	jQuery('#explore-featured').imagesLoaded(function() {
+		this.rCarousel();
+	});	
 	
 	jQuery('#explore-collection-days')
 		.rCarousel({
