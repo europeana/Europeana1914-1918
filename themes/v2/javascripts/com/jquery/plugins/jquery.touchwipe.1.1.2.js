@@ -23,8 +23,8 @@
 		
 		var $target = this,
 				config = {
-					min_move_x: 10,
-					min_move_y: 10,
+					min_move_x: 8,
+					min_move_y: 8,
 					wipeLeft: function() {},
 					wipeRight: function() {},
 					wipeUp: function() {},
