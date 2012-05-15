@@ -79,11 +79,18 @@ class ContributionStatus < ActiveRecord::Base
   protected
   
   def rollback_contribution_current_status
-    if (contribution = Contribution.find(contribution_id)) && (contribution.current_status_id == id)
-      if contribution.statuses.present? && (contribution.statuses.last.id != id)
-        contribution.current_status_id = contribution.statuses.last.id
-        contribution.save
+    if contribution = Contribution.find(contribution_id)
+      if contribution.statuses(true).present?
+        status_record = contribution.statuses.last
+        contribution.current_status = status_record.status
+        contribution.status_timestamp = status_record.created_at
+      else
+        # TODO: Prevent this point from being reached, i.e. a contribution's
+        #   final status record should never be deleted.
+        contribution.current_status = nil
+        contribution.status_timestamp = nil
       end
+      contribution.save
     end
   end
 end
