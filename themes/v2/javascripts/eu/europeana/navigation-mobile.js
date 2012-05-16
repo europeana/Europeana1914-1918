@@ -69,7 +69,7 @@
 	$navigation_mobile.add(document).on('click', handleClick);
 	
 	if ( $navigation_user_menu.length === 1 ) {
-		$navigation_main.css('top','262px');
+		$navigation_main.css('top','258px');
 	}
 	
 	jQuery(window).on('resize', function() {
