@@ -226,7 +226,7 @@ Note: This empties and repopulates auto-complete phrases from the collection met
 Then, run one of the following sets of commands, depending on whether Sphinx is running on the same server as the web application, or is on a remote server.
 
 --- local sphinx ---
-bundle exec rake auto_complete:stops:generate COUNT=1000
+bundle exec rake auto_complete:stops:generate COUNT=6000
 bundle exec rake auto_complete:stops:import
 
 COUNT should be set to the maximum number of stop words you want to extract from the main contribution search index, and defaults to 1000.
