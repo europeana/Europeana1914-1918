@@ -59,6 +59,12 @@
 		)
 	end
 	
+	#if @javascripts[:images_lazy_load]
+	#	script_files.push(
+	#		'/themes/v2/javascripts/com/mikatuupola/jquery.lazyload.js'
+	#	)
+	#end
+	
 	if @javascripts[:images_loaded]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery.imagesloaded.min.js'

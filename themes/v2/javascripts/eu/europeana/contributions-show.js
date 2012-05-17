@@ -114,78 +114,12 @@
 	},
 	
 	
-	map = {
-		
-		$map : jQuery('#location-map'),
-		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
-		$story_map : jQuery('<div/>', { id : 'story-map' }),
-		$google_map : jQuery('<div/>', { id : "google-map" }),
-		placename : jQuery('#location-placename').val(),
-		$placename_link : jQuery('<a/>'),
-		$story_took_place : jQuery('<b/>'),
-		
-		
-		addMapContainer : function() {
-			
-			jQuery('#thumbnail-counts')
-				.after(
-					jQuery( this.$google_map )
-						.append( this.$story_took_place )
-						.append( this.$story_map )
-						.append( this.$overlay )
-				);
-			
-			this.$story_map.css( 'height', jQuery('.one-half-right').width() );
-			
-		},
-		
-		
-		removeOverlay : function() {
-			
-			if ( map.$overlay.is(':visible') ) {
-				
-				setTimeout( function() { map.$overlay.fadeOut(); }, 200 );
-				
-			}
-			
-		},
-		
-		
-		locationMap : function() {
-			
-			if ( this.$map.length === 1 ) {
-				
-				this.addMapContainer();
-				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
-				
-			}
-			
-		},
-		
-		
-		addStoryTookPlace : function() {
-			
-			var self = this;
-			
-			if ( self.placename ) {
-				
-				self.$placename_link
-					.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
-					.html( self.placename );
-			
-				self.$story_took_place
-					.append( I18n.t('javascripts.story.took-place') + ' ' )
-					.append( self.$placename_link );
-				
-			}
-			
-		},
+	image_lazyload = {
 		
 		
 		init : function() {
 			
-			this.addStoryTookPlace();
-			this.locationMap();
+			jQuery('img.lazy').lazyload();
 			
 		}
 		
@@ -293,7 +227,97 @@
 		
 		init : function() {
 			
+			if ( jQuery(window).width() <= 768 && jQuery(window).height() <= 600 ) {
+			
+				jQuery('#contributions-featured a').each(function() {
+					
+					jQuery(this).on('click', function(evt) { evt.preventDefault(); });
+					
+				});
+				
+				return;
+				
+			}
+			
 			this.setupPrettyPhoto();
+			
+		}
+		
+	},
+	
+	
+	map = {
+		
+		$map : jQuery('#location-map'),
+		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
+		$story_map : jQuery('<div/>', { id : 'story-map' }),
+		$google_map : jQuery('<div/>', { id : "google-map" }),
+		placename : jQuery('#location-placename').val(),
+		$placename_link : jQuery('<a/>'),
+		$story_took_place : jQuery('<b/>'),
+		
+		
+		addMapContainer : function() {
+			
+			jQuery('#thumbnail-counts')
+				.after(
+					jQuery( this.$google_map )
+						.append( this.$story_took_place )
+						.append( this.$story_map )
+						.append( this.$overlay )
+				);
+			
+			this.$story_map.css( 'height', jQuery('.one-half-right').width() );
+			
+		},
+		
+		
+		removeOverlay : function() {
+			
+			if ( map.$overlay.is(':visible') ) {
+				
+				setTimeout( function() { map.$overlay.fadeOut(); }, 200 );
+				
+			}
+			
+		},
+		
+		
+		locationMap : function() {
+			
+			if ( this.$map.length === 1 ) {
+				
+				this.addMapContainer();
+				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
+				
+			}
+			
+		},
+		
+		
+		addStoryTookPlace : function() {
+			
+			var self = this;
+			
+			if ( self.placename ) {
+				
+				self.$placename_link
+					.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
+					.html( self.placename );
+			
+				self.$story_took_place
+					.append( I18n.t('javascripts.story.took-place') + ' ' )
+					.append( self.$placename_link );
+				
+			}
+			
+		},
+		
+		
+		init : function() {
+			
+			this.addStoryTookPlace();
+			this.locationMap();
 			
 		}
 		
@@ -303,6 +327,8 @@
 	truncate = {
 		
 		init : function() {
+			
+			if ( jQuery('#avatar').length < 1 ) { return; }
 			
 			jQuery('#story-metadata').truncate({
 				limit : { pixels : 400 },
@@ -319,29 +345,12 @@
 	
 	(function() {
 		
-		if ( jQuery('#avatar').length > 0 ) {
-			
-			truncate.init();
-			
-		}
-		
+		truncate.init();
+		// image_lazyload.init();
 		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		carousels.init();
 		map.init();
-		
-		if ( jQuery(window).width() >= 768 && jQuery(window).height() >= 600 ) {
-			
-			lightbox.init();
-			
-		} else {
-			
-			jQuery('#contributions-featured a').each(function() {
-				
-				jQuery(this).on('click', function(evt) { evt.preventDefault(); });
-				
-			});
-			
-		}
+		lightbox.init();
 		
 	}());
 	
