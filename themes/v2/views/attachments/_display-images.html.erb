@@ -18,9 +18,8 @@
 		} ) if (prettyphoto && attachment.image?)
       %>
       <%=
-		#link_to( attachment_preview( attachment, size ), attachment_url(attachment, 'large'), link_attrs )
+		link_to( attachment_preview( attachment, size ), attachment_url(attachment, 'large'), link_attrs )
 	  %>
-	  <img src='/themes/v2/images/backgrounds/transparent.gif' width='160' height='120'/>
     <% else %>
       <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
     <% end %>
