@@ -68,6 +68,7 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution)
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 10)
+    @from = params[:from]
   end
   
   # GET /contributions/:id/status_log

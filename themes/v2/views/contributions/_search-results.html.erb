@@ -4,7 +4,7 @@
     <% for contribution in contributions.each %>
       <% if contribution.attachments.with_file.present? %>
         <li>
-          <%= link_to attachment_preview(contribution.attachments.cover_image, :preview), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
+          <%= link_to attachment_preview(contribution.attachments.cover_image, :preview), contribution_path(contribution, :from => request_uri), :title => t('views.contributions.search.links.titles.show_contribution') %>
           <b><%= contribution.title %></b><br/>
           <br/>
           <%= contribution.metadata['field_alternative'] %>
