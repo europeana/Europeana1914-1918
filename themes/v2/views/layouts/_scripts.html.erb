@@ -200,7 +200,7 @@
 		'/themes/v2/javascripts/com/sharethis/sharethis.js'
 	)
 	
-%>
+-%>
 <script>
 var switchTo5x = true;<% 'for share-this' %>
 if ( !window.RunCoCo ) { window.RunCoCo = {}; }
@@ -209,14 +209,16 @@ RunCoCo.gaId = '<%= configuration(:google_analytics_key) %>';
 <% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
 <% if @javascripts[:translate] %>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end %>
 <% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
-<% if @javascripts[:uploadify] && configuration(:uploadify) %>
+<% if @javascripts[:uploadify] && configuration(:uploadify) -%>
 RunCoCo.uploadify_settings = { maxUploadSize: <%= configuration(:max_upload_size) %>, fileExt: '<%= uploadify_file_extensions %>', fileDesc: '<%= uploadify_file_desc %>', script: '<%= contribution_attachments_path(@contribution) %>' };
 RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
 RunCoCo.sessionKeyName = '<%= session_key_name %>';
 RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
-<% end %>
-<% if 'cataloguer' === current_user.role.name %>RunCoCo.cataloguer = true;<% end %>
+<% end -%>
+<% if 'cataloguer' === current_user.role.name -%>
+RunCoCo.cataloguer = true;
+<% end -%>
 </script>
 <%= javascript_include_tag script_files %>
-<%	# need this here because loading I18n will overwrite if value is set before load %>
+<%# need this here because loading I18n will overwrite if value is set before load -%>
 <script>I18n.locale = '<%= I18n.locale %>';</script>
