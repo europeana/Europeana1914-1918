@@ -77,10 +77,10 @@
 			var self = this;
 			
 			self.$thumbnail_links.each(function(index) {
-					
-					var $elm = jQuery(this);
-					$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
-					
+				
+				var $elm = jQuery(this);
+				$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
+				
 			});
 			
 		},
@@ -91,23 +91,27 @@
 			var self = this;
 			
 			
-			this.$featured =
+			self.$featured =
 				jQuery('#contributions-featured').rCarousel({
-					nav_callback : function() { self.updateCounts(); /* self.updateTumbnailCarouselPosition(); */ }
+					nav_callback : function() {
+						self.updateCounts();
+						self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index') );
+					}
 				});
 			
-			this.$thumbnail =
+			self.$thumbnail =
 				jQuery('#contributions-thumbnails').imagesLoaded(function() {
 					this.rCarousel({
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
-						nav_button_size : 'small'
+						nav_button_size : 'small',
+						nav_callback : function() { self.updateCounts(); }
 					});
 				});
 			
-			this.addThumbnailClickHandlers();
-			this.updateCounts();
-			this.toggleSelected( this.$featured.data( 'rCarousel' ).get('current_item_index') );
+			self.addThumbnailClickHandlers();
+			self.updateCounts();
+			self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index') );
 			
 		}
 		
