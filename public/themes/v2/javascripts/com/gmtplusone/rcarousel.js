@@ -189,6 +189,8 @@
 					
 					if ( $iframe.length > 0 ) {
 						
+						console.log('registering on iframe');
+						
 						$iframe.touchwipe({
 							wipeLeft : function( evt ) { console.log('iframe left'); evt.preventDefault(); self.$next.trigger('click'); },
 							wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
