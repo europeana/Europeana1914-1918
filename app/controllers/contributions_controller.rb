@@ -130,9 +130,11 @@ class ContributionsController < ApplicationController
   def approve
     current_user.may_approve_contributions!
     if @contribution.approve_by(current_user)
-      email = @contribution.by_guest? ? @contribution.contact.email : @contribution.contributor.email
-      if email.present?
-        ContributionsMailer.published(email, @contribution).deliver
+      if @contribution.statuses.select { |s| s.to_sym == :approved }.size == 1
+        email = @contribution.by_guest? ? @contribution.contact.email : @contribution.contributor.email
+        if email.present?
+          ContributionsMailer.published(email, @contribution).deliver
+        end
       end
       flash[:notice] = t('flash.contributions.approve.notice')
       redirect_to admin_contributions_url
