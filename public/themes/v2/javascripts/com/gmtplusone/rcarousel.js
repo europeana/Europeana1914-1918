@@ -177,12 +177,26 @@
 				
 				self.$items.each(function() {
 					
-					jQuery(this).touchwipe({
+					var $elm = jQuery(this),
+						$iframe = $elm.find('iframe');
+					
+					$elm.touchwipe({
 						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
 						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
 						wipeUp : function( evt ) {},
 						wipeDown : function( evt ) {}
 					});
+					
+					if ( $iframe.length > 0 ) {
+						
+						$iframe.touchwipe({
+							wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+							wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
+							wipeUp : function( evt ) {},
+							wipeDown : function( evt ) {}
+						});
+						
+					}
 					
 				});
 				
