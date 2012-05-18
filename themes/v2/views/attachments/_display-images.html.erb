@@ -1,8 +1,7 @@
 <% prettyphoto = prettyphoto ? prettyphoto : false -%>
 <% inline = 0 -%>
 <% if attachments.present? -%>
-  <%- for attachment in attachments -%>
-    <li>
+  <%- for attachment in attachments -%><li>
       <%- if attachment.file.present? -%>
         <%-
           link_attrs = {
@@ -66,6 +65,5 @@
         </dl>
       <%- end -%>
       <%- inline += 1 -%>
-    </li>
-  <%- end -%>
+    </li><%- end -%>
 <% end -%>

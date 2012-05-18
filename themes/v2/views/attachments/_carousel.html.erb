@@ -30,6 +30,7 @@
   <div class="carousel-overlay"></div>
 </div>
 
-<div><%= will_paginate(attachments) %></div>
-
-<div>Total: <%= attachments.total_entries %></div>
+<div id="contributions-pagination">
+	<%= will_paginate(attachments) %>
+	Total: <span id="attachment-total"><%= attachments.total_entries %></span>
+</div>
