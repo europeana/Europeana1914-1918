@@ -235,12 +235,13 @@ module BlogPostsHelper
   #
   # @param [String] key Cache fragment key
   # @param feed Feed to cache, converted to YAML
+  # @param [Integer] expires_in (60 minutes) Time in seconds to cache feed for.
   # 
   def cache_blog_feed(key, feed, expires_in = nil)
     expires_in ||= 60.minutes
     if feed.respond_to?(:entries) && feed.entries.present?
       controller.write_fragment(key, feed.to_yaml, :expires_in => expires_in)
-    elsif feed.present?
+    elsif !feed.respond_to?(:entries) && feed.present?
       controller.write_fragment(key, feed, :expires_in => expires_in)
     end
   end
