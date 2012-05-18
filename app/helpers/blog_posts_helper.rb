@@ -123,12 +123,12 @@ module BlogPostsHelper
     end
    
     unless controller.fragment_exist?(url)
-      Feedzirra::Feed.fetch_and_parse(url,
+      feed = Feedzirra::Feed.fetch_and_parse(url,
         :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) },
         :on_failure => lambda { |url, code, header, body| cache_blog_feed(url, cached_feed, 60) })
     end
     
-    if controller.fragment_exist?(url)
+    if !(feed.respond_to?(:entries) && feed.entries.present?) && controller.fragment_exist?(url)
       feed = YAML::load(controller.read_fragment(url))
     end
     
@@ -174,12 +174,12 @@ module BlogPostsHelper
     end
    
     unless controller.fragment_exist?(url)
-      Feedzirra::Feed.fetch_and_parse(url,
+      feed = Feedzirra::Feed.fetch_and_parse(url,
         :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) },
         :on_failure => lambda { |url, code, header, body| cache_blog_feed(url, cached_feed, 60) })
     end
     
-    if controller.fragment_exist?(url)
+    if !(feed.respond_to?(:entries) && feed.entries.present?) && controller.fragment_exist?(url)
       feed = YAML::load(controller.read_fragment(url))
     end
 
