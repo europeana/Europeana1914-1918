@@ -46,7 +46,7 @@ module ApplicationHelper
   end
 
   def request_uri
-    controller.request.request_uri
+    controller.request.fullpath
   end
 
   def cancel_link(url)
