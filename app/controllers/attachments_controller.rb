@@ -7,7 +7,16 @@ class AttachmentsController < ApplicationController
     current_user.may_view_contribution_attachments!(@contribution)
     @attachments = @contribution.attachments
     respond_to do |format|
-      format.html
+      format.html do
+        if params[:carousel] && (session[:theme] = 'v2')
+          render :partial => '/attachments/carousel', :locals => {
+            :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count]),
+            :contribution => @contribution
+          }
+        else
+          render :action => 'index'
+        end
+      end
       format.json do
         render :json => @attachments.paginate(:page => params[:page], :per_page => params[:count])
       end

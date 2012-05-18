@@ -1,14 +1,14 @@
 <% prettyphoto = prettyphoto ? prettyphoto : false %>
 <% inline = 0 %>
-<% if @contribution.attachments.present? %>
-  <% for attachment in @contribution.attachments %><li>
+<% if attachments.present? %>
+  <% for attachment in attachments %><li>
     <% if attachment.file.present? %>
       <% 
 		link_attrs = {
 		  :target => '_blank',
 		  :title => attachment.title,
 		  'data-attachment-id' => attachment.id,
-		  'data-contribution-id' => @contribution.id
+		  'data-contribution-id' => contribution.id
 		}
 		link_attrs.merge!( {
 		  'data-description' =>
@@ -31,7 +31,7 @@
       render :partial => '/metadata/display',
       :locals => {
 		:show_title => true,
-        :contribution => @contribution,
+        :contribution => contribution,
         :metadata => attachment.metadata,
         :field_options => {
         :name => [
