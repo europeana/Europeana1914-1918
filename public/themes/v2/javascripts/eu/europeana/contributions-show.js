@@ -51,7 +51,7 @@
 			
 			this.$thumbnail_counts.html(
 				I18n.t('javascripts.thumbnails.item') + ' ' + ( carousels.$featured.data( 'rCarousel' ).get('current_item_index') + 1 ) +
-				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + carousels.$featured.data( 'rCarousel' ).get('items_length')
+				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + jQuery('#attachment-total').text()
 			);
 			
 		},
