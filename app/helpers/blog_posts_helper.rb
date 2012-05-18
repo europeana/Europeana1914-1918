@@ -117,11 +117,19 @@ module BlogPostsHelper
       url = url + "/-/" + category
     end
     
+    key = controller.fragment_cache_key(url)
+    if result = controller.cache_store.public_read_entry(key)
+      cached_feed = result.value
+    end
+   
+    unless controller.fragment_exist?(url)
+      Feedzirra::Feed.fetch_and_parse(url,
+        :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) },
+        :on_failure => lambda { |url, code, header, body| cache_blog_feed(url, cached_feed, 60) })
+    end
+    
     if controller.fragment_exist?(url)
       feed = YAML::load(controller.read_fragment(url))
-    else
-      feed = Feedzirra::Feed.fetch_and_parse(url,
-        :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) })
     end
     
     if feed.respond_to?(:entries) && feed.entries.present?
@@ -160,11 +168,19 @@ module BlogPostsHelper
       url = url + '-' + options[:category]
     end
     
+    key = controller.fragment_cache_key(url)
+    if result = controller.cache_store.public_read_entry(key)
+      cached_feed = result.value
+    end
+   
+    unless controller.fragment_exist?(url)
+      Feedzirra::Feed.fetch_and_parse(url,
+        :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) },
+        :on_failure => lambda { |url, code, header, body| cache_blog_feed(url, cached_feed, 60) })
+    end
+    
     if controller.fragment_exist?(url)
       feed = YAML::load(controller.read_fragment(url))
-    else
-      feed = Feedzirra::Feed.fetch_and_parse(url,
-        :on_success => lambda { |url, feed| cache_blog_feed(url, feed, options[:expires_in]) })
     end
 
     if feed.respond_to?(:entries) && feed.entries.present?
@@ -219,11 +235,14 @@ module BlogPostsHelper
   #
   # @param [String] key Cache fragment key
   # @param feed Feed to cache, converted to YAML
-  # @param [Integer] expires_in (60 minutes) Time in seconds to cache feed for.
   # 
   def cache_blog_feed(key, feed, expires_in = nil)
+    expires_in ||= 60.minutes
     if feed.respond_to?(:entries) && feed.entries.present?
-      controller.write_fragment(key, feed.to_yaml,:expires_in => (expires_in || 60.minutes))
+      controller.write_fragment(key, feed.to_yaml, :expires_in => expires_in)
+    elsif feed.present?
+      controller.write_fragment(key, feed, :expires_in => expires_in)
     end
   end
 end
+
