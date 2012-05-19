@@ -200,14 +200,6 @@
 		},
 		
 		
-		addOrientationHandler : function() {
-			
-			if ( !window.onorientationchange ) { return; }
-			jQuery(window).on('orientationchange', this.setDimmensions );
-			
-		},
-		
-		
 		handleKeyUp : function( evt ) {
 			
 			if ( !evt || !evt.keyCode ) { return; }
@@ -436,6 +428,23 @@
 		},
 		
 		
+		addOrientationHandler : function() {
+			
+			if ( !window.onorientationchange ) { return; }
+			jQuery(window).on('orientationchange', { self : this }, this.setDimmensions );
+			console.log('orientation added');
+			
+		},
+		
+		
+		addWindowResizeHandler : function() {
+			
+			if ( !window.onresize ) { return; }
+			jQuery(window).on( 'resize', { self : this }, this.setDimmensions );
+			
+		},
+		
+		
 		deriveCarouselElements : function( carousel_container ) {
 			
 			this.carousel_container = carousel_container;
@@ -456,7 +465,7 @@
 			self.setDimmensions();
 			self.addNavigation();
 			
-			jQuery(window).on( 'resize', { self : self }, self.setDimmensions );		
+			self.addWindowResizeHandler();
 			self.addOrientationHandler();
 			
 			self.$overlay.fadeOut();
