@@ -439,7 +439,7 @@
 			setInterval(
 				function() {
 					if ( window.orientation !== self.orientation ) {
-						self.setDimmenstions();
+						self.setDimmensions();
 						self.orientation = window.orientation;
 					}
 				},
