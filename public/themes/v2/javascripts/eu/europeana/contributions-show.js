@@ -89,7 +89,7 @@
 			evt.preventDefault();
 			
 			self.toggleSelected( index );
-			carousels.$featured.data( 'rCarousel' ).goToIndex(index);
+			carousels.$featured.data( 'rCarousel' ).goToIndex( index );
 			self.updateCounts();
 			
 		},
