@@ -418,9 +418,6 @@
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 			
-			if ( evt ) {
-				console.log(evt.type);
-			}
 			
 			self.$items.each(function() {
 				
