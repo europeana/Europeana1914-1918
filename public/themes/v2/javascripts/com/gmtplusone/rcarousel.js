@@ -438,8 +438,10 @@
 			
 			setInterval(
 				function() {
+					
 					if ( window.orientation !== self.orientation ) {
-						self.setDimmensions();
+						console.log('orientation change');
+						setTimeout( function() { self.setDimmensions(); }, 500 );
 						self.orientation = window.orientation;
 					}
 				},
