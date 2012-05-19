@@ -430,22 +430,19 @@
 		
 		addOrientationHandler : function() {
 			
+			var self = this;
 			if ( 'undefined' === typeof window.orientation ) { return; }
 			
-			var self = this;
-			
-			// jQuery(window).on('orientationchange', { self : this }, this.setDimmensions );
 			
 			setInterval(
 				function() {
 					
 					if ( window.orientation !== self.orientation ) {
-						console.log('orientation change');
-						setTimeout( function() { self.setDimmensions(); }, 500 );
+						setTimeout( function() { self.setDimmensions(); }, 400 );
 						self.orientation = window.orientation;
 					}
 				},
-				500
+				200
 			);
 			
 		},
@@ -491,12 +488,6 @@
 			
 			self.$overlay.fadeOut();
 			
-			if ( 'function' === typeof self.options.callbacks.after_init ) {
-				
-				self.options.callbacks.after_init.call(this);
-				
-			}
-			
 		}
 		
 	};
@@ -522,7 +513,6 @@
 		nav_button_size : 'medium',
 		navigation_style : 'one-way',
 		callbacks : {
-			after_init : null,
 			before_nav : null,
 			after_nav : null
 		}
