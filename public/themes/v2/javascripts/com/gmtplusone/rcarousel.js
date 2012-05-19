@@ -39,6 +39,7 @@
 		items_per_container : 0,
 		
 		current_item_index : 0,
+		orientation : window.orientation,
 		
 		
 		/**
@@ -363,10 +364,8 @@
 			
 			for ( i = 0; i < ii; i += 1) {
 				
-				//if ( self.$items.eq(i).width() > width ) {
 				if ( self.$items.eq(i).outerWidth(true) > width ) {
 					
-					//width = self.$items.eq(i).width();
 					width = self.$items.eq(i).outerWidth(true);
 					
 				}
@@ -431,8 +430,21 @@
 		
 		addOrientationHandler : function() {
 			
-			if ( 'undefined' === typeof window.onorientationchange ) { return; }
-			jQuery(window).on('orientationchange', { self : this }, this.setDimmensions );
+			if ( 'undefined' === typeof window.orientation ) { return; }
+			
+			var self = this;
+			
+			// jQuery(window).on('orientationchange', { self : this }, this.setDimmensions );
+			
+			setInterval(
+				function() {
+					if ( window.orientation !== self.orientation ) {
+						self.setDimmenstions();
+						self.orientation = window.orientation;
+					}
+				},
+				500
+			);
 			
 		},
 		
