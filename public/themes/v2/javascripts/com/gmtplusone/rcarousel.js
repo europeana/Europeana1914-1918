@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-10 05:26 gmt +1
+ *	@version 2012-05-19 16:19 gmt +1
  */
 (function() {
 
@@ -41,6 +41,9 @@
 		current_item_index : 0,
 		
 		
+		/**
+		 *	helper function for external scripts
+		 */
 		get : function( property ) {
 			
 			return this[property];
@@ -54,9 +57,12 @@
 				'margin-left': coords || -( this.current_item_index * this.item_width )
 			});
 			
-		},
+		},		
 		
 		
+		/**
+		 *	helper function for external scripts
+		 */
 		goToIndex : function( index ) {
 			
 			this.current_item_index = index;
@@ -65,7 +71,31 @@
 		},
 		
 		
+		determinePageInfo : function( current_item_index, items_per_container ) {
+			
+			current_item_index = current_item_index || this.current_item_index;
+			items_per_container = items_per_container || this.items_per_container;
+			
+			var nr_of_pgs = this.items_length / items_per_container,
+					current_page_nr = current_item_index / items_per_container,
+					page_first_item_index = current_page_nr * items_per_container;
+			
+			
+			return {
+				current_item_index : current_item_index,
+				items_per_container : items_per_container,
+				nr_of_pgs : nr_of_pgs,
+				current_page_nr : current_page_nr,
+				page_first_item_index : page_first_item_index
+			};
+			
+		},
+		
+		
 		toggleNav : function() {
+			
+			var page_info = this.determinePageInfo();
+			
 			
 			if ( this.current_item_index == 0 ) {
 				
@@ -77,7 +107,9 @@
 				
 			}
 			
-			if ( this.current_item_index === this.items_length - 1 ) {
+			if ( this.current_item_index === this.items_length - 1
+					 || page_info.nr_of_pgs === page_info.current_page_nr + 1
+			) {
 				
 				this.$next.fadeOut();
 				
@@ -200,21 +232,22 @@
 		handleNavClick : function( evt ) {
 			
 			var self = evt.data.self,
-					$elm = jQuery(this);
+					$elm = jQuery(this),
+					dir = $elm.data('dir');
 			
 			
 			if ( 'function' === typeof self.options.callbacks.before_nav ) {
 				
-				self.options.callbacks.before_nav.call(this);
+				self.options.callbacks.before_nav.call( this, dir );
 				
 			}
 			
-			self.setCurrentItemIndex( $elm.data('dir') );
+			self.setCurrentItemIndex( dir );
 			self.transition();
 			
 			if ( 'function' === typeof self.options.callbacks.after_nav ) {
 				
-				self.options.callbacks.after_nav.call(this);
+				self.options.callbacks.after_nav.call( this, dir );
 				
 			}
 			
@@ -322,21 +355,6 @@
 		},
 		
 		
-		determinePage : function( current_item_index, items_per_container ) {
-			
-			var current_item = current_item_index + 1,
-					nr_of_pgs = Math.ceil( this.items_length / items_per_container ),
-					page_nr = Math.ceil( current_item / nr_of_pgs );
-			
-			return {
-				nr_of_pgs : nr_of_pgs,
-				page_nr : page_nr,
-				page_first_item_index : ( page_nr * items_per_container ) - items_per_container
-			};
-			
-		},
-		
-		
 		getItemWidth : function() {
 			
 			var self = this,
@@ -383,12 +401,7 @@
 			self.items_total_width = self.items_length * self.item_width;
 			self.items_per_container = Math.floor( self.carousel_container_width / self.item_width );
 			
-			self.carousel_pages = Math.ceil( self.items_length / self.items_per_container );
-			
-			// needs to be called after items_length is determined
-			page_info = self.determinePage( self.current_item_index, self.items_per_container );
-			self.carousel_current_page = page_info.page_nr;
-			
+			self.carousel_pages = Math.ceil( self.items_length / self.items_per_container );			
 			
 			if ( !self.options.item_width_is_container_width
 					&& self.$items.length <= self.items_per_container ) {
@@ -447,6 +460,12 @@
 			
 			self.$overlay.fadeOut();
 			
+			if ( 'function' === typeof self.options.callbacks.after_init ) {
+				
+				self.options.callbacks.after_init.call(this);
+				
+			}
+			
 		}
 		
 	};
@@ -472,6 +491,7 @@
 		nav_button_size : 'medium',
 		navigation_style : 'one-way',
 		callbacks : {
+			after_init : null,
 			before_nav : null,
 			after_nav : null
 		}

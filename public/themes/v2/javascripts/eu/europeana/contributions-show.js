@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-10 10:02 gmt +1
+ *	@version 2012-05-19 16:19 gmt +1
  */
 (function() {
 
@@ -11,14 +11,39 @@
 		
 		$featured : null,
 		$thumbnail : null,
+		thumbnail_page_nr : 1,
 		$thumbnail_counts : jQuery('#thumbnail-counts'),
 		$thumbnail_links : jQuery('#contributions-thumbnails ul a'),
 		$pagination : jQuery('#contributions-pagination .pagination a'),
 		
 		
-		toggleSelected : function( selected_index ) {
+		updateTumbnailCarouselPosition : function( selected_index, dir ) {
+			
+			if ( !this.$thumbnail ) { return; }
+			
+			var items_per_container = this.$thumbnail.data( 'rCarousel' ).get( 'items_per_container' );
+			
+			if ( dir ) {
+				
+				if ( 'next' === dir && 0 === selected_index % items_per_container ) {
+					
+					this.$thumbnail.data( 'rCarousel' ).$next.trigger('click');
+					
+				} else if ( 'prev' === dir && 0 === ( selected_index + 1 ) % items_per_container ) {
+					
+					this.$thumbnail.data( 'rCarousel' ).$prev.trigger('click');
+					
+				}
+				
+			}
+			
+		},
+		
+		
+		toggleSelected : function( selected_index, dir ) {
 			
 			var self = this;
+			
 			
 			self.$thumbnail_links.each(function(index) {
 					
@@ -40,31 +65,9 @@
 					
 			});
 			
-			//if (self.$thumbnail ) {
-			//	
-			//	console.log(self.$thumbnail.data( 'rCarousel' ).get('items_per_container') / selected_index);
-			//	
-			//	if ( self.$thumbnail.data( 'rCarousel' ).get('items_per_container') / selected_index === 1 ) {
-			//		
-			//		self.$thumbnail.data( 'rCarousel' ).$next.trigger('click');
-			//		
-			//	}
-			//	
-			//}
-			
+			self.updateTumbnailCarouselPosition( selected_index, dir );
 			
 		},
-		
-		
-		//updateTumbnailCarouselPosition : function() {
-		//	
-		//	var current_index = carousels.$featured.data( 'rCarousel' ).get('current_item_index'),
-		//			items_per_container = carousels.$thumbnail.data( 'rCarousel' ).get('items_per_container'),
-		//			page_info = carousels.$featured.data( 'rCarousel' ).determinePage( current_index, items_per_container );
-		//	
-		//	carousels.$thumbnail.data( 'rCarousel' ).goToIndex( page_info.page_first_item_index );
-		//	
-		//},
 		
 		
 		updateCounts : function() {
@@ -85,7 +88,7 @@
 			
 			evt.preventDefault();
 			
-			self.toggleSelected(index);
+			self.toggleSelected( index );
 			carousels.$featured.data( 'rCarousel' ).goToIndex(index);
 			self.updateCounts();
 			
@@ -113,9 +116,9 @@
 			self.$featured =
 				jQuery('#contributions-featured').rCarousel({
 					callbacks : {
-						after_nav : function() {
+						after_nav : function( dir ) {
 							self.updateCounts();
-							self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index') );
+							self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index'), dir );
 						}
 					}
 				});
@@ -136,6 +139,8 @@
 			self.addThumbnailClickHandlers();
 			self.updateCounts();
 			self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index') );
+			
+			
 			
 		}
 		
