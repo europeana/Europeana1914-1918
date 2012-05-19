@@ -67,6 +67,7 @@
 			
 			this.current_item_index = index;
 			this.transition();
+			this.toggleNav();
 			
 		},
 		
