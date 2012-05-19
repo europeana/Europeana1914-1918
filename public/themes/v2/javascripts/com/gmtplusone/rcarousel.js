@@ -418,6 +418,9 @@
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 			
+			console.log('set dimmensions called');
+			console.log(evt);
+			
 			self.$items.each(function() {
 				
 				var $item = jQuery(this);
@@ -430,7 +433,7 @@
 		
 		addOrientationHandler : function() {
 			
-			if ( !window.onorientationchange ) { return; }
+			if ( 'undefined' === typeof window.onorientationchange ) { console.log('no onorientationchange returning'); return; }
 			jQuery(window).on('orientationchange', { self : this }, this.setDimmensions );
 			console.log('orientation added');
 			
@@ -439,8 +442,9 @@
 		
 		addWindowResizeHandler : function() {
 			
-			if ( !window.onresize ) { return; }
+			if ( 'undefined' === typeof window.onresize ) { console.log('no onresize returning'); return; }
 			jQuery(window).on( 'resize', { self : this }, this.setDimmensions );
+			console.log('onresize added');
 			
 		},
 		
