@@ -418,7 +418,7 @@
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 			
-			console.log(evt.type);
+			if (evt ) { console.log(evt.type); }
 			self.$items.each(function() {
 				
 				var $item = jQuery(this);
