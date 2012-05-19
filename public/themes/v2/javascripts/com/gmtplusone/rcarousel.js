@@ -438,11 +438,11 @@
 				function() {
 					
 					if ( window.orientation !== self.orientation ) {
-						setTimeout( function() { self.setDimmensions(); }, 400 );
+						setTimeout( function() { self.setDimmensions(); }, 500 );
 						self.orientation = window.orientation;
 					}
 				},
-				200
+				500
 			);
 			
 		},
