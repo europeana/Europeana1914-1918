@@ -418,8 +418,9 @@
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 			
-			console.log('set dimmensions called');
-			console.log(evt);
+			if ( evt ) {
+				console.log(evt.type);
+			}
 			
 			self.$items.each(function() {
 				
@@ -433,18 +434,16 @@
 		
 		addOrientationHandler : function() {
 			
-			if ( 'undefined' === typeof window.onorientationchange ) { console.log('no onorientationchange returning'); return; }
+			if ( 'undefined' === typeof window.onorientationchange ) { return; }
 			jQuery(window).on('orientationchange', { self : this }, this.setDimmensions );
-			console.log('orientation added');
 			
 		},
 		
 		
 		addWindowResizeHandler : function() {
 			
-			if ( 'undefined' === typeof window.onresize ) { console.log('no onresize returning'); return; }
+			if ( 'undefined' === typeof window.onresize ) { return; }
 			jQuery(window).on( 'resize', { self : this }, this.setDimmensions );
-			console.log('onresize added');
 			
 		},
 		
