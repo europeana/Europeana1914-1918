@@ -13,17 +13,24 @@
 		$thumbnail : null,
 		$thumbnail_counts : jQuery('#thumbnail-counts'),
 		$thumbnail_links : jQuery('#contributions-thumbnails ul a'),
+		$pagination : jQuery('#contributions-pagination .pagination a'),
 		
 		
 		toggleSelected : function( selected_index ) {
 			
-			this.$thumbnail_links.each(function(index) {
+			var self = this;
+			
+			self.$thumbnail_links.each(function(index) {
 					
 					var $elm = jQuery(this);
 					
-					if ( index === selected_index && !$elm.hasClass('selected') ) {
+					if ( index === selected_index ) {
 						
-						$elm.addClass('selected');
+						if ( !$elm.hasClass('selected') ) {
+							
+							$elm.addClass('selected');
+							
+						}
 						
 					} else {
 						
@@ -32,6 +39,19 @@
 					}
 					
 			});
+			
+			//if (self.$thumbnail ) {
+			//	
+			//	console.log(self.$thumbnail.data( 'rCarousel' ).get('items_per_container') / selected_index);
+			//	
+			//	if ( self.$thumbnail.data( 'rCarousel' ).get('items_per_container') / selected_index === 1 ) {
+			//		
+			//		self.$thumbnail.data( 'rCarousel' ).$next.trigger('click');
+			//		
+			//	}
+			//	
+			//}
+			
 			
 		},
 		
@@ -90,24 +110,28 @@
 			
 			var self = this;
 			
-			
 			self.$featured =
 				jQuery('#contributions-featured').rCarousel({
-					nav_callback : function() {
-						self.updateCounts();
-						self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index') );
+					callbacks : {
+						after_nav : function() {
+							self.updateCounts();
+							self.toggleSelected( self.$featured.data( 'rCarousel' ).get('current_item_index') );
+						}
 					}
 				});
 			
-			self.$thumbnail =
-				jQuery('#contributions-thumbnails').imagesLoaded(function() {
+			
+			jQuery('#contributions-thumbnails').imagesLoaded(function() {
+				self.$thumbnail =
 					this.rCarousel({
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
-						nav_callback : function() { self.updateCounts(); }
+						callbacks : {
+							after_nav : function() { self.updateCounts(); }
+						}
 					});
-				});
+			});
 			
 			self.addThumbnailClickHandlers();
 			self.updateCounts();

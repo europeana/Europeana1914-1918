@@ -57,21 +57,6 @@
 		},
 		
 		
-		determinePage : function( current_item_index, items_per_container ) {
-			
-			var current_item = current_item_index + 1,
-					nr_of_pgs = Math.ceil( this.items_length / items_per_container ),
-					page_nr = Math.ceil( current_item / nr_of_pgs );
-			
-			return {
-				nr_of_pgs : nr_of_pgs,
-				page_nr : page_nr,
-				page_first_item_index : ( page_nr * items_per_container ) - items_per_container
-			};
-			
-		},
-		
-		
 		goToIndex : function( index ) {
 			
 			this.current_item_index = index;
@@ -80,10 +65,52 @@
 		},
 		
 		
-		setCurrentItemIndex : function( dir ) {
+		toggleNav : function() {
 			
-			var pos = this.current_item_index,
-					previous_index = this.current_item_index;
+			if ( this.current_item_index == 0 ) {
+				
+				this.$prev.fadeOut();
+				
+			} else if ( this.$prev.is(':hidden') ) {
+				
+				this.$prev.fadeIn();
+				
+			}
+			
+			if ( this.current_item_index === this.items_length - 1 ) {
+				
+				this.$next.fadeOut();
+				
+			} else if ( this.$next.is(':hidden') ) {
+				
+				this.$next.fadeIn();
+				
+			}
+			
+		},
+		
+		
+		navigationOneWay : function( dir ) {
+			
+			var pos = dir === 'next' ? this.items_per_container : -1 * this.items_per_container;
+			
+			
+			if ( this.current_item_index + pos < this.items_length
+					 && this.current_item_index + pos >= 0 ) {
+				
+				this.current_item_index = this.current_item_index + pos;
+				
+			}			
+			
+			this.toggleNav();
+			
+		},
+		
+		
+		navigationRewind : function( dir ) {
+			
+			var pos = previous_index = this.current_item_index;
+			
 			
 			if ( !this.options.item_width_is_container_width ) {
 				
@@ -91,7 +118,13 @@
 				
 				this.current_item_index = this.current_item_index + pos;
 				
-				if ( this.current_item_index >= this.items_length ) { this.current_item_index = 0; }
+				
+				if ( this.current_item_index >= this.items_length ) {
+					
+					this.current_item_index = 0;
+					
+				}
+				
 				if ( this.current_item_index < 0 ) {
 					
 					if ( previous_index !== 0 ) {
@@ -113,6 +146,31 @@
 				if ( pos >= this.items_length ) { this.current_item_index = 0; }
 				
 			}
+			
+		},
+		
+		
+		setCurrentItemIndex : function( dir ) {
+			
+			switch ( this.options.navigation_style ) {
+				
+				case 'rewind' :
+					this.navigationRewind( dir );
+					break;
+				
+				default :
+					this.navigationOneWay( dir );
+					break;
+				
+			}
+			
+		},
+		
+		
+		addOrientationHandler : function() {
+			
+			if ( !window.onorientationchange ) { return; }
+			jQuery(window).on('orientationchange', this.setDimmensions );
 			
 		},
 		
@@ -145,14 +203,44 @@
 					$elm = jQuery(this);
 			
 			
+			if ( 'function' === typeof self.options.callbacks.before_nav ) {
+				
+				self.options.callbacks.before_nav.call(this);
+				
+			}
+			
 			self.setCurrentItemIndex( $elm.data('dir') );
 			self.transition();
 			
-			if ( 'function' === typeof self.options.nav_callback ) {
+			if ( 'function' === typeof self.options.callbacks.after_nav ) {
 				
-				self.options.nav_callback.call(this);
+				self.options.callbacks.after_nav.call(this);
 				
 			}
+			
+		},
+		
+		
+		createNavElements : function() {
+			
+			var self = this;
+			
+			self.$prev = jQuery('<input/>', {
+				'type' : 'image',
+				'class' : self.options.nav_button_size,
+				'alt' : 'previous',
+				'src' : '/themes/v2/images/icons/carousel-arrow-left.png',
+				'style' : 'display: none;',
+				'data-dir' : 'prev'
+			});
+			
+			self.$next = jQuery('<input/>', {
+				'type' : 'image',
+				'class' : self.options.nav_button_size,
+				'alt' : 'next',
+				'src' : '/themes/v2/images/icons/carousel-arrow-right.png',
+				'data-dir' : 'next'
+			});
 			
 		},
 		
@@ -161,46 +249,90 @@
 			
 			var self = this;
 			
-			self.$carousel_container.append( self.$prev, self.$next );
-			self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
+			
+			// return if no nav elements are needed
+			
+				if ( self.options.item_width_is_container_width ) {
+					
+					if ( self.$items.length < 1 ) { return; }
+					
+				} else {
+					
+					if ( self.$items.length < self.items_per_container ) { return; }
+					
+				}
+			
+			
+			// create the nav elements
+				
+				self.createNavElements();
+			
+			
+			// add nav elements to the carousel
+				
+				self.$carousel_container.append( self.$prev, self.$next );
+			
+			
+			// add click listeners to the nav elements
+				
+				self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
+			
 			
 			// add keyboard arrow support
-			if ( self.options.listen_to_arrow_keys ) {
 				
-				jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
-				
-			}
+				if ( self.options.listen_to_arrow_keys ) {
+					
+					jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
+					
+				}
+			
 			
 			// add touch swipe support
-			// http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
-			if ( jQuery().touchwipe ) {
+			// uses a modified version of http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
 				
-				self.$items.each(function() {
+				if ( jQuery().touchwipe ) {
 					
-					var $elm = jQuery(this),
-						$iframe = $elm.find('iframe');
-					
-					$elm.touchwipe({
-						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
-						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-						wipeUp : function( evt ) {},
-						wipeDown : function( evt ) {}
-					});
-					
-					if ( $iframe.length > 0 ) {
+					self.$items.each(function() {
 						
-						$iframe.touchwipe({
+						var $elm = jQuery(this),
+								$iframe = $elm.find('iframe');
+						
+						$elm.touchwipe({
 							wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
 							wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
 							wipeUp : function( evt ) {},
 							wipeDown : function( evt ) {}
 						});
 						
-					}
+						if ( $iframe.length > 0 ) {
+							
+							$iframe.touchwipe({
+								wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+								wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
+								wipeUp : function( evt ) {},
+								wipeDown : function( evt ) {}
+							});
+							
+						}
+						
+					});
 					
-				});
-				
-			}
+				}
+			
+		},
+		
+		
+		determinePage : function( current_item_index, items_per_container ) {
+			
+			var current_item = current_item_index + 1,
+					nr_of_pgs = Math.ceil( this.items_length / items_per_container ),
+					page_nr = Math.ceil( current_item / nr_of_pgs );
+			
+			return {
+				nr_of_pgs : nr_of_pgs,
+				page_nr : page_nr,
+				page_first_item_index : ( page_nr * items_per_container ) - items_per_container
+			};
 			
 		},
 		
@@ -275,7 +407,7 @@
 		},
 		
 		
-		resizeItems : function( evt ) {
+		setDimmensions : function( evt ) {
 			
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
@@ -290,75 +422,13 @@
 		},
 		
 		
-		handleWindowResize : function( evt ) {
-			
-			var self = evt.data.self;
-			self.resizeItems( evt );
-			
-			//var self = this,
-			//		window_resize_timeout;
-			//
-			//jQuery(window).on(
-			//	
-			//	'resize',
-			//	{ self : self },
-			//	
-			//	function(evt) {
-			//		
-			//		clearTimeout( window_resize_timeout );
-			//		
-			//		window_resize_timeout = setTimeout(
-			//			
-			//			function() {
-			//				
-			//					self.resizeItems( evt );
-			//					self.goToIndex();
-			//					
-			//				
-			//			},
-			//			
-			//			200
-			//			
-			//		);
-			//		
-			//	}
-			//);
-			
-		},
-		
-		
 		deriveCarouselElements : function( carousel_container ) {
 			
-			var self = this;
-			self.carousel_container = carousel_container;
-			self.$carousel_container = jQuery( carousel_container );
-			self.$carousel_ul = self.$carousel_container.find('ul');
-			self.$items = self.$carousel_container.find('li');
-			self.$overlay = self.$carousel_container.find('.carousel-overlay');
-			self.id = self.carousel_container.id;
-			
-		},
-		
-		
-		createNavElements : function() {
-			
-			var self = this;
-			
-			self.$prev = jQuery('<input/>', {
-				type : 'image',
-				'class' : self.options.nav_button_size,
-				alt : 'previous',
-				src : '/themes/v2/images/icons/carousel-arrow-left.png',
-				'data-dir' : 'prev'
-			});
-			
-			self.$next = jQuery('<input/>', {
-				type : 'image',
-				'class' : self.options.nav_button_size,
-				alt : 'next',
-				src : '/themes/v2/images/icons/carousel-arrow-right.png',
-				'data-dir' : 'next'
-			});
+			this.carousel_container = carousel_container;
+			this.$carousel_container = jQuery( carousel_container );
+			this.$carousel_ul = this.$carousel_container.find('ul');
+			this.$items = this.$carousel_container.find('li');
+			this.$overlay = this.$carousel_container.find('.carousel-overlay');
 			
 		},
 		
@@ -367,21 +437,13 @@
 			
 			var self = this;
 			
-			self.options = jQuery.extend( {}, jQuery.fn.rCarousel.options, options );
-			self.createNavElements();
+			self.options = jQuery.extend( true, {}, jQuery.fn.rCarousel.options, options );
 			self.deriveCarouselElements( carousel_container );
-			self.resizeItems();
-			jQuery(window).on( 'resize', { self : self }, self.handleWindowResize );			
+			self.setDimmensions();
+			self.addNavigation();
 			
-			if ( self.options.item_width_is_container_width ) {
-				
-				if ( self.$items.length > 1 ) { self.addNavigation(); }
-				
-			} else {
-				
-				if ( self.$items.length > self.items_per_container ) { self.addNavigation(); }
-				
-			}
+			jQuery(window).on( 'resize', { self : self }, self.setDimmensions );		
+			self.addOrientationHandler();
 			
 			self.$overlay.fadeOut();
 			
@@ -408,7 +470,11 @@
 		listen_to_arrow_keys : true,
 		item_width_is_container_width : true,
 		nav_button_size : 'medium',
-		nav_callback : null
+		navigation_style : 'one-way',
+		callbacks : {
+			before_nav : null,
+			after_nav : null
+		}
 		
 	};
 	
