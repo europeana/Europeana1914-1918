@@ -418,7 +418,7 @@
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 			
-			
+			console.log(evt.type);
 			self.$items.each(function() {
 				
 				var $item = jQuery(this);
@@ -439,7 +439,14 @@
 		
 		addWindowResizeHandler : function() {
 			
-			if ( 'undefined' === typeof window.onresize ) { return; }
+			if ( 'undefined' === typeof window.onresize
+					 || 'undefined' !== typeof window.onorientationchange
+			) {
+				
+				return;
+			
+			}
+			
 			jQuery(window).on( 'resize', { self : this }, this.setDimmensions );
 			
 		},
