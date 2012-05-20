@@ -30,8 +30,6 @@
 		$next : null,
 		
 		carousel_container_width : 0,
-		carousel_pages : 0,
-		carousel_current_page : 0,
 		
 		item_width : 0,
 		items_length : 0,
@@ -40,6 +38,13 @@
 		
 		current_item_index : 0,
 		orientation : window.orientation,
+		
+		nav_elements_created : false,
+		nav_elements_placed : false,
+		nav_click_handler_added : false,
+		arrow_key_handler_added : false,
+		
+		loading_content : false,
 		
 		
 		/**
@@ -54,21 +59,30 @@
 		
 		transition : function( coords ) {
 			
+			var self = this;
+			
+			if ( self.loading_content ) {
+				
+				setTimeout(				
+					function() {
+						self.transition(coords);					
+					},
+					100
+				);
+				
+				return;
+			
+			}
+			
 			this.$carousel_ul.animate({
 				'margin-left': coords || -( this.current_item_index * this.item_width )
 			});
 			
-		},		
-		
-		
-		/**
-		 *	helper function for external scripts
-		 */
-		goToIndex : function( index ) {
-			
-			this.current_item_index = index;
-			this.transition();
-			this.toggleNav();
+			if ( this.$overlay.is(':visible') ) {
+				
+				this.$overlay.fadeOut();
+				
+			}
 			
 		},
 		
@@ -96,9 +110,6 @@
 		
 		toggleNav : function() {
 			
-			var page_info = this.determinePageInfo();
-			
-			
 			if ( this.current_item_index == 0 ) {
 				
 				this.$prev.fadeOut();
@@ -110,7 +121,7 @@
 			}
 			
 			if ( this.current_item_index === this.items_length - 1
-					 || page_info.nr_of_pgs === page_info.current_page_nr + 1
+					 && this.current_item_index === this.options.collection_total
 			) {
 				
 				this.$next.fadeOut();
@@ -248,103 +259,127 @@
 		},
 		
 		
-		createNavElements : function() {
+		addSwipeHandler : function() {
 			
 			var self = this;
 			
-			self.$prev = jQuery('<input/>', {
+			if ( !self.options.add_swipe_handler || 'undefined' === typeof document.documentElement.ontouchstart ) { return; }
+			if ( !jQuery().touchwipe ) { js.console.log( 'jquery.touchwipe not present' ); return; }
+			
+			self.$items.each(function() {
+				
+				var $elm = jQuery(this);
+				
+				if ( jQuery.data( this, 'touchwipe-added' ) ) { return true; }
+				
+				$elm.touchwipe({
+					wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+					wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
+					wipeUp : function( evt ) {},
+					wipeDown : function( evt ) {}
+				});
+				
+				jQuery.data( this, 'touchwipe-added', true );
+				return true;
+				
+			});
+			
+		},
+		
+		
+		addKeyboardHandler : function() {
+			
+			if ( !this.options.listen_to_arrow_keys ) { return; }
+			if ( this.arrow_key_handler_added ) { return; }
+			jQuery(document).bind('keyup', { self : this }, this.handleKeyUp );
+			this.arrow_key_handler_added = true;
+			
+		},
+		
+		
+		addNavClickHandler : function() {
+			
+			if ( this.nav_click_handler_added ) { return; }
+			this.$prev.add( this.$next ).on( 'click', { self : this }, this.handleNavClick );
+			this.nav_click_handler_added = true;
+			
+		},
+		
+		
+		placeNavElements : function() {
+			
+			if ( this.nav_elements_placed ) { return; }
+			this.$carousel_container.append( this.$prev, this.$next );
+			this.nav_elements_placed = true;
+			
+		},
+		
+		
+		createNavElements : function() {
+			
+			if ( this.nav_elements_created ) { return; }
+			
+			this.$prev = jQuery('<input/>', {
 				'type' : 'image',
-				'class' : self.options.nav_button_size,
+				'class' : this.options.nav_button_size,
 				'alt' : 'previous',
 				'src' : '/themes/v2/images/icons/carousel-arrow-left.png',
 				'style' : 'display: none;',
 				'data-dir' : 'prev'
 			});
 			
-			self.$next = jQuery('<input/>', {
+			this.$next = jQuery('<input/>', {
 				'type' : 'image',
-				'class' : self.options.nav_button_size,
+				'class' : this.options.nav_button_size,
 				'alt' : 'next',
 				'src' : '/themes/v2/images/icons/carousel-arrow-right.png',
 				'data-dir' : 'next'
 			});
+			
+			this.nav_elements_created = true;
 			
 		},
 		
 		
 		addNavigation : function() {
 			
-			var self = this;
-			
-			
 			// return if no nav elements are needed
 			
-				if ( self.options.item_width_is_container_width ) {
+				if ( this.options.item_width_is_container_width ) {
 					
-					if ( self.$items.length < 1 ) { return; }
+					if ( this.$items.length < 2 && this.options.collection_total < this.items_length ) { return; }
 					
 				} else {
 					
-					if ( self.$items.length < self.items_per_container ) { return; }
+					if ( this.$items.length < this.items_per_container && this.options.collection_total < this.items_length ) { return; }
 					
 				}
 			
 			
 			// create the nav elements
 				
-				self.createNavElements();
+				this.createNavElements();
 			
 			
 			// add nav elements to the carousel
 				
-				self.$carousel_container.append( self.$prev, self.$next );
+				this.placeNavElements();
 			
 			
 			// add click listeners to the nav elements
 				
-				self.$prev.add( self.$next ).on( 'click', { self : self }, self.handleNavClick );
+				this.addNavClickHandler();
 			
 			
 			// add keyboard arrow support
 				
-				if ( self.options.listen_to_arrow_keys ) {
-					
-					jQuery(document).bind('keyup', { self : self }, self.handleKeyUp );
-					
-				}
+				this.addKeyboardHandler();
 			
 			
 			// add touch swipe support
 			// uses a modified version of http://www.netcu.de/jquery-touchwipe-iphone-ipad-library
 				
-				if ( jQuery().touchwipe ) {
-					
-					self.$items.each(function() {
-						
-						var $elm = jQuery(this),
-								$iframe = $elm.find('iframe');
-						
-						$elm.touchwipe({
-							wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
-							wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-							wipeUp : function( evt ) {},
-							wipeDown : function( evt ) {}
-						});
-						
-						if ( $iframe.length > 0 ) {
-							
-							$iframe.touchwipe({
-								wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
-								wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-								wipeUp : function( evt ) {},
-								wipeDown : function( evt ) {}
-							});
-							
-						}
-						
-					});
-					
-				}
+				this.addSwipeHandler();
 			
 		},
 		
@@ -377,34 +412,22 @@
 		},
 		
 		
-		calculateDimmensions : function() {
+		setCarouselWidth : function() {
 			
-			var self = this,
-					pos = self.current_item_index === 0 ? 1 : self.current_item_index,
-					new_margin_left = -( pos * self.item_width - self.item_width ),
-					new_margin_right = '',
-					page_info;
+			var pos = this.current_item_index === 0 ? 1 : this.current_item_index,
+					new_margin_left = -( pos * this.item_width - this.item_width ),
+					new_margin_right = '';
 			
-			
-			self.items_length = self.$items.length;
-			self.carousel_container_width = self.$carousel_container.width();
-			self.item_width = self.getItemWidth();
-			
-			self.items_total_width = self.items_length * self.item_width;
-			self.items_per_container = Math.floor( self.carousel_container_width / self.item_width );
-			
-			self.carousel_pages = Math.ceil( self.items_length / self.items_per_container );			
-			
-			if ( !self.options.item_width_is_container_width
-					&& self.$items.length <= self.items_per_container ) {
+			if ( !this.options.item_width_is_container_width
+					 && this.items_length <= this.items_per_container ) {
 				
 				new_margin_left = 'auto';
 				new_margin_right = 'auto';
 				
 			}
 			
-			self.$carousel_ul.css({
-				width : self.items_total_width,
+			this.$carousel_ul.css({
+				width : this.items_total_width + 5,
 				'margin-left' : new_margin_left,
 				'margin-right' : new_margin_right
 			});
@@ -412,12 +435,24 @@
 		},
 		
 		
+		calculateDimmensions : function() {			
+			
+			this.items_length = this.$items.length;
+			this.carousel_container_width = this.$carousel_container.width();
+			this.item_width = this.getItemWidth();
+			this.items_total_width = this.items_length * this.item_width;
+			this.items_per_container = Math.floor( this.carousel_container_width / this.item_width );
+			
+		},
+		
+		
 		setDimmensions : function( evt ) {
 			
 			var self = evt ? evt.data.self : this;
-					self.calculateDimmensions();
+					self.calculateDimmensions(),
+					self.setCarouselWidth();
 			
-			if (evt ) { console.log(evt.type); }
+			//if (evt ) { console.log(evt.type); }
 			self.$items.each(function() {
 				
 				var $item = jQuery(this);
@@ -464,9 +499,17 @@
 		},
 		
 		
+		ajaxCarouselSetup : function() {
+			
+			this.$items = this.$carousel_container.find('li');
+			this.setDimmensions();
+			this.addSwipeHandler();
+			
+		},
+		
+		
 		deriveCarouselElements : function( carousel_container ) {
 			
-			this.carousel_container = carousel_container;
 			this.$carousel_container = jQuery( carousel_container );
 			this.$carousel_ul = this.$carousel_container.find('ul');
 			this.$items = this.$carousel_container.find('li');
@@ -477,17 +520,15 @@
 		
 		init : function( options, carousel_container ) {
 			
-			var self = this;
+			this.options = jQuery.extend( true, {}, jQuery.fn.rCarousel.options, options );
+			this.deriveCarouselElements( carousel_container );
+			this.setDimmensions();
+			this.addNavigation();
 			
-			self.options = jQuery.extend( true, {}, jQuery.fn.rCarousel.options, options );
-			self.deriveCarouselElements( carousel_container );
-			self.setDimmensions();
-			self.addNavigation();
+			this.addWindowResizeHandler();
+			this.addOrientationHandler();
 			
-			self.addWindowResizeHandler();
-			self.addOrientationHandler();
-			
-			self.$overlay.fadeOut();
+			this.$overlay.fadeOut();
 			
 		}
 		
@@ -510,7 +551,9 @@
 	jQuery.fn.rCarousel.options = {
 		
 		listen_to_arrow_keys : true,
+		add_swipe_handler : true,
 		item_width_is_container_width : true,
+		collection_total : 0,
 		nav_button_size : 'medium',
 		navigation_style : 'one-way',
 		callbacks : {

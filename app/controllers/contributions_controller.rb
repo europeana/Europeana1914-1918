@@ -67,7 +67,7 @@ class ContributionsController < ApplicationController
     if @contribution.draft? && current_user.may_edit_contribution?(@contribution)
       redirect_to edit_contribution_path(@contribution)
     end
-    @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 10)
+    @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 4 )
   end
   
   # GET /contributions/:id/status_log
