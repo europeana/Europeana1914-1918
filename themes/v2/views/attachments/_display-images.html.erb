@@ -1,5 +1,7 @@
 <% prettyphoto = prettyphoto ? prettyphoto : false -%>
-<% inline = 0 -%>
+<% count = params['count'] ? params['count'].to_i : 3 -%>
+<% page = params['page'] ? params['page'].to_i : 1 -%>
+<% inline = count * page - count -%>
 <% if attachments.present? -%>
   <%- for attachment in attachments -%><li>
       <%- if attachment.file.present? -%>

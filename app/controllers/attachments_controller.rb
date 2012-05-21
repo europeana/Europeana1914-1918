@@ -10,7 +10,7 @@ class AttachmentsController < ApplicationController
       format.html do
         if params[:carousel] && (session[:theme] = 'v2')
           render :partial => '/attachments/carousel', :locals => {
-            :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 4 ),
+            :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 ),
             :contribution => @contribution
           }
         else

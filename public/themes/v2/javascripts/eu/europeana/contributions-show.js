@@ -11,7 +11,6 @@
 		
 		$featured_carousel : null,
 		$thumbnail_carousel : null,
-		thumbnail_page_nr : 1,
 		
 		$thumbnail_counts : jQuery('#thumbnail-counts'),
 		$thumbnail_links : jQuery('#contributions-thumbnails ul a'),		
@@ -20,10 +19,12 @@
 		$contributions_thumbnails_ul : jQuery('#contributions-thumbnails ul'),
 		
 		$pagination_next : jQuery('#contributions-pagination .pagination a[rel=next]').eq(0),
-		collection_total : jQuery('#attachment-total').text(),
+		items_collection_total : jQuery('#attachment-total').text(),
+		
 		$new_content : null,
 		$loading_feedback : null,
 		ajax_load_processed : true,
+		pagination_checking : false,
 		
 		
 		/**
@@ -44,8 +45,21 @@
 				this.$thumbnail_links = jQuery('#contributions-thumbnails ul a');
 				
 				this.addThumbnailClickHandlers();
+				lightbox.init();
+				
+				this.pagination_checking = false;
 				this.ajax_load_processed = true;
 				this.$thumbnail_carousel.loading_content = false;
+				
+				this.$thumbnail_carousel
+					.$items
+					.eq(
+						this.$thumbnail_carousel.items_per_container *
+						( this.$thumbnail_carousel.page_nr + 1 )
+						- this.$thumbnail_carousel.items_per_container
+					)
+					.find('a')
+					.trigger('click');
 				
 			},
 			
@@ -94,21 +108,30 @@
 			
 			// full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
 			// partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
-			paginationContentCheck : function( dir ) {
+			paginationContentCheck : function( dir, carousel ) {
 				
-				if ( 'next' === dir ) {
+				var href,
+						next_page_link;
+				
+				
+				if ( 'featured' === carousel
+						 && this.$featured_carousel.current_item_index + 1 < this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr ) {
 					
+					return;
 					
-					if ( this.$thumbnail_carousel.items_per_container * this.thumbnail_page_nr < this.$thumbnail_carousel.items_length ) {
+				}
+				
+				if ( !this.pagination_checking && 'next' === dir ) {					
+					
+					if ( this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr < this.$thumbnail_carousel.items_length ) {
 						
-						this.thumbnail_page_nr += 1;
 						return;
 					
 					}
 					
-					var href,
-							next_page_link = this.$pagination_next.attr('href');
+					this.pagination_checking = true;
 					
+					next_page_link = this.$pagination_next.attr('href');
 					if ( !next_page_link ) { return; }
 					
 					next_page_link = next_page_link.split('?');
@@ -182,7 +205,7 @@
 			
 			this.$thumbnail_counts.html(
 				I18n.t('javascripts.thumbnails.item') + ' ' + ( this.$featured_carousel.get('current_item_index') + 1 ) +
-				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.collection_total
+				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.items_collection_total
 			);
 			
 		},
@@ -191,8 +214,8 @@
 		handleThumbnailClick : function( evt ) {
 			
 			var self = evt.data.self,
-					index = evt.data.index;
-			
+					index = evt.data.index,
+					dir = index < self.$thumbnail_carousel.current_item_index ? 'prev' : 'next';
 			
 			evt.preventDefault();
 			
@@ -201,6 +224,7 @@
 			self.$featured_carousel.transition()
 			self.$featured_carousel.toggleNav();
 			
+			self.updateTumbnailCarouselPosition( index, dir );
 			self.updateCounts();
 			
 		},
@@ -232,8 +256,9 @@
 			
 			self.$featured_carousel =
 				jQuery('#contributions-featured').rCarousel({
-					collection_total : self.collection_total,
+					items_collection_total : self.items_collection_total,
 					callbacks : {
+						before_nav : function( dir ) { self.paginationContentCheck( dir, 'featured' ); },
 						after_nav : function( dir ) {
 							self.updateCounts();
 							self.toggleSelected( self.$featured_carousel.get('current_item_index'), dir );
@@ -247,9 +272,9 @@
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
-						collection_total : self.collection_total,
+						items_collection_total : self.items_collection_total,
 						callbacks : {
-							before_nav : function( dir ) { self.paginationContentCheck( dir ); },
+							before_nav : function( dir ) { self.paginationContentCheck( dir, 'thumbnail' ); },
 							after_nav : function() { self.updateCounts(); }
 						}
 					}).data('rCarousel');
@@ -369,7 +394,10 @@
 			
 				jQuery('#contributions-featured a').each(function() {
 					
-					jQuery(this).on('click', function(evt) { evt.preventDefault(); });
+					var $elm = jQuery(this),
+							contents = $elm.contents();
+					
+					$elm.replaceWith(contents);
 					
 				});
 				

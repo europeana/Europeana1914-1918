@@ -45,6 +45,7 @@
 		arrow_key_handler_added : false,
 		
 		loading_content : false,
+		page_nr : 1,
 		
 		
 		/**
@@ -87,27 +88,6 @@
 		},
 		
 		
-		determinePageInfo : function( current_item_index, items_per_container ) {
-			
-			current_item_index = current_item_index || this.current_item_index;
-			items_per_container = items_per_container || this.items_per_container;
-			
-			var nr_of_pgs = this.items_length / items_per_container,
-					current_page_nr = current_item_index / items_per_container,
-					page_first_item_index = current_page_nr * items_per_container;
-			
-			
-			return {
-				current_item_index : current_item_index,
-				items_per_container : items_per_container,
-				nr_of_pgs : nr_of_pgs,
-				current_page_nr : current_page_nr,
-				page_first_item_index : page_first_item_index
-			};
-			
-		},
-		
-		
 		toggleNav : function() {
 			
 			if ( this.current_item_index == 0 ) {
@@ -120,9 +100,19 @@
 				
 			}
 			
-			if ( this.current_item_index === this.items_length - 1
-					 && this.current_item_index === this.options.collection_total
-			) {
+			if ( this.options.items_collection_total > 0 ) {
+				
+				if ( this.page_nr >= ( this.options.items_collection_total / this.items_per_container )  ) {
+					
+					this.$next.fadeOut();
+					
+				} else if ( this.$next.is(':hidden') ) {
+					
+					this.$next.fadeIn();
+					
+				}
+				
+			} else if ( this.current_item_index === this.items_length - 1 ) {
 				
 				this.$next.fadeOut();
 				
@@ -135,10 +125,41 @@
 		},
 		
 		
+		updatePageNr : function( dir ) {
+			
+			if ( 'next' === dir
+					 && this.items_length > this.items_per_container * this.page_nr ) {
+				
+				if ( this.options.item_width_is_container_width ) {
+					
+					this.page_nr = this.current_item_index + 1;
+					
+				} else {
+					
+					this.page_nr += 1;
+					
+				}
+				
+			} else if ( 'prev' === dir && this.page_nr !== 1 ) {
+				
+				if ( this.options.item_width_is_container_width ) {
+					
+					this.page_nr = this.current_item_index + 1;
+					
+				} else {
+					
+					this.page_nr -= 1;
+					
+				}
+				
+			}
+			
+		},
+		
+		
 		navigationOneWay : function( dir ) {
 			
 			var pos = dir === 'next' ? this.items_per_container : -1 * this.items_per_container;
-			
 			
 			if ( this.current_item_index + pos < this.items_length
 					 && this.current_item_index + pos >= 0 ) {
@@ -147,6 +168,7 @@
 				
 			}			
 			
+			this.updatePageNr( dir );
 			this.toggleNav();
 			
 		},
@@ -347,11 +369,11 @@
 			
 				if ( this.options.item_width_is_container_width ) {
 					
-					if ( this.$items.length < 2 && this.options.collection_total < this.items_length ) { return; }
+					if ( this.items_length < 2 && this.options.items_collection_total < this.items_length ) { return; }
 					
 				} else {
 					
-					if ( this.$items.length < this.items_per_container && this.options.collection_total < this.items_length ) { return; }
+					if ( this.items_length < this.items_per_container && this.options.items_collection_total < this.items_length ) { return; }
 					
 				}
 			
@@ -441,7 +463,8 @@
 			this.carousel_container_width = this.$carousel_container.width();
 			this.item_width = this.getItemWidth();
 			this.items_total_width = this.items_length * this.item_width;
-			this.items_per_container = Math.floor( this.carousel_container_width / this.item_width );
+			//this.items_per_container = Math.floor( this.carousel_container_width / this.item_width );
+			this.items_per_container = Math.round( this.carousel_container_width / this.item_width );
 			
 		},
 		
@@ -553,7 +576,7 @@
 		listen_to_arrow_keys : true,
 		add_swipe_handler : true,
 		item_width_is_container_width : true,
-		collection_total : 0,
+		items_collection_total : 0,
 		nav_button_size : 'medium',
 		navigation_style : 'one-way',
 		callbacks : {
