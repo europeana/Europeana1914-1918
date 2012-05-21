@@ -76,6 +76,7 @@
 					
 					self.$thumbnail_carousel.loading_content = true;
 					self.$thumbnail_carousel.$overlay.fadeIn();
+					self.$featured_carousel.$overlay.fadeIn();
 					
 					self.$new_content.load(
 						href,
@@ -89,6 +90,7 @@
 					
 					self.$thumbnail_carousel.loading_content = false;
 					self.$thumbnail_carousel.$overlay.fadeOut();
+					self.$featured_carousel.$overlay.fadeOut();
 					
 				}
 				
