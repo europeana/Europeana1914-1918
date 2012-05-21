@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-19 16:19 gmt +1
+ *	@version 2012-05-21 09:56 gmt +1
  */
 (function() {
 

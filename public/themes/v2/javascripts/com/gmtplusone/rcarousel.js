@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-19 16:19 gmt +1
+ *	@version 2012-05-21 09:56 gmt +1
  */
 (function() {
 
@@ -355,6 +355,7 @@
 				'class' : this.options.nav_button_size,
 				'alt' : 'next',
 				'src' : '/themes/v2/images/icons/carousel-arrow-right.png',
+				'style' : 'display: none;',
 				'data-dir' : 'next'
 			});
 			
@@ -547,6 +548,7 @@
 			this.deriveCarouselElements( carousel_container );
 			this.setDimmensions();
 			this.addNavigation();
+			this.toggleNav();
 			
 			this.addWindowResizeHandler();
 			this.addOrientationHandler();
