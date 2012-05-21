@@ -30,7 +30,9 @@
   <div class="carousel-overlay"></div>
 </div>
 
-<div id="contributions-pagination">
-	<%= will_paginate(attachments) %>
-	Total: <span id="attachment-total"><%= attachments.total_entries %></span>
-</div>
+<%- if local_assigns[:attachments].present? -%>
+  <div id="contributions-pagination">
+	  <%= will_paginate(attachments) %>
+	  Total: <span id="attachment-total"><%= attachments.total_entries %></span>
+  </div>
+<%- end -%>
