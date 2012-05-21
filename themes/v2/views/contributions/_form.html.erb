@@ -74,7 +74,7 @@
   
   <%= form.buttons do %>
     <li><%= redirect_field %></li>
-    <%= form.commit_button :label => (form.object.draft? || form.object.new_record? ? t('formtastic.actions.contribution.save_draft') : t('formtastic.actions.contribution.update')) %>
+    <%= form.commit_button :label => ((form.object.draft? || form.object.new_record?) ? t('formtastic.actions.contribution.save_draft') : t('formtastic.actions.contribution.update')) %>
     <%= link_to t('actions.cancel'), contributor_dashboard_path %>
     <li><%= t('views.contributions.story.help_text.save_story') %></li>
   <% end %>
