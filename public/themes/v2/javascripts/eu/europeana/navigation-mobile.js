@@ -68,7 +68,7 @@
 	
 	$navigation_mobile.add(document).on('click', handleClick);
 	
-	if ( $navigation_user_menu.length === 1 ) {
+	if ( $navigation_user_menu.length === 1 && jQuery(window).width() <= 767 ) {
 		$navigation_main.css('top','244px');
 	}
 	
