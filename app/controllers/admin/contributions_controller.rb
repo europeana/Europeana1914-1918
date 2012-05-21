@@ -1,3 +1,5 @@
+require 'zlib'
+
 class Admin::ContributionsController < AdminController
   class Options
     attr_accessor :fields
@@ -87,12 +89,13 @@ class Admin::ContributionsController < AdminController
       format.xml do
         @metadata_fields = MetadataField.all.collect { |mf| mf.name }
 
-        xml_filename = "collection-#{timestamp}.xml"
+        xml_filename = "collection-#{timestamp}.xml.gz"
         xml_filepath = File.join(Rails.root, 'private', 'exports', xml_filename)
         
         spawn_block do
-          file = File.new(xml_filepath, 'w')
-          file.puts(render_to_string)
+          Zlib::GzipWriter.open(xml_filepath) do |gz|
+            gz.write(render_to_string)
+          end
           RunCoCo.export_logger.info("Export to XML by #{current_user.username} saved as #{xml_filename}")
         end
         
