@@ -60,13 +60,15 @@
 		
 		transition : function( coords ) {
 			
-			var self = this;
+			var self = this,
+					new_left = coords || -( this.current_item_index * this.item_width );
+			
 			
 			if ( self.loading_content ) {
 				
 				setTimeout(				
 					function() {
-						self.transition(coords);					
+						self.transition(coords);
 					},
 					100
 				);
@@ -75,9 +77,13 @@
 			
 			}
 			
-			this.$carousel_ul.animate({
-				'margin-left': coords || -( this.current_item_index * this.item_width )
-			});
+			if ( new_left !== parseInt( this.$carousel_ul.css('margin-left'), 10 ) ) {
+				
+				this.$carousel_ul.animate({
+					'margin-left': new_left
+				});
+				
+			}
 			
 			if ( this.$overlay.is(':visible') ) {
 				
@@ -263,6 +269,8 @@
 					dir = $elm.data('dir');
 			
 			
+			evt.preventDefault();
+			
 			if ( 'function' === typeof self.options.callbacks.before_nav ) {
 				
 				self.options.callbacks.before_nav.call( this, dir );
@@ -292,17 +300,18 @@
 				
 				var $elm = jQuery(this);
 				
-				if ( jQuery.data( this, 'touchwipe-added' ) ) { return true; }
+				if ( !jQuery.data( this, 'touchwipe-added' ) ) {
 				
-				$elm.touchwipe({
-					wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
-					wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-					wipeUp : function( evt ) {},
-					wipeDown : function( evt ) {}
-				});
-				
-				jQuery.data( this, 'touchwipe-added', true );
-				return true;
+					$elm.touchwipe({
+						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
+						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
+						wipeUp : function( evt ) {},
+						wipeDown : function( evt ) {}
+					});
+					
+					jQuery.data( this, 'touchwipe-added', true );
+					
+				}
 				
 			});
 			
