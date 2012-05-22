@@ -108,44 +108,44 @@
 				
 			},
 			
-			// full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
-			// partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
+			
+			/**
+			 *	decide whether or not to try and pull in additional carousel assets
+			 *	additional assets are pulled in via the following url schemes
+			 *	
+			 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
+			 *		partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
+			 */
 			paginationContentCheck : function( dir, carousel ) {
 				
 				var href,
 						next_page_link;
 				
 				
-				if ( 'featured' === carousel
-						 && this.$featured_carousel.current_item_index + 1 < this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr ) {
-					
-					return;
-					
-				}
+				if ( 'prev' === dir || this.pagination_checking ) { return; }
 				
-				if ( !this.pagination_checking && 'next' === dir ) {					
-					
-					if ( this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr < this.$thumbnail_carousel.items_length ) {
-						
-						return;
-					
-					}
-					
-					this.pagination_checking = true;
-					
-					next_page_link = this.$pagination_next.attr('href');
-					if ( !next_page_link ) { return; }
-					
-					next_page_link = next_page_link.split('?');
-					
-					href =
-						next_page_link[0] +
-						( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
-						next_page_link[1];
-					
-					this.retrieveContent( href );
-					
-				}
+				if ( 'featured' === carousel
+						 && this.$featured_carousel.current_item_index + 1
+						    < this.$thumbnail_carousel.items_per_container
+								* this.$thumbnail_carousel.page_nr ) { return; }				
+				
+				if ( this.$thumbnail_carousel.items_per_container
+						 * this.$thumbnail_carousel.page_nr
+						 < this.$thumbnail_carousel.items_length ) { return; }
+				
+				this.pagination_checking = true;
+				
+				next_page_link = this.$pagination_next.attr('href');
+				if ( !next_page_link ) { return; }
+				
+				next_page_link = next_page_link.split('?');
+				
+				href =
+					next_page_link[0] +
+					( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
+					next_page_link[1];
+				
+				this.retrieveContent( href );
 				
 			},
 		
