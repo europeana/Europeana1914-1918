@@ -81,14 +81,12 @@
 			  :name_order => true
 			}
 		  }
-		%>
-		
-		<%- unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
-  		<dt><b><%= contribution_field_title('contributor') %></b></dt>
-      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
-    <%- end -%>
-    
-    <%=
+		%>		
+		<% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
+		  <dt><b><%= contribution_field_title('contributor') %></b></dt>
+		  <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
+		<% end -%>
+		<%=
 		  render :partial => '/metadata/display',
 		  :locals => {
 			:show_title => false,
@@ -103,18 +101,53 @@
 			  :name_order => true
 			}
 		  }
-		%>
-		
-		<% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? %>
+		%>		
+		<% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
 		  <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
 		  <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
-	  <% end -%>
-	  
-	  <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
-		  <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
-		  <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
-	  <% end -%>
-	  
+		  <%=
+			render :partial => '/metadata/display',
+			  :locals => {
+				:show_title => false,
+				:contribution => @contribution,
+				:metadata => @contribution.metadata,
+				:field_options => {
+				  :cataloguing => false, 
+				  :contribution => true,
+				  :name => [
+					'character1_dob',
+					'character1_pob',
+					'character1_dod',
+					'character1_pob',
+				  ],
+				  :name_order => true
+				}
+			  }
+		  %>
+		<% end -%> 
+		<% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
+			<dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
+			<dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
+			<%=
+			  render :partial => '/metadata/display',
+				:locals => {
+				  :show_title => false,
+				  :contribution => @contribution,
+				  :metadata => @contribution.metadata,
+				  :field_options => {
+					:cataloguing => false, 
+					:contribution => true,
+					:name => [
+					  'character2_dob',
+					  'character2_pob',
+					  'character2_dod',
+					  'character2_pob',
+					],
+					:name_order => true
+				  }
+				}
+			%>
+		<% end -%>	  
 		<%=
 		  render :partial => '/metadata/display',
 		  :locals => {
@@ -158,58 +191,53 @@
 			  :name_order => true
 			}
 		  }
-		%>
-		
-	  <% if current_user.may_catalogue_contributions? -%>
-	    <%=
-		    render :partial => '/metadata/display',
-		      :locals => {
-			      :show_title => false,
-			      :contribution => @contribution,
-			      :metadata => @contribution.metadata,
-			      :field_options => {
-			        :cataloguing => true, 
-      			  :contribution => true,
-			        :name => [
-				        'ticket',
-#				        'cataloguer', # this is the old cataloguer field (see story 074)
-				        ],
-			        :name_order => true
-			      }
-		      }
+		%>		
+		<% if current_user.may_catalogue_contributions? -%>
+		  <%=
+			render :partial => '/metadata/display',
+			  :locals => {
+				  :show_title => false,
+				  :contribution => @contribution,
+				  :metadata => @contribution.metadata,
+				  :field_options => {
+					:cataloguing => true, 
+				  :contribution => true,
+					:name => [
+						'ticket',
+						#'cataloguer', # this is the old cataloguer field (see story 074)
+						],
+					:name_order => true
+				  }
+			  }
 		  %>
-      
-      <dt><b><%= t('activerecord.attributes.contribution.catalogued_by') %></b></dt>
-      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
-  
-      <%=
-		    render :partial => '/metadata/display',
-		      :locals => {
-			      :show_title => false,
-			      :contribution => @contribution,
-			      :metadata => @contribution.metadata,
-			      :field_options => {
-			        :cataloguing => true, 
-      			  :contribution => true,
-			        :name => [
-				        'file_type',
-				        'source',
-				        'format', # this can also be considered the medium
-				        'collection_day',
-				        'editor_pick_text',
-				        'editor_pick_sig',
-				        'editor_pick',
-				        'date',
-				        ],
-			        :name_order => true
-			      }
-		      }
+		  <dt><b><%= t('activerecord.attributes.contribution.catalogued_by') %></b></dt>
+		  <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>  
+		  <%=
+			render :partial => '/metadata/display',
+			  :locals => {
+				:show_title => false,
+				:contribution => @contribution,
+				:metadata => @contribution.metadata,
+				:field_options => {
+				  :cataloguing => true, 
+				:contribution => true,
+				  :name => [
+					  'file_type',
+					  'source',
+					  'format', # this can also be considered the medium
+					  'collection_day',
+					  'editor_pick_text',
+					  'editor_pick_sig',
+					  'editor_pick',
+					  'date',
+					  ],
+				  :name_order => true
+				}
+			  }
 		  %>
-     
-      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
-      <dd><%= l @contribution.created_at, :format => :short %></dd>
-      
-      <% end -%>      
+		  <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
+		  <dd><%= l @contribution.created_at, :format => :short %></dd>
+		<% end -%>
 	  </dl>
 	  
 	  <%- if @contribution.contributor.picture.present? -%>
@@ -232,8 +260,8 @@
   	      <%- end -%>
 	      <%- end -%>
 		  </div>
-		<%- end -%>
+	  <%- end -%>
 	  
   </div>
-
+  
 </div>
