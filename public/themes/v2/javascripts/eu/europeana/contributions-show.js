@@ -27,11 +27,61 @@
 		pagination_checking : false,
 		
 		
+		addImagesToLightbox : function( $new_content ) {
+			
+			var	$pp_gallery = jQuery('.pp_gallery'),
+					$new_links = $new_content.find('#contributions-featured > ul > li > a');
+			
+			
+			if ( $pp_gallery.length < 1 ) {
+				
+				lightbox.init();
+				return;
+				
+			}
+			
+			$new_links.each(function() {
+				
+				var $elm = jQuery(this);
+				
+				window.pp_images.push( $elm.attr('href') );
+				window.pp_descriptions.push( $elm.attr('data-description') );
+			
+			});
+			
+			//if ( !self.$metadata[ self.current ]) {
+			//	
+			//	self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
+			//	self.$metadata[self.current].data( 'cloned', false );
+			//	
+			//}
+			//
+			//$metadata = self.$metadata[self.current];
+			//
+			//if ( !$metadata.data('cloned') ) {
+			//	
+			//	$metadata.data('clone', $metadata.clone() );
+			//	$metadata.data('clone').appendTo( $pp_content );
+			//	
+			//	$metadata.data('clone').css({
+			//		height : $pic_full_res.find('img').height() - parseInt( $metadata.data('clone').css('padding-top'), 10 ) - parseInt( $metadata.data('clone').css('padding-bottom'), 10 )
+			//	});
+			//	
+			//	$pic_full_res.append( $metadata.find('.metadata-license').html() );
+			//	$metadata.data('cloned', true);
+			//	
+			//}
+			
+		},
+		
+		
 		/**
 		 *	ajax methods
 		 */
 			
 			handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
+				
+				var $new_content = this.$new_content.clone();
 				
 				if ( this.ajax_load_processed ) { return; }
 				
@@ -45,7 +95,6 @@
 				this.$thumbnail_links = jQuery('#contributions-thumbnails ul a');
 				
 				this.addThumbnailClickHandlers();
-				lightbox.init();
 				
 				this.$thumbnail_carousel
 					.$items
@@ -56,6 +105,8 @@
 				this.pagination_checking = false;
 				this.ajax_load_processed = true;
 				this.$thumbnail_carousel.loading_content = false;
+				
+				this.addImagesToLightbox( $new_content );
 				
 			},
 			
@@ -308,6 +359,7 @@
 			self.addThumbnailClickHandlers();
 			self.updateCounts();
 			self.toggleSelected( self.$featured_carousel.get('current_item_index') );
+			self.setupAjaxHandler();
 			
 		}
 		
@@ -407,11 +459,14 @@
 			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
 				
 				description_src : 'data-description',
-				changepicturecallback : self.handlePictureChange
+				changepicturecallback : self.handlePictureChange,
+				show_title : false,
+				collection_total : carousels.items_collection_total
 				
 			});
 			
 		},
+		
 		
 		init : function() {
 			
