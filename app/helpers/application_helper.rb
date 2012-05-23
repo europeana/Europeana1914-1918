@@ -118,14 +118,12 @@ module ApplicationHelper
   ##
   # Returns an ID for a bundle of assets (CSS / JS), for named cache bundles
   #
-  # @param assets Bundle of assets
+  # @param [String,Array<String>] assets Bundle of assets
   # @return [String] ID as an MD5 hex digest of the assets
   #
   def asset_bundle_id(assets)
     assets = assets.dup
-    if assets.respond_to?(:to_s)
-      assets = assets.to_s
-    end
+    assets = [ assets ].flatten.join(',')
     Digest::MD5.hexdigest(assets)
   end
 end

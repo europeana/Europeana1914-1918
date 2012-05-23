@@ -221,6 +221,6 @@ RunCoCo.cataloguer = true;
 <% unless remote_scripts.blank? -%>
   <%= javascript_include_tag remote_scripts %>
 <% end -%>
-<%= javascript_include_tag script_files %>
+<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
 <script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
 <script>stLight.options({publisher:'cb2e010f-d3ab-4d91-8a02-935f467f48c0'});</script><% 'for share-this' %>
