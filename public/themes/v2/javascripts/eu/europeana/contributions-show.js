@@ -29,11 +29,11 @@
 		
 		addImagesToLightbox : function( $new_content ) {
 			
-			var	$pp_gallery = jQuery('.pp_gallery'),
+			var	$pp_full_res = jQuery('#pp_full_res'),
 					$new_links = $new_content.find('#contributions-featured > ul > li > a');
 			
 			
-			if ( $pp_gallery.length < 1 ) {
+			if ( $pp_full_res.length < 1 ) {
 				
 				lightbox.init();
 				return;
@@ -461,7 +461,8 @@
 				description_src : 'data-description',
 				changepicturecallback : self.handlePictureChange,
 				show_title : false,
-				collection_total : carousels.items_collection_total
+				collection_total : carousels.items_collection_total,
+				callback : function() { lightbox.init(); }
 				
 			});
 			
