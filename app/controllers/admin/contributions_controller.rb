@@ -97,6 +97,9 @@ class Admin::ContributionsController < AdminController
             gz.write(render_to_string)
           end
           RunCoCo.export_logger.info("Export to XML by #{current_user.username} saved as #{xml_filename}")
+          if current_user.email.present?
+            ExportsMailer.complete(current_user.email, xml_filename).deliver
+          end
         end
         
         flash[:notice] = "Generating XML export in the file #{xml_filename}"
