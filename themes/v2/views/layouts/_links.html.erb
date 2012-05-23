@@ -20,9 +20,9 @@ stylesheets['all'] << '/themes/v2/stylesheets/portlet.css'
 -%>
 <% stylesheets.each_pair do |media, sources| -%>
   <%- unless sources.blank? -%>
-    <%= stylesheet_link_tag sources, :media => media, :cache => '/cache/stylesheets/' + asset_bundle_id(sources) %>
+    <%= stylesheet_link_tag sources, :media => media %>
   <%- end -%>
 <% end -%>
-<!--[if lt IE 9]><%= stylesheet_link_tag '/themes/v2/stylesheets/ie.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2/stylesheets/ie.css') %><![endif]-->
-<noscript><%= stylesheet_link_tag '/themes/v2/stylesheets/noscript.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2/stylesheets/noscript.css') %></noscript>
+<!--[if lt IE 9]><%= stylesheet_link_tag '/themes/v2/stylesheets/ie.css', :media => 'all' %><![endif]-->
+<noscript><%= stylesheet_link_tag '/themes/v2/stylesheets/noscript.css', :media => 'all' %></noscript>
 <script src='/themes/v2/javascripts/com/scottjehl/respond.min.js'></script>

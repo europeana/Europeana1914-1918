@@ -46,7 +46,7 @@
 		  '/themes/v2/javascripts/com/google/gmap-geo.v3.js'
 	  )
 		remote_scripts.push(
-		  'http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=' + configuration(:gmap_api_key)
+		  'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=' + configuration(:gmap_api_key)
 	  )
 	end
 	
@@ -218,7 +218,7 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 RunCoCo.cataloguer = true;
 <% end -%>
 </script>
-<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
+<%= javascript_include_tag script_files %>
 <% unless remote_scripts.blank? -%>
   <%= javascript_include_tag remote_scripts %>
 <% end -%>
