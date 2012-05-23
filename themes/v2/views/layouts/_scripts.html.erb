@@ -13,6 +13,7 @@
 		'/themes/v2/javascripts/com/scottjehl/ios-orientationchange-fix.js',
 		'/themes/v2/javascripts/eu/europeana/navigation-mobile.js',
 	]
+	remote_scripts = []
 	
 	if @javascripts[:autocomplete]
 		script_files.push(
@@ -42,9 +43,11 @@
 	
 	if @javascripts[:gmap_display] || @javascripts[:gmap_locate]
 		script_files.push(
-			'http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=' + configuration(:gmap_api_key),
-			'/themes/v2/javascripts/com/google/gmap-geo.v3.js'
-		)
+		  '/themes/v2/javascripts/com/google/gmap-geo.v3.js'
+	  )
+		remote_scripts.push(
+		  'http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=' + configuration(:gmap_api_key)
+	  )
 	end
 	
 	if @javascripts[:gmap_display]
@@ -190,9 +193,11 @@
 	# share-this
 	
 	script_files.push(
-		'//w.sharethis.com/button/buttons.js',
 		'/themes/v2/javascripts/com/sharethis/sharethis.js'
 	)
+	remote_scripts.push(
+	  '//w.sharethis.com/button/buttons.js'
+  )
 	
 -%>
 <script>
@@ -213,6 +218,9 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 RunCoCo.cataloguer = true;
 <% end -%>
 </script>
-<%= javascript_include_tag script_files %>
+<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
+<% unless remote_scripts.blank? -%>
+  <%= javascript_include_tag remote_scripts %>
+<% end -%>
 <script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
 <script>stLight.options({publisher:'cb2e010f-d3ab-4d91-8a02-935f467f48c0'});</script><% 'for share-this' %>

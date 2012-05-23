@@ -1,6 +1,8 @@
+require 'digest/md5'
+
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  # Bastardised from Formtastic::SemanticFormBuilder#inline_errors_for 
+  # Adapted from Formtastic::SemanticFormBuilder#inline_errors_for 
   # and ActionView::Helpers::ActiveRecordHelper#error_message_on
   def inline_errors_for(object, method, options = {})
     if (obj = (object.respond_to?(:errors) ? object : instance_variable_get("@#{object}"))) &&
@@ -96,15 +98,35 @@ module ApplicationHelper
     end
   end
   
-  # Returns configuration setting
+  ##
+  # Returns RunCoCo configuration setting
   #
+  # @example
   #   <%= configuration(:site_name) %> # => "RunCoCo"
+  #
+  # @param [Symbol] setting Setting name
+  # @return Setting value
+  #
   def configuration(setting)
     RunCoCo.configuration.send(setting)
   end
   
   def yes_or_no(boolean)
-    boolean ? t('common.yes') : t('common.no')  
+    boolean ? t('common.yes') : t('common.no')
+  end
+  
+  ##
+  # Returns an ID for a bundle of assets (CSS / JS), for named cache bundles
+  #
+  # @param assets Bundle of assets
+  # @return [String] ID as an MD5 hex digest of the assets
+  #
+  def asset_bundle_id(assets)
+    assets = assets.dup
+    if assets.respond_to?(:to_s)
+      assets = assets.to_s
+    end
+    Digest::MD5.hexdigest(assets)
   end
 end
 
