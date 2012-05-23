@@ -7,7 +7,9 @@
 	'use strict';	
 	
 	
-	var carousels = {
+	var add_lightbox = ( jQuery(window).width() <= 768 || jQuery(window).height() <= 600 ) ? false : true,
+	
+	carousels = {
 		
 		$featured_carousel : null,
 		$thumbnail_carousel : null,
@@ -83,7 +85,7 @@
 				this.ajax_load_processed = true;
 				this.$thumbnail_carousel.loading_content = false;
 				
-				this.addImagesToLightbox( $new_content );
+				if ( add_lightbox ) { this.addImagesToLightbox( $new_content ); }
 				
 			},
 			
@@ -396,7 +398,7 @@
 		handlePageChangeNext : function( keyboard ) {
 			
 			if ( !keyboard ) {
-				
+				console.log('not keyboard');
 				carousels.$featured_carousel.$next.trigger('click');
 				
 			}
@@ -407,7 +409,7 @@
 		handlePageChangePrev : function( keyboard ) {
 			
 			if ( !keyboard ) {
-				
+				console.log('not keyboard');
 				carousels.$featured_carousel.$prev.trigger('click');
 				
 			}
@@ -472,8 +474,12 @@
 		
 		init : function() {
 			
-			if ( jQuery(window).width() <= 768 && jQuery(window).height() <= 600 ) {
-			
+			if ( add_lightbox ) {
+				
+				this.setupPrettyPhoto();
+				
+			} else {
+				
 				jQuery('#contributions-featured a').each(function() {
 					
 					var $elm = jQuery(this),
@@ -483,11 +489,7 @@
 					
 				});
 				
-				return;
-				
 			}
-			
-			this.setupPrettyPhoto();
 			
 		}
 		
