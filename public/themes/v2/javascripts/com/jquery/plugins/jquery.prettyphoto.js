@@ -96,7 +96,9 @@
 			inline_markup: '<div class="pp_inline">{content}</div>',
 			custom_markup: '',
 			// runcoco edit
-			collection_total: null,
+			collection_total : null,
+			changepageprev : function() {},
+			changepagenext : function() {},
 			social_tools: '<div class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div><div class="facebook"><iframe src="//www.facebook.com/plugins/like.php?locale=en_US&href={location_href}&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div>' /* html or false to disable */
 		}, pp_settings);
 		
@@ -123,11 +125,11 @@
 					if($pp_pic_holder.is(':visible')){
 						switch(e.keyCode){
 							case 37:
-								$.prettyPhoto.changePage('previous');
+								$.prettyPhoto.changePage('previous', true);
 								e.preventDefault();
 								break;
 							case 39:
-								$.prettyPhoto.changePage('next');
+								$.prettyPhoto.changePage('next', true);
 								e.preventDefault();
 								break;
 							case 27:
@@ -390,17 +392,25 @@
 		* Change page in the prettyPhoto modal box
 		* @param direction {String} Direction of the paging, previous or next.
 		*/
-		$.prettyPhoto.changePage = function(direction){
+		$.prettyPhoto.changePage = function(direction, keyboard ){
+			
 			currentGalleryPage = 0;
 			
 			if(direction == 'previous') {
+				
 				set_position--;
 				if (set_position < 0) set_position = $(pp_images).size()-1;
+				// runcoco edit
+				settings.changepageprev.call(this, keyboard);
+				
 			}else if(direction == 'next'){
+				
 				set_position++;
 				// runcoco edit
 				// if(set_position > $(pp_images).size()-1) set_position = 0;
 				if ( set_position > ( settings.collection_total ? settings.collection_total - 1 : $(pp_images).size() - 1 ) ) set_position = 0;
+				settings.changepagenext.call(this, keyboard);
+				
 			}else{
 				set_position=direction;
 			};
@@ -416,13 +426,14 @@
 			_checkForSizeChange();
 			
 		};
-
-
+		
+		
 		/**
 		* Change gallery page in the prettyPhoto modal box
 		* @param direction {String} Direction of the paging, previous or next.
 		*/
 		$.prettyPhoto.changeGalleryPage = function(direction){
+			
 			if(direction=='next'){
 				currentGalleryPage ++;
 

@@ -393,6 +393,28 @@
 		},
 		
 		
+		handlePageChangeNext : function( keyboard ) {
+			
+			if ( !keyboard ) {
+				
+				carousels.$featured_carousel.$next.trigger('click');
+				
+			}
+			
+		},
+		
+		
+		handlePageChangePrev : function( keyboard ) {
+			
+			if ( !keyboard ) {
+				
+				carousels.$featured_carousel.$prev.trigger('click');
+				
+			}
+			
+		},
+		
+		
 		/**
 		 *	this - refers to the generated lightbox div
 		 *	the div is removed each time the lightbox is closed
@@ -436,6 +458,8 @@
 			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
 				
 				description_src : 'data-description',
+				changepagenext : self.handlePageChangeNext,
+				changepageprev : self.handlePageChangePrev,
 				changepicturecallback : self.handlePictureChange,
 				show_title : false,
 				collection_total : carousels.items_collection_total,
