@@ -95,6 +95,7 @@
 			iframe_markup: '<iframe src ="{path}" width="{width}" height="{height}" frameborder="no"></iframe>',
 			inline_markup: '<div class="pp_inline">{content}</div>',
 			custom_markup: '',
+			// runcoco edit
 			collection_total: null,
 			social_tools: '<div class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></div><div class="facebook"><iframe src="//www.facebook.com/plugins/like.php?locale=en_US&href={location_href}&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:500px; height:23px;" allowTransparency="true"></iframe></div>' /* html or false to disable */
 		}, pp_settings);
@@ -218,6 +219,8 @@
 			$pp_overlay.show().fadeTo(settings.animation_speed,settings.opacity);
 
 			// Display the current position
+			// runcoco edit
+			// $pp_pic_holder.find('.currentTextHolder').text((set_position+1) + settings.counter_separator_label + $(pp_images).size());
 			$pp_pic_holder.find('.currentTextHolder').text((set_position+1) + settings.counter_separator_label + ( settings.collection_total ? settings.collection_total : $(pp_images).size() ) );
 
 			// Set the description
@@ -395,7 +398,9 @@
 				if (set_position < 0) set_position = $(pp_images).size()-1;
 			}else if(direction == 'next'){
 				set_position++;
-				if(set_position > $(pp_images).size()-1) set_position = 0;
+				// runcoco edit
+				// if(set_position > $(pp_images).size()-1) set_position = 0;
+				if ( set_position > ( settings.collection_total ? settings.collection_total - 1 : $(pp_images).size() - 1 ) ) set_position = 0;
 			}else{
 				set_position=direction;
 			};
@@ -406,8 +411,10 @@
 			if(settings.allow_expand) {
 				$('.pp_contract').removeClass('pp_contract').addClass('pp_expand');
 			}
-
-			_hideContent(function(){ $.prettyPhoto.open(); });
+			
+			// runcoco edit
+			_checkForSizeChange();
+			
 		};
 
 
@@ -559,10 +566,24 @@
 			$pp_pic_holder.find('#pp_full_res object,#pp_full_res embed').css('visibility','hidden');
 			$pp_pic_holder.find('.pp_fade').fadeOut(settings.animation_speed,function(){
 				$('.pp_loaderIcon').show();
-				
 				callback();
 			});
 		};
+		
+		// runcoco edit
+		function _checkForSizeChange() {
+			
+			if ( set_position > $(pp_images).size() - 1 ) {
+				
+				setTimeout( function() { _checkForSizeChange(); }, 100 );
+				
+			} else {
+				
+				_hideContent(function(){ $.prettyPhoto.open(); });
+				
+			}
+			
+		}
 	
 		/**
 		* Check the item position in the gallery array, hide or show the navigation links

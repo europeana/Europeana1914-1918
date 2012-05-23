@@ -49,29 +49,6 @@
 			
 			});
 			
-			//if ( !self.$metadata[ self.current ]) {
-			//	
-			//	self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
-			//	self.$metadata[self.current].data( 'cloned', false );
-			//	
-			//}
-			//
-			//$metadata = self.$metadata[self.current];
-			//
-			//if ( !$metadata.data('cloned') ) {
-			//	
-			//	$metadata.data('clone', $metadata.clone() );
-			//	$metadata.data('clone').appendTo( $pp_content );
-			//	
-			//	$metadata.data('clone').css({
-			//		height : $pic_full_res.find('img').height() - parseInt( $metadata.data('clone').css('padding-top'), 10 ) - parseInt( $metadata.data('clone').css('padding-bottom'), 10 )
-			//	});
-			//	
-			//	$pic_full_res.append( $metadata.find('.metadata-license').html() );
-			//	$metadata.data('cloned', true);
-			//	
-			//}
-			
 		},
 		
 		
