@@ -5,6 +5,8 @@ class ContributionsController < ApplicationController
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :search_by_taxonomy_term, :complete ]
 
+  cache_sweeper :contribution_sweeper, :only => [ :create, :update, :destroy ]
+
   # GET /contributions
   def index
     if RunCoCo.configuration.publish_contributions?

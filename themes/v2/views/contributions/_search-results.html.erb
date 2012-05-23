@@ -1,16 +1,18 @@
 <b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= @contributions.total_entries %> stories  )
   
   <ul id="stories">    
-    <% for contribution in contributions.each %>
-      <% if contribution.attachments.with_file.present? %>
-        <li>
-          <%= link_to attachment_preview(contribution.attachments.cover_image, :preview), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
-          <b><%= contribution.title %></b><br/>
-          <br/>
-          <%= contribution.metadata['field_alternative'] %>
-        </li>
-      <% end %>
-    <% end %>  
+    <%- for contribution in contributions.each -%>
+      <%- cache "v2/#{I18n.locale}/contributions/search_result/#{contribution.id}" do -%>
+        <%- if contribution.attachments.with_file.present? -%>
+          <li>
+            <%= link_to attachment_preview(contribution.attachments.cover_image, :preview), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %>
+            <b><%= contribution.title %></b><br/>
+            <br/>
+            <%= contribution.metadata['field_alternative'] %>
+          </li>
+        <%- end -%>
+      <%- end -%>
+    <%- end -%>
   </ul>
   
 <%= will_paginate contributions %>
