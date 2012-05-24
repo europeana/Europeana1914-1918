@@ -85,6 +85,8 @@
 				this.ajax_load_processed = true;
 				this.$thumbnail_carousel.loading_content = false;
 				
+				this.$featured_carousel.hideOverlay();
+				this.$thumbnail_carousel.hideOverlay();
 				if ( add_lightbox ) { this.addImagesToLightbox( $new_content ); }
 				
 			},
@@ -133,6 +135,16 @@
 			},
 			
 			
+			nrItemsInCurrentContainer : function() {
+				
+				var total_pgs = Math.ceil( this.$thumbnail_carousel.items_length / this.$thumbnail_carousel.items_per_container ),
+						total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
+				
+				return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
+				
+			},
+			
+			
 			/**
 			 *	decide whether or not to try and pull in additional carousel assets
 			 *	additional assets are pulled in via the following url schemes
@@ -143,19 +155,40 @@
 			paginationContentCheck : function( dir, carousel ) {
 				
 				var href,
-						next_page_link;
+						next_page_link,
+						items_in_current_container = this.nrItemsInCurrentContainer();
+							//( this.$thumbnail_carousel.items_length < this.$thumbnail_carousel.items_per_container ) 
+							//? this.$thumbnail_carousel.items_length
+							//: this.$thumbnail_carousel.page_nr * this.$thumbnail_carousel.items_per_container;
 				
 				
 				if ( 'prev' === dir || this.pagination_checking ) { return; }
 				
-				if ( 'featured' === carousel
-						 && this.$featured_carousel.current_item_index + 1
-						    < this.$thumbnail_carousel.items_per_container
-								* this.$thumbnail_carousel.page_nr ) { return; }				
 				
-				if ( this.$thumbnail_carousel.items_per_container
-						 * this.$thumbnail_carousel.page_nr
-						 < this.$thumbnail_carousel.items_length ) { return; }
+				// don't paginate if current feature carousel index < last container index
+				if ( 'featured' === carousel ) {
+					
+					if ( items_in_current_container < this.$thumbnail_carousel.items_per_container ) {
+						
+						if ( this.$featured_carousel.current_item_index < this.$thumbnail_carousel.items_length - 1 ) {
+							
+							return;
+							
+						}
+						
+					} else if ( this.$featured_carousel.current_item_index + 1 < this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr ) {
+						
+						return;
+						
+					}
+					
+				}
+				
+				if ( this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr < this.$thumbnail_carousel.items_length ) {
+					
+					return;
+					
+				}
 				
 				this.pagination_checking = true;
 				
@@ -318,10 +351,10 @@
 			jQuery('#contributions-thumbnails').imagesLoaded(function() {
 				self.$thumbnail_carousel =
 					this.rCarousel({
+						items_collection_total : self.items_collection_total,
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
-						items_collection_total : self.items_collection_total,
 						callbacks : {
 							before_nav : function( dir ) {
 								self.paginationContentCheck( dir, 'thumbnail' );

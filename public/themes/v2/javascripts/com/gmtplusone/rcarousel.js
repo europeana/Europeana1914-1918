@@ -58,6 +58,17 @@
 		},
 		
 		
+		hideOverlay : function() {
+			
+			if ( this.$overlay.is(':visible') ) {
+				
+				this.$overlay.fadeOut();
+				
+			}
+			
+		},
+		
+		
 		transition : function( coords ) {
 			
 			var self = this,
@@ -82,12 +93,6 @@
 				this.$carousel_ul.animate({
 					'margin-left': new_left
 				});
-				
-			}
-			
-			if ( this.$overlay.is(':visible') ) {
-				
-				this.$overlay.fadeOut();
 				
 			}
 			
@@ -562,7 +567,7 @@
 			this.addWindowResizeHandler();
 			this.addOrientationHandler();
 			
-			this.$overlay.fadeOut();
+			this.hideOverlay();
 			
 		}
 		

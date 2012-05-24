@@ -401,7 +401,13 @@
 				set_position--;
 				// runcoco edit
 				//if (set_position < 0) set_position = $(pp_images).size()-1;
-				if (set_position < 0) set_position = 0;
+				if (set_position < 0) {
+					
+					set_position = 0;
+					return;
+				
+				}
+				
 				settings.changepageprev.call(this, keyboard);
 				
 			}else if(direction == 'next'){
@@ -414,6 +420,7 @@
 					if ( set_position > settings.collection_total - 1 ) {
 						
 						set_position = settings.collection_total - 1;
+						return;
 						
 					}
 					
@@ -422,6 +429,7 @@
 					if ( set_position > $(pp_images).size() - 1 ) {
 						
 						set_position = $(pp_images).size() - 1;
+						return;
 						
 					}
 					
