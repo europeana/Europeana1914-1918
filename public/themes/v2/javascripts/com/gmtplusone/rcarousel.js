@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-21 09:56 gmt +1
+ *	@version 2012-05-24 15:44 gmt +1
  */
 (function() {
 
@@ -101,7 +101,7 @@
 		
 		toggleNav : function() {
 			
-			if ( this.current_item_index == 0 ) {
+			if ( this.current_item_index === 0 ) {
 				
 				this.$prev.fadeOut();
 				
@@ -187,7 +187,8 @@
 		
 		navigationRewind : function( dir ) {
 			
-			var pos = previous_index = this.current_item_index;
+			var pos = this.current_item_index,
+					previous_index = pos;
 			
 			
 			if ( !this.options.item_width_is_container_width ) {
@@ -310,8 +311,8 @@
 					$elm.touchwipe({
 						wipeLeft : function( evt ) { evt.preventDefault(); self.$next.trigger('click'); },
 						wipeRight : function( evt ) { evt.preventDefault(); self.$prev.trigger('click'); },
-						wipeUp : function( evt ) {},
-						wipeDown : function( evt ) {}
+						wipeUp : function() {},
+						wipeDown : function() {}
 					});
 					
 					jQuery.data( this, 'touchwipe-added', true );
@@ -487,7 +488,7 @@
 		setDimmensions : function( evt ) {
 			
 			var self = evt ? evt.data.self : this;
-					self.calculateDimmensions(),
+					self.calculateDimmensions();
 					self.setCarouselWidth();
 			
 			//if (evt ) { console.log(evt.type); }
