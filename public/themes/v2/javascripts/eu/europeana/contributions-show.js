@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-21 09:56 gmt +1
+ *	@version 2012-05-24 15:44 gmt +1
  */
 (function() {
 
@@ -360,9 +360,7 @@
 								self.paginationContentCheck( dir, 'thumbnail' );
 							},
 							after_nav : function( dir ) {
-								if (!self.pagination_checking ) {
-									
-								}
+								//if (!self.pagination_checking ) {}
 							}
 						}
 					}).data('rCarousel');
@@ -387,33 +385,26 @@
 		addMetaDataOverlay : function( $elm ) {
 			
 			var self = this,
-					$metadata,
 					$pic_full_res = jQuery('#pp_full_res'),
 					$pp_content = jQuery('.pp_content');
 			
 			
-			if ( !self.$metadata[ self.current ]) {
+			if ( !self.$metadata[self.current] ) {
 				
 				self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
-				self.$metadata[self.current].data( 'cloned', false );
+				self.$metadata[ self.current ].data('clone', self.$metadata[ self.current ].clone() );
 				
 			}
 			
-			$metadata = self.$metadata[self.current];
+			self.$metadata[ self.current ].data('clone').appendTo( $pp_content );
 			
-			if ( !$metadata.data('cloned') ) {
-				
-				$metadata.data('clone', $metadata.clone() );
-				$metadata.data('clone').appendTo( $pp_content );
-				
-				$metadata.data('clone').css({
-					height : $pic_full_res.find('img').height() - parseInt( $metadata.data('clone').css('padding-top'), 10 ) - parseInt( $metadata.data('clone').css('padding-bottom'), 10 )
-				});
-				
-				$pic_full_res.append( $metadata.find('.metadata-license').html() );
-				$metadata.data('cloned', true);
-				
-			}
+			self.$metadata[ self.current ].data('clone').css({
+				height : $pic_full_res.find('img').height()
+					- parseInt( self.$metadata[ self.current ].data('clone').css('padding-top'), 10 )
+					- parseInt( self.$metadata[ self.current ].data('clone').css('padding-bottom'), 10 )
+			});
+			
+			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
 			
 		},
 		
@@ -482,6 +473,7 @@
 			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
 			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
 			self.addMetaDataOverlay( $additional_info_link );
+			
 			
 		},
 		
