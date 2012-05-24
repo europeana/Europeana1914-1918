@@ -77,7 +77,7 @@
 			
 			if ( self.loading_content ) {
 				
-				setTimeout(				
+				setTimeout(
 					function() {
 						self.transition(coords);
 					},
@@ -514,6 +514,7 @@
 					if ( window.orientation !== self.orientation ) {
 						self.setDimmensions();
 						self.orientation = window.orientation;
+						self.transition();
 					}
 					
 				},
