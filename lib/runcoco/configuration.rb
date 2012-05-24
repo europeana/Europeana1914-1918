@@ -38,6 +38,7 @@ module RunCoCo
       :gmap_api_key => nil,
       :google_analytics_key => nil,
       :bing_translate_key => nil,
+      :sharethis_id => nil,
       :uploadify => false,
       :ui_locales => nil,
       :banner_active => false,
