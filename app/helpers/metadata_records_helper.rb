@@ -87,11 +87,11 @@ module MetadataRecordsHelper
     image = {
       'http://creativecommons.org/licenses/by-sa/3.0/' => {
         :alt => 'by-sa',
-        :src => 'http://i.creativecommons.org/l/by-sa/3.0/88x31.png'
+        :src => '/themes/v2/images/logos/cc/by-sa/3.0/88x31.png'
       },
       'http://creativecommons.org/publicdomain/mark/1.0/' => {
         :alt => 'public domain mark',
-        :src => 'http://i.creativecommons.org/p/mark/1.0/88x31.png'
+        :src => '/themes/v2/images/logos/cc/p/mark/1.0/88x31.png'
       }
     }[license]
     
