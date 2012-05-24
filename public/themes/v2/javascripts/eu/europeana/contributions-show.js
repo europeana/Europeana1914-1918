@@ -398,7 +398,7 @@
 		handlePageChangeNext : function( keyboard ) {
 			
 			if ( !keyboard ) {
-				console.log('not keyboard');
+				
 				carousels.$featured_carousel.$next.trigger('click');
 				
 			}
@@ -409,7 +409,7 @@
 		handlePageChangePrev : function( keyboard ) {
 			
 			if ( !keyboard ) {
-				console.log('not keyboard');
+				
 				carousels.$featured_carousel.$prev.trigger('click');
 				
 			}
@@ -460,6 +460,7 @@
 			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
 				
 				description_src : 'data-description',
+				overlay_gallery : false,
 				changepagenext : self.handlePageChangeNext,
 				changepageprev : self.handlePageChangePrev,
 				changepicturecallback : self.handlePictureChange,

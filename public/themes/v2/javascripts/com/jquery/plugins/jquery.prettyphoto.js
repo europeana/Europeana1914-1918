@@ -24,7 +24,6 @@
 			allow_expand: true, /* Allow the user to expand a resized image. true/false */
 			default_width: 500,
 			default_height: 344,
-			description_src : 'title', /* which attribute contains the description to be used */
 			counter_separator_label: '/', /* The separator for the gallery counter 1 "of" 2 */
 			theme: 'pp_default', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
 			horizontal_padding: 20, /* The padding on each side of the picture */
@@ -96,6 +95,7 @@
 			inline_markup: '<div class="pp_inline">{content}</div>',
 			custom_markup: '',
 			// runcoco edit
+			description_src : 'title', /* which attribute contains the description to be used */
 			collection_total : null,
 			changepageprev : function() {},
 			changepagenext : function() {},
@@ -399,8 +399,9 @@
 			if(direction == 'previous') {
 				
 				set_position--;
-				if (set_position < 0) set_position = $(pp_images).size()-1;
 				// runcoco edit
+				//if (set_position < 0) set_position = $(pp_images).size()-1;
+				if (set_position < 0) set_position = 0;
 				settings.changepageprev.call(this, keyboard);
 				
 			}else if(direction == 'next'){
@@ -408,7 +409,24 @@
 				set_position++;
 				// runcoco edit
 				// if(set_position > $(pp_images).size()-1) set_position = 0;
-				if ( set_position > ( settings.collection_total ? settings.collection_total - 1 : $(pp_images).size() - 1 ) ) set_position = 0;
+				if ( settings.collection_total ) {
+					
+					if ( set_position > settings.collection_total - 1 ) {
+						
+						set_position = settings.collection_total - 1;
+						
+					}
+					
+				} else {
+					
+					if ( set_position > $(pp_images).size() - 1 ) {
+						
+						set_position = $(pp_images).size() - 1;
+						
+					}
+					
+				}
+				
 				settings.changepagenext.call(this, keyboard);
 				
 			}else{
