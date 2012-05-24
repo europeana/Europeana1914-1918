@@ -126,5 +126,14 @@ module ApplicationHelper
     assets = [ assets ].flatten.join(',')
     Digest::MD5.hexdigest(assets)
   end
+  
+  ##
+  # Returns true if the HTTP referrer is one of the collection search URLs.
+  #
+  # @return [Boolean]
+  #
+  def referred_by_search?
+    controller.request.env["HTTP_REFERER"].present? && controller.request.env["HTTP_REFERER"].match(Regexp.new('/(contributions/search|explore)'))
+  end
 end
 

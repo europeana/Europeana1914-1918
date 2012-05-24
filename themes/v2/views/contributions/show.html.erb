@@ -33,11 +33,14 @@
 		<%- end %>
 	  </ul>
 	</div>
-  <% end -%>
+<% end -%>
 
 <div class="section top">
   
-  <%= link_to t('views.links.back-to-search'), :back %>
+  <%- if referred_by_search? -%>
+    <%= link_to t('views.links.back-to-search'), :back %>
+  <%- end -%>
+  
   <h2><%= contribution_title(@contribution) %></h2>
   
 	<div class="one-half-right">
