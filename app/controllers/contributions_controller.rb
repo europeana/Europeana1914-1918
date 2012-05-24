@@ -164,10 +164,13 @@ class ContributionsController < ApplicationController
   def search
     current_user.may_search_contributions!
     @query = params[:q]
+    
+    per_page = [ (params[:count] || 48).to_i, 100 ].min
+    
     # Minimal eager loading of associations if search result partials are not pre-cached.
-#    search_options = { :page => params[:page], :per_page => (params[:count] || 48), :include => [ :attachments, :metadata ] }
+#    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
     # No eager loading if partials are all pre-cached.
-    search_options = { :page => params[:page], :per_page => (params[:count] || 48) }
+    search_options = { :page => params[:page], :per_page => per_page }
     @contributions = search_contributions(:published, @query, search_options)
   end
   
@@ -176,12 +179,14 @@ class ContributionsController < ApplicationController
     current_user.may_search_contributions!
     @term = CGI::unescape(params[:term])
     
+    per_page = [ (params[:count] || 48).to_i, 100 ].min
+    
     field = MetadataField.find_by_name!(params[:field_name])
     if taxonomy_term = field.taxonomy_terms.find_by_term(@term)
       # Minimal eager loading of associations if search result partials are not pre-cached.
-#      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => (params[:count] || 48), :include => [ :attachments, :metadata ] }
+#      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
       # No eager loading if partials are all pre-cached.
-      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => (params[:count] || 48) }
+      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page }
       @contributions = search_contributions(:published, nil, search_options)
     else
       @contributions = []
