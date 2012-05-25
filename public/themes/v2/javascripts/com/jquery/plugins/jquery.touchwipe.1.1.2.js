@@ -63,6 +63,8 @@
 							dx = startX - x,
 							dy = startY - y;
 					
+					if ( evt.originalEvent.touches.length > 1 ) { return; }
+					
 					if ( Math.abs(dx) >= config.min_move_x ) {
 						
 						cancelTouch();
