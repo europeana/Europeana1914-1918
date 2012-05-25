@@ -126,7 +126,16 @@
 				
 				this.$featured_carousel.hideOverlay();
 				this.$thumbnail_carousel.hideOverlay();
-				if ( add_lightbox ) { this.addImagesToLightbox( $new_content ); }
+				
+				if ( add_lightbox ) {
+					
+					this.addImagesToLightbox( $new_content );
+					
+				} else {
+					
+					lightbox.removeLightboxLinks();
+					
+				}
 				
 			},
 			
@@ -510,6 +519,20 @@
 		},
 		
 		
+		removeLightboxLinks : function() {
+			
+			jQuery('#contributions-featured a').each(function() {
+					
+					var $elm = jQuery(this),
+							contents = $elm.contents();
+					
+					$elm.replaceWith(contents);
+					
+				});
+			
+		},
+		
+		
 		init : function() {
 			
 			if ( add_lightbox ) {
@@ -518,14 +541,7 @@
 				
 			} else {
 				
-				jQuery('#contributions-featured a').each(function() {
-					
-					var $elm = jQuery(this),
-							contents = $elm.contents();
-					
-					$elm.replaceWith(contents);
-					
-				});
+				this.removeLightboxLinks();
 				
 			}
 			
