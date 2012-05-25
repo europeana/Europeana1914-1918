@@ -21,7 +21,7 @@
 	
 	var RCarousel = {
 		
-		options : null,		
+		options : null,
 		$carousel_container : null,
 		$carousel_ul : null,
 		$items : null,

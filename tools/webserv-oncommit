@@ -46,6 +46,10 @@ echo
 /etc/init.d/apache2 stop
 
 echo
+echo "=============   clearing js and css min cache  ==========="
+bundle exec rake assets:expire
+
+echo
 echo "=============   starting apache   ==========="
 echo
 /etc/init.d/apache2 start

@@ -4,10 +4,9 @@
  */
 (function() {
 
-	'use strict';	
-	
-	
+	'use strict';
 	var add_lightbox = ( jQuery(window).width() <= 768 || jQuery(window).height() <= 600 ) ? false : true,
+	
 	
 	carousels = {
 		
@@ -26,7 +25,36 @@
 		$new_content : null,
 		$loading_feedback : null,
 		ajax_load_processed : true,
+		
 		pagination_checking : false,
+		paginate_to_index : 0,
+		
+		
+		calculateThumbnailPageTotal : function() {
+			
+			return Math.ceil( this.$thumbnail_carousel.items_length / this.$thumbnail_carousel.items_per_container );
+			
+		},
+		
+		
+		nrItemsInCurrentContainer : function() {
+			
+			var total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
+			return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
+			
+		},
+		
+		
+		getNewIndex : function( dir ) {
+			
+			var page_val = this.$thumbnail_carousel.page_nr + ( dir === 'next' ? 1 : 0 ),
+					new_index = page_val <= 0
+						? 0
+						: this.$thumbnail_carousel.items_per_container * page_val - this.$thumbnail_carousel.items_per_container;
+			
+			return new_index;
+			
+		},
 		
 		
 		addImagesToLightbox : function( $new_content ) {
@@ -77,7 +105,8 @@
 				
 				this.$thumbnail_carousel
 					.$items
-					.eq( this.getNewIndex('next') )
+					//.eq( this.getNewIndex('next') )
+					.eq( this.paginate_to_index )
 					.find('a')
 					.trigger('click');
 				
@@ -135,16 +164,6 @@
 			},
 			
 			
-			nrItemsInCurrentContainer : function() {
-				
-				var total_pgs = Math.ceil( this.$thumbnail_carousel.items_length / this.$thumbnail_carousel.items_per_container ),
-						total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
-				
-				return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
-				
-			},
-			
-			
 			/**
 			 *	decide whether or not to try and pull in additional carousel assets
 			 *	additional assets are pulled in via the following url schemes
@@ -157,9 +176,6 @@
 				var href,
 						next_page_link,
 						items_in_current_container = this.nrItemsInCurrentContainer();
-							//( this.$thumbnail_carousel.items_length < this.$thumbnail_carousel.items_per_container ) 
-							//? this.$thumbnail_carousel.items_length
-							//: this.$thumbnail_carousel.page_nr * this.$thumbnail_carousel.items_per_container;
 				
 				
 				if ( 'prev' === dir || this.pagination_checking ) { return; }
@@ -191,7 +207,6 @@
 				}
 				
 				this.pagination_checking = true;
-				
 				next_page_link = this.$pagination_next.attr('href');
 				if ( !next_page_link ) { return; }
 				
@@ -205,18 +220,6 @@
 				this.retrieveContent( href );
 				
 			},
-		
-		
-		getNewIndex : function( dir ) {
-			
-			var page_val = this.$thumbnail_carousel.page_nr + ( dir === 'next' ? 1 : 0 ),
-					new_index = page_val <= 0
-						? 0
-						: this.$thumbnail_carousel.items_per_container * page_val - this.$thumbnail_carousel.items_per_container;
-			
-			return new_index;
-			
-		},
 		
 		
 		updateTumbnailCarouselPosition : function( selected_index, dir ) {
@@ -255,7 +258,6 @@
 			
 			var self = this;
 			
-			
 			self.$thumbnail_links.each(function(index) {
 					
 					var $elm = jQuery(this);
@@ -265,6 +267,7 @@
 						if ( !$elm.hasClass('selected') ) {
 							
 							$elm.addClass('selected');
+							self.paginate_to_index = selected_index + 1;
 							
 						}
 						
