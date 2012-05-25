@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-24 15:44 gmt +1
+ *	@version 2012-05-25 13:10 gmt +1
  */
 (function() {
 
@@ -27,7 +27,9 @@
 		ajax_load_processed : true,
 		
 		pagination_checking : false,
-		paginate_to_index : 0,
+		selected_index : 0,
+		previous_thumbnail_length : 0,
+		carousel_clicked : null,
 		
 		
 		calculateThumbnailPageTotal : function() {
@@ -45,14 +47,22 @@
 		},
 		
 		
-		getNewIndex : function( dir ) {
+		paginateToIndex : function() {
 			
-			var page_val = this.$thumbnail_carousel.page_nr + ( dir === 'next' ? 1 : 0 ),
-					new_index = page_val <= 0
-						? 0
-						: this.$thumbnail_carousel.items_per_container * page_val - this.$thumbnail_carousel.items_per_container;
+			var paginate_to_index;
 			
-			return new_index;
+			
+			if ( 'featured' === this.carousel_clicked ) {
+				
+				paginate_to_index = this.selected_index + 1;
+				
+			} else {
+				
+				paginate_to_index = this.previous_thumbnail_length;
+				
+			}
+			
+			return paginate_to_index;
 			
 		},
 		
@@ -105,11 +115,11 @@
 				
 				this.$thumbnail_carousel
 					.$items
-					//.eq( this.getNewIndex('next') )
-					.eq( this.paginate_to_index )
+					.eq( this.paginateToIndex() )
 					.find('a')
 					.trigger('click');
 				
+				this.$thumbnail_carousel.toggleNav();
 				this.pagination_checking = false;
 				this.ajax_load_processed = true;
 				this.$thumbnail_carousel.loading_content = false;
@@ -171,7 +181,7 @@
 			 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
 			 *		partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
 			 */
-			paginationContentCheck : function( dir, carousel ) {
+			paginationContentCheck : function( dir ) {
 				
 				var href,
 						next_page_link,
@@ -182,7 +192,7 @@
 				
 				
 				// don't paginate if current feature carousel index < last container index
-				if ( 'featured' === carousel ) {
+				if ( 'featured' === this.carousel_clicked ) {
 					
 					if ( items_in_current_container < this.$thumbnail_carousel.items_per_container ) {
 						
@@ -211,6 +221,7 @@
 				if ( !next_page_link ) { return; }
 				
 				next_page_link = next_page_link.split('?');
+				this.previous_thumbnail_length = this.$thumbnail_carousel.items_length;
 				
 				href =
 					next_page_link[0] +
@@ -230,7 +241,6 @@
 					page_nr = this.$thumbnail_carousel.get('page_nr'),
 					min = ( page_nr * items_per_container ) - items_per_container,
 					max = ( page_nr * items_per_container ) - 1;
-			
 			
 			// if selected_index is on same page don't move the carousel
 			if ( selected_index >= min && selected_index <= max ) {
@@ -257,6 +267,7 @@
 		toggleSelected : function( selected_index ) {
 			
 			var self = this;
+					this.selected_index = selected_index;
 			
 			self.$thumbnail_links.each(function(index) {
 					
@@ -267,7 +278,6 @@
 						if ( !$elm.hasClass('selected') ) {
 							
 							$elm.addClass('selected');
-							self.paginate_to_index = selected_index + 1;
 							
 						}
 						
@@ -337,10 +347,11 @@
 			
 			self.$featured_carousel =
 				jQuery('#contributions-featured').rCarousel({
-					items_collection_total : self.items_collection_total,
+					items_collection_total : parseInt( self.items_collection_total, 10 ),
 					callbacks : {
 						before_nav : function( dir ) {
-							self.paginationContentCheck( dir, 'featured' );
+							self.carousel_clicked = 'featured';
+							self.paginationContentCheck( dir );
 						},
 						after_nav : function( dir ) {
 							self.updateCounts();
@@ -354,16 +365,14 @@
 			jQuery('#contributions-thumbnails').imagesLoaded(function() {
 				self.$thumbnail_carousel =
 					this.rCarousel({
-						items_collection_total : self.items_collection_total,
+						items_collection_total : parseInt( self.items_collection_total, 10 ),
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
 						callbacks : {
 							before_nav : function( dir ) {
-								self.paginationContentCheck( dir, 'thumbnail' );
-							},
-							after_nav : function( dir ) {
-								//if (!self.pagination_checking ) {}
+								self.carousel_clicked = 'thumbnail';
+								self.paginationContentCheck( dir );
 							}
 						}
 					}).data('rCarousel');
