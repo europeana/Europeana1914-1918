@@ -156,9 +156,7 @@
 					case 'show' :
 						
 						if ( 'attachment_upload' === $elm.attr('id')
-							&& ( 'single-item' === except_id
-								|| 'multiple-item' === except_id )
-							) {
+							&& ( 'single-item' === except_id || 'multiple-item' === except_id ) ) {
 							
 							openFieldset( $elm );
 							
@@ -168,7 +166,7 @@
 							
 						}
 						
-						if ( 'single-item' === except_id
+						if ( ( 'single-item' === except_id || 'attachment_upload' === except_id )
 							&& 'submit' === $elm.attr('id') ) {
 							
 							hideFieldset( $elm );
