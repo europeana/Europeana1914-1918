@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-25 13:10 gmt +1
+ *	@version 2012-05-29 04:04 gmt +1
  */
 (function() {
 
@@ -101,6 +101,10 @@
 		
 		toggleNav : function() {
 			
+			var items_length = this.options.items_collection_total > 0
+				? this.options.items_collection_total
+				: this.items_length;
+			
 			if ( this.current_item_index === 0 ) {
 				
 				this.$prev.fadeOut();
@@ -111,20 +115,7 @@
 				
 			}
 			
-			if ( this.options.items_collection_total > 0 ) {
-				
-				if ( this.page_nr >= ( this.options.items_collection_total / this.items_per_container )
-						 && this.items_length === this.options.items_collection_total ) {
-					
-					this.$next.fadeOut();
-					
-				} else if ( this.$next.is(':hidden') ) {
-					
-					this.$next.fadeIn();
-					
-				}
-				
-			} else if ( this.current_item_index === this.items_length - 1 ) {
+			if ( this.current_item_index >= items_length - 1 ) {
 				
 				this.$next.fadeOut();
 				
@@ -169,78 +160,34 @@
 		},
 		
 		
-		navigationOneWay : function( dir ) {
-			
-			var pos = dir === 'next' ? this.items_per_container : -1 * this.items_per_container;
-			
-			if ( this.current_item_index + pos < this.items_length
-					 && this.current_item_index + pos >= 0 ) {
-				
-				this.current_item_index = this.current_item_index + pos;
-				
-			}			
-			
-			this.updatePageNr( dir );
-			this.toggleNav();
-			
-		},
-		
-		
-		navigationRewind : function( dir ) {
-			
-			var pos = this.current_item_index,
-					previous_index = pos;
-			
-			
-			if ( !this.options.item_width_is_container_width ) {
-				
-				pos = dir === 'next' ? this.items_per_container : -1 * this.items_per_container;				
-				
-				this.current_item_index = this.current_item_index + pos;
-				
-				
-				if ( this.current_item_index >= this.items_length ) {
-					
-					this.current_item_index = 0;
-					
-				}
-				
-				if ( this.current_item_index < 0 ) {
-					
-					if ( previous_index !== 0 ) {
-						
-						this.current_item_index = 0;
-						
-					} else {
-						
-						this.current_item_index = this.items_length - this.items_per_container;
-						
-					}
-					
-				}
-				
-			} else {
-				
-				pos += ( ~~( dir === 'next' ) || -1 );
-				this.current_item_index = ( pos < 0 ) ? this.items_length - 1 : pos % this.item_width;
-				if ( pos >= this.items_length ) { this.current_item_index = 0; }
-				
-			}
-			
-		},
-		
-		
 		setCurrentItemIndex : function( dir ) {
+			
+			var pos,
+					items_length = this.options.items_collection_total > 0 ? this.options.items_collection_total : this.items_length;
 			
 			switch ( this.options.navigation_style ) {
 				
-				case 'rewind' :
-					this.navigationRewind( dir );
+				case 'one-way-by' :
+					pos = dir === 'next' ? this.options.nav_by : -1 * this.options.nav_by;
 					break;
 				
 				default :
-					this.navigationOneWay( dir );
+					pos = dir === 'next' ? this.items_per_container : -1 * this.items_per_container;
 					break;
+				
+			}
+			
+			if ( this.current_item_index + pos >= items_length ) {
+				
+				this.current_item_index = items_length - 1;
+				
+			} else if ( this.current_item_index + pos < 0 ) {
+				
+				this.current_item_index = 0;
+				
+			} else {
+				
+				this.current_item_index = this.current_item_index + pos;
 				
 			}
 			
@@ -282,16 +229,23 @@
 				
 				self.options.callbacks.before_nav.call( this, dir );
 				
-			}
+			}			
 			
-			self.setCurrentItemIndex( dir );
-			self.transition();
+			if ( !self.options.cancel_nav ) {
+				
+				self.setCurrentItemIndex( dir );
+				self.transition();
+				self.toggleNav();
+				
+			}
 			
 			if ( 'function' === typeof self.options.callbacks.after_nav ) {
 				
 				self.options.callbacks.after_nav.call( this, dir );
 				
 			}
+			
+			self.options.cancel_nav = false;
 			
 		},
 		
@@ -301,7 +255,7 @@
 			var self = this;
 			
 			if ( !self.options.add_swipe_handler || 'undefined' === typeof document.documentElement.ontouchstart ) { return; }
-			if ( !jQuery().touchwipe ) { js.console.log( 'jquery.touchwipe not present' ); return; }
+			if ( !jQuery().touchwipe ) { return; }
 			
 			self.$items.each(function() {
 				
@@ -492,7 +446,7 @@
 					self.calculateDimmensions();
 					self.setCarouselWidth();
 			
-			//if (evt ) { console.log(evt.type); }
+			
 			self.$items.each(function() {
 				
 				var $item = jQuery(this);
@@ -597,7 +551,9 @@
 		item_width_is_container_width : true,
 		items_collection_total : 0,
 		nav_button_size : 'medium',
-		navigation_style : 'one-way',
+		navigation_style : 'one-way', // rewind | one-way (default) | one-way-by
+		nav_by : 3, // set a default for the one-way-by,
+		cancel_nav : false,
 		callbacks : {
 			before_nav : null,
 			after_nav : null

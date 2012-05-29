@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-25 13:10 gmt +1
+ *	@version 2012-05-29 04:04 gmt +1
  */
 (function() {
 
@@ -27,42 +27,13 @@
 		ajax_load_processed : true,
 		
 		pagination_checking : false,
-		selected_index : 0,
 		previous_thumbnail_length : 0,
-		carousel_clicked : null,
-		
-		
-		calculateThumbnailPageTotal : function() {
-			
-			return Math.ceil( this.$thumbnail_carousel.items_length / this.$thumbnail_carousel.items_per_container );
-			
-		},
 		
 		
 		nrItemsInCurrentContainer : function() {
 			
 			var total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
 			return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
-			
-		},
-		
-		
-		paginateToIndex : function() {
-			
-			var paginate_to_index;
-			
-			
-			if ( 'featured' === this.carousel_clicked ) {
-				
-				paginate_to_index = this.selected_index + 1;
-				
-			} else {
-				
-				paginate_to_index = this.previous_thumbnail_length;
-				
-			}
-			
-			return paginate_to_index;
 			
 		},
 		
@@ -115,7 +86,7 @@
 				
 				this.$thumbnail_carousel
 					.$items
-					.eq( this.paginateToIndex() )
+					.eq( this.previous_thumbnail_length )
 					.find('a')
 					.trigger('click');
 				
@@ -190,40 +161,10 @@
 			 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
 			 *		partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
 			 */
-			paginationContentCheck : function( dir ) {
+			paginationContentCheck : function() {
 				
 				var href,
-						next_page_link,
-						items_in_current_container = this.nrItemsInCurrentContainer();
-				
-				
-				if ( 'prev' === dir || this.pagination_checking ) { return; }
-				
-				
-				// don't paginate if current feature carousel index < last container index
-				if ( 'featured' === this.carousel_clicked ) {
-					
-					if ( items_in_current_container < this.$thumbnail_carousel.items_per_container ) {
-						
-						if ( this.$featured_carousel.current_item_index < this.$thumbnail_carousel.items_length - 1 ) {
-							
-							return;
-							
-						}
-						
-					} else if ( this.$featured_carousel.current_item_index + 1 < this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr ) {
-						
-						return;
-						
-					}
-					
-				}
-				
-				if ( this.$thumbnail_carousel.items_per_container * this.$thumbnail_carousel.page_nr < this.$thumbnail_carousel.items_length ) {
-					
-					return;
-					
-				}
+						next_page_link;
 				
 				this.pagination_checking = true;
 				next_page_link = this.$pagination_next.attr('href');
@@ -242,33 +183,10 @@
 			},
 		
 		
-		updateTumbnailCarouselPosition : function( selected_index, dir ) {
+		updateTumbnailCarouselPosition : function( dir ) {
 			
-			if ( !this.$thumbnail_carousel ) { return; }
-			
-			var items_per_container = this.$thumbnail_carousel.get( 'items_per_container' ),
-					page_nr = this.$thumbnail_carousel.get('page_nr'),
-					min = ( page_nr * items_per_container ) - items_per_container,
-					max = ( page_nr * items_per_container ) - 1;
-			
-			// if selected_index is on same page don't move the carousel
-			if ( selected_index >= min && selected_index <= max ) {
-				return;
-			}
-			
-			if ( dir ) {
-				
-				if ( 'next' === dir ) {
-					
-					this.$thumbnail_carousel.$next.trigger('click');
-					
-				} else if ( 'prev' === dir ) {
-					
-					this.$thumbnail_carousel.$prev.trigger('click');
-					
-				}
-				
-			}
+			if ( !this.$thumbnail_carousel || !dir ) { return; }			
+			this.$thumbnail_carousel.transition();
 			
 		},
 		
@@ -276,7 +194,6 @@
 		toggleSelected : function( selected_index ) {
 			
 			var self = this;
-					this.selected_index = selected_index;
 			
 			self.$thumbnail_links.each(function(index) {
 					
@@ -289,6 +206,8 @@
 							$elm.addClass('selected');
 							
 						}
+						
+						if ( self.$thumbnail_carousel ) { self.$thumbnail_carousel.current_item_index = selected_index; }
 						
 					} else {
 						
@@ -323,7 +242,7 @@
 			self.$featured_carousel.current_item_index = index;
 			self.$featured_carousel.transition();
 			self.$featured_carousel.toggleNav();
-			self.updateTumbnailCarouselPosition( index, dir );
+			self.updateTumbnailCarouselPosition( dir );
 			self.updateCounts();
 			
 		},
@@ -348,7 +267,104 @@
 			
 		},
 		
-	
+		
+		navThumbnail : function( dir ) {
+			
+			var $thumbnail = this.$thumbnail_carousel,
+					pos = dir === 'next' ? 3 : -3,
+					items_length = $thumbnail.options.items_collection_total > 0
+						? $thumbnail.options.items_collection_total
+						: $thumbnail.items_length;
+			
+			$thumbnail.options.cancel_nav = true;
+			
+			if ( $thumbnail.current_item_index + pos >= items_length ) {
+				
+				pos = items_length - 1;
+				
+			} else if ( $thumbnail.current_item_index + pos < 0 ) {
+				
+				pos = 0;
+				
+			} else {
+				
+				pos = $thumbnail.current_item_index + pos;
+				
+			}
+			
+			
+			if ( pos <= items_length - 1 ) {
+				
+				if ( pos >= this.$thumbnail_carousel.items_length ) {
+					
+					this.paginationContentCheck();
+					
+				} else if ( $thumbnail.current_item_index !== pos )  {
+					
+					this.$thumbnail_carousel
+						.$items
+						.eq( pos )
+						.find('a')
+						.trigger('click');
+					
+					this.$thumbnail_carousel.toggleNav();
+					
+				}
+				
+			}
+			
+		},
+		
+		
+		navFeatured : function( dir ) {
+			
+			var $featured = this.$featured_carousel,
+					pos = dir === 'next' ? 1 : -1,
+					items_length = $featured.options.items_collection_total > 0
+						? $featured.options.items_collection_total
+						: $featured.items_length;
+			
+			
+			$featured.options.cancel_nav = true;
+			
+			if ( $featured.current_item_index + pos >= items_length ) {
+				
+				pos = items_length - 1;
+				
+			} else if ( $featured.current_item_index + pos < 0 ) {
+				
+				pos = 0;
+				
+			} else {
+				
+				pos = $featured.current_item_index + pos;
+				
+			}
+			
+			
+			if ( pos <= items_length - 1 ) {
+				
+				if ( pos >= this.$thumbnail_carousel.items_length ) {
+					
+					this.paginationContentCheck();
+					
+				} else if ( $featured.current_item_index !== pos )  {
+					
+					this.$thumbnail_carousel
+						.$items
+						.eq( pos )
+						.find('a')
+						.trigger('click');
+					
+					this.$thumbnail_carousel.toggleNav();
+					
+				}
+				
+			}
+			
+		},
+		
+		
 		init : function() {
 			
 			var self = this;
@@ -359,13 +375,7 @@
 					items_collection_total : parseInt( self.items_collection_total, 10 ),
 					callbacks : {
 						before_nav : function( dir ) {
-							self.carousel_clicked = 'featured';
-							self.paginationContentCheck( dir );
-						},
-						after_nav : function( dir ) {
-							self.updateCounts();
-							self.toggleSelected( self.$featured_carousel.get('current_item_index') );
-							self.updateTumbnailCarouselPosition( self.$featured_carousel.get('current_item_index'), dir );
+							self.navFeatured( dir );
 						}
 					}
 				}).data('rCarousel');
@@ -378,10 +388,10 @@
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
+						navigation_style : 'one-way-by',
 						callbacks : {
 							before_nav : function( dir ) {
-								self.carousel_clicked = 'thumbnail';
-								self.paginationContentCheck( dir );
+								self.navThumbnail( dir );
 							}
 						}
 					}).data('rCarousel');
