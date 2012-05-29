@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-29 04:04 gmt +1
+ *	@version 2012-05-29 11:54 gmt +1
  */
 (function() {
 
@@ -28,6 +28,7 @@
 		
 		pagination_checking : false,
 		previous_thumbnail_length : 0,
+		thumb_nav_by : 3,
 		
 		
 		nrItemsInCurrentContainer : function() {
@@ -183,9 +184,9 @@
 			},
 		
 		
-		updateTumbnailCarouselPosition : function( dir ) {
+		updateTumbnailCarouselPosition : function( dir ) {			
 			
-			if ( !this.$thumbnail_carousel || !dir ) { return; }			
+			if ( !this.$thumbnail_carousel || !dir ) { return; }
 			this.$thumbnail_carousel.transition();
 			
 		},
@@ -271,7 +272,7 @@
 		navThumbnail : function( dir ) {
 			
 			var $thumbnail = this.$thumbnail_carousel,
-					pos = dir === 'next' ? 3 : -3,
+					pos = dir === 'next' ? this.thumb_nav_by : -this.thumb_nav_by,
 					items_length = $thumbnail.options.items_collection_total > 0
 						? $thumbnail.options.items_collection_total
 						: $thumbnail.items_length;
@@ -389,6 +390,7 @@
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
 						navigation_style : 'one-way-by',
+						nav_by : this.thumb_nav_by,
 						callbacks : {
 							before_nav : function( dir ) {
 								self.navThumbnail( dir );

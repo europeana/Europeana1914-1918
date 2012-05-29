@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-29 10:20 gmt +1
+ *	@version 2012-05-29 11:54 gmt +1
  */
 (function() {
 
@@ -105,7 +105,8 @@
 				? this.options.items_collection_total
 				: this.items_length;
 			
-			if ( this.current_item_index === 0 || this.current_item_index < this.items_per_container ) {
+			//if ( this.current_item_index === 0 || this.current_item_index < this.items_per_container ) {
+			if ( this.current_item_index === 0 ) {
 				
 				this.$prev.fadeOut();
 				
