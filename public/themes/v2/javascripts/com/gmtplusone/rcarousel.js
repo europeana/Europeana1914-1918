@@ -1,6 +1,6 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-29 04:04 gmt +1
+ *	@version 2012-05-29 10:20 gmt +1
  */
 (function() {
 
@@ -72,7 +72,7 @@
 		transition : function( coords ) {
 			
 			var self = this,
-					new_left = coords || -( this.current_item_index * this.item_width );
+					new_left = 'undefined' !== typeof coords ? coords : -( this.current_item_index * this.item_width );
 			
 			
 			if ( self.loading_content ) {
@@ -105,7 +105,7 @@
 				? this.options.items_collection_total
 				: this.items_length;
 			
-			if ( this.current_item_index === 0 ) {
+			if ( this.current_item_index === 0 || this.current_item_index < this.items_per_container ) {
 				
 				this.$prev.fadeOut();
 				
@@ -122,38 +122,6 @@
 			} else if ( this.$next.is(':hidden') ) {
 				
 				this.$next.fadeIn();
-				
-			}
-			
-		},
-		
-		
-		updatePageNr : function( dir ) {
-			
-			if ( 'next' === dir
-					 && this.items_length > this.items_per_container * this.page_nr ) {
-				
-				if ( this.options.item_width_is_container_width ) {
-					
-					this.page_nr = this.current_item_index + 1;
-					
-				} else {
-					
-					this.page_nr += 1;
-					
-				}
-				
-			} else if ( 'prev' === dir && this.page_nr !== 1 ) {
-				
-				if ( this.options.item_width_is_container_width ) {
-					
-					this.page_nr = this.current_item_index + 1;
-					
-				} else {
-					
-					this.page_nr -= 1;
-					
-				}
 				
 			}
 			
