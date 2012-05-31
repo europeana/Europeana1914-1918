@@ -25,9 +25,9 @@ cd $DEPLOY_DIR
 echo
 echo "=============   remove old gemfile and stuff   ==========="
 echo
-rm Gemfile~
-rm Gemfile.lock
-rm .bundle -r
+#rm Gemfile~
+#rm Gemfile.lock
+#rm .bundle -r
 
 
 echo
@@ -38,7 +38,7 @@ sudo -u gwa svn up
 echo
 echo "=============   bundle update   ==========="
 echo
-bundle update
+bundle install --deployment
 
 echo
 echo "=============   stoping apache   ==========="

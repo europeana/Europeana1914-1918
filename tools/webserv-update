@@ -60,9 +60,9 @@ cd $DEPLOY_DIR
 echo
 echo "=============   remove old gemfile and stuff   ==========="
 echo
-rm Gemfile~
-rm Gemfile.lock
-rm .bundle -r
+#rm Gemfile~
+#rm Gemfile.lock
+#rm .bundle -r
 
 
 echo
@@ -88,7 +88,7 @@ echo "=============   bundle install   ==========="
 echo
 rm Gemfile.lock
 gem install bundler
-bundle install
+bundle install --deployment
 
 
 echo
