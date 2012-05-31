@@ -5,7 +5,11 @@
 (function() {
 
 	'use strict';
-	var add_lightbox = ( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 ) ? false : true,
+	var add_lightbox =
+		( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 )
+		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
+		? false
+		: true,
 	
 	
 	carousels = {
