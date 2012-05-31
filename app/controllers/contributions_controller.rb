@@ -170,7 +170,7 @@ class ContributionsController < ApplicationController
     # Minimal eager loading of associations if search result partials are not pre-cached.
 #    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
     # No eager loading if partials are all pre-cached.
-    search_options = { :page => params[:page], :per_page => per_page }
+    search_options = { :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
     @contributions = search_contributions(:published, @query, search_options)
   end
   
@@ -186,7 +186,7 @@ class ContributionsController < ApplicationController
       # Minimal eager loading of associations if search result partials are not pre-cached.
 #      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
       # No eager loading if partials are all pre-cached.
-      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page }
+      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
       @contributions = search_contributions(:published, nil, search_options)
     else
       @contributions = []
