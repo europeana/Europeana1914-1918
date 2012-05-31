@@ -5,7 +5,7 @@
 (function() {
 
 	'use strict';
-	var add_lightbox = ( jQuery(window).width() <= 768 || jQuery(window).height() <= 550 ) ? false : true,
+	var add_lightbox = ( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 ) ? false : true,
 	
 	
 	carousels = {
