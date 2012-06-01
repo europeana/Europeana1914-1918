@@ -440,7 +440,7 @@
 					if ( window.orientation !== self.orientation ) {
 						
 						self.setDimmensions();
-						self.transition();
+						//self.transition();
 						self.orientation_count += 1;
 						console.log('orientation reset');
 						
