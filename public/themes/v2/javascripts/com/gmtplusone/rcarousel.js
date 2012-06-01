@@ -440,11 +440,11 @@
 					if ( window.orientation !== self.orientation ) {
 						
 						self.setDimmensions();
-						self.transition();
 						self.orientation_count += 1;
 						
 						if ( self.orientation_count >= 2 ) {
 							
+							self.transition();
 							self.orientation = window.orientation;
 							self.orientation_count = 0;
 							
