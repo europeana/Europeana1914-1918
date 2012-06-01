@@ -437,21 +437,25 @@
 			setInterval(
 				function() {
 					
-					if ( window.orientation !== self.orientation || self.orientation_count <= 1 ) {
+					if ( window.orientation !== self.orientation ) {
 						
 						self.setDimmensions();
-						self.orientation = window.orientation;
 						self.transition();
 						self.orientation_count += 1;
 						console.log('orientation reset');
-					} else {
-						console.log('orientation count to 0');
-						self.orientation_count = 0;
+						
+						if ( self.orientation_count >= 2 ) {
+							
+							self.orientation = window.orientation;
+							console.log('clear count');
+							self.orientation_count = 0;
+							
+						}
 						
 					}
 					
 				},
-				1000
+				500
 			);
 			
 		},
