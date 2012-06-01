@@ -37,7 +37,9 @@
 		items_per_container : 0,
 		
 		current_item_index : 0,
+		
 		orientation : window.orientation,
+		orientation_count : 0,
 		
 		nav_elements_created : false,
 		nav_elements_placed : false,
@@ -435,14 +437,21 @@
 			setInterval(
 				function() {
 					
-					if ( window.orientation !== self.orientation ) {
+					if ( window.orientation !== self.orientation || self.orientation_count <= 1 ) {
+						
 						self.setDimmensions();
 						self.orientation = window.orientation;
 						self.transition();
+						self.orientation_count += 1;
+						console.log('orientation reset');
+					} else {
+						console.log('orientation count to 0');
+						self.orientation_count = 0;
+						
 					}
 					
 				},
-				1500
+				1000
 			);
 			
 		},
