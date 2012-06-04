@@ -18,4 +18,21 @@ namespace :attachments do
       end
     end
   end
+  
+  desc "Generate missing thumbnails."
+  task :thumbnails => :environment do
+    puts "Generating missing thumbnails..."
+    styles = (ENV['STYLES'] || ENV['styles'] || '').split(',').map(&:to_sym)
+    Attachment.find_each do |attachment|
+      if attachment.file.present? && File.exists?(attachment.file.path)
+        styles.each do |style|
+          unless File.exists?(attachment.file.path(style))
+            puts "- ID #{attachment.id.to_s} / style #{style.to_s}"
+            attachment.file.reprocess!(style)
+          end
+        end
+      end
+    end
+    puts "... done."
+  end
 end
