@@ -14,7 +14,7 @@ module BlogPostsHelper
   #   absolute links
   #
   def relocale_link(string)
-    string.gsub(/href="\//, 'href="/' + I18n.locale.to_s + '/')
+    string.gsub(/href=(["'])\//, "href=#{$1}/" + I18n.locale.to_s + '/')
   end
   
   ##
