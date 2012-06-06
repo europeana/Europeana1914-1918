@@ -16,7 +16,8 @@
 <div class="section top">
 
 	<h2><%= @title %></h2>
-
+		
+		<h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= current_user.username %></h3>
 		<%= render :partial => 'form', :locals => { :contribution => @contribution } %>
 		<%= render :partial => 'progress', :locals => { :step => 1 } %>
 

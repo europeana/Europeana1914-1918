@@ -55,7 +55,9 @@
 	  </ul>
 	  
 	</div>
-  
+	
+  <h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
+	
     <p>
     <%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %>
     <% if !@contribution.attachments.present? -%>

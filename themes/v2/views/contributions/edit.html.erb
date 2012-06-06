@@ -32,6 +32,7 @@
 		  </div>
 	  <% end -%>
 		
+		<h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
 	  <%= render :partial => 'form', :locals => { :contribution => @contribution } %>
 	  
 	  <% if @contribution.draft? -%>
