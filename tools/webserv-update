@@ -74,34 +74,34 @@ sudo -u gwa svn up
 echo
 echo "=============   remove all gems   ==========="
 echo
-gem list | cut -d" " -f1 | xargs gem uninstall -aIx
+#gem list | cut -d" " -f1 | xargs gem uninstall -aIx
 
 
 echo
 echo "=============   show installed gems   ==========="
 echo
-gem list
+#gem list
 
 
 echo
 echo "=============   bundle install   ==========="
 echo
-rm Gemfile.lock
-gem install bundler
+#rm Gemfile.lock
+#gem install bundler
 bundle install --deployment
 
 
 echo
 echo "=============   install rdoc for ruby 1.8.7   ==========="
 echo
-gem install rdoc-data; rdoc-data --install
+#gem install rdoc-data; rdoc-data --install
 
 
 echo
 echo "=============   install passenger   ==========="
 echo
 # the gem passenger is for connecting apache to a rails app.
-gem install passenger
+#gem install passenger
 
 
 echo

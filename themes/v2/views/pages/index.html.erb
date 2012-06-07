@@ -16,6 +16,12 @@
 	
 	<div id='index-featured' class='carousel two-thirds-right'>	
 		<ul>
+			<li>
+				<video width='700' height='397' poster='/themes/v2/images/banners/otto-bernard.jpg' controls>
+					<source type='video/mp4' src='/videos/otto-bernard-international.mp4'/>
+					<div class='html5-video-fallback' style='background-image:url(/themes/v2/images/banners/otto-bernard.jpg);'><div>Your browser does not support html5 video<a href='http://vimeo.com/21385414' target='_blank'>Try watching this video on vimeo</a></div></div>
+				</video>
+			</li>
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
 		<div class='carousel-overlay'></div>	
