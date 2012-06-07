@@ -177,7 +177,7 @@ class Attachment < ActiveRecord::Base
   # Deletes old file directory
   def delete_old_file_dir #:nodoc:
     return unless @old_file_dir.present?
-    if self.file.options[:storage] == :filesystem
+    if (self.file.options[:storage] == :filesystem) && File.exists?(@old_file_dir)
       begin
         FileUtils.rmdir(@old_file_dir)
       rescue Errno::ENOTEMPTY
