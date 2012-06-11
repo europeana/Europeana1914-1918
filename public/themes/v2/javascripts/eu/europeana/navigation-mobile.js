@@ -69,7 +69,9 @@
 	$navigation_mobile.add(document).on('click', handleClick);
 	
 	if ( $navigation_user_menu.length === 1 && jQuery(window).width() <= 767 ) {
+		
 		$navigation_main.css('top','259px');
+		
 	}
 	
 	jQuery(window).on('resize', function() {
@@ -78,5 +80,13 @@
 		resizeTimer = setTimeout( function() { handleWindowResize(); }, 100 );
 		
 	});
+	
+	
+	if ( jQuery(window).width() >= 960 && jQuery(window).height() >= 600 ) {
+		
+		jQuery('#remix').show();
+		
+	}
+	
 	
 }());
