@@ -32,7 +32,7 @@
 				
 				if ( this.$navigation_mobile.is(':visible') ) {
 					
-					this.$navigation_mobile.fadeSlideToggle(500);
+					this.$navigation_mobile.fadeSlideToggle();
 					
 				}
 				
@@ -44,6 +44,8 @@
 		addWindowResizeHandler : function() {
 			
 			var self = this;
+			
+			if ( jQuery(window).width() < 768 ) { return; }
 			
 			jQuery(window).on('resize', function() {
 				
