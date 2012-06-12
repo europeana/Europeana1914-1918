@@ -329,6 +329,21 @@
 		background-repeat: no-repeat;
 		background-position: 0 0;
 	}
+	
+	#navigation-mobile {
+		position: absolute;
+		top: -3%;
+		left: 0;
+		width: 98%;
+		height: 100%;
+		padding: 3% 0 0 2%;
+		background-color: #000;
+		color: #f5f5f5;
+		background-color: rgba( 0,0,0,0.8 );
+		list-style: none;
+		z-index: 1000;
+		display: none;
+	}
 
 
 /**
@@ -351,16 +366,6 @@
 	
 	.menu a.selected {
 		color: #f5f5f5;
-		
-		/*background: rgb(125,126,125);
-		background: -moz-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1)));
-		background: -webkit-linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
-		background: -o-linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
-		background: -ms-linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
-		background: linear-gradient(top, rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );*/
-		
 		background: #333333;
 		background: -moz-linear-gradient(top, #333333 0%, #010101 100%);
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#010101));
@@ -873,10 +878,10 @@
 
 
 /**
- *
+ * less than 960px
  */
 @media screen and (max-width: 959px) {
-		#remix {
+		.remix {
 			display: none;
 		}
 }
@@ -1057,7 +1062,7 @@
 	 *	navigation mobile
 	 */
 	
-	#navigation-mobile {
+	#navigation-mobile-trigger {
 		display: none;
 	}
 	
@@ -1127,14 +1132,6 @@
 			line-height: 120%;
 			font-size: 90%;
 			text-align: center;
-			/*
-			float: left;
-			width: 20%;
-			line-height: 120%;
-			font-size: 90%;
-			text-align: center;
-			overflow: hidden;
-			*/
 		}
 
 
@@ -1161,10 +1158,6 @@
 		#story-characters > fieldset > legend {
 				font-weight: bold;
 		}
-	
-	/**
-	 *	contributions featured
-	 */
 	
 	
 	/**
@@ -1438,19 +1431,51 @@
 	 *	navigation
 	 */
 		
-		#navigation-mobile {
+		#navigation-mobile-trigger {
 			position: absolute;
 			top: 39px;
 			right: 6px;
-			z-index: 1000;		
+			z-index: 1000;
 			line-height: 120%;
 		}
 		
-		#navigation-mobile img {
+		#navigation-mobile-trigger img {
 			float: right;
 			margin-left: 10px;
 		}
 		
+		#navigation-user,
+		#navigation-main,
+		#navigation-user-menu {
+			display: none;
+		}
+		
+		#navigation-mobile ul {
+			list-style: none;
+			margin-bottom: 1em;
+			padding-left: 2%;
+		}
+		
+		#navigation-mobile ul.menu a {
+			color: #f5f5f5;
+		}
+		
+		#navigation-mobile ul.menu a:hover {
+			color: #333;
+		}
+		
+		#navigation-mobile ul.menu a.selected {
+			background: none;
+		}
+		
+		#navigation-mobile ul.menu a.selected:hover {
+			color: #333;
+			background-color: #eaeaea;
+		}
+		
+		
+		
+		/*		
 		#navigation-user,
 		#navigation-main,
 		#navigation-user-menu {
@@ -1502,7 +1527,7 @@
 		#navigation-user-menu.menu a.selected:hover {
 			color: #333;
 			background-color: #eaeaea;
-		}
+		}*/
 		
 		#shareicons {
 			position: absolute;
@@ -1624,7 +1649,7 @@
 		background-image: url('/themes/v2/images/logos/eew-logo-landscape-three-quarter.png');
 	}
 	
-	#navigation-mobile {
+	#navigation-mobile-trigger {
 		top: 27px;
 	}
 	

@@ -1,15 +1,9 @@
-(function() {
+(function( undefined ) {
 	
 	'use strict';
 	
-	var $navigation_mobile = jQuery('#navigation-mobile'),
-			$navigation_user = jQuery('#navigation-user'),
-			$navigation_user_menu = jQuery('#navigation-user-menu'),
-			$navigation_main = jQuery('#navigation-main'),
-			resizeTimer;
 	
-	
-	$.fn.fadeSlideToggle = function(speed, fn) {
+	jQuery.fn.fadeSlideToggle = function(speed, fn) {
 		
 		return $(this).animate({
 			'height': 'toggle',
@@ -20,66 +14,95 @@
 		
 	};
 	
-	function handleWindowResize() {
+	
+	var mobileMenu = {
 		
-		if ( jQuery(window).width() >= 768 ) {
+		$navigation_mobile_trigger : jQuery('#navigation-mobile-trigger'),
+		$navigation_mobile : jQuery('<ul>', { id : 'navigation-mobile' }),
+		$navigation_user : jQuery('#navigation-user'),
+		$navigation_user_menu : jQuery('#navigation-user-menu'),
+		$navigation_main : jQuery('#navigation-main'),
+		
+		resizeTimer : 0,
+		
+		
+		handleWindowResize : function() {
 			
-			if ( !$navigation_user.is(':visible') ) {
+			if ( jQuery(window).width() >= 768 ) {
 				
-				$navigation_user.add( $navigation_main ).add( $navigation_user_menu ).fadeSlideToggle(500);
+				if ( this.$navigation_mobile.is(':visible') ) {
+					
+					this.$navigation_mobile.fadeSlideToggle(500);
+					
+				}
 				
 			}
 			
-		}
+		},
 		
-	}	
-	
-	function handleClick( evt ) {
 		
-		evt.stopPropagation();
-		
-		if ( jQuery(window).width() >= 768 ) {
+		addWindowResizeHandler : function() {
 			
-			return;
+			var self = this;
 			
-		}
-		
-		if ( this.id === 'navigation-mobile' ) {
-			
-			if ( !$navigation_user.is(':visible') ) {
+			jQuery(window).on('resize', function() {
 				
-				$navigation_user.add( $navigation_main ).add( $navigation_user_menu ).fadeSlideToggle(500);
-				$navigation_mobile.fadeToggle();
+				clearTimeout( self.resizeTimer );
+				self.resizeTimer = setTimeout( function() { self.handleWindowResize(); }, 500 );
+				
+			});
+			
+		},
+		
+		
+		handleClick : function(evt) {
+			
+			var self = evt.data.self,
+					$elm = jQuery(this);
+			
+			
+			evt.stopPropagation();
+			
+			if ( jQuery(window).width() >= 768 || this.id === undefined ) { return; }
+			
+			if ( this.id === 'navigation-mobile' && !self.$navigation_mobile_trigger.is(':visible') ) {
+				
+				$elm.fadeSlideToggle(500);
+				
+			} else if ( self.$navigation_mobile_trigger.is(':visible') ) {
+				
+				self.$navigation_mobile.fadeSlideToggle(500);
 				
 			}
 			
-		} else {
+		},
+		
+		
+		createMobileMenu : function() {
 			
-			if ( $navigation_user.is(':visible') ) {
-				
-				$navigation_user.add( $navigation_main ).add( $navigation_user_menu ).fadeSlideToggle(500);
-				$navigation_mobile.fadeToggle();
-				
-			}
+			this.$navigation_mobile
+				.append( jQuery('<ul>', { 'class' : 'menu' }).append( this.$navigation_user.find('li').clone() ) )
+				.append( jQuery('<ul>', { 'class' : 'menu' }).append(this.$navigation_main.find('li').clone() ) )
+				.append( jQuery('<ul>', { 'class' : 'menu' }).append(this.$navigation_user_menu.find('li').clone() ) )
+				.on('click', { self : this }, this.handleClick);
+			
+			jQuery('body').prepend( this.$navigation_mobile );
+			
+		},
+		
+		
+		init : function() {
+			
+			this.createMobileMenu();
+			this.$navigation_mobile_trigger.add(document).on('click', { self : this }, this.handleClick);
+			this.addWindowResizeHandler();
 			
 		}
 		
-	}
+		
+	};
 	
-	$navigation_mobile.add(document).on('click', handleClick);
-	
-	if ( $navigation_user_menu.length === 1 && jQuery(window).width() <= 767 ) {
-		
-		$navigation_main.css('top','259px');
-		
-	}
-	
-	jQuery(window).on('resize', function() {
-		
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout( function() { handleWindowResize(); }, 100 );
-		
-	});
+	mobileMenu.init();
 	
 	
 }());
