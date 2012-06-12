@@ -82,11 +82,4 @@
 	});
 	
 	
-	if ( jQuery(window).width() >= 960 && jQuery(window).height() >= 600 ) {
-		
-		jQuery('#remix').show();
-		
-	}
-	
-	
 }());
