@@ -219,4 +219,7 @@ RunCoCo.cataloguer = true;
 <% end -%>
 <%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
 <script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
-<script>if ( window.stLight ) { stLight.options({publisher : '<%= configuration(:sharethis_id) %>'}); }</script><% 'for share-this' %>
+<script>
+if ( window.stLight ) { stLight.options({publisher : '<%= configuration(:sharethis_id) %>'}); } <% 'for share-this' %>
+if ( ( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ) { jQuery('.remix').hide(); }
+</script>
