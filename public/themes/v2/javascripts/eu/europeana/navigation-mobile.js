@@ -1,15 +1,15 @@
-(function( undefined ) {
+(function() {
 	
 	'use strict';
 	
 	
 	jQuery.fn.fadeSlideToggle = function(speed, fn) {
 		
-		return $(this).animate({
+		return jQuery(this).animate({
 			'height': 'toggle',
 			'opacity': 'toggle'
 		}, speed || 400, function() {
-			$.isFunction(fn) && fn.call(this);
+			if ( jQuery.isFunction(fn) ) { fn.call(this); }
 		});
 		
 	};
