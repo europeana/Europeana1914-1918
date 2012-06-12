@@ -38,6 +38,8 @@
 		source : document.location.protocol + '//' + document.location.host + '/suggest.json',
 		select: function() { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 	});
+	
+	jQuery('video').video();
 
 
 }());
