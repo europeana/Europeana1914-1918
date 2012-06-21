@@ -1,11 +1,6 @@
 /**
  *  @link http://benjaminsterling.com/wp-content/files/passwordstrength.txt
  */
-jQuery(function(){
-	jQuery('#user_password').passwordStrength();
-});
-
-
 $.fn.passwordStrength = function( options ){
 	
 	return this.each(function(){
@@ -99,3 +94,7 @@ $.fn.passwordStrength.defaults = {
 	targetDiv : '#password-strength',
 	cache : {}
 }
+
+jQuery(function(){
+	jQuery('#user_password').passwordStrength();
+});
