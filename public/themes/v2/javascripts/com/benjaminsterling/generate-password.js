@@ -12,7 +12,7 @@ $.fn.passwordStrength = function( options ){
 		
 		var that = this;that.opts = {};
 		that.opts = $.extend({}, $.fn.passwordStrength.defaults, options);
-		if (!that.opts.classes) { return; }
+		if (!that.opts || !that.opts.classes) { return; }
 		
 		that.div = $(that.opts.targetDiv);
 		that.defaultClass = that.div.attr('class');
