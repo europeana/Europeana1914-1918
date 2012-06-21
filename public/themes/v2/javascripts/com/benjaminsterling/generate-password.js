@@ -16,7 +16,9 @@ $.fn.passwordStrength = function( options ){
 		that.div = $(that.opts.targetDiv);
 		that.defaultClass = that.div.attr('class');
 		
-		that.percents = (that.opts.classes.length) ? 100 / that.opts.classes.length : 100;
+		if (that.opts && that.opts.classes) {
+			that.percents = (that.opts.classes.length) ? 100 / that.opts.classes.length : 100;
+		}
 
 		v = $(this)
 		.keyup(function(){
