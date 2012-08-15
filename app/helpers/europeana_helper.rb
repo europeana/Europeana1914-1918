@@ -14,4 +14,8 @@ module EuropeanaHelper
       link_to I18n.t('views.links.previous_step'), url
     end
   end
+  
+  def europeana_api_configured?
+    Europeana::Search.key.present?
+  end
 end

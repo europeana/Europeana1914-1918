@@ -1,7 +1,7 @@
-<b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= @contributions.total_entries %> stories  )
+<b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= contributions.total_entries %> stories  )
   
   <ul id="stories">    
-    <%- for contribution in contributions.each -%>
+    <%- for contribution in contributions -%>
       <%- cache "v2/#{I18n.locale}/contributions/search_result/#{contribution.id}" do -%>
         <%- if contribution.attachments.with_file.present? -%>
           <li>

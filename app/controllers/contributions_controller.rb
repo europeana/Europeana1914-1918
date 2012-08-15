@@ -172,6 +172,10 @@ class ContributionsController < ApplicationController
     # No eager loading if partials are all pre-cached.
     search_options = { :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
     @contributions = search_contributions(:published, @query, search_options)
+
+    if Europeana::Search.key.present?
+      @europeana_results = Europeana::Search::Query.new(@query).paginate(:page => params[:page])
+    end
   end
   
   # GET /explore/:field_name/:term
@@ -190,6 +194,10 @@ class ContributionsController < ApplicationController
       @contributions = search_contributions(:published, nil, search_options)
     else
       @contributions = []
+    end
+    
+    if Europeana::Search.key.present?
+      @europeana_results = Europeana::Search::Query.new(@term).paginate(:page => params[:page])
     end
     
     render :action => 'search'

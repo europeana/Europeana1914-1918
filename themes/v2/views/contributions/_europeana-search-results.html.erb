@@ -1,0 +1,19 @@
+<b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= search_results.total_entries %> results  )
+  
+  <ul id="europeana-results">
+    <%- for result in search_results -%>
+      <li>
+        <a href="<%= result.guid %>" title="<%= raw result.title %>">
+          <img src="<%= result.image_url %>" alt="" /><br />
+          <b><%= raw result.title %></b>
+          <%- [ :author, :year, :data_provider, :provider ].each do |element| -%>
+            <%- if element_value = result.send(element) -%>
+              <br/><%= raw element_value %>
+            <%- end -%>
+          <%- end -%>
+        </a>
+      </li>
+    <%- end -%>
+  </ul>
+  
+<%= will_paginate search_results %>

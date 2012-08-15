@@ -7,25 +7,52 @@
 <div class="section top">
   
   <h2><%= @title %></h2>
+
+  <%- if europeana_api_configured? -%>
+    <ul id="tab-links">
+      <li><a href="#results-stories">1914-1918</a></li>
+      <li><a href="#results-europeana">Europeana</a></li>
+    </ul>
+  <%- end -%>
   
   <div id="results">
-	
-	<%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
-	
-	<% if @contributions.size == 0 -%>
-	  <p><%= t('views.contributions.search.no_matches') %></p>	  
-	<% else -%>	  
-	  <%=
-		render :partial => 'search-results',
-		:locals => {
-		  :contributions => @contributions,
-		  :query => @query,
-		  :term => @term,
-		  :count => 20
-		}
-	  %>	  
-	<% end -%>
-	
+  
+    <%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+    
+    <div id="results-stories">
+      <% if @contributions.size == 0 -%>
+        <p><%= t('views.contributions.search.no_matches') %></p>
+      <% else -%>    
+        <%=
+        render :partial => 'search-results',
+        :locals => {
+          :contributions => @contributions,
+          :query => @query,
+          :term => @term,
+          :count => 20
+        }
+        %>    
+      <% end -%>
+    </div><!-- /#results-stories -->
+    
+    <%- if europeana_api_configured? -%>
+      <div id="results-europeana">
+        <%- if @europeana_results.size == 0 -%>
+          <p><%= t('views.contributions.search.no_matches') %></p>    
+        <%- else -%>    
+          <%=
+          render :partial => 'europeana-search-results',
+          :locals => {
+            :search_results => @europeana_results,
+            :query => @query,
+            :term => @term,
+            :count => 20
+          }
+          %>
+        <%- end -%>
+      </div><!-- /#results-europeana -->
+    <%- end -%>
+  
   </div>
   
 </div>
