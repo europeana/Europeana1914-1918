@@ -173,7 +173,7 @@ class ContributionsController < ApplicationController
     search_options = { :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
     @contributions = search_contributions(:published, @query, search_options)
 
-    if Europeana::Search.key.present?
+    if europeana_api_configured?
       @europeana_results = Europeana::Search::Query.new(@query).paginate(:page => params[:page])
     end
   end
@@ -196,7 +196,7 @@ class ContributionsController < ApplicationController
       @contributions = []
     end
     
-    if Europeana::Search.key.present?
+    if europeana_api_configured?
       @europeana_results = Europeana::Search::Query.new(@term).paginate(:page => params[:page])
     end
     

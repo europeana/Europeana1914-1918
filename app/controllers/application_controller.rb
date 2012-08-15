@@ -3,7 +3,8 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sphinx_running?, :current_user, :contribution_fields, 
-    :dropbox_authorized?, :dropbox_client, :dropbox_configured?
+    :dropbox_authorized?, :dropbox_client, :dropbox_configured?, 
+    :europeana_api_configured?
   
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -301,6 +302,10 @@ class ApplicationController < ActionController::Base
   #
   def sphinx_running?
     ThinkingSphinx.sphinx_running?
+  end
+  
+  def europeana_api_configured?
+    defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::Search.key.present?
   end
   
   ##
