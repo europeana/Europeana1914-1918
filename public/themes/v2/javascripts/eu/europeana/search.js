@@ -22,6 +22,7 @@
 			select: function(event, ui) { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 		});
 		
+		jQuery('#results-tabs').tabs();
 	}
 	
 	init();
