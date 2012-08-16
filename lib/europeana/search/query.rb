@@ -17,7 +17,7 @@ module Europeana
       ##
       # Search terms
       #
-      attr_reader :terms
+      attr_accessor :terms
       
       ##
       # Creates a new query object.
@@ -67,13 +67,8 @@ module Europeana
         
         options.assert_valid_keys(:page)
         
-        terms = @terms
-        unless @terms.match(/ /).blank?
-          terms = '"' + terms + '"'
-        end
-        
         params = {
-          :searchTerms => terms,
+          :searchTerms => @terms,
           :startPage => (options[:page] || 1),
           :wskey => Europeana::Search.key
         }

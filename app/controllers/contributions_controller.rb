@@ -174,7 +174,9 @@ class ContributionsController < ApplicationController
     @contributions = search_contributions(:published, @query, search_options)
 
     if europeana_api_configured?
-      @europeana_results = Europeana::Search::Query.new(@query).paginate(:page => params[:page])
+      europeana_query = build_europeana_query(@query)
+      logger.debug("Europeana query: #{europeana_query}")
+      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
     end
   end
   
@@ -197,7 +199,12 @@ class ContributionsController < ApplicationController
     end
     
     if europeana_api_configured?
-      @europeana_results = Europeana::Search::Query.new(@term).paginate(:page => params[:page])
+      term_translations = I18n.available_locales.collect do |locale|
+        I18n.t("formtastic.labels.taxonomy_term.#{field.name}.#{@term}", :locale => locale)
+      end
+      europeana_query = build_europeana_query(term_translations)
+      logger.debug("Europeana query: #{europeana_query}")
+      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
     end
     
     render :action => 'search'
@@ -244,6 +251,22 @@ class ContributionsController < ApplicationController
   protected
   def find_contribution
     @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata ])
+  end
+  
+  def build_europeana_query(terms)
+    quoted_terms = [terms].flatten.collect do |term|
+      # Enclose each term in quotes if multiple words
+      term.match(/ /).blank? ? term : ('"' + term + '"')
+    end
+    
+    joined_terms = if quoted_terms.size == 1
+      quoted_terms.first
+    else
+      '(' + quoted_terms.join(' OR ') + ')'
+    end
+    
+    qualifiers = '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"'
+    joined_terms + ' ' + qualifiers
   end
 end
 
