@@ -4,6 +4,7 @@ gem 'rails', '3.0.12'
 
 gem 'aegis', '~> 2.5.0'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
+gem "bing_translator", "~> 3.0.0"
 gem 'devise', '~> 1.1.0'
 gem 'dropbox-sdk', '~> 1.3', :require => 'dropbox_sdk'
 gem 'fastercsv', '~> 1.5.0'

@@ -1,29 +1,40 @@
 module RunCoCo
-  # App configuration, modified through web UI at /admin/config.
+  ##
+  # App configuration, modified through web UI at "/admin/config".
   # 
   # Available settings:
-  # * +site_name+: Website name. Default is 'RunCoCo'.
-  # * +relative_url_root+: Relative URL root, e.g. '/RunCoCo'.
-  #   Default is '', i.e. application is intalled at root URL.
-  #   Only used by JavaScripts.
-  # * +registration_required+: If +true+, people have to register a user account 
-  #   in order to contribute. Otherwise, people can contribute as guests.
-  #   Default is +true+.
-  # * +publish_contributions+: Enable the public display of contributions.
-  #   If set to +false+, contributions can still be collected, but are
-  #   not displayed publicly. Default is +true+.
-  # * +contribution_approval_required+: Only publish approved contributions.
-  #   Default is +true+. Has no effect if +publish_contributions+ is +false+.
-  # * +max_upload_size+: Maximum upload size in bytes. Default is 5 megabytes.
-  # * +allowed_upload_extensions+: Allowed file extensions for uploaded files.
-  #   If blank, RunCoCo will allow any file type to be uploaded (the default).
-  # * +uploadify+: Use Uploadify to handle attachment file uploads.
-  #   See <http://www.uploadify.com/>. Default +false+.  
-  # * +gmap_api_key+: Google Maps API key. If not set, Google Maps can not be
-  #   used for inputting geographical location data. Sign up at
-  #   <http://code.google.com/apis/maps/signup.html>. Default is no key.
-  # * +ui_locales+: Locales to link to in the page layout, in the order given.
-  #   Default is none.
+  # - site_name: 
+  #     Website name. Default is 'Run a Community Collection'.
+  # - relative_url_root:
+  #     Relative URL root, e.g. '/RunCoCo'. Default is '', i.e. application is 
+  #     installed at root URL. Only used by JavaScripts.
+  # - registration_required: 
+  #     If +true+, people have to register a user account in order to
+  #     contribute. Otherwise, people can contribute as guests. Default is
+  #     +true+.
+  # - publish_contributions:
+  #     Enable the public display of contributions. If set to +false+,
+  #     contributions can still be collected, but are not displayed publicly. 
+  #     Default is +true+.
+  # - contribution_approval_required:
+  #     Only publish approved contributions. Default is +true+. Has no effect
+  #     if +publish_contributions+ is +false+.
+  # - max_upload_size:
+  #     Maximum upload size in bytes. Default is 5 megabytes.
+  # - allowed_upload_extensions:
+  #     Allowed file extensions for uploaded files. If blank, RunCoCo will 
+  #     allow any file type to be uploaded (the default).
+  # - uploadify:
+  #     Use Uploadify to handle attachment file uploads. See
+  #     <http://www.uploadify.com/>. Default +false+.
+  # - gmap_api_key:
+  #     Google Maps API key. If not set, Google Maps can not be used for
+  #     inputting geographical location data. Sign up at
+  #     <http://code.google.com/apis/maps/signup.html>. Default is no key.
+  # - ui_locales:
+  #     Locales to link to in the page layout, in the order given. Default is
+  #     none.
+  #
   class Configuration
     include ActiveModel::Validations
     
@@ -38,6 +49,8 @@ module RunCoCo
       :gmap_api_key => nil,
       :google_analytics_key => nil,
       :bing_translate_key => nil,
+      :bing_client_id => nil,
+      :bing_client_secret => nil,
       :sharethis_id => nil,
       :uploadify => false,
       :ui_locales => nil,

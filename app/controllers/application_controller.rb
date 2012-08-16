@@ -304,8 +304,22 @@ class ApplicationController < ActionController::Base
     ThinkingSphinx.sphinx_running?
   end
   
+  ##
+  # Checks whether the Europeana API library is configured.
+  #
+  # @return [Boolean]
+  #
   def europeana_api_configured?
     defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::Search.key.present?
+  end
+  
+  ##
+  # Checks whether the Bing translator library is configured.
+  #
+  # @return [Boolean]
+  #
+  def bing_translator_configured?
+    RunCoCo.configuration.bing_client_id.present? && RunCoCo.configuration.bing_client_secret.present?
   end
   
   ##

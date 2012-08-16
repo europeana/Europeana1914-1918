@@ -174,7 +174,17 @@ class ContributionsController < ApplicationController
     @contributions = search_contributions(:published, @query, search_options)
 
     if europeana_api_configured?
-      europeana_query = build_europeana_query(@query)
+      if bing_translator_configured?
+        translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
+        other_locales = I18n.available_locales.reject { |locale| locale == I18n.locale }
+        query_translations = [ @query ] + other_locales.collect do |locale|
+          translator.translate @query, :to => locale
+        end
+        europeana_query = build_europeana_query(query_translations)
+      else
+        europeana_query = build_europeana_query(@query)
+      end
+      
       logger.debug("Europeana query: #{europeana_query}")
       @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
     end
@@ -254,7 +264,7 @@ class ContributionsController < ApplicationController
   end
   
   def build_europeana_query(terms)
-    quoted_terms = [terms].flatten.collect do |term|
+    quoted_terms = [terms].flatten.uniq.collect do |term|
       # Enclose each term in quotes if multiple words
       term.match(/ /).blank? ? term : ('"' + term + '"')
     end
@@ -265,7 +275,7 @@ class ContributionsController < ApplicationController
       '(' + quoted_terms.join(' OR ') + ')'
     end
     
-    qualifiers = '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"'
+    qualifiers = ' AND "first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"'
     joined_terms + ' ' + qualifiers
   end
 end
