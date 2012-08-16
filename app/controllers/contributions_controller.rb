@@ -186,7 +186,7 @@ class ContributionsController < ApplicationController
       end
       
       logger.debug("Europeana query: #{europeana_query}")
-      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
+      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:epage])
     end
   end
   
@@ -214,7 +214,7 @@ class ContributionsController < ApplicationController
       end
       europeana_query = build_europeana_query(term_translations)
       logger.debug("Europeana query: #{europeana_query}")
-      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
+      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:epage])
     end
     
     render :action => 'search'
