@@ -9,7 +9,7 @@ class Admin::LogsController < AdminController
     raise ActionController::RoutingError unless log_file_names.include?(params[:id])
     @log_file_name = params[:id]
     log_file_path = File.join(Rails.root, 'log', params[:id])
-    @log = `tail -n 100 #{log_file_path}`
+    @log = `tail -n 1000 #{log_file_path}`
   end
   
   protected
