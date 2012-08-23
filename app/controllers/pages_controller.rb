@@ -18,7 +18,7 @@ class PagesController < ApplicationController
     elsif path.present? && template_exists?(tpaths.last)
       render :template => tpaths.last
     else
-      raise ActionController::RoutingError, "No resource found for request path \"#{request.request_uri}\"."
+      raise ActionController::RoutingError, "No resource found for request path \"#{request.fullpath}\"."
     end
   end
 end
