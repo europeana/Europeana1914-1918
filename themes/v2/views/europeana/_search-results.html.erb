@@ -1,7 +1,7 @@
-<b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= search_results.total_entries %> results  )
+<b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results  )
   
   <ul id="europeana-results">
-    <%- for result in search_results -%>
+    <%- for result in results -%>
       <li>
         <a href="<%= result.guid %>" title="<%= raw result.title %>">
           <img src="<%= result.image_url %>" alt="" /><br />
@@ -16,4 +16,4 @@
     <%- end -%>
   </ul>
   
-<%= will_paginate search_results, :param_name => 'epage', :params => { :anchor => 'results-europeana' } %>
+<%= will_paginate results %>

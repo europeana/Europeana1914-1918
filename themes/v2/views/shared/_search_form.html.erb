@@ -1,17 +1,16 @@
 <%
-  # to change default result count, 10, add a hidden fireld to the form
-  # <input type="hidden" name="count" value="20">
-  #
-  # or ?count=20 to a link that points to the search page
-  #
-  #
-  
   if local_assigns[:url].nil?
     url = search_contributions_path 
   end
+  
+  if local_assigns[:count].nil?
+    count = false
+  end
 %>
 <%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
-  <input type="hidden" name="count" value="48">
+  <%- if count -%>
+    <input type="hidden" name="count" value="<%= count %>">
+  <%- end -%>
   <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
   <input type='submit' class='button' value='<%= t('formtastic.actions.search.submit') %>' />
 <% end %>

@@ -57,6 +57,10 @@ RunCoCo::Application.routes.draw do
     match 'blog/:blog(/:category)' => 'blog_posts#show', :as => :blog_post, 
       :constraints => { :blog => /(europeana|gwa)/ }, :via => :get
 
+    # Europeana OpenSearch API interface
+    match 'europeana/search' => 'europeana#search', :as => 'search_europeana', :via => :get
+    match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
+
     # Admin routes
     match 'admin' => 'admin#index', :as => 'admin_root'
     namespace :admin do

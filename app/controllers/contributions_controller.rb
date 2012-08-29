@@ -172,21 +172,14 @@ class ContributionsController < ApplicationController
     # No eager loading if partials are all pre-cached.
     search_options = { :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
     @contributions = search_contributions(:published, @query, search_options)
-
-    if europeana_api_configured?
-      if bing_translator_configured?
-        translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
-        other_locales = I18n.available_locales.reject { |locale| locale == I18n.locale }
-        query_translations = [ @query ] + other_locales.collect do |locale|
-          translator.translate @query, :to => locale
-        end
-        europeana_query = build_europeana_query(query_translations)
-      else
-        europeana_query = build_europeana_query(@query)
-      end
-      
-      logger.debug("Europeana query: #{europeana_query}")
-      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:epage])
+    
+    if params.delete(:layout) == '0'
+      render :partial => 'search-results',
+        :locals => {
+          :contributions => @contributions,
+          :query => @query,
+          :term => @term
+        } and return
     end
   end
   
@@ -197,8 +190,8 @@ class ContributionsController < ApplicationController
     
     per_page = [ (params[:count] || 48).to_i, 100 ].min
     
-    field = MetadataField.find_by_name!(params[:field_name])
-    if taxonomy_term = field.taxonomy_terms.find_by_term(@term)
+    @field = MetadataField.find_by_name!(params[:field_name])
+    if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
       # Minimal eager loading of associations if search result partials are not pre-cached.
 #      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
       # No eager loading if partials are all pre-cached.
@@ -208,13 +201,13 @@ class ContributionsController < ApplicationController
       @contributions = []
     end
     
-    if europeana_api_configured?
-      term_translations = I18n.available_locales.collect do |locale|
-        I18n.t("formtastic.labels.taxonomy_term.#{field.name}.#{@term}", :locale => locale)
-      end
-      europeana_query = build_europeana_query(term_translations)
-      logger.debug("Europeana query: #{europeana_query}")
-      @europeana_results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:epage])
+    if params.delete(:layout) == '0'
+      render :partial => 'search-results',
+        :locals => {
+          :contributions => @contributions,
+          :query => @query,
+          :term => @term
+        } and return
     end
     
     render :action => 'search'
@@ -261,22 +254,6 @@ class ContributionsController < ApplicationController
   protected
   def find_contribution
     @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata ])
-  end
-  
-  def build_europeana_query(terms)
-    quoted_terms = [terms].flatten.uniq.collect do |term|
-      # Enclose each term in quotes if multiple words
-      term.match(/ /).blank? ? term : ('"' + term + '"')
-    end
-    
-    joined_terms = if quoted_terms.size == 1
-      quoted_terms.first
-    else
-      '(' + quoted_terms.join(' OR ') + ')'
-    end
-    
-    qualifiers = ' AND "first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"'
-    joined_terms + ' ' + qualifiers
   end
 end
 

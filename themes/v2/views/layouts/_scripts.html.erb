@@ -213,6 +213,9 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 <% if 'cataloguer' === current_user.role.name -%>
 RunCoCo.cataloguer = true;
 <% end -%>
+<% if @javascripts[:tabs] -%>
+RunCoCo.uiTabSelected = <%= (@tab_selected || 0) %>;
+<% end -%>
 </script>
 <% unless remote_scripts.blank? -%>
   <%= javascript_include_tag remote_scripts %>
