@@ -323,6 +323,35 @@ class ApplicationController < ActionController::Base
   end
   
   ##
+  # Translates a search query from the current locale to app's other locales.
+  #
+  # Queries are translated via Bing Translate, and translations cached for one
+  # year.
+  #
+  # @param [String] query Query to translate from the current locale
+  # @return [String,Array] Translations of the query, plus the query itself.
+  #   If the translator library is not configured, return the original query.
+  # @see #bing_translator_configured?
+  #
+  def bing_translate_query(query)
+    return query unless query.present? && bing_translator_configured?
+    
+    bing_cache_key = "bing/#{I18n.locale}/#{query}"
+    
+    if fragment_exist?(bing_cache_key)
+      return YAML::load(read_fragment(bing_cache_key))
+    end
+    
+    translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
+    other_locales = I18n.available_locales.reject { |locale| locale == I18n.locale }
+    query_translations = [ query ] + other_locales.collect do |locale|
+      translator.translate query, :to => locale
+    end
+    write_fragment(bing_cache_key, query_translations.to_yaml, :expires_in => 1.year)
+    query_translations
+  end
+  
+  ##
   # Returns the fields associated with contributions.
   #
   # This includes title, attachments (i.e. number of), created at timestamp, 

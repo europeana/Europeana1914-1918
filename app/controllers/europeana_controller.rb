@@ -8,18 +8,9 @@ class EuropeanaController < ApplicationController
   def search
     @query = params[:q]
     
-    if @query.present? && bing_translator_configured?
-      translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
-      other_locales = I18n.available_locales.reject { |locale| locale == I18n.locale }
-      query_translations = [ @query ] + other_locales.collect do |locale|
-        translator.translate @query, :to => locale
-      end
-      europeana_query = build_api_query(query_translations)
-    else
-      europeana_query = build_api_query(@query)
-    end
-    
+    europeana_query = build_api_query(bing_translate_query(@query))
     logger.debug("Europeana query: #{europeana_query}")
+    
     @results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
     
     if params.delete(:layout) == '0'
