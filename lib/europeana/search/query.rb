@@ -20,6 +20,11 @@ module Europeana
       attr_accessor :terms
       
       ##
+      # Result set
+      # 
+      attr_reader :result_set
+      
+      ##
       # Creates a new query object.
       #
       # @param [String] terms Search term(s)
@@ -35,23 +40,7 @@ module Europeana
       # @return [Array<Europeana::Search::ResultSet>] Search results.
       #
       def run(options = {})
-        Feedzirra::Feed.fetch_and_parse(uri(options).to_s)
-      end
-      
-      ##
-      # Runs the query with pagination options.
-      #
-      # @param (see #uri)
-      # @return [WillPaginate::Collection] Paginated result set
-      #
-      def paginate(options = {})
-        result_set = run(options)
-        
-        WillPaginate::Collection.create options[:page] || 1,
-                                        12,
-                                        result_set.total_results do |pager|
-          pager.replace result_set.results
-        end
+        @result_set = Feedzirra::Feed.fetch_and_parse(uri(options).to_s)
       end
       
       ##
@@ -62,6 +51,7 @@ module Europeana
       #   Default is 1.
       #
       # @return [URI] Query URI
+      #
       def uri(options = {})
         raise Exception, 'Europeana OpenSearch API key not set' unless Europeana::Search.key.present?
         

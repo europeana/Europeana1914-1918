@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 ##
 # Interface to Europeana OpenSearch API.
 #
@@ -7,11 +9,7 @@ class EuropeanaController < ApplicationController
   # GET /europeana/search
   def search
     @query = params[:q]
-    
-    europeana_query = build_api_query(bing_translate_query(@query))
-    logger.debug("Europeana query: #{europeana_query}")
-    
-    @results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
+    @results = query_api(bing_translate_query(@query), params[:page] || 1).for_pagination
     
     if params.delete(:layout) == '0'
       render :partial => 'search-results',
@@ -33,9 +31,7 @@ class EuropeanaController < ApplicationController
       term_translations = I18n.available_locales.collect do |locale|
         I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale)
       end
-      europeana_query = build_api_query(term_translations)
-      logger.debug("Europeana query: #{europeana_query}")
-      @results = Europeana::Search::Query.new(europeana_query).paginate(:page => params[:page])
+      @results = query_api(term_translations, params[:page] || 1).for_pagination
     end
     
     if params.delete(:layout) == '0'
@@ -52,6 +48,29 @@ class EuropeanaController < ApplicationController
   
   private
   ##
+  # Sends a query off to the API.
+  #
+  # @param [String,Array] terms One or more term(s) to search for.
+  # @param [Integer,String] page The page of results to retrieve.
+  # @return [Array<Europeana::Search::ResultSet>] Search results.
+  #
+  def query_api(terms, page = 1)
+    quoted_terms_digest = Digest::MD5.hexdigest(quote_terms(terms).join(','))
+    cache_key = "europeana/#{quoted_terms_digest}/page#{page.to_s}"
+    
+    if fragment_exist?(cache_key)
+      results = YAML::load(read_fragment(cache_key))
+    else
+      query_string = build_api_query(terms)
+      logger.debug("Europeana query: #{query_string}")
+      results = Europeana::Search::Query.new(query_string).run(:page => page)
+      write_fragment(cache_key, results.to_yaml, :expires_in => 1.day)
+    end
+    
+    results
+  end
+  
+  ##
   # Constructs the query to send to the API.
   #
   # @param [String,Array] terms One or more term(s) to search for.
@@ -64,10 +83,7 @@ class EuropeanaController < ApplicationController
     if terms.blank?
       qualifiers
     else
-      quoted_terms = [terms].flatten.uniq.collect do |term|
-        # Enclose each term in quotes if multiple words
-        term.match(/ /).blank? ? term : ('"' + term + '"')
-      end
+      quoted_terms = quote_terms(terms)
       
       joined_terms = if quoted_terms.size == 1
         quoted_terms.first
@@ -76,6 +92,13 @@ class EuropeanaController < ApplicationController
       end
   
       joined_terms + ' AND ' + qualifiers
+    end
+  end
+  
+  def quote_terms(terms) # :nodoc:
+    [terms].flatten.uniq.collect do |term|
+      # Enclose each term in quotes if multiple words
+      term.match(/ /).blank? ? term : ('"' + term + '"')
     end
   end
 end
