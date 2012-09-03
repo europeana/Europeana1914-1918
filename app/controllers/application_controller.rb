@@ -507,6 +507,7 @@ class ApplicationController < ActionController::Base
       translated_query = bing_translate_query(query)
       if translated_query.is_a?(Array)
         options[:match_mode] = :extended
+        translated_query = translated_query.uniq
         translated_query[0] = append_wildcard(translated_query[0])
         query_string = quote_terms(translated_query).join(' | ')
       else
@@ -527,15 +528,14 @@ class ApplicationController < ActionController::Base
   end
   
   ##
-  # Adds quote marks around strings that contain space characters.
+  # Adds quote marks around string(s).
   #
   # @param [String,Array<String>] terms String or array of strings to quote.
   # @return [String,Array<String>] Quoted version of passed string(s).
   #
   def quote_terms(terms)
     quoted_terms = [terms].flatten.uniq.collect do |term|
-      # Enclose each term in quotes if multiple words
-      term.match(/ /).blank? ? term : ('"' + term + '"')
+      '"' + term + '"'
     end
     terms.is_a?(Array) ? quoted_terms : quoted_terms.first
   end

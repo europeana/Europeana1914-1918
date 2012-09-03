@@ -55,7 +55,8 @@ class EuropeanaController < ApplicationController
   # @return [Array<Europeana::Search::ResultSet>] Search results.
   #
   def query_api(terms, page = 1)
-    quoted_terms_digest = Digest::MD5.hexdigest(quote_terms(terms).join(','))
+    quoted_terms = [ quote_terms(terms) ].flatten
+    quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
     cache_key = "europeana/#{quoted_terms_digest}/page#{page.to_s}"
     
     if fragment_exist?(cache_key)
