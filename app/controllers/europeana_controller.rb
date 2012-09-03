@@ -94,11 +94,4 @@ class EuropeanaController < ApplicationController
       joined_terms + ' AND ' + qualifiers
     end
   end
-  
-  def quote_terms(terms) # :nodoc:
-    [terms].flatten.uniq.collect do |term|
-      # Enclose each term in quotes if multiple words
-      term.match(/ /).blank? ? term : ('"' + term + '"')
-    end
-  end
 end

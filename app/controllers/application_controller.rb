@@ -379,6 +379,9 @@ class ApplicationController < ActionController::Base
   #
   # Only intended as a backup if Sphinx is not running.
   #
+  # @param (see #get)
+  # @return (see #get)
+  #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
     options = options.dup
     
@@ -448,6 +451,9 @@ class ApplicationController < ActionController::Base
   # Always does word-end wildcard queries by appending * to query if not already
   # present.
   #
+  # @param (see #get)
+  # @return (see #get)
+  #
   def sphinx_search_contributions(set, query = nil, options = {}) # :nodoc:
     unless sphinx_running?
       raise RunCoCo::SearchOffline
@@ -498,9 +504,40 @@ class ApplicationController < ActionController::Base
     if query.blank?
       Contribution.search(options)
     else
-      wildcard_query = query + (query.last == '*' ? '' : '*')
-      Contribution.search(wildcard_query, options)
+      translated_query = bing_translate_query(query)
+      if translated_query.is_a?(Array)
+        options[:match_mode] = :extended
+        translated_query[0] = append_wildcard(translated_query[0])
+        query_string = quote_terms(translated_query).join(' | ')
+      else
+        query_string = append_wildcard(translated_query)
+      end
+      Contribution.search(query_string, options)
     end
+  end
+  
+  ##
+  # Appends a wildcard character to a string unless already present.
+  #
+  # @param [String] string String to append wildcard to
+  # @return [String] String with wildcard appended
+  #
+  def append_wildcard(string)
+    string + (string.last == '*' ? '' : '*')
+  end
+  
+  ##
+  # Adds quote marks around strings that contain space characters.
+  #
+  # @param [String,Array<String>] terms String or array of strings to quote.
+  # @return [String,Array<String>] Quoted version of passed string(s).
+  #
+  def quote_terms(terms)
+    quoted_terms = [terms].flatten.uniq.collect do |term|
+      # Enclose each term in quotes if multiple words
+      term.match(/ /).blank? ? term : ('"' + term + '"')
+    end
+    terms.is_a?(Array) ? quoted_terms : quoted_terms.first
   end
   
   ##
