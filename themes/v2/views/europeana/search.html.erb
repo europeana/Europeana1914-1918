@@ -9,18 +9,24 @@
 <div class="section top">
   
   <h2><%= @title %></h2>
-
-  <div id="results">
-  
+    
     <%= render :partial => '/shared/search_form', :locals => { :query => @query, :url => search_europeana_path } %>
     
-    <div id="results-tabs">
-      <ul>
-        <li><%= link_to '1914-1918', @field.present? ? term_search_contributions_path(@field.name, @term) : search_contributions_path(:q => @query) %></li>
-        <li><%= link_to 'Europeana', '#results-europeana' %></li>
-      </ul>
+    <ul id="results-tabs">
+      
+      <%- if europeana_api_configured? -%>
+        <li><%= link_to '1914-1918', @field.present? ? term_search_contributions_path(@field.name, @term) : search_contributions_path(:q => @query), :id => 'results-tab-1914' %></li>
+        <li><%= link_to 'Europeana', '#results-europeana', :id => 'results-tab-europeana' %></li>
+      <%- end -%>
+      
+    </ul>
     
+    <div id="results">
+      
+      <div id="results-1914"></div>
+      
       <div id="results-europeana">
+        
         <% if @results.size == 0 -%>
           <p><%= t('views.contributions.search.no_matches') %></p>
         <% else -%>    
@@ -33,11 +39,10 @@
           }
           %>    
         <% end -%>
-      </div><!-- /#results-europeana -->
-    
-    </div><!-- /#results-tabs -->
-    
-  </div>
+        
+      </div>
+      
+    </div>
   
 </div>
 

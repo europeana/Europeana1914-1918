@@ -31,6 +31,8 @@ el:
           one: 1 λάθος εμπόδισε αυτό το %{model} να αποθηκευθεί.
           other: ! '%{count} λάθη εμπόδισαν αυτό το %{model} να αποθηκευθεί.'
   common:
+    featured-categories: ! 'Κατηγορίες Συλλογών '
+    from-collection-days: Από τις συλλογές μας
     links:
       add-your-story: ! 'Προσθέστε την ιστορία σας! '
       contact_us: Επικοινωνία
@@ -38,12 +40,15 @@ el:
 
 '
       help: Οδηγίες.
+      register: Εγγραφείτε
+      sign_in: συνδεθείτε
     menus:
       main:
         about: Σχετικά
         add: ! 'Προσθέστε '
         explore: Εξερευνήστε
         home: Αρχική
+        sign_in: συνδεθείτε
   date:
     abbr_day_names:
     - Κυρ
@@ -140,6 +145,9 @@ el:
       month: Μήνας
       second: Δευτερόλεπτο
       year: Έτος
+  devise:
+    registrations:
+      link: Εγγραφείτε
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -169,6 +177,10 @@ el:
       header:
         one: 1 λάθος εμπόδισε αυτό το %{model} να αποθηκευθεί.
         other: ! '%{count} λάθη εμπόδισαν αυτό το %{model} να αποθηκευθεί.'
+  formtastic:
+    actions:
+      search:
+        submit: Αναζήτηση
   helpers:
     select:
       prompt: Παρακαλώ επιλέξτε
@@ -245,7 +257,13 @@ el:
     about:
       terms:
         heading: ! 'Όροι και Προϋποθέσεις  '
+    blog_posts:
+      read_more: ! 'Διαβάστε περισσότερα '
     contributor:
+      guests:
+        new:
+          links:
+            register: Εγγραφείτε
       help:
         adding_your_story:
           heading: ! 'Προσθέτοντας την ιστορία σας στο Europeana 1914 – 1918 '

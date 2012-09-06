@@ -1,6 +1,6 @@
 <b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results  )
   
-  <ul id="europeana-results">
+  <ul class="stories">
     <%- for result in results -%>
       <li>
         <a href="<%= result.guid %>" title="<%= raw result.title %>">
