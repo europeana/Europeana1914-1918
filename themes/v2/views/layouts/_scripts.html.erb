@@ -15,7 +15,7 @@
 	]
 	remote_scripts = []
 	
-	if @javascripts[:autocomplete] || @javascripts[:tabs]
+	if @javascripts[:autocomplete]
 		script_files.push(
 			'/themes/v2/javascripts/com/jquery/plugins/jquery-ui-1.8.23.custom.min.js'
 		)
@@ -212,9 +212,6 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 <% end -%>
 <% if 'cataloguer' === current_user.role.name -%>
 RunCoCo.cataloguer = true;
-<% end -%>
-<% if @javascripts[:tabs] -%>
-RunCoCo.uiTabSelected = <%= (@tab_selected || 0) %>;
 <% end -%>
 </script>
 <% unless remote_scripts.blank? -%>

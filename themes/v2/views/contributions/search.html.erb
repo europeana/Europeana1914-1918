@@ -2,7 +2,6 @@
   @javascripts[:autocomplete] = true
   @javascripts[:masonry] = true
   @javascripts[:search] = true
-  @javascripts[:tabs] = true
   @title = t('views.contributions.search.heading')
 %>
 <div class="section top">
@@ -14,8 +13,8 @@
     <ul id="results-tabs">
       
       <%- if europeana_api_configured? -%>
-        <li><%= link_to '1914-1918', '#results-1914', :id => 'results-tab-1914' %></li>
-        <li><%= link_to 'Europeana', @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana' %></li>
+        <li><%= link_to 'Europeana 1914-1918', '#results-1914', :id => 'results-tab-1914' %></li>
+        <li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana' %></li>
       <%- end -%>
       
     </ul>

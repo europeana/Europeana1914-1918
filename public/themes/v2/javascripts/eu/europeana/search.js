@@ -1,3 +1,7 @@
+/**
+ *	@author dan entous <contact@gmtplusone.com>
+ *	@version 2012-09-07 10:36 gmt +1
+ */
 (function() {
 	
 	'use strict';
@@ -114,7 +118,7 @@
 		},
 		
 		
-		addLoadingFeedback : function() {
+		setupTabs : function() {
 			
 			var self = this;
 			
@@ -122,47 +126,44 @@
 				
 				var $elm = jQuery(this);
 				
-				if ( jQuery( $elm.attr('href') ).html() === '' ) {
+				/**
+				 *	modify tab links
+				 *	add data-url, data-loaded, active class
+				 *	modify href
+				 */
 					
-					jQuery( $elm.attr('href') ).append( self.loading_feedback );
+					if ( $elm.attr('href').substring(0,1) !== '#' ) {
+						
+						$elm.attr( 'data-url', $elm.attr('href') );
+						$elm.attr( 'href', '#' + $elm.attr('id').replace('-tab','') );
+						$elm.attr( 'data-loaded', 'false' );
+						
+					} else {
+						
+						$elm.attr( 'data-loaded', 'true' );
+						$elm.addClass('active');
+						
+					}
+				
+				
+				/**
+				 *	add loading div to empty tabs
+				 */
 					
-				}
+					if ( jQuery( $elm.attr('href') ).html() === '' ) {
+						
+						jQuery( $elm.attr('href') ).append( self.loading_feedback );
+						
+					}
+				
+				
+				/**
+				 *	add onclick handler
+				 */
+					
+					$elm.on( 'click', { self : self }, self.handleResultsTabClick );
 				
 			});
-			
-		},
-		
-		
-		adjustTabLinks : function() {
-			
-			this.$tabs.each(function() {
-				
-				var $elm = jQuery(this);
-				
-				if ( $elm.attr('href').substring(0,1) !== '#' ) {
-					
-					$elm.attr( 'data-url', $elm.attr('href') );
-					$elm.attr( 'href', '#' + $elm.attr('id').replace('-tab','') );
-					$elm.attr( 'data-loaded', 'false' );
-					
-				} else {
-					
-					$elm.attr( 'data-loaded', 'true' );
-					$elm.addClass('active');
-					
-				}
-				
-				
-			});
-			
-		},
-		
-		
-		setupTabs : function() {
-			
-			this.adjustTabLinks();
-			this.addLoadingFeedback();
-			jQuery('#results-tab-1914,#results-tab-europeana').on( 'click', {self:this}, this.handleResultsTabClick );			
 			
 		},
 		
