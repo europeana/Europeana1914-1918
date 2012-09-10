@@ -53,6 +53,18 @@
 		},
 		
 		
+		setFormAction : function( active_tab_id ) {
+			
+			var action_url =
+					RunCoCo.relativeUrlRoot +
+					'/' + I18n.currentLocale() +
+					jQuery('#' + active_tab_id).attr('data-search');
+			
+			jQuery('#search').attr('action', action_url );
+			
+		},
+		
+		
 		toggleLoaderDiv : function( active_tab_id ) {
 			
 			this.$tabs.each(function() {
@@ -113,6 +125,7 @@
 			evt.preventDefault();
 			self.toggleTabs( active_tab_id );
 			self.toggleLoaderDiv( active_tab_id );
+			self.setFormAction( active_tab_id );
 			self.retrieveContent( active_tab_id );
 			
 		},

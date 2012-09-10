@@ -13,8 +13,8 @@
     <ul id="results-tabs">
       
       <%- if europeana_api_configured? -%>
-        <li><%= link_to 'Europeana 1914-1918', @field.present? ? term_search_contributions_path(@field.name, @term) : search_contributions_path(:q => @query), :id => 'results-tab-1914' %></li>
-        <li><%= link_to t('views.contributions.search.related-europeana'), '#results-europeana', :id => 'results-tab-europeana' %></li>
+        <li><%= link_to 'Europeana 1914-1918', @field.present? ? term_search_contributions_path(@field.name, @term) : search_contributions_path(:q => @query), :id => 'results-tab-1914', :'data-search' => '/contributions/search' %></li>
+        <li><%= link_to t('views.contributions.search.related-europeana'), '#results-europeana', :id => 'results-tab-europeana', :'data-search' => '/europeana/search' %></li>
       <%- end -%>
       
     </ul>
