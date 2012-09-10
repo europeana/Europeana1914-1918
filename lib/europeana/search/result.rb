@@ -1,3 +1,5 @@
+require 'cgi'
+
 module Europeana
   module Search
     ##
@@ -35,7 +37,7 @@ module Europeana
       #
       def image_url(size = 'BRIEF_DOC')
         uri = URI.parse('http://europeanastatic.eu/api/image')
-        uri.query = { :type => type, :uri => enclosure_url, :size => size }.to_query
+        uri.query = { :type => type, :uri => CGI.unescapeHTML(enclosure_url), :size => size }.to_query
         uri.to_s
       end
     end
