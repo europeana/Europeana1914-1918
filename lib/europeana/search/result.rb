@@ -37,7 +37,8 @@ module Europeana
       #
       def image_url(size = 'BRIEF_DOC')
         uri = URI.parse('http://europeanastatic.eu/api/image')
-        uri.query = { :type => type, :uri => CGI.unescapeHTML(enclosure_url), :size => size }.to_query
+        uri_param = enclosure_url.blank? ? nil : CGI.unescapeHTML(enclosure_url)
+        uri.query = { :type => type, :uri => uri_param, :size => size }.to_query
         uri.to_s
       end
     end
