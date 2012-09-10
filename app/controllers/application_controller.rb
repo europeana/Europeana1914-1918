@@ -344,8 +344,11 @@ class ApplicationController < ActionController::Base
     
     translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
     other_locales = I18n.available_locales.reject { |locale| locale == I18n.locale }
+    logger.debug("Using Bing Translate API to translate \"#{query}\" from #{I18n.locale}...")
     query_translations = [ query ] + other_locales.collect do |locale|
-      translator.translate query, :to => locale
+      translation = translator.translate query, :to => locale
+      logger.debug("... to #{locale} => #{translation}")
+      translation
     end
     write_fragment(bing_cache_key, query_translations.to_yaml, :expires_in => 1.year)
     query_translations
