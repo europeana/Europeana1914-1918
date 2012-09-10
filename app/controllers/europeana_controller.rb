@@ -50,12 +50,23 @@ class EuropeanaController < ApplicationController
   ##
   # Sends a query off to the API.
   #
-  # @param [String,Array] terms One or more term(s) to search for.
+  # @param [String,Array,Hash] terms One or more term(s) to search for.
   # @param [Integer,String] page The page of results to retrieve.
   # @return [Array<Europeana::Search::ResultSet>] Search results.
   #
   def query_api(terms, page = 1)
-    quoted_terms = [ quote_terms(terms) ].flatten
+    terms = case terms
+    when Hash
+      terms.values
+    when String
+      [ terms ]
+    when Array
+      terms
+    else
+      raise ArgumentError "Unknown terms parameter passed."
+    end
+    
+    quoted_terms = quote_terms(terms)
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
     cache_key = "europeana/#{quoted_terms_digest}/page#{page.to_s}"
     

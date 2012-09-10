@@ -328,30 +328,40 @@ class ApplicationController < ActionController::Base
   # Queries are translated via Bing Translate, and translations cached for one
   # year.
   #
-  # @param [String] query Query to translate from the current locale
-  # @return [String,Array] Translations of the query, plus the query itself.
-  #   If the translator library is not configured, return the original query.
+  # @param [String] query Query to translate
+  # @param [String,Symbol] from_locale Locale to translate from, defaults to
+  #   the current locale.
+  # @return [String,Hash] Translations of the query, plus the query itself.
+  #   If the translator library is not configured, returns the original query.
+  #   A returned hash will be keyed by locale, with the translations as values.
   # @see #bing_translator_configured?
   #
-  def bing_translate_query(query)
+  def bing_translate_query(query, from_locale = I18n.locale)
     return query unless query.present? && bing_translator_configured?
     
-    bing_cache_key = "bing/#{I18n.locale}/#{query}"
+    bing_cache_key = "bing/#{from_locale}/#{query}"
     
     if fragment_exist?(bing_cache_key)
-      return YAML::load(read_fragment(bing_cache_key))
+      translations = YAML::load(read_fragment(bing_cache_key))
+#      logger.debug("Cached translations: #{translations.inspect}")
+      if translations.keys == I18n.available_locales
+        return translations
+      end
+      expire_fragment(bing_cache_key)
     end
     
     translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
-    other_locales = I18n.available_locales.reject { |locale| locale == I18n.locale }
-    logger.debug("Using Bing Translate API to translate \"#{query}\" from #{I18n.locale}...")
-    query_translations = [ query ] + other_locales.collect do |locale|
-      translation = translator.translate query, :to => locale
-      logger.debug("... to #{locale} => #{translation}")
-      translation
+    
+    logger.debug("Using Bing Translate API to translate \"#{query}\" from #{from_locale}...")
+    translations = { from_locale => query }
+    
+    other_locales = I18n.available_locales.reject { |locale| locale == from_locale }
+    other_locales.each do |locale|
+      translations[locale] = translator.translate(query, :to => locale)
+      logger.debug("... to #{locale} => \"#{translations[locale]}\"")
     end
-    write_fragment(bing_cache_key, query_translations.to_yaml, :expires_in => 1.year)
-    query_translations
+    write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
+    translations
   end
   
   ##
@@ -507,14 +517,14 @@ class ApplicationController < ActionController::Base
     if query.blank?
       Contribution.search(options)
     else
-      translated_query = bing_translate_query(query)
-      if translated_query.is_a?(Array)
+      query_translations = bing_translate_query(query)
+      if query_translations.is_a?(Hash)
         options[:match_mode] = :extended
-        translated_query = translated_query.uniq
-        translated_query[0] = append_wildcard(translated_query[0])
-        query_string = quote_terms(translated_query).join(' | ')
+        query_translations[I18n.locale] = append_wildcard(query_translations[I18n.locale])
+        query_translations = query_translations.values.uniq
+        query_string = quote_terms(query_translations).join(' | ')
       else
-        query_string = append_wildcard(translated_query)
+        query_string = append_wildcard(query_translations)
       end
       Contribution.search(query_string, options)
     end
