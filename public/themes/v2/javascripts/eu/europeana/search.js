@@ -12,12 +12,13 @@
 		$tabs : jQuery('#results-tabs a'),
 		loading_feedback : '<div class="loading-feedback"></div>',
 		ajax_load_processed : true,
+		current_tab : { id : null, hash : null },
 		
 		
 		handleContentLoad : function( active_tab_id ) {
 			
 			this.ajax_load_processed = true;
-			jQuery( '#' + active_tab_id ).attr('data-loaded','true');
+			jQuery(active_tab_id ).attr('data-loaded','true');
 			
 			jQuery('.stories').imagesLoaded(function() {
 				jQuery('.stories').masonry({
@@ -34,18 +35,20 @@
 		retrieveContent : function( active_tab_id ) {
 			
 			var self = this,
-					url = jQuery('#' + active_tab_id ).attr('data-url');
+					url = jQuery(active_tab_id ).attr('data-url');
 			
 			
-			if ( !url || !self.ajax_load_processed || jQuery('#' + active_tab_id ).attr('data-loaded') === 'true' ) { return; }
+			if ( !url || !self.ajax_load_processed || jQuery(active_tab_id ).attr('data-loaded') === 'true' ) { return; }
 			self.ajax_load_processed = false;
 			
 			try {
 				
-				jQuery(jQuery('#' + active_tab_id ).attr('href')).load(
-					url + ' ' + jQuery('#' + active_tab_id ).attr('href'),
+				jQuery( jQuery(active_tab_id).attr('data-content-id') ).load(
+					
+					url + ' ' + jQuery(active_tab_id).attr('data-content-id'),
 					null,
-					function() { self.handleContentLoad( active_tab_id ); }				
+					function() { self.handleContentLoad( active_tab_id ); }
+					
 				);
 				
 			} catch(e) {}
@@ -58,7 +61,7 @@
 			var action_url =
 					RunCoCo.relativeUrlRoot +
 					'/' + I18n.currentLocale() +
-					jQuery('#' + active_tab_id).attr('data-search');
+					jQuery(active_tab_id).attr('data-search-action');
 			
 			jQuery('#search').attr('action', action_url );
 			
@@ -71,43 +74,47 @@
 				
 				var $elm = jQuery(this);
 				
-				if ( active_tab_id !== $elm.attr('id') ) {
+				if ( ( '#' + $elm.attr('id') ) !== active_tab_id ) {
 					
-					jQuery( $elm.attr('href') ).fadeOut();
+					jQuery( $elm.attr('data-content-id') ).fadeOut();
 					
 				} else {
 					
-					jQuery( $elm.attr('href') ).fadeIn();
+					jQuery( $elm.attr('data-content-id') ).fadeIn('slow');
 					
 				}
 				
 			});
 			
-			jQuery( jQuery('#' + active_tab_id).attr('href') ).find('.loading-feedback').fadeIn();
+			jQuery( jQuery(active_tab_id).attr('data-content-id') ).find('.loading-feedback').fadeIn();
 			
-				jQuery('.stories').masonry({
-					itemSelector : 'li',
-					columnWidth : 1,
-					isFitWidth : true,
-					isAnimated : true
-				});
+			jQuery('.stories').masonry({
+				itemSelector : 'li',
+				columnWidth : 1,
+				isFitWidth : true,
+				isAnimated : true
+			});
 			
 		},
 		
 		
 		toggleTabs : function( active_tab_id ) {
 			
+			var self = this;
+			
 			this.$tabs.each(function(){
 				
 				var $elm = jQuery(this);
 				
-				if ( $elm.attr('id') !== active_tab_id ) {
+				if ( ( '#' + $elm.attr('id') ) !== active_tab_id ) {
 					
 					$elm.removeClass('active');
 					
 				} else {
 					
 					$elm.addClass('active');
+					self.current_tab.hash = $elm.attr('data-hash');
+					self.current_tab.id = $elm.attr('id');
 					
 				}
 				
@@ -120,13 +127,45 @@
 			
 			var self = evt.data.self,
 					$elm = jQuery(this),
-					active_tab_id = $elm.attr('id');
+					active_tab_id = '#' + $elm.attr('id');
 			
-			evt.preventDefault();
 			self.toggleTabs( active_tab_id );
 			self.toggleLoaderDiv( active_tab_id );
 			self.setFormAction( active_tab_id );
 			self.retrieveContent( active_tab_id );
+			
+		},
+		
+		
+		checkTabState : function() {
+			
+			var hash = window.location.hash;
+			
+			if ( hash.length > 0 && hash !== this.current_tab.hash ) {
+				
+				this.$tabs.each(function() {
+					
+					var $elm = jQuery(this);
+					
+					if ( hash == $elm.attr('data-hash') ) {
+						
+						$elm.trigger('click');
+						
+					}
+					
+				});
+				
+			}
+			
+		},
+		
+		
+		tabListener : function() {
+			
+			var self = this;
+			
+			self.checkTabState();
+			setInterval( function() { self.checkTabState(); }, 200 );
 			
 		},
 		
@@ -137,24 +176,30 @@
 			
 			self.$tabs.each(function() {
 				
-				var $elm = jQuery(this);
+				var $elm = jQuery(this),
+						content_id = $elm.attr('data-content-id');
 				
 				/**
 				 *	modify tab links
-				 *	add data-url, data-loaded, active class
-				 *	modify href
+				 *	data-url : url to be used for ajax load of tab content
+				 *	data-loaded : string indicating whether or not section content has been loaded
+				 *	active css class : indicating whether or not the tab is active
+				 *	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
+				 *	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
 				 */
 					
 					if ( $elm.attr('href').substring(0,1) !== '#' ) {
 						
 						$elm.attr( 'data-url', $elm.attr('href') );
-						$elm.attr( 'href', '#' + $elm.attr('id').replace('-tab','') );
+						$elm.attr( 'href', $elm.attr('data-hash') );
 						$elm.attr( 'data-loaded', 'false' );
 						
 					} else {
 						
 						$elm.attr( 'data-loaded', 'true' );
 						$elm.addClass('active');
+						self.current_tab.hash = $elm.attr('data-hash');
+						self.current_tab.id = $elm.attr('id');
 						
 					}
 				
@@ -163,9 +208,9 @@
 				 *	add loading div to empty tabs
 				 */
 					
-					if ( jQuery( $elm.attr('href') ).html() === '' ) {
+					if ( jQuery( content_id ).html() === '' ) {
 						
-						jQuery( $elm.attr('href') ).append( self.loading_feedback );
+						jQuery( content_id ).append( self.loading_feedback );
 						
 					}
 				
@@ -184,6 +229,7 @@
 		init : function() {
 			
 			this.setupTabs();
+			this.tabListener();
 			
 		}
 		
