@@ -35,7 +35,8 @@
 		retrieveContent : function( active_tab_id ) {
 			
 			var self = this,
-					url = jQuery(active_tab_id ).attr('data-url');
+					url = jQuery(active_tab_id ).attr('data-url'),
+					content_id = jQuery(active_tab_id).attr('data-content-id');
 			
 			
 			if ( !url || !self.ajax_load_processed || jQuery(active_tab_id ).attr('data-loaded') === 'true' ) { return; }
@@ -43,9 +44,9 @@
 			
 			try {
 				
-				jQuery( jQuery(active_tab_id).attr('data-content-id') ).load(
+				jQuery( content_id ).load(
 					
-					url + ' ' + jQuery(active_tab_id).attr('data-content-id'),
+					url + ' ' + content_id + ' > *',
 					null,
 					function() { self.handleContentLoad( active_tab_id ); }
 					
@@ -114,7 +115,7 @@
 					
 					$elm.addClass('active');
 					self.current_tab.hash = $elm.attr('data-hash');
-					self.current_tab.id = $elm.attr('id');
+					self.current_tab.id = '#' + $elm.attr('id');
 					
 				}
 				
@@ -139,7 +140,9 @@
 		
 		checkTabState : function() {
 			
-			var hash = window.location.hash;
+			var hash = window.location.hash,
+					$active_content = jQuery( jQuery( this.current_tab.id ).attr('data-content-id') );
+			
 			
 			if ( hash.length > 0 && hash !== this.current_tab.hash ) {
 				
@@ -154,6 +157,14 @@
 					}
 					
 				});
+				
+			} else {
+				
+				if ( $active_content.is(':hidden') ) {
+					
+					$active_content.fadeIn();
+					
+				}
 				
 			}
 			
@@ -199,7 +210,7 @@
 						$elm.attr( 'data-loaded', 'true' );
 						$elm.addClass('active');
 						self.current_tab.hash = $elm.attr('data-hash');
-						self.current_tab.id = $elm.attr('id');
+						self.current_tab.id = '#' + $elm.attr('id');
 						
 					}
 				
