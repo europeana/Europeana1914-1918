@@ -6,11 +6,11 @@ class ContributionSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache_for(contribution)
-    locale_subpattern = '(' + I18n.available_locales.join('|') + ')'
+    fragments = []
     
-    fragments = [
-      Regexp.new("v2/#{locale_subpattern}/contributions/search_result/#{contribution.id}"),
-    ]
+    I18n.available_locales.each do |locale|
+      fragments.push("v2/#{locale}/contributions/search_result/#{contribution.id}")
+    end
     
     fragments.each do |key|
       expire_fragment(key)
