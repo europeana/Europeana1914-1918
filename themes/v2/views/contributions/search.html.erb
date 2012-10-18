@@ -10,14 +10,12 @@
 
     <%= render :partial => '/shared/search_form', :locals => { :query => @query, :count => 48 } %>
     
-    <ul id="results-tabs">
-      
-      <%- if europeana_api_configured? -%>
+    <%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
+      <ul id="results-tabs">
         <li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
         <li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
-      <%- end -%>
-      
-    </ul>
+      </ul>
+    <%- end -%>
     
     <div id="results">    
       
