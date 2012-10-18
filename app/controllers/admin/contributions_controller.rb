@@ -28,6 +28,8 @@ class Admin::ContributionsController < AdminController
       end
     elsif @status.present? && statuses.include?(@status.to_sym)
       @contributions = activerecord_search_contributions(@status.to_sym, @query, search_options)
+    elsif @query.present? 
+      @contributions = activerecord_search_contributions(nil, @query, search_options)
     else
       @counts = {}
       statuses.each do |status|

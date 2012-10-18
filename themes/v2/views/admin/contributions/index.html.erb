@@ -21,19 +21,20 @@
           <%= form.commit_button %>
         <% end %>
       <% end %>
+
+    <%- end -%>
       
-      <%= form_tag( search_admin_contributions_path, { :method => :get, :class => 'search' } ) do %>
-        <div>
-          <%= text_field_tag 'q', @query, { :size => 30 } %> <%= submit_tag t('formtastic.actions.search.submit'), :name => nil %>
-          <%= hidden_field_tag 'status', @status %>
-          <%= hidden_field_tag 'sort', @sort %>
-          <%= hidden_field_tag 'order', @order %>
-          <% if @contributor -%>
-            <%= hidden_field_tag 'contributor_id', @contributor.id %>
-          <% end -%>
-        </div>
-      <% end %>
-    <% end -%>
+    <%= form_tag( search_admin_contributions_path, { :method => :get, :class => 'search' } ) do %>
+      <div>
+        <%= text_field_tag 'q', @query, { :size => 30 } %> <%= submit_tag t('formtastic.actions.search.submit'), :name => nil %>
+        <%= hidden_field_tag 'status', @status %>
+        <%= hidden_field_tag 'sort', @sort %>
+        <%= hidden_field_tag 'order', @order %>
+        <% if @contributor -%>
+          <%= hidden_field_tag 'contributor_id', @contributor.id %>
+        <% end -%>
+      </div>
+    <% end %>
     
     <% if @contributor -%>
     
@@ -53,7 +54,7 @@
     <%- else -%>
       
       <%- if @contributions.present? -%>
-        <%= render :partial => 'table', :locals => { :contributions => @contributions, :caption => t("views.admin.contributions.index.captions.#{@status}", :total => @contributions.total_entries), :fields => @options.fields } %>
+        <%= render :partial => 'table', :locals => { :contributions => @contributions, :caption => @status.present? ? t("views.admin.contributions.index.captions.#{@status}", :total => @contributions.total_entries) : '', :fields => @options.fields } %>
       <%- else -%>
         <%- if @query -%>
           <p class="empty-table-notice"><%= t "views.admin.contributions.index.empty.search.#{@status}" %></p>

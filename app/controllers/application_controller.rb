@@ -344,7 +344,7 @@ class ApplicationController < ActionController::Base
     if fragment_exist?(bing_cache_key)
       translations = YAML::load(read_fragment(bing_cache_key))
 #      logger.debug("Cached translations: #{translations.inspect}")
-      if translations.keys == I18n.available_locales
+      if translations.is_a?(Hash) && translations.keys == I18n.available_locales
         return translations
       end
       expire_fragment(bing_cache_key)
@@ -398,7 +398,9 @@ class ApplicationController < ActionController::Base
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
     options = options.dup
     
-    set_where = if (set == :published)
+    set_where = if set.nil?
+      1
+    elsif set == :published
       [ 'current_status=?', ContributionStatus.published ]
     else
       [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
