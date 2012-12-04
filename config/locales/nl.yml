@@ -729,131 +729,131 @@ nl:
         notice: ! 'Bijdrage is afgewezen. '
       submitted:
         edit:
-          alert: 
+          alert: Deze bijdrage is al verzonden
       withdraw:
-        alert: 
-        notice: 
+        alert: ! 'Het is niet gelukt om uw verhaal te markeren voor verwijdering. '
+        notice: ! 'Uw verhaal is gemarkeerd als "verwijderen". '
     contributors:
       create:
-        alert: 
+        alert: ! 'Uw account kon niet aangemaakt worden. '
       update:
-        alert: 
+        alert: ! 'Uw kon niet gewijzigd worden. '
     fields:
-      reindexing: 
+      reindexing: ! 'De index van de zoekmachine wordt op de achtergrond uitgevoerd. '
     guest_contact:
       create:
-        alert: 
-        notice: 
+        alert: ! 'De gegevens die u heeft ingevoerd zijn onjuist. Gelieve dit te corrigeren en het nogmaals te proberen. '
+        notice: ! 'De contactgegevens zijn ontvangen. '
       forget:
-        notice: 
+        notice: ! 'Contact velden geleegd. '
       update:
-        alert: 
-        notice: 
+        alert: ! 'De door u verstrekte gegevens zijn onjuist. Gelieve ze te corrigeren en het nogmaals te proberen. '
+        notice: ! 'Contact gegevens gewijzigd. '
     metadata_fields:
       update_order:
-        notice: 
+        notice: Metadata field order updated
     status:
-      alert: 
-      notice: 
+      alert: ! 'Waarschuwing:'
+      notice: ! 'Let op: '
     taxonomy:
-      imported: 
+      imported: Imported new taxonomy terms
     users:
       create:
-        alert: 
-        notice: 
+        alert: ! 'Gebruikers account kon niet worden aangemaakt. '
+        notice: ! 'Gebruikers account aangemaakt. '
       destroy:
-        notice: 
+        notice: ! 'Gebruiker is verwijderd. '
       register:
-        alert: 
-        notice: 
+        alert: Het registeren is niet gelukt. Gelieve de informatie te corrigeren en het opnieuw te proberen.
+        notice: De registratie is gelukt! Welkom!
       update:
-        alert: 
-        notice: 
+        alert: ! 'Gebruikers account kon niet gewijzigd worden. '
+        notice: Wijzigingen opgeslagen.
   formtastic:
     actions:
       attachment:
-        add_edit: 
-        create: 
-        delete: 
-        update: 
+        add_edit: Voeg items toe of maak veranderingen
+        create: Voeg toe
+        delete: Verwijder item
+        update: Opslaan
       contribution:
-        create: 
-        delete: 
-        save_draft: 
-        submit: 
-        update: 
-        withdraw: 
+        create: Doorgaan
+        delete: Verwijder verhaal
+        save_draft: Sla voorlopige versie op
+        submit: Verzend uw verhaal
+        update: Wijzig bijdrage
+        withdraw: Trek terug
       contributor:
-        create: 
+        create: Registreer
       create: Toevoegen
       delete: Verwijder
       filter:
-        submit: 
+        submit: Wijzig
       metadata_field:
-        delete: 
-        reindex: 
+        delete: Verwijder metadata veld
+        reindex: Optimaliseer zoekmachine
       password:
-        create: 
-        update: 
+        create: Verzend
+        update: Verander mijn wachtwoord
       search:
-        submit: 
+        submit: Zoek
       sign_in: Log in
       submit: Bewaar
       taxonomy_term:
-        import: 
+        import: Importeren
       update: Sla veranderingen op
       upload: Upload
       user:
-        create: 
-        delete: 
-        update: 
-    create: 
+        create: Registreren
+        delete: Account verwijderen
+        update: Wijzigen
+    create: Maak %{model} aan
     hints:
       attachment:
-        dropbox_path: 
+        dropbox_path: ! 'Selecteer een bestand uit "Apps/Europeana 1914-1918" in uw Dropbox. Bestanden die niet geschikt zijn, zullen niet zichtbaar zijn. '
         edit:
-          file: 
-        file: 
+          file: ! 'Voeg alleen een nieuw bestand toe wanneer u het oude bestand wilt vervangen. De maximale bestandsgrootte is %{max}. Toegestane extensies zijn: %{file_types}.'
+        file: Voeg het bestand toe
         metadata:
-          attachment_description: 
-          content: 
-          cover_image: 
-          creator_given_name: 
-          date_from: 
-          date_to: 
-          forces: 
-          format: 
-          keywords: 
-          lang: 
-          location_placename: 
-          object_side: 
-          page_number: 
-          source: 
-          subject: 
-          theatres: 
+          attachment_description: ! 'Geef een beschrijving van de fysieke eigenschappen van het object en de emotionele waarde dat het heeft. '
+          content: ! 'Wat voor object is het? Is het bijvoorbeeld een gedicht? Of een brief of foto? Probeer zo specifiek mogelijk te zijn. '
+          cover_image: ! 'Een omslagfoto werkt als de omslag van een boek. Houd er dan ook rekening mee dat het directe invloed kan hebben op hoe interessant uw verhaal overkomt. De omslag kan bijvoorbeeld de eerste pagina van een dagboek zijn, of een foto van een medaille. '
+          creator_given_name: Geef hier de naam op van de persoon die het object gemaakt heeft. (Denk hierbij aan de schrijver van de brief, of de naam van de fotograaf.)
+          date_from: ! 'Vertel ons wanneer het object gemaakt is. Denk hierbij aan de datum boven een brief, of de dag dat iemand het gekregen heeft. Als u de exacte datum niet weet, kunt u ervoor kiezen om alleen een jaartal (dan al niet een maand) op te geven. '
+          date_to: De einddatum voor een object. (Zoals bijvoorbeeld de laatste dag van een dagboek.)
+          forces: Vink dit niet aan tenzij het relevant is. Mocht het keyword waar u naar op zoek bent ontbreken, stuur dan een email naar 1914-1918 [@] europeana [.] eu
+          format: Van wat voor materiaal is het object gemaakt? (Papier, metaal, karton etc.)
+          keywords: Gebruik alleen keyword die duidelijke betrekking hebben op het onderwerp of de boodschap ondersteunen. Het doel van deze woorden is om uw verhaal vindbaar te maken in onze collectie. Als er keywords ontbreken, kunt u ons emailen via 1914-1918 [@] europeana [.] eu
+          lang: ! 'Geef aan welke taal er gebruikt is voor dit object. '
+          location_placename: Vertel ons de naam van de plaats van herkomst. (Waar is de foto gemaakt? Of waar is de brief geschreven?)
+          object_side: ! 'Als een item twee kanten heeft, zoals een ansichtkaart, geef dan aan om welke zijde het gaat. '
+          page_number: ! 'Als uw item meerdere pagina''s heeft, kunt u de pagina nummers afzonderlijk opgeven. '
+          source: De bron van het item. (Zoals bijvoorbeeld uit een krant, een notitieboek, of een stukje film.)
+          subject: ! 'De persoon of de plaats waarmee het object correspondeert. '
+          theatres: Laat dit gedeelte open als het niet relevant is. Mocht relevante informatie ontbreken, email ons dan via 1914-1918 [@] europeana [.] eu
         new:
-          file: 
-        title: 
+          file: ! 'U kunt zoveel bijlagen toevoegen als u wilt; dit gaat wel een voor een. Let er op dat als u van plan bent veel materiaal toe te voegen, u een bestand als omslag voor uw verhaal kunt kiezen. Maximale bestandgrootte: %{max}. Mogelijke extensies: %{file_types}.'
+        title: ! 'Geef een krachtige titel of naam mee aan uw object. Een voorbeeld kan zijn: "Otto Schmidt''s Eremedaille". '
       contact:
-        full_name: 
+        full_name: ! 'Dit zijn de credits die worden meegeven met de goedgekeurde bijdragen. '
       contribution:
         metadata:
-          contributor_behalf: 
-          date_from: 
-          date_to: 
-          description: 
-          forces: 
-          keywords: 
-          lang: 
-          location_placename: 
-          theatres: 
-        title: 
+          contributor_behalf: ! 'Laat dit veld leeg tenzij u iemand anders helpt met zijn of haar bijdrage. '
+          date_from: ! 'Vertel ons wanneer het verhaal zich afspeelde. Als u dit niet weet, is het een goed idee om alleen een jaartal mee te geven. '
+          date_to: ! 'Vertel ons wanneer het verhaal eindigde. Als u het niet exact weet, gelieve slechts het jaartal op te geven. '
+          description: ! 'Vertel het verhaal achter uw object. '
+          forces: Laat dit gedeelte open als het niet relevant is. Mocht relevante informatie ontbreken, email ons dan via 1914-1918 [@] europeana [.] eu
+          keywords: Voeg alleen sleutelwoorden toe die relevant zijn voor het onderwerp of de boodschap van uw verhaal. Het doel van deze sleutelwoorden is om uw verhaal vindbaar te maken binnen onze collectie. Als er een relevant sleutelwoord ontbreekt, kunt u ons emailen via 1914-1918 [@] europeana [.] eu
+          lang: ! 'In welke taal is dit verhaal geschreven? '
+          location_placename: In welke plaats vind dit verhaal plaats?
+          theatres: Laat dit gedeelte open als het niet relevant is. Mocht relevante informatie ontbreken, email ons dan via 1914-1918 [@] europeana [.] eu
+        title: ! 'Geeft een titel voor het verhaal en de bijbehorende objecten. '
       metadata_field:
-        attachment: 
-        cataloguing: 
-        contribution: 
-        field_type: 
-        hint: 
+        attachment: ! 'Geef aan op welke bijlage dit veld betrekking heeft? '
+        cataloguing: ! 'Yes: only show this field in the admin interface, for cataloguing purposes. No: also show to contributors.'
+        contribution: ! 'Geef aan of dit veld voor gebruikers zichtbaar moet zijn. '
+        field_type: ! 'Dit kan niet veranderd worden nadat het veld opgeslagen is. '
+        hint: Bijgevoegde tekst
         multi: 
         name: 
         required: 
@@ -866,7 +866,7 @@ nl:
         geo: 
       password:
         new:
-          email: 
+          email: ! 'Vul uw email adres in en wij zullen u instructies toesturen om uw wachtwoord te resetten. '
       settings:
         allowed_upload_extensions: 
         banner_active: 
@@ -877,7 +877,7 @@ nl:
         contribution_approval_required: 
         gmap_api_key: 
         google_analytics_key: 
-        max_upload_size: 
+        max_upload_size: ! 'Maximale bestand grootte in bytes. '
         publish_contributions: 
         registration_required: 
         relative_url_root: 
@@ -889,147 +889,147 @@ nl:
         import: 
         term: 
       user:
-        current_password: 
+        current_password: ! 'Vul uw huidige wachtwoord in als u de gevens van uw account wilt wijzigen. '
         edit:
-          password: 
-        email: 
-        password: 
+          password: ! 'Geef een nieuw wachtwoord op als u het oude wilt wijzigen. Als dit niet het geval is, kunt u het open laten. Minimaal 6 karakters zijn vereist. '
+        email: ! 'U kunt ook inloggen met uw email adres in plaats van uw gebruikersnaam. Dit is optioneel, maar wij willen u graag aanraden toch een email adres op te geven voor het geval dat u uw wachtwoord vergeten bent. '
+        password: Minimaal 6 karakters
         update:
-          password: 
-        username: 
+          password: ! 'Geef een nieuw wachtwoord op als u het oude wilt wijzigen. Als dit niet het geval is, kunt u het open laten. Minimaal 6 karakters zijn vereist. '
+        username: ! 'Minimaal 3 karakters. Toegestaan zijn: a-z A-Z 0-9 - _ . @'
     labels:
       attachment:
         metadata:
-          attachment_description: 
-          attachment_file: 
-          content: 
-          cover_image: 
-          creator_family_name: 
-          creator_given_name: 
-          date_from: 
-          date_to: 
-          file_type: 
-          format: 
-          lang: 
-          lang_other: 
-          license: 
-          location_map: 
-          location_placename: 
-          notes: 
-          object_side: 
-          page_number: 
-          page_total: 
-          source: 
-          subject: 
-          ticket: 
+          attachment_description: Beschrijving
+          attachment_file: Bestand
+          content: Type
+          cover_image: Afbeelding voor de omslag
+          creator_family_name: Achternaam van de maker
+          creator_given_name: Voornaam van de maker
+          date_from: Begin datum
+          date_to: Eind datum
+          file_type: Media type
+          format: Medium
+          lang: Taal
+          lang_other: Taal (anders)
+          license: License
+          location_map: Lengte- en breedtegraad
+          location_placename: Geef de locatie weer waar uw item gegenereerd is
+          notes: Aantekeningen
+          object_side: Kant
+          page_number: Pagina nummer
+          page_total: Totaal aantal pagina's
+          source: Bron
+          subject: Onderwerp
+          ticket: Ticket nummer
       contribution:
         metadata:
-          alternative: 
-          cataloguer: 
-          character1_dob: 
-          character1_dod: 
-          character1_family_name: 
-          character1_given_name: 
-          character1_pob: 
-          character1_pod: 
-          character2_dob: 
-          character2_dod: 
-          character2_family_name: 
-          character2_given_name: 
-          character2_pob: 
-          character2_pod: 
-          collection_day: 
-          contributor_behalf: 
-          date_from: 
-          date_to: 
-          description: 
-          editor_pick: 
-          editor_pick_sig: 
-          editor_pick_text: 
-          forces: 
-          keywords: 
-          lang: 
-          lang_other: 
-          location_map: 
-          location_placename: 
-          location_zoom: 
-          notes: 
-          summary: 
-          theatres: 
-          ticket: 
-        terms: 
-        title: 
+          alternative: Alternatieve titel
+          cataloguer: Cataloguer
+          character1_dob: Geboortedatum
+          character1_dod: Sterfdatum
+          character1_family_name: Achternaam
+          character1_given_name: Voornaam
+          character1_pob: Geboorteplaats
+          character1_pod: Gestorven in
+          character2_dob: Geboortedatum
+          character2_dod: ! 'Sterfdatum '
+          character2_family_name: Achternaam
+          character2_given_name: Voornaam
+          character2_pob: Geboorteplaats
+          character2_pod: Plaats van overlijden
+          collection_day: Collectie dag
+          contributor_behalf: Bijgedragen uit naam van
+          date_from: Het verhaal begint ...
+          date_to: ! 'Het verhaal eindigt ... '
+          description: Verhaal
+          editor_pick: Voor u geselcteerd
+          editor_pick_sig: Editor's pick signature
+          editor_pick_text: Editor's pick text
+          forces: ! 'Heeft uw verhaal te maken met '
+          keywords: Keywords
+          lang: Taal
+          lang_other: Taal (Anders)
+          location_map: Lengte- en breedtegraad
+          location_placename: ! 'Waar vond uw verhaal plaats? '
+          location_zoom: Locatie zoom
+          notes: Aantekeningen
+          summary: Korte beschrijving van de items
+          theatres: Theaters
+          ticket: Ticket nummer
+        terms: Ik ga akkoord met de algemene voorwaarden
+        title: Titel
       metadata_field:
-        contribution: 
+        contribution: Bijdrage
       taxonomy_term:
         forces:
-          Allied Forces: 
-          Central Powers: 
-          Imperial Forces: 
+          Allied Forces: Geallieerde troepen
+          Central Powers: Centrale Mogendheden
+          Imperial Forces: Keizerlijke troepen
         keywords:
-          Anti-War Movement: 
-          Artillery: 
-          Conscientious Objection: 
-          Gas Warfare: 
-          Home Front: 
-          Manufacture: 
-          Medical: 
-          Military Punishment: 
-          Prisoners of War: 
-          Propaganda: 
-          Recruitment and Conscription: 
-          Remembrance: 
-          Tanks and Armoured Fighting Vehicles: 
-          Transport: 
-          Trench Life: 
-          Women: 
+          Anti-War Movement: Anti-oorlogsbeweging
+          Artillery: Artillerie
+          Conscientious Objection: Gewetensbezwaar
+          Gas Warfare: Gasoorlog
+          Home Front: Thuisfront
+          Manufacture: Vervaardiging
+          Medical: Medisch
+          Military Punishment: Militaire straffen
+          Prisoners of War: Krijgsgevangenen
+          Propaganda: Propaganda
+          Recruitment and Conscription: Werving en Dienstplicht
+          Remembrance: Herinneringen
+          Tanks and Armoured Fighting Vehicles: Tanks en pantservoertuigen
+          Transport: Transport
+          Trench Life: Het leven in de loopgraven
+          Women: Vrouwen
         theatres:
-          Aerial Warfare: 
-          African Wars: 
-          Balkans: 
-          Eastern Front: 
-          Gallipoli Front: 
-          Italian Front: 
-          Middle East: 
-          Naval Warfare: 
-          Western Front: 
+          Aerial Warfare: In het luchtruim
+          African Wars: Afrika
+          Balkans: Balkan landen
+          Eastern Front: Oostfront
+          Gallipoli Front: Gallipolifront
+          Italian Front: Italiaans front
+          Middle East: Midden Oosten
+          Naval Warfare: Op zee
+          Western Front: Westfront
       user:
-        delete_picture: 
-        terms: 
+        delete_picture: Verwijder foto
+        terms: Ik ga akkoord met de voorwaarden
     'no': nee
     required: verplicht
     titles:
       account_details: Log in details
       admin_user: Log in details
       attachment_dates: Wanneer is dit object gemaakt
-      attachment_details: 
+      attachment_details: Beschrijf uw object
       attachment_front: ! 'Op welk front heeft het object betrekking? '
       attachment_keywords: Help anderen uw items te vinden doormiddel van "keywords"
       attachment_location: Waar komt dit object vandaan
       attachment_replace: Vervang bijlage
       attachment_upload: Voeg een bijlage toe
-      cataloguing_metadata: 
-      contact_address: 
-      contact_name: 
-      contact_other: 
-      contribution_attachments: 
-      contribution_terms: 
-      dropbox: 
-      fields: 
-      metadata: 
-      metadata_field_options: 
-      optional_details: 
-      personal_details: 
-      story_basics: 
-      story_character1: 
-      story_character2: 
-      story_characters: 
-      story_dates: 
-      story_forces: 
-      story_front: 
-      story_keywords: 
-      story_location: 
-      submit: 
+      cataloguing_metadata: Bibliografische metadata
+      contact_address: ! 'Adres '
+      contact_name: Naam
+      contact_other: Contactgegevens
+      contribution_attachments: Items
+      contribution_terms: Voorwaarden
+      dropbox: Dropbox
+      fields: Velden
+      metadata: Catalogusinformatie
+      metadata_field_options: Type-specifieke opties
+      optional_details: Overige optionele persoonlijke gegevens
+      personal_details: Persoonlijke gegevens
+      story_basics: Vertel uw verhaal...
+      story_character1: Persoon 1
+      story_character2: Persoon 2
+      story_characters: Vertel ons over wie dit verhaal gaat
+      story_dates: Wanneer vond dit verhaal plaats
+      story_forces: Heeft dit object te maken met
+      story_front: Over welk front gaat dit verhaal
+      story_keywords: Help anderen uw verhaal te vinden door keywords te koppelen.
+      story_location: Waar vond dit verhaal plaats
+      submit: Verzend uw verhaal
     update: Update %{model}
     'yes': Ja
   helpers:
@@ -1055,24 +1055,24 @@ nl:
       labels:
         copy_from_story: Kopieër informatie
       links:
-        copy_from_story: 
+        copy_from_story: Kopieer van het verhaal
     gmap:
       canvas:
-        hide: 
-        hint: 
-        label: 
-        show: 
+        hide: Sluit Google Maps
+        hint: Verplaats het aanduidingsteken naar de locatie die u wilt invullen bij "{{field}}".
+        label: Google Maps
+        show: Gebruik Google Maps
       errors:
-        empty: 
+        empty: Vul het adres in waar u naar wilt zoeken
         present: 
-        unknown: 
+        unknown: Adres niet gevonden
       search:
-        button: 
-        hint: 
-        label: 
+        button: Ga
+        hint: Vul het adres in dat u op de kaart wilt vinden.
+        label: Zoek naar een adres
       static:
-        hide: 
-        show: 
+        hide: Sluit kaart
+        show: Laat zien in Google Maps
     story:
       took-place: ! 'Dit verhaal speelt zich af in:'
     thumbnails:
@@ -1188,14 +1188,14 @@ nl:
     contribution_approval_required: 
     gmap_api_key: 
     google_analytics_key: 
-    max_upload_size: 
+    max_upload_size: Maximale bestandsgrootte
     publish_contributions: 
     registration_required: 
-    relative_url_root: 
-    sharethis_id: 
-    site_name: 
-    ui_locales: 
-    uploadify: 
+    relative_url_root: URL root
+    sharethis_id: ShareThis Publisher id
+    site_name: Naam van de website
+    ui_locales: Beschikbare locales
+    uploadify: Enable Uploadify
   support:
     array:
       last_word_connector: ! ' en '
@@ -1209,7 +1209,7 @@ nl:
       default: ! '%a %d %b %Y %H:%M:%S %Z'
       long: ! '%d %B %Y %H:%M'
       short: ! '%d %b %H:%M'
-      timestamp: 
+      timestamp: ! '%Y-%m-%d %H:%M'
     pm: ! '''s middags'
   views:
     about:
@@ -1251,23 +1251,23 @@ nl:
         heading: ! 'Voorwaarden '
         summary:
           heading: ! 'Europeana voorwaarden: samenvatting'
-          item1: 
-          item2: 
-          item3: 
-          item4: 
-          item5: 
-          p1: 
-          p2: 
-          p3: 
+          item1: het digitale materiaal wat u heeft bijgedragen is vrij van copyright; of
+          item2: ! 'u heeft het recht om dit materiaal te delen; of '
+          item3: ! 'de eigenaar van dit materaal heeft u geautoriseerd om het materiaal onder deze omstandigheden te delen. '
+          item4: ! 'Het materiaal dat u met ons deelt (video, foto''s, dagboeken, plaatjes, audio materiaal etc) mag door anderen gebruikt worden mits zij erkennen dat u de rechten op dit materiaal beheert. Wanneer zij het materiaal aanpassen, zijn ook zij verplicht om anderen het materiaal te laten gebruiken onder dezelfde voorwaarden. '
+          item5: ! 'Om er voor te zorgen dat uw materiaal gevonden kan worden via zoekmachines e.d. geeft u ue materiaal beschrijvingen mee. De beschrijvingen die u meegeeft aan uw materiaal (zoals labels en keywords) zijn vrij om door anderen gebruikt te worden, zonder verdere concequenties. '
+          p1: ! 'Voordat u uw verhalen en objecten kan delen op Europeana, moet u akkoord gaan met de voorwaarden (zie bovenstaande paragraaf). De belangrijkste voorwaarden, en gevolgen van het akkoord gaan, zijn: '
+          p2: <b>U garandeert dat:</b>
+          p3: ! 'Als u het niet eens bent met deze voorwaarden, verzoeken wij u om uw materiaal en beschrijvingen niet met ons te delen. '
         user_contributions:
-          heading: 
-          item1: 
-          item2: 
-          item3: 
-          item4: 
-          item5: 
-          item6: 
-          item7: 
+          heading: Europeana voorwaarden voor gebruikers bijdragen
+          item1: Wachtwoord en inloggen (Artikel 3)
+          item2: Verantwoordelijkheid voor het platorm (Artikel 4)
+          item3: Intellectueel eigendom op deze inhoud (Artikel 5)
+          item4: Intellectuele eigendom op de metadata (Artikel 6)
+          item5: Onterecht gebruik van de service (Artikel 7)
+          item6: Persoonlijke gegevens (privacy) (Artikel 8)
+          item7: Aansprakelijkheid in geval van schade of verlies (Artikel 9)
           p1: 
           p2: 
           p3: 
@@ -1483,10 +1483,10 @@ nl:
     contacts:
       anonymous: Anoniem
       edit:
-        title: 
+        title: Wijzig persoonlijke gegevens
       no_name: Geen naam bekend
       show:
-        title: 
+        title: Contact informatie
     contributions:
       _progress:
         step_x_of_y: Stap %{x} van %{y}
@@ -1521,52 +1521,52 @@ nl:
           save_item_draft: Bewaar tijdelijke opzet
           submit_contribution: Verzend
         links:
-          add_another: 
-          add_item: 
-          edit: 
-          edit_story: 
+          add_another: Voeg een ander object toe
+          add_item: Bijlage toevoegen
+          edit: Wijzig of voeg meer informatie toe
+          edit_story: Bewerk dit verhaal
         options:
-          3d: 
-          artifact: 
-          audio: 
-          back: 
-          book: 
-          canvas: 
-          card: 
-          cc_by_sa: 
-          ceramic: 
-          diary: 
-          digital: 
-          film: 
-          folio: 
-          front: 
-          image: 
-          journal: 
-          leaf: 
-          leather: 
-          letter: 
-          medal: 
-          metal: 
-          mixed: 
-          multiple: 
-          newspaper: 
-          notebook: 
-          other_option: 
-          paper: 
-          photograph: 
-          photographic_paper: 
-          poem: 
-          postcard: 
-          public_domain: 
-          tape: 
-          text: 
-          text_memoir: 
-          text_transcript: 
-          unknown: 
-          video: 
-          vinyl: 
-          vinyl_record: 
-          wood: 
+          3d: 3D
+          artifact: Artifact
+          audio: Audio
+          back: Terug
+          book: Boek
+          canvas: Canvas
+          card: Kaart
+          cc_by_sa: cc-by-sa
+          ceramic: Keramiek/China
+          diary: Dagboek
+          digital: Digitaal
+          film: Film
+          folio: Folio
+          front: Front
+          image: Afbeelding
+          journal: ! 'Dagboek '
+          leaf: Vel
+          leather: Leer
+          letter: Brief
+          medal: Medaille
+          metal: Metaal
+          mixed: Gemixt
+          multiple: Meerdere
+          newspaper: Krant
+          notebook: Notitieboek
+          other_option: Anders
+          paper: Papier
+          photograph: Foto
+          photographic_paper: Fotopapier
+          poem: Gedicht
+          postcard: Ansichtkaart
+          public_domain: Publiek Domein
+          tape: Band
+          text: Tekst
+          text_memoir: ! 'Tekst: memoir'
+          text_transcript: ! 'Tekst: transcript'
+          unknown: Onbekend
+          video: Video
+          vinyl: Vinyl
+          vinyl_record: ! 'Grammofoonplaat '
+          wood: Hout
         step2: Stap 2 - Voeg uw items en bestanden toe
       edit:
         title: Bijdrage
@@ -1628,68 +1628,68 @@ nl:
     contributor:
       dashboard_contributor:
         captions:
-          draft: 
-          submitted: 
+          draft: Tijdelijke versies
+          submitted: Verzonden
         empty:
-          all: 
-          approved: 
-          draft: 
-          submitted: 
+          all: U heeft nog geen verhalen geschreven.
+          approved: U heeft nog geen goedgekeurde verhalen.
+          draft: U heeft geen opgeslagen verhalen op het moment.
+          submitted: U heeft nog geen verhalen toegevoegd.
         headings:
-          contributions: 
+          contributions: Uw verhalen
         links:
-          new: 
-        p1: 
-        title: 
+          new: Voeg een nieuw verhaal toe
+        p1: ! 'Hier beneden staan de verhalen die u al heeft bijgedragen. U kunt ze bewerken of verwijderen. '
+        title: Voeg uw verhaal toe
       dashboard_guest:
-        button_text: 
+        button_text: Ik ben klaar
         headings:
-          finished: 
-        identity: 
+          finished: ! 'Bent u klaar? '
+        identity: (Als u niet %{name} bent, gelieve de "Ik ben klaar" knop te gebruiken.)
         links:
-          edit_contact: 
-          new: 
-        notice: 
-        privacy: 
-        title: 
+          edit_contact: Pas contact gegevens aan
+          new: Nieuwe bijdrage
+        notice: ! '%{name}, u draagt bij als gast. '
+        privacy: Als u klaar bent met uw bijdrage, kunt u de knop beneden gebruiken om uw contactgegevens te wissen. Dit helpt u uw privacy te beschermen als u gebruik maakt van een gedeelde computer.
+        title: Gast dashboard
       guests:
         edit:
-          title: 
+          title: Wijzig gast gegevens
         new:
-          contact_details: 
-          guest: 
+          contact_details: ! 'Anders zouden wij u willen verzoeken ons eerst uw contactgevens te geven:'
+          guest: ! 'U draagt iets bij in een gastrol. '
           links:
-            register: 
-            sign_in: 
-          notice: 
-          title: 
+            register: registreren
+            sign_in: Log in
+          notice: ! 'Als u uw gegevens wilt opslaan en de progressie van uw verhaal wilt bijhouden, %{sign_in} of %{register} u dan eerst voordat u verder gaat. '
+          title: Gast contact informatie
       help:
         adding_your_story:
-          heading: 
-          p1: 
+          heading: Hoe voegt u uw verhaal toe aan Europeana 1914-1918?
+          p1: ! 'U kunt uw verhaal aan onze collectie toevoegen door gebruik te maken van het formulier hier op de website. Het enige wat u hiervoor hoeft te doen is uw object te omschrijven en hierbij uw verhaal toe te voegen. Bij dit verhaal kunt u ter illustratie een digitaal bestand toevoegen zoals bijvoorbeeld een ingescande foto van het object of een PDF of Word bestand van een dagboek. Vervolgens verzendt u uw verhaal en kunnen onze experts ernaar kijken. Als het verhaal dan goedgekeurd is kan iedereen het zien. '
         how_to_use:
-          heading: 
-          item1: 
-          item2: 
-          item3: 
-          item4: 
-          item5: 
-          p1: 
-          p2: 
-        item1: 
-        item2: 
-        item3: 
-        item4: 
-        item5: 
-        p1: 
+          heading: Hoe onze interface werkt
+          item1: ! 'Maak een account aan door u te %{register} of %{sign_in} als u al over een account beschikt. '
+          item2: Voeg informatie toe aan uw bijdrage
+          item3: Optioneel kunt u ook een digitale versie van uw object toevoegen. (Denk hierbij aan een foto, of scans, video, audiomateriaal etc.)
+          item4: Voeg uw bijdrage toe aan ons online archief
+          item5: ! 'Uw bijdrage wordt nagekeken door een van onze experts. Wanneer uw bijdrage bekeken- en geaccepteerd is, word het goedgekeurd. Vanaf dat moment staat uw verhaal online en kan het bekeken worden door anderen. '
+          p1: Om iets aan online archief toe te voegen, moet u eerst %{sign_in} of u %{register}. Wanneer dit gebeurd is, kunt u uw verhaal toevoegen aan Europeana 1914-1918.
+          p2: ! 'Vervolgens verzoeken wij u om de volgende vijf stappen te voltooien. U hoeft proces niet in een keer te doorlopen. U kunt uw verhaal altijd tijdelijk opslaan en later terugkomen om het te voltooien. '
+        item1: Uw verhaal toevoegen aan Europeana 1914-1918 - Zie hieronder
+        item2: ! '%{privacy_policy} – Afzonderlijke pagina (in het Engels)'
+        item3: ! '%{takedown_policy} - Afzonderlijke pagina (in het Engels)'
+        item4: ! '%{contribution_terms} - Afzonderlijke pagina (in het Engels)'
+        item5: ! '%{about_the_project} - Afzonderlijke pagina (in het Engels)'
+        p1: Het project Europeana 1914 – 1918 stelt zich ten doel om verhalen en objecten te verzamelen van en over betrokkenen bij de Eerste Wereldoorlog (1914-1918). Meer informatie over de opzet van het project kunt u vinden onder  %{about} pagina.
       index:
-        item1: 
-        item2: 
-        item3: 
-        item4: 
-        p1: 
+        item1: Vul hier informatie in over uw verhaal.
+        item2: Bewaar uw verhaal als een tijdelijke versie
+        item3: ! 'Voeg meer items toe (plaatjes, tekst documenten, audio, video etc). '
+        item4: ! 'Bevestig dat u de voorwaarden heeft gelezen en hiermee akkoord bent gegaan. En verzend uw bijdrage. '
+        p1: ! 'Wij zijn blij dat u van plan bent om een bijdrage te leveren aan Europeana 1914-1918. Het maken van een bijdrage is een eenvoudig proces. Klik op ''Voeg een nieuw verhaal toe'' om te beginnen. U kunt dan uw bijdrage naar ons toesturen doormiddel van de volgende stappen:'
       registration_required:
-        p1: 
+        p1: ! 'Gelieve naar %{sign_in} te gaan of u te %{register}. Pas dan kunt u uw bijdrage doen aan Europeana 1914-1918. '
     devise:
       passwords:
         edit:
@@ -1738,12 +1738,12 @@ nl:
           dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Objects from the Dresden collection day">Dresden 22 June 2011</a>
           erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objects from the Erfurt collection day">Erfurt 14 June 2011</a>
           frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Objects from the Frankfurt collection day">Frankfurt 31 March 2011</a>
-          kiel_2011_06: 
-          luxembourg_2012_03: 
-          munich_2011_04: 
-          preston_2012_03: 
-          regensburg_2011_07: 
-          stuttgart_2011_04: 
+          kiel_2011_06: <a href="contributions/search?utf8=✓&q=KI13" title="Objects from the Kiel collection day">Kiel 29 juni 2011</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Objects from the Luxembourg collection day">Luxemburg 6 maart 2012</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&q=MU09" title="Objects from the Munich collection day">Munchen 6 april 2011</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Objects from the Preston collection day">Preston 10 maart 2012</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objects from the Regensburg collection day">Regensburg 20 juli 2011</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objects from the Stuttgart collection day">Stuttgart 12 april 2011</a>
         trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Search for ‘Trenches’">Loopgraven</a>
       p1: ! 'Hier kunt u zien wat al eerder door anderen aan de online collectie is toegevoegd. Er komen steeds nieuwe verhalen bij. '
       p2: ! 'Maak gebruik van het zoekvenster bovenaan de website om verhalen of objecten over een bepaald onderwerp te kunnen vinden. U kunt ook door de hele verhalen collectie bladeren. '
@@ -1781,8 +1781,8 @@ nl:
         profile_image: Profiel afbeelding
         profile_photo: Profiel foto
         residence:
-          country: 
-          post_code: 
+          country: ! 'In welk land woont u? '
+          post_code: Postcode
         user_name: Gebruikersnaam
       terms:
         accept: Ik ga akkoord met de %{terms}
