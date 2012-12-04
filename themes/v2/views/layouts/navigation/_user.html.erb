@@ -4,7 +4,7 @@
   <%- end -%>
   <li>  
     <%= form_tag do %>
-      <%= select_tag 'dd_lang', options_for_select([ [ 'Select a language', '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
+      <%= select_tag 'dd_lang', options_for_select([ [ 'Select a language', '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }.sort { |a, b| a.first <=> b.first }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
     <% end %>
   </li>
   <%- if current_user.role.name == 'guest' -%>
