@@ -25,6 +25,9 @@
       <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
     <%- end -%>
     <% if current_user.may_delete_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
+    <%- if current_user.may_view_contribution_status_log?(@contribution) -%>
+      <li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
+    <%- end -%>
     <%- if current_user.may_approve_contributions? && @contribution.pending_approval? %>
       <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
     <%- end %>
