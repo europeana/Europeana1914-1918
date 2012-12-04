@@ -33,7 +33,7 @@
         date_range_value = [ date_from_value, date_to_value ].reject { |fragment| fragment.blank? }.join(' – ')
       -%>
       <%- unless date_range_value.blank? -%>
-        <dt class="translate"><b><%= field.title %></b></dt>
+        <dt class="translate"><b><%= t('field.title') %></b></dt>
         <dd><%= date_range_value %></dd>
       <%- end -%>
     <%- elsif field.name == 'license' -%>
@@ -42,12 +42,12 @@
       <%- end -%>
     <%- elsif field.name == 'contributor_behalf' -%>
       <%- unless (field_value = metadata_record_field_value(metadata, field, true)).blank? -%> 
-        <dt class="translate"><b><%= field.title %></b></dt>
+        <dt class="translate"><b><%= t('field.title') %></b></dt>
         <dd class="translate"><%= link_to field_value, search_contributions_path(:q => field_value) %></dd>
       <%- end -%>
     <%- else -%>
       <%- unless (field_value = metadata_record_field_value(metadata, field, true, true)).blank? -%> 
-        <dt class="translate"><b><%= field.title %></b></dt>
+        <dt class="translate"><b><%= t('field.title') %></b></dt>
         <dd class="translate"><%= raw field_value %></dd>
       <%- end -%>
     <%- end -%>
