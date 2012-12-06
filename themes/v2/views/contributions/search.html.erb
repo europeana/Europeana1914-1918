@@ -36,7 +36,9 @@
         
       </div>
       
-      <div id="results-europeana"></div>
+      <%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
+        <div id="results-europeana"></div>
+      <%- end -%>
       
     </div>
   
