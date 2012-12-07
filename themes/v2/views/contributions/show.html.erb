@@ -21,6 +21,9 @@
       <% end %>
       <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
     <% end %>
+    <%- if current_user.may_create_contribution_attachment?(@contribution) -%>
+      <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
+    <% end %>
     <%- if current_user.may_withdraw_contribution?(@contribution) -%>
       <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
     <%- end -%>
