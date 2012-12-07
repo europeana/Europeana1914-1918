@@ -143,6 +143,7 @@ class ContributionsController < ApplicationController
     else
       @show_errors = true
       flash.now[:alert] = t('flash.contributions.approve.alert')
+      @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
       render :action => 'show'
     end
   end
@@ -156,6 +157,7 @@ class ContributionsController < ApplicationController
     else
       @show_errors = true
       flash.now[:alert] = t('flash.contributions.reject.alert')
+      @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
       render :action => 'show'
     end
   end
