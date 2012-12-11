@@ -203,7 +203,7 @@ RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
 RunCoCo.gaId = '<%= configuration(:google_analytics_key) %>';
 <% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
 <% if @javascripts[:translate] %>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end %>
-<% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
+<% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title.gsub("'", "\\\\'") %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
 <% if @javascripts[:uploadify] && configuration(:uploadify) -%>
 RunCoCo.uploadify_settings = { maxUploadSize: <%= configuration(:max_upload_size) %>, fileExt: '<%= uploadify_file_extensions %>', fileDesc: '<%= uploadify_file_desc %>', script: '<%= contribution_attachments_path(@contribution) %>' };
 RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';

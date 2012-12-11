@@ -124,7 +124,7 @@
 <%= javascript_tag do -%>
   if ( !window.RunCoCo ) { window.RunCoCo = {}; }
   RunCoCo.contribution = {
-    title: '<%= attachment.contribution.title %>',
+    title: '<%= attachment.contribution.title.gsub("'", "\\\\'") %>',
     metadata: <%= raw metadata_json(attachment.contribution) %>
   };
 <% end -%>
