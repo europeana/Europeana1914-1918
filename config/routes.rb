@@ -118,6 +118,9 @@ RunCoCo::Application.routes.draw do
   # Suggest search index words for auto-complete
   match 'suggest' => 'search_suggestions#query', :as => 'suggest'
   
+  # OAI:PMH provider
+  match 'oai' => 'oai#index', :as => 'oai'
+  
   # Home page with locale, e.g. /en, /de
   match '/:locale' => "pages#show", :as => 'home'
   
