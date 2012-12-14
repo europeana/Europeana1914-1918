@@ -325,6 +325,9 @@ class Contribution < ActiveRecord::Base
           xml.tag!('oai_dc:language', lang)
         end
       end
+      unless metadata.fields['lang_other'].blank?
+        xml.tag!('oai_dc:language', metadata.fields['lang_other'])
+      end
       unless metadata.fields['keywords'].blank?
         metadata.fields['keywords'].each do |keyword|
           xml.tag!('oai_dc:subject', keyword)
