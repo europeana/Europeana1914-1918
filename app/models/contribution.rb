@@ -315,9 +315,6 @@ class Contribution < ActiveRecord::Base
       unless metadata.fields['description'].blank?
         xml.tag!('oai_dc:description', metadata.fields['description'])
       end
-      unless (creator = Contact.full_name(metadata.fields['creator_given_name'], metadata.fields['creator_family_name'])).blank?
-        xml.tag!('oai_dc:creator', creator)
-      end
       if metadata.fields['contributor_behalf'].present?
         xml.tag!('oai_dc:contributor', metadata.fields['contributor_behalf'])
       else
