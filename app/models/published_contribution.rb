@@ -12,13 +12,10 @@ class PublishedContribution < Contribution
   def to_oai_dc
     xml = Builder::XmlMarkup.new
     xml.tag!("oai_dc:dc",
-     'xmlns:oai_dc' => "http://www.openarchives.org/OAI/2.0/oai_dc/",
-     'xmlns:dc' => "http://purl.org/dc/elements/1.1/",
-     'xmlns:dcterms' => "http://purl.org/dc/terms/",
-     'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
-     'xsi:schemaLocation' =>
-        %{http://www.openarchives.org/OAI/2.0/oai_dc/
-          http://www.openarchives.org/OAI/2.0/oai_dc.xsd}) do
+     OAI::Provider::Metadata::DublinCore.instance.header_specification.merge(
+      { 'xmlns:dcterms' => "http://purl.org/dc/terms/" }
+     )
+    ) do
       xml.tag!('oai_dc:title', title)
       unless metadata.fields['description'].blank?
         xml.tag!('oai_dc:description', metadata.fields['description'])
@@ -73,10 +70,12 @@ class PublishedContribution < Contribution
   #
   # @see OaiProvider
   #
-  def to_oai_europeana
+  def to_oai_europeana19141918
     Rails.application.routes.default_url_options[:locale] ||= Rails.configuration.i18n.default_locale
     xml = Builder::XmlMarkup.new
-    xml.tag!("oai_europeana") do
+    xml.tag!("oai_europeana19141918:europeana19141918",
+      OAI::Provider::Metadata::Europeana19141918.instance.header_specification
+    ) do
       c = self
       @metadata_fields = MetadataField.all.collect { |mf| mf.name }
       builder_file = File.read(File.join(::Rails.root.to_s, 'app', 'views', 'contributions', '_contribution.xml.builder'))
