@@ -11,7 +11,7 @@ class PublishedContribution < Contribution
   #
   def to_oai_dc
     xml = Builder::XmlMarkup.new
-    xml.tag!('oai_dc:dc'
+    xml.tag!('oai_dc:dc', 
      OAI::Provider::Metadata::DublinCore.instance.header_specification.merge(
       { 'xmlns:dcterms' => "http://purl.org/dc/terms/" }
      )
