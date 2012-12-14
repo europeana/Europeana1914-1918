@@ -2,7 +2,7 @@ class OaiController < ApplicationController
   def index
     # Init provider config from request
     OaiProvider.url = oai_url(:locale => nil)
-    OaiProvider.prefix = 'oai:' + request.domain
+    OaiProvider.prefix = 'oai:' + request.host
     
     # Remove controller and action from the options.  Rails adds them automatically.
     options = params.delete_if { |k,v| %w{controller action}.include?(k) }
