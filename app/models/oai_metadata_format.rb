@@ -7,7 +7,7 @@ class OaiMetadataFormat < OAI::Provider::Metadata::Format
   def initialize
     # @todo Remove this and always use www.europeana1914-1918.eu when
     #   schema is published to that host.
-    if (schema_host = Rails.application.config.action_mailer.default_url_options[:host]).present?
+    if (schema_host = Rails.application.config.action_mailer.default_url_options[:host].clone).present?
       if (schema_port = Rails.application.config.action_mailer.default_url_options[:port]).present?
         schema_host << ":#{schema_port}" 
       end
