@@ -5,6 +5,20 @@ class PublishedContribution < Contribution
   default_scope where(:current_status => ContributionStatus.published)
   
   ##
+  # Returns the OAI sets supported
+  #
+  def self.sets
+    unless @sets.present?
+      story_set = OAI::Set.new
+      story_set.name = 'Stories'
+      story_set.spec = 'story'
+      story_set.description = 'Stories contributed to Europeana 1914-1918'
+      @sets = [ story_set ]
+    end
+    @sets
+  end
+  
+  ##
   # Outputs metadata record for OAI Dublin Core
   #
   # @see OaiProvider
@@ -74,7 +88,7 @@ class PublishedContribution < Contribution
     Rails.application.routes.default_url_options[:locale] ||= Rails.configuration.i18n.default_locale
     xml = Builder::XmlMarkup.new
     xml.tag!("oai_europeana19141918:europeana19141918",
-      OAI::Provider::Metadata::Europeana19141918.instance.header_specification
+      OaiMetadataFormat.instance.header_specification
     ) do
       c = self
       @metadata_fields = MetadataField.all.collect { |mf| mf.name }
