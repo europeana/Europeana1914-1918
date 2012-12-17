@@ -19,6 +19,13 @@ class PublishedContribution < Contribution
   end
   
   ##
+  # Returns the OAI sets this contribution belongs to
+  #
+  def sets
+    self.class.sets
+  end
+  
+  ##
   # Outputs metadata record for OAI Dublin Core
   #
   # @see OaiProvider
