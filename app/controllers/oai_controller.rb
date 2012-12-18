@@ -4,6 +4,9 @@ class OaiController < ApplicationController
     OaiProvider.url = oai_url(:locale => nil)
     OaiProvider.prefix = 'oai:' + request.host
     
+    # Log request
+    RunCoCo.oai_logger.info("OAI-PMH provider request from IP #{request.ip}: #{request.request_uri}")
+    
     # Remove controller and action from the options.  Rails adds them automatically.
     options = params.delete_if { |k,v| %w{controller action}.include?(k) }
     provider = OaiProvider.new

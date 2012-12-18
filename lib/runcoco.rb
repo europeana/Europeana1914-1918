@@ -40,12 +40,23 @@ module RunCoCo
     ##
     # Returns the export logger.
     #
-    # Error log file will be $RAILS_ROOT/log/$RAILS_ENV.export.log,
+    # Export log file will be $RAILS_ROOT/log/$RAILS_ENV.export.log,
     # for example "/var/www/runcoco/log/production.export.log".
     #
     # @return [RunCoCo::Logger]
     def export_logger
       @export_logger ||= RunCoCo::Logger.new('export')
+    end
+    
+    ##
+    # Returns the OAI-PMH provider logger.
+    #
+    # Export log file will be $RAILS_ROOT/log/$RAILS_ENV.oai.log,
+    # for example "/var/www/runcoco/log/production.oai.log".
+    #
+    # @return [RunCoCo::Logger]
+    def oai_logger
+      @export_logger ||= RunCoCo::Logger.new('oai')
     end
   end
 end
