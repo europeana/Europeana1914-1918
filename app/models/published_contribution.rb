@@ -12,7 +12,6 @@ class PublishedContribution < Contribution
       story_set = OAI::Set.new
       story_set.name = 'Stories'
       story_set.spec = 'story'
-      story_set.description = 'Stories contributed to Europeana 1914-1918'
       @sets = [ story_set ]
     end
     @sets
