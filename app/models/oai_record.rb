@@ -1,4 +1,4 @@
-class PublishedContribution < Contribution
+class OAIRecord < Contribution
   include ContributionsHelper
   include Rails.application.routes.url_helpers
 
@@ -9,10 +9,7 @@ class PublishedContribution < Contribution
   #
   def self.sets
     unless @sets.present?
-      story_set = OAI::Set.new
-      story_set.name = 'Stories'
-      story_set.spec = 'story'
-      @sets = [ story_set ]
+      @sets = [ Europeana::OAI::Set.new ]
     end
     @sets
   end
@@ -94,7 +91,7 @@ class PublishedContribution < Contribution
     Rails.application.routes.default_url_options[:locale] ||= Rails.configuration.i18n.default_locale
     xml = Builder::XmlMarkup.new
     xml.tag!("oai_europeana19141918:europeana19141918",
-      OaiMetadataFormat.instance.header_specification
+      Europeana::OAI::MetadataFormat.instance.header_specification
     ) do
       c = self
       @metadata_fields = MetadataField.all.collect { |mf| mf.name }
