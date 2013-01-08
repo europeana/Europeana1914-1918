@@ -345,7 +345,6 @@ class ApplicationController < ActionController::Base
     
     if fragment_exist?(bing_cache_key)
       translations = YAML::load(read_fragment(bing_cache_key))
-#      logger.debug("Cached translations: #{translations.inspect}")
       if translations.is_a?(Hash) && translations.keys == I18n.available_locales
         return translations
       end
@@ -357,12 +356,17 @@ class ApplicationController < ActionController::Base
     logger.debug("Using Bing Translate API to translate \"#{query}\" from #{from_locale}...")
     translations = { from_locale => query }
     
-    other_locales = I18n.available_locales.reject { |locale| locale == from_locale }
-    other_locales.each do |locale|
-      translations[locale] = translator.translate(query, :to => locale)
-      logger.debug("... to #{locale} => \"#{translations[locale]}\"")
+    begin
+      other_locales = I18n.available_locales.reject { |locale| locale == from_locale }
+      other_locales.each do |locale|
+        translations[locale] = translator.translate(query, :to => locale)
+        logger.debug("... to #{locale} => \"#{translations[locale]}\"")
+      end
+      write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)    
+    rescue Exception => exception
+      RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
     end
-    write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
+    
     translations
   end
   
