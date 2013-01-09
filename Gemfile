@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.12'
+gem 'rails', '3.0.19'
 
 gem 'aegis', '~> 2.5.0'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
