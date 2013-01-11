@@ -1,6 +1,8 @@
+/*global RunCoCo, jQuery, I18n, com, js */
+/*jslint browser: true, continue: true, white: true */
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-08 10:47 gmt +1
+ *	@version 2013-01-11 13:29 gmt +1
  */
 (function() {
 	
@@ -49,6 +51,8 @@
 			// set the translator’s to locale value
 			self.to_locale = jQuery(this).val();
 			if ( self.to_locale.length < 1 ) { return; }
+			
+			com.google.analytics.trackEvent( 'Object description translations', self.to_locale, window.location.href.replace('www.','') );
 			RunCoCo.translation_services[translator].options.to_locale = self.to_locale;
 			
 			self.addReturnToOriginal();
@@ -140,7 +144,7 @@
 				
 				self.applyTranslation( self.text_nodes[i], self.source_text[i] );
 				
-			};
+			}
 			
 			jQuery('#microsoft-translate-element select').val('');
 			self.links.$return_to_original.fadeOut();
@@ -219,7 +223,7 @@
 							
 						};
 				
-				})();
+				}());
 			
 			}			
 			
