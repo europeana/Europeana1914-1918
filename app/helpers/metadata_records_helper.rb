@@ -60,8 +60,6 @@ module MetadataRecordsHelper
 #          :class => 'gmap-static'
 #        )
 #      )
-      when 'text'
-        content_tag(:div, value, :class => 'metadata-text')
       when 'date'
         if fmt_date
           year, month, day = value.split('-')
