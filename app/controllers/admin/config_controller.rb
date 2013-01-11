@@ -12,7 +12,7 @@ class Admin::ConfigController < AdminController
   # PUT /admin/config  
   def update
     settings = process_from_form(params[:settings])
-    @config = RunCoCo::Configuration.new
+    @config = RunCoCo.configuration
     
     settings.each_pair do |key, value|
       name = key.to_sym

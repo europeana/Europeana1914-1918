@@ -37,6 +37,7 @@ module RunCoCo
   #
   class Configuration
     include ActiveModel::Validations
+    include Singleton
     
     DEFAULTS = {
       :site_name => 'Run a Community Collection',

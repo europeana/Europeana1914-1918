@@ -23,7 +23,7 @@ module RunCoCo
     #
     # @return [RunCoCo::Configuration]
     def configuration
-      @configuration ||= RunCoCo::Configuration.new
+      Configuration.instance
     end
 
     ##
