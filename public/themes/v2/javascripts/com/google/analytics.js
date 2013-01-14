@@ -1,25 +1,12 @@
+/*jslint browser: true, white: true, nomen: true */
+/*global _gaq, com, google, js, RunCoCo */
 /**
  *  analytics.js
  *
  *  @package	com.google
  *  @author		dan entous <contact@gmtplusone.com>
- *  @created	2011-09-15 17:27 GMT +1
- *  @version	2011-09-15 17:27 GMT +1
- */
-/**
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+ *  @created	2011-09-15 17:27 gmt +1
+ *  @version	2012-01-14 12:06 gmt +1
  */
 (function() {
 	
@@ -73,15 +60,12 @@
 		},
 		
 		
-		createAnalyticsArray : function() {
+		loadApi : function() {
 			
-			if ( window._gaq ) {
-				
-				throw new Error( 'window._gaq already exists' );
-				
-			}
-			
-			window._gaq = [];
+			js.loader.loadScripts([{
+				file : 'ga.js',
+				path : ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/'
+			}]);
 			
 		},
 		
@@ -94,12 +78,15 @@
 		},
 		
 		
-		loadApi : function() {
+		createAnalyticsArray : function() {
 			
-			js.loader.loadScripts([{
-				file : 'ga.js',
-				path : ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/'
-			}]);
+			if ( window._gaq ) {
+				
+				throw new Error( 'window._gaq already exists' );
+				
+			}
+			
+			window._gaq = [];
 			
 		},
 		
