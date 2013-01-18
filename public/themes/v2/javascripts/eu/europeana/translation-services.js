@@ -52,7 +52,7 @@
 			self.to_locale = jQuery(this).val();
 			if ( self.to_locale.length < 1 ) { return; }
 			
-			com.google.analytics.trackEvent( 'Object description translations', self.to_locale, window.location.href.replace('www.','') );
+			//com.google.analytics.trackEvent( 'Object description translations', self.to_locale, window.location.href.replace('www.','') );
 			RunCoCo.translation_services[translator].options.to_locale = self.to_locale;
 			
 			self.addReturnToOriginal();
