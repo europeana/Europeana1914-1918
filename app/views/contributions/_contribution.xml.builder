@@ -41,7 +41,7 @@
     end
     
     item_pos = titleless_items = 0
-    c.attachments.each do |a|
+    c.attachments.reject { |a| a.file_file_name.nil? }.each do |a|
       item_pos = item_pos + 1
       
       xml.oai_europeana19141918 :record do
