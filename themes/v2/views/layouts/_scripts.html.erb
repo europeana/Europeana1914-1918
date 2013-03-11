@@ -86,6 +86,12 @@
 		)
 	end
 	
+	if @javascripts[:pdf]
+	  script_files.push(
+	    '/themes/v2/javascripts/com/github/mozilla/pdf.js/pdf.js'
+	  )
+  end
+	
 	if @javascripts[:readmore]
 		script_files.push(
 			'/themes/v2/javascripts/com/gmtplusone/readmore.js'
@@ -188,7 +194,6 @@
 			'/themes/v2/javascripts/eu/europeana/search.js'
 		)
 	end
-	
 	
 	# share-this
 	remote_scripts.push(

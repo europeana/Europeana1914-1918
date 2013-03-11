@@ -8,6 +8,9 @@
   @javascripts[:lightbox] = true
   @javascripts[:translate] = true
   @javascripts[:contributions_show] = true
+  if @contribution.attachments.select { |a| a.file_content_type == 'application/pdf' }.present?
+    @javascripts[:pdf] = true
+  end
   @title = contribution_title(@contribution)
   
 %>
