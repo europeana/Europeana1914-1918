@@ -56,7 +56,7 @@ class Attachment < ActiveRecord::Base
   has_attached_file :file,
     :path => ':env_file_root/:access_dir/:class/:id/:contribution_id.:id.:style.:extension',
     :url => "/:class/:id/:contribution_id.:id.:style.:extension",
-    :styles => { :thumb => "100x100>", :preview => "160x120>", :medium => "400x400>", :large => "1024x768>" }
+    :styles => { :thumb => [ "100x100>", :jpg ], :preview => [ "160x120>", :jpg ], :medium => [ "400x400>", :jpg ], :large => [ "1024x768>", :jpg ] }
 
   # TODO: Does this need to cope with new file uploaded at same time?
   before_save :relocate_files, :if => Proc.new { |a| a.public_changed? }, :unless => Proc.new { |a| a.new_record? }
@@ -67,7 +67,7 @@ class Attachment < ActiveRecord::Base
   
   # Paperclip's built-in post-processing for thumbnails should only
   # be run for images.
-  before_post_process :image?
+  before_post_process :make_thumbnails?
 
   validates_associated :metadata
   validates_presence_of :contribution_id
@@ -84,9 +84,17 @@ class Attachment < ActiveRecord::Base
   # User and session dependent, so handled by controller logic.
   attr_accessor :dropbox_path
 
+  def make_thumbnails?
+    image? || file.content_type == 'application/pdf'
+  end
+
   # Returns true if the attached file is an image.
   def image?
     !(file.content_type =~ /^image.*/).nil?
+  end
+  
+  def has_thumbnail?(size)
+    make_thumbnails? && File.exists?(file.path(size))
   end
   
   def set_public

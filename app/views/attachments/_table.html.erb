@@ -31,7 +31,7 @@ end
         <tr>
           <td>
             <%- if attachment.file.present? -%>
-              <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
+              <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.has_thumbnail?(:preview) ? "prettyPhoto[gal]" : nil) %>
             <% else %>
               <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
             <%- end -%>
