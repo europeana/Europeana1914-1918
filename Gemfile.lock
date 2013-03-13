@@ -4,15 +4,6 @@ GIT
   specs:
     spawn (1.0.1)
 
-PATH
-  remote: vendor/gems/paperclip-2.3.16
-  specs:
-    paperclip (2.3.16)
-      activerecord (>= 2.3.0)
-      activesupport (>= 2.3.2)
-      cocaine (>= 0.0.2)
-      mime-types
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -50,10 +41,7 @@ GEM
       json (~> 1.7.3)
       nokogiri (~> 1.5.0)
     builder (2.1.2)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.1)
-      climate_control (>= 0.0.3, < 1.0)
+    cocaine (0.3.2)
     curb (0.7.18)
     daemons (1.1.9)
     devise (1.1.9)
@@ -108,6 +96,11 @@ GEM
       builder (>= 2.0.0)
       faraday
       faraday_middleware
+    paperclip (2.7.5)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (~> 0.3.0)
+      mime-types
     polyglot (0.3.3)
     rack (1.2.6)
     rack-mount (0.6.14)
@@ -174,7 +167,7 @@ DEPENDENCIES
   mime-types (= 1.16)
   mysql2 (~> 0.2.0)
   oai (~> 0.3.0)
-  paperclip (~> 2.3.0)!
+  paperclip (= 2.7.5)
   rails (= 3.0.19)
   sax-machine (~> 0.1.0)
   smurf (~> 1.0.0)
