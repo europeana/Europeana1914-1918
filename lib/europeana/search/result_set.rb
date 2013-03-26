@@ -19,7 +19,7 @@ module Europeana
       attr_accessor :feed_url
 
       def self.able_to_parse?(xml) #:nodoc:
-        (/\<rss/ =~ xml) && xml.match('<link>http://api.europeana.eu/api/opensearch.rss').present?
+        (/\<rss/ =~ xml) && xml.match('<link>(http://europeana.eu|http://api.europeana.eu/api/opensearch.rss)').present?
       end
       
       ##
