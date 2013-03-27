@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.19'
 
 gem 'aegis', '~> 2.5.0'
+gem 'cocaine', '~> 0.3.2'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
 gem 'bing_translator', '~> 3.0.0'
 gem 'devise', '~> 1.1.0'
