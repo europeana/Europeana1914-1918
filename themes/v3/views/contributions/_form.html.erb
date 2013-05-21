@@ -1,0 +1,81 @@
+<%
+  @javascripts[:collapsible] = true
+  @javascripts[:language_other] = true
+  @javascripts[:gmap_locate] = true
+%>
+
+<%= semantic_form_for contribution do |form| %>
+  
+  <p><%= t('views.contributions.story.help_text.sections') %></p>
+  
+  <%= form.inputs :story_basics, :class => 'collapsible' do %>
+    <%= form.input :title %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'description', 'summary', 'lang', 'lang_other', 'contributor_behalf' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <fieldset class="<%= @fieldset_class %>" id='story-characters'>
+    <legend><%= t 'formtastic.titles.story_characters' %></legend>
+    <p><%= t('views.contributions.story.labels.people') %></p>
+    <%= form.inputs :story_character1 do %>
+      <%= form.semantic_fields_for :metadata do |metadata| %>
+         <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'character1_given_name', 'character1_family_name', 'character1_pob', 'character1_dob', 'character1_pod', 'character1_dod' ], :cataloguing => false, :contribution => true } } %>
+      <% end %>
+    <% end %>
+    <%= form.inputs :story_character2 do %>
+      <%= form.semantic_fields_for :metadata do |metadata| %>
+         <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'character2_given_name', 'character2_family_name', 'character2_pob', 'character2_dob', 'character2_pod', 'character2_dod' ], :cataloguing => false, :contribution => true } } %>
+      <% end %>
+    <% end %>
+  </fieldset>
+  
+  <%= form.inputs :story_dates, :class => @fieldset_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%= form.inputs :story_location, :class => @fieldset_class, :id => 'story_location' do %>
+    
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'location_placename', 'location_map', 'location_zoom' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+    
+  <% end %>
+  
+  <%= form.inputs :story_keywords, :class => @fieldset_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%= form.inputs :story_front, :class => @fieldset_class do %>
+    <%= form.semantic_fields_for :metadata do |metadata| %>
+       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :contribution => true } } %>
+    <% end %>
+  <% end %>
+  
+  <%#= form.inputs :story_forces, :class => @fieldset_class do %>
+    <%#= form.semantic_fields_for :metadata do |metadata| %>
+       <%#= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'forces' ], :cataloguing => false, :contribution => true } } %>
+    <%# end %>
+  <%# end %>
+  
+  <%- if current_user.may_catalogue_contributions? -%>
+    <%= form.inputs :cataloguing_metadata, :class => @fieldset_class do %>
+      <%= form.semantic_fields_for :metadata do |metadata| %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'alternative', 'editor_pick', 'editor_pick_text', 'editor_pick_sig' ], :cataloguing => true, :contribution => true } } %>
+        <%= form.input :catalogued_by, :as => :select, :input_html => { :multiple => false }, :collection => cataloguing_users, :member_label => Proc.new { |cataloguer| cataloguer.contact.full_name }, :label => t('activerecord.attributes.contribution.cataloguer') %>
+        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :contribution, :field_options => { :name => [ 'collection_day', 'notes', 'ticket', 'forces' ], :cataloguing => true, :contribution => true } } %>
+      <% end %>
+    <% end %>
+  <%- end -%>
+  
+  <%= form.buttons do %>
+    <li><%= redirect_field %></li>
+    <%= form.commit_button :label => ((form.object.draft? || form.object.new_record?) ? t('formtastic.actions.contribution.save_draft') : t('formtastic.actions.contribution.update')) %>
+    <%= link_to t('actions.cancel'), contributor_dashboard_path %>
+    <li><%= t('views.contributions.story.help_text.save_story') %></li>
+  <% end %>
+<% end %>

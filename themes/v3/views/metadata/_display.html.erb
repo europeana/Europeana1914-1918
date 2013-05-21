@@ -1,0 +1,56 @@
+<%
+  # options recognised by this partial when passed in the :locals hash:
+  #
+  # * :show_title   whether or not to show the metadata title
+  #
+  
+  show_errors = false if local_assigns[:show_errors].nil?
+  field_options = {} if local_assigns[:field_options].nil?
+  show_title = true if local_assigns[:show_title].nil?
+  fields = metadata_record_fields(field_options)
+  geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
+  date_to_field = fields.select { |f| f.name == 'date_to' }.first
+  fields.delete(date_to_field)
+  field_name_translate_base = 'formtastic.labels.' + (metadata.for_contribution? ? 'contribution' : 'attachment' ) + '.metadata.'
+  
+  if geo_field
+    @javascripts[:gmap_display] = true
+  end
+-%>
+<% if show_title -%>
+  <dt class="translate"><b><%= t('attributes.title') %>:</b></dt>
+  <dd class="translate"><%= contribution_title(contribution) %></dd>
+<% end -%>
+<% unless fields.blank? || metadata.blank? -%>
+  <%- fields.each do |field| -%>
+    <%- if [ 'location_zoom', 'location_placename', 'location_map' ].include?(field.name) -%>
+      <%- unless metadata['field_' + field.name].blank? -%>
+        <dd><input type="hidden" id="<%= field.name.gsub('_','-') %>" value="<%= metadata['field_' + field.name] %>" /></dd>
+      <%- end -%>
+    <%- elsif field.name == 'date_from' -%>
+      <%- 
+        date_from_value = metadata_record_field_value(metadata, field, true)
+        date_to_value = metadata_record_field_value(metadata, date_to_field, true)
+        date_range_value = [ date_from_value, date_to_value ].reject { |fragment| fragment.blank? }.join(' – ')
+      -%>
+      <%- unless date_range_value.blank? -%>
+        <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
+        <dd><%= date_range_value %></dd>
+      <%- end -%>
+    <%- elsif field.name == 'license' -%>
+      <%- unless (field_value = metadata_record_field_value(metadata, field, true)).blank? -%>
+        <dd class="metadata-license"><%= field_value %></dd>
+      <%- end -%>
+    <%- elsif field.name == 'contributor_behalf' -%>
+      <%- unless (field_value = metadata_record_field_value(metadata, field, true)).blank? -%> 
+        <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
+        <dd class="translate"><%= link_to field_value, search_contributions_path(:q => field_value) %></dd>
+      <%- end -%>
+    <%- else -%>
+      <%- unless (field_value = metadata_record_field_value(metadata, field, true, true)).blank? -%> 
+        <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
+        <dd class="translate"><%= raw field_value %></dd>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+<% end -%>
