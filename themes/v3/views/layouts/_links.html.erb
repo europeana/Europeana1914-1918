@@ -23,6 +23,8 @@ stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/portlet.css"
     <%= stylesheet_link_tag sources, :media => media, :cache => '/cache/stylesheets/' + asset_bundle_id(sources) %>
   <%- end -%>
 <% end -%>
+
 <!--[if lt IE 9]><%= stylesheet_link_tag "/themes/#{session[:theme]}/stylesheets/ie.css", :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id("/themes/#{session[:theme]}/stylesheets/ie.css") %><![endif]-->
 <noscript><%= stylesheet_link_tag "/themes/#{session[:theme]}/stylesheets/noscript.css", :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id("/themes/#{session[:theme]}/stylesheets/noscript.css") %></noscript>
-<script src="/themes/#{session[:theme]}/javascripts/com/scottjehl/respond.min.js"></script>
+
+<script src="/themes/<%=session[:theme]%>/javascripts/com/scottjehl/respond.min.js"></script>
