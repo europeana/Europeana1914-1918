@@ -98,13 +98,13 @@ nano config/initializers/secret_token.rb
 
 RunCoCo::Application.config.secret_token = 'a secret token for rails that contains at least 30 characters'
 
-
-
-
+# start server
 
 rails server
 
+# or
 
+rails s
 
 
 #_____________________________
@@ -148,6 +148,40 @@ mysql cococo < Downloads/2012-04-23-cococo.sql
 username: [db password]
 password: [db username]
 socket: [mysql.sock location - /tmp/mysqld.sock on Mac]
+
+
+
+#_____________________________
+#
+#  Project Theme Setup
+#_____________________________
+#
+
+(1)	copy everything under:
+		public/themes/v2 
+	to:
+		public/themes/v_new_theme
+
+
+(2)	copy everything under:
+  		themes/v2 
+	to:
+  		themes/v_new_theme
+
+
+(3) Text replace "v2" with "v_new_theme" in the following files:
+
+	themes/v3/views/contributions/_search-results.html.erb			
+	themes/v3/views/layouts/_footer.html.erb
+	themes/v3/views/layouts/_header.html.erb
+	themes/v3/views/layouts/_links.html.erb
+	themes/v3/views/layouts/_scripts.html.erb
+
+
+(4) NOTE: if you base your theme on v3 rather than v2 then step 3 is not needed.
+
+
+
 
 
 
