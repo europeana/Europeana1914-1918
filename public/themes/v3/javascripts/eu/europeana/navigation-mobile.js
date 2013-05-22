@@ -82,15 +82,17 @@
 		
 		createMobileMenu : function() {
 			
+	
 			this.$navigation_mobile
-				.append( jQuery('<ul>', { 'class' : 'menu' }).append( this.$navigation_user.find('li').clone() ) )
-				.append( jQuery('<ul>', { 'class' : 'menu' }).append(this.$navigation_main.find('li').clone() ) )
-				.append( jQuery('<ul>', { 'class' : 'menu' }).append(this.$navigation_user_menu.find('li').clone() ) )
+				.append( jQuery('<ul>', { 'class' : 'menu' }).append(	this.$navigation_user.find('li').clone() ) )
+				.append( jQuery('<ul>', { 'class' : 'menu' }).append(	this.$navigation_main.find('li').clone() ) )
+				.append( jQuery('<ul>', { 'class' : 'menu' }).append(	this.$navigation_user_menu.find('li').clone() ) )
 				.on('click', { self : this }, this.handleClick);
 			
-			jQuery('body').prepend( this.$navigation_mobile );
+			$('#header').prepend( this.$navigation_mobile );
 			
 		},
+		
 		
 		
 		init : function() {

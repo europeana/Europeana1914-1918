@@ -666,7 +666,7 @@
 	(function() {
 		
 		truncate.init();
-		RunCoCo.translation_services.init( jQuery('#story-metadata') );
+		RunCoCo.translation_services.init( jQuery('.nav-top') );
 		carousels.init();
 		map.init();
 		lightbox.init();

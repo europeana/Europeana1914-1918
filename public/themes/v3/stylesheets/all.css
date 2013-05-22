@@ -9,13 +9,13 @@
 		font-weight: 400;
 		line-height: 140%;
 		color: #333;
-		background-color: #dadada;
+		background-color: #fff;
 	}
 	
 	body {
 		overflow-y: scroll;
 		margin: 0 auto;
-		padding: 2%;
+		padding: 0 2%;
 		background-color: #fff;
 	}
 	
@@ -302,18 +302,18 @@
  */
 
 	#header {
-		height: 151px;
 		border-bottom: 1px solid #dadada;
 	}
 	
 	
 	#logo a {
-		display: block;
-		width: 263px;
-		height: 140px;
-		background-image: url('/themes/v2/images/logos/eew-logo-landscape.png');
-		background-repeat: no-repeat;
-		background-position: 0 0;
+		display:				block;
+		width:					263px;
+		height:					140px;
+		margin-top:				0.75em;
+		background-image:		url('../images/logos/eew-logo-landscape.png');
+		background-repeat:		no-repeat;
+		background-position:	0 0;
 	}
 	
 	#navigation-mobile {
@@ -337,34 +337,34 @@
  */
 	
 	.menu a {
-		padding: 3px 10px;
-		border-left: 1px solid #dadada;
-		text-decoration: none;
-		font-size: 100%;
-		font-weight: bold;
-		color: #000;
-		-webkit-transition: none;
-		-moz-transition: none;
-		-ms-transition: none;
-		-o-transition: none;
-		transition: none;
+		padding: 0.2em 0.7em;
+		text-decoration:	none;
+		font-size:			100%;
+		font-weight:		bold;
+		color:				#FFF;
+		
+		-webkit-transition:	none;
+		-moz-transition:	none;
+		-ms-transition:		none;
+		-o-transition:		none;
+		transition:			none;
 	}
 	
 	.menu a.selected {
-		color: #f5f5f5;
-		background: #333333;
-		background: -moz-linear-gradient(top, #333333 0%, #010101 100%);
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#010101));
-		background: -webkit-linear-gradient(top, #333333 0%,#010101 100%);
-		background: -o-linear-gradient(top, #333333 0%,#010101 100%);
-		background: -ms-linear-gradient(top, #333333 0%,#010101 100%);
-		background: linear-gradient(top, #333333 0%,#010101 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#010101',GradientType=0 );
+		color:			green;
+		background:		#FFF;
+		background:		-moz-linear-gradient(top, #EAEAEA 0%, #FFFFFF 100%);
+		background:		-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EAEAEA), color-stop(100%,#FFFFFF));
+		background:		-webkit-linear-gradient(top, #EAEAEA 0%,#FFFFFF 100%);
+		background:		-o-linear-gradient(top, #EAEAEA 0%,#FFFFFF 100%);
+		background:		-ms-linear-gradient(top, #EAEAEA 0%,#FFFFFF 100%);
+		background:		linear-gradient(top, #EAEAEA 0%,#FFFFFF 100%);
+		filter:			progid:DXImageTransform.Microsoft.gradient( startColorstr='#EAEAEA', endColorstr='#FFFFFF',GradientType=0 );
 	}
 	
 	.menu a:hover {
-		background-color: #eaeaea;
-		color: #000;
+		background-color:	#EAEAEA;
+		color:				green;
 	}
 	
 	.menu a.selected:hover {
@@ -694,22 +694,25 @@
 			text-align: right;
 		}
 		
+		
 		#translation-services {
-			position: relative;
-			font-size: 80%;
-			padding: 3% 3% 3% 0;
+			font-size:	80%;
+			float:		right;
 		}
 		
 		#translation-services img {
-			display: none;
-			position: absolute;
-			left: 240px;
-			top: 20px;
+			display:	none;
 		}
 		
 		#microsoft-translate-element select {
-			display: block;
+			display:	inline-block;
 		}
+		
+		#microsoft-translate-element>span{
+			float:			right;
+			margin-left:	1em;
+		}
+		
 
 
 /**
@@ -941,7 +944,7 @@
 	body {
 		font-size: 90%;
 		max-width: 1200px;
-		padding: 2% 5%;
+		padding: 0 5%;
 	}
 	
 
@@ -1008,13 +1011,15 @@
 	/**
 	 *	navigation-main
 	 */
-	
+		#navigation-all{
+			background-color:	green;
+			width:				100%;
+			position:			relative;
+		}
+		
 		#navigation-main {
-			position: absolute;
-			top: 111px;
-			left: 0;
-			margin: 0 0 0 124px;
-			padding: 0;
+			margin:			0;
+			padding:		0 0.5em;
 		}
 	
 	
@@ -1023,9 +1028,10 @@
 	 */
 	
 		#navigation-user {
-			position: absolute;
-			top: 0;
-			right: 0;
+			padding:		0 0.5em;
+			position:		absolute;
+			top:			0px;
+			right:			0px;
 		}
 		
 		#navigation-user form {
@@ -1457,11 +1463,16 @@
 			font-size: 120%;
 			line-height: 150%;
 		}
+	
+		#logo a{
+			margin-top:	0.25em;
+		}
 		
 		.menu a {
 			font-size: 130%;
 			line-height: 180%;
 		}
+	
 	
 	
 	/**
@@ -1681,8 +1692,10 @@
 }
 
 
+
 @media screen and (max-width: 480px) {
 
+			
 	/**
 	 *	header
 	 */
@@ -1718,7 +1731,7 @@
 
 
 @media screen and (max-width: 320px) {
-	
+		
 	#logo a {
 		background-image: url('/themes/v2/images/logos/eew-logo-three-quarter.png');
 	}

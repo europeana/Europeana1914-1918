@@ -44,11 +44,34 @@
   </div>
 <% end -%>
 
+
+<style type="text/css">
+
+	/* NEW */
+
+	.nav-top{
+		border-top:		1px solid #DADADA;
+		border-bottom:	1px solid #DADADA;
+		padding:		0.25em;
+	}
+	
+	
+	
+</style>
+
+
+
 <div class="section top">
   
-  <%- if referred_by_search? -%>
-    <%= link_to t('views.links.back-to-search'), :back %>
-  <%- end -%>
+  <div class="nav-top">
+  
+	  <%- if referred_by_search? 											|| true?				 -%>
+	    <%= link_to t('views.links.back-to-search'), :back %>
+	  <%- end -%>
+	  
+  </div>
+  
+  
   
   <h2><%= contribution_title(@contribution) %></h2>
   
