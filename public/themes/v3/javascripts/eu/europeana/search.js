@@ -252,12 +252,17 @@
 		var $container = jQuery('.stories');
 		
 		$container.imagesLoaded(function() {
+
 			$container.masonry({
 				itemSelector : 'li',
-				columnWidth : 1,
-				isFitWidth : true,
-				isAnimated : true
+				columnWidth : function( containerWidth ) {
+					console.log("containerWidth = " + containerWidth + " --> " + (containerWidth/3)  );
+					return parseInt(containerWidth / 3) - (2 * 8);
+				},
+				gutterWidth:	8,
+				isAnimated :	true
 			});
+
 		});
 		
 		jQuery('#q').autocomplete({
