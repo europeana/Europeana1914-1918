@@ -4,43 +4,362 @@
   @javascripts[:search] = true
   @title = t('views.contributions.search.heading')
 %>
-<div class="section top">
-  
-  <h2><%= @title %></h2>
 
-    <%= render :partial => '/shared/search_form', :locals => { :query => @query, :count => 48 } %>
-    
-    <ul id="results-tabs">
-      <li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
-      <%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-      <li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
-      <%- end %>
-    </ul>
-    
-    <div id="results">    
+<div class="section top">
+
+	<div style="width:100%; position:relative">
+	
+    	<div class="three-quarters-right">    
+	    	<% if @contributions.size > 0 -%>
+				<%=
+					render :partial => '/shared/result_nav',
+					:locals => {
+						:contributions => @contributions,
+						:query => @query,
+						:term => @term
+					}
+				%>    
+			<% end -%>
+	    
+	    	<ul id="results-tabs">
+    	  		<li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
+   		  		<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
+   					<li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
+	      		<%- end %>
+    		</ul>
+
+    	
+    		<div id="results">    
       
-      <div id="results-1914">
-        
-        <% if @contributions.size == 0 -%>
-          <p><%= t('views.contributions.search.no_matches') %></p>
-        <% else -%>    
-          <%=
-          render :partial => 'search-results',
-          :locals => {
-            :contributions => @contributions,
-            :query => @query,
-            :term => @term
-          }
-          %>    
-        <% end -%>
-        
-      </div>
+      			<div id="results-1914">
+
+        			<% if @contributions.size == 0 -%>
+        				<p><%= t('views.contributions.search.no_matches') %></p>
+        			<% else -%>    
+        				<%=
+          				render :partial => 'search-results',
+          				:locals => {
+          					:contributions => @contributions,
+          	  				:query => @query,
+          	  				:term => @term
+          				}
+          				%>    
+        			<% end -%>
+        			
+        			        
+      			</div>
       
-      <%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-        <div id="results-europeana"></div>
-      <%- end -%>
-      
-    </div>
+      			<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
+      			
+        			<div id="results-europeana"></div>
+        			
+      			<%- end -%>
+      		
+	    	</div>
   
+		</div>
+
+
+
+<style type="text/css">
+
+#facets-actions {
+
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  
+  background-color: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: 3px 3px 4px #C3C3C3;
+  position: relative;
+  
+}
+
+
+#facets,
+#facets ul{
+  margin:	0;
+  padding:	0;
+}
+
+#facets li {
+	list-style:	none outside none
+}
+
+#facets h3 {
+  border-top: 1px solid #C0C0C0;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  padding-top: 0.2em;
+}
+
+#facets li:first-child h3{
+  border-top: none;
+}
+
+#facets>li:first-child>span{
+  display: block;
+}
+
+#facets .keywords{
+	display:	table;
+	width:	100%;
+}
+
+#facets li h4{
+	display:inline;
+}
+
+/* Add keyword input / label */
+
+#facets .keywords span{
+	display: table-cell;
+	white-space: nowrap;
+	width: 1px;
+}
+
+#facets .keywords  input[type="text"] {
+  border: 1px solid #A0A0A0;
+  border-radius: 0.5em 0 0 0.5em;
+  display: table-cell;
+  margin-bottom: 1px;
+  width: 100%;
+}
+
+
+
+
+
+#facets .keywords{
+	padding-bottom:	1em;
+}
+
+
+
+
+#facets .keywords input[type=text]{
+	outline:	none;
+	padding:	4px;
+}
+
+#facets .keywords input[type=submit]{
+	background-color: blue;
+	border: 1px solid blue;
+	border-radius: 0 0.5em 0.5em 0;
+	box-shadow: none;
+	color: white;
+	margin-left: 0;
+	cursor: pointer;
+}
+  
+</style>
+
+		
+	    <div class="one-quarter-left">
+	    
+	    	<div id="facets-actions">
+	    
+	    		<ul id="facets">	
+	    		
+	    			<li>
+	    				<h3>
+    						<%= t('views.contributions.search.facets.refine' ) %>
+	    				</h3>
+	    			
+	    				<form>
+	    					<li class="keywords">
+			    			
+			    					<input id="newKeyword" type="text" name="qf" />
+		    						<span>
+		    							<input type="submit" value="+ Add">
+	    							</span>
+    					
+	   				 		</li>
+	   				 	</form>
+	   				 	
+	   				 	<span>
+					    	<%= t('views.contributions.search.facets.add_keyword' ) %>
+					    </span>
+	   				</li>
+	   		 		
+	   		 		
+    				<li>
+		    			<h3>
+    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+			    				<%= t('views.contributions.search.facets.by_site.label' ) %>
+				    		</a>
+    					</h3>
+	   		 			<ul>
+    						<li>
+    							<h4>
+    								<input type="radio" name="rd-site" id="rd-site" />
+    								<a href="">
+    									<%= t('views.contributions.search.facets.by_site.site_1' ) %>
+	    							</a>
+    							</h4>
+
+    						</li>
+	    					<li>
+    							<h4>
+    								<input type="radio" />
+    								<a href="">
+		   					 			<%= t('views.contributions.search.facets.by_site.site_2' ) %>
+		   					 		</a>
+    							</h4>
+    						</li>
+	    					<li>
+    							<h4>
+    								<input type="radio" />
+    								<a href="">
+	    								<%= t('views.contributions.search.facets.by_site.site_3' ) %>
+	    							</a>
+	    						</h4>
+	    					</li>
+    					</ul>
+	    			</li>		
+	    			<li>
+    					<h3>
+    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+		    					<%= t('views.contributions.search.facets.by_media_type.label' ) %>
+		  		  			</a>
+    					</h3>
+    					<ul>
+	    					<li>
+    							<h4>
+    							    <input type="checkbox" />
+    							    <a href="">
+	    								<%= t('views.contributions.search.facets.by_media_type.image' ) %>
+	    							</a>
+    							</h4>
+	    					</li>
+		    				<li>
+    							<h4>
+    								<input type="checkbox" />
+    								<a href="">
+	    								<%= t('views.contributions.search.facets.by_media_type.pdf' ) %>
+	    							</a>
+    							</h4>
+    						</li>
+	    					<li>
+    							<h4>
+    								<input type="checkbox" />
+    								<a href="">
+		    							<%= t('views.contributions.search.facets.by_media_type.video' ) %>
+		    						</a>
+    							</h4>
+    						</li>
+	    					<li>
+    							<h4>
+    								<input type="checkbox" />
+    								<a href="">
+	    								<%= t('views.contributions.search.facets.by_media_type.sound' ) %>
+	    							</a>
+    							</h4>
+		   					</li>
+    					</ul>
+	    			</li>	
+    				<li>
+	    				<h3>
+	    					<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+		    					<%= t('views.contributions.search.facets.by_collection_day.label' ) %>
+			    			</a>
+	    				</h3>		
+	    				<ul>
+							<li>
+								<h4>
+									<input type="radio" />
+									<a href="">
+		    							<%= t('views.contributions.search.facets.by_collection_day.day1' ) %>
+		    						</a>
+    							</h4>
+    						</li>
+							<li>
+								<h4>
+									<input type="radio" />
+									<a href="">
+	    								<%= t('views.contributions.search.facets.by_collection_day.day2' ) %>
+	    							</a>
+    							</h4>
+	    					</li>
+    					</ul>
+	    			</li>
+					<li>
+    					<h3>
+    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+					    		<%= t('views.contributions.search.facets.by_provider.label' ) %>
+			    			</a>
+	    				</h3>			
+	    				<ul>
+							<li>
+								<h4>
+									<a href="">
+	    								<%= t('views.contributions.search.facets.by_provider.provider1' ) %>
+	    							</a>
+    							</h4>
+	    					</li>
+							<li>
+								<h4>
+									<a href="">
+		    							<%= t('views.contributions.search.facets.by_provider.provider2' ) %>
+	    							</a>
+    							</h4>
+    						</li>
+	    				</ul>
+		    		</li>
+					<li>
+	    				<h3>
+    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+		    					<%= t('views.contributions.search.facets.by_language.label' ) %>
+		    				</a>
+    					</h3>
+	    				<ul>
+							<li>
+								<h4>
+									<a href="">
+		    							<%= t('views.contributions.search.facets.by_language.language1' ) %>
+	    							</a>
+    							</h4>
+	    					</li>
+							<li>
+								<h4>
+									<a href="">
+		    							<%= t('views.contributions.search.facets.by_language.language2' ) %>
+	    							</a>
+    							</h4>
+    						</li>
+	    				</ul>
+		    		</li>
+				</ul>
+				
+				<br/>    		
+				<br/>    		
+				<br/>    		
+
+    			<h4>
+		    		<%= t('views.contributions.search.facets.share.label' ) %>
+	    		</h4>
+
+    			<div id="shareicons">
+					<span class='st_sharethis_large' displayText='Share on Social Media'></span>
+					
+					<span class="share-label">
+						<%= t('views.contributions.search.facets.share.sidetext') %>
+					</span>
+				</div>
+				
+				
+			</div>
+			
+    		
+		</div>
+		
+	</div>
+	
 </div>
+
+
+
 

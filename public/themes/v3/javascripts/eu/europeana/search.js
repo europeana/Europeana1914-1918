@@ -21,12 +21,7 @@
 			jQuery(active_tab_id ).attr('data-loaded','true');
 			
 			jQuery('.stories').imagesLoaded(function() {
-				jQuery('.stories').masonry({
-					itemSelector : 'li',
-					columnWidth : 1,
-					isFitWidth : true,
-					isAnimated : true
-				});
+				initMasonry(jQuery('.stories'));
 			});
 			
 		},
@@ -89,13 +84,7 @@
 			
 			jQuery( jQuery(active_tab_id).attr('data-content-id') ).find('.loading-feedback').fadeIn();
 			
-			jQuery('.stories').masonry({
-				itemSelector : 'li',
-				columnWidth : 1,
-				isFitWidth : true,
-				isAnimated : true
-			});
-			
+			initMasonry(jQuery('.stories'));
 		},
 		
 		
@@ -141,33 +130,22 @@
 		checkTabState : function() {
 			
 			var hash = window.location.hash,
-					$active_content = jQuery( jQuery( this.current_tab.id ).attr('data-content-id') );
-			
+				$active_content = jQuery( jQuery( this.current_tab.id ).attr('data-content-id') );
 			
 			if ( hash.length > 0 && hash !== this.current_tab.hash ) {
 				
 				this.$tabs.each(function() {
-					
 					var $elm = jQuery(this);
-					
 					if ( hash == $elm.attr('data-hash') ) {
-						
 						$elm.trigger('click');
-						
 					}
-					
 				});
-				
-			} else {
-				
-				if ( $active_content.is(':hidden') ) {
-					
-					$active_content.fadeIn();
-					
-				}
-				
 			}
-			
+			else{
+				if ( $active_content.is(':hidden') ) {
+					$active_content.fadeIn();
+				}
+			}
 		},
 		
 		
@@ -236,33 +214,122 @@
 			
 		},
 		
+		setupFacets : function(){
+			
+			// make facet sections collapsible
+			$("#facets>li").each(function(i, ob){
+
+				var headingSelector		= "h3 a";
+				var headingSelected		= $(ob).find(headingSelector);
+				var fnGetItems			= function(){
+					
+					// function to get the tabbable items
+					if( headingSelected.parent().next('form').length ){
+						// Add keywords
+						return headingSelected.parent().next('form').find('input[type!="hidden"]');
+					}
+					else{
+						// Other facets
+						return headingSelected.parent().next('ul').first().find('a');
+					}							
+				};
+				
+				var accessibility =  new EuAccessibility(
+					headingSelected,
+					fnGetItems
+				);
+				
+				if($(ob).hasClass('ugc-li')){
+					$(ob).bind('keypress', accessibility.keyPress);
+				}
+				else{
+					$(ob).Collapsible(
+						{
+							"headingSelector"	: "h3 a",
+							"bodySelector"		: "ul",
+							"keyHandler"		: accessibility
+						}
+					);				
+				}
+			});
+			
+			// make facet checkboxes clickable
+			//$("#filter-search li input[type='checkbox']").click(function(){
+			//	var label = $("#filter-search li label[for='" + $(this).attr('id') + "']");
+			//	window.location = label.closest("a").attr("href");
+			//});
+
+			
+		},
 		
 		init : function() {
 			
-			this.setupTabs();
-			this.tabListener();
+			var self = this;
+			
+			self.setupTabs();
+			self.tabListener();
+
+			// ANDY: can't get loader dependencies working so nesting dynamic loads
+			
+			js.loader.loadScripts([{
+				file : 'EuCollapsibility.js',
+				path : themePath + "javascripts/eu/europeana/",
+				callback : function(){
+					js.loader.loadScripts([{
+						file : 'EuAccessibility.js',
+						path : themePath + "javascripts/eu/europeana/",
+						callback : function(){
+							self.setupFacets();		// set up facets
+							
+							js.loader.loadScripts([{
+								file : 'EuMenu.js',
+								path : themePath + "javascripts/eu/europeana/",
+								callback : function(){
+									//self.setupFacets();		// set up facets
+									
+									var config = {
+										"fn_init": function(self){
+											//self.setActive( $("#query-search input[name=rows]").val() );
+											alert("initialised menu");
+										},
+										"fn_item":function(self, selected){
+											//window.location.href = eu.europeana.search.urlAlterParam("rows", selected);
+											alert("selected item");
+										}
+									};
+									
+									var menuTop = new EuMenu( $(".nav .eu-menu"), config);
+								}
+							}]);					
+							
+						}
+					}]);					
+				}
+			}]);
 			
 		}
 		
 	};
 	
 	
+	function initMasonry($container){
+		$container.masonry({
+			itemSelector : 'li',
+			columnWidth : function( containerWidth ) {
+				return parseInt(containerWidth / 3) - parseInt((5 * 8) / 3);
+			},
+			gutterWidth:	8,
+			isAnimated :	true
+		});		
+	}
+	
 	function init() {
 		
-		var $container = jQuery('.stories');
+		js.utils.initSearch();
 		
+		var $container = jQuery('.stories');
 		$container.imagesLoaded(function() {
-
-			$container.masonry({
-				itemSelector : 'li',
-				columnWidth : function( containerWidth ) {
-					console.log("containerWidth = " + containerWidth + " --> " + (containerWidth/3)  );
-					return parseInt(containerWidth / 3) - (2 * 8);
-				},
-				gutterWidth:	8,
-				isAnimated :	true
-			});
-
+			initMasonry($container);
 		});
 		
 		jQuery('#q').autocomplete({

@@ -39,5 +39,6 @@
 		select: function() { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 	});
 
-
+	js.utils.initSearch();
+	
 }());

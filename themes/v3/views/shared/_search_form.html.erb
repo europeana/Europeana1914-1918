@@ -7,10 +7,204 @@
     count = false
   end
 %>
+
+
+<style type="text/css">
+
+	
+.t-query{
+	width:			100%;
+	line-height:	normal;
+	margin:			auto;	/* centering */
+}
+
+
+.t-query td{
+	whitespace: nowrap;
+}
+
+.query-cell{
+	padding:	0 0.25em;
+	width:		100%;
+	border:		1px solid #E4E4E4;
+}
+
+.query-cell input{
+	height:	1.35em;
+}
+
+
+.submit-cell{
+	height:			100%;
+	vertical-align:	middle;
+	text-align:		center;
+	position:		relative;
+	padding-bottom:	2em;
+	padding-top:	2.5em;
+}
+
+.submit-cell button{
+	position:	absolute;
+}
+
+
+.submit-cell input[type=submit]{
+	padding:				0.5em;
+}
+  	
+.submit-cell button,
+.submit-cell input.button{
+
+	background-color:		#0048ff;
+	
+	background: 			-moz-linear-gradient(top, #0048ff 0%, #4c7ecf);
+	background: 			-webkit-gradient(linear, left top, left bottom, from(#0048ff), to(#4c7ecf));
+	
+	-moz-box-shadow:		3px 3px 13px rgba(51,51,51,0.5),	inset 0px 0px 0px rgba(255,255,255,0);
+	-webkit-box-shadow:		3px 3px 13px rgba(51,51,51,0.5),	inset 0px 0px 0px rgba(255,255,255,0);
+	box-shadow:				3px 3px 13px rgba(51,51,51,0.5),	inset 0px 0px 0px rgba(255,255,255,0);
+
+	border:					none;
+	border-width:			0 !important;
+	
+	border-radius:			0.5em 0.5em 0.5em 0.5em;
+
+  	bottom:					0;
+  	color:					#FFFFFF;
+	cursor:					pointer;
+	
+	font-family:			sans-serif;
+	font-size:				1.2em;
+	font-weight:			normal;
+	
+	margin-left:			0;	/* override chrome default */
+	margin-right:			0;	/* override chrome default */
+  	outline:				none !important;
+
+	right:					0;
+	text-decoration:		underline;
+	top:					0;
+	width:					80%;
+	
+	-webkit-appearance:		none;
+	-moz-border-radius:		0.5em 0.5em 0.5em 0.5em;
+	-webkit-border-radius:	0.5em 0.5em 0.5em 0.5em;
+	border-radius:			0.5em 0.5em 0.5em 0.5em;
+	
+}
+
+.t-query{
+	border-collapse:	separate;
+	cell-padding:		0;
+	cell-spacing:		0;
+	position:			relative;
+	table-layout:		fixed;
+	
+}
+
+.glow{
+	-webkit-box-shadow:	0 0 4px #4C7ECF inset;
+	-moz-box-shadow:	0 0 4px #4C7ECF inset;
+	-ms-box-shadow:		0 0 4px #4C7ECF inset;
+	-o-box-shadow:		0 0 4px #4C7ECF inset;
+	box-shadow:			0 0 4px #4C7ECF inset;
+}
+	
+#q{
+	width:		99%;
+	font-size:	1em;
+	margin:		0.5em 0;
+}
+
+@media only screen and ( min-width:	48em ){
+	
+	q{
+		margin:		0.5em 0;
+	}
+	
+	.t-query{
+		width:50%;	
+	}
+	
+	.query-cell{
+		border:			none;
+	}
+	
+	.submit-cell{
+		padding-top:	0;
+		height:			100%;
+		padding-bottom: 2em;
+		vertical-align:	middle;
+		width:			0;
+	}
+	
+
+	.submit-cell button,
+	.submit-cell input[type=submit],
+	.submit-cell input.button{
+		border-radius:			0 0.5em 0.5em 0;
+		width:					auto;
+	}
+
+	.t-query{
+		border:				1px solid #E4E4E4 !important;
+		border-radius:		0.5em 0 0 0.5em;
+	}
+	
+}
+
+</style>
+
+
 <%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
+
+	<%- if count -%>
+		<input type="hidden" name="count" value="<%= count %>">
+	<%- end -%>
+
+	<table cellspacing="0" cellpadding="0" class="t-query" style="visibility:hidden;">
+		<tbody>
+			<tr>
+				<td class="query-cell">
+					<%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
+				</td>
+			
+				<td class="submit-cell hide-cell-on-phones">
+					<button type="submit" class="icon-mag deans-button-1" style="border-left: 1px solid rgb(76, 126, 207);"><%= t('formtastic.actions.search.submit') %></button>
+				</td>
+			</tr>
+		
+			<tr>
+				<td class="submit-cell show-cell-on-phones" colspan="2" style="width: 80px;">
+					<input type='submit' class='button' value='<%= t('formtastic.actions.search.submit') %>' xstyle="border-left: 1px solid rgb(76, 126, 207);" />
+				</td>
+			</tr>
+		
+		</tbody>		
+	</table>
+
+
+<% end %>
+
+
+<!-- OLD STUFF -->
+
+<%
+=begin %> 
+
+<%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
+
   <%- if count -%>
     <input type="hidden" name="count" value="<%= count %>">
   <%- end -%>
+  
   <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
+  
   <input type='submit' class='button' value='<%= t('formtastic.actions.search.submit') %>' />
+  
 <% end %>
+
+<!-- END OLD STUFF -->
+
+<%
+=end %>

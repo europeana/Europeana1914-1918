@@ -65,10 +65,18 @@
   
   <div class="nav-top">
   
-	  <%- if referred_by_search? 											|| true?				 -%>
-	    <%= link_to t('views.links.back-to-search'), :back %>
-	  <%- end -%>
+		<!-- ANDY: short-circuited this if statement - remove later -->
+  
+		<%- if referred_by_search? || true? -%>
+			<%= link_to t('views.links.back-to-search'), :back %>
+		<%- end -%>
 	  
+		<%= render :partial => '/layouts/navigation/sharethis' %>
+		
+		<div id="shareicons">
+			<span class='st_sharethis' displayText='&nbsp;'></span>
+		</div>
+		  
   </div>
   
   

@@ -202,6 +202,7 @@
 	
 -%>
 <script>
+var themePath = "/themes/<%= session[:theme] -%>/";
 var switchTo5x = true;<% 'for share-this' %>
 if ( !window.RunCoCo ) { window.RunCoCo = {}; }
 RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
