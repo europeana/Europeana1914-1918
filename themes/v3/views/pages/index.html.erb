@@ -8,28 +8,115 @@
 	require 'hpricot'
 	
 %>
+
+<style>
+
+.carousel-intro{
+	background-color:	white;
+	overflow:			hidden;
+	padding:			1em;
+	z-index:			1;
+		
+}
+
+.carousel-intro .content{
+	display:			table;
+	height:				100%;
+	position:			relative;
+	table-layout:		fixed;
+}
+
+
+.carousel-intro.hide-on-phones{
+	height:				90%;
+	margin-left:		7em;
+	margin-top:			1.5em;
+	position:			absolute;
+	width:				30%;
+	min-width:			250px;
+}
+
+
+.carousel-intro h2{
+	font-size:	120%;
+}
+
+.index-call-to-action .button {
+	display:	inline;
+	margin:		1em;
+}
+
+.intro-text{
+	display:	table-row;
+}
+
+.index-call-to-action {
+	margin-bottom:	0.5em;
+	display:		table-cell;
+	height:			100%;
+	text-align:		center;
+	vertical-align:	bottom;
+}
+
+.index-call-to-action a:hover {
+	color: 0075FF;
+}
+
+
+	
+@media screen and (min-width: 768px) {
+	#index-call-to-action {
+		xxxposition:	absolute;
+		xxxbottom:		0.5em;
+		xxxleft:		0;
+	}
+}
+	
+
+	
+</style>
+
 <div class='section top'>
 	
 	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
+	<% docTitle = doc/'h3' %>
+
+	<% (doc/'h3').remove %>
 	
-	<h2><%= (doc/'h3').inner_html %></h2>
+
+	<div id='index-featured' class='carousel'>	
 	
-	<div id='index-featured' class='carousel two-thirds-right'>	
+		<%= render :partial => 'carousel_text_overlay',
+			:locals => { 
+				:doc => doc,
+				:docTitle => docTitle,
+				:mobile => false			
+			}
+		 %>
+	
+	
 		<ul>
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
 		<div class='carousel-overlay'></div>	
 	</div>
 	
-	<div id='index-introduction' class='one-third-left'>
-		<% (doc/'h3').remove %>
-		<%= raw( (doc).to_html ) %>		
-		<div id='index-call-to-action'>
-			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'><%= t('common.links.add-your-story') %></a><a href='<%= page_path('explore') %>' class='button'><%= t('common.links.explore-the-stories') %></a>
-		</div>		
-	</div>
+
+
+	<%= render :partial => 'carousel_text_overlay',
+		:locals => { 
+			:doc => doc,
+			:docTitle => docTitle,
+			:mobile => true
+		}
+	 %>
+
 	
 </div>
+
+
+
+
 
 
 <div class='section border-top'>

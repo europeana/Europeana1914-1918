@@ -1,0 +1,16 @@
+<div class="carousel-intro <%= mobile ? 'show-on-phones' : 'hide-on-phones' %> ">
+
+	<div class='content'>
+		<div class='intro-text'>
+			<h2><%= (docTitle).inner_html %></h2>
+		
+			<%= raw((doc).to_html ) %>
+		</div>
+		
+		<div class='index-call-to-action'>
+			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'>Explore</a><a href='<%= page_path('explore') %>' class='button'>Contribute</a>
+		</div>
+		
+	</div>		
+	
+</div>
