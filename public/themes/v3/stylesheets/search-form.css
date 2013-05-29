@@ -1,0 +1,28 @@
+.t-query { width: 100%; line-height: normal; margin: auto; /* centering */ }
+
+.t-query td { whitespace: nowrap; }
+
+.query-cell { padding: 0 0.25em; width: 100%; border: 1px solid #E4E4E4; border-radius: 0.5em; }
+
+.query-cell input { height: 1.35em; }
+
+.submit-cell { height: 100%; vertical-align: middle; text-align: center; position: relative; padding-bottom: 2em; padding-top: 2.5em; }
+
+.submit-cell button { position: absolute; }
+
+.submit-cell input[type=submit] { padding: 0.5em; }
+
+.submit-cell button, .submit-cell input.button { bottom: 0; margin-left: 0; /* override chrome default */ margin-right: 0; /* override chrome default */ margin-top: 0; /* override chrome default */ margin-bottom: 0; /* override chrome default */ right: 0; top: 0; width: 80%; }
+
+.t-query { border-collapse: separate; cell-padding: 0; cell-spacing: 0; position: relative; table-layout: fixed; }
+
+.glow { -webkit-box-shadow: 0 0 4px #4C7ECF inset; -moz-box-shadow: 0 0 4px #4C7ECF inset; -ms-box-shadow: 0 0 4px #4C7ECF inset; -o-box-shadow: 0 0 4px #4C7ECF inset; box-shadow: 0 0 4px #4C7ECF inset; }
+
+#q { width: 99%; font-size: 1em; margin: 0.5em 0; }
+
+@media only screen and (min-width: 48em) { q { margin: 0.5em 0; }
+  .t-query { width: 50%; }
+  .query-cell { border: none; border-radius: 0.5em; }
+  .submit-cell { padding-top: 0; height: 100%; padding-bottom: 2em; vertical-align: middle; width: 0; }
+  .submit-cell button, .submit-cell input[type=submit], .submit-cell input.button { border-radius: 0 0.5em 0.5em 0; width: auto; }
+  .t-query { border: 1px solid #E4E4E4 !important; border-radius: 0.5em; } }
