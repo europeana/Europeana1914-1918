@@ -104,10 +104,6 @@
   display: block;
 }
 
-#facets .keywords{
-	display:	table;
-	width:	100%;
-}
 
 #facets li h4{
 	display:inline;
@@ -115,22 +111,14 @@
 
 /* Add keyword input / label */
 
-#facets .keywords span{
-	display: table-cell;
-	white-space: nowrap;
-	width: 1px;
-}
 
 #facets .keywords  input[type="text"] {
-  border: 1px solid #A0A0A0;
-  border-radius: 0.5em 0 0 0.5em;
-  display: table-cell;
-  margin-bottom: 1px;
-  width: 100%;
+	border:				1px solid #A0A0A0;
+	border-radius:		0.5em 0 0 0.5em;
+	margin-bottom:		1px;
+	outline:			none;
+	padding:			4px;
 }
-
-
-
 
 
 #facets .keywords{
@@ -138,12 +126,6 @@
 }
 
 
-
-
-#facets .keywords input[type=text]{
-	outline:	none;
-	padding:	4px;
-}
 
 #facets .keywords input[type=submit]{
 	background-color: blue;
@@ -170,10 +152,10 @@
 	    				</h3>
 	    			
 	    				<form>
-	    					<li class="keywords">
+	    					<li class="keywords h-flex-container">
 			    			
-			    					<input id="newKeyword" type="text" name="qf" />
-		    						<span>
+			    					<input id="newKeyword" type="text" name="qf" class="h-flex"/>
+		    						<span class="h-flex-fill">
 		    							<input type="submit" value="+ Add">
 	    							</span>
     					
