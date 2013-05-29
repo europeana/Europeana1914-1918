@@ -10,7 +10,7 @@
 
 
 
-<%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
+<%= form_tag( url, { :method => :get, :id => 'search', :class =>  current_page?(home_path) ? 'landing' : ''  }) do %>
 
 	<%- if count -%>
 		<input type="hidden" name="count" value="<%= count %>">

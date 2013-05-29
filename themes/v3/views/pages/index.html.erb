@@ -1,65 +1,12 @@
 <%
-
 	@javascripts[:images_loaded] = true
 	@javascripts[:index] = true
 	@javascripts[:carousel] = true
 	@javascripts[:readmore] = true
+	@javascripts[:masonry] = true
 	@title = t 'views.home.heading'
-	require 'hpricot'
-	
+	require 'hpricot'	
 %>
-
-<style>
-
-.carousel-intro{
-	background-color:	white;
-	overflow:			hidden;
-	padding:			1em;
-	z-index:			1;
-		
-}
-
-.carousel-intro .content{
-	display:			table;
-	height:				100%;
-	position:			relative;
-	table-layout:		fixed;
-}
-
-
-.carousel-intro.hide-on-phones{
-	height:				90%;
-	margin-left:		7em;
-	margin-top:			1.5em;
-	position:			absolute;
-	width:				30%;
-	min-width:			250px;
-}
-
-
-.carousel-intro h2{
-	font-size:	120%;
-}
-
-.index-call-to-action .button {
-	display:	inline;
-	margin:		1em;
-}
-
-.index-call-to-action {
-	margin-bottom:	0.5em;
-	text-align:		center;
-}
-
-.index-call-to-action a:hover {
-	color: 0075FF;
-}
-
-
-	
-
-	
-</style>
 
 <div class='section top'>
 	
@@ -79,11 +26,12 @@
 			}
 		 %>
 	
-	
 		<ul>
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
-		<div class='carousel-overlay'></div>	
+		
+		<div class='carousel-overlay'></div>
+		
 	</div>
 	
 
@@ -100,8 +48,69 @@
 </div>
 
 
+<div class='section border-top'>
+	<div class='one-quarter-right' style="background-color:yellow;">
+		Blog Feed....	
+	</div>
+	
+	<div id='featured-categories' class='three-quarters-left'>
+		
+		<ul>
+			<li>
+				<a title="Trench Life" href="javascript:alert('links not working yet');"
+					><img src="http://2.bp.blogspot.com/-GnAQiaZRtFs/T6eA80jxX_I/AAAAAAAAACQ/szYr90F2avA/s400/Trench-Life.png" />
+					<div class="subtitle">Trench Life</div></a>
+			</li>
+			
+			<li>
+				<a title="Propaganda" href="javascript:alert('links not working yet');">
+					<img src="http://3.bp.blogspot.com/-tmLXikVpz3U/T6eHaOmlDNI/AAAAAAAAAEs/pmf2IIOig5A/s400/Propaganda.png" />
+					<div class="subtitle">Propaganda</div>
+				</a>
+			</li>
+			
+			<li>
+				<a title="Home Front" href="javascript:alert('links not working yet');">
+					<img src="http://3.bp.blogspot.com/-_M0atLcPEsE/T6eEKNu5OJI/AAAAAAAAADA/mTDXWZ4D0l4/s400/Home-Front.png" />
+					<div class="subtitle">Home Front</div>
+				</a>
+			</li>
+			
+			<li>
+				<a title="Jewelry Box" href="javascript:alert('links not working yet');">
+					<img src="http://www.europeana1914-1918.eu/attachments/12864/1369.12864.medium.JPG?1308070809" />
+					<div class="subtitle">Jewelry Box</div>
+				</a>
+			</li>
+			
+			<li>
+				<a title="Prisoners of War" href="javascript:alert('links not working yet');">
+					<img src="http://2.bp.blogspot.com/-qCq9O3ld0k8/T6eZJHDcL4I/AAAAAAAAAFg/V29lCFNTK80/s400/Prisoners-of-War.png" />
+					<div class="subtitle">Prisoners of War</div>
+				</a>
+			</li>
+			
+			<li>
+				<a title="Letters" href="javascript:alert('links not working yet');">
+					<img src="http://4.bp.blogspot.com/-tvrk_OjtN2M/T6eFINNSKMI/AAAAAAAAADk/AMTnZnkWMjY/s400/Letters.png" />
+					<div class="subtitle">Letters</div>
+				</a>
+			</li>
+			
+		</ul>
+		
+	</div>
+	
+</div>
 
 
+
+
+
+
+
+<%
+=begin %>
 
 
 <div class='section border-top'>
@@ -126,3 +135,7 @@
 	</div>
 	
 </div>
+
+
+<%
+=end %>

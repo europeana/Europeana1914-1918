@@ -86,8 +86,8 @@ img {
 	padding-top: 3%;
 }
 
-.top {
-	margin-top: 3%;
+.section.top {
+	margin-top: 1%;
 }
 
 .border-bottom {
@@ -256,15 +256,6 @@ input[type="submit"]:hover {
 	max-width: 100%;
 }
 
-/*
-#search input[type="text"]:focus {
-	-webkit-box-shadow: 0 0 4px rgba(153,0,255,.3);
-	-moz-box-shadow: 0 0 4px rgba(153,0,255,.3);
-	-ms-box-shadow: 0 0 4px rgba(153,0,255,.3);
-	-o-box-shadow: 0 0 4px rgba(153,0,255,.3);
-	box-shadow: 0 0 4px rgba(153,0,255,.3);
-}
-*/
 
 a.button {
 	color: #f5f5f5;
@@ -350,7 +341,7 @@ a.button:hover {
 }
 
 .menu a.selected:hover {
-	color: #f5f5f5;
+	text-decoration:	underline;
 }
 
 
@@ -478,20 +469,7 @@ a.button:hover {
 /**
  *	search
  */
-	
-#search {
-	position: relative;
-	margin-bottom: 1em;
-	z-index: 100;
-}
 
-#q {
-	border:				0;
-	padding:			0;
-	padding-left:		2.5em;
-	background-image: url('/themes/v2/images/icons/search.png');
-	background-repeat: no-repeat;
-}
 
 #results #search {
 	width: 44%;
@@ -507,10 +485,6 @@ a.button:hover {
 	width: 100%;
 }
 
-#explore-introduction #q {
-	flost: left;
-	width: 66%;
-}
 
 #explore-introduction input[type='submit'] {
 	float: right;
@@ -978,6 +952,16 @@ a.button:hover {
 		width: 35%;
 	}
 
+	.three-quarters-left {
+		width: 73%;
+		float: left;
+	}
+	
+	.one-quarter-right {
+		float: right;
+		width: 24%;
+	}
+
 	.one-quarter-left {
 		float:	left;
 		width:	24%;
@@ -1135,14 +1119,6 @@ a.button:hover {
 		margin: 3px 0 0 0;
 	}
 	
-	
-	/**
-	 *	navigation mobile
-	 */
-	
-	#navigation-mobile-trigger {
-		display: none;
-	}
 	
 	
 /**
@@ -1513,20 +1489,7 @@ a.button:hover {
 	/**
 	 *	navigation
 	 */
-		
-		#navigation-mobile-trigger {
-			position: absolute;
-			top: 39px;
-			right: 6px;
-			z-index: 1000;
-			line-height: 120%;
-		}
-		
-		#navigation-mobile-trigger img {
-			float: right;
-			margin-left: 10px;
-		}
-		
+
 		#navigation-user,
 		#navigation-main,
 		#navigation-user-menu {
@@ -1705,9 +1668,6 @@ a.button:hover {
 		margin: 1em auto;
 	}
 	
-	#search #q {
-		XXXXXXbackground-position: 2px 7px;
-	}
 	
 	#google-map {
 		max-width: 90%;
