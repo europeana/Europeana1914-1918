@@ -27,9 +27,13 @@
 		.imagesLoaded(function() {
 			jQuery(this).masonry({
 				itemSelector : 'li',
-				columnWidth : 1,
+				columnWidth : function(containerWidth){
+					return parseInt(containerWidth / 5) - parseInt((6 * 8) / 5);	// (container-w / noCols) - (( (noCols -1 + 2 (edges)) * gutterWidth ) / noCols)					
+
+				},
 				isFitWidth : true,
-				isAnimated : true
+				isAnimated : true,
+				gutterWidth: 8
 			});
 		});
 	
