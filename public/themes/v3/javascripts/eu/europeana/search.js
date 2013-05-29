@@ -316,7 +316,7 @@
 		$container.masonry({
 			itemSelector : 'li',
 			columnWidth : function( containerWidth ) {
-				return parseInt(containerWidth / 3) - parseInt((2 * 8) / 3);
+				return parseInt(containerWidth / 3) - parseInt((4 * 8) / 3);	// (container-w / noCols) - (( (noCols -1 + 2 (edges)) * gutterWidth ) / noCols)
 			},
 			gutterWidth:	8,
 			isAnimated :	true

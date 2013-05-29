@@ -1,10 +1,11 @@
 
 <style>
-	#search-form-wrapper{
-		text-align:			center;
-		vertical-align:		middle;
-		padding-top:		1.5em;
-	}
+#search-form-wrapper{
+	text-align:			center;
+	vertical-align:		middle;
+	padding-top:		1.5em;
+}
+	
 </style>
 
 
@@ -14,14 +15,17 @@
 		<%= render :partial => '/layouts/navigation/main' %>
 		<%= render :partial => '/layouts/navigation/user' %>
 	</div>
-
-	<table>
+	
+	<a href='#' id='navigation-mobile-trigger'><%= t('common.menus.menu') %><img src="/themes/<%=session[:theme]%>/images/icons/navigation-mobile.png" alt="navigation-mobile" width="24" height="18"/></a>
+	
+	<table class="t-logo-search">
 		<tr>
-			<td>
+			<td class="td-logo">
+			
 				<h1 id='logo'  <%= current_page?(home_path) ? 'class=landing' : '' %> >
 					<a href='<%= home_path %>' title='<%= t('views.home.heading') %>'></a>
 				</h1>
-				<a href='#' id='navigation-mobile-trigger'><%= t('common.menus.menu') %><img src="/themes/<%=session[:theme]%>/images/icons/navigation-mobile.png" alt="navigation-mobile" width="24" height="18"/></a>
+
 			</td>
 			
 			<td id="search-form-wrapper">

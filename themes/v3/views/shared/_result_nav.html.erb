@@ -1,105 +1,3 @@
-
-
-<style type="text/css">
-
-/* eu-menu.css */
-	
-.eu-menu.selected span.open-menu{
-	text-shadow:	0 5px 1px #4C7ECF;	
-}
-.eu-menu.no-highlight span.open-menu{
-	text-shadow:	none;
-}
-
-.eu-menu.selected .item.active{
-	box-shadow:			inset 0 0 4px #4C7ECF;
-}
-.eu-menu:focus{
-	outline:		none;
-}
-.eu-menu:focus .menu-label{
-	text-decoration:underline;
-}
-
-.eu-menu.no-highlight .item.active{
-	box-shadow:			none;
-}
-
-
-.eu-menu{
-	display:				inline-block;/* !important;*/
-	float:					none;
-	padding-left:			0.15em;
-	padding-bottom:			0.18em;
-	position:				relative; 
-	text-align:				left;
-	top:					0.03em;
-	z-index:				11;	
-}
-
-.eu-menu a {
-	text-decoration:	none;
-	color:				#444444;
-	cursor:				pointer;
-}
-
-.eu-menu .menu-label,
-.eu-menu .open-menu{
-	cursor:				pointer;
-}
-
-.eu-menu span{
-	line-height:	inherit;
-}
-
-.eu-menu a:hover,
-.eu-menu .item:focus a,
-.eu-menu .item a:focus{
-	text-decoration:	underline;
-}
-
-.eu-menu .top {
-	background-color:	#DDD;
-}
-
-.eu-menu ul{
-	list-style-type:	none;
-	position:			absolute;
-	margin:				0px;
-	padding:			0px;
-	
-	
-	z-index:	200;
-
-	/* show max 10 items  */
-	max-height:			20em;
-	
-	overflow-x:			hidden;
-	overflow-y:			auto;
-}
-
-.eu-menu .item {
-	display: 			none !important;
-	border-radius:		0 0 0.25em 0.25em;
-	margin-top:			0.1em;
-	padding:			0.2em 0.6em 0.1em 0.6em;
-	border:				1px solid #e4e4e4;
-	background-color:	#F5F5F5;
-	white-space:		nowrap;
-	z-index:	200;
-}
-
-
-.eu-menu.active .item {		/* shown items */
-	display:			block !important;
-}
-	
-</style>
-
-
-
-
-
 <style type="text/css">
 
 /* pagination for search results */
@@ -199,7 +97,7 @@
 
 
 
-.nav>div.menu, .nav>div.pagination{
+.nav>div.menu-wrapper, .nav>div.pagination{
 	white-space:	nowrap;
 }
 
@@ -292,14 +190,12 @@
 		width:		auto;
 	}
 
-
-	/* flex-box rules */
 	.nav>div{
 		display:		table-cell;
 		vertical-align:	middle;
 	}
 
-	.nav>.menu, .nav>.pagination{
+	.nav>.menu-wrapper, .nav>.pagination{
 		width:1px;
 	}
 
@@ -313,7 +209,7 @@
 		width:		auto;
 	}
 
-	.nav>.menu{
+	.nav>.menu-wrapper{
 		text-align:	left;
 	}
 
@@ -343,11 +239,6 @@ input::-webkit-inner-spin-button {
 		margin-bottom:	1em;
 	}
 	
-	.nav{
-		XXXXXvertical-align:	middle;
-		XXXXXdisplay:		table-cell;
-	}
-		
 	.nav .eu-menu{
 		border:			1px solid #E4E4E4;
 		display:		inline-block;
@@ -370,7 +261,7 @@ input::-webkit-inner-spin-button {
 <div class="search-results-navigation">
 	<div class="nav">
 	
-		<div class="menu">
+		<div class="menu-wrapper">
 			Results Per Page:
 		
 			<div title="Number of results shown on the page" aria-hidden="true" class="eu-menu">
