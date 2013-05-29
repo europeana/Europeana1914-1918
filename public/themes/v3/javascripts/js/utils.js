@@ -14,8 +14,6 @@
 		},
 		
 		initSearch : function(){
-			//$('.submit-cell').css("width",	$('.submit-cell button')	.outerWidth(true) + "px"); 
-			//$('.menu-cell').css("width",	$('#search-menu')				.outerWidth(true) + "px");
 			
 			$('.submit-cell button').css("border-left",	"solid 1px #4C7ECF");	// do this after the resize to stop 1px gap in FF
 			
