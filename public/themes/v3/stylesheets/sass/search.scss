@@ -1,0 +1,245 @@
+/* Result navigation */
+
+.search-results-navigation {
+	clear:				both;
+	position:			relative;
+	border-bottom:		1px solid #E4E4E4;
+}
+
+
+.result-pagination{
+	float:			none;	
+	margin:			0;
+	width:			100%;
+	padding-left:	0;
+	display:		table;
+	table-layout:	fixed;
+	font-size:		1.5em;
+	clear:			both;
+	position:		relative;
+	z-index:		1;
+	
+	li{
+		list-style: 	none;
+		display:		table-cell;
+		vertical-align:	top;	
+	}
+}
+
+
+.jump-to-page{
+	margin-top:	2em;
+}
+
+
+#start-page {
+	outline: medium none !important;
+	width: 4em;
+	text-align:center;
+}
+
+.result-pagination a:focus{
+    border-bottom: 1px dotted #4C7ECF;
+}
+
+.nav{
+	padding:			.25em 0;
+	
+	box-sizing:			border-box;
+	-moz-box-sizing:	border-box;
+	-webkit-box-sizing:	border-box;
+
+	display:			inline-table;
+	width:				100%;	/* needed for safari */
+	
+	.eu-menu{
+		display:		inline-block;
+		border:			1px solid #e4e4e4;
+		margin-left:	0.5em;
+		padding-left:	0.25em;
+		padding-right:	0.25em;
+		z-index:		101;
+	}
+	
+	.pagination{
+		margin-top:		0;	/* override a .pagination{} rule in all.css */
+	}
+	
+	/* override glow on selected menu item */
+	
+	.eu-menu.selected span.open-menu,
+	.eu-menu.selected .item.active{
+		text-shadow:	none !important;
+	}
+	
+	
+	.of{
+		display:none;
+	}
+	
+	.of-bracket{
+		color:#333 !important;	/* fix for strange iphone bug (wanting to color this as a link) */
+	}
+	
+	.of-bracket:before{
+		content:'(';
+	}
+	
+	.of-bracket:after{
+		content:')';
+	}
+	
+	.of-value{
+		display:	block;
+	}
+	
+	.spaced:before{
+		content:'';
+	}
+	
+	.spaced:after{
+		content:'';
+	}
+}
+
+
+
+.nav>div{
+	display:	block;
+	text-align:	center;
+	width:		100%;
+}
+
+
+.nav>div.menu-wrapper,
+.nav>div.pagination{
+	white-space:	nowrap;
+}
+
+.nav-numbers{
+	text-align:		center;
+	white-space:	nowrap;
+	font-size:		0.75em;
+	
+	input{	
+		font-size:	1em;
+		border:		1px solid #E4E4E4;
+		text-align:	center;
+	}
+}
+
+
+
+
+/* data showing / hiding rules */
+
+@media only screen and (min-width: 22em) {
+
+	.nav{
+		.of-bracket:before{
+			content:'';
+		}
+	
+		.of-bracket:after{
+			content:'';
+		}
+	
+		.of,
+		.of-value{
+			display:inline;
+		}
+	}
+}
+
+
+/* desktop general */
+
+@media only screen and (min-width: 48em) {
+
+	.nav{
+		.spaced:before{
+			content:' ';
+		}
+		
+		.spaced:after{
+			content:' ';
+		}
+	}
+	
+	.result-pagination li{
+		vertical-align:	middle;
+	}
+	
+	.jump-to-page{
+		margin-top:	0;
+	}
+}
+
+
+@media only screen and (max-width: 55em) {
+	.nav>div.show-on-22{
+		display:none;
+	}
+}
+
+@media only screen and (min-width: 55em) {
+
+	.show-on-22{display:table-cell !important;}
+	
+	.result-pagination{
+		float:		right;
+		width:		auto;	
+		font-size:	1em;
+		width:		auto;
+	}
+
+
+	.nav>div{
+		display:		table-cell;
+		vertical-align:	middle;
+	}
+
+	.nav>.menu-wrapper, .nav>.pagination{
+		width:1px;
+	}
+
+	.nav>.count{
+		width:		100%;
+		text-align:	center;
+	}
+
+	.nav-numbers{	
+		font-size:	1em;
+		width:		auto;
+	}
+
+	.nav>.menu-wrapper{
+		text-align:	left;
+	}
+
+	.nav>.pagination{
+		text-align:	right;
+	}
+
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.search-results-navigation{
+	border-bottom:	1px solid #E4E4E4;
+	margin-bottom:	1em;
+}
+
+
+.top{
+	border-top:	1px solid #E4E4E4; 
+}
+
+
+
+
