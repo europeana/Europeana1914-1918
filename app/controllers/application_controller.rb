@@ -240,6 +240,9 @@ class ApplicationController < ActionController::Base
     elsif session[:theme].nil?
       session[:theme] = 'v2'
     end
+    
+    set_sass_css_location(session[:theme])
+    
     session[:theme]
   end
 
@@ -575,6 +578,20 @@ class ApplicationController < ActionController::Base
     else
       require 'fastercsv'
       FasterCSV
+    end
+  end
+  
+  ##
+  # Sets Sass CSS directory
+  #
+  # @param [String] theme_name Theme name.
+  #
+  def set_sass_css_location(theme_name)
+    sass_path = File.join(Rails.root, 'public', 'themes', theme_name, 'stylesheets', 'sass')
+    Sass::Plugin.options[:css_location] = if File.directory?(sass_path)
+      File.join(Rails.root, 'public', 'themes', theme_name, 'stylesheets')
+    else
+      File.join(Rails.root, 'public', 'stylesheets')
     end
   end
 end
