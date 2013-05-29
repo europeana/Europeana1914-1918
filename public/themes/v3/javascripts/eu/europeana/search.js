@@ -298,7 +298,8 @@
 										}
 									};
 									
-									var menuTop = new EuMenu( $(".nav .eu-menu"), config);
+									var menuTop		= new EuMenu( $(".nav-top		.eu-menu"), config);
+									var menuBottom	= new EuMenu( $(".nav-bottom	.eu-menu"), config);
 								}
 							}]);					
 							

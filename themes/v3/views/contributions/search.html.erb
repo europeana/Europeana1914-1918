@@ -16,7 +16,8 @@
 					:locals => {
 						:contributions => @contributions,
 						:query => @query,
-						:term => @term
+						:term => @term,
+						:divClass => 'nav-top'
 					}
 				%>    
 			<% end -%>
@@ -56,6 +57,22 @@
       			<%- end -%>
       		
 	    	</div>
+	    	
+	    	
+	    	
+	    	<% if @contributions.size > 0 -%>
+				<%=
+					render :partial => '/shared/result_nav',
+					:locals => {
+						:contributions => @contributions,
+						:query => @query,
+						:term => @term,
+						:divClass => 'nav-bottom'
+					}
+				%>    
+			<% end -%>
+	    	
+	    	
 		</div>
 
 		
