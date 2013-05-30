@@ -241,7 +241,7 @@ class ApplicationController < ActionController::Base
       session[:theme] = 'v2'
     end
     
-    set_sass_css_location(session[:theme])
+    set_sass_locations(session[:theme])
     
     session[:theme]
   end
@@ -582,17 +582,13 @@ class ApplicationController < ActionController::Base
   end
   
   ##
-  # Sets Sass CSS directory
+  # Sets Sass CSS and template directories
   #
   # @param [String] theme_name Theme name.
   #
-  def set_sass_css_location(theme_name)
-    sass_path = File.join(Rails.root, 'public', 'themes', theme_name, 'stylesheets', 'sass')
-    Sass::Plugin.options[:css_location] = if File.directory?(sass_path)
-      File.join(Rails.root, 'public', 'themes', theme_name, 'stylesheets')
-    else
-      File.join(Rails.root, 'public', 'stylesheets')
-    end
+  def set_sass_locations(theme_name)
+    Sass::Plugin.options[:css_location] = File.join(Rails.root, 'public', 'themes', theme_name, 'stylesheets')
+    Sass::Plugin.options[:template_location] = File.join(Rails.root, 'public', 'themes', theme_name, 'stylesheets', 'sass')
   end
 end
 

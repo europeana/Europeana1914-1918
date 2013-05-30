@@ -1,5 +1,11 @@
 # Sass configuration
 #
+# Note that css_location and template_location are theme-specific, and set by
+# the controller at request-time to:
+#
+# * css_location:       $RAILS_ROOT/public/themes/$THEME_NAME/stylesheets
+# * template_location:  $RAILS_ROOT/public/themes/$THEME_NAME/stylesheets/sass
+#
 # @see http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#options
 
 development:
@@ -7,9 +13,6 @@ development:
   always_update: true
   cache: false
   style: :compact
-  template_location: 'public/themes/v3/stylesheets/sass'
-  css_location : 'public/themes/v3/stylesheets'  
-
 
 production:
   never_update: true
