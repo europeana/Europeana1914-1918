@@ -22,6 +22,11 @@
 				%>    
 			<% end -%>
 	    
+
+<%
+=begin %>
+
+	    
 	    	<ul id="results-tabs">
     	  		<li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
    		  		<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
@@ -29,26 +34,21 @@
 	      		<%- end %>
     		</ul>
 
+<%
+=end %>
     	
     		<div id="results">    
       
-      			<div id="results-1914">
 
-        			<% if @contributions.size == 0 -%>
-        				<p><%= t('views.contributions.search.no_matches') %></p>
-        			<% else -%>    
-        				<%=
-          				render :partial => 'search-results',
-          				:locals => {
-          					:contributions => @contributions,
-          	  				:query => @query,
-          	  				:term => @term
-          				}
-          				%>    
-        			<% end -%>
-        			
+     				<%=
+	       				render :partial => 'search-results',
+    	   				:locals => {
+        					:contributions => @contributions,
+         	  				:query => @query,
+         	  				:term => @term
+         				}
+         			%>
         			        
-      			</div>
       
       			<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
       			

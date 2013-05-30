@@ -6,7 +6,7 @@
 	
 	'use strict';
 	
-	
+	/*
 	var resultTabs = {
 		
 		$tabs : jQuery('#results-tabs a'),
@@ -158,7 +158,7 @@
 			
 		},
 		
-		
+	
 		setupTabs : function() {
 			
 			var self = this;
@@ -168,14 +168,14 @@
 				var $elm = jQuery(this),
 						content_id = $elm.attr('data-content-id');
 				
-				/**
-				 *	modify tab links
-				 *	data-url : url to be used for ajax load of tab content
-				 *	data-loaded : string indicating whether or not section content has been loaded
-				 *	active css class : indicating whether or not the tab is active
-				 *	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
-				 *	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
-				 */
+				
+				 	//	modify tab links
+				 	//	data-url : url to be used for ajax load of tab content
+				 	//	data-loaded : string indicating whether or not section content has been loaded
+				 	//	active css class : indicating whether or not the tab is active
+				 	//	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
+				 	//	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
+				 
 					
 					if ( $elm.attr('href').substring(0,1) !== '#' ) {
 						
@@ -193,9 +193,8 @@
 					}
 				
 				
-				/**
-				 *	add loading div to empty tabs
-				 */
+				
+					//	add loading div to empty tabs
 					
 					if ( jQuery( content_id ).html() === '' ) {
 						
@@ -204,15 +203,17 @@
 					}
 				
 				
-				/**
-				 *	add onclick handler
-				 */
+				
+					// add onclick handler
+				 
 					
 					$elm.on( 'click', { self : self }, self.handleResultsTabClick );
 				
 			});
 			
 		},
+		// andy
+		
 		
 		setupFacets : function(){
 			
@@ -268,49 +269,11 @@
 			
 			self.setupTabs();
 			self.tabListener();
-
-			// ANDY: can't get loader dependencies working so nesting dynamic loads
-			
-			js.loader.loadScripts([{
-				file : 'EuCollapsibility.js',
-				path : themePath + "javascripts/eu/europeana/",
-				callback : function(){
-					js.loader.loadScripts([{
-						file : 'EuAccessibility.js',
-						path : themePath + "javascripts/eu/europeana/",
-						callback : function(){
-							self.setupFacets();		// set up facets
-							
-							js.loader.loadScripts([{
-								file : 'EuMenu.js',
-								path : themePath + "javascripts/eu/europeana/",
-								callback : function(){
-									//self.setupFacets();		// set up facets
-									
-									var config = {
-										"fn_init": function(self){
-											//self.setActive( $("#query-search input[name=rows]").val() );
-											alert("initialised menu");
-										},
-										"fn_item":function(self, selected){
-											//window.location.href = eu.europeana.search.urlAlterParam("rows", selected);
-											alert("selected item");
-										}
-									};
-									
-									var menuTop		= new EuMenu( $(".nav-top		.eu-menu"), config);
-									var menuBottom	= new EuMenu( $(".nav-bottom	.eu-menu"), config);
-								}
-							}]);					
-							
-						}
-					}]);					
-				}
-			}]);
 			
 		}
 		
 	};
+	*/
 	
 	
 	function initMasonry($container){
@@ -323,6 +286,95 @@
 			isAnimated :	true
 		});		
 	}
+	
+	function initFacets(){
+		// ANDY: can't get loader dependencies working so nesting dynamic loads
+		
+		js.loader.loadScripts([{
+			file : 'EuCollapsibility.js',
+			path : themePath + "javascripts/eu/europeana/",
+			callback : function(){
+				js.loader.loadScripts([{
+					file : 'EuAccessibility.js',
+					path : themePath + "javascripts/eu/europeana/",
+					callback : function(){
+						//self.setupFacets();		// set up facets
+						
+						
+						// make facet sections collapsible
+						$("#facets>li").each(function(i, ob){
+
+							var headingSelector		= "h3 a";
+							var headingSelected		= $(ob).find(headingSelector);
+							var fnGetItems			= function(){
+								
+								// function to get the tabbable items
+								if( headingSelected.parent().next('form').length ){
+									// Add keywords
+									return headingSelected.parent().next('form').find('input[type!="hidden"]');
+								}
+								else{
+									// Other facets
+									return headingSelected.parent().next('ul').first().find('a');
+								}							
+							};
+							
+							var accessibility =  new EuAccessibility(
+								headingSelected,
+								fnGetItems
+							);
+							
+							if($(ob).hasClass('ugc-li')){
+								$(ob).bind('keypress', accessibility.keyPress);
+							}
+							else{
+								$(ob).Collapsible(
+									{
+										"headingSelector"	: "h3 a",
+										"bodySelector"		: "ul",
+										"keyHandler"		: accessibility
+									}
+								);				
+							}
+						});
+						
+						// make facet checkboxes clickable
+						//$("#filter-search li input[type='checkbox']").click(function(){
+						//	var label = $("#filter-search li label[for='" + $(this).attr('id') + "']");
+						//	window.location = label.closest("a").attr("href");
+						//});
+
+						
+						
+						
+						js.loader.loadScripts([{
+							file : 'EuMenu.js',
+							path : themePath + "javascripts/eu/europeana/",
+							callback : function(){
+
+								
+								var config = {
+									"fn_init": function(self){
+										//self.setActive( $("#query-search input[name=rows]").val() );
+										alert("initialised menu");
+									},
+									"fn_item":function(self, selected){
+										//window.location.href = eu.europeana.search.urlAlterParam("rows", selected);
+										alert("selected item");
+									}
+								};
+								
+								var menuTop		= new EuMenu( $(".nav-top		.eu-menu"), config);
+								var menuBottom	= new EuMenu( $(".nav-bottom	.eu-menu"), config);
+							}
+						}]);					
+						
+					}
+				}]);					
+			}
+		}]);
+	}
+	
 	
 	function init() {
 		
@@ -339,8 +391,8 @@
 			select: function(event, ui) { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 		});
 		
-		resultTabs.init();
-		
+		//resultTabs.init();
+		initFacets();
 	}
 	
 	init();
