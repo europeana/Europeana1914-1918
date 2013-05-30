@@ -315,7 +315,7 @@ class ApplicationController < ActionController::Base
   # @return [Boolean]
   #
   def europeana_api_configured?
-    defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::Search.key.present?
+    defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::API.key.present?
   end
   
   ##

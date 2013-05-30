@@ -3,12 +3,28 @@
   <ul class="stories">
     <%- for result in results -%>
       <li>
-        <a href="<%= result.guid %>" title="<%= raw result.title %>">
-          <img src="<%= result.image_url %>" alt="" /><br />
-          <b><%= raw result.title %></b>
-          <%- [ :author, :year, :data_provider, :provider ].each do |element| -%>
-            <%- if element_value = result.send(element) -%>
-              <br/><%= raw element_value %>
+        <a href="<%= result['guid'] %>" title="<%= result['title'].first.to_s %>">
+          <img src="<%= result['edmPreview'].first %>" alt="" /><br />
+          <b><%= result['title'].first.to_s %></b>
+          <%- unless result['dcCreator'].blank? -%>
+            <%- result['dcCreator'].each do |field_value| -%>
+              <br/><%= field_value %>
+            <%- end -%>
+          <%- end -%>
+          <%- unless result['year'].blank? -%>
+            <%- if result['year'].size == 2 -%>
+              <br/><%= result['year'].first %>&ndash;<%= result['year'].last %>
+            <%- else -%>
+              <%- result['year'].each do |field_value| -%>
+                <br/><%= field_value %>
+              <%- end -%>
+            <%- end -%>
+          <%- end -%>
+          <%- [ 'dataProvider', 'provider' ].each do |field_name| -%>
+            <%- unless result[field_name].blank? -%>
+              <%- result[field_name].each do |field_value| -%>
+                <br/><%= field_value %>
+              <%- end -%>
             <%- end -%>
           <%- end -%>
         </a>

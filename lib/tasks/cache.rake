@@ -16,9 +16,9 @@ namespace :cache do
   end
   
   namespace :europeana do
-    desc "Clears cached Europeana OpenSearch API results."
+    desc "Clears cached Europeana API search results."
     task :clear => :environment do
-      puts "Clearing cached Europeana OpenSearch API results...\n"
+      puts "Clearing cached Europeana API search results...\n"
       ActionController::Base.new.expire_fragment(/views\/europeana\//)
     end
   end

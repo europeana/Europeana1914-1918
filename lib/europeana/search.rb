@@ -1,19 +1,16 @@
+require 'active_support/deprecation'
+
 module Europeana
-  ##
-  # Interface to the Europeana OpenSearch API.
-  #
-  # @see http://pro.europeana.eu/reuse/api
-  #
   module Search
+    include ActiveSupport::Deprecation
+    
     ##
-    # Europeana OpenSearch API key.
+    # @deprecated Use {Europeana::API.key=}
+    # @note Retained for backwards compatibility with europeana.rb initializer.
     #
-    # @see http://pro.europeana.eu/api
-    #
-    mattr_accessor :key
-  
-    autoload :Query,      'europeana/search/query'
-    autoload :ResultSet,  'europeana/search/result_set'
-    autoload :Result,     'europeana/search/result'
+    def self.key=(key)
+      warn "Europeana::Search.key= has been deprecated.  Please use Europeana::API.key= instead."
+      API.key = key
+    end
   end
 end

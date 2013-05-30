@@ -1,8 +1,5 @@
-require 'feedzirra'
-
 module Europeana
-  autoload :Search, 'europeana/search'
+  autoload :API,    'europeana/api'
   autoload :OAI,    'europeana/oai'
+  autoload :Search, 'europeana/search'
 end
-
-Feedzirra::Feed.add_feed_class Europeana::Search::ResultSet

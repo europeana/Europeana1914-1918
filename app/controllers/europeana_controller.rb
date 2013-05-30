@@ -1,7 +1,8 @@
 require 'digest/md5'
+require 'will_paginate/collection'
 
 ##
-# Interface to Europeana OpenSearch API.
+# Interface to Europeana Search API.
 #
 class EuropeanaController < ApplicationController
   before_filter :europeana_api_configured?
@@ -9,7 +10,7 @@ class EuropeanaController < ApplicationController
   # GET /europeana/search
   def search
     @query = params[:q]
-    @results = query_api(bing_translate_query(@query), params[:page] || 1).for_pagination
+    @results = query_api(bing_translate_query(@query), :page => params[:page], :count => params[:count])
     
     if params.delete(:layout) == '0'
       render :partial => 'search-results',
@@ -31,7 +32,7 @@ class EuropeanaController < ApplicationController
       term_translations = I18n.available_locales.collect do |locale|
         I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term)
       end
-      @results = query_api(term_translations, params[:page] || 1).for_pagination
+      @results = query_api(term_translations, :page => params[:page], :count => params[:count])
     end
     
     if params.delete(:layout) == '0'
@@ -51,10 +52,16 @@ class EuropeanaController < ApplicationController
   # Sends a query off to the API.
   #
   # @param [String,Array,Hash] terms One or more term(s) to search for.
-  # @param [Integer,String] page The page of results to retrieve.
-  # @return [Array<Europeana::Search::ResultSet>] Search results.
+  # @param [Hash] options Optional parameters
+  # @option options [String,Integer] :count The number of results to return.
+  #   Maximum 100; default 48.
+  # @option options [String,Integer] :page The page number of results to return.
+  #   Default 1.
+  # @return [WillPaginate::Collection] will_paginate compatibile result set.
+  # @see http://www.europeana.eu/portal/api-search-json.html Documentation 
+  #   of fields in result set.
   #
-  def query_api(terms, page = 1)
+  def query_api(terms, options = {})
     terms = case terms
     when Hash
       terms.values
@@ -66,20 +73,31 @@ class EuropeanaController < ApplicationController
       raise ArgumentError "Unknown terms parameter passed."
     end
     
+    options[:count] = [ (options[:count] || 48).to_i, 100 ].min
+    options[:page] = (options[:page] || 1).to_i
+    
     quoted_terms = quote_terms(terms)
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
-    cache_key = "europeana/#{quoted_terms_digest}/page#{page.to_s}"
+    cache_key = "europeana/#{quoted_terms_digest}/count#{options[:count].to_s}-page#{options[:page].to_s}"
     
     if fragment_exist?(cache_key)
       results = YAML::load(read_fragment(cache_key))
     else
       query_string = build_api_query(terms)
       logger.debug("Europeana query: #{query_string}")
-      results = Europeana::Search::Query.new(query_string).run(:page => page)
+      
+      query_options = {}
+      query_options[:rows] = options[:count]
+      query_options[:start] = (((options[:page] || 1).to_i - 1) * options[:count]) + 1
+      
+      results = Europeana::API::Search.new(query_string).run(query_options)
+      
       write_fragment(cache_key, results.to_yaml, :expires_in => 1.day)
     end
     
-    results
+    WillPaginate::Collection.create(options[:page], results['itemsCount'], results['totalResults']) do |pager|
+      pager.replace results['items']
+    end
   end
   
   ##
