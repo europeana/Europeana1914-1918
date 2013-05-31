@@ -45,29 +45,15 @@
 <% end -%>
 
 
-<style type="text/css">
-
-	/* NEW */
-
-	.nav-top{
-		border-top:		1px solid #DADADA;
-		border-bottom:	1px solid #DADADA;
-		padding:		0.25em;
-	}
-	
-	
-	
-</style>
-
-
 
 <div class="section top">
   
   <div class="nav-top">
   
-		<!-- ANDY: short-circuited this if statement - remove later -->
   
-		<%- if referred_by_search? || true? -%>
+		<%- if referred_by_search? -%>
+			<%= link_to t('views.links.back-to-search'), :back %>
+		<%- elsif true -%>
 			<%= link_to t('views.links.back-to-search'), :back %>
 		<%- end -%>
 	  
@@ -87,8 +73,10 @@
     
     <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     
+    
     <ul id="thumbnail-counts"></ul>
     
+    <div class="location-desc">This story took place in: <a href="">Amiens, France</a></div>
     
     <!-- <div id="banner"> -->
     <%
@@ -102,7 +90,16 @@
     %>
     <!-- </div> -->
     
+    <div class="add-tags">
+    	Add tags (optional)
+    	
+    	<textarea style="width:100%" rows="10"></textarea>
+    </div>
+    
   </div>
+  
+  
+  
   
   <div id="story-info" class="one-half-right">
     
@@ -283,6 +280,7 @@
     <% end -%>
     </dl>
     
+    
     <%- if @contribution.contributor.picture.present? -%>
       <%
         people = {
@@ -304,7 +302,86 @@
         <%- end -%>
       </div>
     <%- end -%>
+
+
+	<div class="about-contributor">
+
+		<div style="margin-top:1em; margin-bottom:2em;">
+			<b>About Horace Brumbridge</b>
+		</div>
+		
+		<div style="float:left; margin-right: 1em;">
+	      <%= image_tag('http://www.europeana1914-1918.eu/attachments/51204/4337.51204.thumb.jpg') %>
+		</div>
+		
+		<div style="float:left">
+
+			<b>Date of birth</b>
+			<br/>
+			1895
+			<br/>
+			<br/>
+			
+			<b>Place of birth</b>
+			<br/>
+			Hampstead (then Middlesex)
+			<br/>
+			<br/>
+			
+			<b>Date of death</b>
+			<br/>
+			December 20 1924
+			<br/>
+			<br/>
+			
+			<b>Place of death</b>
+			<br/>
+			Leyton (then Essex)
+			<br/>
+			<br/>
+		</div>
+		
+	</div>
+	
+
+
+	<div class="comments" style="margin-top: 3em; clear:both;">
+		<h3>Comments</h3>
+		<hr style="color:#dadada"/>
+		
+		There are no comments, why not add one below....
+		<br>
+		<br>
+		<h3>Leave a Comment</h3>
+		
+		<div>
+			<div style="float:left; width:20%">
+				Photo
+				<br>
+				Tagline
+			</div>
+			<div style="float:left; width:80%">
+				<textarea style="width:100%;"></textarea>
+				<br/>
+				<br/>
+				<input type="submit" class="europeana-button" value="Submit Comment"/>
+			</div>
+		
+		</div>
+		
+    </div>
+    
     
   </div>
+  
+  
+  <div class="related-content">
+  	<h3>Related Content</h3>
+	<hr style="color:#dadada"/>
+  	
+  	<div style="background color:#dadada; margin-top:2em; margin-bottom:3em;">(Will add the tabbed carousel later later)</div>
+	  	
+  </div>
+  
   
 </div>

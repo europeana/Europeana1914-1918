@@ -579,8 +579,8 @@
 		
 		addMapContainer : function() {
 			
-			jQuery('#thumbnail-counts')
-				.after(
+			jQuery('.add-tags')
+				.before(
 					jQuery( this.$google_map )
 						.append( this.$story_took_place )
 						.append( this.$story_map )
