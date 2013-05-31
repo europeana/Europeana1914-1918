@@ -1,11 +1,13 @@
 <%
-	@javascripts[:images_loaded] = true
-	@javascripts[:index] = true
-	@javascripts[:carousel] = true
-	@javascripts[:readmore] = true
-	@javascripts[:masonry] = true
-	@title = t 'views.home.heading'
-	require 'hpricot'	
+		@javascripts[:images_loaded] = true
+		@javascripts[:index] = true
+		
+	#	@javascripts[:carousel] = true
+	
+		@javascripts[:readmore] = true
+		@javascripts[:masonry] = true
+		@title = t 'views.home.heading'
+		require 'hpricot'	
 %>
 
 <div class='section top'>
@@ -16,8 +18,8 @@
 	<% (doc/'h3').remove %>
 	
 
-	<div id='index-featured' class='carousel'>	
-	
+	<div id='index-featured' XXXclass='carousel'  style="position:relative;">
+		
 		<%= render :partial => 'carousel_text_overlay',
 			:locals => { 
 				:doc => doc,
@@ -26,11 +28,7 @@
 			}
 		 %>
 	
-		<ul>
-			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
-		</ul>
-		
-		<div class='carousel-overlay'></div>
+		<img src="themes/v3/images/splash-img.jpg" />
 		
 	</div>
 	
@@ -49,12 +47,9 @@
 
 
 <div class='section border-top'>
-	<div class='one-quarter-right' style="background-color:yellow;">
-		Blog Feed....	
-	</div>
 	
-	<div id='featured-categories' class='three-quarters-left'>
-		
+	<div class='three-quarters-left'>
+		<div id='featured-categories' class='three-quarters-left'>
 		<ul>
 			<li>
 				<a title="Trench Life" href="javascript:alert('links not working yet');">
@@ -66,7 +61,7 @@
 			<li>
 				<a title="Propaganda" href="javascript:alert('links not working yet');">
 					<img src="http://3.bp.blogspot.com/-tmLXikVpz3U/T6eHaOmlDNI/AAAAAAAAAEs/pmf2IIOig5A/s400/Propaganda.png" />
-					<div class="caption">Propaganda Propaganda Propaganda Propaganda Propaganda Propaganda</div>
+					<div class="caption">Propaganda</div>
 				</a>
 			</li>
 			
@@ -99,8 +94,60 @@
 			</li>
 			
 		</ul>
-		
+
+		</div>
 	</div>
+	
+	
+	<div class="one-quarter-right">
+	
+
+		<div class="recent-activity shadow-panel">
+	
+			<div class="head">
+				<h3>1,236</h3>
+				stories added so far
+			</div>
+
+			<ul>
+				<li>
+					<a href="">Benjamin</a> has added a story called <a href="">The Silver Bugle</a>
+				</li>
+				<li>
+					<a href="">Marcus</a> has commented on a story <a href="">Fliegerphotos</a>
+				</li>
+				<li>
+					<a href="">Alexander</a> has updated a story called <a href="">Fliegerphotos</a>
+				</li>
+				<li>
+					<a href="">Marcus</a> has favourited a story called <a href="">Schmuckbehalter aus Glas und Metall, 1914</a>
+				</li>
+				<li>
+					<a href="">Benjamin</a> has shared a story called <a href="">Schmuckbehalter aus Glas und Metall, 1914</a>
+				</li>
+				<li>
+					We may need infinite scroll here if there's tons of activity
+				</li>
+			
+				<li>
+					<a href="">Benjamin</a> has added a story called <a href="">The Silver Bugle</a>
+				</li>
+				<li>
+					<a href="">Marcus</a> has commented on a story <a href="">Fliegerphotos</a>
+				</li>
+				<li>
+					<a href="">Alexander</a> has updated a story called <a href="">Fliegerphotos</a>
+				</li>
+				<li>
+					<a href="">Marcus</a> has favourited a story called <a href="">Schmuckbehalter aus Glas und Metall, 1914</a>
+				</li>
+				<li>
+					<a href="">Benjamin</a> has shared a story called <a href="">Schmuckbehalter aus Glas und Metall, 1914</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
 	
 </div>
 

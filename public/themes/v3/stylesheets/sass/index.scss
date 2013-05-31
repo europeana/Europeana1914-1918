@@ -19,7 +19,7 @@
 
 .carousel-intro.hide-on-phones{
 	height:				90%;
-	margin-left:		7em;
+	margin-left:		4em;
 	margin-top:			1.5em;
 	position:			absolute;
 	width:				30%;
@@ -41,18 +41,29 @@
 	}
 }
 
-/* featured categories */
+/* main feature */
 
-#featured-categories ul{
-	list-style:	none;
-	padding:	0;
-	margin:		auto;
+#index-featured{
 	position:	relative;
 }
 
-#featured-categories img{
-	max-width:	235px;
+
+/* featured categories */
+
+#featured-categories{
+	margin:		auto;
+	
+	 ul{
+		list-style:	none;
+		padding:	0;
+		position:	relative;
+	}
+
+	img{
+		max-width:	235px;
+	}
 }
+	
 	
 #featured-categories li{
 	margin-bottom:	1em;
@@ -69,3 +80,40 @@
 	padding:	0;
 }
 	
+/* recent activity */
+
+
+.recent-activity{
+	position:	relative;
+	position:	absolute;
+	padding:	1em;
+	top:		0px;
+	bottom:		0px;
+	margin:		1em 1em 1em 0;
+
+	overflow-y:		h;
+	.head{
+		text-align:	center;
+	}
+	
+	ul{
+		list-style:		none;
+		padding:		0;
+		margin:			0;
+		
+		max-height:		100%;
+		overflow-y:		auto;
+		overflow-x:		hidden;
+		
+	}
+	
+	li{
+		padding:		1em 0;
+	}
+	
+	li :not(:last-child){
+		border-bottom:	1px solid #C9C9C9;
+	}	
+	
+}
+
