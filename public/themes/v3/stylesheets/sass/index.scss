@@ -84,13 +84,12 @@
 
 
 .recent-activity{
-	position:	relative;
-	position:	absolute;
+
+	bottom:		0px;
+	margin:		3em 0 0 0;
 	padding:	1em;
 	top:		0px;
-	bottom:		0px;
-	margin:		1em 1em 1em 0;
-
+	
 	overflow-y:		h;
 	.head{
 		text-align:	center;
@@ -100,11 +99,7 @@
 		list-style:		none;
 		padding:		0;
 		margin:			0;
-		
-		max-height:		100%;
-		overflow-y:		auto;
 		overflow-x:		hidden;
-		
 	}
 	
 	li{
@@ -115,5 +110,21 @@
 		border-bottom:	1px solid #C9C9C9;
 	}	
 	
+}
+
+@media screen and (min-width: 48em) {
+
+	.recent-activity{
+		position:	absolute;
+		margin:		1em 1em 1em 0;
+		.head{
+			height:		10%;
+		}
+		
+		ul{
+			max-height:		90%;
+			overflow-y:		auto;
+		}
+	}
 }
 
