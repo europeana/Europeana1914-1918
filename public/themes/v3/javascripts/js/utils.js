@@ -15,11 +15,7 @@
 		
 		initSearch : function(){
 			
-			$('.submit-cell button').css("border-left",	"solid 1px #4C7ECF");	// do this after the resize to stop 1px gap in FF
-			
-			$("table.t-query").css("display",		"none");
-			$("table.t-query").css("visibility",	"visible");
-			$("table.t-query").fadeIn(600);
+			$('.submit-cell').css("width",	$('.submit-cell button').outerWidth(true)-1 + "px"); 
 			
 			$('#q').focus(function(){
 				$('.query-cell').addClass('glow');

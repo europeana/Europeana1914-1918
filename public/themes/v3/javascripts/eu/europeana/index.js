@@ -128,7 +128,6 @@
 					
 					console.log("3 columns");
 
-					
 					$('#featured-categories ul').css('width', ($('#featured-categories ul img:first').width() * 3) + (3 * 8) + 'px');
 					
 					return parseInt(containerWidth / 3) - parseInt((4 * 8) / 3);	// (container-w / noCols) - (( (noCols -1 + 2 (edges)) * gutterWidth ) / noCols)					
@@ -144,7 +143,6 @@
 
 	});	
 
-	
 	js.utils.initSearch();
 	
 }());

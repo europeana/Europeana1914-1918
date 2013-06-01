@@ -1,0 +1,21 @@
+@mixin boxShadow() {
+	-moz-box-shadow:		3px 3px 13px rgba(51,51,51,0.5),	inset 0px 0px 0px rgba(255,255,255,0);
+	-webkit-box-shadow:		3px 3px 13px rgba(51,51,51,0.5),	inset 0px 0px 0px rgba(255,255,255,0);
+	box-shadow:				3px 3px 13px rgba(51,51,51,0.5),	inset 0px 0px 0px rgba(255,255,255,0);
+}
+
+@mixin borderRadius($r1, $r2, $r3, $r4) {
+	-webkit-appearance:		none;
+	-moz-border-radius:		$r1, $r2, $r3, $r4;
+	-webkit-border-radius:	$r1, $r2, $r3, $r4;
+	border-radius:			$r1, $r2, $r3, $r4;
+}
+
+@mixin transition($color, $speed, $effect) {
+	-webkit-transition:	$color, $speed, $effect;
+	-moz-transition:	$color, $speed, $effect;
+	-ms-transition:		$color, $speed, $effect;
+	-o-transition:		$color, $speed, $effect;
+	transition:			$color, $speed, $effect;
+}
+
