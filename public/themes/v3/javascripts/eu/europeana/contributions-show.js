@@ -671,6 +671,18 @@
 		map.init();
 		lightbox.init();
 		
+		js.loader.loadScripts([{
+			file : 'accordion-tabs.js',
+			path : themePath + "javascripts/eu/europeana/",
+			callback : function(){
+				new AccordionTabs( $('#explore-further'),
+					function(){
+						console.log("tab change event");
+					}
+				);
+			}
+		}]);	
+		
 	}());
 	
 	

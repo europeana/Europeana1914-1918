@@ -1,0 +1,123 @@
+.accordion-tabs{
+	margin:             1em auto;
+	position:           relative;
+	padding:            0;
+	background-color:   #fff;
+	
+	@include boxShadow(3px 3px 4px #C3C3C3);
+	
+	border-radius:      8px;
+
+	>.section{
+		overflow:	visible;
+
+		>a{
+			border:		1px solid #d6d6d6;
+		}
+
+		a{
+			display:			block;
+			padding:			0.25em 1em;
+			text-decoration:	none;
+			color:				#2A85E8;
+			outline:			0;
+			border-radius:		8px 8px 0 0;
+		}
+		
+		a:hover{
+			text-decoration:	underline;
+		}
+		
+		a:hover{
+			color:		#666666;
+		}
+		
+	}
+	
+	>.section.active a{
+			color:		#666666;
+	}
+	
+	
+	>.section:not(:first-child)>a{
+		border-top:       none;
+	}		
+
+	>.section>.content{
+		border:			1px solid #d6d6d6;
+		border-top:		none;
+		border-radius:	0 0 8px 8px;
+	}
+
+
+	.content{
+		display:	none;
+		overflow:	hidden; 
+		padding:	1em;
+	}
+
+	.tab_content{
+		display:		none;
+		max-width:		100%;
+		margin-top:		-1px;
+	}
+
+	
+}
+
+
+
+.is-open{
+	display:	block !important;
+}
+
+
+@media only screen and ( min-width: $break-desktop ){
+
+
+	.accordion-tabs{
+		box-shadow:			none;
+		border-radius:		0;
+		
+		.section{
+			background-color:                  white;
+			border:                            1px solid #d6d6d6;
+			display:                           inline-block;
+
+			-moz-border-radius-topleft:        5px;
+			-moz-border-radius-topright:       5px;
+
+			-webkit-border-top-left-radius:    5px;
+			-webkit-border-top-right-radius:   5px;
+	
+			border-top-left-radius:			   5px;
+			border-top-right-radius:		   5px;
+		
+			@include boxShadow  (7px 0 4px -5px #C3C3C3);	// tab-header box-shadow
+			margin-right:                      0.5em;
+		}
+		
+		.section.active{
+			border-bottom:   2px solid #fff;
+		}
+		
+		>.section>a{
+			border:		none;
+		}
+		
+		.tab_content{
+			border-top:        1px solid #d6d6d6;
+			border-radius:     0 8px 0 0;
+			display:           block;
+			padding:           1em;
+			@include           boxShadow(3px -2px 6px -2px #C3C3C3);	// tab-content box-shadow
+		}
+		
+	}
+	
+	.is-open{
+		display:    none !important;
+	}
+	
+}
+
