@@ -12,7 +12,7 @@
 
 	
 	
-	
+
 	$('#featured-categories').imagesLoaded(function() {
 		
 		var minGutterWidth		= 8;
@@ -33,22 +33,33 @@
 				var centre = function(usedSpace){
 					ul.css('margin', 'auto');
 					ul.css('width', usedSpace + 'px');
+					//setTimeout(function(){
+					//	console.log("centre (@usedSpace = " + usedSpace + ")" );
+						//self.masonry( 'option', { "isAnimated" : true} );
+					//}, 1);
 				}
 				
 				var uncentre = function(){
-					ul.removeAttr('style'); 
+					//console.log("uncentre" );
+					ul.css('width', 'auto'); 
 				}
 				
 				var justify = function(gutterWidth){
+					
+					
 					setTimeout(function(){							
+						//console.log("justify (@gutterWidth = " + gutterWidth + ")" );
+						
 						self.masonry( 'option', {"gutterWidth": gutterWidth} );
-						self.masonry( 'reload' );
+						//self.masonry( 'reload' );
+						//self.masonry( 'option', { "isAnimated" : true} );
 					}, 1);
 				}
 				
 				var unjustify = function(){
-					setTimeout(function(){							
-						self.masonry( 'option', {"gutterWidth": minGutterWidth} );
+					setTimeout(function(){
+						self.masonry( 'option', { "gutterWidth" : minGutterWidth} );
+						//self.masonry( 'option', { "isAnimated" : false} );
 					}, 1);
 				}
 				
@@ -65,6 +76,11 @@
 				
 				// use the leftover space to increase gutters to centre the column if viewing on a mobile device.
 				
+				//console.log("containerWidth = " + containerWidth);
+				//console.log("usedSpace = " + usedSpace);
+				//console.log("leftover = " + leftover);
+				//console.log("maxFit = " + maxFit);
+				
 				if(maxFit == 1){
 					centre(usedSpace);		// mobile view always assumed - centre the single column
 				}
@@ -79,13 +95,23 @@
 				else{	// 3+					
 					justify(parseInt(leftover / (maxFit - 1)));
 				}
+				
+				
+				
+				setTimeout(function(){
+					self.masonry( 'reload' );
+				}, 1);
+
+				
 				return cellWidth;
 			},
 			gutterWidth:	minGutterWidth,
-			isAnimated :	true
+			isAnimated :	false
 		});		
 		
 	});
+
+
 	
 
 	js.utils.initSearch();
