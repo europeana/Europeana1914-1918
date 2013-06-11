@@ -1,145 +1,240 @@
-#_____________________________
-#
-#  Ruby & Rails Installation
-#_____________________________
-#
+europeana 1914-1918
+===================
+europeana 1914-1918 uses a ruby on rails application based on runcoco
+originally developed as cococo by richard doe, http://projects.oucs.ox.ac.uk/runcoco/,
+for oxford univerty’s great war archive, http://www.oucs.ox.ac.uk/ww1lit/gwa/.
 
-#  Done via rvm, reasoning explained here:
-#  	http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/
-
-
-
-# install curl & use to get rvm
-
-sudo apt-get install curl
-curl -L get.rvm.io | bash -s stable --auto
+in 2012-01 europeana began an iterative enhancement to the application that
+created a diversion from the original runcoco software and the one being used
+by europeana today.
 
 
 
-# reload bash profile
+suggested ruby install
+======================
+use rvm, http://rvm.io/
+an article for ubuntu - http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/
 
-. ~/.bash_profile
 
+install if necessary
+--------------------
+$ which curl
+$ /usr/bin/curl
+
+# if curl is not available
+$ sudo apt-get install curl
+
+
+install rvm - ubuntu
+--------------------
+$ curl -L get.rvm.io | bash -s stable --autolibs=packages
+$ . ~/.bash_profile
 
 # find and install required packages (including git via build-essential)
-
 rvm requirements
 
-
 # Linux only
-
 sudo apt-get install build-essential openssl libreadline6 libreadline6-dev \
 curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 \
 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison  \
 subversion pkg-config
 
 
-# install ruby to rvm
+install rvm - mac os x
+----------------------
+$ curl -L get.rvm.io | bash -s stable --autolibs=homebrew --ignore-dotfiles
 
-rvm install 1.9.3
-rvm use 1.9.3
+rvm uses a package manager to insure dependencies are installed. mac os x does
+not come with a package manager, thus here i am recommending homebrew
+http://mxcl.github.io/homebrew/, if rvm does not find a package manager it will
+attempt to install and use macports.
 
-rvm rubygems latest
+the --ignore-dotfiles stops rvm from creating a .bash_profile and .bashrc file.
+the functionality of these can be created manually as indicated below.
 
+.bash_profile
+create or add to a ~/.bash_profile file with the following :
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-# 1914 config
-
-rvm install 1.9.2
-rvm 1.9.2
-rvm gemset create 1914
-
-# check out project
-# create file .rvmrc under [project]/trunk
-
-nano .rvmrc
-
-# add this line to it:
-
-rvm 1.9.2@1914
-
-# exit and reenter directory, rc will ask if you agree (enter y)
-
-cd ..
-cd [trunk]
-rvm info # (to confirm that it's using the configured gemset for this directory)
+.bashrc
+instead of creating a .bashrc file with the following in it : PATH=$PATH:$HOME/.rvm/bin
+create a file called rvm in /etc/paths.d
+$ sudo touch rvm
+with the following contents in it :
+/Users/dan/.rvm/bin
 
 
-# from project root (requires git):
+install ruby with rvm
+---------------------
+any 1.8 or 1.9 version should work
+$ rvm install 1.9.3
+
+
+
+setup the 1914-1918 project
+===========================
+check out project
+-----------------
+$ svn checkout https://europeanalabs.eu/svn/europeana1914-1918/trunk /project-path
+$ cd /project-path
+
+
+create a gem set for the project
+--------------------------------
+$ rvm gemset create 1914
+
+
+create a .ruby-version file
+---------------------------
+$ nano .ruby-version
+with the following in it :
+1.9.3
+
+
+create a .ruby-gemset file
+--------------------------
+$ nano .ruby-gemset
+with the following in it
+1914
+
+
+confirm ruby version and gemset
+-------------------------------
+$ cd ..
+$ cd /project-path
+$ rvm info
+confirm that the ruby version and gemset match what you expect
+
 
 bundle install
+--------------
+bundle install, installs several packages for ruby that the project requires
+$ cd /project-path
+$ rm Gemfile.lock
+$ bundle install
 
+# some ubuntu issues
+# from project root (requires git):
 # Ubuntu: if this fails because of "curb" run the following 2 lines:
-
-sudo apt-get install libcurl3 libcurl3-gnutls libcurl4-openssl-dev
-gem install curb
-
+$ sudo apt-get install libcurl3 libcurl3-gnutls libcurl4-openssl-dev
+$ gem install curb
 # ...then try to run bundle install again
-
 # Ubuntu: if this fails because of "mysql2" then try this:
-
-sudo apt-get install libmysql-ruby libmysqlclient-dev
-
+$ sudo apt-get install libmysql-ruby libmysqlclient-dev
 # ...and this
-
-gem install mysql2
-
+$ gem install mysql2
 # ...then try to run bundle install again
 
-# create db config
-
-cp config/database.yml.example config/database.yml
-
-# create db 
-
-rake db:create
-
-# If this fails because "the db already exists" it may be down to the hyphen in the db name.
-# Edit database.yml and change "rails-mysql_[development|test|production]" to something else.
-
-# mysqldump mydbname | mysql mydbcopy
-
-bundle exec rake db:migraterake db:schema:loadrake db:sessions:create
-
-# NOTE: on Ubuntu I had to run "rake db:schema:load" before "bundle exec rake db:migrate"
 
 
-# rake db:create may fail on Mac - fix is the following:
+configurations
+==============
+the following commands assume that you are at the root path of the project
 
-MYSQL=/usr/local/mysql/bin
-export PATH=$PATH:$MYSQL
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH
+create a db config
+------------------
+$ cp config/database.yml.example config/database.yml
+edit the file as appropriate
+make sure the socket location is correct, e.g. /tmp/mysql.sock
+if you run into a mysql2/client.rb:44:in `connect': can't convert Fixnum into String (TypeError) you may need to place quotes around the databasename, username or password in database.yml
+
+
+create a sphinx config
+----------------------
+$ cp config/sphinx.yml.example config/sphinx.yml
+edit the file as appropriate
 
 
 
-bundle exec rake i18n:js:exportbundle exec rake ts:config --tracerake ts:indexbundle exec rake assets:expire
+environments
+============
+the following commands assume that you are at the root path of the project
+
+create environment config
+-------------------------
+$ cp config/environments/development.rb.example config/environments/development.rb
 
 
-# more conf
 
-cp config/environments/development.rb.example  config/environments/development.rb
-cp config/initializers/europeana.rb.example config/initializers/europeana.rb
+initializers
+============
+the following commands assume that you are at the root path of the project
 
-nano config/initializers/europeana.rb
+create europeana config
+-----------------------
+$ cp config/initializers/europeana.rb.example config/initializers/europeana.rb
+edit the file and make sure it contains a valid europeana api key
 
-# change to 
-Europeana::Search.key = 'LYHEKEFCDB'
 
-cp config/initializers/search_suggestions.rb.example config/initializers/search_suggestions.rb
-cp config/initializers/secret_token.example.rb  config/initializers/secret_token.rb
+create search suggestions config
+--------------------------------
+$ cp config/initializers/search_suggestions.rb.example config/initializers/search_suggestions.rb
+edit the file and make sure the recommended settings are uncommented by removing the #
 
-nano config/initializers/secret_token.rb
 
-# change to 
+create secret token
+-------------------
+$ cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+edit the file and make sure the token is a phrase of at least 30 characters within quotes
 
-RunCoCo::Application.config.secret_token = 'a secret token for rails that contains at least 30 characters'
 
-# start server
+create thinking sphinx config
+-----------------------------
+$ cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking_sphinx.rb
 
+
+make initial schema available
+-----------------------------
+$ cp /project-path/config/db/schema-example.rb /project-path/config/db/schema.rb
+
+
+create db and populate with initial values
+------------------------------------------
+instead of the following :
+# $ bundle exec rake db:create
+# $ bundle exec rake db:schema:load
+# $ bundle exec rake db:migrate
+# $ bundle exec rake db:seed
+
+run this :
+$ bundle exec rake db:reset
+
+
+update the js localization files
+--------------------------------
+$ bundle exec rake i18n:js:export
+
+
+clear js & css cache
+--------------------
+$ bundle exec rake assets:expire
+
+
+
+start the server
+================
 rails server
-
 # or
-
 rails s
+
+
+
+some ruby extras
+================
+
+show rake tasks available
+-------------------------
+$ bundle exec rake --tasks
+
+
+
+
+
+
+
+
+not sure where these instructions belong at the moment
 
 
 #_____________________________
@@ -160,29 +255,9 @@ sudo nano opt
 
 
 
-#_____________________________
-#
-#  Database Setup
-#_____________________________
-#
-
-
-# mysql - create database
-
-mysql -u root -p
-create database cococo;
-exit;
-
-# sql dump and import
-
-mysql cococo < Downloads/2012-04-23-cococo.sql
-
-
-# In ruby project, edit config/database.yml
-
-username: [db password]
-password: [db username]
-socket: [mysql.sock location - /tmp/mysqld.sock on Mac]
+import a production db dump
+===========================
+$ mysql cococo < Downloads/2012-04-23-cococo.sql
 
 
 
