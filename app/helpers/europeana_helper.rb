@@ -14,4 +14,9 @@ module EuropeanaHelper
       link_to I18n.t('views.links.previous_step'), url
     end
   end
+  
+  def europeana_record_url(id)
+    dataset_id, record_id = id[1..-1].split('/')
+    show_europeana_url(:dataset_id => dataset_id, :record_id => record_id)
+  end
 end

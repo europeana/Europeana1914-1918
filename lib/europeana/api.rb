@@ -1,3 +1,5 @@
+require 'net/http'
+
 module Europeana
   ##
   # Interface to the Europeana API v2.
@@ -12,6 +14,7 @@ module Europeana
     #
     mattr_accessor :key
   
+    autoload :Record, 'europeana/api/record'
     autoload :Search, 'europeana/api/search'
   end
 end

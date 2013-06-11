@@ -2,7 +2,7 @@ require 'digest/md5'
 require 'will_paginate/collection'
 
 ##
-# Interface to Europeana Search API.
+# Interface to Europeana API.
 #
 class EuropeanaController < ApplicationController
   before_filter :europeana_api_configured?
@@ -45,6 +45,19 @@ class EuropeanaController < ApplicationController
     end
     
     render :action => 'search'
+  end
+  
+  # GET /europeana/record/:dataset_id/:record_id
+  # @todo Cache API responses
+  def show
+    europeana_id = '/' + params[:dataset_id] + '/' + params[:record_id]
+    response = Europeana::API::Record.get(europeana_id)
+    @record = response['object']
+    
+    respond_to do |format|
+      format.json  { render :json => { :result => 'success', :object => @record } } 
+      format.html
+    end
   end
   
   private

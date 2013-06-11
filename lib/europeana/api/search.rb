@@ -1,5 +1,3 @@
-require 'net/http'
-
 module Europeana
   module API
     ##
@@ -27,7 +25,7 @@ module Europeana
       attr_reader :result_set
       
       ##
-      # Creates a new query object.
+      # Creates a new search object.
       #
       # @param [String] terms Search term(s)
       #
