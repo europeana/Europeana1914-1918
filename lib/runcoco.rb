@@ -1,10 +1,12 @@
 require 'runcoco/active_support'
+require 'runcoco/core_ext'
 require 'runcoco/devise'
 require 'runcoco/formtastic'
 
 ##
 # RunCoCo application library.
 module RunCoCo
+  autoload :BingTranslator,               'runcoco/bing_translator'
   autoload :Configuration,                'runcoco/configuration'
   autoload :Dropbox,                      'runcoco/dropbox'
   autoload :FlashSessionCookieMiddleware, 'runcoco/flash_session_cookie_middleware'

@@ -173,7 +173,7 @@ class ContributionsController < ApplicationController
 #    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
     # No eager loading if partials are all pre-cached.
     search_options = { :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
-    @contributions = search_contributions(:published, @query, search_options)
+    @contributions = Contribution.search(:published, bing_translate(@query), search_options)
     
     if params.delete(:layout) == '0'
       render :partial => 'search-results',
@@ -198,7 +198,7 @@ class ContributionsController < ApplicationController
 #      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
       # No eager loading if partials are all pre-cached.
       search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
-      @contributions = search_contributions(:published, nil, search_options)
+      @contributions = Contribution.search(:published, nil, search_options)
     else
       @contributions = []
     end

@@ -247,60 +247,6 @@ class ApplicationController < ActionController::Base
   end
 
   ##
-  # Search contributions.
-  #
-  # Uses ThinkingSphinx if available. If not, falls back to a simple
-  # non-indexed SQL query.
-  #
-  # With ThinkingSphinx, this will search against contribution titles and
-  # any metadata fields flagged as searchable. The SQL fallback will only 
-  # search the contribution titles. 
-  #
-  # If query param is +nil+, returns all contributions, unless other search
-  # conditions given in options param.
-  #
-  # @param [Symbol] set Which set of contributions to search. Valid values:
-  #   * +:approved+
-  #   * +:submitted+
-  #   * +:published+
-  #   * +:draft+
-  #   * +:rejected+
-  #
-  # @param [String] query The full-text query to pass to the search engine.
-  #   Defaults to +nil+, returning all contributions in the named set.
-  #
-  # @param [Hash] options Search options
-  # @option options [Integer,String] :contributor_id Only return results from
-  #   the contributor with this ID.
-  # @option options [TaxonomyTerm] :taxonomy_term Only return results
-  #   categorised with this taxonomy term.
-  # @option options [Integer,String] :page Number of page of results to return.
-  # @option options [Integer,String] :per_page Number of results to return per 
-  #   page.
-  # @option options [String] :order Direction to order the results: 'ASC' or 
-  #   'DESC'. Default is 'ASC' provided +sort+ param also present, otherwise
-  #   set-specific.
-  # @option options [String] :sort Column to sort on, e.g. 'created_at'. 
-  #   Default is set-specific.
-  # @option options Any other options valid for ThinkingSphinx or ActiveRecord 
-  #   queries.
-  #
-  # @return [Array<Contribution>] Search results
-  #
-  # @see http://freelancing-god.github.com/ts/en/searching.html ThinkingSphinx 
-  #   search options
-  #
-  def search_contributions(set, query = nil, options = {})
-    raise ArgumentError, "set should be :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
-    
-    if sphinx_running?
-      sphinx_search_contributions(set, query, options)
-    else
-      activerecord_search_contributions(set, query, options)
-    end
-  end
-  
-  ##
   # Tests whether Sphinx search engine is running.
   #
   # @return (see ThinkingSphinx.sphinx_running?)
@@ -319,32 +265,15 @@ class ApplicationController < ActionController::Base
   end
   
   ##
-  # Checks whether the Bing translator library is configured.
+  # Translates text to app locales, caching Bing Translator API response for
+  # 1 year.
   #
-  # @return [Boolean]
+  # @see RunCoCo::BingTranslator.translate
   #
-  def bing_translator_configured?
-    RunCoCo.configuration.bing_client_id.present? && RunCoCo.configuration.bing_client_secret.present?
-  end
-  
-  ##
-  # Translates a search query from the current locale to app's other locales.
-  #
-  # Queries are translated via Bing Translate, and translations cached for one
-  # year.
-  #
-  # @param [String] query Query to translate
-  # @param [String,Symbol] from_locale Locale to translate from, defaults to
-  #   the current locale.
-  # @return [String,Hash] Translations of the query, plus the query itself.
-  #   If the translator library is not configured, returns the original query.
-  #   A returned hash will be keyed by locale, with the translations as values.
-  # @see #bing_translator_configured?
-  #
-  def bing_translate_query(query, from_locale = I18n.locale)
-    return query unless query.present? && bing_translator_configured?
-    
-    bing_cache_key = "bing/#{from_locale}/#{query}"
+  def bing_translate(text, from_locale = I18n.locale)
+    return text unless text.present? && RunCoCo::BingTranslator.configured?
+        
+    bing_cache_key = "bing/#{from_locale}/#{text}"
     
     if fragment_exist?(bing_cache_key)
       translations = YAML::load(read_fragment(bing_cache_key))
@@ -354,21 +283,12 @@ class ApplicationController < ActionController::Base
       expire_fragment(bing_cache_key)
     end
     
-    translator = BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
-    
-    logger.debug("Using Bing Translate API to translate \"#{query}\" from #{from_locale}...")
-    translations = { from_locale => query }
-    
-    begin
-      other_locales = I18n.available_locales.reject { |locale| locale == from_locale }
-      other_locales.each do |locale|
-        translations[locale] = translator.translate(query, :to => locale)
-        logger.debug("... to #{locale} => \"#{translations[locale]}\"")
-      end
-      write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)    
-    rescue Exception => exception
-      RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
-    end
+#    begin
+      translations = RunCoCo::BingTranslator.translate(text, from_locale)
+      write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
+#    rescue Exception => exception
+#      RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
+#    end
     
     translations
   end
@@ -394,174 +314,6 @@ class ApplicationController < ActionController::Base
     ] + MetadataField.where(:contribution => true).collect do |field| 
       [ field.title, (field.field_type == 'taxonomy' ? field.collection_id.to_s : field.column_name) ]
     end
-  end
-  
-  ##
-  # Simple text query against contributions.
-  #
-  # Only intended as a backup if Sphinx is not running.
-  #
-  # @param (see #get)
-  # @return (see #get)
-  #
-  def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
-    options = options.dup
-    
-    set_where = if set.nil?
-      1
-    elsif set == :published
-      [ 'current_status=?', ContributionStatus.published ]
-    else
-      [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
-    end
-    
-    query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
-    
-    metadata_joins = []
-    joins = [ ]
-    if (sort = options.delete(:sort)).present?
-      if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
-        sort_col = "taxonomy_terms.term"
-        metadata_joins << sort.to_sym
-      elsif sort == 'contributor'
-        sort_col = "contacts.full_name"
-        joins << { :contributor => :contact }
-      else
-        sort_col = sort
-      end
-
-      order = options.delete(:order)
-      order = (order.present? && [ 'DESC', 'ASC' ].include?(order.upcase)) ? order : 'ASC'
-      
-      sort_order = "#{sort_col} #{order}"
-    else
-      if set == :submitted
-        options[:order] = 'status_timestamp ASC'
-      else
-        options[:order] = 'status_timestamp DESC'
-      end
-    end
-    
-    contributor_id = options.delete(:contributor_id)
-    contributor_where = contributor_id.present? ? { :contributor_id => contributor_id } : nil
-    
-    taxonomy_term = options.delete(:taxonomy_term)
-    if taxonomy_term.present?
-      taxonomy_field_alias = taxonomy_term.metadata_field.collection_id
-      metadata_joins << taxonomy_field_alias
-      if sort_col == "taxonomy_terms.term"
-        taxonomy_term_where = { "#{taxonomy_field_alias}.id" => taxonomy_term.id }
-      else
-        taxonomy_term_where = { "taxonomy_terms.id" => taxonomy_term.id }
-      end
-    else
-      taxonomy_term_where = nil
-    end
-    
-    joins << { :metadata => metadata_joins }
-    
-    results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).order(sort_order)
-      
-    if options.has_key?(:page)
-      results = results.paginate(options)
-    end
-    
-    results
-  end  
-  
-  ##
-  # Searches contributions using Sphinx.
-  #
-  # Always does word-end wildcard queries by appending * to query if not already
-  # present.
-  #
-  # @param (see #get)
-  # @return (see #get)
-  #
-  def sphinx_search_contributions(set, query = nil, options = {}) # :nodoc:
-    unless sphinx_running?
-      raise RunCoCo::SearchOffline
-    end
-    
-    options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)
-    
-    status_option = if (set == :published)
-      { :with => { :status => ContributionStatus.published } }
-    else
-      { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
-    end
-    
-    options.merge!(status_option)
-    
-    order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
-    
-    if sort = options.delete(:sort)
-      if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
-        sort_col = nil
-      elsif sort =~ /^field_/
-        # Convert field name to index alias
-        sort_col = sort.sub(/^field_/, 'metadata_')
-      else
-        sort_col = sort
-      end
-      
-      options[:sort_mode] = order
-      options[:order] = sort_col
-    else
-      if set == :submitted
-        options[:order] = 'status_timestamp ASC'
-      else
-        options[:order] = 'status_timestamp DESC'
-      end
-    end
-    
-    contributor_id = options.delete(:contributor_id)
-    if contributor_id.present?
-      options[:with][:contributor_id] = contributor_id
-    end
-    
-    taxonomy_term = options.delete(:taxonomy_term)
-    if taxonomy_term.present?
-      options[:with][:taxonomy_term_ids] = taxonomy_term.id
-    end
-    
-    if query.blank?
-      Contribution.search(options)
-    else
-      query_translations = bing_translate_query(query)
-      if query_translations.is_a?(Hash)
-        options[:match_mode] = :extended
-        query_translations[I18n.locale] = append_wildcard(query_translations[I18n.locale])
-        query_translations = query_translations.values.uniq
-        query_string = quote_terms(query_translations).join(' | ')
-      else
-        query_string = append_wildcard(query_translations)
-      end
-      Contribution.search(query_string, options)
-    end
-  end
-  
-  ##
-  # Appends a wildcard character to a string unless already present.
-  #
-  # @param [String] string String to append wildcard to
-  # @return [String] String with wildcard appended
-  #
-  def append_wildcard(string)
-    string + (string.last == '*' ? '' : '*')
-  end
-  
-  ##
-  # Adds quote marks around string(s).
-  #
-  # @param [String,Array<String>] terms String or array of strings to quote.
-  # @return [String,Array<String>] Quoted version of passed string(s).
-  #
-  def quote_terms(terms)
-    quoted_terms = [terms].flatten.uniq.collect do |term|
-      '"' + term + '"'
-    end
-    terms.is_a?(Array) ? quoted_terms : quoted_terms.first
   end
   
   ##

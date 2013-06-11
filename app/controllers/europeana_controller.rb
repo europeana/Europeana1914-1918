@@ -10,7 +10,7 @@ class EuropeanaController < ApplicationController
   # GET /europeana/search
   def search
     @query = params[:q]
-    @results = query_api(bing_translate_query(@query), :page => params[:page], :count => params[:count])
+    @results = query_api(bing_translate(@query), :page => params[:page], :count => params[:count])
     
     if params.delete(:layout) == '0'
       render :partial => 'search-results',
@@ -83,13 +83,13 @@ class EuropeanaController < ApplicationController
     when Array
       terms
     else
-      raise ArgumentError "Unknown terms parameter passed."
+      raise ArgumentError, "Unknown terms parameter passed: #{terms.class.to_s}"
     end
     
     options[:count] = [ (options[:count] || 48).to_i, 100 ].min
     options[:page] = (options[:page] || 1).to_i
     
-    quoted_terms = quote_terms(terms)
+    quoted_terms = terms.add_quote_marks
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
     cache_key = "europeana/#{quoted_terms_digest}/count#{options[:count].to_s}-page#{options[:page].to_s}"
     
@@ -126,7 +126,7 @@ class EuropeanaController < ApplicationController
     if terms.blank?
       qualifiers
     else
-      quoted_terms = quote_terms(terms)
+      quoted_terms = terms.add_quote_marks
       
       joined_terms = if quoted_terms.size == 1
         quoted_terms.first
