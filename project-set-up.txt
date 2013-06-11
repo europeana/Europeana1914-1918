@@ -1,3 +1,16 @@
+1. europeana 1914-1918
+2. suggested ruby install
+3. setup the 1914-1918 project
+4. configurations
+5. environments
+6. initializers
+7. create db and populate with initial values
+8. update the js localization files
+9. clear js & css cache
+10. start the server
+
+
+
 europeana 1914-1918
 ===================
 europeana 1914-1918 uses a ruby on rails application based on runcoco
@@ -80,8 +93,8 @@ $ svn checkout https://europeanalabs.eu/svn/europeana1914-1918/trunk /project-pa
 $ cd /project-path
 
 
-create a gem set for the project
---------------------------------
+create a gemset for the project
+-------------------------------
 $ rvm gemset create 1914
 
 
@@ -189,8 +202,9 @@ make initial schema available
 $ cp /project-path/config/db/schema-example.rb /project-path/config/db/schema.rb
 
 
+
 create db and populate with initial values
-------------------------------------------
+==========================================
 instead of the following :
 # $ bundle exec rake db:create
 # $ bundle exec rake db:schema:load
@@ -201,13 +215,15 @@ run this :
 $ bundle exec rake db:reset
 
 
+
 update the js localization files
---------------------------------
+================================
 $ bundle exec rake i18n:js:export
 
 
+
 clear js & css cache
---------------------
+====================
 $ bundle exec rake assets:expire
 
 
@@ -222,13 +238,9 @@ rails s
 
 some ruby extras
 ================
-
 show rake tasks available
 -------------------------
 $ bundle exec rake --tasks
-
-
-
 
 
 
