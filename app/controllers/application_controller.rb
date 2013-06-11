@@ -197,20 +197,21 @@ class ApplicationController < ActionController::Base
   # Initialise instance variables for views.
   #
   def init_views # :nodoc:
-    # Flags for optional javascripts.
-    # Views or controllers can set these to true to enable inclusion of 
-    # the relevant javascript.
-    @javascripts = {
-      :attachments => false,
-      :collapsible => false,
-      :datepicker => false,
-      :generate_password => false,
-      :gmap_locate => false,
-      :gmap_display => false,
-      :language_other => false,
-      :uploadify => false,
-      :listing => false
-    }
+    ##
+    # Flags for optional javascripts, to be set in views.
+    #
+    # @example 
+    #   <% @javascripts[:date_picker] = true -%>
+    #
+    @javascripts = {}
+    
+    ##
+    # Flags for optional stylesheets, to be set in views.
+    #
+    # @example 
+    #   <% @stylesheets[:index] = true -%>
+    #
+    @stylesheets = {}
   end
   
   ##
