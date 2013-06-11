@@ -283,12 +283,8 @@ class ApplicationController < ActionController::Base
       expire_fragment(bing_cache_key)
     end
     
-#    begin
-      translations = RunCoCo::BingTranslator.translate(text, from_locale)
-      write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
-#    rescue Exception => exception
-#      RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
-#    end
+    translations = RunCoCo::BingTranslator.translate(text, from_locale)
+    write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
     
     translations
   end
