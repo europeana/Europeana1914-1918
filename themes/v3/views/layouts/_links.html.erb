@@ -28,10 +28,11 @@ if @stylesheets['index']
 	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/index.css"
 end
 
-# TODO: only include this stuff if we're on the search page
+if @stylesheets['search'] 
+	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/facets.css"
+	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/search.css"
+end
 
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/facets.css"
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/search.css"
 
 
 # TODO: only include this stuff if we're on the item page
