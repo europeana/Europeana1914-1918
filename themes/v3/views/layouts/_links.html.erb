@@ -22,9 +22,11 @@ stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/common.css"
 stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/header.css"
 stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/eumenu.css"
 
-# TODO: only include this stuff if we're on the index page
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/index.css"
 
+
+if @stylesheets['index']
+	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/index.css"
+end
 
 # TODO: only include this stuff if we're on the search page
 
