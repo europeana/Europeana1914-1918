@@ -10,6 +10,9 @@
 10. start the server
 11. secure the admin account
 
+12. some ruby extras
+13. import a production db dump
+
 
 
 europeana 1914-1918
@@ -255,10 +258,16 @@ $ bundle exec rake --tasks
 
 
 
+import a production db dump
+===========================
+if available
+$ mysql -u developer -p db_name < db_dump.sql
+
+
+
 
 
 not sure where these instructions belong at the moment
-
 
 #_____________________________
 #
@@ -276,14 +285,6 @@ sudo nano opt
 
 
 
-
-
-import a production db dump
-===========================
-$ mysql cococo < Downloads/2012-04-23-cococo.sql
-
-
-
 #_____________________________
 #
 #  Project Theme Setup
@@ -291,20 +292,20 @@ $ mysql cococo < Downloads/2012-04-23-cococo.sql
 #
 
 (1)	copy everything under:
-		public/themes/v2 
+		public/themes/v2
 	to:
 		public/themes/v_new_theme
 
 
 (2)	copy everything under:
-  		themes/v2 
+  		themes/v2
 	to:
   		themes/v_new_theme
 
 
 (3) Text replace "v2" with "v_new_theme" in the following files:
 
-	themes/v3/views/contributions/_search-results.html.erb			
+	themes/v3/views/contributions/_search-results.html.erb
 	themes/v3/views/layouts/_footer.html.erb
 	themes/v3/views/layouts/_header.html.erb
 	themes/v3/views/layouts/_links.html.erb
@@ -390,7 +391,7 @@ heroku create
 
 git push heroku master
 
-# Messgae if you forget to call "heroku create" 
+# Messgae if you forget to call "heroku create"
 #   fatal: 'heroku' does not appear to be a git repository
 #   fatal: The remote end hung up unexpectedly
 
@@ -477,7 +478,3 @@ nano /etc/default/sphinxsearch
 #  Database Setup
 #_____________________________
 #
-
-
-
-
