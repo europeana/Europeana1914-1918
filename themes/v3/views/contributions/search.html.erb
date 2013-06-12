@@ -5,78 +5,17 @@
   @title = t('views.contributions.search.heading')
 %>
 
+<% 
+	@stylesheets['search'] = true 
+%>
+
+
 <div class="section top">
 
-	<div style="width:100%; position:relative">
-	
-    	<div class="three-quarters-right">    
-	    	<% if @contributions.size > 0 -%>
-				<%=
-					render :partial => '/shared/result_nav',
-					:locals => {
-						:contributions => @contributions,
-						:query => @query,
-						:term => @term,
-						:divClass => 'nav-top'
-					}
-				%>    
-			<% end -%>
-	    
+	<div class="h-flex-container h-flex-collapse">
 
-<%
-=begin %>
 
-	    
-	    	<ul id="results-tabs">
-    	  		<li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
-   		  		<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-   					<li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
-	      		<%- end %>
-    		</ul>
-
-<%
-=end %>
-    	
-    		<div id="results">    
-      
-
-     				<%=
-	       				render :partial => 'search-results',
-    	   				:locals => {
-        					:contributions => @contributions,
-         	  				:query => @query,
-         	  				:term => @term
-         				}
-         			%>
-        			        
-      
-      			<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-      			
-        			<div id="results-europeana"></div>
-        			
-      			<%- end -%>
-      		
-	    	</div>
-	    	
-	    	
-	    	
-	    	<% if @contributions.size > 0 -%>
-				<%=
-					render :partial => '/shared/result_nav',
-					:locals => {
-						:contributions => @contributions,
-						:query => @query,
-						:term => @term,
-						:divClass => 'nav-bottom'
-					}
-				%>    
-			<% end -%>
-	    	
-	    	
-		</div>
-
-		
-	    <div class="one-quarter-left">
+	    <div class="h-flex-fixed h-flex-collapse facets-column">
 	    
 	    	<div id="facets-actions" class="shadow-panel">
 	    
@@ -274,6 +213,76 @@
     		
 		</div>
 		
+
+    	<div class="h-flex-fill h-flex-collapse">    
+	    	<% if @contributions.size > 0 -%>
+				<%=
+					render :partial => '/shared/result_nav',
+					:locals => {
+						:contributions => @contributions,
+						:query => @query,
+						:term => @term,
+						:divClass => 'nav-top'
+					}
+				%>    
+			<% end -%>
+	    
+
+<%
+=begin %>
+
+	    
+	    	<ul id="results-tabs">
+    	  		<li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
+   		  		<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
+   					<li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
+	      		<%- end %>
+    		</ul>
+
+<%
+=end %>
+    	
+    		<div id="results">    
+      
+
+     				<%=
+	       				render :partial => 'search-results',
+    	   				:locals => {
+        					:contributions => @contributions,
+         	  				:query => @query,
+         	  				:term => @term
+         				}
+         			%>
+        			        
+      
+      			<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
+      			
+        			<div id="results-europeana"></div>
+        			
+      			<%- end -%>
+      		
+	    	</div>
+	    	
+	    	
+	    	
+	    	<% if @contributions.size > 0 -%>
+				<%=
+					render :partial => '/shared/result_nav',
+					:locals => {
+						:contributions => @contributions,
+						:query => @query,
+						:term => @term,
+						:divClass => 'nav-bottom'
+					}
+				%>    
+			<% end -%>
+	    	
+	    	
+		</div>
+
+
+		
+
 	</div>
 	
 </div>
