@@ -1,5 +1,7 @@
 # Contribution consisiting of files and metadata.
 class Contribution < ActiveRecord::Base
+  include ContributionSearch  
+  
   belongs_to :contributor, :class_name => 'User'
   belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
@@ -52,40 +54,6 @@ class Contribution < ActiveRecord::Base
   # Number of contributions to show per page when paginating
   cattr_reader :per_page
   @@per_page = 20
-
-  # Dynamically define Sphinx search index.
-  #
-  # MetadataRecord columns equivalent to MetadataField records flagged
-  # as searchable will be indexed.
-  def self.set_search_index
-    define_index_str = "define_index do\n"
-    define_index_str << "  set_property :delta => true\n"
-    define_index_str << "  indexes title, :sortable => true\n"
-    define_index_str << "  indexes contributor.contact.full_name, :sortable => true, :as => :contributor\n"
-    define_index_str << "  has contributor_id\n"
-    define_index_str << "  has metadata_record_id\n"
-    define_index_str << "  has created_at\n"
-    define_index_str << "  has current_status, :as => :status\n"
-    define_index_str << "  has status_timestamp\n"
-
-    # Index all searchable taxonomy terms at once, on a single join
-    define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
-    define_index_str << "  has metadata.searchable_taxonomy_terms(:id), :as => :taxonomy_term_ids\n"
-
-    fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
-    unless fields.count == 0
-      fields.each do |field|
-        index_alias = "metadata_#{field.name}"
-        indexes_or_has = field.searchable? ? 'indexes' : 'has'
-        facet = field.facet? ? 'true' : 'false'
-        define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
-      end
-    end
-    
-    define_index_str << "end\n"
-    class_eval(define_index_str, __FILE__, __LINE__)
-  end
-  set_search_index
 
   def self.published
     where(:current_status => ContributionStatus.published)
@@ -233,64 +201,6 @@ class Contribution < ActiveRecord::Base
     self.metadata.for_contribution = true
   end
   
-  class << self
-    alias_method :engine_search, :search
-  end
-
-  ##
-  # Search contributions.
-  #
-  # Uses ThinkingSphinx if available. If not, falls back to a simple
-  # non-indexed SQL query.
-  #
-  # With ThinkingSphinx, this will search against contribution titles and
-  # any metadata fields flagged as searchable. The SQL fallback will only 
-  # search the contribution titles. 
-  #
-  # If query param is +nil+, returns all contributions, unless other search
-  # conditions given in options param.
-  #
-  # @param [Symbol] set Which set of contributions to search. Valid values:
-  #   * +:approved+
-  #   * +:submitted+
-  #   * +:published+
-  #   * +:draft+
-  #   * +:rejected+
-  #
-  # @param [String] query The full-text query to pass to the search engine.
-  #   Defaults to +nil+, returning all contributions in the named set.
-  #
-  # @param [Hash] options Search options
-  # @option options [Integer,String] :contributor_id Only return results from
-  #   the contributor with this ID.
-  # @option options [TaxonomyTerm] :taxonomy_term Only return results
-  #   categorised with this taxonomy term.
-  # @option options [Integer,String] :page Number of page of results to return.
-  # @option options [Integer,String] :per_page Number of results to return per 
-  #   page.
-  # @option options [String] :order Direction to order the results: 'ASC' or 
-  #   'DESC'. Default is 'ASC' provided +sort+ param also present, otherwise
-  #   set-specific.
-  # @option options [String] :sort Column to sort on, e.g. 'created_at'. 
-  #   Default is set-specific.
-  # @option options Any other options valid for ThinkingSphinx or ActiveRecord 
-  #   queries.
-  #
-  # @return [Array<Contribution>] Search results
-  #
-  # @see http://freelancing-god.github.com/ts/en/searching.html ThinkingSphinx 
-  #   search options
-  #
-  def self.search(set, query = nil, options = {})
-    raise ArgumentError, "set should be :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
-    
-    if ThinkingSphinx.sphinx_running?
-      sphinx_search(set, query, options)
-    else
-      activerecord_search(set, query, options)
-    end
-  end
-    
   ##
   # Fetches and yields approved & published contributions for export.
   #
@@ -365,163 +275,6 @@ class Contribution < ActiveRecord::Base
   #
   def set_draft_status
     change_status_to(:draft)
-  end
-  
-  ##
-  # Simple text query against contributions.
-  #
-  # Intended for use as:
-  # - a backup if no other engine is available
-  # - a lightweight alternative when queries are only on indexed attributes, 
-  #   i.e. not full text
-  #
-  # @param (see #search)
-  # @return (see #search)
-  #
-  def self.activerecord_search(set, query = nil, options = {}) # :nodoc:
-    options = options.dup
-    
-    set_where = if set.nil?
-      1
-    elsif set == :published
-      [ 'current_status=?', ContributionStatus.published ]
-    else
-      [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
-    end
-    
-    query_where = if query.blank?
-      nil
-    elsif query.is_a?(Hash)
-      query_translations = query.dup
-      query_translations[I18n.locale] = query_translations[I18n.locale].add_quote_marks('%')
-      query_translations = query_translations.values.uniq
-      [ query_translations.collect { |qt| 'title LIKE ?' }.join(' OR ') ] + query_translations
-    else
-      [ 'title LIKE ?', query.add_quote_marks('%') ]
-    end
-    
-    metadata_joins = []
-    joins = [ ]
-    if (sort = options.delete(:sort)).present?
-      if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
-        sort_col = "taxonomy_terms.term"
-        metadata_joins << sort.to_sym
-      elsif sort == 'contributor'
-        sort_col = "contacts.full_name"
-        joins << { :contributor => :contact }
-      else
-        sort_col = sort
-      end
-
-      order = options.delete(:order)
-      order = (order.present? && [ 'DESC', 'ASC' ].include?(order.upcase)) ? order : 'ASC'
-      
-      sort_order = "#{sort_col} #{order}"
-    else
-      if set == :submitted
-        options[:order] = 'status_timestamp ASC'
-      else
-        options[:order] = 'status_timestamp DESC'
-      end
-    end
-    
-    contributor_id = options.delete(:contributor_id)
-    contributor_where = contributor_id.present? ? { :contributor_id => contributor_id } : nil
-    
-    taxonomy_term = options.delete(:taxonomy_term)
-    if taxonomy_term.present?
-      taxonomy_field_alias = taxonomy_term.metadata_field.collection_id
-      metadata_joins << taxonomy_field_alias
-      if sort_col == "taxonomy_terms.term"
-        taxonomy_term_where = { "#{taxonomy_field_alias}.id" => taxonomy_term.id }
-      else
-        taxonomy_term_where = { "taxonomy_terms.id" => taxonomy_term.id }
-      end
-    else
-      taxonomy_term_where = nil
-    end
-    
-    joins << { :metadata => metadata_joins }
-    
-    results = joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).order(sort_order)
-      
-    if options.has_key?(:page)
-      results = results.paginate(options)
-    end
-    
-    results
-  end
-  
-  ##
-  # Searches contributions using Sphinx.
-  #
-  # Always does word-end wildcard queries by appending * to query if not already
-  # present.
-  #
-  # @param (see #search)
-  # @return (see #search)
-  #
-  def self.sphinx_search(set, query = nil, options = {}) # :nodoc:
-    unless ThinkingSphinx.sphinx_running?
-      raise RunCoCo::SearchOffline
-    end
-    
-    options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)
-    
-    status_option = if (set == :published)
-      { :with => { :status => ContributionStatus.published } }
-    else
-      { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
-    end
-    
-    options.merge!(status_option)
-    
-    order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
-    
-    if sort = options.delete(:sort)
-      if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
-        sort_col = nil
-      elsif sort =~ /^field_/
-        # Convert field name to index alias
-        sort_col = sort.sub(/^field_/, 'metadata_')
-      else
-        sort_col = sort
-      end
-      
-      options[:sort_mode] = order
-      options[:order] = sort_col
-    else
-      if set == :submitted
-        options[:order] = 'status_timestamp ASC'
-      else
-        options[:order] = 'status_timestamp DESC'
-      end
-    end
-    
-    contributor_id = options.delete(:contributor_id)
-    if contributor_id.present?
-      options[:with][:contributor_id] = contributor_id
-    end
-    
-    taxonomy_term = options.delete(:taxonomy_term)
-    if taxonomy_term.present?
-      options[:with][:taxonomy_term_ids] = taxonomy_term.id
-    end
-    
-    if query.blank?
-      Contribution.engine_search(options)
-    else
-      if query.is_a?(Hash)
-        query_translations = query.dup
-        options[:match_mode] = :extended
-        query_translations[I18n.locale] = query_translations[I18n.locale].append_wildcard
-        query_translations = query_translations.values.uniq
-        query_string = query_translations.add_quote_marks.join(' | ')
-      else
-        query_string = query.append_wildcard
-      end
-      Contribution.engine_search(query_string, options)
-    end
   end
 end
 
