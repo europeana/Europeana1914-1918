@@ -2,7 +2,7 @@ module ContributionSearch
   module Sphinx
     def self.included(base)
       base.extend(ClassMethods)
-      base.set_search_index
+      base.define_sphinx_index
       class << base
         alias_method :sphinx_search, :search
       end
@@ -15,7 +15,7 @@ module ContributionSearch
       # MetadataRecord columns equivalent to MetadataField records flagged
       # as searchable will be indexed.
       #
-      def set_search_index
+      def define_sphinx_index
         define_index_str = "define_index do\n"
         define_index_str << "  set_property :delta => true\n"
         define_index_str << "  indexes title, :sortable => true\n"
@@ -102,7 +102,7 @@ module ContributionSearch
         end
         
         if query.blank?
-          Contribution.sphinx_search(options)
+          sphinx_search(options)
         else
           if query.is_a?(Hash)
             query_translations = query.dup
@@ -113,7 +113,7 @@ module ContributionSearch
           else
             query_string = query.append_wildcard
           end
-          Contribution.sphinx_search(query_string, options)
+          sphinx_search(query_string, options)
         end
       end
     end
