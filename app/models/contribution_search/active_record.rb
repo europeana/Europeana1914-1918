@@ -16,7 +16,7 @@ module ContributionSearch
       # @param (see ContributionSearch::ClassMethods#search)
       # @return (see ContributionSearch::ClassMethods#search)
       #
-      def activerecord_search(set, query = nil, options = {})
+      def search_active_record(set, query = nil, options = {})
         options = options.dup
         
         set_where = if set.nil?

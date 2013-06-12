@@ -24,16 +24,16 @@ class Admin::ContributionsController < AdminController
     if @contributor
       @contributions = {}
       statuses.each do |status|
-        @contributions[status] = Contribution.activerecord_search(status, @query, search_options)
+        @contributions[status] = Contribution.search(status, @query, search_options)
       end
     elsif @status.present? && statuses.include?(@status.to_sym)
-      @contributions = Contribution.activerecord_search(@status.to_sym, @query, search_options)
+      @contributions = Contribution.search(@status.to_sym, @query, search_options)
     elsif @query.present? 
-      @contributions = Contribution.activerecord_search(nil, @query, search_options)
+      @contributions = Contribution.search(nil, @query, search_options)
     else
       @counts = {}
       statuses.each do |status|
-        @counts[status] = Contribution.activerecord_search(status, @query, search_options).total_entries
+        @counts[status] = Contribution.search(status, @query, search_options).total_entries
       end
     end
   end
@@ -159,7 +159,7 @@ class Admin::ContributionsController < AdminController
   end
 
   def search_options
-    search_options = {}
+    search_options = { :engine => :active_record }
     [ :page, :order, :sort, :contributor_id ].each do |key|
       search_options[key] = params[key]
     end

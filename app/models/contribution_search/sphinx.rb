@@ -4,7 +4,7 @@ module ContributionSearch
       base.extend(ClassMethods)
       base.set_search_index
       class << base
-        alias_method :sphinx_engine_search, :search
+        alias_method :sphinx_search, :search
       end
     end
     
@@ -53,7 +53,7 @@ module ContributionSearch
       # @param (see ContributionSearch::ClassMethods#search)
       # @return (see ContributionSearch::ClassMethods#search)
       #
-      def sphinx_search(set, query = nil, options = {})
+      def search_sphinx(set, query = nil, options = {})
         unless ThinkingSphinx.sphinx_running?
           raise RunCoCo::SearchOffline
         end
@@ -101,7 +101,7 @@ module ContributionSearch
         end
         
         if query.blank?
-          Contribution.sphinx_engine_search(options)
+          Contribution.sphinx_search(options)
         else
           if query.is_a?(Hash)
             query_translations = query.dup
@@ -112,7 +112,7 @@ module ContributionSearch
           else
             query_string = query.append_wildcard
           end
-          Contribution.sphinx_engine_search(query_string, options)
+          Contribution.sphinx_search(query_string, options)
         end
       end
     end

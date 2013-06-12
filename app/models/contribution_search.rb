@@ -52,6 +52,9 @@ module ContributionSearch
     #   set-specific.
     # @option options [String] :sort Column to sort on, e.g. 'created_at'. 
     #   Default is set-specific.
+    # @option options [Symbol] :engine Search engine to use, of +:active_record+,
+    #   +:sphinx+. Default is to prefer Sphinx if available, ActiveRecord as 
+    #   fallback.
     # @option options Any other options valid for ThinkingSphinx or ActiveRecord 
     #   queries.
     #
@@ -63,10 +66,17 @@ module ContributionSearch
     def search(set, query = nil, options = {})
       raise ArgumentError, "set should be :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
       
-      if ThinkingSphinx.sphinx_running?
-        sphinx_search(set, query, options)
+      options = options.dup
+      
+      engine = options.delete(:engine)
+      unless engine.blank?
+        raise ArgumentError, "engine should be :active_record or :sphinx, got #{engine.inspect}" unless [ :active_record, :sphinx ].include?(engine)
+      end
+      
+      if (engine.blank? || (engine == :sphinx)) && self.respond_to?(:search_sphinx)
+        search_sphinx(set, query, options)
       else
-        activerecord_search(set, query, options)
+        search_active_record(set, query, options)
       end
     end
   end

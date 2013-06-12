@@ -12,15 +12,15 @@ class ContributorController < ApplicationController
   
   
   def dashboard_contributor
-    search_options = { :page => params[:page], :contributor_id => current_user.id }
+    search_options = { :page => params[:page], :contributor_id => current_user.id, :engine => :active_record }
   
     @contributions = {
-      :draft      => Contribution.activerecord_search(:draft, @query, search_options),
-      :submitted  => Contribution.activerecord_search(:submitted, @query, search_options),
-      :approved   => Contribution.activerecord_search(:approved, @query, search_options),
-      :revised    => Contribution.activerecord_search(:revised, @query, search_options),
-      :withdrawn  => Contribution.activerecord_search(:withdrawn, @query, search_options),
-      :rejected   => Contribution.activerecord_search(:rejected, @query, search_options),
+      :draft      => Contribution.search(:draft, @query, search_options),
+      :submitted  => Contribution.search(:submitted, @query, search_options),
+      :approved   => Contribution.search(:approved, @query, search_options),
+      :revised    => Contribution.search(:revised, @query, search_options),
+      :withdrawn  => Contribution.search(:withdrawn, @query, search_options),
+      :rejected   => Contribution.search(:rejected, @query, search_options),
     }
     
     @total = @contributions.inject(0) { |sum, set| sum + set.size }
