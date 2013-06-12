@@ -1,9 +1,553 @@
-<% @title = [ @record['title'] ].flatten.join %>
+<%
+
+  # @javascripts[:images_lazy_load] = true
+  @javascripts[:gmap_display] = true
+  @javascripts[:images_loaded] = true
+  @javascripts[:carousel] = true
+  @javascripts[:truncate] = true
+  @javascripts[:lightbox] = true
+  @javascripts[:translate] = true
+  @javascripts[:contributions_show] = true
+  
+%>
+
+<% if @record['europeanaCollectionName'] -%>
+	<% @title = [ @record['title'] ].flatten.join %>
+<% else %>
+	<% @title = contribution_title(@contribution) %>
+	
+	<%
+	if @contribution.attachments.select { |a| a.file_content_type == 'application/pdf' }.present?
+    	@javascripts[:pdf] = true
+	end
+	%>
+	
+<% end %>
+		
+<h2><%= @title %></h2>
+
+
+<% if @record['europeanaCollectionName'] -%>
+
+<% else %>
+
+<% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>
+		<div class="section action-links top">
+			<ul>
+				<% if current_user.may_edit_contribution?(@contribution) %>
+					<% if @contribution.draft? %>
+						<%= form_previous_step_link edit_contribution_path(@contribution) %>
+					<% end %>
+					<li>
+						<%= link_to t('actions.edit'), edit_contribution_path(@contribution) %>
+					</li>
+    			<% end %>
+    		
+    			<%- if current_user.may_create_contribution_attachment?(@contribution) -%>
+					<li>
+						<%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)
+					</li>
+				<% end %>
+			
+				<%- if current_user.may_withdraw_contribution?(@contribution) -%>
+					<li>
+						<%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %>
+					</li>
+    			<%- end -%>
+    		
+				<% if current_user.may_delete_contribution?(@contribution) %>
+					<li>
+						<%= link_to t('actions.delete'), delete_contribution_path(@contribution) %>
+					</li>
+				<% end %>
+			
+				<%- if current_user.may_view_contribution_status_log?(@contribution) -%>
+					<li>
+						<%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %>
+					</li>
+				<%- end -%>
+			
+				<%- if current_user.may_approve_contributions? && @contribution.pending_approval? %>
+					<li>
+						<%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %>
+					</li>
+				<%- end %>
+			
+				<%- if current_user.may_reject_contributions? && @contribution.pending_approval? %>
+					<li>
+						<%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %>
+					</li>
+				<%- end %>
+
+			</ul>
+		</div>
+
+	<% end -%>
+<% end -%>
+
+
 
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <div class="nav-top">
+  
+  
+		<%- if referred_by_search? -%>
+			<%= link_to t('views.links.back-to-search'), :back %>
+		<%- elsif true -%>
+			<%= link_to t('views.links.back-to-search'), :back %>
+		<%- end -%>
+	  
+		<%= render :partial => '/layouts/navigation/sharethis' %>
+		
+		<div id="shareicons">
+			<span class='st_sharethis' displayText='&nbsp;'></span>
+		</div>
+		  
+  </div>
+  
+  
+  
+  <h2>CONTRIBUTION_TITLE<%#= contribution_title(@contribution) %></h2>
+  
+  <div class="one-half-left">
+    
+    <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+    
+    
+    <ul id="thumbnail-counts"></ul>
+    
+    <div class="location-desc">This story took place in: <a href="">Amiens, France</a></div>
+    
+    <!-- <div id="banner"> -->
+    <%
+    #  render :partial => '/blog_posts/list',
+    #  :locals => {
+    #    :blog => 'europeana',
+    #    :category => 'story-banner',
+    #    :relocale => true,
+    #    :deblogger => true
+    #  }
+    %>
+    <!-- </div> -->
+    
+    <div class="add-tags">
+    	Add tags (optional)
+    	
+    	<textarea style="width:100%" rows="10"></textarea>
+    </div>
+    
+  </div>
+  
+  
+  
+  
+  <div id="story-info" class="one-half-right">
+    
+    <dl id="story-metadata" class="metadata">
 
-  <p><code><%= @record.inspect %></code></p>
+COMMENTED_OUT_METADATA_PARTIAL
+<%
+=begin %>
 
-</div>
+    
+    <%=
+      render :partial => '/metadata/display',
+      :locals => {
+      :show_title => false,
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :cataloguing => false, 
+        :contribution => true,
+        :name => [
+        'alternative',        
+        'description',
+        'creator_family_name',
+        'creator_given_name',
+        ],
+        :name_order => true
+      }
+      }
+    %>
+
+<%
+=end %>
+
+
+COMMENTED_OUT_CONTRIBUTION_FIELD_DATA
+
+<%
+=begin %>
+
+    <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
+      <dt><b><%= contribution_field_title('contributor') %></b></dt>
+      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
+    <% end -%>
+
+<%
+=end %>
+    
+    
+  COMMENTED_OUT_METADATA_PARTIAL
+    
+<%
+=begin %>
+
+    <%=
+      render :partial => '/metadata/display',
+      :locals => {
+      :show_title => false,
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :cataloguing => false, 
+        :contribution => true,
+        :name => [
+        'contributor_behalf'
+        ],
+        :name_order => true
+      }
+      }
+    %>    
+
+<%
+=end %>
+        
+  
+  COMMENTED_OUT CONATACT DATA  
+<%
+=begin %>
+
+    
+    <% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
+      <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
+      <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
+      <%=
+      render :partial => '/metadata/display',
+        :locals => {
+        :show_title => false,
+        :contribution => @contribution,
+        :metadata => @contribution.metadata,
+        :field_options => {
+          :cataloguing => false, 
+          :contribution => true,
+          :name => [
+          'character1_dob',
+          'character1_pob',
+          'character1_dod',
+          'character1_pod',
+          ],
+          :name_order => true
+        }
+        }
+      %>
+    <% end -%> 
+    
+<%
+=end %>
+    
+    
+    
+ COMMENTED_OUT_CONTACT_DATA
+    
+<%
+=begin %>
+    
+    <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
+      <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
+      <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
+      <%=
+        render :partial => '/metadata/display',
+        :locals => {
+          :show_title => false,
+          :contribution => @contribution,
+          :metadata => @contribution.metadata,
+          :field_options => {
+          :cataloguing => false, 
+          :contribution => true,
+          :name => [
+            'character2_dob',
+            'character2_pob',
+            'character2_dod',
+            'character2_pod',
+          ],
+          :name_order => true
+          }
+        }
+      %>
+    <% end -%>    
+    
+    
+<%
+=end %>    
+    
+    
+    
+COMMENTED_OUT_METADATA_PARTIAL
+    
+<%
+=begin %>
+
+    <%=
+      render :partial => '/metadata/display',
+      :locals => {
+      :show_title => false,
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :cataloguing => false, 
+        :contribution => true,
+        :name => [
+        
+        'subject',
+        'summary',
+        
+        'date_from', # use this field to summarize the date fields
+        'date_to', # do we need to display this field if date_from takes care of all possibilities?
+        
+        'lang',
+        'lang_other',
+        'keywords',
+        'theatres',
+        'forces',
+        
+        #'content',
+        #'author',
+        #'page_number',
+        #'page_total',
+        #'notes',
+        #'object_side',
+        #'cover_image',
+        #'license',
+        #'attachment_description',
+        
+        # need these to be available for google map
+        # they are output as input type="hidden"
+        'location_map',
+        'location_placename',
+        'location_zoom'
+        ],
+        :name_order => true
+      }
+      }
+    %> 
+    
+<%
+=end %>    
+
+
+
+       
+    <% if current_user.may_catalogue_contributions? -%>
+      <%=
+      render :partial => '/metadata/display',
+        :locals => {
+          :show_title => false,
+          :contribution => @contribution,
+          :metadata => @contribution.metadata,
+          :field_options => {
+          :cataloguing => true, 
+          :contribution => true,
+          :name => [
+            'ticket',
+            #'cataloguer', # this is the old cataloguer field (see story 074)
+            ],
+          :name_order => true
+          }
+        }
+      %>
+      <dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
+      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>  
+      <%=
+      render :partial => '/metadata/display',
+        :locals => {
+        :show_title => false,
+        :contribution => @contribution,
+        :metadata => @contribution.metadata,
+        :field_options => {
+          :cataloguing => true, 
+        :contribution => true,
+          :name => [
+            'file_type',
+            'source',
+            'format', # this can also be considered the medium
+            'collection_day',
+            'editor_pick_text',
+            'editor_pick_sig',
+            'editor_pick',
+            'date',
+            ],
+          :name_order => true
+        }
+        }
+      %>
+      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
+      <dd><%= l @contribution.created_at, :format => :short %></dd>
+    <% end -%>
+    </dl>
+    
+
+COMMENTED_OUT_METADATA_PARTIAL
+<%
+=begin %>
+
+    
+    <%- if @contribution.contributor.picture.present? -%>
+      <%
+        people = {
+          :contributor => @contribution.contact.full_name,
+          :principal =>   @contribution.metadata.fields['contributor_behalf'],
+          :character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
+          :character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
+        } 
+      %>
+      <div id="avatar" class="responsive-box">
+        <%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
+        <%- if people[:contributor].present? -%>
+          <%= people[:contributor] %>
+          <%#= people[:principal] %> 
+          <% if people[:character1].present? || people[:character2].present? -%>
+            <%= t('views.contributions.show.shared-this-story') %>
+            <%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
+          <%- end -%>
+        <%- end -%>
+      </div>
+    <%- end -%>
+
+    
+<%
+=end %>
+
+
+	<div class="about-contributor">
+
+		<div style="margin-top:1em; margin-bottom:2em;">
+			<b>About Horace Brumbridge</b>
+		</div>
+		
+		<div style="float:left; margin-right: 1em;">
+	      <%= image_tag('http://www.europeana1914-1918.eu/attachments/51204/4337.51204.thumb.jpg') %>
+		</div>
+		
+		<div style="float:left">
+
+			<b>Date of birth</b>
+			<br/>
+			1895
+			<br/>
+			<br/>
+			
+			<b>Place of birth</b>
+			<br/>
+			Hampstead (then Middlesex)
+			<br/>
+			<br/>
+			
+			<b>Date of death</b>
+			<br/>
+			December 20 1924
+			<br/>
+			<br/>
+			
+			<b>Place of death</b>
+			<br/>
+			Leyton (then Essex)
+			<br/>
+			<br/>
+		</div>
+		
+	</div>
+	
+
+
+	<div class="comments" style="margin-top: 3em; clear:both;">
+		<h3>Comments</h3>
+		<hr style="color:#dadada"/>
+		
+		There are no comments, why not add one below....
+		<br>
+		<br>
+		<h3>Leave a Comment</h3>
+		
+		<div>
+			<div style="float:left; width:20%">
+				Photo
+				<br>
+				Tagline
+			</div>
+			<div style="float:left; width:80%">
+				<textarea style="width:100%;"></textarea>
+				<br/>
+				<br/>
+				<input type="submit" class="europeana-button" value="Submit Comment"/>
+			</div>
+		
+		</div>
+		
+    </div>
+    
+  </div>
+  
+
+  
+  <div class="related-content">
+  
+    <h3>Related Content</h3>
+  	
+  	<div style="padding-right:0.36em;">
+  	
+		<div id="explore-further" class="accordion-tabs">
+		
+			<div class="section active">
+				<a title="User information" href="#tab1">Tab One</a>
+				<div class="content is-open">
+					<div id="tab-1-link">
+						Here is tab one's content <br>
+						Here is tab one's content <br>
+						Here is tab one's content <br>
+						Here is tab one's content <br>
+						Here is tab one's content <br>
+						Here is tab one's content <br>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<a title="User information" href="#tab2">Tab Two</a>
+				<div class="content">
+					<div id="tab-2-link">
+						Here is tab two's content <br>
+						Here is tab two's content <br>
+						Here is tab two's content <br>
+						Here is tab two's content <br>
+						Here is tab two's content <br>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<a title="User information" href="#tab3">Tab Three</a>
+				<div class="content">
+					<div id="tab-3-link">
+						Here is tab three's content <br>
+						Here is tab three's content <br>
+						Here is tab three's content <br>
+						Here is tab three's content <br>
+						Here is tab three's content <br>
+					</div>
+				</div>
+			</div>
+		</div>  <!--end explore further -->
+		
+	</div>	<!--end anonymous wrapper -->
+  
+</div>  <!--end page -->
+
+
+
+<p><code><%= @record.inspect %></code></p>
+
+
+
+
