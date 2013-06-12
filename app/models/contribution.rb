@@ -389,7 +389,16 @@ class Contribution < ActiveRecord::Base
       [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
     end
     
-    query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
+    query_where = if query.blank?
+      nil
+    elsif query.is_a?(Hash)
+      query_translations = query.dup
+      query_translations[I18n.locale] = query_translations[I18n.locale].add_quote_marks('%')
+      query_translations = query_translations.values.uniq
+      [ query_translations.collect { |qt| 'title LIKE ?' }.join(' OR ') ] + query_translations
+    else
+      [ 'title LIKE ?', query.add_quote_marks('%') ]
+    end
     
     metadata_joins = []
     joins = [ ]
