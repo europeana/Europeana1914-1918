@@ -30,11 +30,14 @@ module ContributionSearch
     # conditions given in options param.
     #
     # @param [Symbol] set Which set of contributions to search. Valid values:
-    #   * +:approved+
-    #   * +:submitted+
-    #   * +:published+
     #   * +:draft+
+    #   * +:submitted+
+    #   * +:approved+
+    #   * +:published+
+    #   * +:revised+
     #   * +:rejected+
+    #   * +:withdrawn+
+    #   ... or +nil+ to search all sets.
     #
     # @param [String] query The full-text query to pass to the search engine.
     #   Defaults to +nil+, returning all contributions in the named set.
@@ -64,7 +67,7 @@ module ContributionSearch
     #   search options
     #
     def search(set, query = nil, options = {})
-      raise ArgumentError, "set should be :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
+      raise ArgumentError, "set should be nil, :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ nil, :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
       
       options = options.dup
       
