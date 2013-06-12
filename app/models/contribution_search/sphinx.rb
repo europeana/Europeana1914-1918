@@ -60,13 +60,14 @@ module ContributionSearch
         
         options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)
         
-        status_option = if (set == :published)
-          { :with => { :status => ContributionStatus.published } }
-        else
-          { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
+        unless set.nil?
+          status_option = if (set == :published)
+            { :with => { :status => ContributionStatus.published } }
+          else
+            { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
+          end
+          options.merge!(status_option)
         end
-        
-        options.merge!(status_option)
         
         order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
         
