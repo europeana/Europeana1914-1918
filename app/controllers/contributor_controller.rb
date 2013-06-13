@@ -12,7 +12,7 @@ class ContributorController < ApplicationController
   
   
   def dashboard_contributor
-    search_options = { :page => params[:page], :contributor_id => current_user.id, :engine => :active_record }
+    search_options = { :page => params[:page], :contributor_id => current_user.id }
   
     @contributions = {
       :draft      => Contribution.search(:draft, @query, search_options),

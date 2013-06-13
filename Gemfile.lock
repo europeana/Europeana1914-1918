@@ -104,6 +104,7 @@ GEM
       cocaine (~> 0.3.0)
       mime-types
     polyglot (0.3.3)
+    pr_geohash (1.0.0)
     rack (1.2.6)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
@@ -127,10 +128,19 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     riddle (1.5.3)
+    rsolr (1.0.9)
+      builder (>= 2.1.2)
     sass (3.2.9)
     sax-machine (0.1.0)
       nokogiri (> 0.0.0)
     smurf (1.0.8)
+    sunspot (2.0.0)
+      pr_geohash (~> 1.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (2.0.0)
+      nokogiri
+      sunspot (= 2.0.0)
+    sunspot_solr (2.0.0)
     themes_for_rails (0.4.3)
       rails (>= 3.0.0)
     thin (1.4.1)
@@ -179,6 +189,8 @@ DEPENDENCIES
   sax-machine (~> 0.1.0)
   smurf (~> 1.0.0)
   spawn (~> 1.0.1)!
+  sunspot_rails (~> 2.0.0)
+  sunspot_solr (~> 2.0.0)
   themes_for_rails (~> 0.4.0)
   thin
   thinking-sphinx (~> 2.0.0)

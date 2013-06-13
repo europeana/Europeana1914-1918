@@ -57,6 +57,7 @@ module RunCoCo
       :ui_locales => nil,
       :banner_active => false,
       :banner_text => '',
+      :search_engine => :active_record
     }
 
     DEFAULTS.each_key do |name|
@@ -70,6 +71,7 @@ module RunCoCo
     
     validates_numericality_of :max_upload_size, :greater_than => 0
     validates_format_of :relative_url_root , :with => /\A(\/\w+)?\Z/
+    validates_inclusion_of :search_engine, :in => [ :active_record, :solr, :sphinx ]
     
     def initialize
       @settings = {}

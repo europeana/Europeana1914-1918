@@ -1,12 +1,21 @@
 module ContributionSearch
   module ActiveRecord
     def self.included(base)
+      base.class_eval do
+        include ContributionSearch
+      end
       base.extend(ClassMethods)
+      class << base
+        alias_method :active_record_search, :search
+      end
     end
     
     module ClassMethods
       ##
       # Simple text query against contributions.
+      #
+      #
+      # Only searches contribution titles.
       #
       # Intended for use as:
       # - a backup if no other engine is available
@@ -16,7 +25,9 @@ module ContributionSearch
       # @param (see ContributionSearch::ClassMethods#search)
       # @return (see ContributionSearch::ClassMethods#search)
       #
-      def search_active_record(set, query = nil, options = {})
+      def search(set, query = nil, options = {})
+        assert_valid_set(set)
+        
         options = options.dup
         
         set_where = if set.nil?

@@ -172,7 +172,7 @@ class ContributionsController < ApplicationController
     # Minimal eager loading of associations if search result partials are not pre-cached.
 #    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
     # No eager loading if partials are all pre-cached.
-    search_options = { :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
+    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id] }
     @contributions = Contribution.search(:published, bing_translate(@query), search_options)
     
     if params.delete(:layout) == '0'

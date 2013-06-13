@@ -6,6 +6,11 @@ module ContributionSearch
       class << base
         alias_method :sphinx_search, :search
       end
+      base.class_eval do
+        include ContributionSearch
+        include ContributionSearch::ActiveRecord
+      end
+      base.extend(SearchMethod) # Separated from ClassMethods to overwrite ThinkingSphinx's +search+ method
     end
     
     module ClassMethods
@@ -44,8 +49,14 @@ module ContributionSearch
         class_eval(define_index_str, __FILE__, __LINE__)
       end
       
+    end
+    
+    module SearchMethod
       ##
       # Searches contributions using Sphinx.
+      #
+      # Search against contribution titles and any metadata fields flagged as
+      # searchable.
       #
       # Always does word-end wildcard queries by appending * to query if not already
       # present.
@@ -53,9 +64,15 @@ module ContributionSearch
       # @param (see ContributionSearch::ClassMethods#search)
       # @return (see ContributionSearch::ClassMethods#search)
       #
-      def search_sphinx(set, query = nil, options = {})
+      # @see http://freelancing-god.github.com/ts/en/searching.html ThinkingSphinx 
+      #   search options
+      #
+      def search(set, query = nil, options = {})
+        assert_valid_set(set)
+        
         unless ThinkingSphinx.sphinx_running?
-          raise RunCoCo::SearchOffline
+          RunCoCo.error_logger.warn('Sphinx not accessible; falling back to ActiveRecord search.')
+          return active_record_search(set, query, options)
         end
         
         options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)

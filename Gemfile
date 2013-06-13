@@ -24,11 +24,13 @@ gem 'paperclip', '2.7.5'
 gem 'sass', '~> 3.2.9'
 gem 'sax-machine', '~> 0.1.0'
 gem 'smurf', '~> 1.0.0'
+gem 'sunspot_rails', '~> 2.0.0'
 gem 'spawn', '~> 1.0.1', :git => 'git://github.com/rfc2822/spawn'
 gem 'themes_for_rails', '~> 0.4.0'
 gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem 'will_paginate', '~> 3.0.0'
 
 group :development do
+  gem 'sunspot_solr', '~> 2.0.0'
   gem 'thin'
 end

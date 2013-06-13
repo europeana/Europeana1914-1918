@@ -1,12 +1,23 @@
+##
 # Contribution consisiting of files and metadata.
+#
 class Contribution < ActiveRecord::Base
-  include ContributionSearch  
-  
+  case RunCoCo.configuration.search_engine
+  when :active_record
+    include ContributionSearch::ActiveRecord
+  when :solr
+    include ContributionSearch::Solr
+  when :sphinx
+    include ContributionSearch::Sphinx
+  end
+
   belongs_to :contributor, :class_name => 'User'
   belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   #--
-  # FIXME: Destroy associated contact when contribution destroyed, *IF* this is a guest contribution, *AND* there are no other associated contributions
+  # @fixme: Destroy associated contact when contribution destroyed, 
+  # *IF* this is a guest contribution, *AND* there are no other associated 
+  # contributions
   #++
   belongs_to :guest
 

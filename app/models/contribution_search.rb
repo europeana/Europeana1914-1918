@@ -1,30 +1,28 @@
 ##
-# Modularised, engine-agnostic contribution search.
+# Modularised search engine support for contributions.
+#
+# @todo Improve AR fallback when classes cached.
+#   The code in app/models/contribution.rb that conditionally includes a 
+#   sub-module of ContributionSearch based on the value of 
+#   +RunCoCo.configuration.search_engine+ will run on every request in a 
+#   development environment, but only on application startup in production, i.e.
+#   where +Rails.configuration.cache_classes == true+. If Solr or Sphinx are
+#   accessible at application startup, but later become unavailable, the 
+#   production environment will not fallback to an ActiveRecord search, but it 
+#   should.
 #
 module ContributionSearch
   autoload :ActiveRecord, 'contribution_search/active_record'
+  autoload :Solr,         'contribution_search/solr'
   autoload :Sphinx,       'contribution_search/sphinx'
   
   def self.included(base)
-    base.class_eval do
-      include ContributionSearch::ActiveRecord
-      if ThinkingSphinx.sphinx_running?
-        include ContributionSearch::Sphinx
-      end
-    end
     base.extend(ClassMethods)
   end
   
   module ClassMethods
     ##
     # Search contributions.
-    #
-    # Uses ThinkingSphinx if available. If not, falls back to a simple
-    # non-indexed SQL query.
-    #
-    # With ThinkingSphinx, this will search against contribution titles and
-    # any metadata fields flagged as searchable. The SQL fallback will only 
-    # search the contribution titles. 
     #
     # If query param is +nil+, returns all contributions, unless other search
     # conditions given in options param.
@@ -55,32 +53,17 @@ module ContributionSearch
     #   set-specific.
     # @option options [String] :sort Column to sort on, e.g. 'created_at'. 
     #   Default is set-specific.
-    # @option options [Symbol] :engine Search engine to use, of +:active_record+,
-    #   +:sphinx+. Default is to prefer Sphinx if available, ActiveRecord as 
-    #   fallback.
-    # @option options Any other options valid for ThinkingSphinx or ActiveRecord 
-    #   queries.
+    # @option options Any other options valid for the search engine in use.
     #
     # @return [Array<Contribution>] Search results
     #
-    # @see http://freelancing-god.github.com/ts/en/searching.html ThinkingSphinx 
-    #   search options
-    #
-    def search(set, query = nil, options = {})
+    def search(set, query = nil, options = {}) # :nodoc:
+      raise Exception, "#search should be called on one of the sub-modules of ContributionSearch"
+    end
+    
+    def assert_valid_set(set)
       raise ArgumentError, "set should be nil, :draft, :submitted, :approved, :revised, :rejected, :withdrawn or :published, got #{set.inspect}" unless [ nil, :draft, :submitted, :approved, :published, :revised, :rejected, :withdrawn ].include?(set)
-      
-      options = options.dup
-      
-      engine = options.delete(:engine)
-      unless engine.blank?
-        raise ArgumentError, "engine should be :active_record or :sphinx, got #{engine.inspect}" unless [ :active_record, :sphinx ].include?(engine)
-      end
-      
-      if (engine.blank? || (engine == :sphinx)) && self.respond_to?(:search_sphinx)
-        search_sphinx(set, query, options)
-      else
-        search_active_record(set, query, options)
-      end
+      set
     end
   end
 end

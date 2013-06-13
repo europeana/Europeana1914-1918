@@ -159,7 +159,7 @@ class Admin::ContributionsController < AdminController
   end
 
   def search_options
-    search_options = { :engine => :active_record }
+    search_options = {}
     [ :page, :order, :sort, :contributor_id ].each do |key|
       search_options[key] = params[key]
     end
