@@ -4,7 +4,9 @@
     <%- for result in results -%>
       <li>
         <a href="<%= result['guid'] %>" title="<%= result['title'].first.to_s %>">
-          <img src="<%= result['edmPreview'].first %>" alt="" /><br />
+          <%- unless result['edmPreview'].blank? -%>
+            <img src="<%= result['edmPreview'].first %>" alt="" /><br />
+          <%- end -%>
           <b><%= result['title'].first.to_s %></b>
           <%- unless result['dcCreator'].blank? -%>
             <%- result['dcCreator'].each do |field_value| -%>
