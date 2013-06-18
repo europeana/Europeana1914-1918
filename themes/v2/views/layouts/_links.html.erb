@@ -16,6 +16,10 @@ if @javascripts[:uploadify]
   stylesheets['screen'] << '/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.css'
 end
 
+if @javascripts[:video]
+  stylesheets['screen'] << '/themes/v2/javascripts/com/mediaelementjs/mediaelementplayer.css'
+end
+
 stylesheets['all'] << '/themes/v2/stylesheets/portlet.css'
 -%>
 <% stylesheets.each_pair do |media, sources| -%>

@@ -519,6 +519,26 @@
 			
 			var self = this;
 			
+			jQuery("a[rel^='prettyPhoto'].video").each(function() {
+				
+				// Videos are played by MediaElement.js, using prettyPhoto's inline
+				// content handler.
+				
+				var videoId = 'video-' + jQuery(this).attr('data-attachment-id');
+				var ppContainer = jQuery('<div id="' + videoId + '"></div>').hide();
+				
+				var video = jQuery('<video></video>').hide();
+				video.attr('src', jQuery(this).attr('href'));
+				jQuery(this).after(video);
+				video.mediaelementplayer();
+				
+				var mepContainer = jQuery(this).siblings('.mejs-container');
+				mepContainer.wrap(ppContainer);
+				
+				jQuery(this).attr('href', '#' + videoId);
+				
+			});
+			
 			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
 				
 				description_src : 'data-description',

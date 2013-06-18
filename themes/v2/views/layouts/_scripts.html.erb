@@ -87,10 +87,10 @@
 	end
 	
 	if @javascripts[:pdf]
-	  script_files.push(
-	    '/themes/v2/javascripts/com/github/mozilla/pdf.js/pdf.js'
-	  )
-  end
+		script_files.push(
+			'/themes/v2/javascripts/com/github/mozilla/pdf.js/pdf.js'
+		)
+	end
 	
 	if @javascripts[:readmore]
 		script_files.push(
@@ -120,8 +120,11 @@
 		)
 	end
 	
-	
-	
+	if @javascripts[:video]
+		script_files.push(
+			'/themes/v2/javascripts/com/mediaelementjs/mediaelement-and-player.min.js'
+		)
+	end
 	
 	
 	# page scripts
