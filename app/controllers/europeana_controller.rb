@@ -49,6 +49,7 @@ class EuropeanaController < ApplicationController
   
   # GET /europeana/record/:dataset_id/:record_id
   # @todo Cache API responses
+  # @todo Handle errors from Europeana API, e.g. on invalid ID param
   def show
     europeana_id = '/' + params[:dataset_id] + '/' + params[:record_id]
     response = Europeana::API::Record.get(europeana_id)
@@ -109,7 +110,7 @@ class EuropeanaController < ApplicationController
     end
     
     WillPaginate::Collection.create(options[:page], results['itemsCount'], results['totalResults']) do |pager|
-      pager.replace results['items']
+      pager.replace(results['itemsCount'] == 0 ? [] : results['items'])
     end
   end
   
