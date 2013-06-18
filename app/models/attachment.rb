@@ -93,6 +93,11 @@ class Attachment < ActiveRecord::Base
     !(file.content_type =~ /^image.*/).nil?
   end
   
+  # Returns true if the attached file is a video.
+  def video?
+    !(file.content_type =~ /^video\//).nil?
+  end
+  
   def has_thumbnail?(size)
     make_thumbnails? && File.exists?(file.path(size))
   end
