@@ -66,7 +66,7 @@ class Attachment < ActiveRecord::Base
   after_save :delete_old_file_dir, :unless => Proc.new { |a| a.old_file_dir.blank? }
   
   # Paperclip's built-in post-processing for thumbnails should only
-  # be run for images.
+  # be run on certain file types.
   before_post_process :make_thumbnails?
 
   validates_associated :metadata
@@ -84,16 +84,31 @@ class Attachment < ActiveRecord::Base
   # User and session dependent, so handled by controller logic.
   attr_accessor :dropbox_path
 
+  ##
+  # Returns true if this attachment should have thumnails made for it.
+  #
+  # Images and PDFs get thumbnails.
+  #
+  # @return [Boolean]
+  #
   def make_thumbnails?
     image? || file.content_type == 'application/pdf'
   end
 
+  ##
   # Returns true if the attached file is an image.
+  #
+  # @return [Boolean]
+  #
   def image?
     !(file.content_type =~ /^image.*/).nil?
   end
   
+  ##
   # Returns true if the attached file is a video.
+  #
+  # @return [Boolean]
+  #
   def video?
     !(file.content_type =~ /^video\//).nil?
   end
@@ -108,9 +123,13 @@ class Attachment < ActiveRecord::Base
     true
   end
   
+  ##
   # Cached array of content types, derived from +RunCoCo.configuration.allowed_upload_extensions+.
+  # @see .paperclip_content_types
+  #
   @@paperclip_content_types = nil
   
+  ##
   # Returns an array of the content types to be accepted by Paperclip,
   # based on the permitted file name extensions configured through
   # +RunCoCo.configuration.allowed_upload_extensions+.
@@ -119,8 +138,10 @@ class Attachment < ActiveRecord::Base
   # extensions. For IE compatibility, adds "image/pjpeg" for .jpg &
   # .jpeg files, and "image/x-png" for .png files.
   #
-  # This array will be cached and re-used in subsequent calls unless
-  # reload parameter is +true+.
+  # @param [Boolean] reload If +true+, force a reload of content types, 
+  #   otherwise they are cached.
+  # @return [Array<String>] Content type strings.
+  #
   def self.paperclip_content_types(reload = false)
     if reload || @@paperclip_content_types.nil?
       if RunCoCo.configuration.allowed_upload_extensions.blank?
@@ -129,12 +150,17 @@ class Attachment < ActiveRecord::Base
         @@paperclip_content_types = RunCoCo.configuration.allowed_upload_extensions.split(',').collect { |ext|
           ext.downcase!
           mime_types = MIME::Types.type_for(ext).collect { |mime_type| mime_type.content_type }
-          mime_types << 'image/pjpeg' if (ext == 'jpg' || ext == 'jpeg')
-          mime_types << 'image/x-png' if (ext == 'png')
-          if ext == 'mp3'
-             mime_types << 'audio/x-mpeg' << 'audio/mp3' << 'audio/x-mp3' <<
+          mime_types << case ext
+            when 'jpg', 'jpeg'
+              'image/pjpeg'
+            when 'png'
+              'image/x-png'
+            when 'mp3'
+              'audio/x-mpeg' << 'audio/mp3' << 'audio/x-mp3' <<
               'audio/mpeg3' << 'audio/x-mpeg3' << 'audio/mpg'<< 
               'audio/x-mpg' << 'audio/x-mpegaudio'
+            when 'mp4'
+              'video/mp4'
           end
           mime_types
         }.flatten.reject { |content_type| content_type.blank? }
