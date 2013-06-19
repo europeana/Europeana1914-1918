@@ -527,7 +527,7 @@
 				changepicturecallback : self.handlePictureChange,
 				show_title : false,
 				collection_total : carousels.items_collection_total,
-				callback : function() { lightbox.init(); }
+//				callback : function() { lightbox.init(); } // Why is this run as a callback when pp is closed?
 			};
 			
 			jQuery("a[rel^='prettyPhoto'].video").each(function() {
@@ -535,25 +535,35 @@
 				// Videos are played by MediaElement.js, using prettyPhoto's inline
 				// content handler.
 				
-				var videoId = 'video-' + jQuery(this).attr('data-attachment-id');
-				var ppContainer = jQuery('<div id="' + videoId + '"></div>').hide();
+				var link = this;
 				
-				var video = jQuery('<video></video>').hide();
-				video.attr('src', jQuery(this).attr('href'));
-				jQuery(this).after(video);
+				var videoId = 'video-' + jQuery(link).attr('data-attachment-id');
+
+				var video = jQuery('<video></video>').attr('src', jQuery(link).attr('href'));
+
+				var ppContainer = jQuery('<div id="' + videoId + '"></div>');
+				ppContainer.css('height', '0');
+				ppContainer.append(video).insertAfter(jQuery(link));
+				
 				video.mediaelementplayer({
-					pluginPath: RunCoCo.relativeUrlRoot + '/themes/v2/javascripts/com/mediaelementjs/'
+					pluginPath: RunCoCo.relativeUrlRoot + '/themes/v2/javascripts/com/mediaelementjs/',
+					success: function (mediaElement, domObject) {
+					
+						ppContainer.hide();
+						ppContainer.css('height', 'auto');
+
+						var mepContainer = jQuery('.mejs-container', jQuery(link).siblings());
+						
+						var ppVideoOptions = ppOptions;
+						ppVideoOptions.default_width = mepContainer.width();
+						ppVideoOptions.default_height = mepContainer.height();
+
+						jQuery(link).attr('href', '#' + videoId);
+						jQuery(link).prettyPhoto(ppVideoOptions);
+						
+					}
 				});
 				
-				var mepContainer = jQuery(this).siblings('.mejs-container');
-				mepContainer.wrap(ppContainer);
-				
-				jQuery(this).attr('href', '#' + videoId);
-				
-				var ppVideoOptions = ppOptions;
-				ppVideoOptions.default_width = mepContainer.width();
-				ppVideoOptions.default_height = mepContainer.height();
-				jQuery(this).prettyPhoto(ppVideoOptions);
 			});
 			
 			jQuery("a[rel^='prettyPhoto']").not('.video').prettyPhoto(ppOptions);
