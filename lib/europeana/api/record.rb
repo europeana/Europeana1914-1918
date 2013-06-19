@@ -17,26 +17,31 @@ module Europeana
       #
       BASE_URL = 'http://europeana.eu/api/v2/record/%s.json'
       
-      ##
-      # Retrieves a record object over the API.
-      #
-      # @param [String] record_id Europeana record ID.
-      # @return [Hash] Record object.
-      # @see http://www.europeana.eu/portal/api-record-json.html Documentation
-      #   of response object.
-      # @todo Handle errors from API.
-      #
-      def self.get(record_id)
-        raise Exception, 'Europeana API key not set' unless Europeana::API.key.present?
-        
-        params = {
-          :wskey => Europeana::API.key
-        }
-        
-        uri = URI.parse(sprintf(BASE_URL, record_id))
-        uri.query = params.to_query
-        
-        ActiveSupport::JSON.decode(Net::HTTP.get(uri))
+      class << self
+        ##
+        # Retrieves a record object over the API.
+        #
+        # @param [String] record_id Europeana record ID.
+        # @return [Hash] Record object.
+        # @see http://www.europeana.eu/portal/api-record-json.html Documentation
+        #   of response object.
+        # @todo Handle errors from API.
+        #
+        def get(record_id)
+          ActiveSupport::JSON.decode(Net::HTTP.get(uri(record_id)))
+        end
+      
+        def uri(record_id)
+          raise Exception, 'Europeana API key not set' unless Europeana::API.key.present?
+          
+          params = {
+            :wskey => Europeana::API.key
+          }
+          
+          uri = URI.parse(sprintf(BASE_URL, record_id))
+          uri.query = params.to_query
+          uri
+        end
       end
     end
   end
