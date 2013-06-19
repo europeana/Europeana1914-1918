@@ -519,6 +519,17 @@
 			
 			var self = this;
 			
+			var ppOptions = { 
+				description_src : 'data-description',
+				overlay_gallery : false,
+				changepagenext : self.handlePageChangeNext,
+				changepageprev : self.handlePageChangePrev,
+				changepicturecallback : self.handlePictureChange,
+				show_title : false,
+				collection_total : carousels.items_collection_total,
+				callback : function() { lightbox.init(); }
+			};
+			
 			jQuery("a[rel^='prettyPhoto'].video").each(function() {
 				
 				// Videos are played by MediaElement.js, using prettyPhoto's inline
@@ -530,27 +541,22 @@
 				var video = jQuery('<video></video>').hide();
 				video.attr('src', jQuery(this).attr('href'));
 				jQuery(this).after(video);
-				video.mediaelementplayer();
+				video.mediaelementplayer({
+					pluginPath: RunCoCo.relativeUrlRoot + '/themes/v2/javascripts/com/mediaelementjs/'
+				});
 				
 				var mepContainer = jQuery(this).siblings('.mejs-container');
 				mepContainer.wrap(ppContainer);
 				
 				jQuery(this).attr('href', '#' + videoId);
 				
+				var ppVideoOptions = ppOptions;
+				ppVideoOptions.default_width = mepContainer.width();
+				ppVideoOptions.default_height = mepContainer.height();
+				jQuery(this).prettyPhoto(ppVideoOptions);
 			});
 			
-			jQuery("a[rel^='prettyPhoto']").prettyPhoto({
-				
-				description_src : 'data-description',
-				overlay_gallery : false,
-				changepagenext : self.handlePageChangeNext,
-				changepageprev : self.handlePageChangePrev,
-				changepicturecallback : self.handlePictureChange,
-				show_title : false,
-				collection_total : carousels.items_collection_total,
-				callback : function() { lightbox.init(); }
-				
-			});
+			jQuery("a[rel^='prettyPhoto']").not('.video').prettyPhoto(ppOptions);
 			
 		},
 		
