@@ -92,7 +92,7 @@ class Attachment < ActiveRecord::Base
   # @return [Boolean]
   #
   def make_thumbnails?
-    image? || file.content_type == 'application/pdf'
+    image? || video? || file.content_type == 'application/pdf'
   end
 
   ##
