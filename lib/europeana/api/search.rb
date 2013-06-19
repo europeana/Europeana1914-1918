@@ -53,23 +53,20 @@ module Europeana
       #   the maximum value is 100 (default is 12).
       # @option options [String,Integer] :start The item in the search results 
       #   to start with; first item is 1 (default is 1).
+      # @option options Any other options are passed as-is to the API.
       #
       # @return [URI] Query URI
       #
       def uri(options = {})
         raise Exception, 'Europeana API key not set' unless Europeana::API.key.present?
         
-        options.assert_valid_keys(:rows, :start)
-        
-        rows = [ (options[:rows] || 12).to_i, 100 ].min
-        start = options[:start] || 1
-        
-        params = {
+        params = options.dup.merge( {
           :query => @terms,
-          :wskey => Europeana::API.key,
-          :rows => rows,
-          :start => start
-        }
+          :wskey => Europeana::API.key
+        } )
+        
+        params[:rows] = [ (params[:rows] || 12).to_i, 100 ].min
+        params[:start] = params[:start] || 1
         
         uri = URI.parse(BASE_URL)
         uri.query = params.to_query
