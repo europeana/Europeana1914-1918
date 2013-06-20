@@ -186,7 +186,7 @@ edit the file and make sure it contains a valid europeana api key
 
 create search suggestions config
 --------------------------------
-$ cp config/initializers/search_suggestions.rb.example config/initializers/search_suggestions.rb
+$ cp config/initializers/search_suggestion.rb.example config/initializers/search_suggestion.rb
 edit the file and make sure the recommended settings are uncommented by removing the #
 
 
@@ -201,9 +201,12 @@ create thinking sphinx config
 $ cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking_sphinx.rb
 
 
+
+database
+========
 make initial schema available
 -----------------------------
-$ cp /project-path/config/db/schema-example.rb /project-path/config/db/schema.rb
+$ cp /project-path/db/schema-example.rb /project-path/db/schema.rb
 
 
 
@@ -236,9 +239,9 @@ $ bundle exec rake assets:expire
 
 start the server
 ================
-rails server
+$ rails server
 # or
-rails s
+$ rails s
 
 
 
