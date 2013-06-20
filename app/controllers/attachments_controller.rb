@@ -8,6 +8,7 @@ class AttachmentsController < ApplicationController
     @attachments = @contribution.attachments
     respond_to do |format|
       format.html do
+        # @todo Does this need to respond similarly for theme v3?
         if params[:carousel] && (session[:theme] = 'v2')
           render :partial => '/attachments/carousel', :locals => {
             :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 ),
