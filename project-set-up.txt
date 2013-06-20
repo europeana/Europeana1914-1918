@@ -1,16 +1,17 @@
 1. europeana 1914-1918
 2. suggested ruby install
-3. setup the 1914-1918 project
-4. configurations
-5. environments
-6. initializers
-7. create db and populate with initial values
-8. update the js localization files
-9. clear js & css cache
-10. start the server
-11. secure the admin account
-12. some ruby extras
-13. import a production db dump
+3. required libraries
+4. setup the 1914-1918 project
+5. configurations
+6. environments
+7. initializers
+8. create db and populate with initial values
+9. update the js localization files
+10. clear js & css cache
+11. start the server
+12. secure the admin account
+13. some ruby extras
+14. import a production db dump
 
 
 
@@ -85,6 +86,13 @@ install ruby with rvm
 ---------------------
 any 1.8 or 1.9 version should work
 $ rvm install 1.9.3
+
+
+
+required libraries
+==================
+* ImageMagick
+* ffmpeg
 
 
 
@@ -269,13 +277,8 @@ $ mysql -u developer -p db_name < db_dump.sql
 
 
 
-not sure where these instructions belong at the moment
 
-#_____________________________
-#
-#  ImageMagick (installed already) PUT ON PATH
-#_____________________________
-#
+
 
 
 # On a Mac, a 1-line file in /etc/paths.d will be added to the path.  Imagemagick lives in /opt/local/bin, therefore:
