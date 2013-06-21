@@ -519,6 +519,17 @@
 
 		},
 
+		removeMediaElementPlayers : function() {
+
+			if ( window.mejs ) {
+				for ( var i in mejs.players ) {
+					mejs.players[i].remove();
+				}
+			}
+
+			mejs.mepIndex = 0;
+
+		},
 
 		setupPrettyPhoto : function() {
 
@@ -532,7 +543,10 @@
 					show_title : false,
 					social_tools: false,
 					collection_total : carousels.items_collection_total,
-					//callback : function() { lightbox.init(); } // Why is this run as a callback when pp is closed?
+					callback : function() {
+						//lightbox.init(); // Why is this run as a callback when pp is closed?
+						self.removeMediaElementPlayers();
+					}
 				};
 
 			jQuery("a[rel^='prettyPhoto'].video").each(function() {
@@ -578,13 +592,9 @@
 		init : function() {
 
 			if ( add_lightbox ) {
-
 				this.setupPrettyPhoto();
-
 			} else {
-
 				this.removeLightboxLinks();
-
 			}
 
 		}
