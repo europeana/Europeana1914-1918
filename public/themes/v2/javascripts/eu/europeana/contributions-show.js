@@ -557,16 +557,7 @@
 				// MediaElement.js attachment to the <video> element needs to happen
 				// once the prettyPhoto container has been created.
 				// @see self.handlerPictureChange
-				var $link = jQuery(this),
-					videoId = 'video-' + $link.attr('data-attachment-id'),
-					$video_container = jQuery('<div/>', { 'id' : videoId, 'height': 270, 'width' : 480 }),
-					$video = jQuery('<div/>', { 'class' : 'video-element', 'data-src' :  $link.attr('href') });
-
-				$link.attr('href', '#' + videoId);
-				$video_container.hide();
-				$video_container.append($video).insertAfter( $link );
-				ppOptions.default_width = 480;
-				$link.prettyPhoto(ppOptions);
+				jQuery(this).prettyPhoto(ppOptions);
 
 			});
 

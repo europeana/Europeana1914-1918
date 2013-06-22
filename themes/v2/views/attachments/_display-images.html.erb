@@ -21,13 +21,17 @@
           link_attrs.merge!( {
             :class => 'video'
           } ) if attachment.video?
+          link_url = '#video-' + attachment.id.to_s
         -%>
-        <%= link_to( attachment_preview( attachment, size ), attachment_url(attachment, 'large'), link_attrs ) %>
+        <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
       <%- else -%>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
       <%- end -%>
       <%- if prettyphoto -%>
-        <%# <div id="video-62875" style="height: 270px; width: 480px; display: none;"><div class="video-element" data-src="/attachments/62875/4793.62875.original.mp4?1371736313"></div></div> %>
+        <%- if attachment.video? -%>
+          <%# @richard : hoping the backend can provide width and height and also add it to the link_attrs %>
+          <div id="video-<%= attachment.id %>" style="height: 270px; width: 480px; display: none;"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
+        <%- end -%>
         <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
           <%= render :partial => '/metadata/display',
             :locals => {
