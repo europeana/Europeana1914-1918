@@ -29,7 +29,7 @@
       <%- end -%>
       <%- if prettyphoto -%>
         <%- if attachment.video? -%>
-          <div id="video-<%= attachment.id %>" style="width:<%= attachment.file.width.to_s %>px; height:<%= attachment.file.width.to_s %>px; display: none;" class="video-wrapper"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
+          <div id="video-<%= attachment.id %>" style="<% if attachment.file.width.present? %>width:<%= attachment.file.width.to_s %>px; <% end %><% if attachment.file.height.present? %>height:<%= attachment.file.height.to_s %>px; <% end %>display: none;" class="video-wrapper"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
         <%- end -%>
         <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
           <%= render :partial => '/metadata/display',
