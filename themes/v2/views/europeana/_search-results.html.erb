@@ -4,16 +4,7 @@
     <%- for result in results -%>
       <%- title = result['title'].blank? ? '' : result['title'].first.to_s -%>
       <li>
-        <a href="<%= europeana_record_url(result['id']) %>" title="<%= title %>">
-          <%- if result['type'] == 'VIDEO' -%>
-            <%-
-            # Display video linked to in edmIsShownBy aggregation,
-            # where provider is EFG:
-            # if result['aggregations'].select { |a| a.has_key?('edmProvider') && a['edmProvider']['def'].include?("EFG - The European Film Gateway") }.size > 1
-            #   efg_videos = result['aggregations'].select { |a| a.has_key?('edmIsShownBy') }.collect { |a| a['edmIsShownBy'] }
-            # end
-            -%>
-          <%- end -%>
+        <a href="<%= result['guid'] %>" title="<%= title %>">
           <%- unless result['edmPreview'].blank? -%>
             <img src="<%= result['edmPreview'].first %>" alt="" /><br />
           <%- end -%>
