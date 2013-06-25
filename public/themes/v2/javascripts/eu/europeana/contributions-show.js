@@ -557,7 +557,12 @@
 				// MediaElement.js attachment to the <video> element needs to happen
 				// once the prettyPhoto container has been created.
 				// @see self.handlerPictureChange
-				jQuery(this).prettyPhoto(ppOptions);
+				var ppVideoOptions = ppOptions;
+				var video_link = jQuery(this);
+
+				ppVideoOptions.default_width = video_link.data('video-width');
+				ppVideoOptions.default_height = video_link.data('video-height');
+				jQuery(this).prettyPhoto(ppVideoOptions);
 
 			});
 

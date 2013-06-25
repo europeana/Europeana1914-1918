@@ -6,6 +6,8 @@
   <%- for attachment in attachments -%><li>
       <%- if attachment.file.present? -%>
         <%-
+          video_width = 480
+          video_height = 270
           link_attrs = {
             :target => '_blank',
             :title => attachment.title,
@@ -13,9 +15,9 @@
             'data-contribution-id' => contribution.id
           }
           link_attrs.merge!( {
-            'data-description' =>
-            '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
-            ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
+            'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' + ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
+            'data-video-width' => video_width.to_s,
+            'data-video-height' => video_height.to_s,
             :rel => 'prettyPhoto[gallery]'
           } ) if (prettyphoto && (attachment.image? || attachment.video?))
           link_attrs.merge!( {
@@ -30,7 +32,7 @@
       <%- if prettyphoto -%>
         <%- if attachment.video? -%>
           <%# @richard : hoping the backend can provide width and height and also add it to the link_attrs %>
-          <div id="video-<%= attachment.id %>" style="height: 270px; width: 480px; display: none;"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
+          <div id="video-<%= attachment.id %>" style="width:<%= video_width.to_s %>px; height:<%= video_height.to_s %>px; display: none;" class="video-wrapper"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
         <%- end -%>
         <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
           <%= render :partial => '/metadata/display',
