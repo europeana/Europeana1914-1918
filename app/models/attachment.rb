@@ -84,6 +84,10 @@ class Attachment < ActiveRecord::Base
   # User and session dependent, so handled by controller logic.
   attr_accessor :dropbox_path
 
+  def self.published
+    includes(:contribution).where('contributions.current_status' => ContributionStatus.published)
+  end
+
   ##
   # Returns true if this attachment should have thumnails made for it.
   #

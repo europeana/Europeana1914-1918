@@ -37,6 +37,10 @@
         <dt><%= link_to t('views.admin.index.links.export_users.text'), export_admin_users_path(:format => 'csv') %></dt>
         <dd><%= t('views.admin.index.links.export_users.description') %></dd>
       <%- end -%>
+      <%- if current_user.may_access_admin_area? -%>
+        <dt><%= link_to t('views.admin.index.links.statistics.text'), admin_statistics_path %></dt>
+        <dd><%= t('views.admin.index.links.statistics.description') %></dd>
+      <%- end -%>
       
     </dl>
 

@@ -100,6 +100,8 @@ RunCoCo::Application.routes.draw do
         end
       end
       
+      resources :statistics, :only => :index
+      
       scope 'config' do
         match '/' => 'config#index', :as => 'config', :via => :get
         match '/' => 'config#update', :as => 'update_config', :via => :put
