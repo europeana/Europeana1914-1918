@@ -54,15 +54,15 @@ class EuropeanaController < ApplicationController
     
     cache_key = "europeana/record" + europeana_id
     if fragment_exist?(cache_key)
-      @record = YAML::load(read_fragment(cache_key))
+      @object = YAML::load(read_fragment(cache_key))
     else
       response = Europeana::API::Record.get(europeana_id)
-      @record = response['object']
-      write_fragment(cache_key, @record.to_yaml, :expires_in => 1.day)
+      @object = response['object']
+      write_fragment(cache_key, @object.to_yaml, :expires_in => 1.day)
     end
     
     respond_to do |format|
-      format.json  { render :json => { :result => 'success', :object => @record } } 
+#      format.json  { render :json => { :result => 'success', :object => @object } } 
       format.html
     end
   end
