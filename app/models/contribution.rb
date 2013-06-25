@@ -275,6 +275,20 @@ class Contribution < ActiveRecord::Base
     end
   end
   
+  ##
+  # Converts the contribution's metadata to EDM
+  #
+  # @see MetadataRecord#to_edm
+  #
+  def to_edm
+    metadata.to_edm.reverse_merge( {
+      "type" => "TEXT",
+      "title" => [ title ],
+      "dcIdentifier" => { "def" => [ id ] },
+      "dcTitle" => { "def" => [ title ] }
+    } )
+  end
+  
   protected
   def build_metadata_unless_present
     self.build_metadata unless self.metadata.present?
