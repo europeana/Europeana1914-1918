@@ -96,7 +96,7 @@ class Attachment < ActiveRecord::Base
   # @return [Boolean]
   #
   def make_thumbnails?
-    image? || video? || file.content_type == 'application/pdf'
+    image? || video? || pdf?
   end
 
   ##
@@ -117,6 +117,15 @@ class Attachment < ActiveRecord::Base
     !(file.content_type =~ /^video\//).nil?
   end
   
+  ##
+  # Returns true if the attached file is a PDF.
+  #
+  # @return [Boolean]
+  #
+  def pdf?
+    file.content_type == 'application/pdf'
+  end
+
   def has_thumbnail?(size)
     make_thumbnails? && File.exists?(file.path(size))
   end

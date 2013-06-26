@@ -116,7 +116,15 @@ class AttachmentsController < ApplicationController
   def show
     current_user.may_view_attachment!(@attachment)
     respond_to do |format|
-      format.html
+      format.html do
+        if params[:layout] == '0'
+          if @attachment.pdf?
+            render :partial => 'attachments/pdf'
+          else
+            render :layout => false
+          end
+        end
+      end
       format.json do
         render :json => @attachment
       end
