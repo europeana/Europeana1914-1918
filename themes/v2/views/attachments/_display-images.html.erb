@@ -6,6 +6,8 @@
   <%- for attachment in attachments -%><li>
       <%- if attachment.file.present? -%>
         <%-
+          video_width = attachment.file.width || 480
+          video_height = attachment.file.height || 240
           link_attrs = {
             :target => '_blank',
             :title => attachment.title,
@@ -14,8 +16,8 @@
           }
           link_attrs.merge!( {
             'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' + ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
-            'data-video-width' => attachment.file.width.to_s,
-            'data-video-height' => attachment.file.height.to_s,
+            'data-video-width' => video_width.to_s,
+            'data-video-height' => video_height.to_s,
             :rel => 'prettyPhoto[gallery]'
           } ) if (prettyphoto && (attachment.image? || attachment.video?))
           link_attrs.merge!( {
@@ -29,7 +31,7 @@
       <%- end -%>
       <%- if prettyphoto -%>
         <%- if attachment.video? -%>
-          <div id="video-<%= attachment.id %>" style="<% if attachment.file.width.present? %>width:<%= attachment.file.width.to_s %>px; <% end %><% if attachment.file.height.present? %>height:<%= attachment.file.height.to_s %>px; <% end %>display: none;" class="video-wrapper"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
+          <div id="video-<%= attachment.id %>" style="width:<%= video_width.to_s %>px; height:<%= video_height.to_s %>px; display: none;" class="video-wrapper"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
         <%- end -%>
         <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
           <%= render :partial => '/metadata/display',
