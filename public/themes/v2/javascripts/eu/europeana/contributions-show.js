@@ -561,7 +561,6 @@
 
 				ppVideoOptions.default_width = video_link.data('video-width');
 				ppVideoOptions.default_height = video_link.data('video-height');
-				console.log(ppVideoOptions);
 				jQuery(this).prettyPhoto(ppVideoOptions);
 
 			});
