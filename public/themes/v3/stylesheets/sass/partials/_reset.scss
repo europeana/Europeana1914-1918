@@ -8,17 +8,22 @@
 
 
 	
-body {
+body{
 	overflow-y: scroll;
-	margin: 0 auto;
-	padding: 0 2%;
 	background-color: #fff;
 	
-	 -moz-box-sizing:		content-box;
-	 -webkit-box-sizing:	content-box;
-	 box-sizing:			content-box;
-	
+	-moz-box-sizing:	content-box;
+	-webkit-box-sizing:	content-box;
+	box-sizing:			content-box;
 }
+
+
+@media screen and (min-width: 48em) {	
+	body {
+		max-width: 160em;
+	}
+}
+
 
 input[type=text],
 input[type-text]:focus{
