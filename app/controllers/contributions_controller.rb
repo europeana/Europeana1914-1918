@@ -70,6 +70,10 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution)
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
+    
+    if params.has_key?(:pdf)
+      render :layout => false and return
+    end
   end
   
   # GET /contributions/:id/status_log
