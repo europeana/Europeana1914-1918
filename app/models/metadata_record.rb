@@ -255,7 +255,7 @@ class MetadataRecord < ActiveRecord::Base
     edm["year"] = [ fields["date_from"].split("-").first ] unless fields["date_from"].blank?
 
     edm["dcContributor"] = if fields["contributor_behalf"].present?
-      { "def" => [ metadata.fields["contributor_behalf"] ] }
+      { "def" => [ fields["contributor_behalf"] ] }
     else
       { "def" => [ ( for_contribution? ? contribution.contributor : attachment.contribution.contributor ).contact.full_name ] }
     end
