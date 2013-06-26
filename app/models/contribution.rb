@@ -291,7 +291,7 @@ class Contribution < ActiveRecord::Base
       "dcIdentifier" => { "def" => [ id ] },
       "dcTitle" => { "def" => [ title ] },
       "dcType" => { "def" => [ "Text" ] },
-      "dctermsCreatedDate" => { "def" => [ created_at ] },
+      "dctermsCreated" => { "def" => [ created_at ] },
       "dctermsHasPart" => { "def" => attachments.collect { |attachment|
         "http://www.europeana1914-1918.eu/contributions/#{id}/attachments/#{attachment.id}"
       } },
