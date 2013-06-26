@@ -4,29 +4,43 @@
 <% inline = count * page - count -%>
 <% if attachments.present? -%>
   <%- for attachment in attachments -%><li>
-      <%- if attachment.file.present? -%>
-        <%-
-          video_width = attachment.file.width || 480
-          video_height = attachment.file.height || 240
-          link_url = '#video-' + attachment.id.to_s
+      <%- if attachment.file.present?
+          link_url = attachment_url( attachment, 'large' )
+
           link_attrs = {
             :target => '_blank',
             :title => attachment.title,
             'data-attachment-id' => attachment.id,
             'data-contribution-id' => contribution.id
           }
-          link_attrs.merge!( {
-            'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' + ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
-            'data-video-width' => video_width.to_s,
-            'data-video-height' => video_height.to_s,
-            :rel => 'prettyPhoto[gallery]'
-          } ) if (prettyphoto && (attachment.image? || attachment.video?))
-          link_attrs.merge!( {
-            :class => 'video'
-          } ) if attachment.video?
+
+          if ( prettyphoto && (attachment.image? || attachment.video?) )
+            link_attrs.merge!( {
+              'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' + ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
+              :rel => 'prettyPhoto[gallery]'
+            })
+          end
+
+          if ( prettyphoto && attachment.video? )
+            video_width = attachment.file.width || 480
+            video_height = attachment.file.height || 240
+            link_url = '#video-' + attachment.id.to_s
+
+            link_attrs.merge!({
+              :class => 'video',
+              'data-video-width' => video_width.to_s,
+              'data-video-height' => video_height.to_s
+            })
+          end
+
+          if ( attachment.pdf? )
+            link_attrs.merge!({
+              :class => 'pdf'
+            })
+          end
         -%>
         <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
-      <%- else -%>
+      <% else %>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
       <%- end -%>
       <%- if prettyphoto -%>
@@ -75,5 +89,5 @@
         </dl>
       <%- end -%>
       <%- inline += 1 -%>
-    </li><%- end -%>
+  </li><%- end -%>
 <% end -%>

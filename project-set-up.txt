@@ -1,6 +1,6 @@
 1. europeana 1914-1918
-2. suggested ruby install
-3. required libraries
+2. required libraries
+3. suggested ruby install
 4. setup the 1914-1918 project
 5. configurations
 6. environments
@@ -27,19 +27,25 @@ by europeana today.
 
 
 
+required libraries
+==================
+the following libraries are required in order for paperclip to work properly
+
+* ffmpeg
+  for creating thumbnails from videos
+
+* ImageMagick
+  for thumbnail creation
+
+* ghostscript
+  for creating thumbnails for pdfs
+
+
+
 suggested ruby install
 ======================
 use rvm, http://rvm.io/
 an article for ubuntu - http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/
-
-
-install if necessary
---------------------
-$ which curl
-$ /usr/bin/curl
-
-# if curl is not available
-$ sudo apt-get install curl
 
 
 install rvm - ubuntu
@@ -86,14 +92,6 @@ install ruby with rvm
 ---------------------
 any 1.8 or 1.9 version should work
 $ rvm install 1.9.3
-
-
-
-required libraries
-==================
-* ffmpeg
-* ImageMagick
-* ghostscript
 
 
 

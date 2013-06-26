@@ -490,10 +490,13 @@
 					$elm = jQuery(this),
 					$additional_info_link = $elm.find('.pp_description a').first(),
 					$pp_inline_video = $elm.find('.pp_inline .video-element'),
-					$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
+					$video;
 
-			$video.insertAfter( $pp_inline_video );
-			var player = new MediaElementPlayer( $video );
+			if ( $pp_inline_video.length > 0 ) {
+				$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
+				$video.insertAfter( $pp_inline_video );
+				var player = new MediaElementPlayer( $video );
+			}
 
 			if ( self.$metadata[self.current] ) {
 
@@ -520,10 +523,10 @@
 
 		removeMediaElementPlayers : function() {
 
-			if ( window.mejs ) {
-				for ( var i in mejs.players ) {
-					mejs.players[i].remove();
-				}
+			if ( !window.mejs ) { return; }
+
+			for ( var i in mejs.players ) {
+				mejs.players[i].remove();
 			}
 
 			mejs.mepIndex = 0;
@@ -675,6 +678,29 @@
 	},
 
 
+	pdf = {
+
+		$pdfs : jQuery('#contributions-featured .pdf'),
+
+		handleClick : function( evt ) {
+
+			var $elm = jQuery(this),
+				destination_url;
+
+			destination_url = '/contributions/' + $elm.data('contribution-id') + '/attachments/' + $elm.data('attachment-id') + '?layout=0';
+			$elm.attr( 'href', destination_url );
+
+		},
+
+		init : function () {
+
+			pdf.$pdfs.on( 'click', pdf.handleClick );
+
+		}
+
+	},
+
+
 	truncate = {
 
 		init : function() {
@@ -701,6 +727,7 @@
 		carousels.init();
 		map.init();
 		lightbox.init();
+		pdf.init();
 
 	}());
 
