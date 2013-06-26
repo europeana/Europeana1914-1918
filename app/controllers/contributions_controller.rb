@@ -70,6 +70,11 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution)
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
+    
+    respond_to do |format|
+      format.json  { render :json => { :result => 'success', :object => @contribution.to_edm } } 
+      format.html
+    end
   end
   
   # GET /contributions/:id/status_log

@@ -279,13 +279,23 @@ class Contribution < ActiveRecord::Base
   # Converts the contribution's metadata to EDM
   #
   # @see MetadataRecord#to_edm
+  # @todo Replace hard-coded URLs with helper call. 
+  #   See +ContributionsHelper#localeless_contribution_path+
   #
   def to_edm
     metadata.to_edm.reverse_merge( {
+      "providedCHOs" => [ { :about => "http://www.europeana1914-1918.eu/contributions/#{id}" } ],
       "type" => "TEXT",
       "title" => [ title ],
+      "dcDate" => { "def" => [ created_at ] },
       "dcIdentifier" => { "def" => [ id ] },
-      "dcTitle" => { "def" => [ title ] }
+      "dcTitle" => { "def" => [ title ] },
+      "dcType" => { "def" => [ "Text" ] },
+      "dctermsCreatedDate" => { "def" => [ created_at ] },
+      "dctermsHasPart" => { "def" => attachments.collect { |attachment|
+        "http://www.europeana1914-1918.eu/contributions/#{id}/attachments/#{attachment.id}"
+      } },
+      "edmType" => { "def" => [ "TEXT" ] }
     } )
   end
   

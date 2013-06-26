@@ -62,7 +62,7 @@ class EuropeanaController < ApplicationController
     end
     
     respond_to do |format|
-#      format.json  { render :json => { :result => 'success', :object => @object } } 
+      format.json  { render :json => { :result => 'success', :object => @object } } 
       format.html
     end
   end
