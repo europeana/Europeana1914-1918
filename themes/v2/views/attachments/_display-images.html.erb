@@ -8,6 +8,7 @@
         <%-
           video_width = attachment.file.width || 480
           video_height = attachment.file.height || 240
+          link_url = '#video-' + attachment.id.to_s
           link_attrs = {
             :target => '_blank',
             :title => attachment.title,
@@ -23,7 +24,6 @@
           link_attrs.merge!( {
             :class => 'video'
           } ) if attachment.video?
-          link_url = '#video-' + attachment.id.to_s
         -%>
         <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
       <%- else -%>

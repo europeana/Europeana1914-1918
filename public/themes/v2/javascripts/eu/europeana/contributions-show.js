@@ -490,11 +490,10 @@
 					$elm = jQuery(this),
 					$additional_info_link = $elm.find('.pp_description a').first(),
 					$pp_inline_video = $elm.find('.pp_inline .video-element'),
-					$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src') });
+					$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
 
 			$video.insertAfter( $pp_inline_video );
 			var player = new MediaElementPlayer( $video );
-
 
 			if ( self.$metadata[self.current] ) {
 
