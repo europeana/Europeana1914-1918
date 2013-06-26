@@ -67,7 +67,7 @@ class ContributionsController < ApplicationController
   def show
     current_user.may_view_contribution!(@contribution)
     if @contribution.draft? && current_user.may_edit_contribution?(@contribution)
-      redirect_to edit_contribution_path(@contribution)
+      redirect_to edit_contribution_path(@contribution) and return
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
     
