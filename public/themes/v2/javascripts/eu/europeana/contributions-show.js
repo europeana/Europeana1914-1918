@@ -10,6 +10,7 @@
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
 		? false
 		: true,
+		$contributions_featured = jQuery('#contributions-featured'),
 
 
 	carousels = {
@@ -679,33 +680,24 @@
 
 
 	pdf = {
-
-		$pdfs : jQuery('#contributions-featured .pdf'),
-
 		handleClick : function( evt ) {
-
 			var $elm = jQuery(this),
 				destination_url;
 
 			destination_url = '/contributions/' + $elm.data('contribution-id') + '/attachments/' + $elm.data('attachment-id') + '?layout=0';
 			$elm.attr( 'href', destination_url );
-
 		},
 
 		init : function () {
-
-			pdf.$pdfs.on( 'click', pdf.handleClick );
-
+			$contributions_featured.on( 'click', '.pdf', pdf.handleClick );
 		}
-
 	},
 
-
 	truncate = {
-
 		init : function() {
-
-			if ( jQuery('#avatar').length < 1 ) { return; }
+			if ( jQuery('#avatar').length < 1 ) {
+				return;
+			}
 
 			jQuery('#story-metadata').truncate({
 				limit : { pixels : 400 },
@@ -714,9 +706,7 @@
 					less : I18n.t('javascripts.truncate.show-less')
 				}
 			});
-
 		}
-
 	};
 
 
