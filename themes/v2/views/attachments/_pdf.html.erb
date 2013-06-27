@@ -1,3 +1,26 @@
-<h1>PDF</h1>
-
-<div><%= @attachment.file.url(:original) %></div>
+<!DOCTYPE html>
+<html>
+<head>
+<title>hello pdf.js</title>
+<style>
+	canvas { border: 1px solid black;}
+</style>
+</head>
+<body>
+  <div id="controls">
+		<button id="prev">Previous</button>
+		<button id="next">Next</button>
+		&nbsp; &nbsp;
+		<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+	</div>
+	<canvas id="the-canvas"></canvas>
+	<script src="/themes/v2/javascripts/com/gmtplusone/lib.js"></script>
+	<script src="/themes/v2/javascripts/com/github/mozilla/pdf.js/pdf.js"></script>
+	<script>
+		if ( !window.RunCoCo ) { window.RunCoCo = {}; }
+		RunCoCo.pdf_url = '<%= @attachment.file.url(:original) %>';
+		PDFJS.workerSrc = '/themes/v2/javascripts/com/github/mozilla/pdf.js/pdf.js';
+	</script>
+	<script src="/themes/v2/javascripts/eu/europeana/pdf.js"></script>
+</body>
+</html>
