@@ -129,4 +129,21 @@ module ContributionsHelper
   def localeless_contribution_url(options)
     contribution_url(options).match(/(^\w+:\/\/[^\/]+)\/\w+(.*)$/)[1..2].join
   end
+  
+  def contributions_to_edm_results(contributions)
+    results = contributions.collect do |c|
+      {
+        'id'                  => c.id,
+        'title'               => [ c.title ],
+        'edmPreview'          => [ attachment_preview_url(c.attachments.cover_image) ],
+        'dctermsAlternative'  => [ c.metadata.fields['alternative'] ],
+        'link'                => url_for(c),
+        'runcocoProvider'     => "runcoco"
+      }
+    end
+    
+    WillPaginate::Collection.create(contributions.current_page, contributions.per_page, contributions.total_entries) do |pager|
+      pager.replace(contributions.total_entries == 0 ? [] : results)
+    end
+  end
 end

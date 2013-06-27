@@ -116,7 +116,14 @@ class EuropeanaController < ApplicationController
     end
     
     WillPaginate::Collection.create(options[:page], results['itemsCount'], results['totalResults']) do |pager|
-      pager.replace(results['itemsCount'] == 0 ? [] : results['items'])
+      if results['itemsCount'] == 0
+        pager.replace([])
+      else
+        results['items'].each do |item|
+          item['runcocoProvider'] = 'europeana'
+        end
+        pager.replace(results['items'])
+      end
     end
   end
   

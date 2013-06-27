@@ -135,5 +135,18 @@ module ApplicationHelper
   def referred_by_search?
     controller.request.env["HTTP_REFERER"].present? && controller.request.env["HTTP_REFERER"].match(Regexp.new('/(contributions/search|explore)'))
   end
+  
+  ##
+  # Removes a leading slash from the passed string, if it has one.
+  #
+  # @param [String] string to remove a leading slash from
+  # @return [String] string without the leading slash
+  #
+  def no_leading_slash(string)
+    if string[0] == '/'
+      string = string[1..-1]
+    end
+    string
+  end
 end
 

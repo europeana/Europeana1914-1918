@@ -14,10 +14,22 @@ module AttachmentsHelper
   # :thumb, :preview, :original, :large
   def attachment_preview(attachment, size = :preview)
     if attachment.has_thumbnail?(size)
-      image_tag(attachment.file.url(size), :alt => (attachment.title.present? ? attachment.title : attachment.file.original_filename) )
+      alt = (attachment.title.present? ? attachment.title : attachment.file.original_filename)
+      
     else
       media_type = file_media_type(attachment.file.original_filename)
-      image_tag( image_path("style/icons/mimetypes/#{media_type}.png"), :alt => translate("media_types.#{media_type}") )
+      alt = translate("media_types.#{media_type}")
+    end
+    
+    image_tag(attachment_preview_url(attachment, size), :alt => alt)
+  end
+  
+  def attachment_preview_url(attachment, size = :preview)
+    if attachment.has_thumbnail?(size)
+      attachment.file.url(size)
+    else
+      media_type = file_media_type(attachment.file.original_filename)
+      image_path("style/icons/mimetypes/#{media_type}.png")
     end
   end
   

@@ -179,7 +179,7 @@ class ContributionsController < ApplicationController
     # No eager loading if partials are all pre-cached.
     search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id] }
     @contributions = Contribution.search(:published, bing_translate(@query), search_options)
-    
+
     if params.delete(:layout) == '0'
       render :partial => 'search-results',
         :locals => {
