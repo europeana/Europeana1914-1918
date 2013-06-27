@@ -103,7 +103,7 @@ module PaginationHelper
     options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
     options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
     options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
-    options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page + 1), collection.total_entries ].min, :total => collection.total_entries)
+    options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page), collection.total_entries ].min, :total => collection.total_entries)
     options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
     options[:per_page_label]    ||= will_paginate_translate([ :per_page_label, 'Results per page:' ])
     
