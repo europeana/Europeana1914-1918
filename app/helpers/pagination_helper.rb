@@ -10,16 +10,24 @@ module PaginationHelper
     :previous_title => nil,
     :next_title     => nil,
     :last_title     => nil,
+    :total_pages    => nil,
+    :page_links     => false,
+    :page_form      => true,
+    :page_total     => true
   }
   
   class LinkRenderer < WillPaginate::ActionView::LinkRenderer
     def pagination
-      items = super
+      items = @options[:page_links] ? windowed_page_numbers : []
+      items.push :page_form if @options[:page_form]
+      items.push :page_total if @options[:page_total]
+      items.unshift :previous_page
       items.unshift :first_page
+      items.push :next_page
       items.push :last_page
     end
     
-    protected
+  protected
     
     def first_page
       num = @collection.current_page > 1 && 1
@@ -43,22 +51,49 @@ module PaginationHelper
     
     def previous_or_next_page(page, text, classname, options = {})
       if page
-        link(text, page, options.merge(:class => classname))
+        link(CGI::escapeHTML(text), page, options.merge(:class => classname))
       else
         tag(:span, text, options.merge(:class => classname + ' disabled'))
       end
     end
     alias_method :first_or_last_page, :previous_or_next_page
     
+    def page_form
+      form_fields = [
+        empty_tag(:input, :type => "text", :name => "page", :value => @collection.current_page, :size => 8),
+        empty_tag(:input, :type => "hidden", :name => "count", :value => @collection.per_page),
+      ]
+      
+      tag(:form, form_fields.join, :method => :get, :class => "pagination")
+    end
+    
+    def page_total
+      tag(:span, @options[:total_pages], :class => 'page-total')
+    end
+    
+    def container_attributes
+      @container_attributes ||= @options.except(*(WillPaginate::ViewHelpers.pagination_options.keys + PaginationHelper.options.keys + [:renderer] - [:class]))
+    end
+    
+    def empty_tag(name, attributes = {})
+      string_attributes = attributes.inject('') do |attrs, pair|
+        unless pair.last.nil?
+          attrs << %( #{pair.first}="#{CGI::escapeHTML(pair.last.to_s)}")
+        end
+        attrs
+      end
+      "<#{name}#{string_attributes} />"
+    end
   end
   
   def will_paginate(collection, options = {})
     options = PaginationHelper.options.merge(options)
     
-    options[:first_label]    ||= will_paginate_translate([ :first_label, '&lt;&lt;' ])
-    options[:previous_label] ||= will_paginate_translate([ :previous_label, '&lt;' ])
-    options[:next_label]     ||= will_paginate_translate([ :next_label, '&lt;' ])
-    options[:last_label]     ||= will_paginate_translate([ :last_label, '&gt;&gt;' ])
+    options[:first_label]    ||= will_paginate_translate([ :first_label, '<<' ])
+    options[:previous_label] ||= will_paginate_translate([ :previous_label, '<' ])
+    options[:next_label]     ||= will_paginate_translate([ :next_label, '>' ])
+    options[:last_label]     ||= will_paginate_translate([ :last_label, '>>' ])
+    options[:total_pages]    ||= will_paginate_translate([ :total_pages, 'of %{total_pages}' ], :total_pages => collection.total_pages)
     
     options[:first_title]    ||= will_paginate_translate([ :first_title, 'First page' ])
     options[:previous_title] ||= will_paginate_translate([ :previous_title, 'Previous page' ])
