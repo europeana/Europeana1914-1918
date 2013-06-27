@@ -1,21 +1,37 @@
-<!-- Copied from contributions/_search-results.html.erb -->
-
-<!--
-	 <div><b><%#= t('views.contributions.search.matches-for') %></b> <%#= query || term %> ( <%#= contributions.total_entries %> stories  )</div> 
--->
-  
 <ul class="stories">
   <%- for result in results -%>
-    <%- cache "#{session[:theme]}/#{I18n.locale}/contributions/search_result/#{result.id}" do -%>
-      <%- if result.attachments.with_file.present? -%>
-        <li>
-          <%= link_to attachment_preview(result.attachments.cover_image, :preview), result, :title => t('views.contributions.search.links.titles.show_contribution') %>
-          <b><%= result.title %></b><br/>
-          <br/>
-          <%= result.metadata['field_alternative'] %>
-        </li>
+    <% title = result['title'].blank? ? '' : result['title'].first %>
+    <li>
+      <%- cache "#{session[:theme]}/#{I18n.locale}/search/result/#{result['runcocoProvider']}/" + no_leading_slash(result['id'].to_s) do -%>
+        <a href="<%= result['link'] %>" title="<%= title %>">
+          <%- unless result['edmPreview'].blank? -%>
+            <img src="<%= result['edmPreview'].first %>" alt="" /><br />
+          <%- end -%>
+          <%- unless title.blank? -%>
+            <b><%= title %></b>
+          <%- end -%>
+          <%- unless result['dcCreator'].blank? -%>
+            <br/><%= result['dcCreator'] %>
+          <%- end -%>
+          <%- unless result['year'].blank? -%>
+            <%- if result['year'].size == 2 -%>
+              <br/><%= result['year'].first %>&ndash;<%= result['year'].last %>
+            <%- else -%>
+              <%- result['year'].each do |field_value| -%>
+                <br/><%= field_value %>
+              <%- end -%>
+            <%- end -%>
+          <%- end -%>
+          <%- [ 'dctermsAlternative', 'dataProvider', 'provider' ].each do |field_name| -%>
+            <%- unless result[field_name].blank? -%>
+              <%- result[field_name].each do |field_value| -%>
+                <br/><%= field_value %>
+              <%- end -%>
+            <%- end -%>
+          <%- end -%>
+        </a>
       <%- end -%>
-    <%- end -%>
+    </li>
   <%- end -%>
 </ul>
   
