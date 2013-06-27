@@ -1,10 +1,18 @@
+<%
+if ( @attachment.title.blank? )
+	title = @attachment.file_file_name
+else
+	title = @attachment.title
+end
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<title><%= @attachment.title %></title>
+<title><%= title %></title>
 <style>canvas { border: 1px solid black;}</style>
 </head>
 <body>
+	<%= @attachment.title.blank? %>
   <div id="controls">
 		<button id="prev">Previous</button>
 		<button id="next">Next</button>
