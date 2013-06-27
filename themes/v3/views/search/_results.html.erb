@@ -1,0 +1,22 @@
+<!-- Copied from contributions/_search-results.html.erb -->
+
+<!--
+	 <div><b><%#= t('views.contributions.search.matches-for') %></b> <%#= query || term %> ( <%#= contributions.total_entries %> stories  )</div> 
+-->
+  
+<ul class="stories">
+  <%- for result in results -%>
+    <%- cache "#{session[:theme]}/#{I18n.locale}/contributions/search_result/#{result.id}" do -%>
+      <%- if result.attachments.with_file.present? -%>
+        <li>
+          <%= link_to attachment_preview(result.attachments.cover_image, :preview), result, :title => t('views.contributions.search.links.titles.show_contribution') %>
+          <b><%= result.title %></b><br/>
+          <br/>
+          <%= result.metadata['field_alternative'] %>
+        </li>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
+</ul>
+  
+<%= will_paginate results %>
