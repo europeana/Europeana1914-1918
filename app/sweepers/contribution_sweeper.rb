@@ -9,7 +9,10 @@ class ContributionSweeper < ActionController::Caching::Sweeper
     fragments = []
     
     I18n.available_locales.each do |locale|
-      fragments.push("v2/#{locale}/contributions/search_result/#{contribution.id}")
+      [ "v2", "v3" ].each do |theme|
+        fragments.push("#{theme}/#{locale}/contributions/search_result/#{contribution.id}")
+        fragments.push("#{theme}/#{locale}/search/result/runcoco/#{contribution.id}")
+      end
     end
     
     fragments.each do |key|
