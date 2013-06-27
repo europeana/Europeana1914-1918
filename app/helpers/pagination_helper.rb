@@ -1,19 +1,22 @@
+# encoding: utf-8
 module PaginationHelper
   class << self
     attr_accessor :options
   end
   
   self.options = {
-    :first_label    => nil,
-    :last_label     => nil,
-    :first_title    => nil,
-    :previous_title => nil,
-    :next_title     => nil,
-    :last_title     => nil,
-    :total_pages    => nil,
-    :page_links     => false,
-    :page_form      => true,
-    :page_total     => true
+    :first_label        => nil,
+    :last_label         => nil,
+    :first_title        => nil,
+    :previous_title     => nil,
+    :next_title         => nil,
+    :last_title         => nil,
+    :entry_range_label  => nil,
+    :page_total_label   => nil,
+    :page_links         => false,
+    :page_form          => true,
+    :page_total         => true,
+    :entry_range        => true
   }
   
   class LinkRenderer < WillPaginate::ActionView::LinkRenderer
@@ -23,6 +26,7 @@ module PaginationHelper
       items.push :page_total if @options[:page_total]
       items.unshift :previous_page
       items.unshift :first_page
+      items.unshift :entry_range if @options[:entry_range]
       items.push :next_page
       items.push :last_page
     end
@@ -67,8 +71,12 @@ module PaginationHelper
       tag(:form, form_fields.join, :method => :get, :class => "pagination")
     end
     
+    def entry_range
+      tag(:span, @options[:entry_range_label], :class => 'entry-range')
+    end
+    
     def page_total
-      tag(:span, @options[:total_pages], :class => 'page-total')
+      tag(:span, @options[:page_total_label], :class => 'page-total')
     end
     
     def container_attributes
@@ -89,11 +97,12 @@ module PaginationHelper
   def will_paginate(collection, options = {})
     options = PaginationHelper.options.merge(options)
     
-    options[:first_label]    ||= will_paginate_translate([ :first_label, '<<' ])
-    options[:previous_label] ||= will_paginate_translate([ :previous_label, '<' ])
-    options[:next_label]     ||= will_paginate_translate([ :next_label, '>' ])
-    options[:last_label]     ||= will_paginate_translate([ :last_label, '>>' ])
-    options[:total_pages]    ||= will_paginate_translate([ :total_pages, 'of %{total_pages}' ], :total_pages => collection.total_pages)
+    options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
+    options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
+    options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
+    options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
+    options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page + 1), collection.total_entries ].min, :total => collection.total_entries)
+    options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
     
     options[:first_title]    ||= will_paginate_translate([ :first_title, 'First page' ])
     options[:previous_title] ||= will_paginate_translate([ :previous_title, 'Previous page' ])
