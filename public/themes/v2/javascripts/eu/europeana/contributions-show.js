@@ -1,6 +1,7 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@version 2012-05-29 11:54 gmt +1
+ *	@todo: add method for handling window re-size so that lightbox & pdf viewer
+ *	       can be re-determined. also handle portrait/landscape issues
  */
 (function() {
 
@@ -10,6 +11,7 @@
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
 		? false
 		: true,
+		pdf_viewer = add_lightbox,
 		$contributions_featured = jQuery('#contributions-featured'),
 
 
@@ -370,11 +372,8 @@
 
 		},
 
-
 		init : function() {
-
 			var self = this;
-
 
 			self.$featured_carousel =
 				jQuery('#contributions-featured').rCarousel({
@@ -385,7 +384,6 @@
 						}
 					}
 				}).data('rCarousel');
-
 
 			jQuery('#contributions-thumbnails').imagesLoaded(function() {
 				self.$thumbnail_carousel =
@@ -408,30 +406,21 @@
 			self.updateCounts();
 			self.toggleSelected( self.$featured_carousel.get('current_item_index') );
 			self.setupAjaxHandler();
-
 		}
-
 	},
 
-
 	lightbox = {
-
 		$metadata : [],
 		current : 0,
 
-
 		addMetaDataOverlay : function( $elm ) {
-
 			var self = this,
 					$pic_full_res = jQuery('#pp_full_res'),
 					$pp_content = jQuery('.pp_content');
 
-
 			if ( !self.$metadata[self.current] ) {
-
 				self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
 				self.$metadata[ self.current ].data('clone', self.$metadata[ self.current ].clone() );
-
 			}
 
 			self.$metadata[ self.current ].data('clone').appendTo( $pp_content );
@@ -443,39 +432,24 @@
 			});
 
 			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
-
 		},
-
 
 		handleMetaDataClick : function( evt ) {
-
 			var self = evt.data.self;
-
 			evt.preventDefault();
 			self.$metadata[self.current].data('clone').slideToggle();
-
 		},
-
 
 		handlePageChangeNext : function( keyboard ) {
-
 			if ( !keyboard ) {
-
 				carousels.$featured_carousel.$next.trigger('click');
-
 			}
-
 		},
 
-
 		handlePageChangePrev : function( keyboard ) {
-
 			if ( !keyboard ) {
-
 				carousels.$featured_carousel.$prev.trigger('click');
-
 			}
-
 		},
 
 
@@ -486,7 +460,6 @@
 		 *	with each open
 		 */
 		handlePictureChange : function() {
-
 			var self = lightbox,
 					$elm = jQuery(this),
 					$additional_info_link = $elm.find('.pp_description a').first(),
@@ -500,42 +473,33 @@
 			}
 
 			if ( self.$metadata[self.current] ) {
-
 				if ( self.$metadata[self.current].data('clone').is(':visible') ) {
-
 					self.$metadata[self.current].data('clone').hide();
-
 				}
 
 				if ( self.$metadata[self.current].data('cloned') ) {
-
 					self.$metadata[self.current].data('cloned', false);
-
 				}
-
 			}
 
 			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
 			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
 			self.addMetaDataOverlay( $additional_info_link );
-
-
 		},
 
 		removeMediaElementPlayers : function() {
-
-			if ( !window.mejs ) { return; }
+			if ( !window.mejs ) {
+				return;
+			}
 
 			for ( var i in mejs.players ) {
 				mejs.players[i].remove();
 			}
 
 			mejs.mepIndex = 0;
-
 		},
 
 		setupPrettyPhoto : function() {
-
 			var self = this,
 				ppOptions = {
 					description_src : 'data-description',
@@ -553,7 +517,6 @@
 				};
 
 			jQuery("a[rel^='prettyPhoto'].video").each(function() {
-
 				// Videos are played by MediaElement.js, using prettyPhoto's inline
 				// content handler. MediaElements.js will not work if the video element
 				// is copied into prettyPhoto's container, the <video> element and
@@ -566,36 +529,28 @@
 				ppVideoOptions.default_width = video_link.data('video-width');
 				ppVideoOptions.default_height = video_link.data('video-height');
 				jQuery(this).prettyPhoto(ppVideoOptions);
-
 			});
 
 			jQuery("a[rel^='prettyPhoto']").not('.video').prettyPhoto(ppOptions);
-
 		},
-
 
 		removeLightboxLinks : function() {
-
 			jQuery('#contributions-featured a').each(function() {
+				var $elm = jQuery(this),
+						contents = $elm.contents();
 
-					var $elm = jQuery(this),
-							contents = $elm.contents();
-
+				if ( !$elm.hasClass('pdf') ) {
 					$elm.replaceWith(contents);
-
-				});
-
+				}
+			});
 		},
 
-
 		init : function() {
-
 			if ( add_lightbox ) {
 				this.setupPrettyPhoto();
 			} else {
 				this.removeLightboxLinks();
 			}
-
 		}
 
 	},
@@ -628,34 +583,24 @@
 
 
 		removeOverlay : function() {
-
 			if ( map.$overlay.is(':visible') ) {
-
 				setTimeout( function() { map.$overlay.fadeOut(); }, 200 );
-
 			}
-
 		},
 
 
 		locationMap : function() {
-
 			if ( this.$map.length === 1 ) {
-
 				this.addMapContainer();
 				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
-
 			}
-
 		},
 
 
 		addStoryTookPlace : function() {
-
 			var self = this;
 
 			if ( self.placename ) {
-
 				self.$placename_link
 					.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
 					.html( self.placename );
@@ -663,19 +608,14 @@
 				self.$story_took_place
 					.append( I18n.t('javascripts.story.took-place') + ' ' )
 					.append( self.$placename_link );
-
 			}
-
 		},
 
 
 		init : function() {
-
 			this.addStoryTookPlace();
 			this.locationMap();
-
 		}
-
 	},
 
 
@@ -689,6 +629,10 @@
 		},
 
 		init : function () {
+			if ( !pdf_viewer ) {
+				return;
+			}
+
 			$contributions_featured.on( 'click', '.pdf', pdf.handleClick );
 		}
 	},
