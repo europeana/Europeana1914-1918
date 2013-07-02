@@ -10,7 +10,7 @@
       <%= form.input :contribution %>
       <%= form.input :attachment %>
       <%= form.input :searchable, :hint => (sphinx_running? ? nil : t('formtastic.hints.metadata_field.searchable_no_sphinx')) %>
-      <%#= form.input :facet %>
+      <%= form.input :facet %>
       <%= form.input :show_in_listing %>
     <% end %>
   <%- end -%>
