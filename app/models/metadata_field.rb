@@ -127,7 +127,11 @@ class MetadataField < ActiveRecord::Base
   private
   def adapt_other_models
     MetadataRecord.adapt_to_metadata_fields
-    Contribution.set_search_index
+    
+    # @todo Trigger index updates for all supported search engine systems
+    if Contribution.respond_to?(:define_sphinx_index)
+      Contribution.define_sphinx_index 
+    end
   end
   
   def add_field_to_metadata_record
