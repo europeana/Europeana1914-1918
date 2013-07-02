@@ -23,7 +23,7 @@ var EuMenu = function(cmpIn, options){
 
 	
 	self.setLabel = function(val){
-		self.cmp.find(".menu-label").html(  self.label + " " + val );
+		self.cmp.find(".menu-label").html(val);
 	};
 	
 	self.getActiveItem = function(){
@@ -47,7 +47,6 @@ var EuMenu = function(cmpIn, options){
 	self.setActive = function(val){
 		self.cmp.removeClass("selected");
 		self.cmp.find(".item a").each(function(i, ob){
-			
 			if($(ob).attr("class") == val){
 				$(ob).parent().addClass("active");
 				if(typeof val != 'undefined'){
@@ -76,11 +75,11 @@ var EuMenu = function(cmpIn, options){
 			var selected = $(this).attr("class");
 			self.href = $(this).attr("href");
 			self.setActive(selected);
-			e.stopPropagation();
 			if(self.options.fn_item){
 				self.options.fn_item(self, selected);
+				e.stopPropagation();
+				return false;
 			}
-			return false;
 		}
 	);
 

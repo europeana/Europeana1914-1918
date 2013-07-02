@@ -159,6 +159,7 @@
 		},
 		
 	
+		
 		setupTabs : function() {
 			
 			var self = this;
@@ -207,6 +208,7 @@
 					// add onclick handler
 				 
 					
+		
 					$elm.on( 'click', { self : self }, self.handleResultsTabClick );
 				
 			});
@@ -222,6 +224,7 @@
 
 				var headingSelector		= "h3 a";
 				var headingSelected		= $(ob).find(headingSelector);
+		
 				var fnGetItems			= function(){
 					
 					// function to get the tabbable items
@@ -287,7 +290,7 @@
 		});		
 	}
 	
-	function initFacets(){
+	function initJS(){
 		// ANDY: can't get loader dependencies working so nesting dynamic loads
 		
 		js.loader.loadScripts([{
@@ -298,9 +301,6 @@
 					file : 'EuAccessibility.js',
 					path : themePath + "javascripts/eu/europeana/",
 					callback : function(){
-						//self.setupFacets();		// set up facets
-						
-						
 						// make facet sections collapsible
 						$("#facets>li").each(function(i, ob){
 
@@ -343,31 +343,50 @@
 						//	var label = $("#filter-search li label[for='" + $(this).attr('id') + "']");
 						//	window.location = label.closest("a").attr("href");
 						//});
-
-						
-						
 						
 						js.loader.loadScripts([{
 							file : 'EuMenu.js',
 							path : themePath + "javascripts/eu/europeana/",
 							callback : function(){
-
-								
 								var config = {
 									"fn_init": function(self){
-										//self.setActive( $("#query-search input[name=rows]").val() );
-										alert("initialised menu");
-									},
-									"fn_item":function(self, selected){
-										//window.location.href = eu.europeana.search.urlAlterParam("rows", selected);
-										alert("selected item");
+										self.setActive(
+											$(self.cmp).closest('.nav').find('input[name=count]').val() );
 									}
+									/*//re-enable when we go ajax 
+									,"fn_item":function(self, selected){
+									}*/
 								};
+								new EuMenu( $(".nav-top		.eu-menu"), config).init();
+								new EuMenu( $(".nav-bottom	.eu-menu"), config).init();
 								
-								var menuTop		= new EuMenu( $(".nav-top		.eu-menu"), config);
-								var menuBottom	= new EuMenu( $(".nav-bottom	.eu-menu"), config);
+								
+								
+								
+								
+
+								js.loader.loadScripts([{
+									
+									file : 'EuPagination.js',
+									path : themePath + "javascripts/eu/europeana/",
+									
+									callback : function(){
+										new EuPagination(
+											$('.result-pagination'),
+											$('.result-pagination').first().find('input[name=total_pages]').val() 
+										);
+									}
+								}]);
+
+								
+								
+								
+								
+								
 							}
-						}]);					
+						}]);
+						
+						
 						
 					}
 				}]);					
@@ -391,8 +410,21 @@
 			select: function(event, ui) { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 		});
 		
-		//resultTabs.init();
-		initFacets();
+		initJS();
+		
+		/* init off-canvas progressive enhancement */
+		console.log('init off-canvas progressive enhancement');
+		
+		$(document).removeClass('no-js').addClass('js');
+		
+		$('.menu-button').click(function(e) {
+			e.preventDefault();
+			$('body').removeClass("active-sidebar").toggleClass("active-nav");
+			$('.menu-button').toggleClass("active-button");								
+		});	
+		
+		$('html').removeClass('no-js').addClass('js');
+		
 	}
 	
 	init();

@@ -10,16 +10,17 @@
 %>
 
 
-<div class="section top">
+<div class="container">
 
-	<div class="h-flex-container h-flex-collapse">
-
-
-	    <div class="h-flex-fixed h-flex-collapse facets-column">
-	    
+		<nav class="off-canvas-navigation">
+			<ul>
+				<li class="menu-item"><a href="#facet-menu" class="menu-button">Menu</a></li>		
+			</ul>
+		</nav>
+		
+	    <div role="navigation" id="facet-menu">
 	    	<div id="facets-actions" class="shadow-panel">
-	    
-	    		<ul id="facets">	
+	    	   <ul id="facets">	
 	    		
 	    			<li>
 	    				<h3>
@@ -206,87 +207,88 @@
 						<%= t('views.contributions.search.facets.share.sidetext') %>
 					</span>
 				</div>
-				
-				
-			</div>
-			
-    		
+			</div>	        		
 		</div>
 		
 
-    	<div class="h-flex-fill h-flex-collapse">    
+	    <section role="main">
 	    	<% if @contributions.size > 0 -%>
-				<%=
-					render :partial => '/shared/result_nav',
-					:locals => {
-						:contributions => @contributions,
-						:query => @query,
-						:term => @term,
-						:divClass => 'nav-top'
-					}
-				%>    
+	    	
+	    	
+	    	   	<% if (will_paginate @contributions) && (will_paginate @contributions).size > 0 -%>
+	    	   	
+	    	   		<%# WORKING FOR EXPLORE THEATRES %>
+	    	   		<%# http://localhost:3000/en/explore/theatres/Eastern+Front?utf8=%E2%9C%93&page=2&count=48 %>
+	    	   		
+	    	   		<%= will_paginate @contributions, {:class=>"nav nav-top"} %>
+	    	   		
+	    	   	<% else %>
+
+		    		<%# TODO get rid of this ELSE (contributions search) %>
+		    		<%# http://localhost:3000/en/contributions/search?utf8=%E2%9C%93&count=48&q=* %>
+		    		
+					<%=
+						render :partial => '/shared/result_nav',
+						:locals => {
+							:contributions => @contributions,
+							:query => @query,
+							:term => @term,
+							:divClass => 'nav-top'
+						}
+					%>
+	    	   	
+	    		<% end -%>
+				
+				
 			<% end -%>
 	    
 
-<%
-=begin %>
-
-	    
-	    	<ul id="results-tabs">
-    	  		<li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
-   		  		<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-   					<li><%= link_to t('views.contributions.search.related-europeana'), @field.present? ? explore_europeana_path(@field.name, @term) : search_europeana_path(:q => @query), :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
-	      		<%- end %>
-    		</ul>
-
-<%
-=end %>
     	
-    		<div id="results">    
-      
+    		<div id="results">
 
-     				<%=
-	       				render :partial => 'search-results',
-    	   				:locals => {
-        					:contributions => @contributions,
-         	  				:query => @query,
-         	  				:term => @term
-         				}
-         			%>
-        			        
+ 				<%=
+       				render :partial => 'search-results',
+	   				:locals => {
+    					:contributions => @contributions,
+     	  				:query => @query,
+     	  				:term => @term
+     				}
+     			%>
       
       			<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-      			
         			<div id="results-europeana"></div>
-        			
       			<%- end -%>
       		
 	    	</div>
 	    	
-	    	
-	    	
-	    	<% if @contributions.size > 0 -%>
-				<%=
-					render :partial => '/shared/result_nav',
-					:locals => {
-						:contributions => @contributions,
-						:query => @query,
-						:term => @term,
-						:divClass => 'nav-bottom'
-					}
-				%>    
-			<% end -%>
-	    	
-	    	
+			
+	    	<% if (will_paginate @contributions) && (will_paginate @contributions).size > 0 -%>
+    	   		<%# WORKING FOR EXPLORE THEATRES %>
+    	   		<%# http://localhost:3000/en/explore/theatres/Eastern+Front?utf8=%E2%9C%93&page=2&count=48 %>
+    	  	
+    	   		<%= will_paginate @contributions, {:class=>"nav nav-bottom"} %>
+    	   		
+    	   	<% else %>
+
+	    		<%# TODO get rid of this ELSE (contributions search) %>
+	    		<%# http://localhost:3000/en/contributions/search?utf8=%E2%9C%93&count=48&q=* %>
+	    		
+		    	<% if @contributions.size > 0 -%>
+					<%=
+						render :partial => '/shared/result_nav',
+						:locals => {
+							:contributions => @contributions,
+							:query => @query,
+							:term => @term,
+							:divClass => 'nav-bottom'
+						}
+					%>    
+				<% end -%>
+    	   	
+    		<% end -%>
 		</div>
-
-
 		
 
-	</div>
-	
 </div>
-
-
 
 

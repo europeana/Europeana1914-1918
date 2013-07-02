@@ -25,78 +25,116 @@ module PaginationHelper
   class LinkRenderer < WillPaginate::ActionView::LinkRenderer
     def pagination
       items = @options[:page_links] ? windowed_page_numbers : []
-      items.unshift :previous_page
-      items.unshift :first_page
-      items.unshift :entry_range if @options[:entry_range]
-      items.unshift :per_page_list if @options[:per_page_list]
-      items.push :page_form if @options[:page_form]
-      items.push :page_total if @options[:page_total]
-      items.push :next_page
-      items.push :last_page
+     # items.unshift :previous_page
+    #  items.unshift :first_page
+    #  items.unshift :entry_range if @options[:entry_range]
+    #  items.unshift :per_page_list if @options[:per_page_list]
+    #  items.push :page_form if @options[:page_form]
+    #  items.push :page_total if @options[:page_total]
+     # items.push :next_page
+     # items.push :last_page
+      items.push :everythingFormatted
+            
     end
     
   protected
     
     def first_page
       num = @collection.current_page > 1 && 1
-      first_or_last_page(num, @options[:first_label], 'first_page', :title => @options[:first_title])
+      first_or_last_page(num, @options[:first_label], 'nav-first', :title => @options[:first_title])
     end
     
     def previous_page
       num = @collection.current_page > 1 && @collection.current_page - 1
-      previous_or_next_page(num, @options[:previous_label], 'previous_page', :title => @options[:previous_title])
+      previous_or_next_page(num, @options[:previous_label], 'nav-prev', :title => @options[:previous_title])
     end
 
     def next_page
       num = @collection.current_page < @collection.total_pages && @collection.current_page + 1
-      previous_or_next_page(num, @options[:next_label], 'next_page', :title => @options[:next_title])
+      previous_or_next_page(num, @options[:next_label], 'nav-next', :title => @options[:next_title])
     end
     
     def last_page
       num = @collection.current_page < total_pages && total_pages
-      first_or_last_page(num, @options[:last_label], 'last_page', :title => @options[:last_title])
+      first_or_last_page(num, @options[:last_label], 'nav-last', :title => @options[:last_title])
+    end
+
+    def everythingFormatted
+      per_page_list() + 
+      entry_range + 
+      tag(:div,
+          tag(:ul,
+              [first_page(),
+              previous_page(),
+              page_form(),
+              page_total(),
+              next_page(),
+              last_page()].join( '&nbsp;' * 3 ),
+              :class=>"result-pagination"),
+          :class => "pagination")      
     end
     
     def previous_or_next_page(page, text, classname, options = {})
       if page
-        link(CGI::escapeHTML(text), page, options.merge(:class => classname))
+        tag(:li, 
+            link(CGI::escapeHTML(text), page, options.merge(:class => classname)),
+            options.merge(:class => classname))
       else
-        tag(:span, text, options.merge(:class => classname + ' disabled'))
+        tag(:li, text, options.merge(:class => classname + ' disabled'))
       end
     end
     alias_method :first_or_last_page, :previous_or_next_page
     
     def page_form
-      @template.form_tag({}, { :method => :get, :class => "pagination" }) do
-        @template.text_field_tag("page", @collection.current_page, :size => 8) +
-        @template.hidden_field_tag("count", @collection.per_page)
-      end
+      tag(:li,
+          @template.form_tag({}, { :method => :get, :class => "jump-to-page" }) do
+            @template.text_field_tag("page", @collection.current_page, :size => 8) +
+            @template.hidden_field_tag("count", @collection.per_page) +
+            @template.hidden_field_tag("total_pages", @collection.total_pages)
+          end,
+          :class=>"nav-numbers")
     end
     
     def entry_range
-      tag(:span, @options[:entry_range_label], :class => "entry-range")
+      tag(:div,
+          tag(:span, @options[:entry_range_label]), 
+          :class => "count")
     end
     
     def page_total
-      tag(:span, @options[:page_total_label], :class => "page-total")
+      tag(:span, @options[:page_total_label], :class => "of-bracket")
     end
     
     def per_page_list
       list_items = [ 12, 24, 48, 96 ].collect do |per_page|
-        tag(:li, @template.link_to(per_page, :page => 1, :count => per_page))
+        tag(:li, @template.link_to(per_page, options = {:page => 1, :count => per_page }, html_options = {:class => per_page}  ), :class => "item")
       end
       
       list = tag(:ul, list_items.join, :title => @options[:per_page_title])
       
-      tag(:div, @options[:per_page_label].to_s + list, :class => "entries-per-page")
+      labels = '<span class="menu-label">' + @collection.per_page.to_s + '</span><span class="icon-arrow-3"></span>'
+     
+      wrap = tag(:div, 
+            labels + list,
+            { :class => "eu-menu",
+              :title => @options[:per_page_title],
+              "aria-hidden" => "true"
+            })
+            
+      tag(:div, @options[:per_page_label].to_s + wrap, :class => "menu-wrapper")
     end
     
     def container_attributes
-      @container_attributes ||= @options.except(*(WillPaginate::ViewHelpers.pagination_options.keys + PaginationHelper.options.keys + [:renderer] - [:class]))
+      @container_attributes ||= @options.except(*(WillPaginate::ViewHelpers.pagination_options.keys + PaginationHelper.options.keys + [:renderer] - [:class])) 
     end
   end
   
+  def total_pages
+    @collection.total_pages
+  end
+  
   def will_paginate(collection, options = {})
+    
     options = PaginationHelper.options.merge(options)
     
     options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
@@ -109,10 +147,11 @@ module PaginationHelper
     
     options[:first_title]       ||= will_paginate_translate([ :first_title, 'First page' ])
     options[:previous_title]    ||= will_paginate_translate([ :previous_title, 'Previous page' ])
+
     options[:next_title]        ||= will_paginate_translate([ :next_title, 'Next page' ])
     options[:last_title]        ||= will_paginate_translate([ :last_title, 'Last page' ])
     options[:per_page_title]    ||= will_paginate_translate([ :per_page_title, 'Number of results shown on the page' ])
-    
+        
     unless options[:renderer]
       options = options.merge :renderer => LinkRenderer
     end
