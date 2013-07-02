@@ -1,1 +1,5 @@
-<p><code><%= record.inspect %></code></p>
+<div><code><%= record.inspect %></code></div>
+
+<% if oembed = oembed_html(record) %>
+  <div class="oembed"><%= oembed.html_safe %></div>
+<% end %>
