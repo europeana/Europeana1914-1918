@@ -146,25 +146,27 @@ module PaginationHelper
   end
   
   def will_paginate(collection, options = {})
-    options = PaginationHelper.options.merge(options)
-    
-    options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
-    options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
-    options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
-    options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
-    options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page), collection.total_entries ].min, :total => collection.total_entries)
-    options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
-    options[:per_page_label]    ||= will_paginate_translate([ :per_page_label, 'Results per page:' ])
-    
-    options[:first_title]       ||= will_paginate_translate([ :first_title, 'First page' ])
-    options[:previous_title]    ||= will_paginate_translate([ :previous_title, 'Previous page' ])
+    if session[:theme] == 'v3'
+      options = PaginationHelper.options.merge(options)
+      
+      options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
+      options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
+      options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
+      options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
+      options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page), collection.total_entries ].min, :total => collection.total_entries)
+      options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
+      options[:per_page_label]    ||= will_paginate_translate([ :per_page_label, 'Results per page:' ])
+      
+      options[:first_title]       ||= will_paginate_translate([ :first_title, 'First page' ])
+      options[:previous_title]    ||= will_paginate_translate([ :previous_title, 'Previous page' ])
 
-    options[:next_title]        ||= will_paginate_translate([ :next_title, 'Next page' ])
-    options[:last_title]        ||= will_paginate_translate([ :last_title, 'Last page' ])
-    options[:per_page_title]    ||= will_paginate_translate([ :per_page_title, 'Number of results shown on the page' ])
-        
-    unless options[:renderer]
-      options = options.merge :renderer => LinkRenderer
+      options[:next_title]        ||= will_paginate_translate([ :next_title, 'Next page' ])
+      options[:last_title]        ||= will_paginate_translate([ :last_title, 'Last page' ])
+      options[:per_page_title]    ||= will_paginate_translate([ :per_page_title, 'Number of results shown on the page' ])
+          
+      unless options[:renderer]
+        options = options.merge :renderer => LinkRenderer
+      end
     end
     
     super(collection, options)
