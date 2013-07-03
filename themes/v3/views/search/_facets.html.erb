@@ -1,20 +1,23 @@
 <% unless facets.blank? -%>
 
   <%- for facet in facets %>
-    <li>
-      <h3><%= link_to facet_label(facet.name), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
-      <ul>
-        <%- for field in facet.rows -%>
-          <li>
-            <h4>
-                <%= check_box_tag "facets[#{facet.name}][#{field.value}]" %>
-                <%= link_to TaxonomyTerm.find(field.value).term, request.query_parameters.merge(:page => 1, :facets => (request.query_parameters[:facets] || {}).merge({ facet.name => field.value })) %> (<%= field.count %>)
-            </h4>
-          </li>
-        <%- end -%>
-      </ul>
-    </li>
-    
+  
+    <%- if facet.rows.present? -%>
+      <li>
+        <h3><%= link_to facet_label(facet.name), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
+        <ul>
+          <%- for field in facet.rows -%>
+            <li>
+              <h4>
+                  <%= check_box_tag "facets[#{facet.name}][#{field.value}]" %>
+                  <%= link_to TaxonomyTerm.find(field.value).term, request.query_parameters.merge(:page => 1, :facets => (request.query_parameters[:facets] || {}).merge({ facet.name => field.value })) %> (<%= field.count %>)
+              </h4>
+            </li>
+          <%- end -%>
+        </ul>
+      </li>
+    <%- end -%>
+  
   <%- end -%>
   
 <% end -%>
