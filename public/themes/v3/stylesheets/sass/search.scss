@@ -11,7 +11,7 @@
 	transition: .2s all ease;		
 	
 	width:		100%;
-	padding:	2em;
+	padding:	1em;
 	
 	display:	block;	
 	position:	relative;
@@ -135,15 +135,13 @@ a.menu-button:hover{
 	li{
 		list-style: 	none;
 		display:		table-cell;
-		vertical-align:	top;	
+			
 	}
 	
 	.disabled{
 		visibility:		hidden;
 	}
 }
-
-
 
 
 #page {
@@ -221,14 +219,16 @@ a.menu-button:hover{
 .nav>div{
 	display:	block;
 	text-align:	center;
-	width:		100%;
+	
+	margin:		1em;
+		
+	span,
+	.menu-wrapper,
+	.pagination{
+		white-space:	nowrap;
+	}	
 }
 
-
-.nav>div.menu-wrapper,
-.nav>div.pagination{
-	white-space:	nowrap;
-}
 
 .nav-numbers{
 	text-align:		center;
@@ -243,6 +243,46 @@ a.menu-button:hover{
 }
 
 
+/* results */
+
+#results {
+	position:		relative;
+	padding-top:	1em;
+}
+
+#results ul {
+	list-style: none;
+}
+
+#results li {
+	float:			left;
+	margin-bottom:	1em;
+	margin-top:  	1px;
+	max-width:		30%;
+	padding:		1em;
+	width:			30%;
+
+	line-height:	120%;
+	font-size:		90%;
+	
+	webkit-box-shadow:	1px 1px 3px rgba(34,25,25,0.8);
+	moz-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
+	ms-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
+	o-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
+	box-shadow:			1px 1px 3px rgba(34,25,25,0.8);
+}
+
+#results li a {		
+	display: block;
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+#results li img {
+	max-width: 100%;
+}
+
+	
 
 
 /* data showing / hiding rules */
@@ -281,7 +321,7 @@ a.menu-button:hover{
 	}
 	
 	.result-pagination li{
-		vertical-align:	middle;
+		
 	}
 	
 	.jump-to-page{
@@ -316,6 +356,11 @@ a.menu-button:hover{
 		border-spacing: 1em;
 	}
 
+	.nav-top,
+	.nav-bottom{
+		border-spacing: 0;
+	}
+	
 	.js [role="main"],
 	.js [role="navigation"] {
 		display: table-cell;
@@ -369,16 +414,15 @@ a.menu-button:hover{
 
 	.nav>div{
 		display:		table-cell;
-		vertical-align:	middle;
-	}
-
-	.nav>.menu-wrapper, .nav>.pagination{
-		width:1px;
+		vertical-align:	bottom;
 	}
 
 	.nav>.count{
-		width:		100%;
 		text-align:	center;
+	}
+	.nav>.count span{
+		position: relative;
+		top:      -1px;
 	}
 
 	.nav-numbers{	
