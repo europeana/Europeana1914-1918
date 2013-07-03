@@ -16,6 +16,7 @@ module PaginationHelper
     :page_total_label   => nil,
     :per_page_label     => nil,
     :page_links         => false,
+    :everything_formatted => true,
     :page_form          => true,
     :page_total         => true,
     :entry_range        => true,
@@ -25,16 +26,18 @@ module PaginationHelper
   class LinkRenderer < WillPaginate::ActionView::LinkRenderer
     def pagination
       items = @options[:page_links] ? windowed_page_numbers : []
-     # items.unshift :previous_page
-    #  items.unshift :first_page
-    #  items.unshift :entry_range if @options[:entry_range]
-    #  items.unshift :per_page_list if @options[:per_page_list]
-    #  items.push :page_form if @options[:page_form]
-    #  items.push :page_total if @options[:page_total]
-     # items.push :next_page
-     # items.push :last_page
-      items.push :everythingFormatted
-            
+      if @options[:everything_formatted]
+        items.push :everything_formatted
+      else
+        items.unshift :previous_page
+        items.unshift :first_page
+        items.unshift :entry_range if @options[:entry_range]
+        items.unshift :per_page_list if @options[:per_page_list]
+        items.push :page_form if @options[:page_form]
+        items.push :page_total if @options[:page_total]
+        items.push :next_page
+        items.push :last_page
+      end
     end
     
   protected
@@ -59,26 +62,31 @@ module PaginationHelper
       first_or_last_page(num, @options[:last_label], 'nav-last', :title => @options[:last_title])
     end
 
-    def everythingFormatted
-      per_page_list() + 
+    def everything_formatted
+      per_page_list + 
       entry_range + 
       tag(:div,
-          tag(:ul,
-              [first_page(),
-              previous_page(),
-              page_form(),
-              page_total(),
-              next_page(),
-              last_page()].join( '&nbsp;' * 3 ),
-              :class=>"result-pagination"),
-          :class => "pagination")      
+        tag(:ul, 
+          [
+            first_page,
+            previous_page,
+            page_form,
+            page_total,
+            next_page,
+            last_page
+          ].join( '&nbsp;' * 3 ),
+          :class=>"result-pagination"
+        ),
+        :class => "pagination"
+      )
     end
     
     def previous_or_next_page(page, text, classname, options = {})
       if page
         tag(:li, 
-            link(CGI::escapeHTML(text), page, options.merge(:class => classname)),
-            options.merge(:class => classname))
+          link(CGI::escapeHTML(text), page, options.merge(:class => classname)),
+          options.merge(:class => classname)
+        )
       else
         tag(:li, text, options.merge(:class => classname + ' disabled'))
       end
@@ -87,18 +95,20 @@ module PaginationHelper
     
     def page_form
       tag(:li,
-          @template.form_tag({}, { :method => :get, :class => "jump-to-page" }) do
-            @template.text_field_tag("page", @collection.current_page, :size => 8) +
-            @template.hidden_field_tag("count", @collection.per_page) +
-            @template.hidden_field_tag("total_pages", @collection.total_pages)
-          end,
-          :class=>"nav-numbers")
+        @template.form_tag({}, { :method => :get, :class => "jump-to-page" }) do
+          @template.text_field_tag("page", @collection.current_page, :size => 8) +
+          @template.hidden_field_tag("count", @collection.per_page) +
+          @template.hidden_field_tag("total_pages", @collection.total_pages)
+        end,
+        :class => "nav-numbers"
+      )
     end
     
     def entry_range
       tag(:div,
-          tag(:span, @options[:entry_range_label]), 
-          :class => "count")
+        tag(:span, @options[:entry_range_label]), 
+        :class => "count"
+      )
     end
     
     def page_total
@@ -107,7 +117,7 @@ module PaginationHelper
     
     def per_page_list
       list_items = [ 12, 24, 48, 96 ].collect do |per_page|
-        tag(:li, @template.link_to(per_page, options = {:page => 1, :count => per_page }, html_options = {:class => per_page}  ), :class => "item")
+        tag(:li, @template.link_to(per_page, @template.request.params.merge({ :page => 1, :count => per_page }), { :class => per_page } ), :class => "item")
       end
       
       list = tag(:ul, list_items.join, :title => @options[:per_page_title])
@@ -115,17 +125,19 @@ module PaginationHelper
       labels = '<span class="menu-label">' + @collection.per_page.to_s + '</span><span class="icon-arrow-3"></span>'
      
       wrap = tag(:div, 
-            labels + list,
-            { :class => "eu-menu",
-              :title => @options[:per_page_title],
-              "aria-hidden" => "true"
-            })
-            
+        labels + list,
+        { 
+          :class => "eu-menu",
+          :title => @options[:per_page_title],
+          "aria-hidden" => "true"
+        }
+      )
+      
       tag(:div, @options[:per_page_label].to_s + wrap, :class => "menu-wrapper")
     end
     
     def container_attributes
-      @container_attributes ||= @options.except(*(WillPaginate::ViewHelpers.pagination_options.keys + PaginationHelper.options.keys + [:renderer] - [:class])) 
+      @container_attributes ||= @options.except(*(WillPaginate::ViewHelpers.pagination_options.keys + PaginationHelper.options.keys + [:renderer] - [:class]))
     end
   end
   
@@ -134,7 +146,6 @@ module PaginationHelper
   end
   
   def will_paginate(collection, options = {})
-    
     options = PaginationHelper.options.merge(options)
     
     options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
