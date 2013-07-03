@@ -211,84 +211,14 @@
 		</div>
 		
 
-	    <section role="main">
-	    	<% if @contributions.size > 0 -%>
-	    	
-	    	
-	    	   	<% if (will_paginate @contributions) && (will_paginate @contributions).size > 0 -%>
-	    	   	
-	    	   		<%# WORKING FOR EXPLORE THEATRES %>
-	    	   		<%# http://localhost:3000/en/explore/theatres/Eastern+Front?utf8=%E2%9C%93&page=2&count=48 %>
-	    	   		
-	    	   		<%= will_paginate @contributions, {:class=>"nav nav-top"} %>
-	    	   		
-	    	   	<% else %>
-
-		    		<%# TODO get rid of this ELSE (contributions search) %>
-		    		<%# http://localhost:3000/en/contributions/search?utf8=%E2%9C%93&count=48&q=* %>
-		    		
-					<%=
-						render :partial => '/shared/result_nav',
-						:locals => {
-							:contributions => @contributions,
-							:query => @query,
-							:term => @term,
-							:divClass => 'nav-top'
-						}
-					%>
-	    	   	
-	    		<% end -%>
-				
-				
-			<% end -%>
-	    
-
-    	
-    		<div id="results">
-
- 				<%=
-       				render :partial => 'search-results',
-	   				:locals => {
-    					:contributions => @contributions,
-     	  				:query => @query,
-     	  				:term => @term
-     				}
-     			%>
-      
-      			<%- if europeana_api_configured? && !(@field.present? && (@field.name == 'collection_day')) -%>
-        			<div id="results-europeana"></div>
-      			<%- end -%>
-      		
-	    	</div>
-	    	
-			
-	    	<% if (will_paginate @contributions) && (will_paginate @contributions).size > 0 -%>
-    	   		<%# WORKING FOR EXPLORE THEATRES %>
-    	   		<%# http://localhost:3000/en/explore/theatres/Eastern+Front?utf8=%E2%9C%93&page=2&count=48 %>
-    	  	
-    	   		<%= will_paginate @contributions, {:class=>"nav nav-bottom"} %>
-    	   		
-    	   	<% else %>
-
-	    		<%# TODO get rid of this ELSE (contributions search) %>
-	    		<%# http://localhost:3000/en/contributions/search?utf8=%E2%9C%93&count=48&q=* %>
-	    		
-		    	<% if @contributions.size > 0 -%>
-					<%=
-						render :partial => '/shared/result_nav',
-						:locals => {
-							:contributions => @contributions,
-							:query => @query,
-							:term => @term,
-							:divClass => 'nav-bottom'
-						}
-					%>    
-				<% end -%>
-    	   	
-    		<% end -%>
-		</div>
-		
+    <section role="main">
+    	<%=
+      render :partial => '/search/results', :locals => {
+        :results => @results,
+        :query => @query,
+        :term => @term
+      }
+      %>
+ 			</section>
 
 </div>
-
-

@@ -13,13 +13,15 @@ class EuropeanaController < ApplicationController
     @results = query_api(bing_translate(@query), :page => params[:page], :count => params[:count])
     
     if params.delete(:layout) == '0'
-      render :partial => 'search-results',
+      render :partial => '/search/results',
         :locals => {
           :results => @results,
           :query => @query,
           :term => @term
         } and return
     end
+    
+    render :template => 'search/page'
   end
   
   # GET /europeana/explore/:field_name/:term
@@ -36,7 +38,7 @@ class EuropeanaController < ApplicationController
     end
     
     if params.delete(:layout) == '0'
-      render :partial => 'search-results',
+      render :partial => '/search/results',
         :locals => {
           :results => @results,
           :query => @query,
@@ -44,7 +46,7 @@ class EuropeanaController < ApplicationController
         } and return
     end
     
-    render :action => 'search'
+    render :template => 'search/page'
   end
   
   # GET /europeana/record/:dataset_id/:record_id

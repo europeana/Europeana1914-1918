@@ -207,8 +207,15 @@ class Attachment < ActiveRecord::Base
   def to_json(options = nil)
     ActiveSupport::JSON.encode(to_hash, options)
   end
+
+  def thumbnail_url(size)
+    if has_thumbnail?(size)
+      file.url(size)
+    end
+  end
   
-  protected
+protected
+
   # Moves files between public/private paths when public attr changed
   def relocate_files #:nodoc:
     new_public = self.public

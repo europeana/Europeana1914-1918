@@ -299,6 +299,17 @@ class Contribution < ActiveRecord::Base
     } )
   end
   
+  def to_edm_result
+    {
+      "id"                  => id,
+      "title"               => [ title ],
+      "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
+      "dctermsAlternative"  => [ metadata.fields['alternative'] ],
+      "link"                => "http://www.europeana1914-1918.eu/#{I18n.locale}/contributions/#{id}",
+      "runcocoProvider"     => "runcoco"
+    }
+  end
+  
   protected
   def build_metadata_unless_present
     self.build_metadata unless self.metadata.present?

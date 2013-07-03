@@ -178,16 +178,22 @@ class ContributionsController < ApplicationController
 #    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
     # No eager loading if partials are all pre-cached.
     search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id] }
-    @contributions = Contribution.search(:published, bing_translate(@query), search_options)
+    search = Contribution.search(:published, bing_translate(@query), search_options)
+    
+    @contributions = search.respond_to?(:results) ? search.results : search
+    @results = contributions_to_edm_results(@contributions)
 
     if params.delete(:layout) == '0'
-      render :partial => 'search-results',
+      render :partial => '/search/results',
         :locals => {
           :contributions => @contributions,
+          :results => @results,
           :query => @query,
           :term => @term
         } and return
     end
+    
+    render :template => 'search/page'
   end
   
   # GET /explore/:field_name/:term
@@ -203,21 +209,25 @@ class ContributionsController < ApplicationController
 #      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
       # No eager loading if partials are all pre-cached.
       search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
-      @contributions = Contribution.search(:published, nil, search_options)
+      search = Contribution.search(:published, nil, search_options)
     else
-      @contributions = []
+      search = []
     end
     
+    @contributions = search.respond_to?(:results) ? search.results : search
+    @results = contributions_to_edm_results(@contributions)
+
     if params.delete(:layout) == '0'
-      render :partial => 'search-results',
+      render :partial => '/search/results',
         :locals => {
           :contributions => @contributions,
+          :results => @results,
           :query => @query,
           :term => @term
         } and return
     end
     
-    render :action => 'search'
+    render :template => 'search/page'
   end
   
   # GET /contributions/:id/delete
@@ -258,9 +268,20 @@ class ContributionsController < ApplicationController
     end
   end
 
-  protected
+protected
+
   def find_contribution
     @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata ])
+  end
+  
+  def contributions_to_edm_results(contributions)
+    results = contributions.collect do |c|
+      c.to_edm_result
+    end
+    
+    WillPaginate::Collection.create(contributions.current_page, contributions.per_page, contributions.total_entries) do |pager|
+      pager.replace(contributions.total_entries == 0 ? [] : results)
+    end
   end
 end
 

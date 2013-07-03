@@ -4,43 +4,53 @@
 
 <% else -%>
 
-  <ul class="stories">
-    <%- for result in results -%>
-      <% title = result['title'].blank? ? '' : result['title'].first %>
-      <li>
-        <%- cache "#{session[:theme]}/#{I18n.locale}/search/result/#{result['runcocoProvider']}/" + no_leading_slash(result['id'].to_s) do -%>
-          <a href="<%= result['link'] %>" title="<%= title %>">
-            <%- unless result['edmPreview'].blank? -%>
-              <img src="<%= result['edmPreview'].first %>" alt="" /><br />
-            <%- end -%>
-            <%- unless title.blank? -%>
-              <b><%= title %></b>
-            <%- end -%>
-            <%- unless result['dcCreator'].blank? -%>
-              <br/><%= result['dcCreator'] %>
-            <%- end -%>
-            <%- unless result['year'].blank? -%>
-              <%- if result['year'].size == 2 -%>
-                <br/><%= result['year'].first %>&ndash;<%= result['year'].last %>
+  <%= will_paginate results, { :class => "nav nav-top" } %>
+
+  <div id="results">
+
+    <ul class="stories">
+      <%- for result in results -%>
+        <% title = result['title'].blank? ? '' : result['title'].first %>
+        <li>
+          <%- cache "#{session[:theme]}/#{I18n.locale}/search/result/#{result['runcocoProvider']}/" + no_leading_slash(result['id'].to_s) do -%>
+            <a href="<%= result['link'] %>" title="<%= title %>">
+              <%- if result['edmPreview'].blank? || result['edmPreview'].first.blank? -%>
+                <%- if result['runcocoProvider'] == 'runcoco' -%>
+                  <img src="<%= contribution_media_type_image_path(result['id']) %>" alt="" /><br />
+                <%- end -%>
               <%- else -%>
-                <%- result['year'].each do |field_value| -%>
-                  <br/><%= field_value %>
+                <img src="<%= result['edmPreview'].first %>" alt="" /><br />
+              <%- end -%>
+              <%- unless title.blank? -%>
+                <b><%= title %></b>
+              <%- end -%>
+              <%- unless result['dcCreator'].blank? -%>
+                <br/><%= result['dcCreator'] %>
+              <%- end -%>
+              <%- unless result['year'].blank? -%>
+                <%- if result['year'].size == 2 -%>
+                  <br/><%= result['year'].first %>&ndash;<%= result['year'].last %>
+                <%- else -%>
+                  <%- result['year'].each do |field_value| -%>
+                    <br/><%= field_value %>
+                  <%- end -%>
                 <%- end -%>
               <%- end -%>
-            <%- end -%>
-            <%- [ 'dctermsAlternative', 'dataProvider', 'provider' ].each do |field_name| -%>
-              <%- unless result[field_name].blank? -%>
-                <%- result[field_name].each do |field_value| -%>
-                  <br/><%= field_value %>
+              <%- [ 'dctermsAlternative', 'dataProvider', 'provider' ].each do |field_name| -%>
+                <%- unless result[field_name].blank? -%>
+                  <%- result[field_name].each do |field_value| -%>
+                    <br/><%= field_value %>
+                  <%- end -%>
                 <%- end -%>
               <%- end -%>
-            <%- end -%>
-          </a>
-        <%- end -%>
-      </li>
-    <%- end -%>
-  </ul>
+            </a>
+          <%- end -%>
+        </li>
+      <%- end -%>
+    </ul>
+  
+  </div>
     
-  <%= will_paginate results %>
+  <%= will_paginate results, { :class => "nav nav-bottom" } %>
 
 <% end -%>

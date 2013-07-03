@@ -15,21 +15,20 @@ module AttachmentsHelper
   def attachment_preview(attachment, size = :preview)
     if attachment.has_thumbnail?(size)
       alt = (attachment.title.present? ? attachment.title : attachment.file.original_filename)
-      
     else
-      media_type = file_media_type(attachment.file.original_filename)
+      media_type = attachment_file_media_type(attachment)
       alt = translate("media_types.#{media_type}")
     end
     
-    image_tag(attachment_preview_url(attachment, size), :alt => alt)
+    image_tag(attachment_thumbnail_url(attachment, size), :alt => alt)
   end
   
-  def attachment_preview_url(attachment, size = :preview)
-    if attachment.has_thumbnail?(size)
-      attachment.file.url(size)
+  def attachment_thumbnail_url(attachment, size = :preview)
+    if preview_url = attachment.thumbnail_url(size)
+      preview_url
     else
-      media_type = file_media_type(attachment.file.original_filename)
-      image_path("style/icons/mimetypes/#{media_type}.png")
+      media_type = attachment_file_media_type(attachment)
+      file_media_type_image_path(media_type)
     end
   end
   
@@ -37,15 +36,23 @@ module AttachmentsHelper
     attachment.image? ? attachment.file.url(size) : attachment.file.url
   end
   
+  def attachment_file_media_type(attachment)
+    file_media_type(attachment.file.original_filename)
+  end
+  
+  def file_media_type_image_path(media_type)
+    image_path("style/icons/mimetypes/#{media_type}.png")
+  end
+  
   def file_media_type(filename)
     mime_type_map = {  
-      'binary' => [ 'application/octet-stream' ],
-      'pdf' => [ 'application/pdf' ],
-      'sound' => [ /^audio\// ],
-      'spreadsheet' => [ 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.ms-excel', 'application/excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ],
-      'txt' => [ /^text\// ],
-      'video' => [ /^video\// ],
-      'wordprocessing' => [ 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', ' text/richtext', 'application/vnd.oasis.opendocument.text' ]
+      'binary'          => [ 'application/octet-stream' ],
+      'pdf'             => [ 'application/pdf' ],
+      'sound'           => [ /^audio\// ],
+      'spreadsheet'     => [ 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.ms-excel', 'application/excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ],
+      'txt'             => [ /^text\// ],
+      'video'           => [ /^video\// ],
+      'wordprocessing'  => [ 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', ' text/richtext', 'application/vnd.oasis.opendocument.text' ]
     }
     
     mime_type = MIME::Types.type_for(filename).first.to_s

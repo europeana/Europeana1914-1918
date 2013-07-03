@@ -105,6 +105,13 @@ module ContributionsHelper
     end
   end
   
+  def contribution_media_type_image_path(id)
+    contribution = Contribution.find(id)
+    filename = contribution.attachments.cover_image.file.original_filename
+    media_type = file_media_type(filename)
+    file_media_type_image_path(media_type)
+  end
+  
   ##
   # Gets the URL path for a contribution without the :locale prefix.
   #
@@ -128,22 +135,5 @@ module ContributionsHelper
   # @return [String] the URL
   def localeless_contribution_url(options)
     contribution_url(options).match(/(^\w+:\/\/[^\/]+)\/\w+(.*)$/)[1..2].join
-  end
-  
-  def contributions_to_edm_results(contributions)
-    results = contributions.collect do |c|
-      {
-        'id'                  => c.id,
-        'title'               => [ c.title ],
-        'edmPreview'          => [ attachment_preview_url(c.attachments.cover_image) ],
-        'dctermsAlternative'  => [ c.metadata.fields['alternative'] ],
-        'link'                => url_for(c),
-        'runcocoProvider'     => "runcoco"
-      }
-    end
-    
-    WillPaginate::Collection.create(contributions.current_page, contributions.per_page, contributions.total_entries) do |pager|
-      pager.replace(contributions.total_entries == 0 ? [] : results)
-    end
   end
 end
