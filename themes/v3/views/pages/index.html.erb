@@ -107,7 +107,7 @@
 		<div class="recent-activity shadow-panel" >
 	
 			<div class="head">
-				<h3>1,236</h3>
+				<h3><%= number_with_delimiter(Contribution.published.count, :delimiter => ',') %></h3>
 				stories added so far
 			</div>
 
