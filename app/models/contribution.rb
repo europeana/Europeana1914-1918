@@ -31,7 +31,7 @@ class Contribution < ActiveRecord::Base
     end
     
     def cover_image
-      with_file.select { |attachment| attachment.metadata.fields['cover_image'].present? }.first || with_file.first
+      with_file.select { |attachment| attachment.metadata.field_cover_image.present? }.first || with_file.first
     end
   end
   
@@ -305,8 +305,7 @@ class Contribution < ActiveRecord::Base
       "title"               => [ title ],
       "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
       "dctermsAlternative"  => [ metadata.fields['alternative'] ],
-      "link"                => "http://www.europeana1914-1918.eu/#{I18n.locale}/contributions/#{id}",
-      "runcocoProvider"     => "runcoco"
+      "link"                => "http://www.europeana1914-1918.eu/#{I18n.locale}/contributions/#{id}"
     }
   end
   
