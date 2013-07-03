@@ -112,7 +112,10 @@ module PaginationHelper
     end
     
     def page_total
-      tag(:span, @options[:page_total_label], :class => "of-bracket")
+      
+      tag(:li,
+          tag(:span, @options[:page_total_label], :class => "of-bracket")
+        )
     end
     
     def per_page_list
