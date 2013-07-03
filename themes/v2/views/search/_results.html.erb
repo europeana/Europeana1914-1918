@@ -1,0 +1,14 @@
+<%# v2 theme compatibility with search results displayed via shared templates. %>
+<% if request.params['controller'] == 'contributions' -%>
+  <%= render :partial => '/contributions/search_results', :locals => { 
+    :contributions => contributions,
+    :query => query,
+    :term => term
+  } %>
+<% elsif request.params['controller'] == 'europeana' -%>
+  <%= render :partial => '/contributions/search_results', :locals => { 
+    :results => results,
+    :query => query,
+    :term => term
+  } %>
+<% end -%>
