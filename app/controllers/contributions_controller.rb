@@ -177,10 +177,11 @@ class ContributionsController < ApplicationController
     # Minimal eager loading of associations if search result partials are not pre-cached.
 #    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
     # No eager loading if partials are all pre-cached.
-    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id] }
+    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets] }
     search = Contribution.search(:published, bing_translate(@query), search_options)
     
     @contributions = search.respond_to?(:results) ? search.results : search
+    @facets = search.respond_to?(:facets) ? search.facets : nil
     @results = contributions_to_edm_results(@contributions)
 
     if params.delete(:layout) == '0'
@@ -208,13 +209,14 @@ class ContributionsController < ApplicationController
       # Minimal eager loading of associations if search result partials are not pre-cached.
 #      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
       # No eager loading if partials are all pre-cached.
-      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id] }
+      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets] }
       search = Contribution.search(:published, nil, search_options)
     else
       search = []
     end
     
     @contributions = search.respond_to?(:results) ? search.results : search
+    @facets = search.respond_to?(:facets) ? search.facets : nil
     @results = contributions_to_edm_results(@contributions)
 
     if params.delete(:layout) == '0'

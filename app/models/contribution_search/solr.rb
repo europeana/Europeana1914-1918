@@ -36,6 +36,13 @@ module ContributionSearch
               end
             end
           end
+          
+          # Facets
+          MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
+            integer "metadata_#{field.name}_ids", :multiple => true do
+              metadata.send("field_#{field.name}_term_ids")
+            end
+          end
         end
         
         base.extend(ClassMethods)
@@ -58,29 +65,32 @@ module ContributionSearch
         
         solr_options = options.dup
         
-        sunspot_search = solr_search do
+        solr_search do
           unless set.nil?
-            if (set == :published)
+            if set == :published
               with :current_status, ContributionStatus.published
             else
               with :current_status, ContributionStatus.const_get(set.to_s.upcase)
             end
           end
           
-          contributor_id = solr_options.delete(:contributor_id)
-          if contributor_id.present?
+          if contributor_id = solr_options.delete(:contributor_id)
             with :contributor_id, contributor_id
           end
           
-          taxonomy_term = solr_options.delete(:taxonomy_term)
-          if taxonomy_term.present?
+          if taxonomy_term = solr_options.delete(:taxonomy_term)
             with :taxonomy_term_ids, taxonomy_term.id
           end
           
-          order = solr_options.delete(:order)
-          if order.present? 
+          if order = solr_options.delete(:order)
             order = order.downcase.to_sym
             order = :asc unless [ :desc, :asc ].include?(order)
+          end
+          
+          if facets = solr_options.delete(:facets)
+            facets.each_pair do |name, criterion|
+              with name.to_sym, criterion.to_i
+            end
           end
         
           if sort = solr_options.delete(:sort)
@@ -112,17 +122,11 @@ module ContributionSearch
             end
             fulltext query_string, { :minimum_match => 1 } # Equivalent to Boolean OR in dismax query mode
           end
+          
+          MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
+            facet "metadata_#{field.name}_ids"
+          end
         end
-        
-        case sunspot_search
-        when Sunspot::Search::StandardSearch
-          sunspot_search.results
-        when Sunspot::Search::PaginatedCollection
-          sunspot_search
-        else
-          raise Exception, "Don't know how to handle Sunspot results class #{sunspot_search.class.to_s}"
-        end
-        
       rescue Errno::ECONNREFUSED
         RunCoCo.error_logger.warn('Solr not accessible; falling back to ActiveRecord search.')
         active_record_search(set, query, options)

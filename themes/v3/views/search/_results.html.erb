@@ -10,12 +10,12 @@
 
     <ul class="stories">
       <%- for result in results -%>
-        <% title = result['title'].blank? ? '' : result['title'].first %>
         <li>
-          <%- cache "#{session[:theme]}/#{I18n.locale}/search/result/#{result['runcocoProvider']}/" + no_leading_slash(result['id'].to_s) do -%>
+          <%- cache "#{session[:theme]}/#{I18n.locale}/search/result/#{controller.controller_name}/" + no_leading_slash(result['id'].to_s) do -%>
+            <% title = result['title'].blank? ? '' : result['title'].first %>
             <a href="<%= result['link'] %>" title="<%= title %>">
               <%- if result['edmPreview'].blank? || result['edmPreview'].first.blank? -%>
-                <%- if result['runcocoProvider'] == 'runcoco' -%>
+                <%- if controller.controller_name == 'contributions' -%>
                   <img src="<%= contribution_media_type_image_path(result['id']) %>" alt="" /><br />
                 <%- end -%>
               <%- else -%>

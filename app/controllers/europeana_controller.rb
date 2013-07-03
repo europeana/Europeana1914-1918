@@ -121,9 +121,6 @@ class EuropeanaController < ApplicationController
       if results['itemsCount'] == 0
         pager.replace([])
       else
-        results['items'].each do |item|
-          item['runcocoProvider'] = 'europeana'
-        end
         pager.replace(results['items'])
       end
     end
