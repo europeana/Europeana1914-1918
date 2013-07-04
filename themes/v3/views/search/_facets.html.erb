@@ -24,11 +24,11 @@
       <li>
         <h3><%= link_to facet_label(facet.name), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
         <ul>
-          <%- for field in facet.rows -%>
+          <%- for row in facet.rows -%>
             <li>
               <h4>
-                  <%= check_box_tag "facets[#{facet.name}][#{field.value}]" %>
-                  <%= link_to field.value.is_a?(Integer) ? TaxonomyTerm.find(field.value).term : field.value, request.query_parameters.merge(:page => 1, :facets => (request.query_parameters[:facets] || {}).merge({ facet.name => field.value })) %> (<%= field.count %>)
+                  <%= check_box_tag "facets[#{facet.name}][#{row.value}]" %>
+                  <%= link_to_facet_row(facet.name, row.value) %> (<%= row.count %>)
               </h4>
             </li>
           <%- end -%>
