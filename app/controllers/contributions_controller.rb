@@ -180,7 +180,7 @@ class ContributionsController < ApplicationController
     search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets] }
     search = Contribution.search(:published, bing_translate(@query), search_options)
     
-    @contributions = search.respond_to?(:results) ? search.results : search
+    @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
     @facets = search.respond_to?(:facets) ? search.facets : nil
     @results = contributions_to_edm_results(@contributions)
 
@@ -215,7 +215,7 @@ class ContributionsController < ApplicationController
       search = []
     end
     
-    @contributions = search.respond_to?(:results) ? search.results : search
+    @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
     @facets = search.respond_to?(:facets) ? search.facets : nil
     @results = contributions_to_edm_results(@contributions)
 
