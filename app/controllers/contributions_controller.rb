@@ -194,9 +194,8 @@ class ContributionsController < ApplicationController
       search = Contribution.search(:published, search_query, search_options)
     end
     
-    @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
+    @results = @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
     @facets = search.respond_to?(:facets) ? search.facets : nil
-    @results = contributions_to_edm_results(@contributions)
 
     if params.delete(:layout) == '0'
       render :partial => '/search/results',
@@ -259,15 +258,6 @@ protected
   def find_contribution
     @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata ])
   end
-  
-  def contributions_to_edm_results(contributions)
-    results = contributions.collect do |c|
-      c.to_edm_result
-    end
-    
-    WillPaginate::Collection.create(contributions.current_page, contributions.per_page, contributions.total_entries) do |pager|
-      pager.replace(contributions.total_entries == 0 ? [] : results)
-    end
-  end
+
 end
 

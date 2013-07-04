@@ -27,4 +27,38 @@ module SearchHelper
     
     link_to row_label, request.query_parameters.merge(:page => 1, :facets => (request.query_parameters[:facets] || {}).merge({ facet_name => row_value }))
   end
+  
+  def search_result_id(result)
+    if result.respond_to?(:id)
+      result.id
+    elsif result.is_a?(Enumerable) && result.has_key?('id')
+      result['id']
+    else
+      raise ArgumentError, "Unable to retrieve search result ID from #{result.class}"
+    end
+  end
+  
+  def search_result_to_edm(result)
+    if result.respond_to?(:to_edm_result)
+      result.to_edm_result
+    elsif result.is_a?(Hash)
+      result
+    else
+      raise ArgumentError, "Unable to convert search result to EDM: #{result.class}"
+    end
+  end
+  
+  def search_result_fragment_key(result)
+    "#{session[:theme]}/#{I18n.locale}/search/result/#{controller.controller_name}/" + no_leading_slash(search_result_id(result).to_s)
+  end
+  
+  def search_result_preview(record)
+    if record['edmPreview'].blank? || record['edmPreview'].first.blank?
+      if controller.controller_name == 'contributions'
+        image_tag(contribution_media_type_image_path(record['id']), :alt => "")
+      end
+    else
+      image_tag(record['edmPreview'].first, :alt => "")
+    end
+  end
 end
