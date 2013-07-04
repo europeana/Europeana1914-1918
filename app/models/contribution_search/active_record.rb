@@ -95,7 +95,8 @@ module ContributionSearch
         results = joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).order(sort_order)
           
         if options.has_key?(:page)
-          results = results.paginate(options)
+          pagination_options = options.select { |k,v| [ :page, :per_page, :count, :total_entries ].include?(k) }
+          results = results.paginate(pagination_options)
         end
         
         results
