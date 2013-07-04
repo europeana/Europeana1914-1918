@@ -1,51 +1,66 @@
 module ContributionSearch
   module Solr
+    ##
+    # Tests if Solr server is accessible by attempting an HTTP connection to it.
+    #
+    # @return [Boolean]
+    #
+    def self.solr_accessible?
+      Net::HTTP.get(URI(Sunspot.config.solr.url))
+      true
+    rescue Errno::ECONNREFUSED
+      false
+    end
+  
     def self.included(base)
       base.class_eval do
         include ContributionSearch
         include ContributionSearch::ActiveRecord
         
-        # Set up the Solr index
-        searchable do
-          text    :title
-          text    :contributor do
-            contributor.contact.full_name
-          end
-          
-          integer :contributor_id
-          integer :metadata_record_id
-          integer :current_status
-          
-          time    :created_at
-          time    :status_timestamp
-          
-          # Index all searchable taxonomy terms at once
-          text    :taxonomy_terms do
-            metadata.searchable_taxonomy_terms.collect { |t| t.term }
-          end
-          integer :taxonomy_term_ids, :multiple => true do
-            metadata.searchable_taxonomy_terms.collect { |t| t.id }
-          end
-          
-          # Index other searchable fields individually
-          fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
-          unless fields.count == 0
-            fields.each do |field|
-              text "metadata_#{field.name}" do
-                metadata.send(MetadataRecord.column_name(field.name))
+        if ContributionSearch::Solr.solr_accessible?
+        
+          # Set up the Solr index
+          searchable do
+            text    :title
+            text    :contributor do
+              contributor.contact.full_name
+            end
+            
+            integer :contributor_id
+            integer :metadata_record_id
+            integer :current_status
+            
+            time    :created_at
+            time    :status_timestamp
+            
+            # Index all searchable taxonomy terms at once
+            text    :taxonomy_terms do
+              metadata.searchable_taxonomy_terms.collect { |t| t.term }
+            end
+            integer :taxonomy_term_ids, :multiple => true do
+              metadata.searchable_taxonomy_terms.collect { |t| t.id }
+            end
+            
+            # Index other searchable fields individually
+            fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
+            unless fields.count == 0
+              fields.each do |field|
+                text "metadata_#{field.name}" do
+                  metadata.send(MetadataRecord.column_name(field.name))
+                end
+              end
+            end
+            
+            # Facets
+            MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
+              integer "metadata_#{field.name}_ids", :multiple => true do
+                metadata.send("field_#{field.name}_term_ids")
               end
             end
           end
           
-          # Facets
-          MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
-            integer "metadata_#{field.name}_ids", :multiple => true do
-              metadata.send("field_#{field.name}_term_ids")
-            end
-          end
+          base.extend(ClassMethods)
         end
-        
-        base.extend(ClassMethods)
       end
     end
     
@@ -130,23 +145,6 @@ module ContributionSearch
       rescue Errno::ECONNREFUSED
         RunCoCo.error_logger.warn('Solr not accessible; falling back to ActiveRecord search.')
         active_record_search(set, query, options)
-      end
-      
-      ##
-      # Tests if Solr server is accessible by attempting a query to it.
-      #
-      # The test query is against an integer attribute (current_status), and
-      # would always return 0 results.
-      #
-      # @return [Boolean]
-      #
-      def solr_accessible?
-        solr_search do
-          with :current_status, -1
-        end
-        true
-      rescue Errno::ECONNREFUSED
-        false
       end
     end
   end
