@@ -167,52 +167,34 @@ class ContributionsController < ApplicationController
     end
   end
   
-  # GET /contributions/search
+  # GET /contributions/search?q=:q
+  # GET /explore/:field_name/:term
   def search
     current_user.may_search_contributions!
-    @query = params[:q]
     
     per_page = [ (params[:count] || 48).to_i, 100 ].min
-    
-    # Minimal eager loading of associations if search result partials are not pre-cached.
-#    search_options = { :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
-    # No eager loading if partials are all pre-cached.
     search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets] }
-    search = Contribution.search(:published, bing_translate(@query), search_options)
     
-    @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
-    @facets = search.respond_to?(:facets) ? search.facets : nil
-    @results = contributions_to_edm_results(@contributions)
-
-    if params.delete(:layout) == '0'
-      render :partial => '/search/results',
-        :locals => {
-          :contributions => @contributions,
-          :results => @results,
-          :query => @query,
-          :term => @term
-        } and return
+    # Uncomment for minimal eager loading of associations to optimize performance
+    # when search result partials are not pre-cached.
+    #search_options[:include] = [ :attachments, :metadata ]
+    
+    if params[:field_name] && params[:term]
+      @term = CGI::unescape(params[:term])
+      @field = MetadataField.find_by_name!(params[:field_name])
+      
+      if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
+        search_options[:taxonomy_term] = taxonomy_term
+      else
+        search = [] # Prevent search from running if field not found
+      end
+    else
+      @query = params[:q]
+      search_query = bing_translate(@query)
     end
     
-    render :template => 'search/page'
-  end
-  
-  # GET /explore/:field_name/:term
-  def search_by_taxonomy_term
-    current_user.may_search_contributions!
-    @term = CGI::unescape(params[:term])
-    
-    per_page = [ (params[:count] || 48).to_i, 100 ].min
-    
-    @field = MetadataField.find_by_name!(params[:field_name])
-    if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
-      # Minimal eager loading of associations if search result partials are not pre-cached.
-#      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :include => [ :attachments, :metadata ] }
-      # No eager loading if partials are all pre-cached.
-      search_options = { :taxonomy_term => taxonomy_term, :page => params[:page], :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets] }
-      search = Contribution.search(:published, nil, search_options)
-    else
-      search = []
+    if search.nil?
+      search = Contribution.search(:published, search_query, search_options)
     end
     
     @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
