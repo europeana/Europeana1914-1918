@@ -35,13 +35,11 @@ module ContributionSearch
         define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
         define_index_str << "  has metadata.searchable_taxonomy_terms(:id), :as => :taxonomy_term_ids\n"
 
-        fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
+        fields = MetadataField.where('searchable = ? AND field_type <> ?', true, 'taxonomy')
         unless fields.count == 0
           fields.each do |field|
             index_alias = "metadata_#{field.name}"
-            indexes_or_has = field.searchable? ? 'indexes' : 'has'
-            facet = field.facet? ? 'true' : 'false'
-            define_index_str << "  #{indexes_or_has} metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}, :facet => #{facet}\n"
+            define_index_str << "  indexes metadata.#{MetadataRecord.column_name(field.name)}, :sortable => true, :as => :#{index_alias}\n"
           end
         end
         
