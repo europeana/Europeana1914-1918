@@ -35,7 +35,7 @@ RunCoCo::Application.routes.draw do
       end
     end
     
-    match 'explore/:field_name/:term' => 'contributions#search', :as => 'term_search_contributions', :via => :get
+    match 'explore/:field_name/:term' => 'contributions#explore', :as => 'term_search_contributions', :via => :get
     
     # Users
     devise_for :users,

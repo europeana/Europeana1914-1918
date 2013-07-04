@@ -3,7 +3,7 @@
 #   def search_by_taxonomy
 class ContributionsController < ApplicationController
   before_filter :find_contribution, 
-    :except => [ :index, :new, :create, :search, :search_by_taxonomy_term, :complete ]
+    :except => [ :index, :new, :create, :search, :explore, :complete ]
 
   cache_sweeper :contribution_sweeper, :only => [ :create, :update, :destroy ]
 
@@ -168,7 +168,6 @@ class ContributionsController < ApplicationController
   end
   
   # GET /contributions/search?q=:q
-  # GET /explore/:field_name/:term
   def search
     current_user.may_search_contributions!
     
@@ -212,6 +211,11 @@ class ContributionsController < ApplicationController
     end
     
     render :template => 'search/page'
+  end
+  
+  # GET /explore/:field_name/:term
+  def explore
+    search
   end
   
   # GET /contributions/:id/delete
