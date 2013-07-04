@@ -57,6 +57,12 @@ module ContributionSearch
                 metadata.send("field_#{field.name}_term_ids")
               end
             end
+            
+            string "protagonist_names", :multiple => true do
+              [ '1', '2' ].collect do |cnum|
+                [ metadata.send("field_character#{cnum}_given_name"), metadata.send("field_character#{cnum}_family_name") ].join(' ')
+              end.reject { |cname| cname.blank? || cname == '' }
+            end
           end
           
           base.extend(ClassMethods)
@@ -141,6 +147,7 @@ module ContributionSearch
           MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
             facet "metadata_#{field.name}_ids"
           end
+          facet "protagonist_names"
         end
       rescue Errno::ECONNREFUSED
         RunCoCo.error_logger.warn('Solr not accessible; falling back to ActiveRecord search.')

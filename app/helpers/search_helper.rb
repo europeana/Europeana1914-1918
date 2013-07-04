@@ -3,6 +3,8 @@ module SearchHelper
     if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
       field_name = taxonomy_field_facet[1]
       metadata_field_label(field_name, type)
+    else
+      facet_name
     end
   end
 end
