@@ -1,18 +1,14 @@
 <li>
   <h3><%= link_to "Provider", '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
   <ul>
-    <li>
-      <h4>
-        <%= radio_button_tag "facets[provider]", "ugc", controller.controller_name == 'contributions' %>
-        <%= link_to "1914-1918", request.parameters.merge(:page => 1, :controller => 'contributions', :facets => {}) %>
-      </h4
-    </li>
-    <li>
-      <h4>
-        <%= radio_button_tag "facets[provider]", "europeana", controller.controller_name == 'europeana' %>
-        <%= link_to "Europeana portal", request.parameters.merge(:page => 1, :controller => 'europeana', :facets => {}) %>
-      </h4>
-    </li>
+    <%- for provider in [ 'contributions', 'europeana' ] -%>
+      <li>
+        <h4>
+          <%= radio_button_tag "facets[provider]", provider, controller.controller_name == provider %>
+          <%= link_to_search_provider(provider) %>
+        </h4>
+      </li>
+    <%- end -%>
   </ul>
 </li>
 

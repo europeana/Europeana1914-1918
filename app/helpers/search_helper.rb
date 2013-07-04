@@ -28,6 +28,21 @@ module SearchHelper
     link_to row_label, request.query_parameters.merge(:page => 1, :facets => (request.query_parameters[:facets] || {}).merge({ facet_name => row_value }))
   end
   
+  def link_to_search_provider(id)
+    case id
+    when 'contributions'
+      text = "1914-1918"
+    when 'europeana'
+      text = "Europeana portal"
+    else
+      raise ArgumentError, "Unknown search provider: #{id.to_s}"
+    end
+    
+    url_options = request.parameters.merge(:page => 1, :controller => id)
+    url_options.delete(:facets)
+    link_to text, url_options
+  end
+  
   def search_result_id(result)
     if result.respond_to?(:id)
       result.id
