@@ -1,35 +1,146 @@
-.carousel-intro { background-color: white; overflow: hidden; padding: 1em; z-index: 1; }
-.carousel-intro .content { display: table; height: 100%; position: relative; table-layout: fixed; }
-.carousel-intro h2 { font-size: 120%; }
+/*
+	@import "compass";
+*/
+/*
+@mixin boxShadow($h-shadow, $v-shadow, $blur, $color, $inset: inset ) {
+	-moz-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
+	-webkit-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
+	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
+}
+*/
+/* line 3, sass/index.scss */
+.carousel-intro {
+  background-color: white;
+  overflow: hidden;
+  padding: 1em;
+  z-index: 1;
+}
+/* line 9, sass/index.scss */
+.carousel-intro .content {
+  display: table;
+  height: 100%;
+  position: relative;
+  table-layout: fixed;
+}
+/* line 16, sass/index.scss */
+.carousel-intro h2 {
+  font-size: 120%;
+}
 
-.carousel-intro.hide-on-phones { height: 90%; margin-left: 4em; margin-top: 1.5em; position: absolute; width: 30%; min-width: 250px; }
+/* line 22, sass/index.scss */
+.carousel-intro.hide-on-phones {
+  height: 90%;
+  margin-left: 4em;
+  margin-top: 1.5em;
+  position: absolute;
+  width: 30%;
+  min-width: 250px;
+}
 
-.index-call-to-action { margin-bottom: 0.5em; text-align: center; }
-.index-call-to-action .button { display: inline; margin: 1em; }
-.index-call-to-action a:hover { color: 0075FF; }
+/* line 32, sass/index.scss */
+.index-call-to-action {
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+/* line 36, sass/index.scss */
+.index-call-to-action .button {
+  display: inline;
+  margin: 1em;
+}
+/* line 41, sass/index.scss */
+.index-call-to-action a:hover {
+  color: 0075FF;
+}
 
 /* main feature */
-#index-featured { position: relative; }
+/* line 48, sass/index.scss */
+#index-featured {
+  position: relative;
+}
 
 /* featured categories */
-#featured-categories { margin: auto; }
-#featured-categories ul { list-style: none; margin: 0; padding: 0; position: relative; }
-#featured-categories img { max-width: 235px; }
+/* line 55, sass/index.scss */
+#featured-categories {
+  margin: auto;
+}
+/* line 58, sass/index.scss */
+#featured-categories ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+/* line 65, sass/index.scss */
+#featured-categories img {
+  max-width: 235px;
+}
 
-#featured-categories li { margin-bottom: 1em; }
+/* line 71, sass/index.scss */
+#featured-categories li {
+  margin-bottom: 1em;
+}
 
-#featured-categories img { display: block; }
+/* line 75, sass/index.scss */
+#featured-categories img {
+  display: block;
+}
 
-#featured-categories img, #featured-categories a { border: 0; margin: 0; padding: 0; }
+/* line 80, sass/index.scss */
+#featured-categories img,
+#featured-categories a {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
 
 /* recent activity */
-.recent-activity { bottom: 0px; margin: 3em 0 0 0; padding: 1em; top: 0px; overflow-y: h; }
-.recent-activity .head { text-align: center; }
-.recent-activity ul { list-style: none; padding: 0; margin: 0; overflow-x: hidden; }
-.recent-activity li { padding: 1em 0; }
-.recent-activity li :not(:last-child) { border-bottom: 1px solid #C9C9C9; }
+/* line 89, sass/index.scss */
+.recent-activity {
+  bottom: 0px;
+  margin: 3em 0 0 0;
+  padding: 1em;
+  top: 0px;
+  overflow-y: h;
+}
+/* line 96, sass/index.scss */
+.recent-activity .head {
+  text-align: center;
+}
+/* line 100, sass/index.scss */
+.recent-activity ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+/* line 107, sass/index.scss */
+.recent-activity li {
+  padding: 1em 0;
+}
+/* line 111, sass/index.scss */
+.recent-activity li :not(:last-child) {
+  border-bottom: 1px solid #C9C9C9;
+}
 
-@media screen and (min-width: 48em) { .recent-activity { position: absolute; margin: 3% 0.34em 1em 0; }
-  .recent-activity .head { height: 10%; }
-  .recent-activity ul { max-height: 90%; overflow-y: auto; }
-  .right-col { min-width: 21em; padding-left: 1em; } }
+@media only screen and (min-width: 48em) {
+  /* line 119, sass/index.scss */
+  .recent-activity {
+    position: absolute;
+    margin: 3% 0.34em 1em 0;
+  }
+  /* line 122, sass/index.scss */
+  .recent-activity .head {
+    height: 10%;
+  }
+  /* line 126, sass/index.scss */
+  .recent-activity ul {
+    max-height: 90%;
+    overflow-y: auto;
+  }
+
+  /* line 132, sass/index.scss */
+  .right-col {
+    min-width: 21em;
+    padding-left: 1em;
+  }
+}

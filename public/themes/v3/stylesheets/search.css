@@ -1,3 +1,13 @@
+/*
+	@import "compass";
+*/
+/*
+@mixin boxShadow($h-shadow, $v-shadow, $blur, $color, $inset: inset ) {
+	-moz-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
+	-webkit-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
+	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
+}
+*/
 /* Off-Canvas Layout */
 .container {
   width: 100%;
@@ -11,7 +21,7 @@
   -ms-transition: .2s all ease;
   transition: .2s all ease;
   width: 100%;
-  padding: 2em;
+  padding: 1em;
   display: block;
   position: relative; }
 
@@ -66,8 +76,14 @@
   top: 50%;
   position: fixed;
   z-index: 3;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
   transform: rotate(90deg);
-  transform-origin: left; }
+  transform-origin: left;
+  -webkit-transform-origin: left;
+  -ms-transform-origin: left; }
 
 .menu-button {
   padding: 0.5em 1em;
@@ -97,19 +113,14 @@ a.menu-button:hover {
   padding-left: 0;
   display: table;
   table-layout: fixed;
-  font-size: 1.5em;
   clear: both;
   position: relative;
   z-index: 1; }
   .result-pagination li {
     list-style: none;
-    display: table-cell;
-    vertical-align: top; }
+    display: table-cell; }
   .result-pagination .disabled {
-    display: none; }
-
-.jump-to-page {
-  margin-top: 2em; }
+    visibility: hidden; }
 
 #page {
   outline: medium none !important;
@@ -160,11 +171,11 @@ a.menu-button:hover {
 .nav > div {
   display: block;
   text-align: center;
-  width: 100%; }
-
-.nav > div.menu-wrapper,
-.nav > div.pagination {
-  white-space: nowrap; }
+  margin: 1em; }
+  .nav > div span,
+  .nav > div .menu-wrapper,
+  .nav > div .pagination {
+    white-space: nowrap; }
 
 .nav-numbers {
   text-align: center;
@@ -174,6 +185,37 @@ a.menu-button:hover {
     font-size: 1em;
     border: 1px solid #E4E4E4;
     text-align: center; }
+
+/* results */
+#results {
+  position: relative;
+  padding-top: 1em; }
+
+#results ul {
+  list-style: none; }
+
+#results li {
+  float: left;
+  margin-bottom: 1em;
+  margin-top: 1px;
+  max-width: 30%;
+  padding: 1em;
+  width: 30%;
+  line-height: 120%;
+  font-size: 90%;
+  webkit-box-shadow: 1px 1px 3px rgba(34, 25, 25, 0.8);
+  moz-box-shadow: 1px 1px 3px rgba(34, 25, 25, 0.8);
+  ms-box-shadow: 1px 1px 3px rgba(34, 25, 25, 0.8);
+  o-box-shadow: 1px 1px 3px rgba(34, 25, 25, 0.8);
+  box-shadow: 1px 1px 3px rgba(34, 25, 25, 0.8); }
+
+#results li a {
+  display: block;
+  text-align: center;
+  margin-bottom: 1em; }
+
+#results li img {
+  max-width: 100%; }
 
 /* data showing / hiding rules */
 @media only screen and (min-width: 22em) {
@@ -190,9 +232,6 @@ a.menu-button:hover {
     content: ' '; }
   .nav .spaced:after {
     content: ' '; }
-
-  .result-pagination li {
-    vertical-align: middle; }
 
   .jump-to-page {
     margin-top: 0; }
@@ -216,6 +255,10 @@ a.menu-button:hover {
   .container {
     display: table;
     border-spacing: 1em; }
+
+  .nav-top,
+  .nav-bottom {
+    border-spacing: 0; }
 
   .js [role="main"],
   .js [role="navigation"] {
@@ -255,14 +298,14 @@ a.menu-button:hover {
 
   .nav > div {
     display: table-cell;
-    vertical-align: middle; }
-
-  .nav > .menu-wrapper, .nav > .pagination {
-    width: 1px; }
+    vertical-align: bottom; }
 
   .nav > .count {
-    width: 100%;
     text-align: center; }
+
+  .nav > .count span {
+    position: relative;
+    top: -1px; }
 
   .nav-numbers {
     font-size: 1em;

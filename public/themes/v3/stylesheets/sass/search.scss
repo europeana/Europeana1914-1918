@@ -1,3 +1,6 @@
+@import "partials/base";
+
+
 /* Off-Canvas Layout */
 
 .container { width: 100%;overflow: hidden;}
@@ -82,8 +85,14 @@
 	position: 	fixed;
 	z-index:	3;
 	
-	transform:			rotate(90deg);
+
+	@include rotate(90deg);
+
+
 	transform-origin:	left;
+	-webkit-transform-origin:	left;
+	-ms-transform-origin:	left;
+	
 }
 
 
@@ -308,8 +317,8 @@ a.menu-button:hover{
 
 /* desktop general */
 
-@media only screen and (min-width: 48em) {
-
+@media only screen and ( min-width: $break-desktop ){
+	
 	.nav{
 		.spaced:before{
 			content:' ';
