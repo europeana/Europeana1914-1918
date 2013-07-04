@@ -1,6 +1,4 @@
-# set search result defaults in the methods
-#   def search
-#   def search_by_taxonomy
+# set search result defaults in the #search method
 class ContributionsController < ApplicationController
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :explore, :complete ]
