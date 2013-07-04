@@ -305,7 +305,7 @@ class Contribution < ActiveRecord::Base
       "title"               => [ title ],
       "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
       "dctermsAlternative"  => [ metadata.fields['alternative'] ],
-      "link"                => "http://www.europeana1914-1918.eu/#{I18n.locale}/contributions/#{id}"
+      "link"                => "/#{I18n.locale}/contributions/#{id}"
     }
   end
   
