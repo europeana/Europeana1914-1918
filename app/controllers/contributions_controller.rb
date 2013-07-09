@@ -169,7 +169,7 @@ class ContributionsController < ApplicationController
   def search
     current_user.may_search_contributions!
     
-    per_page = [ (params[:count] || 48).to_i, 100 ].min
+    @count = per_page = [ (params[:count] || 48).to_i, 100 ].min
     search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets] }
     
     # Uncomment for minimal eager loading of associations to optimize performance

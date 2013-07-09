@@ -5,10 +5,10 @@
       <li>
         <h4>
           <%- if controller.controller_name == provider -%>
-            <%= radio_button_tag "facets[provider]", provider, true %>
+            <%= radio_button_tag "facets[provider]", provider, true, :disabled => 'disabled' %>
             <%= search_provider_name(provider) %>
           <%- else -%>
-            <%= radio_button_tag "facets[provider]", provider, false %>
+            <%= radio_button_tag "facets[provider]", provider, false, :disabled => 'disabled' %>
             <%= link_to_search_provider(provider) %>
           <%- end -%>
         </h4>
@@ -29,11 +29,11 @@
             <li>
               <h4>
                 <%- if facet_row_selected?(facet.name, row.value) -%>
-                  <%= check_box_tag "facets[#{facet.name}][#{row.value}]", "1", true %>
+                  <%= check_box_tag "facets[#{facet.name}]", row.value, true %>
                   <strong><%= facet_row_label(facet.name, row.value) %></strong>
                   <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet.name, row.value), { :title => t('actions.remove') } %>
                 <%- else -%>
-                  <%= check_box_tag "facets[#{facet.name}][#{row.value}]" %>
+                  <%= check_box_tag "facets[#{facet.name}]", row.value %>
                   <%= link_to_facet_row(facet.name, row.value) %> (<%= row.count %>)
                 <%- end -%>
               </h4>

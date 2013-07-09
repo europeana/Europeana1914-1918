@@ -20,179 +20,183 @@
 		
 	    <div role="navigation" id="facet-menu">
 	    	<div id="facets-actions" class="shadow-panel">
-	    	   <ul id="facets">	
-	    		
-	    			<li>
-	    				<h3>
-    						<%= t('views.contributions.search.facets.refine' ) %>
-	    				</h3>
-	    			
-	    				<form>
-	    					<li class="keywords h-flex-container">
-			    			
-			    					<input id="newKeyword" type="text" name="qf" class="h-flex-fill"/>
-		    						<span class="h-flex-fixed">
-		    							<input type="submit" value="+ Add">
-	    							</span>
-    					
-	   				 		</li>
-	   				 	</form>
-	   				 	
-	   				 	<span>
-					    	<%= t('views.contributions.search.facets.add_keyword' ) %>
-					    </span>
-	   				</li>
-	   		 		
-	   		 		
-	   		 		<%= render :partial => '/search/facets', :object => @facets %>
-	   		 		
-    				<li>
-		    			<h3>
-    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
-			    				<%= t('views.contributions.search.facets.by_site.label' ) %>
-				    		</a>
-    					</h3>
-	   		 			<ul>
-    						<li>
-    							<h4>
-    								<input type="radio" name="rd-site" id="rd-site" />
-    								<a href="">
-    									<%= t('views.contributions.search.facets.by_site.site_1' ) %>
-	    							</a>
-    							</h4>
+	    	   <%= form_tag( {}, { :method => :get }) do %>
+	    	    <div>
+	    	      <%= hidden_field_tag 'q', @query %>
+	    	      <%= hidden_field_tag 'count', @count %>
+    	      </div>
+	    	     <ul id="facets">	
+	      		
+	      			<li>
+	      				<h3>
+      						<%= t('views.contributions.search.facets.refine' ) %>
+	      				</h3>
+	      			
+      					<li class="keywords h-flex-container">
+		      					<input id="newKeyword" type="text" name="qf" class="h-flex-fill"/>
+	      						<span class="h-flex-fixed">
+	      							<input type="submit" value="+ Add">
+      							</span>
+    					  </li>
+	     				 	
+	     				 	<span>
+					      	<%= t('views.contributions.search.facets.add_keyword' ) %>
+					      </span>
+	     				</li>
+	     		 		
+	     		 		
+	     		 		<%= render :partial => '/search/facets', :object => @facets %>
+	     		 		
+      				<li>
+		      			<h3>
+      						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+			      				<%= t('views.contributions.search.facets.by_site.label' ) %>
+				      		</a>
+      					</h3>
+	     		 			<ul>
+      						<li>
+      							<h4>
+      								<input type="radio" name="rd-site" id="rd-site" />
+      								<a href="">
+      									<%= t('views.contributions.search.facets.by_site.site_1' ) %>
+	      							</a>
+      							</h4>
 
-    						</li>
-	    					<li>
-    							<h4>
-    								<input type="radio" />
-    								<a href="">
-		   					 			<%= t('views.contributions.search.facets.by_site.site_2' ) %>
-		   					 		</a>
-    							</h4>
-    						</li>
-	    					<li>
-    							<h4>
-    								<input type="radio" />
-    								<a href="">
-	    								<%= t('views.contributions.search.facets.by_site.site_3' ) %>
-	    							</a>
-	    						</h4>
-	    					</li>
-    					</ul>
-	    			</li>		
-	    			<li>
-    					<h3>
-    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
-		    					<%= t('views.contributions.search.facets.by_media_type.label' ) %>
-		  		  			</a>
-    					</h3>
-    					<ul>
-	    					<li>
-    							<h4>
-    							    <input type="checkbox" />
-    							    <a href="">
-	    								<%= t('views.contributions.search.facets.by_media_type.image' ) %>
-	    							</a>
-    							</h4>
-	    					</li>
-		    				<li>
-    							<h4>
-    								<input type="checkbox" />
-    								<a href="">
-	    								<%= t('views.contributions.search.facets.by_media_type.pdf' ) %>
-	    							</a>
-    							</h4>
-    						</li>
-	    					<li>
-    							<h4>
-    								<input type="checkbox" />
-    								<a href="">
-		    							<%= t('views.contributions.search.facets.by_media_type.video' ) %>
-		    						</a>
-    							</h4>
-    						</li>
-	    					<li>
-    							<h4>
-    								<input type="checkbox" />
-    								<a href="">
-	    								<%= t('views.contributions.search.facets.by_media_type.sound' ) %>
-	    							</a>
-    							</h4>
-		   					</li>
-    					</ul>
-	    			</li>	
-    				<li>
-	    				<h3>
-	    					<a class="facet-section icon-arrow-7" rel="nofollow" href="">
-		    					<%= t('views.contributions.search.facets.by_collection_day.label' ) %>
-			    			</a>
-	    				</h3>		
-	    				<ul>
-							<li>
-								<h4>
-									<input type="radio" />
-									<a href="">
-		    							<%= t('views.contributions.search.facets.by_collection_day.day1' ) %>
-		    						</a>
-    							</h4>
-    						</li>
-							<li>
-								<h4>
-									<input type="radio" />
-									<a href="">
-	    								<%= t('views.contributions.search.facets.by_collection_day.day2' ) %>
-	    							</a>
-    							</h4>
-	    					</li>
-    					</ul>
-	    			</li>
-					<li>
-    					<h3>
-    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
-					    		<%= t('views.contributions.search.facets.by_provider.label' ) %>
-			    			</a>
-	    				</h3>			
-	    				<ul>
-							<li>
-								<h4>
-									<a href="">
-	    								<%= t('views.contributions.search.facets.by_provider.provider1' ) %>
-	    							</a>
-    							</h4>
-	    					</li>
-							<li>
-								<h4>
-									<a href="">
-		    							<%= t('views.contributions.search.facets.by_provider.provider2' ) %>
-	    							</a>
-    							</h4>
-    						</li>
-	    				</ul>
-		    		</li>
-					<li>
-	    				<h3>
-    						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
-		    					<%= t('views.contributions.search.facets.by_language.label' ) %>
-		    				</a>
-    					</h3>
-	    				<ul>
-							<li>
-								<h4>
-									<a href="">
-		    							<%= t('views.contributions.search.facets.by_language.language1' ) %>
-	    							</a>
-    							</h4>
-	    					</li>
-							<li>
-								<h4>
-									<a href="">
-		    							<%= t('views.contributions.search.facets.by_language.language2' ) %>
-	    							</a>
-    							</h4>
-    						</li>
-	    				</ul>
-		    		</li>
-				</ul>
+      						</li>
+	      					<li>
+      							<h4>
+      								<input type="radio" />
+      								<a href="">
+		     					 			<%= t('views.contributions.search.facets.by_site.site_2' ) %>
+		     					 		</a>
+      							</h4>
+      						</li>
+	      					<li>
+      							<h4>
+      								<input type="radio" />
+      								<a href="">
+	      								<%= t('views.contributions.search.facets.by_site.site_3' ) %>
+	      							</a>
+	      						</h4>
+	      					</li>
+      					</ul>
+	      			</li>		
+	      			<li>
+      					<h3>
+      						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+		      					<%= t('views.contributions.search.facets.by_media_type.label' ) %>
+		    		  			</a>
+      					</h3>
+      					<ul>
+	      					<li>
+      							<h4>
+      							    <input type="checkbox" />
+      							    <a href="">
+	      								<%= t('views.contributions.search.facets.by_media_type.image' ) %>
+	      							</a>
+      							</h4>
+	      					</li>
+		      				<li>
+      							<h4>
+      								<input type="checkbox" />
+      								<a href="">
+	      								<%= t('views.contributions.search.facets.by_media_type.pdf' ) %>
+	      							</a>
+      							</h4>
+      						</li>
+	      					<li>
+      							<h4>
+      								<input type="checkbox" />
+      								<a href="">
+		      							<%= t('views.contributions.search.facets.by_media_type.video' ) %>
+		      						</a>
+      							</h4>
+      						</li>
+	      					<li>
+      							<h4>
+      								<input type="checkbox" />
+      								<a href="">
+	      								<%= t('views.contributions.search.facets.by_media_type.sound' ) %>
+	      							</a>
+      							</h4>
+		     					</li>
+      					</ul>
+	      			</li>	
+      				<li>
+	      				<h3>
+	      					<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+		      					<%= t('views.contributions.search.facets.by_collection_day.label' ) %>
+			      			</a>
+	      				</h3>		
+	      				<ul>
+							  <li>
+								  <h4>
+									  <input type="radio" />
+									  <a href="">
+		      							<%= t('views.contributions.search.facets.by_collection_day.day1' ) %>
+		      						</a>
+      							</h4>
+      						</li>
+							  <li>
+								  <h4>
+									  <input type="radio" />
+									  <a href="">
+	      								<%= t('views.contributions.search.facets.by_collection_day.day2' ) %>
+	      							</a>
+      							</h4>
+	      					</li>
+      					</ul>
+	      			</li>
+					  <li>
+      					<h3>
+      						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+					      		<%= t('views.contributions.search.facets.by_provider.label' ) %>
+			      			</a>
+	      				</h3>			
+	      				<ul>
+							  <li>
+								  <h4>
+									  <a href="">
+	      								<%= t('views.contributions.search.facets.by_provider.provider1' ) %>
+	      							</a>
+      							</h4>
+	      					</li>
+							  <li>
+								  <h4>
+									  <a href="">
+		      							<%= t('views.contributions.search.facets.by_provider.provider2' ) %>
+	      							</a>
+      							</h4>
+      						</li>
+	      				</ul>
+		      		</li>
+					  <li>
+	      				<h3>
+      						<a class="facet-section icon-arrow-7" rel="nofollow" href="">
+		      					<%= t('views.contributions.search.facets.by_language.label' ) %>
+		      				</a>
+      					</h3>
+	      				<ul>
+							  <li>
+								  <h4>
+									  <a href="">
+		      							<%= t('views.contributions.search.facets.by_language.language1' ) %>
+	      							</a>
+      							</h4>
+	      					</li>
+							  <li>
+								  <h4>
+									  <a href="">
+		      							<%= t('views.contributions.search.facets.by_language.language2' ) %>
+	      							</a>
+      							</h4>
+      						</li>
+	      				</ul>
+		      		</li>
+				  </ul>
+				  
+				  <div><%= submit_tag t('actions.submit'), :name => nil %></div>
+			  <% end %>
 				
 				<br/>    		
 				<br/>    		
