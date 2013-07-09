@@ -149,29 +149,51 @@ module PaginationHelper
   end
   
   def will_paginate(collection, options = {})
-    if session[:theme] == 'v3'
-      options = PaginationHelper.options.merge(options)
+    return super(collection, options = {}) unless session[:theme] == 'v3'
+    
+    # early exit if there is nothing to render
+    return nil unless collection.total_entries > 0
       
-      options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
-      options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
-      options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
-      options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
-      options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page), collection.total_entries ].min, :total => collection.total_entries)
-      options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
-      options[:per_page_label]    ||= will_paginate_translate([ :per_page_label, 'Results per page:' ])
-      
-      options[:first_title]       ||= will_paginate_translate([ :first_title, 'First page' ])
-      options[:previous_title]    ||= will_paginate_translate([ :previous_title, 'Previous page' ])
+    options = PaginationHelper.options.merge(options)
+    
+    options[:first_label]       ||= will_paginate_translate([ :first_label, '<<' ])
+    options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
+    options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
+    options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
+    options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page), collection.total_entries ].min, :total => collection.total_entries)
+    options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
+    options[:per_page_label]    ||= will_paginate_translate([ :per_page_label, 'Results per page:' ])
+    
+    options[:first_title]       ||= will_paginate_translate([ :first_title, 'First page' ])
+    options[:previous_title]    ||= will_paginate_translate([ :previous_title, 'Previous page' ])
 
-      options[:next_title]        ||= will_paginate_translate([ :next_title, 'Next page' ])
-      options[:last_title]        ||= will_paginate_translate([ :last_title, 'Last page' ])
-      options[:per_page_title]    ||= will_paginate_translate([ :per_page_title, 'Number of results shown on the page' ])
-          
-      unless options[:renderer]
-        options = options.merge :renderer => LinkRenderer
-      end
+    options[:next_title]        ||= will_paginate_translate([ :next_title, 'Next page' ])
+    options[:last_title]        ||= will_paginate_translate([ :last_title, 'Last page' ])
+    options[:per_page_title]    ||= will_paginate_translate([ :per_page_title, 'Number of results shown on the page' ])
+        
+    unless options[:renderer]
+      options = options.merge :renderer => LinkRenderer
     end
     
-    super(collection, options)
+    options = WillPaginate::ViewHelpers.pagination_options.merge(options)
+
+    options[:previous_label] ||= will_paginate_translate(:previous_label) { '&#8592; Previous' }
+    options[:next_label]     ||= will_paginate_translate(:next_label) { 'Next &#8594;' }
+
+    # get the renderer instance
+    renderer = case options[:renderer]
+    when nil
+      raise ArgumentError, ":renderer not specified"
+    when String
+      klass = if options[:renderer].respond_to? :constantize then options[:renderer].constantize
+        else Object.const_get(options[:renderer]) # poor man's constantize
+        end
+      klass.new
+    when Class then options[:renderer].new
+    else options[:renderer]
+    end
+    # render HTML for pagination
+    renderer.prepare collection, options, self
+    renderer.to_html
   end
 end

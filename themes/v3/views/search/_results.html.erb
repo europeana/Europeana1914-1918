@@ -4,7 +4,7 @@
 
 <% else -%>
 
-  <%= will_paginate results, { :class => "nav nav-top" } %>
+  <%= raw will_paginate results, { :class => "nav nav-top" } %>
 
   <div id="results">
 
@@ -48,6 +48,6 @@
   
   </div>
     
-  <%= will_paginate results, { :class => "nav nav-bottom" } %>
+  <%= raw will_paginate results, { :class => "nav nav-bottom" } %>
 
 <% end -%>
