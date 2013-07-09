@@ -31,6 +31,7 @@
                 <%- if facet_row_selected?(facet.name, row.value) -%>
                   <%= check_box_tag "facets[#{facet.name}][#{row.value}]", "1", true %>
                   <strong><%= facet_row_label(facet.name, row.value) %></strong>
+                  <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet.name, row.value), { :title => t('actions.remove') } %>
                 <%- else -%>
                   <%= check_box_tag "facets[#{facet.name}][#{row.value}]" %>
                   <%= link_to_facet_row(facet.name, row.value) %> (<%= row.count %>)
