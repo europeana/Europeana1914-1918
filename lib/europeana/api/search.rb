@@ -42,7 +42,7 @@ module Europeana
       #   of response fields.
       #
       def run(options = {})
-        @result_set = ActiveSupport::JSON.decode(Net::HTTP.get(uri(options)))
+        @result_set = JSON.parse(Net::HTTP.get(uri(options)))
       end
       
       ##

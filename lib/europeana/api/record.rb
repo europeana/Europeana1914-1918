@@ -28,7 +28,7 @@ module Europeana
         # @todo Handle errors from API.
         #
         def get(record_id)
-          ActiveSupport::JSON.decode(Net::HTTP.get(uri(record_id)))
+          JSON.parse(Net::HTTP.get(uri(record_id)))
         end
       
         def uri(record_id)
