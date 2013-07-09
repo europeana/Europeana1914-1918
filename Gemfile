@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.19'
+gem 'rails', '3.0.20'
 
 gem 'aegis', '~> 2.5.0'
 gem 'cocaine', '~> 0.3.2'
