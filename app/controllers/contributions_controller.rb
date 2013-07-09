@@ -187,6 +187,12 @@ class ContributionsController < ApplicationController
       end
     else
       @query = params[:q]
+      unless params[:qf].blank?
+        @query << " " + params[:qf]
+        redirect_params = params.merge(:q => @query)
+        redirect_params.delete(:qf)
+        redirect_to redirect_params and return
+      end
       search_query = bing_translate(@query)
     end
     
