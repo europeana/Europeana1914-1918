@@ -22,7 +22,7 @@
                 <b><%= title %></b>
               <%- end -%>
               <%- unless record['dcCreator'].blank? -%>
-                <br/><%= record['dcCreator'] %>
+                <br/><%= record['dcCreator'].first %>
               <%- end -%>
               <%- unless record['year'].blank? -%>
                 <%- if record['year'].size == 2 -%>
