@@ -12,11 +12,6 @@ class SearchSuggestionsController < ApplicationController
       active_record_words(query)
     end
     
-    words.reject! { |word| word.blank? }
-    words = words.collect do |word|
-      word.truncate(30 + query.length, :separator => ' ', :omission => '…')
-    end
-    
     respond_to do |format|
       format.json { render :json => words }
     end
@@ -24,8 +19,13 @@ class SearchSuggestionsController < ApplicationController
   
   private
   def active_record_words(query) # :nodoc:
-    SearchSuggestion.where("text LIKE '#{query}%'").order('frequency DESC').limit(SearchSuggestion.max_matches).collect do |ss|
-      ss.text
+    suggestions = SearchSuggestion.where("text LIKE '#{query}%'").order('frequency DESC').limit(SearchSuggestion.max_matches)
+    
+    suggestions.reject! { |sugg| sugg.text.blank? }
+    
+    suggestions.collect do |sugg|
+      label = sugg.text.truncate(30 + query.length, :separator => ' ', :omission => '…')
+      { :value => sugg.text, :label => "#{label} (#{sugg.frequency})"}
     end
   end
   
@@ -62,7 +62,10 @@ class SearchSuggestionsController < ApplicationController
       end
     end
     
-    words = term_freqs.sort { |a1,a2| a2[1] <=> a1[1] }.collect { |a| a.first }.slice(0, SearchSuggestion.max_matches)
+    words = term_freqs.sort { |a1, a2| a2[1] <=> a1[1] }.collect do |a|
+      label = a.first.truncate(30 + query.length, :separator => ' ', :omission => '…')
+      { :label => "#{label} (#{a.last})", :value => a.first }
+    end.slice(0, SearchSuggestion.max_matches)
   end
   
   def sphinx_words(query) # :nodoc:
