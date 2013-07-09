@@ -4,8 +4,13 @@
     <%- for provider in [ 'contributions', 'europeana' ] -%>
       <li>
         <h4>
-          <%= radio_button_tag "facets[provider]", provider, controller.controller_name == provider %>
-          <%= link_to_search_provider(provider) %>
+          <%- if controller.controller_name == provider -%>
+            <%= radio_button_tag "facets[provider]", provider, true %>
+            <%= search_provider_name(provider) %>
+          <%- else -%>
+            <%= radio_button_tag "facets[provider]", provider, false %>
+            <%= link_to_search_provider(provider) %>
+          <%- end -%>
         </h4>
       </li>
     <%- end -%>
@@ -23,8 +28,13 @@
           <%- for row in facet.rows -%>
             <li>
               <h4>
+                <%- if facet_row_selected?(facet.name, row.value) -%>
+                  <%= check_box_tag "facets[#{facet.name}][#{row.value}]", "1", true %>
+                  <strong><%= facet_row_label(facet.name, row.value) %></strong>
+                <%- else -%>
                   <%= check_box_tag "facets[#{facet.name}][#{row.value}]" %>
                   <%= link_to_facet_row(facet.name, row.value) %> (<%= row.count %>)
+                <%- end -%>
               </h4>
             </li>
           <%- end -%>

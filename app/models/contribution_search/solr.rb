@@ -113,8 +113,10 @@ module ContributionSearch
           end
           
           if facets = solr_options.delete(:facets)
-            facets.each_pair do |name, criterion|
-              with name.to_sym, criterion.to_i
+            facets.each_pair do |name, criteria|
+              criteria.split(',').each do |criterion|
+                with name.to_sym, criterion.to_i
+              end
             end
           end
         

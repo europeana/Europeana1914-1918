@@ -9,7 +9,7 @@ module SearchHelper
     t("views.search.facets.contributions.#{field_name}", :default => facet_name)
   end
   
-  def link_to_facet_row(facet_name, row_value)
+  def facet_row_label(facet_name, row_value)
     @@metadata_fields ||= {}
     
     if row_value.is_a?(Integer)
@@ -24,24 +24,40 @@ module SearchHelper
       end
     end
     
-    row_label ||= row_value.to_s
+    row_label || row_value.to_s
+  end
+  
+  def link_to_facet_row(facet_name, row_value)
+    facets_param = request.query_parameters.has_key?(:facets) ? request.query_parameters[:facets].dup : {}
+    if facets_param.has_key?(facet_name) && !facet_row_selected?(facet_name, row_value)
+      facets_param[facet_name] = facets_param[facet_name].to_s + "," + row_value.to_s
+    else
+      facets_param[facet_name] = row_value
+    end
     
-    link_to row_label, request.query_parameters.merge(:page => 1, :facets => (request.query_parameters[:facets] || {}).merge({ facet_name => row_value }))
+    link_to facet_row_label(facet_name, row_value), request.query_parameters.merge(:page => 1, :facets => facets_param)
+  end
+  
+  def facet_row_selected?(facet_name, row_value)
+    params = request.query_parameters
+    params.has_key?(:facets) && params[:facets][facet_name].to_s.split(",").include?(row_value.to_s)
   end
   
   def link_to_search_provider(id)
+    url_options = request.parameters.merge(:page => 1, :controller => id)
+    url_options.delete(:facets)
+    link_to search_provider_name(id), url_options
+  end
+  
+  def search_provider_name(id)
     case id
     when 'contributions'
-      text = "1914-1918"
+      "1914-1918"
     when 'europeana'
-      text = "Europeana portal"
+      "Europeana portal"
     else
       raise ArgumentError, "Unknown search provider: #{id.to_s}"
     end
-    
-    url_options = request.parameters.merge(:page => 1, :controller => id)
-    url_options.delete(:facets)
-    link_to text, url_options
   end
   
   def search_result_id(result)
