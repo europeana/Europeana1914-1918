@@ -1,4 +1,0 @@
-module TaxonomyTermsHelper
-  
-
-end
