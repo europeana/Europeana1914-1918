@@ -1,11 +1,12 @@
 module SearchHelper
-  def facet_label(facet_name, type = nil)
+  def facet_label(facet_name, context = nil)
     if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
       field_name = taxonomy_field_facet[1]
-      metadata_field_label(field_name, type)
     else
-      facet_name
+      field_name = facet_name
     end
+    
+    t("views.search.facets.contributions.#{field_name}", :default => facet_name)
   end
   
   def link_to_facet_row(facet_name, row_value)
