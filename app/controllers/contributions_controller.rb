@@ -267,7 +267,11 @@ protected
       redirect_required = true
     end
     
-    if params[:facets]
+    if params[:provider] == 'europeana'
+      params.delete(:facets)
+      params[:controller] = 'europeana'
+      redirect_required = true
+    elsif params[:facets]
       params[:facets].each_key do |facet_name|
         if params[:facets][facet_name].is_a?(Array)
           params[:facets][facet_name] = params[:facets][facet_name].collect { |row| row.to_s }.join(",")
@@ -275,6 +279,8 @@ protected
         end
       end
     end
+    
+    params.delete(:provider)
     
     redirect_to params if redirect_required
   end

@@ -5,10 +5,10 @@
       <li>
         <h4>
           <%- if controller.controller_name == provider -%>
-            <%= radio_button_tag "facets[provider]", provider, true, :disabled => 'disabled' %>
+            <%= radio_button_tag "provider", provider, true %>
             <%= search_provider_name(provider) %>
           <%- else -%>
-            <%= radio_button_tag "facets[provider]", provider, false, :disabled => 'disabled' %>
+            <%= radio_button_tag "provider", provider %>
             <%= link_to_search_provider(provider) %>
           <%- end -%>
         </h4>

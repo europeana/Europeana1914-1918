@@ -87,6 +87,8 @@ class EuropeanaController < ApplicationController
     terms = case terms
     when Hash
       terms.values
+    when NilClass
+      [ '' ]
     when String
       [ terms ]
     when Array
