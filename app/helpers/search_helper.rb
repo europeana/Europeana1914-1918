@@ -44,15 +44,17 @@ module SearchHelper
   end
   
   def remove_facet_row_url_options(facet_name, row_value)
-    params = request.query_parameters.dup
+    return request.query_parameters unless params.has_key?(:facets)
     
-    if facet_row_selected?(facet_name, row_value)
-      facet_rows = params[:facets][facet_name].to_s.split(",")
-      facet_rows.reject! { |row| row == row_value.to_s }
-      params[:facets][facet_name] = facet_rows.join(",")
-    end
+    facet_params = request.query_parameters[:facets].dup
     
-    params
+    facet_rows = facet_params[facet_name].to_s.split(",")
+    facet_rows.reject! { |row| row == row_value.to_s }
+    
+    facet_params[facet_name] = facet_rows.join(",")
+    facet_params.delete(facet_name) unless facet_params[facet_name].present?
+    
+    request.query_parameters.merge({ :facets => facet_params })
   end
   
   def link_to_search_provider(id)
