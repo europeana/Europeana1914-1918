@@ -1,0 +1,81 @@
+<% @title = t('views.admin.config.index.title') %>
+
+<ul class="collection-actions">
+  <li><%= link_to t('views.admin.config.index.links.edit'), admin_edit_config_path, :class => 'edit' %></li>
+</ul>
+
+<table>
+  <caption><%= t('views.admin.config.index.table.caption') %></caption>
+  <tr>
+    <th scope="col"><%= t('views.admin.config.index.table.headings.name') %></th>
+    <th scope="col"><%= t('views.admin.config.index.table.headings.value') %></th>
+  </tr>
+  <tr>
+    <td><%=t 'settings.site_name' %></td>
+    <td><%= @config[:site_name] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.relative_url_root' %></td>
+    <td><%= @config[:relative_url_root] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.registration_required' %></td>
+    <td><%= yes_or_no @config[:registration_required] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.publish_contributions' %></td>
+    <td><%= yes_or_no @config[:publish_contributions] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.contribution_approval_required' %></td>
+    <td><%= yes_or_no @config[:contribution_approval_required] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.max_upload_size' %></td>
+    <td><%= @config[:max_upload_size] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.allowed_upload_extensions' %></td>
+    <td><%= allowed_file_types %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.gmap_api_key' %></td>
+    <td><%= @config[:gmap_api_key] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.google_analytics_key' %></td>
+    <td><%= @config[:google_analytics_key] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.bing_translate_key' %></td>
+    <td><%= @config[:bing_translate_key] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.bing_client_id' %></td>
+    <td><%= @config[:bing_client_id] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.bing_client_secret' %></td>
+    <td><%= @config[:bing_client_secret] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.sharethis_id' %></td>
+    <td><%= @config[:sharethis_id] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.uploadify' %></td>
+    <td><%= yes_or_no @config[:uploadify] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.ui_locales' %></td>
+    <td><%= ui_locales_sentence %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.banner_active' %></td>
+    <td><%= yes_or_no @config[:banner_active] %></td>
+  </tr>
+  <tr>
+    <td><%=t 'settings.banner_text' %></td>
+    <td><%= @config[:banner_text] %></td>
+  </tr>
+</table>

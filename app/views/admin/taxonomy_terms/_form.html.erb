@@ -1,0 +1,11 @@
+<%= semantic_form_for [ :admin, term.metadata_field, term ] do |form| -%>
+  <%= form.inputs :taxonomy_term do %>
+    <%= form.input :term %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link admin_metadata_field_taxonomy_terms_path(term.metadata_field) %>
+  <% end %>
+<% end -%>
+

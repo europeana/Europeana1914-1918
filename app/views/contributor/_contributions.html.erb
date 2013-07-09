@@ -1,0 +1,65 @@
+<%-
+if local_assigns[:table_class].nil?
+  table_class = 'contributions'
+else
+  table_class = "contributions #{table_class}"
+end
+
+if local_assigns[:fields].nil?
+  fields = [ 'title', 'attachments', 'created_at' ]
+  fields << 'field_ticket' if current_user.may_catalogue_contribution?
+end
+%>
+<% unless local_assigns[:contributions].blank? %>
+  <table class="<%= table_class %>">
+    <% unless local_assigns[:caption].blank? %>
+      <caption><%= raw caption %></caption>
+    <% end %>
+    <tr>
+      <%- for field_name in fields -%>
+        <th scope="col" style="text-align:left;"><%= contribution_field_title(field_name) %></th>
+      <%- end -%>
+      <th scope="col" colspan="5"><%= t 'views.table.header.actions' %></th>
+    </tr>
+    <% for contribution in contributions %>
+      <tr>
+        <%- for field_name in fields -%>
+          <td><%= contribution_field_value(contribution, field_name) %></td>
+        <%- end -%>
+        <td>
+          <%- if current_user.may_edit_contribution?(contribution) -%>
+            <%= link_to t('actions.edit_story'), edit_contribution_path(contribution), :class => 'edit-member' %>
+          <%- end -%>  
+        </td>
+        <td>
+          <%- if contribution.ready_to_submit? -%>
+            <%= link_to t('formtastic.actions.contribution.submit'), new_contribution_attachment_path(contribution ) %>
+          <%- end -%>
+        </td>
+        <td>
+          <%- if current_user.may_withdraw_contribution?(contribution) -%>
+            <%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(contribution ) ) %>
+          <%- end -%>
+        </td>
+        <td>
+          <%- if current_user.may_delete_contribution?(contribution) -%>
+            <%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(contribution), :class => 'delete-member' %>
+          <%- end -%>
+        </td>
+        <td>
+          <%- if current_user.may_create_contribution_attachment?(contribution) -%>
+            <%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(contribution ) ) %> (<%= contribution.attachments.size %>)
+          <%- end -%>
+        </td>
+      </tr>
+    <% end %>
+    <%- if contributions.respond_to?(:total_pages) && (contributions.total_pages > 1) %>
+      <tfoot>
+        <tr>
+          <td colspan="<%= fields.size + 4 %>"><%= will_paginate contributions %></td>
+        </tr>
+      </tfoot>
+    <%- end %>
+  </table>
+<% end %>
+

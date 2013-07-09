@@ -1,0 +1,12 @@
+<% @title = t('views.devise.passwords.new.title') %>
+
+<%= render :partial => "devise/shared/links" %>
+
+<%= semantic_form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :class => 'devise' } do |form| -%>
+  <%= form.inputs do %>
+    <%= form.input :email, :hint => t('formtastic.hints.password.new.email') %>
+  <% end %>
+  <%= form.buttons do %>
+    <%= form.commit_button :label => t('formtastic.actions.password.create') %>
+  <% end %>
+<% end -%>

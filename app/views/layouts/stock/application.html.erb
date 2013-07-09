@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title><%= @title.nil? ? '' : @title + ' | ' %><%= configuration(:site_name) %></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <%= render '/layouts/javascripts' %>
+
+    <%= stylesheet_link_tag "basic", :media => 'all' %>
+    <%= stylesheet_link_tag "print", :media => 'print' %>
+    <%= stylesheet_link_tag 'formtastic', :media => 'screen,projection' %>
+    <%= stylesheet_link_tag "screen", :media => 'screen,projection' %>
+    <%= stylesheet_link_tag "smoothness/jquery-ui-1.8.2.custom", :media => 'screen,projection' %>
+    
+    <link rel="icon" href="<%= url_for('/favicon.ico') %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= url_for('/favicon.ico') %>" type="image/x-icon" />
+  </head>
+
+  <body>
+    <div id="all">
+      <div id="header"><%= render '/layouts/header' %></div>
+
+      <div id="nav"><%= render :partial => '/layouts/nav' %></div>
+
+      <div id="content">
+        <%= flash_message(:alert) unless flash[:alert].blank? %>
+        <%= flash_message(:notice) unless flash[:notice].blank? %>
+        <% unless @title.blank? %><h1 id="title"><%= @title %></h1><% end %>
+        <%= yield :layout %>
+        <div id="content-end"></div>
+      </div><!-- /#content -->
+
+      <div id="footer"><%= render '/layouts/footer' %></div>
+    </div><!-- /#all -->
+  </body>
+</html>
+

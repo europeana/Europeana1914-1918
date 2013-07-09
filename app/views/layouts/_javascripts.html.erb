@@ -1,0 +1,29 @@
+<%= javascript_tag do -%>
+
+  var I18n = I18n || {};
+  I18n.locale = '<%= I18n.locale %>';
+  
+  var RunCoCo = {};
+  RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
+  
+  
+  <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
+
+    RunCoCo.uploadify = {
+      maxUploadSize: <%= configuration(:max_upload_size) %>,
+      fileExt: '<%= uploadify_file_extensions %>',
+      fileDesc: '<%= uploadify_file_desc %>',
+	  script: '<%= contribution_attachments_path(@contribution) %>'
+    };
+	
+    RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
+    RunCoCo.sessionKeyName = '<%= session_key_name %>';
+    RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
+	
+  <% end %>
+  
+  <% if 'cataloguer' === current_user.role.name %>	
+	RunCoCo.cataloguer = true;
+  <% end %>
+  
+<% end -%>

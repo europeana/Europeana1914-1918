@@ -1,0 +1,46 @@
+<%
+  @javascripts[:autocomplete] = true
+  @javascripts[:masonry] = true
+  @javascripts[:search] = true
+  @title = t('views.contributions.search.heading')
+%>
+<div class="section top">
+  
+  <h2><%= @title %></h2>
+    
+    <%= render :partial => '/shared/search_form', :locals => { :query => @query, :url => search_europeana_path } %>
+    
+    <ul id="results-tabs">
+      
+      <%- if europeana_api_configured? -%>
+        <li><%= link_to 'Europeana 1914-1918', @field.present? ? term_search_contributions_path(@field.name, @term) : search_contributions_path(:q => @query), :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>
+        <li><%= link_to t('views.contributions.search.related-europeana'), '#europeana', :id => 'results-tab-europeana', :'data-search-action' => '/europeana/search', :'data-content-id' => '#results-europeana', :'data-hash' => '#europeana' %></li>
+      <%- end -%>
+      
+    </ul>
+    
+    <div id="results">
+      
+      <div id="results-1914"></div>
+      
+      <div id="results-europeana">
+        
+        <% if @results.size == 0 -%>
+          <p><%= t('views.contributions.search.no_matches') %></p>
+        <% else -%>    
+          <%=
+          render :partial => 'search-results',
+          :locals => {
+            :results => @results,
+            :query => @query,
+            :term => @term
+          }
+          %>    
+        <% end -%>
+        
+      </div>
+      
+    </div>
+  
+</div>
+

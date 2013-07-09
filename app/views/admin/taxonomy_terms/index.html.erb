@@ -1,0 +1,35 @@
+<% @title = t('views.admin.taxonomy_terms.index.title') %>
+
+<%= render :partial => 'metadata_field', :object => @field %>
+
+<ul class="collection-actions">
+  <li><%= link_to t('views.admin.taxonomy_terms.index.links.new'), new_admin_metadata_field_taxonomy_term_path(@field), :class => 'new-member' %></li>
+</ul>
+
+<div class="action-links">
+  <ul>
+    <li><%= link_to t('views.admin.taxonomy_terms.index.links.import'), import_admin_metadata_field_taxonomy_terms_path(@field) %></li>
+  </ul>
+</div>
+
+<% if @terms.present? -%>
+  <table>
+    <caption><%= t('views.admin.taxonomy_terms.index.caption') %></caption>
+    <tr>
+      <th scope="col"><%= t 'activerecord.attributes.taxonomy_term.term' %></th>
+      <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
+    </tr>
+    <%- for term in @terms -%>
+      <tr>
+        <td><%= term.term %></td>
+        <td><%= link_to t('actions.edit'), edit_admin_metadata_field_taxonomy_term_path(term.metadata_field, term) %></td>
+        <td><%= link_to t('actions.delete'), delete_admin_metadata_field_taxonomy_term_path(term.metadata_field, term) %></td>
+      </tr>
+    <%- end -%>
+  </table>
+  <%= will_paginate @terms %>
+<% else -%>
+  <p><%= t 'views.admin.taxonomy_terms.index.empty' %></p>
+<% end -%>
+
+<p class="back"><%= raw t 'views.links.back', :link => link_to(t('views.admin.taxonomy_terms.index.links.back'), admin_metadata_fields_path) %></p>

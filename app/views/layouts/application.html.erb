@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<%= I18n.locale %>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
+<%= render '/layouts/javascripts' %>
+<%= render '/layouts/links' %>
+<%= csrf_meta_tag %>
+</head>
+<body class="fixedwidthblack controls-visible public-page">
+	
+    <div id="wrapper" style="background-image: url(<%= image_path('eew-background-right-' + (1 + rand(5)).to_s + '.jpg') %>);">
+    
+      <%- if configuration(:banner_active) -%>
+        <div id="maintenance-banner"><%= configuration(:banner_text) %></div>
+      <%- end -%>
+    
+  		<%= render '/layouts/header' %>
+  		
+      <%= render '/layouts/nav' %>
+
+      <div id="content-wrapper" class="columns-3">
+        <table class="lfr-grid" id="layout-grid">	
+          <tr>
+            <td class="lfr-column left3" id="column-1" valign="top">
+              <div class="lfr-portlet-column" id="layout-column_column-1">
+                <%= render '/layouts/side_nav' %>
+              </div>
+            </td>
+            <td class="lfr-column center3" id="column-2" valign="top">
+              <div class="lfr-portlet-column" id="layout-column_column-2">
+                <% unless @title.blank? %><h2 class="page-title"><%= @title %></h2><% end %>
+                <div id="documentsarea">
+                  <%= flash_message(:alert) unless flash[:alert].blank? %>
+                  <%= flash_message(:notice) unless flash[:notice].blank? %>
+                  <%= yield :layout %>
+                </div>
+              </div>
+            </td>
+            <td class="lfr-column right3" id="column-3" valign="top">
+              <div class="lfr-portlet-column empty" id="layout-column_column-3"></div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <%= render '/layouts/footer' %>
+      
+    </div><!-- /#wrapper -->
+	
+	<%= render '/layouts/javascripts-footer' %>
+	<%= render '/layouts/google_analytics' %>
+	
+</body>
+</html>

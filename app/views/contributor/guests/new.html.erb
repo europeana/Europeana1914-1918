@@ -1,0 +1,14 @@
+<% @title = t('views.contributor.guests.new.title') %>
+
+<p><strong><%= t('views.contributor.guests.new.guest') %></strong></p>
+
+<p><%= raw t('views.contributor.guests.new.notice', :sign_in => link_to(t('views.contributor.guests.new.links.sign_in'), new_user_session_path), :register => link_to(t('views.contributor.guests.new.links.register'), new_user_registration_path)) %></p>
+
+<p><%= t('views.contributor.guests.new.contact_details') %></p>
+<%= semantic_form_for @contact, :url => contributor_guest_path do |form| %>
+  <%= render :partial => '/contacts/form_fields', :locals => { :form => form } %>
+  <%= form.buttons do %>
+    <%= redirect_field contributor_dashboard_path %>
+    <%= form.commit_button %>
+  <% end %>
+<% end %>

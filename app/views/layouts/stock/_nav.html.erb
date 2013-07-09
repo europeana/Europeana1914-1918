@@ -1,0 +1,17 @@
+<%
+links = []
+links << [ t('layout.navigation.home'), home_path ]
+links << [ t('layout.navigation.contribute'), contributor_dashboard_path ]
+links << [ t('layout.navigation.help'), page_path('help') ]
+links << [ t('layout.navigation.admin'), admin_root_path ] if current_user.may_access_admin_area?
+%>
+<ul>
+  <% for link in links -%>
+    <% if current_page?(link.last) || current_page_parent?(link.last) %>
+      <li><%= link_to link.first, link.last, :class => 'active' %></li>
+    <% else %>
+      <li><%= link_to link.first, link.last %></li>
+    <% end %>
+  <% end %>
+</ul>
+

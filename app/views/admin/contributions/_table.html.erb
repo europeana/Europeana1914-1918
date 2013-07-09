@@ -1,0 +1,39 @@
+<%-
+if local_assigns[:table_class].nil?
+  table_class = 'contributions'
+else
+  table_class = "contributions #{table_class}"
+end
+
+if local_assigns[:fields].nil?
+  fields = [ 'title', 'attachments', 'created_at', 'cataloguer' ]
+  fields << 'field_ticket' if current_user.may_catalogue_contribution?
+end
+%>
+<% unless local_assigns[:contributions].blank? %>
+  <table class="<%= table_class %>">
+    <% unless local_assigns[:caption].blank? %>
+      <caption><%= caption %></caption>
+    <% end %>
+    <tr>
+      <%- for field_name in fields -%>
+        <th scope="col"><%= sort_contributions_link(field_name) %></th>
+      <%- end -%>
+    </tr>
+    <% for contribution in contributions %>
+      <tr>
+        <%- for field_name in fields -%>
+          <td><%= contribution_field_value(contribution, field_name, :limit => 32) %></td>
+        <%- end -%>
+      </tr>
+    <% end %>
+    <%- if contributions.respond_to?(:total_pages) && (contributions.total_pages > 1) %>
+      <tfoot>
+        <tr>
+          <td colspan="<%= fields.size %>"><%= will_paginate contributions %></td>
+        </tr>
+      </tfoot>
+    <%- end %>
+  </table>
+<% end %>
+

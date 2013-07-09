@@ -1,0 +1,70 @@
+<% prettyphoto = prettyphoto ? prettyphoto : false -%>
+<% count = params['count'] ? params['count'].to_i : 3 -%>
+<% page = params['page'] ? params['page'].to_i : 1 -%>
+<% inline = count * page - count -%>
+<% if attachments.present? -%>
+  <%- for attachment in attachments -%><li>
+      <%- if attachment.file.present? -%>
+        <%-
+          link_attrs = {
+            :target => '_blank',
+            :title => attachment.title,
+            'data-attachment-id' => attachment.id,
+            'data-contribution-id' => contribution.id
+          }
+          link_attrs.merge!( {
+            'data-description' =>
+            '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
+            ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
+            :rel => 'prettyPhoto[gallery]'
+          } ) if (prettyphoto && attachment.image?)
+        -%>
+        <%= link_to( attachment_preview( attachment, size ), attachment_url(attachment, 'large'), link_attrs ) %>
+      <%- else -%>
+        <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
+      <%- end -%>
+      <%- if prettyphoto -%>
+        <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
+          <%= render :partial => '/metadata/display',
+            :locals => {
+              :show_title => true,
+              :contribution => contribution,
+              :metadata => attachment.metadata,
+              :field_options => {
+                :name => [
+                  'cover_image',
+                  'page_number',
+                  'object_side',
+                  'creator_given_name',
+                  'creator_family_name',
+                  'attachment_description',
+                  'lang',
+                  'lang_other',
+                  'content',
+                  'subject',
+                  'date',
+                  'date_from',
+                  'date_to',
+                  'location_placename',
+                  'location_map',
+                  'location_zoom',
+                  'keywords',
+                  'theatres',
+                  'forces',
+                  'source',
+                  'format',
+                  'page_total',
+                  'notes',
+                  'full_type',
+                  'license',
+                  'creator'
+                ],
+                :name_order => true
+              }
+            }
+          %>
+        </dl>
+      <%- end -%>
+      <%- inline += 1 -%>
+    </li><%- end -%>
+<% end -%>

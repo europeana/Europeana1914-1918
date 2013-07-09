@@ -1,0 +1,19 @@
+<div><b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results  )</div>
+  
+  <ul class="stories">
+    <%- for result in results -%>
+      <li>
+        <a href="<%= result.guid %>" title="<%= raw result.title %>">
+          <img src="<%= result.image_url %>" alt="" /><br />
+          <b><%= raw result.title %></b>
+          <%- [ :author, :year, :data_provider, :provider ].each do |element| -%>
+            <%- if element_value = result.send(element) -%>
+              <br/><%= raw element_value %>
+            <%- end -%>
+          <%- end -%>
+        </a>
+      </li>
+    <%- end -%>
+  </ul>
+  
+<%= will_paginate results %>

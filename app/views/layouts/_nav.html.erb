@@ -1,0 +1,37 @@
+<%
+nav = [
+  [ t('common.menus.main.home'), home_path ],
+  [ t('common.menus.main.add'), ( current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path ) ],
+  [ t('common.menus.main.explore'), page_path('explore') ],
+  [ t('common.menus.main.about'), page_path('about') ],
+  current_user.role.name == 'guest' ? [ t('common.menus.main.sign_in'), page_path('users/sign-in') ] : [ t('common.menus.main.sign_out'), page_path('users/sign-out') ]
+]
+-%>
+
+<div id="navigation">
+  
+  <ul>
+    
+	<%- for link in nav -%>
+	
+      <%- if current_page?(link[1]) -%>
+        
+		<li class="selected"><%= link_to link.first, link[1], link[2] %></li>
+		
+      <%- else -%>
+		
+        <li><%= link_to link.first, link[1], link[2] %></li>
+		
+      <%- end -%>
+	
+	<%- end -%>
+	
+  </ul>
+  
+  <%= form_tag({}, { :id => 'langswitch' }) do %>
+  
+	<%= select_tag 'dd_lang', options_for_select([ [ 'Select a language', '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
+  
+  <% end %>
+  
+</div>

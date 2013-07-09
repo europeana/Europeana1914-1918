@@ -1,0 +1,22 @@
+<% @title = t('views.admin.taxonomy_terms.import.title') %>
+
+<%= render :partial => 'metadata_field', :object => @field %>
+
+<%= form_tag import_admin_metadata_field_taxonomy_terms_path(@field), { :method => 'post', :class => 'formtastic' } do -%>
+  <fieldset class="inputs">
+    <ol>
+      <li class="text">
+        <label for="taxonomy_terms"><%= t('activerecord.models.taxonomy_term').pluralize %></label>
+        <%= text_area_tag 'taxonomy_terms', nil, :rows => 10, :cols => 50 %>
+        <p class="inline-hints"><%= t 'formtastic.hints.taxonomy_term.import' %></p>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="buttons">
+    <ol>
+      <%= redirect_field(admin_metadata_field_taxonomy_terms_path(@field)) %>
+      <li class="commit"><%= submit_tag t('formtastic.actions.taxonomy_term.import') %></li>
+      <%= form_cancel_link admin_metadata_field_taxonomy_terms_path(@field) %>
+    </ol>
+  </fieldset>
+<% end -%>

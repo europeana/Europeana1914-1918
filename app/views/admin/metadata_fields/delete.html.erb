@@ -1,0 +1,16 @@
+<% @title = t('views.admin.metadata_fields.delete.title') %>
+
+<p><%= raw t 'views.admin.metadata_fields.delete.question', :field_name => "<strong>#{@field.name}</strong>" %></p>
+
+<p><%= raw t 'views.admin.metadata_fields.delete.warning' %></p>
+
+<p><%= t 'views.common.permanent' %></p>
+
+<%= semantic_form_for [ :admin, @field ], :html => { :method => :delete } do |form| %>
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button :label => t('formtastic.actions.metadata_field.delete'), :button_html => { :confirm => t('views.admin.metadata_fields.delete.button_confirm') } %>
+    <%= form_cancel_link admin_metadata_fields_path %>
+  <% end %>
+<% end %>
+
