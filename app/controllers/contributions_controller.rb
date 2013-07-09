@@ -2,6 +2,7 @@
 class ContributionsController < ApplicationController
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :explore, :complete ]
+  before_filter :redirect_to_search, :only => :search
 
   cache_sweeper :contribution_sweeper, :only => [ :create, :update, :destroy ]
 
@@ -187,12 +188,6 @@ class ContributionsController < ApplicationController
       end
     else
       @query = params[:q]
-      unless params[:qf].blank?
-        @query << " " + params[:qf]
-        redirect_params = params.merge(:q => @query)
-        redirect_params.delete(:qf)
-        redirect_to redirect_params and return
-      end
       search_query = bing_translate(@query)
     end
     
@@ -263,6 +258,25 @@ protected
 
   def find_contribution
     @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata ])
+  end
+  
+  def redirect_to_search
+    unless params[:qf].blank?
+      params.merge!(:q => params[:q] + " " + params[:qf])
+      params.delete(:qf)
+      redirect_required = true
+    end
+    
+    if params[:facets]
+      params[:facets].each_key do |facet_name|
+        if params[:facets][facet_name].is_a?(Array)
+          params[:facets][facet_name] = params[:facets][facet_name].collect { |row| row.to_s }.join(",")
+          redirect_required = true
+        end
+      end
+    end
+    
+    redirect_to params if redirect_required
   end
 
 end
