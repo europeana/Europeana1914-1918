@@ -21,16 +21,19 @@
 	
     elsif proxy['dcTitle'].has_key?("def") 
     
-		 dcTitle = proxy['dcTitle']["def"]
+		 dcTitle = proxy['dcTitle']["def"][0]
 		 logger.info("def title " + dcTitle)
 	
 	else
 	
-		 dcTitle = proxy['dcTitle'].values.join(',')
+		 dcTitle = proxy['dcTitle'].values.reject!(&:empty?).join(',')
 		 logger.info("full title " + dcTitle)
 		 
 	end
 
+# dcDate
+	
+	dcDate = proxy['dcDate'] ? proxy['dcDate']['def'][0] : nil 
 
 #dcDescription
 
@@ -43,38 +46,47 @@
 	
     elsif proxy['dcDescription'].has_key?("def") 
     
-		 dcDescription = proxy['dcDescription']["def"]
+		 dcDescription = proxy['dcDescription']["def"][0]
 		 logger.info("def dcDescription " + dcDescription)
 	
 	else
 	
-		 dcDescription = proxy['dcDescription'].values.join(',')
+		 dcDescription = proxy['dcDescription'].values.reject!(&:empty?).join(',')
 		 logger.info("full dcDescription " + dcDescription)
 		 
 	end
 
 	
-	
 #dcType
 	
-	dcType      = proxy['dcType']
+	dcType      = proxy['dcType'] ? ( proxy['dcType']['def']-['']).join(',') : nil
 
 #dcSubject
 
-	dcSubject   = proxy['dcSubject']
+	dcSubject   = proxy['dcSubject'] ? ( proxy['dcSubject']['def']-[''] ).join(', ') : nil
 
-#contributor
+#dcContributor
 
-#	if proxy['dcContributor']
-#		contributor = proxy['dcContributor']['def'].join('; ')
-#	end
-	contributor = proxy['dcContributor'] ? proxy['dcContributor']['def'].join('; ') : 'no contributor'
-	
+	dcContributor = proxy['dcContributor'] ? ( proxy['dcContributor']['def']-[''] ).join('; ') : nil
+
+#dcCoverage
+
+	dcCoverage = proxy['dcCoverage'] ? (proxy['dcCoverage']['def']-[''] ).join('; ') : nil
+
+#dcCreator	
+
+	dcCreator = proxy['dcCreator'] ? (proxy['dcCreator']['def']-[''] ).join('; ') : nil
+
+#dcLanguage
+	dcLanguage = proxy['dcLanguage'] ? (proxy['dcLanguage']['def']-[''] ).join('; ') : nil
 	
 	
 # edmObject
 	edmObject   = aggregation['edmObject']
 
+# carouselImages
+
+	carouselImages = aggregation['hasView']
 %> 
 
 
@@ -82,19 +94,117 @@
 <div class="one-half-left">
 
 	<img src="<%=edmObject%>"/>
+
+	<% if carouselImages %>
+		<% carouselImages.each do |img| %>
+			<img src="<%=img%>" style="max-width:100px;"/>
+		<% end %>
+	<% end %>
 	
 </div>
 
-<div class="one-half-right">
+<style type="text/css">
+	
+	.meta ul{
+		list-style: none;
+		margin:		0;
+		padding:	0;
+	}
+	
+	.meta .title{
+		font-weight: bold;
+	}
+</style>
+
+<div class="one-half-right meta">
 	<h2> <%= dcTitle %></h2>
-	<%= contributor %>
-	<%= dcDescription %>
+	
+	<ul>
+		<% if dcContributor %>
+			<li>
+				<span class="title">
+					dc:contributor
+				</span>
+				<span>
+					<%= dcContributor %>
+				</span>
+			</li>
+	
+		<% end %>
+		
+		<% if dcCoverage %>
+			<li>
+				<span class="title">
+					dc:coverage
+				</span>
+				<span>
+					<%= dcCoverage %>
+				</span>
+			</li>
+		<% end %>
+
+		<% if dcDate %>
+			<li>
+				<span class="title">
+					dc:date
+				</span>
+				<span>
+					<%= dcDate %>
+				</span>
+			</li>
+		<% end %>
+	
+		<% if dcSubject %>
+			<li>
+				<span class="title">
+					dc:subject
+				</span>
+				<span>
+					<%= dcSubject %>
+				</span>
+			</li>
+		<% end %>
+	
+		<% if dcDescription %>
+			<li>
+				<span class="title">
+					dc:description
+				</span>
+				<span>
+					<%= dcDescription %>
+				</span>
+			</li>
+		<% end %>
+		
+		<% if dcLanguage %>
+			<li>
+				<span class="title">
+					dc:language
+				</span>
+				<span>
+					<%= dcLanguage %>
+				</span>
+			</li>
+		<% end %>		
+		
+		
+		<% if dcType %>
+			<li>
+				<span class="title">
+					dc:type
+				</span>
+				<span>
+					<%= dcType %>
+				</span>
+			</li>
+		<% end %>
+		
+		
+	</ul>	
 </div>
 
 <div style="clear:both;">
 
-<%# proxy['dcContributor']	= '' %>
-<%# proxy['dcTitle']		= '' %>
 
 <br/>
 <br/>
