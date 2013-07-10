@@ -194,6 +194,6 @@ module PaginationHelper
     end
     # render HTML for pagination
     renderer.prepare collection, options, self
-    renderer.to_html
+    renderer.to_html.html_safe
   end
 end
