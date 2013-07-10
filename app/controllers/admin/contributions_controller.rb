@@ -24,16 +24,16 @@ class Admin::ContributionsController < AdminController
     if @contributor
       @contributions = {}
       statuses.each do |status|
-        @contributions[status] = Contribution.search(status, @query, search_options)
+        @contributions[status] = Contribution.search(status, @query, search_options).results
       end
     elsif @status.present? && statuses.include?(@status.to_sym)
-      @contributions = Contribution.search(@status.to_sym, @query, search_options)
+      @contributions = Contribution.search(@status.to_sym, @query, search_options).results
     elsif @query.present? 
-      @contributions = Contribution.search(nil, @query, search_options)
+      @contributions = Contribution.search(nil, @query, search_options).results
     else
       @counts = {}
       statuses.each do |status|
-        @counts[status] = Contribution.search(status, @query, search_options).total_entries
+        @counts[status] = Contribution.search(status, @query, search_options).results.total_entries
       end
     end
   end

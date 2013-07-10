@@ -10,6 +10,12 @@ module ContributionSearch
       end
     end
     
+    module Results
+      def results
+        return self
+      end
+    end
+    
     module ClassMethods
       ##
       # Simple text query against contributions.
@@ -99,7 +105,7 @@ module ContributionSearch
           results = results.paginate(pagination_options)
         end
         
-        results
+        results.extend(Results)
       end
     end
   end

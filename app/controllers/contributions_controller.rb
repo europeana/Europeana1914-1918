@@ -195,7 +195,7 @@ class ContributionsController < ApplicationController
       search = Contribution.search(:published, search_query, search_options)
     end
     
-    @results = @contributions = (!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
+    @results = @contributions = search.results #(!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
     @facets = search.respond_to?(:facets) ? search.facets : nil
 
     if params.delete(:layout) == '0'

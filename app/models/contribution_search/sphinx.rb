@@ -13,6 +13,12 @@ module ContributionSearch
       base.extend(SearchMethod) # Separated from ClassMethods to overwrite ThinkingSphinx's +search+ method
     end
     
+    module Results
+      def results
+        return self
+      end
+    end
+    
     module ClassMethods
       ##
       # Dynamically defines Sphinx search index.
@@ -128,7 +134,7 @@ module ContributionSearch
           else
             query_string = query.append_wildcard
           end
-          sphinx_search(query_string, options)
+          sphinx_search(query_string, options).extend(Results)
         end
       end
     end
