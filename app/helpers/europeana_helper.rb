@@ -1,3 +1,4 @@
+#Encoding.default_external = 'UTF-8'
 require 'digest/md5'
 
 module EuropeanaHelper

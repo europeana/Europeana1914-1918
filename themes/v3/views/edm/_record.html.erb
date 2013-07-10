@@ -1,4 +1,112 @@
+<%# http://localhost:3000/fr/europeana/record/09102/_CM_0160490.html %>
+
+
+
+<%  
+
+# proxy
+	
+	proxy       = record['proxies'][0]
+
+# aggregation
+	
+	aggregation = record['aggregations'] ? record['aggregations'][0] : nil
+
+# dcTitle
+	
+	if proxy['dcTitle'].has_key?(I18n.locale.to_s)
+	
+		 dcTitle = proxy['dcTitle'][I18n.locale.to_s][0] 
+		 logger.info("locale title " + dcTitle)
+	
+    elsif proxy['dcTitle'].has_key?("def") 
+    
+		 dcTitle = proxy['dcTitle']["def"]
+		 logger.info("def title " + dcTitle)
+	
+	else
+	
+		 dcTitle = proxy['dcTitle'].values.join(',')
+		 logger.info("full title " + dcTitle)
+		 
+	end
+
+
+#dcDescription
+
+	dcDescription = proxy['dcDescription']
+
+	if proxy['dcDescription'].has_key?(I18n.locale.to_s)
+	
+		 dcDescription = proxy['dcDescription'][I18n.locale.to_s][0] 
+		 logger.info("locale dcDescription " + dcDescription)
+	
+    elsif proxy['dcDescription'].has_key?("def") 
+    
+		 dcDescription = proxy['dcDescription']["def"]
+		 logger.info("def dcDescription " + dcDescription)
+	
+	else
+	
+		 dcDescription = proxy['dcDescription'].values.join(',')
+		 logger.info("full dcDescription " + dcDescription)
+		 
+	end
+
+	
+	
+#dcType
+	
+	dcType      = proxy['dcType']
+
+#dcSubject
+
+	dcSubject   = proxy['dcSubject']
+
+#contributor
+
+#	if proxy['dcContributor']
+#		contributor = proxy['dcContributor']['def'].join('; ')
+#	end
+	contributor = proxy['dcContributor'] ? proxy['dcContributor']['def'].join('; ') : 'no contributor'
+	
+	
+	
+# edmObject
+	edmObject   = aggregation['edmObject']
+
+%> 
+
+
+
+<div class="one-half-left">
+
+	<img src="<%=edmObject%>"/>
+	
+</div>
+
+<div class="one-half-right">
+	<h2> <%= dcTitle %></h2>
+	<%= contributor %>
+	<%= dcDescription %>
+</div>
+
+<div style="clear:both;">
+
+<%# proxy['dcContributor']	= '' %>
+<%# proxy['dcTitle']		= '' %>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
 <div><code><%= record.inspect %></code></div>
+
+
 
 <% if oembed = oembed_html(record) %>
   <div class="oembed"><%= oembed.html_safe %></div>
