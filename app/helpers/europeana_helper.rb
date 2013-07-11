@@ -1,4 +1,3 @@
-#Encoding.default_external = 'UTF-8'
 require 'digest/md5'
 
 module EuropeanaHelper
@@ -21,6 +20,35 @@ module EuropeanaHelper
   def europeana_record_url(id)
     dataset_id, record_id = id[1..-1].split('/')
     show_europeana_url(:dataset_id => dataset_id, :record_id => record_id)
+  end
+  
+  ##
+  # Selects an appropriate value for display of an EDM proxy object field
+  #
+  # Returns:
+  # * a localised version for the user's locale if it exists; or
+  # * the first non-empty "def" value if present; or
+  # * all non-empty values joined.
+  #
+  # @param [Hash] proxy Proxy object from an EDM record
+  # @param [String] field_name Name of the field to retrieve
+  # @return [String] Value to display for the field
+  #
+  def edm_proxy_field(proxy, field_name)
+    return nil unless proxy.has_key?(field_name)
+    
+    if proxy[field_name].has_key?(I18n.locale.to_s)
+      field_value = proxy[field_name][I18n.locale.to_s].first
+      logger.info("locale #{field_name} => #{field_value}")
+    elsif proxy[field_name].has_key?("def") 
+      field_value = proxy[field_name]["def"].reject(&:empty?).first
+      logger.info("def #{field_name} => #{field_value}")
+    else
+      field_value = proxy[field_name].values.reject(&:empty?).join(',')
+      logger.info("full #{field_name} => #{field_value}")
+    end
+    
+    field_value
   end
   
   ##

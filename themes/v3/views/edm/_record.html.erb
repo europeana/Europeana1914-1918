@@ -14,71 +14,71 @@
 
 # dcTitle
 	
-	if proxy['dcTitle'].has_key?(I18n.locale.to_s)
-	
-		 dcTitle = proxy['dcTitle'][I18n.locale.to_s][0] 
-		 logger.info("locale title " + dcTitle)
-	
-    elsif proxy['dcTitle'].has_key?("def") 
-    
-		 dcTitle = proxy['dcTitle']["def"][0]
-		 logger.info("def title " + dcTitle)
-	
-	else
-	
-		 dcTitle = proxy['dcTitle'].values.reject!(&:empty?).join(',')
-		 logger.info("full title " + dcTitle)
-		 
-	end
+#	if proxy['dcTitle'].has_key?(I18n.locale.to_s)
+#	
+#		 dcTitle = proxy['dcTitle'][I18n.locale.to_s][0] 
+#		 logger.info("locale title " + dcTitle)
+#	
+#    elsif proxy['dcTitle'].has_key?("def") 
+#    
+#		 dcTitle = proxy['dcTitle']["def"][0]
+#		 logger.info("def title " + dcTitle)
+#	
+#	else
+#	
+#		 dcTitle = proxy['dcTitle'].values.reject!(&:empty?).join(',')
+#		 logger.info("full title " + dcTitle)
+#		 
+#	end
 
 # dcDate
 	
-	dcDate = proxy['dcDate'] ? proxy['dcDate']['def'][0] : nil 
+#	dcDate = proxy['dcDate'] ? proxy['dcDate']['def'][0] : nil 
 
 #dcDescription
 
-	dcDescription = proxy['dcDescription']
+#	dcDescription = proxy['dcDescription']
 
-	if proxy['dcDescription'].has_key?(I18n.locale.to_s)
-	
-		 dcDescription = proxy['dcDescription'][I18n.locale.to_s][0] 
-		 logger.info("locale dcDescription " + dcDescription)
-	
-    elsif proxy['dcDescription'].has_key?("def") 
-    
-		 dcDescription = proxy['dcDescription']["def"][0]
-		 logger.info("def dcDescription " + dcDescription)
-	
-	else
-	
-		 dcDescription = proxy['dcDescription'].values.reject!(&:empty?).join(',')
-		 logger.info("full dcDescription " + dcDescription)
-		 
-	end
+#	if proxy['dcDescription'].has_key?(I18n.locale.to_s)
+#	
+#		 dcDescription = proxy['dcDescription'][I18n.locale.to_s][0] 
+#		 logger.info("locale dcDescription " + dcDescription)
+#	
+#    elsif proxy['dcDescription'].has_key?("def") 
+#    
+#		 dcDescription = proxy['dcDescription']["def"][0]
+#		 logger.info("def dcDescription " + dcDescription)
+#	
+#	else
+#	
+#		 dcDescription = proxy['dcDescription'].values.reject!(&:empty?).join(',')
+#		 logger.info("full dcDescription " + dcDescription)
+#		 
+#	end
 
 	
 #dcType
 	
-	dcType      = proxy['dcType'] ? ( proxy['dcType']['def']-['']).join(',') : nil
+#	dcType      = proxy['dcType'] ? ( proxy['dcType']['def']-['']).join(',') : nil
 
 #dcSubject
 
-	dcSubject   = proxy['dcSubject'] ? ( proxy['dcSubject']['def']-[''] ).join(', ') : nil
+#	dcSubject   = proxy['dcSubject'] ? ( proxy['dcSubject']['def']-[''] ).join(', ') : nil
 
 #dcContributor
 
-	dcContributor = proxy['dcContributor'] ? ( proxy['dcContributor']['def']-[''] ).join('; ') : nil
+#	dcContributor = proxy['dcContributor'] ? ( proxy['dcContributor']['def']-[''] ).join('; ') : nil
 
 #dcCoverage
 
-	dcCoverage = proxy['dcCoverage'] ? (proxy['dcCoverage']['def']-[''] ).join('; ') : nil
+#	dcCoverage = proxy['dcCoverage'] ? (proxy['dcCoverage']['def']-[''] ).join('; ') : nil
 
 #dcCreator	
 
-	dcCreator = proxy['dcCreator'] ? (proxy['dcCreator']['def']-[''] ).join('; ') : nil
+#	dcCreator = proxy['dcCreator'] ? (proxy['dcCreator']['def']-[''] ).join('; ') : nil
 
 #dcLanguage
-	dcLanguage = proxy['dcLanguage'] ? (proxy['dcLanguage']['def']-[''] ).join('; ') : nil
+#	dcLanguage = proxy['dcLanguage'] ? (proxy['dcLanguage']['def']-[''] ).join('; ') : nil
 	
 	
 # edmObject
@@ -117,10 +117,10 @@
 </style>
 
 <div class="one-half-right meta">
-	<h2> <%= dcTitle %></h2>
+	<h2> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 	
 	<ul>
-		<% if dcContributor %>
+		<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
 			<li>
 				<span class="title">
 					dc:contributor
@@ -132,7 +132,7 @@
 	
 		<% end %>
 		
-		<% if dcCoverage %>
+		<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
 			<li>
 				<span class="title">
 					dc:coverage
@@ -143,7 +143,7 @@
 			</li>
 		<% end %>
 
-		<% if dcDate %>
+		<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
 			<li>
 				<span class="title">
 					dc:date
@@ -154,7 +154,7 @@
 			</li>
 		<% end %>
 	
-		<% if dcSubject %>
+		<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
 			<li>
 				<span class="title">
 					dc:subject
@@ -165,7 +165,7 @@
 			</li>
 		<% end %>
 	
-		<% if dcDescription %>
+		<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
 			<li>
 				<span class="title">
 					dc:description
@@ -176,7 +176,7 @@
 			</li>
 		<% end %>
 		
-		<% if dcLanguage %>
+		<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
 			<li>
 				<span class="title">
 					dc:language
@@ -188,7 +188,7 @@
 		<% end %>		
 		
 		
-		<% if dcType %>
+		<% if dcType = edm_proxy_field(proxy, 'dcType') %>
 			<li>
 				<span class="title">
 					dc:type
