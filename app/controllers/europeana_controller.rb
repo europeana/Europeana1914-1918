@@ -6,11 +6,30 @@ require 'will_paginate/collection'
 #
 class EuropeanaController < ApplicationController
   before_filter :europeana_api_configured?
+  before_filter :redirect_to_search, :only => :search
 
   # GET /europeana/search
   def search
-    @query = params[:q]
-    @results = query_api(bing_translate(@query), :page => params[:page], :count => params[:count])
+    @results = []
+    
+    if params[:term]
+      @term = CGI::unescape(params[:term])
+      @field = MetadataField.find_by_name!(params[:field_name])
+      if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
+        search_terms = I18n.available_locales.collect do |locale|
+          I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term)
+        end
+      end
+    else
+      @query = params[:q]
+      search_terms = bing_translate(@query)
+    end
+    
+    if search_terms.present?
+      response = api_search(search_terms, :page => params[:page], :count => params[:count], :profile => 'facets', :facets => params[:facets])
+      @results = paginate_search_result_items(response, params[:page])
+      @facets = response['facets']
+    end
     
     if params.delete(:layout) == '0'
       render :partial => '/search/results',
@@ -26,27 +45,7 @@ class EuropeanaController < ApplicationController
   
   # GET /europeana/explore/:field_name/:term
   def explore
-    @term = CGI::unescape(params[:term])
-    @results = []
-    
-    @field = MetadataField.find_by_name!(params[:field_name])
-    if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
-      term_translations = I18n.available_locales.collect do |locale|
-        I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term)
-      end
-      @results = query_api(term_translations, :page => params[:page], :count => params[:count])
-    end
-    
-    if params.delete(:layout) == '0'
-      render :partial => '/search/results',
-        :locals => {
-          :results => @results,
-          :query => @query,
-          :term => @term
-        } and return
-    end
-    
-    render :template => 'search/page'
+    search
   end
   
   # GET /europeana/record/:dataset_id/:record_id
@@ -69,9 +68,10 @@ class EuropeanaController < ApplicationController
     end
   end
   
-  private
+private
+
   ##
-  # Sends a query off to the API.
+  # Prepares and sends a search query to the API.
   #
   # @param [String,Array,Hash] terms One or more term(s) to search for.
   # @param [Hash] options Optional parameters
@@ -79,11 +79,13 @@ class EuropeanaController < ApplicationController
   #   Maximum 100; default 48.
   # @option options [String,Integer] :page The page number of results to return.
   #   Default 1.
-  # @return [WillPaginate::Collection] will_paginate compatibile result set.
+  # @option options All other options will be passed on to 
+  #   +Europeana::API::Search#run+
+  # @return [Hash] Full response from the API. 
   # @see http://www.europeana.eu/portal/api-search-json.html Documentation 
   #   of fields in result set.
   #
-  def query_api(terms, options = {})
+  def api_search(terms, options = {})
     terms = case terms
     when Hash
       terms.values
@@ -97,33 +99,46 @@ class EuropeanaController < ApplicationController
       raise ArgumentError, "Unknown terms parameter passed: #{terms.class.to_s}"
     end
     
-    options[:count] = [ (options[:count] || 48).to_i, 100 ].min
-    options[:page] = (options[:page] || 1).to_i
+    count = [ (options.delete(:count) || 48).to_i, 100 ].min # Default 48, max 100
+    page = (options.delete(:page) || 1).to_i
     
     quoted_terms = terms.add_quote_marks
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
-    cache_key = "europeana/#{quoted_terms_digest}/count#{options[:count].to_s}-page#{options[:page].to_s}"
+    cache_key = "europeana/api/#{quoted_terms_digest}/count#{count.to_s}-page#{page.to_s}"
     
-    if fragment_exist?(cache_key)
-      results = YAML::load(read_fragment(cache_key))
+    if options[:facets].blank? && fragment_exist?(cache_key)
+      response = YAML::load(read_fragment(cache_key))
     else
       query_string = build_api_query(terms)
       logger.debug("Europeana query: #{query_string}")
       
-      query_options = {}
-      query_options[:rows] = options[:count]
-      query_options[:start] = (((options[:page] || 1).to_i - 1) * options[:count]) + 1
+      query_options = options.dup
+      query_options[:rows] = count
+      query_options[:start] = ((page - 1) * count) + 1
       
-      results = Europeana::API::Search.new(query_string).run(query_options)
+      response = Europeana::API::Search.new(query_string).run(query_options)
       
-      write_fragment(cache_key, results.to_yaml, :expires_in => 1.day)
+      write_fragment(cache_key, response.to_yaml, :expires_in => 1.day) unless options[:facets].present?
     end
     
-    WillPaginate::Collection.create(options[:page], results['itemsCount'], results['totalResults']) do |pager|
-      if results['itemsCount'] == 0
+    response
+  end
+  
+  ##
+  # Paginates a set of search result items for use with +will_paginate+
+  #
+  # @param [Hash] response API search response, with +items+, +itemsCount+ and
+  #   +totalResults+ keys, as returned by +#api_search+.
+  # @param [Integer,String] page Page of results represented by response.
+  # @return [WillPaginate::Collection] +will_paginate+ compatibile result set.
+  #
+  def paginate_search_result_items(response, page)
+    page = (page || 1).to_i
+    WillPaginate::Collection.create(page, response['itemsCount'], response['totalResults']) do |pager|
+      if response['itemsCount'] == 0
         pager.replace([])
       else
-        pager.replace(results['items'])
+        pager.replace(response['items'])
       end
     end
   end
@@ -151,5 +166,24 @@ class EuropeanaController < ApplicationController
   
       joined_terms + ' AND ' + qualifiers
     end
+  end
+  
+  def redirect_to_search
+    if params[:provider] == 'contributions'
+      params.delete(:facets)
+      params[:controller] = 'contributions'
+      redirect_required = true
+    elsif params[:facets]
+      params[:facets].each_key do |facet_name|
+        if params[:facets][facet_name].is_a?(Array)
+          params[:facets][facet_name] = params[:facets][facet_name].collect { |row| row.to_s }.join(",")
+          redirect_required = true
+        end
+      end
+    end
+    
+    params.delete(:provider)
+    
+    redirect_to params if redirect_required
   end
 end

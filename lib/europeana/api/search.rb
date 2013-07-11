@@ -70,8 +70,19 @@ module Europeana
         params[:rows] = [ (params[:rows] || 12).to_i, 100 ].min
         params[:start] = params[:start] || 1
         
+        facets = params.delete(:facets)
+        
         uri = URI.parse(BASE_URL)
         uri.query = params.to_query
+        
+        if facets
+          facets.each_pair do |name, criteria|
+            criteria.split(',').each do |criterion|
+              uri.query = uri.query + "&qf=" + CGI::escape(name) + ":" + CGI::escape(criterion)
+            end
+          end
+        end
+        
         uri
       end
     end
