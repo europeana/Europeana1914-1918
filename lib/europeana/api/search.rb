@@ -42,7 +42,9 @@ module Europeana
       #   of response fields.
       #
       def run(options = {})
-        @result_set = JSON.parse(Net::HTTP.get(uri(options)))
+        response = JSON.parse(Net::HTTP.get(uri(options)))
+        raise Errors::RequestError, response['error'] unless response['success']
+        @result_set = response
       end
       
       ##
@@ -58,7 +60,7 @@ module Europeana
       # @return [URI] Query URI
       #
       def uri(options = {})
-        raise Exception, 'Europeana API key not set' unless Europeana::API.key.present?
+        raise Errors::MissingKeyError unless Europeana::API.key.present?
         
         params = options.dup.merge( {
           :query => @terms,

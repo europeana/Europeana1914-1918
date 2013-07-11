@@ -13,7 +13,8 @@ module Europeana
     # @see http://www.europeana.eu/portal/api/registration.html
     #
     mattr_accessor :key
-  
+    
+    autoload :Errors, 'europeana/api/errors'
     autoload :Record, 'europeana/api/record'
     autoload :Search, 'europeana/api/search'
   end

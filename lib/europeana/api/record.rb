@@ -28,11 +28,13 @@ module Europeana
         # @todo Handle errors from API.
         #
         def get(record_id)
-          JSON.parse(Net::HTTP.get(uri(record_id)))
+          response = JSON.parse(Net::HTTP.get(uri(record_id)))
+          raise Errors::RequestError, response['error'] unless response['success']
+          response
         end
       
         def uri(record_id)
-          raise Exception, 'Europeana API key not set' unless Europeana::API.key.present?
+          raise Errors::MissingKeyError unless Europeana::API.key.present?
           
           params = {
             :wskey => Europeana::API.key
