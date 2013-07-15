@@ -1,27 +1,33 @@
-// No classes - only element selectors here
+/* No classes - only element selectors here */
+
+@import "compass/css3/box-sizing";
 
 *{
-	 -moz-box-sizing:		border-box;
-	 -webkit-box-sizing:	border-box;
-	 box-sizing:			border-box; 	
+	@include box-sizing(content-box);
 }
 
-html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 
 html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1{
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-	font: inherit;
+	margin:     0;
+	padding:    0;
+	border:     0;
+	outline:    0;
+	font-size:  100%;
+	font:       inherit;
+}
+
+html {
+	font-size:                100%;
+	overflow-y:               scroll;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust:     100%;
+	background-color:         #DADADA;
+	padding:                  0 1.25em;
 }
 
 
 body{
-	-moz-box-sizing:	content-box;
-	-webkit-box-sizing:	content-box;
-	box-sizing:			content-box;	
+	background-color:   #fff;
 }
 
 img{

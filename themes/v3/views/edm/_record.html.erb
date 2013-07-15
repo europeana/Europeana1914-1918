@@ -1,207 +1,144 @@
 <%# http://localhost:3000/fr/europeana/record/09102/_CM_0160490.html %>
 
 
-
-<%  
-
-# proxy
-	
-	proxy       = record['proxies'][0]
-
-# aggregation
-	
-	aggregation = record['aggregations'] ? record['aggregations'][0] : nil
-
-# dcTitle
-	
-#	if proxy['dcTitle'].has_key?(I18n.locale.to_s)
-#	
-#		 dcTitle = proxy['dcTitle'][I18n.locale.to_s][0] 
-#		 logger.info("locale title " + dcTitle)
-#	
-#    elsif proxy['dcTitle'].has_key?("def") 
-#    
-#		 dcTitle = proxy['dcTitle']["def"][0]
-#		 logger.info("def title " + dcTitle)
-#	
-#	else
-#	
-#		 dcTitle = proxy['dcTitle'].values.reject!(&:empty?).join(',')
-#		 logger.info("full title " + dcTitle)
-#		 
-#	end
-
-# dcDate
-	
-#	dcDate = proxy['dcDate'] ? proxy['dcDate']['def'][0] : nil 
-
-#dcDescription
-
-#	dcDescription = proxy['dcDescription']
-
-#	if proxy['dcDescription'].has_key?(I18n.locale.to_s)
-#	
-#		 dcDescription = proxy['dcDescription'][I18n.locale.to_s][0] 
-#		 logger.info("locale dcDescription " + dcDescription)
-#	
-#    elsif proxy['dcDescription'].has_key?("def") 
-#    
-#		 dcDescription = proxy['dcDescription']["def"][0]
-#		 logger.info("def dcDescription " + dcDescription)
-#	
-#	else
-#	
-#		 dcDescription = proxy['dcDescription'].values.reject!(&:empty?).join(',')
-#		 logger.info("full dcDescription " + dcDescription)
-#		 
-#	end
-
-	
-#dcType
-	
-#	dcType      = proxy['dcType'] ? ( proxy['dcType']['def']-['']).join(',') : nil
-
-#dcSubject
-
-#	dcSubject   = proxy['dcSubject'] ? ( proxy['dcSubject']['def']-[''] ).join(', ') : nil
-
-#dcContributor
-
-#	dcContributor = proxy['dcContributor'] ? ( proxy['dcContributor']['def']-[''] ).join('; ') : nil
-
-#dcCoverage
-
-#	dcCoverage = proxy['dcCoverage'] ? (proxy['dcCoverage']['def']-[''] ).join('; ') : nil
-
-#dcCreator	
-
-#	dcCreator = proxy['dcCreator'] ? (proxy['dcCreator']['def']-[''] ).join('; ') : nil
-
-#dcLanguage
-#	dcLanguage = proxy['dcLanguage'] ? (proxy['dcLanguage']['def']-[''] ).join('; ') : nil
-	
-	
-# edmObject
-	edmObject   = aggregation['edmObject']
-
-# carouselImages
-
-	carouselImages = aggregation['hasView']
-%> 
+<% if record['proxies'] && record['proxies'][0] %>
 
 
+	<%  
+		proxy          = record['proxies'][0]
+		aggregation    = record['aggregations'] ? record['aggregations'][0] : nil
+		edmObject      = aggregation['edmObject']
+		carouselImages = aggregation['hasView']
+	%> 
 
-<div class="one-half-left">
 
-	<img src="<%=edmObject%>"/>
+	<div class="one-half-left">
 
-	<% if carouselImages %>
-		<% carouselImages.each do |img| %>
-			<img src="<%=img%>" style="max-width:100px;"/>
+		<img src="<%=edmObject%>"/>
+
+		<% if carouselImages %>
+			<% carouselImages.each do |img| %>
+				<img src="<%=img%>" style="max-width:100px;"/>
+			<% end %>
 		<% end %>
-	<% end %>
 	
-</div>
+	</div>
 
-<style type="text/css">
+	<style type="text/css">
 	
-	.meta ul{
-		list-style: none;
-		margin:		0;
-		padding:	0;
-	}
+		.meta ul{
+			list-style: none;
+			margin:		0;
+			padding:	0;
+		}
 	
-	.meta .title{
-		font-weight: bold;
-	}
-</style>
+		.meta .title{
+			font-weight: bold;
+		}
+	</style>
 
-<div class="one-half-right meta">
-	<h2> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+	<div class="one-half-right meta">
+		<h2> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 	
-	<ul>
-		<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
-			<li>
-				<span class="title">
-					dc:contributor
-				</span>
-				<span>
-					<%= dcContributor %>
-				</span>
-			</li>
+		<ul>
+			<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
+				<li>
+					<span class="title">
+						dc:contributor
+					</span>
+					<span>
+						<%= dcContributor %>
+					</span>
+				</li>
 	
-		<% end %>
+			<% end %>
 		
-		<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
-			<li>
-				<span class="title">
-					dc:coverage
-				</span>
-				<span>
-					<%= dcCoverage %>
-				</span>
-			</li>
-		<% end %>
+			<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
+				<li>
+					<span class="title">
+						dc:coverage
+					</span>
+					<span>
+						<%= dcCoverage %>
+					</span>
+				</li>
+			<% end %>
 
-		<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
-			<li>
-				<span class="title">
-					dc:date
-				</span>
-				<span>
-					<%= dcDate %>
-				</span>
-			</li>
-		<% end %>
+			<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
+				<li>
+					<span class="title">
+						dc:date
+					</span>
+					<span>
+						<%= dcDate %>
+					</span>
+				</li>
+			<% end %>
 	
-		<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
-			<li>
-				<span class="title">
-					dc:subject
-				</span>
-				<span>
-					<%= dcSubject %>
-				</span>
-			</li>
-		<% end %>
+			<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
+				<li>
+					<span class="title">
+						dc:subject
+					</span>
+					<span>
+						<%= dcSubject %>
+					</span>
+				</li>
+			<% end %>
 	
-		<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
-			<li>
-				<span class="title">
-					dc:description
-				</span>
-				<span>
-					<%= dcDescription %>
-				</span>
-			</li>
-		<% end %>
+			<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
+				<li>
+					<span class="title">
+						dc:description
+					</span>
+					<span>
+						<%= dcDescription %>
+					</span>
+				</li>
+			<% end %>
 		
-		<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
-			<li>
-				<span class="title">
-					dc:language
-				</span>
-				<span>
-					<%= dcLanguage %>
-				</span>
-			</li>
-		<% end %>		
+			<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
+				<li>
+					<span class="title">
+						dc:language
+					</span>
+					<span>
+						<%= dcLanguage %>
+					</span>
+				</li>
+			<% end %>		
 		
 		
-		<% if dcType = edm_proxy_field(proxy, 'dcType') %>
-			<li>
-				<span class="title">
-					dc:type
-				</span>
-				<span>
-					<%= dcType %>
-				</span>
-			</li>
-		<% end %>
+			<% if dcType = edm_proxy_field(proxy, 'dcType') %>
+				<li>
+					<span class="title">
+						dc:type
+					</span>
+					<span>
+						<%= dcType %>
+					</span>
+				</li>
+			<% end %>
 		
-		
-	</ul>	
-</div>
+			<% if contextInformation = edm_proxy_field(record, 'Context information') %>
+				<li>
+					<span class="title">
+						Context Information
+					</span>
+					<span>
+						<%= contextInformation %>
+					</span>
+				</li>
+			<% end %>
+	
+		</ul>
+	</div>
+
+<% end %>
+
+
+
+
 
 <div style="clear:both;">
 

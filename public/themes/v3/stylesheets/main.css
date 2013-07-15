@@ -8,16 +8,11 @@
 	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
 }
 */
+/* No classes - only element selectors here */
 * {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; }
-
-html {
-  font-size: 100%;
-  overflow-y: scroll;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%; }
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box; }
 
 html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1 {
   margin: 0;
@@ -27,10 +22,16 @@ html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1 {
   font-size: 100%;
   font: inherit; }
 
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  background-color: #DADADA;
+  padding: 0 1.25em; }
+
 body {
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box; }
+  background-color: #fff; }
 
 img {
   max-width: 100%; }
@@ -85,6 +86,13 @@ h1, h2, h3 {
   margin: 0 0 .4em 0;
   line-height: 120%;
   clear: both; }
+
+#header,
+#content {
+  padding: 0 1.25em; }
+
+#content {
+  padding-top: 2em; }
 
 .v-flex-container {
   display: table;
