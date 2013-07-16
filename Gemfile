@@ -34,6 +34,11 @@ gem 'themes_for_rails', '~> 0.4.0'
 gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem 'will_paginate', '~> 3.0.0'
 
+# Legato for public usage stats from Google Analytics API
+gem 'google-api-client', '~> 0.6.4'
+gem 'legato', '~> 0.0.10'
+gem 'oauth2', '~> 0.9.2'
+
 group :development do
   gem 'sunspot_solr', '~> 2.0.0'
   gem 'thin'
