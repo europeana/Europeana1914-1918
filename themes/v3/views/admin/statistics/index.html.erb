@@ -7,7 +7,7 @@
 
   <%= form_tag admin_statistics_path, { :method => :get } do %>
     <div>
-      <%= select_tag 'year', options_for_select(collection_years, @year), :title => t('datetime.prompts.year') %>
+      <%= select_tag 'year', options_for_select(collection_years.first..Date.today.year, @year), :title => t('datetime.prompts.year') %>
       <%= select_tag 'collection_day', collection_day_options_for_select(@collection_day), :title => t('formtastic.labels.contribution.metadata.collection_day') %>
       <%= submit_tag t('actions.submit'), :name => nil %>
     </div>
@@ -25,16 +25,16 @@
       <%- @statistics.each do |month_stats| -%>
         <tr>
           <td><%= month_stats[:month] %></td>
-          <td class="number"><%= month_stats[:contributions] %></td>
-          <td class="number"><%= month_stats[:attachments] %></td>
+          <td class="number"><%= number_with_delimiter(month_stats[:contributions], :delimiter => ',') %></td>
+          <td class="number"><%= number_with_delimiter(month_stats[:attachments], :delimiter => ',') %></td>
         </tr>
       <%- end -%>
     </tbody>
     <tfoot>
       <tr>
         <th scope="row"><%= t('common.other.total') %></th>
-        <td class="number"><%= @totals[:contributions] %></td>
-        <td class="number"><%= @totals[:attachments] %></td>
+        <td class="number"><%= number_with_delimiter(@totals[:contributions], :delimiter => ',') %></td>
+        <td class="number"><%= number_with_delimiter(@totals[:attachments], :delimiter => ',') %></td>
       </tr>
     </tfoot>
   </table>
