@@ -135,22 +135,20 @@ a.menu-button:hover{
 	margin:			0;
 	width:			100%;
 	padding-left:	0;
-	display:		table;
-	table-layout:	fixed;
 	clear:			both;
 	position:		relative;
 	z-index:		1;
 	
 	li{
 		list-style: 	none;
-		display:		table-cell;
-			
+		display: inline-block;
 	}
 	
 	.disabled{
-		visibility:		hidden;
+		display:none;
 	}
 }
+
 
 
 #page {
@@ -236,6 +234,12 @@ a.menu-button:hover{
 	.pagination{
 		white-space:	nowrap;
 	}	
+}
+
+.nav-top,
+.nav-bottom{
+	border-bottom:	1px solid #DADADA;
+	border-top:	1px solid #DADADA;
 }
 
 
@@ -328,10 +332,19 @@ a.menu-button:hover{
 			content:' ';
 		}
 	}
-	
-	.result-pagination li{
-		
+
+
+	.result-pagination{
+		display:		table;
+		table-layout:	fixed;
+		li{
+			display:	table-cell;
+		}
 	}
+
+
+	
+
 	
 	.jump-to-page{
 		margin-top:	0;

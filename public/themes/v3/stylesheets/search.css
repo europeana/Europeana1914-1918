@@ -111,16 +111,14 @@ a.menu-button:hover {
   margin: 0;
   width: 100%;
   padding-left: 0;
-  display: table;
-  table-layout: fixed;
   clear: both;
   position: relative;
   z-index: 1; }
   .result-pagination li {
     list-style: none;
-    display: table-cell; }
+    display: inline-block; }
   .result-pagination .disabled {
-    visibility: hidden; }
+    display: none; }
 
 #page {
   outline: medium none !important;
@@ -177,6 +175,11 @@ a.menu-button:hover {
   .nav > div .pagination {
     white-space: nowrap; }
 
+.nav-top,
+.nav-bottom {
+  border-bottom: 1px solid #DADADA;
+  border-top: 1px solid #DADADA; }
+
 .nav-numbers {
   text-align: center;
   white-space: nowrap;
@@ -232,6 +235,12 @@ a.menu-button:hover {
     content: ' '; }
   .nav .spaced:after {
     content: ' '; }
+
+  .result-pagination {
+    display: table;
+    table-layout: fixed; }
+    .result-pagination li {
+      display: table-cell; }
 
   .jump-to-page {
     margin-top: 0; }
