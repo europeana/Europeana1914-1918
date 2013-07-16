@@ -25,7 +25,6 @@ module Europeana
         # @return [Hash] Record object.
         # @see http://www.europeana.eu/portal/api-record-json.html Documentation
         #   of response object.
-        # @todo Handle errors from API.
         #
         def get(record_id)
           response = JSON.parse(Net::HTTP.get(uri(record_id)))
