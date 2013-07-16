@@ -118,6 +118,15 @@ class Attachment < ActiveRecord::Base
   end
   
   ##
+  # Returns true if the attached file is audio.
+  #
+  # @return [Boolean]
+  #
+  def audio?
+    !(file.content_type =~ /^audio\//).nil?
+  end
+  
+  ##
   # Returns true if the attached file is a PDF.
   #
   # @return [Boolean]
