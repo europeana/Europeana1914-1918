@@ -53,7 +53,7 @@ class EuropeanaController < ApplicationController
   def show
     europeana_id = '/' + params[:dataset_id] + '/' + params[:record_id]
     
-    cache_key = "europeana/record" + europeana_id
+    cache_key = "europeana/api/record" + europeana_id
     if fragment_exist?(cache_key)
       @object = YAML::load(read_fragment(cache_key))
     else
@@ -104,7 +104,7 @@ private
     
     quoted_terms = terms.add_quote_marks
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
-    cache_key = "europeana/api/#{quoted_terms_digest}/count#{count.to_s}-page#{page.to_s}"
+    cache_key = "europeana/api/search/#{quoted_terms_digest}/count#{count.to_s}-page#{page.to_s}"
     
     if options[:facets].blank? && fragment_exist?(cache_key)
       response = YAML::load(read_fragment(cache_key))

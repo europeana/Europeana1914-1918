@@ -16,10 +16,10 @@ namespace :cache do
   end
   
   namespace :europeana do
-    desc "Clears cached Europeana API search results."
+    desc "Clears cached Europeana API data."
     task :clear => :environment do
-      puts "Clearing cached Europeana API search results...\n"
-      ActionController::Base.new.expire_fragment(/views\/europeana\//)
+      puts "Clearing cached Europeana API data...\n"
+      ActionController::Base.new.expire_fragment(/^views\/europeana\//)
     end
   end
   
@@ -27,7 +27,19 @@ namespace :cache do
     desc "Clears cached Bing Translate API results."
     task :clear => :environment do
       puts "Clearing cached Bing Translate API results...\n"
-      ActionController::Base.new.expire_fragment(/views\/bing\//)
+      ActionController::Base.new.expire_fragment(/^views\/bing\//)
+    end
+  end
+  
+   namespace :search_results do
+    desc "Clears cached rendered search results."
+    task :clear => :environment do
+      puts "Clearing cached rendered search results...\n"
+        I18n.available_locales.each do |locale|
+          [ "v2", "v3" ].each do |theme|
+            ActionController::Base.new.expire_fragment(Regexp.new("^views/#{theme}/#{locale}/search/result/"))
+          end
+        end
     end
   end
 end
