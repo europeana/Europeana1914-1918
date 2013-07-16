@@ -14,7 +14,7 @@
 	transition: .2s all ease;		
 	
 	width:		100%;
-	padding:	1em;
+	padding:	1em 1em 1em 0;
 	
 	display:	block;	
 	position:	relative;
@@ -103,7 +103,7 @@
 	background: #333;
 	color:      #fff;
 	position:	relative;
-	top:		-0.25em;
+	top:		0.25em;
 	border-radius:	1em 1em 0 0;
 }
 
@@ -362,7 +362,11 @@ a.menu-button:hover{
 	
 	.container{
 		display: table;
+		
+		/*
 		border-spacing: 1em;
+		background-color:red;
+		*/
 	}
 
 	.nav-top,
@@ -375,6 +379,11 @@ a.menu-button:hover{
 		display: table-cell;
 		float:   none;
 		padding: 0;	
+	}
+	
+	.nav,
+	#results{
+		margin-left: 1em;
 	}
 	
 	.off-canvas-navigation {
@@ -478,6 +487,11 @@ a.menu-button:hover{
 	.js [role="navigation"] {
 		display: block;
 		float:   left;
+	}
+
+	.nav,
+	#results{
+		margin-left: 0;
 	}
 	
 	/* end min-w buffer*/

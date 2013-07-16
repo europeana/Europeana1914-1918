@@ -10,9 +10,10 @@
 */
 /* No classes - only element selectors here */
 * {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box; }
+  /*	@include box-sizing(content-box); */
+  -webkit-box-sizing: padding-box;
+  -moz-box-sizing: padding-box;
+  box-sizing: padding-box; }
 
 html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1 {
   margin: 0;
@@ -27,8 +28,7 @@ html {
   overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  background-color: #DADADA;
-  padding: 0 1.25em; }
+  background-color: #DADADA; }
 
 body {
   background-color: #fff; }
@@ -43,6 +43,9 @@ footer, header, nav, section {
   display: block; }
 
 @media screen and (min-width: 48em) {
+  html {
+    padding: 0 1.25em; }
+
   body {
     max-width: 100em;
     margin: 0 auto; } }

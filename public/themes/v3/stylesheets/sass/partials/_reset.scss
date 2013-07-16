@@ -3,7 +3,8 @@
 @import "compass/css3/box-sizing";
 
 *{
-	@include box-sizing(content-box);
+/*	@include box-sizing(content-box); */
+	@include box-sizing(padding-box);
 }
 
 
@@ -22,7 +23,6 @@ html {
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust:     100%;
 	background-color:         #DADADA;
-	padding:                  0 1.25em;
 }
 
 
@@ -43,6 +43,11 @@ footer, header, nav, section {
 }
 
 @media screen and (min-width: 48em) {	
+
+	html {
+		padding:                  0 1.25em;
+	}
+
 	body {
 		max-width:	100em;
 		margin:		0 auto;
