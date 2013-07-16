@@ -35,11 +35,19 @@ namespace :cache do
     desc "Clears cached rendered search results."
     task :clear => :environment do
       puts "Clearing cached rendered search results...\n"
-        I18n.available_locales.each do |locale|
-          [ "v2", "v3" ].each do |theme|
-            ActionController::Base.new.expire_fragment(Regexp.new("^views/#{theme}/#{locale}/search/result/"))
-          end
+      I18n.available_locales.each do |locale|
+        [ "v2", "v3" ].each do |theme|
+          ActionController::Base.new.expire_fragment(Regexp.new("^views/#{theme}/#{locale}/search/result/"))
         end
+      end
+    end
+  end
+  
+  namespace :oembed do
+    desc "Clears cached oEmbed responses."
+    task :clear => :environment do
+      puts "Clearing cached oEmbed responses...\n"
+      ActionController::Base.new.expire_fragment(/^views\/oembed\/response\//)
     end
   end
 end
