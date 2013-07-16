@@ -14,7 +14,7 @@
           <%- cache search_result_fragment_key(result) do -%>
             <%- record = search_result_to_edm(result) -%>
             <%- title = record['title'].blank? ? '' : record['title'].first -%>
-            <a href="<%= record['link'] %>" title="<%= title %>">
+            <a href="<%= local_edm_record_path(record['guid']) %>" title="<%= title %>">
               <%- if edm_preview = search_result_preview(record) -%>
                 <%= edm_preview %><br />
               <%- end -%>
