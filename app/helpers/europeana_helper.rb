@@ -69,6 +69,12 @@ module EuropeanaHelper
   # @return [String] HTML for the oEmbed resource
   #
   def oembed_html(edm_object)
+    # Fake SoundCloud aggregation
+    # TODO: Remove this!
+    if edm_object['type'] == 'SOUND'
+      edm_object['aggregations'].first['edmIsShownBy'] = 'http://soundcloud.com/piggj/introduction-to-world-war-i'
+    end
+    
     if edm_object['aggregations'] && url = edm_object['aggregations'].first['edmIsShownBy']
     
       cache_key = "oembed/response/" + Digest::MD5.hexdigest(url)
@@ -79,7 +85,7 @@ module EuropeanaHelper
         resource_fields = resource.fields
         controller.write_fragment(cache_key, resource_fields.to_yaml, :expires_in => 1.day)
       end
-    
+
       return resource_fields['html'] unless resource_fields.nil?
     end
     ''
