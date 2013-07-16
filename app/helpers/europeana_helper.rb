@@ -38,17 +38,26 @@ module EuropeanaHelper
     return nil unless proxy.has_key?(field_name)
     
     if proxy[field_name].has_key?(I18n.locale.to_s)
-      field_value = proxy[field_name][I18n.locale.to_s].first
-      logger.info("locale #{field_name} => #{field_value}")
+      proxy[field_name][I18n.locale.to_s].first
     elsif proxy[field_name].has_key?("def") 
-      field_value = proxy[field_name]["def"].reject(&:empty?).first
-      logger.info("def #{field_name} => #{field_value}")
+      proxy[field_name]["def"].reject(&:empty?).first
     else
-      field_value = proxy[field_name].values.reject(&:empty?).join(',')
-      logger.info("full #{field_name} => #{field_value}")
+      proxy[field_name].values.reject(&:empty?).join(',')
     end
-    
-    field_value
+  end
+  
+  ##
+  # Gets the URL path to display an EDM record on this site.
+  #
+  # @param [String] record_guid guid field of the EDM record
+  # @return [String] Local URL path
+  #
+  def local_edm_record_path(record_guid)
+    if guid_match = /http:\/\/www.europeana.eu\/portal\/record\/([^\/]+)\/([^\/]+)\.html/.match(record_guid)
+      show_europeana_path(:dataset_id => guid_match[1], :record_id => guid_match[2])
+    elsif guid_match = /\/contributions\/(\d+)$/.match(record_guid)
+      contribution_path(:id => guid_match[1])
+    end
   end
   
   ##
@@ -59,8 +68,8 @@ module EuropeanaHelper
   # @param [Hash] Representation of an EDM object
   # @return [String] HTML for the oEmbed resource
   #
-  def oembed_html(edmObject)
-    if edmObject['aggregations'] && url = edmObject['aggregations'].first['edmIsShownBy']
+  def oembed_html(edm_object)
+    if edm_object['aggregations'] && url = edm_object['aggregations'].first['edmIsShownBy']
     
       cache_key = "oembed/response/" + Digest::MD5.hexdigest(url)
       if controller.fragment_exist?(cache_key)
