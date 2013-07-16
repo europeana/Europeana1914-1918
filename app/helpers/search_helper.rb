@@ -85,9 +85,9 @@ module SearchHelper
   end
   
   def search_result_to_edm(result)
-    if result.respond_to?(:to_edm_result)
-      result.to_edm_result
-    elsif result.is_a?(Hash)
+    if controller.controller_name == 'contributions'
+      result.to_edm_result(:contribution_url => lambda { |c| contribution_url(c) })
+    elsif controller.controller_name == 'europeana'
       result
     else
       raise ArgumentError, "Unable to convert search result to EDM: #{result.class}"

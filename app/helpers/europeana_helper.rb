@@ -55,7 +55,7 @@ module EuropeanaHelper
   def local_edm_record_path(record_guid)
     if guid_match = /http:\/\/www.europeana.eu\/portal\/record\/([^\/]+)\/([^\/]+)\.html/.match(record_guid)
       show_europeana_path(:dataset_id => guid_match[1], :record_id => guid_match[2])
-    elsif guid_match = /^\/contributions\/(\d+)/.match(record_guid)
+    elsif guid_match = /\/contributions\/(\d+)$/.match(record_guid)
       contribution_path(:id => guid_match[1])
     end
   end

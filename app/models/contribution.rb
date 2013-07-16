@@ -230,6 +230,7 @@ class Contribution < ActiveRecord::Base
   # @option options [Integer] :batch_size (50) export in batches of this size; 
   #   passed to {#find_each}
   # @yieldreturn [Contribution] exported contributions
+  #
   def self.export(options)
     options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size)
     options.reverse_merge!(:batch_size => 50)
@@ -278,13 +279,16 @@ class Contribution < ActiveRecord::Base
   ##
   # Converts the contribution's metadata to EDM
   #
-  # @see MetadataRecord#to_edm
-  # @todo Replace hard-coded URLs with helper call. 
-  #   See +ContributionsHelper#localeless_contribution_path+
+  # @param [Hash] options Record generation options
+  # @option options [Proc] :contribution_url Proc to generate contribution URL,
+  #   passed the contribution as its parameter.
+  # @option options [Proc] :attachment_url Proc to generate attachment URLs,
+  #   passed the contribution and an attachment as its parameters.
+  # @return (see MetadataRecord#to_edm)
   #
-  def to_edm
+  def to_edm(options = {})
     metadata.to_edm.reverse_merge( {
-      "providedCHOs" => [ { :about => "http://www.europeana1914-1918.eu/contributions/#{id}" } ],
+      "providedCHOs" => [ { :about => options[:contribution_url].call(self) } ],
       "type" => "TEXT",
       "title" => [ title ],
       "dcDate" => { "def" => [ created_at ] },
@@ -293,19 +297,30 @@ class Contribution < ActiveRecord::Base
       "dcType" => { "def" => [ "Text" ] },
       "dctermsCreated" => { "def" => [ created_at ] },
       "dctermsHasPart" => { "def" => attachments.collect { |attachment|
-        "http://www.europeana1914-1918.eu/contributions/#{id}/attachments/#{attachment.id}"
+        options[:attachment_url].call(self, attachment)
       } },
       "edmType" => { "def" => [ "TEXT" ] }
     } )
   end
   
-  def to_edm_result
+  ##
+  # Returns a partial EDM record for the contribution, for use in search results.
+  #
+  # @param [Hash] options Record generation options
+  # @option options [Proc] :contribution_url Proc to generate contribution URL,
+  #   passed the contribution as its parameter.
+  # @return [Hash] Partial EDM record for this contribution
+  #
+  def to_edm_result(options = {})
+    root_url = options[:root_url].to_s
+    root_url = root_url[0..-2] if root_url[-1] == '/'
+    
     {
       "id"                  => id,
       "title"               => [ title ],
       "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
       "dctermsAlternative"  => [ metadata.fields['alternative'] ],
-      "guid"                => "/contributions/#{id}"
+      "guid"                => options[:contribution_url].call(self)
     }
   end
   
