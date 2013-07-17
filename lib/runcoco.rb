@@ -11,6 +11,7 @@ module RunCoCo
   autoload :Dropbox,                      'runcoco/dropbox'
   autoload :FlashSessionCookieMiddleware, 'runcoco/flash_session_cookie_middleware'
   autoload :Logger,                       'runcoco/logger'
+  autoload :OEmbed,                       'runcoco/oembed'
 
   class FieldNameInvalid < Exception; end # :nodoc:
   class BadRequest < Exception; end # :nodoc:
