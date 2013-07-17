@@ -31,6 +31,8 @@ module RunCoCo
   #     Google Maps API key. If not set, Google Maps can not be used for
   #     inputting geographical location data. Sign up at
   #     <http://code.google.com/apis/maps/signup.html>. Default is no key.
+  # - google_api_email:
+  #     Google API service account email address.
   # - ui_locales:
   #     Locales to link to in the page layout, in the order given. Default is
   #     none.
@@ -40,24 +42,25 @@ module RunCoCo
     include Singleton
     
     DEFAULTS = {
-      :site_name => 'Run a Community Collection',
-      :relative_url_root => '',
-      :registration_required => true,
-      :publish_contributions => true,
+      :site_name                      => 'Run a Community Collection',
+      :relative_url_root              => '',
+      :registration_required          => true,
+      :publish_contributions          => true,
       :contribution_approval_required => true,
-      :max_upload_size => 5.megabytes,
-      :allowed_upload_extensions => [],
-      :gmap_api_key => nil,
-      :google_analytics_key => nil,
-      :bing_translate_key => nil,
-      :bing_client_id => nil,
-      :bing_client_secret => nil,
-      :sharethis_id => nil,
-      :uploadify => false,
-      :ui_locales => nil,
-      :banner_active => false,
-      :banner_text => '',
-      :search_engine => :active_record
+      :max_upload_size                => 5.megabytes,
+      :allowed_upload_extensions      => [],
+      :gmap_api_key                   => nil,
+      :google_analytics_key           => nil,
+      :google_api_email               => nil,
+      :bing_translate_key             => nil,
+      :bing_client_id                 => nil,
+      :bing_client_secret             => nil,
+      :sharethis_id                   => nil,
+      :uploadify                      => false,
+      :ui_locales                     => nil,
+      :banner_active                  => false,
+      :banner_text                    => '',
+      :search_engine                  => :active_record
     }
 
     DEFAULTS.each_key do |name|
