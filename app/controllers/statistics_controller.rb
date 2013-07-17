@@ -12,14 +12,14 @@ class StatisticsController < ApplicationController
   def index
     user = legato_user
     
-    @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
-#    @profile = user.profiles.select { |profile| profile.web_property_id == "UA-22297409-1" }.first
+#    @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
+    @profile = user.profiles.select { |profile| profile.web_property_id == "UA-22297409-1" }.first
     
     @results = {}
     @interval_date_params = interval_date_params
     
     @interval_date_params.each_pair do |interval, date_params|
-      @results[interval] = @profile.google_analytics.results(date_params)
+      @results[interval] = GoogleAnalytics.results(@profile, date_params)
     end
     
     # @todo Move labels into locale
