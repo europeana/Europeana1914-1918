@@ -62,6 +62,9 @@ RunCoCo::Application.routes.draw do
     match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
     match 'europeana/record/:dataset_id/:record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
 
+    # Public usage statistics
+    resources :statistics, :only => :index
+
     # Admin routes
     match 'admin' => 'admin#index', :as => 'admin_root'
     namespace :admin do
