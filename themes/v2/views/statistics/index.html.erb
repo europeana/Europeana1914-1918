@@ -18,8 +18,8 @@
       <%- @results.each_pair do |key, interval| -%>
         <tr>
           <th scope="row"><%= @labels[key] %></th>
-          <td><%= l(@interval_date_params[key][:start_date], :format => :short) %></td>
-          <td><%= l(@interval_date_params[key][:end_date], :format => :short) %></td>
+          <td><%= l(@interval_date_params[key][:start_date], :format => '%d/%m/%Y %H:%M') %></td>
+          <td><%= l(@interval_date_params[key][:end_date], :format => '%d/%m/%Y %H:%M') %></td>
           <td><%= number_with_delimiter(interval.totals_for_all_results['visits']) %></td>
           <td><%= distance_of_time_in_words(interval.totals_for_all_results['timeonsite']) %></td>
         </tr>
