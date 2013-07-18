@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.20'
 
-gem 'aegis', '~> 2.5.0'
+gem 'aegis', '~> 3.0.1', :git => 'https://github.com/JohnB/aegis.git', :ref => 'b1853a5'
 gem 'cocaine', '~> 0.3.2'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'
 gem 'bing_translator', '~> 3.0.0'
