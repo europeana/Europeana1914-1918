@@ -28,7 +28,7 @@ class StatisticsController < ApplicationController
         object_pageviews    = GoogleAnalytics.object_pageviews(@profile).results(date_params)
         @results[interval]  = {
           :visits           => unfiltered_results.totals_for_all_results['visits'],
-          :timeonsite       => unfiltered_results.totals_for_all_results['timeonsite'],
+          :avgTimeOnSite    => unfiltered_results.totals_for_all_results['avgTimeOnSite'],
           :object_pageviews => object_pageviews.totals_for_all_results['pageviews']
         }
       end
