@@ -7,13 +7,13 @@
   <%- @results.each_pair do |interval, statistics| -%>
   
     <div class="google-analytics-statistics">
-      <h3><%= @labels[interval] %></h3>
+      <h3><%= t interval, :scope => "views.statistics.index.intervals" %></h3>
       <ul>
-        <li>Start date: <%= l(@interval_date_params[interval][:start_date], :format => '%d/%m/%Y %H:%M') %></li>
-        <li>End date: <%= l(@interval_date_params[interval][:end_date], :format => '%d/%m/%Y %H:%M') %></li>
-        <li>Visits: <%= number_with_delimiter(statistics[:visits]) %></li>
-        <li>Time on site: <%= distance_of_time_in_words(statistics[:timeonsite]) %></li>
-        <li>Object page views: <%= number_with_delimiter(statistics[:object_pageviews]) %></li>
+        <li>Start date: <%= l @interval_date_params[interval][:start_date], :format => '%d/%m/%Y %H:%M' %></li>
+        <li>End date: <%= l @interval_date_params[interval][:end_date], :format => '%d/%m/%Y %H:%M' %></li>
+        <li><%= t 'views.statistics.index.metrics.visits' %>: <%= number_with_delimiter(statistics[:visits]) %></li>
+        <li><%= t 'views.statistics.index.metrics.timeonsite' %>: <%= distance_of_time_in_words(statistics[:timeonsite]) %></li>
+        <li><%= t 'views.statistics.index.metrics.object_pageviews' %>: <%= number_with_delimiter(statistics[:object_pageviews]) %></li>
       </ul>
     </div>
   

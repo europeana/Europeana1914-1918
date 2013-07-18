@@ -35,16 +35,6 @@ class StatisticsController < ApplicationController
       
       write_fragment(cache_key, @results.to_yaml, :expires_in => 1.week)
     end
-    
-    # @todo Move labels into locale
-    @labels = {
-      :this_week    => "This week",
-      :last_week    => "Last week",
-      :this_month   => "This month",
-      :last_month   => "Last month",
-      :last_quarter => "Last quarter",
-      :last_year    => "Last year"
-    }
   end
   
 private
