@@ -8,24 +8,32 @@ class StatisticsController < ApplicationController
   before_filter :configured?
 
   # GET /statistics
-  # @todo Remove the hard-coded GA key
+  # @todo Remove the hard-coded GA web property ID
   def index
-    user = legato_user
-    
-#    @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
-    @profile = user.profiles.select { |profile| profile.web_property_id == "UA-22297409-1" }.first
-    
-    @results = {}
     @interval_date_params = interval_date_params
     
-    @interval_date_params.each_pair do |interval, date_params|
-      unfiltered_results  = GoogleAnalytics.results(@profile, date_params)
-      object_pageviews    = GoogleAnalytics.object_pageviews(@profile).results(date_params)
-      @results[interval]  = {
-        :visits           => unfiltered_results.totals_for_all_results['visits'],
-        :timeonsite       => unfiltered_results.totals_for_all_results['timeonsite'],
-        :object_pageviews => object_pageviews.totals_for_all_results['pageviews']
-      }
+    cache_key = "google/api/analytics/results"
+    if fragment_exist?(cache_key)
+      @results = YAML::load(read_fragment(cache_key))
+    else
+      user = legato_user
+      
+  #    @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
+      @profile = user.profiles.select { |profile| profile.web_property_id == "UA-22297409-1" }.first
+      
+      @results = {}
+      
+      @interval_date_params.each_pair do |interval, date_params|
+        unfiltered_results  = GoogleAnalytics.results(@profile, date_params)
+        object_pageviews    = GoogleAnalytics.object_pageviews(@profile).results(date_params)
+        @results[interval]  = {
+          :visits           => unfiltered_results.totals_for_all_results['visits'],
+          :timeonsite       => unfiltered_results.totals_for_all_results['timeonsite'],
+          :object_pageviews => object_pageviews.totals_for_all_results['pageviews']
+        }
+      end
+      
+      write_fragment(cache_key, @results.to_yaml, :expires_in => 1.week)
     end
     
     # @todo Move labels into locale

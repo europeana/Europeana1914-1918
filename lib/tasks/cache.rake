@@ -31,7 +31,7 @@ namespace :cache do
     end
   end
   
-   namespace :search_results do
+  namespace :search_results do
     desc "Clears cached rendered search results."
     task :clear => :environment do
       puts "Clearing cached rendered search results...\n"
@@ -48,6 +48,14 @@ namespace :cache do
     task :clear => :environment do
       puts "Clearing cached oEmbed responses...\n"
       ActionController::Base.new.expire_fragment(/^views\/oembed\/response\//)
+    end
+  end
+  
+  namespace :google_analytics do
+    desc "Clears cached Google Analytics API results."
+    task :clear => :environment do
+      puts "Clearing cached Google Analytics API results...\n"
+      ActionController::Base.new.expire_fragment(/^views\/google\/api\/analytics\/results$/)
     end
   end
 end
