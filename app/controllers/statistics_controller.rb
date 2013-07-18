@@ -5,8 +5,6 @@ require 'google/api_client'
 #
 class StatisticsController < ApplicationController
 
-  before_filter :configured?
-
   # GET /statistics
   # @todo Remove the hard-coded GA web property ID
   def index
@@ -16,6 +14,8 @@ class StatisticsController < ApplicationController
     if fragment_exist?(cache_key)
       @results = YAML::load(read_fragment(cache_key))
     else
+      raise RuntimeError unless configured?
+      
       user = legato_user
       
   #    @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
@@ -35,6 +35,9 @@ class StatisticsController < ApplicationController
       
       write_fragment(cache_key, @results.to_yaml, :expires_in => 1.week)
     end
+    
+  rescue
+    # Views display a "no statistics available" message if @results is empty
   end
   
 private
@@ -91,7 +94,7 @@ private
   def configured?
     File.exists?(google_api_key_filename) && 
       RunCoCo.configuration.google_api_email.present? &&
-      RunCoCo.configuration.google_analytics_key
+      RunCoCo.configuration.google_analytics_key.present?
   end
   
   ##

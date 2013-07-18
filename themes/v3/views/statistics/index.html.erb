@@ -4,19 +4,25 @@
   
   <h2><%= @title %></h2>
   
-  <%- @results.each_pair do |interval, statistics| -%>
+  <%- if @results.present? -%>
   
-    <div class="google-analytics-statistics">
-      <h3><%= t interval, :scope => "views.statistics.index.intervals" %></h3>
-      <ul>
-        <li>Start date: <%= l @interval_date_params[interval][:start_date], :format => '%d/%m/%Y %H:%M' %></li>
-        <li>End date: <%= l @interval_date_params[interval][:end_date], :format => '%d/%m/%Y %H:%M' %></li>
-        <li><%= t 'views.statistics.index.metrics.visits' %>: <%= number_with_delimiter(statistics[:visits]) %></li>
-        <li><%= t 'views.statistics.index.metrics.timeonsite' %>: <%= distance_of_time_in_words(statistics[:timeonsite]) %></li>
-        <li><%= t 'views.statistics.index.metrics.object_pageviews' %>: <%= number_with_delimiter(statistics[:object_pageviews]) %></li>
-      </ul>
-    </div>
-  
+    <%- @results.each_pair do |interval, statistics| -%>
+    
+      <div class="google-analytics-statistics">
+        <h3><%= t interval, :scope => "views.statistics.index.intervals" %></h3>
+        <ul>
+          <li>Start date: <%= l @interval_date_params[interval][:start_date], :format => '%d/%m/%Y %H:%M' %></li>
+          <li>End date: <%= l @interval_date_params[interval][:end_date], :format => '%d/%m/%Y %H:%M' %></li>
+          <li><%= t 'views.statistics.index.metrics.visits' %>: <%= number_with_delimiter(statistics[:visits]) %></li>
+          <li><%= t 'views.statistics.index.metrics.timeonsite' %>: <%= distance_of_time_in_words(statistics[:timeonsite]) %></li>
+          <li><%= t 'views.statistics.index.metrics.object_pageviews' %>: <%= number_with_delimiter(statistics[:object_pageviews]) %></li>
+        </ul>
+      </div>
+    
+    <%- end -%>
+    
+  <%- else -%>
+    <p><%= t 'views.statistics.index.no_results' %></p>
   <%- end -%>
   
 </div>
