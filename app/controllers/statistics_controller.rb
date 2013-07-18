@@ -19,7 +19,13 @@ class StatisticsController < ApplicationController
     @interval_date_params = interval_date_params
     
     @interval_date_params.each_pair do |interval, date_params|
-      @results[interval] = GoogleAnalytics.results(@profile, date_params)
+      unfiltered_results  = GoogleAnalytics.results(@profile, date_params)
+      object_pageviews    = GoogleAnalytics.object_pageviews(@profile).results(date_params)
+      @results[interval]  = {
+        :visits           => unfiltered_results.totals_for_all_results['visits'],
+        :timeonsite       => unfiltered_results.totals_for_all_results['timeonsite'],
+        :object_pageviews => object_pageviews.totals_for_all_results['pageviews']
+      }
     end
     
     # @todo Move labels into locale
