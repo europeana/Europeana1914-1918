@@ -5,6 +5,8 @@ module RunCoCo
   # Available settings:
   # - site_name: 
   #     Website name. Default is 'Run a Community Collection'.
+  # - site_url:
+  #     Full URL at which the site is accessed.
   # - relative_url_root:
   #     Relative URL root, e.g. '/RunCoCo'. Default is '', i.e. application is 
   #     installed at root URL. Only used by JavaScripts.
@@ -43,6 +45,7 @@ module RunCoCo
     
     DEFAULTS = {
       :site_name                      => 'Run a Community Collection',
+      :site_url                       => '',
       :relative_url_root              => '',
       :registration_required          => true,
       :publish_contributions          => true,
