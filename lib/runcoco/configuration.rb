@@ -72,7 +72,7 @@ module RunCoCo
     end
     
     validates_numericality_of :max_upload_size, :greater_than => 0
-    validates_format_of :relative_url_root , :with => /\A(\/\w+)?\Z/
+    validates_format_of :site_url , :with => /[^\/]$/ # No trailing slash
     validates_inclusion_of :search_engine, :in => [ :active_record, :solr, :sphinx ]
     
     def initialize
