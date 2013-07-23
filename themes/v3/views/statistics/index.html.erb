@@ -6,6 +6,17 @@
   
   <%- if @results.present? -%>
   
+  <style type="text/css">
+    .google-analytics-statistics {
+      float: left;
+      width: 30%;
+      background-color: #EEEEEE;
+      border: 1px solid #DADADA;
+      margin: 0 1% 1% 0;
+      padding: 1%;
+    }
+  </style>
+  
     <%- @results.each_pair do |interval, statistics| -%>
     
       <div class="google-analytics-statistics">
