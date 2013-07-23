@@ -8,6 +8,7 @@
   @javascripts[:lightbox] = true
   @javascripts[:translate] = true
   @javascripts[:contributions_show] = true
+  @javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
   @javascripts[:video] = @contribution.attachments.select(&:video?).present?
   @title = contribution_title(@contribution)
   

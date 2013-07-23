@@ -464,12 +464,20 @@
 					$elm = jQuery(this),
 					$additional_info_link = $elm.find('.pp_description a').first(),
 					$pp_inline_video = $elm.find('.pp_inline .video-element'),
-					$video;
+					$pp_inline_audio = $elm.find('.pp_inline .audio-element'),
+					$video,
+					$audio;
 
 			if ( $pp_inline_video.length > 0 ) {
 				$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
 				$video.insertAfter( $pp_inline_video );
 				var player = new MediaElementPlayer( $video );
+			}
+
+			if ( $pp_inline_audio.length > 0 ) {
+				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
+				$audio.insertAfter( $pp_inline_audio );
+				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/v2/javascripts/com/mediaelementjs/' } );
 			}
 
 			if ( self.$metadata[self.current] ) {
@@ -530,8 +538,17 @@
 				ppVideoOptions.default_height = video_link.data('video-height');
 				jQuery(this).prettyPhoto(ppVideoOptions);
 			});
+			
+			jQuery("a[rel^='prettyPhoto'].audio").each(function() {
+				var ppAudioOptions = ppOptions;
+				var audio_link = jQuery(this);
 
-			jQuery("a[rel^='prettyPhoto']").not('.video').prettyPhoto(ppOptions);
+				ppAudioOptions.default_width = audio_link.data('audio-width');
+				ppAudioOptions.default_height = audio_link.data('audio-height');
+				jQuery(this).prettyPhoto(ppAudioOptions);
+			});
+
+			jQuery("a[rel^='prettyPhoto']").not('.video,.audio').prettyPhoto(ppOptions);
 		},
 
 		removeLightboxLinks : function() {
