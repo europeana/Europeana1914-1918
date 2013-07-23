@@ -52,6 +52,8 @@ taxonomy_terms.each_pair do |field_name, terms|
   puts "  #{field.title}:"
   terms.each do |term|
     puts "    #{term}"
-    TaxonomyTerm.create(:metadata_field_id => field.id, :term => term)
+    tt = TaxonomyTerm.new(:term => term)
+    tt.metadata_field = field
+    tt.save
   end
 end
