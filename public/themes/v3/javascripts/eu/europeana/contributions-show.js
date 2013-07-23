@@ -10,7 +10,8 @@
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
 		? false
 		: true,
-	
+		pdf_viewer = add_lightbox,
+		$contributions_featured = jQuery('#contributions-featured'),
 	
 	carousels = {
 		
@@ -643,6 +644,23 @@
 		
 	},
 	
+	pdf = {
+		handleClick : function( evt ) {
+			var $elm = jQuery(this),
+				destination_url;
+
+			destination_url = '/contributions/' + $elm.data('contribution-id') + '/attachments/' + $elm.data('attachment-id') + '?layout=0';
+			$elm.attr( 'href', destination_url );
+		},
+
+		init : function () {
+			if ( !pdf_viewer ) {
+				return;
+			}
+
+			$contributions_featured.on( 'click', '.pdf', pdf.handleClick );
+		}
+	},
 	
 	truncate = {
 		
@@ -670,6 +688,7 @@
 		carousels.init();
 		map.init();
 		lightbox.init();
+		pdf.init();
 		
 		js.loader.loadScripts([{
 			file : 'accordion-tabs.js',
