@@ -8,12 +8,7 @@
   @javascripts[:lightbox] = true
   @javascripts[:translate] = true
   @javascripts[:contributions_show] = true
-  if @contribution.attachments.select { |a| a.file_content_type == 'application/pdf' }.present?
-    @javascripts[:pdf] = true
-  end
-  if @contribution.attachments.select { |a| a.video? }.present?
-    @javascripts[:video] = true
-  end
+  @javascripts[:video] = @contribution.attachments.select(&:video?).present?
   @title = contribution_title(@contribution)
   
 %>
