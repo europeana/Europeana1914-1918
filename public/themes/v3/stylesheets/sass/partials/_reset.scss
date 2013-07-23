@@ -3,8 +3,7 @@
 @import "compass/css3/box-sizing";
 
 *{
-/*	@include box-sizing(content-box); */
-	@include box-sizing(padding-box);
+	@include box-sizing(border-box);
 }
 
 
@@ -17,12 +16,21 @@ html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1{
 	font:       inherit;
 }
 
+
+h1, h2, h3, h4,
+ul,
+menu,
+dir{
+	-webkit-margin-before: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after:  0;
+}
+
 html {
 	font-size:                100%;
 	overflow-y:               scroll;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust:     100%;
-	background-color:         #DADADA;
 }
 
 
@@ -31,7 +39,8 @@ body{
 }
 
 img{
-	max-width:	100%;
+	max-width:	  100%;
+	border-style: none;
 }
 
 ul{
@@ -45,7 +54,6 @@ footer, header, nav, section {
 @media screen and (min-width: 48em) {	
 
 	html {
-		padding:                  0 1.25em;
 	}
 
 	body {
@@ -66,7 +74,8 @@ p {
 }
 
 a {
-	color: #0075FF;
+	color:           #2ba6cb;
+	cursor:          pointer;
 	text-decoration: none;
 	@include transition(color, 500ms, ease-out);
 }

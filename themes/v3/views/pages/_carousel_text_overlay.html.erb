@@ -1,15 +1,52 @@
-<div class="carousel-intro shadow-panel <%= mobile ? 'show-on-phones' : 'hide-on-phones' %> ">
+<%
+  if local_assigns[:url].nil?
+    url = search_contributions_path 
+  end
+  
+  if local_assigns[:count].nil?
+    count = false
+  end
+%>
+
+
+<div class="carousel-intro <%= mobile ? 'show-on-phones' : 'hide-on-phones' %> ">
+
+<style type="text/css">
+
+
+	.carousel-intro #q{
+		border:           1px solid #cccccc;
+		font-size:        0.9em;
+		padding:          0.5em;
+		background-image: none;
+	}
+	
+</style>
+
 
 	<div class='content'>
 
-		<h2><%= (docTitle).inner_html %></h2>
+		<h4><%= (docTitle).inner_html %></h4>
 	
 		<%= raw((doc).to_html ) %>
 
+
+
+<%#  	<form accept-charset="UTF-8" action="/en/contributions/search" class="" id="search" method="get">			%>
+<%#  		<input id="q" name="q" placeholder="Search Europeana 1914-1918" type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list">		%>
+<%#  	</form>				%>
+
+		
+		<%= form_tag( url, { :method => :get, :id => 'search', :class =>  current_page?(home_path) ? 'landing' : ''  }) do %>
+			<input id="q" name="q" placeholder="Search Europeana 1914-1918" type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list">
+		<% end %>
+		
+		
 		
 		<div class='index-call-to-action'>
 			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'>Explore</a><a href='<%= page_path('explore') %>' class='button'>Contribute</a>
 		</div>
+
 		
 	</div>		
 	

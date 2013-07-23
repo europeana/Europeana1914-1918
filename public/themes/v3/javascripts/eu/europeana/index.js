@@ -2,21 +2,13 @@
 	
 	'use strict';
 	
-	/*
-	$('#index-featured').imagesLoaded(function() {
-		this.rCarousel();
-	});
-	*/	
 	
 	$('#news-articles').readMore({ read_more_link : '#read-more' });
-
-	
-	
 
 
 	/* event debouncing () */
 	/* Andy: TODO move this into its own file */
-
+	/*
 	(function($,sr){
 
 		var debounce = function (func, threshold, execAsap) {
@@ -45,20 +37,18 @@
 		jQuery.fn['euScroll'] = function(fn){	return fn ? this.bind('scroll', debounce(fn)) : this.trigger(sr); };
 
 	})(jQuery,'euRsz');
+	*/
 
-
-
+	/*
 	var minGutterWidth		= 8;
 	var cellWidth			= 235;
 	
 	var masonryResize = function(){
 		var self = $('#featured-categories');
 		
-		/* Featured category images are always the same size, so a fixed column width is always returned.
-		 * 
-		 * This function is used not to calculate the column width, but to force the gutterWidth to update according to amount of columns that are present.
-		 * 
-		 */
+		// Featured category images are always the same size, so a fixed column width is always returned.
+		  
+		// This function is used not to calculate the column width, but to force the gutterWidth to update according to amount of columns that are present.
 		
 		var ul		= self.find('ul');
 		var items	= self.find('.item');
@@ -111,7 +101,9 @@
 		}
 		self.masonry('reload');
 	};
+	*/
 
+	/*
 	$('#featured-categories').imagesLoaded(function() {
 		$(this).masonry({
 			itemSelector:  'li',
@@ -126,7 +118,8 @@
 		
 		masonryResize();
 	});
-
+	*/
+	
 	js.utils.initSearch();
 	
 }());

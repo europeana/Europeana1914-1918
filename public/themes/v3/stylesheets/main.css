@@ -10,10 +10,9 @@
 */
 /* No classes - only element selectors here */
 * {
-  /*	@include box-sizing(content-box); */
-  -webkit-box-sizing: padding-box;
-  -moz-box-sizing: padding-box;
-  box-sizing: padding-box; }
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
 
 html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1 {
   margin: 0;
@@ -23,18 +22,26 @@ html, body, div, footer, header, menu, nav, section, summary, ul, li, a, h1 {
   font-size: 100%;
   font: inherit; }
 
+h1, h2, h3, h4,
+ul,
+menu,
+dir {
+  -webkit-margin-before: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0; }
+
 html {
   font-size: 100%;
   overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  background-color: #DADADA; }
+  -ms-text-size-adjust: 100%; }
 
 body {
   background-color: #fff; }
 
 img {
-  max-width: 100%; }
+  max-width: 100%;
+  border-style: none; }
 
 ul {
   list-style: none; }
@@ -43,9 +50,6 @@ footer, header, nav, section {
   display: block; }
 
 @media screen and (min-width: 48em) {
-  html {
-    padding: 0 1.25em; }
-
   body {
     max-width: 100em;
     margin: 0 auto; } }
@@ -57,7 +61,8 @@ p {
   margin: 0 0 .9em 0; }
 
 a {
-  color: #0075FF;
+  color: #2ba6cb;
+  cursor: pointer;
   text-decoration: none;
   -webkit-transition: color, 500ms, ease-out;
   -moz-transition: color, 500ms, ease-out;
@@ -93,7 +98,7 @@ h1, h2, h3 {
 #header,
 #content,
 #footer {
-  padding: 0 1.25em; }
+  padding: 0 2.5em; }
 
 #content {
   padding-top: 2em; }
