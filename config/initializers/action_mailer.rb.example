@@ -1,1 +1,30 @@
-( Rails.configuration.action_mailer.default_url_options ||= {} ).merge!( :locale => I18n.locale )
+##
+# Configure ActionMailer to send emails for this site
+#
+RunCoCo::Application.configure do
+  # Delivery method
+  config.action_mailer.delivery_method = :sendmail
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :test
+  
+  # Sendmail settings
+  # config.action_mailer.sendmail_settings = {
+  #   :location => "/usr/sbin/sendmail",
+  #   :arguments => "-i -t"
+  # }
+  
+  # SMTP settings
+  # config.action_mailer.smtp_settings = {
+  #   :address => "localhost",
+  #   :port => 25,
+  #   :user_name => nil,
+  #   :password => nil,
+  #   :authentication => :login,          # :plain, :login or cram_md5
+  #   :enable_starttls_auto => false
+  # }
+  
+  # Set default options for URLs included in emails from site URL config setting
+  # set at /admin/config/edit. There should be no need to change this.
+  site_url = URI.parse(RunCoCo.configuration.site_url)
+  ( config.action_mailer.default_url_options ||= {} ).merge!( :locale => I18n.locale, :host => site_url.host, :port => site_url.port, :scheme => site_url.scheme )
+end
