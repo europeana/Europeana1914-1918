@@ -6,30 +6,27 @@ require 'google/api_client'
 class StatisticsController < ApplicationController
 
   # GET /statistics
-  # @todo Remove the hard-coded GA web property ID
   def index
-    @interval_date_params = interval_date_params
-    
     cache_key = "google/api/analytics/results"
+    
     if fragment_exist?(cache_key)
       @results = YAML::load(read_fragment(cache_key))
     else
       raise RuntimeError unless configured?
       
       user = legato_user
-      
-  #    @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
-      @profile = user.profiles.select { |profile| profile.web_property_id == "UA-22297409-1" }.first
-      
+      @profile = user.profiles.select { |profile| profile.web_property_id == RunCoCo.configuration.google_analytics_key }.first
       @results = {}
       
-      @interval_date_params.each_pair do |interval, date_params|
-        unfiltered_results  = GoogleAnalytics.results(@profile, date_params)
-        object_pageviews    = GoogleAnalytics.object_pageviews(@profile).results(date_params)
+      interval_date_params.each_pair do |interval, date_params|
+        unfiltered_results      = GoogleAnalytics.results(@profile, date_params)
+        object_pageviews        = GoogleAnalytics.object_pageviews(@profile).results(date_params)
+        europeana_pageviews     = GoogleAnalytics.europeana_pageviews(@profile).results(date_params)
         @results[interval]  = {
-          :visits           => unfiltered_results.totals_for_all_results['visits'],
-          :avgTimeOnSite    => unfiltered_results.totals_for_all_results['avgTimeOnSite'],
-          :object_pageviews => object_pageviews.totals_for_all_results['pageviews']
+          :visits               => unfiltered_results.totals_for_all_results['visits'],
+          :avgTimeOnSite        => unfiltered_results.totals_for_all_results['avgTimeOnSite'],
+          :object_pageviews     => object_pageviews.totals_for_all_results['pageviews'],
+          :europeana_pageviews  => europeana_pageviews.totals_for_all_results['pageviews'],
         }
       end
       
@@ -37,7 +34,11 @@ class StatisticsController < ApplicationController
     end
     
   rescue
-    # Views display a "no statistics available" message if @results is empty
+    # See errors in dev environment...
+    raise if Rails.configuration.consider_all_requests_local
+    
+    # ... otherwise, views display a "no statistics available" message if 
+    # @results is empty
   end
   
 private
@@ -50,14 +51,15 @@ private
   #
   def interval_date_params
     time          = Time.now
+    week_start    = Time.new(time.year, time.month, time.day, 0, 0, 0) - (time.wday - 1).send(:days) # Most recent Monday
     month_start   = Time.new(time.year, time.month, 1, 0, 0, 0)
     quarter       = ((time.month - 1) / 3) + 1
     quarter_start = Time.new(time.year, ((quarter - 1) * 3) + 1, 1, 0, 0, 0)
     year_start    = Time.new(time.year, 1, 1, 0, 0, 0)
     
     {
-      :this_week    => { :start_date => (time - 1.week), :end_date => time },
-      :last_week    => { :start_date => (time - 2.week), :end_date => time - 1.week },
+      :this_week    => { :start_date => week_start, :end_date => time },
+      :last_week    => { :start_date => week_start - 1.week, :end_date => week_start - 1 },
       :this_month   => { :start_date => month_start, :end_date => time },
       :last_month   => { :start_date => month_start - 1.month, :end_date => month_start - 1 },
       :last_quarter => { :start_date => quarter_start - 3.months, :end_date => quarter_start - 1 },
