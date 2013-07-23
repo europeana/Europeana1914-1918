@@ -105,7 +105,7 @@ module RunCoCo
 
     # Loads configuration settings from database
     def load
-      Setting.all.each do |setting|
+      Setting.where(:name => DEFAULTS.keys).each do |setting|
         @settings[setting.name.to_sym] = setting
       end
       typecast!
