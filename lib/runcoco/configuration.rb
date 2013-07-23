@@ -72,6 +72,7 @@ module RunCoCo
     end
     
     validates_numericality_of :max_upload_size, :greater_than => 0
+    validates_format_of :site_url , :with => URI.regexp(['https', 'http'])
     validates_format_of :site_url , :with => /[^\/]$/ # No trailing slash
     validates_inclusion_of :search_engine, :in => [ :active_record, :solr, :sphinx ]
     
