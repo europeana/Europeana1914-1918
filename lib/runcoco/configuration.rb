@@ -7,9 +7,6 @@ module RunCoCo
   #     Website name. Default is 'Run a Community Collection'.
   # - site_url:
   #     Full URL at which the site is accessed.
-  # - relative_url_root:
-  #     Relative URL root, e.g. '/RunCoCo'. Default is '', i.e. application is 
-  #     installed at root URL. Only used by JavaScripts.
   # - registration_required: 
   #     If +true+, people have to register a user account in order to
   #     contribute. Otherwise, people can contribute as guests. Default is
@@ -46,7 +43,6 @@ module RunCoCo
     DEFAULTS = {
       :site_name                      => 'Run a Community Collection',
       :site_url                       => '',
-      :relative_url_root              => '',
       :registration_required          => true,
       :publish_contributions          => true,
       :contribution_approval_required => true,
@@ -132,6 +128,21 @@ module RunCoCo
         end
       end
       result
+    end
+    
+    ##
+    # Gets the relative URL root at which the site is installed from the 
+    # configured URL root.
+    #
+    # Provided for backwards compatibility with superseded relative_url_root 
+    # setting.
+    #
+    # @return [String] Relative URL root of this site.
+    #
+    def relative_url_root
+      return '' unless self[:site_url].present?
+      
+      URI.parse(self[:site_url]).path
     end
     
     # Returns the value of a single configuration setting
