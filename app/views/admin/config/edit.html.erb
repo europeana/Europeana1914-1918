@@ -4,7 +4,6 @@
   <%= form.inputs :settings do %>
     <%= form.input :site_name, :label => I18n.t('settings.site_name'), :hint => I18n.t('formtastic.hints.settings.site_name') %>
     <%= form.input :site_url, :label => I18n.t('settings.site_url'), :hint => I18n.t('formtastic.hints.settings.site_url') %>
-    <%= form.input :relative_url_root, :label => I18n.t('settings.relative_url_root'), :hint => I18n.t('formtastic.hints.settings.relative_url_root') %>
     <%= form.input :registration_required, :as => :boolean, :include_blank => false, :label => I18n.t('settings.registration_required'), :hint => I18n.t('formtastic.hints.settings.registration_required') %>
     <%= form.input :publish_contributions, :as => :boolean, :include_blank => false, :label => I18n.t('settings.publish_contributions'), :hint => I18n.t('formtastic.hints.settings.publish_contributions') %>
     <%= form.input :contribution_approval_required, :as => :boolean, :include_blank => false, :label => I18n.t('settings.contribution_approval_required'), :hint => I18n.t('formtastic.hints.settings.contribution_approval_required') %>
