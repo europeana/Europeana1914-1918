@@ -22,9 +22,4 @@ RunCoCo::Application.configure do
   #   :authentication => :login,          # :plain, :login or cram_md5
   #   :enable_starttls_auto => false
   # }
-  
-  # Set default options for URLs included in emails from site URL config setting
-  # set at /admin/config/edit. There should be no need to change this.
-  site_url = URI.parse(RunCoCo.configuration.site_url)
-  ( config.action_mailer.default_url_options ||= {} ).merge!( :locale => I18n.locale, :host => site_url.host, :port => site_url.port, :scheme => site_url.scheme )
 end
