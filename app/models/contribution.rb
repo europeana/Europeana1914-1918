@@ -1,3 +1,5 @@
+require 'rdf/ntriples'
+
 ##
 # Contribution consisiting of files and metadata.
 #
@@ -322,6 +324,25 @@ class Contribution < ActiveRecord::Base
       "dctermsAlternative"  => [ metadata.fields['alternative'] ],
       "guid"                => options[:contribution_url].call(self)
     }
+  end
+  
+  ##
+  # Renders the contribution as RDF N-Triples for EDM
+  #
+  # @return [String] RDF N-Triples
+  #
+  def to_ntriples
+    graph = RDF::Graph.new << [ uri, RDF::DC.title, title ]
+    graph.dump(:ntriples)
+  end
+  
+  ##
+  # The URI of this contribution, for use by data aggregators
+  #
+  # @return [String] URI
+  #
+  def uri
+    @uri ||= "contributions/" + id.to_s
   end
   
   protected
