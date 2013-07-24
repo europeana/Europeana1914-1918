@@ -73,6 +73,7 @@ class ContributionsController < ApplicationController
     respond_to do |format|
       format.json  { render :json => { :result => 'success', :object => @contribution.to_edm } } 
       format.html
+      format.nt { render :text => @contribution.to_ntriples }
     end
   end
   
@@ -195,7 +196,7 @@ class ContributionsController < ApplicationController
       search = Contribution.search(:published, search_query, search_options)
     end
     
-    @results = @contributions = search.results #(!(search.is_a?(ThinkingSphinx::Search)) && search.respond_to?(:results)) ? search.results : search
+    @results = @contributions = search.results
     @facets = search.respond_to?(:facets) ? search.facets : nil
 
     if params.delete(:layout) == '0'

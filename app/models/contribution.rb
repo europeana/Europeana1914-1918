@@ -1,3 +1,5 @@
+require 'rdf/ntriples'
+
 ##
 # Contribution consisiting of files and metadata.
 #
@@ -322,6 +324,116 @@ class Contribution < ActiveRecord::Base
       "dctermsAlternative"  => [ metadata.fields['alternative'] ],
       "guid"                => options[:contribution_url].call(self)
     }
+  end
+  
+  ##
+  # Renders the contribution as RDF N-Triples
+  #
+  # @return [String]
+  #
+  def to_ntriples
+    to_rdf_graph.dump(:ntriples)
+  end
+  
+  ##
+  # Constructs an RDF graph to represent the contribution and its metadata
+  # as an ore:Aggregation of edm:ProvidedCHO and edm:WebResource.
+  #
+  # @return [RDF::Graph]
+  #
+  def to_rdf_graph
+    graph = RDF::Graph.new
+    
+    # edm:ProvidedCHO
+    puri = RDF::URI.parse(edm_provided_cho_uri)
+    
+    graph << [ puri, RDF.type, RDF::EDM.ProvidedCHO ]
+    graph << [ puri, RDF::DC.identifier, id.to_s ]
+    graph << [ puri, RDF::DC.title, title ]
+    graph << [ puri, RDF::DC.type, RDF::URI.parse("http://purl.org/dc/dcmitype/Text") ]
+    graph << [ puri, RDF::DC.date, created_at.to_s ]
+    graph << [ puri, RDF::DC.created, created_at.to_s ]
+    graph << [ puri, RDF::EDM.type, "TEXT" ]
+    
+    meta = metadata.fields
+    if meta["contributor_behalf"].present?
+      graph << [ puri, RDF::DC.contributor, meta["contributor_behalf"] ]
+    else
+      graph << [ puri, RDF::DC.contributor, contributor.contact.full_name ]
+    end
+    graph << [ puri, RDF::DC.creator, meta["creator"] ] unless meta["creator"].blank?
+    graph << [ puri, RDF::DC.date, meta["date_from"] ] unless meta["date_from"].blank?
+    graph << [ puri, RDF::DC.date, meta["date_to"] ] unless meta["date_to"].blank?
+    graph << [ puri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
+    graph << [ puri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
+    [ "keywords", "theatres", "forces" ].each do |subject_field|
+      unless meta[subject_field].blank?
+        meta[subject_field].each do |subject|
+          graph << [ puri, RDF::DC.subject, subject ]
+        end
+      end
+    end
+    if meta[:subject].present?
+      graph << [ puri, RDF::DC.subject, meta[:subject] ]
+    elsif character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
+      graph << [ puri, RDF::DC.subject, character1_full_name ]
+    else
+      graph << [ puri, RDF::DC.subject, meta["date"] ]
+    end
+    graph << [ puri, RDF::DC.type, meta["content"].first ] unless meta["content"].blank?
+    unless meta["lang"].blank?
+      meta["lang"].each do |lang|
+        graph << [ puri, RDF::DC.lang, lang ]
+      end
+    end
+    graph << [ puri, RDF::DC.lang, meta["lang_other"] ] unless meta["lang_other"].blank?
+    graph << [ puri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
+    graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
+    graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
+    graph << [ puri, RDF::DC.temporal, meta["date_from"] ] unless meta["date_from"].blank?
+    graph << [ puri, RDF::DC.temporal, meta["date_to"] ] unless meta["date_to"].blank?
+    
+    # edm:WebResource
+    wuri = RDF::URI.parse(edm_web_resource_uri)
+    
+    graph << [ wuri, RDF.type, RDF::EDM.WebResource ]
+    
+    
+    # ore:Aggregation
+    auri = RDF::URI.parse(ore_aggregation_uri)
+    
+    graph << [ auri, RDF.type, RDF::ORE.Aggregation ]
+    graph << [ auri, RDF::EDM.aggregatedCHO, puri ]
+    graph << [ auri, RDF::EDM.hasView, wuri ]
+    
+    graph
+  end
+  
+  ##
+  # The edm:ProvidedCHO URI of this contribution
+  #
+  # @return [String] URI
+  #
+  def edm_provided_cho_uri
+    @edm_provided_cho_uri ||= RunCoCo.configuration.site_url + "/contributions/" + id.to_s
+  end
+  
+  ##
+  # The edm:WebResource URI of this contribution
+  #
+  # @return [String] URI
+  #
+  def edm_web_resource_uri
+    @edm_web_resource_uri ||= RunCoCo.configuration.site_url + "/en/contributions/" + id.to_s
+  end
+  
+  ##
+  # The ore:Aggregation URI of this contribution
+  #
+  # @return [String] URI
+  #
+  def ore_aggregation_uri
+    @ore_aggregation_uri ||= "aggregation/contribution/" + id.to_s
   end
   
   protected
