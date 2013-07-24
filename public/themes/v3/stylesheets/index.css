@@ -112,8 +112,13 @@ a.button:focus {
     position: relative; }
     #featured-categories ul li {
       display: inline-block;
-      width: 33%;
-      padding: 0 1em 1em 0; }
+      width: 50%; }
+    #featured-categories ul .left-on-two {
+      padding: 0 0.75em 1.5em 0;
+      text-align: left; }
+    #featured-categories ul .right-on-two {
+      padding: 0 0 1.5em 0.75em;
+      text-align: right; }
   #featured-categories img, #featured-categories a {
     border: 0;
     margin: 0;
@@ -121,14 +126,18 @@ a.button:focus {
   #featured-categories img {
     width: 100%;
     max-width: 235px;
-    display: block; }
+    display: inline;
+    display: inline-block;
+    vertical-align: bottom; }
   #featured-categories .subtitle {
+    display: inline-block;
     width: 100%;
     line-height: 100%;
     background-color: #000;
     background-color: rgba(0, 0, 0, 0.7);
     background-color: #333;
     color: #f5f5f5;
+    text-align: left;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -147,6 +156,13 @@ a.button:focus {
   border: 1px solid #d9d9d9;
   background-color: #f2f2f2;
   overflow-y: h; }
+  .recent-activity h3 {
+    font-size: 1.5em; }
+    .recent-activity h3 small {
+      border-bottom: 1px solid #D9D9D9;
+      display: block;
+      padding-bottom: 1.5em;
+      width: 100%; }
   .recent-activity .head {
     text-align: center; }
   .recent-activity ul {
@@ -154,17 +170,21 @@ a.button:focus {
     padding: 0;
     margin: 0;
     overflow-x: hidden; }
-  .recent-activity li {
-    padding: 1.5em 0; }
-  .recent-activity li:not(:last-child) {
-    border-bottom: 1px solid #d9d9d9; }
-
-.right-col {
-  vertical-align: top; }
+    .recent-activity ul li {
+      padding: 1.25em 0; }
+    .recent-activity ul li:not(:last-child) {
+      border-bottom: 1px solid #d9d9d9; }
 
 @media only screen and (min-width: 48em) {
-  #featured-categories ul li {
-    width: 33%; }
+  #featured-categories {
+    float: left;
+    width: 68%; }
+    #featured-categories ul .left-on-two,
+    #featured-categories ul .right-on-two {
+      padding: 0 2.5em 1.25em 0; }
+    #featured-categories ul li img,
+    #featured-categories ul li .subtitle {
+      display: block; }
 
   .recent-activity {
     margin: 0; }
@@ -175,18 +195,18 @@ a.button:focus {
       overflow-y: auto; }
 
   .right-col {
-    min-width: 21em;
-    padding-left: 1em; } }
+    width: 32%;
+    float: right; } }
+@media only screen and (min-width: 58em) {
+  #featured-categories ul li {
+    width: 33.3333%; }
+    #featured-categories ul li img,
+    #featured-categories ul li .subtitle {
+      display: block; }
+  #featured-categories ul .left-on-two,
+  #featured-categories ul .right-on-two {
+    padding: 0 2.25em 1.5em 0; } }
 @media only screen and (min-width: 68em) {
   .carousel-intro.big {
     font-size: 0.875em;
-    line-height: 1.5em; }
-
-  .right-col {
-    min-width: 25em; } }
-@media only screen and (min-width: 75em) {
-  .right-col {
-    min-width: 30em; } }
-@media only screen and (min-width: 82em) {
-  .right-col {
-    min-width: 40em; } }
+    line-height: 1.5em; } }

@@ -50,51 +50,51 @@
 </div>
 
 
-<div class="section main h-flex-container h-flex-collapse">
-	<div class="h-flex-fill h-flex-collapse">
+<div class="section main">
+
 		<div id="featured-categories">
-			<ul><li>
+			<ul><li class="left-on-two">
 					<a title="Trench Life" href="javascript:alert('links not working yet');">
-						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock1.png" border="0"/>
+						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock1.png"/>
 						<div class="subtitle">Trench Life</div>
 					</a>
-				</li><li>
+				</li><li class="right-on-two">
 					<a title="Propaganda" href="javascript:alert('links not working yet');">
-						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock2.png" border="0"/>
+						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock2.png"/>
 						<div class="subtitle">Propaganda</div>
 					</a>
-				</li><li>
+				</li><li class="left-on-two">
 					<a title="Home Front" href="javascript:alert('links not working yet');">
-						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock3.png" border="0"/>
+						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock3.png"/>
 						<div class="subtitle">Home Front</div>
 					</a>
-				</li><li>
+				</li><li class="right-on-two">
 					<a title="Jewelry Box" href="javascript:alert('links not working yet');">
-						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock4.png" border="0"/>
+						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock4.png"/>
 						<div class="subtitle">Jewelry Box</div>
 					</a>
-				</li><li>
+				</li><li class="left-on-two">
 					<a title="Prisoners of War" href="javascript:alert('links not working yet');">
-						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock5.png" border="0"/>
+						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock5.png"/>
 						<div class="subtitle">Prisoners of War</div>
 					</a>
-				</li><li>
+				</li><li class="right-on-two">
 					<a title="Letters" href="javascript:alert('links not working yet');">
-						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock6.png" border="0"/><div class="subtitle">Letters</div>
+						<img src="http://deanbirkett.name/playground/europeana/1914-1918/img/landingblock6.png"/>
+						<div class="subtitle">Letters</div>
 					</a>
 				</li></ul>
 	
 		</div>
-	</div>
 	
 	
-	<div class="h-flex-fixed h-flex-collapse right-col">
-
-		<div class="recent-activity" >
+		<div class="recent-activity right-col">
 	
 			<div class="head">
-				<h3><%= number_with_delimiter(Contribution.published.count, :delimiter => ',') %></h3>
-				stories added so far
+				<h3>
+					<%= number_with_delimiter(Contribution.published.count, :delimiter => ',') %>			
+					<small>stories added so far</small>
+				</h3>
 			</div>
 
 			<ul>
@@ -134,8 +134,7 @@
 				</li>
 			</ul>
 		</div>
-	</div>
-	
+
 	
 </div>
 
