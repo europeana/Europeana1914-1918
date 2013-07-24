@@ -327,13 +327,21 @@ class Contribution < ActiveRecord::Base
   end
   
   ##
-  # Renders the contribution as RDF N-Triples for EDM
+  # Renders the contribution as RDF N-Triples
   #
-  # @return [String] RDF N-Triples
+  # @return [String]
   #
   def to_ntriples
+    to_rdf_graph.dump(:ntriples)
+  end
+  
+  ##
+  # Constructs an RDF graph to represent the contribution and its metadata
+  #
+  # @return [RDF::Graph]
+  #
+  def to_rdf_graph
     graph = RDF::Graph.new << [ uri, RDF::DC.title, title ]
-    graph.dump(:ntriples)
   end
   
   ##
