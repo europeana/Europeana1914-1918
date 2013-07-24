@@ -341,7 +341,12 @@ class Contribution < ActiveRecord::Base
   # @return [RDF::Graph]
   #
   def to_rdf_graph
-    graph = RDF::Graph.new << [ uri, RDF::DC.title, title ]
+    graph = RDF::Graph.new
+    graph << [ uri, RDF::DC.identifier, id.to_s ]
+    graph << [ uri, RDF::DC.title, title ]
+    graph << [ uri, RDF::DC.type, "Text" ]
+    graph << [ uri, RDF::DC.date, created_at.to_s ]
+    graph << [ uri, RDF::DC.created, created_at.to_s ]
   end
   
   ##
@@ -350,7 +355,7 @@ class Contribution < ActiveRecord::Base
   # @return [String] URI
   #
   def uri
-    @uri ||= "contributions/" + id.to_s
+    @uri ||= RunCoCo.configuration.site_url + "/contributions/" + id.to_s
   end
   
   protected
