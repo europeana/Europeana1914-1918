@@ -73,7 +73,7 @@ class ContributionsController < ApplicationController
     respond_to do |format|
       format.json  { render :json => { :result => 'success', :object => @contribution.to_edm } } 
       format.html
-      format.nt { render :text => @contribution.to_ntriples, :content_type => "text/plain" }
+      format.nt { render :text => @contribution.to_ntriples }
     end
   end
   
