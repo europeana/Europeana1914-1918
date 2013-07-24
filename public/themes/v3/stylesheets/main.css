@@ -129,7 +129,7 @@ h1, h2, h3 {
   padding: 0 2.25em; }
 
 #content {
-  padding-top: 2em; }
+  padding-top: 1.2em; }
 
 .v-flex-container {
   display: table;
@@ -161,6 +161,44 @@ h1, h2, h3 {
   .h-flex-collapse {
     display: block;
     width: auto; } }
+/* Hide / show on phones */
+.hide-on-phones {
+  display: none  !important; }
+
+.hide-ilb-on-phones {
+  display: none  !important; }
+
+.hide-cell-on-phones {
+  display: none  !important; }
+
+.show-on-phones {
+  display: block !important; }
+
+.show-ilb-on-phones {
+  display: inline-block !important; }
+
+.show-cell-on-phones {
+  display: table-cell !important; }
+
+@media only screen and (min-width: 48em) {
+  .hide-on-phones {
+    display: block			!important; }
+
+  .hide-ilb-on-phones {
+    display: inline-block	!important; }
+
+  .hide-cell-on-phones {
+    display: table-cell		!important; }
+
+  .show-on-phones {
+    display: none !important; }
+
+  .show-ilb-on-phones {
+    display: none !important; }
+
+  .show-cell-on-phones {
+    display: none !important; } }
+/* End hide / show on phones */
 .t-query {
   border-collapse: separate;
   cell-padding: 0;
