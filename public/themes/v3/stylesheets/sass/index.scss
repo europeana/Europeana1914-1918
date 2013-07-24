@@ -6,13 +6,21 @@
 	@include border-radius(0.5em); 
 	
 	overflow:         hidden;
-	padding:          1em;
+	padding:          1.25em 1em;
 	z-index:          1;
 	
 	h4{
-		font-size:		1.6em;
-		margin-bottom: 1em;
+		font-size:	1.4em;
+		margin: 	0 0 .7em 0;
 	}
+	
+	
+	.h-flex-container{
+		input{
+			font-size:	0.875em;
+		}
+	}
+	
 }
 
 
@@ -20,14 +28,29 @@
 	margin-left:  1.5em;
 	margin-top:   1.5em;
 	position:     absolute;
-	width:        30%;
-	min-width:    32em;
+	width:        42%;
 	font-size:	  0.75em;
 	line-height:  1.2em;
-	
-	
 }
 
+.carousel-intro #q{
+	border:           1px solid #cccccc;
+	padding:          0.5em;
+	background-image: none;
+}
+
+.carousel-intro a.button,
+.carousel-intro input[type=submit]{
+	webkit-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+	moz-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+	ms-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+	o-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+	box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+}
+
+.carousel-intro a.button{
+	padding: 0.5em 1.75em;
+}
 
 .index-call-to-action {
 	margin:      2em 0 0.5em 0;
@@ -171,9 +194,8 @@
 @media only screen and ( min-width: 68em ){
 
 	.carousel-intro.hide-on-phones{
-		font-size:	  0.9em;
-		line-height:  1.4em;
-		min-width:    45em;
+		font-size:	 0.9em;
+		line-height: 1.4em;
 	}
 
 	#featured-categories{

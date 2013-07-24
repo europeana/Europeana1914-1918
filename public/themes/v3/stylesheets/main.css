@@ -1,6 +1,34 @@
 /*
 	@import "compass";
 */
+input[type=submit],
+a.button {
+  background-color: #007162;
+  color: #fff;
+  border: 0;
+  border-image-width: 0;
+  padding: 0.4em;
+  padding: 0.5em;
+  outline: 0;
+  position: relative;
+  top: 0;
+  font-weight: bold;
+  cursor: pointer;
+  webkit-box-shadow: 2px 2px 2px rgba(34, 25, 25, 0.8);
+  moz-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.8);
+  ms-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.8);
+  o-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.8);
+  box-shadow: 2px 2px 2px rgba(34, 25, 25, 0.8); }
+
+input[type=submit]:hover,
+input[type=submit]:focus,
+a.button:hover,
+a.button:focus {
+  border-color: #cecece #afafaf #afafaf #cecece;
+  outline: 0;
+  border: 0;
+  background-color: #2284A1; }
+
 /*
 @mixin boxShadow($h-shadow, $v-shadow, $blur, $color, $inset: inset ) {
 	-moz-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
@@ -80,7 +108,7 @@ hr {
   color: #E4E4E4; }
 
 html {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 100%;
   font-style: normal; }
 
@@ -98,7 +126,7 @@ h1, h2, h3 {
 #header,
 #content,
 #footer {
-  padding: 0 2.5em; }
+  padding: 0 2.25em; }
 
 #content {
   padding-top: 2em; }
@@ -186,7 +214,7 @@ h1, h2, h3 {
   -webkit-box-shadow: 0 0 4px #4c7ecf inset;
   box-shadow: 0 0 4px #4c7ecf inset; }
 
-#q {
+.query-cell #q {
   background-image: url("/themes/v2/images/icons/search.png");
   background-repeat: no-repeat;
   border: 0;

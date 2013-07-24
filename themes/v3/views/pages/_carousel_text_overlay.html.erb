@@ -11,34 +11,28 @@
 
 <div class="carousel-intro <%= mobile ? 'show-on-phones' : 'hide-on-phones' %> ">
 
-<style type="text/css">
-
-
-	.carousel-intro #q{
-		border:           1px solid #cccccc;
-		font-size:        0.9em;
-		padding:          0.5em;
-		background-image: none;
-	}
-	
-</style>
 
 
 	<div class='content'>
 
 		<h4><%= (docTitle).inner_html %></h4>
 	
-		<%= raw((doc).to_html ) %>
-
-
-
-<%#  	<form accept-charset="UTF-8" action="/en/contributions/search" class="" id="search" method="get">			%>
-<%#  		<input id="q" name="q" placeholder="Search Europeana 1914-1918" type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list">		%>
-<%#  	</form>				%>
+		<span class="hide-on-phones">
+			<%= raw((doc).to_html ) %>
+		</span>
 
 		
 		<%= form_tag( url, { :method => :get, :id => 'search', :class =>  current_page?(home_path) ? 'landing' : ''  }) do %>
-			<input id="q" name="q" placeholder="Search Europeana 1914-1918" type="text" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list">
+			<div class="h-flex-container">
+
+			  <input id="q" name="q" placeholder="Search Europeana 1914-1918" type="text" class="h-flex-fill" autocomplete="off" role="textbox" aria-autocomplete="list">
+              
+              <span class="h-flex-fixed">
+                <input type="submit" value="<%= t('formtastic.actions.search.submit') %>"/>
+              </span>
+            </div>
+			
+			
 		<% end %>
 		
 		
