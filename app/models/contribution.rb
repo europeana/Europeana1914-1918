@@ -1,5 +1,3 @@
-require 'rdf/ntriples'
-
 ##
 # Contribution consisiting of files and metadata.
 #
