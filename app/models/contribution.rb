@@ -358,7 +358,7 @@ class Contribution < ActiveRecord::Base
     agent_properties = {}
     agent_properties['skos:prefLabel'] = contributor_full_name unless contributor_full_name.blank?
     unless agent_properties.blank?
-      contributor_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      contributor_agent_uri = RDF::URI.parse("europeana19141918:agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
       graph << [ contributor_agent_uri, RDF.type, RDF::EDM.Agent ]
       graph << [ contributor_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
       graph << [ puri, RDF::DC.contributor, contributor_agent_uri ]
@@ -367,7 +367,7 @@ class Contribution < ActiveRecord::Base
     agent_properties = {}
     agent_properties['skos:prefLabel'] = meta["creator"] unless meta["creator"].blank?
     unless agent_properties.blank?
-      creator_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      creator_agent_uri = RDF::URI.parse("europeana19141918:agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
       graph << [ creator_agent_uri, RDF.type, RDF::EDM.Agent ]
       graph << [ creator_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
       graph << [ puri, RDF::DC.creator, creator_agent_uri ]
@@ -378,7 +378,14 @@ class Contribution < ActiveRecord::Base
     [ "keywords", "theatres", "forces" ].each do |subject_field|
       unless meta[subject_field].blank?
         meta[subject_field].each do |subject|
-          graph << [ puri, RDF::DC.subject, subject ]
+          concept_properties = {}
+          concept_properties['skos:prefLabel'] = subject unless subject.blank?
+          unless concept_properties.blank?
+            subject_concept_uri = RDF::URI.parse("europeana19141918:concept/#{subject_field}/" + Digest::MD5.hexdigest(concept_properties.to_yaml))
+            graph << [ subject_concept_uri, RDF.type, RDF::EDM.Concept ]
+            graph << [ subject_concept_uri, RDF::SKOS.prefLabel, concept_properties['skos:prefLabel'] ]
+            graph << [ puri, RDF::DC.subject, subject_concept_uri ]
+          end
         end
       end
     end
@@ -390,7 +397,7 @@ class Contribution < ActiveRecord::Base
     agent_properties['edm:end'] = meta['character1_dod'] unless meta['character1_dod'].blank?
     agent_properties['skos:prefLabel'] = character1_full_name unless character1_full_name.blank?
     unless agent_properties.blank?
-      subject_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      subject_agent_uri = RDF::URI.parse("europeana19141918:agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
       graph << [ subject_agent_uri, RDF.type, RDF::EDM.Agent ]
       graph << [ subject_agent_uri, RDF::EDM.begin, agent_properties['edm:begin'] ] unless agent_properties['edm:begin'].blank?
       graph << [ subject_agent_uri, RDF::EDM.end, agent_properties['edm:end'] ] unless agent_properties['edm:end'].blank?
@@ -414,7 +421,7 @@ class Contribution < ActiveRecord::Base
     place_properties['wgs84_pos:lng'] = lng.to_f unless lng.blank?
     place_properties['skos:prefLabel'] = meta['location_placename'] unless meta['location_placename'].blank?
     unless place_properties.blank?
-      spatial_place_uri = RDF::URI.parse('place/' + Digest::MD5.hexdigest(place_properties.to_yaml))
+      spatial_place_uri = RDF::URI.parse('europeana19141918:place/' + Digest::MD5.hexdigest(place_properties.to_yaml))
       graph << [ spatial_place_uri, RDF.type, RDF::EDM.Place ]
       graph << [ spatial_place_uri, RDF::GEO.lat, place_properties['wgs84_pos:lat'] ] unless place_properties['wgs84_pos:lat'].blank?
       graph << [ spatial_place_uri, RDF::GEO.lng, place_properties['wgs84_pos:lng'] ] unless place_properties['wgs84_pos:lng'].blank?
@@ -427,7 +434,7 @@ class Contribution < ActiveRecord::Base
     time_span_properties['edm:end'] = meta['date_to'] unless meta['date_to'].blank?
     time_span_properties['skos:prefLabel'] = meta['date'] unless meta['date'].blank?
     unless time_span_properties.blank?
-      temporal_time_span_uri = RDF::URI.parse('timespan/' + Digest::MD5.hexdigest(time_span_properties.to_yaml))
+      temporal_time_span_uri = RDF::URI.parse('europeana19141918:timespan/' + Digest::MD5.hexdigest(time_span_properties.to_yaml))
       graph << [ temporal_time_span_uri, RDF.type, RDF::EDM.TimeSpan ]
       graph << [ temporal_time_span_uri, RDF::EDM.begin, meta['date_from'] ] unless meta["date_from"].blank?
       graph << [ temporal_time_span_uri, RDF::EDM.end, meta['date_to'] ] unless meta["date_to"].blank?
@@ -485,7 +492,7 @@ class Contribution < ActiveRecord::Base
   # @return [String] URI
   #
   def ore_aggregation_uri
-    @ore_aggregation_uri ||= "aggregation/contribution/" + id.to_s
+    @ore_aggregation_uri ||= "europeana19141918:aggregation/contribution/" + id.to_s
   end
   
   protected

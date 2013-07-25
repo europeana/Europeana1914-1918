@@ -279,15 +279,32 @@ class Attachment < ActiveRecord::Base
     end
     graph << [ puri, RDF::DC.language, meta["lang_other"] ] unless meta["lang_other"].blank?
     graph << [ puri, RDF::DC.source, meta["source"].first ] unless meta["source"].blank?
+    
     [ "keywords", "theatres", "forces" ].each do |subject_field|
       unless meta[subject_field].blank?
         meta[subject_field].each do |subject|
-          graph << [ puri, RDF::DC.subject, subject ]
+          concept_properties = {}
+          concept_properties['skos:prefLabel'] = subject unless subject.blank?
+          unless concept_properties.blank?
+            subject_concept_uri = RDF::URI.parse("europeana19141918:concept/#{subject_field}/" + Digest::MD5.hexdigest(concept_properties.to_yaml))
+            graph << [ subject_concept_uri, RDF.type, RDF::EDM.Concept ]
+            graph << [ subject_concept_uri, RDF::SKOS.prefLabel, concept_properties['skos:prefLabel'] ]
+            graph << [ puri, RDF::DC.subject, subject_concept_uri ]
+          end
         end
       end
     end
+    
+    concept_properties = {}
+    concept_properties['skos:prefLabel'] = meta["content"].first unless meta["content"].blank?
+    unless concept_properties.blank?
+      type_concept_uri = RDF::URI.parse("europeana19141918:concept/content/" + Digest::MD5.hexdigest(concept_properties.to_yaml))
+      graph << [ type_concept_uri, RDF.type, RDF::EDM.Concept ]
+      graph << [ type_concept_uri, RDF::SKOS.prefLabel, concept_properties['skos:prefLabel'] ]
+      graph << [ puri, RDF::DC.type, type_concept_uri ]
+    end
+    
     graph << [ puri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
-    graph << [ puri, RDF::DC.type, meta["content"].first ] unless meta["content"].blank?
     graph << [ puri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
     graph << [ puri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
     graph << [ puri, RDF::DC.created, meta["date"] ] unless meta["date"].blank?
@@ -302,7 +319,7 @@ class Attachment < ActiveRecord::Base
       place_id = Digest::MD5.hexdigest(
         { 'wgs84_pos:lat' => lat, 'wgs84_pos:lng' => lng, 'skos:prefLabel' => meta['location_placename'] }.reject { |k, v| v.blank? }.to_yaml
       )
-      spatial_place_uri = RDF::URI.parse('place/' + place_id)
+      spatial_place_uri = RDF::URI.parse('europeana19141918:place/' + place_id)
       graph << [ spatial_place_uri, RDF.type, RDF::EDM.Place ]
       graph << [ spatial_place_uri, RDF::GEO.lat, lat ] unless lat.blank?
       graph << [ spatial_place_uri, RDF::GEO.lng, lng ] unless lat.blank?
@@ -314,7 +331,7 @@ class Attachment < ActiveRecord::Base
       time_span_id = Digest::MD5.hexdigest(
         { 'edm:begin' => meta['date_from'], 'edm:end' => meta['date_to'], 'skos:prefLabel' => meta['date'] }.reject { |k, v| v.blank? }.to_yaml
       )
-      temporal_time_span_uri = RDF::URI.parse('timespan/' + time_span_id)
+      temporal_time_span_uri = RDF::URI.parse('europeana19141918:timespan/' + time_span_id)
       graph << [ temporal_time_span_uri, RDF.type, RDF::EDM.TimeSpan ]
       graph << [ temporal_time_span_uri, RDF::EDM.begin, meta['date_from'] ] unless meta["date_from"].blank?
       graph << [ temporal_time_span_uri, RDF::EDM.end, meta['date_to'] ] unless meta["date_to"].blank?
@@ -378,7 +395,7 @@ class Attachment < ActiveRecord::Base
   # @return [String] URI
   #
   def ore_aggregation_uri
-    @ore_aggregation_uri ||= "aggregation/attachment/" + id.to_s
+    @ore_aggregation_uri ||= "europeana19141918:aggregation/attachment/" + id.to_s
   end
   
 protected
