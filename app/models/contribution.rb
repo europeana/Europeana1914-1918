@@ -390,6 +390,9 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
     graph << [ puri, RDF::DC.temporal, meta["date_from"] ] unless meta["date_from"].blank?
     graph << [ puri, RDF::DC.temporal, meta["date_to"] ] unless meta["date_to"].blank?
+    attachments.each do |attachment|
+      graph << [ puri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm_provided_cho_uri) ]
+    end
     
     # edm:WebResource
     wuri = RDF::URI.parse(edm_web_resource_uri)
