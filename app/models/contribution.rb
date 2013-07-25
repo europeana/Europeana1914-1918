@@ -343,6 +343,7 @@ class Contribution < ActiveRecord::Base
   #
   def to_rdf_graph
     graph = RDF::Graph.new
+    meta = metadata.fields
     
     # edm:ProvidedCHO
     puri = RDF::URI.parse(edm_provided_cho_uri)
@@ -355,7 +356,6 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.created, created_at.to_s ]
     graph << [ puri, RDF::EDM.type, "TEXT" ]
     
-    meta = metadata.fields
     if meta["contributor_behalf"].present?
       graph << [ puri, RDF::DC.contributor, meta["contributor_behalf"] ]
     else
@@ -373,8 +373,8 @@ class Contribution < ActiveRecord::Base
         end
       end
     end
-    if meta[:subject].present?
-      graph << [ puri, RDF::DC.subject, meta[:subject] ]
+    if meta["subject"].present?
+      graph << [ puri, RDF::DC.subject, meta["subject"] ]
     elsif character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
       graph << [ puri, RDF::DC.subject, character1_full_name ]
     else
@@ -383,10 +383,10 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.type, meta["content"].first ] unless meta["content"].blank?
     unless meta["lang"].blank?
       meta["lang"].each do |lang|
-        graph << [ puri, RDF::DC.lang, lang ]
+        graph << [ puri, RDF::DC.language, lang ]
       end
     end
-    graph << [ puri, RDF::DC.lang, meta["lang_other"] ] unless meta["lang_other"].blank?
+    graph << [ puri, RDF::DC.language, meta["lang_other"] ] unless meta["lang_other"].blank?
     graph << [ puri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
     graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
     graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
@@ -397,14 +397,20 @@ class Contribution < ActiveRecord::Base
     wuri = RDF::URI.parse(edm_web_resource_uri)
     
     graph << [ wuri, RDF.type, RDF::EDM.WebResource ]
-    
+    graph << [ wuri, RDF::DC.description, created_at.to_s ]
+    graph << [ wuri, RDF::DC.format, "TEXT" ]
+    graph << [ wuri, RDF::DC.created, created_at.to_s ]
+    graph << [ wuri, RDF::DC.created, meta["collection_day"].first ] unless meta["collection_day"].blank?
+    graph << [ wuri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
     
     # ore:Aggregation
     auri = RDF::URI.parse(ore_aggregation_uri)
     
     graph << [ auri, RDF.type, RDF::ORE.Aggregation ]
     graph << [ auri, RDF::EDM.aggregatedCHO, puri ]
-    graph << [ auri, RDF::EDM.hasView, wuri ]
+    graph << [ auri, RDF::EDM.isShownAt, wuri ]
+    graph << [ auri, RDF::EDM.isShownBy, wuri ]
+    graph << [ auri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
     
     graph
   end
