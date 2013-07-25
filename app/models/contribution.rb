@@ -387,9 +387,10 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
     graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
     if meta["date_from"].present? || meta["date_to"].present? || meta["date"].present?
-      # Make an ID string like "1915-11-01/1915-11-30/November 1915"
-      time_span_id = [ meta['date_from'], meta['date_to'], meta['date'] ].reject(&:blank?).join('/')
-      temporal_time_span_uri = RDF::URI.parse('timespan/' + Digest::MD5.hexdigest(time_span_id))
+      time_span_id = Digest::MD5.hexdigest(
+        { 'edm:begin' => meta['date_from'], 'edm:end' => meta['date_to'], 'skos:prefLabel' => meta['date'] }.reject { |k, v| v.blank? }.to_yaml
+      )
+      temporal_time_span_uri = RDF::URI.parse('timespan/' + time_span_id)
       graph << [ temporal_time_span_uri, RDF.type, RDF::EDM.TimeSpan ]
       graph << [ temporal_time_span_uri, RDF::EDM.begin, meta['date_from'] ] unless meta["date_from"].blank?
       graph << [ temporal_time_span_uri, RDF::EDM.end, meta['date_to'] ] unless meta["date_to"].blank?
