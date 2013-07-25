@@ -360,8 +360,6 @@ class Contribution < ActiveRecord::Base
       graph << [ puri, RDF::DC.contributor, contributor.contact.full_name ]
     end
     graph << [ puri, RDF::DC.creator, meta["creator"] ] unless meta["creator"].blank?
-    graph << [ puri, RDF::DC.date, meta["date_from"] ] unless meta["date_from"].blank?
-    graph << [ puri, RDF::DC.date, meta["date_to"] ] unless meta["date_to"].blank?
     graph << [ puri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
     graph << [ puri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
     [ "keywords", "theatres", "forces" ].each do |subject_field|
@@ -388,8 +386,16 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
     graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
     graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
-    graph << [ puri, RDF::DC.temporal, meta["date_from"] ] unless meta["date_from"].blank?
-    graph << [ puri, RDF::DC.temporal, meta["date_to"] ] unless meta["date_to"].blank?
+    if meta["date_from"].present? || meta["date_to"].present? || meta["date"].present?
+      # Make an ID string like "1915-11-01/1915-11-30/November 1915"
+      time_span_id = [ meta['date_from'], meta['date_to'], meta['date'] ].reject(&:blank?).join('/')
+      temporal_time_span_uri = RDF::URI.parse('timespan/' + Digest::MD5.hexdigest(time_span_id))
+      graph << [ temporal_time_span_uri, RDF.type, RDF::EDM.TimeSpan ]
+      graph << [ temporal_time_span_uri, RDF::EDM.begin, meta['date_from'] ] unless meta["date_from"].blank?
+      graph << [ temporal_time_span_uri, RDF::EDM.end, meta['date_to'] ] unless meta["date_to"].blank?
+      graph << [ temporal_time_span_uri, RDF::SKOS.prefLabel, meta['date'] ] unless meta["date"].blank?
+      graph << [ puri, RDF::DC.temporal, temporal_time_span_uri ]
+    end
     attachments.each do |attachment|
       graph << [ puri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm_provided_cho_uri) ]
     end
