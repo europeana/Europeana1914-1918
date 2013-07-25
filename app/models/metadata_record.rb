@@ -198,11 +198,17 @@ class MetadataRecord < ActiveRecord::Base
     @cataloguing == true
   end
   
+  ##
   # Returns values of the custom metadata fields in this metadata record.
-  # Taxonomy term fields are returned as an array of the terms.
+  #
+  # Taxonomy term fields are returned as an indifferent hash of the terms,
+  # keyed by field name.
+  #
+  # @return [HashWithIndifferentAccess] Metadata field values
+  #
   def fields
     unless defined?(@fields) && @fields
-      @fields = {}
+      @fields = HashWithIndifferentAccess.new
       self.class.fields.each do |mf| 
         @fields[mf.name] = if mf.field_type == 'taxonomy'
           field_terms = self.taxonomy_terms.select { |tt| tt.metadata_field_id == mf.id }
