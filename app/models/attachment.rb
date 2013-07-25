@@ -256,7 +256,17 @@ class Attachment < ActiveRecord::Base
       rdf_title = contribution.title + ', item ' + item_pos.to_s
       graph << [ puri, RDF::DC.title, rdf_title ]
     end
-    graph << [ puri, RDF::DC.creator, meta["creator"] ] unless meta["creator"].blank?
+    
+    creator_full_name = Contact.full_name(meta["creator_given_name"], meta["creator_family_name"]) || meta["creator"]
+    agent_properties = {}
+    agent_properties['skos:prefLabel'] = creator_full_name unless creator_full_name.blank?
+    unless agent_properties.blank?
+      creator_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      graph << [ creator_agent_uri, RDF.type, RDF::EDM.Agent ]
+      graph << [ creator_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
+      graph << [ puri, RDF::DC.creator, creator_agent_uri ]
+    end
+    
     graph << [ puri, RDF::DC.date, meta["date"] ] unless meta["date"].blank?
     graph << [ puri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
     graph << [ puri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
@@ -286,7 +296,20 @@ class Attachment < ActiveRecord::Base
     graph << [ puri, RDF::DC.isPartOf, RDF::URI.parse(contribution.edm_provided_cho_uri) ]
     graph << [ puri, RDF::DC.medium, meta["format"].first ] unless meta["format"].blank?
     graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
-    graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
+    
+    if meta["location_placename"].present? || meta["location_map"].present?
+      lat, lng = meta["location_map"].split(',')
+      place_id = Digest::MD5.hexdigest(
+        { 'wgs84_pos:lat' => lat, 'wgs84_pos:lng' => lng, 'skos:prefLabel' => meta['location_placename'] }.reject { |k, v| v.blank? }.to_yaml
+      )
+      spatial_place_uri = RDF::URI.parse('place/' + place_id)
+      graph << [ spatial_place_uri, RDF.type, RDF::EDM.Place ]
+      graph << [ spatial_place_uri, RDF::GEO.lat, lat ] unless lat.blank?
+      graph << [ spatial_place_uri, RDF::GEO.lng, lng ] unless lat.blank?
+      graph << [ spatial_place_uri, RDF::SKOS.prefLabel, meta["location_placename"] ] unless meta["location_placename"].blank?
+      graph << [ puri, RDF::DC.spatial, spatial_place_uri ]
+    end
+
     if meta["date_from"].present? || meta["date_to"].present? || meta["date"].present?
       time_span_id = Digest::MD5.hexdigest(
         { 'edm:begin' => meta['date_from'], 'edm:end' => meta['date_to'], 'skos:prefLabel' => meta['date'] }.reject { |k, v| v.blank? }.to_yaml
@@ -298,6 +321,7 @@ class Attachment < ActiveRecord::Base
       graph << [ temporal_time_span_uri, RDF::SKOS.prefLabel, meta['date'] ] unless meta["date"].blank?
       graph << [ puri, RDF::DC.temporal, temporal_time_span_uri ]
     end
+    
     if character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
       graph << [ puri, RDF::EDM.hasMet, character1_full_name ]
     else

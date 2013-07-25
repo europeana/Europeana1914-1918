@@ -354,12 +354,25 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.created, created_at.to_s ]
     graph << [ puri, RDF::EDM.type, "TEXT" ]
     
-    if meta["contributor_behalf"].present?
-      graph << [ puri, RDF::DC.contributor, meta["contributor_behalf"] ]
-    else
-      graph << [ puri, RDF::DC.contributor, contributor.contact.full_name ]
+    contributor_full_name = meta["contributor_behalf"].present? ? meta["contributor_behalf"] : contributor.contact.full_name
+    agent_properties = {}
+    agent_properties['skos:prefLabel'] = contributor_full_name unless contributor_full_name.blank?
+    unless agent_properties.blank?
+      contributor_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      graph << [ contributor_agent_uri, RDF.type, RDF::EDM.Agent ]
+      graph << [ contributor_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
+      graph << [ puri, RDF::DC.contributor, contributor_agent_uri ]
     end
-    graph << [ puri, RDF::DC.creator, meta["creator"] ] unless meta["creator"].blank?
+    
+    agent_properties = {}
+    agent_properties['skos:prefLabel'] = meta["creator"] unless meta["creator"].blank?
+    unless agent_properties.blank?
+      creator_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      graph << [ creator_agent_uri, RDF.type, RDF::EDM.Agent ]
+      graph << [ creator_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
+      graph << [ puri, RDF::DC.creator, creator_agent_uri ]
+    end
+    
     graph << [ puri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
     graph << [ puri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
     [ "keywords", "theatres", "forces" ].each do |subject_field|
@@ -369,13 +382,22 @@ class Contribution < ActiveRecord::Base
         end
       end
     end
-    if meta["subject"].present?
-      graph << [ puri, RDF::DC.subject, meta["subject"] ]
-    elsif character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
-      graph << [ puri, RDF::DC.subject, character1_full_name ]
-    else
-      graph << [ puri, RDF::DC.subject, meta["date"] ]
+    graph << [ puri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
+      
+    character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
+    agent_properties = {}
+    agent_properties['edm:begin'] = meta['character1_dob'] unless meta['character1_dob'].blank?
+    agent_properties['edm:end'] = meta['character1_dod'] unless meta['character1_dod'].blank?
+    agent_properties['skos:prefLabel'] = character1_full_name unless character1_full_name.blank?
+    unless agent_properties.blank?
+      subject_agent_uri = RDF::URI.parse("agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
+      graph << [ subject_agent_uri, RDF.type, RDF::EDM.Agent ]
+      graph << [ subject_agent_uri, RDF::EDM.begin, agent_properties['edm:begin'] ] unless agent_properties['edm:begin'].blank?
+      graph << [ subject_agent_uri, RDF::EDM.end, agent_properties['edm:end'] ] unless agent_properties['edm:end'].blank?
+      graph << [ subject_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
+      graph << [ puri, RDF::DC.subject, subject_agent_uri ]
     end
+    
     graph << [ puri, RDF::DC.type, meta["content"].first ] unless meta["content"].blank?
     unless meta["lang"].blank?
       meta["lang"].each do |lang|
@@ -385,18 +407,34 @@ class Contribution < ActiveRecord::Base
     graph << [ puri, RDF::DC.language, meta["lang_other"] ] unless meta["lang_other"].blank?
     graph << [ puri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
     graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
-    graph << [ puri, RDF::DC.spatial, meta["location_placename"] ] unless meta["location_placename"].blank?
-    if meta["date_from"].present? || meta["date_to"].present? || meta["date"].present?
-      time_span_id = Digest::MD5.hexdigest(
-        { 'edm:begin' => meta['date_from'], 'edm:end' => meta['date_to'], 'skos:prefLabel' => meta['date'] }.reject { |k, v| v.blank? }.to_yaml
-      )
-      temporal_time_span_uri = RDF::URI.parse('timespan/' + time_span_id)
+    
+    lat, lng = meta["location_map"].split(',')
+    place_properties = {}
+    place_properties['wgs84_pos:lat'] = lat.to_f unless lat.blank?
+    place_properties['wgs84_pos:lng'] = lng.to_f unless lng.blank?
+    place_properties['skos:prefLabel'] = meta['location_placename'] unless meta['location_placename'].blank?
+    unless place_properties.blank?
+      spatial_place_uri = RDF::URI.parse('place/' + Digest::MD5.hexdigest(place_properties.to_yaml))
+      graph << [ spatial_place_uri, RDF.type, RDF::EDM.Place ]
+      graph << [ spatial_place_uri, RDF::GEO.lat, place_properties['wgs84_pos:lat'] ] unless place_properties['wgs84_pos:lat'].blank?
+      graph << [ spatial_place_uri, RDF::GEO.lng, place_properties['wgs84_pos:lng'] ] unless place_properties['wgs84_pos:lng'].blank?
+      graph << [ spatial_place_uri, RDF::SKOS.prefLabel, place_properties['skos:prefLabel'] ] unless place_properties['skos:prefLabel'].blank?
+      graph << [ puri, RDF::DC.spatial, spatial_place_uri ]
+    end
+    
+    time_span_properties = {}
+    time_span_properties['edm:begin'] = meta['date_from'] unless meta['date_from'].blank?
+    time_span_properties['edm:end'] = meta['date_to'] unless meta['date_to'].blank?
+    time_span_properties['skos:prefLabel'] = meta['date'] unless meta['date'].blank?
+    unless time_span_properties.blank?
+      temporal_time_span_uri = RDF::URI.parse('timespan/' + Digest::MD5.hexdigest(time_span_properties.to_yaml))
       graph << [ temporal_time_span_uri, RDF.type, RDF::EDM.TimeSpan ]
       graph << [ temporal_time_span_uri, RDF::EDM.begin, meta['date_from'] ] unless meta["date_from"].blank?
       graph << [ temporal_time_span_uri, RDF::EDM.end, meta['date_to'] ] unless meta["date_to"].blank?
       graph << [ temporal_time_span_uri, RDF::SKOS.prefLabel, meta['date'] ] unless meta["date"].blank?
       graph << [ puri, RDF::DC.temporal, temporal_time_span_uri ]
     end
+    
     attachments.each do |attachment|
       graph << [ puri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm_provided_cho_uri) ]
     end
