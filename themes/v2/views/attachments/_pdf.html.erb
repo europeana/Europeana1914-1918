@@ -187,11 +187,7 @@ limitations under the License.
 
 	</div> <!-- outerContainer -->
 	<div id="printContainer"></div>
-	<script>
-		//if ( !window.RunCoCo ) { window.RunCoCo = {}; }
-		//RunCoCo.pdf_url = '<%= @attachment.file.url(:original) %>';
-		var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';
-	</script>
+	<script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
 	<%
 		# supporting scripts
 		script_files = [
