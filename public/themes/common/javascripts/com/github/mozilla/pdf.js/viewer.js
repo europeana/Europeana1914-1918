@@ -46,7 +46,7 @@ var FindStates = {
   FIND_PENDING: 3
 };
 
-  PDFJS.workerSrc = '/themes/v2/javascripts/com/github/mozilla/pdf.js/pdf.js';
+  PDFJS.workerSrc = '/themes/common/javascripts/com/github/mozilla/pdf.js/pdf.js';
 
 var mozL10n = document.mozL10n || document.webL10n;
 
