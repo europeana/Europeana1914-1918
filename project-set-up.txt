@@ -13,6 +13,7 @@
 13. google usage statistics
 14. some ruby extras
 15. import a production db dump
+16. upgrading pdf.js viewer
 
 
 
@@ -290,8 +291,31 @@ $ mysql -u developer -p db_name < db_dump.sql
 
 
 
+upgrading pdf.js viewer
+=======================
+if you ever need to upgrade pdf.js
+1. make sure you already have node installed
+2. cd to a working directory for building pdf.js
+3. $ git clone https://github.com/mozilla/pdf.js.git
+4. $ node make generic
+5. copy /build/generic/web/compatibility.js, debugger.js, l10n.js, viewer.js
+   to /public/themes/common/javascripts/com/github/mozilla/pdf.js/
+   also copy /build/generic/build/pdf.js to the same directory
+6. copy /build/generic/web/viewer.css and /images to
+   to /public/themes/common/stylesheets/com/github/mozilla/pdf.js/
+7. copy /build/generic/web/locale
+   to /public/themes/common/locale/com/github/mozilla/pdf.js/
+8. alter viewer.js
+   comment out or delete the line
+   var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
 
-
+   comment out or delete the line
+   PDFJS.workerSrc = '../build/pdf.js';
+   replace it with
+   PDFJS.workerSrc = '/themes/common/javascripts/com/github/mozilla/pdf.js/pdf.js';
+9. in the erb file, e.g., /public/themes/v3/views/attachments/_pdf.html.erb,
+   make sure you have a line similar to the following before viewer.js loads
+   <script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
 
 
 
