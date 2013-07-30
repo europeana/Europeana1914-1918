@@ -372,7 +372,8 @@
 									
 									callback : function(){
 										// Ajaxify the search if we're on the Europeana data provider
-										if( ajaxified ){											
+										// disabled for now
+										if( false && ajaxified ){											
 											js.loader.loadScripts([{
 												
 												file : 'search-ajax.js',

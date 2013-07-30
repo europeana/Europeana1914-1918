@@ -72,8 +72,20 @@ var EuPagination = function(cmpIn, options){
         
         if(self.ajax){
             // set link display
-           	$.each([self.first, self.previous], function(i, ob){ob.css('visibility', (start == 1) ? 'hidden' : 'visible')});
-           	$.each([self.next, self.last],      function(i, ob){ob.css('display', start < getMaxStart() ? 'table-cell' : 'none')});
+           	$.each([self.first, self.previous], function(i, ob){
+           		if(start == 1){
+               		ob.css('visibility', 'hidden');
+               		ob.attr('disabled', 'disabled');           			
+           		}
+           		else{
+               		ob.css('visibility', 'visible');
+               		ob.removeAttr('disabled', 'visible');           			
+           		}
+           	});
+           	
+           	$.each([self.next, self.last],      function(i, ob){
+           		ob.css('display', start < getMaxStart() ? 'table-cell' : 'none')
+           	});
             
             // labels & input
            	console.log('set "of" pages to ' + getMaxPages() + '   [rrs=' + records +', '+ rows +', '+ start + ']')

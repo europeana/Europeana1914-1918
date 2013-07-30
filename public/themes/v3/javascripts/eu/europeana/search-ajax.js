@@ -8,7 +8,16 @@ EUSearchAjax = function(){
     var filterTemplate          = false;
 
     var resultServerUrl         = 'http://europeana.eu/portal';
-	var searchUrl				= searchUrl ? searchUrl : 'http://test.portal2.eanadev.org/api/v2/search.json?wskey=api2demo';
+
+    
+    //var searchUrl				= searchUrl ? searchUrl : 'http://test.portal2.eanadev.org/api/v2/search.json?wskey=api2demo';
+	
+    var searchUrl				= searchUrl ? searchUrl : 'http://localhost:3000/en/europeana/search.json';
+
+	
+
+		
+	// Andy TODO delete
 	var searchUrlWithoutResults = 'http://test.portal2.eanadev.org/portal/search.html';
 	
     var defaultRows             = 6;
@@ -67,16 +76,19 @@ EUSearchAjax = function(){
 		};
 
 		
-    	url = query ? searchUrl + param(searchUrl) + query : searchUrl + param(searchUrl) + 'query=' + term;        	
-    	url += "&profile=portal,params&callback=searchAjax.showRes";
+		var rows = parseInt(self.resMenu1.getActive() ? self.resMenu1.getActive() : defaultRows);
     	
-    	url += '&rows=' + (self.resMenu1.getActive() ? self.resMenu1.getActive() : defaultRows);
+		url = query ? searchUrl + param(searchUrl) + query : searchUrl + param(searchUrl) + 'q=' + term;        	
+    	url += "&profile=facets,params&callback=searchAjax.showRes";
+    	
+    	url += '&rows='  + rows;
     	url += '&start=' + (startParam ? startParam : 1);
+    	url += '&page='  + parseInt(startParam ? startParam / rows : 1);
          
         
         // refinements & facets read from hidden inputs
 
-        container.find('#refine-search-form > input').each(function(i, ob){
+        container.find('#facets input:checked').each(function(i, ob){
         	var urlFragment = $(ob).attr('value');
         	if(urlFragment.indexOf(':')>0){
         		urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
@@ -120,8 +132,9 @@ EUSearchAjax = function(){
 
         // console.log("widget showRes(data), data = \n" + JSON.stringify(data));
         var start = data.params.start ? data.params.start : 1;
-        
-        console.log("showRes() start = " + start );
+
+        // @richard - we need a start value.
+        console.log("showRes() start = " + start + ", params = \n" + JSON.stringify(data.params));
         
         $(data.items).each(function(i, ob){
             var item = itemTemplate.clone();
@@ -171,15 +184,14 @@ EUSearchAjax = function(){
         container.find('#facets>li:not(:first)').remove(); // remove all but the "Add Keyword" form.
         
         // write facet dom
-        alert("facetTemplate \n\n" + facetTemplate.html() );	
+        //alert("facetTemplate \n\n" + facetTemplate.html() );	
         //alert("facetOpTemplate \n\n" + facetOpTemplate.html() );	
         $(data.facets).each(function(i, ob){
+        	
             var facet           = facetTemplate.clone();
             var facetOps        = facet.find('ul');
             var facetOpTemplate = facetOps.find('li:nth-child(1)');
-            
-            if(facet.find('h3 a').length==0){alert("no h3 a");}
-
+                        
             facet.find('h3 a').html(capitalise(ob.name));
             
             facetOps.empty();
@@ -200,10 +212,12 @@ EUSearchAjax = function(){
                     "value" : urlFragment
                 });
 
-                facetOp.find('label').html(field.label + ' (' + field.count + ')').attr({
+                facetOp.find('label').html(field.label).attr({
                     "for"   : "cb-" + cbCount,
                     "title" : field.label
                 });
+
+                facetOp.find('.fcount').html(' (' + field.count + ')');
 
                 facetOps.append( facetOp );
                 cbCount ++;
@@ -217,14 +231,21 @@ EUSearchAjax = function(){
         var refinements = container.find('#refine-search-form');
 		
         container.find('#facets  a label').add(container.find('#facets h4 input')).click(function(e){
+        	alert("click");
+        	
             var cb = $(this);
             if(cb.attr("for")){
                 cb = container.find('#facets #' + cb.attr("for"));
             }
+            alert("check/uncheck");
+
             cb.prop('checked', !cb.prop('checked') );
             e.preventDefault();
             
             var href = cb.next('a').attr('href');
+            
+            console.log("read href: " + href);
+            
             if(cb.prop('checked')){
             	$('<input type="hidden" name="qf" value="' + href + '"/>').appendTo(refinements);            	
             }
@@ -232,6 +253,8 @@ EUSearchAjax = function(){
     			var toRemove =  refinements.find('input[value="' + href + '"]');
             	toRemove.remove();
             }
+            alert("an search");
+        	
             doSearch();
         });
         
@@ -490,6 +513,21 @@ EUSearchAjax = function(){
         
         itemTemplate       = container.find('.stories li:first');
         facetTemplate      = container.find('#facets li:nth-child(3)');
+        facetTemplate      = $(
+        		        
+        '<li>' + 
+          '<h3><a rel="nofollow" class="facet-section icon-arrow-6" href=""></a></h3>' + 
+          '<ul style="display: none;">' + 
+            '<li>' + 
+              '<h4>' + 
+                  '<input type="checkbox"><a><label></label></a><span class="fcount"></span>' + 
+              '</h4>' + 
+            '</li>' + 
+          '</ul>' + 
+        '</li>'
+        ).appendTo('#facets');
+
+        // TODO: remove filters
         filterTemplate     = container.find('#facets li:first');
 
         setupQuery();
@@ -519,7 +557,7 @@ EUSearchAjax = function(){
             			e.preventDefault();
             			
             			console.log("fnNext -> call search with " + (paginationData.start + paginationData.rows)  );
-            			
+            			//alert("search start " + paginationData.start + " + " + paginationData.rows + " = " + (parseInt(paginationData.start) + parseInt(paginationData.rows)) )
             			searchAjax.search( parseInt(paginationData.start) + parseInt(paginationData.rows));
             		},
 					"fnLast":function(e){
