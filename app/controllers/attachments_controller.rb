@@ -127,6 +127,7 @@ class AttachmentsController < ApplicationController
       end
       format.json { render :json => @attachment }
       format.nt { render :text => @attachment.to_ntriples }
+      format.xml { render :xml => @contribution.to_rdfxml }
     end
   end
 

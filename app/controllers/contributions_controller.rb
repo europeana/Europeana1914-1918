@@ -71,9 +71,10 @@ class ContributionsController < ApplicationController
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
     
     respond_to do |format|
-      format.json  { render :json => { :result => 'success', :object => @contribution.to_edm } } 
+      format.json  { render :json => { :result => 'success', :object => @contribution.to_rdf_graph.dump(:json) } } 
       format.html
       format.nt { render :text => @contribution.to_ntriples }
+      format.xml { render :xml => @contribution.to_rdfxml }
     end
   end
   

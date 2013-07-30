@@ -51,5 +51,21 @@ module EDM
       to_rdf_graph.dump(:ntriples)
     end
     
+    def to_rdfxml
+      namespace_prefixes = {
+        :dc => "http://purl.org/dc/terms/",
+        :edm => "http://www.europeana.eu/schemas/edm/",
+        :ore => "http://www.openarchives.org/ore/terms/",
+        :skos => "http://www.w3.org/2004/02/skos/core#",
+        :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
+      }
+      
+      RDF::RDFXML::Writer.buffer(:prefixes => namespace_prefixes) do |writer|
+        to_rdf_graph.each_statement do |statement|
+          writer << statement
+        end
+      end
+    end
+    
   end
 end
