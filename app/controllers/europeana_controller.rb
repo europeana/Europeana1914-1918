@@ -125,6 +125,14 @@ private
       
       response = Europeana::API::Search.new(query_string).run(query_options)
       
+      # Fake profile=params API query option not yet in production
+      response["params"] ||= {
+        "start" => query_options[:start],
+        "query" => query_string,
+        "rows"  => query_options[:rows],
+        "profile" => query_options[:profile] + ",params"
+      }
+      
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day) unless options[:facets].present?
     end
     
