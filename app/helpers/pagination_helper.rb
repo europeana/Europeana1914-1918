@@ -20,7 +20,12 @@ module PaginationHelper
     :page_form          => true,
     :page_total         => true,
     :entry_range        => true,
-    :per_page_list      => true
+    :per_page_list      => true,
+    
+    :first_record      => nil,
+    :last_record       => nil,
+    :total_records     => nil
+        
   }
   
   class LinkRenderer < WillPaginate::ActionView::LinkRenderer
@@ -98,17 +103,48 @@ module PaginationHelper
         @template.form_tag({}, { :method => :get, :class => "jump-to-page" }) do
           @template.text_field_tag("page", @collection.current_page, :size => 8) +
           @template.hidden_field_tag("count", @collection.per_page) +
-          @template.hidden_field_tag("total_pages", @collection.total_pages)
+          @template.hidden_field_tag("total_pages", @collection.total_pages) + 
+
+          @template.hidden_field_tag("q", "tanks")
+          
+          # @richard - I had to hard-code "tanks" in here - I would like the query in there please, otherwise it doesn't work with javascript turned off!          
+          
         end,
         :class => "nav-numbers"
       )
     end
     
     def entry_range
-      tag(:div,
-        tag(:span, @options[:entry_range_label]), 
-        :class => "count"
-      )
+      
+      # @richard - this is the code - can you please optimise the new code?  Thanks.
+      #
+      #tag(:div,
+      #  tag(:span, @options[:entry_range_label]), 
+      #  :class => "count"
+      #)
+      
+      # split count into segments to allow ajax callback to update easily
+
+        tag(:div,
+            "Results: " + 
+            tag(:span, @options[:first_record], :class => "first-vis-record") +
+            " - " + 
+            tag(:span, @options[:last_record], :class => "last-vis-record")  + 
+            " of " + 
+            tag(:span, @options[:total_records], :class => "last-record")  +
+
+            # write initial pagination data to js variable
+            if @options[:class] == 'nav nav-top'
+              tag(:script,
+                  'var defPaginationData  = {"records" : "' + @options[:total_records] + '", "rows" : "' + @collection.per_page.to_s + '", "start" : "' + @options[:first_record] + '" };'
+                   # + 'alert(JSON.stringify(defPaginationData) + " ' + @options[:class]  +  ' " );'
+              )
+            else
+              '' 
+            end
+        )
+
+      
     end
     
     def page_total
@@ -160,7 +196,14 @@ module PaginationHelper
     options[:previous_label]    ||= will_paginate_translate([ :previous_label, '<' ])
     options[:next_label]        ||= will_paginate_translate([ :next_label, '>' ])
     options[:last_label]        ||= will_paginate_translate([ :last_label, '>>' ])
+
     options[:entry_range_label] ||= will_paginate_translate([ :entry_range_label, 'Results %{first}–%{last} of %{total}' ], :first => (collection.offset + 1), :last => [ (collection.offset + collection.per_page), collection.total_entries ].min, :total => collection.total_entries)
+
+    options[:first_record]       ||= will_paginate_translate([ :first_record,  '%{first}'], :first => (collection.offset + 1))
+    options[:last_record]       ||= will_paginate_translate([ :last_record,   '%{last}' ], :last =>  [ (collection.offset + collection.per_page), collection.total_entries ].min)
+    options[:total_records]     ||= will_paginate_translate([ :total_records, '%{total}'], :total => collection.total_entries)
+
+      
     options[:page_total_label]  ||= will_paginate_translate([ :page_total_label, 'of %{total_pages}' ], :total_pages => collection.total_pages)
     options[:per_page_label]    ||= will_paginate_translate([ :per_page_label, 'Results per page:' ])
     

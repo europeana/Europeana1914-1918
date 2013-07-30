@@ -214,7 +214,6 @@
 			});
 			
 		},
-		// andy
 		
 		
 		setupFacets : function(){
@@ -278,7 +277,7 @@
 	};
 	*/
 	
-	
+	/*
 	function initMasonry($container){
 		$container.masonry({
 			itemSelector : 'li',
@@ -289,9 +288,11 @@
 			isAnimated :	true
 		});		
 	}
+	*/
 	
 	function initJS(){
 		// ANDY: can't get loader dependencies working so nesting dynamic loads
+		var ajaxified = $('#provider_europeana').prop('checked');
 		
 		js.loader.loadScripts([{
 			file : 'EuCollapsibility.js',
@@ -348,7 +349,7 @@
 							file : 'EuMenu.js',
 							path : themePath + "javascripts/eu/europeana/",
 							callback : function(){
-								var config = {
+								var menuConfig = {
 									"fn_init": function(self){
 										self.setActive(
 											$(self.cmp).closest('.nav').find('input[name=count]').val() );
@@ -357,36 +358,55 @@
 									,"fn_item":function(self, selected){
 									}*/
 								};
-								new EuMenu( $(".nav-top		.eu-menu"), config).init();
-								new EuMenu( $(".nav-bottom	.eu-menu"), config).init();
 								
+								if(!ajaxified){
+									// the search-ajax.js will set up these menus if we're using ajax
+									new EuMenu( $(".nav-top		.eu-menu"), menuConfig).init();
+									new EuMenu( $(".nav-bottom	.eu-menu"), menuConfig).init();							
+								}
 								
-								
-								
-								
-
 								js.loader.loadScripts([{
 									
 									file : 'EuPagination.js',
 									path : themePath + "javascripts/eu/europeana/",
 									
 									callback : function(){
-										new EuPagination(
-											$('.result-pagination'),
-											$('.result-pagination').first().find('input[name=total_pages]').val() 
-										);
+										// Ajaxify the search if we're on the Europeana data provider
+										if( ajaxified ){											
+											js.loader.loadScripts([{
+												
+												file : 'search-ajax.js',
+												path : themePath + "javascripts/eu/europeana/"
+												/*
+												, callback : function(){
+													new EuPagination(
+														$('.result-pagination'),
+														$('.result-pagination').first().find('input[name=total_pages]').val() 
+													);
+												}
+												*/
+											}]);
+										}
+										else{
+											new EuPagination(
+												$('.result-pagination'),
+												{
+													"data":{
+														
+														"records": defPaginationData.records,
+														"rows": defPaginationData.rows,
+														"start": defPaginationData.records.start
+													}
+												}
+											)	
+										}
+										
 									}
 								}]);
 
 								
-								
-								
-								
-								
 							}
 						}]);
-						
-						
 						
 					}
 				}]);					
@@ -400,9 +420,11 @@
 		js.utils.initSearch();
 		
 		var $container = jQuery('.stories');
+		/*
 		$container.imagesLoaded(function() {
 			initMasonry($container);
 		});
+		*/
 		
 		jQuery('#q').autocomplete({
 			minLength : 3,
