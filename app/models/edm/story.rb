@@ -3,6 +3,12 @@ module EDM
   # Contains methods for conversion of a +Contribution+ to EDM
   #
   module Story
+    def self.included(base)
+      base.class_eval do
+        include EDM
+      end
+    end
+  
     ##
     # Converts the contribution's metadata to EDM
     #
@@ -49,15 +55,6 @@ module EDM
         "dctermsAlternative"  => [ metadata.fields['alternative'] ],
         "guid"                => options[:contribution_url].call(self)
       }
-    end
-    
-    ##
-    # Renders the contribution as RDF N-Triples
-    #
-    # @return [String]
-    #
-    def to_ntriples
-      to_rdf_graph.dump(:ntriples)
     end
     
     ##

@@ -3,13 +3,10 @@ module EDM
   # Contains methods for conversion of an +Attachment+ to EDM
   #
   module Item
-    ##
-    # Renders the attachment as RDF N-Triples
-    #
-    # @return [String]
-    #
-    def to_ntriples
-      to_rdf_graph.dump(:ntriples)
+    def self.included(base)
+      base.class_eval do
+        include EDM
+      end
     end
     
     ##
