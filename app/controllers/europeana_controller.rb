@@ -40,7 +40,14 @@ class EuropeanaController < ApplicationController
         } and return
     end
     
-    render :template => 'search/page'
+    respond_to do |format|
+      format.html { render :template => 'search/page' }
+      format.json do
+        json = response.reject { |key, value| key == "apikey" }.to_json
+        json = "#{params[:callback]}(#{json});" unless params[:callback].blank?
+        render :json => json
+      end
+    end
   end
   
   # GET /europeana/explore/:field_name/:term
