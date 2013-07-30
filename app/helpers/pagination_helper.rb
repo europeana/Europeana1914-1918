@@ -58,7 +58,7 @@ module PaginationHelper
     end
 
     def next_page
-      num = @collection.current_page < @collection.total_pages && @collection.current_page + 1
+      num = @collection.current_page <= @collection.total_pages && @collection.current_page + 1
       previous_or_next_page(num, @options[:next_label], 'nav-next', :title => @options[:next_title])
     end
     
@@ -104,7 +104,6 @@ module PaginationHelper
           @template.text_field_tag("page", @collection.current_page, :size => 8) +
           @template.hidden_field_tag("count", @collection.per_page) +
           @template.hidden_field_tag("total_pages", @collection.total_pages) + 
-
           @template.hidden_field_tag("q", "tanks")
           
           # @richard - I had to hard-code "tanks" in here - I would like the query in there please, otherwise it doesn't work with javascript turned off!          
