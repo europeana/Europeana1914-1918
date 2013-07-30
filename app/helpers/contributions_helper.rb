@@ -137,8 +137,8 @@ module ContributionsHelper
     contribution_url(options).match(/(^\w+:\/\/[^\/]+)\/\w+(.*)$/)[1..2].join
   end
   
-  # @todo Replace this with +contribution.to_edm+ in views
+  # @todo Replace this with +contribution.to_edm_record+ in views
   def contribution_to_edm(contribution)
-    contribution.to_edm
+    contribution.to_edm_record
   end
 end

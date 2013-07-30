@@ -13,11 +13,13 @@ module EDM
     ##
     # Converts the contribution's metadata to EDM
     #
-    # @return (see MetadataRecord#to_edm)
+    # @return [Hash] EDM formatted metadata record
     #
-    def to_edm
-      metadata.to_edm.reverse_merge( {
-        "providedCHOs" => [ { :about => edm_provided_cho_uri.to_s } ],
+    def to_edm_record
+      meta = metadata.fields
+      
+      edm = {
+        "providedCHOs" => [ { "about" => edm_provided_cho_uri.to_s } ],
         "type" => "TEXT",
         "title" => [ title ],
         "dcDate" => { "def" => [ created_at ] },
@@ -27,7 +29,57 @@ module EDM
         "dctermsCreated" => { "def" => [ created_at ] },
         "dctermsHasPart" => { "def" => attachments.collect { |a| a.edm_provided_cho_uri.to_s } },
         "edmType" => { "def" => [ "TEXT" ] }
-      } )
+      }
+
+      edm["year"] = [ meta["date_from"].split("-").first ] unless meta["date_from"].blank?
+
+      edm["dcContributor"] = if meta["contributor_behalf"].present?
+        { "def" => [ meta["contributor_behalf"] ] }
+      else
+        { "def" => [ contributor.contact.full_name ] }
+      end
+
+      edm["dcCreator"] = { "def" => [ meta["creator"] ] }
+
+      edm["dcDate"] = { "def" => [ meta["date_from"], meta["date_to"] ] }
+      
+      edm["dcDescription"] = { "def" => [ meta["description"], meta["summary"] ] }
+
+      edm["dcSubject"] = { "def" => [ meta["keywords"], meta["theatres"], meta["forces"] ] }
+      if meta["subject"].present?
+        edm["dcSubject"]["def"] << meta["subject"]
+      elsif character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
+        edm["dcSubject"]["def"] << character1_full_name
+      else
+        edm["dcSubject"]["def"] << meta["date"]
+      end
+      
+      edm["dcType"] = { "def" => [ meta["content"] ] }
+      
+      edm["dcLang"] = { "def" => [ meta["lang"], meta["lang_other"] ] }
+      
+      edm["dctermsAlternative"] = { "def" => [ meta["alternative"] ] }
+      
+      edm["dctermsProvenance"] = { "def" => [ meta["collection_day"] ] }
+      
+      edm["dctermsSpatial"] = { "def" => [ meta["location_placename"] ] }
+      
+      edm["dctermsTemporal"] = { "def" => [ meta["date_from"], meta["date_to"] ] }
+      
+      edm.keys.each do |key|
+        if edm[key].is_a?(Hash) && edm[key].has_key?("def")
+          # Flatten nested arrays, e.g. subject = keywords + theatres
+          edm[key]["def"].flatten!
+          
+          # Strip out empty values
+          edm[key]["def"] = edm[key]["def"].reject { |definition| definition.blank? } 
+          if edm[key]["def"].blank?
+            edm.delete(key)
+          end
+        end
+      end
+      
+      edm
     end
     
     ##
@@ -40,7 +92,7 @@ module EDM
         "id"                  => id,
         "title"               => [ title ],
         "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
-        "dctermsAlternative"  => [ metadata.fields['alternative'] ],
+        "dctermsAlternative"  => [ metadata.meta['alternative'] ],
         "guid"                => edm_provided_cho_uri
       }
     end
