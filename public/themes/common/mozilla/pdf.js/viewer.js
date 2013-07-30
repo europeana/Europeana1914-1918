@@ -48,8 +48,7 @@ var FindStates = {
 };
 
 PDFJS.imageResourcesPath = './images/';
-//PDFJS.workerSrc = '../build/pdf.js';
-PDFJS.workerSrc = '/themes/common/javascripts/com/github/mozilla/pdf.js/pdf.js';
+PDFJS.workerSrc = '/themes/common/mozilla/pdf.js/pdf.js';
 
 var mozL10n = document.mozL10n || document.webL10n;
 
@@ -919,9 +918,9 @@ var PDFHistory = {
   initialDestination: null,
 
   initialize: function pdfHistoryInitialize(fingerprint) {
-    if (PDFJS.disableHistory || window.parent !== window) {
+    if (PDFJS.disableHistory || PDFView.isViewerEmbedded) {
       // The browsing history is only enabled when the viewer is standalone,
-      // i.e. not when it is embedded in a page.
+      // i.e. not when it is embedded in a web page.
       return;
     }
     this.initialized = true;
@@ -1257,6 +1256,7 @@ var PDFView = {
   mouseScrollDelta: 0,
   lastScroll: 0,
   previousPageNumber: 1,
+  isViewerEmbedded: (window.parent !== window),
 
   // called once when the document is loaded
   initialize: function pdfViewInitialize() {
@@ -1967,9 +1967,9 @@ var PDFView = {
       self.setInitialView(storedHash, scale);
 
       // Make all navigation keys work on document load,
-      // unless the viewer is embedded in another page.
-      if (window.parent === window) {
-        PDFView.container.focus();
+      // unless the viewer is embedded in a web page.
+      if (!self.isViewerEmbedded) {
+        self.container.focus();
       }
     });
 
@@ -3552,8 +3552,8 @@ var DocumentOutlineView = function documentOutlineView(outline) {
 
 document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
   PDFView.initialize();
-  var params = PDFView.parseQueryString(document.location.search.substring(1));
 
+  var params = PDFView.parseQueryString(document.location.search.substring(1));
   var file = params.file || DEFAULT_URL;
 
   if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {

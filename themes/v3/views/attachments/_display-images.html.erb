@@ -1,11 +1,12 @@
-<% prettyphoto = prettyphoto ? prettyphoto : false -%>
-<% count = params['count'] ? params['count'].to_i : 3 -%>
-<% page = params['page'] ? params['page'].to_i : 1 -%>
-<% inline = count * page - count -%>
-<% if attachments.present? -%>
-  <%- for attachment in attachments -%><li>
-      <%- if attachment.file.present? -%>
-        <%-
+<% prettyphoto = prettyphoto ? prettyphoto : false %>
+<% count = params['count'] ? params['count'].to_i : 3 %>
+<% page = params['page'] ? params['page'].to_i : 1 %>
+<% inline = count * page - count %>
+<% if attachments.present? %>
+  <%- for attachment in attachments %><li>
+      <% if attachment.file.present?
+          link_url = attachment_url( attachment, 'large' )
+
           link_attrs = {
             :target => '_blank',
             :title => attachment.title,
@@ -13,26 +14,54 @@
             'data-contribution-id' => contribution.id
           }
 
-          if ( prettyphoto && attachment.image? )
+          if ( prettyphoto && (attachment.image? || attachment.video? || attachment.audio?) )
             link_attrs.merge!({
               'data-description' =>
-              '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
-              ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
+                '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
+                ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
               :rel => 'prettyPhoto[gallery]'
             })
           end
-          
+
+          if ( prettyphoto && attachment.video? )
+            link_url = '#video-' + attachment.id.to_s
+            video_width = attachment.file.width || 480
+            video_height = attachment.file.height || 240
+            link_attrs.merge!({
+              'class' => 'video',
+              'data-video-width' => video_width.to_s,
+              'data-video-height' => video_height.to_s
+            })
+          end
+
+          if ( prettyphoto && attachment.audio? )
+            link_url = '#audio-' + attachment.id.to_s
+            audio_width = 400
+            audio_height = 80
+            link_attrs.merge!({
+              'class' => 'audio',
+              'data-audio-width' => audio_width,
+              'data-audio-height' => audio_height
+            })
+          end
+
           if ( attachment.pdf? )
             link_attrs.merge!({
               :class => 'pdf'
             })
           end
         -%>
-        <%= link_to( attachment_preview( attachment, size ), attachment_url(attachment, 'large'), link_attrs ) %>
-      <%- else -%>
+        <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
+      <% else %>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
-      <%- end -%>
-      <%- if prettyphoto -%>
+      <% end %>
+      <% if prettyphoto %>
+        <% if attachment.video? %>
+          <div id="video-<%= attachment.id %>" style="width:<%= video_width.to_s %>px; height:<%= video_height.to_s %>px; display: none;" class="video-wrapper"><div class="video-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
+        <% end %>
+        <% if attachment.audio? %>
+          <div id="audio-<%= attachment.id %>" style="width:<%= audio_width.to_s %>px; height:<%= audio_height.to_s %>px; display: none;" class="audio-wrapper"><div class="audio-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
+        <% end %>
         <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
           <%= render :partial => '/metadata/display',
             :locals => {
@@ -73,7 +102,7 @@
             }
           %>
         </dl>
-      <%- end -%>
-      <%- inline += 1 -%>
-    </li><%- end -%>
-<% end -%>
+      <% end %>
+      <% inline += 1 %>
+  </li><% end %>
+<% end %>

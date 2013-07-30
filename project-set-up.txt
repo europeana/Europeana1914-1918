@@ -298,22 +298,18 @@ if you ever need to upgrade pdf.js
 2. cd to a working directory for building pdf.js
 3. $ git clone https://github.com/mozilla/pdf.js.git
 4. $ node make generic
-5. copy /build/generic/web/compatibility.js, debugger.js, l10n.js, viewer.js
-   to /public/themes/common/javascripts/com/github/mozilla/pdf.js/
-   also copy /build/generic/build/pdf.js to the same directory
-6. copy /build/generic/web/viewer.css and /images to
-   to /public/themes/common/stylesheets/com/github/mozilla/pdf.js/
-7. copy /build/generic/web/locale
-   to /public/themes/common/locale/com/github/mozilla/pdf.js/
-8. alter viewer.js
+5. $ cd /build/generic/web/
+6. $ cp -R * /public/themes/common/mozilla/pdf.js/
+7. $ cd /build/generic/build/
+8. $ cp pdf.js /public/themes/common/mozilla/pdf.js/
+9. alter viewer.js
    comment out or delete the line
    var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
-
    comment out or delete the line
    PDFJS.workerSrc = '../build/pdf.js';
    replace it with
-   PDFJS.workerSrc = '/themes/common/javascripts/com/github/mozilla/pdf.js/pdf.js';
-9. in the erb file, e.g., /public/themes/v3/views/attachments/_pdf.html.erb,
+   PDFJS.workerSrc = '/themes/common/mozilla/pdf.js/pdf.js';
+10.in the erb file, e.g., /public/themes/v3/views/attachments/_pdf.html.erb,
    make sure you have a line similar to the following before viewer.js loads
    <script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
 

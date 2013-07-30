@@ -2,7 +2,7 @@
 stylesheets = {
   'all' => [ '/themes/v2/stylesheets/all.css' ],
   'screen' => [],
-} 
+}
 
 if @javascripts[:lightbox]
   stylesheets['screen'] << '/themes/v2/stylesheets/jquery-plugins/prettyphoto/prettyphoto.css'
@@ -17,7 +17,7 @@ if @javascripts[:uploadify]
 end
 
 if @javascripts[:video] || @javascripts[:audio]
-  stylesheets['screen'] << '/themes/v2/javascripts/com/mediaelementjs/mediaelementplayer.css'
+  stylesheets['screen'] << '/themes/common/johndyer/mediaelement/mediaelementplayer.css'
 end
 
 stylesheets['all'] << '/themes/v2/stylesheets/portlet.css'
