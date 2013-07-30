@@ -171,21 +171,20 @@ class Attachment < ActiveRecord::Base
       else
         @@paperclip_content_types = RunCoCo.configuration.allowed_upload_extensions.split(',').collect { |ext|
           ext.downcase!
-          mime_types = MIME::Types.type_for(ext).collect { |mime_type| mime_type.content_type }
-          mime_types << case ext
+          MIME::Types.type_for(ext).collect(&:content_type).concat case ext
             when 'jpg', 'jpeg'
-              'image/pjpeg'
+              [ 'image/pjpeg' ]
             when 'png'
-              'image/x-png'
+              [ 'image/x-png' ]
             when 'mp3'
-              'audio/x-mpeg' << 'audio/mp3' << 'audio/x-mp3' <<
-              'audio/mpeg3' << 'audio/x-mpeg3' << 'audio/mpg'<< 
-              'audio/x-mpg' << 'audio/x-mpegaudio'
+              [ 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3',
+                'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio' ]
             when 'mp4'
-              'video/mp4'
+              [ 'video/mp4' ]
+            else
+              []
           end
-          mime_types
-        }.flatten.reject { |content_type| content_type.blank? }
+        }.flatten.reject(&:blank?)
       end
     end
     @@paperclip_content_types
@@ -430,6 +429,8 @@ protected
   end
 
   def validate_max_one_cover_image_per_contribution
+  Rails.logger.debug("**** Content type: #{file.content_type.inspect}")
+  Rails.logger.debug("**** Allowed content types: #{Attachment.paperclip_content_types.inspect}")
     if contribution.present? && metadata.field_cover_image_terms.present? && metadata.field_cover_image_terms.first.term == 'yes'
       others = contribution.attachments
       others.reject! { |a| a.id == self.id } unless new_record?
