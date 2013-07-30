@@ -26,8 +26,14 @@ class EuropeanaController < ApplicationController
     end
     
     if search_terms.present?
-      response = api_search(search_terms, :page => params[:page], :count => params[:count], :profile => 'facets', :facets => params[:facets])
-      @results = paginate_search_result_items(response, params[:page])
+      query_params = { 
+        :page => (params[:page] || 1).to_i,
+        :count => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
+        :profile => 'facets',
+        :facets => params[:facets] 
+      }
+      response = api_search(search_terms, query_params)
+      @results = paginate_search_result_items(response, query_params)
       @facets = response['facets']
     end
     
@@ -106,8 +112,10 @@ private
       raise ArgumentError, "Unknown terms parameter passed: #{terms.class.to_s}"
     end
     
-    count = [ (options.delete(:count) || 48).to_i, 100 ].min # Default 48, max 100
-    page = (options.delete(:page) || 1).to_i
+    query_options = options.dup
+    
+    count = query_options.delete(:count)
+    page = query_options.delete(:page)
     
     quoted_terms = terms.add_quote_marks
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
@@ -119,7 +127,6 @@ private
       query_string = build_api_query(terms)
       logger.debug("Europeana query: #{query_string}")
       
-      query_options = options.dup
       query_options[:rows] = count
       query_options[:start] = ((page - 1) * count) + 1
       
@@ -144,12 +151,15 @@ private
   #
   # @param [Hash] response API search response, with +items+, +itemsCount+ and
   #   +totalResults+ keys, as returned by +#api_search+.
-  # @param [Integer,String] page Page of results represented by response.
+  # @param [Hash] options Optional parameters
+  # @option options [String,Integer] :count The number of results to return.
+  #   Maximum 100; default 48.
+  # @option options [String,Integer] :page The page number of results to return.
+  #   Default 1.
   # @return [WillPaginate::Collection] +will_paginate+ compatibile result set.
   #
-  def paginate_search_result_items(response, page)
-    page = (page || 1).to_i
-    WillPaginate::Collection.create(page, response['itemsCount'], response['totalResults']) do |pager|
+  def paginate_search_result_items(response, options)
+    WillPaginate::Collection.create(options[:page], options[:count], response['totalResults']) do |pager|
       if response['itemsCount'] == 0
         pager.replace([])
       else
