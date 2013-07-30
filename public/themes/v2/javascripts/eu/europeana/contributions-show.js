@@ -1,7 +1,7 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
  *	@todo: add method for handling window re-size so that lightbox & pdf viewer
- *	       can be re-determined. also handle portrait/landscape issues
+ *	can be re-determined. also handle portrait/landscape issues
  */
 (function() {
 
@@ -37,209 +37,163 @@
 		previous_thumbnail_length : 0,
 		thumb_nav_by : 3,
 
-
 		nrItemsInCurrentContainer : function() {
-
 			var total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
 			return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
-
 		},
 
-
 		addImagesToLightbox : function( $new_content ) {
-
 			var	$pp_full_res = jQuery('#pp_full_res'),
 					$new_links = $new_content.find('#contributions-featured > ul > li > a');
 
-
 			if ( $pp_full_res.length < 1 ) {
-
 				lightbox.init();
 				return;
-
 			}
 
 			$new_links.each(function() {
-
 				var $elm = jQuery(this);
-
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
-
 			});
-
 		},
-
 
 		/**
 		 *	ajax methods
 		 */
+		handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
+			var $new_content = this.$new_content.clone();
 
-			handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
+			if ( this.ajax_load_processed ) {
+				return;
+			}
 
-				var $new_content = this.$new_content.clone();
+			this.$contributions_featured_ul.append( this.$new_content.find('#contributions-featured ul li') );
+			this.$featured_carousel.ajaxCarouselSetup();
 
-				if ( this.ajax_load_processed ) { return; }
+			this.$contributions_thumbnails_ul.append( this.$new_content.find('#contributions-thumbnails ul li') );
+			this.$thumbnail_carousel.ajaxCarouselSetup();
 
-				this.$contributions_featured_ul.append( this.$new_content.find('#contributions-featured ul li') );
-				this.$featured_carousel.ajaxCarouselSetup();
+			this.$pagination_next = this.$new_content.find('#contributions-pagination .pagination a[rel=next]');
+			this.$thumbnail_links = jQuery('#contributions-thumbnails ul a');
 
-				this.$contributions_thumbnails_ul.append( this.$new_content.find('#contributions-thumbnails ul li') );
-				this.$thumbnail_carousel.ajaxCarouselSetup();
+			this.addThumbnailClickHandlers();
 
-				this.$pagination_next = this.$new_content.find('#contributions-pagination .pagination a[rel=next]');
-				this.$thumbnail_links = jQuery('#contributions-thumbnails ul a');
+			this.$thumbnail_carousel
+				.$items
+				.eq( this.previous_thumbnail_length )
+				.find('a')
+				.trigger('click');
 
-				this.addThumbnailClickHandlers();
+			this.$thumbnail_carousel.toggleNav();
+			this.pagination_checking = false;
+			this.ajax_load_processed = true;
+			this.$thumbnail_carousel.loading_content = false;
 
-				this.$thumbnail_carousel
-					.$items
-					.eq( this.previous_thumbnail_length )
-					.find('a')
-					.trigger('click');
+			this.$featured_carousel.hideOverlay();
+			this.$thumbnail_carousel.hideOverlay();
 
-				this.$thumbnail_carousel.toggleNav();
-				this.pagination_checking = false;
-				this.ajax_load_processed = true;
-				this.$thumbnail_carousel.loading_content = false;
-
-				this.$featured_carousel.hideOverlay();
-				this.$thumbnail_carousel.hideOverlay();
-
-				if ( add_lightbox ) {
-
-					this.addImagesToLightbox( $new_content );
-
-				} else {
-
-					lightbox.removeLightboxLinks();
-
-				}
-
-			},
-
-
-			retrieveContent : function( href ) {
-
-				var self = this;
-
-				if ( !href || !self.ajax_load_processed ) { return; }
-				self.ajax_load_processed = false;
-				self.$new_content = jQuery('<div/>');
-
-				try {
-
-					self.$thumbnail_carousel.loading_content = true;
-					self.$thumbnail_carousel.$overlay.fadeIn();
-					self.$featured_carousel.$overlay.fadeIn();
-
-					self.$new_content.load(
-						href,
-						null,
-						function( responseText, textStatus, XMLHttpRequest ) {
-							self.handleContentLoad( responseText, textStatus, XMLHttpRequest );
-						}
-					);
-
-				} catch(e) {
-
-					self.$thumbnail_carousel.loading_content = false;
-
-				}
-
-			},
-
-
-			setupAjaxHandler : function() {
-
-				jQuery(document).ajaxError(function( evt, XMLHttpRequest, jqXHR, textStatus ) {
-
-					evt.preventDefault();
-					// XMLHttpRequest.status == 404
-
-				});
-
-			},
-
-
-			/**
-			 *	decide whether or not to try and pull in additional carousel assets
-			 *	additional assets are pulled in via the following url schemes
-			 *
-			 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
-			 *		partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
-			 */
-			paginationContentCheck : function() {
-
-				var href,
-						next_page_link;
-
-				this.pagination_checking = true;
-				next_page_link = this.$pagination_next.attr('href');
-				if ( !next_page_link ) { return; }
-
-				next_page_link = next_page_link.split('?');
-				this.previous_thumbnail_length = this.$thumbnail_carousel.items_length;
-
-				href =
-					next_page_link[0] +
-					( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
-					next_page_link[1];
-
-				this.retrieveContent( href );
-
-			},
-
-
-		updateTumbnailCarouselPosition : function( dir ) {
-
-			if ( !this.$thumbnail_carousel || !dir ) { return; }
-			this.$thumbnail_carousel.transition();
-
+			if ( add_lightbox ) {
+				this.addImagesToLightbox( $new_content );
+			} else {
+				lightbox.removeLightboxLinks();
+			}
 		},
 
+		retrieveContent : function( href ) {
+			var self = this;
+
+			if ( !href || !self.ajax_load_processed ) { return; }
+			self.ajax_load_processed = false;
+			self.$new_content = jQuery('<div/>');
+
+			try {
+				self.$thumbnail_carousel.loading_content = true;
+				self.$thumbnail_carousel.$overlay.fadeIn();
+				self.$featured_carousel.$overlay.fadeIn();
+
+				self.$new_content.load(
+					href,
+					null,
+					function( responseText, textStatus, XMLHttpRequest ) {
+						self.handleContentLoad( responseText, textStatus, XMLHttpRequest );
+					}
+				);
+			} catch(e) {
+				self.$thumbnail_carousel.loading_content = false;
+			}
+		},
+
+		setupAjaxHandler : function() {
+			jQuery(document).ajaxError(function( evt, XMLHttpRequest, jqXHR, textStatus ) {
+				evt.preventDefault();
+				// XMLHttpRequest.status == 404
+			});
+		},
+
+		/**
+		 *	decide whether or not to try and pull in additional carousel assets
+		 *	additional assets are pulled in via the following url schemes
+		 *
+		 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
+		 *		partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
+		 */
+		paginationContentCheck : function() {
+			var href,
+					next_page_link;
+
+			this.pagination_checking = true;
+			next_page_link = this.$pagination_next.attr('href');
+			if ( !next_page_link ) {
+				return;
+			}
+
+			next_page_link = next_page_link.split('?');
+			this.previous_thumbnail_length = this.$thumbnail_carousel.items_length;
+
+			href =
+				next_page_link[0] +
+				( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
+				next_page_link[1];
+
+			this.retrieveContent( href );
+		},
+
+		updateTumbnailCarouselPosition : function( dir ) {
+			if ( !this.$thumbnail_carousel || !dir ) {
+				return;
+			}
+			this.$thumbnail_carousel.transition();
+		},
 
 		toggleSelected : function( selected_index ) {
-
 			var self = this;
 
 			self.$thumbnail_links.each(function(index) {
-
 					var $elm = jQuery(this);
 
 					if ( index === selected_index ) {
-
 						if ( !$elm.hasClass('selected') ) {
-
 							$elm.addClass('selected');
-
 						}
 
-						if ( self.$thumbnail_carousel ) { self.$thumbnail_carousel.current_item_index = selected_index; }
-
+						if ( self.$thumbnail_carousel ) {
+							self.$thumbnail_carousel.current_item_index = selected_index;
+						}
 					} else {
-
 						$elm.removeClass('selected');
-
 					}
-
 			});
-
 		},
 
-
 		updateCounts : function() {
-
 			this.$thumbnail_counts.html(
 				I18n.t('javascripts.thumbnails.item') + ' ' + ( this.$featured_carousel.get('current_item_index') + 1 ) +
 				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.items_collection_total
 			);
-
 		},
 
-
 		handleThumbnailClick : function( evt ) {
-
 			var self = evt.data.self,
 					index = evt.data.index,
 					dir = index < self.$thumbnail_carousel.current_item_index ? 'prev' : 'next';
@@ -252,32 +206,22 @@
 			self.$featured_carousel.toggleNav();
 			self.updateTumbnailCarouselPosition( dir );
 			self.updateCounts();
-
 		},
 
-
 		addThumbnailClickHandlers : function() {
-
 			var self = this;
 
 			self.$thumbnail_links.each(function(index) {
-
 				var $elm = jQuery(this);
 
 				if ( !jQuery.data( this, 'thumbnail-handler-added' ) ) {
-
 					$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
 					jQuery.data( this, 'thumbnail-handler-added', true );
-
 				}
-
 			});
-
 		},
 
-
 		navThumbnail : function( dir ) {
-
 			var $thumbnail = this.$thumbnail_carousel,
 					pos = dir === 'next' ? this.thumb_nav_by : -this.thumb_nav_by,
 					items_length = $thumbnail.options.items_collection_total > 0
@@ -287,28 +231,17 @@
 			$thumbnail.options.cancel_nav = true;
 
 			if ( $thumbnail.current_item_index + pos >= items_length ) {
-
 				pos = items_length - 1;
-
 			} else if ( $thumbnail.current_item_index + pos < 0 ) {
-
 				pos = 0;
-
 			} else {
-
 				pos = $thumbnail.current_item_index + pos;
-
 			}
 
-
 			if ( pos <= items_length - 1 ) {
-
 				if ( pos >= this.$thumbnail_carousel.items_length ) {
-
 					this.paginationContentCheck();
-
 				} else if ( $thumbnail.current_item_index !== pos )  {
-
 					this.$thumbnail_carousel
 						.$items
 						.eq( pos )
@@ -316,48 +249,32 @@
 						.trigger('click');
 
 					this.$thumbnail_carousel.toggleNav();
-
 				}
-
 			}
-
 		},
 
 
 		navFeatured : function( dir ) {
-
 			var $featured = this.$featured_carousel,
 					pos = dir === 'next' ? 1 : -1,
 					items_length = $featured.options.items_collection_total > 0
 						? $featured.options.items_collection_total
 						: $featured.items_length;
 
-
 			$featured.options.cancel_nav = true;
 
 			if ( $featured.current_item_index + pos >= items_length ) {
-
 				pos = items_length - 1;
-
 			} else if ( $featured.current_item_index + pos < 0 ) {
-
 				pos = 0;
-
 			} else {
-
 				pos = $featured.current_item_index + pos;
-
 			}
 
-
 			if ( pos <= items_length - 1 ) {
-
 				if ( pos >= this.$thumbnail_carousel.items_length ) {
-
 					this.paginationContentCheck();
-
 				} else if ( $featured.current_item_index !== pos )  {
-
 					this.$thumbnail_carousel
 						.$items
 						.eq( pos )
@@ -365,11 +282,8 @@
 						.trigger('click');
 
 					this.$thumbnail_carousel.toggleNav();
-
 				}
-
 			}
-
 		},
 
 		init : function() {
@@ -408,6 +322,7 @@
 			self.setupAjaxHandler();
 		}
 	},
+
 
 	lightbox = {
 		$metadata : [],
@@ -452,7 +367,6 @@
 			}
 		},
 
-
 		/**
 		 *	this - refers to the generated lightbox div
 		 *	the div is removed each time the lightbox is closed
@@ -477,7 +391,7 @@
 			if ( $pp_inline_audio.length > 0 ) {
 				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
 				$audio.insertAfter( $pp_inline_audio );
-				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/v2/javascripts/com/mediaelementjs/' } );
+				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/common/johndyer/mediaelement/' } );
 			}
 
 			if ( self.$metadata[self.current] ) {
@@ -509,21 +423,31 @@
 
 		setupPrettyPhoto : function() {
 			var self = this,
-				ppOptions = {
-					description_src : 'data-description',
-					overlay_gallery : false,
-					changepagenext : self.handlePageChangeNext,
-					changepageprev : self.handlePageChangePrev,
-					changepicturecallback : self.handlePictureChange,
-					show_title : false,
-					social_tools: false,
-					collection_total : carousels.items_collection_total,
-					callback : function() {
-						//lightbox.init(); // Why is this run as a callback when pp is closed?
-						self.removeMediaElementPlayers();
-					}
-				};
+					ppOptions = {
+						description_src : 'data-description',
+						overlay_gallery : false,
+						changepagenext : self.handlePageChangeNext,
+						changepageprev : self.handlePageChangePrev,
+						changepicturecallback : self.handlePictureChange,
+						show_title : false,
+						social_tools: false,
+						collection_total : carousels.items_collection_total,
+						callback : function() {
+							//lightbox.init(); // Why is this run as a callback when pp is closed?
+							self.removeMediaElementPlayers();
+						}
+					};
 
+			//jQuery("a[rel^='prettyPhoto']").prettyPhoto({
+			//	description_src : 'data-description',
+			//	overlay_gallery : false,
+			//	changepagenext : self.handlePageChangeNext,
+			//	changepageprev : self.handlePageChangePrev,
+			//	changepicturecallback : self.handlePictureChange,
+			//	show_title : false,
+			//	collection_total : carousels.items_collection_total,
+			//	callback : function() { lightbox.init(); }
+			//});
 			jQuery("a[rel^='prettyPhoto'].video").each(function() {
 				// Videos are played by MediaElement.js, using prettyPhoto's inline
 				// content handler. MediaElements.js will not work if the video element
@@ -538,7 +462,7 @@
 				ppVideoOptions.default_height = video_link.data('video-height');
 				jQuery(this).prettyPhoto(ppVideoOptions);
 			});
-			
+
 			jQuery("a[rel^='prettyPhoto'].audio").each(function() {
 				var ppAudioOptions = ppOptions;
 				var audio_link = jQuery(this);
@@ -569,7 +493,6 @@
 				this.removeLightboxLinks();
 			}
 		}
-
 	},
 
 
@@ -583,9 +506,7 @@
 		$placename_link : jQuery('<a/>'),
 		$story_took_place : jQuery('<b/>'),
 
-
 		addMapContainer : function() {
-
 			jQuery('#thumbnail-counts')
 				.after(
 					jQuery( this.$google_map )
@@ -595,9 +516,7 @@
 				);
 
 			this.$story_map.css( 'height', jQuery('.one-half-right').width() );
-
 		},
-
 
 		removeOverlay : function() {
 			if ( map.$overlay.is(':visible') ) {
@@ -605,14 +524,12 @@
 			}
 		},
 
-
 		locationMap : function() {
 			if ( this.$map.length === 1 ) {
 				this.addMapContainer();
 				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
 			}
 		},
-
 
 		addStoryTookPlace : function() {
 			var self = this;
@@ -654,6 +571,7 @@
 		}
 	},
 
+
 	truncate = {
 		init : function() {
 			if ( jQuery('#avatar').length < 1 ) {
@@ -672,15 +590,12 @@
 
 
 	(function() {
-
 		truncate.init();
 		RunCoCo.translation_services.init( jQuery('#story-metadata') );
 		carousels.init();
 		map.init();
 		lightbox.init();
 		pdf.init();
-
 	}());
-
 
 }());

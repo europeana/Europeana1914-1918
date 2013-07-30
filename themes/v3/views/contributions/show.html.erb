@@ -8,8 +8,10 @@
   @javascripts[:lightbox] = true
   @javascripts[:translate] = true
   @javascripts[:contributions_show] = true
+  @javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
+  @javascripts[:video] = @contribution.attachments.select(&:video?).present?
   @title = contribution_title(@contribution)
-  
+
 %>
 
 <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>
@@ -41,40 +43,34 @@
   </div>
 <% end -%>
 
-
-
 <div class="section top">
-  
+
   <div class="nav-top">
-  
-  
+
 		<%- if referred_by_search? -%>
 			<%= link_to t('views.links.back-to-search'), :back %>
 		<%- elsif true -%>
 			<%= link_to t('views.links.back-to-search'), :back %>
 		<%- end -%>
-	  
+
 		<%= render :partial => '/layouts/navigation/sharethis' %>
-		
+
 		<div id="shareicons">
 			<span class='st_sharethis' displayText='&nbsp;'></span>
 		</div>
-		  
+
   </div>
-  
-  
-  
+
   <h2><%= contribution_title(@contribution) %></h2>
-  
+
   <div class="one-half-left">
-    
+
     <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
-    
-    
+
     <ul id="thumbnail-counts"></ul>
-    
+
     <div class="location-desc">This story took place in: <a href="">Amiens, France</a></div>
-    
+
     <!-- <div id="banner"> -->
     <%
     #  render :partial => '/blog_posts/list',
@@ -86,20 +82,17 @@
     #  }
     %>
     <!-- </div> -->
-    
+
     <div class="add-tags">
     	Add tags (optional)
-    	
+
     	<textarea style="width:100%" rows="10"></textarea>
     </div>
-    
+
   </div>
-  
-  
-  
-  
+
   <div id="story-info" class="one-half-right">
-    
+
     <dl id="story-metadata" class="metadata">
     <%=
       render :partial => '/metadata/display',
@@ -108,10 +101,10 @@
       :contribution => @contribution,
       :metadata => @contribution.metadata,
       :field_options => {
-        :cataloguing => false, 
+        :cataloguing => false,
         :contribution => true,
         :name => [
-        'alternative',        
+        'alternative',
         'description',
         'creator_family_name',
         'creator_given_name',
@@ -119,7 +112,7 @@
         :name_order => true
       }
       }
-    %>    
+    %>
     <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
       <dt><b><%= contribution_field_title('contributor') %></b></dt>
       <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
@@ -131,7 +124,7 @@
       :contribution => @contribution,
       :metadata => @contribution.metadata,
       :field_options => {
-        :cataloguing => false, 
+        :cataloguing => false,
         :contribution => true,
         :name => [
         'contributor_behalf'
@@ -139,7 +132,7 @@
         :name_order => true
       }
       }
-    %>    
+    %>
     <% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
       <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
       <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
@@ -150,7 +143,7 @@
         :contribution => @contribution,
         :metadata => @contribution.metadata,
         :field_options => {
-          :cataloguing => false, 
+          :cataloguing => false,
           :contribution => true,
           :name => [
           'character1_dob',
@@ -162,7 +155,7 @@
         }
         }
       %>
-    <% end -%> 
+    <% end -%>
     <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
       <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
       <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
@@ -173,7 +166,7 @@
           :contribution => @contribution,
           :metadata => @contribution.metadata,
           :field_options => {
-          :cataloguing => false, 
+          :cataloguing => false,
           :contribution => true,
           :name => [
             'character2_dob',
@@ -185,7 +178,7 @@
           }
         }
       %>
-    <% end -%>    
+    <% end -%>
     <%=
       render :partial => '/metadata/display',
       :locals => {
@@ -193,22 +186,22 @@
       :contribution => @contribution,
       :metadata => @contribution.metadata,
       :field_options => {
-        :cataloguing => false, 
+        :cataloguing => false,
         :contribution => true,
         :name => [
-        
+
         'subject',
         'summary',
-        
+
         'date_from', # use this field to summarize the date fields
         'date_to', # do we need to display this field if date_from takes care of all possibilities?
-        
+
         'lang',
         'lang_other',
         'keywords',
         'theatres',
         'forces',
-        
+
         #'content',
         #'author',
         #'page_number',
@@ -218,7 +211,7 @@
         #'cover_image',
         #'license',
         #'attachment_description',
-        
+
         # need these to be available for google map
         # they are output as input type="hidden"
         'location_map',
@@ -228,7 +221,7 @@
         :name_order => true
       }
       }
-    %>    
+    %>
     <% if current_user.may_catalogue_contributions? -%>
       <%=
       render :partial => '/metadata/display',
@@ -237,7 +230,7 @@
           :contribution => @contribution,
           :metadata => @contribution.metadata,
           :field_options => {
-          :cataloguing => true, 
+          :cataloguing => true,
           :contribution => true,
           :name => [
             'ticket',
@@ -248,7 +241,7 @@
         }
       %>
       <dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
-      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>  
+      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
       <%=
       render :partial => '/metadata/display',
         :locals => {
@@ -256,7 +249,7 @@
         :contribution => @contribution,
         :metadata => @contribution.metadata,
         :field_options => {
-          :cataloguing => true, 
+          :cataloguing => true,
         :contribution => true,
           :name => [
             'file_type',
@@ -276,8 +269,7 @@
       <dd><%= l @contribution.created_at, :format => :short %></dd>
     <% end -%>
     </dl>
-    
-    
+
     <%- if @contribution.contributor.picture.present? -%>
       <%
         people = {
@@ -285,13 +277,13 @@
           :principal =>   @contribution.metadata.fields['contributor_behalf'],
           :character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
           :character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
-        } 
+        }
       %>
       <div id="avatar" class="responsive-box">
         <%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
         <%- if people[:contributor].present? -%>
           <%= people[:contributor] %>
-          <%#= people[:principal] %> 
+          <%#= people[:principal] %>
           <% if people[:character1].present? || people[:character2].present? -%>
             <%= t('views.contributions.show.shared-this-story') %>
             <%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
@@ -300,17 +292,16 @@
       </div>
     <%- end -%>
 
-
 	<div class="about-contributor">
 
 		<div style="margin-top:1em; margin-bottom:2em;">
 			<b>About Horace Brumbridge</b>
 		</div>
-		
+
 		<div style="float:left; margin-right: 1em;">
 	      <%= image_tag('http://www.europeana1914-1918.eu/attachments/51204/4337.51204.thumb.jpg') %>
 		</div>
-		
+
 		<div style="float:left">
 
 			<b>Date of birth</b>
@@ -318,39 +309,38 @@
 			1895
 			<br/>
 			<br/>
-			
+
 			<b>Place of birth</b>
 			<br/>
 			Hampstead (then Middlesex)
 			<br/>
 			<br/>
-			
+
 			<b>Date of death</b>
 			<br/>
 			December 20 1924
 			<br/>
 			<br/>
-			
+
 			<b>Place of death</b>
 			<br/>
 			Leyton (then Essex)
 			<br/>
 			<br/>
 		</div>
-		
+
 	</div>
-	
 
 
 	<div class="comments" style="margin-top: 3em; clear:both;">
 		<h3>Comments</h3>
 		<hr style="color:#dadada"/>
-		
+
 		There are no comments, why not add one below....
 		<br>
 		<br>
 		<h3>Leave a Comment</h3>
-		
+
 		<div>
 			<div style="float:left; width:20%">
 				Photo
@@ -363,23 +353,22 @@
 				<br/>
 				<input type="submit" class="europeana-button" value="Submit Comment"/>
 			</div>
-		
 		</div>
-		
-    </div>
-    
-  </div>
-  
 
-  
+    </div>
+
+  </div>
+
+
+
   <div class="related-content">
-  
+
     <h3>Related Content</h3>
-  	
+
   	<div style="padding-right:0.36em;">
-  	
+
 		<div id="explore-further" class="accordion-tabs">
-		
+
 			<div class="section active">
 				<a title="User information" href="#tab1">Tab One</a>
 				<div class="content is-open">
@@ -420,9 +409,9 @@
 				</div>
 			</div>
 		</div>  <!--end explore further -->
-		
+
 	</div>	<!--end anonymous wrapper -->
-  
+
 </div>  <!--end page -->
 
 <%= render :partial => '/edm/record', :object => contribution_to_edm(@contribution) %>

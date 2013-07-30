@@ -2,7 +2,7 @@
 stylesheets = {
   'all' => [ "/themes/#{session[:theme]}/stylesheets/all.css" ],
   'screen' => [],
-} 
+}
 
 if @javascripts[:lightbox]
   stylesheets['screen'] << "/themes/#{session[:theme]}/stylesheets/jquery-plugins/prettyphoto/prettyphoto.css"
@@ -28,12 +28,14 @@ if @stylesheets['index']
 	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/index.css"
 end
 
-if @stylesheets['search'] 
+if @stylesheets['search']
 	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/facets.css"
 	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/search.css"
 end
 
-
+if @javascripts[:video] || @javascripts[:audio]
+  stylesheets['screen'] << '/themes/common/johndyer/mediaelement/mediaelementplayer.css'
+end
 
 # TODO: only include this stuff if we're on the item page
 stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/item.css"

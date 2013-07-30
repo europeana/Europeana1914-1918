@@ -15,8 +15,10 @@
           }
 
           if ( prettyphoto && (attachment.image? || attachment.video? || attachment.audio?) )
-            link_attrs.merge!( {
-              'data-description' => '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' + ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
+            link_attrs.merge!({
+              'data-description' =>
+                '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
+                ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
               :rel => 'prettyPhoto[gallery]'
             })
           end
@@ -31,24 +33,24 @@
               'data-video-height' => video_height.to_s
             })
           end
-          
+
           if ( prettyphoto && attachment.audio? )
             link_url = '#audio-' + attachment.id.to_s
-            audio_width = '400'
-            audio_height = '30'
+            audio_width = 400
+            audio_height = 80
             link_attrs.merge!({
               'class' => 'audio',
               'data-audio-width' => audio_width,
               'data-audio-height' => audio_height
             })
           end
-          
+
           if ( attachment.pdf? )
             link_attrs.merge!({
               :class => 'pdf'
             })
           end
-        %>
+        -%>
         <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
       <% else %>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />

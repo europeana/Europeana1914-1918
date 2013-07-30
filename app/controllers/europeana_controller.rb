@@ -49,7 +49,11 @@ class EuropeanaController < ApplicationController
     respond_to do |format|
       format.html { render :template => 'search/page' }
       format.json do
-        json = response.reject { |key, value| key == "apikey" }.to_json
+        if response.blank?
+          json = {}.to_json
+        else
+          json = response.reject { |key, value| key == "apikey" }.to_json
+        end
         json = "#{params[:callback]}(#{json});" unless params[:callback].blank?
         render :json => json
       end
