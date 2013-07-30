@@ -13,16 +13,11 @@ module EDM
     ##
     # Converts the contribution's metadata to EDM
     #
-    # @param [Hash] options Record generation options
-    # @option options [Proc] :contribution_url Proc to generate contribution URL,
-    #   passed the contribution as its parameter.
-    # @option options [Proc] :attachment_url Proc to generate attachment URLs,
-    #   passed the contribution and an attachment as its parameters.
     # @return (see MetadataRecord#to_edm)
     #
-    def to_edm(options = {})
+    def to_edm
       metadata.to_edm.reverse_merge( {
-        "providedCHOs" => [ { :about => options[:contribution_url].call(self) } ],
+        "providedCHOs" => [ { :about => edm_provided_cho_uri.to_s } ],
         "type" => "TEXT",
         "title" => [ title ],
         "dcDate" => { "def" => [ created_at ] },
@@ -30,9 +25,7 @@ module EDM
         "dcTitle" => { "def" => [ title ] },
         "dcType" => { "def" => [ "Text" ] },
         "dctermsCreated" => { "def" => [ created_at ] },
-        "dctermsHasPart" => { "def" => attachments.collect { |attachment|
-          options[:attachment_url].call(self, attachment)
-        } },
+        "dctermsHasPart" => { "def" => attachments.collect { |a| a.edm_provided_cho_uri.to_s } },
         "edmType" => { "def" => [ "TEXT" ] }
       } )
     end
@@ -40,21 +33,15 @@ module EDM
     ##
     # Returns a partial EDM record for the contribution, for use in search results.
     #
-    # @param [Hash] options Record generation options
-    # @option options [Proc] :contribution_url Proc to generate contribution URL,
-    #   passed the contribution as its parameter.
     # @return [Hash] Partial EDM record for this contribution
     #
     def to_edm_result(options = {})
-      root_url = options[:root_url].to_s
-      root_url = root_url[0..-2] if root_url[-1] == '/'
-      
       {
         "id"                  => id,
         "title"               => [ title ],
         "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
         "dctermsAlternative"  => [ metadata.fields['alternative'] ],
-        "guid"                => options[:contribution_url].call(self)
+        "guid"                => edm_provided_cho_uri
       }
     end
     

@@ -86,7 +86,7 @@ module SearchHelper
   
   def search_result_to_edm(result)
     if controller.controller_name == 'contributions'
-      result.to_edm_result(:contribution_url => lambda { |c| contribution_url(c) })
+      result.to_edm_result
     elsif controller.controller_name == 'europeana'
       result
     else
