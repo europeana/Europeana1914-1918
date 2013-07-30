@@ -1,14 +1,15 @@
 module EDM
   ##
-  # Contains methods for conversion of a +Contribution+ to EDM
+  # Contains methods for conversion of a +Contribution+ to an EDM "story"
   #
   module Story
     def self.included(base)
       base.class_eval do
-        include EDM
+        include EDM::Base
+        has_rdf_graph_methods :edm_provided_cho, :edm_web_resource, :ore_aggregation
       end
     end
-  
+    
     ##
     # Converts the contribution's metadata to EDM
     #
@@ -58,25 +59,49 @@ module EDM
     end
     
     ##
-    # Constructs an RDF graph to represent the contribution and its metadata
-    # as an ore:Aggregation of edm:ProvidedCHO and edm:WebResource.
+    # The edm:ProvidedCHO URI of this contribution
     #
-    # @return [RDF::Graph]
+    # @return [RDF::URI] URI
     #
-    def to_rdf_graph
+    def edm_provided_cho_uri
+      @edm_provided_cho_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/contributions/" + id.to_s)
+    end
+    
+    ##
+    # The edm:WebResource URI of this contribution
+    #
+    # @return [RDF::URI] URI
+    #
+    def edm_web_resource_uri
+      @edm_web_resource_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/en/contributions/" + id.to_s)
+    end
+    
+    ##
+    # The ore:Aggregation URI of this contribution
+    #
+    # @return [RDF::URI] URI
+    #
+    def ore_aggregation_uri
+      @ore_aggregation_uri ||= RDF::URI.parse("europeana19141918:aggregation/contribution/" + id.to_s)
+    end
+    
+    ##
+    # Constructs the edm:ProvidedCHO for this story
+    #
+    # @return [RDF::Graph] RDF graph of the edm:ProvidedCHO
+    #
+    def edm_provided_cho
       graph = RDF::Graph.new
       meta = metadata.fields
+      uri = edm_provided_cho_uri
       
-      # edm:ProvidedCHO
-      puri = RDF::URI.parse(edm_provided_cho_uri)
-      
-      graph << [ puri, RDF.type, RDF::EDM.ProvidedCHO ]
-      graph << [ puri, RDF::DC.identifier, id.to_s ]
-      graph << [ puri, RDF::DC.title, title ]
-      graph << [ puri, RDF::DC.type, RDF::URI.parse("http://purl.org/dc/dcmitype/Text") ]
-      graph << [ puri, RDF::DC.date, created_at.to_s ]
-      graph << [ puri, RDF::DC.created, created_at.to_s ]
-      graph << [ puri, RDF::EDM.type, "TEXT" ]
+      graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
+      graph << [ uri, RDF::DC.identifier, id.to_s ]
+      graph << [ uri, RDF::DC.title, title ]
+      graph << [ uri, RDF::DC.type, RDF::URI.parse("http://purl.org/dc/dcmitype/Text") ]
+      graph << [ uri, RDF::DC.date, created_at.to_s ]
+      graph << [ uri, RDF::DC.created, created_at.to_s ]
+      graph << [ uri, RDF::EDM.type, "TEXT" ]
       
       contributor_full_name = meta["contributor_behalf"].present? ? meta["contributor_behalf"] : contributor.contact.full_name
       agent_properties = {}
@@ -85,7 +110,7 @@ module EDM
         contributor_agent_uri = RDF::URI.parse("europeana19141918:agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
         graph << [ contributor_agent_uri, RDF.type, RDF::EDM.Agent ]
         graph << [ contributor_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
-        graph << [ puri, RDF::DC.contributor, contributor_agent_uri ]
+        graph << [ uri, RDF::DC.contributor, contributor_agent_uri ]
       end
       
       agent_properties = {}
@@ -94,11 +119,11 @@ module EDM
         creator_agent_uri = RDF::URI.parse("europeana19141918:agent/" + Digest::MD5.hexdigest(agent_properties.to_yaml))
         graph << [ creator_agent_uri, RDF.type, RDF::EDM.Agent ]
         graph << [ creator_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
-        graph << [ puri, RDF::DC.creator, creator_agent_uri ]
+        graph << [ uri, RDF::DC.creator, creator_agent_uri ]
       end
       
-      graph << [ puri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
-      graph << [ puri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
+      graph << [ uri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
+      graph << [ uri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
       [ "keywords", "theatres", "forces" ].each do |subject_field|
         unless meta[subject_field].blank?
           meta[subject_field].each do |subject|
@@ -108,12 +133,12 @@ module EDM
               subject_concept_uri = RDF::URI.parse("europeana19141918:concept/#{subject_field}/" + Digest::MD5.hexdigest(concept_properties.to_yaml))
               graph << [ subject_concept_uri, RDF.type, RDF::EDM.Concept ]
               graph << [ subject_concept_uri, RDF::SKOS.prefLabel, concept_properties['skos:prefLabel'] ]
-              graph << [ puri, RDF::DC.subject, subject_concept_uri ]
+              graph << [ uri, RDF::DC.subject, subject_concept_uri ]
             end
           end
         end
       end
-      graph << [ puri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
+      graph << [ uri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
         
       character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
       agent_properties = {}
@@ -126,18 +151,18 @@ module EDM
         graph << [ subject_agent_uri, RDF::EDM.begin, agent_properties['edm:begin'] ] unless agent_properties['edm:begin'].blank?
         graph << [ subject_agent_uri, RDF::EDM.end, agent_properties['edm:end'] ] unless agent_properties['edm:end'].blank?
         graph << [ subject_agent_uri, RDF::SKOS.prefLabel, agent_properties['skos:prefLabel'] ] unless agent_properties['skos:prefLabel'].blank?
-        graph << [ puri, RDF::DC.subject, subject_agent_uri ]
+        graph << [ uri, RDF::DC.subject, subject_agent_uri ]
       end
       
-      graph << [ puri, RDF::DC.type, meta["content"].first ] unless meta["content"].blank?
+      graph << [ uri, RDF::DC.type, meta["content"].first ] unless meta["content"].blank?
       unless meta["lang"].blank?
         meta["lang"].each do |lang|
-          graph << [ puri, RDF::DC.language, lang ]
+          graph << [ uri, RDF::DC.language, lang ]
         end
       end
-      graph << [ puri, RDF::DC.language, meta["lang_other"] ] unless meta["lang_other"].blank?
-      graph << [ puri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
-      graph << [ puri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
+      graph << [ uri, RDF::DC.language, meta["lang_other"] ] unless meta["lang_other"].blank?
+      graph << [ uri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
+      graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
       
       lat, lng = meta["location_map"].split(',')
       place_properties = {}
@@ -150,7 +175,7 @@ module EDM
         graph << [ spatial_place_uri, RDF::GEO.lat, place_properties['wgs84_pos:lat'] ] unless place_properties['wgs84_pos:lat'].blank?
         graph << [ spatial_place_uri, RDF::GEO.lng, place_properties['wgs84_pos:lng'] ] unless place_properties['wgs84_pos:lng'].blank?
         graph << [ spatial_place_uri, RDF::SKOS.prefLabel, place_properties['skos:prefLabel'] ] unless place_properties['skos:prefLabel'].blank?
-        graph << [ puri, RDF::DC.spatial, spatial_place_uri ]
+        graph << [ uri, RDF::DC.spatial, spatial_place_uri ]
       end
       
       time_span_properties = {}
@@ -163,60 +188,53 @@ module EDM
         graph << [ temporal_time_span_uri, RDF::EDM.begin, meta['date_from'] ] unless meta["date_from"].blank?
         graph << [ temporal_time_span_uri, RDF::EDM.end, meta['date_to'] ] unless meta["date_to"].blank?
         graph << [ temporal_time_span_uri, RDF::SKOS.prefLabel, meta['date'] ] unless meta["date"].blank?
-        graph << [ puri, RDF::DC.temporal, temporal_time_span_uri ]
+        graph << [ uri, RDF::DC.temporal, temporal_time_span_uri ]
       end
       
       attachments.each do |attachment|
-        graph << [ puri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm_provided_cho_uri) ]
+        graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm_provided_cho_uri) ]
       end
-      
-      # edm:WebResource
-      wuri = RDF::URI.parse(edm_web_resource_uri)
-      
-      graph << [ wuri, RDF.type, RDF::EDM.WebResource ]
-      graph << [ wuri, RDF::DC.description, created_at.to_s ]
-      graph << [ wuri, RDF::DC.format, "TEXT" ]
-      graph << [ wuri, RDF::DC.created, created_at.to_s ]
-      graph << [ wuri, RDF::DC.created, meta["collection_day"].first ] unless meta["collection_day"].blank?
-      graph << [ wuri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
-      
-      # ore:Aggregation
-      auri = RDF::URI.parse(ore_aggregation_uri)
-      
-      graph << [ auri, RDF.type, RDF::ORE.Aggregation ]
-      graph << [ auri, RDF::EDM.aggregatedCHO, puri ]
-      graph << [ auri, RDF::EDM.isShownAt, wuri ]
-      graph << [ auri, RDF::EDM.isShownBy, wuri ]
-      graph << [ auri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
       
       graph
     end
     
     ##
-    # The edm:ProvidedCHO URI of this contribution
+    # Constructs the edm:WebResource for this story
     #
-    # @return [String] URI
+    # @return [RDF::Graph] RDF graph of the edm:WebResource
     #
-    def edm_provided_cho_uri
-      @edm_provided_cho_uri ||= RunCoCo.configuration.site_url + "/contributions/" + id.to_s
+    def edm_web_resource
+      graph = RDF::Graph.new
+      meta = metadata.fields
+      uri = edm_web_resource_uri
+      
+      graph << [ uri, RDF.type, RDF::EDM.WebResource ]
+      graph << [ uri, RDF::DC.description, created_at.to_s ]
+      graph << [ uri, RDF::DC.format, "TEXT" ]
+      graph << [ uri, RDF::DC.created, created_at.to_s ]
+      graph << [ uri, RDF::DC.created, meta["collection_day"].first ] unless meta["collection_day"].blank?
+      graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
+      
+      graph
     end
     
     ##
-    # The edm:WebResource URI of this contribution
+    # Constructs the ore:Aggregation for this story
     #
-    # @return [String] URI
+    # @return [RDF::Graph] RDF graph of the ore:Aggregation
     #
-    def edm_web_resource_uri
-      @edm_web_resource_uri ||= RunCoCo.configuration.site_url + "/en/contributions/" + id.to_s
+    def ore_aggregation
+      graph = RDF::Graph.new
+      uri = ore_aggregation_uri
+      
+      graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
+      graph << [ uri, RDF::EDM.aggregatedCHO, edm_provided_cho_uri ]
+      graph << [ uri, RDF::EDM.isShownAt, edm_web_resource_uri ]
+      graph << [ uri, RDF::EDM.isShownBy, edm_web_resource_uri ]
+      graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
+      
+      graph
     end
-    
-    ##
-    # The ore:Aggregation URI of this contribution
-    #
-    # @return [String] URI
-    #
-    def ore_aggregation_uri
-      @ore_aggregation_uri ||= "europeana19141918:aggregation/contribution/" + id.to_s
-    end
+  
   end
 end
