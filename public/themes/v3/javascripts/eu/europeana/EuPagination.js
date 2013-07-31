@@ -70,6 +70,7 @@ var EuPagination = function(cmpIn, options){
         self.records = records;
         self.rows    = rows;
         
+        
         if(self.ajax){
             // set link display
            	$.each([self.first, self.previous], function(i, ob){
@@ -88,8 +89,10 @@ var EuPagination = function(cmpIn, options){
            	});
             
             // labels & input
+           	
            	console.log('set "of" pages to ' + getMaxPages() + '   [rrs=' + records +', '+ rows +', '+ start + ']')
-            self.ofPages.html(getMaxPages());
+
+           	self.ofPages.html(getMaxPages());
             
             var res = (records > rows) ? parseInt(start/rows)+1 : 1;
             

@@ -83,7 +83,7 @@ EUSearchAjax = function(){
     	
     	url += '&rows='  + rows;
     	url += '&start=' + (startParam ? startParam : 1);
-    	url += '&page='  + parseInt(startParam ? startParam / rows : 1);
+    	url += '&page='  + (startParam ? Math.ceil(startParam / rows) : 1);
          
         
         // refinements & facets read from hidden inputs
@@ -118,7 +118,8 @@ EUSearchAjax = function(){
 		*/
 
 		console.log('final search url: ' + url);
-        return url;
+
+		return url;
     };
 
     
@@ -134,7 +135,8 @@ EUSearchAjax = function(){
         var start = data.params.start ? data.params.start : 1;
 
         // @richard - we need a start value.
-        console.log("showRes() start = " + start + ", params = \n" + JSON.stringify(data.params));
+        
+        //alert("showRes() start = " + start + ", params = \n" + JSON.stringify(data.params));
         
         $(data.items).each(function(i, ob){
             var item = itemTemplate.clone();
