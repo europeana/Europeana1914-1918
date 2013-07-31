@@ -61,6 +61,9 @@ RunCoCo::Application.routes.draw do
     match 'europeana/search' => 'europeana#search', :as => 'search_europeana', :via => :get
     match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
     match 'europeana/record/:dataset_id/:record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
+    
+    # Trove API interface
+    match 'trove/search' => 'trove#search', :as => 'search_trove', :via => :get
 
     # Public usage statistics
     resources :statistics, :only => :index
