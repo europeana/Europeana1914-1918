@@ -6,7 +6,7 @@
 
 	<%  
 		proxy          = record['proxies'][0]
-		aggregation    = record['aggregations'] ? record['aggregations'][0] : nil
+		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
 		edmObject      = aggregation['edmObject']
 		carouselImages = aggregation['hasView']
 	%> 
