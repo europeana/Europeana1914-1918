@@ -22,7 +22,7 @@ EUSearchAjax = function(){
 	
     var defaultRows             = 6;
     var pagination              = false;
-    var paginationData          = defPaginationData ? defPaginationData : {};
+    var paginationData          = typeof defPaginationData != 'undefined' ? defPaginationData : {};
     
    
     var doSearch = function(startParam, query){

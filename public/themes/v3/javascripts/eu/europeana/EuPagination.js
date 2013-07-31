@@ -92,7 +92,7 @@ var EuPagination = function(cmpIn, options){
            	
            	console.log('set "of" pages to ' + getMaxPages() + '   [rrs=' + records +', '+ rows +', '+ start + ']')
 
-           	self.ofPages.html(getMaxPages());
+           	self.ofPages.html(self.ofPages.html().replace(/[0-9]/g, getMaxPages()));
             
             var res = (records > rows) ? parseInt(start/rows)+1 : 1;
             

@@ -138,10 +138,12 @@ a.menu-button:hover{
 	clear:			both;
 	position:		relative;
 	z-index:		1;
-	
+	display:		table;
+
 	li{
-		list-style: 	none;
-		display: inline-block;
+		list-style: none;
+		display:	table-cell;
+		border-image-width:	0;
 	}
 	
 	.disabled{
@@ -275,22 +277,44 @@ a.menu-button:hover{
 
 #results li {
 
-	display:	inline-block;
+	display:		inline-block;
 
 	margin-bottom:	1em;
 	margin-top:  	1px;
-	max-width:		30%;
-	padding:		1em;
-	width:			30%;
+	width:			50%;
 
 	line-height:	120%;
 	font-size:		90%;
 	
-	webkit-box-shadow:	1px 1px 3px rgba(34,25,25,0.8);
-	moz-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
-	ms-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
-	o-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
-	box-shadow:			1px 1px 3px rgba(34,25,25,0.8);
+	.story{
+		padding:		1em;
+		display: inline-block;
+		webkit-box-shadow:	1px 1px 3px rgba(34,25,25,0.8);
+		moz-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
+		ms-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
+		o-box-shadow:		1px 1px 3px rgba(34,25,25,0.8);
+		box-shadow:			1px 1px 3px rgba(34,25,25,0.8);
+		width:100%;
+	}
+	
+
+
+	&.col-1,
+	&.col-2,
+	&.col-3{
+		padding-left:  0;
+		padding-right: 3px;
+	}
+
+	&.col-odd{
+		padding-left:	1px;
+		padding-right:	0.5em;
+	}
+	&.col-even{
+		padding-left: 0.5em;
+	}
+
+
 }
 
 #results li a {		
@@ -310,6 +334,7 @@ a.menu-button:hover{
 
 @media only screen and (min-width: 22em) {
 
+
 	.nav{
 		.of-bracket:before{
 			content:'';
@@ -324,6 +349,7 @@ a.menu-button:hover{
 			display:inline;
 		}
 	}
+	
 }
 
 
@@ -340,18 +366,6 @@ a.menu-button:hover{
 			content:' ';
 		}
 	}
-
-
-	.result-pagination{
-		display:		table;
-		table-layout:	fixed;
-		li{
-			display:	table-cell;
-		}
-	}
-
-
-	
 
 	
 	.jump-to-page{
@@ -383,11 +397,6 @@ a.menu-button:hover{
 	
 	.container{
 		display: table;
-		
-		/*
-		border-spacing: 1em;
-		background-color:red;
-		*/
 	}
 
 	.nav-top,
@@ -424,16 +433,55 @@ a.menu-button:hover{
 	
 	/* End Off-Canvas Layout */
 	
+	
+	#results li{
+		width:	33.33%;
+	}
+	
 }
 
 
 @media only screen and (max-width: 55em) {
+
 	.nav>div.show-on-22{
 		display:none;
 	}
+	
+	#results li{
+		width:	50%;
+	}
+	
 }
 
 @media only screen and (min-width: 55em) {
+
+	
+	#results li {
+		&.col-odd,
+		&.col-even{
+			padding-left:	0;
+			padding-right:	0;			
+		}
+
+		&.col-1{
+			padding-right: 0.5em;
+		}
+		&.col-2{
+			padding-left: 0.5em;
+			padding-right: 0.5em;
+		}
+		&.col-3{
+			padding-left: 0.5em;
+			padding-right: 3px;
+		}
+	
+	
+
+	}
+	
+
+
+
 
 	.facets-column{
 		min-width: 	   20em;
@@ -523,6 +571,7 @@ a.menu-button:hover{
 	}	
 	
 	/* End off-canvas layout */
+	
 }
 
 input::-webkit-outer-spin-button,

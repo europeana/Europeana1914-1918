@@ -310,14 +310,15 @@
 							var fnGetItems			= function(){
 								
 								// function to get the tabbable items
-								if( headingSelected.parent().next('form').length ){
+								if( headingSelected.parent().next('ul').hasClass('keywords')){
+									
 									// Add keywords
-									return headingSelected.parent().next('form').find('input[type!="hidden"]');
+									return headingSelected.parent().next('ul').find('input[type!="hidden"]');
 								}
 								else{
 									// Other facets
 									return headingSelected.parent().next('ul').first().find('a');
-								}							
+								}					
 							};
 							
 							var accessibility =  new EuAccessibility(
@@ -325,10 +326,13 @@
 								fnGetItems
 							);
 							
-							if($(ob).hasClass('ugc-li')){
-								$(ob).bind('keypress', accessibility.keyPress);
-							}
-							else{
+							
+							//alert("add collapsible");
+							//if($(ob).hasClass('ugc-li')){
+							//	alert("ugc");
+							//	$(ob).bind('keypress', accessibility.keyPress);
+							//}
+							//else{
 								$(ob).Collapsible(
 									{
 										"headingSelector"	: "h3 a",
@@ -336,7 +340,7 @@
 										"keyHandler"		: accessibility
 									}
 								);				
-							}
+							//	}
 						});
 						
 						// make facet checkboxes clickable

@@ -22,7 +22,6 @@ $.fn.Collapsible = function() {
         var $follower	= ops.followerSelector;
 
         var up = function(fast){
-        	
 			$body.slideUp(fast);
 			if($follower){
 				$this.find($follower).slideUp(fast);
@@ -62,7 +61,6 @@ $.fn.Collapsible = function() {
         		if(!set){        			
         			$target.addClass	(ops.expandedClass);
         			$target.removeClass	(ops.collapsedClass);
-        			down('fast');
         		}
         		else{
         			$target.addClass	(ops.collapsedClass);
@@ -127,13 +125,13 @@ $.fn.Collapsible = function() {
         	});
     	}
     	
-    	$header.bind('click', function(e){
+    	$header.unbind('click').bind('click', function(e){
     		
     		if(!ops.executeDefaultClick){    			
     			e.preventDefault();
     		}
     		
-    		if(getTarget().is(':visible')){    			
+    		if(getTarget().is(':visible')){
     			setClasses(true);
     		}
     		
