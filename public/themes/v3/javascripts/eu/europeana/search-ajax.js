@@ -184,8 +184,7 @@ EUSearchAjax = function(){
         container.find('#facets>li:not(:first)').remove(); // remove all but the "Add Keyword" form.
         
         // write facet dom
-        //alert("facetTemplate \n\n" + facetTemplate.html() );	
-        //alert("facetOpTemplate \n\n" + facetOpTemplate.html() );	
+
         $(data.facets).each(function(i, ob){
         	
             var facet           = facetTemplate.clone();
@@ -199,7 +198,10 @@ EUSearchAjax = function(){
                 
                 var facetOp = facetOpTemplate.clone();
 
-                var urlFragment = "qf=" + ob.name + ":" + field.label;
+               // var urlFragment = "qf=" + ob.name + ":" + field.label;
+                var urlFragment = "&facets[" + ob.name + "]=" + field.label;
+                
+                // 
                 
                 facetOp.find('h4 a').attr({
                     "href"  : urlFragment,
@@ -231,13 +233,11 @@ EUSearchAjax = function(){
         var refinements = container.find('#refine-search-form');
 		
         container.find('#facets  a label').add(container.find('#facets h4 input')).click(function(e){
-        	alert("click");
         	
             var cb = $(this);
             if(cb.attr("for")){
                 cb = container.find('#facets #' + cb.attr("for"));
             }
-            alert("check/uncheck");
 
             cb.prop('checked', !cb.prop('checked') );
             e.preventDefault();
@@ -253,7 +253,6 @@ EUSearchAjax = function(){
     			var toRemove =  refinements.find('input[value="' + href + '"]');
             	toRemove.remove();
             }
-            alert("an search");
         	
             doSearch();
         });
@@ -290,76 +289,7 @@ EUSearchAjax = function(){
         	container.find('#facets li:first h3 a').click();
         }
 
-        // filters
-        /*
-        if(data.breadCrumbs){
-        	
-        	//var hFields = {};
-			var filters = container.find('#search-filter');
-    		filters.empty();
-			
-            $.each(data.breadCrumbs, function(i, ob){
-            	if(ob.param == "qf" || ob.param == "query"){
-            		
-            		// add dom data
-                	ob.href = ob.href.replace(/&amp;/g, '&'); // unescape ampersans
-                	ob.href = ob.href.replace(/\"/g, ''); // remove quotes
-            		
-            		var href = (ob.param == "query") ? '' : 'qf=' + ob.href.split('&qf=')[1];
-            		            		
-            		// add filter
-            		var filter  = filterTemplate.clone();
-            		
-            		// 1st link cuts all susequent
-            		filter.find('a:first').attr('href', ob.href);  
-            		filter.find('a:first').html(ob.display); 
-            		filter.find('a:first').click(function(e){
 
-            			// remove all hidden fields occuring after the current filter / uncheck any checkboxes.
-            			container.find('#refine-search-form input[type=hidden]').each(function(iFilter, obFilter){
-            				if(iFilter >= i){
-            					var settingCbs = container.find('input[value="' + $(this).val() + '"]');
-            					// console.log("settingCbs = " + settingCbs.length );
-            					settingCbs.prop('checked', false);
-            					$(this).remove();
-            				}
-            			});
-            			alert("get start param: " + self.resMenu1.getActive() )
-            			doSearch(self.resMenu1.getActive(), ob.href);
-
-            			e.preventDefault();
-            			return;
-            		}); 
-            		
-            		// 2nd link removes this
-            		var linkRemove = filter.find('a:nth-child(2)');  
-            		linkRemove.attr('href', '');
-            		linkRemove.click(function(e){
-            			try{
-	            			var toRemove =  refinements.find('input[value="' + href + '"]');
-	            			toRemove.remove();
-	            			
-	            			// uncheck
-	            			container.find("#facets").find('input[value="' + href + '"]') .prop('checked', false);
-	            			
-	            			doSearch();
-            			}
-            			catch(e){
-            				console.log(e);
-            			}
-            			e.preventDefault();
-            		});
-            		filters.append(filter);
-            	}
-            });
-        }
-        */
-      
-        //container.find('#content').show();
-        //setupEllipsis();
-
-        //hideSpinner();
-        
     }; // end showRes
 
     
@@ -534,7 +464,6 @@ EUSearchAjax = function(){
         setupMenus();
         setUpRefinements(); // TODO
 
-        //alert("pagination data at init = " + JSON.stringify(paginationData));
         pagination = new EuPagination($('.result-pagination'),
         	{
         		"ajax":true,
@@ -556,8 +485,8 @@ EUSearchAjax = function(){
             		"fnNext":function(e){
             			e.preventDefault();
             			
-            			console.log("fnNext -> call search with " + (paginationData.start + paginationData.rows)  );
-            			//alert("search start " + paginationData.start + " + " + paginationData.rows + " = " + (parseInt(paginationData.start) + parseInt(paginationData.rows)) )
+            			//console.log("fnNext -> call search with " + (paginationData.start + paginationData.rows)  );
+
             			searchAjax.search( parseInt(paginationData.start) + parseInt(paginationData.rows));
             		},
 					"fnLast":function(e){
