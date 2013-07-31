@@ -100,10 +100,10 @@ module EDM
         result["id"] = solution.object.to_s
       end
       graph.query(:predicate => RDF::DC.title) do |solution|
-        result["title"] = solution.object.to_s
+        result["title"] = [ solution.object.to_s ]
       end
       graph.query(:predicate => RDF::DC.alternative) do |solution|
-        result["dctermsAlternative"] = solution.object.to_s
+        result["dctermsAlternative"] = [ solution.object.to_s ]
       end
       result["edmPreview"] = [ attachments.cover_image.thumbnail_url(:preview) ]
       result["guid"] = edm_provided_cho_uri.to_s
