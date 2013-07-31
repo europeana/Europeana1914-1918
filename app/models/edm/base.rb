@@ -51,6 +51,11 @@ module EDM
       to_rdf_graph.dump(:ntriples)
     end
     
+    ##
+    # Converts the EDM metadata to RDF/XML
+    #
+    # @return [String] XML
+    #
     def to_rdfxml
       namespace_prefixes = {
         :dcterms => "http://purl.org/dc/terms/",
@@ -65,6 +70,41 @@ module EDM
           writer << statement
         end
       end
+    end
+    
+    ##
+    # Gets the label to display for an RDF statement in EDM record display
+    #
+    # @param [RDF::Graph] graph The RDF graph from which the statement came
+    # @param [RDF::Statement] statement The RDF statement object
+    # @return [String] The label for this statement
+    #
+    def statement_label(graph, statement)
+      label = nil
+      
+      if statement.object.is_a?(RDF::URI)
+        if statement.object.to_s.match(/europeana19141918:timespan/)
+          graph.query([ statement.object, RDF::URI.parse("http://www.europeana.eu/schemas/edm/begin"), nil ]) do |solution|
+            label = solution.object.to_s
+          end
+          graph.query([ statement.object, RDF::URI.parse("http://www.europeana.eu/schemas/edm/end"), nil ]) do |solution|
+            label << " - " << solution.object.to_s
+          end
+        elsif statement.object.to_s.match(RDF::DCMIType.to_uri)
+          label = statement.object.qname.last.to_s
+        else
+          graph.query([ statement.object, RDF::SKOS.prefLabel, nil ]) do |solution|
+            label = solution.object.to_s
+          end
+        end
+        label = statement.object.to_s unless label.present?
+      elsif statement.object.is_a?(RDF::Literal)
+        label = statement.object.to_s
+      else
+        label = statement.object.to_s + " (#{statement.object.class.name})" # Debugging
+      end
+      
+      label
     end
     
   end

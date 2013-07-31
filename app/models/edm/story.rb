@@ -11,93 +11,6 @@ module EDM
     end
     
     ##
-    # Converts the contribution's metadata to EDM
-    #
-    # @return [Hash] EDM formatted metadata record
-    #
-    def to_edm_record
-      meta = metadata.fields
-      
-      edm = {
-        "providedCHOs" => [ { "about" => edm_provided_cho_uri.to_s } ],
-        "type" => "TEXT",
-        "title" => [ title ],
-        "dcDate" => { "def" => [ created_at ] },
-        "dcIdentifier" => { "def" => [ id ] },
-        "dcTitle" => { "def" => [ title ] },
-        "dcType" => { "def" => [ "Text" ] },
-        "dctermsCreated" => { "def" => [ created_at ] },
-        "dctermsHasPart" => { "def" => attachments.collect { |a| a.edm_provided_cho_uri.to_s } },
-        "edmType" => { "def" => [ "TEXT" ] }
-      }
-
-      edm["year"] = [ meta["date_from"].split("-").first ] unless meta["date_from"].blank?
-
-      edm["dcContributor"] = if meta["contributor_behalf"].present?
-        { "def" => [ meta["contributor_behalf"] ] }
-      else
-        { "def" => [ contributor.contact.full_name ] }
-      end
-
-      edm["dcCreator"] = { "def" => [ meta["creator"] ] }
-
-      edm["dcDate"] = { "def" => [ meta["date_from"], meta["date_to"] ] }
-      
-      edm["dcDescription"] = { "def" => [ meta["description"], meta["summary"] ] }
-
-      edm["dcSubject"] = { "def" => [ meta["keywords"], meta["theatres"], meta["forces"] ] }
-      if meta["subject"].present?
-        edm["dcSubject"]["def"] << meta["subject"]
-      elsif character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
-        edm["dcSubject"]["def"] << character1_full_name
-      else
-        edm["dcSubject"]["def"] << meta["date"]
-      end
-      
-      edm["dcType"] = { "def" => [ meta["content"] ] }
-      
-      edm["dcLang"] = { "def" => [ meta["lang"], meta["lang_other"] ] }
-      
-      edm["dctermsAlternative"] = { "def" => [ meta["alternative"] ] }
-      
-      edm["dctermsProvenance"] = { "def" => [ meta["collection_day"] ] }
-      
-      edm["dctermsSpatial"] = { "def" => [ meta["location_placename"] ] }
-      
-      edm["dctermsTemporal"] = { "def" => [ meta["date_from"], meta["date_to"] ] }
-      
-      edm.keys.each do |key|
-        if edm[key].is_a?(Hash) && edm[key].has_key?("def")
-          # Flatten nested arrays, e.g. subject = keywords + theatres
-          edm[key]["def"].flatten!
-          
-          # Strip out empty values
-          edm[key]["def"] = edm[key]["def"].reject { |definition| definition.blank? } 
-          if edm[key]["def"].blank?
-            edm.delete(key)
-          end
-        end
-      end
-      
-      edm
-    end
-    
-    ##
-    # Returns a partial EDM record for the contribution, for use in search results.
-    #
-    # @return [Hash] Partial EDM record for this contribution
-    #
-    def to_edm_result(options = {})
-      {
-        "id"                  => id,
-        "title"               => [ title ],
-        "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
-        "dctermsAlternative"  => [ metadata.meta['alternative'] ],
-        "guid"                => edm_provided_cho_uri
-      }
-    end
-    
-    ##
     # The edm:ProvidedCHO URI of this contribution
     #
     # @return [RDF::URI] URI
@@ -125,6 +38,80 @@ module EDM
     end
     
     ##
+    # Constructs a hash representing this story as an EDM record from its RDF 
+    # graph.
+    #
+    # Equivalent to the +object+ part of the response to a Europeana API
+    # Record query.
+    #
+    # @return [Hash] Representation of EDM metadata record
+    # @see http://www.europeana.eu/portal/api-record-json.html
+    #
+    def to_edm_record
+      graph = to_rdf_graph
+      record = {}
+      
+      record["type"] = graph.query(:predicate => RDF::EDM.type).first.object.to_s
+      record["title"] = []
+      graph.query(:predicate => RDF::DC.title) do |solution|
+        record["title"] << solution.object.to_s
+      end
+      graph.query(:predicate => RDF::DC.alternative) do |solution|
+        record["title"] << solution.object.to_s
+      end
+      
+      proxy = { }
+      graph.query(:subject => edm_provided_cho_uri).each do |statement|
+        qname = statement.predicate.qname
+        if [ :dc, :edm ].include?(qname.first)
+          field_name = qname.first.to_s + qname.last.to_s[0].upcase + qname.last.to_s[1..-1]
+          field_label = statement_label(graph, statement)
+          
+          if statement.predicate.to_s.match(RDF::EDM.type)
+            proxy[field_name] = field_label
+          elsif proxy.has_key?(field_name)
+            proxy[field_name]["def"] << field_label
+          else
+            proxy[field_name] = { "def" => [ field_label ] }
+          end
+        end
+      end
+      record["proxies"] = [ proxy ]
+      
+      record["providedCHOs"] = [ { "about" => edm_provided_cho_uri.to_s } ]
+      
+      record
+    end
+    
+    ##
+    # Returns a partial EDM record for the contribution, for use in search 
+    # results.
+    #
+    # This is equivalent to one +item+ in the Europeana API search response.
+    #
+    # @return [Hash] Partial EDM record for this story
+    # @see http://www.europeana.eu/portal/api-search-json.html#item
+    #
+    def to_edm_result(options = {})
+      graph = to_rdf_graph
+      result = {}
+      
+      graph.query(:predicate => RDF::DC.identifier) do |solution|
+        result["id"] = solution.object.to_s
+      end
+      graph.query(:predicate => RDF::DC.title) do |solution|
+        result["title"] = solution.object.to_s
+      end
+      graph.query(:predicate => RDF::DC.alternative) do |solution|
+        result["dctermsAlternative"] = solution.object.to_s
+      end
+      result["edmPreview"] = [ attachments.cover_image.thumbnail_url(:preview) ]
+      result["guid"] = edm_provided_cho_uri.to_s
+      
+      result
+    end
+    
+    ##
     # Constructs the edm:ProvidedCHO for this story
     #
     # @return [RDF::Graph] RDF graph of the edm:ProvidedCHO
@@ -137,7 +124,7 @@ module EDM
       graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
       graph << [ uri, RDF::DC.identifier, id.to_s ]
       graph << [ uri, RDF::DC.title, title ]
-      graph << [ uri, RDF::DC.type, RDF::URI.parse("http://purl.org/dc/dcmitype/Text") ]
+      graph << [ uri, RDF::DC.type, RDF::DCMIType.Text ]
       graph << [ uri, RDF::DC.date, created_at.to_s ]
       graph << [ uri, RDF::DC.created, created_at.to_s ]
       graph << [ uri, RDF::EDM.type, "TEXT" ]
