@@ -289,6 +289,10 @@
 		init : function() {
 			var self = this;
 
+			if ( jQuery('#contributions-featured').length < 1 ) {
+				return;
+			}
+
 			self.$featured_carousel =
 				jQuery('#contributions-featured').rCarousel({
 					items_collection_total : parseInt( self.items_collection_total, 10 ),
