@@ -52,9 +52,6 @@ module EDM
       record = {}
       
       record["type"] = graph.query(:predicate => RDF::EDM.type).first.object.to_s
-      record["provider"] = [
-        "Europeana 1914 - 1918"
-      ]
       record["title"] = []
       graph.query(:predicate => RDF::DC.title) do |solution|
         record["title"] << solution.object.to_s
@@ -80,6 +77,10 @@ module EDM
         end
       end
       record["proxies"] = [ proxy ]
+      
+      record["aggregations"] = [
+        { "edmProvider" => { "def" => [ "Europeana 1914 - 1918" ] } }
+      ]
       
       record["providedCHOs"] = [ { "about" => edm_provided_cho_uri.to_s } ]
       
@@ -110,6 +111,9 @@ module EDM
       end
       result["edmPreview"] = [ attachments.cover_image.thumbnail_url(:preview) ]
       result["guid"] = edm_provided_cho_uri.to_s
+      result["provider"] = [
+        "Europeana 1914 - 1918"
+      ]
       
       result
     end
