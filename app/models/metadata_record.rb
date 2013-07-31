@@ -250,68 +250,8 @@ class MetadataRecord < ActiveRecord::Base
     (self.attachment.present? || @for_attachment) ? true : false
   end
 
-  ##
-  # Converts the metadata record to EDM
-  #
-  # @return [Hash] EDM formatted metadata record
-  # @todo This should return an RDF or XML object which can then be converted
-  #   elsewhere to a hash.
-  #
-  def to_edm
-    edm = {}
+protected
 
-    edm["year"] = [ fields["date_from"].split("-").first ] unless fields["date_from"].blank?
-
-    edm["dcContributor"] = if fields["contributor_behalf"].present?
-      { "def" => [ fields["contributor_behalf"] ] }
-    else
-      { "def" => [ ( for_contribution? ? contribution.contributor : attachment.contribution.contributor ).contact.full_name ] }
-    end
-
-    edm["dcCreator"] = { "def" => [ fields["creator"] ] }
-
-    edm["dcDate"] = { "def" => [ fields["date_from"], fields["date_to"] ] }
-    
-    edm["dcDescription"] = { "def" => [ fields["description"], fields["summary"] ] }
-
-    edm["dcSubject"] = { "def" => [ fields["keywords"], fields["theatres"], fields["forces"] ] }
-    if fields["subject"].present?
-      edm["dcSubject"]["def"] << fields["subject"]
-    elsif character1_full_name = Contact.full_name(fields["character1_given_name"], fields["character1_family_name"])
-      edm["dcSubject"]["def"] << character1_full_name
-    else
-      edm["dcSubject"]["def"] << fields["date"]
-    end
-    
-    edm["dcType"] = { "def" => [ fields["content"] ] }
-    
-    edm["dcLang"] = { "def" => [ fields["lang"], fields["lang_other"] ] }
-    
-    edm["dctermsAlternative"] = { "def" => [ fields["alternative"] ] }
-    
-    edm["dctermsProvenance"] = { "def" => [ fields["collection_day"] ] }
-    
-    edm["dctermsSpatial"] = { "def" => [ fields["location_placename"] ] }
-    
-    edm["dctermsTemporal"] = { "def" => [ fields["date_from"], fields["date_to"] ] }
-    
-    edm.keys.each do |key|
-      if edm[key].is_a?(Hash) && edm[key].has_key?("def")
-        # Flatten nested arrays, e.g. subject = keywords + theatres
-        edm[key]["def"].flatten!
-        
-        # Strip out empty values
-        edm[key]["def"] = edm[key]["def"].reject { |definition| definition.blank? } 
-        if edm[key]["def"].blank?
-          edm.delete(key)
-        end
-      end
-    end
-
-    edm
-  end
-
-  protected
   # Restores all cataloguing fields to stored values unless cataloguing in process
   def protect_cataloguing_fields #:nodoc:
     unless cataloguing?

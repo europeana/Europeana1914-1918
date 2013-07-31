@@ -125,8 +125,8 @@ class AttachmentsController < ApplicationController
           end
         end
       end
-      format.json { render :json => @attachment }
-      format.nt { render :text => @attachment.to_ntriples }
+      format.nt { render :text => cached(:nt) }
+      format.xml { render :xml => cached(:xml) }
     end
   end
 
@@ -221,13 +221,32 @@ class AttachmentsController < ApplicationController
     end
   end
 
-  protected
+protected
+
   def find_contribution
     @contribution = Contribution.find(params[:contribution_id], :include => [ :contributor, :attachments ])
   end
 
   def find_attachment
     @attachment = @contribution.attachments.find(params[:attachment_id] || params[:id], :include => [ :metadata ])
+  end
+  
+  def cached(format)
+    cache_key = "attachments/#{format.to_s}/#{@attachment.id}.#{format.to_s}"
+    
+    if fragment_exist?(cache_key)
+      data = YAML::load(read_fragment(cache_key))
+    else
+      data = case format
+        when :nt
+          @attachment.to_ntriples
+        when :xml
+          @attachment.to_rdfxml
+      end
+      write_fragment(cache_key, data.to_yaml)
+    end
+    
+    data
   end
 end
 

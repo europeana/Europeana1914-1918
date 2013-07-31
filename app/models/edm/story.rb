@@ -11,54 +11,6 @@ module EDM
     end
     
     ##
-    # Converts the contribution's metadata to EDM
-    #
-    # @param [Hash] options Record generation options
-    # @option options [Proc] :contribution_url Proc to generate contribution URL,
-    #   passed the contribution as its parameter.
-    # @option options [Proc] :attachment_url Proc to generate attachment URLs,
-    #   passed the contribution and an attachment as its parameters.
-    # @return (see MetadataRecord#to_edm)
-    #
-    def to_edm(options = {})
-      metadata.to_edm.reverse_merge( {
-        "providedCHOs" => [ { :about => options[:contribution_url].call(self) } ],
-        "type" => "TEXT",
-        "title" => [ title ],
-        "dcDate" => { "def" => [ created_at ] },
-        "dcIdentifier" => { "def" => [ id ] },
-        "dcTitle" => { "def" => [ title ] },
-        "dcType" => { "def" => [ "Text" ] },
-        "dctermsCreated" => { "def" => [ created_at ] },
-        "dctermsHasPart" => { "def" => attachments.collect { |attachment|
-          options[:attachment_url].call(self, attachment)
-        } },
-        "edmType" => { "def" => [ "TEXT" ] }
-      } )
-    end
-    
-    ##
-    # Returns a partial EDM record for the contribution, for use in search results.
-    #
-    # @param [Hash] options Record generation options
-    # @option options [Proc] :contribution_url Proc to generate contribution URL,
-    #   passed the contribution as its parameter.
-    # @return [Hash] Partial EDM record for this contribution
-    #
-    def to_edm_result(options = {})
-      root_url = options[:root_url].to_s
-      root_url = root_url[0..-2] if root_url[-1] == '/'
-      
-      {
-        "id"                  => id,
-        "title"               => [ title ],
-        "edmPreview"          => [ attachments.cover_image.thumbnail_url(:preview) ],
-        "dctermsAlternative"  => [ metadata.fields['alternative'] ],
-        "guid"                => options[:contribution_url].call(self)
-      }
-    end
-    
-    ##
     # The edm:ProvidedCHO URI of this contribution
     #
     # @return [RDF::URI] URI
@@ -86,6 +38,87 @@ module EDM
     end
     
     ##
+    # Constructs a hash representing this story as an EDM record from its RDF 
+    # graph.
+    #
+    # Equivalent to the +object+ part of the response to a Europeana API
+    # Record query.
+    #
+    # @return [Hash] Representation of EDM metadata record
+    # @see http://www.europeana.eu/portal/api-record-json.html
+    #
+    def to_edm_record
+      graph = to_rdf_graph
+      record = {}
+      
+      record["type"] = graph.query(:predicate => RDF::EDM.type).first.object.to_s
+      record["title"] = []
+      graph.query(:predicate => RDF::DC.title) do |solution|
+        record["title"] << solution.object.to_s
+      end
+      graph.query(:predicate => RDF::DC.alternative) do |solution|
+        record["title"] << solution.object.to_s
+      end
+      
+      proxy = { }
+      graph.query(:subject => edm_provided_cho_uri).each do |statement|
+        qname = statement.predicate.qname
+        if [ :dc, :edm ].include?(qname.first)
+          field_name = qname.first.to_s + qname.last.to_s[0].upcase + qname.last.to_s[1..-1]
+          field_label = statement_label(graph, statement)
+          
+          if statement.predicate.to_s.match(RDF::EDM.type)
+            proxy[field_name] = field_label
+          elsif proxy.has_key?(field_name)
+            proxy[field_name]["def"] << field_label
+          else
+            proxy[field_name] = { "def" => [ field_label ] }
+          end
+        end
+      end
+      record["proxies"] = [ proxy ]
+      
+      record["aggregations"] = [
+        { "edmProvider" => { "def" => [ "Europeana 1914 - 1918" ] } }
+      ]
+      
+      record["providedCHOs"] = [ { "about" => edm_provided_cho_uri.to_s } ]
+      
+      record
+    end
+    
+    ##
+    # Returns a partial EDM record for the contribution, for use in search 
+    # results.
+    #
+    # This is equivalent to one +item+ in the Europeana API search response.
+    #
+    # @return [Hash] Partial EDM record for this story
+    # @see http://www.europeana.eu/portal/api-search-json.html#item
+    #
+    def to_edm_result(options = {})
+      graph = to_rdf_graph
+      result = {}
+      
+      graph.query(:predicate => RDF::DC.identifier) do |solution|
+        result["id"] = solution.object.to_s
+      end
+      graph.query(:predicate => RDF::DC.title) do |solution|
+        result["title"] = [ solution.object.to_s ]
+      end
+      graph.query(:predicate => RDF::DC.alternative) do |solution|
+        result["dctermsAlternative"] = [ solution.object.to_s ]
+      end
+      result["edmPreview"] = [ attachments.cover_image.thumbnail_url(:preview) ]
+      result["guid"] = edm_provided_cho_uri.to_s
+      result["provider"] = [
+        "Europeana 1914 - 1918"
+      ]
+      
+      result
+    end
+    
+    ##
     # Constructs the edm:ProvidedCHO for this story
     #
     # @return [RDF::Graph] RDF graph of the edm:ProvidedCHO
@@ -98,7 +131,7 @@ module EDM
       graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
       graph << [ uri, RDF::DC.identifier, id.to_s ]
       graph << [ uri, RDF::DC.title, title ]
-      graph << [ uri, RDF::DC.type, RDF::URI.parse("http://purl.org/dc/dcmitype/Text") ]
+      graph << [ uri, RDF::DC.type, RDF::DCMIType.Text ]
       graph << [ uri, RDF::DC.date, created_at.to_s ]
       graph << [ uri, RDF::DC.created, created_at.to_s ]
       graph << [ uri, RDF::EDM.type, "TEXT" ]

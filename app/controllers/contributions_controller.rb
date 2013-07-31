@@ -71,9 +71,10 @@ class ContributionsController < ApplicationController
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
     
     respond_to do |format|
-      format.json  { render :json => { :result => 'success', :object => @contribution.to_edm } } 
+      format.json { render :json => cached(:json) }
       format.html
-      format.nt { render :text => @contribution.to_ntriples }
+      format.nt { render :text => cached(:nt) }
+      format.xml { render :xml => cached(:xml) }
     end
   end
   
@@ -284,6 +285,26 @@ protected
     params.delete(:provider)
     
     redirect_to params if redirect_required
+  end
+  
+  def cached(format)
+    cache_key = "contributions/#{format.to_s}/#{@contribution.id}.#{format.to_s}"
+    
+    if fragment_exist?(cache_key)
+      data = YAML::load(read_fragment(cache_key))
+    else
+      data = case format
+        when :json
+          { :result => 'success', :object => @contribution.to_edm_record }
+        when :nt
+          @contribution.to_ntriples
+        when :xml
+          @contribution.to_rdfxml
+      end
+      write_fragment(cache_key, data.to_yaml)
+    end
+    
+    data
   end
 
 end
