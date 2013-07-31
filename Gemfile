@@ -27,7 +27,6 @@ gem 'paperclip', '~> 2.7.6', :git => 'git://github.com/rwd/paperclip', :branch =
 gem 'paperclip-meta', '~> 0.4.3', :git => 'git://github.com/rwd/paperclip-meta'
 gem 'progress_bar', '~> 1.0.0'
 gem 'rdf', '~> 1.0.0'
-gem 'rdf-json', '~> 1.0.0'
 gem 'rdf-rdfxml', '~> 1.0.0'
 gem 'ruby-oembed', '~> 0.8.8'
 gem 'sass', '~> 3.2.9'
