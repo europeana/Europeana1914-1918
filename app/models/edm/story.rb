@@ -52,6 +52,9 @@ module EDM
       record = {}
       
       record["type"] = graph.query(:predicate => RDF::EDM.type).first.object.to_s
+      record["provider"] = [
+        "Europeana 1914 - 1918"
+      ]
       record["title"] = []
       graph.query(:predicate => RDF::DC.title) do |solution|
         record["title"] << solution.object.to_s
