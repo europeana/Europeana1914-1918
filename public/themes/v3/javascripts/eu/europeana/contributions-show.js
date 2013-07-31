@@ -393,6 +393,7 @@
 			}
 
 			if ( $pp_inline_audio.length > 0 ) {
+				jQuery('.license-logo').css({ top: 'auto', bottom: 4 });
 				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
 				$audio.insertAfter( $pp_inline_audio );
 				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/johndyer/mediaelement/' } );

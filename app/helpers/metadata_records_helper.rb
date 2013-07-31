@@ -19,9 +19,9 @@ module MetadataRecordsHelper
     options.assert_valid_keys(:attachment, :cataloguing, :contribution, :name, :name_order)
     conditions = options.dup
     name_order = conditions.delete(:name_order)
-    
+
     fields = MetadataField.where(conditions).order('position ASC')
-    
+
     if name_order && options[:name].present?
       ordered_fields = []
       options[:name].each do |field_name|
@@ -32,7 +32,7 @@ module MetadataRecordsHelper
 
     fields
   end
-  
+
   def metadata_record_field_value(metadata, field, fmt_date = false, link = false)
     value = metadata[field.column_name]
     if field.name == 'license'
@@ -42,7 +42,7 @@ module MetadataRecordsHelper
     elsif field.field_type == 'taxonomy'
       if metadata.fields[field.name].present?
         if link
-          metadata.fields[field.name].collect do |term| 
+          metadata.fields[field.name].collect do |term|
             link_to(h(term), term_search_contributions_path(field.name, h(term)))
           end.to_sentence
         else
@@ -54,8 +54,8 @@ module MetadataRecordsHelper
       when 'geo'
         content_tag(:span, value, :class => 'geo')
 #      content_tag(:span, value, :class => 'geo') +
-#      content_tag(:noscript, 
-#        content_tag(:div, 
+#      content_tag(:noscript,
+#        content_tag(:div,
 #          image_tag("http://maps.google.com/maps/api/staticmap?center=#{value}&amp;size=470x470&amp;zoom=13&amp;sensor=false", :alt => ''),
 #          :class => 'gmap-static'
 #        )
@@ -82,7 +82,7 @@ module MetadataRecordsHelper
       ''
     end
   end
-  
+
   def license_image(license)
     image = {
       'http://creativecommons.org/licenses/by-sa/3.0/' => {
@@ -94,10 +94,10 @@ module MetadataRecordsHelper
         :src => '/themes/v2/images/logos/cc/p/mark/1.0/88x31.png'
       }
     }[license]
-    
-    image.present? ? link_to(image_tag(image[:src], :alt => image[:alt]), license, :target => '_blank') : license
+
+    image.present? ? link_to(image_tag(image[:src], :alt => image[:alt]), license, :target => '_blank', :class => 'license-logo') : license
   end
-  
+
   def metadata_json(obj)
     associations = MetadataField.where(:field_type => 'taxonomy').collect do |taxonomy_field|
       :"field_#{taxonomy_field.name}_term_ids"
