@@ -91,14 +91,14 @@ class Attachment < ActiveRecord::Base
   end
 
   ##
-  # Returns true if this attachment should have thumnails made for it.
+  # Returns true if this attachment should have thumbnails made for it.
   #
-  # Images and PDFs get thumbnails.
+  # Images, PDFs and mpeg videos get thumbnails.
   #
   # @return [Boolean]
   #
   def make_thumbnails?
-    image? || video? || pdf?
+    image? || pdf? || identifyable_video?
   end
 
   ##
@@ -117,6 +117,16 @@ class Attachment < ActiveRecord::Base
   #
   def video?
     !(file.content_type =~ /^video\//).nil?
+  end
+  
+  ##
+  # Returns true if the attached file is of a video content type recognised by
+  # ImageMagick's identify command.
+  #
+  # @return [Boolean]
+  #
+  def identifyable_video?
+    [ 'video/mp4', 'video/mpeg', 'video/vnd.objectvideo' ].include?(file.content_type)
   end
   
   ##
@@ -183,6 +193,8 @@ class Attachment < ActiveRecord::Base
                 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio' ]
             when 'mp4'
               [ 'video/mp4' ]
+            when 'webm'
+              [ 'video/webm' ]
             else
               []
           end
