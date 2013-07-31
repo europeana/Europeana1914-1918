@@ -53,7 +53,7 @@ module EDM
     
     def to_rdfxml
       namespace_prefixes = {
-        :dc => "http://purl.org/dc/terms/",
+        :dcterms => "http://purl.org/dc/terms/",
         :edm => "http://www.europeana.eu/schemas/edm/",
         :ore => "http://www.openarchives.org/ore/terms/",
         :skos => "http://www.w3.org/2004/02/skos/core#",
