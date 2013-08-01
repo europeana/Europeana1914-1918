@@ -58,12 +58,14 @@ module PaginationHelper
     end
 
     def next_page
-      num = @collection.current_page <= @collection.total_pages && @collection.current_page + 1
+      #num = @collection.current_page <= @collection.total_pages && @collection.current_page + 1
+      num = @collection.current_page < @collection.total_pages && total_pages
       previous_or_next_page(num, @options[:next_label], 'nav-next', :title => @options[:next_title])
     end
     
     def last_page
-      num = @collection.current_page < total_pages && total_pages
+      num = @collection.current_page < @collection.total_pages && total_pages
+      
       first_or_last_page(num, @options[:last_label], 'nav-last', :title => @options[:last_title])
     end
 
@@ -93,7 +95,12 @@ module PaginationHelper
           options.merge(:class => classname)
         )
       else
-        tag(:li, text, options.merge(:class => classname + ' disabled'))
+         #tag(:li, text, options.merge(:class => classname + ' disabled'))
+        tag(:li, 
+          link(CGI::escapeHTML(text), page, options.merge(:class => classname + ' disabled')),
+          options.merge(:class => classname)
+        )
+
       end
     end
     alias_method :first_or_last_page, :previous_or_next_page

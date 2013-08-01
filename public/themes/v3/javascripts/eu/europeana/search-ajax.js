@@ -76,45 +76,35 @@ EUSearchAjax = function(){
     	url += "&profile=facets,params&callback=searchAjax.showRes";
     	
     	url += '&count='  + rows;
-    	//url += '&rows='  + rows;
     	url += '&start=' + (startParam ? startParam : 1);
     	url += '&page='  + (startParam ? Math.ceil(startParam / rows) : 1);
          
-        
+
+    	//alert("startParam = " + startParam)
+    	
         // refinements & facets read from hidden inputs
 
+    	var facetParams = {};
+    	
         container.find('#facets input:checked').each(function(i, ob){
         	var urlFragment = $(ob).attr('value');
         	if(urlFragment.indexOf(':')>0){
         		urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
         	}
-        	//url += param() + urlFragment;
-        	url += urlFragment;
-        });        	
-
-        
-        /*
-        if(self.config){
-        	if(self.config.qf){
-        		$.each(self.config.qf, function(i, ob){
-        			
-        			// console.log("Full ob = " + JSON.stringify(ob) + ", "  + ob.length);
-        			console.log("append to url = " + JSON.stringify(ob));
-        			
-        			ob = ob.replace(/[\{\}]/g, '"');
-//        			ob = ob.replace(/\}/g, '"');
-        			
-        			url += param() + 'qf=';
-        			url += (ob.indexOf(' ')>-1) ? (ob.split(':')[0] + ':' + '"' + ob.split(':')[1] + '"') : ob;
-        			
-        			console.log('append to url: ' + url);
-        		});
+        	var facetName = urlFragment.split('=')[0];
+        	var facetVal  = urlFragment.split('=')[1];
+        	
+        	if(typeof facetParams[facetName] == 'undefined'){
+        		facetParams[facetName] = [];
         	}
-        }
-		*/
-
+        	facetParams[facetName].push(facetVal);
+        });        	
+        
+        $.each(facetParams, function(i, ob){
+        	url += (i + "=" +  ob.join(',') );
+        });
+        
 		console.log('final search url: ' + url);
-//alert(url);
 		return url;
     };
 
@@ -198,8 +188,6 @@ EUSearchAjax = function(){
 
                // var urlFragment = "qf=" + ob.name + ":" + field.label;
                 var urlFragment = "&facets[" + ob.name + "]=" + field.label;
-                
-                // 
                 
                 facetOp.find('h4 a').attr({
                     "href"  : urlFragment,
@@ -369,7 +357,7 @@ EUSearchAjax = function(){
                 self.setActive(paginationData.rows);
             },
             "fn_item":function(self, selected){
-                doSearch();
+                doSearch(paginationData.start);
             }
         };
     	
@@ -428,7 +416,7 @@ EUSearchAjax = function(){
 						e.preventDefault();
 
             			console.log("fnPrevious");
-            			self.options.data
+            			
 						searchAjax.search(paginationData.start - paginationData.rows);
 					},       			
             		"fnNext":function(e){

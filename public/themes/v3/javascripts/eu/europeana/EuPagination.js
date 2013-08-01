@@ -70,22 +70,39 @@ var EuPagination = function(cmpIn, options){
         self.records = records;
         self.rows    = rows;
         
-        
         if(self.ajax){
             // set link display
            	$.each([self.first, self.previous], function(i, ob){
            		if(start == 1){
                		ob.css('visibility', 'hidden');
                		ob.attr('disabled', 'disabled');           			
+               		ob.addClass('disabled');           			
            		}
            		else{
                		ob.css('visibility', 'visible');
-               		ob.removeAttr('disabled', 'visible');           			
+               		ob.removeAttr('disabled');           			
+               		ob.removeClass('disabled');           			
            		}
            	});
            	
-           	$.each([self.next, self.last],      function(i, ob){
-           		ob.css('display', start < getMaxStart() ? 'table-cell' : 'none')
+           	
+           	$.each([self.next, self.last],  function(i, ob){
+           		//ob.css('display', start < getMaxStart() ? 'table-cell' : 'none')
+           		
+           		if(start < getMaxStart()){
+           	
+               		ob.css('visibility', 'visible');
+               		ob.removeAttr('disabled');           			
+               		ob.removeClass('disabled');           			
+           		}
+           		else{
+           	
+           			ob.css('visibility', 'hidden');
+           			ob.attr('disabled', 'disabled');           			
+           			ob.addClass('disabled');           			
+           		}
+
+           		
            	});
             
             // labels & input

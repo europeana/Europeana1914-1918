@@ -293,6 +293,7 @@
 	function initJS(){
 		// ANDY: can't get loader dependencies working so nesting dynamic loads
 		var ajaxified = $('#provider_europeana').prop('checked');
+		//ajaxified = false;
 		
 		js.loader.loadScripts([{
 			file : 'EuCollapsibility.js',
