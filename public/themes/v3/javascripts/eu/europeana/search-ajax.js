@@ -5,7 +5,6 @@ EUSearchAjax = function(){
     var container               = false;
     var itemTemplate            = false;
     var facetTemplate           = false;
-    var filterTemplate          = false;
 
     var resultServerUrl         = 'http://europeana.eu/portal';
 
@@ -13,12 +12,7 @@ EUSearchAjax = function(){
     //var searchUrl				= searchUrl ? searchUrl : 'http://test.portal2.eanadev.org/api/v2/search.json?wskey=api2demo';
 	
     var searchUrl				= searchUrl ? searchUrl : 'http://localhost:3000/en/europeana/search.json';
-
-	
-
 		
-	// Andy TODO delete
-	var searchUrlWithoutResults = 'http://test.portal2.eanadev.org/portal/search.html';
 	
     var defaultRows             = 6;
     var pagination              = false;
@@ -81,7 +75,8 @@ EUSearchAjax = function(){
 		url = query ? searchUrl + param(searchUrl) + query : searchUrl + param(searchUrl) + 'q=' + term;        	
     	url += "&profile=facets,params&callback=searchAjax.showRes";
     	
-    	url += '&rows='  + rows;
+    	url += '&count='  + rows;
+    	//url += '&rows='  + rows;
     	url += '&start=' + (startParam ? startParam : 1);
     	url += '&page='  + (startParam ? Math.ceil(startParam / rows) : 1);
          
@@ -118,7 +113,7 @@ EUSearchAjax = function(){
 		*/
 
 		console.log('final search url: ' + url);
-
+alert(url);
 		return url;
     };
 
@@ -261,6 +256,9 @@ EUSearchAjax = function(){
         
         // facet collapsibility 
               
+        //alert("make collapsibles in search-ajax");
+        
+        
         container.find('#facets>li:not(:first)').each(function(i, ob){
         	ob = $(ob);
         	var heading = ob.find('h3 a');
@@ -324,37 +322,6 @@ EUSearchAjax = function(){
         }
     };
 
-    /*
-    var setupEllipsis = function(){
-        var ellipsisObjects = [];
-        container.find('.ellipsis').each(
-            function(i, ob){
-                var fixed    = $(ob).find('.fixed');
-                var html    = fixed.html();
-                fixed.remove();
-                ellipsisObjects[ellipsisObjects.length] = new Ellipsis(
-                    $(ob),
-                    {fixed:    '<span class="fixed">' + html + '</span>'},
-                    function($ob){
-                        var imgThumb = $(ob).parent().prev();
-                        imgThumb.css('border-style', 'solid solid none');
-                        imgThumb.css('border-width', '1px 1px medium');
-                        $ob.css('visibility', 'visible');
-                    }
-                );                    
-            }
-        );
-
-        $(window).euRsz(function(){
-        	
-            for(var i=0; i<ellipsisObjects.length; i++ ){
-                ellipsisObjects[i].respond();
-            }
-        });
-      
-    };
-    */
-    
     var setupQuery = function(){
         self.q = container.find('#q');
       
@@ -423,17 +390,7 @@ EUSearchAjax = function(){
         });
     };
 
-    var setUpRefinements = function(){
-        var addKeyword = container.find('#facets>li:first');
-       	var heading = addKeyword.find("h3 a");
-		createCollapsibleSection(addKeyword, function(){
-    	        return heading.parent().next('form').find('input[type!="hidden"]');
-	        },
-	        heading);
-		
-		container.find('#refine-search-form > input').remove();
-    };
-    
+   
     
     
     
@@ -444,12 +401,10 @@ EUSearchAjax = function(){
         $('#overlay').hide();
         
         itemTemplate       = container.find('.stories li:first');
-        facetTemplate      = container.find('#facets li:nth-child(3)');
         facetTemplate      = $(
-        		        
         '<li>' + 
           '<h3><a rel="nofollow" class="facet-section icon-arrow-6" href=""></a></h3>' + 
-          '<ul style="display: none;">' + 
+          '<ul style="display: none;">' +
             '<li>' + 
               '<h4>' + 
                   '<input type="checkbox"><a><label></label></a><span class="fcount"></span>' + 
@@ -457,14 +412,11 @@ EUSearchAjax = function(){
             '</li>' + 
           '</ul>' + 
         '</li>'
-        ).appendTo('#facets');
+        );//.appendTo('#facets');
 
-        // TODO: remove filters
-        filterTemplate     = container.find('#facets li:first');
 
         setupQuery();
         setupMenus();
-        setUpRefinements(); // TODO
 
         pagination = new EuPagination($('.result-pagination'),
         	{
@@ -514,8 +466,7 @@ EUSearchAjax = function(){
     
     return {
         "init" : function(data){ self.init(data);},
-        "search" : function(startParam){ 
-        	doSearch(startParam); },
+        "search" : function(startParam){ doSearch(startParam); },
         "showRes" : function(data){ showRes(data); }
     };
 };

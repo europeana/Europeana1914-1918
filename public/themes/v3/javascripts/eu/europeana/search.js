@@ -326,21 +326,12 @@
 								fnGetItems
 							);
 							
-							
-							//alert("add collapsible");
-							//if($(ob).hasClass('ugc-li')){
-							//	alert("ugc");
-							//	$(ob).bind('keypress', accessibility.keyPress);
-							//}
-							//else{
-								$(ob).Collapsible(
-									{
-										"headingSelector"	: "h3 a",
-										"bodySelector"		: "ul",
-										"keyHandler"		: accessibility
-									}
-								);				
-							//	}
+							$(ob).Collapsible({
+									"headingSelector"	: "h3 a",
+									"bodySelector"		: "ul",
+									"keyHandler"		: accessibility
+							});				
+
 						});
 						
 						// make facet checkboxes clickable
