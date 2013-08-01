@@ -64,14 +64,7 @@ module SearchHelper
   end
   
   def search_provider_name(id)
-    case id
-    when 'contributions'
-      "1914-1918"
-    when 'europeana'
-      "Europeana portal"
-    else
-      raise ArgumentError, "Unknown search provider: #{id.to_s}"
-    end
+    t(id, :scope => "views.search.providers", :default => id)
   end
   
   def search_result_id(result)
@@ -85,9 +78,10 @@ module SearchHelper
   end
   
   def search_result_to_edm(result)
-    if controller.controller_name == 'contributions'
+    case controller.controller_name
+    when 'contributions'
       result.to_edm_result
-    elsif controller.controller_name == 'europeana'
+    when 'europeana', 'trove'
       result
     else
       raise ArgumentError, "Unable to convert search result to EDM: #{result.class}"
