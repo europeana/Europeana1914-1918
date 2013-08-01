@@ -344,19 +344,26 @@
 
 			self.$metadata[ self.current ].data('clone').appendTo( $pp_content );
 
-			self.$metadata[ self.current ].data('clone').css({
-				height : $pic_full_res.find('img').height()
-					- parseInt( self.$metadata[ self.current ].data('clone').css('padding-top'), 10 )
-					- parseInt( self.$metadata[ self.current ].data('clone').css('padding-bottom'), 10 )
-			});
+			self.$metadata[ self.current ]
+				.data('clone').css({
+					'width' : $pp_content.css('width'),
+					'height' : $pp_content.css('height'),
+					'padding-right' : 30
+				});
 
 			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
 		},
 
-		handleMetaDataClick : function( evt ) {
+		handleAdditionalInfoClick : function( evt ) {
 			var self = evt.data.self;
 			evt.preventDefault();
-			self.$metadata[self.current].data('clone').slideToggle();
+			self.$metadata[self.current].data('clone')
+				.slideDown( function() { jQuery( this ).css( 'overflow-y', 'scroll' ); } )
+				.on('click', self.handleMetadataOverlayClick );
+		},
+
+		handleMetadataOverlayClick : function ( evt ) {
+			jQuery( this ).slideUp();
 		},
 
 		handlePageChangeNext : function( keyboard ) {
@@ -377,7 +384,7 @@
 		 *	so these elements need to be added back to the div
 		 *	with each open
 		 */
-		handlePictureChange : function() {
+		handlePictureChange : function( evt ) {
 			var self = lightbox,
 					$elm = jQuery(this),
 					$additional_info_link = $elm.find('.pp_description a').first(),
@@ -389,7 +396,12 @@
 			if ( $pp_inline_video.length > 0 ) {
 				$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
 				$video.insertAfter( $pp_inline_video );
-				var player = new MediaElementPlayer( $video );
+
+				if ( $pp_inline_video.attr('data-content-type') === 'video/mp4') {
+					var player = new MediaElementPlayer( $video, { mode: 'shim' } );
+				} else {
+					var player = new MediaElementPlayer( $video, { mode: 'auto' } );
+				}
 			}
 
 			if ( $pp_inline_audio.length > 0 ) {
@@ -409,7 +421,7 @@
 				}
 			}
 
-			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
+			$additional_info_link.on('click', { self : self }, self.handleAdditionalInfoClick );
 			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
 			self.addMetaDataOverlay( $additional_info_link );
 		},
@@ -486,7 +498,7 @@
 
 				ppVideoOptions.default_width = video_link.data('video-width');
 				ppVideoOptions.default_height = video_link.data('video-height');
-				jQuery(this).prettyPhoto(ppVideoOptions);
+				video_link.prettyPhoto(ppVideoOptions);
 			});
 
 			jQuery("a[rel^='prettyPhoto'].audio").each(function() {
@@ -495,7 +507,7 @@
 
 				ppAudioOptions.default_width = audio_link.data('audio-width');
 				ppAudioOptions.default_height = audio_link.data('audio-height');
-				jQuery(this).prettyPhoto(ppAudioOptions);
+				audio_link.prettyPhoto(ppAudioOptions);
 			});
 		}
 	},
