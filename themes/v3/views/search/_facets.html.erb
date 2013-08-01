@@ -23,7 +23,7 @@
   
     <%# @todo Normalize the two facet types below %>
   
-    <%- if facet.respond_to? :rows -%><%# UGC facet %>
+    <%- if controller.controller_name == "contributions" -%><%# UGC facet %>
       
       <%- if facet.rows.present? -%>
       
@@ -48,8 +48,40 @@
         </li>
         
       <%- end -%>
-      
-    <%- else -%><%# Europeana facet %>
+    
+    <%- elsif controller.controller_name == "trove" -%><%# Trove facet %>
+    
+      <li>
+          <h3><%= link_to facet["displayname"], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
+          <ul>
+            <%- for row in facet["term"] -%>
+              <li>
+                <h4>
+                  <%- if facet["name"] == "zone" -%>
+                    <%- if facet_row_selected?(facet["name"], row["search"]) -%>
+                      <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"], true %>
+                      <strong><%= facet_row_label(facet["name"], row["display"]) %></strong>
+                    <%- else -%>
+                      <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
+                      <%= link_to_facet_row(facet["name"], row["search"], row["display"], false) %>
+                    <%- end -%>
+                  <%- else -%>
+                    <%- if facet_row_selected?(facet["name"], row["search"]) -%>
+                      <%= check_box_tag "facets[#{facet["name"]}][]", row["search"], true %>
+                      <strong><%= facet_row_label(facet["name"], row["display"]) %></strong>
+                      <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet["name"], row["display"]), { :title => t('actions.remove') } %>
+                    <%- else -%>
+                      <%= check_box_tag "facets[#{facet["name"]}][]", row["search"] %>
+                      <%= link_to_facet_row(facet["name"], row["search"], row["display"]) %> (<%= row["count"] %>)
+                    <%- end -%>
+                  <%- end -%>
+                </h4>
+              </li>
+            <%- end -%>
+          </ul>
+        </li>
+    
+    <%- elsif controller.controller_name == "europeana" -%><%# Europeana facet %>
       
       <li>
         <h3><%= link_to facet['name'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>

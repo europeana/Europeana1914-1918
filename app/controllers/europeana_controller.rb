@@ -198,9 +198,9 @@ private
   end
   
   def redirect_to_search
-    if params[:provider] == 'contributions'
+    if params[:provider] && params[:provider] != self.controller_name
       params.delete(:facets)
-      params[:controller] = 'contributions'
+      params[:controller] = params[:provider]
       redirect_required = true
     elsif params[:facets]
       params[:facets].each_key do |facet_name|

@@ -269,9 +269,9 @@ protected
       redirect_required = true
     end
     
-    if params[:provider] == 'europeana'
+    if params[:provider] && params[:provider] != self.controller_name
       params.delete(:facets)
-      params[:controller] = 'europeana'
+      params[:controller] = params[:provider]
       redirect_required = true
     elsif params[:facets]
       params[:facets].each_key do |facet_name|
