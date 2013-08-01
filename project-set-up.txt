@@ -14,6 +14,8 @@
 14. some ruby extras
 15. import a production db dump
 16. upgrading pdf.js viewer
+17. upgrading mediaelement
+18. reset password on localhost
 
 
 
@@ -296,15 +298,14 @@ $ mysql -u developer -p db_name < db_dump.sql
 
 upgrading pdf.js viewer
 =======================
-if you ever need to upgrade pdf.js
 1. make sure you already have node installed
 2. cd to a working directory for building pdf.js
-3. $ git clone https://github.com/mozilla/pdf.js.git
-4. $ node make generic
-5. $ cd /build/generic/web/
-6. $ cp -R * /public/themes/common/mozilla/pdf.js/
-7. $ cd /build/generic/build/
-8. $ cp pdf.js /public/themes/common/mozilla/pdf.js/
+3. $git clone https://github.com/mozilla/pdf.js.git
+4. $node make generic
+5. $cd /build/generic/web/
+6. $cp -R * /public/themes/common/mozilla/pdf.js/
+7. $cd /build/generic/build/
+8. $cp pdf.js /public/themes/common/mozilla/pdf.js/
 9. alter viewer.js
    comment out or delete the line
    var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
@@ -316,6 +317,25 @@ if you ever need to upgrade pdf.js
    make sure you have a line similar to the following before viewer.js loads
    <script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
 
+
+
+upgrading mediaelement
+======================
+1. cd to a working directory for storing mediaelement
+2. $git clone https://github.com/johndyer/mediaelement.git
+3. $cp /path/to/mediaelement/build/* /path/to/europeana-1914-1918/public/themes/common/johndyer/mediaelement/
+4. delete any text files copied to europena-1914-1918
+
+
+
+reset password on localhost
+===========================
+1. make sure you have the rails console open and available and the app is running
+2. go to the sign-in page, http://localhost:3000/en/users/sign-in
+3. click on forgot password?
+4. enter your account email address
+5. click submit
+6. in the ruby console you'll find the reset password link you can use
 
 
 
