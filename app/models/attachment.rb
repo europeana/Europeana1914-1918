@@ -19,7 +19,7 @@
 # directly, for better performance. Files in private will need to be
 # served by a controller, allowing for access control.
 class Attachment < ActiveRecord::Base
-  include EDM::Item
+  include EDM::Mapping::Item
 
   belongs_to :contribution
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
