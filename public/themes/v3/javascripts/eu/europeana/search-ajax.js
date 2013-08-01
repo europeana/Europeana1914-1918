@@ -88,7 +88,8 @@ EUSearchAjax = function(){
         	if(urlFragment.indexOf(':')>0){
         		urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
         	}
-        	url += param() + urlFragment;
+        	//url += param() + urlFragment;
+        	url += urlFragment;
         });        	
 
         
@@ -113,7 +114,7 @@ EUSearchAjax = function(){
 		*/
 
 		console.log('final search url: ' + url);
-alert(url);
+//alert(url);
 		return url;
     };
 
@@ -233,16 +234,12 @@ alert(url);
         	
             var cb = $(this);
             if(cb.attr("for")){
+            	e.preventDefault();
                 cb = container.find('#facets #' + cb.attr("for"));
+                cb.prop('checked', !cb.prop('checked') );
             }
-
-            cb.prop('checked', !cb.prop('checked') );
-            e.preventDefault();
             
             var href = cb.next('a').attr('href');
-            
-            console.log("read href: " + href);
-            
             if(cb.prop('checked')){
             	$('<input type="hidden" name="qf" value="' + href + '"/>').appendTo(refinements);            	
             }
@@ -250,7 +247,6 @@ alert(url);
     			var toRemove =  refinements.find('input[value="' + href + '"]');
             	toRemove.remove();
             }
-        	
             doSearch();
         });
         
@@ -271,13 +267,12 @@ alert(url);
         // restore facet selection
     
         var opened = {};
-        $(selected).each(function(i, ob){ 
+        $(selected).each(function(i, ob){
             var object = container.find('a[href="' + $(ob).attr('href') + '"]');
             var opener = object.closest('ul').prev('h3').find('a');
             
-            if(!opened[opener]){
-                opened[opener] = true;
-                // console.log("restore selected " + opener.html() );
+            if(!opened[opener.html()]){
+                opened[opener.html()] = true;
                 opener.click();
             }
             object.prev().prop('checked', true);
