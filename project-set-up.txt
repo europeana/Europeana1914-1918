@@ -16,6 +16,7 @@
 16. upgrading pdf.js viewer
 17. upgrading mediaelement
 18. reset password on localhost
+19. update thumbnails and dimmensions
 
 
 
@@ -247,6 +248,8 @@ $ bundle exec rake i18n:js:export
 clear js & css cache
 ====================
 $ bundle exec rake assets:expire
+# on test
+RAILS_ENV=production bundle exec rake assets:expire
 
 
 
@@ -337,6 +340,12 @@ reset password on localhost
 5. click submit
 6. in the ruby console you'll find the reset password link you can use
 
+
+update thumbnails and dimmensions
+=================================
+$bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment
+# on test
+$RAILS_ENV=production bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment
 
 
 # On a Mac, a 1-line file in /etc/paths.d will be added to the path.  Imagemagick lives in /opt/local/bin, therefore:
