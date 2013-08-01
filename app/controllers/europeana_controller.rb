@@ -25,7 +25,7 @@ class EuropeanaController < ApplicationController
       search_terms = bing_translate(@query)
     end
     
-    if search_terms.present?
+    if search_terms.present? || params[:term].blank?
       query_params = { 
         :page => (params[:page] || 1).to_i,
         :count => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
