@@ -57,6 +57,8 @@ module EuropeanaHelper
       show_europeana_path(:dataset_id => guid_match[1], :record_id => guid_match[2])
     elsif guid_match = /\/contributions\/(\d+)$/.match(record_guid)
       contribution_path(:id => guid_match[1])
+    else
+      record_guid
     end
   end
   

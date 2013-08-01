@@ -3,7 +3,7 @@
 <% page = params['page'] ? params['page'].to_i : 1 %>
 <% inline = count * page - count %>
 <% if attachments.present? %>
-  <%- for attachment in attachments %><li>
+  <% for attachment in attachments %><li>
       <% if attachment.file.present?
           link_url = attachment_url( attachment, 'large' )
 
@@ -23,10 +23,11 @@
             })
           end
 
+          # adding 40 pixels to height to accommodate for additional info, download button and license logo
           if ( prettyphoto && attachment.video? )
             link_url = '#video-' + attachment.id.to_s
             video_width = attachment.file.width || 480
-            video_height = attachment.file.height || 240
+            video_height = ( attachment.file.height ? attachment.file.height + 40 : nil ) || 280
             link_attrs.merge!({
               'class' => 'video',
               'data-video-width' => video_width.to_s,
@@ -50,7 +51,7 @@
               :class => 'pdf'
             })
           end
-        -%>
+        %>
         <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
       <% else %>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />

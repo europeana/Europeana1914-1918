@@ -23,6 +23,14 @@ namespace :cache do
     end
   end
   
+  namespace :trove do
+    desc "Clears cached Trove API data."
+    task :clear => :environment do
+      puts "Clearing cached Trove API data...\n"
+      ActionController::Base.new.expire_fragment(/^views\/trove\//)
+    end
+  end
+  
   namespace :bing_translate do
     desc "Clears cached Bing Translate API results."
     task :clear => :environment do

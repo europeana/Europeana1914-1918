@@ -1,8 +1,11 @@
 module EDM
   ##
-  # Shared methods for inclusion in other EDM modules.
+  # Mappings to EDM for local models
   #
-  module Base
+  module Mapping
+    autoload :Item,   'edm/mapping/item'
+    autoload :Story,  'edm/mapping/story'
+  
     class << self
       def included(base)
         base.extend ClassMethods
@@ -106,6 +109,5 @@ module EDM
       
       label
     end
-    
   end
 end

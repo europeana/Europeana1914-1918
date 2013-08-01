@@ -27,15 +27,16 @@ module SearchHelper
     row_label || row_value.to_s
   end
   
-  def link_to_facet_row(facet_name, row_value)
+  def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true)
+    row_label ||= row_value
     facets_param = request.query_parameters.has_key?(:facets) ? request.query_parameters[:facets].dup : {}
-    if facets_param.has_key?(facet_name) && !facet_row_selected?(facet_name, row_value)
+    if multiple && facets_param.has_key?(facet_name) && !facet_row_selected?(facet_name, row_value)
       facets_param[facet_name] = facets_param[facet_name].to_s + "," + row_value.to_s
     else
       facets_param[facet_name] = row_value
     end
     
-    link_to facet_row_label(facet_name, row_value), request.query_parameters.merge(:page => 1, :facets => facets_param)
+    link_to facet_row_label(facet_name, row_label), request.query_parameters.merge(:page => 1, :facets => facets_param)
   end
   
   def facet_row_selected?(facet_name, row_value)
@@ -64,14 +65,7 @@ module SearchHelper
   end
   
   def search_provider_name(id)
-    case id
-    when 'contributions'
-      "1914-1918"
-    when 'europeana'
-      "Europeana portal"
-    else
-      raise ArgumentError, "Unknown search provider: #{id.to_s}"
-    end
+    t(id, :scope => "views.search.providers", :default => id)
   end
   
   def search_result_id(result)
@@ -85,9 +79,10 @@ module SearchHelper
   end
   
   def search_result_to_edm(result)
-    if controller.controller_name == 'contributions'
+    case controller.controller_name
+    when 'contributions'
       result.to_edm_result
-    elsif controller.controller_name == 'europeana'
+    when 'europeana', 'trove'
       result
     else
       raise ArgumentError, "Unable to convert search result to EDM: #{result.class}"

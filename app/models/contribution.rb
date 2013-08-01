@@ -2,7 +2,7 @@
 # Contribution consisiting of files and metadata.
 #
 class Contribution < ActiveRecord::Base
-  include EDM::Story
+  include EDM::Mapping::Story
 
   case RunCoCo.configuration.search_engine
   when :active_record
