@@ -301,24 +301,27 @@ $ mysql -u developer -p db_name < db_dump.sql
 
 upgrading pdf.js viewer
 =======================
-1. make sure you already have node installed
-2. cd to a working directory for building pdf.js
-3. $git clone https://github.com/mozilla/pdf.js.git
-4. $node make generic
-5. $cd /build/generic/web/
-6. $cp -R * /public/themes/common/mozilla/pdf.js/
-7. $cd /build/generic/build/
-8. $cp pdf.js /public/themes/common/mozilla/pdf.js/
-9. alter viewer.js
-   comment out or delete the line
-   var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
-   comment out or delete the line
-   PDFJS.workerSrc = '../build/pdf.js';
-   replace it with
-   PDFJS.workerSrc = '/themes/common/mozilla/pdf.js/pdf.js';
-10.in the erb file, e.g., /public/themes/v3/views/attachments/_pdf.html.erb,
-   make sure you have a line similar to the following before viewer.js loads
-   <script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
+1.  make sure you already have node installed
+2.  cd to a working directory for building pdf.js
+3.  $git clone https://github.com/mozilla/pdf.js.git
+4.  $node make generic
+5.  $cd /build/generic/web/
+6.  $cp -R * /public/themes/common/mozilla/pdf.js/
+7.  $cd /build/generic/build/
+8.  $cp pdf.js /public/themes/common/mozilla/pdf.js/
+9.  alter viewer.js
+    comment out or delete the line
+    var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
+    comment out or delete the line
+    PDFJS.workerSrc = '../build/pdf.js';
+    replace it with
+    PDFJS.workerSrc = '/themes/common/mozilla/pdf.js/pdf.js';
+10. in the erb file, e.g., /public/themes/v3/views/attachments/_pdf.html.erb,
+    make sure you have a line similar to the following before viewer.js loads
+    <script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
+11. alter viewer.css so that all url() entries point to /themes/common/mozilla/pdf.js/
+    this is necessary because on test and in production the css reference is to a
+	cached css file that resides outside the pdf.js folder
 
 
 
@@ -328,6 +331,9 @@ upgrading mediaelement
 2. $git clone https://github.com/johndyer/mediaelement.git
 3. $cp /path/to/mediaelement/build/* /path/to/europeana-1914-1918/public/themes/common/johndyer/mediaelement/
 4. delete any text files copied to europena-1914-1918
+5. alter mediaelementplayer.css so that all url() entries point to /themes/common/johndyer/mediaelement/
+   this is necessary because on test and in production the css reference is to a
+   cached css file that resides outside the pdf.js folder
 
 
 
