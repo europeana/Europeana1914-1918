@@ -398,9 +398,19 @@
 				$video.insertAfter( $pp_inline_video );
 
 				if ( $pp_inline_video.attr('data-content-type') === 'video/mp4') {
-					var player = new MediaElementPlayer( $video, { mode: 'shim' } );
+					var player = new MediaElementPlayer(
+						$video, {
+							mode: 'shim',
+							pluginPath : '/themes/common/johndyer/mediaelement/'
+						}
+					);
 				} else {
-					var player = new MediaElementPlayer( $video, { mode: 'auto' } );
+					var player = new MediaElementPlayer(
+						$video, {
+							mode: 'auto',
+							pluginPath : '/themes/common/johndyer/mediaelement/'
+						}
+					);
 				}
 			}
 
@@ -408,7 +418,11 @@
 				jQuery('.license-logo').css({ top: 'auto', bottom: 4 });
 				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
 				$audio.insertAfter( $pp_inline_audio );
-				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/common/johndyer/mediaelement/' } );
+				var player = new MediaElementPlayer(
+						$audio, {
+							pluginPath : '/themes/common/johndyer/mediaelement/'
+						}
+					);
 			}
 
 			if ( self.$metadata[self.current] ) {
@@ -496,8 +510,8 @@
 				var ppVideoOptions = ppOptions;
 				var video_link = jQuery(this);
 
-				ppVideoOptions.default_width = video_link.data('video-width');
-				ppVideoOptions.default_height = video_link.data('video-height');
+				//ppVideoOptions.default_width = video_link.data('video-width');
+				//ppVideoOptions.default_height = video_link.data('video-height');
 				video_link.prettyPhoto(ppVideoOptions);
 			});
 
