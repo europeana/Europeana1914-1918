@@ -247,7 +247,8 @@ $ bundle exec rake i18n:js:export
 
 clear js & css cache
 ====================
-$ bundle exec rake assets:expire
+# add --trace at the end of the command to see potential issues as the command issues
+bundle exec rake assets:expire --trace
 # on test
 RAILS_ENV=production bundle exec rake assets:expire
 
@@ -349,6 +350,7 @@ reset password on localhost
 
 update thumbnails and dimmensions
 =================================
+# add --trace at the end of the command to see potential issues as the command issues
 $bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment
 # on test
 $RAILS_ENV=production bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment
