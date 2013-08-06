@@ -191,6 +191,8 @@ class Attachment < ActiveRecord::Base
             when 'mp3'
               [ 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3',
                 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio' ]
+            when 'ogg'
+              [ 'audio/ogg' ]
             when 'mp4'
               [ 'video/mp4' ]
             when 'webm'
