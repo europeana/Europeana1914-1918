@@ -1,7 +1,5 @@
 # set search result defaults in the #search method
 class ContributionsController < ApplicationController
-  include SearchHelper
-  
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :explore, :complete ]
   before_filter :redirect_to_search, :only => :search
@@ -345,6 +343,34 @@ protected
     end
     
     data
+  end
+  
+  def facet_label(facet_name)
+    if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
+      field_name = taxonomy_field_facet[1]
+    else
+      field_name = facet_name
+    end
+    
+    t("views.search.facets.contributions.#{field_name}", :default => facet_name)
+  end
+  
+  def facet_row_label(facet_name, row_value)
+    @@metadata_fields ||= {}
+    
+    if row_value.is_a?(Integer)
+      if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
+        field_name = taxonomy_field_facet[1]
+        unless @@metadata_fields[field_name]
+          @@metadata_fields[field_name] = MetadataField.includes(:taxonomy_terms).find_by_name(field_name)
+        end
+        if row_term = @@metadata_fields[field_name].taxonomy_terms.select { |term| term.id == row_value }.first
+          row_label = row_term.term
+        end
+      end
+    end
+    
+    row_label || row_value.to_s
   end
 
 end

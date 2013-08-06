@@ -1,5 +1,5 @@
 <li>
-  <h3><%= link_to facet_label("provider"), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
+  <h3><%= link_to t("views.search.facets.contributions.provider"), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
   <ul>
     <%- for provider in [ 'contributions', 'europeana', 'trove' ] -%>
       <%- if search_provider_link = link_to_search_provider(provider) -%>
@@ -32,10 +32,10 @@
               <%- if controller.controller_name == "trove" && facet["name"] == "zone" -%><%# Trove "zone" pseudo-facet %>
                 <%- if facet_row_selected?(facet["name"], row["search"]) -%>
                   <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"], true %>
-                  <strong><%= facet_row_label(facet["name"], row["display"]) %></strong>
+                  <strong><%= row["label"] %></strong>
                 <%- else -%>
                   <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
-                  <%= link_to_facet_row(facet["name"], row["search"], row["display"], false) %>
+                  <%= link_to_facet_row(facet["name"], row["search"], row["label"], false) %>
                 <%- end -%>
               <%- else -%>
                 <%- if facet_row_selected?(facet['name'], row['search']) -%>

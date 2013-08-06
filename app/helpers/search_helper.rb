@@ -1,32 +1,4 @@
 module SearchHelper
-  def facet_label(facet_name, context = nil)
-    if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
-      field_name = taxonomy_field_facet[1]
-    else
-      field_name = facet_name
-    end
-    
-    t("views.search.facets.contributions.#{field_name}", :default => facet_name)
-  end
-  
-  def facet_row_label(facet_name, row_value)
-    @@metadata_fields ||= {}
-    
-    if row_value.is_a?(Integer)
-      if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
-        field_name = taxonomy_field_facet[1]
-        unless @@metadata_fields[field_name]
-          @@metadata_fields[field_name] = MetadataField.includes(:taxonomy_terms).find_by_name(field_name)
-        end
-        if row_term = @@metadata_fields[field_name].taxonomy_terms.select { |term| term.id == row_value }.first
-          row_label = row_term.term
-        end
-      end
-    end
-    
-    row_label || row_value.to_s
-  end
-  
   def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true)
     row_label ||= row_value
     facets_param = request.query_parameters.has_key?(:facets) ? request.query_parameters[:facets].dup : {}
@@ -36,7 +8,7 @@ module SearchHelper
       facets_param[facet_name] = row_value
     end
     
-    link_to facet_row_label(facet_name, row_label), request.query_parameters.merge(:page => 1, :facets => facets_param)
+    link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param)
   end
   
   def facet_row_selected?(facet_name, row_value)
