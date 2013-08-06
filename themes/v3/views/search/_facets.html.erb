@@ -2,17 +2,19 @@
   <h3><%= link_to facet_label("provider"), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
   <ul>
     <%- for provider in [ 'contributions', 'europeana', 'trove' ] -%>
-      <li>
-        <h4>
-          <%- if controller.controller_name == provider -%>
-            <%= radio_button_tag "provider", provider, true %>
-            <%= search_provider_name(provider) %>
-          <%- else -%>
-            <%= radio_button_tag "provider", provider %>
-            <%= link_to_search_provider(provider) %>
-          <%- end -%>
-        </h4>
-      </li>
+      <%- if search_provider_link = link_to_search_provider(provider) -%>
+        <li>
+          <h4>
+            <%- if controller.controller_name == provider -%>
+              <%= radio_button_tag "provider", provider, true %>
+              <%= search_provider_name(provider) %>
+            <%- else -%>
+              <%= radio_button_tag "provider", provider %>
+              <%= search_provider_link %>
+            <%- end -%>
+          </h4>
+        </li>
+      <%- end -%>
     <%- end -%>
   </ul>
 </li>
