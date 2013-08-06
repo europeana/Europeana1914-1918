@@ -136,10 +136,18 @@ private
       
       response = Europeana::API::Search.new(query_string).run(query_options)
       
+      # Add facet data required for view
+      response["facets"].each do |facet|
+        facet["label"] = facet["name"]
+        facet["fields"].each do |field|
+          field["search"] = field["label"]
+        end
+      end
+      
       # Fake profile=params API query option not yet in production
       response["params"] ||= {
         "start" => query_options[:start],
-        "query" => query_string,
+        "query" => @query,
         "rows"  => query_options[:rows],
         "profile" => query_options[:profile] + ",params"
       }

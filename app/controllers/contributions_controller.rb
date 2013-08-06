@@ -1,5 +1,7 @@
 # set search result defaults in the #search method
 class ContributionsController < ApplicationController
+  include SearchHelper
+  
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :explore, :complete ]
   before_filter :redirect_to_search, :only => :search
@@ -198,7 +200,25 @@ class ContributionsController < ApplicationController
     end
     
     @results = @contributions = search.results
-    @facets = search.respond_to?(:facets) ? search.facets : nil
+    
+    if search.respond_to?(:facets)
+      # Modelled on the structure of facets returned by Europeana API
+      @facets = search.facets.collect { |facet|
+        {
+          "name" => facet.name,
+          "label" => facet_label(facet.name),
+          "fields" => facet.rows.collect { |row|
+            {
+              "label" => facet_row_label(facet.name, row.value),
+              "search" => row.value.to_s,
+              "count" => row.count
+            }
+          }
+        }
+      }
+    else
+      @facets = []
+    end
 
     if params.delete(:layout) == '0'
       render :partial => '/search/results',
@@ -210,7 +230,27 @@ class ContributionsController < ApplicationController
         } and return
     end
     
-    render :template => 'search/page'
+    respond_to do |format|
+      format.html { render :template => 'search/page' }
+      # @todo Cache generation of EDM search result
+      format.json do
+        json = {
+          "success" => true,
+          "itemsCount" => @results.size,
+          "totalResults" => @results.total_entries,
+          "items" => @results.collect(&:to_edm_result),
+          "facets" => @facets,
+          "params" => {
+            "start" => @results.offset + 1,
+            "query" => @query,
+            "rows"  => @results.per_page
+          }
+        }.to_json
+        
+        json = "#{params[:callback]}(#{json});" unless params[:callback].blank?
+        render :json => json
+      end
+    end
   end
   
   # GET /explore/:field_name/:term

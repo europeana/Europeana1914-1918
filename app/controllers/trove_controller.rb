@@ -22,9 +22,42 @@ class TroveController < ApplicationController
     zone_results = response["response"]["zone"].select { |zone| zone["name"] == query_params[:zone] }.first
     edm_results = results_to_edm(zone_results)
     @results = paginate_search_result_items(edm_results, query_params)
-    @facets = [ zone_facet ] + zone_results["facets"]["facet"]
     
-    render :template => 'search/page'
+    # Modelled on the structure of facets returned by Europeana API
+    @facets = ([ zone_facet ] + zone_results["facets"]["facet"]).collect { |facet|
+      {
+        "name" => facet["name"],
+        "label" => facet["displayname"],
+        "fields" => facet["term"].collect { |row|
+          {
+            "label" => row["display"],
+            "search" => row["search"],
+            "count" => row["count"]
+          }
+        }
+      }
+    }
+    
+    respond_to do |format|
+      format.html { render :template => 'search/page' }
+      format.json do
+        json = {
+          "success" => true,
+          "itemsCount" => @results.size,
+          "totalResults" => @results.total_entries,
+          "items" => @results,
+          "facets" => @facets,
+          "params" => {
+            "start" => @results.offset + 1,
+            "query" => @query,
+            "rows"  => @results.per_page
+          }
+        }.to_json
+        
+        json = "#{params[:callback]}(#{json});" unless params[:callback].blank?
+        render :json => json
+      end
+    end
   end
   
 protected
@@ -33,6 +66,7 @@ protected
   # Constructs a pseudo-facet for Trove's search zones
   #
   # @return [Hash]
+  # @todo Move labels into locale
   #
   def zone_facet
     {
