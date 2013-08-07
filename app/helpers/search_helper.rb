@@ -34,12 +34,13 @@ module SearchHelper
     url_options = request.parameters.merge(:page => 1, :controller => id)
     url_options.delete(:facets)
     link_to search_provider_name(id), url_options
-  rescue ActionController::RoutingError
-    nil
+#  rescue ActionController::RoutingError
+#    nil
   end
   
   def search_provider_name(id)
-    t(id, :scope => "views.search.providers", :default => id)
+    provider = id.split('/').last
+    t(provider, :scope => "views.search.providers", :default => provider)
   end
   
   def search_result_id(result)
@@ -56,10 +57,8 @@ module SearchHelper
     case controller.controller_name
     when 'contributions'
       result.to_edm_result
-    when 'europeana', 'trove'
-      result
     else
-      raise ArgumentError, "Unable to convert search result to EDM: #{result.class}"
+      result
     end
   end
   

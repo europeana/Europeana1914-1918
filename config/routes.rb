@@ -62,8 +62,10 @@ RunCoCo::Application.routes.draw do
     match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
     match 'europeana/record/:dataset_id/:record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
     
-    # Trove API interface
-    match 'trove/search' => 'trove#search', :as => 'search_trove', :via => :get
+    # Federated searches
+    match 'digitalnz/search' => 'federated_search/digitalnz#search', :as => 'search_digitalnz', :via => :get
+    match 'dpla/search' => 'federated_search/dpla#search', :as => 'search_dpla', :via => :get
+    match 'trove/search' => 'federated_search/trove#search', :as => 'search_trove', :via => :get
 
     # Public usage statistics
     resources :statistics, :only => :index
