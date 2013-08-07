@@ -99,7 +99,14 @@ private
     url = construct_query_url(query_params)
     logger.debug("#{controller_name} API URL: #{url.to_s}")
 
-    response = JSON.parse(Net::HTTP.get(url))
+    cache_key = "search/federated/#{controller_name}/" + Digest::MD5.hexdigest(url.to_s)
+    if fragment_exist?(cache_key)
+      response = YAML::load(read_fragment(cache_key))
+    else
+      response = JSON.parse(Net::HTTP.get(url))
+      write_fragment(cache_key, response.to_yaml, :expires_in => 1.day)
+    end
+    
     edm_results = edm_results_from_response(response)
     results = paginate_search_results(edm_results, params_with_defaults[:page], params_with_defaults[:count], total_entries_from_response(response))
     facets = facets_from_response(response)

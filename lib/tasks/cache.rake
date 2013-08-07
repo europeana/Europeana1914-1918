@@ -23,11 +23,22 @@ namespace :cache do
     end
   end
   
-  namespace :trove do
-    desc "Clears cached Trove API data."
+  namespace :federated do
+    desc "Clears cached federated search API data. Limit to one provider with PROVIDER=name."
     task :clear => :environment do
-      puts "Clearing cached Trove API data...\n"
-      ActionController::Base.new.expire_fragment(/^views\/trove\//)
+      if provider = ENV['PROVIDER']
+        known_providers = [ 'digitalnz', 'dpla', 'trove' ]
+        unless known_providers.include?(provider)
+          puts "Unknown provider \"#{provider}\"; known providers: " + known_providers.join(', ') + "\n"
+          exit 1
+        end
+        puts "Clearing cached federated search API data for provider \"#{provider}\"...\n"
+      else
+        puts "Clearing cached federated search API data...\n"
+      end
+      fragment_pattern = "^views/search/federated/"
+      fragment_pattern << "#{provider}/" unless provider.blank?
+      ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
     end
   end
     
