@@ -46,7 +46,7 @@ protected
     
     query_options = { 
       :q => "subject(World War, 1914-1918) #{terms}", 
-      :key => api_key,
+      :key => self.class.api_key,
       :zone => options[:zone],
       :encoding => "json",
       :n => options[:count],

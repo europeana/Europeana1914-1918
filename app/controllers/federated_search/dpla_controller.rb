@@ -13,7 +13,7 @@ protected
     
     query_options = { 
       :q => terms,
-      :api_key => api_key,
+      :api_key => self.class.api_key,
       "sourceResource.subject.name" => '"World War, 1914-1918"',
       :page_size => options[:count],
       :page => options[:page],
@@ -85,7 +85,7 @@ protected
         "title" => [ item["sourceResource"]["title"] ],
         "guid" => "http://dp.la/item/" + item["id"],
         "provider" => [ "DPLA" ],
-        "dcCreator" => item["sourceResource"]["creator"],
+        "dcCreator" => [ item["sourceResource"]["creator"] ],
         "edmPreview" => [ item["object"] ]
       }
       

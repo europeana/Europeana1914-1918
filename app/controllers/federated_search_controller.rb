@@ -6,10 +6,13 @@ class FederatedSearchController < ApplicationController
   before_filter :federated_search_configured?
   before_filter :redirect_to_search, :only => :search
   
-  # [String] Key to access the federated search's API, set in config/federated_search.yml
-  mattr_reader :api_key
-  
-  mattr_accessor :api_url
+  class << self
+    # [String] Key to access the federated search's API, set in config/federated_search.yml
+    attr_accessor :api_key
+    
+    # [String] URL to which API queries are sent
+    attr_accessor :api_url
+  end
   
   ##
   # Search action for a federated search.
@@ -59,7 +62,7 @@ protected
   # @raise [RuntimeError] if the federated search is not configured
   #
   def federated_search_configured?
-    raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless api_key.present?
+    raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless self.class.api_key.present?
   end
   
   ##
@@ -125,7 +128,7 @@ protected
     if File.exist?(path)
       File.open(path) do |file|
         processed = ERB.new(file.read).result
-        YAML.load(processed)[Rails.env]
+        YAML.load(processed)[Rails.env] || {}
       end
     else
       {}
@@ -133,11 +136,11 @@ protected
   end
   
   def load_configuration
-    @@api_key ||= configuration[controller_name]
+    self.class.api_key ||= configuration[controller_name]
   end
   
   def construct_query_url(params)
-    url = URI.parse(api_url)
+    url = URI.parse(self.class.api_url)
     url.query = params.to_query
     url
   end

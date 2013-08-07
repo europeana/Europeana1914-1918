@@ -13,7 +13,7 @@ protected
     
     query_options = { 
       :text => terms,
-      :api_key => api_key,
+      :api_key => self.class.api_key,
       :per_page => options[:count],
       :page => options[:page],
       "without[content_partner][]" => "Europeana",
@@ -51,7 +51,7 @@ protected
         "title" => [ item["title"] ],
         "guid" => "http://www.digitalnz.org/records/" + item["id"].to_s,
         "provider" => [ "DigitalNZ" ],
-        "dcCreator" => item["credit_creator"],
+        "dcCreator" => [ item["credit_creator"] ],
         "edmPreview" => [ item["thumbnail_url"] ]
       }
       
