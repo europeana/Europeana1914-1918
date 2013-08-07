@@ -30,7 +30,7 @@ namespace :cache do
       ActionController::Base.new.expire_fragment(/^views\/trove\//)
     end
   end
-  
+    
   namespace :bing_translate do
     desc "Clears cached Bing Translate API results."
     task :clear => :environment do
@@ -40,12 +40,23 @@ namespace :cache do
   end
   
   namespace :search_results do
-    desc "Clears cached rendered search results."
+    desc "Clears cached rendered search results. Limit to one provider with PROVIDER=name."
     task :clear => :environment do
-      puts "Clearing cached rendered search results...\n"
+      if provider = ENV['PROVIDER']
+        known_providers = [ 'contributions', 'europeana', 'digitalnz', 'dpla', 'trove' ]
+        unless known_providers.include?(provider)
+          puts "Unknown provider \"#{provider}\"; known providers: " + known_providers.join(', ') + "\n"
+          exit 1
+        end
+        puts "Clearing cached rendered search results for provider \"#{provider}\"...\n"
+      else
+        puts "Clearing cached rendered search results...\n"
+      end
       I18n.available_locales.each do |locale|
         [ "v2", "v3" ].each do |theme|
-          ActionController::Base.new.expire_fragment(Regexp.new("^views/#{theme}/#{locale}/search/result/"))
+          fragment_pattern = "^views/#{theme}/#{locale}/search/result/"
+          fragment_pattern << "#{provider}/" unless provider.blank?
+          ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
         end
       end
     end
