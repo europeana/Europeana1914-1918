@@ -2,8 +2,8 @@
 # Abstract controller for federated searches.
 #
 class FederatedSearchController < ApplicationController
-  before_filter :load_configuration
-  before_filter :federated_search_configured?
+  before_filter :load_api_key
+  before_filter :configured?
   before_filter :redirect_to_search, :only => :search
   
   class << self
@@ -21,9 +21,9 @@ class FederatedSearchController < ApplicationController
   # call +super+ before the method end.
   #
   def search
-    @query = params[:q]
+    response = query_api
     
-    response = query_api(@query)
+    @query = params[:q]
     @results = response["results"]
     @facets = response["facets"]
     
@@ -34,35 +34,15 @@ class FederatedSearchController < ApplicationController
   end
   
 protected
+  
   ##
-  # Sends the query to the API.
-  #
-  # Specifics to be implemented by sub-classes.
-  #
-  # @param [String] terms Text to search for
-  # @return [Hash] Normalized API response, with keys "results" and "facets"
-  #
-  def query_api(terms)
-    { "results" => [], "facets" => [] }
-  end
-
-  def query_params
-    @query_params ||= { 
+  # Gets common search parameters with default values
+  def params_with_defaults
+    @params_with_defaults ||= {
       :page => (params[:page] || 1).to_i,
       :count => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
       :facets => params[:facets] || {}
     }
-  end
-
-  ##
-  # Tests whether the federated search is configured.
-  #
-  # API keys should be set in config/federated_search.yml
-  #
-  # @raise [RuntimeError] if the federated search is not configured
-  #
-  def federated_search_configured?
-    raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless self.class.api_key.present?
   end
   
   ##
@@ -95,6 +75,50 @@ protected
   end
   
   ##
+  # Gets the parameters to send to the federated search API
+  #
+  # When sub-classing, the returned +Hash+ should include the API key, query
+  # terms, pagination settings, request for facets, and any other variables
+  # required by the API.
+  #
+  # @return [Hash] Query parameters to send to the API
+  #
+  def query_params
+    {}
+  end
+  
+private
+
+  ##
+  # Sends the query to the API.
+  #
+  # @param [String] terms Text to search for
+  # @return [Hash] Normalized API response, with keys "results" and "facets"
+  #
+  def query_api
+    url = construct_query_url(query_params)
+    logger.debug("#{controller_name} API URL: #{url.to_s}")
+
+    response = JSON.parse(Net::HTTP.get(url))
+    edm_results = edm_results_from_response(response)
+    results = paginate_search_results(edm_results, params_with_defaults[:page], params_with_defaults[:count], total_entries_from_response(response))
+    facets = facets_from_response(response)
+    
+    { "results" => results, "facets" => facets }
+  end
+  
+  ##
+  # Tests whether the federated search is configured.
+  #
+  # API keys should be set in config/federated_search.yml
+  #
+  # @raise [RuntimeError] if the federated search is not configured
+  #
+  def configured?
+    raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless self.class.api_key.present?
+  end
+  
+  ##
   # Formats the results as JSON based on Europeana API search response.
   #
   # Expects the following instance variables to be set:
@@ -123,6 +147,11 @@ protected
     jsonp || json
   end
   
+  ##
+  # Reads configuration for federated search APIs from config file
+  #
+  # @return [Hash] API keys for the active Rails env, keyed by controller/API name
+  #
   def configuration
     path = File.join(::Rails.root, 'config', 'federated_search.yml')
     if File.exist?(path)
@@ -135,16 +164,34 @@ protected
     end
   end
   
-  def load_configuration
+  ##
+  # Sets the API key class instance variable from the configuration file
+  #
+  def load_api_key
     self.class.api_key ||= configuration[controller_name]
   end
   
+  ##
+  # Constructs the URL for the API query
+  #
+  # @param [Hash] params Query parameters
+  # @return [URI] URL to send the query to
+  #
   def construct_query_url(params)
     url = URI.parse(self.class.api_url)
     url.query = params.to_query
     url
   end
   
+  ##
+  # Paginates search results for use with +will_paginate+
+  #
+  # @param results Search results from the API
+  # @param [Fixnum] page Page of results currently displayed
+  # @param [Fixnum] per_page Number of results displayed per page
+  # @param [Fixnum] total Total number of results for this query
+  # @return [WillPaginate::Collection] Paginated search results
+  #
   def paginate_search_results(results, page, per_page, total)
     WillPaginate::Collection.create(page, per_page, total) do |pager|
       if total == 0

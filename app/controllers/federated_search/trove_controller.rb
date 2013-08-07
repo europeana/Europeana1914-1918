@@ -8,17 +8,102 @@ class FederatedSearch::TroveController < FederatedSearchController
   
 protected
 
-  def query_params
-    unless @query_params
+  def redirect_to_search
+    # Ensure zone is always specified
+    unless params[:facets] && params[:facets][:zone]
+      params[:facets] ||= {}
+      params[:facets][:zone] = "picture"
+      @redirect_required = true
+    end
+    
+    # Validate zone against permitted values
+    unless [ "article", "book", "collection", "map", "music", "picture" ].include?(params[:facets][:zone])
+      params[:facets][:zone] = "picture"
+      @redirect_required = true
+    end
+    
+    super
+  end
+
+  def params_with_defaults
+    unless @params_with_defaults
       super
-      @query_params.merge!({ 
+      @params_with_defaults.merge!({ 
         :zone => params[:facets][:zone],
         :facets => params[:facets].reject { |k, v| k == :zone }
       })
     end
-    @query_params
+    @params_with_defaults
   end
 
+  def query_params
+    query_params = { 
+      :q => "subject(World War, 1914-1918) #{params[:q]}",
+      :key => self.class.api_key,
+      :zone => params_with_defaults[:zone],
+      :encoding => "json",
+      :n => params_with_defaults[:count],
+      :s => ((params_with_defaults[:page] - 1) * params_with_defaults[:count]),
+      :facet => "all"
+    }
+    
+    params_with_defaults[:facets].each_pair do |name, value|
+      query_params["l-#{name}"] = value
+    end
+    
+    query_params
+  end
+  
+  def total_entries_from_response(response)
+    zone_results(response)["records"]["total"].to_i
+  end
+  
+  def edm_results_from_response(response)
+    zone_results = zone_results(response)
+  
+    edm = []
+    return edm unless zone_results["records"]["work"].present?
+    
+    zone_results["records"]["work"].each do |result|
+      edm_result = {
+        "id" => result["id"],
+        "title" => [ result["title"] ],
+        "guid" => result["troveUrl"],
+        "provider" => [ "Trove" ],
+        "year" => [ result["issued"] ],
+        "dcCreator" => result["contributor"]
+      }
+      
+      if result.has_key?("identifier")
+        if thumbnail = result["identifier"].select { |id| id["linktype"] == "thumbnail" }.first
+          edm_result["edmPreview"] = [ thumbnail["value"] ]
+        end
+      end
+      
+      edm << edm_result
+    end
+    
+    edm
+  end
+  
+  def facets_from_response(response)
+    ([ zone_facet ] + zone_results(response)["facets"]["facet"]).collect { |facet|
+      {
+        "name" => facet["name"],
+        "label" => facet["displayname"],
+        "fields" => facet["term"].collect { |row|
+          {
+            "label" => row["display"],
+            "search" => row["search"],
+            "count" => row["count"]
+          }
+        }
+      }
+    }
+  end
+  
+private
+  
   ##
   # Constructs a pseudo-facet for Trove's search zones
   #
@@ -40,93 +125,8 @@ protected
     }
   end
   
-  # @todo Handle API errors, e.g. zone not supplied, key invalid
-  def query_api(terms)
-    options = query_params
-    
-    query_options = { 
-      :q => "subject(World War, 1914-1918) #{terms}", 
-      :key => self.class.api_key,
-      :zone => options[:zone],
-      :encoding => "json",
-      :n => options[:count],
-      :s => ((options[:page] - 1) * options[:count]),
-      :facet => "all"
-    }
-    
-    options[:facets].each_pair do |name, value|
-      query_options["l-#{name}"] = value
-    end
-    
-    url = construct_query_url(query_options)
-    
-    logger.debug("Trove query: #{query_options[:q]}")
-    logger.debug("Trove API URI: #{url.to_s}")
-    
-    response = JSON.parse(Net::HTTP.get(url))
-    
-    zone_results = response["response"]["zone"].select { |zone| zone["name"] == query_params[:zone] }.first
-    edm_results = results_to_edm(zone_results)
-    results = paginate_search_results(edm_results["records"]["edm"], options[:page], options[:count], edm_results["records"]["total"].to_i)
-    
-    # Modelled on the structure of facets returned by Europeana API
-    facets = ([ zone_facet ] + zone_results["facets"]["facet"]).collect { |facet|
-      {
-        "name" => facet["name"],
-        "label" => facet["displayname"],
-        "fields" => facet["term"].collect { |row|
-          {
-            "label" => row["display"],
-            "search" => row["search"],
-            "count" => row["count"]
-          }
-        }
-      }
-    }
-    
-    { "results" => results, "facets" => facets }
-  end
-  
-  def results_to_edm(results)
-    results["records"]["edm"] = []
-    return results unless results["records"]["work"].present?
-    
-    results["records"]["work"].each do |result|
-      edm_result = {
-        "id" => result["id"],
-        "title" => [ result["title"] ],
-        "guid" => result["troveUrl"],
-        "provider" => [ "Trove" ],
-        "year" => [ result["issued"] ],
-        "dcCreator" => result["contributor"]
-      }
-      
-      if result.has_key?("identifier")
-        if thumbnail = result["identifier"].select { |id| id["linktype"] == "thumbnail" }.first
-          edm_result["edmPreview"] = [ thumbnail["value"] ]
-        end
-      end
-      
-      results["records"]["edm"] << edm_result
-    end
-    results
-  end
-  
-  def redirect_to_search
-    # Ensure zone is always specified
-    unless params[:facets] && params[:facets][:zone]
-      params[:facets] ||= {}
-      params[:facets][:zone] = "picture"
-      @redirect_required = true
-    end
-    
-    # Validate zone against permitted values
-    unless [ "article", "book", "collection", "map", "music", "picture" ].include?(params[:facets][:zone])
-      params[:facets][:zone] = "picture"
-      @redirect_required = true
-    end
-    
-    super
+  def zone_results(response)
+    zone_results = response["response"]["zone"].select { |zone| zone["name"] == params_with_defaults[:zone] }.first
   end
   
 end

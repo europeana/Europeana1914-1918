@@ -8,38 +8,54 @@ class FederatedSearch::DplaController < FederatedSearchController
   
 protected
 
-  def query_api(terms)
-    options = query_params
-    
-    query_options = { 
-      :q => terms,
+  def query_params
+    query_params = { 
+      :q => params[:q],
       :api_key => self.class.api_key,
       "sourceResource.subject.name" => '"World War, 1914-1918"',
-      :page_size => options[:count],
-      :page => options[:page],
+      :page_size => params_with_defaults[:count],
+      :page => params_with_defaults[:page],
       :facets => "sourceResource.contributor,sourceResource.date.begin,sourceResource.date.end,sourceResource.language.name,sourceResource.language.iso639,sourceResource.format,sourceResource.stateLocatedIn.name,sourceResource.stateLocatedIn.iso3166-2,sourceResource.spatial.name,sourceResource.spatial.country,sourceResource.spatial.region,sourceResource.spatial.county,sourceResource.spatial.state,sourceResource.spatial.city,sourceResource.spatial.iso3166-2,sourceResource.subject.@id,sourceResource.subject.name,sourceResource.temporal.begin,sourceResource.temporal.end,sourceResource.type,hasView.@id,hasView.format,isPartOf.@id,isPartOf.name,isShownAt,object,provider.@id,provider.name"
     }
     
-    options[:facets].each_pair do |name, value|
+    params_with_defaults[:facets].each_pair do |name, value|
       if name == "sourceResource.subject.name"
-        query_options[name] = query_options[name] + " " + value
+        query_params[name] = query_params[name] + " " + value
       else
-        query_options[name] = value
+        query_params[name] = value
       end
     end
     
-    url = construct_query_url(query_options)
+    query_params
+  end
+  
+  def total_entries_from_response(response)
+    response["count"]
+  end
+  
+  def edm_results_from_response(response)
+    edm = []
     
-    logger.debug("DPLA query: #{query_options[:q]}")
-    logger.debug("DPLA API URL: #{url.to_s}")
-
-    response = JSON.parse(Net::HTTP.get(url))
-    edm_results = edm_results_from_response(response)
-    results = paginate_search_results(edm_results, options[:page], options[:count], response["count"])
+    return edm unless response["docs"].present?
     
-    facets = facets_from_response(response)
+    response["docs"].each do |item|
+      edm_result = {
+        "id" => item["id"],
+        "title" => [ item["sourceResource"]["title"] ],
+        "guid" => "http://dp.la/item/" + item["id"],
+        "provider" => [ "DPLA" ],
+        "dcCreator" => [ item["sourceResource"]["creator"] ],
+        "edmPreview" => [ item["object"] ]
+      }
+      
+      if item["sourceResource"].has_key?("date")
+        edm_result["year"] = [ item["sourceResource"]["date"]["begin"], item["sourceResource"]["date"]["end"] ].uniq
+      end
+      
+      edm << edm_result
+    end
     
-    { "results" => results, "facets" => facets }
+    edm
   end
   
   def facets_from_response(response)
@@ -72,31 +88,6 @@ protected
       end
       facet
     end
-  end
-  
-  def edm_results_from_response(response)
-    edm = []
-    
-    return edm unless response["docs"].present?
-    
-    response["docs"].each do |item|
-      edm_result = {
-        "id" => item["id"],
-        "title" => [ item["sourceResource"]["title"] ],
-        "guid" => "http://dp.la/item/" + item["id"],
-        "provider" => [ "DPLA" ],
-        "dcCreator" => [ item["sourceResource"]["creator"] ],
-        "edmPreview" => [ item["object"] ]
-      }
-      
-      if item["sourceResource"].has_key?("date")
-        edm_result["year"] = [ item["sourceResource"]["date"]["begin"], item["sourceResource"]["date"]["end"] ].uniq
-      end
-      
-      edm << edm_result
-    end
-    
-    edm
   end
 
 end
