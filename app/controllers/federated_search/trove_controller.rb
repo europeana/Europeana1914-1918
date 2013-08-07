@@ -4,7 +4,7 @@
 # @see http://trove.nla.gov.au/general/api-technical
 #
 class FederatedSearch::TroveController < FederatedSearchController
-  
+  self.api_url = "http://api.trove.nla.gov.au/result"
   
 protected
 
@@ -58,13 +58,12 @@ protected
       query_options["l-#{name}"] = value
     end
     
-    logger.debug("Trove query: #{query_options[:q]}")
+    url = construct_query_url(query_options)
     
-    uri = URI.parse("http://api.trove.nla.gov.au/result")
-    uri.query = query_options.to_query
-    logger.debug("Trove API URI: #{uri.to_s}")
-
-    response = JSON.parse(Net::HTTP.get(uri))
+    logger.debug("Trove query: #{query_options[:q]}")
+    logger.debug("Trove API URI: #{url.to_s}")
+    
+    response = JSON.parse(Net::HTTP.get(url))
     
     zone_results = response["response"]["zone"].select { |zone| zone["name"] == query_params[:zone] }.first
     edm_results = results_to_edm(zone_results)
