@@ -73,8 +73,14 @@ class Permissions < Aegis::Permissions
   end
   
   action :tag_contribution do
-    allow :contributor do |contribution|
-      (contribution.contributor == user) && contribution.published?
+    allow :administrator, :cataloguer, :contributor do |contribution|
+      contribution.published?
+    end
+  end
+  
+  action :untag_contribution do
+    allow :cataloguer, :contributor do |contribution|
+      contribution.contributor == user
     end
   end
   
