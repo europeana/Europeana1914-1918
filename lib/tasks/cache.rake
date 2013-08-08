@@ -1,4 +1,15 @@
 namespace :cache do
+  desc "Clean up any expired cached content."
+  task :cleanup => :environment do
+    if ActionController::Base.new.cache_store.respond_to?(:cleanup)
+      puts "Cleaning up expired cached content...\n"
+      ActionController::Base.new.cache_store.cleanup
+    else
+      puts "Cache store does not support cleanup.\n"
+      exit 1
+    end
+  end
+
   namespace :assets do
     desc "Clears cached minified CSS and JS assets."
     task :clear => :environment do
