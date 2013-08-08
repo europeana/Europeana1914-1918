@@ -33,6 +33,9 @@ RunCoCo::Application.routes.draw do
           put 'duplicate'
         end
       end
+      
+      # Tags
+      resources :tags
     end
     
     match 'explore/:field_name/:term' => 'contributions#explore', :as => 'term_search_contributions', :via => :get
