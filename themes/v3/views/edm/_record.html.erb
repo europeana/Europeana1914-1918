@@ -227,12 +227,19 @@
     #  }
     %>
     <!-- </div> -->
-
-    <div class="add-tags">
-    	Add tags (optional)
-
-    	<textarea style="width:100%" rows="10"></textarea>
-    </div>
+    
+    <%- if current_user.may_tag_contribution?(@contribution) -%>
+      <div class="add-tags">
+        <div class="tags">
+          <%= @tags.join(', ') %>
+        </div>
+        <%= form_tag contribution_tags_path(@contribution), :method => :post do %>
+          <label for="contribution_tags">Add tags (optional)</label>
+          <%= text_field_tag "contribution[tags]", "", :size => 50, :maxlength => 255 %>
+          <%= submit_tag t('actions.submit') %>
+        <% end %>
+      </div>
+    <%- end -%>
 
   </div>
 

@@ -69,6 +69,7 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution) and return
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
+    @tags = @contribution.tags.collect(&:name)
     
     respond_to do |format|
       format.json { render :json => cached(:json) }
@@ -297,7 +298,7 @@ class ContributionsController < ApplicationController
 protected
 
   def find_contribution
-    @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata ])
+    @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata, :tags ])
   end
   
   def redirect_to_search
