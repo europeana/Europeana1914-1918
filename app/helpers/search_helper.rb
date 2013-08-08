@@ -34,8 +34,8 @@ module SearchHelper
     url_options = request.parameters.merge(:page => 1, :controller => id)
     url_options.delete(:facets)
     link_to search_provider_name(id), url_options
-#  rescue ActionController::RoutingError
-#    nil
+  rescue ActionController::RoutingError
+    nil
   end
   
   def search_provider_name(id)
