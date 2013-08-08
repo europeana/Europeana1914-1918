@@ -70,6 +70,8 @@ module SearchHelper
     if record['edmPreview'].blank? || record['edmPreview'].first.blank?
       if controller.controller_name == 'contributions'
         image_tag(contribution_media_type_image_path(record['id']), :alt => "")
+      else
+        image_tag("style/icons/mimetypes/unknown.png", :alt => t("media_types.unknown"))
       end
     else
       image_tag(record['edmPreview'].first, :alt => "")
