@@ -23,35 +23,39 @@
 
   <%- for facet in facets -%>
   
-    <li>
-      <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
-      <ul>
-        <%- for row in facet['fields'] -%>
-          <li>
-            <h4>
-              <%- if controller.controller_name == "trove" && facet["name"] == "zone" -%><%# Trove "zone" pseudo-facet %>
-                <%- if facet_row_selected?(facet["name"], row["search"]) -%>
-                  <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"], true %>
-                  <strong><%= row["label"] %></strong>
+    <%- if facet['fields'].present? -%>
+    
+      <li>
+        <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
+        <ul>
+          <%- for row in facet['fields'] -%>
+            <li>
+              <h4>
+                <%- if controller.controller_name == "trove" && facet["name"] == "zone" -%><%# Trove "zone" pseudo-facet %>
+                  <%- if facet_row_selected?(facet["name"], row["search"]) -%>
+                    <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"], true %>
+                    <strong><%= row["label"] %></strong>
+                  <%- else -%>
+                    <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
+                    <%= link_to_facet_row(facet["name"], row["search"], row["label"], false) %>
+                  <%- end -%>
                 <%- else -%>
-                  <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
-                  <%= link_to_facet_row(facet["name"], row["search"], row["label"], false) %>
+                  <%- if facet_row_selected?(facet['name'], row['search']) -%>
+                    <%= check_box_tag "facets[#{facet['name']}][]", row['search'], true %>
+                    <strong><%= row['label'] %></strong>
+                    <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove') } %>
+                  <%- else -%>
+                    <%= check_box_tag "facets[#{facet['name']}][]", row['search'] %>
+                    <%= link_to_facet_row(facet['name'], row['search'], row['label']) %> (<%= row['count'] %>)
+                  <%- end -%>
                 <%- end -%>
-              <%- else -%>
-                <%- if facet_row_selected?(facet['name'], row['search']) -%>
-                  <%= check_box_tag "facets[#{facet['name']}][]", row['search'], true %>
-                  <strong><%= row['label'] %></strong>
-                  <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove') } %>
-                <%- else -%>
-                  <%= check_box_tag "facets[#{facet['name']}][]", row['search'] %>
-                  <%= link_to_facet_row(facet['name'], row['search'], row['label']) %> (<%= row['count'] %>)
-                <%- end -%>
-              <%- end -%>
-            </h4>
-          </li>
-        <%- end -%>
-      </ul>
-    </li>
+              </h4>
+            </li>
+          <%- end -%>
+        </ul>
+      </li>
+    
+    <%- end -%>
   
   <%- end -%>
   

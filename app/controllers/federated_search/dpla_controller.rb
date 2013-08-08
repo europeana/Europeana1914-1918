@@ -59,9 +59,7 @@ protected
   end
   
   def facets_from_response(response)
-    facets_with_rows = response["facets"].reject { |facet_name, facet_data| facet_data["terms"].blank? && facet_data["entries"].blank? }
-    
-    facets_with_rows.collect do |facet_name, facet_data|
+    response["facets"].collect do |facet_name, facet_data|
       facet = {
         "name" => facet_name,
         "label" => facet_name
