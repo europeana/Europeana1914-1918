@@ -69,8 +69,7 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution) and return
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
-    @tags = @contribution.tags.collect(&:name).uniq
-    @user_tags = @contribution.owner_tags_on(current_user, :tags).collect(&:name).uniq
+    @tags = @contribution.tags
     
     respond_to do |format|
       format.json { render :json => cached(:json) }

@@ -3,6 +3,7 @@
 #
 class TagsController < ApplicationController
   before_filter :find_contribution
+  before_filter :find_tag, :except => [ :index, :create ]
 
   # GET /:locale/contributions/:contribution_id/tags(.:format)
   def index
@@ -11,18 +12,15 @@ class TagsController < ApplicationController
     end
   end
   
-  # GET /:locale/contributions/:contribution_id/tags/new(.:format)
-  def new
-    current_user.may_tag_contribution!(@contribution)
-  end
-
   # POST /:locale/contributions/:contribution_id/tags(.:format)
   def create
     current_user.may_tag_contribution!(@contribution)
     
     if params[:tags].present?
-      current_user.tag(@contribution, :with => params[:tags], :on => :tags)
-
+      new_tags = params[:tags].split(",").collect(&:strip) - @contribution.tags.collect(&:name)
+      user_tags = @contribution.owner_tags_on(current_user, :tags).collect(&:name)
+      current_user.tag(@contribution, :with => user_tags + new_tags, :on => :tags)
+      
       if @contribution.respond_to?(:index!)
         # Force index because change of owned tags are not detected by
         # dirty record checks.
@@ -40,35 +38,78 @@ class TagsController < ApplicationController
         render :json => {
           "success" => true,
           "message" => t('flash.tags.create.success'),
-          "tags" => {
-            "all" => @contribution.tags.collect(&:name).uniq,
-            "user" => @contribution.owner_tags_on(current_user, :tags).collect(&:name).uniq
-          }
+          "tags" => @contribution.tags.collect(&:name)
         }
       end
     end
   end
   
-  # GET /:locale/contributions/:contribution_id/tags/:id/edit(.:format)
-  # @todo Is editing a tag meaningful?
-  def edit; end
+  # GET /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
+  def confirm_flag
+    current_user.may_flag_contribution_tag!(@tag)
+  end
   
-  # GET /:locale/contributions/:contribution_id/tags/:id(.:format)
-  # @todo Is showing a single tag useful?
-  def show; end
+  # PUT /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
+  def flag
+    current_user.may_flag_contribution_tag!(@tag)
+    
+    @tag.taggings.each do |tagging|
+      current_user.tag(tagging, :with => "inappropriate", :on => :flags)
+      
+      if tagging.flags(:reload => true).size >= 3
+        tagging.destroy
+      end
+    end
+    
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.tags.flag.success')
+        redirect_to contribution_path(@contribution)
+      end
+      format.json do
+        render :json => {
+          "success" => true,
+          "message" => t('flash.tags.flag.success')
+        }
+      end
+    end
+  end
   
-  # PUT /:locale/contributions/:contribution_id/tags/:id(.:format)
-  # @todo Is updating a tag meaningful?
-  def update; end
+  # GET /:locale/contributions/:contribution_id/tags/:id/:delete(.:format)
+  def delete
+    current_user.may_untag_contribution!(@tag)
+  end
   
   # DELETE /:locale/contributions/:contribution_id/tags/:id(.:format)
-  # @note This should destroy the current user's *tagging*, not a tag
-  def destroy; end
+  def destroy
+    current_user.may_untag_contribution!(@tag)
+    
+    @tag.taggings.each(&:destroy)
+    @contribution.tags(:reload => true)
+    
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.tags.destroy.success')
+        redirect_to contribution_path(@contribution)
+      end
+      format.json do
+        render :json => {
+          "success" => true,
+          "message" => t('flash.tags.destroy.success'),
+          "tags" => @contribution.tags.collect(&:name)
+        }
+      end
+    end
+  end
   
 protected
 
   def find_contribution
     @contribution = Contribution.find(params[:contribution_id], :include => :tags)
+  end
+  
+  def find_tag
+    @tag = ActsAsTaggableOn::Tag.find_by_name!(params[:id])
   end
 
 end

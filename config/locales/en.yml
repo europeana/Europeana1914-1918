@@ -8,11 +8,13 @@ en:
     edit: Edit
     edit_story: Edit story
     filter: Filter
+    flag: Flag
     new: New
     reject: Reject
     remove: Remove
     save: Save
     submit: Submit
+    unflag: Unflag
     update: Update
   activerecord:
     attributes:
@@ -766,6 +768,10 @@ en:
     tags:
       create:
         success: Your tags have been added to this story.
+      destroy:
+        success: Tag removed.
+      flag:
+        success: The tag has been flagged as inappropriate.
     taxonomy:
       imported: Imported new taxonomy terms.
     users:
@@ -810,6 +816,8 @@ en:
         submit: Search
       sign_in: Sign in
       submit: Save
+      tag:
+        flag: Flag as inappropriate
       taxonomy_term:
         import: Import
       update: Save changes
@@ -1620,6 +1628,7 @@ en:
         empty_attachments: This story has no items.
         headings:
           submit: Submit contribution
+          tags: Tags
         invalid: This contribution is not ready for submission yet. Click on 'Why not?' for an explanation. Click on EDIT below to add more information.
         links:
           new_attachment: Add an item
@@ -1864,6 +1873,13 @@ en:
     table:
       header:
         actions: Actions
+    tags:
+      delete:
+        question: Are you sure you want to remove this tag?
+        title: Remove tag
+      flag:
+        question: Are you sure you want to flag this tag as inappropriate?
+        title: Flag as inappropriate
     users:
       _summary:
         caption: Sign in details

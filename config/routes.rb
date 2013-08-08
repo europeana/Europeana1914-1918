@@ -36,7 +36,13 @@ RunCoCo::Application.routes.draw do
       end
       
       # Tags
-      resources :tags
+      resources :tags, :only => [ 'index', 'create', 'destroy' ] do
+        member do
+          get 'delete'
+          get 'flag', :action => 'confirm_flag'
+          put 'flag'
+        end
+      end
     end
     
     match 'explore/:field_name/:term' => 'contributions#explore', :as => 'term_search_contributions', :via => :get
