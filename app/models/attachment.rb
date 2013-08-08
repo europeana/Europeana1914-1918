@@ -270,8 +270,6 @@ protected
   end
 
   def validate_max_one_cover_image_per_contribution
-  Rails.logger.debug("**** Content type: #{file.content_type.inspect}")
-  Rails.logger.debug("**** Allowed content types: #{Attachment.paperclip_content_types.inspect}")
     if contribution.present? && metadata.field_cover_image_terms.present? && metadata.field_cover_image_terms.first.term == 'yes'
       others = contribution.attachments
       others.reject! { |a| a.id == self.id } unless new_record?
