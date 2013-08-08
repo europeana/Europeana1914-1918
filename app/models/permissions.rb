@@ -61,17 +61,20 @@ class Permissions < Aegis::Permissions
   end
   
   action :view_contribution_status_log do
-#    allow :contributor do |contribution|
-#      contribution.contributor == user
-#    end
   end
-
+  
   action :edit_contribution do
     allow :contributor do |contribution|
       (contribution.contributor == user) && [ :draft, :submitted, :approved, :revised ].include?(contribution.status)
     end
     allow :guest do |contribution|
       !RunCoCo.configuration.registration_required? && (contribution.contact == user.contact) && (contribution.status == :draft)
+    end
+  end
+  
+  action :tag_contribution do
+    allow :contributor do |contribution|
+      (contribution.contributor == user) && contribution.published?
     end
   end
   
