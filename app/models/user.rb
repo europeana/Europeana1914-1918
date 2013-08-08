@@ -3,6 +3,9 @@
 #
 # Uses Devise for authentication and Aegis for role-based authorization.
 class User < ActiveRecord::Base
+  # ActsAsTaggableOn taggings are linked to users
+  acts_as_tagger
+
   # Devise authentication
   devise :database_authenticatable, :recoverable, :registerable
   

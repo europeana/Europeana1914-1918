@@ -3,6 +3,9 @@
 #
 class Contribution < ActiveRecord::Base
   include EDM::Mapping::Story
+  
+  # Contributions have ActsAsTaggableOn tags
+  acts_as_taggable
 
   case RunCoCo.configuration.search_engine
   when :active_record
