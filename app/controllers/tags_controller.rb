@@ -20,13 +20,33 @@ class TagsController < ApplicationController
   def create
     current_user.may_tag_contribution!(@contribution)
     
-    if params[:contribution][:tags].present?
-      user_tags = @contribution.owner_tags_on(current_user, :tags)
-      user_tags << params[:contribution][:tags]
-      current_user.tag(@contribution, :with => user_tags, :on => :tags)
+    if params[:tags].present?
+      current_user.tag(@contribution, :with => params[:tags], :on => :tags)
+
+      if @contribution.respond_to?(:index!)
+        # Force index because change of owned tags are not detected by
+        # dirty record checks.
+        @contribution.tags(:reload => true)
+        @contribution.index!
+      end
     end
     
-    redirect_to contribution_path(@contribution)
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.tags.create.success')
+        redirect_to contribution_path(@contribution)
+      end
+      format.json do
+        render :json => {
+          "success" => true,
+          "message" => t('flash.tags.create.success'),
+          "tags" => {
+            "all" => @contribution.tags.collect(&:name).uniq,
+            "user" => @contribution.owner_tags_on(current_user, :tags).collect(&:name).uniq
+          }
+        }
+      end
+    end
   end
   
   # GET /:locale/contributions/:contribution_id/tags/:id/edit(.:format)

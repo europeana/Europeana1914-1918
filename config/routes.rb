@@ -14,6 +14,7 @@ RunCoCo::Application.routes.draw do
       collection do
         get 'search'
         get 'complete'
+        match 'tagged/:tag' => 'contributions#search', :as => 'tag_search', :via => :get
       end
       member do
         get 'status', :action => 'status_log'

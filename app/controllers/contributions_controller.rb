@@ -69,7 +69,8 @@ class ContributionsController < ApplicationController
       redirect_to edit_contribution_path(@contribution) and return
     end
     @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
-    @tags = @contribution.tags.collect(&:name)
+    @tags = @contribution.tags.collect(&:name).uniq
+    @user_tags = @contribution.owner_tags_on(current_user, :tags).collect(&:name).uniq
     
     respond_to do |format|
       format.json { render :json => cached(:json) }
@@ -189,6 +190,12 @@ class ContributionsController < ApplicationController
       else
         search = [] # Prevent search from running if field not found
       end
+    elsif params[:tag]
+      if tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag])
+        search_options[:tag] = tag
+      else
+        search = []
+      end
     else
       @query = params[:q]
       search_query = bing_translate(@query)
@@ -196,9 +203,10 @@ class ContributionsController < ApplicationController
     
     if search.nil?
       search = Contribution.search(:published, search_query, search_options)
+      @results = @contributions = search.results
+    else
+      @results = @contributions = []
     end
-    
-    @results = @contributions = search.results
     
     if search.respond_to?(:facets)
       # Modelled on the structure of facets returned by Europeana API

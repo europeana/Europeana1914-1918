@@ -33,6 +33,8 @@ module ContributionSearch
             time    :created_at
             time    :status_timestamp
             
+            integer :tag_ids, :multiple => true
+            
             # Index all searchable taxonomy terms at once
             text    :taxonomy_terms do
               metadata.searchable_taxonomy_terms.collect { |t| t.term }
@@ -105,6 +107,10 @@ module ContributionSearch
           
           if taxonomy_term = solr_options.delete(:taxonomy_term)
             with :taxonomy_term_ids, taxonomy_term.id
+          end
+          
+          if tag = solr_options.delete(:tag)
+            with :tag_ids, tag.id
           end
           
           if order = solr_options.delete(:order)
