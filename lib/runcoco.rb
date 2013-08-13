@@ -2,6 +2,7 @@ require 'runcoco/active_support'
 require 'runcoco/core_ext'
 require 'runcoco/devise'
 require 'runcoco/formtastic'
+require 'runcoco/rdf'
 
 ##
 # RunCoCo application library.
