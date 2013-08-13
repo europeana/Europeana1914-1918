@@ -34,6 +34,9 @@ module ContributionSearch
             time    :status_timestamp
             
             integer :tag_ids, :multiple => true
+            text :tags do
+              tags.collect(&:name)
+            end
             
             # Index all searchable taxonomy terms at once
             text    :taxonomy_terms do
