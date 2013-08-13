@@ -30,44 +30,56 @@
 
 	<div class="one-half-left">
 
-		<img src="<%=edmObject%>"/>
-
+		<div class="img-panel">
+			<img src="<%=edmObject%>"/>
+		</div>
+		
 		<% if carouselImages %>
 			<% carouselImages.each do |img| %>
 				<img src="<%=img%>" style="max-width:100px;"/>
 			<% end %>
 		<% end %>
+		
+		<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>
 
+		<div class="panel">
+			<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
+				<p class="title">Date created / Start date</p>
+				<p>
+					<%= dcDate %>
+				</p>
+			<% end %>
+			
+			<% if dcType = edm_proxy_field(proxy, 'dcType') %>
+				<p class="title">Type</p>
+				<p>
+					<%= dcType %>
+				</p>
+			<% end %>			
+			
+		</div>
+		
 	</div>
 
-	<style type="text/css">
-
-		.meta ul{
-			list-style: none;
-			margin:		0;
-			padding:	0;
-		}
-
-		.meta .title{
-			font-weight: bold;
-		}
-	</style>
 
 	<div class="one-half-right meta">
-		<h2> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+		<h2 class="dcTitle"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+
+
+		<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
+			<p class="subtext">
+				Contributed by <%= dcContributor %>
+			</p>
+		<% end %>
+		
+		<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
+			<p>
+				<%= dcDescription %>
+			</p>
+			<hr/>
+		<% end %>
 
 		<ul>
-			<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
-				<li>
-					<span class="title">
-						dc:contributor
-					</span>
-					<span>
-						<%= dcContributor %>
-					</span>
-				</li>
-
-			<% end %>
 
 			<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
 				<li>
@@ -80,17 +92,6 @@
 				</li>
 			<% end %>
 
-			<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
-				<li>
-					<span class="title">
-						dc:date
-					</span>
-					<span>
-						<%= dcDate %>
-					</span>
-				</li>
-			<% end %>
-
 			<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
 				<li>
 					<span class="title">
@@ -98,17 +99,6 @@
 					</span>
 					<span>
 						<%= dcSubject %>
-					</span>
-				</li>
-			<% end %>
-
-			<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
-				<li>
-					<span class="title">
-						dc:description
-					</span>
-					<span>
-						<%= dcDescription %>
 					</span>
 				</li>
 			<% end %>
@@ -125,16 +115,6 @@
 			<% end %>
 
 
-			<% if dcType = edm_proxy_field(proxy, 'dcType') %>
-				<li>
-					<span class="title">
-						dc:type
-					</span>
-					<span>
-						<%= dcType %>
-					</span>
-				</li>
-			<% end %>
 
 			<% if contextInformation = edm_proxy_field(record, 'Context information') %>
 				<li>
@@ -151,6 +131,21 @@
 	</div>
 
 <div style="clear:both;">
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
 <% end %><%# end first section from the initial edm record view %>
 
 
@@ -214,7 +209,6 @@
 
     <ul id="thumbnail-counts"></ul>
 
-    <div class="location-desc">This story took place in: <a href="">Amiens, France</a></div>
 
     <!-- <div id="banner"> -->
     <%
