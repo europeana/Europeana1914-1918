@@ -96,9 +96,16 @@ module ContributionSearch
           taxonomy_term_where = nil
         end
         
+        if tag = options.delete(:tag)
+          joins << :tags
+          tag_where = { "tags.id" => tag.id }
+        else
+          tag_where = nil
+        end
+        
         joins << { :metadata => metadata_joins }
         
-        results = joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).order(sort_order)
+        results = joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).where(tag_where).order(sort_order)
           
         if options.has_key?(:page)
           pagination_options = options.select { |k,v| [ :page, :per_page, :count, :total_entries ].include?(k) }
