@@ -2,7 +2,7 @@
 # Contribution consisiting of files and metadata.
 #
 class Contribution < ActiveRecord::Base
-  include EDM::Mapping::Story
+  include Europeana::EDM::Mapping::Story
   
   # Contributions have ActsAsTaggableOn tags
   acts_as_taggable
