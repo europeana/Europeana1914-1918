@@ -23,6 +23,9 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :contribution
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
+  
+  has_many :annotations, :dependent => :destroy
+  
   accepts_nested_attributes_for :metadata
   
   attr_accessible :title, :file, :metadata_attributes, :dropbox_path
