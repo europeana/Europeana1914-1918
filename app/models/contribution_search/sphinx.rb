@@ -13,9 +13,13 @@ module ContributionSearch
       base.extend(SearchMethod) # Separated from ClassMethods to overwrite ThinkingSphinx's +search+ method
     end
     
-    module Results
-      def results
-        return self
+    ##
+    # Wrapper class around Sphinx search results with +#results+ method interface
+    #
+    class Search
+      attr_accessor :results
+      def initialize(results = nil)
+        @results = results
       end
     end
     
@@ -40,6 +44,9 @@ module ContributionSearch
         # Index all searchable taxonomy terms at once, on a single join
         define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
         define_index_str << "  has metadata.searchable_taxonomy_terms(:id), :as => :taxonomy_term_ids\n"
+        
+        define_index_str << "  indexes tags.name, :as => :tags\n"
+        define_index_str << "  has tags.id, :as => :tag_ids\n"
 
         fields = MetadataField.where('searchable = ? AND field_type <> ?', true, 'taxonomy')
         unless fields.count == 0
@@ -122,8 +129,12 @@ module ContributionSearch
           options[:with][:taxonomy_term_ids] = taxonomy_term.id
         end
         
+        if tag = options.delete(:tag)
+          options[:with][:tag_ids] = tag.id
+        end
+
         if query.blank?
-          sphinx_search(options)
+          Search.new(sphinx_search(options))
         else
           if query.is_a?(Hash)
             query_translations = query.dup
@@ -134,7 +145,7 @@ module ContributionSearch
           else
             query_string = query.append_wildcard
           end
-          sphinx_search(query_string, options).extend(Results)
+          Search.new(sphinx_search(query_string, options))
         end
       end
     end
