@@ -30,6 +30,8 @@ module Europeana
           response = JSON.parse(Net::HTTP.get(uri(record_id)))
           raise Errors::RequestError, response['error'] unless response['success']
           response
+        rescue JSON::ParserError
+          raise Errors::ResponseError
         end
       
         def uri(record_id)

@@ -17,6 +17,14 @@ module Europeana
           super(message || DEFAULT_MESSAGE)
         end
       end
+      
+      class ResponseError < StandardError
+        DEFAULT_MESSAGE = 'Unable to parse the API response.'
+        
+        def initialize(message = nil)
+          super(message || DEFAULT_MESSAGE)
+        end
+      end
     end
   end
 end

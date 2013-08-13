@@ -52,6 +52,12 @@ class ApplicationController < ActionController::Base
     rescue_from DropboxAuthError do |exception|
       redirect_to dropbox_connect_path(:redirect => controller.request.fullpath)
     end
+    
+    # Rescue API errors
+    rescue_from Europeana::API::Errors::ResponseError do |exception|
+      @status = "api_error"
+      render :template => '/pages/error', :status => 500
+    end
   end
   
   ##

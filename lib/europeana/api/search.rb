@@ -45,6 +45,8 @@ module Europeana
         response = JSON.parse(Net::HTTP.get(uri(options)))
         raise Errors::RequestError, response['error'] unless response['success']
         @result_set = response
+      rescue JSON::ParserError
+        raise Errors::ResponseError
       end
       
       ##
