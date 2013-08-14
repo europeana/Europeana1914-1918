@@ -11,7 +11,7 @@ class CreateAnnotoriousTables < ActiveRecord::Migration
     
     create_table :annotation_shapes do |t|
       t.integer :annotation_id
-      t.string :type
+      t.string :shape_type
       t.string :units, :default => "relative"
       t.text :geometry
       t.timestamps

@@ -393,6 +393,8 @@
 				$audio.insertAfter( $pp_inline_audio );
 				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/common/johndyer/mediaelement/' } );
 			}
+			
+			anno.reset();
 
 			if ( self.$metadata[self.current] ) {
 				if ( self.$metadata[self.current].data('clone').is(':visible') ) {
@@ -419,6 +421,10 @@
 			}
 
 			mejs.mepIndex = 0;
+		},
+		
+		setupAnnotorious : function() {
+			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } ) ;
 		},
 
 		setupPrettyPhoto : function() {
@@ -472,7 +478,11 @@
 				jQuery(this).prettyPhoto(ppAudioOptions);
 			});
 
-			jQuery("a[rel^='prettyPhoto']").not('.video,.audio').prettyPhoto(ppOptions);
+			jQuery("a[rel^='prettyPhoto']").not('.video,.audio').each(function() {
+				var ppImageOptions = ppOptions;
+				ppImageOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
+				jQuery(this).prettyPhoto(ppImageOptions);
+			});
 		},
 
 		removeLightboxLinks : function() {
@@ -492,6 +502,7 @@
 			} else {
 				this.removeLightboxLinks();
 			}
+			this.setupAnnotorious();
 		}
 	},
 

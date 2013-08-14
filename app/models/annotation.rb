@@ -11,4 +11,12 @@ class Annotation < ActiveRecord::Base
   
   accepts_nested_attributes_for :shapes
   attr_protected :user_id
+  
+  def to_hash
+    {
+      :id => id,
+      :text => text,
+      :shapes => shapes.collect(&:to_hash)
+    }
+  end
 end

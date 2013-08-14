@@ -146,6 +146,24 @@ class Permissions < Aegis::Permissions
     end
   end
   
+  action :create_attachment_annotation do
+    allow :contributor do |attachment|
+      attachment.contribution.published?
+    end
+  end
+  
+  action :edit_attachment_annotation do
+    allow :contributor do |annotation|
+      annotation.user == user
+    end
+  end
+  
+  action :delete_attachment_annotation do
+    allow :contributor do |annotation|
+      annotation.user == user
+    end
+  end
+  
   action :edit_attachment do
     allow :contributor do |attachment|
       (attachment.contribution.contributor == user) && [ :draft, :submitted, :approved, :revised ].include?(attachment.contribution.status)

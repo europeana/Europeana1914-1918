@@ -22,7 +22,13 @@
               :rel => 'prettyPhoto[gallery]'
             })
           end
-
+          
+          if ( prettyphoto && attachment.image? )
+            link_attrs.merge!({
+              'class' => 'image'
+            })
+          end
+          
           if ( prettyphoto && attachment.video? )
             link_url = '#video-' + attachment.id.to_s
             video_width = attachment.file.width || 480

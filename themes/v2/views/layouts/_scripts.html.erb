@@ -104,7 +104,7 @@
 			'/themes/v2/javascripts/com/gmtplusone/truncate.js'
 		)
 	end
-
+	
 	if @javascripts[:uploadify] && configuration(:uploadify)
 		script_files.push(
 			#'json2',
@@ -117,6 +117,13 @@
 	if @javascripts[:video] || @javascripts[:audio]
 		script_files.push(
 			'/themes/common/johndyer/mediaelement/mediaelement-and-player.min.js'
+		)
+	end
+	
+	if @javascripts[:annotorious]
+		script_files.push(
+			'/themes/common/ait/annotorious/annotorious.min.js',
+			'/themes/v2/javascripts/eu/europeana/annotorious.runcoco.js'
 		)
 	end
 
@@ -201,8 +208,10 @@
 <script>
 var switchTo5x = true;<% 'for share-this' %>
 if ( !window.RunCoCo ) { window.RunCoCo = {}; }
+RunCoCo.siteUrl = '<%= configuration(:site_url) %>';
 RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
 RunCoCo.gaId = '<%= configuration(:google_analytics_key) %>';
+RunCoCo.locale = '<%= I18n.locale %>';
 <% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
 <% if @javascripts[:translate] %>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end %>
 <% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title.gsub("'", "\\\\'") %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
