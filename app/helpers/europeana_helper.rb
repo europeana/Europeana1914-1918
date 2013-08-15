@@ -53,6 +53,7 @@ module EuropeanaHelper
   # @return [String] lat,lng
   #
   def edm_places_latlng(places)
+    return nil unless places.respond_to?(:each)
     places.each do |place|
       if place.has_key?("latitude") && place.has_key?("longitude")
         return [ place["latitude"], place["longitude"] ].join(",")
