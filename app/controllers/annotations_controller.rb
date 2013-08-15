@@ -49,6 +49,8 @@ class AnnotationsController < ApplicationController
       @annotation.save!
     end
     
+    index_contribution
+    
     respond_to do |format|
       format.json do
         render :json => {
@@ -93,6 +95,8 @@ class AnnotationsController < ApplicationController
       
       @annotation.save!
     end
+    
+    index_contribution
   
     respond_to do |format|
       format.json do
@@ -123,6 +127,8 @@ class AnnotationsController < ApplicationController
       @annotation.destroy
     end
     
+    index_contribution
+    
     respond_to do |format|
       format.json do
         render :json => {
@@ -136,6 +142,12 @@ protected
 
   def attachment_id_from_src(src)
     src.match(/\/attachments\/(\d+)\//)[1]
+  end
+
+  def index_contribution
+    if @annotation.attachment.contribution.respond_to?(:index!)
+      @annotation.attachment.contribution.index!
+    end
   end
 
 end

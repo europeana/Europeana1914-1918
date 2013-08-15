@@ -38,6 +38,12 @@ module ContributionSearch
               tags.collect(&:name)
             end
             
+            text :annotations do
+              attachments.includes(:annotations).collect do |attachment|
+                attachment.annotations.collect(&:text)
+              end
+            end
+            
             # Index all searchable taxonomy terms at once
             text    :taxonomy_terms do
               metadata.searchable_taxonomy_terms.collect { |t| t.term }
