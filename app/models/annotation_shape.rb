@@ -21,4 +21,12 @@ class AnnotationShape < ActiveRecord::Base
     }
   end
   
+  def geometry=(geometry)
+    geometry_f = {}
+    geometry.each_pair do |key, value|
+      geometry_f[key] = value.to_f
+    end
+    super(geometry_f)
+  end
+  
 end

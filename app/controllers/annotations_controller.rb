@@ -36,10 +36,7 @@ class AnnotationsController < ApplicationController
     
       params[:annotation][:shapes].each_value do |shape_params|
         AnnotationShape.new do |annotation_shape|
-          annotation_shape.geometry = {}
-          shape_params[:geometry].each_pair do |key, value|
-            annotation_shape.geometry[key] = value.to_f
-          end
+          annotation_shape.geometry = shape_params[:geometry]
           annotation_shape.units = shape_params[:units] || "relative"
           annotation_shape.shape_type = shape_params[:type]
           @annotation.shapes << annotation_shape
@@ -83,10 +80,7 @@ class AnnotationsController < ApplicationController
       @annotation.shapes = []
       params[:annotation][:shapes].each_value do |shape_params|
         AnnotationShape.new do |annotation_shape|
-          annotation_shape.geometry = {}
-          shape_params[:geometry].each_pair do |key, value|
-            annotation_shape.geometry[key] = value.to_f
-          end
+          annotation_shape.geometry = shape_params[:geometry]
           annotation_shape.units = shape_params[:units] || "relative"
           annotation_shape.shape_type = shape_params[:type]
           @annotation.shapes << annotation_shape
