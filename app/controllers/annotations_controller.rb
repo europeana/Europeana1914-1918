@@ -68,6 +68,16 @@ class AnnotationsController < ApplicationController
     end
   end
   
+  # GET /:locale/annotations/:id(.:format)
+  def show
+    @annotation = Annotation.find(params[:id])
+    
+    respond_to do |format|
+      format.json { render :json => @annotation.to_hash }
+      format.nt { render :text => @annotation.to_ntriples }
+    end
+  end
+  
   # PUT /:locale/annotations/:id(.:format)
   def update
     @annotation = Annotation.find(params[:id])
