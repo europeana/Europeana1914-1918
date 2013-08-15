@@ -47,6 +47,20 @@ module EuropeanaHelper
   end
   
   ##
+  # Returns the first latitude, longitude pair found in an array of EDM places
+  #
+  # @param [Array<Hash>] places Array of places data from EDM record
+  # @return [String] lat,lng
+  #
+  def edm_places_latlng(places)
+    places.each do |place|
+      if place.has_key?("latitude") && place.has_key?("longitude")
+        return [ place["latitude"], place["longitude"] ].join(",")
+      end
+    end
+  end
+  
+  ##
   # Gets the URL path to display an EDM record on this site.
   #
   # @param [String] record_guid guid field of the EDM record
