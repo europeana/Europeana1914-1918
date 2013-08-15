@@ -14,7 +14,8 @@ class AnnotationsController < ApplicationController
     respond_to do |format|
       format.json do
         render :json => {
-          "annotations" => @annotations.collect { |a| a.to_hash.merge(:editable => current_user.may_edit_attachment_annotation?(a)) }
+          "annotations" => @annotations.collect { |a| a.to_hash.merge(:editable => current_user.may_edit_attachment_annotation?(a)) },
+          "creatable" => current_user.may_create_attachment_annotation?(attachment)
         }
       end
     end

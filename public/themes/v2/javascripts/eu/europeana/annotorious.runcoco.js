@@ -2,6 +2,7 @@
  * Annotorious storage plugin for RunCoCo
  */
 annotorious.plugin.RunCoCo = function(config) {
+  // Base URL of the RESTful annotations controller
   this._BASE_URL = config.base_url;
 };
 
@@ -32,13 +33,14 @@ annotorious.plugin.RunCoCo.prototype._preserveCSRFToken = function(xhr) {
 annotorious.plugin.RunCoCo.prototype._loadAnnotations = function(annotator) {
   var self = this;
   var params = { src: annotator.getItem().src };
+  
   jQuery.ajax({
     type: "GET",
     url: self._BASE_URL + ".json", 
     data: params,
-    dataType: "json",
     beforeSend: self._preserveCSRFToken,
     success: function(response) {
+      response.creatable ? anno.showSelectionWidget(params.src) : anno.hideSelectionWidget(params.src);
       jQuery.each(response.annotations, function(idx, annotation) {
         annotation.src = params.src;
         anno.addAnnotation(annotation);

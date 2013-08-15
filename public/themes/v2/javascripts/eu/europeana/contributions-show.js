@@ -395,6 +395,7 @@
 			}
 			
 			anno.reset();
+			anno.hideSelectionWidget();
 
 			if ( self.$metadata[self.current] ) {
 				if ( self.$metadata[self.current].data('clone').is(':visible') ) {
