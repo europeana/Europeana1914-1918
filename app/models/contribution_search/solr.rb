@@ -20,7 +20,8 @@ module ContributionSearch
         if ContributionSearch::Solr.solr_accessible?
         
           # Set up the Solr index
-          searchable do
+          includes = [ { :contributor => :contact }, { :metadata => :searchable_taxonomy_terms }, :tags, { :attachments => :annotations } ]
+          searchable(:include => includes) do
             text    :title
             text    :contributor do
               contributor.contact.full_name
@@ -39,17 +40,17 @@ module ContributionSearch
             end
             
             text :annotations do
-              attachments.includes(:annotations).collect do |attachment|
+              attachments.collect do |attachment|
                 attachment.annotations.collect(&:text)
               end
             end
             
             # Index all searchable taxonomy terms at once
             text    :taxonomy_terms do
-              metadata.searchable_taxonomy_terms.collect { |t| t.term }
+              metadata.searchable_taxonomy_terms.collect(&:term)
             end
             integer :taxonomy_term_ids, :multiple => true do
-              metadata.searchable_taxonomy_terms.collect { |t| t.id }
+              metadata.searchable_taxonomy_term_ids
             end
             
             # Index other searchable fields individually
