@@ -89,7 +89,7 @@ module Europeana
               label = solution.object.to_s
             end
             graph.query([ statement.object, RDF::URI.parse("http://www.europeana.eu/schemas/edm/end"), nil ]) do |solution|
-              label << " - " << solution.object.to_s
+              label = label + " - " + solution.object.to_s
             end
           elsif statement.object.to_s.match(RDF::DCMIType.to_uri)
             label = statement.object.qname.last.to_s
