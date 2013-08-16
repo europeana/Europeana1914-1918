@@ -530,27 +530,24 @@
 	map = {
 
 		init:function(){
-			if(latLong && latLong.length == 2){
+			if(typeof latLong != 'undefined' && latLong.length == 2){
 				
 				var mapLatitude  = parseFloat(latLong[0]);
 				var mapLongitude = parseFloat(latLong[1]);
-				var mapZoom      = 8;
+				var mapZoom      = typeof mapZoom != 'undefined' && mapZoom.length && parseInt(mapZoom).length ? parseInt(mapZoom) : 8;
 				
-				var rootJsUrl = themePath + 'javascripts/com/leaflet/';
-				var rootCssUrl = themePath + 'stylesheets/com/leaflet/';
+				var rootJsUrl    = themePath + 'javascripts/com/leaflet/';
+				var rootCssUrl   = themePath + 'stylesheets/com/leaflet/';
 				var dependencies = [
+				    'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;key=AIzaSyARYUuCXOrUv11afTLg72TqBN2n-o4XmCI',
     				'leaflet.js',
    					'Leaflet-MiniMap-master/src/Control.MiniMap.js',
    					'Leaflet-Pan/L.Control.Pan.js',
    					'leaflet-plugins-master/layer/tile/Google.js',
-   					
-
    					'leaflet.min.css',
    					'leaflet.ie.css',
    					'Leaflet-MiniMap-master/src/Control.MiniMap.css'
-   					
    				];
-				// http://exhibitions.europeana.eu/themes/main/javascripts/Leaflet.markercluster-master/dist/leaflet.markercluster.js
 					
             	var recursiveLoad = function(index){
             		index = index ? index : 0;
@@ -561,7 +558,7 @@
     					}
     					else{
     	          			$.ajax({
-                				"url": rootJsUrl + dependencies[index],
+                				"url": dependencies[index].indexOf('http') == 0 ? dependencies[index] :  rootJsUrl + dependencies[index],
                 				"dataType": "script",
                 				"success": function(){
                 					recursiveLoad(index + 1);
@@ -572,7 +569,7 @@
             		}
             		else{
             			var mqTilesAttr = 'Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />';
-            			
+            	
             			// map quest
             			var mq = new L.TileLayer(
             				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
@@ -659,7 +656,6 @@
             			
             			europeanaCtrls.append(ctrlLayer.getCmp());
             			
-            			
             			// Overview map - requires duplicate layer
             			//var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
             			new L.Control.MiniMap(
@@ -674,7 +670,6 @@
             					}),
             				{toggleDisplay: true }
             			).addTo(map);
-
             			L.control.zoom().addTo(map);
             			
             		}

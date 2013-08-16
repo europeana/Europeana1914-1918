@@ -26,6 +26,12 @@
     <%- if [ 'location_zoom', 'location_placename', 'location_map' ].include?(field.name) -%>
       <%- unless metadata['field_' + field.name].blank? -%>
         <dd><input type="hidden" id="<%= field.name.gsub('_','-') %>" value="<%= metadata['field_' + field.name] %>" /></dd>
+        
+        <script type="text/javascript">
+        	var latLong = "<%= metadata['field_location_map'] %>".split(',');
+        	var mapZoom = "<%= metadata['location_zoom'] %>";
+        </script>
+        
       <%- end -%>
     <%- elsif field.name == 'date_from' -%>
       <%- 

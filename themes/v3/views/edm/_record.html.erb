@@ -1,6 +1,8 @@
 <%
   # @javascripts[:images_lazy_load] = true
-  @javascripts[:gmap_display] = true
+  # @javascripts[:gmap_display] = true
+  
+  
   @javascripts[:images_loaded] = true
   @javascripts[:carousel] = true
   @javascripts[:truncate] = true
@@ -227,6 +229,14 @@
 
     <ul id="thumbnail-counts"></ul>
 
+	<!-- Leaflet map container-->
+
+	<% if @contribution.metadata['field_location_map'] %> 
+		<div id="map-container">
+			<div id="map"></div>
+		</div>
+	<% end %>
+    
 
     <!-- <div id="banner"> -->
     <%
@@ -239,6 +249,7 @@
     #  }
     %>
     <!-- </div> -->
+    
     
     <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
 
