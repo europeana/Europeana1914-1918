@@ -531,7 +531,6 @@
 
 		init:function(){
 			if(typeof latLong != 'undefined' && latLong.length == 2){
-				
 				var mapLatitude  = parseFloat(latLong[0]);
 				var mapLongitude = parseFloat(latLong[1]);
 				var mapZoom      = typeof mapZoom != 'undefined' && mapZoom.length && parseInt(mapZoom).length ? parseInt(mapZoom) : 8;

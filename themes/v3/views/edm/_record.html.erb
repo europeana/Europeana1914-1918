@@ -32,6 +32,7 @@
 		places         = record['places'] ? record['places'] : {}
 		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
 		edmObject      = aggregation['edmObject']
+		euAggregation  = record['europeanaAggregation']
 		carouselImages = aggregation['hasView']
 	%>
 
@@ -50,6 +51,21 @@
 		<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>
 
 		<div class="panel">
+		
+			<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
+				<p class="title">Other title(s)</p>
+				<p>
+					<%= dctermsAlternative %>
+				</p>
+			<% end %>
+
+			<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') %>
+				<p class="title">Country</p>
+				<p>
+					<%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %>
+				</p>
+			<% end %>
+			
 			<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
 				<p class="title">Date created / Start date</p>
 				<p>
@@ -64,11 +80,26 @@
 				</p>
 			<% end %>			
 			
+			<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
+				<p class="title">Format</p>
+				<p>
+					<%= dctermsExtent %>
+				</p>
+			<% end %>			
+
+			<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
+				<p class="title">Language</p>
+				<p>
+					<%= edmLanguage %>
+				</p>
+			<% end %>
+
+
+			
 		</div>
 		
 		
 		<% if latLong = edm_places_latlng(record['places']) %>
-	
 			<div id="map-container">
 				<div id="map">
 					<script type="text/javascript">
@@ -235,9 +266,10 @@
 
 	<!-- Leaflet map container-->
 
-	<% if @contribution.metadata['field_location_map'] %> 
+	<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 %>
 		<div id="map-container">
-			<div id="map"></div>
+			<div id="map">
+			</div>
 		</div>
 	<% end %>
     
@@ -460,44 +492,6 @@
       </div>
     <% end %>
 
-	<div class="about-contributor">
-
-		<div style="margin-top:1em; margin-bottom:2em;">
-			<b>About Horace Brumbridge</b>
-		</div>
-
-		<div style="float:left; margin-right: 1em;">
-	      <%= image_tag('http://www.europeana1914-1918.eu/attachments/51204/4337.51204.thumb.jpg') %>
-		</div>
-
-		<div style="float:left">
-
-			<b>Date of birth</b>
-			<br/>
-			1895
-			<br/>
-			<br/>
-
-			<b>Place of birth</b>
-			<br/>
-			Hampstead (then Middlesex)
-			<br/>
-			<br/>
-
-			<b>Date of death</b>
-			<br/>
-			December 20 1924
-			<br/>
-			<br/>
-
-			<b>Place of death</b>
-			<br/>
-			Leyton (then Essex)
-			<br/>
-			<br/>
-		</div>
-
-	</div>
 
 
 	<div class="comments" style="margin-top: 3em; clear:both;">
