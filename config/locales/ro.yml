@@ -1,0 +1,2170 @@
+ro:
+  actions:
+    approve: 
+    cancel: Αnulaţi
+    copy: 
+    delete: 
+    download: 
+    edit: 
+    edit_story: 
+    filter: 
+    flag: 
+    new: 
+    reject: 
+    remove: 
+    save: Salvaţi
+    submit: 
+    unflag: 
+    update: 
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: 
+        file: 
+        file_content_type: 
+        file_created_at: 
+        file_file_name: 
+        file_file_size: Mărimea fişierului
+        file_updated_at: 
+        preview: Vizualizare
+        public: 
+      contact:
+        age: 
+        country: 
+        full_name: 
+        gender: 
+        locality: 
+        postal_code: 
+        region: 
+        street_address: 
+        tel: 
+      contribution:
+        approved_at: 
+        approved_by: 
+        approver: 
+        attachments: Documente
+        catalogued_by: 
+        cataloguer: 
+        contributor: 
+        created_at: 
+        published_at: 
+        submitted_at: 
+        terms: 
+      contribution_status:
+        created_at: 
+      metadata_field:
+        cataloguing: 
+        field_type: Τipul
+        hint: 
+        multi: 
+        name: 
+        position: 
+        required: 
+        searchable: 
+        show_in_listing: 
+      setting:
+        name: 
+        value: 
+      taxonomy_term:
+        metadata_field: 
+        term: 
+      user:
+        created_at: 
+        password: Parola
+        password_confirmation: 
+        role_name: 
+        username: Nume utilizator
+    errors:
+      full_messages:
+        format: ! '%{attribute} %{message}'
+      messages:
+        accepted: trebuie dat acceptul
+        blank: nu poate fi gol
+        confirmation: nu este confirmat
+        empty: nu poate fi gol
+        equal_to: trebuie să fie egal cu %{count}
+        even: trebuie să fie impar
+        exclusion: este rezervat
+        greater_than: trebuie să fie mai mare decât %{count}
+        greater_than_or_equal_to: trebuie să fie mai mare sau egal cu %{count}
+        inclusion: nu este inclus în listă
+        invalid: este invalid
+        less_than: trebuie să fie mai mic decât %{count}
+        less_than_or_equal_to: trebuie să fie mai mic sau egal cu %{count}
+        not_a_number: nu este un număr
+        not_an_integer: trebuie să fie un mumăr întreg
+        odd: trebuie să fie par
+        record_invalid: Validare nereuşită %{errors}
+        taken: este deja folosit
+        too_long: este prea lung (se pot folosi maximum %{count} caractere)
+        too_short: este pre scurt (minumim de caractere este %{count})
+        wrong_length: nu are lungimea corectă (trebuie să aiba %{count} caractere)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: 
+              presence: 
+              size: 
+        contribution:
+          attributes:
+            catalogued_by:
+              role_name: 
+            guest_id:
+              present: 
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: 
+            contribution:
+              or_attachment: 
+            field_type:
+              constancy: 
+            searchable:
+              field_type: 
+        metadata_record:
+          date_field_civil: 
+          one_cover_image: 
+          taxonomy_field_single: 
+        setting:
+          attributes:
+            name:
+              inclusion: 
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: 
+        user:
+          attributes:
+            current_password:
+              invalid: 
+            email:
+              taken: 
+            picture:
+              content_type: 
+      template:
+        body: ! 'Încearcă să corectezi urmatoarele câmpuri:'
+        header:
+          one: ! 'Nu am putut salva acest %{model}: o eroare'
+          other: ! 'Nu am putut salva acest %{model}: %{count} erori.'
+    models:
+      attachment: 
+      contact: 
+      contribution: Povestea
+      metadata_field: 
+      metadata_record: 
+      taxonomy_term: 
+      user: 
+    options:
+      contact:
+        gender:
+          female: 
+          male: 
+      metadata_field:
+        field_type:
+          date: 
+          geo: 
+          string: 
+          taxonomy: 
+          text: 
+      user:
+        role_name:
+          administrator: 
+          blank: 
+          cataloguer: 
+          contributor: 
+  attributes:
+    contact: 
+    created_at: 
+    email: 
+    id: 
+    metadata_record: 
+    title: Τitlul
+    updated_at: 
+    url: 
+  common:
+    additional-information: 
+    download-item: 
+    editors_blog:
+      more_stories: 
+    editors_pick:
+      heading: 
+      more_stories: 
+    featured-categories: 
+    from-collection-days: 
+    google_maps:
+      help_text: 
+      label: Utilizaţi  Google Maps (opţional)
+    help_text:
+      mandatory: Câmp  obligatoriu
+    labels:
+      co_funded: 
+    links:
+      about_the_project: Despre proiectul  Europeana 1914-1918
+      add-your-story: Adaugă povestea ta
+      contact_us: Contactaţi-ne
+      contribution-terms-pdf: 
+      contribution_terms: Termenii şi condiţiile Europeana
+      explore-the-stories: ! 'Explorează povestirile '
+      explore_stories: 
+      help: Ajutor
+      my_account: 
+      my_stories: 
+      privacy_policy: ! 'Politica de confidenţialitate '
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Pentru mai multe informaţii vizitaţi site-ul proiectului</a>
+      register: Ȋnregistrar
+      sign_in: Autentificare
+      takedown_policy: ! 'Politică de retragere '
+      titles:
+        contribution_terms: 
+        great_war: 
+        takedown: 
+    menus:
+      main:
+        about: Despre proiect
+        add: Adaugă
+        collection-days: 
+        explore: Explorează
+        home: Αcasă
+        remix: 
+        select_language: 
+        sign_in: Autentificare
+        sign_out: 
+      menu: 
+    more-at: 
+    news: 
+    news_item:
+      heading: 
+    'no': 
+    options:
+      close: 
+      open: 
+      other_option: 
+    other:
+      contributor: 
+      preview: 
+      title: 
+      total: 
+    'yes': Da
+  countries:
+    AC: 
+    AD: 
+    AE: 
+    AF: 
+    AG: 
+    AI: 
+    AL: 
+    AM: 
+    AN: 
+    AO: 
+    AQ: 
+    AR: 
+    AS: 
+    AT: 
+    AU: 
+    AW: 
+    AX: 
+    AZ: 
+    BA: 
+    BB: 
+    BD: 
+    BE: 
+    BF: 
+    BG: 
+    BH: 
+    BI: 
+    BJ: 
+    BL: 
+    BM: 
+    BN: 
+    BO: 
+    BQ: 
+    BR: 
+    BS: 
+    BT: 
+    BV: 
+    BW: 
+    BY: 
+    BZ: 
+    CA: 
+    CC: 
+    CD: 
+    CF: 
+    CG: 
+    CH: 
+    CI: 
+    CK: 
+    CL: 
+    CM: 
+    CN: 
+    CO: 
+    CP: 
+    CR: 
+    CS: 
+    CT: 
+    CU: 
+    CV: 
+    CX: 
+    CY: 
+    CZ: 
+    DD: 
+    DE: 
+    DG: 
+    DJ: 
+    DK: 
+    DM: 
+    DO: 
+    DZ: 
+    EA: 
+    EC: 
+    EE: 
+    EG: 
+    EH: 
+    ER: 
+    ES: 
+    ET: 
+    EU: 
+    FI: 
+    FJ: 
+    FK: 
+    FM: 
+    FO: 
+    FQ: 
+    FR: 
+    FX: 
+    GA: 
+    GB: 
+    GD: 
+    GE: 
+    GF: 
+    GG: 
+    GH: 
+    GI: 
+    GL: 
+    GM: 
+    GN: 
+    GP: 
+    GQ: 
+    GR: 
+    GS: 
+    GT: 
+    GU: 
+    GW: 
+    GY: 
+    HK: 
+    HM: 
+    HN: 
+    HR: 
+    HT: 
+    HU: 
+    IC: 
+    ID: 
+    IE: 
+    IL: 
+    IM: 
+    IN: 
+    IO: 
+    IQ: 
+    IR: 
+    IS: 
+    IT: 
+    JE: 
+    JM: 
+    JO: 
+    JP: 
+    JT: 
+    KE: 
+    KG: 
+    KH: 
+    KI: 
+    KM: 
+    KN: 
+    KP: 
+    KR: 
+    KW: 
+    KY: 
+    KZ: 
+    LA: 
+    LB: 
+    LC: 
+    LI: 
+    LK: 
+    LR: 
+    LS: 
+    LT: 
+    LU: 
+    LV: 
+    LY: 
+    MA: 
+    MC: 
+    MD: 
+    ME: 
+    MF: 
+    MG: 
+    MH: 
+    MI: 
+    MK: 
+    ML: 
+    MM: 
+    MN: 
+    MO: 
+    MP: 
+    MQ: 
+    MR: 
+    MS: 
+    MT: 
+    MU: 
+    MV: 
+    MW: 
+    MX: 
+    MY: 
+    MZ: 
+    NA: 
+    NC: 
+    NE: 
+    NF: 
+    NG: 
+    NI: 
+    NL: 
+    'NO': 
+    NP: 
+    NQ: 
+    NR: 
+    NT: 
+    NU: 
+    NZ: 
+    OM: 
+    PA: 
+    PC: 
+    PE: 
+    PF: 
+    PG: 
+    PH: 
+    PK: 
+    PL: 
+    PM: 
+    PN: 
+    PR: 
+    PS: 
+    PT: 
+    PU: 
+    PW: 
+    PY: 
+    PZ: 
+    QA: 
+    QO: 
+    RE: 
+    RO: 
+    RS: 
+    RU: 
+    RW: 
+    SA: 
+    SB: 
+    SC: 
+    SD: 
+    SE: 
+    SG: 
+    SH: 
+    SI: 
+    SJ: 
+    SK: 
+    SL: 
+    SM: 
+    SN: 
+    SO: 
+    SR: 
+    ST: 
+    SU: 
+    SV: 
+    SY: 
+    SZ: 
+    TA: 
+    TC: 
+    TD: 
+    TF: 
+    TG: 
+    TH: 
+    TJ: 
+    TK: 
+    TL: 
+    TM: 
+    TN: 
+    TO: 
+    TR: 
+    TT: 
+    TV: 
+    TW: 
+    TZ: 
+    UA: 
+    UG: 
+    UM: 
+    US: 
+    UY: 
+    UZ: 
+    VA: 
+    VC: 
+    VD: 
+    VE: 
+    VG: 
+    VI: 
+    VN: 
+    VU: 
+    WF: 
+    WK: 
+    WS: 
+    YD: 
+    YE: 
+    YT: 
+    ZA: 
+    ZM: 
+    ZW: 
+    ZZ: 
+  countries-bu:
+    AC: 
+    AD: 
+    AE: 
+    AF: 
+    AG: 
+    AI: 
+    AL: 
+    AM: 
+    AN: 
+    AO: 
+    AQ: 
+    AR: 
+    AS: 
+    AT: 
+    AU: 
+    AW: 
+    AX: 
+    AZ: 
+    BA: 
+    BB: 
+    BD: 
+    BE: 
+    BF: 
+    BG: 
+    BH: 
+    BI: 
+    BJ: 
+    BL: 
+    BM: 
+    BN: 
+    BO: 
+    BQ: 
+    BR: 
+    BS: 
+    BT: 
+    BV: 
+    BW: 
+    BY: 
+    BZ: 
+    CA: 
+    CC: 
+    CD: 
+    CF: 
+    CG: 
+    CH: 
+    CI: 
+    CK: 
+    CL: 
+    CM: 
+    CN: 
+    CO: 
+    CP: 
+    CR: 
+    CS: 
+    CT: 
+    CU: 
+    CV: 
+    CX: 
+    CY: 
+    CZ: 
+    DD: 
+    DE: 
+    DG: 
+    DJ: 
+    DK: 
+    DM: 
+    DO: 
+    DZ: 
+    EA: 
+    EC: 
+    EE: 
+    EG: 
+    EH: 
+    ER: 
+    ES: 
+    ET: 
+    EU: 
+    FI: 
+    FJ: 
+    FK: 
+    FM: 
+    FO: 
+    FQ: 
+    FR: 
+    FX: 
+    GA: 
+    GB: 
+    GD: 
+    GE: 
+    GF: 
+    GG: 
+    GH: 
+    GI: 
+    GL: 
+    GM: 
+    GN: 
+    GP: 
+    GQ: 
+    GR: 
+    GS: 
+    GT: 
+    GU: 
+    GW: 
+    GY: 
+    HK: 
+    HM: 
+    HN: 
+    HR: 
+    HT: 
+    HU: 
+    IC: 
+    ID: 
+    IE: 
+    IL: 
+    IM: 
+    IN: 
+    IO: 
+    IQ: 
+    IR: 
+    IS: 
+    IT: 
+    JE: 
+    JM: 
+    JO: 
+    JP: 
+    JT: 
+    KE: 
+    KG: 
+    KH: 
+    KI: 
+    KM: 
+    KN: 
+    KP: 
+    KR: 
+    KW: 
+    KY: 
+    KZ: 
+    LA: 
+    LB: 
+    LC: 
+    LI: 
+    LK: 
+    LR: 
+    LS: 
+    LT: 
+    LU: 
+    LV: 
+    LY: 
+    MA: 
+    MC: 
+    MD: 
+    ME: 
+    MF: 
+    MG: 
+    MH: 
+    MI: 
+    MK: 
+    ML: 
+    MM: 
+    MN: 
+    MO: 
+    MP: 
+    MQ: 
+    MR: 
+    MS: 
+    MT: 
+    MU: 
+    MV: 
+    MW: 
+    MX: 
+    MY: 
+    MZ: 
+    NA: 
+    NC: 
+    NE: 
+    NF: 
+    NG: 
+    NI: 
+    NL: 
+    'NO': 
+    NP: 
+    NQ: 
+    NR: 
+    NT: 
+    NU: 
+    NZ: 
+    OM: 
+    PA: 
+    PC: 
+    PE: 
+    PF: 
+    PG: 
+    PH: 
+    PK: 
+    PL: 
+    PM: 
+    PN: 
+    PR: 
+    PS: 
+    PT: 
+    PU: 
+    PW: 
+    PY: 
+    PZ: 
+    QA: 
+    QO: 
+    RE: 
+    RO: 
+    RS: 
+    RU: 
+    RW: 
+    SA: 
+    SB: 
+    SC: 
+    SD: 
+    SE: 
+    SG: 
+    SH: 
+    SI: 
+    SJ: 
+    SK: 
+    SL: 
+    SM: 
+    SN: 
+    SO: 
+    SR: 
+    ST: 
+    SU: 
+    SV: 
+    SY: 
+    SZ: 
+    TA: 
+    TC: 
+    TD: 
+    TF: 
+    TG: 
+    TH: 
+    TJ: 
+    TK: 
+    TL: 
+    TM: 
+    TN: 
+    TO: 
+    TR: 
+    TT: 
+    TV: 
+    TW: 
+    TZ: 
+    UA: 
+    UG: 
+    UM: 
+    US: 
+    UY: 
+    UZ: 
+    VA: 
+    VC: 
+    VD: 
+    VE: 
+    VG: 
+    VI: 
+    VN: 
+    VU: 
+    WF: 
+    WK: 
+    WS: 
+    YD: 
+    YE: 
+    YT: 
+    ZA: 
+    ZM: 
+    ZW: 
+    ZZ: 
+  date:
+    abbr_day_names:
+    - Dum
+    - Lun
+    - Mar
+    - Mie
+    - Joi
+    - Vin
+    - Sâm
+    abbr_month_names:
+    - 
+    - Ian
+    - Feb
+    - Mar
+    - Apr
+    - Mai
+    - Iun
+    - Iul
+    - Aug
+    - Sep
+    - Oct
+    - Noi
+    - Dec
+    day_names:
+    - Duminică
+    - Luni
+    - Marți
+    - Miercuri
+    - Joi
+    - Vineri
+    - Sâmbată
+    formats:
+      default: ! '%d-%m-%Y'
+      long: ! '%d %B %Y'
+      short: ! '%d %b'
+    month_names:
+    - 
+    - Ianuarie
+    - Februarie
+    - Martie
+    - Aprilie
+    - Mai
+    - Iunie
+    - Iulie
+    - August
+    - Septembrie
+    - Octombrie
+    - Noiembrie
+    - Decembrie
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximativ o oră
+        other: aproximativ %{count} ore
+      about_x_months:
+        one: aproximativ o lună
+        other: aproximativ %{count} luni
+      about_x_years:
+        one: aproximativ un an
+        other: aproximativ %{count} ani
+      almost_x_years:
+        one: aproape 1 an
+        other: aproape %{count} ani
+      half_a_minute: jumătate de minut
+      less_than_x_minutes:
+        one: mai puțin de un minut
+        other: mai puțin de %{count} minute
+      less_than_x_seconds:
+        one: mai puțin de o secundă
+        other: mai puțin de %{count} secunde
+      over_x_years:
+        one: mai mult de un an
+        other: mai mult de %{count} ani
+      x_days:
+        one: 1 zi
+        other: ! '%{count} zile'
+      x_minutes:
+        one: 1 minut
+        other: ! '%{count} minute'
+      x_months:
+        one: 1 lună
+        other: ! '%{count} luni'
+      x_seconds:
+        one: 1 secundă
+        other: ! '%{count} secunde'
+    prompts:
+      day: Ziua
+      hour: Ora
+      minute: Minutul
+      month: Luna
+      second: Secunda
+      year: Anul
+  devise:
+    failure:
+      admin:
+        unauthenticated: 
+      invalid: 
+      invalid_token: 
+      timeout: 
+      unauthenticated: 
+    mailer:
+      reset_password_instructions:
+        subject: 
+    passwords:
+      link: V-aţi  uitat parola?
+      send_instructions: 
+      updated: 
+    registrations:
+      destroyed: 
+      link: Ȋnregistrar
+      signed_up: 
+      updated: 
+    sessions:
+      link: Autentificare
+      signed_in: Autentificare reuşită
+      signed_out: 
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: trebuie dat acceptul
+      blank: nu poate fi gol
+      confirmation: nu este confirmat
+      empty: nu poate fi gol
+      equal_to: trebuie să fie egal cu %{count}
+      even: trebuie să fie impar
+      exclusion: este rezervat
+      greater_than: trebuie să fie mai mare decât %{count}
+      greater_than_or_equal_to: trebuie să fie mai mare sau egal cu %{count}
+      inclusion: nu este inclus în listă
+      invalid: este invalid
+      less_than: trebuie să fie mai mic decât %{count}
+      less_than_or_equal_to: trebuie să fie mai mic sau egal cu %{count}
+      not_a_number: nu este un număr
+      not_an_integer: trebuie să fie un mumăr întreg
+      odd: trebuie să fie par
+      record_invalid: Validare nereuşită %{errors}
+      taken: este deja folosit
+      too_long: este prea lung (se pot folosi maximum %{count} caractere)
+      too_short: este pre scurt (minumim de caractere este %{count})
+      wrong_length: nu are lungimea corectă (trebuie să aiba %{count} caractere)
+    template:
+      body: ! 'Încearcă să corectezi urmatoarele câmpuri:'
+      header:
+        one: ! 'Nu am putut salva acest %{model}: o eroare'
+        other: ! 'Nu am putut salva acest %{model}: %{count} erori.'
+  flash:
+    actions:
+      create:
+        alert: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+    attachments:
+      create:
+        alert: 
+        invalid_files: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      duplicate:
+        notice: 
+      links:
+        view-attachments_html: 
+      update:
+        alert: 
+        notice: 
+    configuration:
+      update:
+        alert: 
+        notice: 
+    contacts:
+      create:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+    contributions:
+      approve:
+        alert: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      draft:
+        create:
+          alert: 
+          notice: Ȋncepeţi ciorna unei noi contribuţii
+        submit:
+          alert: 
+          notice: 
+        update:
+          alert: 
+          notice: 
+      reject:
+        alert: 
+        notice: 
+      submitted:
+        edit:
+          alert: 
+      withdraw:
+        alert: 
+        notice: 
+    contributors:
+      create:
+        alert: 
+      update:
+        alert: 
+    fields:
+      reindexing: 
+    guest_contact:
+      create:
+        alert: 
+        notice: 
+      forget:
+        notice: 
+      update:
+        alert: 
+        notice: 
+    metadata_fields:
+      update_order:
+        notice: 
+    status:
+      alert: 
+      notice: 
+    tags:
+      create:
+        success: 
+      destroy:
+        success: 
+      flag:
+        success: 
+    taxonomy:
+      imported: 
+    users:
+      create:
+        alert: 
+        notice: 
+      destroy:
+        notice: 
+      register:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+  formtastic:
+    actions:
+      attachment:
+        add_edit: 
+        create: 
+        delete: 
+        update: Salvaţi
+      contribution:
+        create: 
+        delete: Ştergeţi  povestirea
+        save_draft: Salvaţi  ciorna contribuţiei voastre
+        submit: 
+        update: 
+        withdraw: 
+      contributor:
+        create: Ȋnregistrar
+      create: 
+      delete: 
+      filter:
+        submit: 
+      metadata_field:
+        delete: 
+        reindex: 
+      password:
+        create: 
+        update: 
+      search:
+        submit: Căutare
+      sign_in: Autentificare
+      submit: 
+      tag:
+        flag: 
+      taxonomy_term:
+        import: 
+      update: 
+      upload: 
+      user:
+        create: Ȋnregistrar
+        delete: 
+        update: 
+    create: 
+    hints:
+      attachment:
+        dropbox_path: 
+        edit:
+          file: 
+        file: 
+        metadata:
+          attachment_description: Descrie  caracteristicile  fizice ale documentului ,  ce  reprezintă şi ce ȋnsemnătate are el  pentru tine
+          content: Ce reprezintă documentul( deexemplu poezie,fotografie),ȋncercaţi să oferiţi o descriere cȃt mai precisă
+          cover_image: O imagine emblemă  identifică povestirea ( contribuţia) ta ȋn colecţia noastră ; este asemănătoare cu coperta unei cărţi.Poate fi o fotografie, pagina de titlu a unui jurnal sau fotografia unei medalii.
+          creator_given_name: ! 'Numele unei persoane care a creat  obiectul/documentul original ,de exemplu autorul unei scrisori sau jurnal ori numele unui fotograf '
+          date_from: Spune-ne cȃnd a fost creat  documentul , de exemplu cȃnd a fost scrisă scrisoarea sau  cȃnd a fost ȋnceput documentul (de  exemplu cȃnd a fost ȋnceput jurnalul ).Dacă nu cunoşti data exactă,indică doar anul sau anul şi luna
+          date_to: Data de  sfȃrşit  a documentului , de exemplu  ultima  zi  dintr-un jurnal
+          forces: ! 'Vă rugăm nu bifaţi nici un cȃmp  dacă nu este relevant . Ȋn cazul absenţei din listă  a unui termen  relevant  vă rugăm să ne trimiteţi  un e-mail la adresa: 1914-1918[@]europeana[.]eu'
+          format: 
+          keywords: ! 'Atribuiţi numai acele  cuvinte cheie care descriu  adecvat subiectul principal sau un concept mai larg al contribuţiei voastre . Scopul acestor cuvinte cheie este să ajute la o  ilustrare adecvată a poveştii  voastre în cadrul colecţiei noastre online. Dacă sunteţi de părere că un cuvânt cheie important lipseşte din lista de mai sus , vă rugăm să ne trimite-ţi un email  pe adresa : 1914-1918[@]europeana[.]eu. '
+          lang: 
+          location_placename: Introduceţi numele unui oraş unde a fost creat documentul ( unde a fost scrisă o scrisoare sau a fost luată o fotografie etc ) de ex.Londra,Paris.
+          object_side: Pentru un obiect cu două feţe,de exemplu o carte poştală indicaţi faţa respectivă
+          page_number: Pentru un document cu multe pagini scrieţi numărul paginii respective
+          source: 
+          subject: Persoana ,ori locul sau obiectul la care se referă documentul
+          theatres: ! 'Vă rugăm nu bifaţi nici un cȃmp  dacă nu este relevant . Ȋn cazul absenţei din listă  a unui termen  relevant  vă rugăm să ne trimiteţi  un e-mail la adresa: 1914-1918[@]europeana[.]eu'
+        new:
+          file: ! 'Puteţi ȋncărca oricȃte fişiere  este necesar , cȃte unul odată. Reţineţi faptul că , ȋn cazul ȋncărcării mai multor fişiere ,aveţi posibilitatea de a alege  unul dintre ele drept “imagine emblemă “a documentului vostru ( de exemplu ȋn cazul unei cărţi poştale sau a unui jurnal). Extensia  maximă permisă a unui fişier : %{max}. Tipuri de fişiere acceptate  : %{file_types}'
+        title: Un scurt titlu  descriptiv sau un nume potrivit obiectului , de exemplu “ Medalia de Onoare a străbunicului meu Otto Schmidt”
+      contact:
+        full_name: 
+      contribution:
+        metadata:
+          contributor_behalf: 
+          date_from: Spuneţi-ne când  s-a petrecut ȋntȃmplarea .Dacă nu cunoaşteţi data  exactă indicaţi doar anul (de exemplu  bunicul meu a fost înrolat în anul 1915)
+          date_to: Spune-ne cȃnd s-a terminat povestea ta.Dacă nu cunoşti data exactă , indică doar anul ,de exemplu “ bunicul meu a fost rănit ȋn anul 1916”
+          description: Detaliaţi mai jos povestea din spatele contribuţiei voastre
+          forces: ! 'Vă rugăm nu bifaţi nici un cȃmp  dacă nu este relevant . Ȋn cazul absenţei din listă  a unui termen  relevant  vă rugăm să ne trimiteţi  un e-mail la adresa: 1914-1918[@]europeana[.]eu'
+          keywords: ! 'Atribuiţi numai acele  cuvinte cheie care descriu  adecvat subiectul principal sau un concept mai larg al contribuţiei voastre . Scopul acestor cuvinte cheie este să ajute la o  ilustrare adecvată a poveştii  voastre în cadrul colecţiei noastre online. Dacă sunteţi de părere că un cuvânt cheie important lipseşte din lista de mai sus , vă rugăm să ne trimite-ţi un email  pe adresa : 1914-1918[@]europeana[.]eu. '
+          lang: 
+          location_placename: Introduceţi numele unui oraş unde a avut loc acţiunea, de exemplu Londra, Paris
+          theatres: ! 'Vă rugăm nu bifaţi nici un cȃmp  dacă nu este relevant . Ȋn cazul absenţei din listă  a unui termen  relevant  vă rugăm să ne trimiteţi  un e-mail la adresa: 1914-1918[@]europeana[.]eu'
+        title: Daţi un titlu pentru întreaga voastră contribuţie
+      metadata_field:
+        attachment: 
+        cataloguing: 
+        contribution: 
+        field_type: 
+        hint: 
+        multi: 
+        name: 
+        required: 
+        searchable: 
+        searchable_no_sphinx: 
+        show_in_listing: 
+        title: 
+      metadata_record:
+        date: 
+        geo: 
+      password:
+        new:
+          email: 
+      settings:
+        allowed_upload_extensions: 
+        banner_active: 
+        banner_text: 
+        bing_client_id: 
+        bing_client_secret: 
+        bing_translate_key: 
+        contribution_approval_required: 
+        gmap_api_key: 
+        google_analytics_key: 
+        google_api_email: 
+        max_upload_size: 
+        publish_contributions: 
+        registration_required: 
+        relative_url_root: 
+        sharethis_id: 
+        site_name: 
+        site_url: 
+        ui_locales: 
+        uploadify: 
+      taxonomy_term:
+        import: 
+        term: 
+      user:
+        current_password: 
+        edit:
+          password: 
+        email: 
+        password: 
+        update:
+          password: 
+        username: 
+    labels:
+      attachment:
+        metadata:
+          attachment_description: Descriere
+          attachment_file: Un singur fişier
+          content: 
+          cover_image: Imaginea  emblemă
+          creator_family_name: 
+          creator_given_name: ! 'Prenumele autorului '
+          date_from: Data creării  / Data ȋnceputului
+          date_to: 
+          file_type: 
+          format: 
+          lang: Limba
+          lang_other: 
+          license: 
+          location_map: 
+          location_placename: ! 'Localizaţi unde a fost creat documentul '
+          notes: 
+          object_side: 
+          page_number: Numărul paginii
+          page_total: 
+          source: 
+          subject: Subiectul
+          ticket: 
+      contribution:
+        metadata:
+          alternative: 
+          cataloguer: 
+          character1_dob: Data naşterii
+          character1_dod: Data morţii
+          character1_family_name: Numele de familie
+          character1_given_name: Prenumele
+          character1_pob: Locul naşterii
+          character1_pod: Locul morţii
+          character2_dob: Data naşterii
+          character2_dod: Data morţii
+          character2_family_name: Numele de familie
+          character2_given_name: Prenumele
+          character2_pob: Locul naşterii
+          character2_pod: Locul morţii
+          collection_day: 
+          contributor_behalf: 
+          date_from: Povestea începe...
+          date_to: Povestea se termină…
+          description: 
+          editor_pick: 
+          editor_pick_sig: 
+          editor_pick_text: 
+          forces: 
+          keywords: 
+          lang: Limba
+          lang_other: 
+          location_map: 
+          location_placename: Indicaţi locul unde s-a petrecut acţiunea descrisă de  povestirea voastră
+          location_zoom: 
+          notes: 
+          summary: O descriere sumară a obiectelor
+          theatres: Τeatre de luptă
+          ticket: 
+        terms: 
+        title: 
+      metadata_field:
+        contribution: 
+      taxonomy_term:
+        forces:
+          Allied Forces: 
+          Central Powers: 
+          Imperial Forces: 
+        keywords:
+          Anti-War Movement: Mişcarea  antirăzboi
+          Artillery: Artilerie
+          Conscientious Objection: ! 'Utilizarea gazului ȋn  '
+          Gas Warfare: Frontul de acasă
+          Home Front: Frontul de acasă
+          Manufacture: ! 'Diverse Obiecte '
+          Medical: Medicale
+          Military Punishment: Justiţie militară
+          Prisoners of War: Prizonieri de război
+          Propaganda: Propaganda de război
+          Recruitment and Conscription: Recrutare şi  ȋnrolare
+          Remembrance: Comemorare
+          Tanks and Armoured Fighting Vehicles: Tancuri şi vehicule blindate de luptă
+          Transport: Transport
+          Trench Life: Viaţa ȋn tranşee
+          Women: Femei
+        theatres:
+          Aerial Warfare: Război aviatic
+          African Wars: Αfrica
+          Balkans: Βalcani
+          Eastern Front: Frontul de est
+          Gallipoli Front: 
+          Italian Front: Frontul Italian
+          Middle East: Orientul Mijlociu
+          Naval Warfare: Război naval
+          Western Front: Frontul de vest
+      user:
+        delete_picture: 
+        terms: 
+    'no': 
+    required: 
+    titles:
+      account_details: 
+      admin_user: 
+      attachment_dates: Cȃnd a fost creat documentul ?
+      attachment_details: Descrie  documentul tău
+      attachment_front: 
+      attachment_keywords: 
+      attachment_location: Unde a fost creat documentul ?
+      attachment_replace: 
+      attachment_upload: Ataşează   un fişier
+      cataloguing_metadata: 
+      contact_address: 
+      contact_name: 
+      contact_other: 
+      contribution_attachments: 
+      contribution_terms: Termeni şi condiţii
+      dropbox: 
+      fields: 
+      metadata: 
+      metadata_field_options: 
+      optional_details: 
+      personal_details: 
+      story_basics: Titlul istorisirii
+      story_character1: Persoana 1
+      story_character2: 
+      story_characters: Spuneţi-ne la cine se referă povestea
+      story_dates: Când s-a petrecut acţiunea poveştii voastre
+      story_forces: 
+      story_front: Despre care front este vorba ȋn povestea ta?
+      story_keywords: 
+      story_location: Unde s-a petrecut acţiunea povestirii voastre?
+      submit: 
+    update: 
+    'yes': 
+  helpers:
+    select:
+      prompt: Alegeţi
+    submit:
+      create: Creare %{model}
+      submit: Salvare %{model}
+      update: Modificare %{model}
+  javascripts:
+    admin:
+      metadata_fields:
+        order: 
+    contribute:
+      errors_shown: 
+      hide_errors: 
+      show_errors: 
+    datepicker:
+      button_text: 
+    digital_object:
+      hints:
+        copy_from_story: 
+      labels:
+        copy_from_story: 
+      links:
+        copy_from_story: 
+    gmap:
+      canvas:
+        hide: 
+        hint: 
+        label: 
+        show: ! 'Utilizaţi  Google Maps '
+      errors:
+        empty: 
+        present: 
+        unknown: 
+      search:
+        button: 
+        hint: 
+        label: 
+      static:
+        hide: 
+        show: 
+    next: 
+    previous: 
+    story:
+      took-place: 
+    thumbnails:
+      item: 
+      of: 
+    translate:
+      return-to-language: 
+      translate-to: 
+    truncate:
+      show-less: 
+      show-more: 
+    uploadify:
+      basic_ui: 
+      button_text: 
+      finished: 
+      hint: 
+      label: 
+      saved: 
+  languages:
+    da: 
+    de: 
+    en: 
+    fr: 
+    ga: 
+    nl: 
+    sl: 
+  layout:
+    navigation:
+      about: Despre proiect
+      admin: 
+      browse: 
+      contact: 
+      contribute: 
+      help: 
+      home: Αcasă
+    software_engine: 
+  locale: Română
+  mail:
+    contributions:
+      published:
+        greeting: 
+        signature: 
+        subject: 
+        thanks: 
+    exports:
+      complete:
+        notice: 
+        subject: 
+  media_types:
+    all: 
+    binary: 
+    pdf: 
+    sound: 
+    spreadsheet: 
+    txt: 
+    unknown: 
+    video: 
+    wordprocessing: 
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%n %u'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: RON
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Miliard
+          million: Milion
+          quadrillion: Quadrilion
+          thousand: Mie
+          trillion: Trilion
+          unit: ''
+      format:
+        delimiter: ! ','
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ! ','
+    precision:
+      format:
+        delimiter: ''
+  settings:
+    allowed_upload_extensions: 
+    banner_active: 
+    banner_text: 
+    bing_client_id: 
+    bing_client_secret: 
+    bing_translate_key: 
+    contribution_approval_required: 
+    gmap_api_key: 
+    google_analytics_key: 
+    google_api_email: 
+    max_upload_size: 
+    publish_contributions: 
+    registration_required: 
+    relative_url_root: 
+    sharethis_id: 
+    site_name: 
+    site_url: 
+    ui_locales: 
+    uploadify: 
+  support:
+    array:
+      last_word_connector: ! ' şi '
+      two_words_connector: ! ' şi '
+      words_connector: ! ', '
+    select:
+      prompt: Alegeţi
+  time:
+    am: ''
+    formats:
+      default: ! '%a %d %b %Y, %H:%M:%S %z'
+      long: ! '%d %B %Y %H:%M'
+      short: ! '%d %b %H:%M'
+      timestamp: 
+    pm: ''
+  views:
+    about:
+      background:
+        heading: Originea proiectului
+        p1: <b>Proiectul  Europeana 1914 -1918</b>  a pornit  de la  iniţiativa  Universităţii din Oxford  în care  oamenii de pe ȋntreg teritoriul Marii Britanii au fost rugaţi să aducă scrisori de familie, fotografii şi alte lucruri interesante din timpul primului Război Mondial pentru a fi digitizate. Succesul ideii – care s-a concretizat ȋn constituirea Marii Arhive de Război- a ȋncurajat Europeana -Biblioteca, Muzeul şi Arhiva Digitală a Europei , să continue acest demers aducȃnd alături de Universitatea din Oxford şi alte instituţii naţionale sau locale din Europa. Această colaborare adună ȋmpreună poveştile europene ale Primului Război Mondial fie ele britanice,germane, slovene, luxemburgheze, irlandeze etc , ȋntr-o impresionantă colecţie online.
+        p2: <b>Europeana Collections 1914-1918</b> este un proiect diferit de Europeana 1914-1918, el este un „proiect de bibliotecă” . Acest proiect va crea până în anul 2014 – centenarul izbucnirii Primului Război Mondial,  o colecţie substanţială de material digital provenind dela bibliotecile naţionale a opt state europene ce s-au aflat de o parte şi de alta a baricadei în timpul acestui conflict istoric . <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Vă rugăm vizitaţi site-ul proiectului  Europeana Collections 1914-1918 pentru mai multe informaţii.</a>
+      collection_days:
+        heading: Zile de colectare a  documentelor şi amintirilor de familie
+        p1: Ȋn cadrul  “Zilelor  de colectare a  documentelor şi amintirilor de familie ” publicul este invitat să aducă documente, suveniruri , obiecte din timpul  Primului Război Mondial  pentru a fi digitizate şi înregistrate de către echipa de proiect  şi de asemeni  poate împărtăşi povestiri de familie aferente războiului. Povestirile şi imaginile scanate sau fotografiate ale obiectelor sunt apoi adăugate arhivei.
+        p2: Deja mai multe astfel de ” Zile de Colectare” s-au desfăşurat pe cuprinsul Europei.
+      online_collection:
+        heading: Colecţia de documente şi povestiri online
+        p1: ! 'Colecţia online de povestiri  şi documente a fost inaugurată în martie 2011. Oricine poate adăuga acestei colecţii propriile obiecte digitale şi detalii despre povestea lor.Mai multe informaţii despre modul în care poate fi adăugat un document la colecţie pot fi găsite la rubrica  “%{add_your_story}”. Obiectele/ documentele  digitale transmise sunt verificate de către echipa de proiect şi apoi sunt puse la dispoziţia tuturor utilizatorilor prin intermediul Europeana. '
+      privacy_policy:
+        p1: 
+        p2: 
+        p3: 
+        p4: 
+      project_partners:
+        heading: ! 'Partenerii proiectului '
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Universitatea din Oxford</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Biblioteca Naţională a Germaniei - die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Biblioteca Naţională a Luxemburgului - Bibliothèque Nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Biblioteca Naţională a Irlandei</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Biblioteca Naţională a Sloveniei  - Narodna in univerzitetna knjižnica</a>
+        item6: ! '<a href="http://www.kb.dk/en/nb/" target="_blank">Biblioteca Regală : Biblioteca  Naţională a Danemarcei  şi  Biblioteca Universitară din Copenhaga - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+      terms:
+        full_details:
+          heading: 
+        heading: 
+        summary:
+          heading: 
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          p1: 
+          p2: 
+          p3: 
+        user_contributions:
+          heading: Termenii şi condiţiile Europeana
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          item6: 
+          item7: 
+          p1: 
+          p2: 
+          p3: 
+          p4: 
+          p5: 
+          p6: 
+          p7: 
+      what_we_do:
+        heading: Ce facem în cadrul proiectului
+        item1: 
+        item2: Ȋn cadrul “Zilelor de colectare a  documentelor şi amintirilor de familie” – aduceţi obiectele / documentele voastre  la astel de evenimente organizate special ,iar echipa de proiect le va fotografia şi va înregistra detaliile şi povestirile asociate lor.
+        p1: ! 'Proiectul   îşi  propune să colecteze obiecte , suveniruri  şi  povestiri din perioada “Marelui Război” (1914-1918). Această fază a proiectului  îşi concentrează atenţia pe documente relevante din Europa : scrisori, cărţi poştale, fotografii şi povestiri din Germania, Luxembourg, Irlanda, Slovenia şi Marea Britanie. Se pot adăuga colecţiei contribuţii în două moduri :'
+    admin:
+      config:
+        edit:
+          title: 
+        index:
+          links:
+            edit: 
+          table:
+            caption: 
+            headings:
+              name: 
+              value: 
+          title: 
+      contributions:
+        export:
+          title: 
+        index:
+          captions:
+            approved: 
+            draft: 
+            rejected: 
+            revised: 
+            submitted: 
+            withdrawn: 
+          empty:
+            all:
+              approved: 
+              draft: 
+              rejected: 
+              revised: 
+              submitted: 
+              withdrawn: 
+            search:
+              approved: 
+              draft: 
+              rejected: 
+              revised: 
+              submitted: 
+              withdrawn: 
+          title: 
+        p1: 
+      index:
+        headings:
+          export: 
+        links:
+          config:
+            description: 
+            text: 
+          contributions:
+            description: 
+            text: 
+          export:
+            description: 
+            text: 
+          export_csv:
+            description: 
+            text: 
+          export_users:
+            description: 
+            text: 
+          export_xml:
+            description: 
+            text: 
+          export_xml_nozip:
+            description: 
+            text: 
+          logs:
+            description: 
+            text: 
+          metadata_fields:
+            description: 
+            text: 
+          reindex:
+            description: 
+            text: 
+          statistics:
+            description: 
+            text: 
+          users:
+            description: 
+            text: 
+        title: 
+      metadata_fields:
+        confirm_reindex:
+          info: 
+          note: 
+          title: 
+        delete:
+          button_confirm: 
+          question: 
+          title: 
+          warning: 
+        edit:
+          empty: 
+          instructions: 
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            new: 
+            order: 
+            terms: 
+          title: 
+        new:
+          title: 
+        order:
+          title: 
+      statistics:
+        index:
+          introduction: 
+          title: 
+      taxonomy_terms:
+        delete:
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        import:
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            back: 
+            import: 
+            new: 
+          title: 
+        new:
+          title: 
+      users:
+        delete:
+          button_confirm: 
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            new: 
+            show:
+              title: 
+          title: 
+        new:
+          title: 
+        show:
+          caption: 
+          links:
+            back: 
+            contributions: 
+            edit: 
+          title: 
+    attachments:
+      _form:
+        dropbox:
+          connect_html: 
+          connected_html: 
+          disconnect: 
+          empty: 
+          refresh: 
+      _summary:
+        caption: 
+      _table:
+        caption: 
+        links:
+          preview:
+            title: 
+      attachment_help:
+        item1: Adăugaţi un singur document şi  fişier
+        item1-subitem1: Descrieţi  acel obiect/document
+        item1-subitem2: Ȋncărcaţi un fişier ca attachment
+        item2: Adăugaţi mai multe obiecte/documente şi fişiere
+        item2-subitem1: ! 'Ȋncărcaţi mai multe fişiere anexă aferente mai multor obiecte/ documente '
+        item2-subitem2: 
+        one-of-the-following: 
+      copy:
+        instructions: 
+        title: 
+      delete:
+        question: 
+        title: 
+      edit:
+        caption:
+          current: 
+          uploaded: 
+        title: 
+      index:
+        empty: Niciun  document nu a fost  ȋncărcat  spre  adăugare la această contribuţie
+        links:
+          new: 
+        title: 
+      new:
+        caption: 
+        title: 
+      show:
+        title: 
+    blog_posts:
+      read_more: 
+    common:
+      permanent: 
+    contact:
+      heading: 
+      p1: 
+    contacts:
+      anonymous: 
+      edit:
+        title: 
+      no_name: 
+      show:
+        title: 
+    contributions:
+      _progress:
+        step_x_of_y: Pasul %{x} din %{y}
+      _summary:
+        caption: 
+      complete:
+        p1: 
+        title: 
+      delete:
+        question: 
+        title: 
+      digital_object:
+        heading: Documente  ataşate  povestirii  voastre
+        help_text:
+          add_attachment: 
+          attachment_count: Ȋn momentul de faţă sunt ataşaţe <strong>%{nr_digital_objects}</strong> documente acestei contribuţii. Amintiţi-vă să ataşaţi măcar un document contribuţiei voastre
+          language: 
+          object_type: Ce reprezintă documentul( deexemplu poezie,fotografie),ȋncercaţi să oferiţi o descriere cȃt mai precisă
+          save_digital: 
+          subject: Persoana ,ori locul sau obiectul la care se referă documentul
+          submit_contribution1: 
+          submit_contribution2: 
+          submit_story_button: 
+          summary: Mai  jos  găsiţi  sumarul documentelor deja  ataşate povestirii; iniţial nu este nici unul, dar puteţi ataşa oricȃte documente doriţi. Puteţi să pregătiţi pentru editare documentele existente făcȃnd click pe link-ul „editare“de lȃngă ele ȋn listarea de mai jos
+          when: Cȃnd a fost creat documentul ?
+          where: Unde a fost creat documentul ?
+        labels:
+          keywords: Ajută-i  pe ceilalţi să-ţi descopere povestea adăugȃnd unul sau mai multe din cuvintele cheie de mai jos
+          location_map: 
+          location_place_name: 
+          save_digital: 
+          save_item_draft: 
+          submit_contribution: 
+        links:
+          add_another: Adaugă un nou document
+          add_item: Ataşează  un document
+          edit: 
+          edit_story: Εditaţi povestirea
+        options:
+          3d: 
+          artifact: 
+          audio: 
+          back: 
+          book: Cărţi
+          canvas: 
+          card: 
+          cc_by_sa: 
+          ceramic: 
+          diary: Jurnale
+          digital: 
+          film: 
+          folio: 
+          front: 
+          image: 
+          journal: 
+          leaf: 
+          leather: 
+          letter: 
+          medal: 
+          metal: 
+          mixed: 
+          multiple: 
+          newspaper: 
+          notebook: 
+          other_option: 
+          paper: 
+          photograph: Fotografii
+          photographic_paper: 
+          poem: Poezii
+          postcard: Cărţi poştale
+          public_domain: 
+          tape: 
+          text: 
+          text_memoir: 
+          text_transcript: 
+          unknown: 
+          video: 
+          vinyl: 
+          vinyl_record: 
+          wood: 
+        step2: Pasul 2 – Adăugaţi  documentele şi fişierele voastre
+      edit:
+        title: 
+      index:
+        empty: 
+        title: 
+      new:
+        title: 
+      no_title: 
+      search:
+        captions:
+          all: 
+          matching: 
+        heading: 
+        links:
+          titles:
+            show_contribution: 
+        matches-for: 
+        no_matches: 
+        related-europeana: 
+      show:
+        button_confirm: 
+        empty_attachments: 
+        headings:
+          submit: 
+          tags: 
+        invalid: 
+        links:
+          new_attachment: 
+        shared-this-story: 
+        title: 
+      status:
+        approved: 
+        approved_by: 
+        draft: 
+        label: 
+        rejected: 
+        rejected_by: 
+        revised: 
+        submitted: 
+        title: 
+        unknown: 
+        withdrawn: 
+      story:
+        complete:
+          heading: 
+          p1: 
+        help_text:
+          add_another_person: 
+          behalf_of: 
+          save_story: ! 'Făcȃnd  click  pe “salvaţi ciorna contribuţiei voastre” veţi fi conduşi  la următorul pas al procesului '
+          sections: ! 'Faceţi click pe sectiunile de titlu de mai jos pentru a le deschide sau ȋnchide ; fiecare secţiune adăposteşte  informaţii suplimentare pe care le puteţi adăuga povestirii voastre '
+          use_google_maps: Utilizaţi  Google Maps
+        labels:
+          people: Adăugaţi numele oamenilor la care se referă istorisirea voastră
+        step1: 1 - Spuneţi-vă povestea
+      withdraw:
+        question: 
+        title: 
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: 
+          submitted: 
+        empty:
+          all: 
+          approved: 
+          draft: 
+          submitted: 
+        headings:
+          contributions: Povestirile voastre
+        links:
+          new: 
+        p1: Mai jos sunt documentele pe care deja le-aţi adăugat. Editaţi-le sau ştergeţi-le după cum e necesar
+        title: Adaugă povestea ta
+      dashboard_guest:
+        button_text: 
+        headings:
+          finished: 
+        identity: 
+        links:
+          edit_contact: 
+          new: 
+        notice: 
+        privacy: 
+        title: 
+      guests:
+        edit:
+          title: 
+        new:
+          contact_details: 
+          guest: 
+          links:
+            register: Ȋnregistrar
+            sign_in: 
+          notice: 
+          title: 
+      help:
+        adding_your_story:
+          heading: ! 'Cum să adaugaţi povestea  voastră  ȋn  Europeana 1914-1918 '
+          p1: ! ' Vă puteţi adăuga povestea ȋn Europeana 1914 - 1918 utilizând formularul online de colectare  de pe acest website. Pur şi simplu introduceţi câteva informaţii despre contribuţia  dvs. arătând ȋn ce constă ea ( o carte poştală trimisă de cineva, un jurnal etc) şi adăugaţi şi alte detalii despre povestea pe care doriţi să o ȋmpărtăşiţi ( de exemplu despre persoana din fotografie, cum aţi intrat ȋn posesia ei ,ce ştiţi despre obiectul respectiv ). Puteţi apoi ataşa versiunea digitală a obiectului, de exemplu o copie scanată sau fotografiată a imaginii, jurnalului, uniformei, sau orice altceva doriţi să trimiteţi. Odată trimisă contribuţia , ea va fi examinată de un expert şi apoi pusă  la  dispoziţia altor utilizatori.
+
+'
+        how_to_use:
+          heading: Cum să utilizaţi interfaţa online pentru colectarea istorisirilor
+          item1: Faceţi click pe %{register} pentru a vă crea un cont( trebuie să faceţi asta doar o singură dată ) sau pe %{sign_in} dacă aveţi deja un cont.
+          item2: Adăugaţi cȃteva informaţii despre contribuţia voastră.
+          item3: (Opţional ) Ataşaţi o versiune digitală a obiectului (fotografie, text scanat, material audio-video etc)
+          item4: ! 'Transmiteţi contribuţia voastră  la  colecţia noastră online de istorisiri şi documente personale '
+          item5: Contribuţia voastră va fi verificată de un expert ȋn catalogare al Europeana. Odată ce ea este analizată şi acceptată , va putea fi pusă  la dispoziţia tuturor celorlaţi utilizatori.
+          p1: ! 'Pentru a adăuga ceva  la colecţia  noastră online de istorisiri personale, mai ȋntȃi trebuie să faceţi click pe  %{sign_in} sau %{register}. Astfel veţi avea posibilitatea să adăugaţi obiectele şi amintirile voastre ȋn Europeana 1914-1918.  '
+          p2: Acolo vi se va cere  să  parcurgeţi următorii cinci paşi. Nu este nevoie să definitivaţi procedura de prima dată, ci puteţi să vă salvaţi contribuţia şi să vă reȋntoarceţi mai tȃrziu pentru definitivare.
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: Proiectul “ Europeana 1914- 1918”  ȋşi propune să colecţioneze material divers referitor la “Marele Război”  (1914-1918) şi la cei ce au fost implicaţi sau afectaţi de el. Ȋn faza actuală  adunăm material şi  povestiri din Marea Britanie, Germania, Slovenia, Luxembourg, Irlanda etc. Mai multe informaţii despre proiect şi despre tipul de material colecţionat  pot fi găsite  la rubrica %{about}
+      index:
+        item1: Introduceţi informaţia de bază despre povestea voastră
+        item2: Salvaţi-vă povestea ca draft
+        item3: Adăugaţi unul sau mai multe obiecte digitale (imagini, documente text sau audio-video)
+        item4: Confirmaţi acordul vostru cu privire la termenii şi condiţiile stabilite şi transmiteţi  itemul
+        p1: ! 'Vă mulţumim pentru intenţia voastră de a contribui la Europeana 1914-1918. A adăuga propria contribuţie este un proces simplu. Pentru a începe acest proces faceţi click pe “ Adaugă o nouă poveste” de mai jos. Veţi fi condus apoi  către următorii paşi :'
+      registration_required:
+        p1: Pentru a putea adăuga obiectele virtuale şi istorisirile voastre ȋn Europeana 1914-1918 face-ţi click  pe %{sign_in} sau %{register}
+    devise:
+      passwords:
+        edit:
+          title: 
+        new:
+          title: 
+      registrations:
+        edit:
+          title: 
+        new:
+          title: 
+      sessions:
+        new:
+          instructions: Vă rugăm autentificaţi-vă cu datele aferente contului vostru
+          title: 
+    errors:
+      api_error:
+        message: 
+        title: 
+      bad_request:
+        message: 
+        title: 
+      forbidden:
+        message: 
+        title: 
+      internal_server_error:
+        message: 
+        title: 
+      not_found:
+        message: 
+        title: 
+      search_offline:
+        message: 
+        title: 
+    explore:
+      heading: 
+      links:
+        diary: 
+        eastern_front: 
+        family: 
+        flanders: 
+        infantry: 
+        medal: 
+        military_passport: 
+        postcard: 
+        roadshows:
+          amberg_2012_01: 
+          berlin_2011_04: 
+          dresden_2011_06: 
+          erfurt_2011_06: 
+          frankfurt_2011_03: 
+          kiel_2011_06: 
+          luxembourg_2012_03: 
+          munich_2011_04: 
+          preston_2012_03: 
+          regensburg_2011_07: 
+          stuttgart_2011_04: 
+        trenches: 
+      p1: 
+      p2: 
+      p3: 
+      p5: 
+      search_for: 
+    home:
+      heading: 
+      links:
+        across_europe: 
+        video_guide: 
+      otto:
+        heading: 
+        p1: 
+      p1: 
+      p2: 
+    links:
+      back: 
+      back-to-search: 
+      previous_step: 
+      privacy_policy: 
+    register:
+      help_text:
+        email: 
+        password: 
+        profile_image: 
+        profile_photo: 
+        user_name: 
+      labels:
+        age_range: 
+        email: 
+        gender: 
+        password: 
+        password_repeat: 
+        profile_image: 
+        profile_photo: 
+        residence:
+          country: 
+          post_code: 
+        user_name: 
+      terms:
+        accept: 
+        heading: 
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+        p2: 
+        p3: 
+        terms: 
+    search:
+      facets:
+        contributions:
+          collection_day: 
+          content: 
+          file_type: 
+          keywords: 
+          lang: 
+          license: 
+          place_name: 
+          protagonist_names: 
+          provider: 
+          theatres: 
+      providers:
+        contributions: 
+        digitalnz: 
+        dpla: 
+        europeana: 
+        trove: 
+    statistics:
+      index:
+        heading: 
+        intervals:
+          last_month: 
+          last_quarter: 
+          last_week: 
+          last_year: 
+          this_month: 
+          this_week: 
+        metrics:
+          avgtimeonsite: 
+          europeana_pageviews: 
+          object_pageviews: 
+          visits: 
+        no_results: 
+    table:
+      header:
+        actions: 
+    tags:
+      delete:
+        question: 
+        title: 
+      flag:
+        question: 
+        title: 
+    users:
+      _summary:
+        caption: 
+      account:
+        caption: 
+        links:
+          edit_contact: 
+          edit_user: 
+        title: 
+      sign-in:
+        help: Pentru a vă autentifica folosiţi fie numele vostru de  utilizator fie adresa de E-mail.Nu aveţi nevoie de amândouă
+  will_paginate:
+    entry_range_label: 
+    first_title: 
+    last_title: 
+    next_label: următor →
+    next_title: 
+    page_entries_info:
+      multi_page: 
+      multi_page_html: 
+      single_page: 
+      single_page_html: 
+    page_gap: ! '&hellip;'
+    page_total_label: 
+    per_page_label: 
+    per_page_title: 
+    previous_label: ← anterior
+    previous_title: 
