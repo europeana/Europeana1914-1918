@@ -37,7 +37,9 @@ module EuropeanaHelper
   def edm_proxy_field(proxy, field_name)
     return nil unless proxy.has_key?(field_name)
     
-    if proxy[field_name].has_key?(I18n.locale.to_s)
+    if proxy[field_name].is_a?(String)
+      proxy[field_name]
+    elsif proxy[field_name].has_key?(I18n.locale.to_s)
       proxy[field_name][I18n.locale.to_s].first
     elsif proxy[field_name].has_key?("def") 
       proxy[field_name]["def"].reject(&:empty?).first
