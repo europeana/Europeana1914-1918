@@ -23,17 +23,9 @@
 <% end -%>
 <% unless fields.blank? || metadata.blank? -%>
   <%- fields.each do |field| -%>
-    <%- if [ 'location_zoom', 'location_placename', 'location_map' ].include?(field.name) -%>
-      <%- unless metadata['field_' + field.name].blank? -%>
-        <dd><input type="hidden" id="<%= field.name.gsub('_','-') %>" value="<%= metadata['field_' + field.name] %>" /></dd>
-        
-        <script type="text/javascript">
-        	var latLong = "<%= metadata['field_location_map'] %>".split(',');
-        	var mapZoom = "<%= metadata['location_zoom'] %>";
-        </script>
-        
-      <%- end -%>
-    <%- elsif field.name == 'date_from' -%>
+  
+  
+    <%- if field.name == 'date_from' -%>
       <%- 
         date_from_value = metadata_record_field_value(metadata, field, true)
         date_to_value = metadata_record_field_value(metadata, date_to_field, true)
