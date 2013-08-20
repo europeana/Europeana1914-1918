@@ -38,7 +38,11 @@ if @javascripts[:video] || @javascripts[:audio]
 end
 
 # TODO: only include this stuff if we're on the item page
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/item.css"
+
+if @stylesheets['item']
+	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/item.css"
+end
+
 
 
 stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/portlet.css"
