@@ -166,7 +166,9 @@ a.menu-button:hover {
   display: inline-table;
   width: 100%;
   /* needed for safari */
-  /* override glow on selected menu item */ }
+  /* override glow on selected menu item */
+  /* workaround */
+  /* workaround */ }
   .nav .eu-menu {
     display: inline-block;
     border: 1px solid #e4e4e4;
@@ -266,13 +268,17 @@ a.menu-button:hover {
 
 /* data showing / hiding rules */
 @media only screen and (min-width: 22em) {
-  .nav .of-bracket:before {
-    content: ''; }
-  .nav .of-bracket:after {
-    content: ''; }
-  .nav .of,
-  .nav .of-value {
-    display: inline; } }
+  .nav {
+    /* workaround */
+    /* workaround */
+    /* workaround */ }
+    .nav .of-bracket:before {
+      content: ''; }
+    .nav .of-bracket:after {
+      content: ''; }
+    .nav .of,
+    .nav .of-value {
+      display: inline; } }
 /* desktop general */
 @media only screen and (min-width: 48em) {
   .nav .spaced:before {
