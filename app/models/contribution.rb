@@ -188,7 +188,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def published?
-    current_status == ContributionStatus.published
+    ContributionStatus.published.include?(current_status)
   end
   
   def validate_contributor_or_contact
