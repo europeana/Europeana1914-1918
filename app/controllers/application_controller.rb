@@ -407,7 +407,7 @@ class ApplicationController < ActionController::Base
     set_where = if set.nil?
       1
     elsif set == :published
-      [ 'current_status=?', ContributionStatus.published ]
+      [ 'current_status IN(?)', ContributionStatus.published ]
     else
       [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
     end

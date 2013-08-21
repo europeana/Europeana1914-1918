@@ -204,7 +204,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def published?
-    current_status == ContributionStatus.published
+    ContributionStatus.published.include?(current_status)
   end
   
   def validate_contributor_or_contact
@@ -262,7 +262,7 @@ class Contribution < ActiveRecord::Base
       end
     end
     
-    conditions = [ 'current_status=?', ContributionStatus.published ]
+    conditions = [ 'current_status IN (?)', ContributionStatus.published ]
     
     if options[:start_date].present?
       conditions[0] << ' AND status_timestamp >= ?'

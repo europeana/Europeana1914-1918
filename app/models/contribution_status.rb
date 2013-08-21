@@ -49,22 +49,22 @@ class ContributionStatus < ActiveRecord::Base
   end
   
   ##
-  # Returns the status code indicating that a contribution is published on this
+  # Returns the status code(s) indicating that a contribution is published on this
   # installation of RunCoCo.
   #
-  # The return value will vary depending on the values of the configuration
+  # The return value(s) will vary depending on the values of the configuration
   # settings {RunCoCo.configuration.publish_contributions} and 
   # {RunCoCo.configuration.contribution_approval_required}.
   #
-  # @return [Integer] status code for published contributions
+  # @return [Array<Integer>] status code for published contributions
   #
   def self.published
     if !RunCoCo.configuration.publish_contributions
-      -1 # i.e. never
+      [ -1 ] # i.e. never
     elsif RunCoCo.configuration.contribution_approval_required
-      APPROVED
+      [ APPROVED ]
     else
-      SUBMITTED
+      [ SUBMITTED, APPROVED ]
     end
   end
   
