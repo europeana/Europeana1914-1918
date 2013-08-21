@@ -30,7 +30,13 @@ gem 'progress_bar', '~> 1.0.0'
 gem 'rdf', '~> 1.0.0'
 gem 'rdf-rdfxml', '~> 1.0.0'
 gem 'ruby-oembed', '~> 0.8.8'
-gem 'sass', '~> 3.2.9'
+
+
+# gem 'sass', '~> 3.2.9'
+gem 'compass-rails'
+
+
+
 gem 'sax-machine', '~> 0.1.0'
 gem 'sitemap_generator', '~> 4.1.1'
 gem 'smurf', '~> 1.0.0'
