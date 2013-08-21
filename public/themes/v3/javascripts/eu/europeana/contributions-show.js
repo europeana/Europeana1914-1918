@@ -771,6 +771,86 @@
 			});
 		}
 
+	},
+	
+	tags = {
+		init : function() {
+			
+			var form     = $('#add_tags_form');
+			var tagInput = $('#tags');
+			var token    = $('input[name=authenticity_token]').val();
+
+			
+			var writeTags = function(){
+				
+				tagInput.val('');
+				  
+				// update tags display
+				var pageUrl = window.location.href;
+				$.ajax({
+					url:  pageUrl + '/tags.json?ajax=true'
+				}).done(function(res) {
+					var panel = $('.tags-panel ul');
+					if(!panel.length){
+						$('#add_tags_form').before('<div class="panel tags-panel"><ul class="tags clearfix"></ul></div>');
+						var panel = $('.tags-panel ul');
+					}
+					panel.empty();
+					$.each(res.tags, function(i, ob){
+						panel.append(	'<li>'
+									+		'<a href="' + res.contrib_path.replace(/[0-9]/g, '') + 'tagged/' + ob + '">' + ob + '</a>'
+									+		'<div class="action-links">'
+									+			'<ul>'
+									+				'<li>'
+									+					'<a href="' + res.contrib_path + '/tags/' + ob + '/delete" data-confirm="' + res.tDelete + '" data-mathod="put" class="delete">' + res.tConfirm + '</a>'
+									+				'</li>'
+									+			'</ul>'
+									+		'</div>'
+									+	'<li>');
+					});
+				});				
+			}
+			
+			
+			if (form.length) {
+				// form submission
+				form.submit(function(){
+					
+					$.ajax({
+						type: "POST",
+						url:  form.attr('action'),
+						data: {"tags": tagInput.val(), "authenticity_token" : token }
+					}).done(function() {
+						writeTags();
+					});
+					return false;
+				});
+				
+				// delete links
+				
+				$( ".tags-panel" ).on("click", "a.delete",
+					function( e ) {
+						e.stopPropagation();
+						e.preventDefault();
+						e = $(e.target);
+						var tagName = e.closest('.action-links').prev('a').html();
+						if( confirm( e.attr('data-confirm') )){
+							$.ajax({
+								type: "POST",
+								url:  form.attr('action') + '/' + tagName,
+								data: { "authenticity_token" : token, "_method" : "delete" }
+							}).done(function() {
+								writeTags();
+							})
+					
+						}
+				} );
+				
+				
+				
+			}
+		}
+	
 	};
 
 
@@ -781,7 +861,8 @@
 		map.init();
 		lightbox.init();
 		pdf.init();
-
+		tags.init();
+		
 		js.loader.loadScripts([{
 			file : 'accordion-tabs.js',
 			path : themePath + "javascripts/eu/europeana/",

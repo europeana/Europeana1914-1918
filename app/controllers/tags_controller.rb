@@ -7,10 +7,25 @@ class TagsController < ApplicationController
 
   # GET /:locale/contributions/:contribution_id/tags(.:format)
   def index
-    respond_to do |format|
-      format.json { render :json => @contribution.tags.collect(&:name) }
+    if(params[:ajax]=="true")
+      respond_to do |format|
+        format.json do 
+          render :json => { 
+            "tags" => @contribution.tags.collect(&:name),
+            "contrib_path" => contribution_path(@contribution),
+            "tConfirm" => t('actions.delete'),
+            "tDelete" => t('views.tags.delete.question')
+          }        
+      end
+    end
+    else
+        respond_to do |format|
+          format.json { render :json => @contribution.tags.collect(&:name) }
+        end
+
     end
   end
+
   
   # POST /:locale/contributions/:contribution_id/tags(.:format)
   def create

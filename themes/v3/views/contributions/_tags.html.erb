@@ -55,7 +55,7 @@
               <div class="action-links">
                 <ul>
                   <%- if current_user.may_untag_contribution?(tag) -%>
-                    <li><%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put %></li>
+                    <li><%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %></li>
                   <%- end -%>
                   <%- if current_user.may_flag_contribution_tag?(tag) -%>
                     <li><%= link_to t('actions.flag'), flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %></li>
