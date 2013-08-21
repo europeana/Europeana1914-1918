@@ -1,7 +1,7 @@
 module Admin::UsersHelper
   def user_roles
-    [ 'administrator', 'cataloguer', 'contributor' ].map do |ft| 
-      [ I18n.t(ft, :scope => 'activerecord.options.user.role_name'), ft ]
+    [ 'administrator', 'cataloguer', 'institutional_provider', 'contributor' ].map do |role_name| 
+      [ I18n.t(role_name, :scope => 'activerecord.options.user.role_name'), role_name ]
     end.sort do |x,y|
       x.first <=> y.first
     end

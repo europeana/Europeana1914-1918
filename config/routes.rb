@@ -91,6 +91,10 @@ RunCoCo::Application.routes.draw do
         get 'export', :on => :collection
       end
       
+      resources :institutions, :except => [ :show ] do
+        get 'delete', :on => :member
+      end
+      
       resources :contributions, :controller => 'contributions', :only => [ :index ] do
         collection do
           get 'search'
