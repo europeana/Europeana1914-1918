@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :contributions, :foreign_key => 'contributor_id', :dependent => :destroy
   has_many :catalogued_contributions, :class_name => 'Contribution', :foreign_key => 'catalogued_by', :dependent => :nullify
   belongs_to :contact, :dependent => :destroy
+  belongs_to :institution
   
   has_attached_file :picture, :styles => { :thumb => "100x100>", :medium => "200x200>" }, 
     :path => ":rails_root/public/images/users/:id/:style/:filename",

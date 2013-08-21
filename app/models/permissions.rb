@@ -16,6 +16,10 @@ class Permissions < Aegis::Permissions
     deny :cataloguer
   end
   
+  action :administer_institutions do
+    deny :cataloguer
+  end
+  
   action :administer_metadata_fields do
     deny :cataloguer
   end
