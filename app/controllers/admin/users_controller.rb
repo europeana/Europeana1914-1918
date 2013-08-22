@@ -39,8 +39,10 @@ class Admin::UsersController < AdminController
   # POST /admin/users
   def create
     @user = User.new
-    if params[:user].has_key?(:role_name)
-      @user.role_name = params[:user].delete(:role_name)
+    [ :role_name, :institution_id ].each do |attribute|
+      if params[:user].has_key?(attribute)
+        @user.send("#{attribute.to_s}=", params[:user].delete(attribute))
+      end
     end
     @user.attributes = params[:user]
     if @user.save
@@ -69,8 +71,10 @@ class Admin::UsersController < AdminController
   def update
     @user = User.find(params[:id])
     [ :password, :password_confirmation ].each { |key| params[:user].delete(key) unless params[:user][key].present? }
-    if params[:user].has_key?(:role_name)
-      @user.role_name = params[:user].delete(:role_name)
+    [ :role_name, :institution_id ].each do |attribute|
+      if params[:user].has_key?(attribute)
+        @user.send("#{attribute.to_s}=", params[:user].delete(attribute))
+      end
     end
     
     if params[:delete_picture] && !params[:user][:contact_attributes][:user_attributes][:picture] && @user.picture.present?
