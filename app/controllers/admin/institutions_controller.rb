@@ -14,10 +14,10 @@ class Admin::InstitutionsController < AdminController
   def create
     @institution = Institution.new(params[:institution])
     if @institution.save
-      flash[:notice] = t('flash.users.create.notice')
+      flash[:notice] = t('flash.actions.create.notice', :resource_name => t('activerecord.models.institution'))
       redirect_to admin_institutions_path
     else
-      flash.now[:alert] = t('flash.users.create.alert')
+      flash.now[:alert] = t('flash.actions.create.alert', :resource_name => t('activerecord.models.institution'))
       render :action => 'new'
     end
   end
@@ -32,10 +32,10 @@ class Admin::InstitutionsController < AdminController
     @institution = Institution.find(params[:id])
     @institution.attributes = params[:institution]
     if @institution.save
-      flash[:notice] = t('flash.users.update.notice')
+      flash[:notice] = t('flash.actions.update.notice', :resource_name => t('activerecord.models.institution'))
       redirect_to admin_institutions_path
     else
-      flash.now[:alert] = t('flash.users.update.alert')
+      flash.now[:alert] = t('flash.actions.update.alert', :resource_name => t('activerecord.models.institution'))
       render :action => 'edit'
     end
   end
@@ -49,10 +49,10 @@ class Admin::InstitutionsController < AdminController
   def destroy
     @institution = Institution.find(params[:id])
     if @institution.destroy
-      flash[:notice] = t('flash.users.destroy.notice')
+      flash[:notice] = t('flash.actions.destroy.notice', :resource_name => t('activerecord.models.institution'))
       redirect_to admin_institutions_path
     else
-      flash.now[:alert] = t('flash.users.destroy.alert')
+      flash.now[:alert] = t('flash.actions.destroy.alert', :resource_name => t('activerecord.models.institution'))
       render :action => 'delete'
     end
   end

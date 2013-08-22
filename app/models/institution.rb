@@ -9,4 +9,6 @@ class Institution < ActiveRecord::Base
   
   validates_presence_of :code, :name
   validates_uniqueness_of :code
+  
+  default_scope order("code ASC")
 end
