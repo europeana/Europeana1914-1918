@@ -234,10 +234,12 @@ class Contribution < ActiveRecord::Base
   #   or before this date & time
   # @option options [Integer] :batch_size (50) export in batches of this size; 
   #   passed to {#find_each}
+  # @option options [Integer] :institution_id Restrict to contributions made by
+  #   this institution
   # @yieldreturn [Contribution] exported contributions
   #
   def self.export(options)
-    options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size)
+    options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size, :institution_id)
     options.reverse_merge!(:batch_size => 50)
     
     if options[:exclude].present?
@@ -247,37 +249,41 @@ class Contribution < ActiveRecord::Base
       end
     end
     
-    conditions = [ 'current_status=?', ContributionStatus.published ]
+    query = Contribution.where(:current_status => ContributionStatus.published)
     
     if options[:start_date].present?
-      conditions[0] << ' AND status_timestamp >= ?'
-      conditions << options[:start_date]
+      query = query.where("status_timestamp >= ?", options[:start_date])
     end
     
     if options[:end_date].present?
-      conditions[0] << ' AND status_timestamp <= ?'
-      conditions << options[:end_date]
+      query = query.where("status_timestamp <= ?", options[:end_date])
+    end
+    
+    if options[:institution_id].present?
+      query = query.where("users.institution_id" => options[:institution_id])
     end
     
     includes = [ 
-      { :attachments => { :metadata => :taxonomy_terms } }, 
-      { :metadata => :taxonomy_terms }, 
       { :contributor => :contact }
     ]
     
-    Contribution.find_each(
-      :conditions => conditions,
-      :include => includes,
+    query.includes(includes).find_in_batches(
       :batch_size => options[:batch_size]
-    ) do |contribution|
+    ) do |batch|
     
-      if options[:exclude]
-        contribution.attachments.reject! do |a|
-          File.extname(a.file.path) == ext
+      batch.each do |contribution|
+    
+        if options[:exclude]
+          contribution.attachments.reject! do |a|
+            File.extname(a.file.path) == ext
+          end
         end
+      
+        yield contribution
+        
       end
-    
-      yield contribution
+      
+      ActiveRecord::Base.connection.clear_query_cache
     end
   end
   
