@@ -3,6 +3,7 @@ class CreateInstitution < ActiveRecord::Migration
     create_table "institutions" do |t|
       t.string :code, :null => false
       t.string :name, :null => false
+      t.timestamps
     end
     
     add_index "institutions", :code, :unique => true
