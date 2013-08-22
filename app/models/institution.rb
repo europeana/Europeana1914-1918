@@ -10,7 +10,7 @@ class Institution < ActiveRecord::Base
   validates_presence_of :code, :name
   validates_uniqueness_of :code
   
-  validates_format_of :code, :with => /\A([a-z][A-Z][0-9][\-_.!~*'()])+\Z/
+  validates_format_of :code, :with => /\A[a-zA-Z0-9\-_.!~*'()]+\Z/
   
   default_scope order("code ASC")
   
