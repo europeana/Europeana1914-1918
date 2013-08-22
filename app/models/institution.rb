@@ -10,5 +10,11 @@ class Institution < ActiveRecord::Base
   validates_presence_of :code, :name
   validates_uniqueness_of :code
   
+  validates_format_of :code, :with => /\A([a-z][A-Z][0-9][\-_.!~*'()]+)\Z/
+  
   default_scope order("code ASC")
+  
+  def oai_set(spec_prefix = "")
+    OAI::Set.new(:spec => "#{spec_prefix}#{code}", :name => name)
+  end
 end
