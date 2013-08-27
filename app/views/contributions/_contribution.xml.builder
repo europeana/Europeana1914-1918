@@ -23,6 +23,9 @@
       
       xml.oai_europeana19141918 :created_at, c.created_at
       
+      xml.oai_europeana19141918 :provider, "Europeana 1914 - 1918"
+      xml.oai_europeana19141918 :data_provider, (c.contributor.institution.present? ? c.contributor.institution.name : '')
+      
       # these fields are in the @metadata_fields.each loop
       # file_type hard-coded to "TEXT" for all stories
       # license hard-coded to "http://creativecommons.org/publicdomain/zero/1.0/"

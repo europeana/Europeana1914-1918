@@ -141,7 +141,7 @@ protected
   def export_as_csv
     csv_class.generate do |csv|
       # Column headings in first row
-      attributes = [ :id, :title, :contributor, :url, :created_at ] +
+      attributes = [ :id, :title, :contributor, :url, :created_at, :provider, :data_provider ] +
         MetadataField.all.collect { |mf| mf.title }
       csv << attributes.collect do |attribute|
         if attribute.instance_of? Symbol
@@ -154,7 +154,7 @@ protected
       end
 
       with_exported_contributions do |c|
-        row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at ] +
+        row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at, "Europeana 1914 - 1918", (c.contributor.institution.present? ? c.contributor.institution.name : '') ] +
           MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
         csv << row
       end
