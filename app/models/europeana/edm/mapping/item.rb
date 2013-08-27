@@ -26,25 +26,25 @@ module Europeana
           uri = edm_provided_cho_uri
           
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
-          graph << [ uri, RDF::DC.identifier, id.to_s ]
+          graph << [ uri, RDF::DCElement.identifier, id.to_s ]
           if title.present?
-            graph << [ uri, RDF::DC.title, title ]
+            graph << [ uri, RDF::DCElement.title, title ]
           else
             item_pos = item_index + 1
             rdf_title = contribution.title + ', item ' + item_pos.to_s
-            graph << [ uri, RDF::DC.title, rdf_title ]
+            graph << [ uri, RDF::DCElement.title, rdf_title ]
           end
           
-          graph << [ uri, RDF::DC.date, meta["date"] ] unless meta["date"].blank?
-          graph << [ uri, RDF::DC.description, meta["description"] ] unless meta["description"].blank?
-          graph << [ uri, RDF::DC.description, meta["summary"] ] unless meta["summary"].blank?
-          graph << [ uri, RDF::DC.description, meta["object_side"].first ] unless meta["object_side"].blank?
-          graph << [ uri, RDF::DC.format, meta["format"].first ] unless meta["format"].blank?
-          graph << [ uri, RDF::DC.language, meta["lang_other"] ] unless meta["lang_other"].blank?
-          graph << [ uri, RDF::DC.source, meta["source"].first ] unless meta["source"].blank?
-          graph << [ uri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
+          graph << [ uri, RDF::DCElement.date, meta["date"] ] unless meta["date"].blank?
+          graph << [ uri, RDF::DCElement.description, meta["description"] ] unless meta["description"].blank?
+          graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
+          graph << [ uri, RDF::DCElement.description, meta["object_side"].first ] unless meta["object_side"].blank?
+          graph << [ uri, RDF::DCElement.format, meta["format"].first ] unless meta["format"].blank?
+          graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
+          graph << [ uri, RDF::DCElement.source, meta["source"].first ] unless meta["source"].blank?
+          graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
-          graph << [ uri, RDF::DC.subject, meta["subject"] ] unless meta["subject"].blank?
+          graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DC.created, meta["date"] ] unless meta["date"].blank?
           graph << [ uri, RDF::DC.extent, meta["page_total"] ] unless meta["page_total"].blank?
           graph << [ uri, RDF::DC.extent, meta["page_number"] ] unless meta["page_number"].blank?
@@ -52,16 +52,16 @@ module Europeana
           graph << [ uri, RDF::DC.medium, meta["format"].first ] unless meta["format"].blank?
           graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
           graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm_provided_cho_uri ] unless next_in_sequence.blank?
-          graph << [ uri, RDF::EDM.realizes, meta["file_type"].first ] unless meta["file_type"].blank?
           graph << [ uri, RDF::EDM.type, meta["file_type"].first ] unless meta["file_type"].blank?
           
           unless meta["lang"].blank?
             meta["lang"].each do |lang|
-              graph << [ uri, RDF::DC.language, lang ]
+              graph << [ uri, RDF::DCElement.language, lang ]
             end
           end
           
-          if character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
+          character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
+          if character1_full_name.present?
             graph << [ uri, RDF::EDM.hasMet, character1_full_name ]
           else
             graph << [ uri, RDF::EDM.hasMet, meta["date"] ] unless meta["date"].blank?
@@ -69,26 +69,26 @@ module Europeana
           
           creator_full_name = Contact.full_name(meta["creator_given_name"], meta["creator_family_name"]) || meta["creator"]
           unless creator_full_name.blank?
-            EDM::Resource::Agent.new(RDF::SKOS.prefLabel => creator_full_name).append_to(graph, uri, RDF::DC.creator)
+            EDM::Resource::Agent.new(RDF::SKOS.prefLabel => creator_full_name).append_to(graph, uri, RDF::DCElement.creator)
           end
           
           [ "keywords", "theatres", "forces" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
-                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => subject).append_to(graph, uri, RDF::DC.subject)
+                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => subject).append_to(graph, uri, RDF::DCElement.subject)
               end
             end
           end
           
           unless meta["content"].blank?
-            EDM::Resource::Concept.new(RDF::SKOS.prefLabel => meta["content"].first).append_to(graph, uri, RDF::DC.type)
+            EDM::Resource::Concept.new(RDF::SKOS.prefLabel => meta["content"].first).append_to(graph, uri, RDF::DCElement.type)
           end
           
-          lat, lng = meta["location_map"].split(',')
+          lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
           unless lat.blank? && lng.blank? && meta['location_placename'].blank?
             EDM::Resource::Place.new({
               RDF::GEO.lat => lat.to_f,
-              RDF::GEO.lng => lng.to_f,
+              RDF::GEO.long => lng.to_f,
               RDF::SKOS.prefLabel => meta['location_placename']
             }).append_to(graph, uri, RDF::DC.spatial)
           end
@@ -96,7 +96,7 @@ module Europeana
           unless meta['date_from'].blank? && meta['date_to'].blank? && meta['date'].blank?
             EDM::Resource::TimeSpan.new({
               RDF::EDM.begin => meta['date_from'],
-              RDF::EDM.end => meta['date_to'],
+              RDF::EDM.end => meta['date_to'] || meta['date_from'],
               RDF::SKOS.prefLabel => meta['date']
             }).append_to(graph, uri, RDF::DC.temporal)
           end
@@ -117,11 +117,11 @@ module Europeana
           uri = edm_web_resource_uri
           
           graph << [ uri, RDF.type, RDF::EDM.WebResource ]
-          graph << [ uri, RDF::DC.description, created_at.to_s ]
-          graph << [ uri, RDF::DC.format, meta["file_type"].first ] unless meta["file_type"].blank?
+          graph << [ uri, RDF::DCElement.description, created_at.to_s ]
+          graph << [ uri, RDF::DCElement.format, meta["file_type"].first ] unless meta["file_type"].blank?
           graph << [ uri, RDF::DC.created, created_at.to_s ]
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] unless meta["license"].blank?
-          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm_web_resource_uri ] unless next_in_sequence.blank?
+          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm_provided_cho_uri ] unless next_in_sequence.blank?
           
           graph
         end

@@ -67,10 +67,8 @@ module Europeana
           :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
         }
         
-        RDF::RDFXML::Writer.buffer(:prefixes => namespace_prefixes) do |writer|
-          to_rdf_graph.each_statement do |statement|
-            writer << statement
-          end
+        RDF::RDFXML::Writer.buffer(:prefixes => namespace_prefixes, :max_depth => 1) do |writer|
+          writer << to_rdf_graph
         end
       end
       
