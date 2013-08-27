@@ -59,6 +59,7 @@ module Europeana
       #
       def to_rdfxml
         namespace_prefixes = {
+          :dc => "http://purl.org/dc/elements/1.1/",
           :dcterms => "http://purl.org/dc/terms/",
           :edm => "http://www.europeana.eu/schemas/edm/",
           :ore => "http://www.openarchives.org/ore/terms/",
