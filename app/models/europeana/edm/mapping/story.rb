@@ -56,7 +56,7 @@ module Europeana
           
           record["type"] = graph.query(:predicate => RDF::EDM.type).first.object.to_s
           record["title"] = []
-          graph.query(:predicate => RDF::DC.title) do |solution|
+          graph.query(:predicate => RDF::DCElement.title) do |solution|
             record["title"] << solution.object.to_s
           end
           graph.query(:predicate => RDF::DC.alternative) do |solution|
@@ -66,7 +66,7 @@ module Europeana
           proxy = { }
           graph.query(:subject => edm_provided_cho_uri).each do |statement|
             qname = statement.predicate.qname
-            if [ :dc, :edm ].include?(qname.first)
+            if [ :dc, :edm, :dc_element ].include?(qname.first)
               field_name = qname.first.to_s + qname.last.to_s[0].upcase + qname.last.to_s[1..-1]
               field_label = statement_label(graph, statement)
               
@@ -103,10 +103,10 @@ module Europeana
           graph = to_rdf_graph
           result = {}
           
-          graph.query(:predicate => RDF::DC.identifier) do |solution|
+          graph.query(:predicate => RDF::DCElement.identifier) do |solution|
             result["id"] = solution.object.to_s
           end
-          graph.query(:predicate => RDF::DC.title) do |solution|
+          graph.query(:predicate => RDF::DCElement.title) do |solution|
             result["title"] = [ solution.object.to_s ]
           end
           graph.query(:predicate => RDF::DC.alternative) do |solution|
