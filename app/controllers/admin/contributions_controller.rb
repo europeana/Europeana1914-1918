@@ -6,7 +6,7 @@ class Admin::ContributionsController < AdminController
   end
   
   class ExportSettings
-    attr_accessor :format, :start_date, :end_date, :exclude, :institution_id
+    attr_accessor :format, :start_date, :end_date, :exclude, :set, :institution_id
   end
   
   # GET /admin/contributions
@@ -64,6 +64,7 @@ class Admin::ContributionsController < AdminController
     if params[:settings]
       @settings.format = params[:settings][:format]
       @settings.exclude = params[:settings][:exclude]
+      @settings.set = params[:settings][:set]
       @settings.institution_id = params[:settings][:institution_id]
       if (1..5).inject(true) { |present, i| present && params[:settings]["start_date(#{i}i)"].present? }
         @settings.start_date = DateTime.civil(params[:settings]["start_date(1i)"].to_i, params[:settings]["start_date(2i)"].to_i, params[:settings]["start_date(3i)"].to_i, params[:settings]["start_date(4i)"].to_i, params[:settings]["start_date(5i)"].to_i)
@@ -130,6 +131,7 @@ protected
       :exclude => @settings.exclude,
       :start_date => @settings.start_date,
       :end_date => @settings.end_date,
+      :set => @settings.set,
       :institution_id => @settings.institution_id
     }
     Contribution.export(settings_hash) do |contribution|
