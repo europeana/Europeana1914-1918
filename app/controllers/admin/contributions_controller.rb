@@ -74,6 +74,7 @@ class Admin::ContributionsController < AdminController
       end
     else
       @settings.format = 'xml'
+      @settings.set = 'all'
     end
     
     timestamp = Time.now.strftime('%Y%m%d%H%M%S')
