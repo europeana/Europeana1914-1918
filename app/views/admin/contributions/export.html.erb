@@ -8,7 +8,8 @@
     <%= form.input :exclude, :as => :string, :required => false %>
     <%= form.input :start_date, :as => :datetime, :required => false %>
     <%= form.input :end_date, :as => :datetime, :required => false %>
-    <%= form.input :institution_id, :as => :select, :collection => Institution.all, :include_blank => true, :required => false %>
+    <%= form.input :set, :as => :select, :collection => { "All (UGC and institutional)" => "all", "UGC only" => "ugc", "Institutional only" => "institution"  }, :required => true, :default => "all", :include_blank => false %>
+    <%= form.input :institution_id, :as => :select, :collection => Institution.all, :include_blank => "Any institution", :required => false %>
   <% end %>
   <%= form.buttons do %>
     <%= form.commit_button :label => t('actions.submit') %>

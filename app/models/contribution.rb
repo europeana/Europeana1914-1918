@@ -254,7 +254,7 @@ class Contribution < ActiveRecord::Base
   #   this institution
   # @yieldreturn [Contribution] exported contributions
   def self.export(options)
-    options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size, :institution_id)
+    options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size, :set, :institution_id)
     options.reverse_merge!(:batch_size => 50)
     
     if options[:exclude].present?
@@ -274,8 +274,17 @@ class Contribution < ActiveRecord::Base
       query = query.where("status_timestamp <= ?", options[:end_date])
     end
     
-    if options[:institution_id].present?
-      query = query.where("users.institution_id" => options[:institution_id])
+    if options[:set].present?
+      case options[:set]
+      when "ugc"
+        query = query.where("users.institution_id IS NULL")
+      when "institution"
+        if options[:institution_id].present?
+          query = query.where("users.institution_id" => options[:institution_id])
+        else
+          query = query.where("users.institution_id IS NOT NULL")
+        end
+      end
     end
     
     includes = [ 
