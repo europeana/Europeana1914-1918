@@ -281,7 +281,9 @@ class Contribution < ActiveRecord::Base
     ) do |batch|
     
       batch.each do |contribution|
-    
+        
+        contribution.attachments.select! { |a| a.file.present? }
+        
         if options[:exclude]
           contribution.attachments.reject! do |a|
             File.extname(a.file.path) == ext
@@ -296,7 +298,8 @@ class Contribution < ActiveRecord::Base
     end
   end
   
-  protected
+protected
+
   def build_metadata_unless_present
     self.build_metadata unless self.metadata.present?
   end
