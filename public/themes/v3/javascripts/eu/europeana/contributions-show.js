@@ -401,14 +401,14 @@
 					var player = new MediaElementPlayer(
 						$video, {
 							mode: 'shim',
-							pluginPath : '/themes/common/johndyer/mediaelement/'
+							pluginPath : '/themes/common/mediaelement/'
 						}
 					);
 				} else {
 					var player = new MediaElementPlayer(
 						$video, {
 							mode: 'auto',
-							pluginPath : '/themes/common/johndyer/mediaelement/'
+							pluginPath : '/themes/common/mediaelement/'
 						}
 					);
 				}
@@ -420,7 +420,7 @@
 				$audio.insertAfter( $pp_inline_audio );
 				var player = new MediaElementPlayer(
 						$audio, {
-							pluginPath : '/themes/common/johndyer/mediaelement/'
+							pluginPath : '/themes/common/mediaelement/'
 						}
 					);
 			}
@@ -534,7 +534,7 @@
 				var mapLatitude  = parseFloat(latLong[0]);
 				var mapLongitude = parseFloat(latLong[1]);
 				var mapZoom      = typeof mapZoom != 'undefined' && mapZoom.length && parseInt(mapZoom).length ? parseInt(mapZoom) : 8;
-				
+
 				var rootJsUrl    = themePath + 'javascripts/com/leaflet/';
 				var rootCssUrl   = themePath + 'stylesheets/com/leaflet/';
 				var dependencies = [
@@ -547,7 +547,7 @@
    					'leaflet.ie.css',
    					'Leaflet-MiniMap-master/src/Control.MiniMap.css'
    				];
-					
+
             	var recursiveLoad = function(index){
             		index = index ? index : 0;
             		if(dependencies.length > index){
@@ -568,7 +568,7 @@
             		}
             		else{
             			var mqTilesAttr = 'Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />';
-            	
+
             			// map quest
             			var mq = new L.TileLayer(
             				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
@@ -580,26 +580,26 @@
             					type: 'osm'
             				}
             			);
-            				
+
             			var map = L.map('map', {
             			    center: new L.LatLng(mapLatitude, mapLongitude),
             			    zoomControl: false,
             			    zoom: mapZoom
             			});
-            			
+
             			L.Icon.Default.imagePath = rootCssUrl + 'images/';
         				L.marker([mapLatitude, mapLongitude]).addTo(map);
 
             			var europeanaCtrls = jQuery('<div id="europeana-ctrls">').prependTo('#map-container');
-            			
+
             			var EuropeanaLayerControl = function(map, ops){
 
             				var self = this;
-            				
+
             				self.ops = ops;
             				self.map = map;
             				self.grp = null;
-            				 
+
             				self._setLayer = function(index){
             					var layer = self.ops[index].layer;
             					self.grp.clearLayers();
@@ -611,13 +611,13 @@
 
             				var html	= '';
             				var layers	= [];
-            				
+
             				jQuery.each(self.ops, function(i, ob){
             					html += '<a href="#' + ob.title + '"><span class="' + i + '">' + ob.title + '</span></a>';
             					layers[layers.length] = ob.layer;
             				});
 
-            				
+
             				self.cmp = jQuery('<div id="layer-ctrl">' + html + '</div>');
 
             				self.cmp.find("span").each(function(){
@@ -629,17 +629,17 @@
             				self.grp = L.layerGroup(layers);
             				self.grp.addTo(self.map);
             				self._setLayer(0);
-            				
+
             				return {
             					getCmp : function(index){
             						return self.cmp;
-            					} 
+            					}
             				}
             			};
 
             			var ggl = new L.Google();
             			map.addLayer(ggl);
-            			
+
             			var ctrlLayer = new EuropeanaLayerControl(map,
             				[
             					{
@@ -650,11 +650,11 @@
             					    "title":	"Satellite",
             					    "layer":	ggl
             				    }
-            			    ]		 
+            			    ]
             			);
-            			
+
             			europeanaCtrls.append(ctrlLayer.getCmp());
-            			
+
             			// Overview map - requires duplicate layer
             			//var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
             			new L.Control.MiniMap(
@@ -670,17 +670,17 @@
             				{toggleDisplay: true }
             			).addTo(map);
             			L.control.zoom().addTo(map);
-            			
+
             		}
             	}
             	recursiveLoad();
-				
-				
+
+
 
 			}
-			
+
 		}
-				
+
 		/*
 		$map : jQuery('#location-map'),
 		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
@@ -772,19 +772,19 @@
 		}
 
 	},
-	
+
 	tags = {
 		init : function() {
-			
+
 			var form     = $('#add_tags_form');
 			var tagInput = $('#tags');
 			var token    = $('input[name=authenticity_token]').val();
 
-			
+
 			var writeTags = function(){
-				
+
 				tagInput.val('');
-				  
+
 				// update tags display
 				var pageUrl = window.location.href;
 				$.ajax({
@@ -808,14 +808,14 @@
 									+		'</div>'
 									+	'<li>');
 					});
-				});				
+				});
 			}
-			
-			
+
+
 			if (form.length) {
 				// form submission
 				form.submit(function(){
-					
+
 					$.ajax({
 						type: "POST",
 						url:  form.attr('action'),
@@ -825,9 +825,9 @@
 					});
 					return false;
 				});
-				
+
 				// delete links
-				
+
 				$( ".tags-panel" ).on("click", "a.delete",
 					function( e ) {
 						e.stopPropagation();
@@ -842,15 +842,15 @@
 							}).done(function() {
 								writeTags();
 							})
-					
+
 						}
 				} );
-				
-				
-				
+
+
+
 			}
 		}
-	
+
 	};
 
 
@@ -862,7 +862,7 @@
 		lightbox.init();
 		pdf.init();
 		tags.init();
-		
+
 		js.loader.loadScripts([{
 			file : 'accordion-tabs.js',
 			path : themePath + "javascripts/eu/europeana/",

@@ -391,9 +391,9 @@
 			if ( $pp_inline_audio.length > 0 ) {
 				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
 				$audio.insertAfter( $pp_inline_audio );
-				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/common/johndyer/mediaelement/' } );
+				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/common/mediaelement/' } );
 			}
-			
+
 			anno.reset();
 			anno.hideSelectionWidget();
 
@@ -423,7 +423,7 @@
 
 			mejs.mepIndex = 0;
 		},
-		
+
 		setupAnnotorious : function() {
 			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } ) ;
 		},
