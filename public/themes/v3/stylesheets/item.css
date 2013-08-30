@@ -1,6 +1,9 @@
 /*
 	@import "compass";
 */
+/* Breakpoints
+
+$break-desktop: 48em; */
 /* line 40, sass/partials/_buttons.scss */
 input[type=submit],
 a.button {
@@ -40,23 +43,24 @@ a.button:focus {
 	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
 }
 */
-/* line 3, sass/item.scss */
+/* OLD STUFF  */
+/* line 5, sass/item.scss */
 .location-desc {
   margin-top: 3em;
 }
 
-/* line 8, sass/item.scss */
+/* line 10, sass/item.scss */
 .add-tags {
   margin-top: 3em;
   textarea-width: 100%;
 }
 
-/* line 17, sass/item.scss */
+/* line 19, sass/item.scss */
 .related-content > h3 {
   border-bottom: 1px solid #e4e4e4;
 }
 
-/* line 22, sass/item.scss */
+/* line 24, sass/item.scss */
 .one-half-right,
 .one-half-left {
   -webkit-box-sizing: border-box;
@@ -65,19 +69,19 @@ a.button:focus {
   width: 50%;
 }
 
-/* line 27, sass/item.scss */
+/* line 29, sass/item.scss */
 .one-half-right {
   float: right;
   padding-left: 1em;
 }
 
-/* line 32, sass/item.scss */
+/* line 34, sass/item.scss */
 .one-half-left {
   float: left;
   padding-right: 1em;
 }
 
-/* line 38, sass/item.scss */
+/* line 40, sass/item.scss */
 .img-panel,
 .panel {
   background-color: #F2F2F2;
@@ -85,18 +89,18 @@ a.button:focus {
   padding: 1em;
 }
 
-/* line 44, sass/item.scss */
+/* line 46, sass/item.scss */
 .img-panel {
   text-align: center;
 }
 
-/* line 48, sass/item.scss */
+/* line 50, sass/item.scss */
 .dcTitle {
   font-size: 1.4em;
   margin-bottom: 0.75em;
 }
 
-/* line 53, sass/item.scss */
+/* line 55, sass/item.scss */
 .subtitle {
   background-color: #333333;
   color: #FFF;
@@ -106,39 +110,39 @@ a.button:focus {
   margin-bottom: 1em;
 }
 
-/* line 62, sass/item.scss */
+/* line 64, sass/item.scss */
 .subtext {
   font-size: 0.75em;
   position: relative;
   top: -0.75em;
 }
 
-/* line 68, sass/item.scss */
+/* line 70, sass/item.scss */
 .meta ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 74, sass/item.scss */
+/* line 76, sass/item.scss */
 .title {
   font-weight: bold;
 }
 
 /* map controls styling */
-/* line 79, sass/item.scss */
+/* line 81, sass/item.scss */
 #map-container {
   margin: 1em 0;
   position: relative;
 }
 
-/* line 84, sass/item.scss */
+/* line 86, sass/item.scss */
 #map {
   height: 40em;
   width: 100%;
 }
 
-/* line 89, sass/item.scss */
+/* line 91, sass/item.scss */
 #europeana-ctrls {
   color: #E3D6B6;
   padding: 1em;
@@ -148,7 +152,7 @@ a.button:focus {
   z-index: 1000;
 }
 
-/* line 98, sass/item.scss */
+/* line 100, sass/item.scss */
 #layer-ctrl span {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid #888888;
@@ -161,10 +165,122 @@ a.button:focus {
   padding: 0.5em;
 }
 
-@media only screen and (min-width: 48em) {
-  /* line 114, sass/item.scss */
+@media only screen and (min-width: 54em) {
+  /* line 116, sass/item.scss */
   .location-desc,
   .add-tags {
     margin-top: 2em;
+  }
+}
+/* NEW STUFF  */
+/* line 129, sass/item.scss */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  XXXfont-size: 1em;
+}
+
+/* line 136, sass/item.scss */
+blockquote {
+  background-color: cyan;
+  max-width: 33em;
+  margin: auto;
+}
+
+/*
+.container{
+	width:            100%;
+	max-width:        105.24em;
+	margin:           auto;
+	padding:          0 1.56em;
+
+	background-color: purple;
+}
+*/
+/* line 154, sass/item.scss */
+.col {
+  display: block;
+  margin-bottom: 1.56em;
+}
+
+/* line 160, sass/item.scss */
+.col-cell {
+  background-color: #F2F2F2;
+  font-size: 1em;
+  max-width: 33em;
+  line-height: 1.56em;
+  margin: auto;
+  margin-bottom: 1.56em;
+  XXXborder: 1px solid #D9D9D9;
+  XXXpadding: 1em;
+}
+
+/* line 175, sass/item.scss */
+.container,
+.col,
+.col-cell {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@media all and (min-width: 54em) {
+  /* line 184, sass/item.scss */
+  .container {
+    background-color: pink;
+    overflow: hidden;
+    /* clearfix */
+  }
+
+  /* activate 3 col layout */
+  /* line 192, sass/item.scss */
+  .col {
+    width: 33.3333%;
+    display: inline-block;
+    background-color: yellow;
+    margin: 0;
+    float: left;
+    /* start content at top of column */
+  }
+
+  /* line 200, sass/item.scss */
+  .col.left {
+    padding-right: 1.56em;
+    padding-right: 0.52em;
+    /* ( 1.56 / 3 ) */
+  }
+
+  /* line 205, sass/item.scss */
+  .col.middle {
+    padding-left: 1.04em;
+    /* ( (1.56 / 3) x 2 ) */
+    overflow: visible;
+    width: 66.666%;
+  }
+
+  /* line 213, sass/item.scss */
+  .col-cell {
+    margin: 0;
+    margin-bottom: 1.56em;
+  }
+
+  /* line 218, sass/item.scss */
+  .col.middle .col-cell {
+    clear: both;
+    width: 33em;
+    /*  33em base plus margin */
+  }
+
+  /* line 224, sass/item.scss */
+  blockquote {
+    left: -50%;
+    position: relative;
+    max-width: none;
+    margin: 0;
+    margin-left: -0.39em;
+    /* 1.56 / 4 */
+    width: 150%;
+    font-size: 2em;
   }
 }

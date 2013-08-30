@@ -36,6 +36,56 @@
 		carouselImages = aggregation['hasView']
 	%>
 
+	<!-- NEW GRID -->
+
+
+	<div class="container">
+
+		<div class="col left">
+		
+			<p class="col-cell">
+			
+			</p>
+
+			<p class="col-cell">
+			
+			</p>
+
+		</div><div class="col middle">
+		
+			<p class="col-cell">
+				Each piece of content has an optimum width. For a block of text to be comfortable to read, it should have between 60 - 70 characters per line. For DejaRip set at 16px / 1em, it should never be allowed to get wider than 528px / 33em. Elements with anger text, such as headlines, can handle being a bit wider.			
+			</p>
+
+
+			<p class="col-cell">
+				If an element appears in a blockquote it gets really big, and can span several columns:
+
+				<blockquote>
+					Here is some blockquoted text.
+				</blockquote>			
+			</p>
+
+
+
+		</div> <!-- end col middle -->
+
+
+	</div> <!-- end container -->
+
+
+
+
+	<div><h1>END</h1></div>
+
+
+	<!-- END NEW GRID -->
+
+
+
+
+	<!-- OLD STUFF -->
+
 	<div class="one-half-left">
 
 		<div class="img-panel">
@@ -295,40 +345,99 @@
 
 <% end %><%# end first section from the initial edm record view %>
 
-
-
 <%# begin initial contributions/show record view %>
 <% if @contribution %>
-<% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? %>
-  <div class="section action-links top">
-    <ul>
-    <% if current_user.may_edit_contribution?(@contribution) %>
-      <% if @contribution.draft? %>
-      <%= form_previous_step_link edit_contribution_path(@contribution) %>
+
+
+
+
+
+
+	<!-- NEW GRID -->
+
+
+	<div class="container">
+
+      <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? %>
+        <div class="section action-links top">
+          <ul>
+          <% if current_user.may_edit_contribution?(@contribution) %>
+            <% if @contribution.draft? %>
+            <%= form_previous_step_link edit_contribution_path(@contribution) %>
+            <% end %>
+            <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
+          <% end %>
+          <% if current_user.may_create_contribution_attachment?(@contribution) %>
+            <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
+          <% end %>
+          <% if current_user.may_withdraw_contribution?(@contribution) %>
+            <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
+          <% end %>
+          <% if current_user.may_delete_contribution?(@contribution) %>
+      			<li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li>
+	      <% end %>
+          <% if current_user.may_view_contribution_status_log?(@contribution) %>
+            <li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
+          <% end %>
+          <% if current_user.may_approve_contributions? && @contribution.pending_approval? %>
+            <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
+          <% end %>
+          <% if current_user.may_reject_contributions? && @contribution.pending_approval? %>
+            <li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
-    <% end %>
-    <% if current_user.may_create_contribution_attachment?(@contribution) %>
-      <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
-    <% end %>
-    <% if current_user.may_withdraw_contribution?(@contribution) %>
-      <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
-    <% end %>
-    <% if current_user.may_delete_contribution?(@contribution) %>
-			<li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li>
-		<% end %>
-    <% if current_user.may_view_contribution_status_log?(@contribution) %>
-      <li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
-    <% end %>
-    <% if current_user.may_approve_contributions? && @contribution.pending_approval? %>
-      <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
-    <% end %>
-    <% if current_user.may_reject_contributions? && @contribution.pending_approval? %>
-      <li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+
+
+		<div class="col left">
+		
+			<p class="col-cell">
+				2nd block: the left col, paragraph 1.
+			</p>
+
+			<p class="col-cell">
+				2nd block: the left col, paragraph 2.			
+			</p>
+
+		</div><div class="col middle">
+		
+			<p class="col-cell">
+				2nd block: each piece of content has an optimum width. For a block of text to be comfortable to read, it should have between 60 - 70 characters per line. For DejaRip set at 16px / 1em, it should never be allowed to get wider than 528px / 33em. Elements with anger text, such as headlines, can handle being a bit wider.			
+			</p>
+
+
+			<p class="col-cell">
+				If an element appears in a blockquote it gets really big, and can span several columns:
+
+				<blockquote>
+					Here is some blockquoted text.
+				</blockquote>			
+			</p>
+
+
+
+		</div> <!-- end col middle -->
+
+
+	</div> <!-- end container -->
+
+
+
+
+	<div><h1>END</h1></div>
+
+
+	<!-- END NEW GRID -->
+
+
+
+
+
+
+
+
+
 
 <div class="section top">
 

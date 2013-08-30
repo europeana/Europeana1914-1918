@@ -1,6 +1,9 @@
 /*
 	@import "compass";
 */
+/* Breakpoints
+
+$break-desktop: 48em; */
 /* line 40, sass/partials/_buttons.scss */
 input[type=submit],
 a.button {
@@ -176,117 +179,128 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 #header,
 #content,
 #footer {
-  padding: 0 2.25em;
+  XXXXpadding: 0 2.25em;
+  padding: 0 1.56em;
 }
 
-/* line 8, sass/partials/_layouts.scss */
+/* line 9, sass/partials/_layouts.scss */
 #content {
   padding-top: 1.2em;
+  /* New style guide */
+  width: 100%;
+  max-width: 105.24em;
+  /* (3 x 33em) + (4 x 1.56em)  */
+  margin: auto;
+  padding: 0 1.56em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Needed?  Hasn't reset done this? */
 }
 
-/* line 14, sass/partials/_layouts.scss */
+/* line 24, sass/partials/_layouts.scss */
 .v-flex-container {
   display: table;
   table-layout: fixed;
   height: 100%;
 }
 
-/* line 20, sass/partials/_layouts.scss */
+/* line 30, sass/partials/_layouts.scss */
 .v-flex {
   display: table-row;
 }
 
-/* line 24, sass/partials/_layouts.scss */
+/* line 34, sass/partials/_layouts.scss */
 .v-flex-fill {
   display: table-cell;
   height: 100%;
   vertical-align: bottom;
 }
 
-/* line 30, sass/partials/_layouts.scss */
+/* line 40, sass/partials/_layouts.scss */
 .h-flex-container {
   display: table;
   width: 100%;
   border-spacing: 0;
 }
 
-/* line 36, sass/partials/_layouts.scss */
+/* line 46, sass/partials/_layouts.scss */
 .h-flex-fill {
   display: table-cell;
   width: 100%;
 }
 
-/* line 41, sass/partials/_layouts.scss */
+/* line 51, sass/partials/_layouts.scss */
 .h-flex-fixed {
   display: table-cell;
   width: 1px;
 }
 
 @media screen and (max-width: 48em) {
-  /* line 47, sass/partials/_layouts.scss */
+  /* line 57, sass/partials/_layouts.scss */
   .h-flex-collapse {
     display: block;
     width: auto;
   }
 }
 /* Hide / show on phones */
-/* line 55, sass/partials/_layouts.scss */
+/* line 65, sass/partials/_layouts.scss */
 .hide-on-phones {
   display: none  !important;
 }
 
-/* line 56, sass/partials/_layouts.scss */
+/* line 66, sass/partials/_layouts.scss */
 .hide-ilb-on-phones {
   display: none  !important;
 }
 
-/* line 57, sass/partials/_layouts.scss */
+/* line 67, sass/partials/_layouts.scss */
 .hide-cell-on-phones {
   display: none  !important;
 }
 
-/* line 59, sass/partials/_layouts.scss */
+/* line 69, sass/partials/_layouts.scss */
 .show-on-phones {
   display: block !important;
 }
 
-/* line 60, sass/partials/_layouts.scss */
+/* line 70, sass/partials/_layouts.scss */
 .show-ilb-on-phones {
   display: inline-block !important;
 }
 
-/* line 61, sass/partials/_layouts.scss */
+/* line 71, sass/partials/_layouts.scss */
 .show-cell-on-phones {
   display: table-cell !important;
 }
 
 @media only screen and (min-width: 48em) {
-  /* line 64, sass/partials/_layouts.scss */
+  /* line 74, sass/partials/_layouts.scss */
   .hide-on-phones {
     display: block			!important;
   }
 
-  /* line 65, sass/partials/_layouts.scss */
+  /* line 75, sass/partials/_layouts.scss */
   .hide-ilb-on-phones {
     display: inline-block	!important;
   }
 
-  /* line 66, sass/partials/_layouts.scss */
+  /* line 76, sass/partials/_layouts.scss */
   .hide-cell-on-phones {
     display: table-cell		!important;
   }
 
-  /* line 68, sass/partials/_layouts.scss */
+  /* line 78, sass/partials/_layouts.scss */
   .show-on-phones {
     display: none !important;
   }
 
-  /* line 69, sass/partials/_layouts.scss */
+  /* line 79, sass/partials/_layouts.scss */
   .show-ilb-on-phones {
     display: none !important;
   }
 
-  /* line 70, sass/partials/_layouts.scss */
+  /* line 80, sass/partials/_layouts.scss */
   .show-cell-on-phones {
     display: none !important;
   }
@@ -507,7 +521,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   display: block !important;
 }
 
-@media only screen and (min-width: 48em) {
+@media only screen and (min-width: 54em) {
   /* line 78, sass/partials/_accordion-tabs.scss */
   .accordion-tabs {
     box-shadow: none;
