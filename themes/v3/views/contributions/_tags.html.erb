@@ -1,50 +1,52 @@
-<div class="add-tags">
-  <h3><%= t('views.contributions.show.headings.tags') %></h3>
   
-  <style type="text/css">
-    .tags {
-      margin: 1em 0;
-    }
-    .tags > li {
-      XXXposition: relative;
-      XXXfloat: left;
-      display: inline-block;
-    }
-    .tags > li > a {
-      margin-right: 0.5em;
-      background: #d6d6d6;
-      padding: 0.25em 0.5em;
-      border-radius: 0.25em;
-    }
-    .tags > li .action-links {
-      display: none;
-      position: absolute;
-      border-radius: 0 0.25em 0.25em 0.25em;
-      margin-top: 1px;
-    }
-    .tags > li:hover .action-links {
-      display: block;
-    }
-    .tags > li .action-links li {
-      margin: 0.25em;
-      clear: left;
-      text-transform: lowercase;
-    }
+    <style type="text/css">
+      .tags {
+        margin: 1em 0;
+      }
+      .tags > li {
+        XXXposition: relative;
+        XXXfloat: left;
+        display: inline-block;
+      }
+      .tags > li > a {
+        margin-right: 0.5em;
+        background: #d6d6d6;
+        padding: 0.25em 0.5em;
+        border-radius: 0.25em;
+      }
+      .tags > li .action-links {
+        display: none;
+        position: absolute;
+        border-radius: 0 0.25em 0.25em 0.25em;
+        margin-top: 1px;
+      }
+      .tags > li:hover .action-links {
+        display: block;
+      }
+      .tags > li .action-links li {
+        margin: 0.25em;
+        clear: left;
+        text-transform: lowercase;
+      }
     
 
-    .tags-panel,
-    .add-tag-panel{
-      margin: 1em 0 0 0;
-    }
+      .tags-panel,
+      .add-tag-panel{
+        margin: 1em 0 0 0;
+      }
     
-    #add_tags_form {
-      clear: both; 
-    }
-  </style>
+      #add_tags_form {
+        clear: both; 
+      }
+    </style>
   
   
+  <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
+    <div class="add-tags">
+      <h3><%= t('views.contributions.show.headings.tags') %></h3>
+  <%- end -%>
   
-  <% if (tags.length > 0) -%>
+  <% if (tags.length > 0) -%>  
     <div class="panel tags-panel">
       
       <ul class="tags clearfix">
@@ -78,6 +80,11 @@
         </div>
     <% end %>
   <%- end -%>
+  
+  <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
+    </div>
+  <%- end -%>
+  
   
   
   
