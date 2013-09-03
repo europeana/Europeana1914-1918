@@ -4,88 +4,104 @@
         margin: 1em 0;
       }
       .tags > li {
-        XXXposition: relative;
-        XXXfloat: left;
-        display: inline-block;
+        display:        inline-block;
+        margin-bottom:  0.5em;
       }
       .tags > li > a {
-        margin-right: 0.5em;
-        background: #d6d6d6;
-        padding: 0.25em 0.5em;
-        border-radius: 0.25em;
+        margin-right:   0.5em;
+        background:     #d6d6d6;
+        padding:        0.25em 0.5em;
+        border-radius:  0.25em;
       }
       .tags > li .action-links {
-        display: none;
-        position: absolute;
+        display:       none;
+        position:      absolute;
         border-radius: 0 0.25em 0.25em 0.25em;
-        margin-top: 1px;
+        margin-top:    1px;
       }
       .tags > li:hover .action-links {
         display: block;
       }
       .tags > li .action-links li {
-        margin: 0.25em;
-        clear: left;
+        margin:         0.25em;
+        clear:          left;
         text-transform: lowercase;
       }
     
-
       .tags-panel,
-      .add-tag-panel{
+      .add-tag-panel {
         margin: 1em 0 0 0;
       }
     
       #add_tags_form {
         clear: both; 
       }
+      
+      #add_tags_form input {
+        max-width: 100%; 
+        width:     100%;
+        border:    1px solid #D9D9D9;
+        padding:   0.25em; 
+      }
     </style>
   
   
-  <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
-    <div class="add-tags">
-      <h3><%= t('views.contributions.show.headings.tags') %></h3>
-  <%- end -%>
+    <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
+    
+        <div class="add-tags">
+            <h3><%= t('views.contributions.show.headings.tags') %></h3>
+        
+    <%- end -%>
   
-  <% if (tags.length > 0) -%>  
-    <div class="panel tags-panel">
+    <% if (tags.length > 0) -%>
       
-      <ul class="tags clearfix">
-        <%- for tag in tags -%>
-          <li>
-            <%= link_to tag.name, tag_search_contributions_path(tag.name) %>
-            <%- if current_user.may_untag_contribution?(tag) || current_user.may_flag_contribution_tag?(tag) -%>
-              <div class="action-links">
-                <ul>
-                  <%- if current_user.may_untag_contribution?(tag) -%>
-                    <li><%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %></li>
-                  <%- end -%>
-                  <%- if current_user.may_flag_contribution_tag?(tag) -%>
-                    <li><%= link_to t('actions.flag'), flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %></li>
-                  <%- end -%>
-                </ul>
-              </div>
-            <%- end -%>
-          </li>
-        <%- end -%>
-      </ul>
-    </div>
-  <%- end -%>
+        <div class="panel tags-panel">
+            <ul class="tags clearfix">
+                
+                <%- for tag in tags -%>
+                    <li>
+                        <%= link_to tag.name, tag_search_contributions_path(tag.name) %>
+                        <%- if current_user.may_untag_contribution?(tag) || current_user.may_flag_contribution_tag?(tag) -%>
+                            <div class="action-links">
+                                <ul>
+                                    <%- if current_user.may_untag_contribution?(tag) -%>
+                                        <li>
+                                            <%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %>
+                                        </li>
+                                    <%- end -%>
+                                    <%- if current_user.may_flag_contribution_tag?(tag) -%>
+                                        <li>
+                                            <%= link_to t('actions.flag'), flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %>
+                                        </li>
+                                    <%- end -%>
+                                </ul>
+                            </div>
+                        <%- end -%>
+                    </li>
+                <%- end -%>
+                
+            </ul>
+        </div>
+        
+    <%- end -%>
     
   
-  <%- if current_user.may_tag_contribution?(contribution) -%>
-    <%= form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do %>
-        <div class="panel add-tag-panel">
-          <label for="tags">Add tags (optional)</label>
-          <%= text_field_tag "tags", "", :size => 50 %>
+    <%- if current_user.may_tag_contribution?(contribution) -%>
+        <%= form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do %>
+            <div class="panel add-tag-panel">
+                <label for="tags">Add tags (optional)</label>
+                <%= text_field_tag "tags", "", :size => 50 %>
+            </div>
+        <% end %>
+    <%- end -%>
+  
+  
+    <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
+    
+    	<%# CLOSE DIV %>
+    	
         </div>
-    <% end %>
-  <%- end -%>
-  
-  <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
-    </div>
-  <%- end -%>
+        
+    <%- end -%>
   
   
-  
-  
-</div>

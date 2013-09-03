@@ -8,7 +8,6 @@
 
 
 .add-tags{
-	margin-top:	3em;
 	
 	textarea:{
 		width:	100%;
@@ -50,6 +49,11 @@
 .dcTitle{
 	font-size:		1.4em;
 	margin-bottom:	0.75em;
+}
+
+.contribution-title.show-on-phones,
+.dcTitle.show-on-phones{
+	text-align:     center;
 }
 
 .subtitle{
@@ -112,8 +116,7 @@
 
 @media only screen and ( min-width: $break-desktop ){
 
-	.location-desc,
-	.add-tags{
+	.location-desc{
 		margin-top:	2em;
 	}
 
@@ -125,13 +128,6 @@
 
 /* NEW STUFF  */
 
-
-body{
-	margin:           0;
-	padding:          0;
-	width:            100%;
-	XXXfont-size:        1em;
-}
 
 blockquote{
 	background-color: cyan;	
@@ -158,17 +154,18 @@ blockquote{
 
 		
 .col-cell{
-	background-color: #F2F2F2;
 	font-size:        1em;
 	max-width:        33em;
 	line-height:      1.56em;
 	margin:           auto;
 	margin-bottom:    1.56em;
-	
-	XXXborder:           1px solid #D9D9D9;
-	XXXpadding:          1em;
 }
 
+.col-cell.grey{
+	background-color: #F2F2F2;
+	border:           1px solid #D9D9D9;
+	padding:          1em;
+}
 
 .container,
 .col,
@@ -179,20 +176,21 @@ blockquote{
 }
 
 
-@media all and (min-width: 54em){
+@media all and (min-width: $break-desktop){
 
+	/* clearfix */
+	/*
 	.container{
-		background-color: pink;
-		overflow: hidden; /* clearfix */
+		overflow: hidden;
 	}
-
+	*/
 
 	/* activate 3 col layout */
 
 	.col {
 		width:            33.3333%;
 		display:          inline-block;
-		background-color: yellow;
+		XXXbackground-color: yellow;
 		margin:           0;
 		float:            left;     /* start content at top of column */
 	}

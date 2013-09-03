@@ -82,43 +82,47 @@ html {
 /* line 37, sass/partials/_reset.scss */
 body {
   background-color: #fff;
+  font-size: 1em !important;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-/* line 41, sass/partials/_reset.scss */
+/* line 45, sass/partials/_reset.scss */
 img {
   max-width: 100%;
   border-style: none;
 }
 
-/* line 46, sass/partials/_reset.scss */
+/* line 50, sass/partials/_reset.scss */
 ul {
   list-style: none;
 }
 
-/* line 50, sass/partials/_reset.scss */
+/* line 54, sass/partials/_reset.scss */
 footer, header, nav, section {
   display: block;
 }
 
-@media screen and (min-width: 48em) {
-  /* line 59, sass/partials/_reset.scss */
+@media screen and (min-width: 54em) {
+  /* line 63, sass/partials/_reset.scss */
   body {
     max-width: 100em;
     margin: 0 auto;
   }
 }
-/* line 67, sass/partials/_reset.scss */
+/* line 71, sass/partials/_reset.scss */
 input[type=text],
 input[type-text]:focus {
   outline: none !important;
 }
 
-/* line 72, sass/partials/_reset.scss */
+/* line 76, sass/partials/_reset.scss */
 p {
   margin: 0 0 .9em 0;
 }
 
-/* line 76, sass/partials/_reset.scss */
+/* line 80, sass/partials/_reset.scss */
 a {
   color: #2ba6cb;
   cursor: pointer;
@@ -130,17 +134,17 @@ a {
   transition: color, 500ms, ease-out;
 }
 
-/* line 83, sass/partials/_reset.scss */
+/* line 87, sass/partials/_reset.scss */
 a:hover {
   color: #ff00c2;
 }
 
-/* line 87, sass/partials/_reset.scss */
+/* line 91, sass/partials/_reset.scss */
 img {
   border: none;
 }
 
-/* line 91, sass/partials/_reset.scss */
+/* line 95, sass/partials/_reset.scss */
 hr {
   color: #E4E4E4;
 }
@@ -196,111 +200,113 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* Needed?  Hasn't reset done this? */
+  overflow: hidden;
+  /* clearfix */
 }
 
-/* line 24, sass/partials/_layouts.scss */
+/* line 25, sass/partials/_layouts.scss */
 .v-flex-container {
   display: table;
   table-layout: fixed;
   height: 100%;
 }
 
-/* line 30, sass/partials/_layouts.scss */
+/* line 31, sass/partials/_layouts.scss */
 .v-flex {
   display: table-row;
 }
 
-/* line 34, sass/partials/_layouts.scss */
+/* line 35, sass/partials/_layouts.scss */
 .v-flex-fill {
   display: table-cell;
   height: 100%;
   vertical-align: bottom;
 }
 
-/* line 40, sass/partials/_layouts.scss */
+/* line 41, sass/partials/_layouts.scss */
 .h-flex-container {
   display: table;
   width: 100%;
   border-spacing: 0;
 }
 
-/* line 46, sass/partials/_layouts.scss */
+/* line 47, sass/partials/_layouts.scss */
 .h-flex-fill {
   display: table-cell;
   width: 100%;
 }
 
-/* line 51, sass/partials/_layouts.scss */
+/* line 52, sass/partials/_layouts.scss */
 .h-flex-fixed {
   display: table-cell;
   width: 1px;
 }
 
-@media screen and (max-width: 48em) {
-  /* line 57, sass/partials/_layouts.scss */
+@media screen and (max-width: 54em) {
+  /* line 58, sass/partials/_layouts.scss */
   .h-flex-collapse {
     display: block;
     width: auto;
   }
 }
 /* Hide / show on phones */
-/* line 65, sass/partials/_layouts.scss */
+/* line 66, sass/partials/_layouts.scss */
 .hide-on-phones {
   display: none  !important;
 }
 
-/* line 66, sass/partials/_layouts.scss */
+/* line 67, sass/partials/_layouts.scss */
 .hide-ilb-on-phones {
   display: none  !important;
 }
 
-/* line 67, sass/partials/_layouts.scss */
+/* line 68, sass/partials/_layouts.scss */
 .hide-cell-on-phones {
   display: none  !important;
 }
 
-/* line 69, sass/partials/_layouts.scss */
+/* line 70, sass/partials/_layouts.scss */
 .show-on-phones {
   display: block !important;
 }
 
-/* line 70, sass/partials/_layouts.scss */
+/* line 71, sass/partials/_layouts.scss */
 .show-ilb-on-phones {
   display: inline-block !important;
 }
 
-/* line 71, sass/partials/_layouts.scss */
+/* line 72, sass/partials/_layouts.scss */
 .show-cell-on-phones {
   display: table-cell !important;
 }
 
-@media only screen and (min-width: 48em) {
-  /* line 74, sass/partials/_layouts.scss */
+@media only screen and (min-width: 54em) {
+  /* line 75, sass/partials/_layouts.scss */
   .hide-on-phones {
     display: block			!important;
   }
 
-  /* line 75, sass/partials/_layouts.scss */
+  /* line 76, sass/partials/_layouts.scss */
   .hide-ilb-on-phones {
     display: inline-block	!important;
   }
 
-  /* line 76, sass/partials/_layouts.scss */
+  /* line 77, sass/partials/_layouts.scss */
   .hide-cell-on-phones {
     display: table-cell		!important;
   }
 
-  /* line 78, sass/partials/_layouts.scss */
+  /* line 79, sass/partials/_layouts.scss */
   .show-on-phones {
     display: none !important;
   }
 
-  /* line 79, sass/partials/_layouts.scss */
+  /* line 80, sass/partials/_layouts.scss */
   .show-ilb-on-phones {
     display: none !important;
   }
 
-  /* line 80, sass/partials/_layouts.scss */
+  /* line 81, sass/partials/_layouts.scss */
   .show-cell-on-phones {
     display: none !important;
   }
@@ -389,7 +395,7 @@ h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
   width: 99%;
 }
 
-@media only screen and (min-width: 48em) {
+@media only screen and (min-width: 54em) {
   /* line 87, sass/partials/_search-form.scss */
   #search.landing {
     margin-bottom: 3em;

@@ -787,6 +787,8 @@
 
 				// update tags display
 				var pageUrl = window.location.href;
+				pageUrl = pageUrl.indexOf('?') > -1 ? pageUrl.substr(0, pageUrl.indexOf('?')) : pageUrl; 
+					alert(pageUrl)
 				$.ajax({
 					url:  pageUrl + '/tags.json?ajax=true'
 				}).done(function(res) {
@@ -794,9 +796,16 @@
 					if(!panel.length){
 						$('#add_tags_form').before('<div class="panel tags-panel"><ul class="tags clearfix"></ul></div>');
 						var panel = $('.tags-panel ul');
+						alert("we have CREATED a tags panel");
 					}
+					else{
+						alert("we have a tags panel");
+					}
+					alert(JSON.stringify(res));
 					panel.empty();
 					$.each(res.tags, function(i, ob){
+						console.log("prepare to append... " + JSON.stringify(ob)  );
+						alert("prepare to append... " + JSON.stringify(ob)  );
 						panel.append(	'<li>'
 									+		'<a href="' + res.contrib_path.replace(/[0-9]/g, '') + 'tagged/' + ob + '">' + ob + '</a>'
 									+		'<div class="action-links">'
@@ -807,6 +816,9 @@
 									+			'</ul>'
 									+		'</div>'
 									+	'<li>');
+						console.log("done append" + i);
+						alert("done append" + i);
+
 					});
 				});
 			}

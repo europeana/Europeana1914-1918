@@ -43,28 +43,272 @@
 
 		<div class="col left">
 		
-			<p class="col-cell">
-			
-			</p>
+			<h2 class="dcTitle show-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+		
+			<div class="col-cell">
+				<div class="img-panel">
+					<% if(edmObject && edmObject.length>0) %>
+						<img src="<%=edmObject%>"/>
+					<% else %>
+						<img src="/themes/v3/images/default-image.gif"/>
+					<% end %>
+				</div>
+		
+				<% if carouselImages %>
+					<% carouselImages.each do |img| %>
+						<img src="<%=img%>" style="max-width:100px;"/>
+					<% end %>
+				<% end %>
+		
+				<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>			
+			</div>
 
-			<p class="col-cell">
-			
-			</p>
+			<div class="col-cell">
+				<% if latLong = edm_places_latlng(record['places']) %>
+					<div id="map-container">
+						<div id="map">
+							<script type="text/javascript">
+								var latLong = "<%=latLong%>".split(',');
+							</script>
+						</div>
+					</div>
+				<% end %>
+			</div>
+
 
 		</div><div class="col middle">
 		
-			<p class="col-cell">
-				Each piece of content has an optimum width. For a block of text to be comfortable to read, it should have between 60 - 70 characters per line. For DejaRip set at 16px / 1em, it should never be allowed to get wider than 528px / 33em. Elements with anger text, such as headlines, can handle being a bit wider.			
-			</p>
+			<div class="col-cell">
+			
+				<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
 
-			<p class="col-cell">
+				<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
+					<p class="subtext">
+						Contributed by <%= dcContributor %>
+					</p>
+				<% end %>
+		
+				<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
+					<p>
+						<%= dcDescription %>
+					</p>
+					<hr/>
+				<% end %>
+			
+			</div>
+			
+			
+			<div class="col-cell">
+				
+				<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
+					<p class="title">Other title(s)</p>
+					<p>
+						<%= dctermsAlternative %>
+					</p>
+				<% end %>
+
+				<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') %>
+					<p class="title">Identifier</p>
+					<p>
+						<%= dcIdentifier %>
+					</p>
+				<% end %>
+
+				<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') %>
+					<p class="title">Country</p>
+					<p>
+						<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
+					</p>
+				<% end %>
+			
+				<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
+					<p class="title">Date created / Start date</p>
+					<p>
+						<%= dcDate %>
+					</p>
+				<% end %>
+			
+				<% if dcType = edm_proxy_field(proxy, 'dcType') %>
+					<p class="title">Type</p>
+					<p>
+						<%= dcType %>
+					</p>
+				<% end %>			
+			
+				<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
+					<p class="title">Format</p>
+					<p>
+					<%= dctermsExtent %>
+					</p>
+				<% end %>			
+
+				<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
+					<p class="title">Language</p>
+					<p>
+						<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= edmLanguage %></a>
+					</p>
+				<% end %>
+
+
+				<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') %>
+					<p class="title">Provider</p>
+					<p>
+						<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
+					</p>
+				<% end %>
+			
+				<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
+					<p class="title">Data Provider</p>
+					<p>
+						<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
+					</p>
+				<% end %>
+			
+			
+				<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
+					<p class="title">Rights</p>
+					<p>
+						<%
+						rightsMap = {
+							"http://creativecommons.org/publicdomain/zero" => {
+								"text" => "CC0",
+								"icon" => "icon-cczero"
+							},
+							"http://creativecommons.org/licenses/by/" => {
+								"text" => "CC BY",
+								"icon" => "icon-cc icon-by"
+							},
+							"http://creativecommons.org/licenses/by-sa/" => {
+								"text" => "CC BY-SA",
+								"icon" => "icon-cc icon-by icon-sa"
+							},
+							"http://creativecommons.org/licenses/by-nc-sa/" => {
+								"text" => "CC BY-NC-SA",
+								"icon" => "icon-cc icon-by icon-nceu icon-sa"
+							},
+							"http://creativecommons.org/licenses/by-nd/" => {
+								"text" => "CC BY-ND",
+								"icon" => "icon-cc icon-by icon-nd"
+							},
+							"http://creativecommons.org/licenses/by-nc/" => {
+								"text" => "CC BY-NC",
+								"icon" => "icon-cc icon-by icon-nceu"
+							},
+							"http://creativecommons.org/licenses/by-nc-nd/" => {
+								"text" => "CC BY-NC-ND",
+								"icon" => "icon-cc icon-by icon-nceu icon-nd"
+							},
+							"http://creativecommons.org/publicdomain/mark/" => {
+								"text" => "Public Domain marked",
+								"icon" => "icon-pd"
+							},
+							"http://www.europeana.eu/rights/rr-f/" => {
+								"text" => "Free Access - Rights Reserved",
+								"icon" => "icon-copyright"
+							},
+							"http://www.europeana.eu/rights/rr-p/" => {
+								"text" => "Paid Access - Rights Reserved",
+								"icon" => "icon-copyright"
+							},
+							"http://www.europeana.eu/rights/rr-r/" => {
+								"text" => "Restricted Access - Rights Reserved",
+								"icon" => "icon-copyright"
+							},
+							"http://www.europeana.eu/rights/test-orphan-work-test/" => {
+								"text" => "Orphan Work",
+								"icon" => "icon-unknown"
+							},
+							"http://www.europeana.eu/rights/unknown/" => {
+								"text" => "Unknown copyright status",
+								"icon" => "icon-unknown"
+							}	
+						}
+						rightsText = rightsMap[edmRights]["text"]
+						rightsIcon = rightsMap[edmRights]["icon"]
+						%>
+						<a href="<%= edmRights %>" target="_new"><span class="<%= rightsIcon %>">  <%= rightsText %>  </span></a> 
+					</p>
+				<% end %>
+
+
+				<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') %>
+					<p class="title">Publisher</p>
+					<p>
+						<%= dcPublisher %>
+					</p>
+				<% end %>
+
+
+
+				<% if edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt') && edmDataProvider %>
+					<p class="title">View on partner's website</p>
+					<p>
+						<a href="<%= edmIsShownAt %>"><%= edmDataProvider %></a>
+					</p>
+				<% end %>
+							
+			</div>
+
+
+			<ul class="col-cell">
+
+				<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
+					<li>
+						<span class="title">
+							dc:coverage
+						</span>
+						<span>
+							<%= dcCoverage %>
+						</span>
+					</li>
+				<% end %>
+
+				<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
+					<li>
+						<span class="title">
+							dc:subject
+						</span>
+						<span>
+							<%= dcSubject %>
+						</span>
+					</li>
+				<% end %>
+
+				<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
+					<li>
+						<span class="title">
+							dc:language
+						</span>
+						<span>
+							<%= dcLanguage %>
+						</span>
+					</li>
+				<% end %>
+
+				<% if contextInformation = edm_proxy_field(record, 'Context information') %>
+					<li>
+						<span class="title">
+							Context Information
+						</span>
+						<span>
+							<%= contextInformation %>
+						</span>
+					</li>
+				<% end %>
+
+			</ul>
+
+
+
+			
+			<!--p class="col-cell">
 				If an element appears in a blockquote it gets really big, and can span several columns:
 
 				<blockquote>
 					Here is some blockquoted text.
-				</blockquote>			
-			</p>
+				</blockquote>
+			</p-->
 
 
 
@@ -74,272 +318,9 @@
 	</div> <!-- end container -->
 
 
-
-
-	<div><h1>END</h1></div>
-
-
 	<!-- END NEW GRID -->
 
 
-
-
-	<!-- OLD STUFF -->
-
-	<div class="one-half-left">
-
-		<div class="img-panel">
-		
-			<% if(edmObject && edmObject.length>0) %>
-				<img src="<%=edmObject%>"/>
-			<% else %>
-				<img src="/themes/v3/images/default-image.gif"/>
-			<% end %>
-			
-		</div>
-		
-		<% if carouselImages %>
-			<% carouselImages.each do |img| %>
-				<img src="<%=img%>" style="max-width:100px;"/>
-			<% end %>
-		<% end %>
-		
-		<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>
-
-		<div class="panel">
-		
-			<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
-				<p class="title">Other title(s)</p>
-				<p>
-					<%= dctermsAlternative %>
-				</p>
-			<% end %>
-
-			<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') %>
-				<p class="title">Identifier</p>
-				<p>
-					<%= dcIdentifier %>
-				</p>
-			<% end %>
-
-			<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') %>
-				<p class="title">Country</p>
-				<p>
-					<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
-				</p>
-			<% end %>
-			
-			<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
-				<p class="title">Date created / Start date</p>
-				<p>
-					<%= dcDate %>
-				</p>
-			<% end %>
-			
-			<% if dcType = edm_proxy_field(proxy, 'dcType') %>
-				<p class="title">Type</p>
-				<p>
-					<%= dcType %>
-				</p>
-			<% end %>			
-			
-			<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
-				<p class="title">Format</p>
-				<p>
-					<%= dctermsExtent %>
-				</p>
-			<% end %>			
-
-			<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
-				<p class="title">Language</p>
-				<p>
-					<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= edmLanguage %></a>
-				</p>
-			<% end %>
-
-
-			<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') %>
-				<p class="title">Provider</p>
-				<p>
-					<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
-				</p>
-			<% end %>
-			
-			<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
-				<p class="title">Data Provider</p>
-				<p>
-					<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
-				</p>
-			<% end %>
-			
-			
-			<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
-				<p class="title">Rights</p>
-				<p>
-					<%
-					rightsMap = {
-						"http://creativecommons.org/publicdomain/zero" => {
-							"text" => "CC0",
-							"icon" => "icon-cczero"
-						},
-						"http://creativecommons.org/licenses/by/" => {
-							"text" => "CC BY",
-							"icon" => "icon-cc icon-by"
-						},
-						"http://creativecommons.org/licenses/by-sa/" => {
-							"text" => "CC BY-SA",
-							"icon" => "icon-cc icon-by icon-sa"
-						},
-						"http://creativecommons.org/licenses/by-nc-sa/" => {
-							"text" => "CC BY-NC-SA",
-							"icon" => "icon-cc icon-by icon-nceu icon-sa"
-						},
-						"http://creativecommons.org/licenses/by-nd/" => {
-							"text" => "CC BY-ND",
-							"icon" => "icon-cc icon-by icon-nd"
-						},
-						"http://creativecommons.org/licenses/by-nc/" => {
-							"text" => "CC BY-NC",
-							"icon" => "icon-cc icon-by icon-nceu"
-						},
-						"http://creativecommons.org/licenses/by-nc-nd/" => {
-							"text" => "CC BY-NC-ND",
-							"icon" => "icon-cc icon-by icon-nceu icon-nd"
-						},
-						"http://creativecommons.org/publicdomain/mark/" => {
-							"text" => "Public Domain marked",
-							"icon" => "icon-pd"
-						},
-						"http://www.europeana.eu/rights/rr-f/" => {
-							"text" => "Free Access - Rights Reserved",
-							"icon" => "icon-copyright"
-						},
-						"http://www.europeana.eu/rights/rr-p/" => {
-							"text" => "Paid Access - Rights Reserved",
-							"icon" => "icon-copyright"
-						},
-						"http://www.europeana.eu/rights/rr-r/" => {
-							"text" => "Restricted Access - Rights Reserved",
-							"icon" => "icon-copyright"
-						},
-						"http://www.europeana.eu/rights/test-orphan-work-test/" => {
-							"text" => "Orphan Work",
-							"icon" => "icon-unknown"
-						},
-						"http://www.europeana.eu/rights/unknown/" => {
-							"text" => "Unknown copyright status",
-							"icon" => "icon-unknown"
-						}	
-					}
-					rightsText = rightsMap[edmRights]["text"]
-					rightsIcon = rightsMap[edmRights]["icon"]
-					%>
-					<a href="<%= edmRights %>" target="_new"><span class="<%= rightsIcon %>">  <%= rightsText %>  </span></a> 
-				</p>
-			<% end %>
-
-
-			<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') %>
-				<p class="title">Publisher</p>
-				<p>
-					<%= dcPublisher %>
-				</p>
-			<% end %>
-
-
-
-			<% if edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt') && edmDataProvider %>
-				<p class="title">View on partner's website</p>
-				<p>
-					<a href="<%= edmIsShownAt %>"><%= edmDataProvider %></a>
-				</p>
-			<% end %>
-
-		</div>
-		
-		
-		<% if latLong = edm_places_latlng(record['places']) %>
-			<div id="map-container">
-				<div id="map">
-					<script type="text/javascript">
-						var latLong = "<%=latLong%>".split(',');
-					</script>
-				</div>
-			</div>
-		<% end %>
-		
-	</div>
-
-
-	<div class="one-half-right meta">
-		<h2 class="dcTitle"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-
-
-		<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
-			<p class="subtext">
-				Contributed by <%= dcContributor %>
-			</p>
-		<% end %>
-		
-		<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
-			<p>
-				<%= dcDescription %>
-			</p>
-			<hr/>
-		<% end %>
-
-		<ul>
-
-			<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
-				<li>
-					<span class="title">
-						dc:coverage
-					</span>
-					<span>
-						<%= dcCoverage %>
-					</span>
-				</li>
-			<% end %>
-
-			<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
-				<li>
-					<span class="title">
-						dc:subject
-					</span>
-					<span>
-						<%= dcSubject %>
-					</span>
-				</li>
-			<% end %>
-
-			<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
-				<li>
-					<span class="title">
-						dc:language
-					</span>
-					<span>
-						<%= dcLanguage %>
-					</span>
-				</li>
-			<% end %>
-
-
-
-			<% if contextInformation = edm_proxy_field(record, 'Context information') %>
-				<li>
-					<span class="title">
-						Context Information
-					</span>
-					<span>
-						<%= contextInformation %>
-					</span>
-				</li>
-			<% end %>
-
-		</ul>
-	</div>
-
-<div style="clear:both;">
 
 
 
@@ -348,15 +329,25 @@
 <%# begin initial contributions/show record view %>
 <% if @contribution %>
 
+    <div class="nav-top">
+        <% if referred_by_search? %>
+            <%= link_to t('views.links.back-to-search'), :back %>
+        <% elsif true %>
+            <%= link_to t('views.links.back-to-search'), :back %>
+        <% end %>
 
+        <%= render :partial => '/layouts/navigation/sharethis' %>
 
-
+        <div id="shareicons">
+            <span class='st_sharethis' displayText='&nbsp;'></span>
+        </div>
+    </div>
 
 
 	<!-- NEW GRID -->
 
 
-	<div class="container">
+	<!-- div class="container"  -->
 
       <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? %>
         <div class="section action-links top">
@@ -389,304 +380,279 @@
         </div>
       <% end %>
 
+		<%# Left column %>
 
 		<div class="col left">
 		
-			<p class="col-cell">
-				2nd block: the left col, paragraph 1.
-			</p>
-
-			<p class="col-cell">
-				2nd block: the left col, paragraph 2.			
-			</p>
-
-		</div><div class="col middle">
+			<h2 class="contribution-title show-on-phones"><%= contribution_title(@contribution) %></h2>
 		
-			<p class="col-cell">
-				2nd block: each piece of content has an optimum width. For a block of text to be comfortable to read, it should have between 60 - 70 characters per line. For DejaRip set at 16px / 1em, it should never be allowed to get wider than 528px / 33em. Elements with anger text, such as headlines, can handle being a bit wider.			
-			</p>
+			<div class="col-cell grey">
+				<%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+				<ul id="thumbnail-counts"></ul>
+			</div>
+
+			<%# Leaflet map container %>
+
+			<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 %>
+				<div id="map-container" class="col-cell grey">
+					<div id="map">
+						<script type="text/javascript">
+       						var latLong  = "<%= @contribution.metadata['field_location_map'] %>".split(',');
+       						var mapZoom  = "<%= @contribution.metadata['location_zoom'] %>";
+       						var mapPlace = "<%= @contribution.metadata['location_placename'] %>";
+	        			</script>
+					</div>
+				</div>
+			<% end %>
+
+			<div class="col-cell">
+			    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+			</div>
+
+		</div>	<%# end left col %>
+		
+		<%# Middle column %>
+		
+		<div class="col middle">
+		
+			<div class="col-cell">
+				<h2 class="contribution-title hide-on-phones"><%= contribution_title(@contribution) %></h2>			
+			</div>
+
+			<div class="col-cell">
+				<dl id="story-metadata" class="metadata">
+					<%=
+						render	:partial => '/metadata/display',
+								:locals => {
+        							:show_title => false,
+									:contribution => @contribution,
+									:metadata => @contribution.metadata,
+									:field_options => {
+										:cataloguing => false,
+										:contribution => true,
+										:name => [
+											'alternative',
+											'description',
+											'creator_family_name',
+											'creator_given_name'
+										],
+										:name_order => true
+									}
+								}
+					%>
+					<% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? %>
+						<dt><b><%= contribution_field_title('contributor') %></b></dt>
+						<dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
+					<% end %>
+					
+					<%=
+						render :partial => '/metadata/display',
+						:locals => {
+							:show_title => false,
+							:contribution => @contribution,
+							:metadata => @contribution.metadata,
+							:field_options => {
+								:cataloguing => false,
+								:contribution => true,
+								:name => [
+									'contributor_behalf'
+								],
+								:name_order => true
+							}
+						}
+					%>
+      				<% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? %>
+						<dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
+						<dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
+						<%=
+							render :partial => '/metadata/display',
+							:locals => {
+								:show_title => false,
+								:contribution => @contribution,
+								:metadata => @contribution.metadata,
+								:field_options => {
+									:cataloguing => false,
+									:contribution => true,
+									:name => [
+										'character1_dob',
+										'character1_pob',
+										'character1_dod',
+										'character1_pod'
+									],
+									:name_order => true
+								}
+							}
+						%>
+					<% end %>
+      				<% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
+						<dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
+						<dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
+						<%=
+							render :partial => '/metadata/display',
+							:locals => {
+								:show_title => false,
+								:contribution => @contribution,
+								:metadata => @contribution.metadata,
+								:field_options => {
+									:cataloguing => false,
+									:contribution => true,
+									:name => [
+										'character2_dob',
+										'character2_pob',
+										'character2_dod',
+										'character2_pod'
+									],
+									:name_order => true
+								}
+							}
+						%>
+					<% end %>
+					
+					<%=
+						render :partial => '/metadata/display',
+						:locals => {
+							:show_title => false,
+							:contribution => @contribution,
+							:metadata => @contribution.metadata,
+							:field_options => {
+								:cataloguing => false,
+								:contribution => true,
+								:name => [
+									'subject',
+									'summary',
+									'date_from', # use this field to summarize the date fields
+									'date_to', # do we need to display this field if date_from takes care of all possibilities?
+									'lang',
+									'lang_other',
+									'keywords',
+									'theatres',
+									'forces',
+									#'content',
+									#'author',
+									#'page_number',
+									#'page_total',
+									#'notes',
+									#'object_side',
+									#'cover_image',
+									#'license',
+									#'attachment_description',
+									# need these to be available for google map
+									# they are output as input type="hidden"
+									#'location_map',
+									#'location_placename',
+									#'location_zoom'          
+								],
+								:name_order => true
+							}
+						}
+					%>
+					<% if current_user.may_catalogue_contributions? %>
+						<%=
+							render :partial => '/metadata/display',
+								:locals => {
+									:show_title => false,
+									:contribution => @contribution,
+									:metadata => @contribution.metadata,
+									:field_options => {
+										:cataloguing => true,
+										:contribution => true,
+										:name => [
+											'ticket',
+											#'cataloguer', # this is the old cataloguer field (see story 074)
+										],
+										:name_order => true
+									}
+								}
+        				%>
+	        			<dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
+    	    			<dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
+						<%=
+							render :partial => '/metadata/display',
+								:locals => {
+									:show_title => false,
+									:contribution => @contribution,
+									:metadata => @contribution.metadata,
+									:field_options => {
+										:cataloguing => true,
+										:contribution => true,
+										:name => [
+											'file_type',
+											'source',
+											'format', # this can also be considered the medium
+											'collection_day',
+											'editor_pick_text',
+											'editor_pick_sig',
+											'editor_pick',
+											'date'
+										],
+										:name_order => true
+									}
+								}
+						%>
+						<dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
+						<dd><%= l @contribution.created_at, :format => :short %></dd>
+					<% end %>
+				</dl>
+
+				<% if @contribution.contributor.picture.present? %>
+					<%
+						people = {
+							:contributor => @contribution.contact.full_name,
+							:principal =>   @contribution.metadata.fields['contributor_behalf'],
+							:character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
+							:character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
+						}
+					%>
+					<div id="avatar" class="responsive-box">
+						<%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
+						<% if people[:contributor].present? %>
+							<%= people[:contributor] %>
+							<%#= people[:principal] %>
+							<% if people[:character1].present? || people[:character2].present? %>
+								<%= t('views.contributions.show.shared-this-story') %>
+								<%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
+							<% end %>
+						<% end %>
+					</div>
+				<% end %>
+				
+				
+				<div class="comments" style="margin-top: 3em; clear:both;">
+					<h3>Comments</h3>
+					<hr style="color:#dadada"/>
+					There are no comments, why not add one below....
+					<br />
+					<br />
+					<h3>Leave a Comment</h3>
+					<div>
+						<div style="float:left; width:20%">
+							Photo
+							<br>
+							Tagline
+						</div>
+						<div style="float:left; width:80%">
+							<textarea style="width:100%;"></textarea>
+							<br/>
+							<br/>
+							<input type="submit" class="europeana-button" value="Submit Comment"/>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		<%# End middle column %>
 
 
-			<p class="col-cell">
-				If an element appears in a blockquote it gets really big, and can span several columns:
-
-				<blockquote>
-					Here is some blockquoted text.
-				</blockquote>			
-			</p>
-
-
-
-		</div> <!-- end col middle -->
-
-
-	</div> <!-- end container -->
-
-
-
-
-	<div><h1>END</h1></div>
+	<!--/div--> <!-- end container -->
 
 
 	<!-- END NEW GRID -->
-
-
-
-
-
-
-
-
-
-
-<div class="section top">
-
-  <div class="nav-top">
-
-		<% if referred_by_search? %>
-			<%= link_to t('views.links.back-to-search'), :back %>
-		<% elsif true %>
-			<%= link_to t('views.links.back-to-search'), :back %>
-		<% end %>
-
-		<%= render :partial => '/layouts/navigation/sharethis' %>
-
-		<div id="shareicons">
-			<span class='st_sharethis' displayText='&nbsp;'></span>
-		</div>
-
-  </div>
-
-  <h2><%= contribution_title(@contribution) %></h2>
-
-  <div class="one-half-left">
-
-    <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
-
-    <ul id="thumbnail-counts"></ul>
-
-	<!-- Leaflet map container-->
-
-	<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 %>
-		<div id="map-container">
-			<div id="map">
-				<script type="text/javascript">
-        			var latLong  = "<%= @contribution.metadata['field_location_map'] %>".split(',');
-        			var mapZoom  = "<%= @contribution.metadata['location_zoom'] %>";
-        			var mapPlace = "<%= @contribution.metadata['location_placename'] %>";
-        			
-		        </script>
-			</div>
-		</div>
-	<% end %>
-    
-    
-    
-   	<div class="panel">
-      <dl id="story-metadata" class="metadata">
-      <%=
-       render :partial => '/metadata/display',
-        :locals => {
-        :show_title => false,
-        :contribution => @contribution,
-        :metadata => @contribution.metadata,
-        :field_options => {
-          :cataloguing => false,
-          :contribution => true,
-          :name => [
-            'alternative',
-            'description',
-            'creator_family_name',
-            'creator_given_name',
-          ],
-          :name_order => true
-          }
-        }
-      %>
-      <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? %>
-        <dt><b><%= contribution_field_title('contributor') %></b></dt>
-        <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
-      <% end %>
-      <%=
-        render :partial => '/metadata/display',
-        :locals => {
-        :show_title => false,
-        :contribution => @contribution,
-        :metadata => @contribution.metadata,
-        :field_options => {
-          :cataloguing => false,
-          :contribution => true,
-          :name => [
-          'contributor_behalf'
-          ],
-          :name_order => true
-          }
-        }
-      %>
-      <% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? %>
-        <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
-        <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
-        <%=
-        render :partial => '/metadata/display',
-          :locals => {
-          :show_title => false,
-          :contribution => @contribution,
-          :metadata => @contribution.metadata,
-          :field_options => {
-            :cataloguing => false,
-            :contribution => true,
-            :name => [
-            'character1_dob',
-            'character1_pob',
-            'character1_dod',
-            'character1_pod',
-            ],
-            :name_order => true
-            }
-          }
-        %>
-      <% end %>
-      <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
-        <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
-        <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
-        <%=
-          render :partial => '/metadata/display',
-          :locals => {
-            :show_title => false,
-            :contribution => @contribution,
-            :metadata => @contribution.metadata,
-            :field_options => {
-            :cataloguing => false,
-            :contribution => true,
-            :name => [
-              'character2_dob',
-              'character2_pob',
-              'character2_dod',
-              'character2_pod',
-            ],
-            :name_order => true
-            }
-          }
-        %>
-      <% end %>
-      <%=
-        render :partial => '/metadata/display',
-        :locals => {
-        :show_title => false,
-        :contribution => @contribution,
-        :metadata => @contribution.metadata,
-        :field_options => {
-          :cataloguing => false,
-          :contribution => true,
-          :name => [
-
-          'subject',
-          'summary',
-
-          'date_from', # use this field to summarize the date fields
-          'date_to', # do we need to display this field if date_from takes care of all possibilities?
-
-          'lang',
-          'lang_other',
-          'keywords',
-          'theatres',
-          'forces',
-
-          #'content',
-          #'author',
-          #'page_number',
-          #'page_total',
-          #'notes',
-          #'object_side',
-          #'cover_image',
-          #'license',
-          #'attachment_description',
-
-          # need these to be available for google map
-          # they are output as input type="hidden"
-          #'location_map',
-          #'location_placename',
-          #'location_zoom'
-          
-          ],
-          :name_order => true
-          }
-        }
-      %>
-      <% if current_user.may_catalogue_contributions? %>
-        <%=
-        render :partial => '/metadata/display',
-          :locals => {
-            :show_title => false,
-            :contribution => @contribution,
-            :metadata => @contribution.metadata,
-            :field_options => {
-            :cataloguing => true,
-            :contribution => true,
-            :name => [
-              'ticket',
-              #'cataloguer', # this is the old cataloguer field (see story 074)
-              ],
-            :name_order => true
-            }
-          }
-        %>
-        <dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
-        <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
-        <%=
-        render :partial => '/metadata/display',
-          :locals => {
-          :show_title => false,
-          :contribution => @contribution,
-          :metadata => @contribution.metadata,
-          :field_options => {
-          :cataloguing => true,
-          :contribution => true,
-            :name => [
-              'file_type',
-              'source',
-              'format', # this can also be considered the medium
-              'collection_day',
-              'editor_pick_text',
-              'editor_pick_sig',
-              'editor_pick',
-              'date',
-              ],
-              :name_order => true
-            }
-          }
-        %>
-        <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
-        <dd><%= l @contribution.created_at, :format => :short %></dd>
-      <% end %>
-      </dl>
-
-      <% if @contribution.contributor.picture.present? %>
-        <%
-          people = {
-            :contributor => @contribution.contact.full_name,
-            :principal =>   @contribution.metadata.fields['contributor_behalf'],
-            :character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
-            :character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
-          }
-        %>
-        <div id="avatar" class="responsive-box">
-          <%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
-          <% if people[:contributor].present? %>
-            <%= people[:contributor] %>
-            <%#= people[:principal] %>
-            <% if people[:character1].present? || people[:character2].present? %>
-              <%= t('views.contributions.show.shared-this-story') %>
-              <%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-	</div>
-
-    
-    
-    
+	
+	
+	<div class="one-half-left">
 
     <!-- <div id="banner"> -->
     <%
@@ -699,39 +665,6 @@
     #  }
     %>
     <!-- </div> -->
-    
-    
-    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
-
-  </div>
-
-  <div id="story-info" class="one-half-right">
-
-
-	<div class="comments" style="margin-top: 3em; clear:both;">
-		<h3>Comments</h3>
-		<hr style="color:#dadada"/>
-
-		There are no comments, why not add one below....
-		<br>
-		<br>
-		<h3>Leave a Comment</h3>
-
-		<div>
-			<div style="float:left; width:20%">
-				Photo
-				<br>
-				Tagline
-			</div>
-			<div style="float:left; width:80%">
-				<textarea style="width:100%;"></textarea>
-				<br/>
-				<br/>
-				<input type="submit" class="europeana-button" value="Submit Comment"/>
-			</div>
-		</div>
-
-    </div>
 
   </div>
 

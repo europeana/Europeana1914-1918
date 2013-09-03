@@ -17,6 +17,7 @@
 
 	@include box-sizing(border-box);	/* Needed?  Hasn't reset done this? */
 
+	overflow: hidden; /* clearfix */
 }
 
 
@@ -53,7 +54,7 @@
 	width: 			1px;
 }
 
-@media screen and (max-width: 48em) {
+@media screen and (max-width: $break-desktop) {
 	.h-flex-collapse{
 		display:		block;
 		width:			auto;
@@ -70,7 +71,7 @@
 .show-ilb-on-phones	{display:inline-block !important;}
 .show-cell-on-phones{display:table-cell !important;}
 
-@media only screen and ( min-width:	48em ){
+@media only screen and ( min-width:	$break-desktop ){
 	.hide-on-phones			{display:block			!important;}	
 	.hide-ilb-on-phones		{display:inline-block	!important;}	
 	.hide-cell-on-phones	{display:table-cell		!important;}	
