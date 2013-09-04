@@ -107,7 +107,11 @@ module Europeana
           graph.query(:predicate => RDF::DC.alternative) do |solution|
             result["dctermsAlternative"] = [ solution.object.to_s ]
           end
-          result["edmPreview"] = [ @source.attachments.cover_image.thumbnail_url(:preview) ]
+          if cover_image = @source.attachments.cover_image
+            result["edmPreview"] = [ cover_image.thumbnail_url(:preview) ]
+          else
+            result["edmPreview"] = ""
+          end
           result["guid"] = provided_cho_uri.to_s
           result["provider"] = [
             "Europeana 1914 - 1918"
