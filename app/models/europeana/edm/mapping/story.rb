@@ -107,7 +107,11 @@ module Europeana
           graph.query(:predicate => RDF::DC.alternative) do |solution|
             result["dctermsAlternative"] = [ solution.object.to_s ]
           end
-          result["edmPreview"] = [ @source.attachments.cover_image.thumbnail_url(:preview) ]
+          if cover_image = @source.attachments.cover_image
+            result["edmPreview"] = [ cover_image.thumbnail_url(:preview) ]
+          else
+            result["edmPreview"] = ""
+          end
           result["guid"] = provided_cho_uri.to_s
           result["provider"] = [
             "Europeana 1914 - 1918"
@@ -127,9 +131,11 @@ module Europeana
           }
           
           graph = to_rdf_graph
-          @source.attachments[1..-1].each do |attachment|
-            attachment.edm.to_rdf_graph.each do |statement|
-              graph << statement
+          if @source.attachments.size > 1
+            @source.attachments[1..-1].each do |attachment|
+              attachment.edm.to_rdf_graph.each do |statement|
+                graph << statement
+              end
             end
           end
           
@@ -211,8 +217,10 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.temporal)
           end
           
-          @source.attachments[1..-1].each do |attachment|
-            graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
+          if @source.attachments.size > 1
+            @source.attachments[1..-1].each do |attachment|
+              graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
+            end
           end
           
           graph

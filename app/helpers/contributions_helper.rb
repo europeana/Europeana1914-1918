@@ -107,8 +107,12 @@ module ContributionsHelper
   
   def contribution_media_type_image_path(id)
     contribution = Contribution.find(id)
-    filename = contribution.attachments.cover_image.file.original_filename
-    media_type = file_media_type(filename)
+    if cover_image = contribution.attachments.cover_image
+      filename = cover_image.file.original_filename
+      media_type = file_media_type(filename)
+    else
+      media_type = "unknown"
+    end
     file_media_type_image_path(media_type)
   end
   
