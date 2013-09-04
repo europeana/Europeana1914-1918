@@ -239,9 +239,9 @@ protected
     else
       data = case format
         when :nt
-          @attachment.to_ntriples
+          @attachment.edm.to_ntriples
         when :xml
-          @attachment.to_rdfxml
+          @attachment.edm.to_rdfxml
       end
       write_fragment(cache_key, data.to_yaml)
     end
