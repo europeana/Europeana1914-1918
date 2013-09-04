@@ -4,22 +4,17 @@ module Europeana
       ##
       # Maps a +Contribution+ to EDM
       #
-      module Story
+      class Story < Base
       
-        def self.included(base)
-          base.class_eval do
-            include EDM::Mapping
-            has_rdf_graph_methods :edm_provided_cho, :edm_web_resource, :ore_aggregation
-          end
-        end
+        has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation
         
         ##
         # The edm:ProvidedCHO URI of this contribution
         #
         # @return [RDF::URI] URI
         #
-        def edm_provided_cho_uri
-          @edm_provided_cho_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/contributions/" + id.to_s)
+        def provided_cho_uri
+          @provided_cho_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/contributions/" + @source.id.to_s)
         end
         
         ##
@@ -27,8 +22,8 @@ module Europeana
         #
         # @return [RDF::URI] URI
         #
-        def edm_web_resource_uri
-          @edm_web_resource_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/en/contributions/" + id.to_s)
+        def web_resource_uri
+          @web_resource_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/en/contributions/" + @source.id.to_s)
         end
         
         ##
@@ -37,7 +32,7 @@ module Europeana
         # @return [RDF::URI] URI
         #
         def ore_aggregation_uri
-          @ore_aggregation_uri ||= RDF::URI.parse("europeana19141918:aggregation/contribution/" + id.to_s)
+          @ore_aggregation_uri ||= RDF::URI.parse("europeana19141918:aggregation/contribution/" + @source.id.to_s)
         end
         
         ##
@@ -50,7 +45,7 @@ module Europeana
         # @return [Hash] Representation of EDM metadata record
         # @see http://www.europeana.eu/portal/api-record-json.html
         #
-        def to_edm_record
+        def as_record
           graph = to_rdf_graph
           record = {}
           
@@ -64,7 +59,7 @@ module Europeana
           end
           
           proxy = { }
-          graph.query(:subject => edm_provided_cho_uri).each do |statement|
+          graph.query(:subject => provided_cho_uri).each do |statement|
             qname = statement.predicate.qname
             if [ :dc, :edm, :dc_element ].include?(qname.first)
               field_name = qname.first.to_s + qname.last.to_s[0].upcase + qname.last.to_s[1..-1]
@@ -99,7 +94,7 @@ module Europeana
         # @return [Hash] Partial EDM record for this story
         # @see http://www.europeana.eu/portal/api-search-json.html#item
         #
-        def to_edm_result(options = {})
+        def as_result(options = {})
           graph = to_rdf_graph
           result = {}
           
@@ -113,7 +108,7 @@ module Europeana
             result["dctermsAlternative"] = [ solution.object.to_s ]
           end
           result["edmPreview"] = [ attachments.cover_image.thumbnail_url(:preview) ]
-          result["guid"] = edm_provided_cho_uri.to_s
+          result["guid"] = provided_cho_uri.to_s
           result["provider"] = [
             "Europeana 1914 - 1918"
           ]
@@ -121,21 +116,33 @@ module Europeana
           result
         end
         
+        def to_rdf_graph
+          graph = super
+          
+          @source.attachments[1..-1].each do |attachment|
+            attachment.edm.to_rdf_graph.each do |statement|
+              graph << statement
+            end
+          end
+          
+          graph
+        end
+        
         ##
         # Constructs the edm:ProvidedCHO for this story
         #
         # @return [RDF::Graph] RDF graph of the edm:ProvidedCHO
         #
-        def edm_provided_cho
+        def provided_cho
           graph = RDF::Graph.new
-          meta = metadata.fields
-          uri = edm_provided_cho_uri
+          meta = @source.metadata.fields
+          uri = provided_cho_uri
           
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
-          graph << [ uri, RDF::DCElement.identifier, id.to_s ]
-          graph << [ uri, RDF::DCElement.title, title ]
+          graph << [ uri, RDF::DCElement.identifier, @source.id.to_s ]
+          graph << [ uri, RDF::DCElement.title, @source.title ]
           graph << [ uri, RDF::DCElement.date, meta['date'] ] unless meta["date"].blank?
-          graph << [ uri, RDF::DC.created, created_at.to_s ]
+          graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
           graph << [ uri, RDF::EDM.type, "TEXT" ]
           graph << [ uri, RDF::DCElement.description, meta["description"] ] unless meta["description"].blank?
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
@@ -151,7 +158,7 @@ module Europeana
             end
           end
           
-          contributor_full_name = meta["contributor_behalf"].present? ? meta["contributor_behalf"] : contributor.contact.full_name
+          contributor_full_name = meta["contributor_behalf"].present? ? meta["contributor_behalf"] : @source.contributor.contact.full_name
           unless contributor_full_name.blank?
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => contributor_full_name).append_to(graph, uri, RDF::DCElement.contributor)
           end
@@ -194,8 +201,8 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.temporal)
           end
           
-          attachments.each do |attachment|
-            graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm_provided_cho_uri) ]
+          @source.attachments[1..-1].each do |attachment|
+            graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
           end
           
           graph
@@ -206,19 +213,12 @@ module Europeana
         #
         # @return [RDF::Graph] RDF graph of the edm:WebResource
         #
-        def edm_web_resource
-          graph = RDF::Graph.new
-          meta = metadata.fields
-          uri = edm_web_resource_uri
-          
-          graph << [ uri, RDF.type, RDF::EDM.WebResource ]
-          graph << [ uri, RDF::DCElement.description, created_at.to_s ]
-          graph << [ uri, RDF::DCElement.format, "TEXT" ]
-          graph << [ uri, RDF::DC.created, created_at.to_s ]
-          graph << [ uri, RDF::DC.created, meta["collection_day"].first ] unless meta["collection_day"].blank?
-          graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
-          
-          graph
+        def web_resource
+          if @source.attachments.first.present?
+            @source.attachments.first.edm.web_resource
+          else
+            RDF::Graph.new
+          end
         end
         
         ##
@@ -231,8 +231,9 @@ module Europeana
           uri = ore_aggregation_uri
           
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
-          graph << [ uri, RDF::EDM.aggregatedCHO, edm_provided_cho_uri ]
-          graph << [ uri, RDF::EDM.isShownAt, edm_web_resource_uri ]
+          graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
+          graph << [ uri, RDF::EDM.isShownAt, web_resource_uri ]
+          graph << [ uri, RDF::EDM.isShownBy, @source.attachments.first.edm.web_resource_uri ] unless @source.attachments.first.blank?
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
           
           graph

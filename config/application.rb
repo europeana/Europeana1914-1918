@@ -44,3 +44,5 @@ module RunCoCo
     config.filter_parameters += [:password]
   end
 end
+
+require 'europeana/edm/mapping/railtie'

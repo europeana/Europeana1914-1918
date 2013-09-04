@@ -244,7 +244,7 @@ class ContributionsController < ApplicationController
           "success" => true,
           "itemsCount" => @results.size,
           "totalResults" => @results.total_entries,
-          "items" => @results.collect(&:to_edm_result),
+          "items" => @results.collect { |contribution| contribution.edm.as_result },
           "facets" => @facets,
           "params" => {
             "start" => @results.offset + 1,
@@ -341,11 +341,11 @@ protected
     else
       data = case format
         when :json
-          { :result => 'success', :object => @contribution.to_edm_record }
+          { :result => 'success', :object => @contribution.edm.as_record }
         when :nt
-          @contribution.to_ntriples
+          @contribution.edm.to_ntriples
         when :xml
-          @contribution.to_rdfxml
+          @contribution.edm.to_rdfxml
       end
       write_fragment(cache_key, data.to_yaml)
     end

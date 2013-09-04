@@ -4,13 +4,35 @@ module Europeana
       ##
       # Maps an +Attachment+ to EDM
       #
-      module Item
+      class Item < Base
       
-        def self.included(base)
-          base.class_eval do
-            include EDM::Mapping
-            has_rdf_graph_methods :edm_provided_cho, :edm_web_resource, :ore_aggregation
-          end
+        has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation
+        
+        ##
+        # The edm:ProvidedCHO URI of this attachment
+        #
+        # @return [RDF::URI] URI
+        #
+        def provided_cho_uri
+          @provided_cho_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/contributions/" + @source.contribution_id.to_s + "/attachments/" + @source.id.to_s)
+        end
+        
+        ##
+        # The edm:WebResource URI of this attachment
+        #
+        # @return [RDF::URI] URI
+        #
+        def web_resource_uri
+          @web_resource_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + @source.file.url(:original, :timestamp => false))
+        end
+        
+        ##
+        # The ore:Aggregation URI of this attachment
+        #
+        # @return [RDF::URI] URI
+        #
+        def ore_aggregation_uri
+          @ore_aggregation_uri ||= RDF::URI.parse("europeana19141918:aggregation/attachment/" + @source.id.to_s)
         end
         
         ##
@@ -18,20 +40,20 @@ module Europeana
         #
         # @return [RDF::Graph] RDF graph of the edm:ProvidedCHO
         #
-        def edm_provided_cho
+        def provided_cho
           graph = RDF::Graph.new
-          meta = metadata.fields
-          item_index = contribution.attachment_ids.find_index(id)
-          next_in_sequence = contribution.attachments[item_index + 1]
-          uri = edm_provided_cho_uri
+          meta = @source.metadata.fields
+          item_index = @source.contribution.attachment_ids.find_index(@source.id)
+          next_in_sequence = @source.contribution.attachments[item_index + 1]
+          uri = provided_cho_uri
           
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
-          graph << [ uri, RDF::DCElement.identifier, id.to_s ]
-          if title.present?
-            graph << [ uri, RDF::DCElement.title, title ]
+          graph << [ uri, RDF::DCElement.identifier, @source.id.to_s ]
+          if @source.title.present?
+            graph << [ uri, RDF::DCElement.title, @source.title ]
           else
             item_pos = item_index + 1
-            rdf_title = contribution.title + ', item ' + item_pos.to_s
+            rdf_title = @source.contribution.title + ', item ' + item_pos.to_s
             graph << [ uri, RDF::DCElement.title, rdf_title ]
           end
           
@@ -48,10 +70,10 @@ module Europeana
           graph << [ uri, RDF::DC.created, meta["date"] ] unless meta["date"].blank?
           graph << [ uri, RDF::DC.extent, meta["page_total"] ] unless meta["page_total"].blank?
           graph << [ uri, RDF::DC.extent, meta["page_number"] ] unless meta["page_number"].blank?
-          graph << [ uri, RDF::DC.isPartOf, contribution.edm_provided_cho_uri ]
+          graph << [ uri, RDF::DC.isPartOf, @source.contribution.edm.provided_cho_uri ]
           graph << [ uri, RDF::DC.medium, meta["format"].first ] unless meta["format"].blank?
           graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
-          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm_provided_cho_uri ] unless next_in_sequence.blank?
+          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm.provided_cho_uri ] unless next_in_sequence.blank?
           graph << [ uri, RDF::EDM.type, meta["file_type"].first ] unless meta["file_type"].blank?
           
           unless meta["lang"].blank?
@@ -109,19 +131,19 @@ module Europeana
         #
         # @return [RDF::Graph] RDF graph of the edm:WebResource
         #
-        def edm_web_resource
+        def web_resource
           graph = RDF::Graph.new
-          meta = metadata.fields
-          item_index = contribution.attachment_ids.find_index(id)
-          next_in_sequence = contribution.attachments[item_index + 1]
-          uri = edm_web_resource_uri
+          meta = @source.metadata.fields
+          item_index = @source.contribution.attachment_ids.find_index(@source.id)
+          next_in_sequence = @source.contribution.attachments[item_index + 1]
+          uri = web_resource_uri
           
           graph << [ uri, RDF.type, RDF::EDM.WebResource ]
-          graph << [ uri, RDF::DCElement.description, created_at.to_s ]
+          graph << [ uri, RDF::DCElement.description, @source.created_at.to_s ]
           graph << [ uri, RDF::DCElement.format, meta["file_type"].first ] unless meta["file_type"].blank?
-          graph << [ uri, RDF::DC.created, created_at.to_s ]
+          graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] unless meta["license"].blank?
-          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm_provided_cho_uri ] unless next_in_sequence.blank?
+          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm.provided_cho_uri ] unless next_in_sequence.blank?
           
           graph
         end
@@ -133,44 +155,12 @@ module Europeana
         #
         def ore_aggregation
           graph = RDF::Graph.new
-          meta = metadata.fields
           uri = ore_aggregation_uri
           
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
-          graph << [ uri, RDF::EDM.aggregatedCHO, edm_provided_cho_uri ]
-          graph << [ uri, RDF::EDM.isShownAt, contribution.edm_web_resource_uri ]
-          graph << [ uri, RDF::EDM.isShownBy, edm_web_resource_uri ]
-          graph << [ uri, RDF::EDM.object, edm_web_resource_uri ]
-          graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] unless meta["license"].blank?
+          graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
           
           graph
-        end
-        
-        ##
-        # The edm:ProvidedCHO URI of this attachment
-        #
-        # @return [RDF::URI] URI
-        #
-        def edm_provided_cho_uri
-          @edm_provided_cho_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + file.url(:original, :timestamp => false))
-        end
-        
-        ##
-        # The edm:WebResource URI of this attachment
-        #
-        # @return [RDF::URI] URI
-        #
-        def edm_web_resource_uri
-          @edm_web_resource_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + file.url(:full, :timestamp => false))
-        end
-        
-        ##
-        # The ore:Aggregation URI of this attachment
-        #
-        # @return [RDF::URI] URI
-        #
-        def ore_aggregation_uri
-          @ore_aggregation_uri ||= RDF::URI.parse("europeana19141918:aggregation/attachment/" + id.to_s)
         end
         
       end

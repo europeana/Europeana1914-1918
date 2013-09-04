@@ -56,7 +56,7 @@ module SearchHelper
   def search_result_to_edm(result)
     case controller.controller_name
     when 'contributions'
-      result.to_edm_result
+      result.edm.as_result
     else
       result
     end
