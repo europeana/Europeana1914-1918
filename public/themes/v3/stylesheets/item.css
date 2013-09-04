@@ -43,46 +43,36 @@ a.button:focus {
 	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
 }
 */
+/**
+ *	translate-details
+ */
 /* OLD STUFF  */
-/* line 5, sass/item.scss */
+/* line 6, sass/item.scss */
 .location-desc {
   margin-top: 3em;
 }
 
-/* line 10, sass/item.scss */
+/* line 11, sass/item.scss */
 .add-tags {
   textarea-width: 100%;
 }
 
-/* line 18, sass/item.scss */
-.related-content > h3 {
-  border-bottom: 1px solid #e4e4e4;
-}
-
-/* line 22, sass/item.scss */
+/* line 20, sass/item.scss */
 .related-content {
   max-width: 33em;
   margin: auto;
 }
 
-/*
-.one-half-right,
-.one-half-left{
-	@include box-sizing(border-box);
-	width:	50%;
+/* line 25, sass/item.scss */
+.nav-top {
+  margin: 0 0 2em;
 }
- 
-.one-half-right {
-	float:			right;
-	padding-left:	1em;
+/* line 27, sass/item.scss */
+.nav-top .link-back {
+  display: none;
 }
 
-.one-half-left {
-	float:			left;
-	padding-right:	1em;
-}
-*/
-/* line 46, sass/item.scss */
+/* line 35, sass/item.scss */
 .img-panel,
 .panel {
   background-color: #F2F2F2;
@@ -90,24 +80,25 @@ a.button:focus {
   padding: 1em;
 }
 
-/* line 52, sass/item.scss */
+/* line 41, sass/item.scss */
 .img-panel {
   text-align: center;
 }
 
-/* line 56, sass/item.scss */
+/* line 45, sass/item.scss */
 .dcTitle {
   font-size: 1.4em;
   margin-bottom: 0.75em;
 }
 
-/* line 62, sass/item.scss */
+/* line 51, sass/item.scss */
 .contribution-title.show-on-phones,
 .dcTitle.show-on-phones {
   text-align: center;
+  margin: 1.5em 0;
 }
 
-/* line 66, sass/item.scss */
+/* line 56, sass/item.scss */
 .subtitle {
   background-color: #333333;
   color: #FFF;
@@ -117,38 +108,38 @@ a.button:focus {
   margin-bottom: 1em;
 }
 
-/* line 75, sass/item.scss */
+/* line 65, sass/item.scss */
 .subtext {
   font-size: 0.75em;
   position: relative;
   top: -0.75em;
 }
 
-/* line 81, sass/item.scss */
+/* line 71, sass/item.scss */
 .meta ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* line 87, sass/item.scss */
+/* line 77, sass/item.scss */
 .title {
   font-weight: bold;
 }
 
 /* map controls styling */
-/* line 92, sass/item.scss */
+/* line 82, sass/item.scss */
 #map-container {
   position: relative;
 }
 
-/* line 96, sass/item.scss */
+/* line 86, sass/item.scss */
 #map {
   height: 40em;
   width: 100%;
 }
 
-/* line 101, sass/item.scss */
+/* line 91, sass/item.scss */
 #europeana-ctrls {
   color: #E3D6B6;
   padding: 1.5em;
@@ -158,7 +149,7 @@ a.button:focus {
   z-index: 1000;
 }
 
-/* line 110, sass/item.scss */
+/* line 100, sass/item.scss */
 #layer-ctrl span {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid #888888;
@@ -172,61 +163,128 @@ a.button:focus {
 }
 
 /* Comments */
-/* line 124, sass/item.scss */
+/* line 115, sass/item.scss */
+.related-content hr,
 .comments hr {
-  color: #dadada;
+  border: none;
+  color: #d9d9d9;
+  background-color: #d9d9d9;
+  border-top: 1px solid #d9d9d9;
+  height: 1px;
 }
 
-/* line 128, sass/item.scss */
+/* line 123, sass/item.scss */
 .comments .content {
   overflow: hidden;
   width: 100%;
   display: table;
 }
 
-/* line 135, sass/item.scss */
+/* line 130, sass/item.scss */
 .comments .content img,
 .comments .content .user-tagline {
   display: block;
   text-align: center;
+  margin-right: 1.56em;
 }
 
-/* line 140, sass/item.scss */
+/* line 137, sass/item.scss */
 .comments .content div {
   display: table-cell;
   vertical-align: top;
 }
-
-/* line 145, sass/item.scss */
+/* line 142, sass/item.scss */
 .comments textarea {
   width: 100%;
-  margin-bottom: 2em;
+  margin: 0 0 1.56em 0;
 }
-
-/* line 150, sass/item.scss */
+/* line 147, sass/item.scss */
 .comments input {
   display: block;
   margin: auto;
 }
-
-/* line 155, sass/item.scss */
+/* line 152, sass/item.scss */
 .comments .comment-sub-heading-2 {
   margin: 1em 0;
 }
 
+/* Tags */
+/* line 161, sass/item.scss */
+.tags {
+  margin: 1em 0;
+}
+
+/* line 165, sass/item.scss */
+.tags > li {
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+
+/* line 170, sass/item.scss */
+.tags > li > a {
+  margin-right: 0.5em;
+  background: #d6d6d6;
+  padding: 0.25em 0.5em;
+  border-radius: 0.25em;
+}
+
+/* line 177, sass/item.scss */
+.tags > li .action-links {
+  display: none;
+  position: absolute;
+  border-radius: 0 0.25em 0.25em 0.25em;
+  margin-top: 1px;
+}
+
+/* line 184, sass/item.scss */
+.tags > li:hover .action-links {
+  display: block;
+}
+
+/* line 188, sass/item.scss */
+.tags > li .action-links li {
+  margin: 0.25em;
+  clear: left;
+  text-transform: lowercase;
+}
+
+/* line 195, sass/item.scss */
+.tags-panel,
+.add-tag-panel {
+  margin: 1em 0 0 0;
+}
+
+/* line 199, sass/item.scss */
+#add_tags_form {
+  clear: both;
+}
+
+/* line 203, sass/item.scss */
+#add_tags_form input {
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #D9D9D9;
+  padding: 0.25em;
+}
+
 @media only screen and (min-width: 54em) {
-  /* line 162, sass/item.scss */
+  /* line 215, sass/item.scss */
+  .nav-top .link-back {
+    display: inline;
+  }
+
+  /* line 221, sass/item.scss */
   .related-content {
     max-width: none;
   }
 
-  /* line 166, sass/item.scss */
+  /* line 225, sass/item.scss */
   .location-desc {
     margin-top: 2em;
   }
 }
 /* NEW STUFF  */
-/* line 179, sass/item.scss */
+/* line 238, sass/item.scss */
 blockquote {
   background-color: cyan;
   max-width: 33em;
@@ -243,13 +301,13 @@ blockquote {
 	background-color: purple;
 }
 */
-/* line 197, sass/item.scss */
+/* line 256, sass/item.scss */
 .col {
   display: block;
   margin-bottom: 1.56em;
 }
 
-/* line 203, sass/item.scss */
+/* line 262, sass/item.scss */
 .col-cell {
   font-size: 1em;
   max-width: 33em;
@@ -258,14 +316,14 @@ blockquote {
   margin-bottom: 1.56em;
 }
 
-/* line 211, sass/item.scss */
+/* line 270, sass/item.scss */
 .col-cell.grey {
   background-color: #F2F2F2;
   border: 1px solid #D9D9D9;
   padding: 1em;
 }
 
-/* line 219, sass/item.scss */
+/* line 278, sass/item.scss */
 .container,
 .col,
 .col-cell {
@@ -274,6 +332,48 @@ blockquote {
   box-sizing: border-box;
 }
 
+/* line 7, sass/partials/_translation-services.scss */
+#translate-details {
+  text-align: right;
+}
+
+/* line 11, sass/partials/_translation-services.scss */
+#translation-services {
+  font-size: 80%;
+  float: right;
+}
+
+/* line 16, sass/partials/_translation-services.scss */
+#translation-services img {
+  display: none;
+}
+
+/* line 20, sass/partials/_translation-services.scss */
+#microsoft-translate-element select {
+  display: block;
+  float: right;
+}
+
+/* line 25, sass/partials/_translation-services.scss */
+#microsoft-translate-element > span {
+  float: right;
+  margin-left: 1em;
+  text-align: right;
+  width: 100%;
+}
+
+@media all and (min-width: 54em) {
+  /* line 36, sass/partials/_translation-services.scss */
+  #microsoft-translate-element select {
+    display: inline-block;
+    float: none;
+  }
+
+  /* line 41, sass/partials/_translation-services.scss */
+  #microsoft-translate-element > span {
+    width: auto;
+  }
+}
 @media all and (min-width: 54em) {
   /* clearfix */
   /*
@@ -282,7 +382,7 @@ blockquote {
   }
   */
   /* activate 3 col layout */
-  /* line 237, sass/item.scss */
+  /* line 297, sass/item.scss */
   .col {
     width: 33.3333%;
     display: inline-block;
@@ -292,14 +392,14 @@ blockquote {
     /* start content at top of column */
   }
 
-  /* line 245, sass/item.scss */
+  /* line 305, sass/item.scss */
   .col.left {
     padding-right: 1.56em;
     padding-right: 0.52em;
     /* ( 1.56 / 3 ) */
   }
 
-  /* line 250, sass/item.scss */
+  /* line 310, sass/item.scss */
   .col.middle {
     padding-left: 1.04em;
     /* ( (1.56 / 3) x 2 ) */
@@ -307,20 +407,20 @@ blockquote {
     width: 66.666%;
   }
 
-  /* line 258, sass/item.scss */
+  /* line 318, sass/item.scss */
   .col-cell {
     margin: 0;
     margin-bottom: 1.56em;
   }
 
-  /* line 263, sass/item.scss */
+  /* line 323, sass/item.scss */
   .col.middle .col-cell {
     clear: both;
     width: 33em;
     /*  33em base plus margin */
   }
 
-  /* line 269, sass/item.scss */
+  /* line 329, sass/item.scss */
   blockquote {
     left: -50%;
     position: relative;

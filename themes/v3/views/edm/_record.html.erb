@@ -331,9 +331,9 @@
 
     <div class="nav-top">
         <% if referred_by_search? %>
-            <%= link_to t('views.links.back-to-search'), :back %>
+            <%= link_to t('views.links.back-to-search'), :back, :class => 'link-back'  %>
         <% elsif true %>
-            <%= link_to t('views.links.back-to-search'), :back %>
+            <%= link_to t('views.links.back-to-search'), :back, :class => 'link-back' %>
         <% end %>
 
         <%= render :partial => '/layouts/navigation/sharethis' %>
@@ -635,7 +635,7 @@
 							<span class="user-tagline">Tagline</span>
 						</div>
 						<div>
-							<textarea></textarea>
+							<textarea rows="5"></textarea>
 						</div>
 					</div>
 					<input type="submit" class="europeana-button" value="<%= t('views.contributions.show.comments.submit') %>"/>
@@ -654,8 +654,8 @@
 
   <div class="related-content">
 
-    <h3>Related Content</h3>
-
+    <h3><%= t('views.contributions.show.related.title') %></h3>
+	<hr />
   	<div>
 
 		<div id="explore-further" class="accordion-tabs">

@@ -2,8 +2,11 @@
 #header,
 #content,
 #footer{
-	XXXXpadding:  0 2.25em;
 	padding:      0 1.56em;
+}
+
+#header{
+	height:       14em;
 }
 
 #content{
@@ -54,11 +57,19 @@
 	width: 			1px;
 }
 
-@media screen and (max-width: $break-desktop) {
-	.h-flex-collapse{
-		display:		block;
-		width:			auto;
+/*
+.h-flex-collapse{
+	display:		block;
+	width:			auto;
+}
+*/
+
+@media screen and (min-width: $break-desktop) {
+
+	#header{
+		height:         auto;
 	}
+
 }
 
 /* Hide / show on phones */

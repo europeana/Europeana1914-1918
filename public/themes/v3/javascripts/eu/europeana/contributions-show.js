@@ -874,6 +874,7 @@
 		lightbox.init();
 		pdf.init();
 		tags.init();
+		js.utils.initSearch();
 
 		js.loader.loadScripts([{
 			file : 'accordion-tabs.js',
