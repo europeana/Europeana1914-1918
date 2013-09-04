@@ -19,6 +19,12 @@
 	border-bottom: 1px solid #e4e4e4;
 }
 
+.related-content{
+	max-width: 33em;
+	margin:    auto;
+}
+
+/*
 .one-half-right,
 .one-half-left{
 	@include box-sizing(border-box);
@@ -34,6 +40,7 @@
 	float:			left;
 	padding-right:	1em;
 }
+*/
 
 .img-panel,
 .panel{
@@ -83,7 +90,6 @@
 
 /* map controls styling */
 #map-container{
-	margin: 1em 0;
 	position: relative;	
 }
 
@@ -93,12 +99,12 @@
 }
 
 #europeana-ctrls {
-  color: #E3D6B6;
-  padding: 1em;
+  color:    #E3D6B6;
+  padding:  1.5em;
   position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1000;
+  right:    0;
+  top:      0;
+  z-index:  1000;
 }
 
 #layer-ctrl span {
@@ -113,8 +119,49 @@
   padding: 0.5em;
 }
 
+/* Comments */
+
+.comments hr{
+	color: #dadada;
+}
+
+.comments .content{
+	overflow: hidden;
+	width:    100%;
+	display:  table;
+}
+
+.comments .content img,
+.comments .content .user-tagline{
+	display:  block;
+	text-align: center;
+}
+
+.comments .content div{
+	display:        table-cell;
+	vertical-align: top;
+}
+
+.comments textarea{
+	width:         100%;
+	margin-bottom: 2em;
+}
+
+.comments input{
+	display: block;
+	margin:  auto;
+}
+
+.comments .comment-sub-heading-2{
+	margin: 1em 0;	
+}
+
 
 @media only screen and ( min-width: $break-desktop ){
+
+	.related-content{
+		max-width: none;
+	}
 
 	.location-desc{
 		margin-top:	2em;

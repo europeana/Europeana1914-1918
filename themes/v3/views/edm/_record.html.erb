@@ -616,31 +616,32 @@
 					</div>
 				<% end %>
 				
-				
-				<div class="comments" style="margin-top: 3em; clear:both;">
-					<h3>Comments</h3>
-					<hr style="color:#dadada"/>
-					There are no comments, why not add one below....
-					<br />
-					<br />
-					<h3>Leave a Comment</h3>
-					<div>
-						<div style="float:left; width:20%">
-							Photo
-							<br>
-							Tagline
+			</div>
+			
+			<div class="col-cell">
+
+				<div class="comments">
+					<h3><%= t('views.contributions.show.comments.title') %></h3>
+					<hr />
+					<%= t('views.contributions.show.comments.no_comments') %>
+					
+					<h3 class="comment-sub-heading-2"><%= t('views.contributions.show.comments.leave') %></h3>
+					<div class="content">
+						<div>
+							<% if @contribution.contributor.picture.present? %>
+								<%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
+							<% end %>
+							
+							<span class="user-tagline">Tagline</span>
 						</div>
-						<div style="float:left; width:80%">
-							<textarea style="width:100%;"></textarea>
-							<br/>
-							<br/>
-							<input type="submit" class="europeana-button" value="Submit Comment"/>
+						<div>
+							<textarea></textarea>
 						</div>
 					</div>
+					<input type="submit" class="europeana-button" value="<%= t('views.contributions.show.comments.submit') %>"/>
 				</div>
-				
-				
 			</div>
+			
 		</div>
 		
 		<%# End middle column %>
@@ -649,32 +650,13 @@
 	<!--/div--> <!-- end container -->
 
 
-	<!-- END NEW GRID -->
-	
-	
-	<div class="one-half-left">
-
-    <!-- <div id="banner"> -->
-    <%
-    #  render :partial => '/blog_posts/list',
-    #  :locals => {
-    #    :blog => 'europeana',
-    #    :category => 'story-banner',
-    #    :relocale => true,
-    #    :deblogger => true
-    #  }
-    %>
-    <!-- </div> -->
-
-  </div>
-
 
 
   <div class="related-content">
 
     <h3>Related Content</h3>
 
-  	<div style="padding-right:0.36em;">
+  	<div>
 
 		<div id="explore-further" class="accordion-tabs">
 
