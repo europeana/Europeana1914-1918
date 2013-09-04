@@ -1,0 +1,48 @@
+/**
+ *	translate-details
+ */
+
+@mixin translations{
+
+	#translate-details {
+		text-align: right;
+	}
+	
+	#translation-services {
+		font-size:	80%;
+		float:		right;
+	}
+	
+	#translation-services img {
+		display:	none;
+	}
+	
+	#microsoft-translate-element select {
+		display:	block;
+		float:		right;
+	}
+	
+	#microsoft-translate-element>span{
+		float:			right;
+		margin-left:	1em;
+
+		text-align:		right;
+		width: 			100%;
+	}
+	
+	
+	@media all and (min-width: $break-desktop){
+
+		#microsoft-translate-element select {
+			display:	inline-block;
+			float:		none;
+		}
+		
+		#microsoft-translate-element>span{
+			width: auto;
+		}
+	}
+		
+}
+
+

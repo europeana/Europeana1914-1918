@@ -1,6 +1,10 @@
 @import "partials/base";
 
+/* smaller header in index since the search is in a different place */
 
+#header{
+	height:       4em;
+}
 
 .carousel-intro{
 	background-color: white;
@@ -21,7 +25,7 @@
 	}
 
 	&.small{
-		padding:      1.25em 0em;
+		padding:      1.25em 0 0 0;
 		font-size:	  1em;
 	}
 
@@ -68,7 +72,7 @@
 
 
 .section.main{
-	margin-top:	2em;
+	margin-top:	1.56em;
 }
 
 
@@ -209,6 +213,11 @@
 
 
 @media only screen and ( min-width: $break-desktop ){
+
+	#header{
+		margin-top:     1.56em;
+		height:         auto;
+	}
 
 	#featured-categories{
 		float: left;
