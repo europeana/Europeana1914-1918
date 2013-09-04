@@ -9,7 +9,14 @@ class OAIRecord < Contribution
   #
   def self.sets
     unless @sets.present?
-      @sets = [ Europeana::OAI::Set.new ]
+      @sets = [ 
+        OAI::Set.new(:spec => 'story', :name => 'Stories'),
+        OAI::Set.new(:spec => 'story:institution', :name => 'Institutional providers'),
+        OAI::Set.new(:spec => 'story:ugc', :name => 'UGC')
+      ]
+      Institution.all.each do |institution|
+        @sets << institution.oai_set('story:institution:')
+      end
     end
     @sets
   end
@@ -18,7 +25,16 @@ class OAIRecord < Contribution
   # Returns the OAI sets this contribution belongs to
   #
   def sets
-    self.class.sets
+    unless @sets.present?
+      @sets = [ OAI::Set.new(:spec => 'story', :name => 'Stories') ]
+      if contributor.institution.present?
+        @sets << OAI::Set.new(:spec => 'story:institution', :name => 'Institutional providers')
+        @sets << contributor.institution.oai_set('story:institution:')
+      else
+        @sets << OAI::Set.new(:spec => 'story:ugc', :name => 'UGC')
+      end
+    end
+    @sets
   end
   
   ##

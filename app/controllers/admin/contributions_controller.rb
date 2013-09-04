@@ -6,7 +6,7 @@ class Admin::ContributionsController < AdminController
   end
   
   class ExportSettings
-    attr_accessor :format, :start_date, :end_date, :exclude
+    attr_accessor :format, :start_date, :end_date, :exclude, :set, :institution_id
   end
   
   # GET /admin/contributions
@@ -64,6 +64,8 @@ class Admin::ContributionsController < AdminController
     if params[:settings]
       @settings.format = params[:settings][:format]
       @settings.exclude = params[:settings][:exclude]
+      @settings.set = params[:settings][:set]
+      @settings.institution_id = params[:settings][:institution_id]
       if (1..5).inject(true) { |present, i| present && params[:settings]["start_date(#{i}i)"].present? }
         @settings.start_date = DateTime.civil(params[:settings]["start_date(1i)"].to_i, params[:settings]["start_date(2i)"].to_i, params[:settings]["start_date(3i)"].to_i, params[:settings]["start_date(4i)"].to_i, params[:settings]["start_date(5i)"].to_i)
       end
@@ -72,6 +74,7 @@ class Admin::ContributionsController < AdminController
       end
     else
       @settings.format = 'xml'
+      @settings.set = 'all'
     end
     
     timestamp = Time.now.strftime('%Y%m%d%H%M%S')
@@ -110,7 +113,8 @@ class Admin::ContributionsController < AdminController
     end
   end
 
-  protected
+protected
+
   def authorize!
     current_user.may_administer_contributions!
   end
@@ -128,6 +132,8 @@ class Admin::ContributionsController < AdminController
       :exclude => @settings.exclude,
       :start_date => @settings.start_date,
       :end_date => @settings.end_date,
+      :set => @settings.set,
+      :institution_id => @settings.institution_id
     }
     Contribution.export(settings_hash) do |contribution|
       yield contribution
@@ -138,7 +144,7 @@ class Admin::ContributionsController < AdminController
   def export_as_csv
     csv_class.generate do |csv|
       # Column headings in first row
-      attributes = [ :id, :title, :contributor, :url, :created_at ] +
+      attributes = [ :id, :title, :contributor, :url, :created_at, :provider, :data_provider ] +
         MetadataField.all.collect { |mf| mf.title }
       csv << attributes.collect do |attribute|
         if attribute.instance_of? Symbol
@@ -151,7 +157,7 @@ class Admin::ContributionsController < AdminController
       end
 
       with_exported_contributions do |c|
-        row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at ] +
+        row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at, "Europeana 1914 - 1918", (c.contributor.institution.present? ? c.contributor.institution.name : '') ] +
           MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
         csv << row
       end

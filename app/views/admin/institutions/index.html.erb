@@ -1,0 +1,28 @@
+<% @title = t('views.admin.institutions.index.title') %>
+
+<div class="action-links">
+  <ul>
+    <li><%= link_to t('views.admin.institutions.new.title'), new_admin_institution_path, :class => 'new-member' %></li>
+  </ul>
+</div>
+
+<% if @institutions.present? -%>
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"><%= t('attributes.code') %></th>
+        <th scope="col">Name</th>
+        <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
+      </tr>
+      <tbody>
+        <% for institution in @institutions -%>
+          <tr>
+            <td><%= institution.code %></td>
+            <td><%= institution.name %></td>
+            <td><%= link_to t('actions.edit'), edit_admin_institution_path(institution), :class => 'edit-member' %></td>
+            <td><%= link_to t('actions.delete'), delete_admin_institution_path(institution), :class => 'delete-member' %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+  </table>
+<% end -%>

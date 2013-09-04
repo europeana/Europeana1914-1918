@@ -28,6 +28,9 @@ xml.collection do
       
       xml.created_at c.created_at
       
+      xml.provider "Europeana 1914 - 1918"
+      xml.data_provider (c.contributor.institution.present? ? c.contributor.institution.name : '')
+      
       # these fields are in the @metadata_fields.each loop
       # file_type hard-coded to "TEXT" for all stories
       # license hard-coded to "http://creativecommons.org/publicdomain/zero/1.0/"

@@ -16,6 +16,8 @@
   <%- if current_user.may_administer_users? -%>
     <dt><%= link_to t('views.admin.index.links.users.text'), admin_users_path %></dt>
     <dd><%= t('views.admin.index.links.users.description') %></dd>
+    <dt><%= link_to t('views.admin.institutions.index.title'), admin_institutions_path %></dt>
+    <dd><%= t('views.admin.index.links.institutions.description') %></dd>
   <%- end -%>
   <%- if current_user.may_administer_settings? -%>
     <dt><%= link_to t('views.admin.index.links.config.text'), admin_config_path %></dt>
