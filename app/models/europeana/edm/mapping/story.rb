@@ -107,7 +107,7 @@ module Europeana
           graph.query(:predicate => RDF::DC.alternative) do |solution|
             result["dctermsAlternative"] = [ solution.object.to_s ]
           end
-          result["edmPreview"] = [ attachments.cover_image.thumbnail_url(:preview) ]
+          result["edmPreview"] = [ @source.attachments.cover_image.thumbnail_url(:preview) ]
           result["guid"] = provided_cho_uri.to_s
           result["provider"] = [
             "Europeana 1914 - 1918"
@@ -116,16 +116,26 @@ module Europeana
           result
         end
         
-        def to_rdf_graph
-          graph = super
+        def to_rdfxml
+          namespace_prefixes = {
+            :dc => "http://purl.org/dc/elements/1.1/",
+            :dcterms => "http://purl.org/dc/terms/",
+            :edm => "http://www.europeana.eu/schemas/edm/",
+            :ore => "http://www.openarchives.org/ore/terms/",
+            :skos => "http://www.w3.org/2004/02/skos/core#",
+            :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
+          }
           
+          graph = to_rdf_graph
           @source.attachments[1..-1].each do |attachment|
             attachment.edm.to_rdf_graph.each do |statement|
               graph << statement
             end
           end
           
-          graph
+          RDF::RDFXML::Writer.buffer(:prefixes => namespace_prefixes, :max_depth => 1) do |writer|
+            writer << graph
+          end
         end
         
         ##
