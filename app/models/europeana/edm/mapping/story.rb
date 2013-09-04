@@ -80,7 +80,7 @@ module Europeana
             { "edmProvider" => { "def" => [ "Europeana 1914 - 1918" ] } }
           ]
           
-          record["providedCHOs"] = [ { "about" => edm_provided_cho_uri.to_s } ]
+          record["providedCHOs"] = [ { "about" => provided_cho_uri.to_s } ]
           
           record
         end
