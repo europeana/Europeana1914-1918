@@ -1,32 +1,58 @@
 module Europeana
   module OAI
-    ##
-    # Custom OAI metadata format 
-    #
-    class MetadataFormat < ::OAI::Provider::Metadata::Format
-      def initialize
-        # @todo Remove this and always use www.europeana1914-1918.eu when
-        #   schema is published to that host.
-        if (schema_host = Rails.application.config.action_mailer.default_url_options[:host].clone).present?
-          if (schema_port = Rails.application.config.action_mailer.default_url_options[:port]).present?
-            schema_host << ":#{schema_port}" 
+    module MetadataFormat
+      class Base < ::OAI::Provider::Metadata::Format
+        def schema_host
+          unless @schema_host.present?
+            # @todo Remove this and always use www.europeana1914-1918.eu when
+            #   schema is published to that host.
+            if (@schema_host = Rails.application.routes.default_url_options[:host].clone).present?
+              if (schema_port = Rails.application.routes.default_url_options[:port]).present?
+                @schema_host << ":#{schema_port}" 
+              end
+            else 
+              @schema_host = 'www.europeana1914-1918.eu'
+            end
           end
-        else 
-          schema_host = 'www.europeana1914-1918.eu'
+          @schema_host
         end
-        
-        @prefix = 'oai_europeana19141918'
-        @schema = "http://#{schema_host}/oai/oai_europeana19141918.xsd"
-        @namespace = "http://#{schema_host}/oai/oai_europeana19141918/"
-        @element_namespace = 'europeana19141918'
       end
       
-      def header_specification
-        {
-          'xmlns:oai_europeana19141918' => @namespace,
-          'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
-          'xsi:schemaLocation' => @namespace + ' ' + @schema
-        }
+      ##
+      # Custom OAI metadata format 
+      #
+      class Europeana19141918 < Base
+        def initialize
+          @prefix = 'oai_europeana19141918'
+          @schema = "http://#{schema_host}/oai/oai_europeana19141918.xsd"
+          @namespace = "http://#{schema_host}/oai/oai_europeana19141918/"
+          @element_namespace = 'europeana19141918'
+        end
+        
+        def header_specification
+          {
+            'xmlns:oai_europeana19141918' => @namespace,
+            'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
+            'xsi:schemaLocation' => @namespace + ' ' + @schema
+          }
+        end
+      end
+      
+      class EDM < Base
+        def initialize
+          @prefix = 'oai_edm'
+          @schema = "http://www.europeana.eu/schemas/edm/EDM.xsd"
+          @namespace = "http://#{schema_host}/oai/oai_edm/"
+          @element_namespace = 'edm'
+        end
+        
+        def header_specification
+          {
+            'xmlns:oai_europeana19141918' => @namespace,
+            'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
+            'xsi:schemaLocation' => @namespace + ' ' + @schema
+          }
+        end
       end
     end
   end

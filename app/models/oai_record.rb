@@ -1,6 +1,8 @@
 class OAIRecord < Contribution
   include ContributionsHelper
   include Rails.application.routes.url_helpers
+  
+  has_edm_mapping Europeana::EDM::Mapping::Story
 
   default_scope where(:current_status => ContributionStatus.published)
   
@@ -107,7 +109,7 @@ class OAIRecord < Contribution
     Rails.application.routes.default_url_options[:locale] ||= Rails.configuration.i18n.default_locale
     xml = Builder::XmlMarkup.new
     xml.tag!("oai_europeana19141918:europeana19141918",
-      Europeana::OAI::MetadataFormat.instance.header_specification
+      Europeana::OAI::MetadataFormat::Europeana19141918.instance.header_specification
     ) do
       c = self
       @metadata_fields = MetadataField.all.collect { |mf| mf.name }
@@ -115,5 +117,9 @@ class OAIRecord < Contribution
       instance_eval builder_file
     end
     xml.target!
+  end
+  
+  def to_oai_edm
+    edm.to_rdfxml.sub('<?xml version="1.0" encoding="UTF-8"?>', "")
   end
 end

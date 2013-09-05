@@ -80,7 +80,7 @@ module Europeana
             { "edmProvider" => { "def" => [ "Europeana 1914 - 1918" ] } }
           ]
           
-          record["providedCHOs"] = [ { "about" => edm_provided_cho_uri.to_s } ]
+          record["providedCHOs"] = [ { "about" => provided_cho_uri.to_s } ]
           
           record
         end
@@ -127,9 +127,11 @@ module Europeana
           }
           
           graph = to_rdf_graph
-          @source.attachments[1..-1].each do |attachment|
-            attachment.edm.to_rdf_graph.each do |statement|
-              graph << statement
+          if @source.attachments.size > 1
+            @source.attachments[1..-1].each do |attachment|
+              attachment.edm.to_rdf_graph.each do |statement|
+                graph << statement
+              end
             end
           end
           
@@ -211,8 +213,10 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.temporal)
           end
           
-          @source.attachments[1..-1].each do |attachment|
-            graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
+          if @source.attachments.size > 1
+            @source.attachments[1..-1].each do |attachment|
+              graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
+            end
           end
           
           graph
