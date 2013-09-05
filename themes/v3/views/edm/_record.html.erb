@@ -628,10 +628,11 @@
 					<h3 class="comment-sub-heading-2"><%= t('views.contributions.show.comments.leave') %></h3>
 					<div class="content">
 						<div>
-							<% if @contribution.contributor.picture.present? %>
-								<%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
-							<% end %>
-							
+
+							<%- if current_user.picture.present? -%>
+								<%= image_tag(current_user.picture.url(:thumb)) %>
+							<%- end -%>						
+						
 							<span class="user-tagline">Tagline</span>
 						</div>
 						<div>
