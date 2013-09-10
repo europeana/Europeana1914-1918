@@ -384,6 +384,39 @@
 
 		<div class="col left">
 		
+			<% if @contribution.contributor.picture.present? %>
+			
+				<div class="col-cell grey">
+					<%
+						people = {
+							:contributor => @contribution.contact.full_name,
+							:principal =>   @contribution.metadata.fields['contributor_behalf'],
+							:character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
+							:character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
+						}
+					%>
+					
+					<div id="avatar" class="responsive-box">
+					
+						<%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
+						
+						<%= image_tag(current_user.picture.url(:thumb)) %>
+						
+						<% if people[:contributor].present? %>
+							<%= people[:contributor] %>
+							<%#= people[:principal] %>
+							<% if people[:character1].present? || people[:character2].present? %>
+								<%= t('views.contributions.show.shared-this-story') %>
+								<%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
+							<% end %>
+						<% end %>
+						
+					</div>
+				</div>
+				
+			<% end %>
+		
+		
 			<h2 class="contribution-title show-on-phones"><%= contribution_title(@contribution) %></h2>
 		
 			<div class="col-cell grey">
@@ -391,27 +424,14 @@
 				<ul id="thumbnail-counts"></ul>
 			</div>
 
-			<%# Leaflet map container %>
-
-			<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 %>
-				<div id="map-container" class="col-cell grey">
-					<div id="map">
-						<script type="text/javascript">
-       						var latLong  = "<%= @contribution.metadata['field_location_map'] %>".split(',');
-       						var mapZoom  = "<%= @contribution.metadata['location_zoom'] %>";
-       						var mapPlace = "<%= @contribution.metadata['location_placename'] %>";
-	        			</script>
-					</div>
-				</div>
-			<% end %>
-
-			<div class="col-cell">
-			    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
-			</div>
 
 		</div>	<%# end left col %>
 		
+		
+		
 		<%# Middle column %>
+		
+		
 		
 		<div class="col middle">
 		
@@ -593,31 +613,12 @@
 						<dd><%= l @contribution.created_at, :format => :short %></dd>
 					<% end %>
 				</dl>
-
-				<% if @contribution.contributor.picture.present? %>
-					<%
-						people = {
-							:contributor => @contribution.contact.full_name,
-							:principal =>   @contribution.metadata.fields['contributor_behalf'],
-							:character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
-							:character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
-						}
-					%>
-					<div id="avatar" class="responsive-box">
-						<%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
-						<% if people[:contributor].present? %>
-							<%= people[:contributor] %>
-							<%#= people[:principal] %>
-							<% if people[:character1].present? || people[:character2].present? %>
-								<%= t('views.contributions.show.shared-this-story') %>
-								<%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
-							<% end %>
-						<% end %>
-					</div>
-				<% end %>
 				
 			</div>
 			
+			
+			<!-- COMMENTS DISABLED -->
+			<!-- 
 			<div class="col-cell">
 
 				<div class="comments">
@@ -642,6 +643,28 @@
 					<input type="submit" class="europeana-button" value="<%= t('views.contributions.show.comments.submit') %>"/>
 				</div>
 			</div>
+			-->
+
+
+			<%# Leaflet map container %>
+
+			<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 %>
+				<div id="map-container" class="col-cell grey">
+					<div id="map">
+						<script type="text/javascript">
+       						var latLong  = "<%= @contribution.metadata['field_location_map'] %>".split(',');
+       						var mapZoom  = "<%= @contribution.metadata['location_zoom'] %>";
+       						var mapPlace = "<%= @contribution.metadata['location_placename'] %>";
+	        			</script>
+					</div>
+				</div>
+			<% end %>
+			
+
+			<div class="col-cell">
+			    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+			</div>
+			
 			
 		</div>
 		
