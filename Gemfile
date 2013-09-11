@@ -4,6 +4,7 @@ gem 'rails', '3.0.20'
 
 gem 'acts-as-taggable-on', '2.4.1', :path => 'vendor/gems/acts-as-taggable-on-2.4.1' # Local fix pending merge of pull request for issue: <https://github.com/mbleigh/acts-as-taggable-on/issues/365>
 gem 'aegis', '~> 3.0.1', :git => 'https://github.com/JohnB/aegis.git', :ref => 'b1853a5'
+gem 'aws-sdk', '~> 1.17.0'
 gem 'cocaine', '~> 0.3.2'
 gem 'compass-rails', '~> 1.0.0'
 gem 'bcrypt-ruby', '2.1.2', :require => 'bcrypt'

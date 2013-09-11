@@ -59,16 +59,15 @@ class Attachment < ActiveRecord::Base
   # run the following to create the new_size version or update it if the dimmensions changed
   #     bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment STYLES=new_size_name --trace
   has_attached_file :file,
-    :path => ':env_file_root/:access_dir/:class/:id/:contribution_id.:id.:style.:extension',
-    :url => "/:class/:id/:contribution_id.:id.:style.:extension",
+    :path => (Paperclip::Attachment.default_options[:storage] == :filesystem ? ":env_file_root/:access_dir/" : "") + ":class/:id/:contribution_id.:id.:style.:extension",
+    :url => (Paperclip::Attachment.default_options[:storage] == :s3 ? ":s3_domain_url" : "/:class/:id/:contribution_id.:id.:style.:extension"),
     :styles => { :thumb => [ "100x100>", :jpg ], :preview => [ "160x120>", :jpg ], :medium => [ "400x400>", :jpg ], :large => [ "1024x768>", :jpg ] }
 
-  # TODO: Does this need to cope with new file uploaded at same time?
-  before_save :relocate_files, :if => Proc.new { |a| a.public_changed? }, :unless => Proc.new { |a| a.new_record? }
+  before_save :relocate_files, :if => Proc.new { |a| (a.file.options[:storage] == :filesystem) && a.public_changed? }, :unless => Proc.new { |a| a.new_record? }
 
   before_save :set_public, :if => Proc.new { |a| a.new_record? }
   
-  after_save :delete_old_file_dir, :unless => Proc.new { |a| a.old_file_dir.blank? }
+  after_save :delete_old_file_dir, :if => Proc.new { |a| a.file.options[:storage] == :filesystem }, :unless => Proc.new { |a| a.old_file_dir.blank? }
   
   # Paperclip's built-in post-processing for thumbnails should only
   # be run on certain file types.
@@ -151,7 +150,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def has_thumbnail?(size)
-    make_thumbnails? && File.exists?(file.path(size))
+    make_thumbnails? && ((file.options[:storage] != :filesystem) || File.exists?(file.path(size)))
   end
   
   def set_public
