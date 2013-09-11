@@ -616,30 +616,6 @@
 
 			</div>
 
-			<div class="col-cell">
-
-				<div class="comments">
-					<h3><%= t('views.contributions.show.comments.title') %></h3>
-					<hr />
-					<%= t('views.contributions.show.comments.no_comments') %>
-
-					<h3 class="comment-sub-heading-2"><%= t('views.contributions.show.comments.leave') %></h3>
-					<div class="content">
-						<div>
-
-							<% if current_user.picture.present? -%>
-								<%= image_tag(current_user.picture.url(:thumb)) %>
-							<% end -%>
-
-							<span class="user-tagline">Tagline</span>
-						</div>
-						<div>
-							<textarea rows="5"></textarea>
-						</div>
-					</div>
-					<input type="submit" class="europeana-button" value="<%= t('views.contributions.show.comments.submit') %>"/>
-				</div>
-			</div>
 
 		</div>
 
