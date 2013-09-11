@@ -1,31 +1,28 @@
 <%
   # @javascripts[:images_lazy_load] = true
   # @javascripts[:gmap_display] = true
-  
-  
+
   @javascripts[:images_loaded] = true
   @javascripts[:carousel] = true
   @javascripts[:truncate] = true
   @javascripts[:lightbox] = true
   @javascripts[:translate] = true
   @javascripts[:contributions_show] = true
+
   if @contribution
 		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
 		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
 		@title = contribution_title(@contribution)
 	end
-%>
 
-<% 
-	@stylesheets['item'] = true 
-%>
+	@stylesheets['item'] = true
 
+	# begin first section from the initial edm record view
+	# http://localhost:3000/fr/europeana/record/09102/_CM_0160490.html
+-%>
 
-
-<%# begin first section from the initial edm record view %>
-<%# http://localhost:3000/fr/europeana/record/09102/_CM_0160490.html %>
 <%# if record['proxies'] && record['proxies'][0] %>
-<% if record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" %>
+<% if record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" -%>
 
 	<%
 		proxy          = record['proxies'][0]
@@ -34,7 +31,7 @@
 		edmObject      = aggregation['edmObject']
 		euAggregation  = record['europeanaAggregation']
 		carouselImages = aggregation['hasView']
-	%>
+	-%>
 
 	<!-- NEW GRID -->
 
@@ -42,9 +39,9 @@
 	<div class="container">
 
 		<div class="col left">
-		
+
 			<h2 class="dcTitle show-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-		
+
 			<div class="col-cell">
 				<div class="img-panel">
 					<% if(edmObject && edmObject.length>0) %>
@@ -53,14 +50,14 @@
 						<img src="/themes/v3/images/default-image.gif"/>
 					<% end %>
 				</div>
-		
+
 				<% if carouselImages %>
 					<% carouselImages.each do |img| %>
 						<img src="<%=img%>" style="max-width:100px;"/>
 					<% end %>
 				<% end %>
-		
-				<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>			
+
+				<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>
 			</div>
 
 			<div class="col-cell">
@@ -77,9 +74,9 @@
 
 
 		</div><div class="col middle">
-		
+
 			<div class="col-cell">
-			
+
 				<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
 
@@ -88,19 +85,19 @@
 						Contributed by <%= dcContributor %>
 					</p>
 				<% end %>
-		
+
 				<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
 					<p>
 						<%= dcDescription %>
 					</p>
 					<hr/>
 				<% end %>
-			
+
 			</div>
-			
-			
+
+
 			<div class="col-cell">
-				
+
 				<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
 					<p class="title">Other title(s)</p>
 					<p>
@@ -121,27 +118,27 @@
 						<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
 					</p>
 				<% end %>
-			
+
 				<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
 					<p class="title">Date created / Start date</p>
 					<p>
 						<%= dcDate %>
 					</p>
 				<% end %>
-			
+
 				<% if dcType = edm_proxy_field(proxy, 'dcType') %>
 					<p class="title">Type</p>
 					<p>
 						<%= dcType %>
 					</p>
-				<% end %>			
-			
+				<% end %>
+
 				<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
 					<p class="title">Format</p>
 					<p>
 					<%= dctermsExtent %>
 					</p>
-				<% end %>			
+				<% end %>
 
 				<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
 					<p class="title">Language</p>
@@ -157,15 +154,15 @@
 						<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
 					</p>
 				<% end %>
-			
+
 				<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
 					<p class="title">Data Provider</p>
 					<p>
 						<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
 					</p>
 				<% end %>
-			
-			
+
+
 				<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
 					<p class="title">Rights</p>
 					<p>
@@ -222,12 +219,12 @@
 							"http://www.europeana.eu/rights/unknown/" => {
 								"text" => "Unknown copyright status",
 								"icon" => "icon-unknown"
-							}	
+							}
 						}
 						rightsText = rightsMap[edmRights]["text"]
 						rightsIcon = rightsMap[edmRights]["icon"]
 						%>
-						<a href="<%= edmRights %>" target="_new"><span class="<%= rightsIcon %>">  <%= rightsText %>  </span></a> 
+						<a href="<%= edmRights %>" target="_new"><span class="<%= rightsIcon %>">  <%= rightsText %>  </span></a>
 					</p>
 				<% end %>
 
@@ -247,7 +244,7 @@
 						<a href="<%= edmIsShownAt %>"><%= edmDataProvider %></a>
 					</p>
 				<% end %>
-							
+
 			</div>
 
 
@@ -301,7 +298,7 @@
 
 
 
-			
+
 			<!--p class="col-cell">
 				If an element appears in a blockquote it gets really big, and can span several columns:
 
@@ -380,20 +377,21 @@
         </div>
       <% end %>
 
-		<%# Left column %>
+		<%# Mediaplayer %>
+		<%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+		<ul id="thumbnail-counts"></ul>
 
+		<%# Left column %>
 		<div class="col left">
-		
+
 			<h2 class="contribution-title show-on-phones"><%= contribution_title(@contribution) %></h2>
-		
+
 			<div class="col-cell grey">
-				<%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
-				<ul id="thumbnail-counts"></ul>
 			</div>
 
 			<%# Leaflet map container %>
 
-			<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 %>
+			<% if @contribution.metadata['field_location_map'] &&  @contribution.metadata['field_location_map'].length > 0 -%>
 				<div id="map-container" class="col-cell grey">
 					<div id="map">
 						<script type="text/javascript">
@@ -403,20 +401,20 @@
 	        			</script>
 					</div>
 				</div>
-			<% end %>
+			<% end -%>
 
 			<div class="col-cell">
 			    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
 			</div>
 
 		</div>	<%# end left col %>
-		
+
 		<%# Middle column %>
-		
+
 		<div class="col middle">
-		
+
 			<div class="col-cell">
-				<h2 class="contribution-title hide-on-phones"><%= contribution_title(@contribution) %></h2>			
+				<h2 class="contribution-title hide-on-phones"><%= contribution_title(@contribution) %></h2>
 			</div>
 
 			<div class="col-cell">
@@ -440,11 +438,11 @@
 									}
 								}
 					%>
-					<% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? %>
+					<% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
 						<dt><b><%= contribution_field_title('contributor') %></b></dt>
 						<dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
-					<% end %>
-					
+					<% end -%>
+
 					<%=
 						render :partial => '/metadata/display',
 						:locals => {
@@ -461,7 +459,7 @@
 							}
 						}
 					%>
-      				<% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? %>
+      				<% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
 						<dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
 						<dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
 						<%=
@@ -483,7 +481,7 @@
 								}
 							}
 						%>
-					<% end %>
+					<% end -%>
       				<% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
 						<dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
 						<dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
@@ -507,7 +505,7 @@
 							}
 						%>
 					<% end %>
-					
+
 					<%=
 						render :partial => '/metadata/display',
 						:locals => {
@@ -540,7 +538,7 @@
 									# they are output as input type="hidden"
 									#'location_map',
 									#'location_placename',
-									#'location_zoom'          
+									#'location_zoom'
 								],
 								:name_order => true
 							}
@@ -615,24 +613,24 @@
 						<% end %>
 					</div>
 				<% end %>
-				
+
 			</div>
-			
+
 			<div class="col-cell">
 
 				<div class="comments">
 					<h3><%= t('views.contributions.show.comments.title') %></h3>
 					<hr />
 					<%= t('views.contributions.show.comments.no_comments') %>
-					
+
 					<h3 class="comment-sub-heading-2"><%= t('views.contributions.show.comments.leave') %></h3>
 					<div class="content">
 						<div>
 
-							<%- if current_user.picture.present? -%>
+							<% if current_user.picture.present? -%>
 								<%= image_tag(current_user.picture.url(:thumb)) %>
-							<%- end -%>						
-						
+							<% end -%>
+
 							<span class="user-tagline">Tagline</span>
 						</div>
 						<div>
@@ -642,9 +640,9 @@
 					<input type="submit" class="europeana-button" value="<%= t('views.contributions.show.comments.submit') %>"/>
 				</div>
 			</div>
-			
+
 		</div>
-		
+
 		<%# End middle column %>
 
 

@@ -328,6 +328,16 @@
 	},
 
 
+	fitvids = {
+		init : function() {
+			console.log($('#contributions-featured li'));
+			$('#contributions-featured li').fitVids({
+				customSelector: "iframe[src^='//localhost']"
+			})
+		}
+	},
+
+
 	lightbox = {
 		$metadata : [],
 		current : 0,
@@ -787,7 +797,7 @@
 
 				// update tags display
 				var pageUrl = window.location.href;
-				pageUrl = pageUrl.indexOf('?') > -1 ? pageUrl.substr(0, pageUrl.indexOf('?')) : pageUrl; 
+				pageUrl = pageUrl.indexOf('?') > -1 ? pageUrl.substr(0, pageUrl.indexOf('?')) : pageUrl;
 					alert(pageUrl)
 				$.ajax({
 					url:  pageUrl + '/tags.json?ajax=true'
@@ -870,9 +880,10 @@
 		truncate.init();
 		RunCoCo.translation_services.init( jQuery('.nav-top') );
 		carousels.init();
+		//fitvids.init();
 		map.init();
-		lightbox.init();
-		pdf.init();
+		//lightbox.init();
+		//pdf.init();
 		tags.init();
 		js.utils.initSearch();
 
