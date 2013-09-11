@@ -7,3 +7,9 @@ run "ln -nfs #{shared_path}/config/sphinx.yml #{release_path}/config/sphinx.yml"
 
 # Devise config
 run "ln -nfs #{shared_path}/config/initializers/devise.rb #{release_path}/config/initializers/devise.rb"
+
+# S3 config
+run "ln -nfs #{shared_path}/config/s3.yml #{release_path}/config/config/s3.yml"
+
+# Paperclip config
+run "ln -nfs #{shared_path}/config/initializers/paperclip.rb #{release_path}/config/initializers/paperclip.rb"
