@@ -156,6 +156,9 @@ private
     end
     
     response
+    
+  rescue Europeana::API::Errors::ResponseError
+    { 'itemsCount' => 0, 'totalResults' => 0 }
   end
   
   ##
