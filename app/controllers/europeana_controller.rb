@@ -9,7 +9,7 @@ class EuropeanaController < ApplicationController
   # GET /europeana/search
   def search
     @query = params[:q]
-    @results = query_api(bing_translate_query(@query), params[:page] || 1).for_pagination
+    @results = query_api(bing_translate_query(@query), params[:page] || 1)
     
     if params.delete(:layout) == '0'
       render :partial => 'search-results',
@@ -31,7 +31,7 @@ class EuropeanaController < ApplicationController
       term_translations = I18n.available_locales.collect do |locale|
         I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term)
       end
-      @results = query_api(term_translations, params[:page] || 1).for_pagination
+      @results = query_api(term_translations, params[:page] || 1)
     end
     
     if params.delete(:layout) == '0'
@@ -76,10 +76,10 @@ class EuropeanaController < ApplicationController
       query_string = build_api_query(terms)
       logger.debug("Europeana query: #{query_string}")
       results = Europeana::Search::Query.new(query_string).run(:page => page)
-      write_fragment(cache_key, results.to_yaml, :expires_in => 1.day)
+      write_fragment(cache_key, results.to_yaml, :expires_in => 1.day) if results.respond_to?(:for_pagination)
     end
     
-    results
+    results.respond_to?(:for_pagination) ? results.for_pagination : []
   end
   
   ##
