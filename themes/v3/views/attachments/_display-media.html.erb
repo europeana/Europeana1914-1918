@@ -3,13 +3,24 @@
   <% for attachment in attachments -%><li>
 		<% if ( attachment.file.present? ) -%>
 			<% if ( thumbnails ) -%>
-				<% link_url = attachment_url( attachment, 'large' )
-				link_attrs = { :target => '_blank', :title => attachment.title } -%>
-				<%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) -%>
+			
+				<% if (!attachment.image? ) -%>
+			
+					<% link_url = attachment_url( attachment, 'large' )
+					link_attrs = { :target => '_blank', :title => attachment.title } -%>
+					<%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) -%>
+				<% end -%>
+					
 			<% elsif ( attachment.video? ) || ( attachment.pdf? ) || ( attachment.audio? ) -%>
 				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0"></iframe>
 			<% elsif ( attachment.image? ) -%>
-				<%= attachment_preview( attachment, size ) -%>
+			
+			
+				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0"></iframe>
+				
+				<%# attachment_preview( attachment, size ) -%>
+				
+				
 			<% else -%>
 				<img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
 			<% end -%>

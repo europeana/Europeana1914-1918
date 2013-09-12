@@ -124,6 +124,8 @@ class AttachmentsController < ApplicationController
             render :partial => 'attachments/pdf'
           elsif @attachment.video?
             render :partial => 'attachments/audio-video'
+          elsif @attachment.image? 
+            render :partial => 'attachments/book-image'
           else
             render :layout => false
           end
