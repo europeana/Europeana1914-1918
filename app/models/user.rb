@@ -14,9 +14,10 @@ class User < ActiveRecord::Base
   belongs_to :contact, :dependent => :destroy
   belongs_to :institution
   
-  has_attached_file :picture, :styles => { :thumb => "100x100>", :medium => "200x200>" }, 
-    :path => ":rails_root/public/images/users/:id/:style/:filename",
-    :url => "/images/users/:id/:style/:filename"
+  has_attached_file :picture,
+    :path => (Paperclip::Attachment.default_options[:storage] == :filesystem ? ":rails_root/public/" : "") + "images/users/:id/:style/:filename",
+    :url => (Paperclip::Attachment.default_options[:storage] == :s3 ? ":s3_domain_url" : "/images/users/:id/:style/:filename"),
+    :styles => { :thumb => "100x100>", :medium => "200x200>" }
 
   accepts_nested_attributes_for :contact
   
