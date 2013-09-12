@@ -696,8 +696,10 @@ BookReader.prototype.drawLeafsThumbnail = function( seekIndex ) {
 
                 img = document.createElement("img");
                 var thumbReduce = Math.floor(this.getPageWidth(leaf) / this.thumbWidth);
-                
-                $(img).attr('src', this.imagesBaseURL + 'transparent.png')
+
+                // EUROPEANA CHANGE
+                //$(img).attr('src', this.imagesBaseURL + 'transparent.png')
+                $(img).attr('src', '/themes/v3/javascripts/org/openlibrary/images/transparent.png')
                     .css({'width': leafWidth+'px', 'height': leafHeight+'px' })
                     .addClass('BRlazyload')
                     // Store the URL of the image that will replace this one
@@ -4595,7 +4597,10 @@ BookReader.prototype._getPageHeight= function(index) {
 // Returns the page URI or transparent image if out of range
 BookReader.prototype._getPageURI = function(index, reduce, rotate) {
     if (index < 0 || index >= this.numLeafs) { // Synthesize page
-        return this.imagesBaseURL + "transparent.png";
+    	
+    	// EUROPEANA CHANGE
+        //return this.imagesBaseURL + "transparent.png";
+        return "/themes/v3/javascripts/org/openlibrary/images/transparent.png";
     }
     
     if ('undefined' == typeof(reduce)) {
