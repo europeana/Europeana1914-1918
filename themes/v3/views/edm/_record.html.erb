@@ -1,8 +1,8 @@
 <%
   # @javascripts[:images_lazy_load] = true
   # @javascripts[:gmap_display] = true
-  
-  
+
+
   @javascripts[:images_loaded] = true
   @javascripts[:carousel] = true
   @javascripts[:truncate] = true
@@ -16,8 +16,8 @@
 	end
 %>
 
-<% 
-	@stylesheets['item'] = true 
+<%
+	@stylesheets['item'] = true
 %>
 
 
@@ -42,9 +42,9 @@
 	<div class="container">
 
 		<div class="col left">
-		
+
 			<h2 class="dcTitle show-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-		
+
 			<div class="col-cell">
 				<div class="img-panel">
 					<% if(edmObject && edmObject.length>0) %>
@@ -53,14 +53,14 @@
 						<img src="/themes/v3/images/default-image.gif"/>
 					<% end %>
 				</div>
-		
+
 				<% if carouselImages %>
 					<% carouselImages.each do |img| %>
 						<img src="<%=img%>" style="max-width:100px;"/>
 					<% end %>
 				<% end %>
-		
-				<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>			
+
+				<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>
 			</div>
 
 			<div class="col-cell">
@@ -77,9 +77,9 @@
 
 
 		</div><div class="col middle">
-		
+
 			<div class="col-cell">
-			
+
 				<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
 
@@ -88,19 +88,19 @@
 						Contributed by <%= dcContributor %>
 					</p>
 				<% end %>
-		
+
 				<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
 					<p>
 						<%= dcDescription %>
 					</p>
 					<hr/>
 				<% end %>
-			
+
 			</div>
-			
-			
+
+
 			<div class="col-cell">
-				
+
 				<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
 					<p class="title">Other title(s)</p>
 					<p>
@@ -121,27 +121,27 @@
 						<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
 					</p>
 				<% end %>
-			
+
 				<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
 					<p class="title">Date created / Start date</p>
 					<p>
 						<%= dcDate %>
 					</p>
 				<% end %>
-			
+
 				<% if dcType = edm_proxy_field(proxy, 'dcType') %>
 					<p class="title">Type</p>
 					<p>
 						<%= dcType %>
 					</p>
-				<% end %>			
-			
+				<% end %>
+
 				<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
 					<p class="title">Format</p>
 					<p>
 					<%= dctermsExtent %>
 					</p>
-				<% end %>			
+				<% end %>
 
 				<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
 					<p class="title">Language</p>
@@ -157,15 +157,15 @@
 						<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
 					</p>
 				<% end %>
-			
+
 				<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
 					<p class="title">Data Provider</p>
 					<p>
 						<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
 					</p>
 				<% end %>
-			
-			
+
+
 				<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
 					<p class="title">Rights</p>
 					<p>
@@ -222,12 +222,12 @@
 							"http://www.europeana.eu/rights/unknown/" => {
 								"text" => "Unknown copyright status",
 								"icon" => "icon-unknown"
-							}	
+							}
 						}
 						rightsText = rightsMap[edmRights]["text"]
 						rightsIcon = rightsMap[edmRights]["icon"]
 						%>
-						<a href="<%= edmRights %>" target="_new"><span class="<%= rightsIcon %>">  <%= rightsText %>  </span></a> 
+						<a href="<%= edmRights %>" target="_new"><span class="<%= rightsIcon %>">  <%= rightsText %>  </span></a>
 					</p>
 				<% end %>
 
@@ -247,7 +247,7 @@
 						<a href="<%= edmIsShownAt %>"><%= edmDataProvider %></a>
 					</p>
 				<% end %>
-							
+
 			</div>
 
 
@@ -301,7 +301,7 @@
 
 
 
-			
+
 			<!--p class="col-cell">
 				If an element appears in a blockquote it gets really big, and can span several columns:
 
@@ -380,12 +380,18 @@
         </div>
       <% end %>
 
+
+		<%# Mediaplayer %>
+		<%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+		<ul id="thumbnail-counts"></ul>
+
+
 		<%# Left column %>
 
 		<div class="col left">
-		
+
 			<% if @contribution.contributor.picture.present? %>
-			
+
 				<div class="col-cell grey">
 					<%
 						people = {
@@ -395,13 +401,13 @@
 							:character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
 						}
 					%>
-					
+
 					<div id="avatar" class="responsive-box">
-					
+
 						<%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
-						
+
 						<%= image_tag(current_user.picture.url(:thumb)) %>
-						
+
 						<% if people[:contributor].present? %>
 							<%= people[:contributor] %>
 							<%#= people[:principal] %>
@@ -410,33 +416,28 @@
 								<%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
 							<% end %>
 						<% end %>
-						
+
 					</div>
 				</div>
-				
+
 			<% end %>
-		
-		
+
+
 			<h2 class="contribution-title show-on-phones"><%= contribution_title(@contribution) %></h2>
-		
-			<div class="col-cell grey">
-				<%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
-				<ul id="thumbnail-counts"></ul>
-			</div>
 
 
 		</div>	<%# end left col %>
-		
-		
-		
+
+
+
 		<%# Middle column %>
-		
-		
-		
+
+
+
 		<div class="col middle">
-		
+
 			<div class="col-cell">
-				<h2 class="contribution-title hide-on-phones"><%= contribution_title(@contribution) %></h2>			
+				<h2 class="contribution-title hide-on-phones"><%= contribution_title(@contribution) %></h2>
 			</div>
 
 			<div class="col-cell">
@@ -464,7 +465,7 @@
 						<dt><b><%= contribution_field_title('contributor') %></b></dt>
 						<dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
 					<% end %>
-					
+
 					<%=
 						render :partial => '/metadata/display',
 						:locals => {
@@ -527,7 +528,7 @@
 							}
 						%>
 					<% end %>
-					
+
 					<%=
 						render :partial => '/metadata/display',
 						:locals => {
@@ -560,7 +561,7 @@
 									# they are output as input type="hidden"
 									#'location_map',
 									#'location_placename',
-									#'location_zoom'          
+									#'location_zoom'
 								],
 								:name_order => true
 							}
@@ -613,27 +614,27 @@
 						<dd><%= l @contribution.created_at, :format => :short %></dd>
 					<% end %>
 				</dl>
-				
+
 			</div>
-			
-			
+
+
 			<!-- COMMENTS DISABLED -->
-			<!-- 
+			<!--
 			<div class="col-cell">
 
 				<div class="comments">
 					<h3><%= t('views.contributions.show.comments.title') %></h3>
 					<hr />
 					<%= t('views.contributions.show.comments.no_comments') %>
-					
+
 					<h3 class="comment-sub-heading-2"><%= t('views.contributions.show.comments.leave') %></h3>
 					<div class="content">
 						<div>
 
 							<%- if current_user.picture.present? -%>
 								<%= image_tag(current_user.picture.url(:thumb)) %>
-							<%- end -%>						
-						
+							<%- end -%>
+
 							<span class="user-tagline">Tagline</span>
 						</div>
 						<div>
@@ -659,15 +660,15 @@
 					</div>
 				</div>
 			<% end %>
-			
+
 
 			<div class="col-cell">
 			    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
 			</div>
-			
-			
+
+
 		</div>
-		
+
 		<%# End middle column %>
 
 
