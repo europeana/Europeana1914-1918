@@ -1,10 +1,10 @@
 <%
-if ( @attachment.title.blank? )
-	title = @attachment.file_file_name
-else
-	title = @attachment.title
-end
-%>
+	if ( @attachment.title.blank? )
+		title = @attachment.file_file_name
+	else
+		title = @attachment.title
+	end
+-%>
 <!DOCTYPE html>
 <!--
 Copyright 2012 Mozilla Foundation
@@ -27,7 +27,7 @@ limitations under the License.
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <link rel="stylesheet" href="/themes/common/mozilla/pdf.js/viewer.css"/>
 <link rel="resource" type="application/l10n" href="/themes/common/mozilla/pdf.js/locale/locale.properties"/>
-<title><%= title %></title>
+<title><%= title -%></title>
 </head>
 <body tabindex="1">
 	<div id="outerContainer" class="loadingInProgress">
@@ -187,9 +187,8 @@ limitations under the License.
 
 	</div> <!-- outerContainer -->
 	<div id="printContainer"></div>
-	<script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
+	<script>var DEFAULT_URL = '<%= @attachment.file.url(:original) -%>';</script>
 	<%
-		# supporting scripts
 		script_files = [
 			'/themes/common/mozilla/pdf.js/compatibility.js',
 			'/themes/common/mozilla/pdf.js/l10n.js',
@@ -197,7 +196,7 @@ limitations under the License.
 			'/themes/common/mozilla/pdf.js/debugger.js',
 			'/themes/common/mozilla/pdf.js/viewer.js'
 		]
-	%>
+	-%>
 	<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
 </body>
 </html>

@@ -30,20 +30,20 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.new
     @attachment.contribution = @contribution
     @attachment.build_metadata
-    
+
     text = MetadataField.find_by_name('file_type').taxonomy_terms.select { |tt| tt.term == 'TEXT' }.first
     @attachment.metadata.field_file_type_term_ids = [ text.id ]
     license = MetadataField.find_by_name('license').taxonomy_terms.select { |tt| tt.term == 'http://creativecommons.org/licenses/by-sa/3.0/' }.first
     @attachment.metadata.field_license_term_ids = [ license.id ]
   end
 
-  # POST /contributions/:contribution_id/attachments 
+  # POST /contributions/:contribution_id/attachments
   def create
     current_user.may_create_contribution_attachment!(@contribution)
-    
+
     @attachment = Attachment.new
     @attachment.build_metadata
-    
+
     if params[:uploadify]
       attachment_attributes = (params[:attachment].is_a?(String) ? JSON.parse(params[:attachment]) : params[:attachment])
       attachment_attributes[:file] = params[:attachment_file]
@@ -54,21 +54,21 @@ class AttachmentsController < ApplicationController
         attachment_attributes.delete(:file)
       end
     end
-    
+
     @attachment.attributes = attachment_attributes
     @attachment.metadata.cataloguing = true if current_user.may_catalogue_contributions?
     @attachment.contribution = @contribution
-    
+
     unless attachment_attributes.is_a?(Hash) && attachment_attributes.has_key?(:metadata_attributes) && attachment_attributes[:metadata_attributes].has_key?(:field_license_term_ids)
       license = MetadataField.find_by_name('license').taxonomy_terms.select { |tt| tt.term == 'http://creativecommons.org/licenses/by-sa/3.0/' }.first
       @attachment.metadata.field_license_term_ids = [ license.id ]
     end
-    
+
     unless attachment_attributes.is_a?(Hash) && attachment_attributes.has_key?(:metadata_attributes) && attachment_attributes[:metadata_attributes].has_key?(:field_file_type_term_ids)
       text = MetadataField.find_by_name('file_type').taxonomy_terms.select { |tt| tt.term == 'TEXT' }.first
       @attachment.metadata.field_file_type_term_ids = [ text.id ]
     end
-    
+
     if params[:attachment][:dropbox_path].present? && dropbox_configured? && dropbox_authorized?
       begin
         dropbox_metadata = dropbox_client.metadata(params[:attachment][:dropbox_path])
@@ -84,9 +84,9 @@ class AttachmentsController < ApplicationController
         dropbox_error = exception.error
       end
     end
-    
+
     if dropbox_error.blank? && @attachment.save
-      respond_to do |format| 
+      respond_to do |format|
         format.html do
           flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
           if @contribution.submitted?
@@ -95,19 +95,19 @@ class AttachmentsController < ApplicationController
             redirect_to new_contribution_attachment_path(@contribution)
           end
         end
-        format.json  { render :json => { :result => 'success', :url => contribution_attachment_path(@contribution, @attachment) } } 
-      end 
+        format.json  { render :json => { :result => 'success', :url => contribution_attachment_path(@contribution, @attachment) } }
+      end
     else
       if dropbox_error.present?
         @attachment.valid?
         @attachment.errors.add(:dropbox_path, dropbox_error)
       end
-      respond_to do |format| 
+      respond_to do |format|
         format.html do
           flash.now[:alert] = t('flash.attachments.create.alert')
           render :action => 'new', :status => :bad_request
         end
-        format.json  { render :json => { :result => 'error', :msg => @attachment.errors.values.flatten.to_sentence }, :status => :bad_request } 
+        format.json  { render :json => { :result => 'error', :msg => @attachment.errors.values.flatten.to_sentence }, :status => :bad_request }
       end
     end
   end
@@ -118,8 +118,12 @@ class AttachmentsController < ApplicationController
     respond_to do |format|
       format.html do
         if params[:layout] == '0'
-          if @attachment.pdf?
+          if @attachment.audio?
+            render :partial => 'attachments/audio-video'
+          elsif @attachment.pdf?
             render :partial => 'attachments/pdf'
+          elsif @attachment.video?
+            render :partial => 'attachments/audio-video'
           else
             render :layout => false
           end
@@ -176,7 +180,7 @@ class AttachmentsController < ApplicationController
   def copy
     current_user.may_copy_attachment_metadata!(@attachment)
   end
-  
+
   # PUT /contributions/:contribution_id/attachments/:id/duplicate
   def duplicate
     current_user.may_copy_attachment_metadata!(@attachment)
@@ -199,7 +203,7 @@ class AttachmentsController < ApplicationController
         end
       end
     end
-    
+
     flash[:notice] = t('flash.attachments.duplicate.notice')
     redirect_to @attachment.contribution
   end
@@ -230,10 +234,10 @@ protected
   def find_attachment
     @attachment = @contribution.attachments.find(params[:attachment_id] || params[:id], :include => [ :metadata ])
   end
-  
+
   def cached(format)
     cache_key = "attachments/#{format.to_s}/#{@attachment.id}.#{format.to_s}"
-    
+
     if fragment_exist?(cache_key)
       data = YAML::load(read_fragment(cache_key))
     else
@@ -245,8 +249,7 @@ protected
       end
       write_fragment(cache_key, data.to_yaml)
     end
-    
+
     data
   end
 end
-
