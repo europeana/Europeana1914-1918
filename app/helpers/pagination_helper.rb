@@ -58,8 +58,7 @@ module PaginationHelper
     end
 
     def next_page
-      #num = @collection.current_page <= @collection.total_pages && @collection.current_page + 1
-      num = @collection.current_page < @collection.total_pages && total_pages
+      num = @collection.current_page + 1
       previous_or_next_page(num, @options[:next_label], 'nav-next', :title => @options[:next_title])
     end
     
