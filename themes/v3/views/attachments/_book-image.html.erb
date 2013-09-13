@@ -1,11 +1,3 @@
-<%
-	if ( @attachment.title.blank? )
-		title = @attachment.file_file_name
-	else
-		title = @attachment.title
-	end
--%>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
@@ -14,6 +6,55 @@
 
     <link rel="stylesheet" type="text/css" href="/themes/v3/javascripts/org/openlibrary/BookReader.css"/>
     <link rel="stylesheet" type="text/css" href="/themes/v3/javascripts/org/openlibrary/BookReaderEuropeana.css"/>
+
+
+	<script type="text/javascript">
+  		var bookUrls = [];
+
+		alert("<%= @attachments.present?  -%>");
+
+
+
+		<% if (@attachments.present?) -%>
+
+
+			<% for attachment in @attachments %>
+			
+			
+				bookUrls.push("FUCK");
+			
+				<% if ( attachment.file.present? ) -%>
+
+
+					
+
+						<% if (attachment.image? ) -%>
+
+							
+							bookUrls.push("<%= attachment -%>");
+							
+								
+						<% end -%>
+				
+					
+					
+
+
+				
+				<% end -%>
+				
+			<% end %>
+
+		
+		<% end -%>
+
+
+
+
+		alert("(js) bookUrls = " +  JSON.stringify(bookUrls) );
+
+	</script>
+	
 
 	<%
 		script_files = [
@@ -25,7 +66,7 @@
 			'/themes/v3/javascripts/com/jquery/plugins/jquery.bt.min.js',
 			'/themes/v3/javascripts/org/openlibrary/BookReader.js'
 		]
-	%>
+	-%>
 	
 	<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
 	<style>
@@ -53,6 +94,7 @@
 	    Internet Archive BookReader Demo
    		<br/>
     
+    
     	<noscript>
     		<p>
     	    	The BookReader requires JavaScript to be enabled. Please check that your browser supports JavaScript and that it is enabled in the browser settings.  You can also try one of the <a href="http://www.archive.org/details/goodytwoshoes00newyiala"> other formats of the book</a>.
@@ -64,22 +106,22 @@
 
 var br = new BookReader();
 
-// Return the width of a given page.  Here we assume all images are 800 pixels wide
 br.getPageWidth = function(index) {
-	//alert( $('body').width() );
-    return $('body').width(); //346;
+    return $('body').width();
 }
 
-// Return the height of a given page.  Here we assume all images are 1200 pixels high
 br.getPageHeight = function(index) {
-    return 231;
+    return 300;
 }
 
-// We load the images from archive.org -- you can modify this function to retrieve images
-// using a different URL structure
+// We load the images from archive.org -- you can modify this function to retrieve images using a different URL structure
+
 br.getPageURI = function(index, reduce, rotate) {
 	
+	
+	
 	/* .html.erb written: */
+	
 	var bookImgUris = [
 	      'http://www.europeana1914-1918.eu/attachments/6701*/5876.6701*.medium.jpg',
 	      ,

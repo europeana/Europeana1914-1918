@@ -1,5 +1,8 @@
 <% thumbnails = thumbnails ? thumbnails : false -%>
 <% if attachments.present? -%>
+
+  <% bookUrls = [] -%>
+
   <% for attachment in attachments -%><li>
 		<% if ( attachment.file.present? ) -%>
 			<% if ( thumbnails ) -%>
@@ -15,8 +18,9 @@
 				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0"></iframe>
 			<% elsif ( attachment.image? ) -%>
 			
-			
-				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>
+				<% bookUrls << attachment -%>
+				
+				<%#     <iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>        -%>
 				
 				<%# attachment_preview( attachment, size ) -%>
 				
@@ -28,4 +32,24 @@
 			<img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
 		<% end -%>
 	</li><% end -%>
+	
+	
+	<% if ( bookUrls.size > 0 ) -%>
+	
+		<script type="text/javascript">
+			//alert( "bookUrls.size = <%= bookUrls.size %>" );
+		</script>
+			
+		<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>
+			
+	<% else -%>
+	
+		<script type="text/javascript">
+			alert( "bookUrls is empty!");
+		</script>
+		
+	<% end -%>
+	
+	
+	
 <% end -%>
