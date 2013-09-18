@@ -92,22 +92,10 @@ class Admin::ContributionsController < AdminController
         RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
       end
       format.xml do
-        @metadata_fields = MetadataField.all.collect { |mf| mf.name }
-
-        xml_filename = "collection-#{timestamp}.xml.gz"
-        xml_filepath = File.join(Rails.root, 'private', 'exports', xml_filename)
+        job_options = settings_hash.merge(:username => current_user.username, :email => current_user.email)
+        Delayed::Job.enqueue ExportJob.new(job_options)
         
-        spawn_block do
-          Zlib::GzipWriter.open(xml_filepath) do |gz|
-            gz.write(render_to_string)
-          end
-          RunCoCo.export_logger.info("Export to XML by #{current_user.username} saved as #{xml_filename}")
-          if current_user.email.present?
-            ExportsMailer.complete(current_user.email, xml_filename).deliver
-          end
-        end
-        
-        flash[:notice] = "Generating XML export in the file #{xml_filename}"
+        flash[:notice] = "Generating XML export in the background"
         redirect_to admin_root_url
       end
     end
@@ -127,19 +115,15 @@ protected
     end
   end
   
-  def with_exported_contributions
-    settings_hash = { 
+  def settings_hash
+    {
       :exclude => @settings.exclude,
       :start_date => @settings.start_date,
       :end_date => @settings.end_date,
       :set => @settings.set,
       :institution_id => @settings.institution_id
     }
-    Contribution.export(settings_hash) do |contribution|
-      yield contribution
-    end
   end
-  helper_method :with_exported_contributions
   
   def export_as_csv
     csv_class.generate do |csv|
@@ -156,7 +140,7 @@ protected
         end
       end
 
-      with_exported_contributions do |c|
+      Contribution.export(settings_hash) do |c|
         row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at, "Europeana 1914 - 1918", (c.contributor.institution.present? ? c.contributor.institution.name : '') ] +
           MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
         csv << row
