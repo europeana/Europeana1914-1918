@@ -1,18 +1,18 @@
-it:
+sk:
   actions:
     approve: 
-    cancel: Cancella
+    cancel: Uložit
     copy: 
-    delete: Elimina
+    delete: Zmazať
     download: 
-    edit: Modifica
-    edit_story: 
+    edit: Upraviť
+    edit_story: Príbeh
     filter: 
     flag: 
     new: 
     reject: 
     remove: 
-    save: Salva
+    save: Uložit
     submit: 
     unflag: 
     update: 
@@ -24,9 +24,9 @@ it:
         file_content_type: 
         file_created_at: 
         file_file_name: 
-        file_file_size: Dimensione del file
+        file_file_size: Veľkosť súboru
         file_updated_at: 
-        preview: Anteprima
+        preview: Ukážka
         public: 
       contact:
         age: 
@@ -42,7 +42,7 @@ it:
         approved_at: 
         approved_by: 
         approver: 
-        attachments: Contributo
+        attachments: Objekty
         catalogued_by: 
         cataloguer: 
         contributor: 
@@ -54,7 +54,7 @@ it:
         created_at: 
       metadata_field:
         cataloguing: 
-        field_type: Tipologia
+        field_type: Typ
         hint: 
         multi: 
         name: 
@@ -70,41 +70,35 @@ it:
         term: 
       user:
         created_at: 
-        password: 
+        password: Heslo
         password_confirmation: 
         role_name: 
-        username: Username
+        username: ! 'Užívateľské '
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
-        accepted: deve essere accettata
-        blank: non può essere lasciato in bianco
-        confirmation: non coincide con la conferma
-        empty: non può essere vuoto
-        equal_to: deve essere uguale a %{count}
-        even: deve essere pari
-        exclusion: è riservato
-        greater_than: deve essere superiore a %{count}
-        greater_than_or_equal_to: deve essere superiore o uguale a %{count}
-        inclusion: non è incluso nella lista
-        invalid: non è valido
-        less_than: deve essere meno di %{count}
-        less_than_or_equal_to: deve essere meno o uguale a %{count}
-        not_a_number: non è un numero
-        not_an_integer: non è un intero
-        odd: deve essere dispari
-        record_invalid: ! 'Validazione fallita: %{errors}'
-        taken: è già in uso
-        too_long:
-          one: è troppo lungo (il massimo è 1 carattere)
-          other: è troppo lungo (il massimo è %{count} caratteri)
-        too_short:
-          one: è troppo corto (il minimo è 1 carattere)
-          other: è troppo corto (il minimo è %{count} caratteri)
-        wrong_length:
-          one: è della lunghezza sbagliata (deve essere di 1 carattere)
-          other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
+        accepted: musí byť potvrdené
+        blank: je povinná položka
+        confirmation: nebolo potvrdené
+        empty: nesmie byť prázdny/e
+        equal_to: sa musí rovnať %{count}
+        even: musí byť párne číslo
+        exclusion: je vyhradené pre iný účel
+        greater_than: musí byť väčšie ako %{count}
+        greater_than_or_equal_to: musí byť väčšie alebo rovné %{count}
+        inclusion: nie je v zozname povolených hodnôt
+        invalid: nie je platná hodnota
+        less_than: musí byť menšie ako %{count}
+        less_than_or_equal_to: musí byť menšie alebo rovné %{count}
+        not_a_number: nie je číslo
+        not_an_integer: musí byť celé číslo
+        odd: musí byť nepárne číslo
+        record_invalid: ! 'Validácia neúspešná: %{errors}'
+        taken: ste už použili
+        too_long: je príliš dlhá/ý (max. %{count} znakov)
+        too_short: je príliš krátky/a (min. %{count} znakov)
+        wrong_length: nemá správnu dĺžku (očakáva sa %{count} znakov)
       models:
         attachment:
           attributes:
@@ -149,14 +143,14 @@ it:
             picture:
               content_type: 
       template:
-        body: ! 'Per favore ricontrolla i seguenti campi:'
+        body: ! 'Nasledujúce polia obsahujú chybne vyplnené údaje:'
         header:
-          one: ! 'Non posso salvare questo %{model}: 1 errore'
-          other: ! 'Non posso salvare questo %{model}: %{count} errori.'
+          one: Pri ukladaní objektu %{model} došlo k chybám a nebolo ho možné uložiť
+          other: Pri ukladaní objektu %{model} došlo k %{count} chybám a nebolo ho možné uložiť
     models:
       attachment: 
       contact: 
-      contribution: Storia
+      contribution: Príbeh
       institution: 
       metadata_field: 
       metadata_record: 
@@ -183,10 +177,10 @@ it:
   attributes:
     contact: 
     created_at: 
-    email: 
+    email: Email
     id: 
     metadata_record: 
-    title: Titolo
+    title: Τίτλος
     updated_at: 
     url: 
   common:
@@ -201,107 +195,107 @@ it:
     from-collection-days: 
     google_maps:
       help_text: 
-      label: Utilizza le mappe di Google (scelta opzionale)
+      label: Použite Google Mapy (Voliteľné)
     help_text:
-      mandatory: Campo obbligatorio
+      mandatory: Povinné pole
     labels:
       co_funded: 
     links:
-      about_the_project: 
-      add-your-story: Aggiungi la tua storia!
-      contact_us: Contattaci
+      about_the_project: O projekte Europeana 1914-1918
+      add-your-story: Pridaj svoj príbeh!
+      contact_us: Kontaktujte nás
       contribution-terms-pdf: 
-      contribution_terms: 
-      explore-the-stories: Esplora le storie!
+      contribution_terms: ! 'Europeana podmienky pre užívateľské príspevky '
+      explore-the-stories: 
       explore_stories: 
-      help: Guida
-      my_account: ! 'Il mio account '
-      my_stories: ! 'Le mie storie '
-      privacy_policy: 
+      help: ! 'Pomoc '
+      my_account: 
+      my_stories: 
+      privacy_policy: ! 'Zásady ochrany osobných údajov '
       project_website: 
-      register: Registrati
-      sign_in: Accedi
-      takedown_policy: 
+      register: ! 'Registrujte sa '
+      sign_in: Prihlásiť sa
+      takedown_policy: Zásady stiahnutia sporného obsahu
       titles:
         contribution_terms: 
         great_war: 
         takedown: 
     menus:
       main:
-        about: Informazioni
-        add: Aggiungi
-        collection-days: 
-        explore: Esplora
-        home: Home
-        remix: Una insolita amicizia
+        about: O nás
+        add: Pridať
+        collection-days: Zberné dni
+        explore: Skúmať
+        home: Domov
+        remix: 
         select_language: 
-        sign_in: Accedi
-        sign_out: Esci
+        sign_in: Prihlásiť sa
+        sign_out: 
       menu: 
     more-at: 
-    news: Notizie
+    news: 
     news_item:
       heading: 
     'no': 
     options:
-      close: Chiudi
-      open: Apri
+      close: 
+      open: 
       other_option: 
     other:
       contributor: 
-      preview: Anteprima
-      title: Titolo
+      preview: 
+      title: 
       total: 
-    'yes': 
+    'yes': Áno
   date:
     abbr_day_names:
-    - Dom
-    - Lun
-    - Mar
-    - Mer
-    - Gio
-    - Ven
-    - Sab
+    - Ne
+    - Po
+    - Ut
+    - St
+    - Št
+    - Pi
+    - So
     abbr_month_names:
     - 
-    - Gen
+    - Jan
     - Feb
     - Mar
     - Apr
-    - Mag
-    - Giu
-    - Lug
-    - Ago
-    - Set
-    - Ott
+    - Máj
+    - Jún
+    - Júl
+    - Aug
+    - Sep
+    - Okt
     - Nov
-    - Dic
+    - Dec
     day_names:
-    - Domenica
-    - Lunedì
-    - Martedì
-    - Mercoledì
-    - Giovedì
-    - Venerdì
-    - Sabato
+    - Nedeľa
+    - Pondelok
+    - Utorok
+    - Streda
+    - Štvrtok
+    - Piatok
+    - Sobota
     formats:
-      default: ! '%d-%m-%Y'
-      long: ! '%d %B %Y'
+      default: ! '%d.%m.%Y'
+      long: ! '%d. %B %Y'
       short: ! '%d %b'
     month_names:
     - 
-    - Gennaio
-    - Febbraio
-    - Marzo
-    - Aprile
-    - Maggio
-    - Giugno
-    - Luglio
-    - Agosto
-    - Settembre
-    - Ottobre
-    - Novembre
-    - Dicembre
+    - Január
+    - Február
+    - Marec
+    - Apríl
+    - Máj
+    - Jún
+    - Júl
+    - August
+    - September
+    - Október
+    - November
+    - December
     order:
     - :day
     - :month
@@ -309,53 +303,51 @@ it:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: circa un'ora
-        other: circa %{count} ore
+        one: asi hodinou
+        other: asi %{count} hodinami
       about_x_months:
-        one: circa un mese
-        other: circa %{count} mesi
+        one: asi mesiacom
+        other: asi %{count} mesiacmi
       about_x_years:
-        one: circa un anno
-        other: circa %{count} anni
+        one: asi rokom
+        other: asi %{count} rokmi
       almost_x_years:
-        one: circa 1 anno
-        other: circa %{count} anni
-      half_a_minute: mezzo minuto
+        one: takmer pred rokom
+        other: takmer pred %{count} rokmi
+      half_a_minute: pol minútou
       less_than_x_minutes:
-        one: meno di un minuto
-        other: meno di %{count} minuti
+        one: pred necelou minútou
+        other: pred ani nie %{count} minútami
       less_than_x_seconds:
-        one: meno di un secondo
-        other: meno di %{count} secondi
+        one: asi pred sekundou
+        other: asi pred %{count} sekundami
       over_x_years:
-        one: oltre un anno
-        other: oltre %{count} anni
+        one: pred viac ako rokom
+        other: viac ako %{count} rokmi
       x_days:
-        one: 1 giorno
-        other: ! '%{count} giorni'
+        one: 24 hodinami
+        other: ! '%{count} dňami'
       x_minutes:
-        one: 1 minuto
-        other: ! '%{count} minuti'
+        one: minútou
+        other: ! '%{count} minútami'
       x_months:
-        one: 1 mese
-        other: ! '%{count} mesi'
+        one: mesiacom
+        other: ! '%{count} mesiacmi'
       x_seconds:
-        one: 1 secondo
-        other: ! '%{count} secondi'
+        one: sekundou
+        other: ! '%{count} sekundami'
     prompts:
-      day: Giorno
-      hour: Ora
-      minute: Minuto
-      month: Mese
-      second: Secondi
-      year: Anno
+      day: Deň
+      hour: Hodina
+      minute: Minúta
+      month: Mesiac
+      second: Sekunda
+      year: Rok
   devise:
     failure:
       admin:
         unauthenticated: 
-      invalid: ! 'non valido
-
-        username / e-mail o la password.'
+      invalid: 
       invalid_token: 
       timeout: 
       unauthenticated: 
@@ -363,53 +355,47 @@ it:
       reset_password_instructions:
         subject: 
     passwords:
-      link: Hai dimenticato la password?
+      link: Zabudli ste heslo?
       send_instructions: 
       updated: 
     registrations:
       destroyed: 
-      link: Registrati
+      link: ! 'Registrujte sa '
       signed_up: 
       updated: 
     sessions:
       link: 
-      signed_in: Firmato a successo.
+      signed_in: ! 'Úspešne '
       signed_out: 
   errors:
     format: ! '%{attribute} %{message}'
     messages:
-      accepted: deve essere accettata
-      blank: non può essere lasciato in bianco
-      confirmation: non coincide con la conferma
-      empty: non può essere vuoto
-      equal_to: deve essere uguale a %{count}
-      even: deve essere pari
-      exclusion: è riservato
-      greater_than: deve essere superiore a %{count}
-      greater_than_or_equal_to: deve essere superiore o uguale a %{count}
-      inclusion: non è incluso nella lista
-      invalid: non è valido
-      less_than: deve essere meno di %{count}
-      less_than_or_equal_to: deve essere meno o uguale a %{count}
-      not_a_number: non è un numero
-      not_an_integer: non è un intero
-      odd: deve essere dispari
-      record_invalid: ! 'Validazione fallita: %{errors}'
-      taken: è già in uso
-      too_long:
-        one: è troppo lungo (il massimo è 1 carattere)
-        other: è troppo lungo (il massimo è %{count} caratteri)
-      too_short:
-        one: è troppo corto (il minimo è 1 carattere)
-        other: è troppo corto (il minimo è %{count} caratteri)
-      wrong_length:
-        one: è della lunghezza sbagliata (deve essere di 1 carattere)
-        other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
+      accepted: musí byť potvrdené
+      blank: je povinná položka
+      confirmation: nebolo potvrdené
+      empty: nesmie byť prázdny/e
+      equal_to: sa musí rovnať %{count}
+      even: musí byť párne číslo
+      exclusion: je vyhradené pre iný účel
+      greater_than: musí byť väčšie ako %{count}
+      greater_than_or_equal_to: musí byť väčšie alebo rovné %{count}
+      inclusion: nie je v zozname povolených hodnôt
+      invalid: nie je platná hodnota
+      less_than: musí byť menšie ako %{count}
+      less_than_or_equal_to: musí byť menšie alebo rovné %{count}
+      not_a_number: nie je číslo
+      not_an_integer: musí byť celé číslo
+      odd: musí byť nepárne číslo
+      record_invalid: ! 'Validácia neúspešná: %{errors}'
+      taken: ste už použili
+      too_long: je príliš dlhá/ý (max. %{count} znakov)
+      too_short: je príliš krátky/a (min. %{count} znakov)
+      wrong_length: nemá správnu dĺžku (očakáva sa %{count} znakov)
     template:
-      body: ! 'Per favore ricontrolla i seguenti campi:'
+      body: ! 'Nasledujúce polia obsahujú chybne vyplnené údaje:'
       header:
-        one: ! 'Non posso salvare questo %{model}: 1 errore'
-        other: ! 'Non posso salvare questo %{model}: %{count} errori.'
+        one: Pri ukladaní objektu %{model} došlo k chybám a nebolo ho možné uložiť
+        other: Pri ukladaní objektu %{model} došlo k %{count} chybám a nebolo ho možné uložiť
   flash:
     actions:
       create:
@@ -457,7 +443,7 @@ it:
       draft:
         create:
           alert: 
-          notice: Il nuovo progetto è stato avviato con successo
+          notice: Nový koncept príspevku bol uložený.
         submit:
           alert: 
           notice: 
@@ -522,16 +508,16 @@ it:
         add_edit: 
         create: 
         delete: 
-        update: Salva
+        update: 
       contribution:
         create: 
-        delete: Elimina la storia
-        save_draft: Salva la storia come progetto
+        delete: Vymazať príbeh
+        save_draft: Uložiť koncept príbehu.
         submit: 
         update: 
         withdraw: 
       contributor:
-        create: Registrati
+        create: 
       create: 
       delete: 
       filter:
@@ -543,8 +529,8 @@ it:
         create: 
         update: 
       search:
-        submit: Cerca
-      sign_in: Accedi
+        submit: 
+      sign_in: 
       submit: 
       tag:
         flag: 
@@ -553,7 +539,7 @@ it:
       update: 
       upload: 
       user:
-        create: Registrati
+        create: 
         delete: 
         update: 
     create: 
@@ -564,39 +550,47 @@ it:
           file: 
         file: 
         metadata:
-          attachment_description: 
-          content: ! 'Che tipo di oggetto è (ad esempio, una poesia, lettera, foto), cerca di essere il più specifico possibile '
-          cover_image: L’immagine di copertina rappresenta la vostra storia nella collezione. È simile alla copertina di un libro. Può essere una foto del protagonista della storia, la copertina di un diario o la foto di una medaglia.
-          creator_given_name: Il nome della persona che ha creato l'oggetto originale, ad esempio, l'autore di un diario o di una lettera, oppure il fotografo di uno scatto.
-          date_from: Scrivi quando è stato creato il contributo, vale a dire quando è stata scritta una lettera oppure ad esempio nel caso di un diario, quando è stato iniziato. Se non si conosce la data esatta di inserire l'anno.
-          date_to: Inserisci la data che indichi una data di fine, ad esempio l’ultimo giorno di un diario.
-          forces: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
+          attachment_description: Opíšte charakteristiku objektu a taktiež čo pre vás znamená.
+          content: ! 'Čo je objektom (napr. báseň, list, fotografia); snažte sa byť čo najšpecifickejší.
+
+'
+          cover_image: ! 'Obálka opisuje váš príbeh v našej zbierke, podobne ako obálka knihy. Môže to byť fotografia toho o kom je príbeh, prvá strana denníka alebo obrázok medaily.
+
+'
+          creator_given_name: Meno osoby, ktorá vytvorila pôvodný objekt, napr. autor listu alebo denníku alebo meno fotografa.
+          date_from: ! 'Povedzte nám kedy bol objekt vytvorený, napr. kedy bol list napísaný alebo kedy objekt začal, napr. kedy sa začal denník písať. Pokiaľ si nie ste istý, prosíme napíšte iba rok, prípadne rok a mesiac.
+
+'
+          date_to: Dátum ukončenia objektu, napr. posledný dátum v denníku.
+          forces: 
           format: 
-          keywords: ! "Assegna solamente parole chiave che descrivano l'argomento principale della storia che stai raccontando. Lo scopo è quello di mettere in evidenza la tua storia all’interno delle nostre collezioni. Se una chiave di ricerca non è disponibile, ti preghiamo di contattarci al 1914-1918[@]europeana[.]eu. \n"
+          keywords: ! 'Priraďte iba kľúčové slová, ktoré popisujú hlavný subject alebo širšiu myšlienku vášho príspevku. Zmyslom týchto kľúčových slov je lepšie zviditeľnenie vášho príspevku v našej zbierke príbehov. Pokiaľ sa tam vhodné kľúčové slovo nenachádza prosíme kontaktujte nás cez e-mail: 1914-1918[@]europeana[.]eu'
           lang: 
-          location_placename: Inserisci il nome della città in cui ha avuto luogo la storia (ad esempio Londra, Parigi...)
-          object_side: Se il contributo è un oggetto con due lati, ad esempio una cartolina, specificare il lato
-          page_number: Se il contributo è un oggetto costituito da più pagine scrivi il numero di ogni pagina
+          location_placename: Napíšte meno mesta, kde sa váš príbeh odohral, napr. Londýn alebo Paríž.
+          object_side: Pre objekt s dvomi stranami, napr. pohľadnica, označte stranu.
+          page_number: Pre objekt z viacerými stranami napíšte číslo strany.
           source: 
-          subject: La persona, il luogo o l’oggetto protagonista del contributo
-          theatres: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
+          subject: Osoba alebo miesto alebo vec o ktorej je objekt.
+          theatres: 
         new:
-          file: ! 'È possibile allegare quanti file si vuole, uno alla volta. Si noti che se si caricano più file vi sarà data la possibilità di sceglierne uno come copertina della storia, ad esempio, una cartolina o un calendario. Massima dimensione: %{max}. Formati consentiti: %{file_types}.'
-        title: ! 'Breve descrizione o nome del contributo: per esempio ''La medaglia d’onore del mio bisnonno Otto Schmidt'''
+          file: ! 'Môžete nahrať toľko súborov koľko je potrebných, jeden za druhým. Pamätajte, že ak nahrávate viacero súborov naraz budete mať možnosť označit jeden z nich ako ‘obálku’ pre váš príbeh, tj. pohľadnica alebo denník. Maximálna veľkosť súboru je %{max}. Povolené typy súborov: %{file_types}'
+        title: ! 'Krátky opisný názov ale riadny názov objektu, napr. “Môjho starého otca, Otto Schmidt, Medaila cti”
+
+'
       contact:
         full_name: 
       contribution:
         metadata:
           contributor_behalf: 
-          date_from: ! 'Raccontaci quando la storia ha avuto luogo. Se non conosci la data esatta compila solo il campo inerente all’anno.  Ad esempio: mio nonno si è arruolato nel 1915.'
-          date_to: ! 'Raccontaci quando finisce la storia che stai raccontando. Se non conosci la data esatta compila solo il campo inerente all’anno. Ad esempio: mio nonno è stato ferito nel 1915.'
-          description: ! 'Scrivi la tua storia '
-          forces: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
-          keywords: ! "Assegna solamente parole chiave che descrivano l'argomento principale della storia che stai raccontando. Lo scopo è quello di mettere in evidenza la tua storia all’interno delle nostre collezioni. Se una chiave di ricerca non è disponibile, ti preghiamo di contattarci al 1914-1918[@]europeana[.]eu. \n"
+          date_from: Popíšte nám kedy sa príbeh odohral. Pokiaľ to neviete presne, prosím vypíšte iba rok, napr. Môj starý otec narukoval v 1915, atď.
+          date_to: Popíšte nám kedy príbeh skončil. Pokiaľ to neviete presne, prosím vypíšte iba rok, napr. Môj starý otec bol zranený v 1916, atď.
+          description: Napíšte príbeh ku vášmu príspevku.
+          forces: 
+          keywords: ! 'Priraďte iba kľúčové slová, ktoré popisujú hlavný subject alebo širšiu myšlienku vášho príspevku. Zmyslom týchto kľúčových slov je lepšie zviditeľnenie vášho príspevku v našej zbierke príbehov. Pokiaľ sa tam vhodné kľúčové slovo nenachádza prosíme kontaktujte nás cez e-mail: 1914-1918[@]europeana[.]eu'
           lang: 
-          location_placename: 
-          theatres: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
-        title: Dai un titolo al contributo nel suo complesso
+          location_placename: Napíšte meno mesta, kde sa váš príbeh odohral, napr. Londýn alebo Paríž.
+          theatres: 
+        title: 
       metadata_field:
         attachment: 
         cataloguing: 
@@ -651,65 +645,65 @@ it:
     labels:
       attachment:
         metadata:
-          attachment_description: Descrizione
-          attachment_file: File singolo
+          attachment_description: Popis
+          attachment_file: Jeden súbor
           content: 
-          cover_image: Immagine di copertina
-          creator_family_name: Cognome del creatore
-          creator_given_name: Nome del creatore
-          date_from: Data di creazione
-          date_to: Data di fine
+          cover_image: Obálka
+          creator_family_name: Priezvisko tvorcu
+          creator_given_name: Meno tvorcu
+          date_from: Dátum vytvorenia/ Dátum začatia
+          date_to: 
           file_type: 
           format: 
-          lang: Lingua
+          lang: Jazyk
           lang_other: 
           license: 
           location_map: 
-          location_placename: Indica dove è stato creato l’oggetto
+          location_placename: Vyberte kde bol váš objekt vytvorený
           notes: 
-          object_side: Lato
-          page_number: Numero di pagina
+          object_side: 
+          page_number: Strana číslo
           page_total: 
           source: 
-          subject: 
+          subject: Subjekt
           ticket: 
       contribution:
         metadata:
           alternative: 
           cataloguer: 
-          character1_dob: Data di nascita
-          character1_dod: Data di morte
-          character1_family_name: Cognome
-          character1_given_name: Nome
-          character1_pob: ! "Luogo di nascita \n"
-          character1_pod: Luogo di morte
-          character2_dob: Data di nascita
-          character2_dod: Data di morte
-          character2_family_name: Cognome
-          character2_given_name: Nome
-          character2_pob: ! "Luogo di nascita \n"
-          character2_pod: Luogo di morte
+          character1_dob: Dátum narodenia
+          character1_dod: Dátum úmrtia
+          character1_family_name: Priezvisko
+          character1_given_name: Meno
+          character1_pob: Miesto narodenia
+          character1_pod: Miesto úmrtia
+          character2_dob: Dátum narodenia
+          character2_dod: Dátum úmrtia
+          character2_family_name: Priezvisko
+          character2_given_name: Meno
+          character2_pob: Miesto narodenia
+          character2_pod: Miesto úmrtia
           collection_day: 
-          contributor_behalf: Contributo per conto di
-          date_from: La storia ha inizio ...
-          date_to: La storia ha fine ...
-          description: Storia
+          contributor_behalf: 
+          date_from: Príbeh začína
+          date_to: Príbeh končí
+          description: 
           editor_pick: 
           editor_pick_sig: 
           editor_pick_text: 
           forces: 
-          keywords: Parole chiave
-          lang: Lingua
+          keywords: Kľúčové slová
+          lang: 
           lang_other: 
           location_map: 
-          location_placename: Indica esattamente dove la storia ha avuto luogo
+          location_placename: Umiestnite váš príbeh
           location_zoom: 
           notes: 
-          summary: Breve descrizione dei contributi legati alla storia
-          theatres: Teatri di guerra
+          summary: Celkový popis objektov.
+          theatres: Bojiská
           ticket: 
         terms: 
-        title: Titolo della storia
+        title: ! 'Názov '
       metadata_field:
         contribution: 
       taxonomy_term:
@@ -718,32 +712,32 @@ it:
           Central Powers: 
           Imperial Forces: 
         keywords:
-          Anti-War Movement: Movimento pacifista
-          Artillery: Artiglieria
-          Conscientious Objection: Obiezione di coscienza
-          Gas Warfare: Guerra chimica
-          Home Front: Fronte interno
-          Manufacture: Fabbriche
-          Medical: Medici
-          Military Punishment: Disciplina militare
-          Prisoners of War: Prigionieri di guerra
+          Anti-War Movement: Protivojnové hnutie
+          Artillery: Delostrelectvo
+          Conscientious Objection: Vedomý nesúhlas
+          Gas Warfare: Plynová vojna
+          Home Front: Domáci front
+          Manufacture: Výroba
+          Medical: Zdravotné
+          Military Punishment: Vojenské tresty
+          Prisoners of War: Vojnoví zajatci
           Propaganda: Propaganda
-          Recruitment and Conscription: Arruolamento e coscrizione
-          Remembrance: Commemorazioni
-          Tanks and Armoured Fighting Vehicles: Carri armati e veicoli militari corazzati
-          Transport: Trasporti
-          Trench Life: Vita di trincea
-          Women: Donne
+          Recruitment and Conscription: Nábor a odvod
+          Remembrance: Spomienky
+          Tanks and Armoured Fighting Vehicles: Tanky a Obrnené bojové vozidlá
+          Transport: Preprava
+          Trench Life: Zákopový život
+          Women: Ženy
         theatres:
-          Aerial Warfare: Guerra aerea
-          African Wars: Campagna d’Africa
-          Balkans: Campagna dei Balcani
-          Eastern Front: Fronte medio orientale
-          Gallipoli Front: Battaglia di Gallipoli/Campagna dei Dardanelli
-          Italian Front: Fronte italiano
-          Middle East: Guerra aerea
-          Naval Warfare: Guerra navale
-          Western Front: Fronte occidentale
+          Aerial Warfare: Vojna vo vzduchu
+          African Wars: Afrika
+          Balkans: Balkán
+          Eastern Front: 
+          Gallipoli Front: Front Gallipoli
+          Italian Front: Taliansky front
+          Middle East: Blízky východ
+          Naval Warfare: Vojna na mori
+          Western Front: Západný front
       user:
         delete_picture: 
         terms: 
@@ -752,13 +746,13 @@ it:
     titles:
       account_details: 
       admin_user: 
-      attachment_dates: Quando è stato creato il contributo
-      attachment_details: Descrivi l’oggetto
+      attachment_dates: Kedy bol objekt vytvorený
+      attachment_details: Popíšte váš objekt
       attachment_front: 
-      attachment_keywords: Aiuta gli utenti a trovare la tua storia con l'introduzione di una o più delle seguenti parole chiave.
-      attachment_location: 
+      attachment_keywords: 
+      attachment_location: Kde bol objekt vytvorený
       attachment_replace: 
-      attachment_upload: Allega un file
+      attachment_upload: Pridajte prílohu
       cataloguing_metadata: 
       contact_address: 
       contact_name: 
@@ -771,25 +765,25 @@ it:
       metadata_field_options: 
       optional_details: 
       personal_details: 
-      story_basics: Raccontaci la tua storia
-      story_character1: Persona 1
+      story_basics: 
+      story_character1: Osoba 1
       story_character2: 
-      story_characters: Raccontaci chi è il protagonista della storia
-      story_dates: Quando ha avuto luogo la storia
+      story_characters: Povedzte nám o kom je tento príbeh
+      story_dates: Kedy sa tento príbeh odohral
       story_forces: 
-      story_front: Su quale fronte ha luogo la storia
-      story_keywords: Aiuta gli utenti a trovare la tua storia con l'introduzione di una o più delle seguenti parole chiave.
-      story_location: Quando ha avuto luogo la storia
+      story_front: Z ktorého frontu je váš príbeh
+      story_keywords: Pomôžte ostatným nájsť váš príbeh pridaním jedného alebo viacerých kľúčových slov.
+      story_location: Kde sa váš príbeh odohral
       submit: 
     update: 
     'yes': 
   helpers:
     select:
-      prompt: Per favore, seleziona
+      prompt: Prosím vyberte si
     submit:
-      create: Crea %{model}
-      submit: Invia %{model}
-      update: Aggiorna %{model}
+      create: Vytvoriť %{model}
+      submit: Uložiť %{model}
+      update: Aktualizovať %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -812,7 +806,7 @@ it:
         hide: 
         hint: 
         label: 
-        show: 
+        show: Použite Google Mapy
       errors:
         empty: 
         present: 
@@ -824,8 +818,8 @@ it:
       static:
         hide: 
         show: 
-    next: successivo →
-    previous: ← precedente
+    next: 
+    previous: 
     story:
       took-place: 
     thumbnails:
@@ -852,19 +846,19 @@ it:
     ga: 
     hu: 
     nl: 
-    sk: 
+    sk: Slovenčina
     sl: 
   layout:
     navigation:
       about: 
       admin: 
-      browse: 
-      contact: Contattaci
+      browse: Vybrať
+      contact: Kontaktujte nás
       contribute: 
       help: 
-      home: Home
+      home: 
     software_engine: 
-  locale: Italiano
+  locale: Slovenčina
   mail:
     contributions:
       published:
@@ -889,47 +883,47 @@ it:
   number:
     currency:
       format:
-        delimiter: ! ','
+        delimiter: ! ' '
         format: ! '%n %u'
         precision: 2
-        separator: .
+        separator: ! ','
         significant: false
         strip_insignificant_zeros: false
         unit: €
     format:
-      delimiter: ! ','
-      precision: 2
-      separator: .
+      delimiter: ! ' '
+      precision: 3
+      separator: ! ','
       significant: false
       strip_insignificant_zeros: false
     human:
       decimal_units:
         format: ! '%n %u'
         units:
-          billion: Miliardi
-          million: Milioni
-          quadrillion: Biliardi
-          thousand: Mila
-          trillion: Bilioni
+          billion: Miliarda
+          million: Milión
+          quadrillion: Biliarda
+          thousand: Tisíc
+          trillion: Bilión
           unit: ''
       format:
         delimiter: ''
         precision: 1
-        significant: true
-        strip_insignificant_zeros: true
+        significant: false
+        strip_insignificant_zeros: false
       storage_units:
         format: ! '%n %u'
         units:
           byte:
-            one: Byte
-            other: Byte
+            one: B
+            other: B
           gb: GB
           kb: KB
           mb: MB
           tb: TB
     percentage:
       format:
-        delimiter: ''
+        delimiter: ! ' '
     precision:
       format:
         delimiter: ''
@@ -955,46 +949,46 @@ it:
     uploadify: 
   support:
     array:
-      last_word_connector: ! ' e '
-      two_words_connector: ! ' e '
+      last_word_connector: ! ' a '
+      two_words_connector: ! ' a '
       words_connector: ! ', '
     select:
-      prompt: Per favore, seleziona
+      prompt: Prosím vyberte si
   time:
-    am: am
+    am: dopoludnia
     formats:
-      default: ! '%a %d %b %Y, %H:%M:%S %z'
-      long: ! '%d %B %Y %H:%M'
-      short: ! '%d %b %H:%M'
+      default: ! '%a %d. %B %Y %H:%M %z'
+      long: ! '%A %d. %B %Y %H:%M'
+      short: ! '%d.%m. %H:%M'
       timestamp: 
-    pm: pm
+    pm: popoludní
   views:
     about:
       background:
-        heading: 
-        p1: 
-        p2: 
+        heading: História
+        p1: Europeana 1914-1918 vznikla ako iniciatíva Univerzity v Oxforde, keď ľudia z celej Británie boli vyzvaný aby priniesli rodinné listy, fotografie a spomienkové predmety z vojny na zdigitalizovanie. Úspech tohoto nápadu – z ktorého vznikol Archív Veľkej vojny – podnietil Europeanu, európsky digitálny archív, knižnicu a múzeum aby zapojili ostatné národné alebo lokálne inštitúcie naprieč Európou do spoločenstva s Univerzitou v Oxforde. Spolupráca prináša európske príbehy bok po boku britských, nemeckých, slovinských, luxemburgských, írskych, atď náprotivkov do zbierky príbehov Prvej svetovej vojny.
+        p2: ! '<b>Europeana Collections 1914-1918</b> projekt sa líši od Europeana 1914-1918: Europeana Collection 1914-1918 je knižničný projekt. Vytvorí do 2014 – storočnica vypuknutia Prvej svetovej vojny – značnú digitálnu zbierku z materiálov z národných knižničných zbierok v ôsmych krajinách, ktoré sa nachádzali na opačných stranách historického konfliktu. <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank"> Pre viac informácií o projekte Europeana Collections 1914-1918 si pozrite jeho stránku.</a> '
       collection_days:
-        heading: 
-        p1: 
-        p2: 
+        heading: Zberné dni
+        p1: ! 'Pozývamé širokú verejnosť aby na zberné dni priniesli svoje dokumenty, artefakty a príbehy z Prvej svetovej vojny aby ich projektový personál mohol zaznamenať. Príbehy a oskenované alebo odfografované objekty budú následne pridané do archívu. '
+        p2: Zberné dni po Európe v predchádzajúcom období.
       online_collection:
-        heading: 
-        p1: 
+        heading: Online zbierky príbehov
+        p1: Online zbierky príbehov začali v marci 2011. Cez webstránku môže každý pridať svoje objekty do zbierky spolu s príbehmi. Viac informácií ako pridať niečo do zbierky nájdete  '%{add_your_story}'. Pridané objekty sú skontrolované projektovým tímom a následne sprístupnené cez Europeana.
       privacy_policy:
         p1: 
         p2: 
         p3: 
         p4: 
       project_partners:
-        heading: 
-        item1: 
-        item2: 
-        item3: 
-        item4: 
-        item5: 
-        item6: 
-        item7: 
+        heading: Partneri projektu
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Univerzita v Oxforde</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Nemecká národná knižnica - die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Národná knižnica Luxemburgu - Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Národná knižnica Írska</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Národná knižnica Slovinska - Narodna in univerzitetna knjižnica</a>
+        item6: ! '<a href="http://www.kb.dk/en/nb/" target="_blank">Kráľovská knižnica – Národná knižnica Dánska a Univerzitná knižnica Copenhagen  - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
       takedown:
         item1: 
         item2: 
@@ -1005,7 +999,7 @@ it:
       terms:
         full_details:
           heading: 
-        heading: Norme e Condizioni
+        heading: Podmienky
         summary:
           heading: 
           item1: 
@@ -1033,10 +1027,10 @@ it:
           p6: 
           p7: 
       what_we_do:
-        heading: 
-        item1: 
-        item2: 
-        p1: 
+        heading: Náš zámer
+        item1: Cez webstránku Europeana 1914-1918 – pridajte obrázok objektu alebo online napíšte príbeh.
+        item2: Na zberných dňoch – prineste objek(y) na roadshow kde personál odfotografuje vaše objekty a zaznamená príbehy, ktoré k nim patria
+        p1: ! 'Cieľom projektu je je zozbierať memorabílie a príbehy z obdobia Veľkej vojny (1914-1918). Táto fáza projektu sa sústredí na európske objekty: listy, pohľadnice, fotografie a príbehy z Nemecka, Luxemburgu, Írska, Slovinska a Veľkej Británie. Príspievať sa dá dvoma spôsobmi:'
     admin:
       config:
         edit:
@@ -1222,29 +1216,13 @@ it:
           preview:
             title: 
       attachment_help:
-        item1: ! '
-
-          allega un singolo contributo e file
-
-
-'
-        item1-subitem1: ! 'descrivi l’oggetto
-
-
-'
-        item1-subitem2: ! 'carica/upload il file da allegare
-
-
-'
-        item2: ! 'allega più contributi e file
-
-
-'
-        item2-subitem1: ! 'carica più file con contributi multipli
-
-'
+        item1: Pridať jeden objekt alebo súbor
+        item1-subitem1: Popíšte objekt
+        item1-subitem2: Nahrajte súbor
+        item2: Nahrajte viacero objektov a súborov
+        item2-subitem1: Nahrajte viacero súborov, ktoré reprezentujú viacero objektov
         item2-subitem2: 
-        one-of-the-following: ! 'Ricordati di allegarne almeno uno alla storia. Puoi scegliere una delle seguenti opzioni:'
+        one-of-the-following: 
       copy:
         instructions: 
         title: 
@@ -1257,7 +1235,7 @@ it:
           uploaded: 
         title: 
       index:
-        empty: Non ci sono contributi allegati alla storia
+        empty: Neboli pridané žiadne objekty ku príbehu.
         links:
           new: 
         title: 
@@ -1271,7 +1249,7 @@ it:
     common:
       permanent: 
     contact:
-      heading: Contattaci
+      heading: Kontaktujte nás
       p1: 
     contacts:
       anonymous: 
@@ -1282,7 +1260,7 @@ it:
         title: 
     contributions:
       _progress:
-        step_x_of_y: 
+        step_x_of_y: Strana %{x} z %{y}
       _summary:
         caption: 
       complete:
@@ -1292,75 +1270,79 @@ it:
         question: 
         title: 
       digital_object:
-        heading: Contributi allegati alla tua storia
+        heading: Objekty pridané k vašemu príbehu
         help_text:
           add_attachment: 
-          attachment_count: ! "In questo momento ci sono <strong>%{nr_digital_objects}</strong> contributi allegati a questa storia. \n"
+          attachment_count: ! 'Práve máte <strong>%{nr_digital_objects}</strong> objektov pripnutých ku tomuto príbehu. Nezabudnite pridať aspoň jeden objekt ku vašemu príbehu. Vyberte jeden z nasledujúcich:'
           language: 
-          object_type: ! 'Che tipo di oggetto è (ad esempio, una poesia, lettera, foto), cerca di essere il più specifico possibile '
+          object_type: ! 'Čo je objektom (napr. báseň, list, fotografia); snažte sa byť čo najšpecifickejší.
+
+'
           save_digital: 
-          subject: La persona, il luogo o l’oggetto protagonista del contributo
+          subject: 
           submit_contribution1: 
           submit_contribution2: 
           submit_story_button: 
-          summary: Di seguito è riportato un riepilogo dei contributi che sono stati allegati a questa storia. Inizialmente non ce ne sono, ma puoi aggiungerne quanti ne vuoi. È inoltre possibile modificare gli oggetti esistenti cliccando sul tasto 'Modifica' accanto a ciascun oggetto di seguito.
-          when: Quando è stato creato il contributo
-          where: 
+          summary: ! 'Dole je zoznam objektov pridaných ku príbehu; na začiatku nie sú žiadne, ale môžete pridať koľko potrebujete. Môžete aj upravovať súčasné objekty kliknutím na linku upraviť vedľa zoznamu dole.
+
+'
+          when: 
+          where: Kde bol objekt vytvorený
         labels:
-          keywords: Aiuta gli utenti a trovare la tua storia con l'introduzione di una o più delle seguenti parole chiave.
+          keywords: 
           location_map: 
           location_place_name: 
           save_digital: 
           save_item_draft: 
           submit_contribution: 
         links:
-          add_another: Aggiungi un altro contributo
-          add_item: Aggiungi un contributo
+          add_another: Pridať ďaľší objekt
+          add_item: Pridať objekt
           edit: 
-          edit_story: Modifica la storia
+          edit_story: Upraviť príbeh
         options:
           3d: 
           artifact: 
           audio: 
           back: 
-          book: medaglia
-          canvas: disegno
+          book: 
+          canvas: 
           card: 
           cc_by_sa: 
           ceramic: 
-          diary: diario
+          diary: 
           digital: 
-          film: filmato
+          film: 
           folio: 
           front: 
-          image: fotografia
+          image: 
           journal: 
           leaf: 
           leather: 
-          letter: lettera
+          letter: 
           medal: 
           metal: 
           mixed: 
-          multiple: miscellaneo
+          multiple: 
           newspaper: 
           notebook: 
           other_option: 
           paper: 
           photograph: 
           photographic_paper: 
-          poem: poesia
-          postcard: cartolina
+          poem: 
+          postcard: 
           public_domain: 
           tape: 
           text: 
-          text_memoir: cimelio
+          text_memoir: 
           text_transcript: 
           unknown: 
           video: 
           vinyl: 
           vinyl_record: 
           wood: 
-        step2: 
+        step2: Krok 2 – Pridajte vaše objekty a súbory
       edit:
         title: 
       index:
@@ -1417,12 +1399,14 @@ it:
         help_text:
           add_another_person: 
           behalf_of: 
-          save_story: Cliccando su “Salva la storia come progetto” sarai inviato alle fasi successive
-          sections: Clicca sui titoli dei campi qui di seguito per aprirli e chiuderli. Ogni campo ti permette di selezionare ulteriori informazioni che puoi aggiungere alla tua storia.
-          use_google_maps: 
+          save_story: ! 'Kliknutím na ‘Uložit koncept príbehu’, budete presmerovaný na další krok príspevku.
+
+'
+          sections: Kliknite sa názvy sekcií pre ich otvorenie a zatvorenie, každá sekcia obsahuje dodatočné informácie, ktoré môžete pridať ku vášmu príbehu.
+          use_google_maps: Použite Google Mapy
         labels:
-          people: Inserisci i nomi delle persone coinvolte nella storia
-        step1: 1 – Raccontaci la tua storia
+          people: Napíšte mená ľudí, o ktorých je tento príbeh
+        step1: Krok 1 – Prerozprávajte svoj príbeh
       withdraw:
         question: 
         title: 
@@ -1437,11 +1421,11 @@ it:
           draft: 
           submitted: 
         headings:
-          contributions: Le tue storie
+          contributions: Vaše príbehy
         links:
-          new: Aggiungi una nuova storia
-        p1: ! "Qui di seguito ci sono le storie che hai già inserito. \nPuoi modificarle o eliminarle, se necessario\n"
-        title: ! 'Aggiungi la tua storia '
+          new: Pridať nový príbeh
+        p1: Dole sú uvedené príbehy, ktoré ste pridali. Upravte ich alebo zmažte ak je to potrebné.
+        title: Pridaj svoj príbeh
       dashboard_guest:
         button_text: 
         headings:
@@ -1460,45 +1444,37 @@ it:
           contact_details: 
           guest: 
           links:
-            register: Registrati
+            register: 
             sign_in: 
           notice: 
           title: 
       help:
         adding_your_story:
-          heading: Aggiungi la tua storia a Europeana 1914-1918
-          p1: ! 'Potete aggiungere la vostra storia a quelle di Europeana 1914-1918 tramite il modulo di raccolta online disponibile su questo sito. Si tratta semplicemente di scrivere alcune informazioni sul vostro contributo, specificando che cos''è (una cartolina spedita da XX, un diario, etc), e di aggiungere la storia che volete condividere (per esempio, chi e'' la persona che compare nella foto, come ne siete entrati in possesso, che cosa sapete dell''oggetto). Potete poi allegare l''oggetto stesso in formato digitale: per esempio, una copia di una foto (riprodotta tramite scanner o fotografia), di un diario, di un’uniforme, o di qualsiasi altro oggetto vogliate condividere. Una volta aggiunto, il contributo e'' rivisto da un esperto e infine reso disponibile per tutti.'
+          heading: Pridajte svoj príbeh do Europeana 1914 – 1918
+          p1: Svoj príbeh do Europeana 1914 – 1918 môžete pridať pomocou online zbierkového formulára na tejto webstránke. Stačí vypísať zopár informácií o vašom príspevku, napísať čo to je (pohľadnica poslaná od XX, denník, atď) a pridať príbeh, ktorý by ste chceli zdieľať (napríklad o osobe, ktorá je na fotografii, ako ste ju dostali, čo viete o danom objekte). Potom môžete pridať digitálnu verziu objektu, napríklad oskenovanú alebo odfotografovanú kópiu obrázku, denníka, uniformy alebo hocičoho čo zdieľate. Potom ako bude váš príspevok spracovaný odborníkom bude sprístupnený pre verejnosť.
         how_to_use:
-          heading: Come usare l’interfaccia per la raccolta delle storie online
-          item1: Effettuate la %{register} (si fa solo una volta), o fate il%{sign_in} se siete gia' registrati.
-          item2: Aggiungete le informazioni sul vostro contributo.
-          item3: ! '(Facoltativo) Allegate una versione digitale del vostro oggetto (foto, testo passato allo
-
-            scanner, file video, file audio etc).'
-          item4: Inviate il contributo alla raccolta di storie online
-          item5: il tuo contributo sarà visionato da un catalogatore di Europeana, un volta rivisto e accettato verrà pubblicato sul sito.
-          p1: ! 'Per fare aggiunte alla nostra raccolta di storie online, prima di tutto dovete effettuare una
-
-            %{register}, o fare il %{sign_in} (aprire una sessione), se vi siete già registrati. Dopodiché sarete in grado di aggiungere oggetti e storie a Europeana 1914-1918.'
-          p2: ! 'Vi verrà chiesto di completare i cinque passi che trovate descritti di seguito. Non e’ obbligatorio completare l''intera procedura in una volta: potete salvare il vostro contributo e riprendere la procedura in un secondo tempo.'
-        item1: Aggiungi la tua storia a Europeana 1914-1918 - Vedi oltre
-        item2: ! '%{privacy_policy} - pagina a parte'
-        item3: ! '%{takedown_policy} - pagina a parte'
-        item4: ! '%{contribution_terms} - pagina a parte'
-        item5: ! '%{about_the_project} - pagina a parte'
-        p1: ! 'Il progetto Europeana 1914-1918 si prefigge di raccogliere materiale sulla Grande Guerra
-
-          (1914-1918) e su quanti vi parteciparono o ne furono coinvolti. La fase attuale prevede la raccolta di materiale e storie in Gran Bretagna, Germania, Slovenia, Lussemburgo, Irlanda etc. Potete visitare la pagina  %{about} per maggiori dettagli sul progetto e sul tipo di materiale
-
-          che stiamo raccogliendo.'
+          heading: Ako používať stránku na online zbierku príbehov
+          item1: 
+          item2: Pridajte informácie o vašom príspevku.
+          item3: (Voliteľné) Pridajte digitálnu verziu vašeho objektu (fotografia, oskenovaný text, video nahrávka, zvuková nahrávka, atď.)
+          item4: Odovzdajte svoj príbeh do online zbierky príbehov.
+          item5: ! 'Váš príspevok bude spracovaný Europeana katalogizátorom. Po spracovaní a posúdení bude vás váš príspevok zverejnený pre ostatných. '
+          p1: ! 'Aby ste mohli prispievať do našej online zbierky príbehov, najskôr sa musíte %{sign_in} alebo %{register}. Potom môžete pridávať vaše objekty a príbehy do Europeana 1914 – 1918. '
+          p2: Budete vyzvaný na dokončenie nasledujúcich piatich krokov. Nemusíte dokončiť celý proces naraz, môžete si ho uložit a neskôr sa k nemu vrátiť.
+        item1: Pridajte svoj príbeh do Europeana 1914 – 1918  – viď nižšie
+        item2: ! '%{privacy_policy} – osobitná stránka'
+        item3: 
+        item4: ! '%{contribution_terms} – osobitná stránka'
+        item5: ! '%{about_the_project}  – osobitná stránka'
+        p1: ! 'Cieľom projektu Europeana 1914 – 1918 je zozbieranie materiálu, ktorý sa týka Veľkej vojny (1914-1918) a o tých, ktorých sa to týka alebo tým boli zasiahnutý, v tejto fáze zbierame materiály a príbehy z Británie, Nemecka, Slovinska, Luxemburgu, Írska, ...Viac informácií o projekte a o druhoch materiálov, ktoré zbierame môžete nájsť na %{about} stránke. '
       index:
-        item1: scrivi informazioni sulla tua storia
-        item2: salva la tua storia come progetto
-        item3: allega uno o più oggetti (immagini, documenti di testo, audio, video, etc.)
-        item4: accetta termini e condizioni e clicca per sottoporre il progetto a revisione
-        p1: ! 'Grazie per la tua disponibilità a dare un contributo a Europeana 1914-1918. Il processo di registrazione è semplice. Fai clic su ''Aggiungi una storia'' per iniziare. Qui di seguito i passaggi successivi:'
+        item1: Vypíšte informácie o vašom príbehu.
+        item2: Uložte váš príbeh ako koncept.
+        item3: Pridajte jeden alebo viac objektov (obrázky, textové dokumenty, zvukové nahrávky, video nahrávky, atď)
+        item4: Potvrdte váš súhlas s podmienkami a odošlite na schválenie.
+        p1: ! 'Ďakujeme vám sa ponuku prispieť do Europeana 1914-1918. Prispievanie je jednoduché. Kliknite na ‘Pridať nový príbeh‘ dole na začatie. Následne vás prevedieme cez nasledujúce kroky:'
       registration_required:
-        p1: Per poter aggiungere oggetti e storie a Europeana 1914-1918 è necessario fare il %{sign_in} (aprire una sessione) al sito, se già %{register}, oppure effettuare una Registrazione.
+        p1: Prosím  %{sign_in} alebo %{register} aby ste mohli pridávať vaše objekty alebo príbehy do Europeana 1914 – 1918.
     devise:
       passwords:
         edit:
@@ -1512,7 +1488,7 @@ it:
           title: 
       sessions:
         new:
-          instructions: Accedi con i tuoi dati del tuo account
+          instructions: Prosím prihláste sa s detailami vašeho účtu
           title: 
     errors:
       api_error:
@@ -1576,7 +1552,7 @@ it:
       back: 
       back-to-search: 
       previous_step: 
-      privacy_policy: 
+      privacy_policy: ! 'Zásady ochrany osobných údajov '
     register:
       help_text:
         email: 
@@ -1645,7 +1621,7 @@ it:
         no_results: 
     table:
       header:
-        actions: Azioni
+        actions: 
     tags:
       delete:
         question: 
@@ -1663,21 +1639,27 @@ it:
           edit_user: 
         title: 
       sign-in:
-        help: Per accedere puoi utilizzare il nome utente o l'indirizzo email. Non c'è bisogno di utilizzare entrambi.
+        help: Na prihlásenie použite užívateľské meno alebo vašu emailovú adresu. Nemusíte použiť obidve.
   will_paginate:
     entry_range_label: 
     first_title: 
     last_title: 
-    next_label: successivo →
+    next_label: Ďalšia &#8594;
     next_title: 
     page_entries_info:
-      multi_page: Visualizzati %{model} %{from} - %{to} di %{count} in totale
-      multi_page_html: 
-      single_page: 
-      single_page_html: 
+      multi_page: Zobrazujem %{model} %{from} - %{to} z celkovo %{count}
+      multi_page_html: Zobrazujem %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> z celkovo <b>%{count}</b>
+      single_page:
+        one: Zobrazujem 1 %{model}
+        other: Zobrazujem všetkých %{count} %{model}
+        zero: Nenájdený žiadny %{model}
+      single_page_html:
+        one: Zobrazujem <b>1</b> %{model}
+        other: Zobrazujem <b>všetkých&nbsp;%{count}</b> %{model}
+        zero: Nenájdený žiadny %{model}
     page_gap: ! '&hellip;'
     page_total_label: 
     per_page_label: 
     per_page_title: 
-    previous_label: ← precedente
+    previous_label: ! '&#8592; Predošlá'
     previous_title: 
