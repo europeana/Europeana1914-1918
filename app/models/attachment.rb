@@ -46,6 +46,17 @@ class Attachment < ActiveRecord::Base
     attachment.instance.public? ? 'public' : 'private'
   end
   
+  # :s3_acl_url => If the file is public, the S3 URL; if private, the local URL
+  # which retrieves the file over the S3 API if the user is permitted to view it.
+  Paperclip.interpolates :s3_acl_url do |attachment, style|
+    if attachment.instance.public?
+      pattern = ":s3_domain_url"
+    else
+      pattern = "/:class/:id/:contribution_id.:id.:style.:extension"
+    end
+    Paperclip::Interpolations.interpolate(pattern, attachment, style)
+  end
+  
   # Paperclip attachment
   # add sizes via :styles
   #     e.g. :new_size => "500x500>"
@@ -55,8 +66,9 @@ class Attachment < ActiveRecord::Base
   #     bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment STYLES=new_size_name --trace
   has_attached_file :file,
     :path => (Paperclip::Attachment.default_options[:storage] == :filesystem ? ":env_file_root/:access_dir/" : "") + ":class/:id/:contribution_id.:id.:style.:extension",
-    :url => (Paperclip::Attachment.default_options[:storage] == :s3 ? ":s3_domain_url" : "/:class/:id/:contribution_id.:id.:style.:extension"),
-    :styles => { :thumb => "100x100>", :preview => "160x120>", :medium => "400x400>", :large => "1024x768>" }
+    :url => (Paperclip::Attachment.default_options[:storage] == :s3 ? ":s3_acl_url" : "/:class/:id/:contribution_id.:id.:style.:extension"),
+    :styles => { :thumb => "100x100>", :preview => "160x120>", :medium => "400x400>", :large => "1024x768>" },
+    :s3_permissions => Proc.new { |a| a.instance.s3_acl }
 
   before_save :relocate_files, :if => Proc.new { |a| (a.file.options[:storage] == :filesystem) && a.public_changed? }, :unless => Proc.new { |a| a.new_record? }
 
@@ -91,7 +103,22 @@ class Attachment < ActiveRecord::Base
   def set_public
     return unless self.contribution_id.present?
     self.public = self.contribution.published?
+
+    if file.options[:storage] == :s3
+      [:original, *self.file.styles.keys].each do |style|
+        file.s3_object(style).acl = s3_acl
+      end
+    end
+    
     true
+  end
+  
+  def s3_acl
+    self.contribution.published? ? "public_read" : "private"
+  end
+  
+  def public?
+    self.public == true
   end
   
   # Cached array of content types, derived from +RunCoCo.configuration.allowed_upload_extensions+.

@@ -126,13 +126,15 @@ class AttachmentsController < ApplicationController
   def inline
     current_user.may_view_attachment!(@attachment)
     style = (params[:style] == 'full' ? 'original' : params[:style])
-    send_file @attachment.file.path(style), :type => @attachment.file.content_type, :disposition => 'inline'
+    send_file_method = (@attachment.file.options[:storage] == :s3 ? :to_file : :path)
+    send_file @attachment.file.send(send_file_method, style), :type => @attachment.file.content_type, :disposition => 'inline'
   end
 
   # GET /contributions/:contribution_id/attachments/:id/:filename
   def download
     current_user.may_view_attachment!(@attachment)
-    send_file @attachment.file.path, :type => @attachment.file.content_type
+    send_file_method = (@attachment.file.options[:storage] == :s3 ? :to_file : :path)
+    send_file @attachment.file.send(send_file_method), :type => @attachment.file.content_type
   end
 
   # GET /contributions/:contribution_id/attachments/:id/edit
