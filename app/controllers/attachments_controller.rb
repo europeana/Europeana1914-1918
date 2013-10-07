@@ -113,7 +113,7 @@ class AttachmentsController < ApplicationController
   end
 
   # GET /contributions/:contribution_id/attachments/:id
-  def show
+  def show    
     current_user.may_view_attachment!(@attachment)
     respond_to do |format|
       format.html do
@@ -124,8 +124,10 @@ class AttachmentsController < ApplicationController
             render :partial => 'attachments/pdf'
           elsif @attachment.video?
             render :partial => 'attachments/audio-video'
-          elsif @attachment.image? 
-            render :partial => 'attachments/book-image'
+          elsif @attachment.image?
+            render :partial => 'attachments/book-image', :locals => {
+                :attachments => @contribution.attachments
+            }
           else
             render :layout => false
           end

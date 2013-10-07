@@ -16,11 +16,10 @@
 					
 			<% elsif ( attachment.video? ) || ( attachment.pdf? ) || ( attachment.audio? ) -%>
 				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0"></iframe>
+				
 			<% elsif ( attachment.image? ) -%>
 			
 				<% bookUrls << attachment -%>
-				
-				<%#     <iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>        -%>
 				
 				<%# attachment_preview( attachment, size ) -%>
 				
@@ -35,19 +34,7 @@
 	
 	
 	<% if ( bookUrls.size > 0 ) -%>
-	
-		<script type="text/javascript">
-			//alert( "bookUrls.size = <%= bookUrls.size %>" );
-		</script>
-			
 		<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>
-			
-	<% else -%>
-	
-		<script type="text/javascript">
-			alert( "bookUrls is empty!");
-		</script>
-		
 	<% end -%>
 	
 	

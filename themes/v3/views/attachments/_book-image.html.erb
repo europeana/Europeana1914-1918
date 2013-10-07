@@ -1,3 +1,11 @@
+<%
+	if ( @attachment.title.blank? )
+		title = @attachment.file_file_name
+	else
+		title = @attachment.title
+	end
+-%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
@@ -6,55 +14,6 @@
 
     <link rel="stylesheet" type="text/css" href="/themes/v3/javascripts/org/openlibrary/BookReader.css"/>
     <link rel="stylesheet" type="text/css" href="/themes/v3/javascripts/org/openlibrary/BookReaderEuropeana.css"/>
-
-
-	<script type="text/javascript">
-  		var bookUrls = [];
-
-		alert("<%= @attachments.present?  -%>");
-
-
-
-		<% if (@attachments.present?) -%>
-
-
-			<% for attachment in @attachments %>
-			
-			
-
-			
-				<% if ( attachment.file.present? ) -%>
-
-
-					
-
-						<% if (attachment.image? ) -%>
-
-							
-							bookUrls.push("<%= attachment -%>");
-							
-								
-						<% end -%>
-				
-					
-					
-
-
-				
-				<% end -%>
-				
-			<% end %>
-
-		
-		<% end -%>
-
-
-
-
-		alert("(js) bookUrls = " +  JSON.stringify(bookUrls) );
-
-	</script>
-	
 
 	<%
 		script_files = [
@@ -66,7 +25,7 @@
 			'/themes/v3/javascripts/com/jquery/plugins/jquery.bt.min.js',
 			'/themes/v3/javascripts/org/openlibrary/BookReader.js'
 		]
-	-%>
+	%>
 	
 	<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
 	<style>
@@ -94,7 +53,6 @@
 	    Internet Archive BookReader Demo
    		<br/>
     
-    
     	<noscript>
     		<p>
     	    	The BookReader requires JavaScript to be enabled. Please check that your browser supports JavaScript and that it is enabled in the browser settings.  You can also try one of the <a href="http://www.archive.org/details/goodytwoshoes00newyiala"> other formats of the book</a>.
@@ -106,45 +64,48 @@
 
 var br = new BookReader();
 
+// Return the width of a given page.
 br.getPageWidth = function(index) {
-    return $('body').width();
+    return $('body').width(); //346;
 }
 
+// Return the height of a given page.
 br.getPageHeight = function(index) {
-    return 300;
+    return 231;
 }
 
-// We load the images from archive.org -- you can modify this function to retrieve images using a different URL structure
+// We load the images from archive.org -- you can modify this function to retrieve images
+// using a different URL structure
+
+
+
 
 br.getPageURI = function(index, reduce, rotate) {
 	
 	
-	
 	/* .html.erb written: */
+
 	
+    <%
+    
+     @attachmentUrls = []
+     
+     for attachment in attachments
+    	#  @attachmentUrls << "'http://www.europeana1914-1918.eu#{attachment_url( attachment, 'large' )}'"
+    	@attachmentUrls << "'#{attachment_url( attachment, 'large' )}'"
+     end
+   
+    -%>
+
+
 	var bookImgUris = [
-	      'http://www.europeana1914-1918.eu/attachments/6701*/5876.6701*.medium.jpg',
-	      ,
-	      ,
-	      ,
-	      'http://www.europeana1914-1918.eu/attachments/47393/2543.47393.medium.jpg?1338379288',
-	      'http://www.europeana1914-1918.eu/attachments/47394/2543.47394.medium.jpg?1338379242'
+		<%= @attachmentUrls.join(',').html_safe -%>
 	];
 
-	var indexedUrl = "";
-	for(var i=0; i<=index; i++){		
-		if(typeof bookImgUris[i] != 'undefined'){
-			indexedUrl = bookImgUris[i];
-		}
-	}
 	
-	indexedUrl = indexedUrl.replace(/\*/g, '' + index);
+	return bookImgUris[index];
 
 	
-	return indexedUrl;
-	
-	
-
     // reduce and rotate are ignored in this simple implementation, but we
     // could e.g. look at reduce and load images from a different directory
     // or pass the information to an image server
