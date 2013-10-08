@@ -1,3 +1,4 @@
+# encoding: utf-8
 xml.record do
   
   xml.record_type 'story'

@@ -92,7 +92,7 @@ class Admin::ContributionsController < AdminController
         RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
       end
       format.xml do
-        job_options = settings_hash.merge(:username => current_user.username, :email => current_user.email)
+        job_options = settings_hash.merge(:user_id => current_user.id)
         Delayed::Job.enqueue ExportJob.new(job_options)
         
         flash[:notice] = "Generating XML export in the background"
