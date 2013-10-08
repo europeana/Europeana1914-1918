@@ -2,8 +2,8 @@
 
 <% if @exports.present? -%>
   <ul>
-    <% for path in @exports %>
-      <li><%= link_to path, admin_export_path(:id => path) %></li>
+    <% for export in @exports %>
+      <li><%= link_to File.basename(export.file.path), admin_export_path(export) %></li>
     <% end %>
   </ul>
 <% else -%>
