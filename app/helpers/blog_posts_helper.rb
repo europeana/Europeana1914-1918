@@ -118,8 +118,8 @@ module BlogPostsHelper
     end
     
     key = controller.fragment_cache_key(url)
-    if result = controller.cache_store.public_read_entry(key)
-      cached_feed = result.value
+    if result = controller.cache_store.read(key)
+      cached_feed = result
     end
    
     unless controller.fragment_exist?(url)
@@ -169,8 +169,8 @@ module BlogPostsHelper
     end
     
     key = controller.fragment_cache_key(url)
-    if result = controller.cache_store.public_read_entry(key)
-      cached_feed = result.value
+    if result = controller.cache_store.read(key)
+      cached_feed = result
     end
    
     unless controller.fragment_exist?(url)
