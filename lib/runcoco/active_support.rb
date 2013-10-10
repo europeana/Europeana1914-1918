@@ -5,5 +5,9 @@ module ActiveSupport
         read_entry(key, options)
       end
     end
+    
+    class DalliStore
+      alias :public_read_entry :read
+    end
   end
 end
