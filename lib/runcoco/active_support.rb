@@ -15,5 +15,9 @@ module ActiveSupport
         end
       end
     end
+    
+    class DalliStore
+      alias :public_read_entry :read
+    end
   end
 end
