@@ -1,11 +1,5 @@
 module ActiveSupport
   module Cache
-    class Store
-      def public_read_entry(key, options = nil)
-        read_entry(key, options)
-      end
-    end
-    
     class FileStore
       # ActiveSupport 3.0.20's #cleanup calls missing #each_key method
       def each_key(options = nil)
@@ -14,10 +8,6 @@ module ActiveSupport
           yield file_path_key(path)
         end
       end
-    end
-    
-    class DalliStore
-      alias :public_read_entry :read
     end
   end
 end
