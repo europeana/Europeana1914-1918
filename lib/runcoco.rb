@@ -1,4 +1,3 @@
-require 'runcoco/active_support'
 require 'runcoco/devise'
 require 'runcoco/formtastic'
 
