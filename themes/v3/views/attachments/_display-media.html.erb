@@ -1,29 +1,19 @@
 <% thumbnails = thumbnails ? thumbnails : false -%>
 <% if attachments.present? -%>
-
-  <% bookUrls = [] -%>
-
   <% for attachment in attachments -%><li>
 		<% if ( attachment.file.present? ) -%>
 			<% if ( thumbnails ) -%>
-			
 				<% if (!attachment.image? ) -%>
-			
-					<% link_url = attachment_url( attachment, 'large' )
-					link_attrs = { :target => '_blank', :title => attachment.title } -%>
+					<%
+						link_url = attachment_url( attachment, 'large' )
+						link_attrs = { :target => '_blank', :title => attachment.title }
+					-%>
 					<%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) -%>
 				<% end -%>
-					
 			<% elsif ( attachment.video? ) || ( attachment.pdf? ) || ( attachment.audio? ) -%>
 				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0"></iframe>
-				
-			<% elsif ( attachment.image? ) -%>
-			
-				<% bookUrls << attachment -%>
-				
-				<%# attachment_preview( attachment, size ) -%>
-				
-				
+			<% elsif ( attachment.image? && attachments.size > 0 ) -%>
+				<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>
 			<% else -%>
 				<img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
 			<% end -%>
@@ -31,12 +21,4 @@
 			<img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
 		<% end -%>
 	</li><% end -%>
-	
-	
-	<% if ( bookUrls.size > 0 ) -%>
-		<iframe src="/contributions/<%= contribution.id %>/attachments/<%= attachment.id -%>?layout=0#page/1/mode/2up"></iframe>
-	<% end -%>
-	
-	
-	
 <% end -%>
