@@ -64,12 +64,16 @@
 
 var br = new BookReader();
 
+
 // Return the width of a given page.
+
 br.getPageWidth = function(index) {
-    return $('body').width(); //346;
+    return $('body').width();
 }
 
+
 // Return the height of a given page.
+
 br.getPageHeight = function(index) {
     return 231;
 }
@@ -79,19 +83,16 @@ br.getPageHeight = function(index) {
 
 
 
-
 br.getPageURI = function(index, reduce, rotate) {
 	
-	
 	/* .html.erb written: */
-
 	
     <%
     
      @attachmentUrls = []
      
      for attachment in attachments
-    	#  @attachmentUrls << "'http://www.europeana1914-1918.eu#{attachment_url( attachment, 'large' )}'"
+    	# @attachmentUrls << "'http://www.europeana1914-1918.eu#{attachment_url( attachment, 'large' )}'"
     	@attachmentUrls << "'#{attachment_url( attachment, 'large' )}'"
      end
    
@@ -101,6 +102,7 @@ br.getPageURI = function(index, reduce, rotate) {
 	var bookImgUris = [
 		<%= @attachmentUrls.join(',').html_safe -%>
 	];
+
 
 	
 	return bookImgUris[index];
@@ -166,7 +168,8 @@ br.getPageNum = function(index) {
 }
 
 // Total number of leafs
-br.numLeafs = 6;
+br.numLeafs = <%= @attachmentUrls.length -%>;
+
 
 // Book title and the URL used for the book title link
 br.bookTitle= 'Open Library BookReader Presentation';
