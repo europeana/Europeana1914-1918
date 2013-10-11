@@ -26,16 +26,16 @@
 			'/themes/v3/javascripts/org/openlibrary/BookReader.js'
 		]
 	%>
-	
+
 	<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
 	<style>
-	
+
 		html,
 		body{
 			width:  100%;
 			height: 100%;
 		}
-		
+
 	</style>
 
 </head>
@@ -52,7 +52,7 @@
 	<div id="BookReader">
 	    Internet Archive BookReader Demo
    		<br/>
-    
+
     	<noscript>
     		<p>
     	    	The BookReader requires JavaScript to be enabled. Please check that your browser supports JavaScript and that it is enabled in the browser settings.  You can also try one of the <a href="http://www.archive.org/details/goodytwoshoes00newyiala"> other formats of the book</a>.
@@ -61,6 +61,24 @@
 	</div>
 
 	<script type="text/javascript">
+
+	<%
+	 @bookImages = []
+
+	 for attachment in attachments
+		@bookImages <<
+			'{' +
+				'"height":' + attachment.file.height.to_s + ',' +
+				'"url":"' + "#{attachment_url( attachment, 'large' )}" + '",' +
+				'"width":' + attachment.file.width.to_s +
+			'}'
+	 end
+
+	-%>
+
+	var bookImages = [
+		<%= @bookImages.join(',').html_safe -%>
+	];
 
 var br = new BookReader();
 
@@ -84,18 +102,18 @@ br.getPageHeight = function(index) {
 
 
 br.getPageURI = function(index, reduce, rotate) {
-	
+
 	/* .html.erb written: */
-	
+
     <%
-    
+
      @attachmentUrls = []
-     
+
      for attachment in attachments
     	# @attachmentUrls << "'http://www.europeana1914-1918.eu#{attachment_url( attachment, 'large' )}'"
     	@attachmentUrls << "'#{attachment_url( attachment, 'large' )}'"
      end
-   
+
     -%>
 
 
@@ -104,15 +122,15 @@ br.getPageURI = function(index, reduce, rotate) {
 	];
 
 
-	
+
 	return bookImgUris[index];
 
-	
+
     // reduce and rotate are ignored in this simple implementation, but we
     // could e.g. look at reduce and load images from a different directory
     // or pass the information to an image server
     /*
-	var leafStr = '000';            
+	var leafStr = '000';
     var imgStr = (index+1).toString();
     var re = new RegExp("0{"+imgStr.length+"}$");
     var url = 'http://www.archive.org/download/BookReader/img/page'+leafStr.replace(re, imgStr) + '.jpg';
@@ -132,8 +150,8 @@ br.getPageSide = function(index) {
 // This function returns the left and right indices for the user-visible
 // spread that contains the given index.  The return values may be
 // null if there is no facing page or the index is invalid.
-br.getSpreadIndices = function(pindex) {   
-    var spreadIndices = [null, null]; 
+br.getSpreadIndices = function(pindex) {
+    var spreadIndices = [null, null];
     if ('rl' == this.pageProgression) {
         // Right to Left
         if (this.getPageSide(pindex) == 'R') {
@@ -155,7 +173,7 @@ br.getSpreadIndices = function(pindex) {
             spreadIndices[0] = pindex - 1;
         }
     }
-    
+
     return spreadIndices;
 }
 
@@ -189,9 +207,9 @@ br.init();
 $('#BRtoolbar').find('.read').hide();
 $('#textSrch').hide();
 $('#btnSrch').hide();
-	
+
 	</script>
 
-	
+
 </body>
 </html>
