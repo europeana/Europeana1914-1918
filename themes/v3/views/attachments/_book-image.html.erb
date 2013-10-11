@@ -68,9 +68,9 @@
 	 for attachment in attachments
 		@bookImages <<
 			'{' +
-				'"height":' + attachment.file.height.to_s + ',' +
+				'"height":' + (attachment.file.height ? attachment.file.height.to_s : '100') + ',' +
 				'"url":"' + "#{attachment_url( attachment, 'large' )}" + '",' +
-				'"width":' + attachment.file.width.to_s +
+				'"width":' + (attachment.file.width ? attachment.file.width.to_s : '100') +
 			'}'
 	 end
 
@@ -86,14 +86,13 @@ var br = new BookReader();
 // Return the width of a given page.
 
 br.getPageWidth = function(index) {
-    return $('body').width();
+	return bookImages[index].width;
 }
-
 
 // Return the height of a given page.
 
 br.getPageHeight = function(index) {
-    return 231;
+	return bookImages[index].height;
 }
 
 // We load the images from archive.org -- you can modify this function to retrieve images
