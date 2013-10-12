@@ -13,10 +13,10 @@
 						html += '<li>' + link_to( attachment_preview( attachment, size ), link_url, link_attrs ) + '</li>'
 					end
 				elsif ( attachment.video? ) || ( attachment.pdf? ) || ( attachment.audio? )
-					html += '<li><iframe src="/contributions/' + contribution.id.to_s + '/attachments/' + attachment.id.to_s + '?layout=0"></iframe></li>'
+					html += '<li><iframe src="/' + locale.to_s + '/contributions/' + contribution.id.to_s + '/attachments/' + attachment.id.to_s + '?layout=0&theme=v3"></iframe></li>'
 				elsif ( attachment.image? && attachments.size > 0 )
 					if ( !book_reader_placed )
-						html += '<li><iframe src="/contributions/' + contribution.id.to_s + '/attachments/' + attachment.id.to_s + '?layout=0#page/1/mode/2up"></iframe></li>'
+						html += '<li><iframe src="/' + locale.to_s + '/contributions/' + contribution.id.to_s + '/attachments/' + attachment.id.to_s + '?layout=0&theme=v3#page/1/mode/2up"></iframe></li>'
 						book_reader_placed = true
 					end
 				else
