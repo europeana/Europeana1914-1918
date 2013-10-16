@@ -171,7 +171,9 @@ class Attachment < ActiveRecord::Base
 
     if file.options[:storage] == :s3
       [:original, *self.file.styles.keys].each do |style|
-        file.s3_object(style).acl = s3_acl
+        if self.file.exists?(style)
+          file.s3_object(style).acl = s3_acl
+        end
       end
     end
     
