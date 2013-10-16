@@ -63,21 +63,17 @@
 	<script type="text/javascript">
 
 	<%
-	 @bookImages = []
-
-	 for attachment in attachments
-		@bookImages <<
-			'{' +
-				'"height":' + (attachment.file.height ? attachment.file.height.to_s : '100') + ',' +
-				'"url":"' + "#{attachment_url( attachment, 'large' )}" + '",' +
-				'"width":' + (attachment.file.width ? attachment.file.width.to_s : '100') +
-			'}'
-	 end
-
+	bookImages = attachments.collect do |attachment|
+		'{' +
+			'"height":' + (attachment.file.height ? attachment.file.height.to_s : '100') + ',' +
+			'"url":"' + "#{attachment_url( attachment, 'large' )}" + '",' +
+			'"width":' + (attachment.file.width ? attachment.file.width.to_s : '100') +
+		'}'
+	end
 	-%>
 
 	var bookImages = [
-		<%= @bookImages.join(',').html_safe -%>
+		<%= bookImages.join(',').html_safe -%>
 	];
 
 var br = new BookReader();
@@ -104,20 +100,8 @@ br.getPageURI = function(index, reduce, rotate) {
 
 	/* .html.erb written: */
 
-    <%
-
-     @attachmentUrls = []
-
-     for attachment in attachments
-    	# @attachmentUrls << "'http://www.europeana1914-1918.eu#{attachment_url( attachment, 'large' )}'"
-    	@attachmentUrls << "'#{attachment_url( attachment, 'large' )}'"
-     end
-
-    -%>
-
-
 	var bookImgUris = [
-		<%= @attachmentUrls.join(',').html_safe -%>
+		<%= attachments.collect { |attachment| "'" + attachment_url( attachment, 'large' ) + "'" }.join(',').html_safe -%>
 	];
 
 
@@ -185,7 +169,7 @@ br.getPageNum = function(index) {
 }
 
 // Total number of leafs
-br.numLeafs = <%= @attachmentUrls.length -%>;
+br.numLeafs = <%= attachments.length -%>;
 
 
 // Book title and the URL used for the book title link
