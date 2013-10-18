@@ -4,10 +4,6 @@ stylesheets = {
   'screen' => [],
 }
 
-if @javascripts[:lightbox]
-  stylesheets['screen'] << "/themes/#{session[:theme]}/stylesheets/jquery-plugins/prettyphoto/prettyphoto.css"
-end
-
 if @javascripts[:autocomplete]
   stylesheets['screen'] << "/themes/#{session[:theme]}/stylesheets/jquery-plugins/ui-flick/jquery-ui-1.8.23.custom.css"
 end

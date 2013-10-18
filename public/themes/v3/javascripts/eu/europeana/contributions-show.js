@@ -1,17 +1,16 @@
 /**
  *	@author dan entous <contact@gmtplusone.com>
- *	@todo: add method for handling window re-size so that lightbox & pdf viewer
+ *	@todo: add method for handling window re-size so that pdf viewer
  *	can be re-determined. also handle portrait/landscape issues
  */
 (function() {
 
 	'use strict';
-	var add_lightbox =
+	var pdf_viewer =
 		( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 )
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
 		? false
 		: true,
-		pdf_viewer = add_lightbox,
 		$contributions_featured = jQuery('#contributions-featured'),
 
 
@@ -40,22 +39,6 @@
 		nrItemsInCurrentContainer : function() {
 			var total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
 			return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
-		},
-
-		addImagesToLightbox : function( $new_content ) {
-			var	$pp_full_res = jQuery('#pp_full_res'),
-					$new_links = $new_content.find('#contributions-featured > ul > li > a');
-
-			if ( $pp_full_res.length < 1 ) {
-				lightbox.init();
-				return;
-			}
-
-			$new_links.each(function() {
-				var $elm = jQuery(this);
-				window.pp_images.push( $elm.attr('href') );
-				window.pp_descriptions.push( $elm.attr('data-description') );
-			});
 		},
 
 		/**
@@ -92,12 +75,6 @@
 
 			this.$featured_carousel.hideOverlay();
 			this.$thumbnail_carousel.hideOverlay();
-
-			if ( add_lightbox ) {
-				this.addImagesToLightbox( $new_content );
-			} else {
-				lightbox.removeLightboxLinks();
-			}
 		},
 
 		retrieveContent : function( href ) {
@@ -334,205 +311,6 @@
 			$('#contributions-featured li').fitVids({
 				customSelector: "iframe[src^='//localhost']"
 			})
-		}
-	},
-
-
-	lightbox = {
-		$metadata : [],
-		current : 0,
-
-		addMetaDataOverlay : function( $elm ) {
-			var self = this,
-					$pic_full_res = jQuery('#pp_full_res'),
-					$pp_content = jQuery('.pp_content');
-
-			if ( !self.$metadata[self.current] ) {
-				self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
-				self.$metadata[ self.current ].data('clone', self.$metadata[ self.current ].clone() );
-			}
-
-			self.$metadata[ self.current ].data('clone').appendTo( $pp_content );
-
-			self.$metadata[ self.current ]
-				.data('clone').css({
-					'width' : $pp_content.css('width'),
-					'height' : $pp_content.css('height'),
-					'padding-right' : 30
-				});
-
-			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
-		},
-
-		handleAdditionalInfoClick : function( evt ) {
-			var self = evt.data.self;
-			evt.preventDefault();
-			self.$metadata[self.current].data('clone')
-				.slideDown( function() { jQuery( this ).css( 'overflow-y', 'scroll' ); } )
-				.on('click', self.handleMetadataOverlayClick );
-		},
-
-		handleMetadataOverlayClick : function ( evt ) {
-			jQuery( this ).slideUp();
-		},
-
-		handlePageChangeNext : function( keyboard ) {
-			if ( !keyboard ) {
-				carousels.$featured_carousel.$next.trigger('click');
-			}
-		},
-
-		handlePageChangePrev : function( keyboard ) {
-			if ( !keyboard ) {
-				carousels.$featured_carousel.$prev.trigger('click');
-			}
-		},
-
-		/**
-		 *	this - refers to the generated lightbox div
-		 *	the div is removed each time the lightbox is closed
-		 *	so these elements need to be added back to the div
-		 *	with each open
-		 */
-		handlePictureChange : function( evt ) {
-			var self = lightbox,
-					$elm = jQuery(this),
-					$additional_info_link = $elm.find('.pp_description a').first(),
-					$pp_inline_video = $elm.find('.pp_inline .video-element'),
-					$pp_inline_audio = $elm.find('.pp_inline .audio-element'),
-					$video,
-					$audio;
-
-			if ( $pp_inline_video.length > 0 ) {
-				$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
-				$video.insertAfter( $pp_inline_video );
-
-				if ( $pp_inline_video.attr('data-content-type') === 'video/mp4') {
-					var player = new MediaElementPlayer(
-						$video, {
-							mode: 'shim',
-							pluginPath : '/themes/common/mediaelement/'
-						}
-					);
-				} else {
-					var player = new MediaElementPlayer(
-						$video, {
-							mode: 'auto',
-							pluginPath : '/themes/common/mediaelement/'
-						}
-					);
-				}
-			}
-
-			if ( $pp_inline_audio.length > 0 ) {
-				jQuery('.license-logo').css({ top: 'auto', bottom: 4 });
-				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
-				$audio.insertAfter( $pp_inline_audio );
-				var player = new MediaElementPlayer(
-						$audio, {
-							pluginPath : '/themes/common/mediaelement/'
-						}
-					);
-			}
-
-			if ( self.$metadata[self.current] ) {
-				if ( self.$metadata[self.current].data('clone').is(':visible') ) {
-					self.$metadata[self.current].data('clone').hide();
-				}
-
-				if ( self.$metadata[self.current].data('cloned') ) {
-					self.$metadata[self.current].data('cloned', false);
-				}
-			}
-
-			$additional_info_link.on('click', { self : self }, self.handleAdditionalInfoClick );
-			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
-			self.addMetaDataOverlay( $additional_info_link );
-		},
-
-		init : function() {
-			if ( add_lightbox ) {
-				this.setupPrettyPhoto();
-			} else {
-				this.removeLightboxLinks();
-			}
-		},
-
-		removeLightboxLinks : function() {
-			jQuery('#contributions-featured a').each(function() {
-				var $elm = jQuery(this),
-						contents = $elm.contents();
-
-				if ( !$elm.hasClass('pdf') ) {
-					$elm.replaceWith(contents);
-				}
-			});
-		},
-
-		removeMediaElementPlayers : function() {
-			if ( !window.mejs ) {
-				return;
-			}
-
-			for ( var i in mejs.players ) {
-				mejs.players[i].remove();
-			}
-
-			mejs.mepIndex = 0;
-		},
-
-		setupPrettyPhoto : function() {
-			var self = this,
-					ppOptions = {
-						description_src : 'data-description',
-						overlay_gallery : false,
-						changepagenext : self.handlePageChangeNext,
-						changepageprev : self.handlePageChangePrev,
-						changepicturecallback : self.handlePictureChange,
-						show_title : false,
-						social_tools: false,
-						collection_total : carousels.items_collection_total,
-						callback : function() {
-							//lightbox.init(); // Why is this run as a callback when pp is closed?
-							self.removeMediaElementPlayers();
-						}
-					};
-
-			jQuery("a[rel^='prettyPhoto']").not('.video,.audio').prettyPhoto(ppOptions);
-
-			//jQuery("a[rel^='prettyPhoto']").prettyPhoto({
-			//	description_src : 'data-description',
-			//	overlay_gallery : false,
-			//	changepagenext : self.handlePageChangeNext,
-			//	changepageprev : self.handlePageChangePrev,
-			//	changepicturecallback : self.handlePictureChange,
-			//	show_title : false,
-			//	collection_total : carousels.items_collection_total,
-			//	callback : function() { lightbox.init(); }
-			//});
-			jQuery("a[rel^='prettyPhoto'].video").each(function() {
-				// Videos are played by MediaElement.js, using prettyPhoto's inline
-				// content handler. MediaElements.js will not work if the video element
-				// is copied into prettyPhoto's container, the <video> element and
-				// MediaElement.js attachment to the <video> element needs to happen
-				// once the prettyPhoto container has been created.
-				// @see self.handlerPictureChange
-				var ppVideoOptions = ppOptions;
-				var video_link = jQuery(this);
-
-				//ppVideoOptions.default_width = video_link.data('video-width');
-				//ppVideoOptions.default_height = video_link.data('video-height');
-				video_link.prettyPhoto(ppVideoOptions);
-			});
-
-			jQuery("a[rel^='prettyPhoto'].audio").each(function() {
-				var ppAudioOptions = ppOptions;
-				var audio_link = jQuery(this);
-
-				ppAudioOptions.default_width = audio_link.data('audio-width');
-				ppAudioOptions.default_height = audio_link.data('audio-height');
-				audio_link.prettyPhoto(ppAudioOptions);
-			});
 		}
 	},
 
@@ -882,7 +660,6 @@
 		carousels.init();
 		//fitvids.init();
 		map.init();
-		//lightbox.init();
 		//pdf.init();
 		tags.init();
 		js.utils.initSearch();
