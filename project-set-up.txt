@@ -219,24 +219,27 @@ $ cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking
 
 database
 ========
-make initial schema available
------------------------------
-$ cp db/schema-example.rb db/schema.rb
+bundle exec rake db:drop
+bundle exec rake db:create
+mysql -u developer -p db_name < db_dump.sql # import a production db dump
+bundle exec rake db:migrate
 
 
-
-create db and populate with initial values
-==========================================
-instead of the following :
-# $ bundle exec rake db:create
-# $ bundle exec rake db:schema:load
-# $ bundle exec rake db:migrate
-# $ bundle exec rake db:seed
-
-run this :
-$ bundle exec rake db:setup  # creates the db if it does not exist
-or
-$ bundle exec rake db:reset  # drops the db if it exists
+### these instructions seem to be outdated; richard would need to review and correct
+###make initial schema available
+###-----------------------------
+###$ cp db/schema-example.rb db/schema.rb
+###create db and populate with initial values
+###==========================================
+###instead of the following :
+### $ bundle exec rake db:create
+### $ bundle exec rake db:schema:load
+### $ bundle exec rake db:migrate
+### $ bundle exec rake db:seed
+###run this :
+###$ bundle exec rake db:setup  # creates the db if it does not exist
+###or
+###$ bundle exec rake db:reset  # drops the db if it exists
 
 
 
@@ -291,13 +294,6 @@ some ruby extras
 show rake tasks available
 -------------------------
 $ bundle exec rake --tasks
-
-
-
-import a production db dump
-===========================
-if available
-$ mysql -u developer -p db_name < db_dump.sql
 
 
 
