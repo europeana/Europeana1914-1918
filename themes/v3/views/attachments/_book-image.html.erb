@@ -63,12 +63,16 @@
 	<script type="text/javascript">
 
 	<%
+	leaf_count = 0
 	bookImages = attachments.collect do |attachment|
-		'{' +
-			'"height":' + (attachment.file.height ? attachment.file.height.to_s : '100') + ',' +
-			'"url":"' + "#{attachment_url( attachment, 'large' )}" + '",' +
-			'"width":' + (attachment.file.width ? attachment.file.width.to_s : '100') +
-		'}'
+		if attachment.image?
+		leaf_count += 1
+			'{' +
+				'"height":' + (attachment.file.height ? attachment.file.height.to_s : '100') + ',' +
+				'"url":"' + "#{attachment_url( attachment, 'large' )}" + '",' +
+				'"width":' + (attachment.file.width ? attachment.file.width.to_s : '100') +
+			'}'
+		end
 	end
 	-%>
 
@@ -97,28 +101,7 @@ br.getPageHeight = function(index) {
 
 
 br.getPageURI = function(index, reduce, rotate) {
-
-	/* .html.erb written: */
-
-	var bookImgUris = [
-		<%= attachments.collect { |attachment| "'" + attachment_url( attachment, 'large' ) + "'" }.join(',').html_safe -%>
-	];
-
-
-
-	return bookImgUris[index];
-
-
-    // reduce and rotate are ignored in this simple implementation, but we
-    // could e.g. look at reduce and load images from a different directory
-    // or pass the information to an image server
-    /*
-	var leafStr = '000';
-    var imgStr = (index+1).toString();
-    var re = new RegExp("0{"+imgStr.length+"}$");
-    var url = 'http://www.archive.org/download/BookReader/img/page'+leafStr.replace(re, imgStr) + '.jpg';
-    return url;
-    */
+	return bookImages[index].url;
 }
 
 // Return which side, left or right, that a given page should be displayed on
@@ -169,7 +152,7 @@ br.getPageNum = function(index) {
 }
 
 // Total number of leafs
-br.numLeafs = <%= attachments.length -%>;
+br.numLeafs = <%= leaf_count -%>;
 
 
 // Book title and the URL used for the book title link

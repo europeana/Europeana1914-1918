@@ -1,31 +1,33 @@
 <%
 	thumbnails = thumbnails ? thumbnails : false
 	book_reader_placed = false
+	html = ''
 %>
 
-<% if attachments.present? -%>
-	<%- for attachment in attachments -%>
-		<%- if attachment.file.present? -%>
-			<%- if thumbnails -%>
-				<%- if !attachment.image? -%>
-					<%-
-						link_url = attachment_url( attachment, 'large' )
-						link_attrs = { :target => '_blank', :title => attachment.title }
-					-%>
-					<li><%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %></li>
-				<%- end -%>
-			<%- elsif attachment.video? || attachment.pdf? || attachment.audio?  -%>
-				<li><iframe src="<%= contribution_attachment_url( contribution, attachment, :layout => 0 ) %>"></iframe></li>
-			<%- elsif attachment.image? && attachments.size > 0 -%>
-				<%- if !book_reader_placed %>
-					<li><iframe src="<%= contribution_attachment_url( contribution, attachment, :layout => 0, :anchor => 'page/1/mode/2up' ) %>"></iframe></li>
-					<%- book_reader_placed = true -%>
-				<%- end -%>
-			<%- else -%>
-				<li><img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>"/></li>
-			<%- end -%>
-		<%- else -%>
-			<li><img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>"/></li>
-		<%- end -%>
-	<%- end -%>
-<% end -%>
+<%
+if attachments.present?
+	for attachment in attachments
+		if attachment.file.present?
+			if thumbnails
+				if !attachment.image?
+					link_url = attachment_url( attachment, 'large' )
+					link_attrs = { :target => '_blank', :title => attachment.title }
+					html += '<li>' + link_to( attachment_preview( attachment, size ), link_url, link_attrs ) + '</li>'
+				end
+			elsif attachment.video? || attachment.pdf? || attachment.audio?
+				html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '"></iframe></li>'
+			elsif attachment.image? && attachments.size > 0
+				if !book_reader_placed
+					html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '#page/1/mode/2up"></iframe></li>'
+					book_reader_placed = true
+				end
+			else
+				html += '<li><img src="/images/style/icons/mimetypes/unknown.png" alt="' + t('media_types.unknown') + '"/></li>'
+			end
+		else
+			html += '<li><img src="/images/style/icons/mimetypes/unknown.png" alt="' + t('media_types.unknown') + '"/></li>'
+		end
+	end
+end
+-%>
+<%= html.html_safe -%>
