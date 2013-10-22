@@ -15,14 +15,14 @@ if attachments.present?
 					html += '<li>' + link_to( attachment_preview( attachment, size ), link_url, link_attrs ) + '</li>'
 				end
 			elsif attachment.video? || attachment.pdf? || attachment.audio?
-				html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '"></iframe></li>'
+				html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '" allowfullscreen mozallowfullscreen webkitallowfullsreen></iframe></li>'
 			elsif attachment.image? && attachments.size > 0
 				if !book_reader_placed
 					page_mode = ''
 					if attachments.select(&:image?).size > 1
 						page_mode = '#page/1/mode/2up'
 					end
-					html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + page_mode + '"></iframe></li>'
+					html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + page_mode + '" allowfullscreen mozallowfullscreen webkitallowfullsreen></iframe></li>'
 					book_reader_placed = true
 				end
 			else
