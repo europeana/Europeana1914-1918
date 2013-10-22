@@ -18,7 +18,11 @@ if attachments.present?
 				html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '"></iframe></li>'
 			elsif attachment.image? && attachments.size > 0
 				if !book_reader_placed
-					html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '#page/1/mode/2up"></iframe></li>'
+					page_mode = ''
+					if attachments.select(&:image?).size > 1
+						page_mode = '#page/1/mode/2up'
+					end
+					html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + page_mode + '"></iframe></li>'
 					book_reader_placed = true
 				end
 			else
