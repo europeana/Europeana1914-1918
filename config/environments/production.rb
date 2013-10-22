@@ -25,11 +25,14 @@ RunCoCo::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  #config.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache')
-  memcached_config = YAML.load_file(Rails.root.join('config/memcached.yml'))
-  memcached_hosts = memcached_config['defaults']['servers']
-  # pass the servers to dalli setup
-  config.cache_store = :dalli_store, *memcached_hosts
+  if File.exists?(memcached_config_filename = Rails.root.join('config/memcached.yml'))
+    memcached_config = YAML.load_file(memcached_config_filename)
+    memcached_hosts = memcached_config['defaults']['servers']
+    # pass the servers to dalli setup
+    config.cache_store = :dalli_store, *memcached_hosts
+  else
+    config.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache')
+  end
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
