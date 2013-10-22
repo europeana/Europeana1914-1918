@@ -23,6 +23,10 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 </head>
 <body>
 	
+	<%- if configuration(:banner_active) -%>
+		<div id="maintenance-banner" class="portlet-msg-alert"><%= configuration(:banner_text) %></div>
+	<%- end -%>
+	
 	<%= render '/layouts/header' %>
 	
 	<div id='content' class='section'>
