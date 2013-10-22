@@ -8,4 +8,8 @@
     <th scope="row"><%= User.human_attribute_name(:email) %></th>
     <td><%= user.email %></td>
   </tr>
+  <tr>
+    <th scope="row"><%= User.human_attribute_name(:institution) %></th>
+    <td><%= user.institution.name unless user.institution.blank? %></td>
+  </tr>
 </table>
