@@ -16,3 +16,15 @@ if config.current_role == :util
     run "scp -o StrictHostKeyChecking=no -i /home/#{config.node[:owner_name]}/.ssh/internal #{config.node[:owner_name]}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
   end
 end
+
+# Copy config files from app master to app instances
+if config.current_role == :app
+  [
+    "/data/ssmtp/ssmtp.conf"
+  ].each do |config_path|
+    config_dir = File.dirname(config_path)
+    FileUtils.mkdir(config_dir) unless File.exists?(config_dir)
+    run "scp -o StrictHostKeyChecking=no -i /home/#{config.node[:owner_name]}/.ssh/internal #{config.node[:owner_name]}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
+  end
+end
+
