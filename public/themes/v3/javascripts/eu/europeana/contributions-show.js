@@ -14,16 +14,27 @@
 		$contributions_featured = jQuery('#contributions-featured'),
 
 
-	carousel = {
-		init: function() {
-			jQuery('#contributions-featured').imagesLoaded(function() {
-				this.rCarousel();
-			});
+	carousels = {
+		$featured_carousel : null,
+		$thumbnail_carousel : null,
 
-			jQuery('#contributions-featured')
-			.rCarousel({
-				listen_to_arrow_keys : false,
-				item_width_is_container_width : false
+		init: function() {
+			var self = this;
+
+			$('#contributions-featured, #contributions-thumbnails').imagesLoaded( function() {
+				self.$featured_carousel =
+					jQuery('#contributions-featured').rCarousel({
+						item_width_is_container_width : true,
+					}).data('rCarousel');
+
+				self.$thumbnail_carousel =
+					jQuery('#contributions-thumbnails').rCarousel({
+						listen_to_arrow_keys : false,
+						item_width_is_container_width : false,
+						nav_button_size : 'small',
+						navigation_style : 'one-way-by',
+						nav_by : self.thumb_nav_by
+					}).data('rCarousel');
 			});
 		}
 	},
@@ -303,7 +314,7 @@
 	(function() {
 		truncate.init();
 		RunCoCo.translation_services.init( jQuery('.nav-top') );
-		carousel.init();
+		carousels.init();
 		map.init();
 		tags.init();
 		js.utils.initSearch();

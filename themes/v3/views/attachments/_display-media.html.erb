@@ -9,11 +9,9 @@ if attachments.present?
 	for attachment in attachments
 		if attachment.file.present?
 			if thumbnails
-				if !attachment.image?
-					link_url = attachment_url( attachment, 'large' )
-					link_attrs = { :target => '_blank', :title => attachment.title }
-					html += '<li>' + link_to( attachment_preview( attachment, size ), link_url, link_attrs ) + '</li>'
-				end
+				link_url = attachment_url( attachment, 'large' )
+				link_attrs = { :target => '_blank', :title => attachment.title }
+				html += '<li>' + link_to( attachment_preview( attachment, size ), link_url, link_attrs ) + '</li>'
 			elsif attachment.video? || attachment.pdf? || attachment.audio?
 				html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '" allowfullscreen mozallowfullscreen webkitallowfullsreen></iframe></li>'
 			elsif attachment.image? && attachments.size > 0
