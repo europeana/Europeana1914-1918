@@ -23,7 +23,9 @@ class Admin::ConfigController < AdminController
     end
     
     if @config.save
-      RunCoCo.configuration.load
+      if RunCoCo::Application.config.action_controller.perform_caching && RunCoCo::Application.config.action_controller.cache_classes
+        Rails.cache.write("runcoco.configuration", @config.to_array)
+      end
       flash[:notice] = t('flash.configuration.update.notice')
       redirect_to admin_config_path
     else
@@ -32,7 +34,8 @@ class Admin::ConfigController < AdminController
     end
   end
 
-  protected
+protected
+
   def authorize!
     current_user.may_administer_settings!
   end

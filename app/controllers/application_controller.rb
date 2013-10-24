@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   #
   ##
   
-  before_filter :init_session, :init_views, :set_locale
+  before_filter :init_session, :init_views, :set_locale, :init_configuration
   
   unless Rails.configuration.consider_all_requests_local 
     # Rescue general errors
@@ -218,6 +218,18 @@ class ApplicationController < ActionController::Base
     #   <% @stylesheets[:index] = true -%>
     #
     @stylesheets = {}
+  end
+  
+  def init_configuration
+    if RunCoCo::Application.config.action_controller.perform_caching && RunCoCo::Application.config.action_controller.cache_classes
+      if Rails.cache.exist?("runcoco.configuration")
+        RunCoCo.configuration = RunCoCo::Configuration.new(Rails.cache.read("runcoco.configuration"))
+      else
+        Rails.cache.write("runcoco.configuration", RunCoCo.configuration.to_array)
+      end
+    else
+      RunCoCo.configuration = RunCoCo::Configuration.new
+    end
   end
   
   ##

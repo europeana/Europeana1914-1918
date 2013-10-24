@@ -75,9 +75,14 @@ module RunCoCo
     validates_format_of :site_url , :with => /[^\/]$/ # No trailing slash
     validates_inclusion_of :search_engine, :in => [ :active_record, :solr, :sphinx ]
     
-    def initialize
+    def initialize(settings = nil)
       @settings = {}
-      self.load
+      
+      if settings.is_a?(Array)
+        self.from_array(settings)
+      else
+        self.load
+      end
       
       DEFAULTS.each_pair do |name, value|
         @settings[name] ||= Setting.new(:name => name.to_s, :value => value)
@@ -117,17 +122,28 @@ module RunCoCo
       @settings
     end
     
+    # @param [Array<Setting>]
+    def from_array(settings)
+      settings.each do |setting|
+        @settings[setting.name.to_sym] = setting
+      end
+      @settings
+    end
+    
     # Saves configuration settings to database
     def save
       return false unless valid?
       
-      result = true
+      all_saved = true
       Setting.transaction do
         @settings.each_value do |setting|
-          result = result & setting.save
+          all_saved = all_saved & setting.save
         end
       end
-      result
+      
+      typecast!
+      
+      all_saved
     end
     
     ##
@@ -156,6 +172,12 @@ module RunCoCo
       raise ArgumentError, "Unknown setting name #{name.inspect}" unless DEFAULTS.has_key?(name.to_sym)
       if @settings[name].respond_to?(:value)
         @settings[name].value = value
+      end
+    end
+    
+    def to_array
+      @settings.collect do |name, setting|
+        setting
       end
     end
     
