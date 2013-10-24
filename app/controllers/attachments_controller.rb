@@ -49,7 +49,7 @@ class AttachmentsController < ApplicationController
       attachment_attributes[:file].content_type = MIME::Types.type_for(attachment_attributes[:file].original_filename).first
     else
       attachment_attributes = params[:attachment]
-      if params[:attachment][:dropbox_path].present?
+      if params[:attachment].has_key?(:dropbox_path) && params[:attachment][:dropbox_path].present?
         attachment_attributes.delete(:file)
       end
     end
@@ -68,7 +68,7 @@ class AttachmentsController < ApplicationController
       @attachment.metadata.field_file_type_term_ids = [ text.id ]
     end
     
-    if params[:attachment][:dropbox_path].present? && dropbox_configured? && dropbox_authorized?
+    if params[:attachment].has_key?(:dropbox_path) && params[:attachment][:dropbox_path].present? && dropbox_configured? && dropbox_authorized?
       begin
         dropbox_metadata = dropbox_client.metadata(params[:attachment][:dropbox_path])
         if dropbox_metadata['bytes'] > RunCoCo.configuration.max_upload_size
