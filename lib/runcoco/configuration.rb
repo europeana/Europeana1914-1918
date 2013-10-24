@@ -38,7 +38,6 @@ module RunCoCo
   #
   class Configuration
     include ActiveModel::Validations
-    include Singleton
     
     DEFAULTS = {
       :site_name                      => 'Run a Community Collection',
@@ -160,7 +159,8 @@ module RunCoCo
       end
     end
     
-    private
+  private
+  
     def typecast!
       self[:max_upload_size] = self[:max_upload_size].to_i
       
