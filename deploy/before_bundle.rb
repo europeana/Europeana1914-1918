@@ -1,9 +1,8 @@
-require 'fileutils'
+username = config.node[:users].first[:username]
 
 # Copy config files from app master to utility instances
-if config.current_role == :util
+if config.current_role == "util"
   [
-    "/data/ssmtp/ssmtp.conf",
     "#{config.shared_path}/config/initializers/action_mailer.rb",
     "#{config.shared_path}/config/initializers/devise.rb",
     "#{config.shared_path}/config/initializers/europeana.rb",
@@ -11,20 +10,13 @@ if config.current_role == :util
     "#{config.shared_path}/config/initializers/secret_token.rb",
     "#{config.shared_path}/config/s3.yml"
   ].each do |config_path|
-    config_dir = File.dirname(config_path)
-    FileUtils.mkdir(config_dir) unless File.exists?(config_dir)
-    run "scp -o StrictHostKeyChecking=no -i /home/#{config.node[:owner_name]}/.ssh/internal #{config.node[:owner_name]}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
+    run "scp -o StrictHostKeyChecking=no -i /home/#{username}/.ssh/internal #{username}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
   end
 end
 
-# Copy config files from app master to app instances
-if config.current_role == :app
-  [
-    "/data/ssmtp/ssmtp.conf"
-  ].each do |config_path|
-    config_dir = File.dirname(config_path)
-    FileUtils.mkdir(config_dir) unless File.exists?(config_dir)
-    run "scp -o StrictHostKeyChecking=no -i /home/#{config.node[:owner_name]}/.ssh/internal #{config.node[:owner_name]}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
-  end
+# Copy SSMTP config file from app master to app and utility instances
+if [ "app", "util" ].include?(config.current_role)
+  config_path = "/data/ssmtp/ssmtp.conf"
+  sudo "scp -o StrictHostKeyChecking=no -i /home/#{username}/.ssh/internal #{username}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
 end
 
