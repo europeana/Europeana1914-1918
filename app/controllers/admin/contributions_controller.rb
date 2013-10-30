@@ -93,7 +93,7 @@ class Admin::ContributionsController < AdminController
       end
       format.xml do
         job_options = settings_hash.merge(:user_id => current_user.id)
-        Delayed::Job.enqueue ExportJob.new(job_options)
+        Delayed::Job.enqueue XMLExportJob.new(job_options)
         
         flash[:notice] = "Generating XML export in the background"
         redirect_to admin_root_url
