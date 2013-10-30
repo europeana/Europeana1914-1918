@@ -11,3 +11,7 @@ run "ln -nfs #{config.shared_path}/config/s3.yml #{config.release_path}/config/c
 
 # Paperclip config
 run "ln -nfs #{config.shared_path}/config/initializers/paperclip.rb #{config.release_path}/config/initializers/paperclip.rb"
+
+# Asset cache
+run "mkdir -p #{config.shared_path}/assets"
+run "ln -nfs #{config.shared_path}/assets #{config.release_path}/public/cache"
