@@ -77,7 +77,7 @@ class Admin::ContributionsController < AdminController
       @settings.set = 'all'
     end
     
-    timestamp = Time.now.strftime('%Y%m%d%H%M%S')
+    job_options = settings_hash.merge(:user_id => current_user.id)
     
     respond_to do |format|
       format.html do
@@ -88,13 +88,12 @@ class Admin::ContributionsController < AdminController
         end
       end
       format.csv do
-        send_data export_as_csv, :filename => "collection-#{timestamp}.csv", :type => 'text/csv'
-        RunCoCo.export_logger.info("Export to CSV by #{current_user.username}")
+        Delayed::Job.enqueue CSVExportJob.new(job_options)
+        flash[:notice] = "Generating CSV export in the background"
+        redirect_to admin_root_url
       end
       format.xml do
-        job_options = settings_hash.merge(:user_id => current_user.id)
         Delayed::Job.enqueue XMLExportJob.new(job_options)
-        
         flash[:notice] = "Generating XML export in the background"
         redirect_to admin_root_url
       end
@@ -125,29 +124,6 @@ protected
     }
   end
   
-  def export_as_csv
-    csv_class.generate do |csv|
-      # Column headings in first row
-      attributes = [ :id, :title, :contributor, :url, :created_at, :provider, :data_provider ] +
-        MetadataField.all.collect { |mf| mf.title }
-      csv << attributes.collect do |attribute|
-        if attribute.instance_of? Symbol
-          Contribution.human_attribute_name(attribute)
-        elsif attribute.instance_of? Array
-          attribute.first.human_attribute_name(attribute.last)
-        else
-          attribute
-        end
-      end
-
-      Contribution.export(settings_hash) do |c|
-        row = [ c.id, c.title, c.contributor.contact.full_name, url_for(c), c.created_at, "Europeana 1914 - 1918", (c.contributor.institution.present? ? c.contributor.institution.name : '') ] +
-          MetadataField.all.collect { |mf| c.metadata.fields[mf.name] }
-        csv << row
-      end
-    end
-  end
-
   def search_options
     search_options = {}
     [ :page, :order, :sort, :contributor_id ].each do |key|
