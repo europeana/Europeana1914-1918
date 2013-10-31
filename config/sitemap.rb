@@ -1,5 +1,8 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = RunCoCo.configuration.site_url
+SitemapGenerator::Sitemap.default_host  = RunCoCo.configuration.site_url
+
+# Set the directory in which to store the sitemaps
+SitemapGenerator::Sitemap.sitemaps_path = "sitemaps"
 
 SitemapGenerator::Sitemap.create do
   # The root path '/' and sitemap index file are added automatically for you.

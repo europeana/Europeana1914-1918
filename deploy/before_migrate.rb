@@ -15,3 +15,8 @@ run "ln -nfs #{config.shared_path}/config/initializers/paperclip.rb #{config.rel
 # Asset cache
 run "mkdir -p #{config.shared_path}/assets"
 run "ln -nfs #{config.shared_path}/assets #{config.release_path}/public/cache"
+
+# Sitemaps
+run "mkdir -p #{config.shared_path}/sitemaps"
+run "ln -nfs #{config.shared_path}/sitemaps #{config.release_path}/public/sitemaps"
+run "ln -nfs #{config.shared_path}/sitemaps/sitemap.xml.gz #{config.release_path}/public/sitemap.xml.gz"
