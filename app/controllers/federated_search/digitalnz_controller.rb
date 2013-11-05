@@ -6,12 +6,19 @@
 class FederatedSearch::DigitalnzController < FederatedSearchController
   self.api_url = "http://api.digitalnz.org/v3/records.json"
   
+  def item_url
+    "http://api.digitalnz.org/v3/records/#{params[:id]}.json?[request-parameters]"
+  end
+  
 protected
   
-  def query_params
-    query_params = { 
+  def authentication_params
+    { :api_key => self.class.api_key }
+  end
+  
+  def search_params
+    search_params = { 
       :text => params[:q],
-      :api_key => self.class.api_key,
       :per_page => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       "without[content_partner][]" => "Europeana",
@@ -20,11 +27,15 @@ protected
     }
     
     params_with_defaults[:facets].each_pair do |name, value|
-      query_params["and[#{name}]"] ||= []
-      query_params["and[#{name}]"] << value
+      search_params["and[#{name}]"] ||= []
+      search_params["and[#{name}]"] << value
     end
     
-    query_params
+    search_params.merge(authentication_params)
+  end
+  
+  def validate_response!(response)
+    raise ResponseError.new(response) if response.has_key?("errors") && response["errors"].present?
   end
   
   def total_entries_from_response(response)

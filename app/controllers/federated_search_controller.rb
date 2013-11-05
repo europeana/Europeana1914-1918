@@ -6,7 +6,13 @@ class FederatedSearchController < ApplicationController
   before_filter :configured?
   before_filter :redirect_to_search, :only => :search
   
-  class ResponseError < RuntimeError; end
+  class ResponseError < RuntimeError
+    attr_reader :response
+    
+    def initialize(response)
+      @response = response
+    end
+  end
   
   class << self
     # [String] Key to access the federated search's API, set in config/federated_search.yml
@@ -23,7 +29,7 @@ class FederatedSearchController < ApplicationController
   # call +super+ before the method end.
   #
   def search
-    response = query_api
+    response = query_api(search_params)
     
     @query    = params[:q]
     @results  = response["results"]
@@ -35,6 +41,10 @@ class FederatedSearchController < ApplicationController
     end
   end
   
+  def show
+    
+  end
+  
 protected
   
   ##
@@ -42,8 +52,8 @@ protected
   #
   def params_with_defaults
     @params_with_defaults ||= {
-      :page => (params[:page] || 1).to_i,
-      :count => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
+      :page   => (params[:page] || 1).to_i,
+      :count  => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
       :facets => params[:facets] || {}
     }
   end
@@ -86,8 +96,17 @@ protected
   #
   # @return [Hash] Query parameters to send to the API
   #
-  def query_params
+  def search_params
     {}
+  end
+  
+  ##
+  # Gets the authentication params required by the API.
+  #
+  # Subclasses should implement this and return the params as a hash.
+  #
+  def authentication_params
+    raise RuntimeError, "#authentication_params not implemented in #{self.class.name}"
   end
   
   ##
@@ -100,7 +119,7 @@ protected
   # @raise [ResponseError] if the response is invalid
   #
   def validate_response!(response)
-    raise ResponseError if response.nil?
+    raise ResponseError.new(response) if response.nil?
   end
   
 private
@@ -111,8 +130,8 @@ private
   # @param [String] terms Text to search for
   # @return [Hash] Normalized API response, with keys "results" and "facets"
   #
-  def query_api
-    url = construct_query_url(query_params)
+  def query_api(params)
+    url = construct_query_url(search_params)
     logger.debug("#{controller_name} API URL: #{url.to_s}")
 
     cache_key = "search/federated/#{controller_name}/" + Digest::MD5.hexdigest(url.to_s)
@@ -130,9 +149,12 @@ private
     facets = facets_from_response(response)
     
     { "results" => results, "facets" => facets }
-  rescue JSON::ParserError, ResponseError
-    logger.error("ERROR: Unable to parse response from #{controller_name} API query: #{url.to_s}")
+  rescue JSON::ParserError
+    logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query: #{url.to_s}")
     { "results" => [], "facets" => [] }
+  rescue ResponseError => e
+    logger.error("ERROR: Invalid response from #{controller_name} API query: #{e.response}")
+    raise ResponseError.new(e.response), "Invalid response from #{controller_name} API: #{e.response}"
   end
   
   ##

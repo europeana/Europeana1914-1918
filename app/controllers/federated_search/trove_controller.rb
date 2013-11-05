@@ -36,22 +36,25 @@ protected
     @params_with_defaults
   end
 
-  def query_params
-    query_params = { 
+  def authentication_params
+    { :key => self.class.api_key }
+  end
+
+  def search_params
+    search_params = { 
       :q => "subject(World War, 1914-1918) #{params[:q]}",
-      :key => self.class.api_key,
       :zone => params_with_defaults[:zone],
       :encoding => "json",
       :n => params_with_defaults[:count],
       :s => ((params_with_defaults[:page] - 1) * params_with_defaults[:count]),
       :facet => "all"
-    }
+    }.merge(authentication_params)
     
     params_with_defaults[:facets].each_pair do |name, value|
-      query_params["l-#{name}"] = value
+      search_params["l-#{name}"] = value
     end
     
-    query_params
+    search_params
   end
   
   def total_entries_from_response(response)
