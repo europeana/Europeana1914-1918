@@ -29,6 +29,10 @@ protected
     query_params
   end
   
+  def validate_response!(response)
+    raise ResponseError if reponse["message"] == "Internal Server Error"
+  end
+  
   def total_entries_from_response(response)
     response["count"]
   end

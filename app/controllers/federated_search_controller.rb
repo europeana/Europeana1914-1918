@@ -6,6 +6,8 @@ class FederatedSearchController < ApplicationController
   before_filter :configured?
   before_filter :redirect_to_search, :only => :search
   
+  class ResponseError < RuntimeError; end
+  
   class << self
     # [String] Key to access the federated search's API, set in config/federated_search.yml
     attr_accessor :api_key
@@ -23,9 +25,9 @@ class FederatedSearchController < ApplicationController
   def search
     response = query_api
     
-    @query = params[:q]
-    @results = response["results"]
-    @facets = response["facets"]
+    @query    = params[:q]
+    @results  = response["results"]
+    @facets   = response["facets"]
     
     respond_to do |format|
       format.html { render :template => 'search/page' }
@@ -37,6 +39,7 @@ protected
   
   ##
   # Gets common search parameters with default values
+  #
   def params_with_defaults
     @params_with_defaults ||= {
       :page => (params[:page] || 1).to_i,
@@ -87,6 +90,19 @@ protected
     {}
   end
   
+  ##
+  # Validates response from API
+  #
+  # Sub-classes should implement this and raise a ResponseError if the response
+  # from their respective API is invalid, i.e. does not contain results in the
+  # expected format.
+  #
+  # @raise [ResponseError] if the response is invalid
+  #
+  def validate_response!(response)
+    raise ResponseError if response.nil?
+  end
+  
 private
 
   ##
@@ -104,6 +120,7 @@ private
       response = YAML::load(read_fragment(cache_key))
     else
       response = JSON.parse(Net::HTTP.get(url))
+      validate_response!(response)
       logger.debug("Federated search response: #{response.inspect}")
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day)
     end
@@ -113,7 +130,7 @@ private
     facets = facets_from_response(response)
     
     { "results" => results, "facets" => facets }
-  rescue JSON::ParserError
+  rescue JSON::ParserError, ResponseError
     logger.error("ERROR: Unable to parse response from #{controller_name} API query: #{url.to_s}")
     { "results" => [], "facets" => [] }
   end
