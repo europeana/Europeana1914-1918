@@ -15,7 +15,7 @@ protected
       "sourceResource.subject.name" => '"World War, 1914-1918"',
       :page_size => params_with_defaults[:count],
       :page => params_with_defaults[:page],
-      :facets => "sourceResource.contributor,sourceResource.date.begin,sourceResource.date.end,sourceResource.language.name,sourceResource.language.iso639,sourceResource.format,sourceResource.stateLocatedIn.name,sourceResource.stateLocatedIn.iso3166-2,sourceResource.spatial.name,sourceResource.spatial.country,sourceResource.spatial.region,sourceResource.spatial.county,sourceResource.spatial.state,sourceResource.spatial.city,sourceResource.spatial.iso3166-2,sourceResource.subject.@id,sourceResource.subject.name,sourceResource.temporal.begin,sourceResource.temporal.end,sourceResource.type,hasView.@id,hasView.format,isPartOf.@id,isPartOf.name,isShownAt,object,provider.@id,provider.name"
+      :facets => "sourceResource.contributor,sourceResource.date.begin,sourceResource.date.end,sourceResource.language.name,sourceResource.language.iso639,sourceResource.format,sourceResource.stateLocatedIn.name,sourceResource.stateLocatedIn.iso3166-2,sourceResource.spatial.name,sourceResource.spatial.country,sourceResource.spatial.region,sourceResource.spatial.county,sourceResource.spatial.state,sourceResource.spatial.city,sourceResource.spatial.iso3166-2,sourceResource.subject.@id,sourceResource.subject.name,sourceResource.temporal.begin,sourceResource.temporal.end,sourceResource.type,hasView.@id,hasView.format,isPartOf.@id,isPartOf.name,provider.@id,provider.name"
     }
     
     params_with_defaults[:facets].each_pair do |name, value|
