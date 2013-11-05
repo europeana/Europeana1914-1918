@@ -5,7 +5,7 @@
         render :partial => '/attachments/display-media',
         :locals => {
           :size => :medium,
-          :attachments => attachments,
+          :items => attachments,
           :contribution => contribution
         }
       %>
@@ -19,9 +19,8 @@
     <% if local_assigns[:attachments].present? -%>
       <%=
         render :partial => '/attachments/display-media', :locals => {
-          :size => :thumbnail,
-          :attachments => attachments,
-          :thumbnails => true,
+          :size => :thumb,
+          :items => attachments,
           :contribution => contribution
         }
       %>

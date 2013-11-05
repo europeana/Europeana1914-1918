@@ -68,7 +68,13 @@ class ContributionsController < ApplicationController
     if @contribution.draft? && current_user.may_edit_contribution?(@contribution)
       redirect_to edit_contribution_path(@contribution) and return
     end
-    @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 )
+    
+    if session[:theme] == 'v3'
+      @attachments = attachments_with_books
+    else
+      @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3)
+    end
+    
     @tags = @contribution.tags
     
     respond_to do |format|
@@ -380,6 +386,11 @@ protected
     
     row_label || row_value.to_s
   end
-
+  
+  def attachments_with_books
+    attachments_with_books = @contribution.attachments.with_books
+    WillPaginate::Collection.create(params[:page] || 1, params[:count] || 3, attachments_with_books.size) do |pager|
+      pager.replace(attachments_with_books)
+    end
+  end
 end
-

@@ -1,23 +1,23 @@
 <%
-	thumbnails = thumbnails ? thumbnails : false
 	book_reader_placed = false
 	html = ''
 %>
 
 <%
-if attachments.present?
-	for attachment in attachments
+if items.present?
+	for item in items
+		attachment = (item.is_a?(Array) ? item.first : item)
 		if attachment.file.present?
-			if thumbnails
+			if size == :thumb
 				link_url = attachment_url( attachment, 'large' )
 				link_attrs = { :target => '_blank', :title => attachment.title }
 				html += '<li>' + link_to( attachment_preview( attachment, size ), link_url, link_attrs ) + '</li>'
 			elsif attachment.video? || attachment.pdf? || attachment.audio?
-				html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + '" allowfullscreen mozallowfullscreen webkitallowfullsreen></iframe></li>'
-			elsif attachment.image? && attachments.size > 0
+				html += '<li><iframe src="' + contribution_attachment_url( contribution, item, :layout => 0 ) + '" allowfullscreen mozallowfullscreen webkitallowfullsreen></iframe></li>'
+			elsif item.is_a?(Array) && item.size > 0
 				if !book_reader_placed
 					page_mode = ''
-					if attachments.select(&:image?).size > 1
+					if item.size > 1
 						page_mode = '#page/1/mode/2up'
 					end
 					html += '<li><iframe src="' + contribution_attachment_url( contribution, attachment, :layout => 0 ) + page_mode + '" allowfullscreen mozallowfullscreen webkitallowfullsreen></iframe></li>'

@@ -38,6 +38,23 @@ class Contribution < ActiveRecord::Base
     def cover_image
       with_file.select { |attachment| attachment.metadata.field_cover_image.present? }.first || with_file.first
     end
+    
+    def with_books
+      attachments_with_books = []
+      book_index = nil
+      each do |attachment|
+        if attachment.image?
+          if book_index.nil?
+            book_index = attachments_with_books.size
+            attachments_with_books[book_index] = []
+          end
+          attachments_with_books[book_index] << attachment
+        else
+          attachments_with_books << attachment
+        end
+      end
+      attachments_with_books
+    end
   end
   
   has_many :statuses, :class_name => 'ContributionStatus', :dependent => :destroy, :order => 'created_at ASC'
