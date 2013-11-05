@@ -104,6 +104,7 @@ private
       response = YAML::load(read_fragment(cache_key))
     else
       response = JSON.parse(Net::HTTP.get(url))
+      logger.debug("Federated search response: #{response.inspect}")
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day)
     end
     
@@ -112,6 +113,9 @@ private
     facets = facets_from_response(response)
     
     { "results" => results, "facets" => facets }
+  rescue JSON::ParserError
+    logger.error("ERROR: Unable to parse response from #{controller_name} API query: #{url.to_s}")
+    { "results" => [], "facets" => [] }
   end
   
   ##
