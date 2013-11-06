@@ -6,8 +6,8 @@
 class FederatedSearch::DigitalnzController < FederatedSearchController
   self.api_url = "http://api.digitalnz.org/v3/records.json"
   
-  def item_url
-    "http://api.digitalnz.org/v3/records/#{params[:id]}.json?[request-parameters]"
+  def record_url
+    "http://api.digitalnz.org/v3/records/#{params[:id]}.json"
   end
   
 protected
@@ -34,6 +34,10 @@ protected
     search_params.merge(authentication_params)
   end
   
+  def record_params
+    authentication_params
+  end
+  
   def validate_response!(response)
     raise ResponseError.new(response) if response.has_key?("errors") && response["errors"].present?
   end
@@ -51,8 +55,8 @@ protected
       edm_result = {
         "id" => item["id"],
         "title" => [ item["title"] ],
-        "guid" => "http://www.digitalnz.org/records/" + item["id"].to_s,
-        "provider" => [ "DigitalNZ" ],
+        "guid" => show_digitalnz_path(item["id"]),
+        "provider" => item["content_partner"],
         "dcCreator" => [ item["credit_creator"] ],
         "edmPreview" => [ item["thumbnail_url"] ]
       }
@@ -77,6 +81,43 @@ protected
         }
       }
     }
+  end
+  
+  # @todo Revise the output to match that from the Europeana API
+  # @see /themes/v3/views/edm/_record.html.erb for expected fields
+  def edm_record_from_response(response)
+    edm = {}
+    
+    return edm unless response["record"].present?
+    record = response["record"]
+    
+    edm["title"] = [ record["title"] ]
+    
+    edm["proxies"] = [ {
+      "dcAlternative" => { "def" => record["alternate_title"] },
+      "dcCreator"     => { "def" => [ record["creator"] ] },
+      "dcDate"        => { "def" => [ record["display_date"] ] },
+      "dcDescription" => { "def" => [ record["description"] ] },
+      "dcFormat"      => { "def" => record["format"] },
+      "dcIdentifier"  => { "def" => record["dc_identifier"] },
+      "dcLanguage"    => { "def" => record["language"] },
+      "dcPublisher"   => { "def" => record["publisher"] },
+      "dcProvenance"  => { "def" => [ record["provenance"] ] },
+      "dcRights"      => { "def" => [ record["rights"] ] },
+      "dcTitle"       => { "def" => [ record["title"] ] },
+      "dcType"        => { "def" => [ record["dc_type"] ] },
+    } ]
+    
+    edm["aggregations"] = [ { 
+      "edmDataProvider" => { "def" => record["content_partner"] },
+      "edmIsShownAt"    => record["source_url"],
+      "edmObject"       => record["large_thumbnail_url"],
+      "edmProvider"     => { "def" => [ "Digital NZ" ] },
+    } ]
+    
+    edm["providedCHOs"] = [ { "about" => record["landing_url"] } ]
+    
+    edm
   end
   
 end

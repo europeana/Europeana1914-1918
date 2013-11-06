@@ -77,6 +77,7 @@ RunCoCo::Application.routes.draw do
     
     # Federated searches
     match 'digitalnz/search' => 'federated_search/digitalnz#search', :as => 'search_digitalnz', :via => :get
+    match 'digitalnz/record/:id' => 'federated_search/digitalnz#show', :as => 'show_digitalnz', :via => :get
     match 'dpla/search' => 'federated_search/dpla#search', :as => 'search_dpla', :via => :get
     match 'trove/search' => 'federated_search/trove#search', :as => 'search_trove', :via => :get
 

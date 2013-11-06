@@ -46,8 +46,8 @@
 
 			<div class="col-cell">
 				<div class="img-panel">
-					<% if(edmObject && edmObject.length>0) %>
-						<img src="<%=edmObject%>"/>
+					<% if edmObject.present? %>
+						<img src="<%= edmObject %>"/>
 					<% else %>
 						<img src="/themes/v3/images/default-image.gif"/>
 					<% end %>
@@ -55,7 +55,7 @@
 
 				<% if carouselImages %>
 					<% carouselImages.each do |img| %>
-						<img src="<%=img%>" style="max-width:100px;"/>
+						<img src="<%= img %>" style="max-width:100px;"/>
 					<% end %>
 				<% end %>
 
@@ -67,7 +67,7 @@
 					<div id="map-container">
 						<div id="map">
 							<script type="text/javascript">
-								var latLong = "<%=latLong%>".split(',');
+								var latLong = "<%= latLong %>".split(',');
 							</script>
 						</div>
 					</div>
@@ -240,10 +240,10 @@
 
 
 
-				<% if edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt') && edmDataProvider %>
+				<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmDataProvider %>
 					<p class="title">View on partner's website</p>
 					<p>
-						<a href="<%= edmIsShownAt %>"><%= edmDataProvider %></a>
+						<%= link_to edmDataProvider, edmIsShownAt %>
 					</p>
 				<% end %>
 

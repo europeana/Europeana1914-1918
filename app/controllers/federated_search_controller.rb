@@ -29,7 +29,7 @@ class FederatedSearchController < ApplicationController
   # call +super+ before the method end.
   #
   def search
-    response = query_api(search_params)
+    response = search_api
     
     @query    = params[:q]
     @results  = response["results"]
@@ -42,7 +42,11 @@ class FederatedSearchController < ApplicationController
   end
   
   def show
+    @record = get_record_from_api
     
+    respond_to do |format|
+      format.html { render :template => 'search/record' }
+    end
   end
   
 protected
@@ -101,12 +105,22 @@ protected
   end
   
   ##
+  # Gets the parameters for retrieval of an individual record from the API
+  #
+  # @return [Hash] Query parameters to send to the API
+  # @raise [NotImplementedError] if not implemented by sub-class
+  #
+  def record_params
+    raise NotImplementedError, "#record_params not implemented in #{self.class.name}"
+  end
+  
+  ##
   # Gets the authentication params required by the API.
   #
   # Subclasses should implement this and return the params as a hash.
   #
   def authentication_params
-    raise RuntimeError, "#authentication_params not implemented in #{self.class.name}"
+    raise NotImplementedError, "#authentication_params not implemented in #{self.class.name}"
   end
   
   ##
@@ -127,11 +141,13 @@ private
   ##
   # Sends the query to the API.
   #
-  # @param [String] terms Text to search for
-  # @return [Hash] Normalized API response, with keys "results" and "facets"
+  # @param [Hash] params URL query parameters.
+  # @param [String] url URL to send the query to. If nil, uses controller's
+  #   +api_url+
+  # @return [Hash] Response received from the API, parsed from JSON.
   #
-  def query_api(params)
-    url = construct_query_url(search_params)
+  def query_api(params = {}, url = nil)
+    url = construct_query_url(params, url)
     logger.debug("#{controller_name} API URL: #{url.to_s}")
 
     cache_key = "search/federated/#{controller_name}/" + Digest::MD5.hexdigest(url.to_s)
@@ -140,21 +156,33 @@ private
     else
       response = JSON.parse(Net::HTTP.get(url))
       validate_response!(response)
-      logger.debug("Federated search response: #{response.inspect}")
+#      logger.debug("Federated search response: #{response.inspect}")
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day)
     end
     
-    edm_results = edm_results_from_response(response)
-    results = paginate_search_results(edm_results, params_with_defaults[:page], params_with_defaults[:count], total_entries_from_response(response))
-    facets = facets_from_response(response)
-    
-    { "results" => results, "facets" => facets }
+    response
   rescue JSON::ParserError
     logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query: #{url.to_s}")
     { "results" => [], "facets" => [] }
   rescue ResponseError => e
     logger.error("ERROR: Invalid response from #{controller_name} API query: #{e.response}")
     raise ResponseError.new(e.response), "Invalid response from #{controller_name} API: #{e.response}"
+  end
+  
+  # @response [Hash] Normalized API response, with keys "results" and "facets"
+  def search_api
+    response = query_api(search_params)
+  
+    edm_results = edm_results_from_response(response)
+    results = paginate_search_results(edm_results, params_with_defaults[:page], params_with_defaults[:count], total_entries_from_response(response))
+    facets = facets_from_response(response)
+    
+    { "results" => results, "facets" => facets }
+  end
+  
+  # @response [Hash] Normalized API response, converted to EDM
+  def get_record_from_api
+    edm_record_from_response(query_api(record_params, record_url))
   end
   
   ##
@@ -225,10 +253,13 @@ private
   # Constructs the URL for the API query
   #
   # @param [Hash] params Query parameters
+  # @param [String] url URL to send the query to. If nil, uses controller's
+  #   +api_url+
   # @return [URI] URL to send the query to
   #
-  def construct_query_url(params)
-    url = URI.parse(self.class.api_url)
+  def construct_query_url(params = {}, url = nil)
+    url ||= self.class.api_url
+    url = URI.parse(url)
     url.query = params.to_query
     url
   end
