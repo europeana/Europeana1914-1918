@@ -14,6 +14,23 @@ class FederatedSearchController < ApplicationController
     end
   end
   
+  unless Rails.configuration.consider_all_requests_local 
+    rescue_from JSON::ParserError do |exception|
+      logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query")
+      render_error
+    end
+    
+    rescue_from ResponseError do |exception|
+      logger.error("ERROR: Invalid response from #{controller_name} API query: #{exception.response}")
+      render_error
+    end
+  
+    rescue_from Timeout::Error do |exception|
+      logger.error("ERROR: Request timeout from #{controller_name} API query: #{e.response}")
+      render_error
+    end
+  end
+  
   class << self
     # [String] Key to access the federated search's API, set in config/federated_search.yml
     attr_accessor :api_key
@@ -136,7 +153,14 @@ protected
     raise ResponseError.new(response) if response.nil?
   end
   
+  
+  
 private
+
+  def render_error
+    @status = "federated_search_error"
+    render :template => '/pages/error', :status => 500
+  end
 
   ##
   # Sends the query to the API.
@@ -161,12 +185,6 @@ private
     end
     
     response
-  rescue JSON::ParserError
-    logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query: #{url.to_s}")
-    { "results" => [], "facets" => [] }
-  rescue ResponseError => e
-    logger.error("ERROR: Invalid response from #{controller_name} API query: #{e.response}")
-    raise ResponseError.new(e.response), "Invalid response from #{controller_name} API: #{e.response}"
   end
   
   # @response [Hash] Normalized API response, with keys "results" and "facets"

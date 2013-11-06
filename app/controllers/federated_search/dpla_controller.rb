@@ -33,7 +33,7 @@ protected
   end
   
   def validate_response!(response)
-    raise ResponseError if reponse["message"] == "Internal Server Error"
+    raise ResponseError if response["message"] == "Internal Server Error"
   end
   
   def total_entries_from_response(response)

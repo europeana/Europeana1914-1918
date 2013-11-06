@@ -39,7 +39,7 @@ protected
   end
   
   def validate_response!(response)
-    raise ResponseError.new(response) if response.has_key?("errors") && response["errors"].present?
+    raise ResponseError.new(response) if response["errors"].present?
   end
   
   def total_entries_from_response(response)
