@@ -25,8 +25,8 @@ class FederatedSearchController < ApplicationController
       render_error
     end
   
-    rescue_from Timeout::Error do |exception|
-      logger.error("ERROR: Request timeout from #{controller_name} API query: #{e.response}")
+    rescue_from Timeout::Error, EOFError do |exception|
+      logger.error("ERROR: Failed to receive response from #{controller_name} API query")
       render_error
     end
   end
