@@ -83,8 +83,6 @@ protected
     }
   end
   
-  # @todo Revise the output to match that from the Europeana API
-  # @see /themes/v3/views/edm/_record.html.erb for expected fields
   def edm_record_from_response(response)
     edm = {}
     
