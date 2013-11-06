@@ -33,11 +33,14 @@ module EuropeanaHelper
   # @param [Hash] proxy Proxy object from an EDM record
   # @param [String] field_name Name of the field to retrieve
   # @return [String] Value to display for the field
+  # @todo Add some validation to proxy param to aid debugging
   #
   def edm_proxy_field(proxy, field_name)
     return nil unless proxy.respond_to?(:has_key?) && proxy.has_key?(field_name)
-
-    if proxy[field_name].is_a?(String)
+    logger.debug("EDM proxy field \"#{field_name}\" => #{proxy[field_name].inspect}")
+    if proxy[field_name].nil?
+      nil
+    elsif proxy[field_name].is_a?(String)
       proxy[field_name]
     elsif proxy[field_name].has_key?(I18n.locale.to_s)
       proxy[field_name][I18n.locale.to_s].first

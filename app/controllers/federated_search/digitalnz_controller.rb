@@ -113,8 +113,6 @@ protected
       "edmProvider"     => { "def" => [ "Digital NZ" ] },
     } ]
     
-    edm["providedCHOs"] = [ { "about" => record["landing_url"] } ]
-    
     edm
   end
   

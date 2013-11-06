@@ -240,10 +240,10 @@
 
 
 
-				<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmDataProvider %>
+				<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider %>
 					<p class="title">View on partner's website</p>
 					<p>
-						<%= link_to edmDataProvider, edmIsShownAt %>
+						<%= link_to edmProvider, edmIsShownAt %>
 					</p>
 				<% end %>
 
@@ -732,7 +732,9 @@
 
 
 <%# begin second section from the initial edm record view %>
-<div><code><%= record.inspect %></code></div>
+<div style="clear:both;"><code>
+<%#= hash_as_definition_list(record) %>
+</code></div>
 
 <% if oembed = oembed_html(record) %>
   <div class="oembed"><%= oembed.html_safe %></div>

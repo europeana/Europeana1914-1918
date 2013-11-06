@@ -6,6 +6,10 @@
 class FederatedSearch::DplaController < FederatedSearchController
   self.api_url = "http://api.dp.la/v2/items"
   
+  def record_url
+    self.class.api_url + "/#{params[:id]}"
+  end
+  
 protected
 
   def authentication_params
@@ -32,8 +36,12 @@ protected
     search_params
   end
   
+  def record_params
+    authentication_params
+  end
+  
   def validate_response!(response)
-    raise ResponseError if response["message"] == "Internal Server Error"
+    raise ResponseError.new(response) if response["message"] == "Internal Server Error"
   end
   
   def total_entries_from_response(response)
@@ -49,7 +57,7 @@ protected
       edm_result = {
         "id" => item["id"],
         "title" => [ item["sourceResource"]["title"] ],
-        "guid" => "http://dp.la/item/" + item["id"],
+        "guid" => show_digitalnz_path(item["id"]),
         "provider" => [ "DPLA" ],
         "dcCreator" => [ item["sourceResource"]["creator"] ],
         "edmPreview" => [ item["object"] ]
@@ -93,6 +101,54 @@ protected
       end
       facet
     end
+  end
+  
+  def edm_record_from_response(response)
+    edm = {}
+    
+    return edm unless response["docs"].present?
+    record = response["docs"].first
+    
+    edm["title"] = record["sourceResource"]["title"]
+    
+    edm["proxies"] = [ {
+      "dcCreator"     => { "def" => record["sourceResource"]["creator"] },
+      "dcDate"        => { "def" => [ record["sourceResource"]["date"]["displayDate"] ] },
+      "dcDescription" => { "def" => record["sourceResource"]["description"] },
+      "dcExtent"      => { "def" => [ record["sourceResource"]["extent"] ] },
+      "dcFormat"      => { "def" => [ record["sourceResource"]["format"] ] },
+      "dcIdentifier"  => { "def" => [ record["id"] ] },
+      "dcLanguage"    => record["sourceResource"]["language"].present? ? 
+        { "def" => record["sourceResource"]["language"].collect { |language| language["name"] } } :
+        nil,
+      "dcPublisher"   => { "def" => record["sourceResource"]["publisher"] },
+      "dcRights"      => { "def" => [ record["sourceResource"]["rights"] ] },
+      "dcSubject"     => record["sourceResource"]["subject"].present? ? 
+        { "def" => record["sourceResource"]["subject"].collect { |subject| subject["name"] } }
+        : nil,
+      "dcTitle"       => { "def" => [ record["sourceResource"]["title"] ].flatten },
+      "dcType"        => { "def" => [ record["sourceResource"]["specType"] ] },
+    } ]
+    
+    edm["aggregations"] = [ {
+      "edmDataProvider" => { "def" => [ record["dataProvider"] ].flatten },
+      "edmIsShownAt"    => record["isShownAt"],
+      "edmObject"       => record["hasView"].present? ? record["hasView"].first["url"] : record["object"],
+      "edmProvider"     => { "def" => [ record["provider"]["name"] ] },
+    } ]
+    
+    if record["sourceResource"]["spatial"].present?
+      if record["sourceResource"]["spatial"]["coordinates"].present?
+        lat, lng = record["sourceResource"]["spatial"]["coordinates"].split(",")
+        edm["places"] = [ {
+          "latitude" => lat.strip,
+          "longitude" => lng.strip
+        } ]
+      end
+      edm["aggregations"]["edmCountry"] = record["sourceResource"]["spatial"]["country"]
+    end
+    
+    edm
   end
 
 end

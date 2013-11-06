@@ -128,6 +128,7 @@ protected
       "dcContributor" => { "def" => record["contributor"] },
       "dcDate"        => { "def" => [ record["issued"] ] },
       "dcDescription" => { "def" => record["abstract"] },
+      "dcIdentifier"  => { "def" => record["id"] },
       "dcLanguage"    => { "def" => record["language"] },
       "dcSubject"     => { "def" => [ record["subject"] ].flatten },
       "dcTitle"       => { "def" => [ record["title"] ] },

@@ -59,10 +59,12 @@ class FederatedSearchController < ApplicationController
   end
   
   def show
-    @record = get_record_from_api
+    response  = get_record_from_api
+    @record   = edm_record_from_response(response)
     
     respond_to do |format|
       format.html { render :template => 'search/record' }
+      format.json { render :json => response.to_json }
     end
   end
   
@@ -200,7 +202,7 @@ private
   
   # @response [Hash] Normalized API response, converted to EDM
   def get_record_from_api
-    edm_record_from_response(query_api(record_params, record_url))
+    query_api(record_params, record_url)
   end
   
   ##
