@@ -148,5 +148,25 @@ module ApplicationHelper
     end
     string
   end
+  
+  ##
+  # Recursively format a hash as an HTML definition list <dl>
+  #
+  # @param [Hash] hash Hash to format
+  # @return [String] HTML safe nested <dl>
+  #
+  def hash_as_definition_list(hash)
+    dl = "<dl>"
+    hash.each do |key, value|
+      dl << "<dt>#{key}</dt>"
+      [ value ].flatten.each do |one_value|
+        dl << "<dd>"
+        dl << (one_value.is_a?(Hash) ? hash_as_definition_list(one_value) : h(one_value.to_s))
+        dl << "</dd>"
+      end
+    end
+    dl << "</dl>"
+    dl.html_safe
+  end
 end
 
