@@ -24,7 +24,7 @@
 <%# begin first section from the initial edm record view %>
 <%# http://localhost:3000/fr/europeana/record/09102/_CM_0160490.html %>
 <%# if record['proxies'] && record['proxies'][0] %>
-<% if record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" %>
+<% if record['aggregations'].first['edmProvider'].blank? || (record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918") %>
 
 	<%
 		proxy          = record['proxies'][0]

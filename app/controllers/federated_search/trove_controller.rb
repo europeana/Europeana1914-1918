@@ -6,6 +6,10 @@
 class FederatedSearch::TroveController < FederatedSearchController
   self.api_url = "http://api.trove.nla.gov.au/result"
   
+  def record_url
+    "http://api.trove.nla.gov.au/work/#{params[:id]}"
+  end
+  
 protected
 
   def redirect_to_search
@@ -57,6 +61,13 @@ protected
     search_params
   end
   
+  def record_params
+    { 
+      :encoding => "json",
+      :reclevel => "full"
+    }.merge(authentication_params)
+  end
+  
   def total_entries_from_response(response)
     zone_results(response)["records"]["total"].to_i
   end
@@ -71,7 +82,7 @@ protected
       edm_result = {
         "id" => result["id"],
         "title" => [ result["title"] ],
-        "guid" => result["troveUrl"],
+        "guid" => show_trove_path(result["id"]),
         "provider" => [ "Trove" ],
         "year" => [ result["issued"] ],
         "dcCreator" => result["contributor"]
@@ -103,6 +114,33 @@ protected
         }
       }
     }
+  end
+  
+  def edm_record_from_response(response)
+    edm = {}
+    
+    return edm unless response["work"].present?
+    record = response["work"]
+    
+    edm["title"] = [ record["title"] ]
+    
+    edm["proxies"] = [ {
+      "dcContributor" => { "def" => record["contributor"] },
+      "dcDate"        => { "def" => [ record["issued"] ] },
+      "dcDescription" => { "def" => record["abstract"] },
+      "dcLanguage"    => { "def" => record["language"] },
+      "dcSubject"     => { "def" => [ record["subject"] ].flatten },
+      "dcTitle"       => { "def" => [ record["title"] ] },
+      "dcType"        => { "def" => record["type"] },
+    } ]
+    
+    edm["aggregations"] = [ { 
+      "edmDataProvider" => { "def" => [ "Trove" ] },
+      "edmIsShownAt"    => record["troveUrl"],
+      "edmObject"       => record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first["value"],
+    } ]
+    
+    edm
   end
   
 private
