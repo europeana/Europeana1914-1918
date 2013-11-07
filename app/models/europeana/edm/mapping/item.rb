@@ -159,6 +159,7 @@ module Europeana
           
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
+          graph << [ uri, RDF::EDM.isShownBy, web_resource_uri ]
           
           graph
         end
