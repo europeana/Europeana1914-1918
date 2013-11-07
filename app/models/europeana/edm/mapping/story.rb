@@ -259,6 +259,8 @@ module Europeana
             graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] 
           end
           graph << [ uri, RDF::EDM.ugc, "TRUE" ]
+          graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
+          graph << [ uri, RDF::EDM.dataProvider, "Europeana 1914-1918" ]
           
           graph
         end
