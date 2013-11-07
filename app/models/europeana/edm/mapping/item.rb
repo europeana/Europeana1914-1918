@@ -44,7 +44,7 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           item_index = @source.contribution.attachment_ids.find_index(@source.id)
-          next_in_sequence = @source.contribution.attachments[item_index + 1]
+          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments[item_index - 1])
           uri = provided_cho_uri
           
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
@@ -73,7 +73,7 @@ module Europeana
           graph << [ uri, RDF::DC.isPartOf, @source.contribution.edm.provided_cho_uri ]
           graph << [ uri, RDF::DC.medium, meta["format"].first ] unless meta["format"].blank?
           graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
-          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm.provided_cho_uri ] unless next_in_sequence.blank?
+          graph << [ uri, RDF::EDM.isNextInSequence, previous_in_sequence.edm.provided_cho_uri ] unless previous_in_sequence.blank?
           graph << [ uri, RDF::EDM.type, meta["file_type"].first ] unless meta["file_type"].blank?
           
           unless meta["lang"].blank?
@@ -135,7 +135,7 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           item_index = @source.contribution.attachment_ids.find_index(@source.id)
-          next_in_sequence = @source.contribution.attachments[item_index + 1]
+          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments[item_index - 1])
           uri = web_resource_uri
           
           graph << [ uri, RDF.type, RDF::EDM.WebResource ]
@@ -143,7 +143,7 @@ module Europeana
           graph << [ uri, RDF::DCElement.format, meta["file_type"].first ] unless meta["file_type"].blank?
           graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] unless meta["license"].blank?
-          graph << [ uri, RDF::EDM.isNextInSequence, next_in_sequence.edm.provided_cho_uri ] unless next_in_sequence.blank?
+          graph << [ uri, RDF::EDM.isNextInSequence, previous_in_sequence.edm.provided_cho_uri ] unless previous_in_sequence.blank?
           
           graph
         end
