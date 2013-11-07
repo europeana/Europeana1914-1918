@@ -96,13 +96,6 @@ protected
       params.delete(:facets)
       params[:controller] = params[:provider]
       @redirect_required = true
-    elsif params[:facets]
-      params[:facets].each_key do |facet_name|
-        if params[:facets][facet_name].is_a?(Array)
-          params[:facets][facet_name] = params[:facets][facet_name].collect { |row| row.to_s }.join(",")
-          @redirect_required = true
-        end
-      end
     end
     
     params.delete(:provider)
@@ -155,8 +148,6 @@ protected
     raise ResponseError.new(response) if response.nil?
   end
   
-  
-  
 private
 
   def render_error
@@ -167,13 +158,13 @@ private
   ##
   # Sends the query to the API.
   #
-  # @param [Hash] params URL query parameters.
   # @param [String] url URL to send the query to. If nil, uses controller's
   #   +api_url+
+  # @param [Hash,String] params URL query parameters.
   # @return [Hash] Response received from the API, parsed from JSON.
   #
-  def query_api(params = {}, url = nil)
-    url = construct_query_url(params, url)
+  def query_api(url, params)
+    url = construct_query_url(url, params)
     logger.debug("#{controller_name} API URL: #{url.to_s}")
 
     cache_key = "search/federated/#{controller_name}/" + Digest::MD5.hexdigest(url.to_s)
@@ -189,9 +180,9 @@ private
     response
   end
   
-  # @response [Hash] Normalized API response, with keys "results" and "facets"
+  # @return [Hash] Normalized API response, with keys "results" and "facets"
   def search_api
-    response = query_api(search_params)
+    response = query_api(search_url, search_params)
   
     edm_results = edm_results_from_response(response)
     results = paginate_search_results(edm_results, params_with_defaults[:page], params_with_defaults[:count], total_entries_from_response(response))
@@ -200,9 +191,9 @@ private
     { "results" => results, "facets" => facets }
   end
   
-  # @response [Hash] Normalized API response, converted to EDM
+  # @return (see #query_api)
   def get_record_from_api
-    query_api(record_params, record_url)
+    query_api(record_url, record_params)
   end
   
   ##
@@ -213,7 +204,20 @@ private
   # @raise [RuntimeError] if the federated search is not configured
   #
   def configured?
-    raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless self.class.api_key.present?
+    if configuration_required?
+      raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless self.class.api_key.present?
+    end
+  end
+  
+  ##
+  # Returns +true+ if the API requires configuration
+  #
+  # Overload this if a particular API does not require configuration
+  #
+  # @return [Boolean]
+  #
+  def configuration_required?
+    true
   end
   
   ##
@@ -269,18 +273,21 @@ private
     self.class.api_key ||= configuration[controller_name]
   end
   
+  def search_url
+    self.class.api_url
+  end
+  
   ##
   # Constructs the URL for the API query
   #
-  # @param [Hash] params Query parameters
-  # @param [String] url URL to send the query to. If nil, uses controller's
-  #   +api_url+
-  # @return [URI] URL to send the query to
+  # @param [String] url URL to send the query to
+  # @param [Hash,String] params Query parameters
+  # @return [URI] URL to send the query to, with params
   #
-  def construct_query_url(params = {}, url = nil)
+  def construct_query_url(url, params)
     url ||= self.class.api_url
     url = URI.parse(url)
-    url.query = params.to_query
+    url.query = params.is_a?(String) ? params : params.to_query
     url
   end
   

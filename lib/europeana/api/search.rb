@@ -42,6 +42,7 @@ module Europeana
       #   of response fields.
       #
       def run(options = {})
+        Rails.logger.debug("Europeana search API URL: #{uri(options).to_s}")
         response = JSON.parse(Net::HTTP.get(uri(options)))
         raise Errors::RequestError, response['error'] unless response['success']
         @result_set = response
@@ -79,7 +80,7 @@ module Europeana
         
         if facets
           facets.each_pair do |name, criteria|
-            criteria.split(',').each do |criterion|
+            [ criteria ].flatten.each do |criterion|
               uri.query = uri.query + "&qf=" + CGI::escape(name) + ":" + CGI::escape(criterion)
             end
           end

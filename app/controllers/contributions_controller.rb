@@ -325,13 +325,6 @@ protected
       params.delete(:facets)
       params[:controller] = params[:provider]
       redirect_required = true
-    elsif params[:facets]
-      params[:facets].each_key do |facet_name|
-        if params[:facets][facet_name].is_a?(Array)
-          params[:facets][facet_name] = params[:facets][facet_name].collect { |row| row.to_s }.join(",")
-          redirect_required = true
-        end
-      end
     end
     
     params.delete(:provider)

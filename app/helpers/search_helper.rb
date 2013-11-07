@@ -2,10 +2,11 @@ module SearchHelper
   def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true)
     row_label ||= row_value
     facets_param = request.query_parameters.has_key?(:facets) ? request.query_parameters[:facets].dup : {}
-    if multiple && facets_param.has_key?(facet_name) && !facet_row_selected?(facet_name, row_value)
-      facets_param[facet_name] = facets_param[facet_name].to_s + "," + row_value.to_s
+    if multiple && !facet_row_selected?(facet_name, row_value)
+      facets_param[facet_name] ||= []
+      facets_param[facet_name] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s
     else
-      facets_param[facet_name] = row_value
+      facets_param[facet_name] = row_value.to_s
     end
     
     link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param)
@@ -13,7 +14,11 @@ module SearchHelper
   
   def facet_row_selected?(facet_name, row_value)
     params = request.query_parameters
-    params.has_key?(:facets) && params[:facets][facet_name].to_s.split(",").include?(row_value.to_s)
+    params[:facets].present? && [ params[:facets][facet_name] ].flatten.include?(row_value.to_s)
+  end
+  
+  def facet_is_single_select?(facet_name)
+    controller.controller_name == "trove" && facet_name == "zone"
   end
   
   def remove_facet_row_url_options(facet_name, row_value)
@@ -21,10 +26,7 @@ module SearchHelper
     
     facet_params = request.query_parameters[:facets].dup
     
-    facet_rows = facet_params[facet_name].to_s.split(",")
-    facet_rows.reject! { |row| row == row_value.to_s }
-    
-    facet_params[facet_name] = facet_rows.join(",")
+    facet_params[facet_name] = facet_params[facet_name].reject! { |row| row == row_value.to_s }
     facet_params.delete(facet_name) unless facet_params[facet_name].present?
     
     request.query_parameters.merge({ :facets => facet_params })

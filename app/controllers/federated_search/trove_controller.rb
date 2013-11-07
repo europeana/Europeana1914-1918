@@ -43,7 +43,8 @@ protected
   def authentication_params
     { :key => self.class.api_key }
   end
-
+  
+  # @return [String]
   def search_params
     search_params = { 
       :q => "subject(World War, 1914-1918) #{params[:q]}",
@@ -54,11 +55,12 @@ protected
       :facet => "all"
     }.merge(authentication_params)
     
-    params_with_defaults[:facets].each_pair do |name, value|
-      search_params["l-#{name}"] = value
-    end
     
-    search_params
+    facet_params = params_with_defaults[:facets].collect do |name, criteria|
+      [ criteria ].flatten.collect { |criterion| criterion.to_query("l-#{name}") }
+    end.flatten
+    
+    ([ search_params.to_query ] + facet_params).join("&")
   end
   
   def record_params

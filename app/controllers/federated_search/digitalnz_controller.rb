@@ -27,8 +27,7 @@ protected
     }
     
     params_with_defaults[:facets].each_pair do |name, value|
-      search_params["and[#{name}]"] ||= []
-      search_params["and[#{name}]"] << value
+      search_params["and[#{name}]"] = value
     end
     
     search_params.merge(authentication_params)

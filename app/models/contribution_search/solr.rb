@@ -130,7 +130,7 @@ module ContributionSearch
           
           if facets = solr_options.delete(:facets)
             facets.each_pair do |name, criteria|
-              with name.to_sym, criteria.split(',').collect { |criterion| criterion.to_i }
+              with(name.to_sym).all_of(criteria.collect { |criterion| criterion.to_i })
             end
           end
         
