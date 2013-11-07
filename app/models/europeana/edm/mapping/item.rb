@@ -155,11 +155,17 @@ module Europeana
         #
         def ore_aggregation
           graph = RDF::Graph.new
+          meta = @source.metadata.fields
           uri = ore_aggregation_uri
           
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
           graph << [ uri, RDF::EDM.isShownBy, web_resource_uri ]
+          if meta["license"].blank?
+            graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
+          else
+            graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] 
+          end
           
           graph
         end
