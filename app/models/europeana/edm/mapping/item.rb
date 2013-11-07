@@ -166,6 +166,7 @@ module Europeana
           else
             graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] 
           end
+          graph << [ uri, RDF::EDM.ugc, "TRUE" ]
           
           graph
         end
