@@ -38,7 +38,7 @@ namespace :cache do
     desc "Clears cached federated search API data. Limit to one provider with PROVIDER=name."
     task :clear => :environment do
       if provider = ENV['PROVIDER']
-        known_providers = [ 'digitalnz', 'dpla', 'trove' ]
+        known_providers = [ 'canadiana', 'digitalnz', 'dpla', 'trove' ]
         unless known_providers.include?(provider)
           puts "Unknown provider \"#{provider}\"; known providers: " + known_providers.join(', ') + "\n"
           exit 1
@@ -65,7 +65,7 @@ namespace :cache do
     desc "Clears cached rendered search results. Limit to one provider with PROVIDER=name."
     task :clear => :environment do
       if provider = ENV['PROVIDER']
-        known_providers = [ 'contributions', 'europeana', 'digitalnz', 'dpla', 'trove' ]
+        known_providers = [ 'contributions', 'europeana', 'canadiana', 'digitalnz', 'dpla', 'trove' ]
         unless known_providers.include?(provider)
           puts "Unknown provider \"#{provider}\"; known providers: " + known_providers.join(', ') + "\n"
           exit 1

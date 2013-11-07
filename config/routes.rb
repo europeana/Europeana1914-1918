@@ -76,6 +76,7 @@ RunCoCo::Application.routes.draw do
     match 'europeana/record/:dataset_id/:record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
     
     # Federated searches
+    match 'canadiana/search' => 'federated_search/canadiana#search', :as => 'search_canadiana', :via => :get
     match 'digitalnz/search' => 'federated_search/digitalnz#search', :as => 'search_digitalnz', :via => :get
     match 'digitalnz/record/:id' => 'federated_search/digitalnz#show', :as => 'show_digitalnz', :via => :get
     match 'dpla/search' => 'federated_search/dpla#search', :as => 'search_dpla', :via => :get
