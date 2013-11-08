@@ -11,7 +11,7 @@ class SearchSuggestionsController < ApplicationController
       #results = SearchSuggestion.search(query, :match_mode => :phrase, :order => :frequency, :sort_mode => :desc)
       
       # This queries using ActiveRecord
-      results = SearchSuggestion.where("text LIKE '#{query}%'").order('frequency DESC').limit(SearchSuggestion.max_matches)
+      results = SearchSuggestion.where([ "text LIKE ?", "#{query}%" ]).order('frequency DESC').limit(SearchSuggestion.max_matches)
       
       results.reject { |word| word.blank? }.collect do |word| 
         word.text.truncate(30 + query.length, :separator => ' ', :omission => '…')
