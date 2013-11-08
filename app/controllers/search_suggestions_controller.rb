@@ -17,9 +17,10 @@ class SearchSuggestionsController < ApplicationController
     end
   end
   
-  private
+private
+
   def active_record_words(query) # :nodoc:
-    suggestions = SearchSuggestion.where("text LIKE '#{query}%'").order('frequency DESC').limit(SearchSuggestion.max_matches)
+    suggestions = SearchSuggestion.where([ "text LIKE ?", "#{query}%" ]).order('frequency DESC').limit(SearchSuggestion.max_matches)
     
     suggestions.reject! { |sugg| sugg.text.blank? }
     
