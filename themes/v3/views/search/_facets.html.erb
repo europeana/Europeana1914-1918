@@ -1,7 +1,7 @@
 <li>
   <h3><%= link_to t("views.search.facets.contributions.provider"), '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
   <ul>
-    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove', '/federated_search/canadiana' ] -%>
+    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
       <%- if search_provider_link = link_to_search_provider(provider) -%>
         <li>
           <h4>
