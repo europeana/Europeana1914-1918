@@ -1,5 +1,6 @@
 # encoding: utf-8
 class SearchSuggestionsController < ApplicationController
+  # GET /suggest.json
   def query
     query = params[:term]
     
@@ -31,42 +32,49 @@ private
   end
   
   ##
-  # Uses Solr TermsComponent to get suggestions.
+  # Uses custom Solr searchComponents to get suggestions.
   #
   def solr_words(query) # :nodoc:
-    text_field_index_names = Sunspot::Setup.for(Contribution).all_text_fields.collect do |text_field|
-      text_field.indexed_name
-    end
-    text_field_query_params = text_field_index_names.collect do |text_field_name|
-      'terms.fl=' + text_field_name
-    end
+    suggesters = [
+      "suggestTitle",
+      "suggestAlternative",
+      "suggestTaxonomy",
+      "suggestProtagonists"
+    ]
+    query_params = {
+      "q" => query,
+      "wt" => "xml",
+      "spellcheck.maxCollations" => 10,
+      "spellcheck.collate" => true,
+      "spellcheck.maxCollationTries" => 5
+    }
+    term_freqs = []
     
-    query_params = text_field_query_params.join('&') + 
-     '&terms.sort=index&count=50&wt=json&indent=on' +
-     '&terms.prefix=' + URI.encode(query)
-    uri = Sunspot.config.solr.url + '/terms?' + query_params
+    suggesters.each do |suggester|
+      uri = URI.parse(Sunspot.config.solr.url + "/#{suggester}")
+      uri.query = query_params.to_query
 
-    response = JSON::parse(Net::HTTP.get(URI(uri)))
+      doc = Nokogiri::XML(Net::HTTP.get(uri))
+      suggestions = doc.css("lst[name=collation]")
 
-    term_freqs = {}
-    response['terms'].values.each do |field_terms_and_freqs| 
-      field_terms_and_freqs.each_index do |i|
-        if i % 2 == 1
-          term = field_terms_and_freqs[i - 1]
-          freq = field_terms_and_freqs[i]
-          if term_freqs.has_key?(term)
-            term_freqs[term] = term_freqs[term] + freq
-          else
-            term_freqs[term] = freq
-          end
-        end
+      suggestions.each do |suggestion|
+        term = suggestion.css('*[name=collationQuery]').text
+        freq = suggestion.css('*[name=hits]').text
+        term_freqs << {
+          :term => term,
+          :freq => freq,
+          :suggester => suggester
+        }
       end
     end
     
-    words = term_freqs.sort { |a1, a2| a2[1] <=> a1[1] }.collect do |a|
-      label = a.first.truncate(30 + query.length, :separator => ' ', :omission => '…')
-      { :label => "#{label} (#{a.last})", :value => a.first }
-    end.slice(0, SearchSuggestion.max_matches)
+    words = []
+    term_freqs.sort { |a, b| b[:freq].to_i <=> a[:freq].to_i }.each do |suggestion|
+      label = suggestion[:term].truncate(30 + query.length, :separator => ' ', :omission => '…')
+      words << { :label => "#{label} (#{suggestion[:freq]}) #{suggestion[:suggester]}", :value => suggestion[:term] }
+    end
+    
+    words.slice(0, SearchSuggestion.max_matches)
   end
   
   def sphinx_words(query) # :nodoc:
