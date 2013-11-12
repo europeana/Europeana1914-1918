@@ -87,8 +87,20 @@ class AttachmentsController < ApplicationController
       end
     end
 
-    if dropbox_error.blank? && @attachment.save
-      respond_to do |format|
+    if dropbox_error.blank? && @attachment.valid?
+      if @attachment.file.options[:storage] == :filesystem
+        @attachment.save
+      else
+        @attachment.file = nil
+        @attachment.save
+        
+        spawn_block do
+          @attachment.file = attachment_attributes[:file]
+          @attachment.save
+        end
+      end
+      
+      respond_to do |format| 
         format.html do
           flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
           if @contribution.submitted?
