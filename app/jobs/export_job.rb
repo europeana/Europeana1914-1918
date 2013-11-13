@@ -29,7 +29,7 @@ class ExportJob
     self.export.save
     
     filename = File.basename(self.export.file.path)
-    RunCoCo.export_logger.info("Export to #{self.class::FORMAT} by #{self.export.user.username} saved as #{filename}")
+    Log.info("export", "Export to #{self.class::FORMAT} by #{self.export.user.username} saved as #{filename}")
     if self.export.user.email.present?
       ExportsMailer.complete(self.export).deliver
     end
@@ -38,7 +38,7 @@ class ExportJob
   end
   
   def failure(job)
-    RunCoCo.export_logger.error("Export to #{self.class::FORMAT} by #{self.export.user.username} FAILED")
+    Log.error("export", "Export to #{self.class::FORMAT} by #{self.export.user.username} FAILED")
     self.file.unlink
   end
   

@@ -3,7 +3,7 @@ class OAIController < ApplicationController
   
   def index
     # Log request
-    RunCoCo.oai_logger.info("OAI-PMH provider request from IP #{request.ip}: #{request.fullpath}")
+    Log.info("oai-pmh", "OAI-PMH provider request from IP #{request.ip}: #{request.fullpath}")
     
     # Remove controller and action from the options.
     options = params.delete_if { |k,v| %w{controller action}.include?(k) }
