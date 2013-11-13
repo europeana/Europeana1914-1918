@@ -1,7 +1,24 @@
 <% @title = 'Logs' %>
 
-<ul>
-  <% for log in @logs %>
-    <li><%= link_to log, admin_log_path(:id => log) %></li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Level</th>
+      <th scope="col">Message</th>
+      <th scope="col">Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for log in @logs %>
+      <tr>
+        <td><%= log.log_type %></td>
+        <td><%= log.level %></td>
+        <td><%= log.message %></td>
+        <td><%= log.timestamp %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @logs %>

@@ -108,9 +108,9 @@ RunCoCo::Application.routes.draw do
         end
       end
       
-      resources :exports, :only => [ :index, :show ], :constraints => { :id => /[\w\-\_\.]+/ }
+      resources :exports, :only => [ :index, :show ]
       
-      resources :logs, :only => [ :index, :show ], :constraints => { :id => /[\w\-\_\.]+/ }
+      resources :logs, :only => [ :index ]
       
       resources :metadata_fields, :except => [ :show ] do
         collection do
