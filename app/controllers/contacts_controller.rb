@@ -1,6 +1,8 @@
 class ContactsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_contact
+  
+  cache_sweeper :contact_sweeper, :only => [ :create, :update, :destroy ]
 
   # GET /contacts/:id
   def show

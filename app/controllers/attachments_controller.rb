@@ -1,6 +1,8 @@
 class AttachmentsController < ApplicationController
   before_filter :find_contribution
   before_filter :find_attachment, :except => [ :index, :new, :create ]
+  
+  cache_sweeper :attachment_sweeper, :only => [ :create, :update, :destroy ]
 
   # GET /contributions/:contribution_id/attachments
   def index
