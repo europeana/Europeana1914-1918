@@ -90,6 +90,7 @@ class AttachmentsController < ApplicationController
       if (@attachment.file.options[:storage] == :filesystem) || file_upload.blank?
         @attachment.save
       else
+        # @todo Move this into the Attachment model?
         @attachment.file = nil
         @attachment.file_file_size = file_upload.tempfile.size
         @attachment.save
@@ -98,7 +99,7 @@ class AttachmentsController < ApplicationController
         FileUtils.mv(file_upload.tempfile.path, tempfile_path)
         
         file_hash = {
-          :content_type => file_upload.content_type,
+          :content_type => file_upload.content_type.respond_to?(:content_type) ? file_upload.content_type.content_type : file_upload.content_type,
           :original_filename => file_upload.original_filename,
           :tempfile_path => tempfile_path
         }
