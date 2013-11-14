@@ -88,10 +88,11 @@ class AttachmentsController < ApplicationController
     end
 
     if dropbox_error.blank? && @attachment.valid?
-      if @attachment.file.options[:storage] == :filesystem
+      if (@attachment.file.options[:storage] == :filesystem) || attachment_attributes[:file].blank?
         @attachment.save
       else
         @attachment.file = nil
+        @attachment.file_file_size = attachment_attributes[:file].tempfile.size
         @attachment.save
         
         spawn_block do
