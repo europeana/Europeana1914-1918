@@ -90,7 +90,7 @@ class AttachmentsController < ApplicationController
     file_upload = attachment_attributes[:file]
     
     if dropbox_error.blank? && @attachment.valid?
-      if (@attachment.file.options[:storage] == :filesystem) || file_upload[:file].blank?
+      if (@attachment.file.options[:storage] == :filesystem) || file_upload.blank?
         @attachment.save
       else
         @attachment.file = nil
