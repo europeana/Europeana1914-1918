@@ -20,3 +20,7 @@ run "ln -nfs #{config.shared_path}/assets #{config.release_path}/public/cache"
 run "mkdir -p #{config.shared_path}/sitemaps"
 run "ln -nfs #{config.shared_path}/sitemaps #{config.release_path}/public/sitemaps"
 run "ln -nfs #{config.shared_path}/sitemaps/sitemap.xml.gz #{config.release_path}/public/sitemap.xml.gz"
+
+# Tmp files
+run "mkdir -p #{config.shared_path}/tmp_files"
+run "ln -nfs #{config.shared_path}/tmp_files #{config.release_path}/tmp/files"
