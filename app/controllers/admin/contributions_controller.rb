@@ -88,12 +88,12 @@ class Admin::ContributionsController < AdminController
         end
       end
       format.csv do
-        Delayed::Job.enqueue CSVExportJob.new(job_options)
+        Delayed::Job.enqueue CSVExportJob.new(job_options), :queue => 'export'
         flash[:notice] = "Generating CSV export in the background"
         redirect_to admin_root_url
       end
       format.xml do
-        Delayed::Job.enqueue XMLExportJob.new(job_options)
+        Delayed::Job.enqueue XMLExportJob.new(job_options), :queue => 'export'
         flash[:notice] = "Generating XML export in the background"
         redirect_to admin_root_url
       end
