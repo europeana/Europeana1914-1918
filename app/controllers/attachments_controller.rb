@@ -86,19 +86,27 @@ class AttachmentsController < ApplicationController
         dropbox_error = exception.error
       end
     end
-
+    
+    file_upload = attachment_attributes[:file]
+    
     if dropbox_error.blank? && @attachment.valid?
-      if (@attachment.file.options[:storage] == :filesystem) || attachment_attributes[:file].blank?
+      if (@attachment.file.options[:storage] == :filesystem) || file_upload[:file].blank?
         @attachment.save
       else
         @attachment.file = nil
-        @attachment.file_file_size = attachment_attributes[:file].tempfile.size
+        @attachment.file_file_size = file_upload.tempfile.size
         @attachment.save
         
-        spawn_block do
-          @attachment.file = attachment_attributes[:file]
-          @attachment.save
-        end
+        tempfile_path = File.join(Rails.root, 'tmp', 'files', File.basename(file_upload.tempfile.path) + File.extname(file_upload.original_filename))
+        FileUtils.mv(file_upload.tempfile.path, tempfile_path)
+        
+        file_hash = {
+          :content_type => file_upload.content_type,
+          :original_filename => file_upload.original_filename,
+          :tempfile_path => tempfile_path
+        }
+        
+        Delayed::Job.enqueue AttachmentFileTransferJob.new(@attachment.id, file_hash), :queue => Socket.gethostname
       end
       
       respond_to do |format| 
