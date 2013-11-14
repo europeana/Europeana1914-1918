@@ -100,6 +100,27 @@ class Attachment < ActiveRecord::Base
     !(file.content_type =~ /^image.*/).nil?
   end
   
+  # Retry failed saves to Amazon S3
+  def save(*)
+    if self.file.options[:storage] == :s3
+      tries = 5
+    else
+      tries = 1
+    end
+
+    begin
+      super
+    rescue AWS::Errors::Base => e
+      tries = tries - 1
+      if tries > 0
+        sleep(3)
+        retry
+      else
+        raise e
+      end
+    end
+  end
+  
   def set_public
     return unless self.contribution_id.present?
     self.public = self.contribution.published?
