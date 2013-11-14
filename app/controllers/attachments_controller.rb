@@ -98,16 +98,7 @@ class AttachmentsController < ApplicationController
         @attachment.file_file_size = file_upload.tempfile.size
         @attachment.save
         
-        tempfile_path = File.join(Rails.root, 'tmp', 'files', File.basename(file_upload.tempfile.path) + File.extname(file_upload.original_filename))
-        FileUtils.mv(file_upload.tempfile.path, tempfile_path)
-        
-        file_hash = {
-          :content_type => file_upload.content_type.respond_to?(:content_type) ? file_upload.content_type.content_type : file_upload.content_type,
-          :original_filename => file_upload.original_filename,
-          :tempfile_path => tempfile_path
-        }
-        
-        Delayed::Job.enqueue AttachmentFileTransferJob.new(@attachment.id, file_hash), :queue => Socket.gethostname
+        Delayed::Job.enqueue AttachmentFileTransferJob.new(@attachment.id, file_upload), :queue => Socket.gethostname
       end
       
       respond_to do |format| 
