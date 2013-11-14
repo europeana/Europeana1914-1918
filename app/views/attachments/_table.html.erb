@@ -30,7 +30,7 @@ end
       <%- unless attachment.new_record? %>
         <tr>
           <td>
-            <%- if attachment.file_file_name.blank? -%>
+            <%- if attachment.file_file_name.blank? && attachment.file_file_size.present? -%>
               <%= t 'views.attachments._table.no_thumbnail' %>
             <%- elsif attachment.file.present? -%>
               <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
