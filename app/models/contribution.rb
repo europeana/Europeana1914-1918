@@ -30,6 +30,10 @@ class Contribution < ActiveRecord::Base
     def with_file
       select { |attachment| attachment.file.present? }
     end
+    
+    def with_file_uploaded
+      select { |attachment| attachment.file_file_size.present? }
+    end
 
     def to_json(options = nil)
       proxy_owner.attachments.collect { |a| a.to_hash }.to_json(options)
@@ -215,7 +219,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def validate_attachment_file_presence
-    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file.count == attachments.count
+    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file_uploaded.count == attachments.count
   end
   
   def validate_cataloguer_role
