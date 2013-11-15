@@ -29,15 +29,13 @@ end
     <%- for attachment in attachments %>
       <%- unless attachment.new_record? %>
         <tr>
-          <td>
-            <%- if attachment.file_file_name.blank? && attachment.file_file_size.present? -%>
-              <%= t 'views.attachments._table.no_thumbnail' %>
-            <%- elsif attachment.file.present? -%>
-              <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.has_thumbnail?(:preview) ? "prettyPhoto[gal]" : nil) %>
-            <% else %>
-              <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
-            <%- end -%>
-          </td>
+          <%- if attachment.file_file_name.blank? && attachment.file_file_size.present? -%>
+            <td class="pending" data-attachment-id="<%= attachment.id %>" data-contribution-id="<%= attachment.contribution_id %>"><%= t 'views.attachments._table.no_thumbnail' %></td>
+          <%- elsif attachment.file.present? -%>
+            <td><%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.has_thumbnail?(:preview) ? "prettyPhoto[gal]" : nil) %></td>
+          <% else %>
+            <td><img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" /></td>
+          <%- end -%>
           <td><%= attachment.title %></td>
           <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
           <%- if current_user.may_catalogue_contributions? -%>

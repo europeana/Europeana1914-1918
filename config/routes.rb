@@ -32,6 +32,7 @@ RunCoCo::Application.routes.draw do
           get 'delete'
           get 'copy'
           put 'duplicate'
+          get 'uploaded'
         end
       end
       
