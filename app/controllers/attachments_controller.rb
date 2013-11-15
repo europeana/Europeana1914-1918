@@ -227,8 +227,17 @@ class AttachmentsController < ApplicationController
       render :template => 'delete'
     end
   end
+  
+  # GET /contributions/:contribution_id/attachments/:id/uploaded
+  def uploaded
+    current_user.may_view_attachment!(@attachment)
+    respond_to do |format|
+      format.json
+    end
+  end
 
-  protected
+protected
+
   def find_contribution
     @contribution = Contribution.find(params[:contribution_id], :include => [ :contributor, :attachments ])
   end
