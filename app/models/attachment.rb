@@ -25,6 +25,8 @@ class Attachment < ActiveRecord::Base
   
   attr_accessible :title, :file, :metadata_attributes, :dropbox_path
 
+  attr_accessor :post_process
+
   # Custom Paperclip interpolations for has_attached_file
   
   # :contribution_id => ID of associated contribution
@@ -79,6 +81,8 @@ class Attachment < ActiveRecord::Base
   # Paperclip's built-in post-processing for thumbnails should only
   # be run for images.
   before_post_process :image?
+  
+  before_post_process :post_process?
 
   validates_associated :metadata
   validates_presence_of :contribution_id
@@ -98,6 +102,13 @@ class Attachment < ActiveRecord::Base
   # Returns true if the attached file is an image.
   def image?
     !(file.content_type =~ /^image.*/).nil?
+  end
+  
+  def post_process?
+    if @post_process.nil?
+      @post_process = true
+    end
+    @post_process
   end
   
   def set_public
