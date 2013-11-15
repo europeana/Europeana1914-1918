@@ -45,7 +45,8 @@ class AttachmentsController < ApplicationController
 
     @attachment = Attachment.new
     @attachment.build_metadata
-
+    @attachment.post_process = false unless (@attachment.file.options[:storage] == :filesystem)
+    
     if params[:uploadify]
       attachment_attributes = (params[:attachment].is_a?(String) ? JSON.parse(params[:attachment]) : params[:attachment])
       attachment_attributes[:file] = params[:attachment_file]
@@ -93,7 +94,6 @@ class AttachmentsController < ApplicationController
       if (@attachment.file.options[:storage] == :filesystem) || file_upload.blank?
         @attachment.save
       else
-        # @todo Move this into the Attachment model?
         @attachment.file = nil
         @attachment.file_file_size = file_upload.tempfile.size
         @attachment.save

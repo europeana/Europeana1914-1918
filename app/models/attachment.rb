@@ -30,6 +30,8 @@ class Attachment < ActiveRecord::Base
   
   attr_accessible :title, :file, :metadata_attributes, :dropbox_path
 
+  attr_accessor :post_process
+
   # Custom Paperclip interpolations for has_attached_file
   
   # :contribution_id => ID of associated contribution
@@ -82,8 +84,11 @@ class Attachment < ActiveRecord::Base
   after_save :delete_old_file_dir, :if => Proc.new { |a| a.file.options[:storage] == :filesystem }, :unless => Proc.new { |a| a.old_file_dir.blank? }
   
   # Paperclip's built-in post-processing for thumbnails should only
+
   # be run on certain file types.
   before_post_process :make_thumbnails?
+  
+  before_post_process :post_process?
 
   validates_associated :metadata
   validates_presence_of :contribution_id
@@ -163,6 +168,13 @@ class Attachment < ActiveRecord::Base
 
   def has_thumbnail?(size)
     make_thumbnails? && ((file.options[:storage] != :filesystem) || File.exists?(file.path(size)))
+  end
+
+  def post_process?
+    if @post_process.nil?
+      @post_process = true
+    end
+    @post_process
   end
   
   def set_public
