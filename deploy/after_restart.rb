@@ -15,6 +15,7 @@ run 'sudo monit -g sphinx_europeana19141918 restart all'
   unless `diff -rq #{previous_dir} #{current_dir}`.strip.empty?
     run "cd #{config.release_path}"
     run "bundle exec rake cache:assets:clear"
+    run "bundle exec rake assets:preload"
     break
   end
 end
