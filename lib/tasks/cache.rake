@@ -100,10 +100,3 @@ namespace :cache do
     end
   end
 end
-
-# Backwards compability
-namespace :assets do
-  task :expire => :environment do
-    Rake::Task["cache:assets:clear"].invoke
-  end
-end
