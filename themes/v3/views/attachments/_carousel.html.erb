@@ -30,8 +30,17 @@
 </div>
 
 <% if local_assigns[:attachments].present? -%>
+
   <div id="contributions-pagination">
-	  <%= will_paginate(attachments) %>
-	  Total: <span id="attachment-total"><%= attachments.total_entries %></span>
+      <% if false %>
+        Dan: the line 'will_paginate' pulls in the pagination for the search results page.
+        I've commented it out (because it doesn't work or look any good here.
+        Doesn't all pagination of attachments happen within the media viewer???
+      
+        <%= will_paginate(attachments) %>
+        Total: <span id="attachment-total"><%= attachments.total_entries %></span>
+
+      <% end %>
   </div>
+  
 <% end -%>
