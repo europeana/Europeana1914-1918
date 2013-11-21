@@ -1,3 +1,18 @@
+/**
+ * Andy MacLean
+ * 
+ * Allows data provided by the portal to be navigated without page reloads.
+ * 
+ * 
+ * TODO:
+ * 
+ * should read active facets to construct urls (broken)
+ * should maintain facet order
+ * pop open active facets
+ * facet selection should also work (not just nav arrows)
+ * checkboxes don't control facets - just their labels
+ * 
+ * */
 
 EUSearchAjax = function(){
 	
@@ -12,7 +27,8 @@ EUSearchAjax = function(){
     //var searchUrl				= searchUrl ? searchUrl : 'http://test.portal2.eanadev.org/api/v2/search.json?wskey=api2demo';
 	
     var searchUrl				= searchUrl ? searchUrl : 'http://localhost:3000/en/europeana/search.json';
-		
+
+    console.log('hard-coded localhost reference in ajax search url needs removed!')
 	
     var defaultRows             = 6;
     var pagination              = false;
@@ -21,11 +37,9 @@ EUSearchAjax = function(){
    
     var doSearch = function(startParam, query){
     	
-    	console.log("doSearch()");
+    	showSpinner();
     	try{
 	    	var url = buildUrl(startParam, query);
-	
-	    	console.log("doSearch(): url = " + url);
 	
 	        if(typeof url != 'undefined' && url.length){
 	        	
@@ -33,7 +47,6 @@ EUSearchAjax = function(){
 					getFake();
 	        	}
 	        	else{
-	        		showSpinner();
 	                $.ajax({
 	                    "url" : url,
 	                    "type" : "GET",
@@ -49,14 +62,26 @@ EUSearchAjax = function(){
 	        }
     	}
     	catch(e){
+        	hideSpinner();
     		console.log(e);
     	}
     };
 
     
     // build search param from url-fragment hrefs.  @startParam set to 1 if not specified
+    /**
+     * 
+     * used to be:
+     * 
+     * &facets[TYPE]=IMAGE,VIDEO
+     * 
+     * is now the weirder looking:
+     * 
+     * &facets[TYPE][]=IMAGE&facets[TYPE][]=VIDEO
+     */
     var buildUrl = function(startParam, query){
 
+    	//return "http://localhost:3000/en/europeana/search.json?q=tank&profile=facets,params&callback=searchAjax.showRes&count=12&facets[TYPE][]=IMAGE&facets[TYPE][]=VIDEO&page=2"
     	console.log("buildUrl() @startParam= " + startParam + ", @query = " + query);
     	
         var term = self.q.val();
@@ -74,35 +99,63 @@ EUSearchAjax = function(){
     	
 		url = query ? searchUrl + param(searchUrl) + query : searchUrl + param(searchUrl) + 'q=' + term;        	
     	url += "&profile=facets,params&callback=searchAjax.showRes";
-    	
     	url += '&count='  + rows;
     	url += '&start=' + (startParam ? startParam : 1);
     	url += '&page='  + (startParam ? Math.ceil(startParam / rows) : 1);
          
 
-    	//alert("startParam = " + startParam)
-    	
-        // refinements & facets read from hidden inputs
-
+    	/***
+    	 * 
+    	 * initial load:
+    	 * 
+    	 * IMAGE    undefined
+    	 * 
+    	 * works:
+    	 * 
+    	 * &facets[TYPE]  IMAGE
+    	 * 
+    	 * 
+    	 * */
     	var facetParams = {};
+    	var newFacetParamString = '';
     	
         container.find('#facets input:checked').each(function(i, ob){
-        	var urlFragment = $(ob).attr('value');
-        	if(urlFragment.indexOf(':')>0){
-        		urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
+        	        	
+        	var urlFragment = $(ob).next('a').data('value');
+        	
+        	if(typeof(urlFragment) == 'undefined'){
+        		return true; // continue...
         	}
+        	
+        	//if(urlFragment.indexOf(':')>0){
+        	//	urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
+        	//}
+
         	var facetName = urlFragment.split('=')[0];
         	var facetVal  = urlFragment.split('=')[1];
         	
+        	
+        	// old way (better)
+        	/*
         	if(typeof facetParams[facetName] == 'undefined'){
         		facetParams[facetName] = [];
         	}
         	facetParams[facetName].push(facetVal);
+        	*/
+        	
+        	// new way (worse)
+        	newFacetParamString += facetName + '[]=' + facetVal;
         });        	
-        
+       
+        // old way
+        /*
         $.each(facetParams, function(i, ob){
         	url += (i + "=" +  ob.join(',') );
         });
+        */
+        
+        // new way 
+        url += newFacetParamString;
         
 		console.log('final search url: ' + url);
 		return url;
@@ -122,9 +175,10 @@ EUSearchAjax = function(){
 
         // @richard - we need a start value.
         
-        //alert("showRes() start = " + start + ", params = \n" + JSON.stringify(data.params));
+        // write items to grid
         
         $(data.items).each(function(i, ob){
+        	
             var item = itemTemplate.clone();
 
             item.find('a').attr(
@@ -167,9 +221,16 @@ EUSearchAjax = function(){
         // facets
     
         var cbCount  = 0;
-        var selected = container.find('#facets input[type=checkbox]:checked').next('a');
 
-        container.find('#facets>li:not(:first)').remove(); // remove all but the "Add Keyword" form.
+        
+        EUSearch.resetOpenedFacets();
+        var selected = EUSearch.findSelectedFacetOps(true);
+
+        
+        container.find('#facets>li:not(:first)').remove(); // remove all but the "Add Keyword" refinement form.
+        
+        // TODO: catch the facet order before we remove them
+        
         
         // write facet dom
 
@@ -182,33 +243,42 @@ EUSearchAjax = function(){
             facet.find('h3 a').html(capitalise(ob.name));
             
             facetOps.empty();
+            
+            var selFacetOpLink = 'h4 a';
+            var selFacetInput  = 'input';
+            var selFacetLabel = 'label';
+            
             $.each(ob.fields, function(i, field){
                 
-                var facetOp = facetOpTemplate.clone();
-
-               // var urlFragment = "qf=" + ob.name + ":" + field.label;
+                var facetOp     = facetOpTemplate.clone();
                 var urlFragment = "&facets[" + ob.name + "]=" + field.label;
                 
-                facetOp.find('h4 a').attr({
-                    "href"  : urlFragment,
+                               
+                facetOp.find(selFacetOpLink).attr({
+                    "data-value"  : urlFragment,
+                /*    "href"  : urlFragment,  */
                     "title" : field.label
                 });
 
-                facetOp.find("input").attr({
+                // TODO: href put in value - still needed????
+                facetOp.find(selFacetInput).attr({
                     "name"  : "cb-" + cbCount,
                     "id"    : "cb-" + cbCount,
                     "value" : urlFragment
                 });
 
-                facetOp.find('label').html(field.label).attr({
+                facetOp.find(selFacetLabel).html(field.label).attr({
                     "for"   : "cb-" + cbCount,
                     "title" : field.label
                 });
 
-                facetOp.find('.fcount').html(' (' + field.count + ')');
-
                 facetOps.append( facetOp );
                 cbCount ++;
+
+                if( $.inArray( facetOp.find(selFacetOpLink).data('value'), selected) == -1 ){
+                	facetOp.find('.fcount').html(' (' + field.count + ')');
+                }
+                
             });
             facet.append(facetOps);
             container.find('#facets').append(facet);
@@ -220,12 +290,17 @@ EUSearchAjax = function(){
 		
         container.find('#facets  a label').add(container.find('#facets h4 input')).click(function(e){
         	
-            var cb = $(this);
+        	// sync checkbox check behaviour
+            
+        	var cb = $(this);
             if(cb.attr("for")){
             	e.preventDefault();
                 cb = container.find('#facets #' + cb.attr("for"));
                 cb.prop('checked', !cb.prop('checked') );
             }
+            
+            // build hidden input based on href of next link element (TODO - fix brittle design) - this keeps the facets intact when a refinement is submitted via the form
+            // question: couldn't we just ajaxify the refinement form???
             
             var href = cb.next('a').attr('href');
             if(cb.prop('checked')){
@@ -240,8 +315,6 @@ EUSearchAjax = function(){
         
         // facet collapsibility 
               
-        //alert("make collapsibles in search-ajax");
-        
         
         container.find('#facets>li:not(:first)').each(function(i, ob){
         	ob = $(ob);
@@ -252,17 +325,20 @@ EUSearchAjax = function(){
 	        heading);
         });
 
+        hideSpinner();
+        
         // restore facet selection
     
+        console.log('selected count for reopen ' + $(selected).length );
+        // TODO: language compatibility
+        var labelRemove = 'Remove';
         var opened = {};
+
         $(selected).each(function(i, ob){
-            var object = container.find('a[href="' + $(ob).attr('href') + '"]');
-            var opener = object.closest('ul').prev('h3').find('a');
-            
-            if(!opened[opener.html()]){
-                opened[opener.html()] = true;
-                opener.click();
-            }
+            var object = container.find('a[data-value="' + ob + '"]');
+            object.attr('href', "www.google.co.uk");
+            object.after(' <a title="' + labelRemove + '" href="" data-value=""><img src="/images/style/icons/cancel.png" alt="Remove"/></a>');
+            EUSearch.openFacet(object);
             object.prev().prop('checked', true);
         });
         
@@ -277,13 +353,11 @@ EUSearchAjax = function(){
 
     
     var showSpinner = function(){
-    	container.find('#overlay').show();
-    	$('.search-widget-container').css('overflow-y', 'hidden');    	
+    	$('.ajax-overlay').show();
     };
     
     var hideSpinner = function(){
-    	container.find('#overlay').hide();
-    	$('.search-widget-container').css('overflow-y', 'auto');
+    	$('.ajax-overlay').hide();
     };
     
     var capitalise = function(str){
@@ -380,8 +454,8 @@ EUSearchAjax = function(){
     self.init = function(htmlData) {
 
         container = $('#content');
-        container.append('<div id="overlay"></div>');
-        $('#overlay').hide();
+        $('body').append('<div class="ajax-overlay" style="XXXbackground-image:url(/images/style/icons/cancel.png)"></div>');
+        $('.ajax-overlay').hide();
         
         itemTemplate       = container.find('.stories li:first');
         facetTemplate      = $(
@@ -395,8 +469,7 @@ EUSearchAjax = function(){
             '</li>' + 
           '</ul>' + 
         '</li>'
-        );//.appendTo('#facets');
-
+        );
 
         setupQuery();
         setupMenus();
@@ -421,9 +494,6 @@ EUSearchAjax = function(){
 					},       			
             		"fnNext":function(e){
             			e.preventDefault();
-            			
-            			//console.log("fnNext -> call search with " + (paginationData.start + paginationData.rows)  );
-
             			searchAjax.search( parseInt(paginationData.start) + parseInt(paginationData.rows));
             		},
 					"fnLast":function(e){
@@ -457,8 +527,4 @@ EUSearchAjax = function(){
 
 var searchAjax = EUSearchAjax();
 searchAjax.init();
-
-
-
-
 

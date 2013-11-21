@@ -40,13 +40,25 @@
                     <%= link_to_facet_row(facet["name"], row["search"], row["label"], false) %>
                   <%- end -%>
                 <%- else -%>
+                
+                  <%# checkboxes -%>
+                
                   <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     <%= check_box_tag "facets[#{facet['name']}][]", row['search'], true %>
-                    <strong><%= row['label'] %></strong>
+                    
+                    <!-- to replace strong tag -->
+                    
+                    <%= link_to_facet_row(facet['name'], row['search'], row['label']) %>
+                    
+                    
                     <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove') } %>
                   <%- else -%>
+                  
+                    
                     <%= check_box_tag "facets[#{facet['name']}][]", row['search'] %>
                     <%= link_to_facet_row(facet['name'], row['search'], row['label']) %> (<%= row['count'] %>)
+                    
+                    
                   <%- end -%>
                 <%- end -%>
               </h4>

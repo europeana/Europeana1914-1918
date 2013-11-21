@@ -2,10 +2,53 @@
  *	@author dan entous <contact@gmtplusone.com>
  *	@version 2012-09-07 10:36 gmt +1
  */
-(function() {
+EUSearch = function() {
 	
 	'use strict';
+
+	var opened = {};
+
 	
+	// get array of data values for anchors immediately following a checked input
+    var findSelectedFacetOps = function(dataValues){
+        var selected = $('#content #facets input[type=checkbox]:checked').next('a').filter(function(){
+            return (undefined !== $(this).data('value'));
+         });
+        var selected2 = [];
+        selected.each(function(i, ob){
+        	selected2.push( typeof dataValues == 'undefined' ? $(this) : $(ob).data('value') );
+        });
+        console.log('selected ops[' + dataValues + '] are ' + JSON.stringify(selected2) );
+    	return selected2;
+    };
+
+	// opens the facet section containing @object
+	var openFacet = function(object){
+        var opener = object.closest('ul').prev('h3').find('a');  
+        
+        console.log('openfacet  opener len = ' + opener.length );
+        console.log('opener = ' + opener.html() );
+        
+        if(!opened[opener.html()]){
+            opened[opener.html()] = true;
+            opener.click();
+        }
+        else{
+        	console.log('do not reopen because html already set to');
+        }
+
+	};
+	
+	
+	// opens facet sections containing checked inputs
+	var openActiveFacets = function(){		
+		$.each(findSelectedFacetOps(), function(i, ob){
+			console.log( 'call open... ' + ob );
+			openFacet(ob);
+			console.log( 'called open'  );
+		});		
+	};
+    
 	/*
 	var resultTabs = {
 		
@@ -291,14 +334,15 @@
 	*/
 	
 	function initJS(){
-		// ANDY: can't get loader dependencies working so nesting dynamic loads
-		var ajaxified = $('#provider_europeana').prop('checked');
+		
+		var ajaxified = $('#provider__europeana').prop('checked');
 		//ajaxified = false;
 		
 		js.loader.loadScripts([{
 			file : 'EuCollapsibility.js',
 			path : themePath + "javascripts/eu/europeana/",
 			callback : function(){
+				//alert('cb');
 				js.loader.loadScripts([{
 					file : 'EuAccessibility.js',
 					path : themePath + "javascripts/eu/europeana/",
@@ -374,14 +418,17 @@
 												
 												file : 'search-ajax.js',
 												path : themePath + "javascripts/eu/europeana/"
-												/*
+
 												, callback : function(){
+												    openActiveFacets();
+													/*
 													new EuPagination(
 														$('.result-pagination'),
 														$('.result-pagination').first().find('input[name=total_pages]').val() 
 													);
+													*/
 												}
-												*/
+
 											}]);
 										}
 										else{
@@ -395,7 +442,8 @@
 														"start": defPaginationData.records.start
 													}
 												}
-											)	
+											);
+											openActiveFacets();
 										}
 										
 									}
@@ -429,7 +477,6 @@
 			select: function(event, ui) { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
 		});
 		
-		initJS();
 		
 		/* init off-canvas progressive enhancement */
 		console.log('init off-canvas progressive enhancement');
@@ -444,8 +491,25 @@
 		
 		$('html').removeClass('no-js').addClass('js');
 		
+		// load libraries
+		initJS();
 	}
 	
 	init();
 	
-}());
+	
+	return {
+		openFacet:function(object){
+			openFacet(object);
+		},
+		openActiveFacets:function(){
+			openActiveFacets();
+		},
+		resetOpenedFacets:function(){
+			opened = {};
+		},
+		findSelectedFacetOps:function(dataValues){        
+        	return findSelectedFacetOps(dataValues);
+        }
+	}
+}();

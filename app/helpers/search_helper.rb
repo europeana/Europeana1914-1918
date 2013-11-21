@@ -9,7 +9,9 @@ module SearchHelper
       facets_param[facet_name] = row_value.to_s
     end
     
-    link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param)
+#        * &facets[TYPE]  IMAGE
+
+    link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => '&facets[' + facet_name + ']=' + row_value.to_s  
   end
   
   def facet_row_selected?(facet_name, row_value)
