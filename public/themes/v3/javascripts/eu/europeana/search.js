@@ -18,7 +18,6 @@ EUSearch = function() {
         selected.each(function(i, ob){
         	selected2.push( typeof dataValues == 'undefined' ? $(this) : $(ob).data('value') );
         });
-        console.log('selected ops[' + dataValues + '] are ' + JSON.stringify(selected2) );
     	return selected2;
     };
 
@@ -41,7 +40,7 @@ EUSearch = function() {
 	
 	
 	// opens facet sections containing checked inputs
-	var openActiveFacets = function(){		
+	var openActiveFacets = function(){
 		$.each(findSelectedFacetOps(), function(i, ob){
 			console.log( 'call open... ' + ob );
 			openFacet(ob);

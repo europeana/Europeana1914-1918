@@ -10,6 +10,7 @@ module SearchHelper
     #end
       
       
+      
     if multiple && !facet_row_selected?(facet_name, row_value)
       facets_param["#{facet_name}"] ||= []
       facets_param["#{facet_name}"] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s

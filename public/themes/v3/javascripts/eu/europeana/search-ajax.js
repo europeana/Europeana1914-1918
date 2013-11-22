@@ -22,10 +22,8 @@ EUSearchAjax = function(){
     var container               = false;
     var itemTemplate            = false;
     var facetTemplate           = false;
-
     var resultServerUrl         = 'http://europeana.eu/portal';
 
-    
     //var searchUrl				= searchUrl ? searchUrl : 'http://test.portal2.eanadev.org/api/v2/search.json?wskey=api2demo';
 	
     var searchUrl				= searchUrl ? searchUrl : 'http://localhost:3000/en/europeana/search.json';
@@ -37,8 +35,7 @@ EUSearchAjax = function(){
     var paginationData          = typeof defPaginationData != 'undefined' ? defPaginationData : {};
     
    
-    var doSearch = function(startParam, query){
-    	
+    var doSearch = function(startParam, query){	
     	showSpinner();
     	try{
 	    	var url = buildUrl(startParam, query);
@@ -106,18 +103,6 @@ EUSearchAjax = function(){
     	url += '&page='  + (startParam ? Math.ceil(startParam / rows) : 1);
          
 
-    	/***
-    	 * 
-    	 * initial load:
-    	 * 
-    	 * IMAGE    undefined
-    	 * 
-    	 * works:
-    	 * 
-    	 * &facets[TYPE]  IMAGE
-    	 * 
-    	 * 
-    	 * */
     	var facetParams = {};
     	var newFacetParamString = '';
     	
@@ -136,7 +121,6 @@ EUSearchAjax = function(){
         	var facetName = urlFragment.split('=')[0];
         	var facetVal  = urlFragment.split('=')[1];
         	
-        	
         	// old way (better)
         	/*
         	if(typeof facetParams[facetName] == 'undefined'){
@@ -146,8 +130,8 @@ EUSearchAjax = function(){
         	*/
         	
         	// new way (worse)
-        	newFacetParamString += facetName + '[]=' + facetVal;
-        });        	
+        	newFacetParamString += facetName + '[]="' + facetVal + '"';
+        });
        
         // old way
         /*
@@ -163,7 +147,56 @@ EUSearchAjax = function(){
 		return url;
     };
 
-    
+    // binds facet links to the doSearch function
+    var bindFacetLinks = function(){
+    	
+    	console.log("container.find('#facets ul li input')   = " + container.find('#facets ul li input').length);
+    	container.find('#facets ul li input[type="checkbox"]').each(function(i, ob){
+    		
+            ob = $(ob);
+            
+            // address firefox caching of checked state following reload
+            if(ob.prop('checked') == true){
+            	if(ob.attr('checked') != 'checked'){
+            		ob.prop('checked', false);
+            		console.log('corrected cb');
+            	}
+            }
+            
+    		ob.attr({
+                "name"  : "cb-" + i,
+                "id"    : "cb-" + i
+            });
+            ob.next('a').find('label').attr('for', "cb-" + i);
+    	});
+    	
+        
+    	var refinements = container.find('#refine-search-form');
+    	
+    	container.find('#facets ul li a').add(container.find('#facets ul li input')).click(function(e){
+    		var cb = $(e.target);
+    		if(!cb.attr("for")){
+    			// build hidden input based on href of next link element (TODO - fix brittle design) - this keeps the facets intact when a refinement is submitted via the form
+    			// question: couldn't we just ajaxify the refinement form???
+    			
+    			var href = cb.next('a').attr('href');
+    			if(cb.prop('checked')){
+    				$('<input type="hidden" name="qf" value="' + href + '"/>').appendTo(refinements);
+    			}
+    			else{
+    				var toRemove =  refinements.find('input[value="' + href + '"]');
+    				toRemove.remove();
+    			}
+    			doSearch();
+    		}
+    	});
+    };
+
+
+    /* 
+     * callback from API call
+     * 
+     * */
     var showRes = function(data){
 
     	console.log("showRes()");
@@ -222,9 +255,6 @@ EUSearchAjax = function(){
 
         // facets
     
-        var cbCount  = 0;
-
-        
         EUSearch.resetOpenedFacets();
         var selected = EUSearch.findSelectedFacetOps(true);
 
@@ -247,8 +277,7 @@ EUSearchAjax = function(){
             facetOps.empty();
             
             var selFacetOpLink = 'h4 a';
-            var selFacetInput  = 'input';
-            var selFacetLabel = 'label';
+            var selFacetLabel  = 'label';
             
             $.each(ob.fields, function(i, field){
                 
@@ -258,24 +287,15 @@ EUSearchAjax = function(){
                                
                 facetOp.find(selFacetOpLink).attr({
                     "data-value"  : urlFragment,
-                /*    "href"  : urlFragment,  */
                     "title" : field.label
                 });
 
-                // TODO: href put in value - still needed????
-                facetOp.find(selFacetInput).attr({
-                    "name"  : "cb-" + cbCount,
-                    "id"    : "cb-" + cbCount,
-                    "value" : urlFragment
-                });
 
                 facetOp.find(selFacetLabel).html(field.label).attr({
-                    "for"   : "cb-" + cbCount,
                     "title" : field.label
                 });
 
                 facetOps.append( facetOp );
-                cbCount ++;
 
                 if( $.inArray( facetOp.find(selFacetOpLink).data('value'), selected) == -1 ){
                 	facetOp.find('.fcount').html(' (' + field.count + ')');
@@ -291,39 +311,11 @@ EUSearchAjax = function(){
         });
 
         // facet actions 
+
+        bindFacetLinks();
+                
         
-        var refinements = container.find('#refine-search-form');
-		
-        container.find('#facets ul li a').add(container.find('#facets ul li input')).click(function(e){
-        	            
-        	var cb = $(this);
-            if(cb.attr("for")){
-            	e.preventDefault();
-                cb = container.find('#facets #' + cb.attr("for"));
-                cb.prop('checked', !cb.prop('checked') );
-                $(e.target).find('label').toggleClass('bold')
-            }
-            else{
-            	//alert("no for attr...");
-            }
-            // build hidden input based on href of next link element (TODO - fix brittle design) - this keeps the facets intact when a refinement is submitted via the form
-            // question: couldn't we just ajaxify the refinement form???
-            
-            var href = cb.next('a').attr('href');
-            if(cb.prop('checked')){
-            	$('<input type="hidden" name="qf" value="' + href + '"/>').appendTo(refinements);            	
-            }
-            else{
-    			var toRemove =  refinements.find('input[value="' + href + '"]');
-            	toRemove.remove();
-            }
-        	
-        	//e.preventDefault();
-            doSearch();
-        });
-        
-        // facet collapsibility 
-              
+        // facet collapsibility               
         
         container.find('#facets>li:not(:first)').each(function(i, ob){
         	ob = $(ob);
@@ -362,6 +354,7 @@ EUSearchAjax = function(){
 
     
     var showSpinner = function(){
+    	$('.ajax-overlay').attr('style', 'top:' + $(window).scrollTop() + 'px');
     	$('.ajax-overlay').show();
     };
     
@@ -460,7 +453,7 @@ EUSearchAjax = function(){
     
     
     
-    self.init = function(htmlData) {
+    self.init = function() {
 
         container = $('#content');
         $('body').append('<div class="ajax-overlay" style="XXXbackground-image:url(/images/style/icons/cancel.png)"></div>');
@@ -483,22 +476,19 @@ EUSearchAjax = function(){
         setupQuery();
         setupMenus();
 
+        bindFacetLinks();
+        
+        // do last
         pagination = new EuPagination($('.result-pagination'),
         	{
         		"ajax":true,
         		"fns":{
             		"fnFirst":function(e){
             			e.preventDefault();
-            			
-						console.log("fnFirst");
-
             			searchAjax.search(1);
             		},
 					"fnPrevious":function(e){
 						e.preventDefault();
-
-            			console.log("fnPrevious");
-            			
 						searchAjax.search(paginationData.start - paginationData.rows);
 					},       			
             		"fnNext":function(e){
@@ -507,9 +497,6 @@ EUSearchAjax = function(){
             		},
 					"fnLast":function(e){
 						e.preventDefault();
-
-						console.log("fnLast");
-
 						searchAjax.search(pagination.getMaxStart());
 					},
             		"fnSubmit":function(val){
@@ -527,10 +514,11 @@ EUSearchAjax = function(){
 
     
     return {
-        "init" : function(data){ self.init(data);},
+        "init" : function(data){ self.init();},
         "search" : function(startParam){ doSearch(startParam); },
         "showRes" : function(data){ showRes(data); }
     };
+    
 };
 
 
