@@ -1,18 +1,34 @@
 module SearchHelper
-  def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true)
+  def link_to_facet_row(facet_name, row_value, row_label = nil, activeClass = false, multiple = true)
     row_label ||= row_value
     facets_param = request.query_parameters.has_key?(:facets) ? request.query_parameters[:facets].dup : {}
+    #if multiple && !facet_row_selected?(facet_name, row_value)
+    #  facets_param[facet_name] ||= []
+    #  facets_param[facet_name] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s
+    #else
+    #  facets_param[facet_name] = row_value.to_s
+    #end
+      
+      
     if multiple && !facet_row_selected?(facet_name, row_value)
-      facets_param[facet_name] ||= []
-      facets_param[facet_name] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s
+      facets_param["#{facet_name}"] ||= []
+      facets_param["#{facet_name}"] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s
     else
-      facets_param[facet_name] = row_value.to_s
+      facets_param["#{facet_name}"] = row_value.to_s
     end
     
-#        * &facets[TYPE]  IMAGE
-#    link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => '&facets[' + facet_name + ']=' + row_value.to_s  
-
-    link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => "&facets[#{facet_name}]=#{row_value.to_s}"
+    #puts "testing....#{facet_name}"  
+    #puts "testing....#{facets_param}"  
+    
+    
+    #  link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => '&facets[' + facet_name + ']=' + row_value.to_s  
+    res = ''
+    if activeClass
+      res = link_to "<label class=\"bold\">#{row_label}</label>".html_safe, request.query_parameters.merge(:page => 1, :facets => facets_param), :class => 'bold', 'data-value' => "&facets[#{facet_name}]=#{row_value.to_s}" 
+    else
+      res = link_to "<label>#{row_label}</label>".html_safe, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => "&facets[#{facet_name}]=#{row_value.to_s}" 
+    end
+    res
   end
   
   def facet_row_selected?(facet_name, row_value)

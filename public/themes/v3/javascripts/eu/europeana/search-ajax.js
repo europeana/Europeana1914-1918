@@ -6,10 +6,12 @@
  * 
  * TODO:
  * 
- * should read active facets to construct urls (broken)
  * should maintain facet order
- * pop open active facets
+ * 
+ * pop open refine facet automatically
+ * 
  * facet selection should also work (not just nav arrows)
+ * 
  * checkboxes don't control facets - just their labels
  * 
  * */
@@ -278,6 +280,10 @@ EUSearchAjax = function(){
                 if( $.inArray( facetOp.find(selFacetOpLink).data('value'), selected) == -1 ){
                 	facetOp.find('.fcount').html(' (' + field.count + ')');
                 }
+                else{
+                	facetOp.find('.fcount').remove();
+                	facetOp.find(selFacetLabel).addClass('bold');                	
+                }
                 
             });
             facet.append(facetOps);
@@ -288,17 +294,18 @@ EUSearchAjax = function(){
         
         var refinements = container.find('#refine-search-form');
 		
-        container.find('#facets  a label').add(container.find('#facets h4 input')).click(function(e){
-        	
-        	// sync checkbox check behaviour
-            
+        container.find('#facets ul li a').add(container.find('#facets ul li input')).click(function(e){
+        	            
         	var cb = $(this);
             if(cb.attr("for")){
             	e.preventDefault();
                 cb = container.find('#facets #' + cb.attr("for"));
                 cb.prop('checked', !cb.prop('checked') );
+                $(e.target).find('label').toggleClass('bold')
             }
-            
+            else{
+            	//alert("no for attr...");
+            }
             // build hidden input based on href of next link element (TODO - fix brittle design) - this keeps the facets intact when a refinement is submitted via the form
             // question: couldn't we just ajaxify the refinement form???
             
@@ -310,6 +317,8 @@ EUSearchAjax = function(){
     			var toRemove =  refinements.find('input[value="' + href + '"]');
             	toRemove.remove();
             }
+        	
+        	//e.preventDefault();
             doSearch();
         });
         
