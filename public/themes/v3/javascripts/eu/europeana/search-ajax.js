@@ -162,15 +162,23 @@ EUSearchAjax = function(){
                 "name"  : "cb-" + i,
                 "id"    : "cb-" + i
             });
-            ob.next('a').find('label').attr('for', "cb-" + i).find('label').attr('for', "cb-" + i);
+            ob.next('a').find('label').attr('for', "cb-" + i).parent().next('a').find('img').attr('for', "cb-" + i);
     	});
     	
         
     	var refinements = container.find('#refine-search-form');
     	
-    	container.find('#facets ul li a').add(container.find('#facets ul li input')).click(function(e){
+    	container.find('#facets ul li a img').add(container.find('#facets ul li input')).click(function(e){
+    		
     		var cb = $(e.target);
-    		if(!cb.attr("for")){
+    		
+    		if(cb.attr("for")){
+    			if(e.target.nodeName.toUpperCase()=='IMG'){
+                    e.preventDefault();
+                    container.find('#facets #' + cb.attr("for")).click();
+    			}
+    		}
+    		else{
     			// build hidden input based on href of next link element (TODO - fix brittle design) - this keeps the facets intact when a refinement is submitted via the form
     			// question: couldn't we just ajaxify the refinement form???
     			
@@ -304,10 +312,6 @@ EUSearchAjax = function(){
             container.find('#facets').append(facet);
         });
 
-        // facet actions 
-
-        bindFacetLinks();
-                
         
         // facet collapsibility               
         
@@ -324,19 +328,26 @@ EUSearchAjax = function(){
         
         // restore facet selection
     
-        console.log('selected count for reopen ' + $(selected).length );
+
         // TODO: language compatibility
+
         var labelRemove = 'Remove';
-        var opened = {};
+        
+        //var opened = {};
 
         $(selected).each(function(i, ob){
             var object = container.find('a[data-value="' + ob + '"]');
-            object.attr('href', "www.google.co.uk");
+            object.attr('href', '');
             object.after(' <a title="' + labelRemove + '" href="" data-value=""><img src="/images/style/icons/cancel.png" alt="Remove"/></a>');
             EUSearch.openFacet(object);
             object.prev().prop('checked', true);
         });
-        
+
+        // facet actions 
+
+        bindFacetLinks();
+                
+
         // open "Add Keyword"
         
         if(container.find('#refinements').css('display') == 'none'){
