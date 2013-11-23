@@ -6,13 +6,8 @@
  * 
  * TODO:
  * 
- * should maintain facet order
+ * refine form 
  * 
- * pop open refine facet automatically
- * 
- * facet selection should also work (not just nav arrows)
- * 
- * checkboxes don't control facets - just their labels
  * 
  * */
 
@@ -156,18 +151,18 @@ EUSearchAjax = function(){
             ob = $(ob);
             
             // address firefox caching of checked state following reload
+            
             if(ob.prop('checked') == true){
             	if(ob.attr('checked') != 'checked'){
             		ob.prop('checked', false);
             		console.log('corrected cb');
             	}
             }
-            
     		ob.attr({
                 "name"  : "cb-" + i,
                 "id"    : "cb-" + i
             });
-            ob.next('a').find('label').attr('for', "cb-" + i);
+            ob.next('a').find('label').attr('for', "cb-" + i).find('label').attr('for', "cb-" + i);
     	});
     	
         
@@ -205,7 +200,6 @@ EUSearchAjax = function(){
         var grid = container.find('.stories');
         grid.empty();
 
-        // console.log("widget showRes(data), data = \n" + JSON.stringify(data));
         var start = data.params.start ? data.params.start : 1;
 
         // @richard - we need a start value.
@@ -254,15 +248,17 @@ EUSearchAjax = function(){
 
 
         // facets
-    
+        
+        var facetOrder = ['UGC','LANGUAGE','TYPE','YEAR','PROVIDER','DATA_PROVIDER','COUNTRY','RIGHTS','REUSABILITY'];
+        data.facets.sort(function(a, b) {
+			var res = $.inArray(a.label, facetOrder) - $.inArray(b.label, facetOrder);
+			return res > 0 ? 1 : res < 0 ? -1 : 0;
+		});
+        
         EUSearch.resetOpenedFacets();
         var selected = EUSearch.findSelectedFacetOps(true);
-
         
-        container.find('#facets>li:not(:first)').remove(); // remove all but the "Add Keyword" refinement form.
-        
-        // TODO: catch the facet order before we remove them
-        
+        container.find('#facets>li').not(":nth-child(1)").not(":nth-child(2)").remove(); // remove all but the "Add Keyword" refinement form and provider radios.
         
         // write facet dom
 
@@ -283,13 +279,11 @@ EUSearchAjax = function(){
                 
                 var facetOp     = facetOpTemplate.clone();
                 var urlFragment = "&facets[" + ob.name + "]=" + field.label;
-                
-                               
+                                               
                 facetOp.find(selFacetOpLink).attr({
                     "data-value"  : urlFragment,
                     "title" : field.label
                 });
-
 
                 facetOp.find(selFacetLabel).html(field.label).attr({
                     "title" : field.label
