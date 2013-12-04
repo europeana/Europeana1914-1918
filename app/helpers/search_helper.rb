@@ -60,6 +60,14 @@ module SearchHelper
     nil
   end
   
+  def search_provider_href(id)
+    url_options = request.parameters.merge(:page => 1, :controller => id)
+    url_options.delete(:facets)
+    url_for(url_options)
+  rescue ActionController::RoutingError
+    nil
+  end
+  
   def search_provider_name(id)
     provider = id.split('/').last
     t(provider, :scope => "views.search.providers", :default => provider)

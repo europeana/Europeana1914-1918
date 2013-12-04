@@ -334,6 +334,7 @@ EUSearch = function() {
 	
 	function initJS(){
 		
+		
 		var ajaxified = $('#provider__europeana').prop('checked');
 		//ajaxified = false;
 		
@@ -341,7 +342,7 @@ EUSearch = function() {
 			file : 'EuCollapsibility.js',
 			path : themePath + "javascripts/eu/europeana/",
 			callback : function(){
-				//alert('cb');
+				
 				js.loader.loadScripts([{
 					file : 'EuAccessibility.js',
 					path : themePath + "javascripts/eu/europeana/",
@@ -403,51 +404,75 @@ EUSearch = function() {
 									new EuMenu( $(".nav-top		.eu-menu"), menuConfig).init();
 									new EuMenu( $(".nav-bottom	.eu-menu"), menuConfig).init();							
 								}
+				
+								
+
 								
 								js.loader.loadScripts([{
 									
-									file : 'EuPagination.js',
+									file : 'EuAccordionTabs.js',
 									path : themePath + "javascripts/eu/europeana/",
 									
 									callback : function(){
-										// Ajaxify the search if we're on the Europeana data provider
-										// disabled for now
-										if( ajaxified ){											
-											js.loader.loadScripts([{
-												
-												file : 'search-ajax.js',
-												path : themePath + "javascripts/eu/europeana/"
-
-												, callback : function(){
-												    openActiveFacets();
-													/*
+								
+										
+										var resultTabs = new AccordionTabs( $('#result-tabs'), function(index, id, hash){
+											var stem = resultTabs.getTabs()[index].getTabOpener().data('stem');
+											 // alert('stem = ' + stem);
+											 
+										},
+										$('#result-tabs .tab-header.active').attr('href')
+										);
+										
+										js.loader.loadScripts([{
+											
+											file : 'EuPagination.js',
+											path : themePath + "javascripts/eu/europeana/",
+											
+											callback : function(){
+												// Ajaxify the search if we're on the Europeana data provider
+												// disabled for now
+												if( ajaxified ){											
+													js.loader.loadScripts([{
+														
+														file : 'search-ajax.js',
+														path : themePath + "javascripts/eu/europeana/"
+		
+														, callback : function(){
+														    openActiveFacets();
+															/*
+															new EuPagination(
+																$('.result-pagination'),
+																$('.result-pagination').first().find('input[name=total_pages]').val() 
+															);
+															*/
+														}
+		
+													}]);
+												}
+												else{
 													new EuPagination(
 														$('.result-pagination'),
-														$('.result-pagination').first().find('input[name=total_pages]').val() 
+														{
+															"data":{
+																
+																"records": defPaginationData.records,
+																"rows": defPaginationData.rows,
+																"start": defPaginationData.records.start
+															}
+														}
 													);
-													*/
+													openActiveFacets();
 												}
+												
+											}
+										}]);
 
-											}]);
-										}
-										else{
-											new EuPagination(
-												$('.result-pagination'),
-												{
-													"data":{
-														
-														"records": defPaginationData.records,
-														"rows": defPaginationData.rows,
-														"start": defPaginationData.records.start
-													}
-												}
-											);
-											openActiveFacets();
-										}
-										
 									}
 								}]);
-
+								
+								
+								
 								
 							}
 						}]);

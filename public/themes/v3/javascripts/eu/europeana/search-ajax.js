@@ -18,13 +18,7 @@ EUSearchAjax = function(){
     var itemTemplate            = false;
     var facetTemplate           = false;
     var resultServerUrl         = 'http://europeana.eu/portal';
-
-    //var searchUrl				= searchUrl ? searchUrl : 'http://test.portal2.eanadev.org/api/v2/search.json?wskey=api2demo';
-	
-    var searchUrl				= searchUrl ? searchUrl : 'http://localhost:3000/en/europeana/search.json';
-
-    console.log('hard-coded localhost reference in ajax search url needs removed!')
-	
+    var searchUrl				= searchUrl ? searchUrl : '/europeana/search.json';
     var defaultRows             = 6;
     var pagination              = false;
     var paginationData          = typeof defPaginationData != 'undefined' ? defPaginationData : {};
@@ -125,7 +119,9 @@ EUSearchAjax = function(){
         	*/
         	
         	// new way (worse)
-        	newFacetParamString += facetName + '[]="' + facetVal + '"';
+        	// newFacetParamString += facetName + '[]="' + facetVal + '"';
+        	// richard's change - to test.
+        	newFacetParamString += facetName + '[]=' + facetVal;
         });
        
         // old way
@@ -387,7 +383,7 @@ EUSearchAjax = function(){
     };
 
     var setupQuery = function(){
-        self.q = container.find('#q');
+        self.q = container.find('.jump-to-page:first #q');
       
         var submitCell          = container.find('.submit-cell');
         var submitCellButton    = container.find('button');
@@ -461,7 +457,8 @@ EUSearchAjax = function(){
     self.init = function() {
 
         container = $('#content');
-        $('body').append('<div class="ajax-overlay" style="XXXbackground-image:url(/images/style/icons/cancel.png)"></div>');
+        
+        $('body').append('<div class="ajax-overlay"></div>');
         $('.ajax-overlay').hide();
         
         itemTemplate       = container.find('.stories li:first');
