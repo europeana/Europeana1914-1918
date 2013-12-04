@@ -144,6 +144,9 @@ private
         end
       end
       
+      cache_search_facets("europeana", response["facets"])
+      preserve_params_facets("europeana", response["facets"])
+      
       # Fake profile=params API query option not yet in production
       response["params"] ||= {
         "start" => query_options[:start],

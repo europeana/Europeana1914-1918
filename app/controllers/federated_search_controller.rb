@@ -52,6 +52,9 @@ class FederatedSearchController < ApplicationController
     @results  = response["results"]
     @facets   = response["facets"]
     
+    cache_search_facets("contributions", @facets)
+    preserve_params_facets("contributions", @facets)
+    
     respond_to do |format|
       format.html { render :template => 'search/page' }
       format.json { render :json => format_results_as_json }

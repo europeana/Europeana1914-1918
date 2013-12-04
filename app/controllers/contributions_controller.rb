@@ -228,6 +228,8 @@ class ContributionsController < ApplicationController
           }
         }
       }
+      cache_search_facets("contributions", @facets)
+      preserve_params_facets("contributions", @facets)
     else
       @facets = []
     end

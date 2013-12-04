@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
     @dropbox_client
   end
 
-  protected
+protected
   
   ##
   # Displays error message for application errors, sending HTTP status code.
@@ -517,6 +517,72 @@ class ApplicationController < ActionController::Base
       require 'fastercsv'
       FasterCSV
     end
+  end
+  
+  ##
+  # Caches information about search facets from various providers
+  #
+  # @param [String,Symbol] provider Provider identifier
+  # @param [Array<Hash>] facets Facet data
+  #
+  def cache_search_facets(provider, facets)
+    cache_key = "search/facets/#{provider.to_s}"
+    
+    cached_facets = fragment_exist?(cache_key) ? YAML::load(read_fragment(cache_key)) : []
+    updated_facets = cached_facets.dup
+    
+    facets.dup.each do |facet|
+      if known_facet = updated_facets.select { |f| f["name"] == facet["name"] }.first
+        known_fields = known_facet["fields"].collect { |field| field["search"] }
+        new_fields = facet["fields"].reject { |field| known_fields.include?(field["search"]) }.collect { |field| field.dup.delete("count"); field }
+        known_facet["fields"] = known_facet["fields"] + new_fields
+      else
+        updated_facets << { "name" => facet["name"], "label" => facet["label"], "fields" => facet["fields"].collect { |field| field.dup.delete("count"); field } }
+      end
+    end
+    
+    if cached_facets != updated_facets
+      write_fragment(cache_key, updated_facets.to_yaml)
+      updated_facets
+    else
+      cached_facets
+    end
+  end
+  
+  ##
+  # Restores information about previously selected search facets
+  #
+  # @param [String,Symbol] provider Provider identifier
+  # @param [Array<Hash>] facets Facet data
+  #
+  def preserve_params_facets(provider, facets)
+    cache_key = "search/facets/#{provider.to_s}"
+    unless fragment_exist?(cache_key) && params[:facets].present?
+      return facets
+    end
+    
+    cached_facets = YAML::load(read_fragment(cache_key))
+    params[:facets].each_pair do |param_facet_name, param_facet_fields|
+      if i = facets.index { |facet| facet["name"] == param_facet_name }
+        [ param_facet_fields ].flatten.each do |param_field|
+          unless facets[i]["fields"].find { |field| field["search"] == param_field }
+            if cached_facet = cached_facets.find { |cfacet| cfacet["name"] == param_facet_name }
+              if cached_field = cached_facet["fields"].find { |cfield| cfield["search"] == param_field }
+                facets[i]["fields"] << cached_field
+              end
+            end
+          end
+        end
+      else
+        if cached_facet = cached_facets.find { |cfacet| cfacet["name"] == param_facet_name }
+          facet_dup = cached_facet.dup
+          facet_dup["fields"].reject! { |field| ![ param_facet_fields ].flatten.include?(field["search"]) }
+          facets << facet_dup
+        end
+      end
+    end
+    
+    facets
   end
 end
 
