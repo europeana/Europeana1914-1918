@@ -333,11 +333,7 @@ EUSearch = function() {
 	*/
 	
 	function initJS(){
-		
-		
-		var ajaxified = true;//$('#provider__europeana').prop('checked');
-		//ajaxified = false;
-		
+				
 		js.loader.loadScripts([{
 			file : 'EuCollapsibility.js',
 			path : themePath + "javascripts/eu/europeana/",
@@ -399,14 +395,6 @@ EUSearch = function() {
 									}*/
 								};
 								
-								if(!ajaxified){
-									// the search-ajax.js will set up these menus if we're using ajax
-									new EuMenu( $(".nav-top		.eu-menu"), menuConfig).init();
-									new EuMenu( $(".nav-bottom	.eu-menu"), menuConfig).init();							
-								}
-				
-								
-
 								
 								js.loader.loadScripts([{
 									
@@ -428,37 +416,36 @@ EUSearch = function() {
 											callback : function(){
 												// Ajaxify the search if we're on the Europeana data provider
 												// disabled for now
-												if( ajaxified ){											
-													js.loader.loadScripts([{
-														
-														file : 'search-ajax.js',
-														path : themePath + "javascripts/eu/europeana/"
-		
-														, callback : function(){
-														    openActiveFacets();
-															/*
-															new EuPagination(
-																$('.result-pagination'),
-																$('.result-pagination').first().find('input[name=total_pages]').val() 
-															);
-															*/
-														    
-															resultTabs.setCallback(
-																function(index, id, hash){
-																	var stem = resultTabs.getTabs()[index].getTabOpener().data('stem');
-																	 // alert('stem = ' + stem);
-																	searchAjax.setSearchUrl(stem);
-																	searchAjax.search();
+												js.loader.loadScripts([{
+													
+													file : 'search-ajax.js',
+													path : themePath + "javascripts/eu/europeana/"
+	
+													, callback : function(){
+													    openActiveFacets();
+														/*
+														new EuPagination(
+															$('.result-pagination'),
+															$('.result-pagination').first().find('input[name=total_pages]').val() 
+														);
+														*/
+													    
+														resultTabs.setCallback(
+															function(index, id, hash){
+																var stem = resultTabs.getTabs()[index].getTabOpener().data('stem');
+																 // alert('stem = ' + stem);
+																searchAjax.setSearchUrl(stem);
+																searchAjax.search();
 
-																	 
-																}
-															);
+																 
+															}
+														);
 
-														}
-		
-													}]);
-												}
-												else{
+													}
+	
+												}]);
+
+												/*
 													new EuPagination(
 														$('.result-pagination'),
 														{
@@ -471,8 +458,7 @@ EUSearch = function() {
 														}
 													);
 													openActiveFacets();
-												}
-												
+												*/
 											}
 										}]);
 
