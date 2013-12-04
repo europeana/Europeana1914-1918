@@ -335,7 +335,7 @@ EUSearch = function() {
 	function initJS(){
 		
 		
-		var ajaxified = $('#provider__europeana').prop('checked');
+		var ajaxified = true;//$('#provider__europeana').prop('checked');
 		//ajaxified = false;
 		
 		js.loader.loadScripts([{
@@ -415,14 +415,10 @@ EUSearch = function() {
 									
 									callback : function(){
 								
-										
-										var resultTabs = new AccordionTabs( $('#result-tabs'), function(index, id, hash){
-											var stem = resultTabs.getTabs()[index].getTabOpener().data('stem');
-											 // alert('stem = ' + stem);
-											 
-										},
-										$('#result-tabs .tab-header.active').attr('href')
-										);
+										var resultTabs = new AccordionTabs( $('#result-tabs'), 
+											false,
+											$('#result-tabs .tab-header.active').attr('href')
+										);										
 										
 										js.loader.loadScripts([{
 											
@@ -446,6 +442,18 @@ EUSearch = function() {
 																$('.result-pagination').first().find('input[name=total_pages]').val() 
 															);
 															*/
+														    
+															resultTabs.setCallback(
+																function(index, id, hash){
+																	var stem = resultTabs.getTabs()[index].getTabOpener().data('stem');
+																	 // alert('stem = ' + stem);
+																	searchAjax.setSearchUrl(stem);
+																	searchAjax.search();
+
+																	 
+																}
+															);
+
 														}
 		
 													}]);

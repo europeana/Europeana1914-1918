@@ -194,6 +194,9 @@ var AccordionTabs = function(elIn, callbackIn, hash, fnDisabledClick){
 				$(self.el.find('.tab-header')[ob]).addClass('disabled');
 			});
 		},
+		setCallback:function(callbackIn){
+			self.callback	 = callbackIn;
+		},
 		getTabs : function(){
 			return allTabs;
 		}

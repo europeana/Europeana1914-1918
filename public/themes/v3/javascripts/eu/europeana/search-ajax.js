@@ -17,6 +17,7 @@ EUSearchAjax = function(){
     var container               = false;
     var itemTemplate            = false;
     var facetTemplate           = false;
+    var facetless               = false;
     var resultServerUrl         = 'http://europeana.eu/portal';
     var searchUrl				= searchUrl ? searchUrl : '/europeana/search.json';
     var defaultRows             = 6;
@@ -94,46 +95,51 @@ EUSearchAjax = function(){
 
     	var facetParams = {};
     	var newFacetParamString = '';
-    	
-        container.find('#facets input:checked').each(function(i, ob){
-        	        	
-        	var urlFragment = $(ob).next('a').data('value');
-        	
-        	if(typeof(urlFragment) == 'undefined'){
-        		return true; // continue...
-        	}
-        	
-        	//if(urlFragment.indexOf(':')>0){
-        	//	urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
-        	//}
-
-        	var facetName = urlFragment.split('=')[0];
-        	var facetVal  = urlFragment.split('=')[1];
-        	
-        	// old way (better)
-        	/*
-        	if(typeof facetParams[facetName] == 'undefined'){
-        		facetParams[facetName] = [];
-        	}
-        	facetParams[facetName].push(facetVal);
-        	*/
-        	
-        	// new way (worse)
-        	// newFacetParamString += facetName + '[]="' + facetVal + '"';
-        	// richard's change - to test.
-        	newFacetParamString += facetName + '[]=' + facetVal;
-        });
-       
-        // old way
-        /*
-        $.each(facetParams, function(i, ob){
-        	url += (i + "=" +  ob.join(',') );
-        });
-        */
+    
+    	if(facetless){
+    		facetless = false;
+    	}
+    	else{
+	        container.find('#facets input:checked').each(function(i, ob){
+	        	        	
+	        	var urlFragment = $(ob).next('a').data('value');
+	        	
+	        	if(typeof(urlFragment) == 'undefined'){
+	        		return true; // continue...
+	        	}
+	        	
+	        	//if(urlFragment.indexOf(':')>0){
+	        	//	urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
+	        	//}
+	
+	        	var facetName = urlFragment.split('=')[0];
+	        	var facetVal  = urlFragment.split('=')[1];
+	        	
+	        	// old way (better)
+	        	/*
+	        	if(typeof facetParams[facetName] == 'undefined'){
+	        		facetParams[facetName] = [];
+	        	}
+	        	facetParams[facetName].push(facetVal);
+	        	*/
+	        	
+	        	// new way (worse)
+	        	// newFacetParamString += facetName + '[]="' + facetVal + '"';
+	        	// richard's change - to test.
+	        	newFacetParamString += facetName + '[]=' + facetVal;
+	        });
+	       
+	        // old way
+	        /*
+	        $.each(facetParams, function(i, ob){
+	        	url += (i + "=" +  ob.join(',') );
+	        });
+	        */
         
-        // new way 
-        url += newFacetParamString;
-        
+	        // new way 
+	        url += newFacetParamString;
+    	}
+    
 		console.log('final search url: ' + url);
 		return url;
     };
@@ -201,7 +207,7 @@ EUSearchAjax = function(){
     	console.log("showRes()");
     	
         // Append items
-        var grid = container.find('.stories');
+        var grid = container.find('.section.active .stories');
         grid.empty();
 
         var start = data.params.start ? data.params.start : 1;
@@ -209,15 +215,37 @@ EUSearchAjax = function(){
         // @richard - we need a start value.
         
         // write items to grid
-        
+                
         $(data.items).each(function(i, ob){
         	
             var item = itemTemplate.clone();
 
-            item.find('a').attr(
-                'href', resultServerUrl + '/record' + ob.id + '.html?start=' + start + '&query='
-            );
+            item.find('a').attr({
+            	'href': resultServerUrl + '/record' + ob.id + '.html?start=' + start + '&query=',
+            	'title': ob.title
+            });
 
+            item.find('.story-title').html(
+            	document.createTextNode(ob.title)
+            );
+                        
+            
+            var providerFieldHtml = '';
+            $.each(['dctermsAlternative', 'dataProvider', 'provider'], function(i, providerField){
+            	if(ob[providerField] && ob[providerField].length){
+            		providerFieldHtml += '<span class="story-provider">' + ob[providerField] + '</span>';
+            	}
+            });
+            if(providerFieldHtml.length){
+            	var existingProviders = item.find('.story-provider');
+            	existingProviders.addClass('expired');
+            	item.find('.story-title').after(providerFieldHtml);
+            	$('.expired').remove();
+            }
+
+            
+            
+            /*
             item.find('a .ellipsis').prepend(
                 document.createTextNode(ob.title)
             );
@@ -226,7 +254,7 @@ EUSearchAjax = function(){
                 "title": ob.title,
                 "target" : "_new"
             });
-
+            */
             if(ob.edmPreview){
 	            item.find('img').attr(
 	                'src', ob.edmPreview[0]
@@ -518,10 +546,15 @@ EUSearchAjax = function(){
     return {
         "init" : function(data){ self.init();},
         "search" : function(startParam){ doSearch(startParam); },
-        "showRes" : function(data){ showRes(data); }
+        "showRes" : function(data){ showRes(data); },
+        "setSearchUrl" : function(urlStem){
+            searchUrl = '/' + urlStem + '/search.json';
+            facetless = true; // next call only will be without facets
+        }
     };
     
 };
+
 
 
 var searchAjax = EUSearchAjax();

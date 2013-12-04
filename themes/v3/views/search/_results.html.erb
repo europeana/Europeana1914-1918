@@ -18,20 +18,22 @@
 
             <div class="content">
             
-              <div id="results">
+              <div class="results">
                 <ul class="stories"><% @results.each_with_index do |result, index| %><li class="<%= 'col-' + ((index+1) % 2 == 0 ? 'even' : 'odd').to_s %> <%= 'col-' + ((index % 3) + 1).to_s %>"><span class="story">
                   <%- cache search_result_fragment_key(result), :expires_in => (@contribution ? nil : 1.day) do -%>
                     <%- record = search_result_to_edm(result) -%>
                     <%- title = record['title'].blank? ? '' : record['title'].first -%>
+                    
+                    
                     <a href="<%= local_edm_record_path(record['guid']) %>" title="<%= title %>">
                       <%- if edm_preview = search_result_preview(record) -%>
                         <%= edm_preview %><br />
                       <%- end -%>
                       <%- unless title.blank? -%>
-                        <b><%= title %></b>
+                        <b class="story-title"><%= title %></b>
                       <%- end -%>
                       <%- unless record['dcCreator'].blank? -%>
-                        <br/><%= record['dcCreator'].first %>
+                        <br/><span class="story-creator"><%= record['dcCreator'].first %></span>
                       <%- end -%>
                       <%- unless record['year'].blank? -%>
                         <%- if record['year'].size == 2 -%>
@@ -45,11 +47,14 @@
                       <%- [ 'dctermsAlternative', 'dataProvider', 'provider' ].each do |field_name| -%>
                         <%- unless record[field_name].blank? -%>
                           <%- record[field_name].each do |field_value| -%>
-                            <br/><%= field_value %>
+                            <span class="story-provider"><%= field_value %></span>
                           <%- end -%>
                         <%- end -%>
                       <%- end -%>
                     </a>
+                    
+                    
+                    
                   <%- end -%>
                 </span></li><%- end -%></ul>
               </div>
@@ -63,6 +68,11 @@
           <a class="tab-header" data-stem="<%= provider.split("/").last %>" href="<%= search_provider_href(provider) %>"><%= search_provider_name(provider) %></a>
           <div class="section">
             <div class="content">
+            
+              <div class="results">
+                <ul class="stories"></ul>
+              </div>
+            
             </div>
           </div>
 
