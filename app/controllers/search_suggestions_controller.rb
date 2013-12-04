@@ -36,10 +36,26 @@ private
   #
   def solr_words(query) # :nodoc:
     suggesters = [
-      "suggestTitle",
-      "suggestAlternative",
-      "suggestTaxonomy",
-      "suggestProtagonists"
+      {
+        :path   => "suggestTitle",
+        :field  => :title,
+        :label  => t('attributes.title')
+      },
+      {
+        :path   => "suggestAlternative",
+        :field  => :metadata_alternative,
+        :label  => t('formtastic.labels.contribution.metadata.alternative')
+      },
+      {
+        :path   => "suggestTaxonomy",
+        :field  => :taxonomy_terms,
+        :label  => t('formtastic.labels.contribution.metadata.keywords')
+      },
+      {
+        :path   => "suggestProtagonists",
+        :field  => :protagonist_names,
+        :label  => t('views.search.facets.contributions.protagonist_names')
+      }
     ]
     query_params = {
       "q" => query,
@@ -51,7 +67,7 @@ private
     term_freqs = []
     
     suggesters.each do |suggester|
-      uri = URI.parse(Sunspot.config.solr.url + "/#{suggester}")
+      uri = URI.parse(Sunspot.config.solr.url + "/#{suggester[:path]}")
       uri.query = query_params.to_query
 
       doc = Nokogiri::XML(Net::HTTP.get(uri))
@@ -71,7 +87,12 @@ private
     words = []
     term_freqs.sort { |a, b| b[:freq].to_i <=> a[:freq].to_i }.each do |suggestion|
       label = suggestion[:term].truncate(30 + query.length, :separator => ' ', :omission => '…')
-      words << { :label => "#{label} (#{suggestion[:freq]}) #{suggestion[:suggester]}", :value => suggestion[:term] }
+      words << { 
+        :label => "#{label} (#{suggestion[:freq]}) #{suggestion[:suggester][:label]}", 
+        :value => suggestion[:term],
+        :count => suggestion[:freq],
+        :field => suggestion[:suggester][:field]
+      }
     end
     
     words.slice(0, SearchSuggestion.max_matches)
