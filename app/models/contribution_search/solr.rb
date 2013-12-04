@@ -161,7 +161,9 @@ module ContributionSearch
             else
               query_string = query
             end
-            fulltext query_string, { :minimum_match => 1 } # Equivalent to Boolean OR in dismax query mode
+            fulltext query_string, { :minimum_match => 1 } do # Equivalent to Boolean OR in dismax query mode
+              fields(solr_options[:field]) unless solr_options[:field].blank?
+            end
           end
           
           MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
