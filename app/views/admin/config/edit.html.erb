@@ -9,6 +9,7 @@
     <%= form.input :contribution_approval_required, :as => :boolean, :include_blank => false, :label => I18n.t('settings.contribution_approval_required'), :hint => I18n.t('formtastic.hints.settings.contribution_approval_required') %>
     <%= form.input :max_upload_size, :label => I18n.t('settings.max_upload_size'), :hint => I18n.t('formtastic.hints.settings.max_upload_size') %>
     <%= form.input :allowed_upload_extensions, :label => I18n.t('settings.allowed_upload_extensions'), :hint => I18n.t('formtastic.hints.settings.allowed_upload_extensions') %>
+    <%= form.input :search_engine, :as => :select, :required => true, :collection => [ "active_record", "solr", "sphinx" ], :label => I18n.t('settings.search_engine') %>
     <%= form.input :gmap_api_key, :label => I18n.t('settings.gmap_api_key'), :hint => I18n.t('formtastic.hints.settings.gmap_api_key') %>
     <%= form.input :google_analytics_key, :label => I18n.t('settings.google_analytics_key'), :hint => I18n.t('formtastic.hints.settings.google_analytics_key') %>
     <%= form.input :google_api_email, :label => I18n.t('settings.google_api_email'), :hint => I18n.t('formtastic.hints.settings.google_api_email') %>

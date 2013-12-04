@@ -73,7 +73,7 @@ module RunCoCo
     validates_numericality_of :max_upload_size, :greater_than => 0
     validates_format_of :site_url , :with => URI.regexp(['https', 'http'])
     validates_format_of :site_url , :with => /[^\/]$/ # No trailing slash
-    validates_inclusion_of :search_engine, :in => [ :active_record, :solr, :sphinx ]
+    validates_inclusion_of :search_engine, :in => [ :active_record, :solr, :sphinx, "active_record", "solr", "sphinx" ]
     
     def initialize(settings = nil)
       @settings = {}
@@ -185,7 +185,7 @@ module RunCoCo
   
     def typecast!
       self[:max_upload_size] = self[:max_upload_size].to_i
-      
+      self[:search_engine] = self[:search_engine].to_sym
       [ :publish_contributions, :registration_required, 
         :contribution_approval_required, :uploadify, :banner_active ].each do |boolean|
         self[boolean] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(self[boolean])
