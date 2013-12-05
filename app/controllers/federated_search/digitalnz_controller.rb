@@ -26,7 +26,7 @@ protected
       :facets => "category,creator,placename,year,content_partner,rights,collection"
     }
     
-    params_with_defaults[:facets].each_pair do |name, value|
+    extracted_facet_params.each_pair do |name, value|
       search_params["and[#{name}]"] = value
     end
     

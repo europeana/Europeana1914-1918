@@ -11,12 +11,12 @@ protected
   # @return [String]
   def search_params
     search_params = { 
-      :q => params[:q],
-      :fmt => "json",
-      :su => '"World War, 1914-1918"'
+      :q    => params[:q],
+      :fmt  => 'json',
+      :su   => '"World War, 1914-1918"'
     }
     
-    facet_params = params_with_defaults[:facets].collect do |name, criteria|
+    facet_params = extracted_facet_params.collect do |name, criteria|
       [ criteria ].flatten.collect { |criterion| criterion.to_query(name) }
     end.flatten
     

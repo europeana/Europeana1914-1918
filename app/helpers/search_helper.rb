@@ -1,40 +1,41 @@
 module SearchHelper
-  def link_to_facet_row(facet_name, row_value, row_label = nil, activeClass = false, multiple = true)
+  def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true, active_class = false)
     row_label ||= row_value
-    facets_param = request.query_parameters.has_key?(:facets) ? request.query_parameters[:facets].dup : {}
-    #if multiple && !facet_row_selected?(facet_name, row_value)
-    #  facets_param[facet_name] ||= []
-    #  facets_param[facet_name] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s
-    #else
-    #  facets_param[facet_name] = row_value.to_s
-    #end
-      
-      
-      
-    if multiple && !facet_row_selected?(facet_name, row_value)
-      facets_param["#{facet_name}"] ||= []
-      facets_param["#{facet_name}"] << row_value.to_s #facets_param[facet_name].to_s + "," + row_value.to_s
+
+    request_params  = request.query_parameters.dup
+    facet_params    = request_params.has_key?(:qf) ? request_params[:qf].dup : []
+    row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
+    
+    if multiple
+      if !facet_row_selected?(facet_name, row_value)
+        facet_params << row_param_value
+      end
     else
-      facets_param["#{facet_name}"] = row_value.to_s
+      index = facet_params.index { |fp| fp.match(/^#{facet_name.to_s}:/).present? }
+      facet_params.delete_at(index) unless index.nil?
+      facet_params << row_param_value
     end
     
-    #puts "testing....#{facet_name}"  
-    #puts "testing....#{facets_param}"  
+    facet_row_url = url_for(request_params.merge(:page => 1, :qf => facet_params))
     
-    
-    #  link_to row_label, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => '&facets[' + facet_name + ']=' + row_value.to_s  
-    res = ''
-    if activeClass
-      res = link_to "<label class=\"bold\">#{row_label}</label>".html_safe, request.query_parameters.merge(:page => 1, :facets => facets_param), :class => 'bold', 'data-value' => "&facets[#{facet_name}]=#{row_value.to_s}" 
+    if active_class
+      link_to "<label class=\"bold\">#{row_label}</label>".html_safe, facet_row_url, :class => 'bold', 'data-value' => "&qf[]=#{row_param_value}" 
     else
-      res = link_to "<label>#{row_label}</label>".html_safe, request.query_parameters.merge(:page => 1, :facets => facets_param), 'data-value' => "&facets[#{facet_name}]=#{row_value.to_s}" 
+      link_to "<label>#{row_label}</label>".html_safe, facet_row_url, 'data-value' => "&qf[]=#{row_param_value}" 
     end
-    res
   end
   
   def facet_row_selected?(facet_name, row_value)
+    !facet_row_index(facet_name, row_value).nil?
+  end
+  
+  def facet_row_index(facet_name, row_value)
     params = request.query_parameters
-    params[:facets].present? && [ params[:facets][facet_name] ].flatten.include?(row_value.to_s)
+    if params[:qf].present?
+      params[:qf].index { |fp| fp.match(/^#{facet_name.to_s}:#{row_value.to_s}/).present? }
+    else
+      nil
+    end
   end
   
   def facet_is_single_select?(facet_name)
@@ -42,19 +43,22 @@ module SearchHelper
   end
   
   def remove_facet_row_url_options(facet_name, row_value)
-    return request.query_parameters unless params.has_key?(:facets)
+    params = request.query_parameters.dup
+    index = facet_row_index(facet_name, row_value)
+    return params if index.nil?
     
-    facet_params = request.query_parameters[:facets].dup
+    facet_params = params.delete(:qf)
+    facet_params.delete_at(index)
+    params[:qf] = facet_params unless facet_params.blank?
     
-    facet_params[facet_name] = facet_params[facet_name].reject! { |row| row == row_value.to_s }
-    facet_params.delete(facet_name) unless facet_params[facet_name].present?
-    
-    request.query_parameters.merge({ :facets => facet_params })
+    params
   end
   
   def link_to_search_provider(id)
     url_options = request.parameters.merge(:page => 1, :controller => id)
-    url_options.delete(:facets)
+    url_options.delete(:qf)     # Facets differ between providers
+    url_options.delete(:field)  # Used to restrict search to one field on Contribution Solr index
+    url_options.delete(:zone)   # Trove zone
     link_to search_provider_name(id), url_options
   rescue ActionController::RoutingError
     nil
@@ -62,7 +66,7 @@ module SearchHelper
   
   def search_provider_href(id)
     url_options = request.parameters.merge(:page => 1, :controller => id)
-    url_options.delete(:facets)
+    url_options.delete(:qf)
     url_for(url_options)
   rescue ActionController::RoutingError
     nil

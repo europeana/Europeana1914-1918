@@ -13,31 +13,24 @@ class FederatedSearch::TroveController < FederatedSearchController
 protected
 
   def redirect_to_search
-    # Ensure zone is always specified
-    unless params[:facets] && params[:facets][:zone]
-      params[:facets] ||= {}
-      params[:facets][:zone] = "picture"
+    zone = extracted_facet_params[:zone]
+
+    # Validate zone:
+    # * is present
+    # * has only one value
+    # * is a known value
+    unless zone.present? && (zone.size == 1) && [ "article", "book", "collection", "map", "music", "picture" ].include?(zone.first)
+      facet_params = extracted_facet_params
+      facet_params[:zone] = "picture"
+      params[:qf] = compile_facet_params(facet_params)
       @redirect_required = true
     end
     
-    # Validate zone against permitted values
-    unless [ "article", "book", "collection", "map", "music", "picture" ].include?(params[:facets][:zone])
-      params[:facets][:zone] = "picture"
-      @redirect_required = true
+    if params[:provider] && params[:provider] != self.controller_name
+      params.delete(:zone)
     end
     
     super
-  end
-
-  def params_with_defaults
-    unless @params_with_defaults
-      super
-      @params_with_defaults.merge!({ 
-        :zone => params[:facets][:zone],
-        :facets => params[:facets].reject { |k, v| k == :zone }
-      })
-    end
-    @params_with_defaults
   end
 
   def authentication_params
@@ -48,16 +41,18 @@ protected
   def search_params
     search_params = { 
       :q => "subject(World War, 1914-1918) #{params[:q]}",
-      :zone => params_with_defaults[:zone],
+      :zone => extracted_facet_params[:zone].first,
       :encoding => "json",
       :n => params_with_defaults[:count],
       :s => ((params_with_defaults[:page] - 1) * params_with_defaults[:count]),
-      :facet => "all"
+      :facet => "format,availability,year,discipline"
     }.merge(authentication_params)
     
     
-    facet_params = params_with_defaults[:facets].collect do |name, criteria|
-      [ criteria ].flatten.collect { |criterion| criterion.to_query("l-#{name}") }
+    facet_params = extracted_facet_params.dup
+    facet_params.delete(:zone)
+    facet_params = facet_params.collect do |name, criteria|
+      criteria.collect { |criterion| criterion.to_query("l-#{name}") }
     end.flatten
     
     ([ search_params.to_query ] + facet_params).join("&")
@@ -170,7 +165,7 @@ private
   end
   
   def zone_results(response)
-    zone_results = response["response"]["zone"].select { |zone| zone["name"] == params_with_defaults[:zone] }.first
+    zone_results = response["response"]["zone"].select { |zone| zone["name"] == extracted_facet_params[:zone].first }.first
   end
   
 end

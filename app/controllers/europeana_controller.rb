@@ -30,7 +30,7 @@ class EuropeanaController < ApplicationController
         :page => (params[:page] || 1).to_i,
         :count => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
         :profile => 'facets',
-        :facets => params[:facets] 
+        :facets => extracted_facet_params
       }
       response = api_search(search_terms, query_params)
       @results = paginate_search_result_items(response, query_params)
@@ -213,7 +213,7 @@ private
   
   def redirect_to_search
     if params[:provider] && params[:provider] != self.controller_name
-      params.delete(:facets)
+      params.delete(:qf)
       params[:controller] = params[:provider]
       redirect_required = true
     end

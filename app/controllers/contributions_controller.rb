@@ -180,7 +180,7 @@ class ContributionsController < ApplicationController
     current_user.may_search_contributions!
     
     @count = per_page = [ (params[:count] || 48).to_i, 100 ].min
-    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => params[:facets], :field => params[:field] }
+    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => extracted_facet_params, :field => params[:field] }
     
     # Uncomment for minimal eager loading of associations to optimize performance
     # when search result partials are not pre-cached.
@@ -317,14 +317,17 @@ protected
   end
   
   def redirect_to_search
-    unless params[:qf].blank?
-      params.merge!(:q => params[:q] + " " + params[:qf])
-      params.delete(:qf)
-      redirect_required = true
-    end
+    # @todo Refine search results with an additional keyword, and replicate 
+    #   across all providers
+#    unless params[:qf].blank?
+#      params.merge!(:q => params[:q] + " " + params[:qf])
+#      params.delete(:qf)
+#      redirect_required = true
+#    end
     
     if params[:provider] && params[:provider] != self.controller_name
-      params.delete(:facets)
+      params.delete(:qf)
+      params.delete(:field)
       params[:controller] = params[:provider]
       redirect_required = true
     end

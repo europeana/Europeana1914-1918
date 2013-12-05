@@ -557,12 +557,12 @@ protected
   #
   def preserve_params_facets(provider, facets)
     cache_key = "search/facets/#{provider.to_s}"
-    unless fragment_exist?(cache_key) && params[:facets].present?
+    unless fragment_exist?(cache_key) && extracted_facet_params.present?
       return facets
     end
     
     cached_facets = YAML::load(read_fragment(cache_key))
-    params[:facets].each_pair do |param_facet_name, param_facet_fields|
+    extracted_facet_params.each_pair do |param_facet_name, param_facet_fields|
       if i = facets.index { |facet| facet["name"] == param_facet_name }
         [ param_facet_fields ].flatten.each do |param_field|
           unless facets[i]["fields"].find { |field| field["search"] == param_field }
@@ -583,6 +583,35 @@ protected
     end
     
     facets
+  end
+  
+  # @return [Hash<Array>] Hash of facet params, keyed by facet name
+  def extracted_facet_params
+    unless @extracted_facet_params.present?
+      facets = HashWithIndifferentAccess.new
+      if params[:qf].is_a?(Array)
+        params[:qf].each do |facet_row|
+          facet_row_parts = facet_row.match(/^([^:]+):(.+)$/)
+          unless facet_row_parts.nil?
+            facet_name, row_name = facet_row_parts[1], facet_row_parts[2]
+            facets[facet_name] ||= []
+            facets[facet_name] << row_name
+          end
+        end
+      end
+      @extracted_facet_params = facets
+    end
+    @extracted_facet_params
+  end
+  
+  # @param [Hash<Array>] Hash of facet params, keyed by facet name
+  # @return [Array<String>] Array of facet_name:row_name Strings
+  def compile_facet_params(facet_params)
+    facet_params.collect do |facet_name, facet_rows|
+      facet_rows.collect do |row_name|
+        "#{facet_name}:#{row_name}"
+      end
+    end.flatten
   end
 end
 
