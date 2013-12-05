@@ -23,7 +23,7 @@ protected
       :page => params_with_defaults[:page],
       "without[content_partner][]" => "Europeana",
       "or[subject]" => [ "Great War", "World War, 1914-1918" ],
-      :facets => "category,display_collection,creator,placename,year,decade,century,language,content_partner,rights,collection"
+      :facets => "category,creator,placename,year,content_partner,rights,collection"
     }
     
     params_with_defaults[:facets].each_pair do |name, value|
