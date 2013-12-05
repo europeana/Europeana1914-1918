@@ -97,46 +97,15 @@ EUSearchAjax = function(){
     	var newFacetParamString = '';
     
     	if(facetless){
-    		facetless = false;
+    		facetless = false; // we've just switched provider
     	}
     	else{
 	        container.find('#facets input:checked').each(function(i, ob){
-	        	        	
 	        	var urlFragment = $(ob).next('a').data('value');
-	        	
-	        	if(typeof(urlFragment) == 'undefined'){
-	        		return true; // continue...
+	        	if(typeof(urlFragment) != 'undefined'){
+	        		newFacetParamString += urlFragment;
 	        	}
-	        	
-	        	//if(urlFragment.indexOf(':')>0){
-	        	//	urlFragment = urlFragment.split(':')[0] + ':' + '"' + encodeURI(urlFragment.split(':')[1] + '"');
-	        	//}
-	
-	        	var facetName = urlFragment.split('=')[0];
-	        	var facetVal  = urlFragment.split('=')[1];
-	        	
-	        	// old way (better)
-	        	/*
-	        	if(typeof facetParams[facetName] == 'undefined'){
-	        		facetParams[facetName] = [];
-	        	}
-	        	facetParams[facetName].push(facetVal);
-	        	*/
-	        	
-	        	// new way (worse)
-	        	// newFacetParamString += facetName + '[]="' + facetVal + '"';
-	        	// richard's change - to test.
-	        	newFacetParamString += facetName + '[]=' + facetVal;
-	        });
-	       
-	        // old way
-	        /*
-	        $.each(facetParams, function(i, ob){
-	        	url += (i + "=" +  ob.join(',') );
-	        });
-	        */
-        
-	        // new way 
+	        });	       
 	        url += newFacetParamString;
     	}
     
@@ -147,7 +116,6 @@ EUSearchAjax = function(){
     // binds facet links to the doSearch function
     var bindFacetLinks = function(){
     	
-    	console.log("container.find('#facets ul li input')   = " + container.find('#facets ul li input').length);
     	container.find('#facets ul li input[type="checkbox"]').each(function(i, ob){
     		
             ob = $(ob);
@@ -160,17 +128,22 @@ EUSearchAjax = function(){
             		console.log('corrected cb');
             	}
             }
+            
     		ob.attr({
                 "name"  : "cb-" + i,
                 "id"    : "cb-" + i
             });
+    		
+    		// add "for" attribute to label and "remove" image - this for checkbox interoperability
             ob.next('a').find('label').attr('for', "cb-" + i).parent().next('a').find('img').attr('for', "cb-" + i);
     	});
     	
         
     	var refinements = container.find('#refine-search-form');
     	
-    	container.find('#facets ul li a img').add(container.find('#facets ul li input')).not("#newKeyword").click(function(e){
+    	container.find('#facets ul li a img').add(container.find('#facets ul li input')).not("#newKeyword").not('input[type="submit"]').click(function(e){
+    		
+    		//alert('input click');
     		
     		var cb = $(e.target);
     		
@@ -311,7 +284,8 @@ EUSearchAjax = function(){
             $.each(ob.fields, function(i, field){
                 
                 var facetOp     = facetOpTemplate.clone();
-                var urlFragment = "&facets[" + ob.name + "]=" + field.label;
+                //var urlFragment = "&facets[" + ob.name + "]=" + field.label;
+                var urlFragment = '&qf[]=' + ob.name + ':' + field.label;
                                                
                 facetOp.find(selFacetOpLink).attr({
                     "data-value"  : urlFragment,
@@ -374,10 +348,11 @@ EUSearchAjax = function(){
                 
 
         // open "Add Keyword"
-        
+        //alert('open add keyword');
         if(container.find('#refinements').css('display') == 'none'){
         	container.find('#facets li:first h3 a').click();
         }
+        //alert('opened add keyword');
 
 
     }; // end showRes
@@ -433,6 +408,7 @@ EUSearchAjax = function(){
         });
         
         container.find("#refine-search-form").unbind('submit').submit(function() {
+        	//alert('submit');
 	        try{	
 	        	var keyInput = $(this).find('#newKeyword');
 	        	var keyword  = keyInput.val();
