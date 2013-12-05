@@ -160,6 +160,7 @@ private
         { "search" => "map", "display" => "Map" },
         { "search" => "music", "display" => "Music" },
         { "search" => "picture", "display" => "Picture" },
+        { "search" => "newspaper", "display" => "Newspaper" },
       ]
     }
   end
