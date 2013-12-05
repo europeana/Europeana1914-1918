@@ -554,6 +554,7 @@ protected
   #
   # @param [String,Symbol] provider Provider identifier
   # @param [Array<Hash>] facets Facet data
+  # @todo Re-factor so this is not dependent on caching being enabled...
   #
   def preserve_params_facets(provider, facets)
     cache_key = "search/facets/#{provider.to_s}"

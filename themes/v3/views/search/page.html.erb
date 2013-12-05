@@ -27,6 +27,10 @@
              
         <ul id="facets">  
           
+          <%- unless @query.blank? && @facets.blank? -%>
+            <li><%= render :partial => '/search/filters', :locals => { :query => @query, :facets => @facets }%></li>
+          <%- end -%>
+          
           <li>
             <h3>
               <a class="facet-section icon-arrow-7"><%= t('views.contributions.search.facets.refine' ) %></a>
@@ -48,10 +52,9 @@
                   
           </li>
 
-
-
-                
-          <%= render :partial => '/search/facets', :object => @facets %>
+          <%- unless @facets.blank? -%>
+            <%= render :partial => '/search/facets', :object => @facets %>
+          <%- end -%>
           
         </ul>
           
