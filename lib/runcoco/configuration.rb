@@ -185,7 +185,7 @@ module RunCoCo
   
     def typecast!
       self[:max_upload_size] = self[:max_upload_size].to_i
-      self[:search_engine] = self[:search_engine].to_sym
+      self[:search_engine] = self[:search_engine].to_sym if self[:search_engine].respond_to?(:to_sym)
       [ :publish_contributions, :registration_required, 
         :contribution_approval_required, :uploadify, :banner_active ].each do |boolean|
         self[boolean] = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(self[boolean])
