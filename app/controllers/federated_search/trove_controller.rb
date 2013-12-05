@@ -21,7 +21,7 @@ protected
     # * is a known value
     unless zone.present? && (zone.size == 1) && [ "article", "book", "collection", "map", "music", "picture" ].include?(zone.first)
       facet_params = extracted_facet_params
-      facet_params[:zone] = "picture"
+      facet_params[:zone] = [ "picture" ]
       params[:qf] = compile_facet_params(facet_params)
       @redirect_required = true
     end
