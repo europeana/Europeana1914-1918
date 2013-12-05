@@ -170,7 +170,7 @@ EUSearchAjax = function(){
         
     	var refinements = container.find('#refine-search-form');
     	
-    	container.find('#facets ul li a img').add(container.find('#facets ul li input')).click(function(e){
+    	container.find('#facets ul li a img').add(container.find('#facets ul li input')).not("#newKeyword").click(function(e){
     		
     		var cb = $(e.target);
     		
@@ -290,7 +290,8 @@ EUSearchAjax = function(){
         EUSearch.resetOpenedFacets();
         var selected = EUSearch.findSelectedFacetOps(true);
         
-        container.find('#facets>li').not(":nth-child(1)").not(":nth-child(2)").remove(); // remove all but the "Add Keyword" refinement form and provider radios.
+        //container.find('#facets>li').not(":nth-child(1)").not(":nth-child(2)").remove(); // remove all but the "Add Keyword" refinement form and provider radios.
+        container.find('#facets>li').not(":nth-child(1)").remove(); // remove all but the "Add Keyword" refinement form
         
         // write facet dom
 
