@@ -57,7 +57,7 @@ protected
       edm_result = {
         "id" => item["id"],
         "title" => [ item["sourceResource"]["title"] ],
-        "guid" => show_digitalnz_path(item["id"]),
+        "guid" => show_digitalnz_url(item["id"]),
         "provider" => [ "DPLA" ],
         "dcCreator" => [ item["sourceResource"]["creator"] ],
         "edmPreview" => [ item["object"] ]

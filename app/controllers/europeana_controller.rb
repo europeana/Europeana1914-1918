@@ -155,6 +155,11 @@ private
         "profile" => query_options[:profile] + ",params"
       }
       
+      response["items"].each do |item|
+        guid_match = /http:\/\/www.europeana.eu\/portal\/record\/([^\/]+)\/([^\/]+)\.html/.match(item["guid"])
+        item["guid"] = show_europeana_url(:dataset_id => guid_match[1], :record_id => guid_match[2])
+      end
+      
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day) unless options[:facets].present?
     end
     

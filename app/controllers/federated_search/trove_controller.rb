@@ -79,7 +79,7 @@ protected
       edm_result = {
         "id" => result["id"],
         "title" => [ result["title"] ],
-        "guid" => show_trove_path(result["id"]),
+        "guid" => show_trove_url(result["id"]),
         "provider" => [ "Trove" ],
         "year" => [ result["issued"] ],
         "dcCreator" => result["contributor"]
