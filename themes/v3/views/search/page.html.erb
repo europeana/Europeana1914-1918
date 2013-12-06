@@ -27,11 +27,15 @@
              
         <ul id="facets">  
           
+          <script type="text/javascript">
+          	var filterSectionLabel = "<%= t('views.search.facets.matches_for' ) %>";
+          </script>
+          
           <%- unless @query.blank? && @facets.blank? -%>
-            <li><%= render :partial => '/search/filters', :locals => { :query => @query, :facets => @facets }%></li>
+            <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => @query, :facets => @facets }%></li>
           <%- end -%>
           
-          <li>
+          <li class="refinements-section">
             <h3>
               <a class="facet-section icon-arrow-7"><%= t('views.contributions.search.facets.refine' ) %></a>
             </h3>

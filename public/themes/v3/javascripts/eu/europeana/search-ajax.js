@@ -17,10 +17,13 @@ EUSearchAjax = function(){
     var container               = false;
     var itemTemplate            = false;
     var facetTemplate           = false;
-    var facetless               = false;
+    
+    var ajaxUrl                 = false;
     var resultServerUrl         = 'http://europeana.eu/portal';
     var searchUrl				= searchUrl ? searchUrl : '/europeana/search.json';
+    
     var defaultRows             = 6;
+    var facetless               = false;
     var pagination              = false;
     var paginationData          = typeof defPaginationData != 'undefined' ? defPaginationData : {};
     
@@ -28,16 +31,19 @@ EUSearchAjax = function(){
     var doSearch = function(startParam, query){	
     	showSpinner();
     	try{
-	    	var url = buildUrl(startParam, query);
+	    	ajaxUrl = buildUrl(startParam, query);
 	
-	        if(typeof url != 'undefined' && url.length){
+	    	//if(!confirm(ajaxUrl)){
+	    	//	return;
+	    	//}
+	        if(typeof ajaxUrl != 'undefined' && ajaxUrl.length){
 	        	
 	        	if(searchUrl.indexOf('file')==0){
 					getFake();
 	        	}
 	        	else{
 	                $.ajax({
-	                    "url" : url,
+	                    "url" : ajaxUrl,
 	                    "type" : "GET",
 	                    "crossDomain" : true,
 	                    "dataType" : "script",
@@ -51,6 +57,7 @@ EUSearchAjax = function(){
 	        }
     	}
     	catch(e){
+    		facetless = false;
         	hideSpinner();
     		console.log(e);
     	}
@@ -58,22 +65,12 @@ EUSearchAjax = function(){
 
     
     // build search param from url-fragment hrefs.  @startParam set to 1 if not specified
-    /**
-     * 
-     * used to be:
-     * 
-     * &facets[TYPE]=IMAGE,VIDEO
-     * 
-     * is now the weirder looking:
-     * 
-     * &facets[TYPE][]=IMAGE&facets[TYPE][]=VIDEO
-     */
     var buildUrl = function(startParam, query){
 
     	//return "http://localhost:3000/en/europeana/search.json?q=tank&profile=facets,params&callback=searchAjax.showRes&count=12&facets[TYPE][]=IMAGE&facets[TYPE][]=VIDEO&page=2"
     	console.log("buildUrl() @startParam= " + startParam + ", @query = " + query);
     	
-        var term = self.q.val();
+        var term = query ? query : self.q.val();
         if (!term) {
             return '';
         }
@@ -93,26 +90,78 @@ EUSearchAjax = function(){
     	url += '&page='  + (startParam ? Math.ceil(startParam / rows) : 1);
          
 
-    	var facetParams = {};
-    	var newFacetParamString = '';
-    
-    	if(facetless){
-    		facetless = false; // we've just switched provider
-    	}
-    	else{
-	        container.find('#facets input:checked').each(function(i, ob){
-	        	var urlFragment = $(ob).next('a').data('value');
-	        	if(typeof(urlFragment) != 'undefined'){
-	        		newFacetParamString += urlFragment;
-	        	}
-	        });	       
-	        url += newFacetParamString;
+    	if(!query){
+    		var facetParams = {};
+    		var newFacetParamString = '';
+    		
+    		if(!facetless){
+    			container.find('#facets input:checked').each(function(i, ob){
+    				var urlFragment = $(ob).next('a').data('value');
+    				if(typeof(urlFragment) != 'undefined'){
+    					newFacetParamString += urlFragment;
+    				}
+    			});	       
+    			url += newFacetParamString;
+    		}
     	}
     
 		console.log('final search url: ' + url);
 		return url;
     };
 
+    
+    var bindFilterLinks = function(){
+
+    	// remove all below
+    	
+       	container.find('ul.filters a').not('.remove-filter').each(function(i, ob){
+       		$(ob).click(function(e){
+       			e.preventDefault();
+       			var urlFragment = $(e.target).data('value');
+       			
+       			var cbs = $('#facets a[data-value]');
+       				
+       			$.each(cbs, function(j, cb){  // loop checkboxes
+       				cb        = $(cb);
+       				var input = cb.prev('input');
+       				if(input.prop('checked')){
+	       				cbVal           = cb.data('value');
+	       				var valIncluded = false;
+		       			$.each(urlFragment.split('&qf'), function(i, qf){  // loop fragments
+		       				if(qf.length){
+		       					if(cbVal == '&qf' + qf){
+	       	       					valIncluded = true;
+	       	       				}
+	       	       			}
+		       			});
+		       			if(!valIncluded){
+		       				input.prop('checked', false);
+		       			} 
+       				}
+       			});
+       			doSearch();
+       		});
+       		
+       	});
+       	
+       	// remove this
+    	container.find('ul.filters a.remove-filter').each(function(i, ob){
+       		$(ob).click(function(e){
+       			
+       			e.preventDefault();
+//       			var urlFragment = $(e.target).parent().attr('href');
+       			var urlFragment = $(e.target).parent().data('value');
+       			var cb = $('a[data-value="' + urlFragment + '"]');
+       			//alert(cb.length);
+       			cb = cb.prev('input')
+       			//alert(cb.length);
+       			
+       			cb.prop('checked', false);
+       			doSearch();
+       		});
+       	});
+    };
+    
     // binds facet links to the doSearch function
     var bindFacetLinks = function(){
     	
@@ -121,7 +170,8 @@ EUSearchAjax = function(){
             ob = $(ob);
             
             // address firefox caching of checked state following reload
-            
+            // is this working?
+            // load preset video facet url and add type text.  Reload a couple of times.
             if(ob.prop('checked') == true){
             	if(ob.attr('checked') != 'checked'){
             		ob.prop('checked', false);
@@ -139,12 +189,8 @@ EUSearchAjax = function(){
     	});
     	
         
-    	var refinements = container.find('#refine-search-form');
     	
-    	container.find('#facets ul li a img').add(container.find('#facets ul li input')).not("#newKeyword").not('input[type="submit"]').click(function(e){
-    		
-    		//alert('input click');
-    		
+    	var clickFn = function(e){
     		var cb = $(e.target);
     		
     		if(cb.attr("for")){
@@ -152,11 +198,19 @@ EUSearchAjax = function(){
                     e.preventDefault();
                     container.find('#facets #' + cb.attr("for")).click();
     			}
+    			else{
+    				alert("what's this???");
+    			}
     		}
     		else{
+    			//e.preventDefault();
+    			
+    			//cb.prop('checked', !cb.prop('checked'));
     			// build hidden input based on href of next link element (TODO - fix brittle design) - this keeps the facets intact when a refinement is submitted via the form
     			// question: couldn't we just ajaxify the refinement form???
     			
+    			/*
+    			var refinements = container.find('#refine-search-form');
     			var href = cb.next('a').attr('href');
     			if(cb.prop('checked')){
     				$('<input type="hidden" name="qf" value="' + href + '"/>').appendTo(refinements);
@@ -164,10 +218,17 @@ EUSearchAjax = function(){
     			else{
     				var toRemove =  refinements.find('input[value="' + href + '"]');
     				toRemove.remove();
-    			}
-    			doSearch();
+    			}*/
+    			setTimeout(function(){
+    				doSearch();
+    			}, 1);
+    			
+    			//return false;
     		}
-    	});
+    	}
+    	
+    	container.find('#facets ul li a.remove-facet img').click(clickFn);
+    	container.find('#facets ul li input').not("#newKeyword").not('input[type="submit"]').change(clickFn);
     };
 
 
@@ -185,7 +246,6 @@ EUSearchAjax = function(){
 
         var start = data.params.start ? data.params.start : 1;
 
-        // @richard - we need a start value.
         
         // write items to grid
                 
@@ -216,18 +276,7 @@ EUSearchAjax = function(){
             	$('.expired').remove();
             }
 
-            
-            
-            /*
-            item.find('a .ellipsis').prepend(
-                document.createTextNode(ob.title)
-            );
 
-            item.find('.thumb-frame a').attr({
-                "title": ob.title,
-                "target" : "_new"
-            });
-            */
             if(ob.edmPreview){
 	            item.find('img').attr(
 	                'src', ob.edmPreview[0]
@@ -252,8 +301,80 @@ EUSearchAjax = function(){
         container.find('.last-record')     .html(data.totalResults);
 
 
-        // facets
+        // filters
         
+		var url = ajaxUrl;		
+		var reg = /qf\[\]=[A-Z]*:[A-Z]*/g
+		var res = url.match(reg);
+
+		if(res){
+			
+	        if(!facetless){
+	        	var url       = ajaxUrl;
+	        	var reg       = /qf\[\]=[A-Z]*:[A-Z]*/g
+	        	var res       = url.match(reg);
+	        	
+	        	
+	        	if(res){
+	        		var elFilters = $('ul.filters');        	
+	        		if(elFilters.length){
+	        			elFilters.empty();
+	        		}
+	        		else{
+	        			$('<li class="filter-section"><h3>' + filterSectionLabel + '</h3><ul class="filters"></ul></li>').prependTo('#facets');        		
+	        		}
+
+	        		var cutOffFacetUrl = '';
+	        		var fullFacetUrl   = '';
+	        		
+	        		$.each(res, function(i, match){
+	        			fullFacetUrl += '&' + match;
+	        		});
+	        		
+	        		// reset matches
+	        		res = url.match(reg);
+	        		
+	        		$.each(res, function(i, match){
+	        			cutOffFacetUrl += '&' + match;
+	        			
+	        			var obMatch   = match.replace(/qf\[\]=/, '').split(':');
+	        			var label     = obMatch[0];
+	        			var value     = obMatch[1];
+
+	        			
+	        			var rmFilter = $(
+	        					'<li>'
+	        					+ '<a href="' + cutOffFacetUrl + '">' + label + ': ' + value + '</a>'
+	        					+ '<a class="remove-filter">'
+	        					+     '<img src="/images/style/icons/cancel.png" alt="Remove"/>'
+	        					+ '</a>'
+	        					+ '</li>').appendTo(elFilters);
+	        			rmFilter.find('.remove-filter').attr({
+	        				'XXXhref': '&' + match,
+	        				'data-value': '&' + match
+	        			});
+	        			
+	        			// TODO: this is stripping all but the current facet.  Need a better data-value.
+	        			
+	        			rmFilter.find('a:first').attr({
+	        				'XXXhref': '&' + match,
+	        				'data-value': '&' + match
+	        			});
+	        			
+
+	        		});
+	        	}
+	        	
+	            // filter actions 
+
+	            bindFilterLinks();
+	        }
+		}
+		
+        
+        // facets
+
+		
         var facetOrder = ['UGC','LANGUAGE','TYPE','YEAR','PROVIDER','DATA_PROVIDER','COUNTRY','RIGHTS','REUSABILITY'];
         data.facets.sort(function(a, b) {
 			var res = $.inArray(a.label, facetOrder) - $.inArray(b.label, facetOrder);
@@ -261,11 +382,12 @@ EUSearchAjax = function(){
 		});
         
         EUSearch.resetOpenedFacets();
+        
+        
         var selected = EUSearch.findSelectedFacetOps(true);
         
-        //container.find('#facets>li').not(":nth-child(1)").not(":nth-child(2)").remove(); // remove all but the "Add Keyword" refinement form and provider radios.
-        container.find('#facets>li').not(":nth-child(1)").remove(); // remove all but the "Add Keyword" refinement form
-        
+        container.find('#facets>li').not(".refinements-section").not(".filter-section").remove(); // remove all but the "Add Keyword" refinement form.
+                
         // write facet dom
 
         $(data.facets).each(function(i, ob){
@@ -278,8 +400,8 @@ EUSearchAjax = function(){
             
             facetOps.empty();
             
-            var selFacetOpLink = 'h4 a';
-            var selFacetLabel  = 'label';
+            var selFacetOpLink    = 'h4 a';
+            var selFacetLabel     = 'label';
             
             $.each(ob.fields, function(i, field){
                 
@@ -303,7 +425,7 @@ EUSearchAjax = function(){
                 }
                 else{
                 	facetOp.find('.fcount').remove();
-                	facetOp.find(selFacetLabel).addClass('bold');                	
+                	facetOp.find(selFacetLabel).addClass('bold');
                 }
                 
             });
@@ -323,7 +445,10 @@ EUSearchAjax = function(){
 	        heading);
         });
 
+        
         hideSpinner();
+        facetless = false;
+        
         
         // restore facet selection
     
@@ -335,9 +460,9 @@ EUSearchAjax = function(){
         //var opened = {};
 
         $(selected).each(function(i, ob){
-            var object = container.find('a[data-value="' + ob + '"]');
+            var object = container.find('#facets ul:not(.filters) a[data-value="' + ob + '"]');
             object.attr('href', '');
-            object.after(' <a title="' + labelRemove + '" href="" data-value=""><img src="/images/style/icons/cancel.png" alt="Remove"/></a>');
+            object.after(' <a class="remove-facet" title="' + labelRemove + '" href="" data-value=""><img src="/images/style/icons/cancel.png" alt="Remove"/></a>');
             EUSearch.openFacet(object);
             object.prev().prop('checked', true);
         });
@@ -484,6 +609,7 @@ EUSearchAjax = function(){
         setupMenus();
 
         bindFacetLinks();
+        bindFilterLinks();
         
         // do last
         pagination = new EuPagination($('.result-pagination'),

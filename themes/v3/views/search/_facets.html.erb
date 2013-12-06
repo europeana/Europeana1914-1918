@@ -31,7 +31,7 @@
                     <%= link_to_facet_row(facet['name'], row['search'], row['label'], true, true) %>
                     
                     
-                    <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove') } %>
+                    <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
                   <%- else -%>
                   
                     

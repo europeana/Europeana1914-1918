@@ -344,7 +344,7 @@ EUSearch = function() {
 					path : themePath + "javascripts/eu/europeana/",
 					callback : function(){
 						// make facet sections collapsible
-						$("#facets>li").each(function(i, ob){
+						$("#facets>li").not('.filter-section').each(function(i, ob){
 
 							var headingSelector		= "h3 a";
 							var headingSelected		= $(ob).find(headingSelector);
@@ -408,6 +408,7 @@ EUSearch = function() {
 											$('#result-tabs .tab-header.active').attr('href')
 										);										
 										
+										//if(false)
 										js.loader.loadScripts([{
 											
 											file : 'EuPagination.js',
