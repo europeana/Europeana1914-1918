@@ -112,33 +112,22 @@ EUSearchAjax = function(){
     
     var bindFilterLinks = function(){
 
-    	// remove all below
+    	// remove all below this
     	
        	container.find('ul.filters a').not('.remove-filter').each(function(i, ob){
        		$(ob).click(function(e){
        			e.preventDefault();
        			var urlFragment = $(e.target).data('value');
-       			
-       			var cbs = $('#facets a[data-value]');
-       				
-       			$.each(cbs, function(j, cb){  // loop checkboxes
-       				cb        = $(cb);
-       				var input = cb.prev('input');
-       				if(input.prop('checked')){
-	       				cbVal           = cb.data('value');
-	       				var valIncluded = false;
-		       			$.each(urlFragment.split('&qf'), function(i, qf){  // loop fragments
-		       				if(qf.length){
-		       					if(cbVal == '&qf' + qf){
-	       	       					valIncluded = true;
-	       	       				}
-	       	       			}
-		       			});
-		       			if(!valIncluded){
-		       				input.prop('checked', false);
-		       			} 
+       			var filterLinks = $('.filters a[data-value]').not('.remove-filter'); // get filter links with a data value more specific than the clicked one
+       			$.each(filterLinks, function(j, filterLink){
+       				filterLink = $(filterLink);
+       				var dVal = filterLink.data('value');       				
+       				if(dVal.indexOf(urlFragment) == 0 && dVal.length > urlFragment.length){
+       					var rmDataVal = filterLink.next('a').data('value');
+       					var toUncheck = $('#facets ul:not(.filters):not(.keywords) a[data-value="' + rmDataVal + '"]');
+	       				toUncheck.prev('input').prop('checked', false);
        				}
-       			});
+       			});       	
        			doSearch();
        		});
        		
@@ -146,17 +135,11 @@ EUSearchAjax = function(){
        	
        	// remove this
     	container.find('ul.filters a.remove-filter').each(function(i, ob){
-       		$(ob).click(function(e){
-       			
+       		$(ob).click(function(e){       			
        			e.preventDefault();
-//       			var urlFragment = $(e.target).parent().attr('href');
        			var urlFragment = $(e.target).parent().data('value');
        			var cb = $('a[data-value="' + urlFragment + '"]');
-       			//alert(cb.length);
-       			cb = cb.prev('input')
-       			//alert(cb.length);
-       			
-       			cb.prop('checked', false);
+       			cb.prev('input').prop('checked', false);
        			doSearch();
        		});
        	});
@@ -313,11 +296,17 @@ EUSearchAjax = function(){
 	        	var url       = ajaxUrl;
 	        	var reg       = /qf\[\]=[A-Z]*:[A-Z]*/g
 	        	var res       = url.match(reg);
-	        	
+	        	var ordered   = [];
 	        	
 	        	if(res){
-	        		var elFilters = $('ul.filters');        	
+	        		
+	        		var elFilters = $('ul.filters');
 	        		if(elFilters.length){
+	        			elFilters.find('li a.remove-filter').each(function(i, filter){
+	        				var f = $(filter).data('value');
+	        				console.log('ordered entry ' + f);
+	        				ordered.push(f);
+	        			});
 	        			elFilters.empty();
 	        		}
 	        		else{
@@ -327,16 +316,28 @@ EUSearchAjax = function(){
 	        		var cutOffFacetUrl = '';
 	        		var fullFacetUrl   = '';
 	        		
-	        		$.each(res, function(i, match){
-	        			fullFacetUrl += '&' + match;
-	        		});
 	        		
-	        		// reset matches
+	        		// reset matches and put them in order 
 	        		res = url.match(reg);
 	        		
-	        		$.each(res, function(i, match){
-	        			cutOffFacetUrl += '&' + match;
+	                res.sort(function(a, b) {
+	    				var score1 = $.inArray('&' + a, ordered);
+	    				var score2 = $.inArray('&' + b, ordered);
+
+	    				score1 = score1 < 0 ? res.length : score1;
+	    				score2 = score2 < 0 ? res.length : score2;
+
+	    				return score1 - score2;
+	        		});
+	        		
+	                
+	                $.each(res, function(i, match){
+	                	fullFacetUrl += '&' + match;
+	                });
+	        		
+	        		$.each(res, function(i, match){	        			
 	        			
+	        			cutOffFacetUrl += '&' + match;
 	        			var obMatch   = match.replace(/qf\[\]=/, '').split(':');
 	        			var label     = obMatch[0];
 	        			var value     = obMatch[1];
@@ -349,16 +350,13 @@ EUSearchAjax = function(){
 	        					+     '<img src="/images/style/icons/cancel.png" alt="Remove"/>'
 	        					+ '</a>'
 	        					+ '</li>').appendTo(elFilters);
+	        			
 	        			rmFilter.find('.remove-filter').attr({
-	        				'XXXhref': '&' + match,
 	        				'data-value': '&' + match
 	        			});
-	        			
-	        			// TODO: this is stripping all but the current facet.  Need a better data-value.
-	        			
+	        				        			
 	        			rmFilter.find('a:first').attr({
-	        				'XXXhref': '&' + match,
-	        				'data-value': '&' + match
+	        				'data-value':  cutOffFacetUrl
 	        			});
 	        			
 
@@ -370,7 +368,11 @@ EUSearchAjax = function(){
 	            bindFilterLinks();
 	        }
 		}
-		
+		else{
+			//alert('no res')
+			$('ul.filters').empty();
+			//$('li.filter-section').remove();			
+		}
         
         // facets
 

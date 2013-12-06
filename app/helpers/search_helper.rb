@@ -127,9 +127,6 @@ module SearchHelper
     end
     
     filter_links = []
-    print 'hello '
-    print query #tank
-    print filter_params
     
     filter_params.each_index do |index|
       link_params = request.query_parameters.dup
@@ -140,7 +137,8 @@ module SearchHelper
         link_text = query
         remove_url = url_for(link_params.merge(request.query_parameters[:qf].present? ? { :qf => request.query_parameters[:qf] } : {}))
         
-        data_val = "&q=#{query}"
+        data_val  = "&q=#{query}"
+        data_valX  = "&q=#{query}"
         data_index = index.to_s
       else
         facet_row_parts = filter_params[index][:value].match(/^([^:]+):(.+)$/)
@@ -159,7 +157,11 @@ module SearchHelper
         else
           link_params[:qf] ||= []
           link_params[:qf] << filter_param[:value]
+        
+          data_valX ||= ''
+          data_valX += '&' + filter_param[:name] + '=' + filter_param[:value]
         end
+        
       end
 
       filter_links << {
@@ -172,7 +174,8 @@ module SearchHelper
         },
         :data => {
           :val  => data_val,
-          :index => data_index
+          :index => data_index,
+          :valX => data_valX
         }
       }
     end
