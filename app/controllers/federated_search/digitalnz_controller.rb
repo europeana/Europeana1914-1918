@@ -54,7 +54,7 @@ protected
       edm_result = {
         "id" => item["id"],
         "title" => [ item["title"] ],
-        "guid" => show_digitalnz_path(item["id"]),
+        "guid" => show_digitalnz_url(item["id"]),
         "provider" => item["content_partner"],
         "dcCreator" => [ item["credit_creator"] ],
         "edmPreview" => [ item["thumbnail_url"] ]

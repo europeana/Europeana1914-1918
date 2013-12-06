@@ -25,7 +25,7 @@
                     <%- title = record['title'].blank? ? '' : record['title'].first -%>
                     
                     
-                    <a href="<%= local_edm_record_path(record['guid']) %>" title="<%= title %>">
+                    <a href="<%= record['guid'] %>" title="<%= title %>">
                       <%- if edm_preview = search_result_preview(record) -%>
                         <%= edm_preview %><br />
                       <%- end -%>

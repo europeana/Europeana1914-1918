@@ -68,22 +68,6 @@ module EuropeanaHelper
   end
   
   ##
-  # Gets the URL path to display an EDM record on this site.
-  #
-  # @param [String] record_guid guid field of the EDM record
-  # @return [String] Local URL path
-  #
-  def local_edm_record_path(record_guid)
-    if guid_match = /http:\/\/www.europeana.eu\/portal\/record\/([^\/]+)\/([^\/]+)\.html/.match(record_guid)
-      show_europeana_path(:dataset_id => guid_match[1], :record_id => guid_match[2])
-    elsif guid_match = /\/contributions\/(\d+)$/.match(record_guid)
-      contribution_path(:id => guid_match[1])
-    else
-      record_guid
-    end
-  end
-  
-  ##
   # Gets the oEmbed HTML from an EDM object's edm:isShownBy aggregation
   #
   # Responses from oEmbed providers are cached for 1 day.
@@ -93,7 +77,7 @@ module EuropeanaHelper
   #
   def oembed_html(edm_object)
     # Fake SoundCloud aggregation
-    # TODO: Remove this!
+    # @todo Remove this!
     if edm_object['type'] == 'SOUND'
       edm_object['aggregations'].first['edmIsShownBy'] = 'http://soundcloud.com/piggj/introduction-to-world-war-i'
     end
