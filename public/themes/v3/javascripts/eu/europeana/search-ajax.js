@@ -19,7 +19,6 @@ EUSearchAjax = function(){
     var facetTemplate           = false;
     
     var ajaxUrl                 = false;
-    var resultServerUrl         = 'http://europeana.eu/portal';
     var searchUrl				= searchUrl ? searchUrl : '/europeana/search.json';
     
     var defaultRows             = 6;
@@ -33,24 +32,14 @@ EUSearchAjax = function(){
     	try{
 	    	ajaxUrl = buildUrl(startParam, query);
 	
-	    	//if(!confirm(ajaxUrl)){
-	    	//	return;
-	    	//}
 	        if(typeof ajaxUrl != 'undefined' && ajaxUrl.length){
-	        	
-	        	if(searchUrl.indexOf('file')==0){
-					getFake();
-	        	}
-	        	else{
-	                $.ajax({
-	                    "url" : ajaxUrl,
-	                    "type" : "GET",
-	                    "crossDomain" : true,
-	                    "dataType" : "script",
-	                    "contentType" :	"application/x-www-form-urlencoded;charset=UTF-8"
-	                });
-	        	}
-	
+                $.ajax({
+                    "url" : ajaxUrl,
+                    "type" : "GET",
+                    "crossDomain" : true,
+                    "dataType" : "script",
+                    "contentType" :	"application/x-www-form-urlencoded;charset=UTF-8"
+                });
 	        }
 	        else{
 	            self.q.addClass('error-border');
@@ -67,10 +56,10 @@ EUSearchAjax = function(){
     // build search param from url-fragment hrefs.  @startParam set to 1 if not specified
     var buildUrl = function(startParam, query){
 
-    	//return "http://localhost:3000/en/europeana/search.json?q=tank&profile=facets,params&callback=searchAjax.showRes&count=12&facets[TYPE][]=IMAGE&facets[TYPE][]=VIDEO&page=2"
     	console.log("buildUrl() @startParam= " + startParam + ", @query = " + query);
-    	
         var term = query ? query : self.q.val();
+        
+        self.q.parent().attr('style', 'background-color:red');
         if (!term) {
             return '';
         }
@@ -149,19 +138,7 @@ EUSearchAjax = function(){
     var bindFacetLinks = function(){
     	
     	container.find('#facets ul li input[type="checkbox"]').each(function(i, ob){
-    		
-            ob = $(ob);
-            
-            // address firefox caching of checked state following reload
-            // is this working?
-            // load preset video facet url and add type text.  Reload a couple of times.
-            if(ob.prop('checked') == true){
-            	if(ob.attr('checked') != 'checked'){
-            		ob.prop('checked', false);
-            		console.log('corrected cb');
-            	}
-            }
-            
+            ob = $(ob);            
     		ob.attr({
                 "name"  : "cb-" + i,
                 "id"    : "cb-" + i
@@ -237,10 +214,11 @@ EUSearchAjax = function(){
             var item = itemTemplate.clone();
 
             item.find('a').attr({
-            	'href': resultServerUrl + '/record' + ob.id + '.html?start=' + start + '&query=',
+            	'href': '/record' + ob.id + '.html?start=' + start + '&query=',
             	'title': ob.title
             });
 
+            	
             item.find('.story-title').html(
             	document.createTextNode(ob.title)
             );
@@ -287,81 +265,86 @@ EUSearchAjax = function(){
         // filters
         
 		var url = ajaxUrl;		
-		var reg = /qf\[\]=[A-Z]*:[A-Z]*/g
+		//var reg = /qf\[\]=[A-Z]*:[A-Z]*/g;
+        var reg = /q(f\[\])?=[a-zA-Z]*(:[A-Z]*)?/g;
+
 		var res = url.match(reg);
 
 		if(res){
 			
 	        if(!facetless){
-	        	var url       = ajaxUrl;
-	        	var reg       = /qf\[\]=[A-Z]*:[A-Z]*/g
-	        	var res       = url.match(reg);
+	        	//var url       = ajaxUrl;
+	        	//var reg       = /qf\[\]=[A-Z]*:[A-Z]*/g
+	        	//var res       = url.match(reg);
 	        	var ordered   = [];
+	        		
+        		var elFilters = $('ul.filters');
+        		if(elFilters.length){
+        			elFilters.find('li a.remove-filter').each(function(i, filter){
+        				var f = $(filter).data('value');
+        				console.log('ordered entry ' + f);
+        				ordered.push(f);
+        			});
+        			
+        			console.log('ordered = ' + ordered);
+        			
+        			elFilters.empty();
+        		}
+        		else{
+        			$('<li class="filter-section"><h3>' + filterSectionLabel + '</h3><ul class="filters"></ul></li>').prependTo('#facets');        		
+        		}
+
+        		var cutOffFacetUrl = '';
+        		var fullFacetUrl   = '';
+	        		
+        		
+        		// reset matches and put them in order 
+        		//res = url.match(reg);
+        		
+                res.sort(function(a, b) {
+    				var score1 = $.inArray('&' + a, ordered);
+    				var score2 = $.inArray('&' + b, ordered);
+
+    				console.log('[1] ' + a + ' ' + score1 + ', ' + b + ' ' + score2);
+    				score1 = score1 < 0 ? res.length : score1;
+    				score2 = score2 < 0 ? res.length : score2;
+    				console.log('[2] ' + a + ' ' + score1 + ', ' + b + ' ' + score2);
+
+    				return score1 - score2;
+        		});
+        		
+                
+                // loop to build full url
+                
+                $.each(res, function(i, match){
+                	fullFacetUrl += '&' + match;
+                });
 	        	
-	        	if(res){
-	        		
-	        		var elFilters = $('ul.filters');
-	        		if(elFilters.length){
-	        			elFilters.find('li a.remove-filter').each(function(i, filter){
-	        				var f = $(filter).data('value');
-	        				console.log('ordered entry ' + f);
-	        				ordered.push(f);
-	        			});
-	        			elFilters.empty();
-	        		}
-	        		else{
-	        			$('<li class="filter-section"><h3>' + filterSectionLabel + '</h3><ul class="filters"></ul></li>').prependTo('#facets');        		
-	        		}
-
-	        		var cutOffFacetUrl = '';
-	        		var fullFacetUrl   = '';
-	        		
-	        		
-	        		// reset matches and put them in order 
-	        		res = url.match(reg);
-	        		
-	                res.sort(function(a, b) {
-	    				var score1 = $.inArray('&' + a, ordered);
-	    				var score2 = $.inArray('&' + b, ordered);
-
-	    				score1 = score1 < 0 ? res.length : score1;
-	    				score2 = score2 < 0 ? res.length : score2;
-
-	    				return score1 - score2;
-	        		});
-	        		
-	                
-	                $.each(res, function(i, match){
-	                	fullFacetUrl += '&' + match;
-	                });
-	        		
-	        		$.each(res, function(i, match){	        			
-	        			
-	        			cutOffFacetUrl += '&' + match;
-	        			var obMatch   = match.replace(/qf\[\]=/, '').split(':');
-	        			var label     = obMatch[0];
-	        			var value     = obMatch[1];
-
-	        			
-	        			var rmFilter = $(
-	        					'<li>'
-	        					+ '<a href="' + cutOffFacetUrl + '">' + label + ': ' + value + '</a>'
-	        					+ '<a class="remove-filter">'
-	        					+     '<img src="/images/style/icons/cancel.png" alt="Remove"/>'
-	        					+ '</a>'
-	        					+ '</li>').appendTo(elFilters);
-	        			
-	        			rmFilter.find('.remove-filter').attr({
-	        				'data-value': '&' + match
-	        			});
-	        				        			
-	        			rmFilter.find('a:first').attr({
-	        				'data-value':  cutOffFacetUrl
-	        			});
-	        			
-
-	        		});
-	        	}
+                // loop to rebuild ui
+                
+        		$.each(res, function(i, match){	        			
+        			
+        			cutOffFacetUrl += '&' + match;
+        			var obMatch   = match.indexOf('qf') == 0 ? match.replace(/qf\[\]=/, '').split(':') : match.split('=');
+        			var label     = obMatch[0];
+        			var value     = obMatch[1];
+        			
+        			var rmFilter = $(
+        					'<li>'
+        					+ '<a href="' + cutOffFacetUrl + '">' + (label == 'q' ? '' : label + ': ') + value + '</a>'
+        					+ '<a class="remove-filter">'
+        					+     '<img src="/images/style/icons/cancel.png" alt="Remove"/>'
+        					+ '</a>'
+        					+ '</li>').appendTo(elFilters);
+        			
+        			rmFilter.find('.remove-filter').attr({
+        				'data-value': '&' + match
+        			});
+        				        			
+        			rmFilter.find('a:first').attr({
+        				'data-value':  cutOffFacetUrl
+        			});
+        		});
 	        	
 	            // filter actions 
 
@@ -369,13 +352,10 @@ EUSearchAjax = function(){
 	        }
 		}
 		else{
-			//alert('no res')
 			$('ul.filters').empty();
-			//$('li.filter-section').remove();			
 		}
         
         // facets
-
 		
         var facetOrder = ['UGC','LANGUAGE','TYPE','YEAR','PROVIDER','DATA_PROVIDER','COUNTRY','RIGHTS','REUSABILITY'];
         data.facets.sort(function(a, b) {
@@ -459,8 +439,6 @@ EUSearchAjax = function(){
 
         var labelRemove = 'Remove';
         
-        //var opened = {};
-
         $(selected).each(function(i, ob){
             var object = container.find('#facets ul:not(.filters) a[data-value="' + ob + '"]');
             object.attr('href', '');
@@ -472,7 +450,10 @@ EUSearchAjax = function(){
         // facet actions 
 
         bindFacetLinks();
-                
+
+        // kill firefox cache
+        $(":checkbox").attr("autocomplete", "off");
+        
 
         // open "Add Keyword"
         //alert('open add keyword');
@@ -607,13 +588,6 @@ EUSearchAjax = function(){
         '</li>'
         );
 
-        setupQuery();
-        setupMenus();
-
-        bindFacetLinks();
-        bindFilterLinks();
-        
-        // do last
         pagination = new EuPagination($('.result-pagination'),
         	{
         		"ajax":true,
@@ -645,6 +619,12 @@ EUSearchAjax = function(){
         	}
         );
 
+        setupQuery();
+        setupMenus();
+
+        bindFacetLinks();
+        bindFilterLinks();
+        $(":checkbox").attr("autocomplete", "off");
     };
 
     

@@ -110,10 +110,7 @@ module PaginationHelper
           @template.text_field_tag("page", @collection.current_page, :size => 8) +
           @template.hidden_field_tag("count", @collection.per_page) +
           @template.hidden_field_tag("total_pages", @collection.total_pages) + 
-          @template.hidden_field_tag("q", "tanks")
-          
-          # @richard - I had to hard-code "tanks" in here - I would like the query in there please, otherwise it doesn't work with javascript turned off!          
-          
+          @template.hidden_field_tag("q", @template.request.params['q'])
         end,
         :class => "nav-numbers"
       )
