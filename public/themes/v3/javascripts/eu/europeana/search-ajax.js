@@ -19,7 +19,8 @@ EUSearchAjax = function(){
     var facetTemplate           = false;
     
     var ajaxUrl                 = false;
-    var searchUrl				= searchUrl ? searchUrl : '/europeana/search.json';
+    var searchUrlStem			= 'europeana';
+    var searchUrl				= '/search.json';
     
     var defaultRows             = 6;
     var facetless               = false;
@@ -69,9 +70,8 @@ EUSearchAjax = function(){
 		};
 
 		
-		var rows = parseInt(self.resMenu1.getActive() ? self.resMenu1.getActive() : defaultRows);
-    	
-		url = query ? searchUrl + param(searchUrl) + query : searchUrl + param(searchUrl) + 'q=' + term;        	
+		var rows = parseInt(self.resMenu1.getActive() ? self.resMenu1.getActive() : defaultRows);		
+		url = '/' + I18n.locale + '/' + searchUrlStem + searchUrl + (query ? query : '?q=' + term); 	
     	url += "&profile=facets,params&callback=searchAjax.showRes";
     	url += '&count='  + rows;
     	url += '&start=' + (startParam ? startParam : 1);
@@ -212,8 +212,10 @@ EUSearchAjax = function(){
         	
             var item = itemTemplate.clone();
 
+            var dataStem = $('');
+            
             item.find('a').attr({
-            	'href': '/record' + ob.id + '.html?start=' + start + '&query=',
+            	'href': '/' + I18n.locale + '/' + searchUrlStem + '/record' + (ob.id.indexOf('/')==0 ? ob.id : '/' + ob.id) + '.html?start=' + start + '&query=',
             	'title': ob.title
             });
 
@@ -631,9 +633,9 @@ EUSearchAjax = function(){
         "init" : function(data){ self.init();},
         "search" : function(startParam){ doSearch(startParam); },
         "showRes" : function(data){ showRes(data); },
-        "setSearchUrl" : function(urlStem){
-            searchUrl = '/' + urlStem + '/search.json';
-            facetless = true; // next call only will be without facets
+        "setSearchUrlStem" : function(urlStem){
+        	searchUrlStem = urlStem;
+            facetless  = true; // next call only will be without facets
         }
     };
     
