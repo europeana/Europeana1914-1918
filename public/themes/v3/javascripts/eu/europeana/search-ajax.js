@@ -59,7 +59,6 @@ EUSearchAjax = function(){
     	console.log("buildUrl() @startParam= " + startParam + ", @query = " + query);
         var term = query ? query : self.q.val();
         
-        self.q.parent().attr('style', 'background-color:red');
         if (!term) {
             return '';
         }
