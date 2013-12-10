@@ -5,45 +5,41 @@
 	script_files = [
 		'i18n.js',
 		'translations.js',
-		'/themes/v2/javascripts/com/jquery/jquery-1.7.1.min.js',
-		'/themes/v2/javascripts/js/loader.js',
-		'/themes/v2/javascripts/js/utils.js',
-		'/themes/v2/javascripts/js/console.js',
-		'/themes/v2/javascripts/com/google/analytics.js',
-		'/themes/v2/javascripts/com/scottjehl/ios-orientationchange-fix.js',
-		'/themes/v2/javascripts/eu/europeana/navigation-mobile.js',
+		'/themes/v2.1/javascripts/com/jquery/jquery-1.7.1.min.js',
+		'/themes/v2.1/javascripts/js/loader.js',
+		'/themes/v2.1/javascripts/js/utils.js',
+		'/themes/v2.1/javascripts/js/console.js',
+		'/themes/v2.1/javascripts/com/google/analytics.js',
+		'/themes/v2.1/javascripts/com/scottjehl/ios-orientationchange-fix.js',
+		'/themes/v2.1/javascripts/eu/europeana/navigation-mobile.js',
+		'/themes/v2.1/javascripts/com/jquery/plugins/jquery-ui-1.8.23.custom.min.js',
+		'/themes/v2.1/javascripts/eu/europeana/search.js'
 	]
 	remote_scripts = []
 
-	if @javascripts[:autocomplete]
-		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery-ui-1.8.23.custom.min.js'
-		)
-	end
-
 	if @javascripts[:carousel]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.touchwipe.1.1.2.js',
-			'/themes/v2/javascripts/com/gmtplusone/rcarousel.js'
+			'/themes/v2.1/javascripts/com/jquery/plugins/jquery.touchwipe.1.1.2.js',
+			'/themes/v2.1/javascripts/com/gmtplusone/rcarousel.js'
 		)
 	end
 
 	if @javascripts[:collapsible]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.collapsible.js',
-			'/themes/v2/javascripts/eu/europeana/fieldset-buttons.js'
+			'/themes/v2.1/javascripts/com/jquery/plugins/jquery.collapsible.js',
+			'/themes/v2.1/javascripts/eu/europeana/fieldset-buttons.js'
 		)
 	end
 
 	if @javascripts[:generate_password]
 		script_files.push(
-			'/themes/v2/javascripts/com/benjaminsterling/generate-password.js'
+			'/themes/v2.1/javascripts/com/benjaminsterling/generate-password.js'
 		)
 	end
 
 	if @javascripts[:gmap_display] || @javascripts[:gmap_locate]
 		script_files.push(
-		  '/themes/v2/javascripts/com/google/gmap-geo.v3.js'
+		  '/themes/v2.1/javascripts/com/google/gmap-geo.v3.js'
 	  )
 		remote_scripts.push(
 		  'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=' + configuration(:gmap_api_key).to_s
@@ -52,65 +48,65 @@
 
 	if @javascripts[:gmap_display]
 		script_files.push(
-			'/themes/v2/javascripts/com/google/gmap-display.js'
+			'/themes/v2.1/javascripts/com/google/gmap-display.js'
 		)
 	end
 
 	if @javascripts[:gmap_locate]
 		script_files.push(
-			'/themes/v2/javascripts/com/google/gmap-locate.js'
+			'/themes/v2.1/javascripts/com/google/gmap-locate.js'
 		)
 	end
 
 	if @javascripts[:images_loaded]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.imagesloaded.min.js'
+			'/themes/v2.1/javascripts/com/jquery/plugins/jquery.imagesloaded.min.js'
 		)
 	end
 
 	if @javascripts[:language_other]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/language-other.js'
+			'/themes/v2.1/javascripts/eu/europeana/language-other.js'
 		)
 	end
 
 	if @javascripts[:lightbox]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.prettyphoto.js'
+			'/themes/v2.1/javascripts/com/jquery/plugins/jquery.prettyphoto.js'
 		)
 	end
 
 	if @javascripts[:masonry]
 		script_files.push(
-			'/themes/v2/javascripts/com/jquery/plugins/jquery.masonry.min.js'
+			'/themes/v2.1/javascripts/com/jquery/plugins/jquery.masonry.min.js'
 		)
 	end
 
 	if @javascripts[:readmore]
 		script_files.push(
-			'/themes/v2/javascripts/com/gmtplusone/readmore.js'
+			'/themes/v2.1/javascripts/com/gmtplusone/readmore.js'
 		)
 	end
 
 	if @javascripts[:translate]
 		script_files.push(
-			'/themes/v2/javascripts/com/microsoft/translator.js',
-			'/themes/v2/javascripts/eu/europeana/translation-services.js'
+			'/themes/v2.1/javascripts/com/microsoft/translator.js',
+			'/themes/v2.1/javascripts/eu/europeana/translation-services.js'
 		)
 	end
 
 	if @javascripts[:truncate]
 		script_files.push(
-			'/themes/v2/javascripts/com/gmtplusone/truncate.js'
+			'/themes/v2.1/javascripts/com/gmtplusone/truncate.js'
 		)
 	end
 
 	if @javascripts[:uploadify] && configuration(:uploadify)
 		script_files.push(
 			#'json2',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
-			'/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
-			'/themes/v2/javascripts/eu/europeana/uploadify.js'
+			'/themes/v2.1/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js',
+			'/themes/v2.1/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js',
+			'/themes/v2.1/javascripts/eu/europeana/uploadify.js'
 		)
 	end
 
@@ -123,7 +119,7 @@
 	if @javascripts[:annotorious]
 		script_files.push(
 			'/themes/common/ait/annotorious/annotorious.dev.js',
-			'/themes/v2/javascripts/eu/europeana/annotorious.runcoco.js'
+			'/themes/v2.1/javascripts/eu/europeana/annotorious.runcoco.js'
 		)
 	end
 
@@ -132,70 +128,64 @@
 
 	if @javascripts[:admin_contributions]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/admin-contributions.js'
+			'/themes/v2.1/javascripts/eu/europeana/admin-contributions.js'
 		)
 	end
 
 
 	if @javascripts[:attachments_new]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/attachments-new.js',
-			'/themes/v2/javascripts/eu/europeana/upload-one-many.js'
+			'/themes/v2.1/javascripts/eu/europeana/attachments-new.js',
+			'/themes/v2.1/javascripts/eu/europeana/upload-one-many.js'
 		)
 	end
 
 	if @javascripts[:attachments_edit]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/attachments-edit.js',
-			'/themes/v2/javascripts/eu/europeana/upload-one-many.js'
+			'/themes/v2.1/javascripts/eu/europeana/attachments-edit.js',
+			'/themes/v2.1/javascripts/eu/europeana/upload-one-many.js'
 		)
 	end
 
 	if @javascripts[:collection_days]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/collection-days.js'
+			'/themes/v2.1/javascripts/eu/europeana/collection-days.js'
 		)
 	end
 
 	if @javascripts[:contributions_edit]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/contributions-edit.js'
+			'/themes/v2.1/javascripts/eu/europeana/contributions-edit.js'
 		)
 	end
 
 	if @javascripts[:contributions_new]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/contributions-new.js'
+			'/themes/v2.1/javascripts/eu/europeana/contributions-new.js'
 		)
 	end
 
 	if @javascripts[:contributions_show]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/contributions-show.js'
+			'/themes/v2.1/javascripts/eu/europeana/contributions-show.js'
 		)
 	end
 
 	if @javascripts[:explore]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/explore.js'
+			'/themes/v2.1/javascripts/eu/europeana/explore.js'
 		)
 	end
 
 	if @javascripts[:index]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/index.js'
+			'/themes/v2.1/javascripts/eu/europeana/index.js'
 		)
 	end
 
 	if @javascripts[:register]
 		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/register.js'
-		)
-	end
-
-	if @javascripts[:search]
-		script_files.push(
-			'/themes/v2/javascripts/eu/europeana/search.js'
+			'/themes/v2.1/javascripts/eu/europeana/register.js'
 		)
 	end
 

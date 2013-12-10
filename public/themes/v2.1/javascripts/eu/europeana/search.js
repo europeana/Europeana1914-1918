@@ -251,19 +251,27 @@
 		
 		var $container = jQuery('.stories');
 		
-		$container.imagesLoaded(function() {
-			$container.masonry({
-				itemSelector : 'li',
-				columnWidth : 1,
-				isFitWidth : true,
-				isAnimated : true
+		if ($container.length > 0) {
+			$container.imagesLoaded(function() {
+				$container.masonry({
+					itemSelector : 'li',
+					columnWidth : 1,
+					isFitWidth : true,
+					isAnimated : true
+				});
 			});
-		});
+		}
 		
 		jQuery('#q').autocomplete({
 			minLength : 3,
 			source : document.location.protocol + '//' + document.location.host + '/suggest.json',
-			select: function(event, ui) { var self = this; setTimeout( function() { jQuery(self).closest('form').submit(); }, 100 ); }
+			select: function(event, ui) { 
+				var self = this; 
+				setTimeout( function() { 
+					var field = jQuery('<input type="hidden" name="field" />').attr('value', ui.item.field);
+					jQuery(self).after(field).closest('form').submit(); 
+				}, 100 ); 
+			}
 		});
 		
 		resultTabs.init();

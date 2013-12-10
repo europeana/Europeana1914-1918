@@ -8,8 +8,6 @@
   
   <h2><%= @title %></h2>
     
-    <%= render :partial => '/shared/search_form', :locals => { :query => @query, :url => search_europeana_path } %>
-    
     <ul id="results-tabs">
       
       <%- if europeana_api_configured? -%>

@@ -1,6 +1,10 @@
 <%
   if local_assigns[:url].nil?
-    url = search_contributions_path 
+    url = if controller.controller_name == 'europeana'
+      search_europeana_path
+    else
+      search_contributions_path 
+    end
   end
   
   if local_assigns[:count].nil?
@@ -9,7 +13,7 @@
 %>
 <%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
   <%- if count -%>
-    <input type="hidden" name="count" value="<%= count %>">
+    <input type="hidden" name="count" value="<%= count %>" />
   <%- end -%>
   <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
   <input type='submit' class='button' value='<%= t('formtastic.actions.search.submit') %>' />

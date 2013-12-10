@@ -1,19 +1,15 @@
 <%
 stylesheets = {
-  'all' => [ '/themes/v2/stylesheets/all.css' ],
-  'screen' => [],
+  'all'     => [ '/themes/v2.1/stylesheets/all.css' ],
+  'screen'  => [ '/themes/v2.1/stylesheets/jquery-plugins/ui-flick/jquery-ui-1.8.23.custom.css' ],
 }
 
 if @javascripts[:lightbox]
-  stylesheets['screen'] << '/themes/v2/stylesheets/jquery-plugins/prettyphoto/prettyphoto.css'
-end
-
-if @javascripts[:autocomplete]
-  stylesheets['screen'] << '/themes/v2/stylesheets/jquery-plugins/ui-flick/jquery-ui-1.8.23.custom.css'
+  stylesheets['screen'] << '/themes/v2.1/stylesheets/jquery-plugins/prettyphoto/prettyphoto.css'
 end
 
 if @javascripts[:uploadify]
-  stylesheets['screen'] << '/themes/v2/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.css'
+  stylesheets['screen'] << '/themes/v2.1/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.css'
 end
 
 if @javascripts[:video] || @javascripts[:audio]
@@ -24,13 +20,13 @@ if @javascripts[:annotorious]
 	stylesheets['screen'] << '/themes/common/ait/annotorious/css/annotorious.css'
 end
 
-stylesheets['all'] << '/themes/v2/stylesheets/portlet.css'
+stylesheets['all'] << '/themes/v2.1/stylesheets/portlet.css'
 -%>
 <% stylesheets.each_pair do |media, sources| -%>
   <%- unless sources.blank? -%>
     <%= stylesheet_link_tag sources, :media => media, :cache => '/cache/stylesheets/' + asset_bundle_id(sources) %>
   <%- end -%>
 <% end -%>
-<!--[if lt IE 9]><%= stylesheet_link_tag '/themes/v2/stylesheets/ie.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2/stylesheets/ie.css') %><![endif]-->
-<noscript><%= stylesheet_link_tag '/themes/v2/stylesheets/noscript.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2/stylesheets/noscript.css') %></noscript>
-<script src='/themes/v2/javascripts/com/scottjehl/respond.min.js'></script>
+<!--[if lt IE 9]><%= stylesheet_link_tag '/themes/v2.1/stylesheets/ie.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2.1/stylesheets/ie.css') %><![endif]-->
+<noscript><%= stylesheet_link_tag '/themes/v2.1/stylesheets/noscript.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2.1/stylesheets/noscript.css') %></noscript>
+<script src='/themes/v2.1/javascripts/com/scottjehl/respond.min.js'></script>
