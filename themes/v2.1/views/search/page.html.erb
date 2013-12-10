@@ -1,0 +1,6 @@
+<%# v2 theme compatibility with search results displayed via shared templates. %>
+<% if controller.controller_name == 'contributions' -%>
+  <%= render :template => '/contributions/search' %>
+<% elsif controller.controller_name == 'europeana' -%>
+  <%= render :template => '/europeana/search' %>
+<% end -%>

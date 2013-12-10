@@ -1,0 +1,40 @@
+<div><b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results  )</div>
+  
+  <ul class="stories">
+    <%- for result in results -%>
+      <%- title = result['title'].blank? ? '' : result['title'].first.to_s -%>
+      <li>
+        <a href="<%= result['guid'] %>" title="<%= title %>">
+          <%- unless result['edmPreview'].blank? -%>
+            <img src="<%= result['edmPreview'].first %>" alt="" /><br />
+          <%- end -%>
+          <%- unless title.blank? -%>
+            <b><%= title %></b>
+          <%- end -%>
+          <%- unless result['dcCreator'].blank? -%>
+            <%- result['dcCreator'].each do |field_value| -%>
+              <br/><%= field_value %>
+            <%- end -%>
+          <%- end -%>
+          <%- unless result['year'].blank? -%>
+            <%- if result['year'].size == 2 -%>
+              <br/><%= result['year'].first %>&ndash;<%= result['year'].last %>
+            <%- else -%>
+              <%- result['year'].each do |field_value| -%>
+                <br/><%= field_value %>
+              <%- end -%>
+            <%- end -%>
+          <%- end -%>
+          <%- [ 'dataProvider', 'provider' ].each do |field_name| -%>
+            <%- unless result[field_name].blank? -%>
+              <%- result[field_name].each do |field_value| -%>
+                <br/><%= field_value %>
+              <%- end -%>
+            <%- end -%>
+          <%- end -%>
+        </a>
+      </li>
+    <%- end -%>
+  </ul>
+  
+<%= will_paginate results %>

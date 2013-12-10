@@ -1,0 +1,32 @@
+<%
+
+  @javascripts[:gmap_locate] = true
+  @javascripts[:language_other] = true
+  @javascripts[:collapsible] = true
+  @javascripts[:contributions_edit] = true
+  
+  @fieldset_class = 'collapsed'
+  if 'cataloguer' == current_user.role.name
+    @fieldset_class = 'collapsible'
+  end
+  
+  @title = t('views.contributions.story.step1')
+  
+%>
+<div class="section top">
+  
+  <h2><%= @title %></h2>
+  
+  <div class="action-links">
+    <ul>
+    </ul>
+  </div>
+    
+  <h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
+  <%= render :partial => 'form', :locals => { :contribution => @contribution } %>
+  
+  <% if @contribution.draft? -%>
+  <%= render :partial => 'progress', :locals => { :step => 1 } %>
+  <% end -%>
+
+</div>

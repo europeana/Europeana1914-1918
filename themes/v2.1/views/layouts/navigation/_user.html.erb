@@ -1,0 +1,24 @@
+<ul id="navigation-user" class="menu">
+  <%- if user_signed_in? -%>
+    <li class="username"><%= current_user.email %></li>
+  <%- end -%>
+  <li>  
+    <%= form_tag do %>
+      <%= select_tag 'dd_lang', options_for_select([ [ 'Select a language', '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }.sort { |a, b| a.first <=> b.first }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
+    <% end %>
+  </li>
+  <%- if current_user.role.name == 'guest' -%>
+    <li><a href="<%= page_path('users/sign-in') %>"><%= t('common.menus.main.sign_in') %></a></li>
+    <li><a href="<%= page_path('users/register') %>"><%= t('common.links.register') %></a></li>
+  <%- end -%>
+</ul>
+<% if user_signed_in? -%>
+  <ul id="navigation-user-menu" class="menu">
+    <li><%= link_to t('common.links.my_stories'), contributor_dashboard_path %></li>
+    <li><%= link_to t('common.links.my_account'), user_account_path %></li>
+    <%- if current_user.may_access_admin_area? -%>
+    <li><%= link_to t('layout.navigation.admin'), admin_root_path %></li>
+    <% end %>
+    <li><a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %></a></li>
+  </ul>
+<%- end -%>

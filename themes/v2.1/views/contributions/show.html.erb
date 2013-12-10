@@ -1,0 +1,279 @@
+<%
+
+  # @javascripts[:images_lazy_load] = true
+  @javascripts[:gmap_display] = true
+  @javascripts[:images_loaded] = true
+  @javascripts[:carousel] = true
+  @javascripts[:truncate] = true
+  @javascripts[:lightbox] = true
+  @javascripts[:translate] = true
+  @javascripts[:contributions_show] = true
+  @javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
+  @javascripts[:video] = @contribution.attachments.select(&:video?).present?
+  @javascripts[:annotorious] = @contribution.attachments.select(&:image?).present?
+  @title = contribution_title(@contribution)
+  
+%>
+
+<% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>
+  <div class="section action-links top">
+    <ul>
+    <% if current_user.may_edit_contribution?(@contribution) %>
+      <% if @contribution.draft? %>
+      <%= form_previous_step_link edit_contribution_path(@contribution) %>
+      <% end %>
+      <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
+    <% end %>
+    <%- if current_user.may_create_contribution_attachment?(@contribution) -%>
+      <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
+    <% end %>
+    <%- if current_user.may_withdraw_contribution?(@contribution) -%>
+      <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
+    <%- end -%>
+    <% if current_user.may_delete_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
+    <%- if current_user.may_view_contribution_status_log?(@contribution) -%>
+      <li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
+    <%- end -%>
+    <%- if current_user.may_approve_contributions? && @contribution.pending_approval? %>
+      <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
+    <%- end %>
+    <%- if current_user.may_reject_contributions? && @contribution.pending_approval? %>
+      <li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
+    <%- end %>
+    </ul>
+  </div>
+<% end -%>
+
+<div class="section top">
+  
+  <%- if referred_by_search? -%>
+    <%= link_to t('views.links.back-to-search'), :back %>
+  <%- end -%>
+  
+  <h2><%= contribution_title(@contribution) %></h2>
+  
+  <div class="one-half-right">
+    
+    <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+    
+    <ul id="thumbnail-counts"></ul>
+    
+    
+    <!-- <div id="banner"> -->
+    <%
+    #  render :partial => '/blog_posts/list',
+    #  :locals => {
+    #    :blog => 'europeana',
+    #    :category => 'story-banner',
+    #    :relocale => true,
+    #    :deblogger => true
+    #  }
+    %>
+    <!-- </div> -->
+    
+  </div>
+  
+  <div id="story-info" class="one-half-left">
+    
+    <dl id="story-metadata" class="metadata">
+    <%=
+      render :partial => '/metadata/display',
+      :locals => {
+      :show_title => false,
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :cataloguing => false, 
+        :contribution => true,
+        :name => [
+        'alternative',        
+        'description',
+        'creator_family_name',
+        'creator_given_name',
+        ],
+        :name_order => true
+      }
+      }
+    %>    
+    <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
+      <dt><b><%= contribution_field_title('contributor') %></b></dt>
+      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
+    <% end -%>
+    <%=
+      render :partial => '/metadata/display',
+      :locals => {
+      :show_title => false,
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :cataloguing => false, 
+        :contribution => true,
+        :name => [
+        'contributor_behalf'
+        ],
+        :name_order => true
+      }
+      }
+    %>    
+    <% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
+      <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
+      <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
+      <%=
+      render :partial => '/metadata/display',
+        :locals => {
+        :show_title => false,
+        :contribution => @contribution,
+        :metadata => @contribution.metadata,
+        :field_options => {
+          :cataloguing => false, 
+          :contribution => true,
+          :name => [
+          'character1_dob',
+          'character1_pob',
+          'character1_dod',
+          'character1_pod',
+          ],
+          :name_order => true
+        }
+        }
+      %>
+    <% end -%> 
+    <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
+      <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
+      <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
+      <%=
+        render :partial => '/metadata/display',
+        :locals => {
+          :show_title => false,
+          :contribution => @contribution,
+          :metadata => @contribution.metadata,
+          :field_options => {
+          :cataloguing => false, 
+          :contribution => true,
+          :name => [
+            'character2_dob',
+            'character2_pob',
+            'character2_dod',
+            'character2_pod',
+          ],
+          :name_order => true
+          }
+        }
+      %>
+    <% end -%>    
+    <%=
+      render :partial => '/metadata/display',
+      :locals => {
+      :show_title => false,
+      :contribution => @contribution,
+      :metadata => @contribution.metadata,
+      :field_options => {
+        :cataloguing => false, 
+        :contribution => true,
+        :name => [
+        
+        'subject',
+        'summary',
+        
+        'date_from', # use this field to summarize the date fields
+        'date_to', # do we need to display this field if date_from takes care of all possibilities?
+        
+        'lang',
+        'lang_other',
+        'keywords',
+        'theatres',
+        'forces',
+        
+        #'content',
+        #'author',
+        #'page_number',
+        #'page_total',
+        #'notes',
+        #'object_side',
+        #'cover_image',
+        #'license',
+        #'attachment_description',
+        
+        # need these to be available for google map
+        # they are output as input type="hidden"
+        'location_map',
+        'location_placename',
+        'location_zoom'
+        ],
+        :name_order => true
+      }
+      }
+    %>    
+    <% if current_user.may_catalogue_contributions? -%>
+      <%=
+      render :partial => '/metadata/display',
+        :locals => {
+          :show_title => false,
+          :contribution => @contribution,
+          :metadata => @contribution.metadata,
+          :field_options => {
+          :cataloguing => true, 
+          :contribution => true,
+          :name => [
+            'ticket',
+            #'cataloguer', # this is the old cataloguer field (see story 074)
+            ],
+          :name_order => true
+          }
+        }
+      %>
+      <dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
+      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>  
+      <%=
+      render :partial => '/metadata/display',
+        :locals => {
+        :show_title => false,
+        :contribution => @contribution,
+        :metadata => @contribution.metadata,
+        :field_options => {
+          :cataloguing => true, 
+        :contribution => true,
+          :name => [
+            'file_type',
+            'source',
+            'format', # this can also be considered the medium
+            'collection_day',
+            'editor_pick_text',
+            'editor_pick_sig',
+            'editor_pick',
+            'date',
+            ],
+          :name_order => true
+        }
+        }
+      %>
+      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
+      <dd><%= l @contribution.created_at, :format => :short %></dd>
+    <% end -%>
+    </dl>
+    
+    <%- if @contribution.contributor.picture.present? -%>
+      <%
+        people = {
+          :contributor => @contribution.contact.full_name,
+          :principal =>   @contribution.metadata.fields['contributor_behalf'],
+          :character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
+          :character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
+        } 
+      %>
+      <div id="avatar" class="responsive-box">
+        <%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
+        <%- if people[:contributor].present? -%>
+          <%= people[:contributor] %>
+          <%#= people[:principal] %> 
+          <% if people[:character1].present? || people[:character2].present? -%>
+            <%= t('views.contributions.show.shared-this-story') %>
+            <%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
+          <%- end -%>
+        <%- end -%>
+      </div>
+    <%- end -%>
+    
+  </div>
+  
+</div>
