@@ -75,7 +75,7 @@ namespace :cache do
         puts "Clearing cached rendered search results...\n"
       end
       I18n.available_locales.each do |locale|
-        [ "v2", "v3" ].each do |theme|
+        [ "v2", "v2.1", "v3" ].each do |theme|
           fragment_pattern = "^views/#{theme}/#{locale}/search/result/"
           fragment_pattern << "#{provider}/" unless provider.blank?
           ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
