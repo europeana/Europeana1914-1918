@@ -1,14 +1,41 @@
-<%# v2 theme compatibility with search results displayed via shared templates. %>
-<% if controller.controller_name == 'contributions' -%>
-  <%= render :partial => '/contributions/search_results', :locals => { 
-    :contributions => contributions,
-    :query => query,
-    :term => term
-  } %>
-<% elsif controller.controller_name == 'europeana' -%>
-  <%= render :partial => '/contributions/search_results', :locals => { 
-    :results => results,
-    :query => query,
-    :term => term
-  } %>
-<% end -%>
+<div><b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results  )</div>
+  
+  <ul class="stories">
+    <%- for result in results -%>
+      <%- cache search_result_fragment_key(result), :expires_in => (@contribution ? nil : 1.day) do -%>
+        <%- record = search_result_to_edm(result) -%>
+        <%- title = record['title'].blank? ? '' : record['title'].first -%>
+        <li>
+          <a href="<%= record['guid'] %>" title="<%= title %>">
+            <%- if edm_preview = search_result_preview(record) -%>
+              <%= edm_preview %><br />
+            <%- end -%>
+            <%- unless title.blank? -%>
+              <b class="story-title"><%= title %></b>
+            <%- end -%>
+            <%- unless record['dcCreator'].blank? -%>
+              <br/><span class="story-creator"><%= record['dcCreator'].first %></span>
+            <%- end -%>
+            <%- unless record['year'].blank? -%>
+              <%- if record['year'].size == 2 -%>
+                <br/><%= record['year'].first %>&ndash;<%= record['year'].last %>
+              <%- else -%>
+                <%- record['year'].each do |field_value| -%>
+                  <br/><%= field_value %>
+                <%- end -%>
+              <%- end -%>
+            <%- end -%>
+            <%- [ 'dctermsAlternative', 'dataProvider', 'provider' ].each do |field_name| -%>
+              <%- unless record[field_name].blank? -%>
+                <%- record[field_name].each do |field_value| -%>
+                  <br/><span class="story-provider"><%= field_value %></span>
+                <%- end -%>
+              <%- end -%>
+            <%- end -%>
+          </a>
+        </li>
+      <%- end %>
+    <%- end -%>
+  </ul>
+  
+<%= will_paginate results %>

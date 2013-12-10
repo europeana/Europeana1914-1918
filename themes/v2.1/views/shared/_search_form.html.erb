@@ -1,10 +1,6 @@
 <%
   if local_assigns[:url].nil?
-    url = if controller.controller_name == 'europeana'
-      search_europeana_path
-    else
-      search_contributions_path 
-    end
+    url = search_contributions_path
   end
   
   if local_assigns[:count].nil?

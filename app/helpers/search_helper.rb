@@ -77,6 +77,14 @@ module SearchHelper
     t(provider, :scope => "views.search.providers", :default => provider)
   end
   
+  def search_provider_stem(id)
+    id.split("/").last
+  end
+  
+  def current_search_provider_stem
+    controller.controller_name
+  end
+  
   def search_result_id(result)
     if result.respond_to?(:id)
       result.id
