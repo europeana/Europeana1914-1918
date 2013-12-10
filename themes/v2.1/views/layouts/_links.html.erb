@@ -16,6 +16,10 @@ if @javascripts[:video] || @javascripts[:audio]
   stylesheets['screen'] << '/themes/common/mediaelement/mediaelementplayer.css'
 end
 
+if @stylesheets[:item]
+	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/item.css"
+end
+
 if @javascripts[:annotorious]
 	stylesheets['screen'] << '/themes/common/ait/annotorious/css/annotorious.css'
 end
