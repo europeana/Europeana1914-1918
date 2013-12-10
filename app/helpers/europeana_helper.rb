@@ -76,13 +76,7 @@ module EuropeanaHelper
   # @return [String] HTML for the oEmbed resource
   #
   def oembed_html(edm_object)
-    # Fake SoundCloud aggregation
-    # @todo Remove this!
-    if edm_object['type'] == 'SOUND'
-      edm_object['aggregations'].first['edmIsShownBy'] = 'http://soundcloud.com/piggj/introduction-to-world-war-i'
-    end
-    
-    if edm_object['aggregations'] && url = edm_object['aggregations'].first['edmIsShownBy']
+    if edm_object['aggregations'] && (url = edm_object['aggregations'].first['edmIsShownBy'])
     
       cache_key = "oembed/response/" + Digest::MD5.hexdigest(url)
       if controller.fragment_exist?(cache_key)
