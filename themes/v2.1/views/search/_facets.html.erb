@@ -19,8 +19,8 @@
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
                       <strong><%= row["label"] %></strong>
                     <%- else -%>
-                      <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
-                      <%= link_to_facet_row("qf[]", "#{facet['name']}:#{row['search']}", row["label"], false) %>
+                      <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
+                      <%= link_to_facet_row(facet['name'], row['search'], row["label"], false) %>
                     <%- end -%>
                   <%- else -%>
                   
