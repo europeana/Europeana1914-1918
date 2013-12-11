@@ -61,6 +61,11 @@ class FederatedSearchController < ApplicationController
     end
   end
   
+  def explore
+    params[:q] = params[:term]
+    search
+  end
+  
   def show
     response  = get_record_from_api
     @record   = edm_record_from_response(response)

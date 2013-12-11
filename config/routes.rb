@@ -79,10 +79,13 @@ RunCoCo::Application.routes.draw do
     # Federated searches
     match 'canadiana/search' => 'federated_search/canadiana#search', :as => 'search_canadiana', :via => :get
     match 'digitalnz/search' => 'federated_search/digitalnz#search', :as => 'search_digitalnz', :via => :get
+    match 'digitalnz/explore/:field_name/:term' => 'federated_search/digitalnz#explore', :as => 'explore_digitalnz', :via => :get
     match 'digitalnz/record/:id' => 'federated_search/digitalnz#show', :as => 'show_digitalnz', :via => :get
     match 'dpla/search' => 'federated_search/dpla#search', :as => 'search_dpla', :via => :get
+    match 'dpla/explore/:field_name/:term' => 'federated_search/dpla#explore', :as => 'explore_dpla', :via => :get
     match 'dpla/record/:id' => 'federated_search/dpla#show', :as => 'show_dpla', :via => :get
     match 'trove/search' => 'federated_search/trove#search', :as => 'search_trove', :via => :get
+    match 'trove/explore/:field_name/:term' => 'federated_search/digitalnz#explore', :as => 'explore_trove', :via => :get
     match 'trove/record/:id' => 'federated_search/trove#show', :as => 'show_trove', :via => :get
 
     # Public usage statistics
