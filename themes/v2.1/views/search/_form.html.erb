@@ -1,5 +1,8 @@
 <%
-  if local_assigns[:url].nil?
+  case controller.controller_name
+  when 'europeana', 'digitalnz', 'dpla', 'trove'
+    url = send(:"search_#{controller.controller_name}_path")
+  else
     url = search_contributions_path
   end
   
