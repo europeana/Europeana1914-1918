@@ -64,10 +64,10 @@ protected
     response["docs"].each do |item|
       edm_result = {
         "id" => item["id"],
-        "title" => [ item["sourceResource"]["title"] ],
-        "guid" => show_digitalnz_url(item["id"]),
+        "title" => [ item["sourceResource"]["title"] ].flatten,
+        "guid" => show_dpla_url(item["id"]),
         "provider" => [ "DPLA" ],
-        "dcCreator" => [ item["sourceResource"]["creator"] ],
+        "dcCreator" => [ item["sourceResource"]["creator"] ].flatten,
         "edmPreview" => [ item["object"] ]
       }
       
