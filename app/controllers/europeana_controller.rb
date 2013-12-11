@@ -138,7 +138,7 @@ private
       
       # Add facet data required for view
       response["facets"].each do |facet|
-        facet["label"] = facet["name"]
+        facet["label"] = t("views.search.facets.common." + facet["name"].downcase, :default => ("views.search.facets.europeana." + facet['name']).to_sym)
         facet["fields"].each do |field|
           field["search"] = field["label"]
         end

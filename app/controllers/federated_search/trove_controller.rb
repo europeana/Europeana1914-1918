@@ -4,6 +4,10 @@
 # @see http://trove.nla.gov.au/general/api-technical
 #
 class FederatedSearch::TroveController < FederatedSearchController
+  FACETS_I18N = {
+    "zone" => "type",
+    "format" => "format"
+  }
   self.api_url = "http://api.trove.nla.gov.au/result"
   
   def record_url
@@ -101,7 +105,7 @@ protected
     ([ zone_facet ] + zone_results(response)["facets"]["facet"]).collect { |facet|
       {
         "name" => facet["name"],
-        "label" => facet["displayname"],
+        "label" => t("views.search.facets.trove." + facet["name"], :default => [ ( "views.search.facets.common." + (FACETS_I18N[facet["name"]] || facet["name"]) ).to_sym, facet["displayname"] ]),
         "fields" => facet["term"].collect { |row|
           {
             "label" => row["display"],

@@ -4,6 +4,14 @@
 # @see http://dp.la/info/developers/
 #
 class FederatedSearch::DplaController < FederatedSearchController
+  FACETS_I18N = {
+    "sourceResource.subject.name"   => "subject",
+    "sourceResource.spatial.name"   => "location",
+    "provider.name"                 => "provider",
+    "sourceResource.language.name"  => "language",
+    "sourceResource.type"           => "type"
+  }
+
   self.api_url = "http://api.dp.la/v2/items"
   
   def record_url
@@ -77,7 +85,7 @@ protected
     response["facets"].collect do |facet_name, facet_data|
       facet = {
         "name" => facet_name,
-        "label" => facet_name
+        "label" => t(FACETS_I18N[facet_name], :scope => 'views.search.facets.common'),
       }
       facet["fields"] = case facet_data["_type"]
       when "terms"
