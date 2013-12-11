@@ -85,7 +85,7 @@ RunCoCo::Application.routes.draw do
     match 'dpla/explore/:field_name/:term' => 'federated_search/dpla#explore', :as => 'explore_dpla', :via => :get
     match 'dpla/record/:id' => 'federated_search/dpla#show', :as => 'show_dpla', :via => :get
     match 'trove/search' => 'federated_search/trove#search', :as => 'search_trove', :via => :get
-    match 'trove/explore/:field_name/:term' => 'federated_search/digitalnz#explore', :as => 'explore_trove', :via => :get
+    match 'trove/explore/:field_name/:term' => 'federated_search/trove#explore', :as => 'explore_trove', :via => :get
     match 'trove/record/:id' => 'federated_search/trove#show', :as => 'show_trove', :via => :get
 
     # Public usage statistics

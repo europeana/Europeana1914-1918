@@ -102,7 +102,12 @@ protected
   end
   
   def facets_from_response(response)
-    ([ zone_facet ] + zone_results(response)["facets"]["facet"]).collect { |facet|
+    results = zone_results(response)
+    facets = [ zone_facet ]
+    if results["facets"] && results["facets"]["facet"]
+      facets = facets + results["facets"]["facet"]
+    end
+    facets.collect { |facet|
       {
         "name" => facet["name"],
         "label" => t("views.search.facets.trove." + facet["name"], :default => [ ( "views.search.facets.common." + (FACETS_I18N[facet["name"]] || facet["name"]) ).to_sym, facet["displayname"] ]),
