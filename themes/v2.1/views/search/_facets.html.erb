@@ -1,3 +1,4 @@
+<% form_tag({}, { :method => :get }) do %>
 <ul id="facets">
   <%- if search_filters_present? -%>
     <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets } %></li>
@@ -15,18 +16,18 @@
                 <h4>
                   <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
                     <%- if facet_row_selected?(facet["name"], row["search"]) -%>
-                      <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"], true %>
+                      <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
                       <strong><%= row["label"] %></strong>
                     <%- else -%>
                       <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
-                      <%= link_to_facet_row(facet["name"], row["search"], row["label"], false) %>
+                      <%= link_to_facet_row("qf[]", "#{facet['name']}:#{row['search']}", row["label"], false) %>
                     <%- end -%>
                   <%- else -%>
                   
                     <%# checkboxes -%>
                   
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
-                      <%= check_box_tag "facets[#{facet['name']}][]", row['search'], true %>
+                      <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
                       
                       <!-- to replace strong tag -->
                       
@@ -37,7 +38,7 @@
                     <%- else -%>
                     
                       
-                      <%= check_box_tag "facets[#{facet['name']}][]", row['search'] %>
+                      <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
                       <%= link_to_facet_row(facet['name'], row['search'], row['label']) %> (<%= row['count'] %>)
                       
                       
@@ -52,5 +53,7 @@
       <%- end -%>
     
     <%- end -%>
+    <li><%= submit_tag t('actions.submit'), :name => nil %></li>
   <%- end -%>
 </ul>
+<%- end -%>
