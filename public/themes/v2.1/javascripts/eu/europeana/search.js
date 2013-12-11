@@ -61,7 +61,6 @@
 			
 			var action_url =
 					RunCoCo.relativeUrlRoot +
-					'/' + I18n.currentLocale() +
 					jQuery(active_tab_id).attr('data-search-action');
 			
 			jQuery('#search').attr('action', action_url );
