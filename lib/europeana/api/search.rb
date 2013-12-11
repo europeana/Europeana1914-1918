@@ -81,7 +81,7 @@ module Europeana
         if facets
           facets.each_pair do |name, criteria|
             [ criteria ].flatten.each do |criterion|
-              uri.query = uri.query + "&qf[]=" + CGI::escape(name) + ":" + CGI::escape(criterion.add_quote_marks)
+              uri.query = uri.query + "&qf=" + CGI::escape(name) + ":" + CGI::escape(criterion.add_quote_marks)
             end
           end
         end
