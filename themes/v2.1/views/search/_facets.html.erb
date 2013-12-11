@@ -1,0 +1,56 @@
+<ul id="facets">
+  <%- if search_filters_present? -%>
+    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets } %></li>
+  <%- end -%>
+  <%- unless facets.blank? -%>
+    <%- for facet in facets -%>
+    
+      <%- if facet['fields'].present? -%>
+      
+        <li>
+          <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
+          <ul>
+            <%- for row in facet['fields'] -%>
+              <li>
+                <h4>
+                  <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
+                    <%- if facet_row_selected?(facet["name"], row["search"]) -%>
+                      <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"], true %>
+                      <strong><%= row["label"] %></strong>
+                    <%- else -%>
+                      <%= radio_button_tag "facets[#{facet["name"]}][]", row["search"] %>
+                      <%= link_to_facet_row(facet["name"], row["search"], row["label"], false) %>
+                    <%- end -%>
+                  <%- else -%>
+                  
+                    <%# checkboxes -%>
+                  
+                    <%- if facet_row_selected?(facet['name'], row['search']) -%>
+                      <%= check_box_tag "facets[#{facet['name']}][]", row['search'], true %>
+                      
+                      <!-- to replace strong tag -->
+                      
+                      <%= link_to_facet_row(facet['name'], row['search'], row['label'], true, true) %>
+                      
+                      
+                      <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
+                    <%- else -%>
+                    
+                      
+                      <%= check_box_tag "facets[#{facet['name']}][]", row['search'] %>
+                      <%= link_to_facet_row(facet['name'], row['search'], row['label']) %> (<%= row['count'] %>)
+                      
+                      
+                    <%- end -%>
+                  <%- end -%>
+                </h4>
+              </li>
+            <%- end -%>
+          </ul>
+        </li>
+      
+      <%- end -%>
+    
+    <%- end -%>
+  <%- end -%>
+</ul>

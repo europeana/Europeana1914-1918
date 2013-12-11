@@ -25,18 +25,23 @@
             <% if @results.size == 0 -%>
               <p><%= t('views.contributions.search.no_matches') %></p>
             <% else -%>
-              <%=
-              render :partial => '/search/results',
-                :locals => {
-                  :results => @results,
-                  :query => @query,
-                  :term => @term
-                }
-              %>
+              <div id="results-facets">
+                <%= render :partial => '/search/facets', :object => @facets, :locals => { :query => @query } %>
+              </div>
+              <div id="results-items">
+                <%=
+                render :partial => '/search/results',
+                  :locals => {
+                    :results => @results,
+                    :query => @query,
+                    :term => @term
+                  }
+                %>
+              </div>
             <% end -%>
           <%- end -%>
-        </div>
-      <%- end -%>
+      </div>
+    <%- end -%>
       
     </div>
   
