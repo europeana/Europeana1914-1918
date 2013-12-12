@@ -482,13 +482,23 @@ a.button:hover {
 	border-left: 1px solid #808080;
 }
 
+#results-items {
+	float: right;
+	width: 66%;
+}
+
 #results ul {
 	list-style: none;
 	margin: 1em 0;
 	padding: 3px 0 0 3px;
 }
 
-#results li {
+/*
+Andy - fixing broken merge - use both names until we figure out what it's using.
+*/
+
+#results  li,
+#results-items li {
 	float: left;
 	width: 170px;
 	margin: 0 21px 21px 0;
@@ -503,50 +513,89 @@ a.button:hover {
 	box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
 }
 
+/*
+Andy - fixing broken merge - use both names until we figure out what it's using.
+*/
+
+#results-items li a,
 #results li a {
 	display: block;
 	text-align: center;
 	margin-bottom: 17px;
 }
 
+/*
+Andy - fixing broken merge - use both names until we figure out what it's using.
+*/
+
+#results-items li img,
 #results li img {
 	max-width: 100%;
 }
+	
+#results-facets {
+	float: left;
+	width: 33%;
+}
+
+#results-facets li {
+	margin: 0;
+	padding: 0;
+	line-height: 120%;
+	font-size: 90%;
+}
+
+#results-facets > ul > li > h3 {
+	margin-bottom: 0;
+}
+
+#results-facets li label {
+	display: inline;
+}
+
+#results-facets ul ul {
+	margin-top: 0;
+}
+
+#results-facets ul ul h4 {
+	margin: 0.5em 0;
+}
+	
 
 
 /**
  *	results-tabs
  */
 
-	#results-tabs {
-		position: relative;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		z-index: 100;
-	}
+#results-tabs {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	z-index: 100;
+}
 
-	#results-tabs li {
-		display: inline;
-	}
+#results-tabs li {
+	display: inline;
+}
 
-	#results-tabs a {
-		display: inline-block;
-		padding: 2px 7px;
-	}
+#results-tabs a {
+	display: inline-block;
+	padding: 2px 7px;
+}
 
-	#results-tabs a.active {
-		color: #000;
-		font-weight: bold;
-		border: 1px solid #808080;
-		border-bottom: 1px solid #fff;
-		margin-bottom: -1px;
-	}
+#results-tabs a.active {
+	color: #000;
+	font-weight: bold;
+	border: 1px solid #808080;
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+}
 
-	#results-1914,
-	#results-europeana {
-		display: none;
-	}
+#results-1914,
+#results-europeana {
+	display: none;
+}
 
 
 /**
@@ -613,6 +662,7 @@ a.button:hover {
 	width: 20%;
 	-webkit-appearance: none;
 }
+
 
 
 /**
@@ -1871,7 +1921,7 @@ a.button:hover {
 		margin-top: 1em;
 	}
 
-	#results ul {
+	#results-items ul {
 		margin: 1em auto;
 	}
 
@@ -1993,7 +2043,7 @@ a.button:hover {
 
 
 
-.google-analytics-statistics {
+.usage-statistics {
 	float: left;
 	width: 30%;
 	background-color: #EEEEEE;

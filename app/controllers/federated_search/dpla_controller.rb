@@ -4,6 +4,14 @@
 # @see http://dp.la/info/developers/
 #
 class FederatedSearch::DplaController < FederatedSearchController
+  FACETS_I18N = {
+    "sourceResource.subject.name"   => "subject",
+    "sourceResource.spatial.name"   => "location",
+    "provider.name"                 => "provider",
+    "sourceResource.language.name"  => "language",
+    "sourceResource.type"           => "type"
+  }
+
   self.api_url = "http://api.dp.la/v2/items"
   
   def record_url
@@ -56,10 +64,10 @@ protected
     response["docs"].each do |item|
       edm_result = {
         "id" => item["id"],
-        "title" => [ item["sourceResource"]["title"] ],
-        "guid" => show_digitalnz_url(item["id"]),
+        "title" => [ item["sourceResource"]["title"] ].flatten,
+        "guid" => show_dpla_url(item["id"]),
         "provider" => [ "DPLA" ],
-        "dcCreator" => [ item["sourceResource"]["creator"] ],
+        "dcCreator" => [ item["sourceResource"]["creator"] ].flatten,
         "edmPreview" => [ item["object"] ]
       }
       
@@ -77,7 +85,7 @@ protected
     response["facets"].collect do |facet_name, facet_data|
       facet = {
         "name" => facet_name,
-        "label" => facet_name
+        "label" => t(FACETS_I18N[facet_name], :scope => 'views.search.facets.common'),
       }
       facet["fields"] = case facet_data["_type"]
       when "terms"
@@ -113,15 +121,17 @@ protected
     
     edm["proxies"] = [ {
       "dcCreator"     => { "def" => record["sourceResource"]["creator"] },
-      "dcDate"        => { "def" => [ record["sourceResource"]["date"]["displayDate"] ] },
-      "dcDescription" => { "def" => record["sourceResource"]["description"] },
+      "dcDate"        => record["sourceResource"]["date"].present? ? 
+        { "def" => [ record["sourceResource"]["date"]["displayDate"] ] } :
+        nil,
+      "dcDescription" => { "def" => [ record["sourceResource"]["description"] ] },
       "dcExtent"      => { "def" => [ record["sourceResource"]["extent"] ] },
       "dcFormat"      => { "def" => [ record["sourceResource"]["format"] ] },
       "dcIdentifier"  => { "def" => [ record["id"] ] },
       "dcLanguage"    => record["sourceResource"]["language"].present? ? 
         { "def" => record["sourceResource"]["language"].collect { |language| language["name"] } } :
         nil,
-      "dcPublisher"   => { "def" => record["sourceResource"]["publisher"] },
+      "dcPublisher"   => { "def" => [ record["sourceResource"]["publisher"] ] },
       "dcRights"      => { "def" => [ record["sourceResource"]["rights"] ] },
       "dcSubject"     => record["sourceResource"]["subject"].present? ? 
         { "def" => record["sourceResource"]["subject"].collect { |subject| subject["name"] } }
@@ -138,14 +148,18 @@ protected
     } ]
     
     if record["sourceResource"]["spatial"].present?
-      if record["sourceResource"]["spatial"]["coordinates"].present?
-        lat, lng = record["sourceResource"]["spatial"]["coordinates"].split(",")
-        edm["places"] = [ {
-          "latitude" => lat.strip,
-          "longitude" => lng.strip
-        } ]
+      edm["places"] = []
+      edm["aggregations"].first["edmCountry"] = []
+      [ record["sourceResource"]["spatial"] ].flatten.each do |spatial|
+        if spatial["coordinates"].present?
+          lat, lng = spatial["coordinates"].split(",")
+          edm["places"] << {
+            "latitude" => lat.strip,
+            "longitude" => lng.strip
+          }
+        end
+        edm["aggregations"].first["edmCountry"] << spatial["country"]
       end
-      edm["aggregations"]["edmCountry"] = record["sourceResource"]["spatial"]["country"]
     end
     
     edm

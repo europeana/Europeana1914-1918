@@ -120,10 +120,18 @@ module SearchHelper
     end
   end
   
+  def search_filters_present?
+    params[:q].present? || params[:qf].present? || (params[:field].present? && params[:term].present?)
+  end
+  
   # @param [String] query The text query searched for
   # @param [Array<Hash>] facets Array of all facets available to this view
   def links_for_selected_filters(query, facets)
     filter_params = []
+    
+    if params[:term]
+      filter_params << { :name => "term", :value => params[:term] }
+    end
     
     request.query_string.split('&').each do |param|
       param_parts = param.split('=')
@@ -136,19 +144,22 @@ module SearchHelper
     
     filter_links = []
     
-    filter_params.each_index do |index|
+    filter_params.each_with_index do |filter_param, index|
       link_params = request.query_parameters.dup
       link_params.delete(:q)
       link_params.delete(:qf)
       
-      if filter_params[index][:name] == "q"
+      if filter_param[:name] == "term"
+        link_text = CGI::unescape(filter_param[:value])
+        remove_url = url_for(link_params.merge(:action => :search, :term => nil, :field => nil))
+      elsif filter_param[:name] == "q"
         link_text = query
         remove_url = url_for(link_params.merge(request.query_parameters[:qf].present? ? { :qf => request.query_parameters[:qf] } : {}))
         
         data_val_remove  = "&q=#{query}"
         data_val  = "&q=#{query}"
       else
-        facet_row_parts = filter_params[index][:value].match(/^([^:]+):(.+)$/)
+        facet_row_parts = filter_param[:value].match(/^([^:]+):(.+)$/)
         facet_name, field_value = facet_row_parts[1], facet_row_parts[2]
         facet = facets.find { |facet| facet["name"].to_s == facet_name }
         link_text = facet["label"] + ": " + facet["fields"].find { |field| field["search"].to_s == field_value }["label"]
@@ -158,15 +169,15 @@ module SearchHelper
         data_index = index.to_s
       end
       
-      filter_params[0..index].each do |filter_param|
-        if filter_param[:name] == "q"
-          link_params[:q] = filter_param[:value]
+      filter_params[0..index].each do |previous_param|
+        if previous_param[:name] == "q"
+          link_params[:q] = previous_param[:value]
         else
           link_params[:qf] ||= []
-          link_params[:qf] << filter_param[:value]
+          link_params[:qf] << previous_param[:value]
         
           data_val ||= ''
-          data_val += '&' + filter_param[:name] + '=' + filter_param[:value]
+          data_val += '&' + previous_param[:name] + '=' + previous_param[:value]
         end
         
       end

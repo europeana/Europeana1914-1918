@@ -70,7 +70,7 @@ protected
     response["search"]["facets"].collect { |facet_name, facet_data|
       {
         "name" => facet_name,
-        "label" => facet_name,
+        "label" => t("views.search.facets.common.#{facet_name}", :default => :"views.search.facets.digitalnz.#{facet_name}"),
         "fields" => facet_data.collect { |field_name, field_count|
           {
             "label" => field_name,

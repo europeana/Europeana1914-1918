@@ -4,7 +4,7 @@
 class FederatedSearchController < ApplicationController
   before_filter :load_api_key
   before_filter :configured?
-  before_filter :redirect_to_search, :only => :search
+  before_filter :redirect_to_search, :only => [ :search, :explore ]
   
   class ResponseError < RuntimeError
     attr_reader :response
@@ -59,6 +59,11 @@ class FederatedSearchController < ApplicationController
       format.html { render :template => 'search/page' }
       format.json { render :json => format_results_as_json }
     end
+  end
+  
+  def explore
+    params[:q] = CGI::unescape(params[:term])
+    search
   end
   
   def show

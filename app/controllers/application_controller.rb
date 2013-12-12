@@ -257,6 +257,14 @@ protected
     if params[:theme]
       session[:theme] = params[:theme]
     elsif session[:theme].nil?
+      session[:theme] = 'v2.1'
+    end
+    
+    if session[:theme] == 'v2'
+      session[:theme] = 'v2.1'
+    end
+    
+    if session[:theme] == 'v2.0'
       session[:theme] = 'v2'
     end
     

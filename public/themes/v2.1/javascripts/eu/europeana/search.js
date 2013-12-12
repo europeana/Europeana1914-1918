@@ -61,7 +61,6 @@
 			
 			var action_url =
 					RunCoCo.relativeUrlRoot +
-					'/' + I18n.currentLocale() +
 					jQuery(active_tab_id).attr('data-search-action');
 			
 			jQuery('#search').attr('action', action_url );
@@ -132,6 +131,7 @@
 			
 			self.toggleTabs( active_tab_id );
 			self.toggleLoaderDiv( active_tab_id );
+			toggleAutoComplete( active_tab_id );
 			self.setFormAction( active_tab_id );
 			self.retrieveContent( active_tab_id );
 			
@@ -246,6 +246,23 @@
 		
 	};
 	
+	function toggleAutoComplete ( active_tab_id ) {
+		
+		jQuery('#q').autocomplete({
+			minLength : 3,
+			source : document.location.protocol + '//' + document.location.host + '/suggest.json',
+			select: function(event, ui) { 
+				var self = this; 
+				setTimeout( function() { 
+					var field = jQuery('<input type="hidden" name="field" />').attr('value', ui.item.field);
+					jQuery(self).after(field).closest('form').submit(); 
+				}, 100 ); 
+			},
+			disabled: ( ( typeof(active_tab_id) !== 'undefined') && (active_tab_id != '#results-tab-contributions') )
+		});
+	
+	}
+	
 	
 	function init() {
 		
@@ -262,19 +279,8 @@
 			});
 		}
 		
-		jQuery('#q').autocomplete({
-			minLength : 3,
-			source : document.location.protocol + '//' + document.location.host + '/suggest.json',
-			select: function(event, ui) { 
-				var self = this; 
-				setTimeout( function() { 
-					var field = jQuery('<input type="hidden" name="field" />').attr('value', ui.item.field);
-					jQuery(self).after(field).closest('form').submit(); 
-				}, 100 ); 
-			}
-		});
-		
 		resultTabs.init();
+		toggleAutoComplete();
 		
 	}
 	

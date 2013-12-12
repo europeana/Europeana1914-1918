@@ -79,4 +79,69 @@ module MetadataFieldsHelper
     
     t(key)
   end
+  
+  def cc_rights(cc_url)
+    cc_rights = {
+      "http://creativecommons.org/publicdomain/zero" => {
+        "text" => "CC0",
+        "icon" => "icon-cczero"
+      },
+      "http://creativecommons.org/licenses/by/" => {
+        "text" => "CC BY",
+        "icon" => "icon-cc icon-by"
+      },
+      "http://creativecommons.org/licenses/by-sa/" => {
+        "text" => "CC BY-SA",
+        "icon" => "icon-cc icon-by icon-sa"
+      },
+      "http://creativecommons.org/licenses/by-nc-sa/" => {
+        "text" => "CC BY-NC-SA",
+        "icon" => "icon-cc icon-by icon-nceu icon-sa"
+      },
+      "http://creativecommons.org/licenses/by-nd/" => {
+        "text" => "CC BY-ND",
+        "icon" => "icon-cc icon-by icon-nd"
+      },
+      "http://creativecommons.org/licenses/by-nc/" => {
+        "text" => "CC BY-NC",
+        "icon" => "icon-cc icon-by icon-nceu"
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/" => {
+        "text" => "CC BY-NC-ND",
+        "icon" => "icon-cc icon-by icon-nceu icon-nd"
+      },
+      "http://creativecommons.org/publicdomain/mark/1.0/" => {
+        "text" => "Public Domain marked",
+        "icon" => "icon-pd"
+      },
+      "http://www.europeana.eu/rights/rr-f/" => {
+        "text" => "Free Access - Rights Reserved",
+        "icon" => "icon-copyright"
+      },
+      "http://www.europeana.eu/rights/rr-p/" => {
+        "text" => "Paid Access - Rights Reserved",
+        "icon" => "icon-copyright"
+      },
+      "http://www.europeana.eu/rights/rr-r/" => {
+        "text" => "Restricted Access - Rights Reserved",
+        "icon" => "icon-copyright"
+      },
+      "http://www.europeana.eu/rights/test-orphan-work-test/" => {
+        "text" => "Orphan Work",
+        "icon" => "icon-unknown"
+      },
+      "http://www.europeana.eu/rights/unknown/" => {
+        "text" => "Unknown copyright status",
+        "icon" => "icon-unknown"
+      }
+    }
+    if cc_rights.has_key?(cc_url)
+      cc_rights[cc_url]
+    else
+      { 
+        "text" => "Unknown copyright status",
+        "icon" => "icon-unknown"
+      }
+    end
+  end
 end

@@ -2,13 +2,21 @@
 
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= t 'views.statistics.index.ugc_heading' %></h2>
+  
+  <div class="usage-statistics">
+    <ul>
+      <li><%= t('activerecord.models.contribution').pluralize %>: <%= number_with_delimiter(Contribution.published.count, :delimiter => ',') %></li>
+      <li><%= t('activerecord.models.attachment').pluralize %>: <%= number_with_delimiter(Attachment.published.count, :delimiter => ',') %></li>
+    </ul>
+  </div>
   
   <%- if @results.present? -%>
-  
+    
+    <h2><%= @title %></h2>
     <%- @results.each_pair do |interval, statistics| -%>
     
-      <div class="google-analytics-statistics">
+      <div class="usage-statistics">
         <h3><%= t interval, :scope => "views.statistics.index.intervals" %></h3>
         <ul>
           <li><%= t 'views.statistics.index.metrics.visits' %>: <%= number_with_delimiter(statistics[:visits]) %></li>
