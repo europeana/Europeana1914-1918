@@ -17,7 +17,7 @@
 
 		<h4><%= (docTitle).inner_html %></h4>
 	
-		<span class="hide-on-phones">
+		<span xclass="hide-on-phones">
 			<%= raw((doc).to_html ) %>
 		</span>
 
@@ -31,14 +31,13 @@
                 <input type="submit" value="<%= t('formtastic.actions.search.submit') %>"/>
               </span>
             </div>
-			
-			
+            
 		<% end %>
 		
 		
-		
 		<div class='index-call-to-action'>
-			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'><%= t('common.links.add-your-story') %></a><a href='<%= page_path('explore') %>' class='button'><%= t('common.links.explore-the-stories') %></a>
+			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'><%= t('common.links.add-your-story') %></a>
+			<a href='<%= page_path('explore') %>' class='button'><%= t('common.links.explore-the-stories') %></a>			
 		</div>
 
 		

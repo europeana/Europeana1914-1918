@@ -11,15 +11,48 @@
 <div class='section top'>
 	
 	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
+	<% docTitle = doc/'h3' %>
+	<% (doc/'h3').remove %>
 	
+
+<%
+=begin %>
 	<h2><%= (doc/'h3').inner_html %></h2>
-	
+
 	<div id='index-featured' class='carousel two-thirds-right'>	
 		<ul>
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
 		<div class='carousel-overlay'></div>	
 	</div>
+<%
+=end %>
+
+
+	<div id='index-featured'>
+		<%= render :partial => 'carousel_text_overlay',
+			:locals => { 
+				:doc => doc/'p:nth(1)',
+				:docTitle => docTitle,
+				:mobile => false			
+			}
+		 %>	
+		<img src="themes/v2.1/images/splash-img.jpg" />
+	</div>
+
+	<%= render :partial => 'carousel_text_overlay',
+		:locals => { 
+			:doc => doc,
+			:docTitle => docTitle,
+			:mobile => true
+		}
+	 %>
+
+
+
+
+<%
+=begin %>
 	
 	<div id='index-introduction' class='one-third-left'>
 		<% (doc/'h3').remove %>
@@ -28,7 +61,12 @@
 			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'><%= t('common.links.add-your-story') %></a><a href='<%= page_path('explore') %>' class='button'><%= t('common.links.explore-the-stories') %></a>
 		</div>		
 	</div>
-	
+
+<%
+=end %>
+
+
+		
 </div>
 
 
