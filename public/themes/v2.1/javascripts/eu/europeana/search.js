@@ -6,7 +6,8 @@
 	
 	'use strict';
 	
-	
+
+	/*
 	var resultTabs = {
 		
 		$tabs : jQuery('#results-tabs a'),
@@ -190,14 +191,13 @@
 				var $elm = jQuery(this),
 						content_id = $elm.attr('data-content-id');
 				
-				/**
-				 *	modify tab links
-				 *	data-url : url to be used for ajax load of tab content
-				 *	data-loaded : string indicating whether or not section content has been loaded
-				 *	active css class : indicating whether or not the tab is active
-				 *	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
-				 *	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
-				 */
+				 //	modify tab links
+				 //	data-url : url to be used for ajax load of tab content
+				 //	data-loaded : string indicating whether or not section content has been loaded
+				 //	active css class : indicating whether or not the tab is active
+				 //	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
+				 //	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
+				 
 					
 					if ( $elm.attr('href').substring(0,1) !== '#' ) {
 						
@@ -214,10 +214,8 @@
 						
 					}
 				
-				
-				/**
-				 *	add loading div to empty tabs
-				 */
+				 // add loading div to empty tabs
+				 
 					
 					if ( jQuery( content_id ).html() === '' ) {
 						
@@ -226,9 +224,8 @@
 					}
 				
 				
-				/**
-				 *	add onclick handler
-				 */
+				 //	add onclick handler
+				 
 					
 					$elm.on( 'click', { self : self }, self.handleResultsTabClick );
 				
@@ -236,15 +233,14 @@
 			
 		},
 		
-		
 		init : function() {
-			
 			this.setupTabs();
 			this.tabListener();
 			
 		}
-		
 	};
+	 
+	*/
 	
 	function toggleAutoComplete ( active_tab_id ) {
 		
@@ -265,21 +261,115 @@
 	
 	
 	function init() {
+
+		
+		var cbAccordionTabs = function(){
+			var tabs = new AccordionTabs($('#results-tabs'),
+				function(index, id, hash){
+					/// TODO
+				},
+				activeHash
+			);
+			
+		};
+
+		var cbCollapsibility = function(){
+			var headingSelector		= "h3 a";			
+			$("#facets>li").not('.filter-section').each(function(i, ob){
+				var headingSelected		= $(ob).find(headingSelector);
+				var fnGetItems			= function(){
+					// function to get the tabbable items
+					if( headingSelected.parent().next('ul').hasClass('keywords')){
+						// Add keywords
+						return headingSelected.parent().next('ul').find('input[type!="hidden"]');
+					}
+					else{
+						// Other facets
+						return headingSelected.parent().next('ul').first().find('a');
+					}					
+				};
+				
+				var accessibility =  new EuAccessibility(
+					headingSelected,
+					fnGetItems
+				);
+				
+				$(ob).Collapsible({
+						"headingSelector"	: headingSelector,
+						"bodySelector"		: "ul",
+						"keyHandler"		: accessibility
+				});				
+			});
+		};
+
+		var scripts = [
+			{
+				file : 'EuAccessibility.js',
+				path : themePath + "javascripts/eu/europeana/",
+				name : 'accessibility'
+			},	
+			{
+				file : 'EuCollapsibility.js',
+				path : themePath + "javascripts/eu/europeana/",
+				name : 'collapsibility',
+				callback : cbCollapsibility,
+				dependencies : [ 'accessibility' ]
+			},	
+			{
+				file : 'EuAccordionTabs.js',
+				path : themePath + "javascripts/eu/europeana/",
+				name : 'accordion-tabs',
+				dependencies : [  ],
+				callback : cbAccordionTabs
+			}
+
+		];
+		
+		
+		js.loader.loadScripts(scripts);
+		
+		//	[{
+		//		dependencies : []
+		//	}]
+				
+
+		/*	
+		js.loader.loadScripts([{
+			file : 'EuCollapsibility.js',
+			path : themePath + "javascripts/eu/europeana/",
+			callback : function(){
+			
+				//alert('loaded collapsibility');
+				
+				js.loader.loadScripts([{
+					file : 'EuAccessibility.js',
+					path : themePath + "javascripts/eu/europeana/",
+					callback : function(){
+
+						alert('loaded accessibility');
+
+					}
+				}])
+			}
+		}]);
+		*/
 		
 		var $container = jQuery('.stories');
 		
 		if ($container.length > 0) {
 			$container.imagesLoaded(function() {
+				/*
 				$container.masonry({
 					itemSelector : 'li',
 					columnWidth : 1,
 					isFitWidth : true,
 					isAnimated : true
 				});
+				*/
 			});
 		}
 		
-		resultTabs.init();
+		//resultTabs.init();
 		toggleAutoComplete();
 		
 	}

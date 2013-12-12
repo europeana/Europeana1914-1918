@@ -280,6 +280,138 @@ input[type="submit"]:hover {
 
 
 /**
+* Accordion Tabs
+*/
+
+
+.accordion-tabs.accordion,
+.accordion-tabs {
+  position: relative;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 0.5em;
+  white-space: nowrap;
+}
+
+.accordion-tabs.measure {
+  white-space: normal;
+}
+
+.accordion-tabs.accordion .tab-header,
+.accordion-tabs .tab-header {
+  border: 1px solid #d6d6d6;
+  border-radius: 0.5em;
+  color: #2A85E8;
+  display: block;
+  padding: 0.25em 1em;
+  margin-top: 0.5em;
+  outline: 0;
+  position: relative;
+  text-decoration: none;
+  z-index: 1;
+}
+
+.accordion-tabs.accordion .tab-header.active {
+  border-bottom: 1px solid #d6d6d6;
+  margin-top: 0.5em;
+}
+
+.accordion-tabs.accordion .tab-header :hover,
+.accordion-tabs .tab-header :hover {
+  color: #666666;
+  text-decoration: underline;
+}
+
+.accordion-tabs.accordion .tab-header.active,
+.accordion-tabs .tab-header.active {
+  border-radius: 0.5em 0.5em 0 0;
+}
+
+.accordion-tabs.accordion .tab-header.disabled,
+.accordion-tabs .tab-header.disabled {
+  color: #e4e4e4;
+  cursor: default;
+}
+
+.accordion-tabs.accordion .content,
+.accordion-tabs .content {
+  padding: 1em;
+}
+
+/* clearfix */
+.accordion-tabs.accordion:after,
+.accordion-tabs:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  height: 0;
+  clear: both;
+}
+
+.accordion-tabs.accordion .section,
+.accordion-tabs.accordion .tab-header,
+.accordion-tabs .section,
+.accordion-tabs .tab-header {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-shadow: none;
+}
+
+.accordion-tabs.accordion .section,
+.accordion-tabs .section {
+  display: none;
+  position: relative;
+  top: -1px;
+  white-space: normal;
+  width: 100%;
+  border-radius: 0 0 0.5em 0.5em;
+  float: none;
+}
+
+.accordion-tabs.accordion .section.active,
+.accordion-tabs .section.active {
+  display: inline-block;
+  border: 1px solid #d6d6d6;
+  border-top: none;
+}
+
+
+@media only screen and (min-width: 769px) {
+  .accordion-tabs {
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .accordion-tabs .tab-header {
+    display: inline-block;
+    border-radius: 0.5em 0.5em 0 0;
+    cursor: pointer;
+  }
+
+  .accordion-tabs .tab-header.active {
+    border-bottom: 1px solid #fff;
+    text-decoration: underline;
+  }
+
+  .accordion-tabs .section {
+    border-top: 1px solid #d6d6d6;
+    border-radius: 0 0.5em 0.5em 0;
+    box-shadow: 7px 0 4px -5px #C3C3C3;
+    background-color: white;
+    float: left;
+    margin-right: 0.5em;
+  }
+
+  .accordion-tabs .section.active {
+    border-top: 1px solid #d6d6d6;
+  }
+}
+
+
+
+/**
  *	classes
  */
 
@@ -367,6 +499,7 @@ a.button:hover {
 	color: #ff00c2;
 	border-color: #cecece #afafaf #afafaf #cecece;
 }
+
 
 .html5-video-fallback {
 	width: 100%;
@@ -477,14 +610,13 @@ a.button:hover {
 
 #results {
 	position: relative;
-	padding: 1%;
 	border-top: 1px solid #808080;
 	border-left: 1px solid #808080;
+	float: right;
+	width: 66%;
 }
 
 #results-items {
-	float: right;
-	width: 66%;
 }
 
 #results ul {
@@ -535,9 +667,22 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 	
 #results-facets {
 	float: left;
-	width: 33%;
+	width: 24%;
 }
 
+#results-data {
+	float: right;
+	width: 74%;
+}
+
+#results-data,
+#results-facets {
+ -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*
 #results-facets li {
 	margin: 0;
 	padding: 0;
@@ -561,6 +706,101 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 	margin: 0.5em 0;
 }
 	
+*/
+
+/** FACETS **/
+
+#facet-menu > div {
+  margin-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  position: relative;
+}
+
+ul#facets,
+#facets ul {
+  margin: 0;
+  padding: 0 0 1em 0;
+}
+
+#facets {
+  padding-top: 0.5em;
+}
+
+#facets li {
+  list-style: none outside none;
+}
+
+#facets h3 {
+  border-top: 1px solid #C0C0C0;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  padding-top: 0.2em;
+}
+
+#facets .filter-section h3 {
+  border-top: none;
+}
+
+#facets h3 a {
+  color: #181818;
+}
+
+#facets h4 label {
+  display: inline-block;
+}
+
+
+#facets li:first-child h3 {
+  border-top: none;
+}
+
+#facets > li:first-child > span {
+  display: block;
+}
+
+#facets li h4 {
+  display: inline;
+}
+
+#facets li h4 a {
+  color: #000;
+  font-weight: lighter;
+}
+
+#facets li h4 a.bold {
+  font-weight: bold;
+}
+
+#facets .keywords input[type="text"] {
+  border: 1px solid #A0A0A0;
+  border-radius: 0.5em 0 0 0.5em;
+  margin-bottom: 1px;
+  outline: none;
+  padding: 4px;
+}
+
+#facets .keywords {
+  padding-bottom: 1em;
+}
+
+#facets .keywords span {
+  white-space: nowrap;
+}
+
+#facets .keywords input[type=submit] {
+  background-color: blue;
+  border: 1px solid blue;
+  border-radius: 0 0.5em 0.5em 0;
+  box-shadow: none;
+  color: white;
+  margin-left: 0;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+
+/** END FACETS **/
 
 
 /**
@@ -1110,11 +1350,13 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 .image-left {
 	float: left;
 	margin-right: 2%;
+	max-width: 100%;
 }
 
 .image-right {
 	float: right;
 	margin-left: 2%;
+	max-width: 100%;
 }
 
 .byline {

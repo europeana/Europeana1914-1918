@@ -1,6 +1,6 @@
 <%= form_tag({}, { :method => :get }) do %>
 <ul id="facets">
-  <%- if search_filters_present? -%>
+  <%- if false && search_filters_present? -%>
     <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets } %></li>
   <%- end -%>
   <%- unless facets.blank? -%>

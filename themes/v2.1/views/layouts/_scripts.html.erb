@@ -199,6 +199,7 @@
 
 -%>
 <script>
+var themePath = "/themes/<%= session[:theme] -%>/";
 var switchTo5x = true;<% 'for share-this' %>
 if ( !window.RunCoCo ) { window.RunCoCo = {}; }
 RunCoCo.siteUrl = '<%= configuration(:site_url) %>';
