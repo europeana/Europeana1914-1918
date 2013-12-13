@@ -1,18 +1,8 @@
-<%
-=begin %>
-
-
-_results.html.erb
-
-
-<div><b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results  )</div>
-
-<%
-=end %>
   
   <ul class="stories">
+	<li class="result-count"><b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> ( <%= results.total_entries %> results )</li>
+
     <%- for result in results -%>
-    <% print result  %>
       <%- cache search_result_fragment_key(result), :expires_in => (@contribution ? nil : 1.day) do -%>
         <%- record = search_result_to_edm(result) -%>
         <%- title = record['title'].blank? ? '' : record['title'].first -%>

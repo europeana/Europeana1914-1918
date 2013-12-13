@@ -6,65 +6,17 @@
 %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
-
-  <% if @results.size > 0 -%>
-	  <div id="results-facets">
-	    <%= render :partial => '/search/facets', :object => @facets, :locals => { :query => @query } %>
-	  </div>
-  <% end -%>
+  <h2 class="search-results-title"><%= @title %></h2>
+    
+  <ul id="results-tabs">
+    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
+      <%- if provider_stem = search_provider_stem(provider) -%>
+        <li><%= link_to search_provider_name(provider), search_provider_href(provider), :id => "results-tab-#{provider_stem}", :'data-search-action' => search_provider_href(provider), :'data-content-id' => "#results-#{provider_stem}", :'data-hash' => "##{provider_stem}", :class => (provider_stem == current_search_provider_stem ? 'active' : '') %></li>
+      <%- end -%>
+    <%- end -%>
+  </ul>
   
-  <div id="results-data">
-  
-	  <ul id="results-tabs" class="accordion-tabs">
-	    <script type="text/javascript">var activeHash = "<%= controller.controller_name %>";</script>
-	  
-	    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
-	      <%- provider_stem = search_provider_stem(provider) -%>
-	      <%
-	          active_class = ''
-	          if controller.controller_name == provider.split("/").last 
-	            active_class = ' active'
-	          end
-	      %>
-	      
-	
-         <a class="tab-header <%= active_class %>" data-stem="<%= provider.split("/").last %>" href="<%= search_provider_href(provider) %>"><%= search_provider_name(provider) %></a>
-         <div class="section  <%= active_class %>">
-           <div class="content">
-           <br/>
-		      <%- if provider_stem == current_search_provider_stem -%>
-	           
-	             <div class="results">
-	             
-	               <% if @results.size == 0 -%>
-	                 <p><%= t('views.contributions.search.no_matches') %></p>
-	               <% else -%>
-		             <%=
-		             render :partial => '/search/results',
-		               :locals => {
-		                 :results => @results,
-		                 :query => @query,
-		                 :term => @term
-		               }
-		             %>
-	               <% end -%>
-	               
-	             </div>
-		      <%- end -%>
-	           
-           </div>
-         </div>
-	    <%- end -%>
-	  </ul>
-  </div>  
-  
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-<%
-=begin %>
+  <div id="results">
     
     <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
       <%- provider_stem = search_provider_stem(provider) -%>
@@ -73,10 +25,6 @@
           <% if @results.size == 0 -%>
             <p><%= t('views.contributions.search.no_matches') %></p>
           <% else -%>
-            <div id="results-facets">
-              <%= render :partial => '/search/facets', :object => @facets, :locals => { :query => @query } %>
-            </div>
-  <div id="results">
             <div id="results-items">
               <%=
               render :partial => '/search/results',
@@ -87,13 +35,16 @@
                 }
               %>
             </div>
-  </div>
+            
+            <div id="results-facets">
+              <%= render :partial => '/search/facets', :object => @facets, :locals => { :query => @query } %>
+            </div>
+            
           <% end -%>
         <%- end -%>
       </div>
     <%- end -%>
   
-<%
-=end %>
+  </div>
   
 </div>

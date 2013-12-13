@@ -607,7 +607,7 @@ a.button:hover {
 /**
  *	results
  */
-
+/*
 #results {
 	position: relative;
 	border-top: 1px solid #808080;
@@ -625,9 +625,6 @@ a.button:hover {
 	padding: 3px 0 0 3px;
 }
 
-/*
-Andy - fixing broken merge - use both names until we figure out what it's using.
-*/
 
 #results  li,
 #results-items li {
@@ -645,9 +642,6 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 	box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
 }
 
-/*
-Andy - fixing broken merge - use both names until we figure out what it's using.
-*/
 
 #results-items li a,
 #results li a {
@@ -656,9 +650,6 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 	margin-bottom: 17px;
 }
 
-/*
-Andy - fixing broken merge - use both names until we figure out what it's using.
-*/
 
 #results-items li img,
 #results li img {
@@ -670,12 +661,7 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 	width: 24%;
 }
 
-#results-data {
-	float: right;
-	width: 74%;
-}
 
-#results-data,
 #results-facets {
  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -708,6 +694,144 @@ Andy - fixing broken merge - use both names until we figure out what it's using.
 	
 */
 
+
+/**
+ *	results
+ */
+
+.search-results-title{
+	margin-bottom: 1em;	
+}
+
+#results {
+	position: relative;
+	padding: 1% 0 1% 1%;
+	border-top: 1px solid #808080;
+	border-left: 1px solid #808080;
+}
+
+#results-facets {
+	float: none;
+	width: 100%;
+}
+
+#results-items {
+	float: none;
+	width: 100%;
+}
+
+#results ul {
+	list-style: none;
+	padding: 3px 3px 0 3px;	
+	margin: 2em auto 1em auto;	
+}
+
+
+#results-items li {
+	float: left;
+	width: 200px;
+	/*
+	margin: 0 21px 21px 0;
+	margin: 0;
+	*/
+	margin-bottom: 21px;
+	padding: 15px;
+	line-height: 120%;
+	font-size: 90%;
+
+	webkit-box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
+	moz-box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
+	ms-box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
+	o-box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
+	box-shadow: 1px 1px 3px rgba(34,25,25,0.8);
+	
+
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	
+}
+
+#results-items li.result-count{
+	
+	padding: 0;
+	margin: 0;
+	float: none;
+	width: auto;
+	position: relative;
+	top: -2em;
+	webkit-box-shadow: none;
+	moz-box-shadow: none;
+	ms-box-shadow: none;
+	o-box-shadow: none;
+	box-shadow: none;
+}
+
+#results-items li a {
+	display: block;
+	text-align: center;
+	margin-bottom: 17px;
+}
+
+#results-items li img {
+	max-width: 100%;
+}
+
+
+#results-facets li {
+	margin: 0;
+	padding: 0;
+	line-height: 120%;
+	xxxfont-size: 90%;
+}
+
+#results-facets > ul > li > h3 {
+	margin-bottom: 0;
+}
+
+#results-facets li label {
+	display: inline;
+}
+
+#results-facets ul ul {
+	margin-top: 0;
+}
+
+#results-facets ul ul h4 {
+	margin: 0.5em 0;
+}
+	
+
+/**
+ *	results-tabs
+ */
+
+#results-tabs {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	z-index: 100;
+}
+
+#results-tabs li {
+	display: inline;
+}
+
+#results-tabs a {
+	display: inline-block;
+	padding: 2px 7px;
+}
+
+#results-tabs a.active {
+	color: #000;
+	font-weight: bold;
+	border: 1px solid #808080;
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+}
+
+
 /** FACETS **/
 
 #facet-menu > div {
@@ -723,27 +847,58 @@ ul#facets,
   padding: 0 0 1em 0;
 }
 
-#facets {
+#facets, 
+#facets a{
   padding-top: 0.5em;
+  font-weight: 400;
+  color: #333;
 }
 
 #facets li {
   list-style: none outside none;
+  
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  
 }
 
 #facets h3 {
   border-top: 1px solid #C0C0C0;
-  font-size: 1em;
   margin-bottom: 0.5em;
   padding-top: 0.2em;
 }
+
+#facets h3,
+#facets input,
+#facets a {
+  font-size: 1em;
+}
+
 
 #facets .filter-section h3 {
   border-top: none;
 }
 
+#facets .filter-section .remove-filter span{
+  float: right;
+  clear: both;
+  color: #FF0000;
+}
+
+#facets .refine-section h2{
+	border-top: 1px solid #C0C0C0;	
+}
+
+#facets h2{
+  font-weight:    500;
+  font-size:      1.25em;
+  padding-top:    0.5em;
+  margin-bottom:  0.5em;
+}
+
 #facets h3 a {
-  color: #181818;
+  color: #333;
 }
 
 #facets h4 label {
@@ -761,13 +916,13 @@ ul#facets,
 
 #facets li h4 {
   display: inline;
-}
-
-#facets li h4 a {
-  color: #000;
   font-weight: lighter;
 }
 
+#facets li a.facet-section {
+  outline: none;
+}
+	
 #facets li h4 a.bold {
   font-weight: bold;
 }
@@ -822,6 +977,8 @@ ul#facets,
 #results-tabs a {
 	display: inline-block;
 	padding: 2px 7px;
+	outline: none;
+	color: #333;
 }
 
 #results-tabs a.active {
@@ -832,11 +989,6 @@ ul#facets,
 	margin-bottom: -1px;
 }
 
-#results-1914,
-#results-europeana {
-	display: none;
-}
-
 
 /**
  *	pagination
@@ -845,6 +997,7 @@ ul#facets,
 	.pagination {
 		margin-top: 2em;
 		clear: both;
+		text-align:center;
 	}
 
 	.pagination .current,
@@ -865,6 +1018,7 @@ ul#facets,
 	position: relative;
 	margin-bottom: 1em;
 	z-index: 100;
+	text-align: right;
 }
 
 #q {
@@ -876,6 +1030,12 @@ ul#facets,
 	background-image: url('/themes/v2.1/images/icons/search.png');
 	background-position: 2px 4px;
 	background-repeat: no-repeat;
+}
+
+#results:after{
+    clear: both;
+    content: "";
+    display: block;
 }
 
 #results #search {
@@ -903,6 +1063,29 @@ ul#facets,
 	-webkit-appearance: none;
 }
 
+
+.ajax-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  min-height: 20em;
+  height:     100%;
+  background: black url(/themes/v2.1/images/icons/spinner.gif) center center no-repeat;
+  opacity: .5;
+  z-index: 12;
+  left: 0;
+  top: 0;
+}
+
+#results.loading{
+	height: 20em;
+}
+
+#results.loading #results-items,
+#results.loading #results-facets{
+	max-height: 19em;
+	overflow: hidden;
+}
 
 
 /**
@@ -1419,7 +1602,7 @@ ul#facets,
 
 
 	body {
-		font-size: 90%;
+		XXXfont-size: 90%;
 		max-width: 1200px;
 		padding: 2% 5%;
 	}
@@ -1913,6 +2096,20 @@ ul#facets,
 	#google-places {
 		width: 100%;
 	}
+	
+	
+	/* search */
+
+	#results-facets {
+		float: left;
+		width: 24%;
+	}
+	
+	#results-items {
+		float: right;
+		width: 74%;
+	}
+	
 
 }
 
@@ -2161,10 +2358,6 @@ ul#facets,
 	#index-aside,
 	#news-articles {
 		margin-top: 1em;
-	}
-
-	#results-items ul {
-		margin: 1em auto;
 	}
 
 	#search #q {

@@ -1,9 +1,14 @@
 <%= form_tag({}, { :method => :get }) do %>
 <ul id="facets">
-  <%- if false && search_filters_present? -%>
+  <%- if search_filters_present? -%>
     <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets } %></li>
   <%- end -%>
   <%- unless facets.blank? -%>
+  
+    <!-- TODO: translate this -->
+  
+    <li class="refine-section"><h2>Refine your results:</h2></li>
+  
     <%- for facet in facets -%>
     
       <%- if facet['fields'].present? -%>
@@ -27,14 +32,12 @@
                     <%# checkboxes -%>
                   
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
+                    
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
                       
-                      <!-- to replace strong tag -->
-                      
-                      <%= link_to_facet_row(facet['name'], row['search'], row['label'], true, true) %>
-                      
-                      
-                      <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
+                      <%= link_to row['label'], remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
+
+                      <%#= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
                     <%- else -%>
                     
                       
@@ -53,7 +56,7 @@
       <%- end -%>
     
     <%- end -%>
-    <li><%= submit_tag t('actions.submit'), :name => nil %></li>
+    <%= submit_tag t('actions.submit'), :name => nil, :style => "visibility:hidden" %>
   <%- end -%>
 </ul>
 <%- end -%>
