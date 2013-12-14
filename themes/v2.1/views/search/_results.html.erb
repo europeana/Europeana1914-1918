@@ -29,7 +29,9 @@
             <%- [ 'dctermsAlternative', 'dataProvider', 'provider' ].each do |field_name| -%>
               <%- unless record[field_name].blank? -%>
                 <%- record[field_name].each do |field_value| -%>
-                  <br/><span class="story-provider"><%= field_value %></span>
+                  <%- if field_value != 'Europeana 1914 - 1918' %>
+                    <br/><br/><span class="story-provider"><%= field_value %></span>
+                  <%- end %>
                 <%- end -%>
               <%- end -%>
             <%- end -%>

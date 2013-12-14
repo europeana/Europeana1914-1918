@@ -142,8 +142,6 @@ img {
 
 /* End hide / show on phones */
 
-/** END ANDY **/
-
 
 .section {
 	position: relative;
@@ -525,8 +523,17 @@ a.button:hover {
  */
 
 #header {
-	height: 151px;
+	height: 201px;
 	border-bottom: 1px solid #dadada;
+}
+
+#logo{
+	xxdisplay: inline;
+}
+
+#logo:after{
+	content: '';
+	display:block;
 }
 
 
@@ -554,6 +561,30 @@ a.button:hover {
 	display: none;
 }
 
+/**
+ * search
+ */
+ 
+#header #search {
+	top:	      -1em;
+	margin:       auto;
+	width:        70%;
+	display:      block;
+    text-align:   center;
+    padding-left: 4em;	
+}
+
+#header #search #q{
+  width:100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#header #search input[type="submit"] {
+	margin-left: 1em;
+}
+ 
 
 /**
  *	menu
@@ -782,7 +813,6 @@ a.button:hover {
 	margin: 0;
 	padding: 0;
 	line-height: 120%;
-	xxxfont-size: 90%;
 }
 
 #results-facets > ul > li > h3 {
@@ -1602,7 +1632,6 @@ ul#facets,
 
 
 	body {
-		XXXfont-size: 90%;
 		max-width: 1200px;
 		padding: 2% 5%;
 	}
@@ -1638,6 +1667,10 @@ ul#facets,
 	.one-half-left {
 		float: left;
 		width: 48%;
+	}
+
+	#header {
+		height: 151px;
 	}
 
 
@@ -1726,21 +1759,17 @@ ul#facets,
 	/**
 	 * Search box in header
 	 */
+	 	
 	#header #search {
 		position: absolute;
 		top: 106px;
 		right: 0;
+		width: auto;
+		
 		margin-bottom: 0;
-		width: 35%;
+		text-align: right;
 	}
-	
-	#header #search #q {
-		width: 66%;
-	}
-	
-	#header #search input[type="submit"] {
-	}
-	 
+		
 
 	/**
 	 *	action links
@@ -2382,7 +2411,7 @@ ul#facets,
 	 */
 
 	#header {
-		height: 126px;
+
 	}
 
 	#logo a {
@@ -2391,6 +2420,11 @@ ul#facets,
 
 	#navigation-mobile-trigger {
 		top: 27px;
+	}
+
+	#header #search {
+		width:        90%;
+	    padding-left: 0;	
 	}
 
 }
