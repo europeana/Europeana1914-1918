@@ -14,6 +14,14 @@
   <%- if count -%>
     <input type="hidden" name="count" value="<%= count %>" />
   <%- end -%>
-  <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
-  <input type='submit' class='button' value='<%= t('formtastic.actions.search.submit') %>' />
+  
+  <div class="h-flex-container">
+    <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search Europeana 1914-1918' } %>
+    
+    <span class="h-flex-fixed">
+      <input type="submit" class="button" value="<%= t('formtastic.actions.search.submit') %>"/>
+    </span>
+ </div>
+  
+  
 <% end %>

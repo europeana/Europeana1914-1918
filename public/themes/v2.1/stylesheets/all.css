@@ -161,7 +161,7 @@ img {
 }
 
 .top {
-	margin-top: 3%;
+	margin-top: 1em;
 }
 
 .border-bottom {
@@ -541,7 +541,7 @@ a.button:hover {
 	display: block;
 	width: 263px;
 	height: 140px;
-	background-image: url('/themes/v2.1/images/logos/eew-logo-landscape.png');
+	background-image: url(/themes/v2.1/images/logos/eew-logo-landscape-three-quarter.png);
 	background-repeat: no-repeat;
 	background-position: 0 0;
 }
@@ -571,7 +571,7 @@ a.button:hover {
 	width:        70%;
 	display:      block;
     text-align:   center;
-    padding-left: 4em;	
+    padding-left: 3em;	
 }
 
 #header #search #q{
@@ -1117,6 +1117,9 @@ ul#facets,
 	overflow: hidden;
 }
 
+.search-results-title{
+	display: none;
+}
 
 /**
  *	carousel
@@ -1673,6 +1676,10 @@ ul#facets,
 		height: 151px;
 	}
 
+	#logo a {
+		background-image: url(/themes/v2.1/images/logos/eew-logo-landscape.png);
+	}
+
 
 	/**
 	 *	navigation
@@ -1764,8 +1771,7 @@ ul#facets,
 		position: absolute;
 		top: 106px;
 		right: 0;
-		width: auto;
-		
+		width: 300px;
 		margin-bottom: 0;
 		text-align: right;
 	}
@@ -2139,6 +2145,9 @@ ul#facets,
 		width: 74%;
 	}
 	
+	.search-results-title{
+		display: block;
+	}
 
 }
 
@@ -2414,10 +2423,6 @@ ul#facets,
 
 	}
 
-	#logo a {
-		background-image: url('/themes/v2.1/images/logos/eew-logo-landscape-three-quarter.png');
-	}
-
 	#navigation-mobile-trigger {
 		top: 27px;
 	}
@@ -2445,17 +2450,8 @@ ul#facets,
 }
 
 
-@media screen and (max-width: 320px) {
 
-	#logo a {
-		background-image: url('/themes/v2.1/images/logos/eew-logo-three-quarter.png');
-	}
-
-}
-
-/** ANDY **/
-
-@media only screen and (min-width: 880px) {
+@media only screen and (min-width: 768px) {
 
   .big {
     display: block			!important;
@@ -2505,6 +2501,7 @@ ul#facets,
     font-size: 0.875em;
     line-height: 1.5em;
   }
+   
 }
 
 /** END ANDY **/
