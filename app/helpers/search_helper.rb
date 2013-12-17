@@ -12,7 +12,7 @@ module SearchHelper
         facet_params << row_param_value
       end
     else
-      index = facet_params.index { |fp| fp.match(/^#{facet_name.to_s}:/).present? }
+      index = facet_params.index { |fp| fp.match('^' + Regexp.quote(facet_name.to_s) + ':').present? }
       facet_params.delete_at(index) unless index.nil?
       facet_params << row_param_value
     end
@@ -29,7 +29,7 @@ module SearchHelper
   def facet_row_index(facet_name, row_value)
     params = request.query_parameters
     if params[:qf].present?
-      params[:qf].index { |fp| fp.match(/^#{facet_name.to_s}:#{row_value.to_s}/).present? }
+      params[:qf].index { |fp| fp.match('^' + Regexp.quote(facet_name.to_s) + ':' + Regexp.quote(row_value.to_s)).present? }
     else
       nil
     end
