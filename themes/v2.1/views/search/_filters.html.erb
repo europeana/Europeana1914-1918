@@ -8,7 +8,21 @@
       <li>
       <%# link_to link[:reduce][:text], link[:reduce][:url], {'data-value' => link[:data][:val_remove]} %>
       
-      <% linkText = rightsLabels[ ( link[:reduce][:text].sub! 'Rights: ', ''  ) ] || languageLabels[link[:reduce][:text]] || '-'+link[:reduce][:text]+'-' %>
+      <% 
+         linkText = link[:reduce][:text]
+         rightsText = rightsLabels[ linkText.sub 'Rights: ', '' ];
+         
+         if( rightsText )
+           linkText = 'Rights: ' + rightsText
+         
+         else
+           languageText = languageLabels[ linkText.sub 'Language: ', '']
+           if( languageText )
+           	 linkText = 'Language: ' + languageText
+           end           
+         
+         end
+      %>
 
       <%#= link[:reduce] %>
       
