@@ -140,10 +140,10 @@ module SearchHelper
     
     request.query_string.split('&').each do |param|
       param_parts = param.split('=')
-      param_name  = CGI::unescape(param_parts.first)
-      param_value = CGI::unescape(param_parts.last)
+      param_name  = CGI::unescape(param_parts[0])
+      param_value = CGI::unescape(param_parts[1]) unless param_parts[1].nil?
       if param_name == "q" || param_name == "qf[]"
-        filter_params << { :name => param_name, :value => param_value }
+        filter_params << { :name => param_name, :value => param_value } unless param_value.blank?
       end
     end
     
@@ -161,8 +161,8 @@ module SearchHelper
         link_text = query
         remove_url = url_for(link_params.merge(request.query_parameters[:qf].present? ? { :qf => request.query_parameters[:qf] } : {}))
         
-        data_val_remove  = "&q=#{query}"
-        data_val  = "&q=#{query}"
+        data_val_remove = "&q=#{query}"
+        data_val = "&q=#{query}"
       else
         facet_row_parts = filter_param[:value].match(/^([^:]+):(.+)$/)
         facet_name, field_value = facet_row_parts[1], facet_row_parts[2]
