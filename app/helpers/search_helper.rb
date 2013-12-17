@@ -1,10 +1,11 @@
 module SearchHelper
-  def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true, active_class = false)
+  def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true, html_options = {})
     row_label ||= row_value
 
     request_params  = request.query_parameters.dup
     facet_params    = request_params.has_key?(:qf) ? request_params[:qf].dup : []
     row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
+    html_options['data-value'] ||= "&qf[]=#{row_param_value}"
     
     if multiple
       if !facet_row_selected?(facet_name, row_value)
@@ -18,11 +19,7 @@ module SearchHelper
     
     facet_row_url = url_for(request_params.merge(:page => 1, :qf => facet_params))
     
-    if active_class
-      link_to "<label class=\"bold\">#{row_label}</label>".html_safe, facet_row_url, :class => 'bold', 'data-value' => "&qf[]=#{row_param_value}" 
-    else
-      link_to "<label>#{row_label}</label>".html_safe, facet_row_url, 'data-value' => "&qf[]=#{row_param_value}" 
-    end
+    link_to row_label, facet_row_url, html_options
   end
   
   def facet_row_selected?(facet_name, row_value)
@@ -52,6 +49,14 @@ module SearchHelper
     params[:qf] = facet_params unless facet_params.blank?
     
     params
+  end
+  
+  def link_to_remove_facet_row(facet_name, row_value, row_label = nil, html_options = {})
+    row_label ||= row_value
+    row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
+    html_options['data-value'] ||= "&qf[]=#{row_param_value}"
+    
+    link_to row_label, remove_facet_row_url_options(facet_name, row_value), html_options
   end
   
   def link_to_search_provider(id)

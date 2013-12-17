@@ -22,10 +22,10 @@
                   <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
                     <%- if facet_row_selected?(facet["name"], row["search"]) -%>
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                      <strong><%= row["label"] %></strong>
+                      <label class="bold"><%= row['label'] %></label>
                     <%- else -%>
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                      <%= link_to_facet_row(facet['name'], row['search'], row["label"], false) %>
+                      <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe) %>
                     <%- end -%>
                   <%- else -%>
                   
@@ -34,16 +34,12 @@
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                      
-                      <%= link_to row['label'], remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
+                      <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{row['label']}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
 
-                      <%#= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
                     <%- else -%>
-                    
                       
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                      <%= link_to_facet_row(facet['name'], row['search'], row['label']) %> (<%= row['count'] %>)
-                      
+                      <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe) %> (<%= row['count'] %>)
                       
                     <%- end -%>
                   <%- end -%>
