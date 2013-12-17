@@ -26,7 +26,7 @@
 
       <%#= link[:reduce] %>
       
-      <%= link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val] } %>
+      <%= link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val], :class => 'filter-crop' } %>
       <%= link_to  content_tag(:span, '', :class => 'icon-remove'), link[:remove][:url], { :title => t('actions.remove'), :class => 'remove-filter', 'data-value' => link[:data][:val_remove]	} %>
       
     </li>
