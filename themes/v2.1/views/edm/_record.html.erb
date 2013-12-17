@@ -3,7 +3,8 @@
   @javascripts[:carousel] = true
   @javascripts[:truncate] = true
   @javascripts[:translate] = true
-  @javascripts[:contributions_show] = true
+  @javascripts[:edm_object_page] = true
+    
   if @contribution
 		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
 		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
@@ -11,7 +12,6 @@
 	end
 	@stylesheets[:item] = true
 %>
-
 
 <% if record['aggregations'].first['edmProvider'].blank? || (record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918") %>
 

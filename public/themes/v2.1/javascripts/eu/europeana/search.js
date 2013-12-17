@@ -7,6 +7,11 @@
 	'use strict';
 	
     var addMasonry = function(msg){
+    	
+    	if(typeof jQuery('.body').masonry=='undefined'){
+    		return;
+    	}
+    	
     	console.log('add masonry[' + msg + '], ' + jQuery('.stories:visible').length + ', has class? ' + jQuery('.stories:visible').hasClass('masonry')   );
 
     	
