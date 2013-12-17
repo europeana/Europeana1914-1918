@@ -3,13 +3,20 @@
 </h2>
 
 <ul class="filters">
+
   <%- for link in links_for_selected_filters(query, facets) -%>
-    <li>
+      <li>
       <%# link_to link[:reduce][:text], link[:reduce][:url], {'data-value' => link[:data][:val_remove]} %>
-      <%= link_to link[:reduce][:text], link[:reduce][:url], {'data-value' => link[:data][:val] } %>
+      
+      <% linkText = rightsLabels[ ( link[:reduce][:text].sub! 'Rights: ', ''  ) ] || languageLabels[link[:reduce][:text]] || '-'+link[:reduce][:text]+'-' %>
+
+      <%#= link[:reduce] %>
+      
+      <%= link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val] } %>
       <%= link_to  content_tag(:span, '', :class => 'icon-remove'), link[:remove][:url], { :title => t('actions.remove'), :class => 'remove-filter', 'data-value' => link[:data][:val_remove]	} %>
       
     </li>
+  
   <%- end -%>
 </ul>
 

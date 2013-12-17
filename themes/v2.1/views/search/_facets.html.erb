@@ -1,7 +1,7 @@
 <%= form_tag({}, { :method => :get }) do %>
 <ul id="facets">
   <%- if search_filters_present? -%>
-    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets } %></li>
+    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets, :rightsLabels => rightsLabels, :languageLabels => languageLabels } %></li>    
   <%- end -%>
   <%- unless facets.blank? -%>
   
@@ -14,59 +14,6 @@
       <%- if facet['fields'].present? -%>
 
 
-  <%
- 
-rightsLabels = {
-  "http://www.europeana.eu/rights/rr-f/" => "Free Access - Rights Reserved",
-  "http://creativecommons.org/publicdomain/mark/1.0/" => "Public Domain marked",
-  "http://www.europeana.eu/rights/rr-r/" => "Restricted Access - Rights Reserved",
-  "http://www.europeana.eu/rights/unknown/" => "Unknown copyright status",
-  "http://www.europeana.eu/rights/rr-p/" => "Paid Access - Rights Reserved",
-  "http://creativecommons.org/licenses/by-nc-nd/" => "CC BY-NC-ND",
-  "http://creativecommons.org/licenses/by-nc-sa/" => "CC BY-NC-SA",
-  "http://creativecommons.org/licenses/by-sa/" => "CC BY-SA",
-  "http://creativecommons.org/licenses/by/" => "CC BY",
-  "http://creativecommons.org/publicdomain/zero/1.0/" => "CC0",
-  "http://creativecommons.org/licenses/by-nc/" => "CC BY-NC",
-  "http://creativecommons.org/licenses/by-nd/" => "CC BY-ND"
-}
-
-languageLabels = {
-
-	"en" => "English",
-	"eu" => "Basque",
-	"bg" => "Български",
-	"ca" => "Català",
-	"cs" => "Čeština",
-	"da" => "Dansk",
-	"de" => "Deutsch",
-	"el" => "Ελληνικά",
-	"es" => "Español",
-	"et" => "Eesti",
-	"fr" => "Français",
-	"ga" => "Gaeilge",
-	"hr" => "Hrvatski",
-	"is" => "Íslenska",
-	"it" => "Italiano",
-	"lt" => "Lietuvių",
-	"lv" => "Latviešu",
-	"hu" => "Magyar",
-	"mt" => "Malti",
-	"nl" => "Nederlands",
-	"no" => "Norsk",
-	"pl" => "Polski",
-	"pt" => "Português",
-	"ro" => "Română",
-	"ru" => "Русский",
-	"sl" => "Slovenščina",
-	"sk" => "Slovenský",
-	"fi" => "Suomi",
-	"sv" => "Svenska",
-	"uk" => "Українська"
-
-}  
-  %>
-  
       
         <li>
           <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
