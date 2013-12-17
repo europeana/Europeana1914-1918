@@ -136,8 +136,8 @@ private
       
       response = Europeana::API::Search.new(query_string).run(query_options)
       
-      # REUSABILITY facet is experimental; exclude from view for now
-      response["facets"].reject! { |facet| facet["name"] == "REUSABILITY" }
+      # Exclude certain facets from view
+      response["facets"].reject! { |facet| [ "REUSABILITY", "UGC" ].include?(facet["name"]) }
       
       # Add facet data required for view
       response["facets"].each do |facet|
