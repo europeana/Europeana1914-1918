@@ -180,7 +180,18 @@ class ContributionsController < ApplicationController
     current_user.may_search_contributions!
     
     @count = per_page = [ (params[:count] || 48).to_i, 100 ].min
-    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => extracted_facet_params, :field => params[:field] }
+    
+    # Rebuild metadata_xyz_ids facet names from abbreviated field names in params
+    facet_params = {}
+    extracted_facet_params.each_pair do |param_name, param_value|
+      if [ "protagonist_names", "place_name" ].include?(param_name.to_s)
+        facet_params[param_name] = param_value
+      else
+        facet_params[:"metadata_#{param_name.to_s}_ids"] = param_value
+      end
+    end
+    
+    search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => facet_params, :field => params[:field] }
     
     # Uncomment for minimal eager loading of associations to optimize performance
     # when search result partials are not pre-cached.
@@ -216,8 +227,10 @@ class ContributionsController < ApplicationController
     if search.respond_to?(:facets)
       # Modelled on the structure of facets returned by Europeana API
       @facets = search.facets.collect { |facet|
+        facet_name = (term_field = facet.name.to_s.match(/^metadata_(.*)_ids$/)) ? term_field[1] : facet.name
+        
         {
-          "name" => facet.name,
+          "name" => facet_name,
           "label" => facet_label(facet.name),
           "fields" => facet.rows.collect { |row|
             {
