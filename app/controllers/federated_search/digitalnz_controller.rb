@@ -108,7 +108,7 @@ protected
     edm["aggregations"] = [ { 
       "edmDataProvider" => { "def" => record["content_partner"] },
       "edmIsShownAt"    => record["source_url"],
-      "edmObject"       => record["large_thumbnail_url"],
+      "edmObject"       => record["large_thumbnail_url"] || record["thumbnail_url"],
       "edmProvider"     => { "def" => [ "Digital NZ" ] },
     } ]
     
