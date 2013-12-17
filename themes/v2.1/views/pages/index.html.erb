@@ -15,6 +15,9 @@
 	<% (doc/'h3').remove %>
 	
 
+	<%= render :partial => '/blog_posts/list', :locals => { :category => 'hero-image',  :limit => 1, :titles => false} %>
+
+
 <%
 =begin %>
 	<h2><%= (doc/'h3').inner_html %></h2>

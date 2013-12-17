@@ -49,7 +49,7 @@
                     <%- else -%>
                       
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                      <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe) %> (<%= row['count'] %>)
+                      <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel} (#{row['count']})</label>".html_safe) %>
                       
                     <%- end -%>
                   <%- end -%>

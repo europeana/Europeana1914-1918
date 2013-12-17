@@ -1,4 +1,5 @@
-  
+    <% tags = [] unless local_assigns[:tags].present? -%>
+    
     <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
     
         <div class="add-tags">
