@@ -109,12 +109,12 @@ protected
     end
     facets.collect { |facet|
       {
-        "name" => facet["name"],
+        "name" => facet["name"].to_s,
         "label" => t("views.search.facets.trove." + facet["name"], :default => [ ( "views.search.facets.common." + (FACETS_I18N[facet["name"]] || facet["name"]) ).to_sym, facet["displayname"] ]),
         "fields" => facet["term"].collect { |row|
           {
-            "label" => row["display"],
-            "search" => row["search"],
+            "label" => row["display"].to_s,
+            "search" => row["search"].to_s,
             "count" => row["count"]
           }
         }
