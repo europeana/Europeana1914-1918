@@ -12,6 +12,27 @@
     <%- for facet in facets -%>
     
       <%- if facet['fields'].present? -%>
+
+
+  <%
+ 
+  rightsLabels = {
+  "http://www.europeana.eu/rights/rr-f/" => "Free Access - Rights Reserved",
+  "http://creativecommons.org/publicdomain/mark/1.0/" => "Public Domain marked",
+  "http://www.europeana.eu/rights/rr-r/" => "Restricted Access - Rights Reserved",
+  "http://www.europeana.eu/rights/unknown/" => "Unknown copyright status",
+  "http://www.europeana.eu/rights/rr-p/" => "Paid Access - Rights Reserved",
+  "http://creativecommons.org/licenses/by-nc-nd/" => "CC BY-NC-ND",
+  "http://creativecommons.org/licenses/by-nc-sa/" => "CC BY-NC-SA",
+  "http://creativecommons.org/licenses/by-sa/" => "CC BY-SA",
+  "http://creativecommons.org/licenses/by/" => "CC BY",
+  "http://creativecommons.org/publicdomain/zero/1.0/" => "CC0",
+  "http://creativecommons.org/licenses/by-nc/" => "CC BY-NC",
+  "http://creativecommons.org/licenses/by-nd/" => "CC BY-ND"
+}
+  
+  %>
+  
       
         <li>
           <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
@@ -30,16 +51,22 @@
                   <%- else -%>
                   
                     <%# checkboxes -%>
-                  
+
+			        <%- if provider == '/europeana' && facet["name"] == 'RIGHTS' -%>
+ 						<% rowLabel = rightsLabels [row['label']]  %>
+					<%- else %>
+ 						<%rowLabel = row['label']%>
+					<%- end %>
+
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                      <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{row['label']}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
+                      <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
 
                     <%- else -%>
                       
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                      <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe) %> (<%= row['count'] %>)
+                      <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe) %> (<%= row['count'] %>)
                       
                     <%- end -%>
                   <%- end -%>
