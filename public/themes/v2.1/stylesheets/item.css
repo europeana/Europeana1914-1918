@@ -5,6 +5,7 @@
 
 $break-desktop: 48em; */
 /* line 40, sass/partials/_buttons.scss */
+/*
 input[type=submit],
 a.button {
   background-color: #007162;
@@ -25,7 +26,6 @@ a.button {
   box-shadow: 2px 2px 2px rgba(34, 25, 25, 0.8);
 }
 
-/* line 65, sass/partials/_buttons.scss */
 input[type=submit]:hover,
 input[type=submit]:focus,
 a.button:hover,
@@ -35,14 +35,8 @@ a.button:focus {
   border: 0;
   background-color: #2284A1;
 }
-
-/*
-@mixin boxShadow($h-shadow, $v-shadow, $blur, $color, $inset: inset ) {
-	-moz-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
-	-webkit-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
-	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
-}
 */
+
 /**
  *	translate-details
  */
@@ -350,7 +344,7 @@ blockquote {
 /* line 11, sass/partials/_translation-services.scss */
 #translation-services {
   font-size: 80%;
-  float: right;
+  XXXXXfloat: right;
 }
 
 /* line 16, sass/partials/_translation-services.scss */
@@ -361,55 +355,48 @@ blockquote {
 /* line 20, sass/partials/_translation-services.scss */
 #microsoft-translate-element select {
   display: block;
-  float: right;
+  XXXXfloat: right;
 }
 
-/* line 25, sass/partials/_translation-services.scss */
+
 #microsoft-translate-element > span {
-  float: right;
-  margin-left: 1em;
-  text-align: right;
-  width: 100%;
+  XXXmargin-left: 1em;
+  XXXtext-align: right;
 }
 
+/*
 @media all and (min-width: 54em) {
-  /* line 36, sass/partials/_translation-services.scss */
+*/
+
+/*
+  Carousel needs more room - bumping 54 to 58
+*/
+@media all and (min-width: 64em) {
+
   #microsoft-translate-element select {
-    display: inline-block;
-    float: none;
+    XXXXdisplay: inline-block;
+    XXXXfloat: none;
   }
 
-  /* line 41, sass/partials/_translation-services.scss */
   #microsoft-translate-element > span {
     width: auto;
   }
-}
-@media all and (min-width: 54em) {
-  /* clearfix */
-  /*
-  .container{
-  	overflow: hidden;
-  }
-  */
-  /* activate 3 col layout */
-  /* line 305, sass/item.scss */
+
   .col {
     width: 33.3333%;
     display: inline-block;
-    XXXbackground-color: yellow;
     margin: 0;
     float: left;
-    /* start content at top of column */
   }
 
-  /* line 313, sass/item.scss */
+
   .col.left {
     padding-right: 1.56em;
     padding-right: 0.52em;
     /* ( 1.56 / 3 ) */
   }
 
-  /* line 318, sass/item.scss */
+
   .col.middle {
     padding-left: 1.04em;
     /* ( (1.56 / 3) x 2 ) */
@@ -417,20 +404,19 @@ blockquote {
     width: 66.666%;
   }
 
-  /* line 326, sass/item.scss */
+
   .col-cell {
     margin: 0;
     margin-bottom: 1.56em;
   }
 
-  /* line 331, sass/item.scss */
+
   .col.middle .col-cell {
     clear: both;
     width: 33em;
     /*  33em base plus margin */
   }
 
-  /* line 337, sass/item.scss */
   blockquote {
     left: -50%;
     position: relative;

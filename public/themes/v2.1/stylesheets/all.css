@@ -4,20 +4,40 @@
 
 html {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 100%;
 	font-style: normal;
 	font-weight: 400;
-	line-height: 140%;
 	color: #333;
 	background-color: #dadada;
+
+	font-size: 120%;	/* mobile 1st */
+	line-height: 150%;
+
 }
+
 
 body {
 	overflow-y: scroll;
+	/*
 	margin: 0 auto;
 	padding: 2%;
+	*/
 	background-color: #fff;
+	
+	background-color: #fff;
+    font-size: 1em !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
+
+@media screen and (min-width: 54em) {
+  /* line 63, sass/partials/_reset.scss */
+  body {
+    max-width: 100em;
+    margin: 0 auto;
+  }
+}
+
 
 h1, h2, h3 {
 	margin: 0 0 .4em 0;
@@ -377,6 +397,7 @@ input[type="submit"]:hover {
 
 
 @media only screen and (min-width: 769px) {
+
   .accordion-tabs {
     box-shadow: none;
     border-radius: 0;
@@ -524,11 +545,15 @@ a.button:hover {
 
 #header {
 	height: 201px;
-	border-bottom: 1px solid #dadada;
+	overflow: visible;
+	
+	xxxborder-bottom: 1px solid #dadada;
 }
 
 #logo{
-	xxdisplay: inline;
+	xxxdisplay: inline;
+	border-bottom: 1px solid #dadada;	
+	padding-bottom: 0.5em;
 }
 
 #logo:after{
@@ -540,11 +565,134 @@ a.button:hover {
 #logo a {
 	display: block;
 	width: 263px;
-	height: 140px;
+	height: 100px;
 	background-image: url(/themes/v2.1/images/logos/eew-logo-landscape-three-quarter.png);
 	background-repeat: no-repeat;
 	background-position: 0 0;
 }
+
+/*** mobile 1st ******/
+
+#navigation-mobile-trigger {
+	position: absolute;
+	top: 39px;
+	XXXright: 6px;
+	right: 1.56em;
+	z-index: 1000;
+	line-height: 120%;
+}
+
+#navigation-mobile-trigger img {
+	float: right;
+	margin-left: 10px;
+}
+
+#navigation-user,
+#navigation-main,
+#navigation-user-menu {
+	display: none;
+}
+
+#navigation-mobile ul {
+	list-style: none;
+	margin-bottom: 1em;
+	padding-left: 2%;
+}
+
+#navigation-mobile ul.menu a {
+	color: #f5f5f5;
+}
+
+#navigation-mobile ul.menu a:hover {
+	color: #333;
+}
+
+#navigation-mobile ul.menu a.selected {
+	background: none;
+}
+
+#navigation-mobile ul.menu a.selected:hover {
+	color: #333;
+	background-color: #eaeaea;
+}
+
+#shareicons {
+	position: absolute;
+	right: 0;
+	bottom: 7px;
+}
+
+
+#footer {
+	margin-top: 1em;
+}
+
+#navigation-footer {
+	text-align: center;
+	list-style: none;
+	padding: 0;
+	line-height: 180%;
+}
+
+
+#index-call-to-action {
+	margin-bottom: 4px;
+}
+
+
+
+#explore-introduction {
+	margin-top: 1em;
+}
+
+#explore-featured {
+	height: 400px;
+}
+
+
+#explore-featured-categories h2 {
+	text-align: center;
+}
+
+#explore-featured-categories ol {
+	margin: 0 auto;
+}
+
+#explore-featured-categories img {
+	width: 200px;
+	height: 200px;
+}
+
+#explore-featured-categories .caption {
+	width: 97.5%;
+	bottom: 8px;
+}
+
+
+#results #search {
+	width: 100%;
+}
+
+#index-introduction,
+#index-aside,
+#news-articles {
+	margin-top: 1em;
+}
+
+#search #q {
+	background-position: 2px 7px;
+}
+
+#google-map {
+	max-width: 90%;
+}
+
+#contributions-thumbnails {
+	padding: 30px 20px;
+}
+	
+
+/*** end mobile 1st ******/
 
 #navigation-mobile {
 	position: absolute;
@@ -566,7 +714,7 @@ a.button:hover {
  */
  
 #header #search {
-	top:	      -1em;
+	xxxxxtop:	      -1em;
 	margin:       auto;
 	width:        70%;
 	display:      block;
@@ -592,9 +740,7 @@ a.button:hover {
 
 .menu a {
 	padding: 3px 10px;
-	border-left: 1px solid #dadada;
 	text-decoration: none;
-	font-size: 100%;
 	font-weight: bold;
 	color: #000;
 	-webkit-transition: none;
@@ -602,6 +748,10 @@ a.button:hover {
 	-ms-transition: none;
 	-o-transition: none;
 	transition: none;
+	
+	font-size: 130%;
+	line-height: 180%;
+	
 }
 
 .menu a.selected {
@@ -1317,7 +1467,6 @@ ul#facets,
 #translation-services {
 	position: relative;
 	font-size: 80%;
-	padding: 3% 3% 3% 0;
 }
 
 #translation-services img {
@@ -1475,9 +1624,34 @@ ul#facets,
 }
 
 
-/** END ANDY **/
+/****/
+
+#header,
+#content,
+#footer {
+  padding: 0 1.56em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;  
+}
+
+#header{
+	padding-top: 16px;
+}
 
 
+#content {
+/*
+  padding-top: 1.2em;
+  width: 100%;
+  max-width: 105.24em;
+  margin: auto;
+  overflow: hidden;
+*/
+}
+
+
+/****/
 
 
 /**
@@ -1656,9 +1830,16 @@ ul#facets,
 @media screen and (min-width: 768px) {
 
 
+	html{
+		font-size: 100%;
+		line-height: 140%;
+	}
+	
 	body {
+	    /*
 		max-width: 1200px;
 		padding: 2% 5%;
+		*/
 	}
 
 
@@ -1695,17 +1876,29 @@ ul#facets,
 	}
 
 	#header {
-		height: 151px;
+		height: 176px;
 	}
 
 	#logo a {
-		background-image: url(/themes/v2.1/images/logos/eew-logo-landscape.png);
+		background-image: url(/themes/v2.1/images/logos/eew-logo-landscape.png);	
+		height: 140px;
 	}
 
-
+	.menu a {
+		border-left: 1px solid #dadada;
+		line-height: normal;
+		font-size: 100%;
+	}
+	
 	/**
 	 *	navigation
 	 */
+	#navigation-user,
+	#navigation-main,
+	#navigation-user-menu {
+		display: block;
+	}
+
 
 	#navigation-main.menu li,
 	#navigation-user.menu li,
@@ -1720,7 +1913,7 @@ ul#facets,
 
 	.menu {
 		overflow: hidden;
-		margin: 0 0 1.5% 0;
+		XXXXXmargin: 0 0 1.5% 0;
 		padding: 0;
 		list-style: none;
 	}
@@ -1736,7 +1929,7 @@ ul#facets,
 
 	#navigation-main {
 		position: absolute;
-		top: 111px;
+		top: 130px;
 		left: 0;
 		margin: 0 0 0 124px;
 		padding: 0;
@@ -1749,12 +1942,13 @@ ul#facets,
 
 	#navigation-user {
 		position: absolute;
-		top: 0;
-		right: 0;
+		top:   0;
+		right: 1.56em;
 	}
 
 	#navigation-user form {
-		padding: 3px 11px;
+		XXXpadding: 3px 11px;
+		padding: 3px 0px;
 	}
 
 
@@ -1765,8 +1959,8 @@ ul#facets,
 	#navigation-user-menu {
 		position: absolute;
 		z-index: 100;
-		top: 33px;
-		right: 0;
+		top: 40px;
+		right: 1.56em;
 	}
 
 	.username {
@@ -1791,9 +1985,9 @@ ul#facets,
 	 	
 	#header #search {
 		position: absolute;
-		top: 106px;
-		right: 0;
-		width: 300px;
+		top:   125px;
+		right: 1.56em;
+		width: 340px;
 		margin-bottom: 0;
 		text-align: right;
 	}
@@ -1807,7 +2001,7 @@ ul#facets,
 		background-color: #eee;
 		border: 1px solid #dadada;
 		padding: 1%;
-		margin-bottom: 1em;
+		margin-bottom: 2.2em;
 	}
 
 	.action-links ul {
@@ -1855,13 +2049,13 @@ ul#facets,
 	/**
 	 *	content
 	 */
-
+/*
 	#content {
 		overflow: hidden;
 		padding: 0;
 		min-height: 100%;
 	}
-
+*/
 	
 	/**
 	 *	index
@@ -2208,9 +2402,7 @@ ul#facets,
  */
 @media screen and (max-width: 767px) {
 
-	/**
-	 *	html
-	 */
+	/* 
 	html {
 		font-size: 120%;
 		line-height: 150%;
@@ -2221,24 +2413,16 @@ ul#facets,
 		line-height: 180%;
 	}
 
-
-	/**
-	 *	header
-	 */
-
 	#header {
 		overflow: visible;
 	}
 
 
-	/**
-	 *	navigation
-	 */
-
 	#navigation-mobile-trigger {
 		position: absolute;
 		top: 39px;
-		right: 6px;
+		XXXright: 6px;
+		right: 1.56em;
 		z-index: 1000;
 		line-height: 120%;
 	}
@@ -2277,72 +2461,12 @@ ul#facets,
 		background-color: #eaeaea;
 	}
 
-
-
-	/*
-	#navigation-user,
-	#navigation-main,
-	#navigation-user-menu {
-		position: absolute;
-		left: -3%;
-		width: 99.3%;
-		padding: 10px 2% 10px 4%;
-		background-color: #000;
-		background-color: rgba( 0,0,0,0.8 );
-		list-style: none;
-		z-index: 1000;
-		display: none;
-	}
-
-	#navigation-user {
-		top: 0;
-		margin-top: 0;
-	}
-
-	#navigation-user-menu {
-		top: 78px;
-		margin-top: 0;
-	}
-
-	#navigation-main {
-		top: 121px;
-	}
-
-	#navigation-user.menu a,
-	#navigation-main.menu a,
-	#navigation-user-menu.menu a {
-		color: #f5f5f5;
-	}
-
-	#navigation-user.menu a:hover,
-	#navigation-main.menu a:hover,
-	#navigation-user-menu.menu a:hover {
-		color: #333;
-	}
-
-	#navigation-user.menu a.selected,
-	#navigation-main.menu a.selected,
-	#navigation-user-menu.menu a.selected {
-		background: none;
-	}
-
-	#navigation-user.menu a.selected:hover,
-	#navigation-main.menu a.selected:hover,
-	#navigation-user-menu.menu a.selected:hover {
-		color: #333;
-		background-color: #eaeaea;
-	}*/
-
 	#shareicons {
 		position: absolute;
 		right: 0;
 		bottom: 7px;
 	}
 
-
-	/**
-	 *	footer
-	 */
 
 	#footer {
 		margin-top: 1em;
@@ -2356,27 +2480,11 @@ ul#facets,
 	}
 
 
-	/**
-	 *	content
-	 */
-
-	#content {
-		width: 100%;
-	}
-
-
-	/**
-	 *	index
-	 */
-
 	#index-call-to-action {
 		margin-bottom: 4px;
 	}
 
 
-	/**
-	 *	explore
-	 */
 
 	#explore-introduction {
 		margin-top: 1em;
@@ -2386,10 +2494,6 @@ ul#facets,
 		height: 400px;
 	}
 
-
-	/**
-	 *	explore featured categories
-	 */
 
 	#explore-featured-categories h2 {
 		text-align: center;
@@ -2431,7 +2535,7 @@ ul#facets,
 	#contributions-thumbnails {
 		padding: 30px 20px;
 	}
-
+	*/
 }
 
 

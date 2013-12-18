@@ -5,7 +5,6 @@
  */
 
 (function() {
-
 	'use strict';
 	var add_lightbox =
 		( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 )
@@ -757,7 +756,7 @@
 
 	(function() {
 		truncate.init();
-		RunCoCo.translation_services.init( jQuery('#story-metadata') );
+		RunCoCo.translation_services.init( $('.translate-area') );
 		carousels.init();
 		map.init();
 		lightbox.init();
