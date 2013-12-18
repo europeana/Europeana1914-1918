@@ -1,4 +1,16 @@
 module SearchHelper
+  ##
+  # Returns true if the HTTP referrer is one of the collection or federated
+  # search URLs.
+  #
+  # @return [Boolean]
+  #
+  def referred_by_search?
+    return false unless controller.request.env["HTTP_REFERER"].present?
+    referer = URI.parse(controller.request.env["HTTP_REFERER"])
+    referer.path.match(/(search|explore)$/).present?
+  end
+  
   def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true, html_options = {})
     row_label ||= row_value
 

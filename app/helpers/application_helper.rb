@@ -128,15 +128,6 @@ module ApplicationHelper
   end
   
   ##
-  # Returns true if the HTTP referrer is one of the collection search URLs.
-  #
-  # @return [Boolean]
-  #
-  def referred_by_search?
-    controller.request.env["HTTP_REFERER"].present? && controller.request.env["HTTP_REFERER"].match(Regexp.new('/(contributions/search|explore)'))
-  end
-  
-  ##
   # Removes a leading slash from the passed string, if it has one.
   #
   # @param [String] string to remove a leading slash from
