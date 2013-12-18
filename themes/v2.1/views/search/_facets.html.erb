@@ -1,7 +1,7 @@
 <%= form_tag({}, { :method => :get }) do %>
 <ul id="facets">
   <%- if search_filters_present? -%>
-    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets, :rightsLabels => rightsLabels, :languageLabels => languageLabels } %></li>    
+    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets, :rightsLabels => rightsLabels, :languageLabels => languageLabels, :provider => provider } %></li>    
   <%- end -%>
   <%- unless facets.blank? -%>
   
@@ -21,25 +21,39 @@
             <%- for row in facet['fields'] -%>
               <li>
                 <h4>
+                
+		          <%- if provider == '/europeana' && facet["name"] == 'RIGHTS' -%>
+						<% rowLabel = rightsLabels [row['label']] || row['label'] %>
+		          <%- elsif provider == '/europeana' && facet["name"] == 'LANGUAGE' -%>
+						<% rowLabel = languageLabels [row['label']] || row['label']   %>
+				  <%- else %>
+						<%rowLabel = row['label']%>
+				  <%- end %>
+
+                
                   <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
                     <%- if facet_row_selected?(facet["name"], row["search"]) -%>
+                    
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                      <label class="bold"><%= row['label'] %></label>
+                      
+                      
+                      <%#label class="bold"><%= row['label'] %></label %>
+
+                      <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
+
+                      
                     <%- else -%>
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
                       <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe, false) %>
                     <%- end -%>
                   <%- else -%>
+
+
                   
                     <%# checkboxes -%>
 
-			        <%- if provider == '/europeana' && facet["name"] == 'RIGHTS' -%>
- 						<% rowLabel = rightsLabels [row['label']] || row['label'] %>
-			        <%- elsif provider == '/europeana' && facet["name"] == 'LANGUAGE' -%>
- 						<% rowLabel = languageLabels [row['label']] || row['label']   %>
-					<%- else %>
- 						<%rowLabel = row['label']%>
-					<%- end %>
+
+
 
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     

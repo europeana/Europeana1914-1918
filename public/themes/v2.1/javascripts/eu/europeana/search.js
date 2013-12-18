@@ -80,6 +80,7 @@
 		
         // kill firefox cache
         $(":checkbox").attr("autocomplete", "off");
+        $(":radio").attr("autocomplete", "off");
 
         // fix capitalised facets
 		var capitalise = function(str){
@@ -125,6 +126,9 @@
 		    })
 		    
 		$('#facets input[type="checkbox"]').click(function(){
+			$(this).closest('form').submit();
+		});
+		$('#facets input[type="radio"]').click(function(){
 			$(this).closest('form').submit();
 		});
 
