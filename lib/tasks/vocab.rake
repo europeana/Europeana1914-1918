@@ -7,12 +7,13 @@ namespace :vocab do
     end
 
     builder = Nokogiri::XML::Builder.new do |xml|
-      xml['rdf'].RDF("xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "xmlns:skos" => "http://www.w3.org/2004/02/skos/core#") do
+      xml['rdf'].RDF("xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#", "xmlns:skos" => "http://www.w3.org/2004/02/skos/core#", "xmlns:dcterms" => "http://purl.org/dc/terms/") do
     
         fields.each do |field|
-          scheme_uri = "http://www.europeana1914-1918.eu/vocabulary/#{field.name}"
+          scheme_uri = RunCoCo.configuration.site_url + "/vocabulary/#{field.name}"
           xml['rdf'].Description('rdf:about' => scheme_uri) do
             xml['rdf'].type('rdf:resource' => "http://www.w3.org/2004/02/skos/core#ConceptScheme")
+            xml['dcterms'].title(RunCoCo.configuration.site_name + ": " + field.name, 'xml:lang' => :en)
             
             I18n.available_locales.each do |lang|
               begin
@@ -30,7 +31,7 @@ namespace :vocab do
           end
 
           field.taxonomy_terms.each do |term|
-            term_uri = "http://www.europeana1914-1918.eu/vocabulary/#{term.id}"
+            term_uri = RunCoCo.configuration.site_url + "/vocabulary/#{term.id}"
             xml['rdf'].Description('rdf:about' => term_uri) do
               xml['rdf'].type('rdf:resource' => "http://www.w3.org/2004/02/skos/core#Concept")
               xml['skos'].inScheme("rdf:resource" => scheme_uri)
@@ -46,6 +47,7 @@ namespace :vocab do
                 end
                 unless translation.nil?
                   xml['skos'].prefLabel(translation, 'xml:lang' => lang.to_s)
+                  xml['dcterms'].title(translation, 'xml:lang' => lang.to_s)
                 end
               end
             end
