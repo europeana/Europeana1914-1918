@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'digest/md5'
 
 module EuropeanaHelper
@@ -90,5 +92,42 @@ module EuropeanaHelper
       return resource_fields['html'] unless resource_fields.nil?
     end
     ''
+  end
+  
+  def languageLabel(key)
+    languageLabels = {    
+      "en" => "English",
+      "eu" => "Basque",
+      "bg" => "Български",
+      "ca" => "Català",
+      "cs" => "Čeština",
+      "da" => "Dansk",
+      "de" => "Deutsch",
+      "el" => "Ελληνικά",
+      "es" => "Español",
+      "et" => "Eesti",
+      "fr" => "Français",
+      "ga" => "Gaeilge",
+      "hr" => "Hrvatski",
+      "is" => "Íslenska",
+      "it" => "Italiano",
+      "lt" => "Lietuvių",
+      "lv" => "Latviešu",
+      "hu" => "Magyar",
+      "mt" => "Malti",
+      "nl" => "Nederlands",
+      "no" => "Norsk",
+      "pl" => "Polski",
+      "pt" => "Português",
+      "ro" => "Română",
+      "ru" => "Русский",
+      "sl" => "Slovenščina",
+      "sk" => "Slovenský",
+      "fi" => "Suomi",
+      "sv" => "Svenska",
+      "uk" => "Українська"
+    }
+    languageLabels[key] || key
+
   end
 end

@@ -66,7 +66,7 @@
 	<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
 		<dt  class="translate"><b>Language</b></dt>
 		<dd>
-			<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= edmLanguage %></a>
+			<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= languageLabel(edmLanguage) %></a>
 		</dd>
 	<% end %>
 
@@ -143,7 +143,9 @@
 				dc:language
 			</span>
 			<span>
+				
 				<%= dcLanguage %>
+				
 			</span>
 		</li>
 	<% end %>

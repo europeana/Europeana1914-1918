@@ -1,7 +1,7 @@
 <%= form_tag({}, { :method => :get }) do %>
 <ul id="facets">
   <%- if search_filters_present? -%>
-    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets, :rightsLabels => rightsLabels, :languageLabels => languageLabels, :provider => provider } %></li>    
+    <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets, :rightsLabels => rightsLabels, :provider => provider } %></li>    
   <%- end -%>
   <%- unless facets.blank? -%>
   
@@ -25,7 +25,7 @@
 		          <%- if provider == '/europeana' && facet["name"] == 'RIGHTS' -%>
 						<% rowLabel = rightsLabels [row['label']] || row['label'] %>
 		          <%- elsif provider == '/europeana' && facet["name"] == 'LANGUAGE' -%>
-						<% rowLabel = languageLabels [row['label']] || row['label']   %>
+						<% rowLabel = languageLabel(row['label'])  %>
 				  <%- else %>
 						<%rowLabel = row['label']%>
 				  <%- end %>
