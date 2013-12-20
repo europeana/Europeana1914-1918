@@ -64,11 +64,14 @@
 	      <%= link_to t('views.links.back-to-search'), :back %>
 	  </div>
     <%- end -%>
-  
-    <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+
+    <div class="col-cell" >
+      <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+    </div>
     
-    <ul id="thumbnail-counts"></ul>
-    
+    <div class="col-cell" >
+      <ul id="thumbnail-counts"></ul>
+  	</div>  
     
     <!-- <div id="banner"> -->
     <%
@@ -81,6 +84,8 @@
     #  }
     %>
     <!-- </div> -->
+    
+    <%= render :partial => '/layouts/navigation/sharethis' %>
     
   </div>
 
