@@ -54,17 +54,17 @@
 -->
 
 <!-- NEW GRID -->
-<div class="container">
-
-
+<div class="container">  
   
-  <%- if referred_by_search? -%>
-    <%= link_to t('views.links.back-to-search'), :back %>
-  <%- end -%>
-  
-  
-  <div class="col left" XXXXclass="one-half-left">
+  <div class="col left">
     
+    <%- if referred_by_search? -%>
+      <div class="col-cell" >
+	      <%#= link_to t('views.links.back-to-search'), :back, :class => 'return-to-results' %>
+	      <%= link_to t('views.links.back-to-search'), :back %>
+	  </div>
+    <%- end -%>
+  
     <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     
     <ul id="thumbnail-counts"></ul>

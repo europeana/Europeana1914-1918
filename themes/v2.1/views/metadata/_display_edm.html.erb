@@ -1,0 +1,166 @@
+
+<div class="col-cell">
+
+	<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+
+	<div class="translate-area"></div>
+	
+	<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
+	
+	    <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
+     			<dd class="subtext translate"><%= dcContributor %></dd>
+	
+	<% end %>
+
+	<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
+		<p class="translate">
+			<%= dcDescription %>
+		</p>
+		<hr/>
+	<% end %>
+	
+</div>
+
+<div class="col-cell">
+
+	<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
+		<dt class="title translate">Other title(s)</dt>
+		<dd>
+			<%= dctermsAlternative %>
+		</dd>
+	<% end %>
+
+	<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') %>
+		<p  class="translate title">Identifier</p>
+		<p>
+			<%= dcIdentifier %>
+		</p>
+	<% end %>
+
+	<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') %>
+		<p  class="translate title">Country</p>
+		<p>
+			<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
+		</p>
+	<% end %>
+
+	<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
+		<p class="translate title">Date created / Start date</p>
+		<p>
+			<%= dcDate %>
+		</p>
+	<% end %>
+
+	<% if dcType = edm_proxy_field(proxy, 'dcType') %>
+		<p  class="translate title">Type</p>
+		<p  class="translate">
+			<%= dcType %>
+		</p>
+	<% end %>
+
+	<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
+		<p  class="translate title">Format</p>
+		<p>
+		<%= dctermsExtent %>
+		</p>
+	<% end %>
+
+	<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
+		<p  class="translate title">Language</p>
+		<p>
+			<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= edmLanguage %></a>
+		</p>
+	<% end %>
+
+
+	<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') %>
+		<p  class="translate title">Provider</p>
+		<p>
+			<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
+		</p>
+	<% end %>
+
+	<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
+		<p  class="title translate">Data Provider</p>
+		<p>
+			<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
+		</p>
+	<% end %>
+
+
+	<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
+		<p class="title translate">Rights</p>
+		<p>
+			<a href="<%= edmRights %>" target="_new"><span class="<%= cc_rights(edmRights)['icon'] %>">  <%= cc_rights(edmRights)['text'] %> </span></a>
+		</p>
+	<% end %>
+
+
+	<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') %>
+		<p class="title translate">Publisher</p>
+		<p>
+			<%= dcPublisher %>
+		</p>
+	<% end %>
+
+
+
+	<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider %>
+		<p class="title translate">View on partner's website</p>
+		<p>
+			<%= link_to edmProvider, edmIsShownAt %>
+		</p>
+	<% end %>
+
+</div>
+
+
+<ul class="col-cell">
+
+	<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
+		<li>
+			<span class="title">
+				dc:coverage
+			</span>
+			<span>
+				<%= dcCoverage %>
+			</span>
+		</li>
+	<% end %>
+
+	<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
+		<li>
+			<span class="title">
+				dc:subject
+			</span>
+			<span>
+				<%= dcSubject %>
+			</span>
+		</li>
+	<% end %>
+
+	<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
+		<li>
+			<span class="title">
+				dc:language
+			</span>
+			<span>
+				<%= dcLanguage %>
+			</span>
+		</li>
+	<% end %>
+
+	<% if contextInformation = edm_proxy_field(record, 'Context information') %>
+		<li>
+			<span class="title translate">
+				Context Information
+			</span>
+			<span>
+				<%= contextInformation %>
+			</span>
+		</li>
+	<% end %>
+
+</ul>
+
+
