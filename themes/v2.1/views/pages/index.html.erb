@@ -9,13 +9,21 @@
 	
 %>
 <div class='section top'>
-	
+
+	<%#= render :partial => '/blog_posts/list', :locals => {:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false } %>
+
+<%
+  blog_post_entry = blog_posts(:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false)
+  heroImgImg   = ''
+  if blog_post_entry.present?
+    heroImg      = Hpricot( raw blog_post_entry[0].content )
+	heroImgImg   = (heroImg/'img').to_html.html_safe 
+  end  
+%>
+
 	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
 	<% docTitle = doc/'h3' %>
 	<% (doc/'h3').remove %>
-	
-
-	<%= render :partial => '/blog_posts/list', :locals => { :category => 'hero-image',  :limit => 1, :titles => false} %>
 
 
 <%
@@ -40,7 +48,8 @@
 				:mobile => false			
 			}
 		 %>	
-		<img src="themes/v2.1/images/splash-img.jpg" />
+		 <%= heroImgImg  %>
+		 
 	</div>
 
 	<%= render :partial => 'carousel_text_overlay',

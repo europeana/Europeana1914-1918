@@ -333,7 +333,7 @@
 
 	(function() {
 		truncate.init();
-		RunCoCo.translation_services.init( jQuery('.nav-top') );
+		RunCoCo.translation_services.init( jQuery('.translate-area') );
 		carousels.init();
 		map.init();
 		tags.init();

@@ -13,6 +13,7 @@
 	@stylesheets[:item] = true
 %>
 
+
 <% if record['aggregations'].first['edmProvider'].blank? || (record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918") %>
 
 	<%
@@ -29,12 +30,14 @@
 
 	<div class="container">
 
-	  <%- if referred_by_search? -%>
-	    <%= link_to t('views.links.back-to-search'), :back %>
-	  <%- end -%>
-	  
 
 		<div class="col left">
+		
+		  <%- if referred_by_search? -%>
+			<div class="col-cell">
+	    		<%= link_to t('views.links.back-to-search'), :back %>
+	    	</div>
+		  <%- end -%>	  
 
 			<div class="col-cell">
 				<div class="img-panel">
@@ -73,11 +76,13 @@
 
 				<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
-
+				<div class="translate-area"></div>
+				
 				<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
-					<p class="subtext">
-						Contributed by <%= dcContributor %>
-					</p>
+				
+				    <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
+        			<dd class="subtext translate"><%= dcContributor %></dd>
+				
 				<% end %>
 
 				<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
@@ -86,17 +91,17 @@
 					</p>
 					<hr/>
 				<% end %>
-
+				
 			</div>
 
 
 			<div class="col-cell">
 
 				<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
-					<p class="title">Other title(s)</p>
-					<p>
+					<dt class="title translate">Other title(s)</dt>
+					<dd>
 						<%= dctermsAlternative %>
-					</p>
+					</dd>
 				<% end %>
 
 				<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') %>
@@ -358,8 +363,8 @@
 
 			<div class="col-cell">
 				<h2 class="contribution-title hide-on-phones"><%= contribution_title(@contribution) %></h2>
-			</div>
 
+			</div>
 			<div class="col-cell">
 				<dl id="story-metadata" class="metadata">
 					<%=
@@ -382,7 +387,7 @@
 								}
 					%>
 					<% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? %>
-						<dt><b><%= contribution_field_title('contributor') %></b></dt>
+						<dt class="translate"><b><%= contribution_field_title('contributor') %></b></dt>
 						<dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
 					<% end %>
 
