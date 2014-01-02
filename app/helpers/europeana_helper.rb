@@ -94,6 +94,47 @@ module EuropeanaHelper
     ''
   end
   
+  
+  def rightsLabel(key)
+    
+    rightsLabels = {
+      "http://www.europeana.eu/rights/rr-f/" => "Free Access - Rights Reserved",
+      "http://www.europeana.eu/rights/rr-r/" => "Restricted Access - Rights Reserved",
+      "http://www.europeana.eu/rights/unknown/" => "Unknown copyright status",
+      "http://www.europeana.eu/rights/rr-p/" => "Paid Access - Rights Reserved",
+    
+      "http://creativecommons.org/publicdomain/mark/1.0/" => "Public Domain marked",
+      "http://creativecommons.org/publicdomain/zero/1.0/" => "CC0",
+    
+      "http://creativecommons.org/licenses/by/" => "CC BY",
+      "http://creativecommons.org/licenses/by/3.0/" => "CC BY 3.0",
+      
+      "http://creativecommons.org/licenses/by-sa/" => "CC BY-SA",
+      "http://creativecommons.org/licenses/by-sa/3.0" => "CC BY-SA 3.0",
+      "http://creativecommons.org/licenses/by-sa/3.0/us/" => "CC BY-SA 3.0 US",
+      
+      "http://creativecommons.org/licenses/by-nc/" => "CC BY-NC",
+      "http://creativecommons.org/licenses/by-nc/2.0/uk/" => "CC BY-NC 2.0 UK",
+      "http://creativecommons.org/licenses/by-nc/3.0/pt/" => "CC BY-NC 3.0 PT",
+      
+      "http://creativecommons.org/licenses/by-nc-nd/" => "CC BY-NC-ND",
+      "http://creativecommons.org/licenses/by-nc-nd/1.0/" => "CC BY-ND-NC 1.0",
+      "http://creativecommons.org/licenses/by-nc-nd/2.0/uk/" => "CC BY-NC-ND 2.0 UK",
+      "http://creativecommons.org/licenses/by-nc-nd/3.0/" => "CC BY-NC-ND 3.0",
+      "http://creativecommons.org/licenses/by-nc-nd/3.0/nl/" => "CC BY-NC-ND 3.0 NL",
+     
+      "http://creativecommons.org/licenses/by-nc-sa/" => "CC BY-NC-SA",
+      "http://creativecommons.org/licenses/by-nc-sa/3.0/" => "CC BY-NC-SA 3.0",
+      
+      "http://creativecommons.org/licenses/by-nd/" => "CC BY-ND",
+      "http://creativecommons.org/licenses/by-nd/2.5/" => "CC BY-ND 2.5"
+    }
+    
+    rightsLabels[key] || key
+    
+  end
+  
+  
   def languageLabel(key)
     languageLabels = {    
       "en" => "English",
@@ -127,7 +168,8 @@ module EuropeanaHelper
       "sv" => "Svenska",
       "uk" => "Українська"
     }
+    
     languageLabels[key] || key
-
+    
   end
 end
