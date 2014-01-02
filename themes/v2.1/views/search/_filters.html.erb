@@ -11,12 +11,30 @@
       <% 
          linkText = link[:reduce][:text]
          
+        # if provider == '/europeana' 
+	    #     if( linkText.index('Language:')  )
+	    #       linkText = 'Language: ' + languageLabel( linkText.sub 'Language: ', '' )
+	    #     elsif( linkText.index('Rights:')  )
+	    #       linkText = 'Rights: ' + rightsLabel( linkText.sub 'Rights: ', '' ) 
+	    #     end
+		# end
+		
          if provider == '/europeana' 
-	         if( linkText.index('Language:')  )
-	           linkText = 'Language: ' + languageLabel( linkText.sub 'Language: ', '' )
-	         elsif( linkText.index('Rights:')  )
-	           linkText = 'Rights: ' + rightsLabel( linkText.sub 'Rights: ', '' ) 
-	         end
+         
+             label = linkText.split(': ')[0]
+             value = linkText.split(': ')[1]
+             
+             lookupRights   = rightsLabel(value)
+             
+             if(lookupRights != value)
+               linkText = label + ': ' + lookupRights
+             else
+               lookupLanguage = languageLabel(value)
+               if(lookupLanguage != value)
+                 linkText = label + ': ' + lookupLanguage	
+               end
+             end
+
 		end
          
       %>
