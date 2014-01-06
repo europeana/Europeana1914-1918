@@ -184,7 +184,8 @@ class ContributionsController < ApplicationController
     # Rebuild metadata_xyz_ids facet names from abbreviated field names in params
     facet_params = {}
     extracted_facet_params.each_pair do |param_name, param_value|
-      if [ "protagonist_names", "place_name" ].include?(param_name.to_s)
+      #if [ "protagonist_names", "place_name" ].include?(param_name.to_s)
+      if [  "place_name" ].include?(param_name.to_s)
         facet_params[param_name] = param_value
       else
         facet_params[:"metadata_#{param_name.to_s}_ids"] = param_value

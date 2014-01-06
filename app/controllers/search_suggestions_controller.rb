@@ -50,12 +50,14 @@ private
         :path   => "suggestTaxonomy",
         :field  => :taxonomy_terms,
         :label  => t('formtastic.labels.contribution.metadata.keywords')
-      },
-      {
-        :path   => "suggestProtagonists",
-        :field  => :protagonist_names,
-        :label  => t('views.search.facets.contributions.protagonist_names')
       }
+      
+      #,
+      #{
+      #  :path   => "suggestProtagonists",
+      #  :field  => :protagonist_names,
+      #  :label  => t('views.search.facets.contributions.protagonist_names')
+      #}
     ]
     query_params = {
       "q" => query,
