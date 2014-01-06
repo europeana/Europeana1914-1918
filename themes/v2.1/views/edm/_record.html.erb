@@ -1,100 +1,89 @@
 <%
-  @javascripts[:images_loaded] = true
-  @javascripts[:carousel] = true
-  @javascripts[:truncate] = true
-  @javascripts[:translate] = true
-  @javascripts[:edm_object_page] = true
-    
-  if @contribution
-		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
-		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
-		@title = contribution_title(@contribution)
-	end
-	@stylesheets[:item] = true
-%>
+@javascripts[:images_loaded] = true
+@javascripts[:carousel] = true
+@javascripts[:truncate] = true
+@javascripts[:translate] = true
+@javascripts[:edm_object_page] = true
 
+if @contribution
+	@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
+	@javascripts[:video] = @contribution.attachments.select(&:video?).present?
+	@title = contribution_title(@contribution)
+end
 
-<% if record['aggregations'].first['edmProvider'].blank? || (record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918") %>
+@stylesheets[:item] = true
 
-	<%
-		proxy          = record['proxies'][0]
-		places         = record['places'] ? record['places'] : {}
-		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
-		edmObject      = aggregation['edmObject']
-		euAggregation  = record['europeanaAggregation']
-		carouselImages = aggregation['hasView']
-	%>
+if record['aggregations'].first['edmProvider'].blank? ||
+	( record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" )
 
-	<!-- NEW GRID -->
-
-
-	<div class="container">
-
-
-		<div class="col left">
-		
-		  <%- if referred_by_search? -%>
-			<div class="col-cell">
-	    		<%= link_to t('views.links.back-to-search'), :back %>
-	    	</div>
-		  <%- end -%>	  
-
-			<div class="col-cell">
-				<div class="img-panel">
-					<% if edmObject.present? %>
-						<img src="<%= edmObject %>"/>
-					<% else %>
-						<img src="/themes/v2.1/images/default-image.gif"/>
-					<% end %>
-				</div>
-
-				<% if carouselImages %>
-					<% carouselImages.each do |img| %>
-						<img src="<%= img %>" style="max-width:100px;"/>
-					<% end %>
-				<% end %>
-
-				<p class="subtitle"><%= edm_proxy_field(proxy, 'dcTitle') %></p>
+	proxy          = record['proxies'][0]
+	places         = record['places'] ? record['places'] : {}
+	aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
+	edmObject      = aggregation['edmObject']
+	euAggregation  = record['europeanaAggregation']
+	carouselImages = aggregation['hasView']
+-%>
+<!-- NEW GRID -->
+<div class="container">
+	<div class="col left">
+		<% if referred_by_search? -%>
+		<div class="col-cell">
+				<%= link_to t('views.links.back-to-search'), :back %>
 			</div>
-
-			<div class="col-cell">
-				<% if latLong = edm_places_latlng(record['places']) %>
-					<div id="map-container">
-						<div id="map">
-							<script type="text/javascript">
-								var latLong = "<%= latLong %>".split(',');
-							</script>
-						</div>
-					</div>
-				<% end %>
-			</div>
-
-            <%= render :partial => '/layouts/navigation/sharethis' %>
-
-		</div><div id="story-metadata" class="col middle metadata">
-
-
-			<%=
-	      		render :partial => '/metadata/display_edm',
-	      			:locals => {
-	      				:proxy => proxy,
-	      				:aggregation => aggregation,
-	      				:euAggregation => euAggregation,
-	      				:record => record
-	      			}
-	      	%>
-
+		<% end -%>
+		<div class="col-cell">
+			<%
+				html = ''
+				title = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
+				if carouselImages
+					html += '<div class="img-panel">'
+					html += '<div id="institution-featured" class="carousel">'
+					html += '<ul>'
+					carouselImages.each do |img|
+						html += '<li><img src="' + img + '" alt="' + title + '"/></li>'
+					end
+					html += '</ul>'
+					html += '<div class="carousel-overlay"></div>'
+					html += '</div>'
+					html += '</div>'
+				elsif edmObject.present?
+					html += '<div class="img-panel">'
+					html += '<img src="' + edmObject + '" alt="' + title + '"/>'
+					html += '</div>'
+				else
+					html += '<img src="/images/style/icons/mimetypes/unknown.png" alt="' + title + '"/>'
+				end
+				html += '<p class="subtitle">' + title + '</p>'
+			-%>
+			<%= html.html_safe -%>
 		</div>
-
-
-	</div> <!-- end container -->
-
-
-	<!-- END NEW GRID -->
-
-
-<% end %>
-
-<% if oembed = oembed_html(record) %>
+		<div class="col-cell">
+			<% if latLong = edm_places_latlng(record['places']) %>
+				<div id="map-container">
+					<div id="map">
+						<script type="text/javascript">
+							var latLong = "<%= latLong %>".split(',');
+						</script>
+					</div>
+				</div>
+			<% end %>
+		</div>
+    <%= render :partial => '/layouts/navigation/sharethis' %>
+	</div>
+	<div id="story-metadata" class="col middle metadata">
+		<%=
+			render :partial => '/metadata/display_edm',
+				:locals => {
+					:proxy => proxy,
+					:aggregation => aggregation,
+					:euAggregation => euAggregation,
+					:record => record
+				}
+		-%>
+	</div>
+</div> <!-- end container -->
+<!-- END NEW GRID -->
+<% end -%>
+<% if oembed = oembed_html(record) -%>
   <div class="oembed"><%= oembed.html_safe %></div>
-<% end %>
+<% end -%>

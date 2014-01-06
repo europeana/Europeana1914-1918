@@ -22,14 +22,14 @@
 		init: function() {
 			var self = this;
 
-			$('#contributions-featured, #contributions-thumbnails').imagesLoaded( function() {
+			$('#institution-featured, #institution-thumbnails').imagesLoaded( function() {
 				self.$featured_carousel =
-					jQuery('#contributions-featured').rCarousel({
+					jQuery('#institution-featured').rCarousel({
 						item_width_is_container_width : true,
 					}).data('rCarousel');
 
 				self.$thumbnail_carousel =
-					jQuery('#contributions-thumbnails').rCarousel({
+					jQuery('#institution-thumbnails').rCarousel({
 						listen_to_arrow_keys : false,
 						item_width_is_container_width : false,
 						nav_button_size : 'small',
@@ -40,38 +40,27 @@
 		}
 	},
 
-
-	fitvids = {
-		init : function() {
-			console.log($('#contributions-featured li'));
-			$('#contributions-featured li').fitVids({
-				customSelector: "iframe[src^='//localhost']"
-			})
-		}
-	},
-
-
 	map = {
 
 	    cancel:function(){
 	    	$("#map-container").remove();
 	    },
 		init:function(){
-			
+
 			if(typeof latLong == 'undefined' || latLong.length != 2){
-				map.cancel();				
+				map.cancel();
 				return;
 			}
-			
+
 			// this test could happen on the back end too
-			
+
 			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/
-			
+
 			if( ! latLong.join(',').match(regex) ){
 				map.cancel();
 				return;
 			}
-			
+
 			var mapLatitude  = parseFloat(latLong[0]);
 			var mapLongitude = parseFloat(latLong[1]);
 			var mapZoom      = typeof mapZoom != 'undefined' && mapZoom.length && parseInt(mapZoom).length ? parseInt(mapZoom) : 8;
