@@ -169,7 +169,8 @@ module ContributionSearch
           MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
             facet "metadata_#{field.name}_ids"
           end
-          facet "protagonist_names", "place_name"
+          #facet "protagonist_names", "place_name"
+          facet "place_name"
         end
       rescue Errno::ECONNREFUSED
         RunCoCo.error_logger.warn('Solr not accessible; falling back to ActiveRecord search.')
