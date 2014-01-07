@@ -7,7 +7,16 @@ run "ln -nfs #{config.shared_path}/config/initializers/thinking_sphinx.rb #{conf
 run "ln -nfs #{config.shared_path}/config/initializers/devise.rb #{config.release_path}/config/initializers/devise.rb"
 
 # S3 config
-run "ln -nfs #{config.shared_path}/config/s3.yml #{config.release_path}/config/config/s3.yml"
+run "ln -nfs #{config.shared_path}/config/s3.yml #{config.release_path}/config/s3.yml"
+
+# Federated search config
+run "ln -nfs #{config.shared_path}/config/federated_search.yml #{config.release_path}/config/federated_search.yml"
+
+# Sass config
+run "ln -nfs #{config.shared_path}/config/sass.yml #{config.release_path}/config/sass.yml"
+
+# Sunspot config
+run "ln -nfs #{config.shared_path}/config/sunspot.yml #{config.release_path}/config/sunspot.yml"
 
 # Paperclip config
 run "ln -nfs #{config.shared_path}/config/initializers/paperclip.rb #{config.release_path}/config/initializers/paperclip.rb"
