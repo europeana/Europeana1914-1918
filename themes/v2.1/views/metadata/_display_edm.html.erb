@@ -59,10 +59,13 @@
 	<% end -%>
 
 	<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') -%>
-		<% href = home_url + '/europeana/search?facets[PROVIDER]=' + edmProvider.clone.gsub!(' ', '+') -%>
+	
+		<% href = home_url + '/europeana/search?facets[PROVIDER]=' + (edmProvider.index(' ') ? edmProvider.clone.gsub!(' ', '+') : edmProvider) -%>		
+				
 		<dt class="translate"><b>Provider</b></dt>
 		<dd><a href="<%= href %>"><%= edmProvider %></a></dd>
 	<% end -%>
+
 
 	<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') -%>
 		<% href = home_url + '/europeana/search?facets[DATA_PROVIDER]=' + edmDataProvider.clone.gsub!(' ', '+') -%>
@@ -80,7 +83,7 @@
 		<dd><%= dcPublisher %></dd>
 	<% end -%>
 
-	<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider -%>
+	<% if false && (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider -%>
 		<dt class="translate"><b>View on partner's website</b></dt>
 		<dd><%= link_to edmProvider, edmIsShownAt %></dd>
 	<% end -%>
