@@ -68,7 +68,7 @@
 
 
 	<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') -%>
-		<% href = home_url + '/europeana/search?facets[DATA_PROVIDER]=' + edmDataProvider.clone.gsub!(' ', '+') -%>
+		<% href = home_url + '/europeana/search?facets[DATA_PROVIDER]=' + (edmDataProvider.index(' ') ? edmDataProvider.clone.gsub!(' ', '+') : edmDataProvider) -%>		
 		<dt  class="translate"><b>Data Provider</b></dt>
 		<dd><a href="<%= href %>"><%= edmDataProvider %></a></dd>
 	<% end -%>
