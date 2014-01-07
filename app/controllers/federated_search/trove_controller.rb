@@ -141,10 +141,12 @@ protected
       "dcType"        => { "def" => record["type"] },
     } ]
     
+    thumbnail = record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first
+    
     edm["aggregations"] = [ { 
       "edmDataProvider" => { "def" => [ "Trove" ] },
       "edmIsShownAt"    => record["troveUrl"],
-      "edmObject"       => record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first["value"],
+      "edmObject"       => thumbnail.present? ? thumbnail["value"] : nil,
     } ]
     
     edm
