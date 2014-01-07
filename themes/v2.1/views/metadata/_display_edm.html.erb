@@ -1,166 +1,117 @@
-
+<%
+	# note, the <dt class="translate"> tags are purposefullt hard-coded to english
+	# the idea is that the user will use the microsoft translate tool to
+	# translate the <dt> content
+-%>
 <div class="col-cell">
-
 	<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
 	<div class="translate-area"></div>
-	
-	<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
-	
-	    <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
-     	<dd class="subtext translate"><%= dcContributor %></dd>
-	
-	<% end %>
 
-	<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
-		<dd class="translate">
-			<%= dcDescription %>
-		</dd>
+	<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') -%>
+	  <dt class="translate"><b>Contributor</b></dt>
+    <dd class="subtext translate"><%= dcContributor %></dd>
+	<% end -%>
+
+	<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') -%>
+		<dd class="translate"><%= dcDescription %></dd>
 		<hr/>
-	<% end %>
-	
+	<% end -%>
 </div>
 
 <div class="col-cell">
-
-	<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
+	<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') -%>
 		<dt class="translate"><b>Other title(s)</b></dt>
 		<dd>
 			<%= dctermsAlternative %>
 		</dd>
-	<% end %>
+	<% end -%>
 
-	<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') %>
+	<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') -%>
 		<dt class="translate"><b>Identifier</b></dt>
 		<dd><%= dcIdentifier %></dd>
-	<% end %>
+	<% end -%>
 
-	<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') %>
+	<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') -%>
 		<dt class="translate"><b>Country</b></dt>
-		<dd>
-			<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
-		</dd>
-	<% end %>
+		<dd><a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a></dd>
+	<% end -%>
 
-	<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
+	<% if dcDate = edm_proxy_field(proxy, 'dcDate') -%>
 		<dt class="translate"><b>Date created / Start date</b></dt>
-		<dd>
-			<%= dcDate %>
-		</dd>
-	<% end %>
+		<dd><%= dcDate %></dd>
+	<% end -%>
 
-	<% if dcType = edm_proxy_field(proxy, 'dcType') %>
+	<% if dcType = edm_proxy_field(proxy, 'dcType') -%>
 		<dt  class="translate"><b>Type</b></dt>
-		<dd  class="translate">
-			<%= dcType %>
-		</dd>
-	<% end %>
+		<dd  class="translate"><%= dcType %></dd>
+	<% end -%>
 
-	<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
+	<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') -%>
 		<dt class="translate"><b>Format</b></dt>
-		<dd>
-		<%= dctermsExtent %>
-		</dd>
-	<% end %>
+		<dd><%= dctermsExtent %></dd>
+	<% end -%>
 
-	<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
+	<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') -%>
+		<% href = home_url + '/europeana/search?facets[LANGUAGE]=' + edmLanguage -%>
 		<dt  class="translate"><b>Language</b></dt>
-		<dd>
-			<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= languageLabel(edmLanguage) %></a>
-		</dd>
-	<% end %>
+		<dd><a href="<%= href %>"><%= languageLabel(edmLanguage) %></a></dd>
+	<% end -%>
 
+	<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') -%>
+		<% href = home_url + '/europeana/search?facets[PROVIDER]=' + edmProvider.clone.gsub!(' ', '+') -%>
+		<dt class="translate"><b>Provider</b></dt>
+		<dd><a href="<%= href %>"><%= edmProvider %></a></dd>
+	<% end -%>
 
-	<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') %>
-		<dt  class="translate"><b>Provider</b></dt>
-		<dd>
-			<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
-		</dd>
-	<% end %>
-
-	<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
+	<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') -%>
+		<% href = home_url + '/europeana/search?facets[DATA_PROVIDER]=' + edmDataProvider.clone.gsub!(' ', '+') -%>
 		<dt  class="translate"><b>Data Provider</b></dt>
-		<dd>
-			<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
-		</dd>
-	<% end %>
+		<dd><a href="<%= href %>"><%= edmDataProvider %></a></dd>
+	<% end -%>
 
-
-	<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
+	<% if edmRights = edm_proxy_field(aggregation, 'edmRights') -%>
 		<dt class="translate"><b>Rights</b></dt>
-		<dd>
-			<a href="<%= edmRights %>" target="_new"><span class="<%= cc_rights(edmRights)['icon'] %>">  <%= cc_rights(edmRights)['text'] %> </span></a>
-		</dd>
-	<% end %>
+		<dd><a href="<%= edmRights %>" target="_new"><span class="<%= cc_rights(edmRights)['icon'] %>"> <%= cc_rights(edmRights)['text'] %></span></a></dd>
+	<% end -%>
 
-
-	<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') %>
+	<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') -%>
 		<dt class="translate"><b>Publisher</b></dt>
-		<dd>
-			<%= dcPublisher %>
-		</dd>
-	<% end %>
+		<dd><%= dcPublisher %></dd>
+	<% end -%>
 
-
-
-	<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider %>
+	<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider -%>
 		<dt class="translate"><b>View on partner's website</b></dt>
-		<dd>
-			<%= link_to edmProvider, edmIsShownAt %>
-		</dd>
-	<% end %>
-
+		<dd><%= link_to edmProvider, edmIsShownAt %></dd>
+	<% end -%>
 </div>
 
-
 <ul class="col-cell">
-
-	<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
+	<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') -%>
 		<li>
-			<span class="title">
-				dc:coverage
-			</span>
-			<span>
-				<%= dcCoverage %>
-			</span>
+			<span class="title">dc:coverage</span>
+			<span><%= dcCoverage %></span>
 		</li>
-	<% end %>
+	<% end -%>
 
-	<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
+	<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') -%>
 		<li>
-			<span class="title">
-				dc:subject
-			</span>
-			<span>
-				<%= dcSubject %>
-			</span>
+			<span class="title">dc:subject</span>
+			<span><%= dcSubject %></span>
 		</li>
-	<% end %>
+	<% end -%>
 
-	<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
+	<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') -%>
 		<li>
-			<span class="title">
-				dc:language
-			</span>
-			<span>
-				
-				<%= dcLanguage %>
-				
-			</span>
+			<span class="title">dc:language</span>
+			<span><%= dcLanguage %></span>
 		</li>
-	<% end %>
+	<% end -%>
 
-	<% if contextInformation = edm_proxy_field(record, 'Context information') %>
+	<% if contextInformation = edm_proxy_field(record, 'Context information') -%>
 		<li>
-			<span class="title translate">
-				Context Information
-			</span>
-			<span>
-				<%= contextInformation %>
-			</span>
+			<span class="title translate">Context Information</span>
+			<span><%= contextInformation %></span>
 		</li>
-	<% end %>
-
+	<% end -%>
 </ul>
-
-
