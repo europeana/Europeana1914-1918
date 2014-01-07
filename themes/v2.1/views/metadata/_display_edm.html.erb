@@ -19,102 +19,168 @@
 	<% end -%>
 </div>
 
-<div class="col-cell">
-	<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') -%>
-		<dt class="translate"><b>Other title(s)</b></dt>
+<%
+  # vals have:of fields - all must be present to show
+  #    name (the key of the hash)
+  #    label (translate key)
+  #    source (read from proxy or aggregation)
+  #    required (optional list )
+
+  # portal search strings for test data:
+  #    europeana_aggregation_edm_country:*
+  #    proxy_dc_date:*
+  #    proxy_dc_type:*
+  #    proxy_dcterms_extent:*
+  #    europeana_aggregation_edm_language:*
+  #    provider_aggregation_edm_provider:*
+  #    provider_aggregation_edm_dataProvider:*
+  # check here for others:
+  # /home/andy/git/corelib/corelib-solr/src/test/resources/solr/search/conf/schema.xml
+    
+
+  edmVals = [
+    	{
+    		"name" => "dcCoverage",
+    		"ns" => "dc",
+    		"label" => "coverage",
+    		"source" => proxy
+    	},
+    	{
+			"name" => "dcDate",
+		    "ns" => "dc",
+			"label" => "date",
+			"source" => proxy
+    	},
+    	{
+			"name" => "dcIdentifier",
+		    "ns" => "dc",
+			"label" => "identifier",
+			"source" => proxy
+    	},
+    	{
+    		"name" => "dcLanguage",
+    		"ns" => "dc",
+    		"label" => "language",
+    		"source" => proxy,
+    		"expand" => 'languageLabel(readVal)'
+    	},
+    	{
+    		"name" => "dcPublisher",
+    		"ns" => "dc",
+    		"label" => "publisher",
+    		"source" => proxy
+    	},
+  		{
+    		"name" => "dctermsAlternative",
+		    "ns" => "dc",
+    		"label" => "terms_alternative",
+    		"source" => proxy
+    	},
+    	{
+			"name" => "dctermsExtent",
+		    "ns" => "dc",
+			"label" => "terms_extent",
+			"source" => proxy
+    	},
+    	{
+    		"name" => "dcSubject",
+    		"ns" => "dc",
+    		"label" => "subject",
+    		"source" => proxy
+    	},
+    	{
+			"name" => "dcType",
+		    "ns" => "dc",
+			"label" => "type",
+			"source" => proxy
+    	},
+
+    	{
+			"name" => "edmCountry",
+		    "ns" => "edm",
+			"label" => "country",
+			"source" => euAggregation,
+			"href" => home_url + "/europeana/search?facets[COUNTRY]=",
+			"capitalise" => true 
+    	},    	
+    	{
+    		"name" => "edmDataProvider",
+    		"ns" => "edm",
+    		"label" => "data_provider",
+    		"source" => aggregation,
+    		"href" => home_url + '/europeana/search?facets[DATA_PROVIDER]='
+    	},
+    	{
+			"name" => "edmLanguage",
+		    "ns" => "edm",
+			"label" => "language",
+			"source" => euAggregation,
+			"href" => home_url + '/europeana/search?facets[LANGUAGE]=',
+			"expand" => 'languageLabel(readVal)'
+    	},                
+    	{
+    		"name" => "edmProvider",
+            "ns" => "edm",
+    		"label" => "provider",
+    		"source" => aggregation,
+    		"href" => home_url + '/europeana/search?facets[PROVIDER]='
+    	},
+    	{
+    		"name" => "edmProvider",
+    		"name2" => "edmIsShownAt",
+    		"ns" => "edm",
+    		"label" => "partner_site",
+    		"source" => aggregation,
+    		"target" => "_new"
+    	},
+    	{
+    		"name" => "edmRights",
+       		"ns" => "edm", 		
+    		"label" => "rights",
+    		"source" => aggregation,
+    		"target" => "_new",
+    		"rights" => "true",
+  			"expand" => 'rightsLabel(readVal)'    		
+    	}    	
+   ]
+
+%>
+
+  
+  <%- edmVals.each do |edmVal| -%>
+    
+	<%- if readVal = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
+
+	    <%- if edmVal["name2"] -%>
+			<%- name2 = edm_proxy_field(edmVal["source"], edmVal["name2"]) -%>
+	        <%- next if !name2 -%>
+     	<% end -%>
+
+	    <%- if edmVal["capitalise"] -%>	    
+	      <%- readVal = readVal.split(' ').map {|w| w.capitalize }.join(' ') -%>
+     	<% end -%>
+
+	    <%- if edmVal["href"] ||  edmVal["name2"] ||  edmVal["rights"]  -%>
+	      <%- if edmVal["name2"] -%>
+		      <%- href = name2 -%>
+	      <%- elsif edmVal["rights"] -%>
+		      <%- href = readVal -%>
+	      <%- else-%>
+		      <%- href = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
+		      <%- href = href.index(' ') ? href.clone.gsub!(' ', '+') : href -%>
+		      <%- href = edmVal["href"] + href -%>
+          <%- end -%>
+          
+	      <%- readVal = edmVal["expand"] ? eval(edmVal["expand"]) : readVal -%>
+	      <%- readVal = edmVal["rights"] ? '<span class="icon-copyright"> ' + readVal + '</span>'  : readVal -%>
+	      <%- readVal = ('<a href="' + href + '"' +  (edmVal["target"] ? ' target="' + edmVal["target"] + '"' : ' ')   + '>' + readVal + '</a>').html_safe -%>
+     	<% end -%>
+	
+		<dt><b><%= t('formtastic.labels.content.metadata.' + edmVal["ns"] + '.' + edmVal["label"]) -%></b></dt>
 		<dd>
-			<%= dctermsAlternative %>
+			<%= readVal %>
 		</dd>
 	<% end -%>
+    
+  <%- end -%>
 
-	<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') -%>
-		<dt class="translate"><b>Identifier</b></dt>
-		<dd><%= dcIdentifier %></dd>
-	<% end -%>
-
-	<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') -%>
-		<dt class="translate"><b>Country</b></dt>
-		<dd><a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a></dd>
-	<% end -%>
-
-	<% if dcDate = edm_proxy_field(proxy, 'dcDate') -%>
-		<dt class="translate"><b>Date created / Start date</b></dt>
-		<dd><%= dcDate %></dd>
-	<% end -%>
-
-	<% if dcType = edm_proxy_field(proxy, 'dcType') -%>
-		<dt  class="translate"><b>Type</b></dt>
-		<dd  class="translate"><%= dcType %></dd>
-	<% end -%>
-
-	<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') -%>
-		<dt class="translate"><b>Format</b></dt>
-		<dd><%= dctermsExtent %></dd>
-	<% end -%>
-
-	<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') -%>
-		<% href = home_url + '/europeana/search?facets[LANGUAGE]=' + edmLanguage -%>
-		<dt  class="translate"><b>Language</b></dt>
-		<dd><a href="<%= href %>"><%= languageLabel(edmLanguage) %></a></dd>
-	<% end -%>
-
-	<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') -%>
-	
-		<% href = home_url + '/europeana/search?facets[PROVIDER]=' + (edmProvider.index(' ') ? edmProvider.clone.gsub!(' ', '+') : edmProvider) -%>		
-				
-		<dt class="translate"><b>Provider</b></dt>
-		<dd><a href="<%= href %>"><%= edmProvider %></a></dd>
-	<% end -%>
-
-
-	<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') -%>
-		<% href = home_url + '/europeana/search?facets[DATA_PROVIDER]=' + (edmDataProvider.index(' ') ? edmDataProvider.clone.gsub!(' ', '+') : edmDataProvider) -%>		
-		<dt  class="translate"><b>Data Provider</b></dt>
-		<dd><a href="<%= href %>"><%= edmDataProvider %></a></dd>
-	<% end -%>
-
-	<% if edmRights = edm_proxy_field(aggregation, 'edmRights') -%>
-		<dt class="translate"><b>Rights</b></dt>
-		<dd><a href="<%= edmRights %>" target="_new"><span class="<%= cc_rights(edmRights)['icon'] %>"> <%= cc_rights(edmRights)['text'] %></span></a></dd>
-	<% end -%>
-
-	<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') -%>
-		<dt class="translate"><b>Publisher</b></dt>
-		<dd><%= dcPublisher %></dd>
-	<% end -%>
-
-	<% if false && (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider -%>
-		<dt class="translate"><b>View on partner's website</b></dt>
-		<dd><%= link_to edmProvider, edmIsShownAt %></dd>
-	<% end -%>
-</div>
-
-<ul class="col-cell">
-	<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') -%>
-		<li>
-			<span class="title">dc:coverage</span>
-			<span><%= dcCoverage %></span>
-		</li>
-	<% end -%>
-
-	<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') -%>
-		<li>
-			<span class="title">dc:subject</span>
-			<span><%= dcSubject %></span>
-		</li>
-	<% end -%>
-
-	<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') -%>
-		<li>
-			<span class="title">dc:language</span>
-			<span><%= dcLanguage %></span>
-		</li>
-	<% end -%>
-
-	<% if contextInformation = edm_proxy_field(record, 'Context information') -%>
-		<li>
-			<span class="title translate">Context Information</span>
-			<span><%= contextInformation %></span>
-		</li>
-	<% end -%>
-</ul>

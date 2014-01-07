@@ -59,14 +59,14 @@ sk:
         multi: 
         name: 
         position: 
-        required: 
+        required: povinná
         searchable: 
         show_in_listing: 
       setting:
         name: Meno
         value: 
       taxonomy_term:
-        metadata_field: 
+        metadata_field: pole
         term: 
       user:
         created_at: 
@@ -148,7 +148,7 @@ sk:
           one: Pri ukladaní objektu %{model} došlo k chybám a nebolo ho možné uložiť
           other: Pri ukladaní objektu %{model} došlo k %{count} chybám a nebolo ho možné uložiť
     models:
-      attachment: 
+      attachment: predmet
       contact: 
       contribution: Príbeh
       institution: 
@@ -175,7 +175,7 @@ sk:
           cataloguer: 
           contributor: 
   attributes:
-    contact: 
+    contact: Kontakt
     created_at: 
     email: Email
     id: 
@@ -184,7 +184,7 @@ sk:
     updated_at: 
     url: 
   common:
-    additional-information: 
+    additional-information: Dodatoèné informácie
     download-item: 
     editors_blog:
       more_stories: 
@@ -206,19 +206,20 @@ sk:
       contact_us: Kontaktujte nás
       contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=sk" target="_blank">Europeana podmienky pre užívate¾ské príspevky</a>
       contribution_terms: ! 'Europeana podmienky pre užívateľské príspevky '
-      explore-the-stories: 
-      explore_stories: 
+      explore-the-stories: Preskúmajte príbehy!
+      explore_stories: Preskúmajte príbehy
       help: ! 'Pomoc '
       my_account: 
-      my_stories: 
+      my_stories: Moje príbehy
       privacy_policy: ! 'Zásady ochrany osobných údajov '
       project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Pre viac informácií si pozrite našu projektovú stánku</a>
       register: ! 'Registrujte sa '
       sign_in: Prihlásiť sa
+      statistics: 
       takedown_policy: Zásady stiahnutia sporného obsahu
       titles:
         contribution_terms: 
-        great_war: 
+        great_war: Archív Veľkej vojny na univerzite v Oxforde
         takedown: 
     menus:
       main:
@@ -240,12 +241,12 @@ sk:
     options:
       close: Zatvoriť
       open: Otvoriť
-      other_option: 
+      other_option: ! 'Ostatným '
     other:
       contributor: 
       preview: ! 'Ukážka '
       title: Názov
-      total: 
+      total: Celkovo
     'yes': Áno
   date:
     abbr_day_names:
@@ -366,7 +367,7 @@ sk:
     sessions:
       link: Prihlásenie
       signed_in: ! 'Úspešne '
-      signed_out: 
+      signed_out: Boli ste úspešne odlásený
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -506,7 +507,7 @@ sk:
     actions:
       attachment:
         add_edit: 
-        create: 
+        create: ! ' Nahrajte'
         delete: 
         update: Uložit
       contribution:
@@ -518,10 +519,10 @@ sk:
         withdraw: 
       contributor:
         create: Registrácia
-      create: 
+      create: Odošlite
       delete: ! "Vymaza\x9D"
       filter:
-        submit: 
+        submit: ! "Aktualizova\x9D"
       metadata_field:
         delete: 
         reindex: 
@@ -537,12 +538,12 @@ sk:
       taxonomy_term:
         import: 
       update: 
-      upload: 
+      upload: Nahrajte
       user:
         create: Registrujte
         delete: 
-        update: 
-    create: 
+        update: ! "Aktualizova\x9D"
+    create: ! "Vytvori\x9D %{model}"
     hints:
       attachment:
         dropbox_path: 
@@ -656,7 +657,7 @@ sk:
           file_type: 
           format: 
           lang: Jazyk
-          lang_other: 
+          lang_other: Jazyk (ostatným)
           license: 
           location_map: 
           location_placename: Vyberte kde bol váš objekt vytvorený
@@ -667,6 +668,30 @@ sk:
           source: 
           subject: Subjekt
           ticket: 
+      content:
+        metadata:
+          dc:
+            contributor: 
+            country: 
+            coverage: 
+            creator: 
+            date: 
+            description: 
+            identifier: 
+            language: 
+            publisher: 
+            subject: 
+            terms_alternative: 
+            terms_extent: 
+            title: 
+            type: 
+          edm:
+            country: 
+            data_provider: 
+            language: 
+            partner_site: 
+            provider: 
+            rights: 
       contribution:
         metadata:
           alternative: 
@@ -694,7 +719,7 @@ sk:
           forces: 
           keywords: Kľúčové slová
           lang: ! ' Jazyk'
-          lang_other: 
+          lang_other: Jazyk (ostatným)
           location_map: 
           location_placename: Umiestnite váš príbeh
           location_zoom: 
@@ -732,7 +757,7 @@ sk:
           Aerial Warfare: Vojna vo vzduchu
           African Wars: Afrika
           Balkans: Balkán
-          Eastern Front: 
+          Eastern Front: Východný front
           Gallipoli Front: Front Gallipoli
           Italian Front: Taliansky front
           Middle East: Blízky východ
@@ -741,7 +766,7 @@ sk:
       user:
         delete_picture: 
         terms: 
-    'no': 
+    'no': Nie
     required: 
     titles:
       account_details: 
@@ -775,8 +800,8 @@ sk:
       story_keywords: Pomôžte ostatným nájsť váš príbeh pridaním jedného alebo viacerých kľúčových slov.
       story_location: Kde sa váš príbeh odohral
       submit: 
-    update: 
-    'yes': 
+    update: ! "Aktualizova\x9D %{model}"
+    'yes': Áno
   helpers:
     select:
       prompt: Prosím vyberte si
@@ -819,12 +844,12 @@ sk:
         hide: 
         show: 
     next: 
-    previous: 
+    previous: ← Predošlá
     story:
       took-place: 
     thumbnails:
       item: Objekt
-      of: 
+      of: z
     translate:
       return-to-language: 
       translate-to: 
@@ -837,7 +862,7 @@ sk:
       finished: 
       hint: 
       label: 
-      saved: 
+      saved: Uložiť
   languages:
     da: 
     de: nemeckých
@@ -850,7 +875,7 @@ sk:
     sl: 
   layout:
     navigation:
-      about: 
+      about: O
       admin: 
       browse: Vybrať
       contact: Kontaktujte nás
@@ -871,7 +896,7 @@ sk:
         notice: 
         subject: 
   media_types:
-    all: 
+    all: Celý
     binary: 
     pdf: 
     sound: 
@@ -942,6 +967,7 @@ sk:
     publish_contributions: 
     registration_required: 
     relative_url_root: 
+    search_engine: 
     sharethis_id: 
     site_name: 
     site_url: 
@@ -994,7 +1020,7 @@ sk:
         item2: 
         item3: 
         item4: 
-        item5: 
+        item5: ! 'Kontaktujte nás cez e-mail: 1914-1918[@]europeana[.]eu'
         p1: 
       terms:
         full_details:
@@ -1011,7 +1037,7 @@ sk:
           p2: 
           p3: 
         user_contributions:
-          heading: 
+          heading: ! 'Europeana podmienky pre užívate¾ské príspevky '
           item1: 
           item2: 
           item3: 
@@ -1070,7 +1096,7 @@ sk:
               revised: 
               submitted: 
               withdrawn: 
-          title: 
+          title: Príspevky
         p1: 
       index:
         headings:
@@ -1081,7 +1107,7 @@ sk:
             text: 
           contributions:
             description: 
-            text: 
+            text: Príspevky
           export:
             description: 
             text: 
@@ -1215,6 +1241,7 @@ sk:
         links:
           preview:
             title: 
+        no_thumbnail: 
       attachment_help:
         item1: Pridať jeden objekt alebo súbor
         item1-subitem1: Popíšte objekt
@@ -1304,7 +1331,7 @@ sk:
           3d: 3D
           artifact: 
           audio: Zvukové nahrávky
-          back: 
+          back: Rub
           book: Knihy
           canvas: 
           card: 
@@ -1326,7 +1353,7 @@ sk:
           multiple: Viacero
           newspaper: 
           notebook: 
-          other_option: 
+          other_option: Ostatným
           paper: 
           photograph: Fotografia
           photographic_paper: 
@@ -1497,6 +1524,9 @@ sk:
       bad_request:
         message: 
         title: 
+      federated_search_error:
+        message: 
+        title: 
       forbidden:
         message: 
         title: 
@@ -1510,7 +1540,7 @@ sk:
         message: 
         title: 
     explore:
-      heading: 
+      heading: Preskúmajte príbehy
       links:
         diary: 
         eastern_front: 
@@ -1586,6 +1616,19 @@ sk:
         terms: 
     search:
       facets:
+        common:
+          category: 
+          collection: 
+          country: 
+          creator: 
+          format: 
+          language: 
+          location: 
+          provider: 
+          rights: 
+          subject: 
+          type: 
+          year: 
         contributions:
           collection_day: Zberné dni
           content: 
@@ -1597,7 +1640,18 @@ sk:
           protagonist_names: 
           provider: 
           theatres: Bojiská
+        digitalnz:
+          content_partner: 
+        europeana:
+          DATA_PROVIDER: 
+          REUSABILITY: 
+          UGC: 
+        matches_for: 
+        trove:
+          availability: 
+          discipline: 
       providers:
+        canadiana: 
         contributions: ! '1914-1918
 
 '
@@ -1621,6 +1675,7 @@ sk:
           object_pageviews: 
           visits: 
         no_results: 
+        ugc_heading: 
     table:
       header:
         actions: Akcie
@@ -1639,7 +1694,7 @@ sk:
         links:
           edit_contact: 
           edit_user: 
-        title: 
+        title: Váš účet
       sign-in:
         help: Na prihlásenie použite užívateľské meno alebo vašu emailovú adresu. Nemusíte použiť obidve.
   will_paginate:
