@@ -13,6 +13,7 @@
 		? false
 		: true,
 		$contributions_featured = jQuery('#contributions-featured'),
+		add_lightbox = pdf_viewer,
 
 
 	carousels = {
@@ -22,21 +23,81 @@
 		init: function() {
 			var self = this;
 
-			$('#institution-featured, #institution-thumbnails').imagesLoaded( function() {
+			$('#institution-featured').imagesLoaded( function() {
 				self.$featured_carousel =
 					jQuery('#institution-featured').rCarousel({
 						item_width_is_container_width : true,
 					}).data('rCarousel');
-
-				self.$thumbnail_carousel =
-					jQuery('#institution-thumbnails').rCarousel({
-						listen_to_arrow_keys : false,
-						item_width_is_container_width : false,
-						nav_button_size : 'small',
-						navigation_style : 'one-way-by',
-						nav_by : self.thumb_nav_by
-					}).data('rCarousel');
 			});
+		}
+	},
+
+	lightbox = {
+		setupPrettyPhoto : function() {
+			var self = this,
+					ppOptions = {
+						description_src : 'data-description',
+						overlay_gallery : false,
+						changepagenext : self.handlePageChangeNext,
+						changepageprev : self.handlePageChangePrev,
+						changepicturecallback : self.handlePictureChange,
+						show_title : false,
+						social_tools: false,
+						collection_total : carousels.items_collection_total,
+						callback : function() {
+							self.removeMediaElementPlayers();
+						}
+					};
+
+			//jQuery("a[rel^='prettyPhoto'].video").each(function() {
+			//	// Videos are played by MediaElement.js, using prettyPhoto's inline
+			//	// content handler. MediaElements.js will not work if the video element
+			//	// is copied into prettyPhoto's container, the <video> element and
+			//	// MediaElement.js attachment to the <video> element needs to happen
+			//	// once the prettyPhoto container has been created.
+			//	// @see self.handlerPictureChange
+			//	var ppVideoOptions = ppOptions;
+			//	var video_link = jQuery(this);
+			//
+			//	ppVideoOptions.default_width = video_link.data('video-width');
+			//	ppVideoOptions.default_height = video_link.data('video-height');
+			//	jQuery(this).prettyPhoto(ppVideoOptions);
+			//});
+			//
+			//jQuery("a[rel^='prettyPhoto'].audio").each(function() {
+			//	var ppAudioOptions = ppOptions;
+			//	var audio_link = jQuery(this);
+			//
+			//	ppAudioOptions.default_width = audio_link.data('audio-width');
+			//	ppAudioOptions.default_height = audio_link.data('audio-height');
+			//	jQuery(this).prettyPhoto(ppAudioOptions);
+			//});
+			//
+			//jQuery("a[rel^='prettyPhoto']").not('.video,.audio').each(function() {
+			//	var ppImageOptions = ppOptions;
+			//	ppImageOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
+			//	jQuery(this).prettyPhoto(ppImageOptions);
+			//});
+			$("a[rel^='prettyPhoto']").prettyPhoto();
+		},
+
+		removeLightboxLinks : function() {
+			$('#institution-featured a').each(function() {
+				var $elm = jQuery(this),
+						contents = $elm.contents();
+
+				if ( !$elm.hasClass('pdf') ) {
+					$elm.replaceWith(contents);
+				}
+			});
+		},
+
+		init : function() {
+			if ( add_lightbox ) {
+				this.setupPrettyPhoto();
+			} else {
+				this.removeLightboxLinks();
+			}
 		}
 	},
 
@@ -326,6 +387,7 @@
 		carousels.init();
 		map.init();
 		tags.init();
+		lightbox.init();
 //		js.utils.initSearch();
 
 		js.loader.loadScripts([{
