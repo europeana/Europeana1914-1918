@@ -19,3 +19,6 @@ run 'sudo monit -g solr restart all'
     break
   end
 end
+
+# @todo run sunspot:solr:reindex on solr host if app solr/conf directory 
+#   changed since last release
