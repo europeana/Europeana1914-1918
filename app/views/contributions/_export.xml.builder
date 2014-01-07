@@ -45,7 +45,7 @@ xml.record do
 end
 
 item_pos = titleless_items = 0
-contribution.attachments.each do |a|
+contribution.attachments.reject { |a| a.file_file_name.nil? }.each do |a|
   item_pos = item_pos + 1
   
   xml.record do
