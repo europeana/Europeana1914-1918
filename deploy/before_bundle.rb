@@ -12,6 +12,7 @@ if config.current_role == "util"
     "#{config.shared_path}/config/sass.yml",
     "#{config.shared_path}/config/s3.yml"
   ].each do |config_path|
+    run "mkdir -p " + File.dirname(config_path)
     run "scp -o StrictHostKeyChecking=no -i /home/#{username}/.ssh/internal #{username}@#{config.node[:master_app_server][:private_dns_name]}:#{config_path} #{config_path}"
   end
 end
