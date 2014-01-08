@@ -73,6 +73,7 @@ module Europeana
           graph << [ uri, RDF::DC.isPartOf, @source.contribution.edm.provided_cho_uri ]
           graph << [ uri, RDF::DC.medium, meta["format"].first ] unless meta["format"].blank?
           graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
+          graph << [ uri, RDF::DC.tableOfContents, meta["attachment_description"] ] unless meta["attachment_description"].blank?
           graph << [ uri, RDF::EDM.isNextInSequence, previous_in_sequence.edm.provided_cho_uri ] unless previous_in_sequence.blank?
           graph << [ uri, RDF::EDM.type, meta["file_type"].first ] unless meta["file_type"].blank?
           
@@ -94,7 +95,7 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => creator_full_name).append_to(graph, uri, RDF::DCElement.creator)
           end
           
-          [ "keywords", "theatres", "forces" ].each do |subject_field|
+          [ "keywords", "theatres", "forces", "extended_subjects" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
                 EDM::Resource::Concept.new(RDF::SKOS.prefLabel => subject).append_to(graph, uri, RDF::DCElement.subject)

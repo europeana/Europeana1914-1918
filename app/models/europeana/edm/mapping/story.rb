@@ -183,7 +183,7 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => meta["creator"]).append_to(graph, uri, RDF::DCElement.creator)
           end
           
-          [ "keywords", "theatres", "forces" ].each do |subject_field|
+          [ "keywords", "theatres", "forces", "extended_subjects" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
                 EDM::Resource::Concept.new(RDF::SKOS.prefLabel => subject).append_to(graph, uri, RDF::DCElement.subject)
@@ -191,13 +191,30 @@ module Europeana
             end
           end
           
-          character1_full_name = Contact.full_name(meta["character1_given_name"], meta["character1_family_name"])
-          unless character1_full_name.blank? && meta['character1_dob'].blank? && meta['character1_dod'].blank?
-            EDM::Resource::Concept.new({
-              RDF::SKOS.prefLabel => character1_full_name,
-              RDF::EDM.begin => meta['character1_dob'],
-              RDF::EDM.end => meta['character1_dod']
-            }).append_to(graph, uri, RDF::DCElement.subject)
+          [ '1', '2' ].each do |cn|
+            character_full_name = Contact.full_name(meta["character#{cn}_given_name"], meta["character#{cn}_family_name"])
+            unless character_full_name.blank? && meta["character#{cn}_dob"].blank? && meta["character#{cn}_dod"].blank? && meta["character#{cn}_pob"].blank? && meta["character#{cn}_pod"].blank?
+              character = EDM::Resource::Concept.new({
+                RDF::SKOS.prefLabel => character_full_name,
+                RDF::EDM.begin => meta["character#{cn}_dob"],
+                RDF::EDM.end => meta["character#{cn}_dod"]
+              })
+              character.append_to(graph, uri, RDF::DCElement.subject)
+              
+              unless meta["character#{cn}_pob"].blank?
+                character_pob = EDM::Resource::Place.new({
+                  RDF::SKOS.prefLabel => meta["character#{cn}_pob"]
+                })
+                character_pob.append_to(graph, character.id, RDF::EDM.hasMet)
+              end
+              
+              unless meta["character#{cn}_pod"].blank?
+                character_pod = EDM::Resource::Place.new({
+                  RDF::SKOS.prefLabel => meta["character#{cn}_pod"]
+                })
+                character_pod.append_to(graph, character.id, RDF::EDM::hasMet)
+              end
+            end
           end
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
