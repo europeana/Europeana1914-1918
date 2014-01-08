@@ -100,44 +100,126 @@ module EuropeanaHelper
     fields = oembed_fields(edm_object)
     fields.is_a?(Hash) ? fields['html'] : ''
   end
-  
-  def rightsLabel(key)
+
     
+  def rightsLabel(key, withIcon=false)
+            
     rightsLabels = {
-      "http://www.europeana.eu/rights/rr-f/" => "Free Access - Rights Reserved",
-      "http://www.europeana.eu/rights/rr-r/" => "Restricted Access - Rights Reserved",
-      "http://www.europeana.eu/rights/unknown/" => "Unknown copyright status",
-      "http://www.europeana.eu/rights/rr-p/" => "Paid Access - Rights Reserved",
-    
-      "http://creativecommons.org/publicdomain/mark/1.0/" => "Public Domain marked",
-      "http://creativecommons.org/publicdomain/zero/1.0/" => "CC0",
-    
-      "http://creativecommons.org/licenses/by/" => "CC BY",
-      "http://creativecommons.org/licenses/by/3.0/" => "CC BY 3.0",
-      
-      "http://creativecommons.org/licenses/by-sa/" => "CC BY-SA",
-      "http://creativecommons.org/licenses/by-sa/3.0" => "CC BY-SA 3.0",
-      "http://creativecommons.org/licenses/by-sa/3.0/us/" => "CC BY-SA 3.0 US",
-      
-      "http://creativecommons.org/licenses/by-nc/" => "CC BY-NC",
-      "http://creativecommons.org/licenses/by-nc/2.0/uk/" => "CC BY-NC 2.0 UK",
-      "http://creativecommons.org/licenses/by-nc/3.0/pt/" => "CC BY-NC 3.0 PT",
-      
-      "http://creativecommons.org/licenses/by-nc-nd/" => "CC BY-NC-ND",
-      "http://creativecommons.org/licenses/by-nc-nd/1.0/" => "CC BY-ND-NC 1.0",
-      "http://creativecommons.org/licenses/by-nc-nd/2.0/uk/" => "CC BY-NC-ND 2.0 UK",
-      "http://creativecommons.org/licenses/by-nc-nd/3.0/" => "CC BY-NC-ND 3.0",
-      "http://creativecommons.org/licenses/by-nc-nd/3.0/nl/" => "CC BY-NC-ND 3.0 NL",
-     
-      "http://creativecommons.org/licenses/by-nc-sa/" => "CC BY-NC-SA",
-      "http://creativecommons.org/licenses/by-nc-sa/3.0/" => "CC BY-NC-SA 3.0",
-      
-      "http://creativecommons.org/licenses/by-nd/" => "CC BY-ND",
-      "http://creativecommons.org/licenses/by-nd/2.5/" => "CC BY-ND 2.5"
+      "http://www.europeana.eu/rights/rr-f/" => {
+        "label" => "Free Access - Rights Reserved",
+        "icons" => ["icon-copyright"]
+      },
+      "http://www.europeana.eu/rights/rr-r/" => {
+        "label" => "Restricted Access - Rights Reserved",
+        "icons" => ["icon-copyright"]
+      },
+      "http://www.europeana.eu/rights/unknown/" => {
+        "label" => "Unknown copyright status",
+        "icons" => ["icon-unknown"]
+      },
+      "http://www.europeana.eu/rights/rr-p/" => {
+        "label" => "Paid Access - Rights Reserved",
+        "icon"  => ["icon-copyright"]
+      },
+      "http://creativecommons.org/publicdomain/mark/" => {
+        "label" => "Public Domain marked",
+        "icons" => ["icon-pd"]
+      },
+      "http://creativecommons.org/publicdomain/mark/1.0/" => {
+        "label" => "Public Domain marked",
+        "icons" => ["icon-pd"]
+      },
+      "http://creativecommons.org/publicdomain/zero/1.0/" => {
+        "label" => "CC0",
+        "icons" => ["icon-pd"]
+      },
+      "http://creativecommons.org/licenses/by/" => {
+        "label" => "CC BY",
+        "icons" => ["icon-cc", "icon-by"]
+      },
+      "http://creativecommons.org/licenses/by/3.0/" => {
+        "label" =>  "CC BY 3.0",
+        "icons" => ["icon-cc", "icon-by"]
+      },
+      "http://creativecommons.org/licenses/by-sa/" => {
+        "label" => "CC BY-SA",
+        "icons" => ["icon-cc", "icon-by", "icon-sa"]
+      },
+      "http://creativecommons.org/licenses/by-sa/3.0" => {
+        "label" => "CC BY-SA 3.0",
+        "icons" => ["icon-cc", "icon-by", "icon-sa"]
+      },
+      "http://creativecommons.org/licenses/by-sa/3.0/us/" => {
+        "label" => "CC BY-SA 3.0 US",
+        "icons" => ["icon-cc", "icon-by", "icon-sa"]
+      },
+      "http://creativecommons.org/licenses/by-nc/" => {
+        "label" => "CC BY-NC",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu"]
+      },
+      "http://creativecommons.org/licenses/by-nc/2.0/uk/" =>
+      {
+        "label" => "CC BY-NC 2.0 UK",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu"]
+      },
+      "http://creativecommons.org/licenses/by-nc/3.0/pt/" => {
+        "label" => "CC BY-NC 3.0 PT",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu"]
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/" => {
+        "label" => "CC BY-NC-ND",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/1.0/" => {
+        "label" => "CC BY-ND-NC 1.0",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/2.0/" => {
+        "label" => "CC BY-NC-ND 2.0",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/2.0/uk/" => {
+        "label" => "CC BY-NC-ND 2.0 UK",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/3.0/" => {
+        "label" => "CC BY-NC-ND 3.0",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nc-nd/3.0/nl/" => {
+        "label" => "CC BY-NC-ND 3.0 NL",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nc-sa/" => {
+        "label" => "CC BY-NC-SA",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-sa"]
+      },
+      "http://creativecommons.org/licenses/by-nc-sa/3.0/" => {
+        "label" => "CC BY-NC-SA 3.0",
+        "icons" => ["icon-cc", "icon-by", "icon-nceu", "icon-sa"]
+      },
+      "http://creativecommons.org/licenses/by-nd/" => {
+        "label" => "CC BY-ND",
+        "icons" => ["icon-cc", "icon-by", "icon-nd"]
+      },
+      "http://creativecommons.org/licenses/by-nd/2.5/" => {
+        "label" => "CC BY-ND 2.5",
+        "icons" => ["icon-cc", "icon-by", "icon-nd"]
+      }
     }
     
-    rightsLabels[key] || key
+     res = rightsLabels[key] ? rightsLabels[key]["label"]  :  key
     
+     if withIcon && res != key
+       iconStr = ''
+       rightsLabels[key]["icons"].each do |icon|
+         iconStr += '<span class="' + icon + '"> '
+       end
+       res = iconStr + res
+       res = res.html_safe
+     end
+     
+     res
   end
   
   

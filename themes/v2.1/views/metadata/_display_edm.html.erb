@@ -141,7 +141,7 @@
     		"source" => aggregation,
     		"target" => "_new",
     		"rights" => "true",
-  			"expand" => 'rightsLabel(readVal)'    		
+  			"expand" => 'rightsLabel(readVal, true)'    		
     	}    	
    ]
 
@@ -173,7 +173,6 @@
           <%- end -%>
           
 	      <%- readVal = edmVal["expand"] ? eval(edmVal["expand"]) : readVal -%>
-	      <%- readVal = edmVal["rights"] ? '<span class="icon-copyright"> ' + readVal + '</span>'  : readVal -%>
 	      <%- readVal = ('<a href="' + href + '"' +  (edmVal["target"] ? ' target="' + edmVal["target"] + '"' : ' ')   + '>' + readVal + '</a>').html_safe -%>
      	<% end -%>
 	
