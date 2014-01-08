@@ -1,15 +1,17 @@
 <%
-@javascripts[:images_loaded] = true
-@javascripts[:carousel] = true
-@javascripts[:truncate] = true
-@javascripts[:translate] = true
-@javascripts[:edm_object_page] = true
 
-if @contribution
-	@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
-	@javascripts[:video] = @contribution.attachments.select(&:video?).present?
-	@title = contribution_title(@contribution)
-end
+	@javascripts[:images_loaded] = true
+	@javascripts[:carousel] = true
+	@javascripts[:lightbox] = true
+	@javascripts[:truncate] = true
+	@javascripts[:translate] = true
+	@javascripts[:edm_object_page] = true
+
+	if @contribution
+		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
+		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
+		@title = contribution_title(@contribution)
+	end
 
 @stylesheets[:item] = true
 
@@ -33,32 +35,38 @@ if record['aggregations'].first['edmProvider'].blank? ||
 		<% end -%>
 		<div class="col-cell">
 			<%
-				html = ''
 				title = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
-				if carouselImages
-					html += '<div class="img-panel">'
+				link_attrs = {
+					:title => title,
+					'class' => 'image',
+					'data-description' => title,
+					:rel => 'prettyPhoto[gallery]'
+				}
+
+				html = '<div class="img-panel">'
 					html += '<div id="institution-featured" class="carousel">'
-					html += '<ul>'
-					carouselImages.each do |img|
-						html += '<li><img src="' + img + '" alt="' + title + '"/></li>'
-					end
-					html += '</ul>'
-					html += '<div class="carousel-overlay"></div>'
+						html += '<ul>'
+							if carouselImages
+								carouselImages.each do |img|
+									img_html = '<img src="' + img + '" alt="' + title + '"/>'
+									html += '<li>' + link_to( img_html.html_safe, img, link_attrs ) + '</li>'
+								end
+							elsif edmObject.present?
+								img_html = '<img src="' + edmObject + '" alt="' + title + '"/>'
+								html += '<li>' + link_to( img_html.html_safe, edmObject, link_attrs ) + '</li>'
+							else
+								html += '<li><img src="/images/style/icons/mimetypes/unknown.png" alt="' + title + '"/></li>'
+							end
+						html += '</ul>'
+						html += '<div class="carousel-overlay"></div>'
 					html += '</div>'
-					html += '</div>'
-				elsif edmObject.present?
-					html += '<div class="img-panel">'
-					html += '<img src="' + edmObject + '" alt="' + title + '"/>'
-					html += '</div>'
-				else
-					html += '<img src="/images/style/icons/mimetypes/unknown.png" alt="' + title + '"/>'
-				end
+				html += '</div>'
 				html += '<p class="subtitle">' + title + '</p>'
 			-%>
-			<%= html.html_safe -%>
+			<%= html.html_safe %>
 		</div>
 		<div class="col-cell">
-			<% if latLong = edm_places_latlng(record['places']) %>
+			<% if latLong = edm_places_latlng(record['places']) -%>
 				<div id="map-container">
 					<div id="map">
 						<script type="text/javascript">
@@ -66,7 +74,7 @@ if record['aggregations'].first['edmProvider'].blank? ||
 						</script>
 					</div>
 				</div>
-			<% end %>
+			<% end -%>
 		</div>
     <%= render :partial => '/layouts/navigation/sharethis' %>
 	</div>
