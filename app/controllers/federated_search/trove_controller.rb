@@ -75,18 +75,21 @@ protected
   
   def edm_results_from_response(response)
     zone_results = zone_results(response)
-  
-    edm = []
-    return edm unless zone_results["records"]["work"].present?
+    newspaper_zone = (extracted_facet_params[:zone].first == "newspaper")
+    records_key = (newspaper_zone ? "article" : "work")
+    records = zone_results["records"][records_key]
     
-    zone_results["records"]["work"].each do |result|
+    edm = []
+    return edm unless records.present?
+    
+    records.each do |result|
       edm_result = {
         "id" => result["id"],
-        "title" => [ result["title"] ],
+        "title" => [ newspaper_zone ? result["heading"] : result["title"] ],
         "guid" => show_trove_url(result["id"]),
         "provider" => [ "Trove" ],
-        "year" => [ result["issued"] ],
-        "dcCreator" => result["contributor"]
+        "year" => [ newspaper_zone ? result["date"] : result["issued"] ],
+        "dcCreator" => newspaper_zone ? [ result["title"]["value"] ] : result["contributor"]
       }
       
       if result.has_key?("identifier")
@@ -141,7 +144,7 @@ protected
       "dcType"        => { "def" => record["type"] },
     } ]
     
-    thumbnail = record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first
+    thumbnail = record["identifier"].present? ? record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first : nil
     
     edm["aggregations"] = [ { 
       "edmDataProvider" => { "def" => [ "Trove" ] },
