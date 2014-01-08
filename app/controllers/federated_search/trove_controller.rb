@@ -11,7 +11,11 @@ class FederatedSearch::TroveController < FederatedSearchController
   self.api_url = "http://api.trove.nla.gov.au/result"
   
   def record_url
-    "http://api.trove.nla.gov.au/work/#{params[:id]}"
+    if params[:newspaper] == '1'
+      "http://api.trove.nla.gov.au/newspaper/#{params[:id]}"
+    else
+      "http://api.trove.nla.gov.au/work/#{params[:id]}"
+    end
   end
   
 protected
@@ -86,7 +90,7 @@ protected
       edm_result = {
         "id" => result["id"],
         "title" => [ newspaper_zone ? result["heading"] : result["title"] ],
-        "guid" => show_trove_url(result["id"]),
+        "guid" => show_trove_url(result["id"], newspaper_zone ? { :newspaper => '1' } : {}),
         "provider" => [ "Trove" ],
         "year" => [ newspaper_zone ? result["date"] : result["issued"] ],
         "dcCreator" => newspaper_zone ? [ result["title"]["value"] ] : result["contributor"]
@@ -128,23 +132,26 @@ protected
   def edm_record_from_response(response)
     edm = {}
     
-    return edm unless response["work"].present?
-    record = response["work"]
+    newspaper_zone = (params[:newspaper] == '1')
+    response_key = (newspaper_zone ? "article" : "work")
+    record = response[response_key]
     
-    edm["title"] = [ record["title"] ]
+    return edm unless record.present?
+    
+    edm["title"] = [ newspaper_zone ? record["heading"] : record["title"] ]
     
     edm["proxies"] = [ {
-      "dcContributor" => { "def" => record["contributor"] },
-      "dcDate"        => { "def" => [ record["issued"] ] },
+      "dcContributor" => { "def" => newspaper_zone ? [ record["title"]["value"] ] : record["contributor"] },
+      "dcDate"        => { "def" => [ newspaper_zone ? record["date"] : record["issued"] ], },
       "dcDescription" => { "def" => record["abstract"] },
       "dcIdentifier"  => { "def" => [ record["id"] ].flatten },
       "dcLanguage"    => { "def" => record["language"] },
       "dcSubject"     => { "def" => [ record["subject"] ].flatten },
-      "dcTitle"       => { "def" => [ record["title"] ] },
+      "dcTitle"       => { "def" => [ newspaper_zone ? record["heading"] : record["title"] ] },
       "dcType"        => { "def" => record["type"] },
     } ]
     
-    thumbnail = record["identifier"].present? ? record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first : nil
+    thumbnail = (!newspaper_zone && record["identifier"].present?) ? record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first : nil
     
     edm["aggregations"] = [ { 
       "edmDataProvider" => { "def" => [ "Trove" ] },
