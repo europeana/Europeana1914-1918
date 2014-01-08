@@ -1,10 +1,9 @@
+/*global jQuery */
+/*jslint browser: true, plusplus: true, regexp: true, white: true */
 /**
- *	@author dan entous <contact@gmtplusone.com>
- *	@todo: add method for handling window re-size so that pdf viewer
- *	can be re-determined. also handle portrait/landscape issues
+ * @author dan entous <contact@gmtplusone.com>
  */
-
-(function() {
+(function( $ ) {
 
 	'use strict';
 	var pdf_viewer =
@@ -18,7 +17,6 @@
 
 	carousels = {
 		$featured_carousel : null,
-		$thumbnail_carousel : null,
 
 		init: function() {
 			var self = this;
@@ -26,7 +24,7 @@
 			$('#institution-featured').imagesLoaded( function() {
 				self.$featured_carousel =
 					jQuery('#institution-featured').rCarousel({
-						item_width_is_container_width : true,
+						item_width_is_container_width : true
 					}).data('rCarousel');
 			});
 		}
@@ -42,43 +40,22 @@
 						changepageprev : self.handlePageChangePrev,
 						changepicturecallback : self.handlePictureChange,
 						show_title : false,
-						social_tools: false,
-						collection_total : carousels.items_collection_total,
-						callback : function() {
-							self.removeMediaElementPlayers();
-						}
+						social_tools: false
 					};
 
-			//jQuery("a[rel^='prettyPhoto'].video").each(function() {
-			//	// Videos are played by MediaElement.js, using prettyPhoto's inline
-			//	// content handler. MediaElements.js will not work if the video element
-			//	// is copied into prettyPhoto's container, the <video> element and
-			//	// MediaElement.js attachment to the <video> element needs to happen
-			//	// once the prettyPhoto container has been created.
-			//	// @see self.handlerPictureChange
-			//	var ppVideoOptions = ppOptions;
-			//	var video_link = jQuery(this);
-			//
-			//	ppVideoOptions.default_width = video_link.data('video-width');
-			//	ppVideoOptions.default_height = video_link.data('video-height');
-			//	jQuery(this).prettyPhoto(ppVideoOptions);
-			//});
-			//
-			//jQuery("a[rel^='prettyPhoto'].audio").each(function() {
-			//	var ppAudioOptions = ppOptions;
-			//	var audio_link = jQuery(this);
-			//
-			//	ppAudioOptions.default_width = audio_link.data('audio-width');
-			//	ppAudioOptions.default_height = audio_link.data('audio-height');
-			//	jQuery(this).prettyPhoto(ppAudioOptions);
-			//});
-			//
-			//jQuery("a[rel^='prettyPhoto']").not('.video,.audio').each(function() {
-			//	var ppImageOptions = ppOptions;
-			//	ppImageOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-			//	jQuery(this).prettyPhoto(ppImageOptions);
-			//});
-			$("a[rel^='prettyPhoto']").prettyPhoto();
+			$("a[rel^='prettyPhoto']").prettyPhoto( ppOptions );
+		},
+
+		handlePageChangeNext : function( keyboard ) {
+			if ( !keyboard ) {
+				carousels.$featured_carousel.$next.trigger('click');
+			}
+		},
+
+		handlePageChangePrev : function( keyboard ) {
+			if ( !keyboard ) {
+				carousels.$featured_carousel.$prev.trigger('click');
+			}
 		},
 
 		removeLightboxLinks : function() {
@@ -403,4 +380,4 @@
 		}]);
 	}());
 
-}());
+}( jQuery ));

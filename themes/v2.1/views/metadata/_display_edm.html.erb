@@ -100,7 +100,7 @@
 		    "ns" => "edm",
 			"label" => "country",
 			"source" => euAggregation,
-			"href" => home_url + "/europeana/search?qf[]=COUNTRY:",
+			"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=COUNTRY:") : nil),
 			"capitalise" => true 
     	},    	
     	{
@@ -108,13 +108,14 @@
     		"ns" => "edm",
     		"label" => "data_provider",
     		"source" => aggregation,
-    		"href" => home_url + '/europeana/search?qf[]=DATA_PROVIDER:'
+    		"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=DATA_PROVIDER:") : nil),
     	},
     	{
 			"name" => "edmLanguage",
 		    "ns" => "edm",
 			"label" => "language",
 			"source" => euAggregation,
+			"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
 			"href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
 			"expand" => 'languageLabel(readVal)'
     	},                
@@ -123,7 +124,7 @@
             "ns" => "edm",
     		"label" => "provider",
     		"source" => aggregation,
-    		"href" => home_url + '/europeana/search?qf[]=PROVIDER:'
+    		"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=PROVIDER:") : nil),
     	},
     	{
     		"name" => "edmProvider",
@@ -165,7 +166,7 @@
 		      <%- href = name2 -%>
 	      <%- elsif edmVal["rights"] -%>
 		      <%- href = readVal -%>
-	      <%- else-%>
+	      <%- else -%>
 		      <%- href = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
 		      <%- href = href.index(' ') ? href.clone.gsub!(' ', '+') : href -%>
 		      <%- href = edmVal["href"] + href -%>

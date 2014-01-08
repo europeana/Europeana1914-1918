@@ -46,6 +46,8 @@
 								img_html = '<img src="' + edmObject + '" alt="' + title + '"/>'
 								if oembed['provider_name'] == 'Vimeo'
 									video_html = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
+								else
+									video_html = '<img src="' + edmObject + '" alt="' + title + '"/>'
 								end
 								html += '<li>' + link_to( img_html.html_safe, video_html, link_attrs ) + '</li>'
 							elsif carouselImages
