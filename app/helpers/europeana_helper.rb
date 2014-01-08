@@ -75,9 +75,9 @@ module EuropeanaHelper
   # Responses from oEmbed providers are cached for 1 day.
   #
   # @param [Hash] Representation of an EDM object
-  # @return [String] HTML for the oEmbed resource
+  # @return [Hash] Fields returned from oEmbed provider
   #
-  def oembed_html(edm_object)
+  def oembed_fields(edm_object)
     if edm_object['aggregations'] && (url = edm_object['aggregations'].first['edmIsShownBy'])
     
       cache_key = "oembed/response/" + Digest::MD5.hexdigest(url)
@@ -89,11 +89,17 @@ module EuropeanaHelper
         controller.write_fragment(cache_key, resource_fields.to_yaml, :expires_in => 1.day)
       end
 
-      return resource_fields['html'] unless resource_fields.nil?
     end
-    ''
+    
+    resource_fields
   end
   
+  # @param [Hash] Representation of an EDM object
+  # @return [String] HTML for the oEmbed resource
+  def oembed_html(edm_object)
+    fields = oembed_fields(edm_object)
+    fields.is_a?(Hash) ? fields['html'] : ''
+  end
   
   def rightsLabel(key)
     
