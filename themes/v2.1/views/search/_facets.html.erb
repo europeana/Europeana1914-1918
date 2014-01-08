@@ -25,6 +25,8 @@
 						<% rowLabel = rightsLabel( row['label'] ) %>
 		          <%- elsif provider == '/europeana' && facet["name"] == 'LANGUAGE' -%>
 						<% rowLabel = languageLabel(row['label'])  %>
+		          <%- elsif provider == '/europeana' && facet["name"] == 'COUNTRY' -%>
+						<% rowLabel = row['label'].split.map(&:capitalize)*' '  %>
 				  <%- else %>
 						<%rowLabel = row['label']%>
 				  <%- end %>
