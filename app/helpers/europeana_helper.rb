@@ -209,11 +209,12 @@ module EuropeanaHelper
     }
     
      res = rightsLabels[key] ? rightsLabels[key]["label"]  :  key
-    
+     res = '<span class="rights-text">' + res + '</span>'
+
      if withIcon && res != key
        iconStr = ''
        rightsLabels[key]["icons"].each do |icon|
-         iconStr += '<span class="' + icon + '"> '
+         iconStr += '<span class="rights-icon ' + icon + '"></span> '
        end
        res = iconStr + res
        res = res.html_safe
