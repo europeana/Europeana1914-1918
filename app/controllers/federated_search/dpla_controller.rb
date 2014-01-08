@@ -143,7 +143,7 @@ protected
     edm["aggregations"] = [ {
       "edmDataProvider" => { "def" => [ record["dataProvider"] ].flatten },
       "edmIsShownAt"    => record["isShownAt"],
-      "edmObject"       => record["hasView"].present? ? record["hasView"].first["url"] : record["object"],
+      "edmObject"       => record["hasView"].present? ? [ record["hasView"] ].flatten.first["url"] : record["object"],
       "edmProvider"     => { "def" => [ record["provider"]["name"] ] },
     } ]
     
