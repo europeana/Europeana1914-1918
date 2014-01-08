@@ -69,6 +69,7 @@
 			-%>
 			<%= html.html_safe %>
 		</div>
+		<%= render :partial => '/layouts/navigation/sharethis' %>
 		<% if latLong = edm_places_latlng(record['places']) -%>
 			<div class="col-cell">
 				<div id="map-container">
@@ -80,7 +81,6 @@
 				</div>
 			</div>
 		<% end -%>
-		<%= render :partial => '/layouts/navigation/sharethis' %>
 	</div>
 	<div id="story-metadata" class="col middle metadata">
 		<%=
