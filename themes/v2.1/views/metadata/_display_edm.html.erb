@@ -100,7 +100,7 @@
 		    "ns" => "edm",
 			"label" => "country",
 			"source" => euAggregation,
-			"href" => home_url + "/europeana/search?facets[COUNTRY]=",
+			"href" => home_url + "/europeana/search?qf[]=COUNTRY:",
 			"capitalise" => true 
     	},    	
     	{
@@ -108,14 +108,14 @@
     		"ns" => "edm",
     		"label" => "data_provider",
     		"source" => aggregation,
-    		"href" => home_url + '/europeana/search?facets[DATA_PROVIDER]='
+    		"href" => home_url + '/europeana/search?qf[]=DATA_PROVIDER:'
     	},
     	{
 			"name" => "edmLanguage",
 		    "ns" => "edm",
 			"label" => "language",
 			"source" => euAggregation,
-			"href" => home_url + '/europeana/search?facets[LANGUAGE]=',
+			"href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
 			"expand" => 'languageLabel(readVal)'
     	},                
     	{
@@ -123,7 +123,7 @@
             "ns" => "edm",
     		"label" => "provider",
     		"source" => aggregation,
-    		"href" => home_url + '/europeana/search?facets[PROVIDER]='
+    		"href" => home_url + '/europeana/search?qf[]=PROVIDER:'
     	},
     	{
     		"name" => "edmProvider",
