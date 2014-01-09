@@ -83,15 +83,17 @@
 		<% end -%>
 	</div>
 	<div id="story-metadata" class="col middle metadata">
-		<%=
-			render :partial => '/metadata/display_edm',
-				:locals => {
-					:proxy => proxy,
-					:aggregation => aggregation,
-					:euAggregation => euAggregation,
-					:record => record
-				}
-		-%>
+		<div class="col-cell">
+			<%=
+				render :partial => '/metadata/display_edm',
+					:locals => {
+						:proxy => proxy,
+						:aggregation => aggregation,
+						:euAggregation => euAggregation,
+						:record => record
+					}
+			-%>
+		</div>
 	</div>
 </div>
 <% end -%>

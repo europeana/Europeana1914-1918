@@ -289,9 +289,28 @@ blockquote{
 	box-sizing:		border-box;
 }
 
+/* classes to track item collapse */
+
+.hide-on-item-collapsed {
+	display: none !important;
+}
+
+.show-on-item-collapsed {
+	display: block !important;
+}
+
+
 @include translations;
 
 @media all and (min-width: $break-desktop){
+
+	.hide-on-item-collapsed {
+		display: block !important;
+	}
+
+	.show-on-item-collapsed {
+		display: none !important;
+	}
 
 	/* clearfix */
 	/*

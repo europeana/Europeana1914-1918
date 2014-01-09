@@ -330,20 +330,28 @@ blockquote {
 }
 
 
-#microsoft-translate-element > span {
-  XXXmargin-left: 1em;
-  XXXtext-align: right;
+/* classes to track item collapse */
+
+.hide-on-item-collapsed {
+	display: none !important;
 }
 
-/*
-@media all and (min-width: 54em) {
-*/
+.show-on-item-collapsed {
+	display: block !important;
+}
 
-/*
-  Carousel needs more room - bumping 54 to 58
-*/
+
 @media all and (min-width: 54em) {
 
+	.hide-on-item-collapsed {
+		display: block !important;
+	}
+
+	.show-on-item-collapsed {
+		display: none !important;
+	}
+
+	
   #microsoft-translate-element select {
     XXXXdisplay: inline-block;
     XXXXfloat: none;
