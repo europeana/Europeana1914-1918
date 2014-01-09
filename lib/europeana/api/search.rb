@@ -42,8 +42,9 @@ module Europeana
       #   of response fields.
       #
       def run(options = {})
-        Rails.logger.debug("Europeana search API URL: #{uri(options).to_s}")
-        response = JSON.parse(Net::HTTP.get(uri(options)))
+        search_uri = uri(options)
+        Rails.logger.debug("Europeana API search URL: #{search_uri.to_s}")
+        response = JSON.parse(Net::HTTP.get(search_uri))
         raise Errors::RequestError, response['error'] unless response['success']
         @result_set = response
       rescue JSON::ParserError
