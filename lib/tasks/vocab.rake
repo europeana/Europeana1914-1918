@@ -1,5 +1,5 @@
 namespace :vocab do
-  desc "Output vocabularies as SKOSRDF/XML. Restrict with VOCABS=a,b,c"
+  desc "Output vocabularies as SKOS RDF/XML. Restrict with VOCABS=a,b,c"
   task :skos => :environment do
     fields = MetadataField.where(:field_type => "taxonomy")
     if ENV['VOCABS']

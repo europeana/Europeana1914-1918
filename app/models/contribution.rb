@@ -315,7 +315,7 @@ class Contribution < ActiveRecord::Base
         
       end
       
-      ActiveRecord::Base.connection.clear_query_cache
+      ::ActiveRecord::Base.connection.clear_query_cache
     end
   end
   

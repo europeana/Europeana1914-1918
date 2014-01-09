@@ -10,6 +10,8 @@ class Export < ActiveRecord::Base
     case attachment.instance.format 
     when 'XML'
       '.xml.gz'
+    when 'EDM'
+      '.edm.xml.gz'
     when 'CSV'
       '.csv'
     else
