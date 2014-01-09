@@ -78,10 +78,10 @@ class ContributionsController < ApplicationController
     @tags = @contribution.tags
     
     respond_to do |format|
-      format.json { render :json => cached(:json) }
+      format.json { render :json => cached(@contribution, :json) }
       format.html
-      format.nt { render :text => cached(:nt) }
-      format.xml { render :xml => cached(:xml) }
+      format.nt { render :text => cached(@contribution, :nt) }
+      format.xml { render :xml => cached(@contribution, :xml) }
     end
   end
   
@@ -323,6 +323,26 @@ class ContributionsController < ApplicationController
       render :action => 'withdraw'
     end
   end
+  
+  def cached(contribution, format)
+    cache_key = "contributions/#{format.to_s}/#{contribution.id}.#{format.to_s}"
+    
+    if fragment_exist?(cache_key)
+      data = YAML::load(read_fragment(cache_key))
+    else
+      data = case format
+        when :json
+          { :result => 'success', :object => contribution.edm.as_record }
+        when :nt
+          contribution.edm.to_ntriples
+        when :xml
+          contribution.edm.to_rdfxml
+      end
+      write_fragment(cache_key, data.to_yaml)
+    end
+    
+    data
+  end
 
 protected
 
@@ -349,26 +369,6 @@ protected
     params.delete(:provider)
     
     redirect_to params if redirect_required
-  end
-  
-  def cached(format)
-    cache_key = "contributions/#{format.to_s}/#{@contribution.id}.#{format.to_s}"
-    
-    if fragment_exist?(cache_key)
-      data = YAML::load(read_fragment(cache_key))
-    else
-      data = case format
-        when :json
-          { :result => 'success', :object => @contribution.edm.as_record }
-        when :nt
-          @contribution.edm.to_ntriples
-        when :xml
-          @contribution.edm.to_rdfxml
-      end
-      write_fragment(cache_key, data.to_yaml)
-    end
-    
-    data
   end
   
   def facet_label(facet_name)

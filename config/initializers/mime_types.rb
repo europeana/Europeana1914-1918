@@ -2,3 +2,4 @@
 
 # Add new mime types for use in respond_to blocks:
 Mime::Type.register "application/rdf-triples", :nt
+Mime::Type.register "application/rdf+xml", :edm

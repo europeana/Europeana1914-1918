@@ -23,7 +23,11 @@ module Europeana
         # @return [RDF::URI] URI
         #
         def web_resource_uri
-          @web_resource_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + @source.file.url(:original, :timestamp => false))
+          url = @source.file.url(:original, :timestamp => false)
+          if @source.file.options[:storage] == :filesystem
+            url = RunCoCo.configuration.site_url + url
+          end
+          @web_resource_uri ||= RDF::URI.parse(url)
         end
         
         ##
@@ -44,7 +48,7 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           item_index = @source.contribution.attachment_ids.find_index(@source.id)
-          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments[item_index - 1])
+          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments.find(@source.contribution.attachment_ids[item_index - 1]))
           uri = provided_cho_uri
           
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
@@ -136,7 +140,7 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           item_index = @source.contribution.attachment_ids.find_index(@source.id)
-          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments[item_index - 1])
+          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments.find(@source.contribution.attachment_ids[item_index - 1]))
           uri = web_resource_uri
           
           graph << [ uri, RDF.type, RDF::EDM.WebResource ]

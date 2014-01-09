@@ -97,6 +97,11 @@ class Admin::ContributionsController < AdminController
         flash[:notice] = "Generating XML export in the background"
         redirect_to admin_root_url
       end
+      format.edm do
+        Delayed::Job.enqueue EDMExportJob.new(job_options), :queue => 'export'
+        flash[:notice] = "Generating EDM export in the background"
+        redirect_to admin_root_url
+      end
     end
   end
 
