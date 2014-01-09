@@ -212,12 +212,6 @@ module EuropeanaHelper
       }
     }
  
-     print "KEY "   
-     print key
-     print key.empty?
-     
-     print "\n\n"
-      
      res = rightsLabels[key] ? rightsLabels[key]["label"]  :  key
      res = '<span class="rights-text">' + res + '</span>'
 
