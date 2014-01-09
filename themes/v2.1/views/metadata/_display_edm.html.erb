@@ -5,18 +5,7 @@
 -%>
 <div class="col-cell">
 	<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-
-	<div class="translate-area"></div>
-
-	<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') -%>
-	  <dt class="translate"><b>Contributor</b></dt>
-    <dd class="subtext translate"><%= dcContributor %></dd>
-	<% end -%>
-
-	<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') -%>
-		<dd class="translate"><%= dcDescription %></dd>
-		<hr/>
-	<% end -%>
+	<div class="translate-area"></div>	
 </div>
 
 <%
@@ -28,6 +17,7 @@
 
   # portal search strings for test data:
   #    europeana_aggregation_edm_country:*
+  #    proxy_dc_creator:*
   #    proxy_dc_date:*
   #    proxy_dc_type:*
   #    proxy_dcterms_extent:*
@@ -39,110 +29,66 @@
     
 
   edmVals = [
-    	{
-    		"name" => "dcCoverage",
-    		"ns" => "dc",
-    		"label" => "coverage",
-    		"source" => proxy
-    	},
-    	{
-			"name" => "dcDate",
-		    "ns" => "dc",
-			"label" => "date",
-			"source" => proxy
-    	},
-    	{
-			"name" => "dcIdentifier",
-		    "ns" => "dc",
-			"label" => "identifier",
-			"source" => proxy
-    	},
-    	{
-    		"name" => "dcLanguage",
-    		"ns" => "dc",
-    		"label" => "language",
-    		"source" => proxy,
-    		"expand" => 'languageLabel(readVal)'
-    	},
-    	{
-    		"name" => "dcPublisher",
-    		"ns" => "dc",
-    		"label" => "publisher",
-    		"source" => proxy
-    	},
-  		{
-    		"name" => "dctermsAlternative",
-		    "ns" => "dc",
-    		"label" => "terms_alternative",
-    		"source" => proxy
-    	},
-    	{
-			"name" => "dctermsExtent",
-		    "ns" => "dc",
-			"label" => "terms_extent",
-			"source" => proxy
-    	},
-    	{
-    		"name" => "dcSubject",
-    		"ns" => "dc",
-    		"label" => "subject",
-    		"source" => proxy
-    	},
-    	{
-			"name" => "dcType",
-		    "ns" => "dc",
-			"label" => "type",
-			"source" => proxy
-    	},
-
-    	{
-			"name" => "edmCountry",
-		    "ns" => "edm",
-			"label" => "country",
-			"source" => euAggregation,
-			"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=COUNTRY:") : nil),
-			"capitalise" => true 
-    	},    	
-    	{
-    		"name" => "edmDataProvider",
-    		"ns" => "edm",
-    		"label" => "data_provider",
-    		"source" => aggregation,
-    		"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=DATA_PROVIDER:") : nil),
-    	},
-    	{
-			"name" => "edmLanguage",
-		    "ns" => "edm",
-			"label" => "language",
-			"source" => euAggregation,
-			"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
-			"href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
-			"expand" => 'languageLabel(readVal)'
-    	},                
-    	{
-    		"name" => "edmProvider",
-            "ns" => "edm",
-    		"label" => "provider",
-    		"source" => aggregation,
-    		"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=PROVIDER:") : nil),
-    	},
-    	{
-    		"name" => "edmDataProvider",
-    		"name2" => "edmIsShownAt",
-    		"ns" => "edm",
-    		"label" => "partner_site",
-    		"source" => aggregation,
-    		"target" => "_new"
-    	},
-    	{
-    		"name" => "edmRights",
-       		"ns" => "edm", 		
-    		"label" => "rights",
-    		"source" => aggregation,
-    		"target" => "_new",
-    		"rights" => "true",
-  			"expand" => 'rightsLabel(readVal, true)'    		
-    	}    	
+      {
+        "name" => "dcDescription",
+        "ns" => "dc",
+        "label" => "description",
+        "source" => proxy
+      },
+      {
+      "name" => "edmLanguage",
+        "ns" => "edm",
+      "label" => "language",
+      "source" => euAggregation,
+      "href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
+      "href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
+      "expand" => 'languageLabel(readVal)'
+      },
+      {
+      "name" => "dcCreator",
+      "ns" => "dc",
+      "label" => "creator",
+      "source" => proxy
+      },
+      {
+      "name" => "dcType",
+      "ns" => "dc",
+      "label" => "type",
+      "source" => proxy
+      },
+      {
+      "name" => "dcFormat",
+      "ns" => "dc",
+      "label" => "format",
+      "source" => proxy
+      },
+      {
+        "name" => "dcSubject",
+        "ns" => "dc",
+        "label" => "subject",
+        "source" => proxy
+      },
+      {
+      "name" => "dcDate",
+        "ns" => "dc",
+      "label" => "date",
+      "source" => proxy
+      },
+      {
+        "name" => "dcCoverage",
+        "ns" => "dc",
+        "label" => "coverage",
+        "source" => proxy
+      },
+      {
+        "name" => "edmRights",
+        "ns" => "edm",     
+        "label" => "rights",
+        "source" => aggregation,
+        "target" => "_new",
+        "rights" => "true",
+        "expand" => 'rightsLabel(readVal, true)'        
+      }
    ]
 
 %>
