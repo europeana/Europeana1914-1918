@@ -41,13 +41,14 @@ module MetadataRecordsHelper
       end
     elsif field.field_type == 'taxonomy'
       if metadata.fields[field.name].present?
-        if link
-          metadata.fields[field.name].collect do |term|
-            link_to(h(term), term_search_contributions_path(field.name, h(term)))
-          end.to_sentence
-        else
-          metadata.fields[field.name].to_sentence
-        end
+        metadata.fields[field.name].collect do |term|
+          translation = I18n.t("formtastic.labels.taxonomy_term.#{field.name}.#{term}", :default => term)
+          if link
+            link_to(h(translation), term_search_contributions_path(field.name, h(term)))
+          else
+            translation
+          end
+        end.to_sentence
       end
     elsif value.present?
       case field.field_type
