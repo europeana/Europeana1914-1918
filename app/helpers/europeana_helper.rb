@@ -49,7 +49,7 @@ module EuropeanaHelper
     elsif proxy[field_name]["def"].present? 
       proxy[field_name]["def"].reject(&:blank?).first
     else
-      proxy_field = proxy[field_name].values.reject(&:blank?).join(',')
+      proxy_field = proxy[field_name].values.reject(&:blank?).join(';')
       proxy_field.blank? ? nil : proxy_field
     end
   end
