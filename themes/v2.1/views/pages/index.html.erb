@@ -84,12 +84,7 @@
 
 <div class='section border-top'>
 	
-	<div id='index-aside' class='one-third-left-boxed box-gradient'>
-		
-		<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
-		
-	</div>
-	
+
 	
 	<div id='news-articles'>
 	  
@@ -102,6 +97,12 @@
 			</div>
 			
 			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'news', :tag => :div, :html_class => 'article', :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
+		
+	</div>
+
+	<div id='index-aside' class='box-gradient'>
+		
+		<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
 		
 	</div>
 	

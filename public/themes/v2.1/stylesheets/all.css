@@ -418,11 +418,32 @@ input[type="submit"]:hover {
 
 @media only screen and (min-width: 769px) {
 
+  /* home page */
+  
+  #index-aside, #news-articles{	  	
+    -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;		  
+  }
+  
+  #index-aside{
+  	width: 33%;
+  	float: left;
+  }
+  
+  #news-articles{
+  	width: 66%;
+  	float: right;
+  }
+
+  /* accordion tabs */
+  
   .accordion-tabs {
     box-shadow: none;
     border-radius: 0;
   }
 
+  
   .accordion-tabs .tab-header {
     display: inline-block;
     border-radius: 0.5em 0.5em 0 0;
@@ -700,6 +721,14 @@ a.button:hover {
 #results #search {
 	width: 100%;
 }
+
+
+#index-aside{
+	padding: 2%;
+	border: 1px solid #dadada;
+	overflow: hidden;	
+}
+
 
 #index-introduction,
 #index-aside,
@@ -1904,14 +1933,6 @@ ul#facets,
 	.one-third-left {
 		float: left;
 		width: 35%;
-	}
-
-	.one-third-left-boxed {
-		float: left;
-		width: 31%;
-		padding: 2%;
-		border: 1px solid #dadada;
-		overflow: hidden;
 	}
 
 	.one-half-right {
