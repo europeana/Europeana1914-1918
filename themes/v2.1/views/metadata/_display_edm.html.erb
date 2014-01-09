@@ -1,14 +1,4 @@
 <%
-	# note, the <dt class="translate"> tags are purposefullt hard-coded to english
-	# the idea is that the user will use the microsoft translate tool to
-	# translate the <dt> content
--%>
-<div class="col-cell">
-	<h2 class="dcTitle hide-on-item-collapsed"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-	<div class="translate-area"></div>	
-</div>
-
-<%
   # vals have:of fields - all must be present to show
   #    name (the key of the hash)
   #    label (translate key)
@@ -25,7 +15,7 @@
   #    provider_aggregation_edm_provider:*
   #    provider_aggregation_edm_dataProvider:*
   # check here for others:
-  # /home/andy/git/corelib/corelib-solr/src/test/resources/solr/search/conf/schema.xml
+  # /git/corelib/corelib-solr/src/test/resources/solr/search/conf/schema.xml
     
 
   edmVals = [

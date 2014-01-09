@@ -82,7 +82,11 @@
 			</div>
 		<% end -%>
 	</div>
+	
 	<div id="story-metadata" class="col middle metadata">
+	
+		<h2 class="dcTitle hide-on-item-collapsed"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+	
 		<div class="col-cell">
 			<%=
 				render :partial => '/metadata/display_edm',
