@@ -277,7 +277,7 @@ a.button:focus {
   padding: 0.25em;
 }
 
-@media only screen and (min-width: 54em) {
+@media only screen and (min-width: 55em) {
   /* line 223, sass/item.scss */
   .nav-top .link-back {
     display: inline;
@@ -342,6 +342,17 @@ blockquote {
   box-sizing: border-box;
 }
 
+/* classes to track item collapse */
+/* line 294, sass/item.scss */
+.hide-on-item-collapsed {
+  display: none !important;
+}
+
+/* line 298, sass/item.scss */
+.show-on-item-collapsed {
+  display: block !important;
+}
+
 /* line 7, sass/partials/_translation-services.scss */
 #translate-details {
   text-align: right;
@@ -372,7 +383,7 @@ blockquote {
   width: 100%;
 }
 
-@media all and (min-width: 54em) {
+@media all and (min-width: 55em) {
   /* line 36, sass/partials/_translation-services.scss */
   #microsoft-translate-element select {
     display: inline-block;
@@ -384,7 +395,17 @@ blockquote {
     width: auto;
   }
 }
-@media all and (min-width: 54em) {
+@media all and (min-width: 55em) {
+  /* line 307, sass/item.scss */
+  .hide-on-item-collapsed {
+    display: block !important;
+  }
+
+  /* line 311, sass/item.scss */
+  .show-on-item-collapsed {
+    display: none !important;
+  }
+
   /* clearfix */
   /*
   .container{
@@ -392,7 +413,7 @@ blockquote {
   }
   */
   /* activate 3 col layout */
-  /* line 305, sass/item.scss */
+  /* line 324, sass/item.scss */
   .col {
     width: 33.3333%;
     display: inline-block;
@@ -402,14 +423,14 @@ blockquote {
     /* start content at top of column */
   }
 
-  /* line 313, sass/item.scss */
+  /* line 332, sass/item.scss */
   .col.left {
     padding-right: 1.56em;
     padding-right: 0.52em;
     /* ( 1.56 / 3 ) */
   }
 
-  /* line 318, sass/item.scss */
+  /* line 337, sass/item.scss */
   .col.middle {
     padding-left: 1.04em;
     /* ( (1.56 / 3) x 2 ) */
@@ -417,20 +438,20 @@ blockquote {
     width: 66.666%;
   }
 
-  /* line 326, sass/item.scss */
+  /* line 345, sass/item.scss */
   .col-cell {
     margin: 0;
     margin-bottom: 1.56em;
   }
 
-  /* line 331, sass/item.scss */
+  /* line 350, sass/item.scss */
   .col.middle .col-cell {
     clear: both;
     width: 33em;
     /*  33em base plus margin */
   }
 
-  /* line 337, sass/item.scss */
+  /* line 356, sass/item.scss */
   blockquote {
     left: -50%;
     position: relative;
