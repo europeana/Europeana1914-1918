@@ -68,9 +68,9 @@ class EuropeanaController < ApplicationController
   # GET /europeana/record/:dataset_id/:record_id
   # @todo Handle errors from Europeana API, e.g. on invalid ID param
   def show
-    europeana_id = '/' + params[:dataset_id] + '/' + params[:record_id]
+    europeana_id = params[:dataset_id] + '/' + params[:record_id]
     
-    cache_key = "europeana/api/record" + europeana_id
+    cache_key = "europeana/api/record/" + europeana_id
     if fragment_exist?(cache_key)
       @object = YAML::load(read_fragment(cache_key))
     else

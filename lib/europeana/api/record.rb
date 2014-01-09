@@ -27,7 +27,9 @@ module Europeana
         #   of response object.
         #
         def get(record_id)
-          response = JSON.parse(Net::HTTP.get(uri(record_id)))
+          record_uri = uri(record_id)
+          Rails.logger.debug("Europeana API record URL: #{record_uri.to_s}")
+          response = JSON.parse(Net::HTTP.get(record_uri))
           raise Errors::RequestError, response['error'] unless response['success']
           response
         rescue JSON::ParserError
