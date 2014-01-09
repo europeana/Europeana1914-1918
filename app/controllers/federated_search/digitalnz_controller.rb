@@ -112,6 +112,10 @@ protected
       "edmProvider"     => { "def" => [ "Digital NZ" ] },
     } ]
     
+    edm["europeanaAggregation"] = {
+      "edmPreview" => record["large_thumbnail_url"] || record["thumbnail_url"]
+    }
+    
     edm
   end
   

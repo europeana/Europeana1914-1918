@@ -159,6 +159,10 @@ protected
       "edmObject"       => thumbnail.present? ? thumbnail["value"] : nil,
     } ]
     
+    edm["europeanaAggregation"] = {
+      "edmPreview" => thumbnail.present? ? thumbnail["value"] : nil
+    }
+    
     edm
   end
   

@@ -162,6 +162,10 @@ protected
       end
     end
     
+    edm["europeanaAggregation"] = {
+      "edmPreview" => record["hasView"].present? ? [ record["hasView"] ].flatten.first["url"] : record["object"]
+    }
+    
     edm
   end
 
