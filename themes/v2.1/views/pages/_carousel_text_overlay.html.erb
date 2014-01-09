@@ -17,12 +17,12 @@
 
 		<h4><%= (docTitle).inner_html %></h4>
 	
-		<span xclass="hide-on-phones">
+		<span>
 			<%= raw((doc).to_html ) %>
 		</span>
 
 		
-		<%= form_tag( url, { :method => :get, :id => 'search', :class =>  current_page?(home_path) ? 'landing' : ''  }) do %>
+		<%= form_tag( url, { :method => :get, :id => 'search', :class =>  current_page?(home_path) ? 'landing hide-on-phones' : 'hide-on-phones'  }) do %>
 			<div class="h-flex-container">
 
 			  <input id="q" name="q" placeholder="Search" type="text" class="h-flex-fill" autocomplete="off" role="textbox" aria-autocomplete="list">

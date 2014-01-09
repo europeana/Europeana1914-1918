@@ -10,18 +10,33 @@
     count = false
   end
 %>
-<%= form_tag( url, { :method => :get, :id => 'search' } ) do %>
-  <%- if count -%>
-    <input type="hidden" name="count" value="<%= count %>" />
-  <%- end -%>
+
+
+<%-
   
-  <div class="h-flex-container">
-    <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search' } %>
-    
-    <span class="h-flex-fixed">
-      <input type="submit" class="button" value="<%= t('formtastic.actions.search.submit') %>"/>
-    </span>
- </div>
+  formClass = '' 
   
+  if current_page?(home_path) 
   
-<% end %>
+    formClass = 'show-on-phones' 
+  
+  end
+  
+-%>
+
+	<%= form_tag( url, { :method => :get, :id => 'search', :class => formClass } ) do %>
+
+	  <%- if count -%>
+	    <input type="hidden" name="count" value="<%= count %>" />
+	  <%- end -%>
+	  
+	  <div class="h-flex-container">
+	    <%= text_field_tag 'q', query, { :type => 'text', :placeholder => 'Search' } %>
+	    
+	    <span class="h-flex-fixed">
+	      <input type="submit" class="button" value="<%= t('formtastic.actions.search.submit') %>"/>
+	    </span>
+	 </div>
+	  
+	  
+	<% end %>
