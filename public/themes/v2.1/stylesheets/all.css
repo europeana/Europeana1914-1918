@@ -161,6 +161,25 @@ img {
   display: table-cell !important;
 }
 
+.hide-below-x {
+  display: none  !important;
+}
+
+.show-below-x {
+  display: inline !important;
+}
+
+
+@media screen and (min-width: 888px) {
+	.hide-below-x {
+	  display: inline !important;
+	}
+	
+	.show-below-x {
+	  display: none  !important;
+	}
+}
+
 /* End hide / show on phones */
 
 
@@ -1587,6 +1606,7 @@ ul#facets,
   padding: 1.25em 1em;
   position: absolute;
   width: 42%;
+  min-width:30em;
   font-size: 0.75em;
   line-height: 1.2em;
 }
