@@ -103,7 +103,11 @@ module EuropeanaHelper
 
     
   def rightsLabel(key, withIcon=false)
-            
+    
+    if(!key)
+      return ''
+    end
+    
     rightsLabels = {
       "http://www.europeana.eu/rights/rr-f/" => {
         "label" => "Free Access - Rights Reserved",
@@ -207,7 +211,13 @@ module EuropeanaHelper
         "icons" => ["icon-cc", "icon-by", "icon-nd"]
       }
     }
-    
+ 
+     print "KEY "   
+     print key
+     print key.empty?
+     
+     print "\n\n"
+      
      res = rightsLabels[key] ? rightsLabels[key]["label"]  :  key
      res = '<span class="rights-text">' + res + '</span>'
 
