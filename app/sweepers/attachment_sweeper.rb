@@ -3,15 +3,18 @@ class AttachmentSweeper < ActionController::Caching::Sweeper
   
   def after_create(attachment)
     expire_cache_for_contribution(attachment.contribution)
+    precache_for_contribution(attachment.contribution)
   end
   
   def after_update(attachment)
     expire_cache_for(attachment)
     expire_cache_for_contribution(attachment.contribution)
+    precache_for_contribution(attachment.contribution)
   end
   
   def after_destroy(attachment)
     expire_cache_for_contribution(attachment.contribution)
+    precache_for_contribution(attachment.contribution)
   end
   
 private
@@ -39,5 +42,9 @@ private
     fragments.each do |key|
       expire_fragment(key)
     end
+  end
+  
+  def precache_for_contribution(contribution)
+    ContributionsController.new.cached(contribution, :xml)
   end
 end

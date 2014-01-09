@@ -1,8 +1,13 @@
 class ContributionSweeper < ActionController::Caching::Sweeper
   observe Contribution
   
+  def after_create(contribution)
+    precache_for(contribution)
+  end
+  
   def after_update(contribution)
     expire_cache_for(contribution)
+    precache_for(contribution)
   end
   
   def after_destroy(contribution)
@@ -28,5 +33,9 @@ private
     fragments.each do |key|
       expire_fragment(key)
     end
+  end
+  
+  def precache_for(contribution)
+    ContributionsController.new.cached(contribution, :xml)
   end
 end
