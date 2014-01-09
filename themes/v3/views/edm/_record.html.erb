@@ -75,183 +75,20 @@
 			</div>
 
 
-		</div><div class="col middle">
+		</div><div class="col middle metadata">
 
 			<div class="col-cell">
 
 				<h2 class="dcTitle hide-on-phones"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
-
-				<% if dcContributor = edm_proxy_field(proxy, 'dcContributor') %>
-					<p class="subtext">
-						Contributed by <%= dcContributor %>
-					</p>
-				<% end %>
-
-				<% if dcDescription = edm_proxy_field(proxy, 'dcDescription') %>
-					<p>
-						<%= dcDescription %>
-					</p>
-					<hr/>
-				<% end %>
+				<%= render :partial => '/edm/data',  :locals => {
+					:proxy         => proxy,
+					:aggregation   => aggregation,
+					:euAggregation => euAggregation
+					}
+				%>
 
 			</div>
-
-
-			<div class="col-cell">
-
-				<% if dctermsAlternative = edm_proxy_field(proxy, 'dctermsAlternative') %>
-					<p class="title">Other title(s)</p>
-					<p>
-						<%= dctermsAlternative %>
-					</p>
-				<% end %>
-
-				<% if dcIdentifier = edm_proxy_field(proxy, 'dcIdentifier') %>
-					<p class="title">Identifier</p>
-					<p>
-						<%= dcIdentifier %>
-					</p>
-				<% end %>
-
-				<% if edmCountry = edm_proxy_field(euAggregation, 'edmCountry') %>
-					<p class="title">Country</p>
-					<p>
-						<a href="<%= home_url %>/europeana/search?facets[COUNTRY]=<%= edmCountry %>"><%= edmCountry.split(' ').map {|w| w.capitalize }.join(' ') %></a>
-					</p>
-				<% end %>
-
-				<% if dcDate = edm_proxy_field(proxy, 'dcDate') %>
-					<p class="title">Date created / Start date</p>
-					<p>
-						<%= dcDate %>
-					</p>
-				<% end %>
-
-				<% if dcType = edm_proxy_field(proxy, 'dcType') %>
-					<p class="title">Type</p>
-					<p>
-						<%= dcType %>
-					</p>
-				<% end %>
-
-				<% if dctermsExtent = edm_proxy_field(proxy, 'dctermsExtent') %>
-					<p class="title">Format</p>
-					<p>
-					<%= dctermsExtent %>
-					</p>
-				<% end %>
-
-				<% if edmLanguage = edm_proxy_field(euAggregation, 'edmLanguage') %>
-					<p class="title">Language</p>
-					<p>
-						<a href="<%= home_url %>/europeana/search?facets[LANGUAGE]=<%= edmLanguage %>"><%= edmLanguage %></a>
-					</p>
-				<% end %>
-
-
-				<% if edmProvider = edm_proxy_field(aggregation, 'edmProvider') %>
-					<p class="title">Provider</p>
-					<p>
-						<a href="<%= home_url %>/europeana/search?facets[PROVIDER]=<%= edmProvider.clone.gsub!(' ', '+') %>"><%= edmProvider %></a>
-					</p>
-				<% end %>
-
-				<% if edmDataProvider = edm_proxy_field(aggregation, 'edmDataProvider') %>
-					<p class="title">Data Provider</p>
-					<p>
-						<a href="<%= home_url %>/europeana/search?facets[DATA_PROVIDER]=<%= edmDataProvider.clone.gsub!(' ', '+') %>"><%= edmDataProvider %></a>
-					</p>
-				<% end %>
-
-
-				<% if edmRights = edm_proxy_field(aggregation, 'edmRights') %>
-					<p class="title">Rights</p>
-					<p>
-						<a href="<%= edmRights %>" target="_new"><span class="<%= cc_rights(edmRights)['icon'] %>">  <%= cc_rights(edmRights)['text'] %> </span></a>
-					</p>
-				<% end %>
-
-
-				<% if dcPublisher = edm_proxy_field(proxy, 'dcPublisher') %>
-					<p class="title">Publisher</p>
-					<p>
-						<%= dcPublisher %>
-					</p>
-				<% end %>
-
-
-
-				<% if (edmIsShownAt = edm_proxy_field(aggregation, 'edmIsShownAt')) && edmProvider %>
-					<p class="title">View on partner's website</p>
-					<p>
-						<%= link_to edmProvider, edmIsShownAt %>
-					</p>
-				<% end %>
-
-			</div>
-
-
-			<ul class="col-cell">
-
-				<% if dcCoverage = edm_proxy_field(proxy, 'dcCoverage') %>
-					<li>
-						<span class="title">
-							dc:coverage
-						</span>
-						<span>
-							<%= dcCoverage %>
-						</span>
-					</li>
-				<% end %>
-
-				<% if dcSubject = edm_proxy_field(proxy, 'dcSubject') %>
-					<li>
-						<span class="title">
-							dc:subject
-						</span>
-						<span>
-							<%= dcSubject %>
-						</span>
-					</li>
-				<% end %>
-
-				<% if dcLanguage = edm_proxy_field(proxy, 'dcLanguage') %>
-					<li>
-						<span class="title">
-							dc:language
-						</span>
-						<span>
-							<%= dcLanguage %>
-						</span>
-					</li>
-				<% end %>
-
-				<% if contextInformation = edm_proxy_field(record, 'Context information') %>
-					<li>
-						<span class="title">
-							Context Information
-						</span>
-						<span>
-							<%= contextInformation %>
-						</span>
-					</li>
-				<% end %>
-
-			</ul>
-
-
-
-
-			<!--p class="col-cell">
-				If an element appears in a blockquote it gets really big, and can span several columns:
-
-				<blockquote>
-					Here is some blockquoted text.
-				</blockquote>
-			</p-->
-
-
 
 		</div> <!-- end col middle -->
 
