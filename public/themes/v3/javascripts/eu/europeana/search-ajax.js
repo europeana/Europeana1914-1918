@@ -240,7 +240,7 @@ EUSearchAjax = function(){
             var dataStem = $('');
             
             item.find('a').attr({
-            	'href': '/' + I18n.locale + '/' + searchUrlStem + '/record' + (ob.id.indexOf('/')==0 ? ob.id : '/' + ob.id) + '.html?start=' + start + '&query=',
+            	'href': '/' + I18n.locale + '/' + searchUrlStem + '/record' + ((ob.id+'').indexOf('/')==0 ? ob.id : '/' + ob.id) + '.html?start=' + start + '&query=',
             	'title': ob.title
             });
 
