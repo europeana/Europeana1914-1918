@@ -455,35 +455,42 @@
 			//	collection_total : carousels.items_collection_total,
 			//	callback : function() { lightbox.init(); }
 			//});
-			jQuery("a[rel^='prettyPhoto'].video").each(function() {
-				// Videos are played by MediaElement.js, using prettyPhoto's inline
-				// content handler. MediaElements.js will not work if the video element
-				// is copied into prettyPhoto's container, the <video> element and
-				// MediaElement.js attachment to the <video> element needs to happen
-				// once the prettyPhoto container has been created.
-				// @see self.handlerPictureChange
-				var ppVideoOptions = ppOptions;
-				var video_link = jQuery(this);
+			//jQuery("a[rel^='prettyPhoto'].video").each(function() {
+			//	// Videos are played by MediaElement.js, using prettyPhoto's inline
+			//	// content handler. MediaElements.js will not work if the video element
+			//	// is copied into prettyPhoto's container, the <video> element and
+			//	// MediaElement.js attachment to the <video> element needs to happen
+			//	// once the prettyPhoto container has been created.
+			//	// @see self.handlerPictureChange
+			//	var ppVideoOptions = ppOptions;
+			//	var video_link = jQuery(this);
+			//
+			//	ppVideoOptions.default_width = video_link.data('video-width');
+			//	ppVideoOptions.default_height = video_link.data('video-height');
+			//	jQuery(this).prettyPhoto(ppVideoOptions);
+			//});
+			//
+			//jQuery("a[rel^='prettyPhoto'].audio").each(function() {
+			//	var ppAudioOptions = ppOptions;
+			//	var audio_link = jQuery(this);
+			//
+			//	ppAudioOptions.default_width = audio_link.data('audio-width');
+			//	ppAudioOptions.default_height = audio_link.data('audio-height');
+			//	jQuery(this).prettyPhoto(ppAudioOptions);
+			//});
+			//
+			//jQuery("a[rel^='prettyPhoto']").not('.video,.audio').each(function() {
+			//	var ppImageOptions = ppOptions;
+			//	ppImageOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
+			//	jQuery(this).prettyPhoto(ppImageOptions);
+			//});
 
-				ppVideoOptions.default_width = video_link.data('video-width');
-				ppVideoOptions.default_height = video_link.data('video-height');
-				jQuery(this).prettyPhoto(ppVideoOptions);
-			});
-
-			jQuery("a[rel^='prettyPhoto'].audio").each(function() {
-				var ppAudioOptions = ppOptions;
-				var audio_link = jQuery(this);
-
-				ppAudioOptions.default_width = audio_link.data('audio-width');
-				ppAudioOptions.default_height = audio_link.data('audio-height');
-				jQuery(this).prettyPhoto(ppAudioOptions);
-			});
-
-			jQuery("a[rel^='prettyPhoto']").not('.video,.audio').each(function() {
-				var ppImageOptions = ppOptions;
-				ppImageOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-				jQuery(this).prettyPhoto(ppImageOptions);
-			});
+			// the above entries create isolated prettyPhoto groupings that are not connected to one another
+			// a different solution needs to be found so that no matter which media type is present
+			// they can all be part of the same prettyPhoto group
+			// for now, the following can be used for annotating images
+			ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
+			jQuery("a[rel^='prettyPhoto'].image").prettyPhoto( ppOptions );
 		},
 
 		removeLightboxLinks : function() {
