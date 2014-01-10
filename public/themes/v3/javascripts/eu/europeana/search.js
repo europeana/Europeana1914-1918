@@ -434,7 +434,6 @@ EUSearch = function() {
 														resultTabs.setCallback(
 															function(index, id, hash){
 																var stem = resultTabs.getTabs()[index].getTabOpener().data('stem');
-																 // alert('stem = ' + stem);
 																searchAjax.setSearchUrlStem(stem);
 																searchAjax.search();																 
 															}

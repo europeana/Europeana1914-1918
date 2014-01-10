@@ -13,6 +13,7 @@
 
 // kill firefox cache
 $(":checkbox").attr("autocomplete", "off");
+$("input").attr("autocomplete", "off");
 
 EUSearchAjax = function(){
 	
@@ -64,6 +65,7 @@ EUSearchAjax = function(){
         var term = query ? query : self.q.val();
         
         if (!term) {
+        	alert('return no term');
             return '';
         }
         
@@ -103,33 +105,13 @@ EUSearchAjax = function(){
     
     var bindFilterLinks = function(){
 
-    	// remove all below this
+    	// remove all selected facets below this
     	
        	container.find('ul.filters a').not('.remove-filter').each(function(i, ob){
        		$(ob).click(function(e){
        			e.preventDefault();
        			var urlFragment = $(e.target).data('value');
        			var filterLinks = $('.filters a[data-value]').not('.remove-filter'); // get filter links with a data value more specific than the clicked one
-       		/*	
-       			// debug
-       			var debug = '';
-       			
-       			$.each(filterLinks, function(j, filterLink){
-       				filterLink = $(filterLink);
-
-       				var dVal = filterLink.data('value');       				
-       				if(dVal.indexOf(urlFragment) == 0 && dVal.length > urlFragment.length){
-       					var rmDataVal = filterLink.next('a').data('value');
-       					var toUncheck = $('#facets ul:not(.filters):not(.keywords) a[data-value="' + rmDataVal + '"]');
-	       				toUncheck.prev('input').prop('checked', false);
-	       				
-	       				debug += 'uncheck ' + toUncheck.html() + '\nlooked up on data-value: ' + rmDataVal + '\n\n'
-       				}       				
-       			});
-       		
-       			alert(debug);
-       		*/
-       			// end debug
        			
        			$.each(filterLinks, function(j, filterLink){
        				filterLink = $(filterLink);
@@ -146,13 +128,22 @@ EUSearchAjax = function(){
        		
        	});
        	
-       	// remove this
+       	// remove this specific facet
+       	
     	container.find('ul.filters a.remove-filter').each(function(i, ob){
        		$(ob).click(function(e){       			
        			e.preventDefault();
        			var urlFragment = $(e.target).parent().data('value');
-       			var cb = $('a[data-value="' + urlFragment + '"]');
-       			cb.prev('input').prop('checked', false);
+       			
+       			if(urlFragment.indexOf('&q=')==0){
+       				self.q.val('*');
+       				$('#q').val('*');
+       			}
+       			else{
+           			var cb = $('a[data-value="' + urlFragment + '"]');
+           			cb.prev('input').prop('checked', false);       				
+       			}
+       			
        			doSearch();
        		});
        	});
@@ -265,9 +256,7 @@ EUSearchAjax = function(){
 
 
             if(ob.edmPreview){
-	            item.find('img').attr(
-	                'src', ob.edmPreview[0]
-	            );
+	            item.find('img').attr('src', ob.edmPreview[0]);
             }
             
             grid.append(item);
@@ -291,121 +280,114 @@ EUSearchAjax = function(){
         // filters
         
 		var url = ajaxUrl;		
-		
-		console.log('build filters from ' + url + ', facetless = ' + facetless);
-		
+				
 		//var reg = /qf\[\]=[A-Z]*:[A-Z]*/g;
         //var reg = /q(f\[\])?=[a-zA-Z]*(:[a-zA-Z0-9]*)?/g;
-		//var reg = /(q=[a-zA-Z0-9]*)|qf\[\]=[a-zA-Z0-9]*((\:http\:\/\/[a-zA-Z0-9\./-]+)|(\:[a-zA-Z0-9]*))/g; 
-		var reg = /(q=[a-zA-Z0-9\s]*)|qf\[\]=[a-zA-Z0-9]*((\:http\:\/\/[a-zA-Z0-9\./-]+)|(\:[a-zA-Z0-9\s]*))/g; 
+		//var reg = /(q=[a-zA-Z\u00E0-\u00FC0-9\s]*)|qf\[\]=[a-zA-Z\u00E0-\u00FC0-9_]*((\:http\:\/\/[a-zA-Z0-9\./-]+)|(\:[a-zA-Z0-9\u00E0-\u00FC\s_\-\*]*))/g; 
+		var reg = /(q=[a-zA-Z\u00E0-\u00FC0-9\s]*)|qf\[\]=[a-zA-Z\u00E0-\u00FC0-9_]*((\:http\:\/\/[a-zA-Z0-9\./-]+)|(\:[a-zA-Z0-9\u00E0-\u00FC\s_\-\*]*))/g; 
 
-		console.log('match-url=\n\n'+url)
 		var res = url.match(reg);
-
-		console.log('initial matches')
 		
-		$(res).each(function(i, ob){
-			console.log('   ' + ob)
-		});
-		
-		
-		if(res){
-			
-	        if(!facetless){
-	        	
-	        	// track order
-	        	var ordered   = [];
-	        		
-        		var elFilters = $('ul.filters');
-        		if(elFilters.length){
-        			elFilters.find('li a.remove-filter').each(function(i, filter){
-        				ordered.push($(filter).data('value'));
-        			});
-        			elFilters.empty();
-        		}
-        		else{
-        			$('<li class="filter-section"><h3>' + filterSectionLabel + '</h3><ul class="filters"></ul></li>').prependTo('#facets');
-        		}
-
-        		var cutOffFacetUrl = '';
-        		var fullFacetUrl   = '';
-	        		
-        		
-        		// reset matches and put them in order 
-        		
-        		res = url.match(reg);
-                res.sort(function(a, b) {
-    				var score1 = $.inArray('&' + a, ordered);
-    				var score2 = $.inArray('&' + b, ordered);
-    				score1 = score1 < 0 ? res.length : score1;
-    				score2 = score2 < 0 ? res.length : score2;
-    				return score1 - score2;
-        		});
-        		
-                // loop to build full url
-                
-                $.each(res, function(i, match){
-                	fullFacetUrl += '&' + match;
-                });
-                
-                console.log("fullFacetUrl = " + fullFacetUrl );
-	        	
-                // loop to rebuild ui
-                
-        		$.each(res, function(i, match){	        			
-        			
-        			cutOffFacetUrl += '&' + match;
-        			
-        			var obMatch = [];
-        			if(match.indexOf('qf') == 0){
-        				var cpMatch   = match.replace(/qf\[\]=/, '');
-        				obMatch = [cpMatch.substr(0, cpMatch.indexOf(':')), cpMatch.substr(cpMatch.indexOf(':')+1, cpMatch.length)];
-        			}
-        			else{
-        				obMatch = match.split('=');        				
-        			}
-        			
-        			var label     = obMatch[0];
-        			var value     = obMatch[1];
-        			
-        			console.log('label=' + label + ', value=' + value);
-        			
-        			if(label.toUpperCase() == 'COUNTRY'){
-        				value = value.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
-        			}
-        			if(label.toUpperCase() == 'LANGUAGE'){
-        				value = languageLabels[value] ? languageLabels[value] : value;
-        			}
-        			if(label.toUpperCase() == 'RIGHTS'){
-        				value = rightsLabels[value] ? rightsLabels[value].label : value;
-        			}
-
-        			var rmFilter = $(
-        				'<li>'
-        		         + '<a class="filter-crop" href="' + cutOffFacetUrl + '">' + (label == 'q' ? '' : label + ': ') + value + '</a>'
-        			     + '<a title="Remove" class="remove-filter">'
-        			     +   '<span class="icon-remove"></span>'
-        			     + '</a>'
-        		         + '</li>'
-        		    ).appendTo(elFilters);
-        			
-        			rmFilter.find('.remove-filter').attr({
-        				'data-value': '&' + match
-        			});
-        				        			
-        			rmFilter.find('a:first').attr({
-        				'data-value':  cutOffFacetUrl
-        			});
-        		});
-	        	
-	            // filter actions 
-
-	            bindFilterLinks();
-	        }
-		}
-		else{
+		if(!res){
 			$('ul.filters').empty();
+		}	
+		else{
+	        	
+        	// track order of existing facets
+        	var ordered   = [];
+        		
+    		var elFilters = $('ul.filters');
+
+			elFilters.find('li a.remove-filter').each(function(i, filter){
+				ordered.push($(filter).data('value'));
+			});
+			elFilters.empty();
+
+			
+    		var cutOffFacetUrl = '';
+    		var fullFacetUrl   = '';
+        		
+    		// reset matches and put them in order 
+    		
+    		res = url.match(reg);
+            res.sort(function(a, b) {
+				var score1 = $.inArray('&' + a, ordered);
+				var score2 = $.inArray('&' + b, ordered);
+				score1 = score1 < 0 ? res.length : score1;
+				score2 = score2 < 0 ? res.length : score2;
+				return score1 - score2;
+    		});
+    		
+            // loop to build full url
+            
+            $.each(res, function(i, match){
+            	fullFacetUrl += '&' + match;
+            });
+            
+
+            // build ui
+            
+    		$.each(res, function(i, match){	        			
+    			
+    			cutOffFacetUrl += '&' + match;
+    			
+    			var obMatch = [];
+    			if(match.indexOf('qf') == 0){
+    				var cpMatch   = match.replace(/qf\[\]=/, '');
+    				obMatch = [cpMatch.substr(0, cpMatch.indexOf(':')), cpMatch.substr(cpMatch.indexOf(':')+1, cpMatch.length)];
+    			}
+    			else{
+    				obMatch = match.split('=');        				
+    			}
+    			
+    			var label     = obMatch[0];
+    			var value     = obMatch[1];
+
+    			// Show empty searhes 
+    			
+    			if(!value.length && label == 'q'){
+    			   value = '*';
+    			}
+				
+				if(label.toUpperCase() == 'COUNTRY'){
+					value = value.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+				}
+				if(label.toUpperCase() == 'LANGUAGE'){
+					value = languageLabels[value] ? languageLabels[value] : value;
+				}
+				if(label.toUpperCase() == 'RIGHTS'){
+					value = rightsLabels[value] ? rightsLabels[value].label : value;
+				}
+				else{
+					console.log('facet label = ' + label);
+				}
+				
+				var rmFilter = $(
+						'<li>'
+						+ '<a class="filter-crop" href="' + cutOffFacetUrl + '">' + (label == 'q' ? '' : label + ': ') + value + '</a>'
+						+ '<a title="Remove" class="remove-filter">'
+						+   '<span class="icon-remove"></span>'
+						+ '</a>'
+						+ '</li>'
+				).appendTo(elFilters);
+				
+				rmFilter.find('.remove-filter').attr({
+					'data-value': '&' + match
+				});
+				
+				rmFilter.find('a:first').attr({
+					'data-value':  cutOffFacetUrl
+				});
+				
+				// TODO: remove the 'remove' button if it's an empty search or a trove area (we need access to the provider for that)
+
+    		});
+        	
+            // filter actions 
+
+            bindFilterLinks();
 		}
+		
         
         // facets
 		
@@ -432,8 +414,7 @@ EUSearchAjax = function(){
                         
             facet.find('h3 a').html(capitalise(ob.name));
             
-            facetOps.empty();
-            
+            facetOps.empty();            
               
             $.each(ob.fields, function(i, field){
                 
@@ -458,20 +439,14 @@ EUSearchAjax = function(){
 
                 facetOps.append( facetOp );
                 
-                var fCount = $.inArray( facetOp.find('h4 a').data('value'), selected) == -1 ? ' <span class="fcount">(' + field.count + ')</span>' : '';
+                var fCount = field.count && (typeof field.count == 'number' || typeof field.count.toUpperCase() == 'STRING') && $.inArray( facetOp.find('h4 a').data('value'), selected) == -1 ? ' <span class="fcount">(' + field.count + ')</span>' : '';
                 facetOp.find('label').html(field.label + fCount).attr({
                     "title" : field.label
                 });
 
-
-//                if( $.inArray( facetOp.find('h4 a').data('value'), selected) == -1 ){
-                	//facetOp.find('.fcount').html(' (' + field.count + ')');
-  //              	facetOp.find('label').html(' <span class="fcount">(' + field.count + ')</span>');
-    //            }
-      //          else{
-        //        	facetOp.find('.fcount').remove();
-          //      	facetOp.find('label').addClass('bold');
-            //    }
+                if($.inArray( facetOp.find('h4 a').data('value'), selected) != -1){
+                	facetOp.find('label').addClass('bold');
+                }
                 
             });
             facet.append(facetOps);
