@@ -1,14 +1,56 @@
-<h3 class='facet-section'>
+<h2 class='facet-section'>
   <%= t('views.search.facets.matches_for' ) %>
-</h3>
+</h2>
 
 <ul class="filters">
+
   <%- for link in links_for_selected_filters(query, facets) -%>
-    <li>
+      <li>
       <%# link_to link[:reduce][:text], link[:reduce][:url], {'data-value' => link[:data][:val_remove]} %>
-      <%= link_to link[:reduce][:text], link[:reduce][:url], {'data-value' => link[:data][:val] } %>
-      <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), link[:remove][:url], { :title => t('actions.remove'), :class => 'remove-filter', 'data-value' => link[:data][:val_remove] } %>
+      
+      <% 
+         linkText = link[:reduce][:text]
+         
+        # if provider == '/europeana' 
+	    #     if( linkText.index('Language:')  )
+	    #       linkText = 'Language: ' + languageLabel( linkText.sub 'Language: ', '' )
+	    #     elsif( linkText.index('Rights:')  )
+	    #       linkText = 'Rights: ' + rightsLabel( linkText.sub 'Rights: ', '' ) 
+	    #     end
+		# end
+		
+         if provider == '/europeana' 
+         
+             label = linkText.split(': ')[0]
+             value = linkText.split(': ')[1]
+             
+             lookupRights   = rightsLabel(value)
+             
+             if(lookupRights != value)
+               linkText = label + ': ' + lookupRights
+             else
+               lookupLanguage = languageLabel(value)
+               if(lookupLanguage != value)
+                 linkText = label + ': ' + lookupLanguage	
+               end
+             end
+
+		end
+         
+      %>
+
+
+      <%#= link[:reduce] %>
+      
+      <%= link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val], :class => 'filter-crop' } %>
+   
+   
+      <%- if !(  (provider == '/federated_search/trove') && (link[:reduce][:text].index('Type:')==0)  )  -%>
+	      <%= link_to  content_tag(:span, '', :class => 'icon-remove'), link[:remove][:url], { :title => t('actions.remove'), :class => 'remove-filter', 'data-value' => link[:data][:val_remove]	} %>
+	  <%- end -%>
+      
     </li>
+  
   <%- end -%>
 </ul>
 

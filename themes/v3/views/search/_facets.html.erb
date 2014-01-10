@@ -11,13 +11,23 @@
           <%- for row in facet['fields'] -%>
             <li>
               <h4>
+   		        <%- if provider == '/europeana' && facet["name"] == 'RIGHTS' -%>
+				  <% rowLabel = rightsLabel( row['label'] ) %>
+		        <%- elsif provider == '/europeana' && facet["name"] == 'LANGUAGE' -%>
+				  <% rowLabel = languageLabel(row['label'])  %>
+		        <%- elsif provider == '/europeana' && facet["name"] == 'COUNTRY' -%>
+				  <% rowLabel = row['label'].split.map(&:capitalize)*' '  %>
+				<%- else %>
+				  <%rowLabel = row['label']%>
+				<%- end %>
+              
                 <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
                   <%- if facet_row_selected?(facet["name"], row["search"]) -%>
                     <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
                     <label class="bold"><%= row['label'] %></label>
                   <%- else -%>
                     <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                    <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe, false) %>
+                    <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe, false) %>
                   <%- end -%>
                 <%- else -%>
                 
@@ -25,18 +35,13 @@
                 
                   <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                    
-                    <!-- to replace strong tag -->
-                    
-                    <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{row['label']}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
-                    
-                    
-                    <%= link_to image_tag('style/icons/cancel.png', :alt => t('actions.remove')), remove_facet_row_url_options(facet['name'], row['search']), { :title => t('actions.remove'), :class => 'remove-facet' } %>
+                    <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
                   <%- else -%>
-                  
-                    
                     <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                    <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe) %> (<%= row['count'] %>)
+                    
+                    
+                    <%#= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe) %> 
+                    <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel} <span class=\"fcount\">(#{row['count']})</span></label>".html_safe) %>
                     
                     
                   <%- end -%>

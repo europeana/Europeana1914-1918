@@ -6,6 +6,10 @@
   @stylesheets['search'] = true 
 %>
 
+<script type="text/javascript">
+	var rightsLabels   = <%= rightsLabel('', false, true).html_safe %>;
+	var languageLabels = <%= languageLabel('', true).html_safe %>;
+</script>
 
 <div class="container">
 
@@ -32,7 +36,8 @@
           </script>
           
           <%- unless @query.blank? && @facets.blank? -%>
-            <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => @query, :facets => @facets }%></li>
+          
+            <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => @query, :facets => @facets, :provider => "/" + current_search_provider_stem }%></li>
           <%- end -%>
           
           <li class="refinements-section">
@@ -57,7 +62,8 @@
           </li>
 
           <%- unless @facets.blank? -%>
-            <%= render :partial => '/search/facets', :object => @facets %>
+            <%= render :partial => '/search/facets', :object => @facets, :locals => { :provider => "/" + current_search_provider_stem } %>
+            
           <%- end -%>
           
         </ul>

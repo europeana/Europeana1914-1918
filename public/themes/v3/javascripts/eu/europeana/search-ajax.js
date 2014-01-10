@@ -11,6 +11,9 @@
  * 
  * */
 
+// kill firefox cache
+$(":checkbox").attr("autocomplete", "off");
+
 EUSearchAjax = function(){
 	
     var self                    = this;
@@ -107,15 +110,37 @@ EUSearchAjax = function(){
        			e.preventDefault();
        			var urlFragment = $(e.target).data('value');
        			var filterLinks = $('.filters a[data-value]').not('.remove-filter'); // get filter links with a data value more specific than the clicked one
+       		/*	
+       			// debug
+       			var debug = '';
+       			
        			$.each(filterLinks, function(j, filterLink){
        				filterLink = $(filterLink);
+
        				var dVal = filterLink.data('value');       				
        				if(dVal.indexOf(urlFragment) == 0 && dVal.length > urlFragment.length){
        					var rmDataVal = filterLink.next('a').data('value');
        					var toUncheck = $('#facets ul:not(.filters):not(.keywords) a[data-value="' + rmDataVal + '"]');
 	       				toUncheck.prev('input').prop('checked', false);
+	       				
+	       				debug += 'uncheck ' + toUncheck.html() + '\nlooked up on data-value: ' + rmDataVal + '\n\n'
+       				}       				
+       			});
+       		
+       			alert(debug);
+       		*/
+       			// end debug
+       			
+       			$.each(filterLinks, function(j, filterLink){
+       				filterLink = $(filterLink);
+       				var dVal = filterLink.data('value');
+       				
+       				if(dVal.indexOf(urlFragment) == 0 && dVal.length > urlFragment.length){
+       					var rmDataVal = filterLink.next('a').data('value');
+       					var toUncheck = $('#facets ul:not(.filters):not(.keywords) a[data-value="' + rmDataVal + '"]');
+	       				toUncheck.prev('input').prop('checked', false);
        				}
-       			});       	
+       			});
        			doSearch();
        		});
        		
@@ -186,7 +211,7 @@ EUSearchAjax = function(){
     		}
     	}
     	
-    	container.find('#facets ul li a.remove-facet img').click(clickFn);
+    	//container.find('#facets ul li a.remove-facet img').click(clickFn);
     	container.find('#facets ul li input').not("#newKeyword").not('input[type="submit"]').change(clickFn);
     };
 
@@ -266,33 +291,40 @@ EUSearchAjax = function(){
         // filters
         
 		var url = ajaxUrl;		
+		
+		console.log('build filters from ' + url + ', facetless = ' + facetless);
+		
 		//var reg = /qf\[\]=[A-Z]*:[A-Z]*/g;
-        var reg = /q(f\[\])?=[a-zA-Z]*(:[A-Z]*)?/g;
+        //var reg = /q(f\[\])?=[a-zA-Z]*(:[a-zA-Z0-9]*)?/g;
+		//var reg = /(q=[a-zA-Z0-9]*)|qf\[\]=[a-zA-Z0-9]*((\:http\:\/\/[a-zA-Z0-9\./-]+)|(\:[a-zA-Z0-9]*))/g; 
+		var reg = /(q=[a-zA-Z0-9\s]*)|qf\[\]=[a-zA-Z0-9]*((\:http\:\/\/[a-zA-Z0-9\./-]+)|(\:[a-zA-Z0-9\s]*))/g; 
 
+		console.log('match-url=\n\n'+url)
 		var res = url.match(reg);
 
+		console.log('initial matches')
+		
+		$(res).each(function(i, ob){
+			console.log('   ' + ob)
+		});
+		
+		
 		if(res){
 			
 	        if(!facetless){
-	        	//var url       = ajaxUrl;
-	        	//var reg       = /qf\[\]=[A-Z]*:[A-Z]*/g
-	        	//var res       = url.match(reg);
+	        	
+	        	// track order
 	        	var ordered   = [];
 	        		
         		var elFilters = $('ul.filters');
         		if(elFilters.length){
         			elFilters.find('li a.remove-filter').each(function(i, filter){
-        				var f = $(filter).data('value');
-        				console.log('ordered entry ' + f);
-        				ordered.push(f);
+        				ordered.push($(filter).data('value'));
         			});
-        			
-        			console.log('ordered = ' + ordered);
-        			
         			elFilters.empty();
         		}
         		else{
-        			$('<li class="filter-section"><h3>' + filterSectionLabel + '</h3><ul class="filters"></ul></li>').prependTo('#facets');        		
+        			$('<li class="filter-section"><h3>' + filterSectionLabel + '</h3><ul class="filters"></ul></li>').prependTo('#facets');
         		}
 
         		var cutOffFacetUrl = '';
@@ -300,43 +332,62 @@ EUSearchAjax = function(){
 	        		
         		
         		// reset matches and put them in order 
-        		//res = url.match(reg);
         		
+        		res = url.match(reg);
                 res.sort(function(a, b) {
     				var score1 = $.inArray('&' + a, ordered);
     				var score2 = $.inArray('&' + b, ordered);
-
-    				console.log('[1] ' + a + ' ' + score1 + ', ' + b + ' ' + score2);
     				score1 = score1 < 0 ? res.length : score1;
     				score2 = score2 < 0 ? res.length : score2;
-    				console.log('[2] ' + a + ' ' + score1 + ', ' + b + ' ' + score2);
-
     				return score1 - score2;
         		});
         		
-                
                 // loop to build full url
                 
                 $.each(res, function(i, match){
                 	fullFacetUrl += '&' + match;
                 });
+                
+                console.log("fullFacetUrl = " + fullFacetUrl );
 	        	
                 // loop to rebuild ui
                 
         		$.each(res, function(i, match){	        			
         			
         			cutOffFacetUrl += '&' + match;
-        			var obMatch   = match.indexOf('qf') == 0 ? match.replace(/qf\[\]=/, '').split(':') : match.split('=');
+        			
+        			var obMatch = [];
+        			if(match.indexOf('qf') == 0){
+        				var cpMatch   = match.replace(/qf\[\]=/, '');
+        				obMatch = [cpMatch.substr(0, cpMatch.indexOf(':')), cpMatch.substr(cpMatch.indexOf(':')+1, cpMatch.length)];
+        			}
+        			else{
+        				obMatch = match.split('=');        				
+        			}
+        			
         			var label     = obMatch[0];
         			var value     = obMatch[1];
         			
+        			console.log('label=' + label + ', value=' + value);
+        			
+        			if(label.toUpperCase() == 'COUNTRY'){
+        				value = value.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+        			}
+        			if(label.toUpperCase() == 'LANGUAGE'){
+        				value = languageLabels[value] ? languageLabels[value] : value;
+        			}
+        			if(label.toUpperCase() == 'RIGHTS'){
+        				value = rightsLabels[value] ? rightsLabels[value].label : value;
+        			}
+
         			var rmFilter = $(
-        					'<li>'
-        					+ '<a href="' + cutOffFacetUrl + '">' + (label == 'q' ? '' : label + ': ') + value + '</a>'
-        					+ '<a class="remove-filter">'
-        					+     '<img src="/images/style/icons/cancel.png" alt="Remove"/>'
-        					+ '</a>'
-        					+ '</li>').appendTo(elFilters);
+        				'<li>'
+        		         + '<a class="filter-crop" href="' + cutOffFacetUrl + '">' + (label == 'q' ? '' : label + ': ') + value + '</a>'
+        			     + '<a title="Remove" class="remove-filter">'
+        			     +   '<span class="icon-remove"></span>'
+        			     + '</a>'
+        		         + '</li>'
+        		    ).appendTo(elFilters);
         			
         			rmFilter.find('.remove-filter').attr({
         				'data-value': '&' + match
@@ -383,33 +434,44 @@ EUSearchAjax = function(){
             
             facetOps.empty();
             
-            var selFacetOpLink    = 'h4 a';
-            var selFacetLabel     = 'label';
-            
+              
             $.each(ob.fields, function(i, field){
                 
                 var facetOp     = facetOpTemplate.clone();
-                //var urlFragment = "&facets[" + ob.name + "]=" + field.label;
+            
                 var urlFragment = '&qf[]=' + ob.name + ':' + field.label;
+                
+                if(ob.name.toUpperCase() == 'RIGHTS'){
+                	field.label = rightsLabels[field.label] ? rightsLabels[field.label].label : field.label;	
+                }
+    			if(ob.name.toUpperCase() == 'COUNTRY'){
+    				field.label = field.label.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+    			}
+    			if(ob.name.toUpperCase() == 'LANGUAGE'){
+    				field.label = languageLabels[field.label] ? languageLabels[field.label] : field.label;
+    			}
                                                
-                facetOp.find(selFacetOpLink).attr({
+                facetOp.find('h4 a').attr({
                     "data-value"  : urlFragment,
                     "title" : field.label
                 });
 
-                facetOp.find(selFacetLabel).html(field.label).attr({
+                facetOps.append( facetOp );
+                
+                var fCount = $.inArray( facetOp.find('h4 a').data('value'), selected) == -1 ? ' <span class="fcount">(' + field.count + ')</span>' : '';
+                facetOp.find('label').html(field.label + fCount).attr({
                     "title" : field.label
                 });
 
-                facetOps.append( facetOp );
 
-                if( $.inArray( facetOp.find(selFacetOpLink).data('value'), selected) == -1 ){
-                	facetOp.find('.fcount').html(' (' + field.count + ')');
-                }
-                else{
-                	facetOp.find('.fcount').remove();
-                	facetOp.find(selFacetLabel).addClass('bold');
-                }
+//                if( $.inArray( facetOp.find('h4 a').data('value'), selected) == -1 ){
+                	//facetOp.find('.fcount').html(' (' + field.count + ')');
+  //              	facetOp.find('label').html(' <span class="fcount">(' + field.count + ')</span>');
+    //            }
+      //          else{
+        //        	facetOp.find('.fcount').remove();
+          //      	facetOp.find('label').addClass('bold');
+            //    }
                 
             });
             facet.append(facetOps);
@@ -443,7 +505,6 @@ EUSearchAjax = function(){
         $(selected).each(function(i, ob){
             var object = container.find('#facets ul:not(.filters) a[data-value="' + ob + '"]');
             object.attr('href', '');
-            object.after(' <a class="remove-facet" title="' + labelRemove + '" href="" data-value=""><img src="/images/style/icons/cancel.png" alt="Remove"/></a>');
             EUSearch.openFacet(object);
             object.prev().prop('checked', true);
         });
@@ -582,7 +643,7 @@ EUSearchAjax = function(){
           '<ul style="display: none;">' +
             '<li>' + 
               '<h4>' + 
-                  '<input type="checkbox"><a><label></label></a><span class="fcount"></span>' + 
+                  '<input type="checkbox"><a><label><span class="fcount"></span></label></a>' + 
               '</h4>' + 
             '</li>' + 
           '</ul>' + 

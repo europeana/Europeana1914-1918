@@ -102,7 +102,7 @@ module EuropeanaHelper
   end
 
     
-  def rightsLabel(key, withIcon=false)
+  def rightsLabel(key, withIcon=false, asJS=false)
     
     if(!key)
       return ''
@@ -212,6 +212,11 @@ module EuropeanaHelper
       }
     }
  
+    if(asJS)
+      require 'json'
+      return rightsLabels.to_json
+    end
+    
      res = rightsLabels[key] ? rightsLabels[key]["label"]  :  key
 
      if withIcon && res != key
@@ -227,7 +232,7 @@ module EuropeanaHelper
   end
   
   
-  def languageLabel(key)
+  def languageLabel(key, asJS=false)
     languageLabels = {    
       "en" => "English",
       "eu" => "Basque",
@@ -261,6 +266,11 @@ module EuropeanaHelper
       "uk" => "Українська"
     }
     
+    if(asJS)
+      require 'json'
+      return languageLabels.to_json
+    end
+
     languageLabels[key] || key
     
   end
