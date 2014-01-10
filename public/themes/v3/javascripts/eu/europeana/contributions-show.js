@@ -318,7 +318,7 @@
 		map.init();
 		tags.init();
 		js.utils.initSearch();
-
+		/*
 		js.loader.loadScripts([{
 			file : 'accordion-tabs.js',
 			path : themePath + "javascripts/eu/europeana/",
@@ -330,6 +330,7 @@
 				);
 			}
 		}]);
+		*/
 	}());
 
 }());

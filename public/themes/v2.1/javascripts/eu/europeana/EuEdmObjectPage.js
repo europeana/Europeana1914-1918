@@ -365,8 +365,9 @@
 		map.init();
 		tags.init();
 		lightbox.init();
-//		js.utils.initSearch();
+		//js.utils.initSearch();
 
+		/*
 		js.loader.loadScripts([{
 			file : 'EuAccordionTabs.js',
 			path : themePath + "javascripts/eu/europeana/",
@@ -378,6 +379,7 @@
 				);
 			}
 		}]);
+		*/
 	}());
 
 }( jQuery ));
