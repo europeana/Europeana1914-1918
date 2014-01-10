@@ -16,7 +16,8 @@
 		places         = record['places'] ? record['places'] : {}
 		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
 		euAggregation  = record['europeanaAggregation']
-		edmObject      = euAggregation['edmPreview']
+		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
+		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : edmPreview
 		carouselImages = aggregation['hasView']
 -%>
 <div class="container">
@@ -43,11 +44,11 @@
 					html += '<div id="institution-featured" class="carousel">'
 						html += '<ul>'
 							if oembed
-								img_html = '<img src="' + edmObject + '" alt="' + title + '"/>'
+								img_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
 								if oembed['provider_name'] == 'Vimeo'
 									video_html = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
-								else
-									video_html = '<img src="' + edmObject + '" alt="' + title + '"/>'
+								elsif edmPreview.present?
+									video_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
 								end
 								html += '<li>' + link_to( img_html.html_safe, video_html, link_attrs ) + '</li>'
 							elsif carouselImages
@@ -55,11 +56,9 @@
 									img_html = '<img src="' + img + '" alt="' + title + '"/>'
 									html += '<li>' + link_to( img_html.html_safe, img, link_attrs ) + '</li>'
 								end
-							elsif edmObject.present?
-								img_html = '<img src="' + edmObject + '" alt="' + title + '"/>'
-								html += '<li>' + link_to( img_html.html_safe, edmObject, link_attrs ) + '</li>'
 							else
-								html += '<li><img src="/images/style/icons/mimetypes/unknown.png" alt="' + title + '"/></li>'
+								img_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
+								html += '<li>' + link_to( img_html.html_safe, edmIsShownBy, link_attrs ) + '</li>'
 							end
 						html += '</ul>'
 						html += '<div class="carousel-overlay"></div>'
@@ -82,11 +81,11 @@
 			</div>
 		<% end -%>
 	</div>
-	
+
 	<div id="story-metadata" class="col middle metadata">
-	
+
 		<h2 class="dcTitle hide-on-item-collapsed"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-	
+
 		<div class="col-cell">
 			<%=
 				render :partial => '/metadata/display_edm',
