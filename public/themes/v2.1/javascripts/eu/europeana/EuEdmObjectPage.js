@@ -67,6 +67,10 @@
 					$elm.replaceWith(contents);
 				}
 			});
+
+			$('#institution-featured .view-item').each(function() {
+				jQuery(this).remove();
+			});
 		},
 
 		init : function() {

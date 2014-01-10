@@ -6,6 +6,7 @@
   <%- for attachment in attachments %><li>
       <% if attachment.file.present?
           link_url = attachment_url( attachment, 'large' )
+          view_link_text = t( 'common.links.view-image' )
 
           link_attrs = {
             :target => '_blank',
@@ -22,14 +23,15 @@
               :rel => 'prettyPhoto[gallery]'
             })
           end
-          
+
           if ( prettyphoto && attachment.image? )
             link_attrs.merge!({
               'class' => 'image'
             })
           end
-          
+
           if ( prettyphoto && attachment.video? )
+            view_link_text = t( 'common.links.play-video' )
             link_url = '#video-' + attachment.id.to_s
             video_width = attachment.file.width || 480
             video_height = attachment.file.height || 240
@@ -41,6 +43,7 @@
           end
 
           if ( prettyphoto && attachment.audio? )
+            view_link_text = t( 'common.links.play-audio' )
             link_url = '#audio-' + attachment.id.to_s
             audio_width = 400
             audio_height = 80
@@ -52,12 +55,14 @@
           end
 
           if ( attachment.pdf? )
+            view_link_text = t( 'common.links.view-pdf' )
             link_attrs.merge!({
               :class => 'pdf'
             })
           end
         -%>
         <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
+        <p class="view-item"><%= link_to( view_link_text, link_url, link_attrs ) %></p>
       <% else %>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
       <% end %>

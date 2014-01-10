@@ -33,6 +33,7 @@
 				oembed = oembed_fields( record )
 				image_html = ''
 				video_html = ''
+				view_html = ''
 				link_attrs = {
 					:title => title,
 					'class' => 'image',
@@ -50,15 +51,18 @@
 								elsif edmPreview.present?
 									video_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
 								end
-								html += '<li>' + link_to( img_html.html_safe, video_html, link_attrs ) + '</li>'
+								view_html = '<p class="view-item">' +  link_to( t( 'common.links.play-video' ), video_html, link_attrs ) + '</p>'
+								html += '<li>' + link_to( img_html.html_safe, video_html, link_attrs ) + view_html + '</li>'
 							elsif carouselImages
-								carouselImages.each do |img|
-									img_html = '<img src="' + img + '" alt="' + title + '"/>'
-									html += '<li>' + link_to( img_html.html_safe, img, link_attrs ) + '</li>'
+								carouselImages.each do |img_src|
+									img_html = '<img src="' + img_src + '" alt="' + title + '"/>'
+									view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_src, link_attrs ) + '</p>'
+									html += '<li>' + link_to( img_html.html_safe, img_src, link_attrs ) + view_html + '</li>'
 								end
 							else
 								img_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-								html += '<li>' + link_to( img_html.html_safe, edmIsShownBy, link_attrs ) + '</li>'
+								view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_html, link_attrs ) + '</p>'
+								html += '<li>' + link_to( img_html.html_safe, edmIsShownBy, link_attrs ) + view_html + '</li>'
 							end
 						html += '</ul>'
 						html += '<div class="carousel-overlay"></div>'
