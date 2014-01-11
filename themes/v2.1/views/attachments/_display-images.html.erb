@@ -1,4 +1,5 @@
 <% prettyphoto = prettyphoto ? prettyphoto : false %>
+<% thumbnails = thumbnails ? thumbnails : false %>
 <% count = params['count'] ? params['count'].to_i : 3 %>
 <% page = params['page'] ? params['page'].to_i : 1 %>
 <% inline = count * page - count %>
@@ -62,7 +63,9 @@
           end
         -%>
         <%= link_to( attachment_preview( attachment, size ), link_url, link_attrs ) %>
+        <% if !thumbnails %>
         <p class="view-item"><%= link_to( view_link_text, link_url, link_attrs ) %></p>
+        <% end %>
       <% else %>
         <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
       <% end %>

@@ -188,8 +188,10 @@
 
 		updateCounts : function() {
 			this.$thumbnail_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' + ( this.$featured_carousel.get('current_item_index') + 1 ) +
-				' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.items_collection_total
+				I18n.t('javascripts.thumbnails.item') + ' ' +
+				( this.$featured_carousel.get('current_item_index') + 1 ) +
+				' ' + I18n.t('javascripts.thumbnails.of') + ' ' +
+				this.items_collection_total
 			);
 		},
 
@@ -253,7 +255,6 @@
 			}
 		},
 
-
 		navFeatured : function( dir ) {
 			var $featured = this.$featured_carousel,
 					pos = dir === 'next' ? 1 : -1,
@@ -289,7 +290,7 @@
 		init : function() {
 			var self = this;
 
-			self.$featured_carousel =
+				self.$featured_carousel =
 				jQuery('#contributions-featured').rCarousel({
 					items_collection_total : parseInt( self.items_collection_total, 10 ),
 					callbacks : {
@@ -490,7 +491,7 @@
 			// they can all be part of the same prettyPhoto group
 			// for now, the following can be used for annotating images
 			ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-			jQuery("a[rel^='prettyPhoto'].image").prettyPhoto( ppOptions );
+			jQuery("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( ppOptions );
 		},
 
 		removeLightboxLinks : function() {
