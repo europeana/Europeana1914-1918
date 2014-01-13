@@ -133,31 +133,6 @@
 			</div>
 		<%- end -%>
 
-<br><br>
-	<% if edmIsShownAt &&
-		(
-		  params[:controller] == 'federated_search/dpla'	  ||
-		  params[:controller] == 'federated_search/trove' ||
-		  params[:controller] == 'federated_search/digitalnz' 		  
-		)
-	-%>
-	
-		  <h1>block lightbox (<%= params[:controller] %>)</h1>
-		  <script type="text/javascript">
-		   // window.blockLightbox = true;
-		  </script>
-	<% end %>
-	
-	
-	<%= record['aggregations'][0]['edmDataProvider']['def'][0] %>
-		
-<br><br>Aggregation:<br><br>
-		<%= aggregation -%>
-
-<br><br>
-	<%= params[:controller] %>
-
-		  
 	</div>
 </div>
 <% end -%>
