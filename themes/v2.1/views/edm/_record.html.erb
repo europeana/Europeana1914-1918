@@ -17,6 +17,7 @@
 		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
 		euAggregation  = record['europeanaAggregation']
 		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
+		edmIsShownAt   = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : edmPreview
 		carouselImages = aggregation['hasView']
 -%>
@@ -60,9 +61,33 @@
 									html += '<li>' + link_to( img_html.html_safe, img_src, link_attrs ) + view_html + '</li>'
 								end
 							else
+
 								img_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-								view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_html, link_attrs ) + '</p>'
-								html += '<li>' + link_to( img_html.html_safe, edmIsShownBy, link_attrs ) + view_html + '</li>'
+								
+								if edmIsShownAt &&
+									(
+									  params[:controller] == 'federated_search/dpla'	  ||
+									  params[:controller] == 'federated_search/trove' ||
+									  params[:controller] == 'federated_search/digitalnz' 		  
+									)
+								
+									html += '<script type="text/javascript"> window.blockLightbox = true; </script>'
+									
+									view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_html, link_attrs ) + '</p>'
+									
+									if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
+										html += ('<li><a href="' + readVal + '" target="_new" class="original-context">' + img_html + '</a></li>').html_safe
+									else
+										html += ('<li>n link' + img_html + '</li>').html_safe									
+									end
+									
+								else
+								
+									view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_html, link_attrs ) + '</p>'
+									html += '<li>' + link_to( img_html.html_safe, edmIsShownBy, link_attrs ) + view_html + '</li>'
+								
+								end
+								
 							end
 						html += '</ul>'
 						html += '<div class="carousel-overlay"></div>'
@@ -107,6 +132,31 @@
 			  <a href="<%= readVal -%>" target="_new"><%= t('formtastic.labels.content.metadata.edm.partner_site') -%></a>
 			</div>
 		<%- end -%>
+
+<br><br>
+	<% if edmIsShownAt &&
+		(
+		  params[:controller] == 'federated_search/dpla'	  ||
+		  params[:controller] == 'federated_search/trove' ||
+		  params[:controller] == 'federated_search/digitalnz' 		  
+		)
+	-%>
+	
+		  <h1>block lightbox (<%= params[:controller] %>)</h1>
+		  <script type="text/javascript">
+		   // window.blockLightbox = true;
+		  </script>
+	<% end %>
+	
+	
+	<%= record['aggregations'][0]['edmDataProvider']['def'][0] %>
+		
+<br><br>Aggregation:<br><br>
+		<%= aggregation -%>
+
+<br><br>
+	<%= params[:controller] %>
+
 		  
 	</div>
 </div>

@@ -12,7 +12,7 @@
 		? false
 		: true,
 		$contributions_featured = jQuery('#contributions-featured'),
-		add_lightbox = pdf_viewer,
+		add_lightbox = pdf_viewer  && ! window.blockLightbox,
 
 
 	carousels = {
@@ -63,7 +63,7 @@
 				var $elm = jQuery(this),
 						contents = $elm.contents();
 
-				if ( !$elm.hasClass('pdf') ) {
+				if ( !$elm.hasClass('pdf') && !$elm.hasClass('original-context') ) {
 					$elm.replaceWith(contents);
 				}
 			});
@@ -74,10 +74,10 @@
 		},
 
 		init : function() {
-			if ( add_lightbox ) {
+			if ( add_lightbox) {
 				this.setupPrettyPhoto();
 			} else {
-				this.removeLightboxLinks();
+  				this.removeLightboxLinks();
 			}
 		}
 	},
