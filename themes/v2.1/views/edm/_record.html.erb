@@ -101,6 +101,13 @@
 					}
 			-%>
 		</div>
+		
+		<%- if readVal = edm_proxy_field(aggregation, 'edmIsShownAt') -%>
+			<div class="col-cell">
+			  <a href="<%= readVal -%>" target="_new"><%= t('formtastic.labels.content.metadata.edm.partner_site') -%></a>
+			</div>
+		<%- end -%>
+		  
 	</div>
 </div>
 <% end -%>
