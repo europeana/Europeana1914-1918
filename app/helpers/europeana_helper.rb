@@ -137,7 +137,7 @@ module EuropeanaHelper
       },
       "http://www.europeana.eu/rights/rr-p/" => {
         "label" => "Paid Access - Rights Reserved",
-        "icon"  => ["icon-copyright"]
+        "icons"  => ["icon-copyright"]
       },
       "http://creativecommons.org/publicdomain/mark/" => {
         "label" => "Public Domain marked",
