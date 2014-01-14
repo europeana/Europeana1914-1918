@@ -1,31 +1,45 @@
     <% tags = [] unless local_assigns[:tags].present? -%>
     
     <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
-    
         <div class="add-tags">
             <h3><%= t('views.contributions.show.headings.tags') %></h3>
-        
+        </div>
+    <%- end -%>
+  
+    <%- if current_user.may_tag_contribution?(contribution) -%>
+        <%= form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do %>
+            <div class="add-tag-panel">
+                <%= text_field_tag "tags", "", :size => 50 %>
+            </div>
+        <% end %>
+       <span class="tag-info"><%= t('views.tags.info') -%></span>
     <%- end -%>
   
     <% if (tags.length > 0) -%>
       
-        <div class="panel tags-panel">
+        <div class="tags-panel">
+        
+        
             <ul class="tags clearfix">
                 
                 <%- for tag in tags -%>
                     <li>
-                        <%= link_to tag.name, tag_search_contributions_path(tag.name) %>
-                        <%- if current_user.may_untag_contribution?(tag) || current_user.may_flag_contribution_tag?(tag) -%>
+                        
+                        <%= link_to tag.name, tag_search_contributions_path(tag.name), :class=> 'search-tags' %>
+
+                        <%- if current_user.may_untag_contribution?(tag) -%>
+                        
+                            <%= link_to ('<span class="icon-remove" title="' + t('actions.delete') + '"></span>').html_safe, delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %>
+                            
+                        <%- end -%>
+                        
+                        
+                        <%- if current_user.may_flag_contribution_tag?(tag) -%>
                             <div class="action-links">
                                 <ul>
-                                    <%- if current_user.may_untag_contribution?(tag) -%>
-                                        <li>
-                                            <%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %>
-                                        </li>
-                                    <%- end -%>
                                     <%- if current_user.may_flag_contribution_tag?(tag) -%>
                                         <li>
-                                            <%= link_to t('actions.flag'), flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %>
+                                            <%= link_to t('actions.flag') + '-flag', flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %>
                                         </li>
                                     <%- end -%>
                                 </ul>
@@ -40,22 +54,5 @@
     <%- end -%>
     
   
-    <%- if current_user.may_tag_contribution?(contribution) -%>
-        <%= form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do %>
-            <div class="panel add-tag-panel">
-                <label for="tags">Add tags (optional)</label>
-                <%= text_field_tag "tags", "", :size => 50 %>
-            </div>
-        <% end %>
-    <%- end -%>
-  
-  
-    <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
-    
-    	<%# CLOSE DIV %>
-    	
-        </div>
-        
-    <%- end -%>
   
   

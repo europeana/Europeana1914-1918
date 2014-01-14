@@ -426,6 +426,10 @@ en:
       update:
         alert: There was a problem updating %{resource_name}. See the messages below.
         notice: Updated %{resource_name}.
+    admin:
+      europeana:
+        harvest:
+          notice: Europeana portal content is being harvested in the background.
     attachments:
       create:
         alert: There was a problem saving your attachment.
@@ -1111,6 +1115,11 @@ en:
               withdrawn: No withdrawn contributions matching your search.
           title: Contributions
         p1: ! 'Below are three tables containing contributions that have: not been submitted for approval, are pending approval or have been approved. Click on a title to see details about a contribution. Once the details are displayed, you can opt to edit the metadata, delete the contribution, or (for contributions pending approval) approve the contribution.'
+      europeana:
+        index:
+          instructions: Pressing the Submit button below will start the harvesting of WWI related content from the Europeana portal API, into the 1914-1918 database.
+          introduction: There are presently %{count} WWI related Europeana records in the 1914-1918 database.
+          title: Harvest Europeana portal content
       index:
         headings:
           export: Export
@@ -1136,6 +1145,9 @@ en:
           export_xml_nozip:
             description: Export the collection contributions & attachments to XML, excluding .zip file attachments.
             text: Export as XML (excluding .zip files)
+          harvest_europeana:
+            description: Harvest WWI related records from the Europeana portal API.
+            text: Harvest Europeana portal content
           institutions:
             description: Configure institutional providers to optionally associate with user accounts.
           logs:
@@ -1695,6 +1707,7 @@ en:
       flag:
         question: Are you sure you want to flag this tag as inappropriate?
         title: Flag as inappropriate
+      info: separate each tag with a comma and press enter to add.
     users:
       _summary:
         caption: Sign in details
