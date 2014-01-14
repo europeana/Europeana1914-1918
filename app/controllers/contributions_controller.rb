@@ -179,7 +179,7 @@ class ContributionsController < ApplicationController
   def search
     current_user.may_search_contributions!
     
-    @count = per_page = [ (params[:count] || 48).to_i, 100 ].min
+    @count = per_page = [ (params[:count] || 12).to_i, 100 ].min
     
     # Rebuild metadata_xyz_ids facet names from abbreviated field names in params
     facet_params = {}

@@ -28,7 +28,7 @@ class EuropeanaController < ApplicationController
     if search_terms.present? || params[:term].blank?
       query_params = { 
         :page => (params[:page] || 1).to_i,
-        :count => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
+        :count => [ (params[:count] || 12).to_i, 100 ].min, # Default 48, max 100
         :profile => 'facets',
         :facets => extracted_facet_params
       }
@@ -93,7 +93,7 @@ private
   # @param [String,Array,Hash] terms One or more term(s) to search for.
   # @param [Hash] options Optional parameters
   # @option options [String,Integer] :count The number of results to return.
-  #   Maximum 100; default 48.
+  #   Maximum 100; default 12.
   # @option options [String,Integer] :page The page number of results to return.
   #   Default 1.
   # @option options All other options will be passed on to 
@@ -179,7 +179,7 @@ private
   #   +totalResults+ keys, as returned by +#api_search+.
   # @param [Hash] options Optional parameters
   # @option options [String,Integer] :count The number of results to return.
-  #   Maximum 100; default 48.
+  #   Maximum 100; default 12.
   # @option options [String,Integer] :page The page number of results to return.
   #   Default 1.
   # @return [WillPaginate::Collection] +will_paginate+ compatibile result set.

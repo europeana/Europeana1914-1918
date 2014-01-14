@@ -84,7 +84,7 @@ protected
   def params_with_defaults
     @params_with_defaults ||= {
       :page   => (params[:page] || 1).to_i,
-      :count  => [ (params[:count] || 48).to_i, 100 ].min, # Default 48, max 100
+      :count  => [ (params[:count] || 12).to_i, 100 ].min, # Default 48, max 100
       :qf     => params[:qf] || []
     }
   end
