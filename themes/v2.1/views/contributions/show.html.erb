@@ -57,6 +57,13 @@
 <div class="container">  
   
   <div class="col left">
+
+    <div class="col-cell show-on-item-collapsed" >
+      <h2><%= contribution_title(@contribution) %></h2>
+    </div>
+
+    <div class="col-cell translate-area-mobile show-on-item-collapsed" >
+    </div>
     
     <%- if referred_by_search? -%>
       <div class="col-cell hide-on-item-collapsed" >
@@ -86,224 +93,68 @@
     <!-- </div> -->
     
     <%= render :partial => '/layouts/navigation/sharethis' %>
+
+    <div class="col-cell" >
+	    <dl id="story-metadata" class="metadata show-on-item-collapsed">
+	    
+
+	   	    <%=
+		      render :partial => '/metadata/wrap_display',
+		      :locals => {
+		      :show_title => false,
+		      :contribution => @contribution,
+		      :metadata => @contribution.metadata,
+		      :field_options => {
+		        :cataloguing => false, 
+		        :contribution => true,
+		        :name => [
+		        'alternative',        
+		        'description',
+		        'creator_family_name',
+		        'creator_given_name',
+		        ],
+		        :name_order => true
+		      }
+		      }
+		    %>
+		 </dl>
+  	</div>  
     
   </div>
 
   <div class="col middle">
   
-      <div class="col-cell" >
+      <div class="col-cell hide-on-item-collapsed" >
         <h2><%= contribution_title(@contribution) %></h2>
       </div>
 
-      <div class="col-cell translate-area" >
+      <div class="col-cell translate-area hide-on-item-collapsed" >
       </div>
 
-	  <div id="story-info" class="col-cell" XXXXclass="one-half-right">
-	    
-	    <dl id="story-metadata" class="metadata">
-	    <%=
-	      render :partial => '/metadata/display',
-	      :locals => {
-	      :show_title => false,
-	      :contribution => @contribution,
-	      :metadata => @contribution.metadata,
-	      :field_options => {
-	        :cataloguing => false, 
-	        :contribution => true,
-	        :name => [
-	        'alternative',        
-	        'description',
-	        'creator_family_name',
-	        'creator_given_name',
-	        ],
-	        :name_order => true
-	      }
-	      }
-	    %>    
-	    <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
-	      <dt><b><%= contribution_field_title('contributor') %></b></dt>
-	      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
-	    <% end -%>
-	    <%=
-	      render :partial => '/metadata/display',
-	      :locals => {
-	      :show_title => false,
-	      :contribution => @contribution,
-	      :metadata => @contribution.metadata,
-	      :field_options => {
-	        :cataloguing => false, 
-	        :contribution => true,
-	        :name => [
-	        'contributor_behalf'
-	        ],
-	        :name_order => true
-	      }
-	      }
-	    %>    
-	    <% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
-	      <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
-	      <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
-	      <%=
-	      render :partial => '/metadata/display',
-	        :locals => {
-	        :show_title => false,
-	        :contribution => @contribution,
-	        :metadata => @contribution.metadata,
-	        :field_options => {
-	          :cataloguing => false, 
-	          :contribution => true,
-	          :name => [
-	          'character1_dob',
-	          'character1_pob',
-	          'character1_dod',
-	          'character1_pod',
-	          ],
-	          :name_order => true
-	        }
-	        }
-	      %>
-	    <% end -%> 
-	    <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
-	      <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
-	      <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
-	      <%=
-	        render :partial => '/metadata/display',
-	        :locals => {
-	          :show_title => false,
-	          :contribution => @contribution,
-	          :metadata => @contribution.metadata,
-	          :field_options => {
-	          :cataloguing => false, 
-	          :contribution => true,
-	          :name => [
-	            'character2_dob',
-	            'character2_pob',
-	            'character2_dod',
-	            'character2_pod',
-	          ],
-	          :name_order => true
-	          }
-	        }
-	      %>
-	    <% end -%>    
-	    <%=
-	      render :partial => '/metadata/display',
-	      :locals => {
-	      :show_title => false,
-	      :contribution => @contribution,
-	      :metadata => @contribution.metadata,
-	      :field_options => {
-	        :cataloguing => false, 
-	        :contribution => true,
-	        :name => [
-	        
-	        'subject',
-	        'summary',
-	        
-	        'date_from', # use this field to summarize the date fields
-	        'date_to', # do we need to display this field if date_from takes care of all possibilities?
-	        
-	        'lang',
-	        'lang_other',
-	        'keywords',
-	        'theatres',
-	        'forces',
-	        
-	        #'content',
-	        #'author',
-	        #'page_number',
-	        #'page_total',
-	        #'notes',
-	        #'object_side',
-	        #'cover_image',
-	        #'license',
-	        #'attachment_description',
-	        
-	        # need these to be available for google map
-	        # they are output as input type="hidden"
-	        'location_map',
-	        'location_placename',
-	        'location_zoom'
-	        ],
-	        :name_order => true
-	      }
-	      }
-	    %>    
-	    <% if current_user.may_catalogue_contributions? -%>
-	      <%=
-	      render :partial => '/metadata/display',
-	        :locals => {
-	          :show_title => false,
-	          :contribution => @contribution,
-	          :metadata => @contribution.metadata,
-	          :field_options => {
-	          :cataloguing => true, 
-	          :contribution => true,
-	          :name => [
-	            'ticket',
-	            #'cataloguer', # this is the old cataloguer field (see story 074)
-	            ],
-	          :name_order => true
-	          }
-	        }
-	      %>
-	      <dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
-	      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>  
-	      <%=
-	      render :partial => '/metadata/display',
-	        :locals => {
-	        :show_title => false,
-	        :contribution => @contribution,
-	        :metadata => @contribution.metadata,
-	        :field_options => {
-	          :cataloguing => true, 
-	        :contribution => true,
-	          :name => [
-	            'file_type',
-	            'source',
-	            'format', # this can also be considered the medium
-	            'collection_day',
-	            'editor_pick_text',
-	            'editor_pick_sig',
-	            'editor_pick',
-	            'date',
-	            ],
-	          :name_order => true
-	        }
-	        }
-	      %>
-	      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
-	      <dd><%= l @contribution.created_at, :format => :short %></dd>
-	    <% end -%>
-	    </dl>
-	    
-	    <%- if @contribution.contributor.picture.present? -%>
-	      <%
-	        people = {
-	          :contributor => @contribution.contact.full_name,
-	          :principal =>   @contribution.metadata.fields['contributor_behalf'],
-	          :character1 =>  full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name']),
-	          :character2 =>  full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])
-	        } 
-	      %>
-	      <div id="avatar" class="responsive-box">
-	        <%= image_tag(@contribution.contributor.picture.url(:thumb)) %>
-	        <%- if people[:contributor].present? -%>
-	          <%= people[:contributor] %>
-	          <%#= people[:principal] %> 
-	          <% if people[:character1].present? || people[:character2].present? -%>
-	            <%= t('views.contributions.show.shared-this-story') %>
-	            <%= [ people[:character1], people[:character2] ].reject { |p| p.blank? }.join(t('support.array.two_words_connector')) %>
-	          <%- end -%>
-	        <%- end -%>
-	      </div>
-	    <%- end -%>
+	  <div id="story-info" class="col-cell hide-on-item-collapsed">
 	    
 	    
-	    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+	   	    <%=
+		      render :partial => '/metadata/wrap_display',
+		      :locals => {
+		      :show_title => false,
+		      :contribution => @contribution,
+		      :metadata => @contribution.metadata,
+		      :field_options => {
+		        :cataloguing => false, 
+		        :contribution => true,
+		        :name => [
+		        'alternative',        
+		        'description',
+		        'creator_family_name',
+		        'creator_given_name',
+		        ],
+		        :name_order => true
+		      }
+		      }
+		    %>    
 	    
 	  </div>
 	  
 	</div>
-  
 </div>

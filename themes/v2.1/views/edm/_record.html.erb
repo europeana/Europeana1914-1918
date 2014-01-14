@@ -98,12 +98,27 @@
 			<%= html.html_safe %>
 		</div>
 		<%= render :partial => '/layouts/navigation/sharethis' %>
-		<% if latLong = edm_places_latlng(record['places']) -%>
+		<% if true || latLong = edm_places_latlng(record['places']) -%>
+		
+			<div id="story-metadata" class="col middle metadata show-on-item-collapsed">
+				<div class="col-cell">
+					<%=
+						render :partial => '/metadata/display_edm',
+							:locals => {
+								:proxy => proxy,
+								:aggregation => aggregation,
+								:euAggregation => euAggregation,
+								:record => record
+							}
+					-%>
+				</div>
+			</div>
+			
 			<div class="col-cell">
 				<div id="map-container">
 					<div id="map">
 						<script type="text/javascript">
-							var latLong = "<%= latLong %>".split(',');
+							var latLong =  ['41.6787','12.11']; // "<%= latLong %>".split(',');
 						</script>
 					</div>
 				</div>
@@ -111,9 +126,11 @@
 		<% end -%>
 	</div>
 
-	<div id="story-metadata" class="col middle metadata">
 
-		<h2 class="dcTitle hide-on-item-collapsed"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
+
+	<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">
+
+		<h2 class="dcTitle"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
 		<div class="col-cell">
 			<%=
@@ -134,5 +151,7 @@
 		<%- end -%>
 
 	</div>
+	
+	
 </div>
 <% end -%>

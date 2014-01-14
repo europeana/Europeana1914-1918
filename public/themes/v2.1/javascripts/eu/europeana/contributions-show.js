@@ -515,7 +515,8 @@
 		$story_took_place : jQuery('<b/>'),
 
 		addMapContainer : function() {
-			jQuery('#thumbnail-counts')
+			//jQuery('#thumbnail-counts')
+			jQuery('.metadata.show-on-item-collapsed')
 				.after(
 					jQuery( this.$google_map )
 						.append( this.$story_took_place )
@@ -752,11 +753,57 @@
 
 	(function() {
 		truncate.init();
+		
+		/* For moblie / desktop layouts we need the translate services to be in two different places.
+		 * Unfortunately since the js for these services is not object oriented (no use of the "new" operator)
+		 * and since the container name is hard-coded into the js the strategy is now to move the existing 
+		 * instance of the translate services on window resize.
+		 * */
 		RunCoCo.translation_services.init( $('.translate-area') );
+
+
+		/* event debouncing () */
+
+		(function($,sr){
+
+			var debounce = function (func, threshold, execAsap) {
+				var timeout;
+				return function debounced () {
+					var obj = this, args = arguments;
+					function delayed () {
+						if (!execAsap)
+							func.apply(obj, args);
+							timeout = null;
+						};
+			
+						if (timeout){
+							clearTimeout(timeout);
+						}
+						else if (execAsap){
+							func.apply(obj, args);
+						}
+			
+						timeout = setTimeout(delayed, threshold || 100);
+					};
+				};
+		
+			// smartresize 
+			jQuery.fn[sr] = function(fn){	return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+			jQuery.fn['euScroll'] = function(fn){	return fn ? this.bind('scroll', debounce(fn)) : this.trigger(sr); };
+
+		})(jQuery,'euRsz');
+		$(window).euRsz(function(){
+			jQuery('#translation-services').appendTo($('.show-on-item-collapsed').is(':visible') ? jQuery('.translate-area-mobile') : jQuery('.translate-area') );
+		});
+		
 		carousels.init();
 		map.init();
 		lightbox.init();
 		pdf.init();
+
+		// fire fake resize event to trigger euRsz (in case window was loaded within mobile breakpoints)
+		setTimeout(function(){ $(window).trigger('resize'); }, 100);
+
 	}());
 
 }());
