@@ -140,6 +140,11 @@ RunCoCo::Application.routes.draw do
         match '/' => 'config#update', :as => 'update_config', :via => :put
         match 'edit' => 'config#edit', :as => 'edit_config', :via => :get
       end
+      
+      scope 'europeana' do
+        match '/' => 'europeana#index', :as => 'europeana', :via => :get
+        match '/harvest' => 'europeana#harvest', :as => 'harvest_europeana', :via => :put
+      end
     end
 
     # Dropbox
