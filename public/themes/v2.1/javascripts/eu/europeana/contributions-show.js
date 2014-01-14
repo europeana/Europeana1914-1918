@@ -377,23 +377,7 @@
 		handlePictureChange : function() {
 			var self = lightbox,
 					$elm = jQuery(this),
-					$additional_info_link = $elm.find('.pp_description a').first(),
-					$pp_inline_video = $elm.find('.pp_inline .video-element'),
-					$pp_inline_audio = $elm.find('.pp_inline .audio-element'),
-					$video,
-					$audio;
-
-			if ( $pp_inline_video.length > 0 ) {
-				$video = jQuery('<video/>', { 'src' : $pp_inline_video.attr('data-src'), 'preload' : 'auto' });
-				$video.insertAfter( $pp_inline_video );
-				var player = new MediaElementPlayer( $video );
-			}
-
-			if ( $pp_inline_audio.length > 0 ) {
-				$audio = jQuery('<audio/>', { 'src' : $pp_inline_audio.attr('data-src'), 'preload' : 'auto' });
-				$audio.insertAfter( $pp_inline_audio );
-				var player = new MediaElementPlayer( $audio, { pluginPath : '/themes/common/mediaelement/' } );
-			}
+					$additional_info_link = $elm.find('.pp_description a').first();
 
 			anno.reset();
 			anno.hideSelectionWidget();
