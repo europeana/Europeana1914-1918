@@ -47,21 +47,7 @@ module EuropeanaHelper
     elsif proxy[field_name].has_key?(I18n.locale.to_s)
       proxy[field_name][I18n.locale.to_s].first
     elsif proxy[field_name]["def"].present? 
-      # Richard: this was crashing for this url:
-      #     http://localhost:3000/en/dpla/record/5b79a6ec575aa40fd7451c1641008730 
-      #
-      #     Error:
-      #       undefined method `reject' for #<String:0x000000069a1f68>
-      #
-      # please review my change
-      #
-      # proxy[field_name]["def"].reject(&:blank?).first
-      
-      if proxy[field_name]["def"].blank?
-         nil
-      else
-        proxy[field_name]["def"].first
-      end
+      [ proxy[field_name]["def"] ].flatten.reject(&:blank?).first
     else
       proxy_field = proxy[field_name].values.reject(&:blank?).join('; ')
       proxy_field.blank? ? nil : proxy_field
