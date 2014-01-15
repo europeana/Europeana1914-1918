@@ -519,7 +519,7 @@
 			jQuery('.metadata.show-on-item-collapsed')
 				.after(
 					jQuery( this.$google_map )
-						.append( this.$story_took_place )
+						.append( translated_map_contribution_heading )
 						.append( this.$story_map )
 						.append( this.$overlay )
 				);
