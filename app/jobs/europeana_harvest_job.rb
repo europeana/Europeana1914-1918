@@ -23,8 +23,7 @@ private
     Rails.logger.debug("Harvesting Europeana API results page #{page} of #{results.total_pages}")
     results.each do |result|
       record_id = result['id']
-      record_object = get_api_record(record_id)
-      save_record(record_id, record_object)
+      create_record(record_id)
     end
     results
   end
@@ -57,10 +56,12 @@ private
     response['object']
   end
   
-  def save_record(record_id, object)
+  def create_record(record_id)
     record = EuropeanaRecord.find_or_initialize_by_record_id(record_id)
-    record.object = object
-    record.save
+    if record.new_record?
+      record.object = get_api_record(record_id)
+      record.save
+    end
   end
 
 end
