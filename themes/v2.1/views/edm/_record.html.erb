@@ -20,138 +20,154 @@
 		edmIsShownAt   = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : edmPreview
 		carouselImages = aggregation['hasView']
--%>
-<div class="container">
-	<div class="col left">
-		<% if referred_by_search? -%>
-			<div class="col-cell hide-on-item-collapsed">
-				<%= link_to t('views.links.back-to-search'), :back %>
-			</div>
-		<% end -%>
-		<div class="col-cell">
-			<%
-				title = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
-				oembed = oembed_fields( record )
-				image_html = ''
-				video_html = ''
-				view_html = ''
-				link_attrs = {
-					:title => title,
-					'class' => 'image',
-					'data-description' => title,
-					:rel => 'prettyPhoto[gallery]'
-				}
 
-				html = '<div class="img-panel">'
-					html += '<div id="institution-featured" class="carousel">'
-						html += '<ul>'
+		title          = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
+		oembed         = oembed_fields( record )
+		link_attrs     = {
+										:title => title,
+										'class' => 'image',
+										'data-description' => title,
+										:rel => 'prettyPhoto[gallery]'
+		}
+
+		link_image = '<img src="' + edmPreview + '" alt="' + title + '"/>'
+		link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
+		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
+
+		html = '<div class="container">'
+
+			html += '<div class="col left">'
+				if referred_by_search?
+					html += '<div class="col-cell hide-on-item-collapsed">'
+						html += link_to t('views.links.back-to-search'), :back
+					html += '</div>'
+				end
+
+				html += '<div class="col-cell">'
+
+					html += '<div class="img-panel">'
+						html += '<div id="institution-featured" class="carousel">'
+							html += '<ul>'
+
+							# oembeded item
 							if oembed
-								img_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
+
 								if oembed['provider_name'] == 'Vimeo'
-									video_html = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
-								elsif edmPreview.present?
-									video_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
+									video_src = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
+								else
+									video_src = edmPreview
 								end
-								view_html = '<p class="view-item">' +  link_to( t( 'common.links.play-video' ), video_html, link_attrs ) + '</p>'
-								html += '<li>' + link_to( img_html.html_safe, video_html, link_attrs ) + view_html + '</li>'
+
+								link_content = link_image + link_text_video
+								html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + '</li>'
+
+							# multiple images
 							elsif carouselImages
+
 								carouselImages.each do |img_src|
-									img_html = '<img src="' + img_src + '" alt="' + title + '"/>'
-									view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_src, link_attrs ) + '</p>'
-									html += '<li>' + link_to( img_html.html_safe, img_src, link_attrs ) + view_html + '</li>'
+									link_image = '<img src="' + img_src + '" alt="' + title + '"/>'
+									link_content = link_image + link_text_image
+									html += '<li>' + link_to( link_content.html_safe, img_src, link_attrs ) + '</li>'
 								end
+
+							# single image
 							else
 
-								img_html = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-								
+								# view at provider’s website
 								if edmIsShownAt &&
 									(
-									  params[:controller] == 'federated_search/dpla'	  ||
+									  params[:controller] == 'federated_search/dpla' ||
 									  params[:controller] == 'federated_search/trove' ||
-									  params[:controller] == 'federated_search/digitalnz' 		  
+									  params[:controller] == 'federated_search/digitalnz'
 									)
-								
+
 									html += '<script type="text/javascript"> window.blockLightbox = true; </script>'
-									
-									view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_html, link_attrs ) + '</p>'
-									
+
+									# link available at provider’s website
 									if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
-										html += ('<li><a href="' + readVal + '" target="_new" class="original-context">' + img_html + '</a></li>').html_safe
+
+										link_content = link_image + link_text_image
+										link_attrs.merge!({
+											:class => 'original-context',
+											:target => '_blank'
+										})
+
+										html += '<li>' + link_to( link_content.html_safe, readVal, link_attrs ) + '</li>'
+
+									# link not available at provider’s website
 									else
-										html += ('<li>n link' + img_html + '</li>').html_safe									
+
+										html += '<li>' + link_image.html_safe + '</li>'
+
 									end
-									
+
+								# view on 1914-1918 website
 								else
-								
-									view_html = '<p class="view-item">' +  link_to( t( 'common.links.view-image' ), img_html, link_attrs ) + '</p>'
-									html += '<li>' + link_to( img_html.html_safe, edmIsShownBy, link_attrs ) + view_html + '</li>'
-								
+
+									link_content = link_image + link_text_image
+									html += '<li>' + link_to( link_content.html_safe, edmIsShownBy, link_attrs ) + '</li>'
+
 								end
-								
+
 							end
-						html += '</ul>'
+
+							html += '</ul>'
 						html += '<div class="carousel-overlay"></div>'
 					html += '</div>'
 				html += '</div>'
 				html += '<p class="subtitle">' + title + '</p>'
-			-%>
-			<%= html.html_safe %>
-		</div>
-		<%= render :partial => '/layouts/navigation/sharethis' %>
-		<% if true || latLong = edm_places_latlng(record['places']) -%>
-		
-			<div id="story-metadata" class="col middle metadata show-on-item-collapsed">
-				<div class="col-cell">
-					<%=
-						render :partial => '/metadata/display_edm',
+			html += '</div>'
+
+		html += render :partial => '/layouts/navigation/sharethis'
+
+		if true || latLong = edm_places_latlng(record['places'])
+
+			html += '<div id="story-metadata" class="col middle metadata show-on-item-collapsed">'
+				html += '<div class="col-cell">'
+					html += render :partial => '/metadata/display_edm',
 							:locals => {
 								:proxy => proxy,
 								:aggregation => aggregation,
 								:euAggregation => euAggregation,
 								:record => record
 							}
-					-%>
-				</div>
-			</div>
-			
-			<div class="col-cell">
-				<div id="map-container">
-					<div id="map">
-						<script type="text/javascript">
-							var latLong =  ['41.6787','12.11']; // "<%= latLong %>".split(',');
-						</script>
-					</div>
-				</div>
-			</div>
-		<% end -%>
-	</div>
 
+				html += '</div>'
+			html += '</div>'
 
+			html += '<div class="col-cell">'
+				html += '<div id="map-container">'
+					html += '<div id="map"></div>'
+					if latLong
+						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
+					else
+						html += "<script>var latLong = ['41.6787','12.11'];</script>" # Roma
+					end
+				html += '</div>'
+			html += '</div>'
+		end
 
-	<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">
+		html += '</div>'
 
-		<h2 class="dcTitle"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
-
-		<div class="col-cell">
-			<%=
-				render :partial => '/metadata/display_edm',
+		html += '<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">'
+			html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
+			html += '<div class="col-cell">'
+				html +=	render :partial => '/metadata/display_edm',
 					:locals => {
 						:proxy => proxy,
 						:aggregation => aggregation,
 						:euAggregation => euAggregation,
 						:record => record
 					}
-			-%>
-		</div>
-		
-		<%- if readVal = edm_proxy_field(aggregation, 'edmIsShownAt') -%>
-			<div class="col-cell">
-			  <a href="<%= readVal -%>" target="_new"><%= t('formtastic.labels.content.metadata.edm.partner_site') -%></a>
-			</div>
-		<%- end -%>
+			html += '</div>'
 
-	</div>
-	
-	
-</div>
-<% end -%>
+			if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
+				html += '<div class="col-cell">'
+					html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
+				html += '</div>'
+			end
+		html += '</div>'
+	html += '</div>'
+	end
+-%>
+<%= html.html_safe %>

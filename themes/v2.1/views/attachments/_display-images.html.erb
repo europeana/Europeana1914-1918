@@ -32,7 +32,7 @@
 
         if ( prettyphoto && attachment.image? )
           link_attrs.merge!({
-            'class' => 'image'
+            :class => 'image'
           })
         end
 
@@ -40,7 +40,7 @@
           view_link_text = t( 'common.links.play-video' )
           link_url = contribution_attachment_url( contribution, attachment ) + '?layout=0&iframe=true&width=100%&height=100%'
           link_attrs.merge!({
-            'class' => 'video'
+            :class => 'video'
           })
         end
 
@@ -48,7 +48,7 @@
           view_link_text = t( 'common.links.play-audio' )
           link_url = contribution_attachment_url( contribution, attachment ) + '?layout=0&iframe=true&width=100%&height=100%'
           link_attrs.merge!({
-            'class' => 'audio'
+            :class => 'audio'
           })
         end
 
@@ -59,10 +59,12 @@
           })
         end
 
-        html += link_to( attachment_preview( attachment, size ), link_url, link_attrs )
-
         if !thumbnails
-          html += '<p class="view-item">' + link_to( view_link_text, link_url, link_attrs ) + '</p>'
+          view_link_text = '<p class="view-item">' + view_link_text + '</p>'
+          view_link_text = attachment_preview( attachment, size ) + view_link_text.html_safe
+          html += link_to( view_link_text, link_url, link_attrs )
+        else
+          html += link_to( attachment_preview( attachment, size ), link_url, link_attrs )
         end
 
       else
