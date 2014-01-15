@@ -103,7 +103,7 @@ module SearchHelper
   end
   
   def search_result_id(result)
-    if result.respond_to?(:id)
+    if result.is_a?(Contribution)
       result.id
     elsif result.is_a?(Enumerable) && result.has_key?('id')
       result['id']
