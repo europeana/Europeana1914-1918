@@ -120,7 +120,7 @@
 
 		html += render :partial => '/layouts/navigation/sharethis'
 
-		if true || latLong = edm_places_latlng(record['places'])
+		if latLong = edm_places_latlng(record['places'])
 
 			html += '<div id="story-metadata" class="col middle metadata show-on-item-collapsed">'
 				html += '<div class="col-cell">'
@@ -140,8 +140,6 @@
 					html += '<div id="map"></div>'
 					if latLong
 						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
-					else
-						html += "<script>var latLong = ['41.6787','12.11'];</script>" # Roma
 					end
 				html += '</div>'
 			html += '</div>'
