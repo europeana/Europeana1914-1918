@@ -59,8 +59,12 @@ private
   def create_record(record_id)
     record = EuropeanaRecord.find_or_initialize_by_record_id(record_id)
     if record.new_record?
-      record.object = get_api_record(record_id)
-      record.save
+      begin
+        record.object = get_api_record(record_id)
+        record.save
+      rescue Europeana::API::Errors::RequestError => error
+        raise unless error.message.match('"Invalid record identifier: ')
+      end
     end
   end
 
