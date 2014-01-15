@@ -4,9 +4,7 @@
     <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => query, :facets => facets, :provider => provider } %></li>    
   <%- end -%>
   <%- unless facets.blank? -%>
-  
-    <!-- TODO: translate this -->
-  
+    
     <li class="refine-section"><h2><%= t('views.search.facets.refine_results')-%>:</h2></li>
   
     <%- for facet in facets -%>
@@ -36,12 +34,7 @@
                     <%- if facet_row_selected?(facet["name"], row["search"]) -%>
                     
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                      
-                      
-                      <%#label class="bold"><%= row['label'] %></label %>
-
                       <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
-
                       
                     <%- else -%>
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
@@ -49,12 +42,7 @@
                     <%- end -%>
                   <%- else -%>
 
-
-                  
                     <%# checkboxes -%>
-
-
-
 
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     
