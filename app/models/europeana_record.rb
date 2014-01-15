@@ -7,6 +7,7 @@ class EuropeanaRecord < ActiveRecord::Base
   serialize :object
   
   validates_uniqueness_of :record_id
+  validates_presence_of :record_id, :object
   
   # Solr index
   searchable do
