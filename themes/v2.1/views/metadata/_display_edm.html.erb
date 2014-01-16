@@ -25,13 +25,20 @@
         "label" => "description",
         "source" => proxy
       },
+#      {
+#      "name" => "edmLanguage",
+#        "ns" => "edm",
+#      "label" => "language",
+#      "source" => euAggregation,
+#      "href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
+#      "href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
+#      "expand" => 'languageLabel(readVal)'
+#      },
       {
-      "name" => "edmLanguage",
-        "ns" => "edm",
+      "name" => "dcLanguage",
+        "ns" => "dc",
       "label" => "language",
-      "source" => euAggregation,
-      "href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
-      "href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
+      "source" => proxy,
       "expand" => 'languageLabel(readVal)'
       },
       {
