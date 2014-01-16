@@ -2,7 +2,7 @@
   <%- if user_signed_in? -%>
     <li class="username"><%= current_user.email %></li>
   <%- end -%>
-  <li>  
+  <li class="lang-item">
     <%= form_tag do %>
       <%= select_tag 'dd_lang', options_for_select([ [ 'Select a language', '' ] ] + configuration(:ui_locales).collect { |locale| [ t('locale', :locale => locale), url_for(url_options.merge({:locale => locale})) ] }.sort { |a, b| a.first <=> b.first }, ''), { :onchange => "if (this.options[selectedIndex].value != '') window.location = this.options[selectedIndex].value" } %>
     <% end %>
@@ -19,6 +19,6 @@
     <%- if current_user.may_access_admin_area? -%>
     <li><%= link_to t('layout.navigation.admin'), admin_root_path %></li>
     <% end %>
-    <li><a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %></a></li>
+    <li class="log-out"><a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %></a></li>
   </ul>
 <%- end -%>
