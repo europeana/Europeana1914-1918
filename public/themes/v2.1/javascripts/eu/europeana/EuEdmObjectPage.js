@@ -358,7 +358,30 @@
 
 			}
 		}
+	},
 
+
+	mimetype = {
+		ajax: {
+			get: function( media_url ) {
+				$.ajax({
+					type: 'GET',
+					url: '/get-mimetype',
+					data: { media_url: media_url },
+					success: mimetype.ajax.success
+				});
+			},
+			success: function() {
+				console.log(arguments);
+			}
+		},
+
+		init: function() {
+			$('#institution-featured a').each( function() {
+				var $elm = $(this);
+				mimetype.ajax.get( $elm.attr('data-edmisshownby') );
+			});
+		}
 	};
 
 
@@ -369,6 +392,7 @@
 		map.init();
 		tags.init();
 		lightbox.init();
+		mimetype.init();
 		//js.utils.initSearch();
 
 		/*
