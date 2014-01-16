@@ -146,9 +146,9 @@ module SearchHelper
   def links_for_selected_filters(query, facets)
     filter_params = []
     
-    if params[:term]
-      filter_params << { :name => "term", :value => params[:term] }
-    end
+#    if params[:term]
+#      filter_params << { :name => "term", :value => params[:term] }
+#    end
     
     request.query_string.split('&').each do |param|
       param_parts = param.split('=')
@@ -166,10 +166,11 @@ module SearchHelper
       link_params.delete(:q)
       link_params.delete(:qf)
       
-      if filter_param[:name] == "term"
-        link_text = CGI::unescape(filter_param[:value])
-        remove_url = url_for(link_params.merge(:action => :search, :term => nil, :field => nil))
-      elsif filter_param[:name] == "q"
+#      if filter_param[:name] == "term"
+#        link_text = CGI::unescape(filter_param[:value])
+#        remove_url = url_for(link_params.merge(:action => :search, :term => nil, :field => nil))
+#      els
+      if filter_param[:name] == "q"
         link_text = query
         remove_url = url_for(link_params.merge(request.query_parameters[:qf].present? ? { :qf => request.query_parameters[:qf] } : {}))
         
@@ -213,7 +214,7 @@ module SearchHelper
         }
       }
     end
-    
+    logger.debug("**** links_for_selected_filters: #{filter_links.inspect}")
     filter_links
   end
 end
