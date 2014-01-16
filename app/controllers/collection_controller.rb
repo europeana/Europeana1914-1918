@@ -17,6 +17,9 @@ class CollectionController < SearchController
     else
       @query = params[:q]
       search_terms = bing_translate(@query)
+      if search_terms.is_a?(Hash)
+        search_terms = search_terms.dup.values.uniq.add_quote_marks.join(' ')
+      end
     end
     
     if search_terms.present? || params[:term].blank?
