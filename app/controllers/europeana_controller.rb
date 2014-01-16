@@ -6,6 +6,7 @@ require 'will_paginate/collection'
 #
 class EuropeanaController < ApplicationController
   before_filter :europeana_api_configured?
+  before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => :search
 
   # GET /europeana/search
@@ -145,7 +146,7 @@ private
 
       # Add facet data required for view
       response["facets"].each do |facet|
-        facet["label"] = t("views.search.facets.common." + facet["name"].downcase, :default => ("views.search.facets.europeana." + facet['name']).to_sym)
+        facet["label"] = t("views.search.facets.common." + facet["name"].downcase, :default => ("views.search.facets.europeana." + facet['name'].downcase).to_sym)
         facet["fields"].each do |field|
           field["search"] = field["label"]
         end

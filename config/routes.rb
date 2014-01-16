@@ -88,6 +88,10 @@ RunCoCo::Application.routes.draw do
     match 'trove/explore/:field_name/:term' => 'federated_search/trove#explore', :as => 'explore_trove', :via => :get
     match 'trove/record/:id' => 'federated_search/trove#show', :as => 'show_trove', :via => :get
 
+    # Collection search (both Contribution and EuropeanaRecord Solr indexes)
+    match 'collection/search' => 'collection#search', :as => 'search_collection', :via => :get
+    match 'collection/explore/:field_name/:term' => 'collection#explore', :as => 'explore_collection', :via => :get
+
     # Public usage statistics
     resources :statistics, :only => :index
 
@@ -139,6 +143,11 @@ RunCoCo::Application.routes.draw do
         match '/' => 'config#index', :as => 'config', :via => :get
         match '/' => 'config#update', :as => 'update_config', :via => :put
         match 'edit' => 'config#edit', :as => 'edit_config', :via => :get
+      end
+      
+      scope 'europeana' do
+        match '/' => 'europeana#index', :as => 'europeana', :via => :get
+        match '/harvest' => 'europeana#harvest', :as => 'harvest_europeana', :via => :put
       end
     end
 

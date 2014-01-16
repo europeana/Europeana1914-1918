@@ -2,6 +2,7 @@
 class ContributionsController < ApplicationController
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :explore, :complete ]
+  before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => :search
 
   cache_sweeper :contribution_sweeper, :only => [ :create, :update, :destroy ]

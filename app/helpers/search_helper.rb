@@ -48,7 +48,11 @@ module SearchHelper
   end
   
   def facet_is_single_select?(facet_name)
-    controller.controller_name == "trove" && facet_name == "zone"
+    singles = [
+      [ "collection", "index" ],
+      [ "trove", "zone" ]
+    ]
+    singles.find { |single| controller.controller_name == single.first && facet_name == single.last }
   end
   
   def remove_facet_row_url_options(facet_name, row_value)
@@ -70,6 +74,15 @@ module SearchHelper
     
     link_to row_label, remove_facet_row_url_options(facet_name, row_value), html_options
   end
+  
+  def registered_search_providers
+    if RunCoCo.configuration.search_engine == :solr
+      [ '/collection', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
+    else
+      [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
+    end
+  end
+  
   
   def link_to_search_provider(id)
     url_options = request.parameters.merge(:page => 1, :controller => id)
@@ -103,7 +116,7 @@ module SearchHelper
   end
   
   def search_result_id(result)
-    if result.respond_to?(:id)
+    if result.is_a?(Contribution)
       result.id
     elsif result.is_a?(Enumerable) && result.has_key?('id')
       result['id']

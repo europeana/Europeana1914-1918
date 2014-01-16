@@ -11,7 +11,7 @@
   <h2 class="search-results-title"><%= @title %></h2>
     
   <ul id="results-tabs">
-    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
+    <%- for provider in registered_search_providers -%>
       <%- if provider_stem = search_provider_stem(provider) -%>
         <li><%= link_to search_provider_name(provider), search_provider_href(provider), :id => "results-tab-#{provider_stem}", :'data-search-action' => search_provider_href(provider), :'data-content-id' => "#results-#{provider_stem}", :'data-hash' => "##{provider_stem}", :class => (provider_stem == current_search_provider_stem ? 'active' : '') %></li>
       <%- end -%>
@@ -20,7 +20,7 @@
   
   <div id="results">
     
-    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
+    <%- for provider in registered_search_providers -%>
       <%- provider_stem = search_provider_stem(provider) -%>
       <div id="results-<%= provider_stem %>">
         <%- if provider_stem == current_search_provider_stem -%>

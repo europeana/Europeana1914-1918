@@ -34,10 +34,6 @@ protected
       @redirect_required = true
     end
     
-    if params[:provider] && params[:provider] != self.controller_name
-      params.delete(:zone)
-    end
-    
     super
   end
 

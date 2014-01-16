@@ -11,7 +11,7 @@ class Permissions < Aegis::Permissions
   
   action :access_admin_area do
   end
-
+  
   action :administer_users do
     deny :cataloguer
   end
@@ -32,6 +32,10 @@ class Permissions < Aegis::Permissions
   end
   
   action :view_logs do
+    deny :cataloguer
+  end
+  
+  action :harvest_europeana do
     deny :cataloguer
   end
   

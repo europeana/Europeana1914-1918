@@ -7,10 +7,22 @@
 		proxy          = record['proxies'][0]
 		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
 		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+		euAggregation  = record['europeanaAggregation']
+		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : nil
 		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
+		mediaplayer    = false
 
 		if edmIsShownBy
-			html = '<iframe id="iframe" src="' + edmIsShownBy + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+			if /.flv/.match( edmIsShownBy ) || /.mp4/.match( edmIsShownBy )
+				mediaplayer = true
+				html = video_tag edmIsShownBy, :controls => true, :preload => 'none', :poster => edmPreview, :style => 'width:100%;height:100%;'
+				script_files = [
+					"/themes/#{session[:theme]}/javascripts/com/jquery/jquery-1.7.1.min.js",
+					'/themes/common/mediaelement/mediaelement-and-player.min.js'
+				]
+			else
+				html = '<iframe id="iframe" src="' + edmIsShownBy + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+			end
 		end
 	end
 -%>
@@ -19,10 +31,17 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<% if mediaplayer -%>
+<link rel="stylesheet" href="/themes/common/mediaelement/mediaelementplayer.min.css"/>
+<% end -%>
 <title><%= title -%></title>
-<style>body{width:100%;height:100%;margin:0;padding:0;overflow:hidden;}iframe{width:99%;height:99%;overflow:hidden;}</style>
+<style>body{width:100%;height:100%;margin:0;padding:0;overflow:hidden;}iframe{width:99%;height:99%;overflow:hidden;}.mejs-container{max-height:480px;margin:auto;}</style>
 </head>
 <body>
 <%= html.html_safe -%>
+<% if mediaplayer -%>
+<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
+<script>$('video').mediaelementplayer({pluginPath:'/themes/common/mediaelement/'});</script>
+<% end -%>
 </body>
 </html>
