@@ -34,7 +34,9 @@
             
 		<% end %>
 		
-		
+
+<%
+=begin %>
 		<div class='index-call-to-action'>
 			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button hide-below-x'><%= t('common.links.add-your-story') %></a>
 			<a href='<%= page_path('explore') %>' class='button hide-below-x'><%= t('common.links.explore-the-stories') %></a>
@@ -42,6 +44,8 @@
 			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button show-below-x'><%= t('common.links.add-your-story-brief') %></a>
 			<a href='<%= page_path('explore') %>' class='button show-below-x'><%= t('common.links.explore-the-stories-brief') %></a>			
 		</div>
+<%
+=end %>
 
 		
 	</div>		

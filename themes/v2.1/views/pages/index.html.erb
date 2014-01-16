@@ -59,25 +59,6 @@
 			:mobile => true
 		}
 	 %>
-
-
-
-
-<%
-=begin %>
-	
-	<div id='index-introduction' class='one-third-left'>
-		<% (doc/'h3').remove %>
-		<%= raw( (doc).to_html ) %>		
-		<div id='index-call-to-action'>
-			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button'><%= t('common.links.add-your-story') %></a><a href='<%= page_path('explore') %>' class='button'><%= t('common.links.explore-the-stories') %></a>
-		</div>		
-	</div>
-
-<%
-=end %>
-
-
 		
 </div>
 
