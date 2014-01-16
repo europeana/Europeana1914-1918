@@ -14,11 +14,11 @@
 </ul>
 <% if user_signed_in? -%>
   <ul id="navigation-user-menu" class="menu">
-    <li><%= link_to t('common.links.my_stories'), contributor_dashboard_path %></li>
-    <li><%= link_to t('common.links.my_account'), user_account_path %></li>
+    <li><%= link_to (t('common.links.my_stories') + '<span class="underline"></span>').html_safe, contributor_dashboard_path %></li>
+    <li><%= link_to (t('common.links.my_account') + '<span class="underline"></span>').html_safe, user_account_path %></li>
     <%- if current_user.may_access_admin_area? -%>
-    <li><%= link_to t('layout.navigation.admin'), admin_root_path %></li>
+    <li><%= link_to (t('layout.navigation.admin') + '<span class="underline"></span>').html_safe, admin_root_path %></li>
     <% end %>
-    <li class="log-out"><a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %></a></li>
+    <li class="log-out"><a href="<%= page_path('users/sign-out') %>"><%= t('common.menus.main.sign_out') %> <span class="underline"></span></a></li>
   </ul>
 <%- end -%>

@@ -69,7 +69,7 @@ a {
 }
 
 a:hover {
-	color: #ff00c2
+	color: #76c999;
 }
 
 img {
@@ -817,7 +817,6 @@ a.button:hover {
 }
 
 .menu a {
-	XXXpadding: 3px 10px;
 	text-decoration: none;
 	font-weight: bold;
 	color: #000;
@@ -829,34 +828,22 @@ a.button:hover {
 
 	font-size: 130%;
 	line-height: 180%;
-
 }
 
 .menu a.selected {
-	XXXcolor: #f5f5f5;
-	
-	XXXborder-bottom: 5px solid #76C999;
-	XXXpadding-bottom: 0.5em;
-	
 	outline: none;
-	
-	XXXbackground: #333333;
-	XXXbackground: -moz-linear-gradient(top, #333333 0%, #010101 100%);
-	XXXbackground: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#010101));
-	XXXbackground: -webkit-linear-gradient(top, #333333 0%,#010101 100%);
-	XXXbackground: -o-linear-gradient(top, #333333 0%,#010101 100%);
-	XXXbackground: -ms-linear-gradient(top, #333333 0%,#010101 100%);
-	XXXbackground: linear-gradient(top, #333333 0%,#010101 100%);
-	XXXfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#010101',GradientType=0 );
 }
 
-.menu a:hover {
-	background-color: #eaeaea;
-	color: #000;
+
+.menu a .underline{
+	visibility: hidden;
 }
 
-.menu a.selected:hover {
-	color: #f5f5f5;
+.menu a.selected .underline,
+.menu a.remix .underline,
+.menu a.selected .underline,
+.menu a:hover .underline{
+	visibility: visible;
 }
 
 
@@ -2056,8 +2043,6 @@ ul#facets,
 	}
 
 	.menu {
-		overflow: hidden;
-		XXXXXmargin: 0 0 1.5% 0;
 		padding: 0;
 		list-style: none;
 	}
@@ -2137,14 +2122,14 @@ ul#facets,
 		overflow: visible;
 	}
 	
+	#navigation-user-menu .underline,
 	#navigation-main .underline{
-	  height: 5px;
+	height: 5px;
 	  background-color: #76C999;
 	  display: block;
 	  position: relative;
 	  width: 100%;
-	  top: 1.5em;
-	  
+	  top: 0.5em;	  
 	}
 	
 

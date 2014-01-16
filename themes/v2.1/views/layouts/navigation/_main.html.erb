@@ -15,11 +15,11 @@
 <ul id="navigation-main" class="menu">
   <%- for link in nav -%>
     <%- if current_page?(link[1]) -%>
-      <li><%= link_to link.first, link[1], { :class => 'selected' } %><span class="underline">&nbsp;</span></li>
+      <li><%= link_to (link.first + '<span class="underline"></span>').html_safe, link[1], { :class => 'selected' } %></li>
     <%- elsif remix_test == link[1] -%>
-      <li><%= link_to link.first, link[1], { :class => 'remix' } %></li>
+      <li><%= link_to (link.first + '<span class="underline"></span>').html_safe, link[1], { :class => 'remix' } %></li>
     <%- else -%>
-      <li><%= link_to link.first, link[1] %></li>
+      <li><%= link_to (link.first + '<span class="underline"></span>').html_safe, link[1] %></li>
     <%- end -%>
   <%- end -%>
 </ul>
