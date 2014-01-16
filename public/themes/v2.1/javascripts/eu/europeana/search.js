@@ -132,6 +132,19 @@
 			$(this).closest('form').submit();
 		});
 
+		
+		var activeHash = $('#results-tabs li a.active').attr('data-hash').replace('#', '');
+		
+		$.each( $('.stories').find('li').not('.result-count').find('a'), function(i, link){
+			link = $(link);
+			if(link.attr('href').indexOf('?')>-1){
+				link.attr('href', link.attr('href') + '&anchor=' + activeHash);
+			}
+			else{
+				link.attr('href', link.attr('href') + '?anchor=' + activeHash);
+			}
+		});
+
 	};
 
 	
@@ -148,6 +161,7 @@
 			this.ajax_load_processed = true;
 			jQuery(active_tab_id ).attr('data-loaded','true');
 			
+
 			doAfterLoad();
 		},
 		
@@ -304,43 +318,37 @@
 				var $elm = jQuery(this),
 						content_id = $elm.attr('data-content-id');
 				
-				 //	modify tab links
-				 //	data-url : url to be used for ajax load of tab content
-				 //	data-loaded : string indicating whether or not section content has been loaded
-				 //	active css class : indicating whether or not the tab is active
-				 //	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
-				 //	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
+				//	modify tab links
+				//	data-url : url to be used for ajax load of tab content
+				//	data-loaded : string indicating whether or not section content has been loaded
+				//	active css class : indicating whether or not the tab is active
+				//	data-url : populate with existing href attrib if it is not a hash tag and replace the href with hash tag
+				//	from the data-hash that will be used to maintain tab state for emailing url or going back in browser history
 				 
 					
-					if ( $elm.attr('href').substring(0,1) !== '#' ) {
+				if ( $elm.attr('href').substring(0,1) !== '#' ) {
 						
-						$elm.attr( 'data-url', $elm.attr('href') );
-						$elm.attr( 'href', $elm.attr('data-hash') );
-						$elm.attr( 'data-loaded', 'false' );
+					$elm.attr( 'data-url', $elm.attr('href') );
+					$elm.attr( 'href', $elm.attr('data-hash') );
+					$elm.attr( 'data-loaded', 'false' );
 						
-					} else {
-						
-						$elm.attr( 'data-loaded', 'true' );
-						$elm.addClass('active');
-						self.current_tab.hash = $elm.attr('data-hash');
-						self.current_tab.id = '#' + $elm.attr('id');
-						
-					}
+				} else {
+					$elm.attr( 'data-loaded', 'true' );
+					$elm.addClass('active');
+					self.current_tab.hash = $elm.attr('data-hash');
+					self.current_tab.id = '#' + $elm.attr('id');
+				}
 				
 				 // add loading div to empty tabs
 				 
 					
-					if ( jQuery( content_id ).html() === '' ) {
-						
-						jQuery( content_id ).append( self.loading_feedback );
-						
-					}
+				if ( jQuery( content_id ).html() === '' ) {
+					jQuery( content_id ).append( self.loading_feedback );
+				}
 				
-				
-				 //	add onclick handler
+				//	add onclick handler
 				 
-					
-					$elm.on( 'click', { self : self }, self.handleResultsTabClick );
+				$elm.on( 'click', { self : self }, self.handleResultsTabClick );
 				
 			});
 			

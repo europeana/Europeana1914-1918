@@ -194,9 +194,11 @@
 		)
 	end
 
-	script_files.push(
-		'/themes/v2.1/javascripts/eu/europeana/search.js'
-	)
+	if @javascripts[:search]
+		script_files.push(
+			'/themes/v2.1/javascripts/eu/europeana/search.js'
+		)
+	end
 
 	# share-this
 	remote_scripts.push(
