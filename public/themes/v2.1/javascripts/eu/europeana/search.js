@@ -369,7 +369,7 @@
 					jQuery(self).after(field).closest('form').submit(); 
 				}, 100 ); 
 			},
-			disabled: ( ( typeof(active_tab_id) !== 'undefined') && (active_tab_id != '#results-tab-contributions') )
+			disabled: ( ( typeof(active_tab_id) !== 'undefined') && ((active_tab_id != '#results-tab-contributions') || (active_tab_id != '#results-tab-collection')) )
 		});
 	
 	}

@@ -71,6 +71,15 @@ module SearchHelper
     link_to row_label, remove_facet_row_url_options(facet_name, row_value), html_options
   end
   
+  def registered_search_providers
+    if RunCoCo.configuration.search_engine == :solr
+      [ '/collection', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
+    else
+      [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
+    end
+  end
+  
+  
   def link_to_search_provider(id)
     url_options = request.parameters.merge(:page => 1, :controller => id)
     url_options.delete(:qf)     # Facets differ between providers

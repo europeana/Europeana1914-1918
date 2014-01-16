@@ -6,6 +6,7 @@ require 'will_paginate/collection'
 #
 class EuropeanaController < ApplicationController
   before_filter :europeana_api_configured?
+  before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => :search
 
   # GET /europeana/search

@@ -622,5 +622,12 @@ protected
       end
     end.flatten
   end
+  
+  def redirect_to_collection_controller
+    if RunCoCo.configuration.search_engine == :solr
+      params[:controller] = :collection
+      redirect_to params
+    end
+  end
 end
 
