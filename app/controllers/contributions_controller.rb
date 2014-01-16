@@ -43,6 +43,9 @@ class ContributionsController < ApplicationController
       @contribution.catalogued_by = params[:contribution].delete(:catalogued_by)
     end
     @contribution.attributes = params[:contribution]
+    if current_user.may_catalogue_contributions?
+      @contribution.metadata.cataloguing = true
+    end
 
     if current_user.role.name == 'guest'
       @contribution.guest = current_user.contact

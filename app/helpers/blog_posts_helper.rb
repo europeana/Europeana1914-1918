@@ -66,7 +66,7 @@ module BlogPostsHelper
     end
   end
   
-  protected
+protected
   
   ##
   # Retrieves entries from the Europeana 1914-1918 blog via Atom feed
@@ -116,6 +116,8 @@ module BlogPostsHelper
     unless category.blank?
       url = url + "/-/" + category
     end
+    
+    logger.debug("Europeana blogspot URL: #{url}")
     
     key = controller.fragment_cache_key(url)
     if result = controller.cache_store.read(key)
@@ -167,6 +169,8 @@ module BlogPostsHelper
     if options[:category]
       url = url + '-' + options[:category]
     end
+    
+    logger.debug("GWA blogspot URL: #{url}")
     
     key = controller.fragment_cache_key(url)
     if result = controller.cache_store.read(key)
@@ -229,7 +233,8 @@ module BlogPostsHelper
     posts.reject { |post| post.blank? }
   end
   
-  private
+private
+
   ##
   # Caches a blog feed
   #
@@ -238,7 +243,8 @@ module BlogPostsHelper
   # @param [Integer] expires_in (60 minutes) Time in seconds to cache feed for.
   # 
   def cache_blog_feed(key, feed, expires_in = nil)
-    expires_in ||= 60.minutes
+    # @todo: reduced temporarily during development; revert to 60.minutes
+    expires_in ||= 5.minutes
     if feed.respond_to?(:entries) && feed.entries.present?
       controller.write_fragment(key, feed.to_yaml, :expires_in => expires_in)
     elsif !feed.respond_to?(:entries) && feed.present?

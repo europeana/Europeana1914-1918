@@ -41,6 +41,8 @@ class CollectionController < SearchController
           query.with(name.to_sym).all_of(criteria)
         end
         
+        query.with :current_status, ContributionStatus.published
+        
         if indices == Contribution
           # Contribution facets
           MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|
