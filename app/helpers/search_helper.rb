@@ -48,7 +48,11 @@ module SearchHelper
   end
   
   def facet_is_single_select?(facet_name)
-    controller.controller_name == "trove" && facet_name == "zone"
+    singles = [
+      [ "collection", "index" ],
+      [ "trove", "zone" ]
+    ]
+    singles.find { |single| controller.controller_name == single.first && facet_name == single.last }
   end
   
   def remove_facet_row_url_options(facet_name, row_value)

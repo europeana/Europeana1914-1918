@@ -1,10 +1,9 @@
 ##
 # Abstract controller for federated searches.
 #
-class FederatedSearchController < ApplicationController
+class FederatedSearchController < SearchController
   before_filter :load_api_key
   before_filter :configured?
-  before_filter :redirect_to_search, :only => [ :search, :explore ]
   
   class ResponseError < RuntimeError
     attr_reader :response
@@ -87,28 +86,6 @@ protected
       :count  => [ (params[:count] || 12).to_i, 100 ].min, # Default 48, max 100
       :qf     => params[:qf] || []
     }
-  end
-  
-  ##
-  # Handles redirects to sanitize parameters.
-  #
-  # Sub-classes should:
-  # * override this method
-  # * alter the +params+ Hash as necessary
-  # * perform their own tests for required redirects
-  # * set +@redirect_required+ to +true+ if a redirect is required
-  # * call +super+
-  #
-  def redirect_to_search
-    if params[:provider] && params[:provider] != self.controller_name
-      params.delete(:qf)
-      params[:controller] = params[:provider]
-      @redirect_required = true
-    end
-    
-    params.delete(:provider)
-    
-    redirect_to params if @redirect_required
   end
   
   ##
