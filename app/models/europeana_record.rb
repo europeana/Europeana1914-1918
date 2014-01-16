@@ -46,6 +46,11 @@ class EuropeanaRecord < ActiveRecord::Base
     string :rights, :multiple => true do
       rights
     end
+    
+    # Harvested Europeana records are always "approved"
+    integer :current_status do
+      ContributionStatus::APPROVED
+    end
   end
   
   def rights
