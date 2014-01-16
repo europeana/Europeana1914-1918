@@ -18,7 +18,7 @@
 		euAggregation  = record['europeanaAggregation']
 		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
 		edmIsShownAt   = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
-		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : edmPreview
+		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 		carouselImages = aggregation['hasView']
 
 		title          = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
@@ -101,11 +101,18 @@
 
 									end
 
-								# view on 1914-1918 website
+								# view on 1914-1918 website - provider’s content in an iframe
+								elsif edmIsShownBy
+
+									video_src = europeana_record_url( record['about'] ) + '?edmvideo=true&iframe=true&width=100%&height=100%'
+									link_content = link_image + link_text_image
+									html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + '</li>'
+
+								# view on 1914-1918 website - provider’s content not in an iframe
 								else
 
 									link_content = link_image + link_text_image
-									html += '<li>' + link_to( link_content.html_safe, edmIsShownBy, link_attrs ) + '</li>'
+									html += '<li>' + link_to( link_content.html_safe, edmPreview, link_attrs ) + '</li>'
 
 								end
 

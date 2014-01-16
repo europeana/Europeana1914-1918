@@ -1,0 +1,28 @@
+<%
+	record = @object
+
+	if record['aggregations'].first['edmProvider'].blank? ||
+		( record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" )
+
+		proxy          = record['proxies'][0]
+		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
+		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
+
+		if edmIsShownBy
+			html = '<iframe id="iframe" src="' + edmIsShownBy + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+		end
+	end
+-%>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title><%= title -%></title>
+<style>body{width:100%;height:100%;margin:0;padding:0;overflow:hidden;}iframe{width:99%;height:99%;overflow:hidden;}</style>
+</head>
+<body>
+<%= html.html_safe -%>
+</body>
+</html>
