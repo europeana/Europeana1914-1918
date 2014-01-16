@@ -64,6 +64,9 @@ private
         record.save
       rescue Europeana::API::Errors::RequestError => error
         raise unless error.message.match('"Invalid record identifier: ')
+      rescue Timeout::Error
+        sleep 10
+        retry
       end
     end
   end
