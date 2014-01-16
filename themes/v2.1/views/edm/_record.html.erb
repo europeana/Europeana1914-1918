@@ -17,6 +17,7 @@
 		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
 		euAggregation  = record['europeanaAggregation']
 		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
+		edmProvider    = aggregation['edmProvider'] ? aggregation['edmProvider'] : nil
 		edmIsShownAt   = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 		carouselImages = aggregation['hasView']
@@ -29,6 +30,10 @@
 										'data-description' => title,
 										:rel => 'prettyPhoto[gallery]'
 		}
+
+		if edmProvider && edmProvider['def'] && edmProvider['def'][0]
+			edmProvider = edmProvider['def'][0]
+		end
 
 		link_image = '<img src="' + edmPreview + '" alt="' + title + '"/>'
 		link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
@@ -50,19 +55,19 @@
 							html += '<ul>'
 
 							# oembeded item
-							if oembed
+							#if oembed
 
-								if oembed['provider_name'] == 'Vimeo'
-									video_src = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
-								else
-									video_src = edmPreview
-								end
+								#if oembed['provider_name'] == 'Vimeo'
+									#video_src = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
+								#else
+									#video_src = edmPreview
+								#end
 
-								link_content = link_image + link_text_video
-								html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + '</li>'
+								#link_content = link_image + link_text_video
+								#html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + '<!--oembeded content--></li>'
 
 							# multiple images
-							elsif carouselImages
+							if carouselImages
 
 								carouselImages.each do |img_src|
 									link_image = '<img src="' + img_src + '" alt="' + title + '"/>'
@@ -104,9 +109,30 @@
 								# view on 1914-1918 website - provider’s content in an iframe
 								elsif edmIsShownBy
 
-									video_src = europeana_record_url( record['about'] ) + '?edmvideo=true&iframe=true&width=100%&height=100%'
+									dimensions = '&width=100%&height=100%'
+									video_src = europeana_record_url( record['about'] ) + '?edmvideo=true&iframe=true'
+
+									# edmIsShownBy will be a direct link to a vimeo video
+									if /player.vimeo.com/.match( edmIsShownBy )
+										video_src = edmIsShownBy + '?iframe=true' + dimensions
+
+									# edmIsShownBy has several possible values
+									# eventhough the iframe dimensions are 640 x 480, because of the lightbox ui the dimensions need to be wider and higher
+									elsif /EFG - The European Film Gateway/.match( edmProvider )
+										if /api.picturepipe.net/.match( edmIsShownBy )
+											dimensions = '&width=657&height=510'
+										end
+									end
+
+									video_src = video_src + dimensions
 									link_content = link_image + link_text_image
-									html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + '</li>'
+									developer_content = '<!--edmProvider:' + edmProvider + '-->'
+
+									if oembed
+										developer_content = developer_content += '<!--oembeded content-->'
+									end
+
+									html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + developer_content + '</li>'
 
 								# view on 1914-1918 website - provider’s content not in an iframe
 								else
