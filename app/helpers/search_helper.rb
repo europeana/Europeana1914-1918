@@ -141,6 +141,14 @@ module SearchHelper
     params[:q].present? || params[:qf].present? || (params[:field].present? && params[:term].present?)
   end
   
+  def back_to_search_link
+    back_url = url_for(:back)
+    if params[:anchor]
+      back_url << "#" << CGI.escape(params[:anchor])
+    end
+    link_to( t('views.links.back-to-search'), back_url) 
+  end
+  
   # @param [String] query The text query searched for
   # @param [Array<Hash>] facets Array of all facets available to this view
   def links_for_selected_filters(query, facets)
