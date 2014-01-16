@@ -158,7 +158,13 @@ private
       field_name = facet_name
     end
     
-    t("views.search.facets.contributions.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
+    provider = case extracted_facet_params[:index].first
+      when "c"
+        "contributions"
+      when "e"
+        "europeana"
+    end
+    t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
   end
   
   def facet_row_label(facet_name, row_value)
