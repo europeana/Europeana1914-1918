@@ -102,13 +102,13 @@
 				map.cancel();
 				return;
 			}
-			alert('make map');
 			
 			// this test could happen on the back end too
 
 			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/
 
 			if( ! latLong.join(',').match(regex) ){
+//				alert('cancel map 3');
 				map.cancel();
 				return;
 			}

@@ -149,50 +149,57 @@
 							end
 
 							html += '</ul>'
-						html += '<div class="carousel-overlay"></div>'
+							html += '<div class="carousel-overlay"></div>'
+						html += '</div>'
 					html += '</div>'
+					html += '<p class="subtitle">' + title + '</p>'
 				html += '</div>'
-				html += '<p class="subtitle">' + title + '</p>'
+
+				html += '<div class="col-cell">'
+			    	html += '<span class="icon-share">' + t('views.contributions.show.headings.share') + '</span>'
+ 					html += render :partial => '/layouts/navigation/sharethis'
+ 				html += '</div>'
+
+				html += '<div class="col-cell translate-area" >'
+			    	html += '<span class="icon-translate"></span>'
+ 				html += '</div>'
+
+				if latLong = edm_places_latlng(record['places'])
+					html += '<div class="col-cell">'
+						html += '<div id="map-container">'
+							html += '<div id="map"></div>'
+							if latLong
+		#						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
+								html += "<script>var latLong = [" + latLong + "];</script>"
+								
+							end
+						html += '</div>'
+					html += '</div>'
+				end
+
 			html += '</div>'
 
-		html += render :partial => '/layouts/navigation/sharethis'
-
-		if latLong = edm_places_latlng(record['places'])
-			html += '<div class="col-cell">'
-				html += '<div id="map-container">'
-					html += '<div id="map"></div>'
-					if latLong
-#						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
-						html += "<script>var latLong = [" + latLong + "];</script>"
-						
+			html += '<div class="col middle metadata">'
+				html += '<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">'
+					html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
+					html += '<div class="col-cell">'
+						html +=	render :partial => '/metadata/display_edm',
+							:locals => {
+								:proxy => proxy,
+								:aggregation => aggregation,
+								:euAggregation => euAggregation,
+								:record => record
+							}
+					html += '</div>'
+	
+					if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
+						html += '<div class="col-cell">'
+							html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
+						html += '</div>'
 					end
 				html += '</div>'
 			html += '</div>'
-		end
-
 		html += '</div>'
-
-		html += '<div class="col middle metadata">'
-			html += '<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">'
-				html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
-				html += '<div class="col-cell">'
-					html +=	render :partial => '/metadata/display_edm',
-						:locals => {
-							:proxy => proxy,
-							:aggregation => aggregation,
-							:euAggregation => euAggregation,
-							:record => record
-						}
-				html += '</div>'
-	
-				if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
-					html += '<div class="col-cell">'
-						html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
-					html += '</div>'
-				end
-			html += '</div>'
-		html += '</div>'
-	html += '</div>'
 	end
 -%>
 <%= html.html_safe %>
