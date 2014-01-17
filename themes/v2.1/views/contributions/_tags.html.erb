@@ -2,14 +2,19 @@
     
     <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
         <div class="add-tags">
-            <h3><%= t('views.contributions.show.headings.tags') %></h3>
+            <span class="icon-tag"><%= t('views.contributions.show.headings.tags') %></span>
         </div>
     <%- end -%>
   
     <%- if current_user.may_tag_contribution?(contribution) -%>
         <%= form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do %>
             <div class="add-tag-panel">
-                <%= text_field_tag "tags", "", :size => 50 %>
+                <div class="h-flex-container">
+                  <%= text_field_tag "tags", "", :size => 50 %>
+                  <span class="h-flex-fixed">
+                    <input type="submit" value="Add" class="button">
+                  </span>
+                </div>
             </div>
         <% end %>
        <span class="tag-info"><%= t('views.tags.info') -%></span>

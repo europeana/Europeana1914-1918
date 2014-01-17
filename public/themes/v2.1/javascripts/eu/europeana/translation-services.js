@@ -249,7 +249,8 @@
 		 */
 		init : function( $elm ) {
 			
-			$elm.prepend( this.containers.$translation_services.append( this.containers.$loading_animation) );
+			//$elm.prepend( this.containers.$translation_services.append( this.containers.$loading_animation) );
+			$elm.append( this.containers.$translation_services.append( this.containers.$loading_animation) );
 			this.captureOriginalTextNodes();
 			this.setUpCallbacks('microsoft');
 			this.addTranslatorMicrosoft();

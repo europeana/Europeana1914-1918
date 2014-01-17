@@ -516,7 +516,8 @@
 
 		addMapContainer : function() {
 			//jQuery('#thumbnail-counts')
-			jQuery('.metadata.show-on-item-collapsed')
+			//jQuery('.metadata.show-on-item-collapsed')
+			jQuery('#story-info')
 				.after(
 					jQuery( this.$google_map )
 						.append( translated_map_contribution_heading )
@@ -524,7 +525,9 @@
 						.append( this.$overlay )
 				);
 
-			this.$story_map.css( 'height', jQuery('.one-half-right').width() );
+			//this.$story_map.css( 'height', jQuery('.one-half-right').width() );
+			//this.$story_map.addClass( 'col-cell' );
+			jQuery('#google-map').addClass( 'col-cell' );
 		},
 
 		removeOverlay : function() {

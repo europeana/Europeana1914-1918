@@ -47,11 +47,12 @@
 <% end -%>
 
 
+<div class="back-link-row hide-on-item-collapsed" style="">  
+    <%- if referred_by_search? -%>
+	      <%= back_to_search_link %>
+    <%- end -%>
+</div>
 
-
-<!-- 
-<div class="section top">
--->
 
 <!-- NEW GRID -->
 <div class="container">  
@@ -62,23 +63,13 @@
       <h2><%= contribution_title(@contribution) %></h2>
     </div>
 
-	<%# placeholder for translate tool  -%>
 	
-    <div class="col-cell translate-area-mobile show-on-item-collapsed" >
-    </div>
-    
 	<%# translation for map heading -%>
 	
 	<script type="text/javascript">
 		window.translated_map_contribution_heading = '<%= t("common.map_contribution_heading") %>';
 	</script>
     
-    <%- if referred_by_search? -%>
-      <div class="col-cell hide-on-item-collapsed" >
-	      <%= back_to_search_link %>
-	  </div>
-    <%- end -%>
-
     <div class="col-cell" >
       <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>
@@ -99,47 +90,29 @@
     %>
     <!-- </div> -->
     
-    <%= render :partial => '/layouts/navigation/sharethis' %>
-
     <div class="col-cell" >
-	    <dl id="story-metadata" class="metadata show-on-item-collapsed">
-	    
+      <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>		    <%= render :partial => '/layouts/navigation/sharethis' %>
+    </div>
 
-	   	    <%=
-		      render :partial => '/metadata/wrap_display',
-		      :locals => {
-		      :show_title => false,
-		      :contribution => @contribution,
-		      :metadata => @contribution.metadata,
-		      :field_options => {
-		        :cataloguing => false, 
-		        :contribution => true,
-		        :name => [
-		        'alternative',        
-		        'description',
-		        'creator_family_name',
-		        'creator_given_name',
-		        ],
-		        :name_order => true
-		      }
-		      }
-		    %>
-		 </dl>
-  	</div>  
+
+    <div class="col-cell translate-area" >
+      <span class="icon-translate"></span>	
+    </div>
+    
+    
+    <div class="col-cell" style="clear:both;">
+      <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+    </div>
     
   </div>
 
   <div class="col middle">
   
       <div class="col-cell hide-on-item-collapsed" >
-        <h2><%= contribution_title(@contribution) %></h2>
+        <h2><%= contribution_title(@contribution) -%></h2>
       </div>
-
-      <div class="col-cell translate-area hide-on-item-collapsed" >
-      </div>
-
-	  <div id="story-info" class="col-cell hide-on-item-collapsed">
-	    
+ 
+	  <div id="story-info" class="col-cell">
 	    
 	   	    <%=
 		      render :partial => '/metadata/wrap_display',
@@ -162,6 +135,6 @@
 		    %>    
 	    
 	  </div>
-	  
+		  
 	</div>
 </div>

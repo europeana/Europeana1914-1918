@@ -45,8 +45,7 @@ a.button:focus {
 }
 
 .add-tags {
-  textarea-width: 100%;
-  margin-top: 1.56em;
+  padding-top: 1em;
 }
 
 .related-content {
@@ -272,6 +271,11 @@ a.button:focus {
   width: 100%;
   border: 1px solid #D9D9D9;
   padding: 0.25em;
+  
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;  
 }
 
 @media only screen and (min-width: 54em) {
@@ -330,6 +334,7 @@ blockquote {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  XXXXclear: both;
 }
 
 .col.left {
@@ -338,8 +343,32 @@ blockquote {
 }
 
 .col.left #shareicons{
-	position: static;
-	text-align: center;
+	margin-bottom: 1em;
+}
+
+.icon-share,
+.icon-translate{
+  float:        left;
+  margin-right: 1em;
+}
+
+.icon-share:before,
+.icon-tag:before{
+  margin-right: 1em;	
+}
+
+
+.icon-share:before,
+.icon-translate:before,
+.icon-tag:before{
+  font-size:    1.5em;
+}
+
+.icon-tag:before{
+	font-size: 1.2em;
+	top: 0.2em;
+	left: 0.3em;
+	position:relative;
 }
 
 #translate-details {
@@ -347,8 +376,19 @@ blockquote {
 }
 
 #translation-services {
+  float: left;
   font-size: 80%;
 }
+
+#translation-services:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  height: 0;
+  clear: both;
+}
+
 
 #translation-services img {
   display: none;
@@ -358,6 +398,11 @@ blockquote {
   display: block;
 }
 
+
+#story-metadata{
+	padding-top: 1em;
+	clear: both;
+}
 
 /* classes to track item collapse */
 
