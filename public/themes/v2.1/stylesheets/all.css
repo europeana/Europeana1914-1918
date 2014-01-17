@@ -186,8 +186,14 @@ img {
 
 .section {
 	position: relative;
-	XXXoverflow: hidden; /* cancelled this rule so the box shadow on search result items is always shown regardless of viewport width */
+	overflow: hidden; 
 }
+
+.section.search {
+	position: relative;
+	overflow: visible; /* override the hide rule so the box shadow on search result items is always shown regardless of viewport width */
+}
+
 .section.top{
 	padding-bottom: 1em;
 	border-bottom: 1px solid #dadada;	

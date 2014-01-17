@@ -155,20 +155,6 @@
 		html += render :partial => '/layouts/navigation/sharethis'
 
 		if latLong = edm_places_latlng(record['places'])
-
-			html += '<div id="story-metadata" class="col middle metadata show-on-item-collapsed">'
-				html += '<div class="col-cell">'
-					html += render :partial => '/metadata/display_edm',
-							:locals => {
-								:proxy => proxy,
-								:aggregation => aggregation,
-								:euAggregation => euAggregation,
-								:record => record
-							}
-
-				html += '</div>'
-			html += '</div>'
-
 			html += '<div class="col-cell">'
 				html += '<div id="map-container">'
 					html += '<div id="map"></div>'
@@ -181,23 +167,25 @@
 
 		html += '</div>'
 
-		html += '<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">'
-			html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
-			html += '<div class="col-cell">'
-				html +=	render :partial => '/metadata/display_edm',
-					:locals => {
-						:proxy => proxy,
-						:aggregation => aggregation,
-						:euAggregation => euAggregation,
-						:record => record
-					}
-			html += '</div>'
-
-			if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
+		html += '<div class="col middle metadata">'
+			html += '<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">'
+				html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
 				html += '<div class="col-cell">'
-					html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
+					html +=	render :partial => '/metadata/display_edm',
+						:locals => {
+							:proxy => proxy,
+							:aggregation => aggregation,
+							:euAggregation => euAggregation,
+							:record => record
+						}
 				html += '</div>'
-			end
+	
+				if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
+					html += '<div class="col-cell">'
+						html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
+					html += '</div>'
+				end
+			html += '</div>'
 		html += '</div>'
 	html += '</div>'
 	end
