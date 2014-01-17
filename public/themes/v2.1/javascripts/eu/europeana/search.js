@@ -132,18 +132,17 @@
 			$(this).closest('form').submit();
 		});
 
+		// back links
 		
-		var activeHash = $('#results-tabs li a.active').attr('data-hash').replace('#', '');
+		var activeHash = $('#results-tabs li a.active').attr('data-hash').replace('#', '');		
+		if(activeHash != 'collection'){			
+			$.each( $('.stories').find('li').not('.result-count').find('a'), function(i, link){
+				link = $(link);
+				var param = link.attr('href').indexOf('?') > 0 ? '&' : '?';
+				link.attr('href', link.attr('href') + param + 'anchor=' + activeHash);
+			});
+		}
 		
-		$.each( $('.stories').find('li').not('.result-count').find('a'), function(i, link){
-			link = $(link);
-			if(link.attr('href').indexOf('?')>-1){
-				link.attr('href', link.attr('href') + '&anchor=' + activeHash);
-			}
-			else{
-				link.attr('href', link.attr('href') + '?anchor=' + activeHash);
-			}
-		});
 
 	};
 

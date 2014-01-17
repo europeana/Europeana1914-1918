@@ -40,14 +40,17 @@
 		link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
 		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
 
-		html = '<div class="container">'
+		html = ''
+			
+		if referred_by_search?
+		  html += '<div class="back-link-row hide-on-item-collapsed">'
+		  html +=   back_to_search_link
+  		  html += '</div>'
+		end 
+
+		html += '<div class="container">'
 
 			html += '<div class="col left">'
-				if referred_by_search?
-					html += '<div class="col-cell hide-on-item-collapsed">'
-						html += back_to_search_link
-					html += '</div>'
-				end
 
 				html += '<div class="col-cell">'
 
@@ -159,7 +162,9 @@
 				html += '<div id="map-container">'
 					html += '<div id="map"></div>'
 					if latLong
-						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
+#						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
+						html += "<script>var latLong = [" + latLong + "];</script>"
+						
 					end
 				html += '</div>'
 			html += '</div>'

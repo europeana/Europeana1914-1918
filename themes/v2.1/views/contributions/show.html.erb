@@ -47,11 +47,11 @@
 <% end -%>
 
 
-<div class="back-link-row hide-on-item-collapsed" style="">  
-    <%- if referred_by_search? -%>
-	      <%= back_to_search_link %>
-    <%- end -%>
-</div>
+<%- if referred_by_search? -%>
+  <div class="back-link-row hide-on-item-collapsed">
+    <%= back_to_search_link %>
+  </div>
+<%- end -%>
 
 
 <!-- NEW GRID -->
@@ -77,19 +77,7 @@
     <div class="col-cell" >
       <ul id="thumbnail-counts"></ul>
   	</div>  
-    
-    <!-- <div id="banner"> -->
-    <%
-    #  render :partial => '/blog_posts/list',
-    #  :locals => {
-    #    :blog => 'europeana',
-    #    :category => 'story-banner',
-    #    :relocale => true,
-    #    :deblogger => true
-    #  }
-    %>
-    <!-- </div> -->
-    
+        
     <div class="col-cell" >
       <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>		    <%= render :partial => '/layouts/navigation/sharethis' %>
     </div>
@@ -98,7 +86,6 @@
     <div class="col-cell translate-area" >
       <span class="icon-translate"></span>	
     </div>
-    
     
     <div class="col-cell" style="clear:both;">
       <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>

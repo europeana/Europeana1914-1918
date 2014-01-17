@@ -89,11 +89,21 @@
 	    },
 		init:function(){
 
-			if(typeof latLong == 'undefined' || latLong.length != 2){
+			if(typeof latLong == 'undefined'){
+//				alert('cancel map');
+				
 				map.cancel();
 				return;
 			}
-
+			
+			if(typeof latLong[0] =='string'  || latLong.length != 2){
+//				alert('cancel map 2');
+				
+				map.cancel();
+				return;
+			}
+			alert('make map');
+			
 			// this test could happen on the back end too
 
 			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/
@@ -392,7 +402,8 @@
 		map.init();
 		tags.init();
 		lightbox.init();
-		mimetype.init();
+		//mimetype.init();  // this causes a 404
+		
 		//js.utils.initSearch();
 
 		/*
