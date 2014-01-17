@@ -186,7 +186,11 @@ img {
 
 .section {
 	position: relative;
-	overflow: hidden;
+	XXXoverflow: hidden; /* cancelled this rule so the box shadow on search result items is always shown regardless of viewport width */
+}
+.section.top{
+	padding-bottom: 1em;
+	border-bottom: 1px solid #dadada;	
 }
 
 .article {
@@ -666,7 +670,7 @@ a.button:hover {
 
 
 #footer {
-	margin-top: 1em;
+	XXXmargin-top: 1em;
 }
 
 #navigation-footer {
@@ -2051,9 +2055,8 @@ ul#facets,
 	 */
 
 	#footer {
-		border-top: 1px solid #dadada;
-		margin-top: 3%;
-		padding-top: 12px;
+		XXXmargin-top: 1em;
+		padding: 1.56em;
 	}
 
 	#navigation-footer {
@@ -2062,7 +2065,7 @@ ul#facets,
 	}
 
 	#navigation-footer li.last-child {
-		margin: 3px 0 0 0;
+		margin: -5px 0 0 0;
 	}
 
 
