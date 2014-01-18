@@ -2,10 +2,10 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :sphinx_running?, :current_user, :contribution_fields, 
-    :dropbox_authorized?, :dropbox_client, :dropbox_configured?, 
+  helper_method :sphinx_running?, :current_user, :contribution_fields,
+    :dropbox_authorized?, :dropbox_client, :dropbox_configured?,
     :europeana_api_configured?
-  
+
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   ##
@@ -13,21 +13,21 @@ class ApplicationController < ActionController::Base
   #
   # Only one of the following "theme..." lines should be active at a time.
   #
-  
+
   # Use the #theme_resolver method to determine which theme to display,
   # allowing override via the "theme" query param, stored in the user's
   # session.
   theme :theme_resolver
-  
+
   # Always use the v2 theme
   #theme 'v2'
-  
+
   #
   ##
-  
+
   before_filter :init_session, :init_views, :set_locale, :init_configuration
-  
-  unless Rails.configuration.consider_all_requests_local 
+
+  unless Rails.configuration.consider_all_requests_local
     # Rescue general errors
     rescue_from Exception do |exception|
       render_http_error(:internal_server_error, exception)
@@ -42,28 +42,28 @@ class ApplicationController < ActionController::Base
     rescue_from Aegis::AccessDenied do |exception|
       render_http_error(:forbidden, exception, :log => false)
     end
-    
+
     # Rescue attempts to search when Sphinx offline.
     rescue_from RunCoCo::SearchOffline do |exception|
       render_http_error(:service_unavailable, exception, :template => "/errors/search_offline")
     end
-    
+
     # Rescue Dropbox auth errors.
     rescue_from DropboxAuthError do |exception|
       redirect_to dropbox_connect_path(:redirect => controller.request.fullpath)
     end
-    
+
     # Rescue API errors
     rescue_from Europeana::API::Errors::ResponseError do |exception|
       @status = "api_error"
       render :template => '/pages/error', :status => 500
     end
   end
-  
+
   ##
   # Rescue "404 Not Found" exceptions
   #
-  # First tries to redirect to the same path with the locale prefixed if it's 
+  # First tries to redirect to the same path with the locale prefixed if it's
   # not already in the request params.
   #
   rescue_from ActionController::MissingFile, ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::MethodNotAllowed, ActionController::RoutingError, ActionView::MissingTemplate do |exception|
@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
       render_http_error(:not_found, exception)
     end
   end
-  
+
   ##
   # Adds user's locale to default URL options
   #
@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   def default_url_options(options = {})
     { :locale => I18n.locale }
   end
-  
+
   # Returns the logged-in user object, or initialises a new instance if not logged in.
   def current_user
     @current_user ||= (super || User.new)
@@ -108,17 +108,17 @@ class ApplicationController < ActionController::Base
   end
 
 protected
-  
+
   ##
   # Displays error message for application errors, sending HTTP status code.
   #
   # @param [Symbol] status HTTP error code, e.g. :not_found
   # @param [Exception] exception the Ruby exception raised
   # @param [Hash] options error handling options
-  # @option options [Boolean] :log Specifies whether to log the error. Default 
+  # @option options [Boolean] :log Specifies whether to log the error. Default
   #   is +true+.
-  # @option options [String] :template Path to the template to render. Default 
-  #   is derived from +status+, e.g. "/errors/not_found" when status => 
+  # @option options [String] :template Path to the template to render. Default
+  #   is derived from +status+, e.g. "/errors/not_found" when status =>
   #   :not_found.
   #
   def render_http_error(status, exception, options = {})
@@ -128,7 +128,7 @@ protected
     if options[:log]
       RunCoCo.error_logger.error("#{status.to_s.humanize} \"#{exception.message}\"\n#{Rails.backtrace_cleaner.clean(exception.backtrace).join("\n")}")
     end
-    
+
     respond_to do |format|
       format.html do
         @status = status
@@ -142,7 +142,7 @@ protected
 
   ##
   # Handle Devise redirects after sign in
-  # 
+  #
   # @param (see Devise::Controllers::Helpers#after_sign_in_path_for)
   # @return [String] URL to redirect to
   #
@@ -157,17 +157,17 @@ protected
       super
     end
   end
-  
+
   ##
   #  Devise redirects after sign out
   #
   # @param (see Devise::Controllers::Helpers#after_sign_out_path_for)
-  # @return [String] URL to redirect to 
+  # @return [String] URL to redirect to
   #
   def after_sign_out_path_for(resource_or_scope)
     home_path
   end
-  
+
   ##
   # Allow "redirect" URL parameter to override redirect requests.
   #
@@ -185,7 +185,7 @@ protected
       super(options, response_status)
     end
   end
-  
+
   ##
   # Initialise session.
   #
@@ -195,10 +195,10 @@ protected
       session[:guest] ||= {}
       if session[:guest][:contact_id].present?
         current_user.contact_id = session[:guest][:contact_id]
-      end 
+      end
     end
   end
-  
+
   ##
   # Initialise instance variables for views.
   #
@@ -206,20 +206,20 @@ protected
     ##
     # Flags for optional javascripts, to be set in views.
     #
-    # @example 
+    # @example
     #   <% @javascripts[:date_picker] = true -%>
     #
     @javascripts = {}
-    
+
     ##
     # Flags for optional stylesheets, to be set in views.
     #
-    # @example 
+    # @example
     #   <% @stylesheets[:index] = true -%>
     #
     @stylesheets = {}
   end
-  
+
   def init_configuration
     if RunCoCo::Application.config.action_controller.perform_caching && RunCoCo::Application.config.action_controller.cache_classes
       if Rails.cache.exist?("runcoco.configuration")
@@ -231,7 +231,7 @@ protected
       RunCoCo.configuration = RunCoCo::Configuration.new
     end
   end
-  
+
   ##
   # Set locale from URL param or HTTP Accept-Language header
   #
@@ -243,14 +243,14 @@ protected
       raise ActionController::RoutingError, "No route matches #{request.path}" unless I18n.available_locales.include?(params[:locale].to_sym)
       locale = params[:locale]
     end
-    
+
     I18n.locale = locale
     (Rails.configuration.action_mailer.default_url_options ||= {}).merge!(:locale => params[:locale])
   end
-  
+
   ##
   # Return the name of the theme to use, for the theme_for_rails gem
-  # 
+  #
   # @see https://github.com/lucasefe/themes_for_rails
   #
   def theme_resolver
@@ -259,15 +259,19 @@ protected
     elsif session[:theme].nil?
       session[:theme] = 'v2.1'
     end
-    
+
     if session[:theme] == 'v2'
       session[:theme] = 'v2.1'
     end
-    
+
     if session[:theme] == 'v2.0'
       session[:theme] = 'v2'
     end
-    
+
+    if session[:theme] == 'v3.0'
+      session[:theme] = 'v3'
+    end
+
     session[:theme]
   end
 
@@ -279,7 +283,7 @@ protected
   def sphinx_running?
     ThinkingSphinx.sphinx_running?
   end
-  
+
   ##
   # Checks whether the Europeana API library is configured.
   #
@@ -288,7 +292,7 @@ protected
   def europeana_api_configured?
     defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::API.key.present?
   end
-  
+
   ##
   # Translates text to app locales, caching Bing Translator API response for
   # 1 year.
@@ -297,9 +301,9 @@ protected
   #
   def bing_translate(text, from_locale = I18n.locale)
     return text unless text.present? && RunCoCo::BingTranslator.configured?
-        
+
     bing_cache_key = "bing/#{from_locale}/#{text}"
-    
+
     if fragment_exist?(bing_cache_key)
       translations = YAML::load(read_fragment(bing_cache_key))
       if translations.is_a?(Hash) && translations.keys == I18n.available_locales
@@ -307,7 +311,7 @@ protected
       end
       expire_fragment(bing_cache_key)
     end
-    
+
     begin
       translations = RunCoCo::BingTranslator.translate(text, from_locale)
       write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
@@ -315,33 +319,33 @@ protected
       RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
       translations = text
     end
-    
+
     translations
   end
-  
+
   ##
   # Returns the fields associated with contributions.
   #
-  # This includes title, attachments (i.e. number of), created at timestamp, 
+  # This includes title, attachments (i.e. number of), created at timestamp,
   # contributor (i.e. full name)
   #
   # @return [Array<Array>] Contribution fields. Each array contains two members:
   #   the first is the I18n'd field name, the second an identifier that can be
-  #   passed to ContributionsHelper#contribution_field_value as the 
+  #   passed to ContributionsHelper#contribution_field_value as the
   #   +field_name+ param
   #
   def contribution_fields
     @contribution_fields ||= [
-      [ t('attributes.title'), 'title'], 
-      [ t('activerecord.attributes.contribution.attachments'), 'attachments' ], 
+      [ t('attributes.title'), 'title'],
+      [ t('activerecord.attributes.contribution.attachments'), 'attachments' ],
       [ t('activerecord.attributes.contribution.cataloguer'), 'cataloguer' ],
       [ t('activerecord.attributes.contribution.created_at'), 'created_at' ],
       [ t('activerecord.attributes.contribution.contributor'), 'contributor' ],
-    ] + MetadataField.where(:contribution => true).collect do |field| 
+    ] + MetadataField.where(:contribution => true).collect do |field|
       [ field.title, (field.field_type == 'taxonomy' ? field.collection_id.to_s : field.column_name) ]
     end
   end
-  
+
   ##
   # Simple text query against contributions.
   #
@@ -352,7 +356,7 @@ protected
   #
   def activerecord_search_contributions(set, query = nil, options = {}) # :nodoc:
     options = options.dup
-    
+
     set_where = if set.nil?
       1
     elsif set == :published
@@ -360,9 +364,9 @@ protected
     else
       [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
     end
-    
+
     query_where = query.nil? ? nil : [ 'title LIKE ?', "%#{query}%" ]
-    
+
     metadata_joins = []
     joins = [ ]
     if (sort = options.delete(:sort)).present?
@@ -378,7 +382,7 @@ protected
 
       order = options.delete(:order)
       order = (order.present? && [ 'DESC', 'ASC' ].include?(order.upcase)) ? order : 'ASC'
-      
+
       sort_order = "#{sort_col} #{order}"
     else
       if set == :submitted
@@ -387,10 +391,10 @@ protected
         options[:order] = 'status_timestamp DESC'
       end
     end
-    
+
     contributor_id = options.delete(:contributor_id)
     contributor_where = contributor_id.present? ? { :contributor_id => contributor_id } : nil
-    
+
     taxonomy_term = options.delete(:taxonomy_term)
     if taxonomy_term.present?
       taxonomy_field_alias = taxonomy_term.metadata_field.collection_id
@@ -403,18 +407,18 @@ protected
     else
       taxonomy_term_where = nil
     end
-    
+
     joins << { :metadata => metadata_joins }
-    
+
     results = Contribution.joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).order(sort_order)
-      
+
     if options.has_key?(:page)
       results = results.paginate(options)
     end
-    
+
     results
-  end  
-  
+  end
+
   ##
   # Searches contributions using Sphinx.
   #
@@ -428,19 +432,19 @@ protected
     unless sphinx_running?
       raise RunCoCo::SearchOffline
     end
-    
+
     options = options.dup.reverse_merge(:max_matches => ThinkingSphinx::Configuration.instance.client.max_matches)
-    
+
     status_option = if (set == :published)
       { :with => { :status => ContributionStatus.published } }
     else
       { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
     end
-    
+
     options.merge!(status_option)
-    
+
     order = options[:order].present? && [ :desc, :asc ].include?(options[:order].downcase.to_sym) ? options.delete(:order).downcase.to_sym : :asc
-    
+
     if sort = options.delete(:sort)
       if MetadataRecord.taxonomy_associations.include?(sort.to_sym)
         sort_col = nil
@@ -450,7 +454,7 @@ protected
       else
         sort_col = sort
       end
-      
+
       options[:sort_mode] = order
       options[:order] = sort_col
     else
@@ -460,17 +464,17 @@ protected
         options[:order] = 'status_timestamp DESC'
       end
     end
-    
+
     contributor_id = options.delete(:contributor_id)
     if contributor_id.present?
       options[:with][:contributor_id] = contributor_id
     end
-    
+
     taxonomy_term = options.delete(:taxonomy_term)
     if taxonomy_term.present?
       options[:with][:taxonomy_term_ids] = taxonomy_term.id
     end
-    
+
     if query.blank?
       Contribution.search(options)
     else
@@ -486,7 +490,7 @@ protected
       Contribution.search(query_string, options)
     end
   end
-  
+
   ##
   # Appends a wildcard character to a string unless already present.
   #
@@ -496,7 +500,7 @@ protected
   def append_wildcard(string)
     string + (string.last == '*' ? '' : '*')
   end
-  
+
   ##
   # Adds quote marks around string(s).
   #
@@ -509,7 +513,7 @@ protected
     end
     terms.is_a?(Array) ? quoted_terms : quoted_terms.first
   end
-  
+
   ##
   # Requires and returns the Ruby-version-specific library used for CSV processing
   #
@@ -526,7 +530,7 @@ protected
       FasterCSV
     end
   end
-  
+
   ##
   # Caches information about search facets from various providers
   #
@@ -535,10 +539,10 @@ protected
   #
   def cache_search_facets(provider, facets)
     cache_key = "search/facets/#{provider.to_s}"
-    
+
     cached_facets = fragment_exist?(cache_key) ? YAML::load(read_fragment(cache_key)) : []
     updated_facets = cached_facets.dup
-    
+
     facets.dup.each do |facet|
       if known_facet = updated_facets.select { |f| f["name"] == facet["name"] }.first
         known_fields = known_facet["fields"].collect { |field| field["search"] }
@@ -548,7 +552,7 @@ protected
         updated_facets << { "name" => facet["name"], "label" => facet["label"], "fields" => facet["fields"].collect { |field| field.dup.delete("count"); field } }
       end
     end
-    
+
     if cached_facets != updated_facets
       write_fragment(cache_key, updated_facets.to_yaml)
       updated_facets
@@ -556,7 +560,7 @@ protected
       cached_facets
     end
   end
-  
+
   ##
   # Restores information about previously selected search facets
   #
@@ -569,7 +573,7 @@ protected
     unless fragment_exist?(cache_key) && extracted_facet_params.present?
       return facets
     end
-    
+
     cached_facets = YAML::load(read_fragment(cache_key))
     extracted_facet_params.each_pair do |param_facet_name, param_facet_fields|
       if i = facets.index { |facet| facet["name"] == param_facet_name }
@@ -590,10 +594,10 @@ protected
         end
       end
     end
-    
+
     facets
   end
-  
+
   # @return [Hash<Array>] Hash of facet params, keyed by facet name
   def extracted_facet_params
     unless @extracted_facet_params.present?
@@ -612,7 +616,7 @@ protected
     end
     @extracted_facet_params
   end
-  
+
   # @param [Hash<Array>] Hash of facet params, keyed by facet name
   # @return [Array<String>] Array of facet_name:row_name Strings
   def compile_facet_params(facet_params)
@@ -622,7 +626,7 @@ protected
       end
     end.flatten
   end
-  
+
   def redirect_to_collection_controller
     if RunCoCo.configuration.search_engine == :solr
       params[:controller] = :collection
@@ -630,4 +634,3 @@ protected
     end
   end
 end
-
