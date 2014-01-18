@@ -512,21 +512,16 @@
 		$google_map : jQuery('<div/>', { id : "google-map" }),
 		placename : jQuery('#location-placename').val(),
 		$placename_link : jQuery('<a/>'),
-		$story_took_place : jQuery('<b/>'),
+		$story_took_place : jQuery('<b>' + translated_map_contribution_heading + ' </b>'),
 
 		addMapContainer : function() {
-			//jQuery('#thumbnail-counts')
-			//jQuery('.metadata.show-on-item-collapsed')
 			jQuery('#story-info')
 				.after(
 					jQuery( this.$google_map )
-						.append( translated_map_contribution_heading )
+						.append( this.$story_took_place )
 						.append( this.$story_map )
 						.append( this.$overlay )
-				);
-
-			//this.$story_map.css( 'height', jQuery('.one-half-right').width() );
-			//this.$story_map.addClass( 'col-cell' );
+				)
 			jQuery('#google-map').addClass( 'col-cell' );
 		},
 
