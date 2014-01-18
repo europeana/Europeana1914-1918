@@ -79,7 +79,7 @@
 }
 
 #map {
-  height: 40em;
+  height: 30em;
   width: 100%;
 }
 
@@ -283,6 +283,7 @@ blockquote {
   line-height: 1.56em;
   margin: auto;
   margin-bottom: 1.56em;
+  clear: both;
 }
 
 .col-cell.grey {
@@ -300,11 +301,25 @@ blockquote {
 }
 
 .col.left {
- 	position: relative;
+  position: relative;
+}
+.col.left:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  height: 0;
+  clear: both;
 }
 
-.col.left #shareicons{
-	margin-bottom: 1em;
+
+#shareicons{
+  float:left;
+  margin-bottom: 1em;
+  margin-left: 2em;  /* alignment when buttons wrap under label */
+}
+.icon-share{
+  margin-right: -1em; /* compensation for #shareicons 2em */
 }
 
 .icon-share,
@@ -312,9 +327,6 @@ blockquote {
   float:        left;
 }
 
-.icon-share{
-  margin-right: 1em;
-}
 
 .icon-translate:before{
   margin-right: 1em;
@@ -358,16 +370,6 @@ blockquote {
   font-size: 80%;
 }
 
-#translation-services:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  height: 0;
-  clear: both;
-}
-
-
 #translation-services img {
   display: none;
 }
@@ -376,10 +378,11 @@ blockquote {
   display: block;
 }
 
-
+/*
 #story-metadata{
 	padding-top: 1em;
 }
+*/
 
 /* classes to track item collapse */
 
@@ -405,7 +408,11 @@ blockquote {
   #microsoft-translate-element > span {
     width: auto;
   }
-
+/*
+  #story-metadata{
+	padding-top: 0em;
+  }
+*/
   .col {
     width: 33.3333%;
     display: inline-block;
@@ -420,7 +427,6 @@ blockquote {
     /* ( 1.56 / 3 ) */
   }
 
-
   .col.middle {
     padding-left: 1.04em;
     /* ( (1.56 / 3) x 2 ) */
@@ -434,7 +440,6 @@ blockquote {
   }
 
   .col.middle .col-cell {
-    clear: both;
     width: 33em;
     /*  33em base plus margin */
   }

@@ -97,7 +97,7 @@
 			}
 			
 			if(typeof latLong[0] =='string'  || latLong.length != 2){
-//				alert('cancel map 2');
+				alert('cancel map 2');
 				
 				map.cancel();
 				return;
@@ -108,7 +108,7 @@
 			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/
 
 			if( ! latLong.join(',').match(regex) ){
-//				alert('cancel map 3');
+				alert('cancel map 3');
 				map.cancel();
 				return;
 			}

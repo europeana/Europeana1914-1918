@@ -164,24 +164,11 @@
 			    	html += '<span class="icon-translate"></span>'
  				html += '</div>'
 
-				if latLong = edm_places_latlng(record['places'])
-					html += '<div class="col-cell">'
-						html += '<div id="map-container">'
-							html += '<div id="map"></div>'
-							if latLong
-		#						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
-								html += "<script>var latLong = [" + latLong + "];</script>"
-								
-							end
-						html += '</div>'
-					html += '</div>'
-				end
-
 			html += '</div>'
 
 			html += '<div class="col middle metadata">'
-				html += '<div id="story-metadata" class="col middle metadata hide-on-item-collapsed">'
-					html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
+				html += '<div id="story-metadata" class="col middle metadata">'
+					html += '<h2 class="dcTitle hide-on-item-collapsed"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
 					html += '<div class="col-cell">'
 						html +=	render :partial => '/metadata/display_edm',
 							:locals => {
@@ -197,6 +184,21 @@
 							html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
 						html += '</div>'
 					end
+					
+					if latLong = edm_places_latlng(record['places'])
+						html += '<div class="col-cell">'
+							html += '<div id="map-container">'
+								html += '<div id="map"></div>'
+								if latLong
+			#						html += "<script>var latLong = [" + latLong + ".split(',')];</script>"
+									html += "<script>var latLong = [" + latLong + "];</script>"
+									
+								end
+							html += '</div>'
+						html += '</div>'
+					end
+
+					
 				html += '</div>'
 			html += '</div>'
 		html += '</div>'
