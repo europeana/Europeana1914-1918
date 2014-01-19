@@ -1,9 +1,9 @@
+/*global jQuery */
+/*jslint browser: true, regexp: true, white: true */
 /**
- *	@author dan entous <contact@gmtplusone.com>
  *	@todo: add method for handling window re-size so that lightbox & pdf viewer
  *	can be re-determined. also handle portrait/landscape issues
  */
-
 (function() {
 	'use strict';
 	var add_lightbox =

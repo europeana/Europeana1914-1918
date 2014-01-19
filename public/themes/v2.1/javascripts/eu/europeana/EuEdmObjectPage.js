@@ -1,8 +1,5 @@
 /*global jQuery */
 /*jslint browser: true, plusplus: true, regexp: true, white: true */
-/**
- * @author dan entous <contact@gmtplusone.com>
- */
 (function( $ ) {
 
 	'use strict';
