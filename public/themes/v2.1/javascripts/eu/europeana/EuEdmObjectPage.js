@@ -12,7 +12,7 @@
 		? false
 		: true,
 		$contributions_featured = jQuery('#contributions-featured'),
-		add_lightbox = pdf_viewer  && ! window.blockLightbox,
+		add_lightbox = pdf_viewer,
 
 
 	carousels = {
@@ -91,18 +91,18 @@
 
 			if(typeof latLong == 'undefined'){
 //				alert('cancel map');
-				
+
 				map.cancel();
 				return;
 			}
-			
+
 			if(typeof latLong[0] =='string'  || latLong.length != 2){
 				alert('cancel map 2');
-				
+
 				map.cancel();
 				return;
 			}
-			
+
 			// this test could happen on the back end too
 
 			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/
@@ -403,7 +403,7 @@
 		tags.init();
 		lightbox.init();
 		//mimetype.init();  // this causes a 404
-		
+
 		//js.utils.initSearch();
 
 		/*
