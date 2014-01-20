@@ -18,8 +18,10 @@ module SearchHelper
     facet_params    = request_params.has_key?(:qf) ? request_params[:qf].dup : []
     row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
     html_options['data-value'] ||= "&qf[]=#{row_param_value}"
-    
-    if multiple
+    logger.debug("facet_name: #{facet_name}; row_value: #{row_value}")
+    if controller.controller_name == "collection" && facet_name == "index"
+      facet_params = [ row_param_value ]
+    elsif multiple
       if !facet_row_selected?(facet_name, row_value)
         facet_params << row_param_value
       end
@@ -204,8 +206,13 @@ module SearchHelper
         facet_row_parts = filter_param[:value].match(/^([^:]+):(.+)$/)
         facet_name, field_value = facet_row_parts[1], facet_row_parts[2]
         facet = facets.find { |facet| facet["name"].to_s == facet_name }
+        
         link_text = facet["label"] + ": " + facet["fields"].find { |field| field["search"].to_s == field_value }["label"]
-        remove_url = remove_facet_row_url_options(facet_name, field_value)
+        if facet_is_single_select?(facet_name)
+          remove_url = nil
+        else
+          remove_url = url_for(remove_facet_row_url_options(facet_name, field_value))
+        end
         
         data_val_remove = "&qf[]=#{facet_name.to_s}:#{field_value.to_s}"
         data_index = index.to_s
@@ -221,7 +228,6 @@ module SearchHelper
           data_val ||= ''
           data_val += '&' + previous_param[:name] + '=' + previous_param[:value]
         end
-        
       end
 
       filter_links << {
@@ -230,7 +236,7 @@ module SearchHelper
           :url  => url_for(link_params)
         },
         :remove => {
-          :url  => url_for(remove_url)
+          :url  => remove_url
         },
         :data => {
           :val_remove  => data_val_remove,
@@ -238,7 +244,7 @@ module SearchHelper
         }
       }
     end
-    logger.debug("**** links_for_selected_filters: #{filter_links.inspect}")
+
     filter_links
   end
 end
