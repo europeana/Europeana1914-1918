@@ -103,7 +103,6 @@
 						 innerLabel.html(capitalise(label));
 					 }
 					 else{
-						 alert( $(this).html() + '  ' + capitalise(label) )
 						 $(this).html(capitalise(label));
 					 }
 				 }
