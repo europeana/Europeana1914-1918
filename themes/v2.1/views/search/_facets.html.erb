@@ -15,6 +15,8 @@
         <li>
           <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
           <ul>
+            <%- showInfo = false -%>
+          
             <%- for row in facet['fields'] -%>
               <li>
                 <h4>
@@ -31,6 +33,12 @@
 
                 
                   <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
+                  
+                    <%- if  (facet_row_selected?(facet["name"], row["search"]) && (provider == '/collection') && row['search'].to_s == 'a' )  -%>
+                      <%- showInfo = true -%>
+                    <%- end -%>
+                  
+                  
                     <%- if facet_row_selected?(facet["name"], row["search"]) -%>
                     
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
@@ -59,6 +67,9 @@
                 </h4>
               </li>
             <%- end -%>
+            <% if showInfo -%>
+              <li><br/><%= t('views.search.facets.europeana.source_info')-%></li>
+            <% end -%>
           </ul>
         </li>
       
