@@ -46,8 +46,13 @@
    
    
       <%- if !(  (provider == '/federated_search/trove') && (link[:reduce][:text].index('Type:')==0)  )  -%>
-	      <%= link_to  content_tag(:span, '', :class => 'icon-remove'), link[:remove][:url], { :title => t('actions.remove'), :class => 'remove-filter', 'data-value' => link[:data][:val_remove]	} %>
-	  <%- end -%>
+      
+          <%- if !(  (provider == '/collection') && (link[:reduce][:text].index('All'))  )  -%>
+      	    
+	          <%= link_to  content_tag(:span, '', :class => 'icon-remove'), link[:remove][:url], { :title => t('actions.remove'), :class => 'remove-filter', 'data-value' => link[:data][:val_remove]	} %>
+	          
+	      <%- end -%>
+      <%- end -%>
       
     </li>
   
