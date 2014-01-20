@@ -169,8 +169,7 @@ private
       when "e"
         "europeana"
     end
-    #t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
-    provider + '(p)-> ' + t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
+    t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
   end
   
   def facet_row_label(facet_name, row_value)
