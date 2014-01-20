@@ -33,8 +33,10 @@ module BlogPostsHelper
   ##
   # Retrieves entries from one of the project blogs
   #
-  # @param [Hash] options Options; additional options will be passed on to 
-  #   {#europeana_blog_posts} or #{gwa_blog_posts}
+  # @param [Hash,Array<Hash>] options Options; additional options will be passed 
+  #   on to {#europeana_blog_posts} or #{gwa_blog_posts}. If an Array of Hashes
+  #   is passed, results from each blog will be combined and sorted 
+  #   chronologically.
   # @option options [String] :blog The blog to retrieve posts from. Known values
   #   are 'europeana' and 'gwa'. If no value is set, defaults to 'europeana'.
   #   Any other value will raise an exception.
@@ -43,15 +45,20 @@ module BlogPostsHelper
   # @see #gwa_blog_posts
   #
   def blog_posts(options = {})
-    options = options.dup
-    blog = options.delete(:blog)
-    case blog
-    when 'europeana', nil
-      europeana_blog_posts(options)
-    when 'gwa'
-      gwa_blog_posts(options)
+    if options.is_a?(Array)
+      blog_post_sets = options.collect { |blog_options| blog_posts(blog_options) }
+      blog_post_sets.flatten.sort { |a, b| a.published <=> b.published }
     else
-      raise Exception, "Unknown blog \"#{blog.to_s}\""
+      options = options.dup
+      blog = options.delete(:blog)
+      case blog
+      when 'europeana', nil
+        europeana_blog_posts(options)
+      when 'gwa'
+        gwa_blog_posts(options)
+      else
+        raise Exception, "Unknown blog \"#{blog.to_s}\""
+      end
     end
   end
   

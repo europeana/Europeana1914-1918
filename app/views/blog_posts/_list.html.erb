@@ -7,11 +7,14 @@
 # * :limit      Only output a maximum of this many posts.
 # * :locale     The locale to retrieve posts for.
 # * :offset     Retrieve entry(ies) starting from this offset
-# * :read_more  If true, display a read more link
+# * :read_more  If true, display a read more link (not compatible with multiple blogs)
 # * :relocale   If true, reapply the locale to absolute local links in the posts' content.
 # * :tag        If set, wrap each post in an HTML element of this type, e.g. 'li'.
 # * :titles     If true, output the post title wrapped in an h3 element before the post content.
 #
+# *OR* you can pass an Array in the :blogs key of the :locals Hash, each element
+# of which should be a hash with the above keys.
+
 # FEED PARSING
 # https://github.com/hpricot/hpricot
 #
@@ -30,9 +33,9 @@
 if !local_assigns[:html_class].nil?
   html_class = " class='" + local_assigns[:html_class] + "'"
 end
-blog_post_entries = blog_posts(local_assigns) 
+blog_post_entries = blog_posts(local_assigns[:blogs] ? local_assigns[:blogs] : local_assigns) 
 -%>
 <% if blog_post_entries.present? -%>
   <%- for entry in blog_post_entries -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s}#{html_class}>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
-  <%- if local_assigns[:read_more] %><%= read_more_link(local_assigns) %><% end %>
+  <%- if local_assigns[:read_more] && !local_assigns[:blogs] %><%= read_more_link(local_assigns) %><% end %>
 <% end -%>

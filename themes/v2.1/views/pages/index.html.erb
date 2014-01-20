@@ -79,7 +79,26 @@
 				<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-follow-us', :titles => false, :deblogger => true } %>
 			</div>
 			
-			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'news', :tag => :div, :html_class => 'article', :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
+			<%= render :partial => '/blog_posts/list', :locals => { 
+				:blogs => [
+					{
+						:blog => 'europeana', 
+						:category => 'news', 
+						:limit => 2, 
+						:deblogger => true
+					},
+					{
+						:blog => 'gwa',
+						:limit => 2,
+						:deblogger => true
+					}
+				],
+				:html_class => 'article',
+				:tag => 'div',
+				:titles => true,
+				:read_more => true
+			}
+			%>
 		
 	</div>
 
