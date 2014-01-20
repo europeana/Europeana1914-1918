@@ -17,14 +17,18 @@
       blog_post_entry = blog_posts(:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false)
       heroImgImg   = ''
       if blog_post_entry.present?
+        docTitle     = blog_post_entry[0].title.html_safe
         heroImg      = Hpricot( raw blog_post_entry[0].content )
 	    heroImgImg   = (heroImg/'img').to_html.html_safe 
 	    heroImgBlurb = (heroImg/'p[@class="blurb"]').to_html.html_safe
+      else
+        docTitle     = ''
+        heroImg      = ''
+	    heroImgImg   = '' 
+	    heroImgBlurb = ''      
       end  
 %>
-
 	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
-	<% docTitle = doc/'h3' %>
 	<% (doc/'h3').remove %>
 
 
