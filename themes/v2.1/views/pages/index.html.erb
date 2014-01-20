@@ -12,13 +12,15 @@
 
 	<%#= render :partial => '/blog_posts/list', :locals => {:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false } %>
 
-<%
-  blog_post_entry = blog_posts(:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false)
-  heroImgImg   = ''
-  if blog_post_entry.present?
-    heroImg      = Hpricot( raw blog_post_entry[0].content )
-	heroImgImg   = (heroImg/'img').to_html.html_safe 
-  end  
+    <%# read from http://europeana1914-1918.blogspot.com/feeds/posts/default  -%>
+    <%
+      blog_post_entry = blog_posts(:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false)
+      heroImgImg   = ''
+      if blog_post_entry.present?
+        heroImg      = Hpricot( raw blog_post_entry[0].content )
+	    heroImgImg   = (heroImg/'img').to_html.html_safe 
+	    heroImgBlurb = (heroImg/'p[@class="blurb"]').to_html.html_safe
+      end  
 %>
 
 	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
@@ -45,6 +47,7 @@
 			:locals => { 
 				:doc => doc/'p:nth(1)',
 				:docTitle => docTitle,
+				:blurb => heroImgBlurb,
 				:mobile => false			
 			}
 		 %>	
@@ -56,6 +59,7 @@
 		:locals => { 
 			:doc => doc,
 			:docTitle => docTitle,
+				:blurb => heroImgBlurb,
 			:mobile => true
 		}
 	 %>
