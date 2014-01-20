@@ -187,10 +187,7 @@ private
         end
       end
     end
-    
-#    row_label || row_value.to_s
-    res = row_label || row_value.to_s
-    'row_label:' + res
+    row_label || row_value.to_s
   end
   
   def redirect_to_search
