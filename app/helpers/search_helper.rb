@@ -175,7 +175,10 @@ module SearchHelper
       param_parts = param.split('=')
       param_name  = CGI::unescape(param_parts[0])
       param_value = CGI::unescape(param_parts[1]) unless param_parts[1].nil?
-      if param_name == "q" || param_name == "qf[]"
+      
+      if controller.controller_name == "collection" && param_name == "qf[]" && param_value.match(/^index:/)
+        filter_params.unshift( { :name => param_name, :value => param_value } ) unless param_value.blank?
+      elsif param_name == "q" || param_name == "qf[]"
         filter_params << { :name => param_name, :value => param_value } unless param_value.blank?
       end
     end
