@@ -34,7 +34,7 @@ protected
   end
   
   def record_params
-    authentication_params
+    authentication_params.merge({ "fields" => "verbose" })
   end
   
   def validate_response!(response)
@@ -101,6 +101,7 @@ protected
       "dcPublisher"   => { "def" => record["publisher"] },
       "dcProvenance"  => { "def" => [ record["provenance"] ] },
       "dcRights"      => { "def" => [ record["rights"] ] },
+      "dcSubject"     => { "def" => [ record["subject"] ] },
       "dcTitle"       => { "def" => [ record["title"] ] },
       "dcType"        => { "def" => [ record["dc_type"] ] },
     } ]
