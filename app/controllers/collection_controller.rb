@@ -169,7 +169,8 @@ private
       when "e"
         "europeana"
     end
-    t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
+    #t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
+    provider + '(p)-> ' + t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
   end
   
   def facet_row_label(facet_name, row_value)
@@ -187,7 +188,9 @@ private
       end
     end
     
-    row_label || row_value.to_s
+#    row_label || row_value.to_s
+    res = row_label || row_value.to_s
+    'row_label:' + res
   end
   
   def redirect_to_search
@@ -224,9 +227,9 @@ private
       "name" => "index",
       "label" => "Source",
       "fields" => [ 
-        { "search" => "a", "label" => "All" },
-        { "search" => "c", "label" => "UGC" },
-        { "search" => "e", "label" => "Europeana portal" }
+        { "search" => "a", "label" => t('views.search.facets.europeana.source_all') },
+        { "search" => "c", "label" => t('views.search.facets.europeana.source_ugc') },
+        { "search" => "e", "label" => t('views.search.facets.europeana.source_institution')}
       ]
     }
   end
