@@ -10,8 +10,7 @@ class MetadataRecord < ActiveRecord::Base
   COLUMN_TYPES = [ :string, :text, :date, :integer ]
   FIELD_NAME_FORMAT = /\A[a-z0-9_]+\Z/
   
-  attr_writer :cataloguing
-  attr_accessor :for_attachment, :for_contribution
+  attr_accessor :cataloguing, :for_attachment, :for_contribution
   attr_protected :id, :updated_at, :created_at, :cataloguing, :for_attachment, 
     :for_contribution
 
@@ -22,6 +21,8 @@ class MetadataRecord < ActiveRecord::Base
   has_and_belongs_to_many :searchable_taxonomy_terms, :class_name => 'TaxonomyTerm', :conditions => { :metadata_field_id => MetadataField.where(:field_type => 'taxonomy', :searchable => true).collect { |mf| mf.id } }
   
   before_save :protect_cataloguing_fields
+  # Run this after #protect_cataloguing_fields to ensure it is set for non-cataloguers
+  before_save :set_default_collection_day
   after_save :set_contribution_delta_flag
 
   validate :validate_numericality_of_taxonomy_fields
@@ -248,6 +249,17 @@ class MetadataRecord < ActiveRecord::Base
   
   def for_attachment?
     (self.attachment.present? || @for_attachment) ? true : false
+  end
+
+  # Set a default value for collection day
+  def set_default_collection_day
+    if collection_day_field = MetadataField.find_by_name("collection_day")
+      if self.field_collection_day_terms.blank?
+        if internet_collection_day = collection_day_field.taxonomy_terms.find_by_term("INTERNET")
+          self.field_collection_day_terms << internet_collection_day
+        end
+      end
+    end
   end
 
 protected

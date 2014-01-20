@@ -236,6 +236,7 @@ class Contribution < ActiveRecord::Base
   def build_metadata(*args)
     rails_build_metadata(*args)
     self.metadata.for_contribution = true
+    self.metadata.set_default_collection_day
   end
   
   ##
