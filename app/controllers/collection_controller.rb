@@ -25,7 +25,7 @@ class CollectionController < SearchController
     if search_terms.present? || params[:term].blank?
       pagination_params = {
         :page => (params[:page] || 1).to_i,
-        :per_page => [ (params[:count] || 48).to_i, 100 ].min # Default 48, max 100
+        :per_page => [ (params[:count] || 12).to_i, 100 ].min # Default 12, max 100
       }
       
       indices = case extracted_facet_params[:index].first
@@ -138,7 +138,7 @@ private
   #   +totalResults+ keys, as returned by +#api_search+.
   # @param [Hash] options Optional parameters
   # @option options [String,Integer] :per_page The number of results to return.
-  #   Maximum 100; default 48.
+  #   Maximum 100; default 12.
   # @option options [String,Integer] :page The page number of results to return.
   #   Default 1.
   # @return [WillPaginate::Collection] +will_paginate+ compatibile result set.

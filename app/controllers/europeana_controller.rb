@@ -29,7 +29,7 @@ class EuropeanaController < ApplicationController
     if search_terms.present? || params[:term].blank?
       query_params = {
         :page => (params[:page] || 1).to_i,
-        :count => [ (params[:count] || 12).to_i, 100 ].min, # Default 48, max 100
+        :count => [ (params[:count] || 12).to_i, 100 ].min, # Default 12, max 100
         :profile => 'facets',
         :facets => extracted_facet_params
       }
