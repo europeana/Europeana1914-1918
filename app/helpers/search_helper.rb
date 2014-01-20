@@ -18,7 +18,7 @@ module SearchHelper
     facet_params    = request_params.has_key?(:qf) ? request_params[:qf].dup : []
     row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
     html_options['data-value'] ||= "&qf[]=#{row_param_value}"
-    logger.debug("facet_name: #{facet_name}; row_value: #{row_value}")
+
     if controller.controller_name == "collection" && facet_name == "index"
       facet_params = [ row_param_value ]
     elsif multiple
