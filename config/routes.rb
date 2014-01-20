@@ -156,6 +156,8 @@ RunCoCo::Application.routes.draw do
     match 'dropbox/disconnect' => 'dropbox#disconnect', :as => 'dropbox_disconnect', :via => :get
     match 'dropbox/refresh' => 'dropbox#refresh', :as => 'dropbox_refresh', :via => :get
 
+    match 'http-headers' => 'http#headers', :as => 'http_headers', :via => :get
+
     # Help documents and custom pages
     match '*path' => 'pages#show', :as => 'page'
   end
