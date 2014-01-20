@@ -156,8 +156,6 @@ RunCoCo::Application.routes.draw do
     match 'dropbox/disconnect' => 'dropbox#disconnect', :as => 'dropbox_disconnect', :via => :get
     match 'dropbox/refresh' => 'dropbox#refresh', :as => 'dropbox_refresh', :via => :get
 
-    match 'http-headers' => 'http#headers', :as => 'http_headers', :via => :get
-
     # Help documents and custom pages
     match '*path' => 'pages#show', :as => 'page'
   end
@@ -167,6 +165,9 @@ RunCoCo::Application.routes.draw do
   
   # OAI:PMH provider
   match 'oai' => 'OAI#index', :as => 'oai'
+  
+  # HTTP headers of remote URL
+  match 'http-headers' => 'http#headers', :as => 'http_headers', :via => :get
   
   # Home page with locale, e.g. /en, /de
   match '/:locale' => "pages#show", :as => 'home'
