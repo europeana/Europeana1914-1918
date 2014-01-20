@@ -150,7 +150,7 @@ protected
     thumbnail = (!newspaper_zone && record["identifier"].present?) ? record["identifier"].select { |i| i["linktype"] == "thumbnail" }.first : nil
     
     edm["aggregations"] = [ { 
-      "edmDataProvider" => { "def" => [ "Trove" ] },
+      "edmProvider"     => { "def" => [ "Trove" ] },
       "edmIsShownAt"    => record["troveUrl"],
       "edmObject"       => thumbnail.present? ? thumbnail["value"] : nil,
     } ]
