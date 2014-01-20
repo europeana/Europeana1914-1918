@@ -137,7 +137,7 @@ protected
     edm["title"] = [ newspaper_zone ? record["heading"] : record["title"] ]
     
     edm["proxies"] = [ {
-      "dcContributor" => { "def" => newspaper_zone ? [ record["title"]["value"] ] : record["contributor"] },
+      "dcCreator"     => { "def" => newspaper_zone ? [ record["title"]["value"] ] : record["contributor"] },
       "dcDate"        => { "def" => [ newspaper_zone ? record["date"] : record["issued"] ], },
       "dcDescription" => { "def" => record["abstract"] },
       "dcIdentifier"  => { "def" => [ record["id"] ].flatten },
