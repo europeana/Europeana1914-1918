@@ -37,7 +37,17 @@
 		end
 
 		link_image = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-		link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
+		
+		link_text_image = ''
+		if ! (
+			params[:controller] == 'federated_search/dpla' ||
+		 	params[:controller] == 'federated_search/trove' ||
+		  	params[:controller] == 'federated_search/digitalnz'
+		)
+			link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
+		end	
+		
+		
 		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
 
 		html = ''
