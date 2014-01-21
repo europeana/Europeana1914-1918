@@ -21,6 +21,7 @@ gem 'google-api-client', '~> 0.6.4'
 gem 'haml', '~> 4.0.3'
 gem 'hpricot', '~> 0.8.0'
 gem 'http_accept_language', '~> 1.0.0'
+gem 'i18n', '0.5.0' # Locked to avoid uninitialized constant I18n::INTERPOLATION_PATTERN error from 0.5.1
 gem 'i18n-js', '~> 2.1.0'
 gem 'legato', '~> 0.0.10'
 gem 'localized_country_select', '~> 0.9.2'
