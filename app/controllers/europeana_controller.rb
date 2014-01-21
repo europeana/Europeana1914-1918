@@ -74,6 +74,8 @@ class EuropeanaController < ApplicationController
     cache_key = "europeana/api/record/" + europeana_id
     if fragment_exist?(cache_key)
       @object = YAML::load(read_fragment(cache_key))
+    elsif (RunCoCo.configuration.search_engine == :solr) && (record = EuropeanaRecord.find_by_record_id("/#{europeana_id}"))
+      @object = record.object
     else
       response = Europeana::API::Record.get(europeana_id)
       @object = response['object']
