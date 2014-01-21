@@ -155,9 +155,20 @@
 							html += '</ul>'
 							html += '<div class="carousel-overlay"></div>'
 						html += '</div>'
-					html += '</div>'
-					html += '<p class="subtitle">' + title + '</p>'
+						html += '</div>'
+					#html += '<p class="subtitle">' + title + '</p>'
 				html += '</div>'
+
+
+				if readVal = edm_proxy_field(aggregation, 'edmDataProvider')
+					html += '<div class="col-cell">'
+				    	html += '<span class="icon-external"></span>'
+						html += '<div class="external-link">'
+							html += t('formtastic.labels.content.metadata.edm.partner_site') + '<a href="' + readVal + '" target="_new">' + ': ' + readVal + '</a>'
+						html += '</div>'
+					html += '</div>'
+				end
+
 
 				html += '<div class="col-cell">'
 			    	html += '<span class="icon-share">' + t('views.contributions.show.headings.share') + '</span>'
@@ -182,12 +193,6 @@
 								:record => record
 							}
 					html += '</div>'
-
-					if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
-						html += '<div class="col-cell">'
-							html += '<a href="' + readVal + '" target="_new">' + t('formtastic.labels.content.metadata.edm.partner_site') + '</a>'
-						html += '</div>'
-					end
 
 					if latLong = edm_places_latlng(record['places'])
 						html += '<div class="col-cell">'
