@@ -165,15 +165,37 @@
 				html += '</div>'
 
 
-				if readVal = edm_proxy_field(aggregation, 'edmDataProvider')
-					html += '<div class="col-cell">'
-				    	html += '<span class="icon-external"></span>'
-						html += '<div class="external-link">'
-							html += t('formtastic.labels.content.metadata.edm.partner_site') + '<a href="' + readVal + '" target="_new">' + ': ' + readVal + '</a>'
+				# view at provider’s website
+				if edmIsShownAt
+				
+					if(
+						  params[:controller] == 'federated_search/dpla'  ||
+						  params[:controller] == 'federated_search/trove' ||
+						  params[:controller] == 'federated_search/digitalnz'
+					)
+						html += '<div class="col-cell">'
+					    	html += '<span class="icon-external"></span>'
+							html += '<div class="external-link">'
+								html += '<a href="' + edmIsShownAt + '" target="_new">'
+								html += t('formtastic.labels.content.metadata.edm.external_partner_site')
+ 
+ 								html += '</a>'
+							html += '</div>'
 						html += '</div>'
-					html += '</div>'
+					
+					elsif readLabel = edm_proxy_field(aggregation, 'edmDataProvider')
+						html += '<div class="col-cell">'
+					    	html += '<span class="icon-external"></span>'
+							html += '<div class="external-link">'
+								html += t('formtastic.labels.content.metadata.edm.partner_site') + '<a href="' + edmIsShownAt + '" target="_new">' + ': ' + readLabel + '</a>'
+							html += '</div>'
+						html += '</div>'					
+					end
 				end
 
+
+
+					
 
 				html += '<div class="col-cell">'
 			    	html += '<span class="icon-share">' + t('views.contributions.show.headings.share') + '</span>'
@@ -198,6 +220,7 @@
 								:record => record
 							}
 					html += '</div>'
+
 
 					if latLong = edm_places_latlng(record['places'])
 						html += '<div class="col-cell">'
