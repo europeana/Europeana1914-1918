@@ -33,9 +33,9 @@
 if !local_assigns[:html_class].nil?
   html_class = " class='" + local_assigns[:html_class] + "'"
 end
-blog_post_entries = blog_posts(local_assigns[:blogs] ? local_assigns[:blogs] : local_assigns) 
+blog_post_entries = blog_posts(local_assigns) 
 -%>
 <% if blog_post_entries.present? -%>
   <%- for entry in blog_post_entries -%><% if local_assigns[:tag] %><%= raw "<#{tag.to_s}#{html_class}>" %><% end %><% if local_assigns[:titles] %><h3><%= entry.title %></h3><% end %><%= raw entry.content %><% if local_assigns[:tag] %><%= raw "</#{tag.to_s}>" %><% end %><%- end -%>
-  <%- if local_assigns[:read_more] && !local_assigns[:blogs] %><%= read_more_link(local_assigns) %><% end %>
+  <%- if local_assigns[:read_more] %><%= blog_read_more_link(local_assigns) %><% end %>
 <% end -%>

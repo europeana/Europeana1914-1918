@@ -45,29 +45,33 @@ module BlogPostsHelper
   # @see #gwa_blog_posts
   #
   def blog_posts(options = {})
-    if options.is_a?(Array)
-      blog_post_sets = options.collect { |blog_options| blog_posts(blog_options) }
-      blog_post_sets.flatten.sort { |a, b| a.published <=> b.published }
+    options = HashWithIndifferentAccess.new(options)
+    if blogs = options.delete(:blogs)
+      blog_post_sets = blogs.collect do |blog_options| 
+        blog_posts(options.merge(blog_options).merge({ :offset => 1, :limit => 0 }))
+      end
+      posts = blog_post_sets.flatten.sort { |a, b| b.published <=> a.published }
+      filter_blog_posts(posts, { :offset => options[:offset], :limit => options[:limit] })
     else
-      options = options.dup
       blog = options.delete(:blog)
       case blog
       when 'europeana', nil
-        europeana_blog_posts(options)
+        posts = europeana_blog_posts(options)
       when 'gwa'
-        gwa_blog_posts(options)
+        posts = gwa_blog_posts(options)
       else
         raise Exception, "Unknown blog \"#{blog.to_s}\""
       end
     end
   end
   
-  def read_more_link(options = {})
-    options = options.dup
+  def blog_read_more_link(options = {})
+    options = HashWithIndifferentAccess.new(options)
     options[:offset] = (options[:offset] || 1).to_i + options[:limit].to_i
     options[:read_more] ||= 'true'
     if blog_posts(options).present?
-      link_to(t('views.blog_posts.read_more'), blog_post_path(options), :id => 'read-more')
+      link_path = options[:blogs] ? blogs_post_path(options) : blog_post_path(options)
+      link_to(t('views.blog_posts.read_more'), link_path, :id => 'read-more')
     else
       ''
     end
@@ -224,6 +228,7 @@ protected
   #
   def filter_blog_posts(posts, options = {})
     posts = posts.reject { |entry| entry.blank? }
+    
     posts.each do |entry| 
       if options[:relocale]
         entry.content = relocale_link(entry.content)
@@ -235,8 +240,11 @@ protected
         entry.content = Hpricot(entry.content)
       end
     end
-    posts = [ posts[((options[:offset] || 1).to_i - 1)..-1] ].flatten
-    posts = posts[0..((options[:limit] || 0).to_i - 1)]
+
+    first_post_index  = ((options[:offset] || 1).to_i - 1)
+    last_post_index   = first_post_index + ((options[:limit] || 0).to_i - 1)
+    
+    posts = [ posts[first_post_index..last_post_index] ].flatten
     posts.reject { |post| post.blank? }
   end
   

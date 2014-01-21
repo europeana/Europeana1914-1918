@@ -70,6 +70,7 @@ RunCoCo::Application.routes.draw do
     # Blog posts
     match 'blog/:blog(/:category)' => 'blog_posts#show', :as => :blog_post, 
       :constraints => { :blog => /(europeana|gwa)/ }, :via => :get
+    match 'blogs' => 'blog_posts#show', :as => :blogs_post, :via => :get
 
     # Europeana API interface
     match 'europeana/search' => 'europeana#search', :as => 'search_europeana', :via => :get
