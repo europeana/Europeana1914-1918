@@ -124,6 +124,11 @@
 
 
 	# page scripts
+	if @javascripts[:about]
+		script_files.push(
+			'/themes/v2.1/javascripts/eu/europeana/about.js'
+		)
+	end
 
 	if @javascripts[:admin_contributions]
 		script_files.push(
