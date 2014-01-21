@@ -1,54 +1,55 @@
 class EuropeanaHarvestJob
+  def initialize(options = {})
+    @options = options
+    @per_page = 100
+    @harvested = 0
+    @keep_harvesting = true
+  end
+
   def perform
-    # 1. Search API with WWI, non 1914-1918 query terms, 100 rows per page
-    harvest_all
-    
-    # 2. Iterate over each page, retrieving each item from the API
-    # 3. Store the result as a EuropeanaRecord
-    # 4. Send an email on completion?
+    start = @options[:start] || 1
+    while keep_harvesting?
+      harvest_set(start)
+      start = start + @per_page
+    end
   end
   
 private
 
-  def harvest_all
-    page = 1
-    while page.present?
-      results = harvest_page(page)
-      page = results.next_page
-    end
-  end
+  def harvest_set(start)
+    results = get_api_search_results(start)
 
-  def harvest_page(page)
-    results = get_api_search_results(page)
-    Rails.logger.debug("Harvesting Europeana API results page #{page} of #{results.total_pages}")
-    results.each do |result|
-      record_id = result['id']
-      create_record(record_id)
-    end
-    results
-  end
-
-  def paginate_search_result_items(response, options)
-    WillPaginate::Collection.create(options[:page], options[:per_page], response['totalResults']) do |pager|
-      if response['itemsCount'] == 0
-        pager.replace([])
-      else
-        pager.replace(response['items'])
+    if results['items'].size == 0
+      stop_harvesting
+    else
+      results['items'].each do |result|
+        record_id = result['id']
+        create_record(record_id)
+        if @options[:limit] && (@harvested >= @options[:limit])
+          stop_harvesting
+          return
+        end
       end
     end
   end
+  
+  def stop_harvesting
+    @keep_harvesting = false
+  end
+  
+  def keep_harvesting?
+    @keep_harvesting
+  end
 
-  def get_api_search_results(page)
-    per_page = 100
+  def get_api_search_results(start)
     query_string = '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"'
     query_options = {
-      :start    => ((page - 1) * per_page) + 1,
-      :rows     => per_page,
+      :start    => start,
+      :rows     => @per_page,
       :profile  => 'minimal'
     }
     
-    response = Europeana::API::Search.new(query_string).run(query_options)
-    paginate_search_result_items(response, { :page => page, :per_page => per_page })
+    Europeana::API::Search.new(query_string).run(query_options)
   end
   
   def get_api_record(record_id)
@@ -62,6 +63,7 @@ private
       begin
         record.object = get_api_record(record_id)
         record.save
+        @harvested = @harvested + 1
       rescue Europeana::API::Errors::RequestError => error
         raise unless error.message.match('"Invalid record identifier: ')
       rescue Timeout::Error
