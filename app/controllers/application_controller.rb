@@ -626,10 +626,20 @@ protected
       end
     end.flatten
   end
-
+  
   def redirect_to_collection_controller
     if RunCoCo.configuration.search_engine == :solr
       params[:controller] = :collection
+      index_facet = case self.controller_name
+        when "contributions"
+          "index:c"
+        when "europeana"
+          "index:e"
+        else
+          "index:a"
+      end
+      params[:qf] ||= []
+      params[:qf] << index_facet
       redirect_to params
     end
   end
