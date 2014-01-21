@@ -100,7 +100,7 @@ protected
       "dcLanguage"    => { "def" => record["language"] },
       "dcPublisher"   => { "def" => record["publisher"] },
       "dcProvenance"  => { "def" => [ record["provenance"] ] },
-      "dcRights"      => { "def" => [ record["rights"] ] },
+      "dcRights"      => { "def" => [ record["usage"] ].flatten + [ record["rights"] ] },
       "dcSubject"     => { "def" => [ record["subject"] ] },
       "dcTitle"       => { "def" => [ record["title"] ] },
       "dcType"        => { "def" => [ record["dc_type"] ] },
