@@ -367,20 +367,20 @@
 			get: function( media_url ) {
 				$.ajax({
 					type: 'GET',
-					url: '/get-mimetype',
-					data: { media_url: media_url },
+					url: '/http-headers.json',
+					data: { url: media_url },
 					success: mimetype.ajax.success
 				});
 			},
-			success: function() {
-				console.log(arguments);
+			success: function( data ) {
+				console.log(data);
 			}
 		},
 
 		init: function() {
 			$('#institution-featured a').each( function() {
 				var $elm = $(this);
-				mimetype.ajax.get( $elm.attr('data-edmisshownby') );
+				//mimetype.ajax.get( $elm.attr('data-edmisshownby') );
 			});
 		}
 	};
@@ -393,7 +393,7 @@
 		map.init();
 		tags.init();
 		lightbox.init();
-		//mimetype.init();  // this causes a 404
+		mimetype.init();
 
 		//js.utils.initSearch();
 
