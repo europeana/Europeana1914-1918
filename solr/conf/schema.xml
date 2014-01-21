@@ -88,27 +88,6 @@
 
     <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
-
-<!-- Test spell field type-->
-
-    <fieldType name="textSpell" class="solr.TextField" >
-	      <analyzer type="query">
-	        <tokenizer class="solr.KeywordTokenizerFactory"/>
-	      <filter class="solr.LowerCaseFilterFactory"/>
-	        <filter class="solr.PatternReplaceFilterFactory" pattern="([.^:;()\\[\\],])" replacement="" replace="all" />
-	        <filter class="solr.PatternReplaceFilterFactory" pattern="([-+])" replacement=" " replace="all" />
-	      </analyzer>
-		  <analyzer type="index">
-        <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
-        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.SnowballPorterFilterFactory" language="English" protected="protwords.txt"/>
-      </analyzer>
-    </fieldType>
-
-
   </types>
   <fields>
     <!-- Valid attributes for fields:
@@ -143,7 +122,7 @@
     <!-- *** This field is used by Sunspot! *** -->
     <field name="class_name" stored="false" type="string" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
-    <field name="text" stored="false" type="text" multiValued="true" indexed="true"/>
+    <field name="text" stored="false" type="string" multiValued="true" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
     <field name="lat" stored="true" type="tdouble" multiValued="false" indexed="true"/>
     <!-- *** This field is used by Sunspot! *** -->
@@ -260,11 +239,6 @@
     
     <!-- required by Solr 4 -->
     <field name="_version_" type="string" indexed="true" stored="true" multiValued="false" />
-    <field name="title_spell" type="textSpell" indexed="true" stored="true" multiValued="true" termVectors="true"/>    <field name="metadata_alternative_spell" type="textSpell" indexed="true" stored="true" multiValued="true" termVectors="true"/>
-    <field name="metadata_content_spell" type="textSpell" indexed="true" stored="true" multiValued="true" termVectors="true"/>
-    <field name="taxonomy_terms_spell" type="textSpell" indexed="true" stored="true" multiValued="true" termVectors="true"/>
-    <field name="protagonist_names_spell" type="textSpell" indexed="true" stored="true" multiValued="true" termVectors="true"/>
-    <field name="place_name_spell" type="textSpell" indexed="true" stored="true" multiValued="true" termVectors="true"/>
   </fields>
   
   <!-- Field to use to determine and enforce document uniqueness.
@@ -278,25 +252,4 @@
   <!-- copyField commands copy one field to another at the time a document
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
- <copyField source="title_text" dest="title_spell" />
-<copyField source="metadata_alternative_text" dest="metadata_alternative_spell" />
-<copyField source="protagonist_names_sm" dest="protagonist_names_spell" />
-<copyField source="place_name_s" dest="place_name_spell" />
-<copyField source="taxonomy_terms_text" dest="taxonomy_terms_spell" />
-<copyField source="*_text" dest="text" />
-<copyField source="*_texts" dest="text" />
-<copyField source="*_s" dest="text" />
-<copyField source="*_sm" dest="text" />
-<copyField source="*_ss" dest="text" />
-<copyField source="*_sms" dest="text" />
-<copyField source="*_textv" dest="text" />
-<copyField source="*_textsv" dest="text" />
-<copyField source="*_d" dest="text" />
-<copyField source="*_dm" dest="text" />
-<copyField source="*_ds" dest="text" />
-<copyField source="*_dms" dest="text" />
-<copyField source="*_dt" dest="text" />
-<copyField source="*_dtm" dest="text" />
-<copyField source="*_dtms" dest="text" />
 </schema>
-
