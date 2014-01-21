@@ -52,6 +52,10 @@
 
 			html += '<div class="col left">'
 
+				html += '<div class="col-cell show-on-item-collapsed">'
+					html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
+				html += '</div>'
+
 				html += '<div class="col-cell">'
 
 					html += '<div class="img-panel">'
@@ -156,6 +160,7 @@
 							html += '<div class="carousel-overlay"></div>'
 						html += '</div>'
 						html += '</div>'
+					# 	ticket 195 - "remove the title"
 					#html += '<p class="subtitle">' + title + '</p>'
 				html += '</div>'
 
