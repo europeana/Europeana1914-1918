@@ -39,8 +39,8 @@ module EuropeanaHelper
   #
   def edm_proxy_field(proxy, field_name)
     return nil unless proxy.respond_to?(:has_key?) && proxy.has_key?(field_name)
-#    logger.debug("EDM proxy field \"#{field_name}\" => #{proxy[field_name].inspect}")
-    if proxy[field_name].nil?
+    
+    proxy_field = if proxy[field_name].nil?
       nil
     elsif proxy[field_name].is_a?(String)
       proxy[field_name]
@@ -49,9 +49,10 @@ module EuropeanaHelper
     elsif proxy[field_name]["def"].present? 
       [ proxy[field_name]["def"] ].flatten.reject(&:blank?).join('; ')
     else
-      proxy_field = proxy[field_name].values.reject(&:blank?).join('; ')
-      proxy_field.blank? ? nil : proxy_field
+      proxy[field_name].values.reject(&:blank?).join('; ')
     end
+    
+    proxy_field.blank? ? nil : proxy_field
   end
   
   ##
