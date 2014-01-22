@@ -64,6 +64,9 @@ private
         record.object = get_api_record(record_id)
         record.save
         @harvested = @harvested + 1
+      rescue ActiveRecord::RecordNotUnique
+        # Another DJ process got to this record first, despite 
+        # record_id uniqueness validation in EuropeanaRecord.
       rescue Europeana::API::Errors::RequestError => error
         raise unless error.message.match('"Invalid record identifier: ')
       rescue Timeout::Error
