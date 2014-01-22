@@ -162,8 +162,14 @@ protected
       end
     end
     
+    has_view = [ record["hasView"] ].flatten.first
+    edm_preview = if has_view.present? && has_view["url"].present?
+      has_view["url"]
+    else
+      record["object"]
+    end
     edm["europeanaAggregation"] = {
-      "edmPreview" => record["hasView"].present? ? [ record["hasView"] ].flatten.first["url"] : record["object"]
+      "edmPreview" => edm_preview
     }
     
     edm
