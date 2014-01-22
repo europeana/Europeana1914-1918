@@ -11,6 +11,7 @@
   @javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
   @javascripts[:video] = @contribution.attachments.select(&:video?).present?
   @javascripts[:annotorious] = true
+  @javascripts[:shares] = true
   @title = contribution_title(@contribution)
   
   @stylesheets[:item] = true

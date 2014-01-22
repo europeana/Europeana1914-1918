@@ -205,10 +205,12 @@
 		)
 	end
 
-	# share-this
-	remote_scripts.push(
-	  '//w.sharethis.com/button/buttons.js'
-  )
+	if @javascripts[:shares]
+		# share-this
+		remote_scripts.push(
+		  '//w.sharethis.com/button/buttons.js'
+	    )
+   end
 
 -%>
 <script>
