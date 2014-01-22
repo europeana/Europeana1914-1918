@@ -222,11 +222,11 @@
         			var ctrlLayer = new EuropeanaLayerControl(map,
         				[
         					{
-        					    "title":	"Map",
+        					    "title":	I18n.t('javascripts.leaflet.label.map_view'),
         					    "layer":	mq
         				    },
         				    {
-        					    "title":	"Satellite",
+        					    "title":	I18n.t('javascripts.leaflet.label.satellite_view'),
         					    "layer":	ggl
         				    }
         			    ]
