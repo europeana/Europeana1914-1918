@@ -12,23 +12,30 @@
 	if record['aggregations'].first['edmProvider'].blank? ||
 		( record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" )
 
-		proxy          = record['proxies'][0]
-		places         = record['places'] ? record['places'] : {}
-		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
-		euAggregation  = record['europeanaAggregation']
-		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
-		edmProvider    = aggregation['edmProvider'] ? aggregation['edmProvider'] : nil
-		edmIsShownAt   = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
-		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
-		carouselImages = aggregation['hasView']
+		aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
+		carouselImages  = aggregation['hasView']
+		euAggregation   = record['europeanaAggregation']
+		edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
+		edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+		edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
+		edmProvider     = aggregation['edmProvider'] ? aggregation['edmProvider'] : nil
+		html            = ''
+		oembed          = oembed_fields( record )
+		places          = record['places'] ? record['places'] : {}
+		proxy           = record['proxies'][0]
+		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
 
-		title          = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
-		oembed         = oembed_fields( record )
-		link_attrs     = {
+		link_image      = '<img src="' + edmPreview + '" alt="' + title + '"/>'
+		link_record     = europeana_record_url( record['about'] )
+		link_text_image = ''
+		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
+
+		link_attrs      = {
 										:title => title,
 										'class' => 'image',
 										'data-description' => title,
 										'data-edmisshownby' => edmIsShownBy,
+										'data-record' => link_record,
 										:rel => 'prettyPhoto[gallery]'
 		}
 
@@ -36,26 +43,18 @@
 			edmProvider = edmProvider['def'][0]
 		end
 
-		link_image = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-		
-		link_text_image = ''
-		if ! (
+		if !(
 			params[:controller] == 'federated_search/dpla' ||
 		 	params[:controller] == 'federated_search/trove' ||
-		  	params[:controller] == 'federated_search/digitalnz'
+		  params[:controller] == 'federated_search/digitalnz'
 		)
 			link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
-		end	
-		
-		
-		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
-
-		html = ''
+		end
 
 		if referred_by_search?
 		  html += '<div class="back-link-row hide-on-item-collapsed">'
-		  html +=   back_to_search_link
-  		  html += '</div>'
+				html += back_to_search_link
+  		html += '</div>'
 		end
 
 		html += '<div class="container">'
@@ -72,27 +71,21 @@
 						html += '<div id="institution-featured" class="carousel">'
 							html += '<ul>'
 
-							# oembeded item
-							#if oembed
-
-								#if oembed['provider_name'] == 'Vimeo'
-									#video_src = '//player.vimeo.com/video/' + oembed['video_id'].to_s + '?iframe=true&width=100%&height=100%'
-								#else
-									#video_src = edmPreview
-								#end
-
-								#link_content = link_image + link_text_video
-								#html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + '<!--oembeded content--></li>'
-
 							# multiple images
 							if carouselImages
 
 								developer_content = '<!--carousel images-->'
 
 								carouselImages.each do |img_src|
+
 									link_image = '<img src="' + img_src + '" alt="' + title + '"/>'
 									link_content = link_image + link_text_image
+									link_attrs.merge!({
+										'data-edmisshownby' => img_src
+									})
+
 									html += '<li>' + link_to( link_content.html_safe, img_src, link_attrs ) + developer_content + '</li>'
+
 								end
 
 							# single image
@@ -132,18 +125,22 @@
 								elsif edmIsShownBy
 
 									dimensions = '&width=100%&height=100%'
-									video_src = europeana_record_url( record['about'] ) + '?edmvideo=true&iframe=true'
+									video_src = link_record + '?edmvideo=true&iframe=true'
 
 									# edmIsShownBy will be a direct link to a vimeo video
 									if /player.vimeo.com/.match( edmIsShownBy )
+
 										video_src = edmIsShownBy + '?iframe=true' + dimensions
 
 									# edmIsShownBy has several possible values
-									# eventhough the iframe dimensions are 640 x 480, because of the lightbox ui the dimensions need to be wider and higher
+									# eventhough the iframe dimensions are 640 x 480,
+									# because of the lightbox ui the dimensions need to be wider and higher
 									elsif /EFG - The European Film Gateway/.match( edmProvider )
+
 										if /api.picturepipe.net/.match( edmIsShownBy )
 											dimensions = '&width=657&height=510'
 										end
+
 									end
 
 									video_src = video_src + dimensions
@@ -151,7 +148,7 @@
 									developer_content = '<!--edmProvider:' + edmProvider + '-->'
 
 									if oembed
-										developer_content = developer_content += '<!--oembeded content-->'
+										developer_content += '<!--oembeded content-->'
 									end
 
 									html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + developer_content + '</li>'
@@ -177,7 +174,7 @@
 
 				# view at provider’s website
 				if edmIsShownAt
-				
+
 					if(
 						  params[:controller] == 'federated_search/dpla'  ||
 						  params[:controller] == 'federated_search/trove' ||
@@ -188,24 +185,20 @@
 							html += '<div class="external-link">'
 								html += '<a href="' + edmIsShownAt + '" target="_new">'
 								html += t('formtastic.labels.content.metadata.edm.external_partner_site')
- 
+
  								html += '</a>'
 							html += '</div>'
 						html += '</div>'
-					
+
 					elsif readLabel = edm_proxy_field(aggregation, 'edmDataProvider')
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
 								html += t('formtastic.labels.content.metadata.edm.partner_site') + '<a href="' + edmIsShownAt + '" target="_new">' + ': ' + readLabel + '</a>'
 							html += '</div>'
-						html += '</div>'					
+						html += '</div>'
 					end
 				end
-
-
-
-					
 
 				html += '<div class="col-cell">'
 			    	html += '<span class="icon-share">' + t('views.contributions.show.headings.share') + '</span>'
@@ -251,4 +244,4 @@
 		html += '</div>'
 	end
 -%>
-<%= html.html_safe %>
+<%= html.html_safe -%>

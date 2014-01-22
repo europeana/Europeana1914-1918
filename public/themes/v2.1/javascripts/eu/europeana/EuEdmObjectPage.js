@@ -363,37 +363,68 @@
 
 
 	mimetype = {
+		$items: $('#institution-featured a'),
+		itemsHandled: 0,
+		itemsTotal: 0,
+
 		ajax: {
-			get: function( media_url ) {
+			get: function( $elm ) {
 				$.ajax({
+					complete: mimetype.incrementItemsHandled,
+					data: {
+						url: $elm.attr('data-edmisshownby')
+					},
+					success: function( data ) {
+						mimetype.ajax.success( data, $elm );
+					},
+					timeout: 5000,
 					type: 'GET',
-					url: '/http-headers.json',
-					data: { url: media_url },
-					success: mimetype.ajax.success
+					url: '/http-headers.json'
 				});
 			},
-			success: function( data ) {
-				console.log(data);
+
+			success: function( data, $elm ) {
+				if ( data['content-type'] && data['content-type'][0] && data['content-type'][0] === 'application/pdf' ) {
+					mimetype.removeLightbox( $elm );
+				}
+			}
+		},
+
+		incrementItemsHandled: function() {
+			mimetype.itemsHandled += 1;
+
+			if ( mimetype.itemsHandled === mimetype.itemsTotal ) {
+				lightbox.init();
+			} else if ( mimetype.itemsHandled === 1 ) {
+				lightbox.init();
+				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
+			} else {
+				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
 			}
 		},
 
 		init: function() {
-			$('#institution-featured a').each( function() {
-				var $elm = $(this);
-				//mimetype.ajax.get( $elm.attr('data-edmisshownby') );
-			});
+			mimetype.itemsTotal = mimetype.$items.length;
+			mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
+		},
+
+		removeLightbox: function( $elm ) {
+			$elm
+				.removeAttr( 'rel' )
+				.attr( 'href', $elm.attr( 'data-record' ) + '?edmpdf=true' )
+				.attr( 'target', '_blank' );
 		}
 	};
 
 
 	(function() {
+
 		truncate.init();
 		RunCoCo.translation_services.init( jQuery('.translate-area') );
 		carousels.init();
 		map.init();
 		tags.init();
-		lightbox.init();
-		mimetype.init();
+		mimetype.init(); // lightbox is now initialized within this object
 
 		//js.utils.initSearch();
 

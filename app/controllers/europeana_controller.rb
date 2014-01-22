@@ -85,7 +85,9 @@ class EuropeanaController < ApplicationController
     respond_to do |format|
       format.json  { render :json => { :result => 'success', :object => @object } }
       format.html do
-        if params[:edmvideo] == 'true'
+        if params[:edmpdf] == 'true'
+          render :partial => 'edm/pdf'
+        elsif params[:edmvideo] == 'true'
           render :partial => 'edm/video'
         end
       end
