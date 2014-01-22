@@ -27,19 +27,7 @@
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') : 'unknown'
 
 		link_image      = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-		
-		# temp fix to stop internal server errors - see #193		
-		# link_record     = europeana_record_url( record['about'] )
-		linkk_record = ''
-		if !(
-			params[:controller] == 'federated_search/dpla' ||
-		 	params[:controller] == 'federated_search/trove' ||
-		    params[:controller] == 'federated_search/digitalnz'
-		)
-		  link_record     = europeana_record_url( record['about'] )
-		end
-
-		
+		link_record     = record['about'] ? europeana_record_url( record['about'] ) : nil
 		link_text_image = ''
 		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
 
