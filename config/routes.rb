@@ -76,6 +76,8 @@ RunCoCo::Application.routes.draw do
     match 'europeana/search' => 'europeana#search', :as => 'search_europeana', :via => :get
     match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
     match 'europeana/record/:dataset_id/:record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
+    match 'europeana/record/:dataset_id/:record_id/headers' => 'europeana#http_headers', :as => 'show_europeana_http_headers', :via => :get
+    match 'europeana/record/:dataset_id/:record_id/content' => 'europeana#http_content', :as => 'show_europeana_http_content', :via => :get
     
     # Federated searches
     match 'canadiana/search' => 'federated_search/canadiana#search', :as => 'search_canadiana', :via => :get
@@ -166,9 +168,6 @@ RunCoCo::Application.routes.draw do
   
   # OAI:PMH provider
   match 'oai' => 'OAI#index', :as => 'oai'
-  
-  # HTTP headers of remote URL
-  match 'http-headers' => 'http#headers', :as => 'http_headers', :via => :get
   
   # Home page with locale, e.g. /en, /de
   match '/:locale' => "pages#show", :as => 'home'

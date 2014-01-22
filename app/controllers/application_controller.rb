@@ -643,4 +643,21 @@ protected
       redirect_to params
     end
   end
+  
+  def http_headers(url)
+    url = URI.parse(url)
+    response = nil
+    Net::HTTP.start(url.host, url.port) { |http|
+      path = url.path
+      if url.query.present?
+        path = url + '?' + url.query
+      end
+      response = http.head(path)
+    }
+    response
+  end
+  
+  def http_content(url)
+    Net::HTTP.get_response(URI.parse(url))
+  end
 end

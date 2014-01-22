@@ -69,18 +69,7 @@ class EuropeanaController < ApplicationController
   # GET /europeana/record/:dataset_id/:record_id
   # @todo Handle errors from Europeana API, e.g. on invalid ID param
   def show
-    europeana_id = params[:dataset_id] + '/' + params[:record_id]
-
-    cache_key = "europeana/api/record/" + europeana_id
-    if fragment_exist?(cache_key)
-      @object = YAML::load(read_fragment(cache_key))
-    elsif (RunCoCo.configuration.search_engine == :solr) && (record = EuropeanaRecord.find_by_record_id("/#{europeana_id}"))
-      @object = record.object
-    else
-      response = Europeana::API::Record.get(europeana_id)
-      @object = response['object']
-      write_fragment(cache_key, @object.to_yaml, :expires_in => 1.day)
-    end
+    @object = cached_record(record_id_from_params)
 
     respond_to do |format|
       format.json  { render :json => { :result => 'success', :object => @object } }
@@ -93,8 +82,47 @@ class EuropeanaController < ApplicationController
       end
     end
   end
+  
+  def http_headers
+    @object = cached_record(record_id_from_params)
+
+    url = @object['aggregations'].first['edmIsShownBy']
+    headers = super(url)
+
+    respond_to do |format|
+      format.json do
+        render :json => headers
+      end
+    end
+  end
+  
+  def http_content
+    @object = cached_record(record_id_from_params)
+
+    url = @object['aggregations'].first['edmIsShownBy']
+    content = super(url)
+    
+    send_data content.body, :type => content['content-type'], :disposition => content["content-disposition"]
+  end
 
 private
+
+  def cached_record(record_id)
+    cache_key = "europeana/api/record/" + record_id
+    if fragment_exist?(cache_key)
+      YAML::load(read_fragment(cache_key))
+    elsif (RunCoCo.configuration.search_engine == :solr) && (record = EuropeanaRecord.find_by_record_id("/#{record_id}"))
+      record.object
+    else
+      response = Europeana::API::Record.get(record_id)
+      write_fragment(cache_key, response['object'].to_yaml, :expires_in => 1.day)
+      response['object']
+    end
+  end
+
+  def record_id_from_params
+    params[:dataset_id] + '/' + params[:record_id]
+  end
 
   ##
   # Prepares and sends a search query to the API.
