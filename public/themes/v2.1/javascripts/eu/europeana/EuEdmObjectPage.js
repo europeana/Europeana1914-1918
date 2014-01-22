@@ -371,15 +371,12 @@
 			get: function( $elm ) {
 				$.ajax({
 					complete: mimetype.incrementItemsHandled,
-					data: {
-						url: $elm.attr('data-edmisshownby')
-					},
 					success: function( data ) {
 						mimetype.ajax.success( data, $elm );
 					},
 					timeout: 5000,
 					type: 'GET',
-					url: '/http-headers.json'
+					url: $elm.attr('data-record') + '/headers.json'
 				});
 			},
 
