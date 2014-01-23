@@ -407,6 +407,11 @@
 
 		init: function() {
 			mimetype.itemsTotal = mimetype.$items.length;
+
+			if ( mimetype.itemsTotal < 1 ) {
+				return;
+			}
+
 			mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
 		},
 
