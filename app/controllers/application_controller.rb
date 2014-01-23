@@ -650,7 +650,7 @@ protected
     Net::HTTP.start(url.host, url.port) { |http|
       path = url.path
       if url.query.present?
-        path = url + '?' + url.query
+        path = path + '?' + url.query
       end
       response = http.head(path)
     }

@@ -30,7 +30,7 @@ class StatisticsController < ApplicationController
         }
       end
       
-      write_fragment(cache_key, @results.to_yaml, :expires_in => 1.week)
+      write_fragment(cache_key, @results.to_yaml, :expires_in => 1.day)
     end
     
   rescue

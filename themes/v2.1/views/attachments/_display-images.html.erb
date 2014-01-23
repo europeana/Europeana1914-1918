@@ -13,6 +13,7 @@
       if attachment.file.present?
         link_url = attachment_url( attachment, 'large' )
         view_link_text = t( 'common.links.view-image' )
+        annotations_exist = true
 
         link_attrs = {
           :target => '_blank',
@@ -60,7 +61,13 @@
         end
 
         if !thumbnails
-          view_link_text = '<p class="view-item">' + view_link_text + '</p>'
+          # add annotorious hint icon when annotations exist for this item
+          if attachment.annotations.present?
+            view_link_text = '<p class="view-item-annotorious" style="pointer-events:auto">' + view_link_text + '<span class="annotorious-carousel-icon"></span></p>'
+          else
+            view_link_text = '<p class="view-item">' + view_link_text + '</p>'
+          end
+
           view_link_text = attachment_preview( attachment, size ) + view_link_text.html_safe
           html += link_to( view_link_text, link_url, link_attrs )
         else
