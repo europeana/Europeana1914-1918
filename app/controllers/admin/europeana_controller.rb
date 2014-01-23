@@ -1,12 +1,13 @@
 class Admin::EuropeanaController < AdminController
   class Options
     include ActiveModel::Validations
-    attr_accessor :limit, :start
+    attr_accessor :query, :limit, :start
+    validates_presence_of :query
     validates_numericality_of :limit, :allow_nil => true, :unless => Proc.new { |o| o.limit.blank? }
     validates_numericality_of :start, :allow_nil => true, :unless => Proc.new { |o| o.start.blank? }
     
     def initialize(attributes = {})
-      attributes.assert_valid_keys(:limit, "limit", :start, "start")
+      attributes.assert_valid_keys(:query, "query", :limit, "limit", :start, "start")
       attributes.each_pair do |name, value|
         self.send(:"#{name.to_s}=", value)
       end
@@ -14,6 +15,7 @@ class Admin::EuropeanaController < AdminController
     
     def for_job
       job_options = {}
+      job_options[:query] = self.query unless self.query.blank?
       job_options[:limit] = self.limit.to_i unless self.limit.blank?
       job_options[:start] = self.start.to_i unless self.start.blank?
       job_options
@@ -22,7 +24,7 @@ class Admin::EuropeanaController < AdminController
 
   # GET /admin/europeana
   def index
-    @options = Options.new
+    @options = Options.new(:query => '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"')
   end
   
   # PUT /admin/europeana/harvest

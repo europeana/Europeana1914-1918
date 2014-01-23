@@ -9,6 +9,7 @@
   
   <%= semantic_form_for(@options, :as => :options, :url => admin_harvest_europeana_path, :html => { :method => 'put' }) do |form| %>
     <%= form.inputs :options do %>
+      <%= form.input :query %>
       <%= form.input :limit %>
       <%= form.input :start %>
     <% end %>
