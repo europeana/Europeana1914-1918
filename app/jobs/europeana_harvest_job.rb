@@ -18,8 +18,8 @@ private
 
   def harvest_set(start)
     results = get_api_search_results(start)
-
-    if results['items'].size == 0
+    
+    if results['items'].blank?
       stop_harvesting
     else
       results['items'].each do |result|
