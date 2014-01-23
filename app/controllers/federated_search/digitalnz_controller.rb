@@ -18,11 +18,11 @@ protected
   
   def search_params
     search_params = { 
-      :text => params[:q],
+      :text => params[:q] + ' AND ("world war, 1914-1918" OR "world war I" or "great war")',
       :per_page => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       "without[content_partner][]" => "Europeana",
-      "or[subject]" => [ "Great War", "World War, 1914-1918" ],
+#      "or[subject]" => [ "Great War", "World War, 1914-1918" ],
       :facets => "category,creator,placename,year,content_partner,rights,collection"
     }
     

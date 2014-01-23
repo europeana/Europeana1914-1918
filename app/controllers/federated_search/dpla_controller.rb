@@ -26,8 +26,8 @@ protected
 
   def search_params
     search_params = { 
-      :q => params[:q],
-      "sourceResource.subject.name" => '"World War, 1914-1918"',
+      :q => params[:q] + ' AND ("world war, 1914-1918" OR "world war I" OR "great war")',
+#      "sourceResource.subject.name" => '"World War, 1914-1918"',
       :page_size => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       :facets => "sourceResource.subject.name,sourceResource.spatial.name,provider.name,sourceResource.language.name,sourceResource.type"
