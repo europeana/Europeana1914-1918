@@ -176,8 +176,14 @@
 					#html += '<p class="subtitle">' + title + '</p>'
 				html += '</div>'
 
+				# add pagination info if present
+				if carouselImages
+					#will_paginate( carouselImages )
+					html += '<div id="contributions-pagination">' + '' + 'Total: <span id="attachment-total">' + carouselImages.length.to_s + '</span></div>'
+					html += '<div class="col-cell"><ul id="thumbnail-counts"></ul></div>'
+				end
 
-				# view at provider’s website
+				# add view at provider’s website text link
 				if edmIsShownAt
 
 					if(
