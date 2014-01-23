@@ -11,7 +11,7 @@
 	@stylesheets[:item] = true
 
 	if record['aggregations'].first['edmProvider'].blank? ||
-		( record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" )
+		( !record['aggregations'].first['edmProvider'].values.include?("Europeana 1914 - 1918") )
 
 		aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
 		carouselImages  = aggregation['hasView']
