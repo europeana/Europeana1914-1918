@@ -81,14 +81,18 @@
 							if carouselImages
 
 								developer_content = '<!--carousel images-->'
+								carousel_count = 0
 
 								carouselImages.each do |img_src|
 
 									link_image = '<img src="' + img_src + '" alt="' + title + '"/>'
 									link_content = link_image + link_text_image
-
+									carousel_count += 1
 									html += '<li>' + link_to( link_content.html_safe, img_src, link_attrs ) + developer_content + '</li>'
 
+									if carousel_count == 3
+										break
+									end
 								end
 
 							# single image
