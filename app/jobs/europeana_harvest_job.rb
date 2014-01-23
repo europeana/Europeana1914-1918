@@ -78,7 +78,7 @@ private
           retry
         end
         raise unless error.message.match('"Invalid record identifier: ') # ignore these
-      rescue Timeout::Error
+      rescue Timeout::Error, Errno::ECONNREFUSED
         retries -= 1
         raise unless retries > 0
         sleep 10
