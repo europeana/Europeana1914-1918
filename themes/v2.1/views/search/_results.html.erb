@@ -12,7 +12,7 @@
               <%= edm_preview %><br />
             <%- end -%>
             <%- unless title.blank? -%>
-              <b class="story-title"><%= title.html_safe %></b>
+              <b class="story-title"><%=  title.html_safe  %></b>
             <%- end -%>
             <%- unless record['dcCreator'].blank? -%>
               <br/><span class="story-creator"><%= record['dcCreator'].first %></span>
