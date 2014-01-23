@@ -87,6 +87,7 @@ class EuropeanaController < ApplicationController
     @object = cached_record(record_id_from_params)
 
     url = @object['aggregations'].first['edmIsShownBy']
+    raise RunCoCo::BadRequest, "No URL for this Europeana record" unless url.present?
     headers = super(url)
 
     respond_to do |format|
@@ -100,6 +101,7 @@ class EuropeanaController < ApplicationController
     @object = cached_record(record_id_from_params)
 
     url = @object['aggregations'].first['edmIsShownBy']
+    raise RunCoCo::BadRequest, "No URL for this Europeana record" unless url.present?
     content = super(url)
     
     send_data content.body, :type => content['content-type'], :disposition => content["content-disposition"]
