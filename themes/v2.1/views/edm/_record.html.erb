@@ -20,6 +20,7 @@
 		edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 		edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : '/images/style/icons/mimetypes/unknown.png'
 		edmProvider     = aggregation['edmProvider'] ? aggregation['edmProvider'] : nil
+		type            = record['type'] ? record['type'] : nil
 		html            = ''
 		oembed          = oembed_fields( record )
 		places          = record['places'] ? record['places'] : {}
@@ -32,13 +33,17 @@
 		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
 
 		link_attrs      = {
-										:title => title,
 										'class' => 'image',
 										'data-description' => title,
-										'data-edmisshownby' => edmIsShownBy,
-										'data-record' => link_record,
-										:rel => 'prettyPhoto[gallery]'
+										:rel => 'prettyPhoto[gallery]',
+										:title => title
 		}
+
+		if type == 'TEXT'
+			link_attrs.merge!({
+				'data-record' => link_record
+			})
+		end
 
 		if edmProvider && edmProvider['def'] && edmProvider['def'][0]
 			edmProvider = edmProvider['def'][0]
@@ -81,9 +86,6 @@
 
 									link_image = '<img src="' + img_src + '" alt="' + title + '"/>'
 									link_content = link_image + link_text_image
-									link_attrs.merge!({
-										'data-edmisshownby' => img_src
-									})
 
 									html += '<li>' + link_to( link_content.html_safe, img_src, link_attrs ) + developer_content + '</li>'
 
@@ -242,6 +244,7 @@
 
 				html += '</div>'
 			html += '</div>'
+			html += edmIsShownBy
 		html += '</div>'
 	end
 -%>

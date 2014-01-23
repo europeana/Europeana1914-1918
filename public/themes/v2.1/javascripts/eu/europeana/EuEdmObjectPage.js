@@ -369,6 +369,11 @@
 
 		ajax: {
 			get: function( $elm ) {
+				if ( $elm.attr('data-record') === undefined ) {
+					mimetype.incrementItemsHandled();
+					return;
+				}
+
 				$.ajax({
 					complete: mimetype.incrementItemsHandled,
 					success: function( data ) {
