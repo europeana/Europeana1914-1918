@@ -8,7 +8,7 @@ module SearchHelper
   def referred_by_search?
     return false unless controller.request.env["HTTP_REFERER"].present?
     referer = URI.parse(controller.request.env["HTTP_REFERER"])
-    referer.path.match(/(search|explore)$/).present?
+    referer.path.match(/\/(search|explore)([?\/]|$)/).present?
   end
   
   def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true, html_options = {})
