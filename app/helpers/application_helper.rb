@@ -161,6 +161,7 @@ module ApplicationHelper
   end
   
   def paginate_array(array, page, per_page)
+    array ||= []
     page = page.to_i
     WillPaginate::Collection.create(page, per_page, array.length) do |pager|
       start = ((page - 1) * per_page)
