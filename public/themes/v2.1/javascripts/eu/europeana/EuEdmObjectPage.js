@@ -14,6 +14,14 @@
 
 	carousels = {
 		$featured_carousel : null,
+		$pagination_counts : jQuery('#pagination-counts'),
+		pagination_total : jQuery('#pagination-total').text(),
+
+		updatePaginationCount : function() {
+			this.$pagination_counts.html(
+				I18n.t('javascripts.thumbnails.item') + ' ' +	( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.pagination_total
+			);
+		},
 
 		init: function() {
 			var self = this;
@@ -21,8 +29,15 @@
 			$('#institution-featured').imagesLoaded( function() {
 				self.$featured_carousel =
 					jQuery('#institution-featured').rCarousel({
-						item_width_is_container_width : true
+						item_width_is_container_width : true,
+						callbacks : {
+							after_nav : function() {
+								carousels.updatePaginationCount();
+							}
+						}
 					}).data('rCarousel');
+
+				carousels.updatePaginationCount();
 			});
 		}
 	},
