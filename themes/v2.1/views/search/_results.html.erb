@@ -7,12 +7,12 @@
         <%- record = search_result_to_edm(result) -%>
         <%- title = record['title'].blank? ? '' : record['title'].first -%>
         <li>
-          <a href="<%= record['guid'] %>" title="<%= title %>">
+          <a href="<%= record['guid'] %>" title="<%= title.html_safe %>">
             <%- if edm_preview = search_result_preview(record) -%>
               <%= edm_preview %><br />
             <%- end -%>
             <%- unless title.blank? -%>
-              <b class="story-title"><%= title %></b>
+              <b class="story-title"><%= title.html_safe %></b>
             <%- end -%>
             <%- unless record['dcCreator'].blank? -%>
               <br/><span class="story-creator"><%= record['dcCreator'].first %></span>
