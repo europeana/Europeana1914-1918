@@ -23,7 +23,7 @@
   #    provider_aggregation_edm_dataProvider:*
   # check here for others:
   # /home/andy/git/corelib/corelib-solr/src/test/resources/solr/search/conf/schema.xml
-    
+
 
   edmVals = [
       {
@@ -79,20 +79,20 @@
       },
       {
         "name" => "edmRights",
-        "ns" => "edm",     
+        "ns" => "edm",
         "label" => "rights",
         "source" => aggregation,
-        "target" => "_new",
+        "target" => "_blank",
         "rights" => "true",
-        "expand" => 'rightsLabel(readVal, true)'        
+        "expand" => 'rightsLabel(readVal, true)'
       }
    ]
 
 %>
 
-  
+
   <%- edmVals.each do |edmVal| -%>
-    
+
 	<%- if readVal = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
 
 	    <%- if edmVal["name2"] -%>
@@ -100,7 +100,7 @@
 	        <%- next if !name2 -%>
      	<% end -%>
 
-	    <%- if edmVal["capitalise"] -%>	    
+	    <%- if edmVal["capitalise"] -%>
 	      <%- readVal = readVal.split(' ').map {|w| w.capitalize }.join(' ') -%>
      	<% end -%>
 
@@ -114,16 +114,15 @@
 		      <%- href = href.index(' ') ? href.clone.gsub!(' ', '+') : href -%>
 		      <%- href = edmVal["href"] + href -%>
           <%- end -%>
-          
+
 	      <%- readVal = edmVal["expand"] ? eval(edmVal["expand"]) : readVal -%>
 	      <%- readVal = ('<a href="' + href + '"' +  (edmVal["target"] ? ' target="' + edmVal["target"] + '"' : ' ')   + '>' + readVal + '</a>').html_safe -%>
      	<% end -%>
-	
+
 		<dt><b><%= t('formtastic.labels.content.metadata.' + edmVal["ns"] + '.' + edmVal["label"]) -%></b></dt>
 		<dd>
 			<%= readVal %>
 		</dd>
 	<% end -%>
-    
-  <%- end -%>
 
+  <%- end -%>
