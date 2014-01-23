@@ -62,7 +62,7 @@
 
         if !thumbnails
           # add annotorious hint icon when annotations exist for this item
-          if annotations_exist
+          if attachment.annotations.present?
             view_link_text = '<p class="view-item-annotorious" style="pointer-events:auto">' + view_link_text + '<span class="annotorious-carousel-icon"></span></p>'
           else
             view_link_text = '<p class="view-item">' + view_link_text + '</p>'
