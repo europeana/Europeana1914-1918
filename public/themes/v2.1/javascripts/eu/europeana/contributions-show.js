@@ -488,7 +488,7 @@
 				}
 			});
 
-			$('#institution-featured .view-item').each(function() {
+			$('#contributions-featured .view-item').each(function() {
 				jQuery(this).remove();
 			});
 		},
