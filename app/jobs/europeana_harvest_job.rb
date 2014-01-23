@@ -64,6 +64,7 @@ private
       begin
         record.object = get_api_record(record_id)
         record.save
+        record.index
         @harvested = @harvested + 1
       rescue ActiveRecord::RecordNotUnique
         # Another DJ process got to this record first, despite 
