@@ -20,7 +20,7 @@
 		$featured_carousel : null,
 		$thumbnail_carousel : null,
 
-		$thumbnail_counts : jQuery('#thumbnail-counts'),
+		$thumbnail_counts : jQuery('#pagination-counts'),
 		$thumbnail_links : jQuery('#contributions-thumbnails ul a'),
 
 		$contributions_featured_ul : jQuery('#contributions-featured ul'),
