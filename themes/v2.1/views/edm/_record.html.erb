@@ -10,8 +10,11 @@
 
 	@stylesheets[:item] = true
 
+
 	if record['aggregations'].first['edmProvider'].blank? ||
 		( !record['aggregations'].first['edmProvider'].values.include?("Europeana 1914 - 1918") )
+
+	# variable setup
 
 		aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
 		if aggregation['hasView'].present?
@@ -61,6 +64,10 @@
 			link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
 		end
 
+	# end variable setup
+
+	# begin html build
+
 		if referred_by_search?
 		  html += '<div class="back-link-row hide-on-item-collapsed">'
 				html += back_to_search_link
@@ -75,19 +82,8 @@
 					html += '<h2 class="dcTitle"> ' + edm_proxy_field(proxy, 'dcTitle') + '</h2>'
 				html += '</div>'
 
-				html += render :partial => 'edm/carousel',
-					:locals => {
-						:aggregation => aggregation,
-						:carouselImages => carouselImages,
-						:edmIsShownAt => edmIsShownAt,
-						:edmIsShownBy => edmIsShownBy,
-						:edmProvider => edmProvider,
-						:link_attrs => link_attrs,
-						:link_image => link_image,
-						:link_text_image => link_text_image,
-						:params => params,
-						:title => title
-					}
+				# add carousel
+				html += render :partial => 'edm/carousel', :locals => { :record => record }
 
 				# add view at provider’s website text link
 				if edmIsShownAt
