@@ -24,7 +24,7 @@ class Admin::EuropeanaController < AdminController
 
   # GET /admin/europeana
   def index
-    @options = Options.new(:query => '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"')
+    @options = Options.new
   end
   
   # PUT /admin/europeana/harvest

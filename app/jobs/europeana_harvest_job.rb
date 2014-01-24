@@ -42,7 +42,10 @@ private
   end
 
   def get_api_search_results(start)
-    query_string = @options[:query]
+    query_string = '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"' 
+    if @options[:query]
+      query_string = query_string + ' ' + @options[:query]
+    end
     query_options = {
       :start    => start,
       :rows     => @per_page,
