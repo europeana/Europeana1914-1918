@@ -97,7 +97,7 @@ class EuropeanaRecord < ActiveRecord::Base
       'provider' => provider,
       'dataProvider' => data_provider,
       'dcCreator' => dc_creator,
-      'edmPreview' => [ object['europeanaAggregation']['edmPreview'] ]
+      'edmPreview' => object['europeanaAggregation'] ? [ object['europeanaAggregation']['edmPreview'] ] : nil
     }
   end
 end
