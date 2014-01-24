@@ -133,7 +133,11 @@
 							developer_content += '<!--oembeded content-->'
 						end
 
-						html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + developer_content + '</li>'
+						if type == 'IMAGE'
+							html += '<li>' + link_to( link_content.html_safe, edmIsShownBy, link_attrs ) + developer_content + '</li>'
+						else
+							html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + developer_content + '</li>'
+						end
 
 					# view on 1914-1918 website - show the edmPreview, no lightbox
 					else

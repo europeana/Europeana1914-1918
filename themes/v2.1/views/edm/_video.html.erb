@@ -9,8 +9,10 @@
 		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 		euAggregation  = record['europeanaAggregation']
 		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : nil
-		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
 		mediaplayer    = false
+		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
+		type           = record['type'] ? record['type'] : nil
+
 
 		if edmIsShownBy
 			if /.flv/.match( edmIsShownBy ) || /.mp4/.match( edmIsShownBy )
@@ -20,6 +22,8 @@
 					"/themes/#{session[:theme]}/javascripts/com/jquery/jquery-1.7.1.min.js",
 					'/themes/common/mediaelement/mediaelement-and-player.min.js'
 				]
+			elsif type == 'IMAGE'
+				html = '<img src="' + edmIsShownBy + '"/>'
 			else
 				html = '<iframe id="iframe" src="' + edmIsShownBy + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
 			end
@@ -35,7 +39,11 @@
 <link rel="stylesheet" href="/themes/common/mediaelement/mediaelementplayer.min.css"/>
 <% end -%>
 <title><%= title -%></title>
+<% if type == 'IMAGE' -%>
+<style>body{background: url('/themes/v2.1/images/icons/loading-animation.gif') center center no-repeat;}img{display:block;margin:auto;}</style>
+<% else -%>
 <style>body{width:100%;height:100%;margin:0;padding:0;overflow:hidden;}iframe{width:99%;height:99%;overflow:hidden;background-color:#fff;}.mejs-container{max-height:480px;margin:auto;}body{background: url('/themes/v2.1/images/icons/loading-animation.gif') center center no-repeat;}</style>
+<% end -%>
 </head>
 <body>
 <%= html.html_safe -%>
