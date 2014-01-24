@@ -45,14 +45,20 @@ module EuropeanaHelper
     elsif proxy[field_name].is_a?(String)
       proxy[field_name]
     elsif proxy[field_name].has_key?(I18n.locale.to_s)
-      proxy[field_name][I18n.locale.to_s].first
-    elsif proxy[field_name]["def"].present? 
-      [ proxy[field_name]["def"] ].flatten.reject(&:blank?).join('; ')
+      [ proxy[field_name][I18n.locale.to_s] ].flatten
+    elsif proxy[field_name]["def"].present?
+      [ proxy[field_name]["def"] ].flatten
     else
-      proxy[field_name].values.reject(&:blank?).join('; ')
+      proxy[field_name].values
     end
     
-    proxy_field.blank? ? nil : proxy_field
+    if proxy_field.blank?
+      nil
+    elsif proxy_field.is_a?(Array)
+      proxy_field.reject(&:blank?).join('; ')
+    else
+      proxy_field
+    end
   end
   
   ##
