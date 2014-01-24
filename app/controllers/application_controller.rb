@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   # First tries to redirect to the same path with the locale prefixed if it's
   # not already in the request params.
   #
-  rescue_from ActionController::MissingFile, ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::MethodNotAllowed, ActionController::RoutingError, ActionView::MissingTemplate do |exception|
+  rescue_from ActionController::MissingFile, ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::MethodNotAllowed, ActionController::RoutingError, ActionView::MissingTemplate, AWS::S3::Errors::NoSuchKey do |exception|
     if (!params[:locale].blank? && !I18n.available_locales.include?(params[:locale].to_sym)) && !request.fullpath.match(/^\/(attachments|oai)\//)
       I18n.locale = request.compatible_language_from(I18n.available_locales) || Rails.configuration.i18n.default_locale
       redirect_to "/#{I18n.locale.to_s}#{request.fullpath}"
