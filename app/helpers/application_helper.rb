@@ -165,7 +165,7 @@ module ApplicationHelper
     page = page.to_i
     WillPaginate::Collection.create(page, per_page, array.length) do |pager|
       start = ((page - 1) * per_page)
-      finish = [(start + per_page), (array.length - 1)].min
+      finish = [(start + per_page - 1), (array.length - 1)].min
       pager.replace(array[start..finish])
     end
   end
