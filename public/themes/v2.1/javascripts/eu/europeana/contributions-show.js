@@ -16,31 +16,12 @@
 
 
 	carousels = {
-
-		$featured_carousel : null,
-		$thumbnail_carousel : null,
-
-		$thumbnail_counts : jQuery('#pagination-counts'),
-		$thumbnail_links : jQuery('#contributions-thumbnails ul a'),
-
-		$contributions_featured_ul : jQuery('#contributions-featured ul'),
-		$contributions_thumbnails_ul : jQuery('#contributions-thumbnails ul'),
-
-		$pagination_next : jQuery('#contributions-pagination .pagination a[rel=next]').eq(0),
-		items_collection_total : jQuery('#attachment-total').text(),
-
-		$new_content : null,
-		$loading_feedback : null,
 		ajax_load_processed : true,
-
-		pagination_checking : false,
-		previous_thumbnail_length : 0,
-		thumb_nav_by : 3,
-
-		nrItemsInCurrentContainer : function() {
-			var total_items_in_previous_pgs = ( this.$thumbnail_carousel.page_nr - 1 ) * this.$thumbnail_carousel.items_per_container;
-			return this.$thumbnail_carousel.items_length - total_items_in_previous_pgs;
-		},
+		$featured_carousel : null,
+		$pagination_counts : $('#pagination-counts'),
+		pagination_total : $('#pagination-total').text(),
+		$pagination_next : jQuery('#carousel-pagination .pagination a[rel=next]').eq(0),
+		$contributions_featured_ul : jQuery('#contributions-featured ul'),
 
 		addImagesToLightbox : function( $new_content ) {
 			var	$pp_full_res = jQuery('#pp_full_res'),
@@ -56,6 +37,8 @@
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
 			});
+
+			$.prettyPhoto.changePage('next');
 		},
 
 		/**
@@ -70,34 +53,80 @@
 
 			this.$contributions_featured_ul.append( this.$new_content.find('#contributions-featured ul li') );
 			this.$featured_carousel.ajaxCarouselSetup();
-
-			this.$contributions_thumbnails_ul.append( this.$new_content.find('#contributions-thumbnails ul li') );
-			this.$thumbnail_carousel.ajaxCarouselSetup();
-
-			this.$pagination_next = this.$new_content.find('#contributions-pagination .pagination a[rel=next]');
-			this.$thumbnail_links = jQuery('#contributions-thumbnails ul a');
-
-			this.addThumbnailClickHandlers();
-
-			this.$thumbnail_carousel
-				.$items
-				.eq( this.previous_thumbnail_length )
-				.find('a')
-				.trigger('click');
-
-			this.$thumbnail_carousel.toggleNav();
-			this.pagination_checking = false;
+			this.$pagination_next = this.$new_content.find('#carousel-pagination .pagination a[rel=next]');
 			this.ajax_load_processed = true;
-			this.$thumbnail_carousel.loading_content = false;
-
-			this.$featured_carousel.hideOverlay();
-			this.$thumbnail_carousel.hideOverlay();
 
 			if ( add_lightbox ) {
 				this.addImagesToLightbox( $new_content );
 			} else {
 				lightbox.removeLightboxLinks();
 			}
+
+			this.$featured_carousel.$next.trigger('click');
+			this.$featured_carousel.hideOverlay();
+		},
+
+		init: function() {
+			var self = this;
+
+			$('#contributions-featured').imagesLoaded( function() {
+				self.$featured_carousel =
+					$('#contributions-featured').rCarousel({
+						item_width_is_container_width : true,
+						items_collection_total : parseInt( self.pagination_total, 10 ),
+						callbacks : {
+							before_nav: function( dir ) {
+								carousels.paginationContentCheck( dir );
+							},
+							after_nav : function() {
+								carousels.updatePaginationCount();
+							}
+						}
+					}).data('rCarousel');
+
+				carousels.updatePaginationCount();
+			});
+		},
+
+		/**
+		 *	decide whether or not to try and pull in additional carousel assets
+		 *	additional assets are pulled in via the following url schemes
+		 *
+		 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
+		 *		partial page, default count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2
+		 *    partial page, custom count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2&count=2
+		 */
+		paginationContentCheck : function( dir ) {
+			var href,
+					next_page_link,
+					next_carousel_item = 0,
+					current_carousel_count = this.$featured_carousel.items_length,
+					current_carousel_item = this.$featured_carousel.get('current_item_index') + 1;
+
+			this.$featured_carousel.options.cancel_nav = true;
+			next_page_link = this.$pagination_next.attr('href');
+
+			if ( dir === 'next' ) {
+				next_carousel_item = current_carousel_item + 1;
+			} else if ( current_carousel_item > 1 )  {
+				next_carousel_item = current_carousel_item - 1;
+			} else {
+				next_carousel_item = 1;
+			}
+
+			if ( !next_page_link || next_carousel_item <= current_carousel_count  ) {
+				this.$featured_carousel.options.cancel_nav = false;
+				return;
+			}
+
+			next_page_link = next_page_link.split('?');
+
+			href =
+				next_page_link[0] +
+				( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
+				next_page_link[1];
+
+			this.retrieveContent( href );
 		},
 
 		retrieveContent : function( href ) {
@@ -108,8 +137,6 @@
 			self.$new_content = jQuery('<div/>');
 
 			try {
-				self.$thumbnail_carousel.loading_content = true;
-				self.$thumbnail_carousel.$overlay.fadeIn();
 				self.$featured_carousel.$overlay.fadeIn();
 
 				self.$new_content.load(
@@ -119,208 +146,16 @@
 						self.handleContentLoad( responseText, textStatus, XMLHttpRequest );
 					}
 				);
+
 			} catch(e) {
-				self.$thumbnail_carousel.loading_content = false;
+				console.log(e);
 			}
 		},
 
-		setupAjaxHandler : function() {
-			jQuery(document).ajaxError(function( evt, XMLHttpRequest, jqXHR, textStatus ) {
-				evt.preventDefault();
-				// XMLHttpRequest.status == 404
-			});
-		},
-
-		/**
-		 *	decide whether or not to try and pull in additional carousel assets
-		 *	additional assets are pulled in via the following url schemes
-		 *
-		 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
-		 *		partial page -> http://localhost:3000/en/contributions/2226/attachments?carousel=1&page=1&count=2
-		 */
-		paginationContentCheck : function() {
-			var href,
-					next_page_link;
-
-			this.pagination_checking = true;
-			next_page_link = this.$pagination_next.attr('href');
-			if ( !next_page_link ) {
-				return;
-			}
-
-			next_page_link = next_page_link.split('?');
-			this.previous_thumbnail_length = this.$thumbnail_carousel.items_length;
-
-			href =
-				next_page_link[0] +
-				( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
-				next_page_link[1];
-
-			this.retrieveContent( href );
-		},
-
-		updateTumbnailCarouselPosition : function( dir ) {
-			if ( !this.$thumbnail_carousel || !dir ) {
-				return;
-			}
-			this.$thumbnail_carousel.transition();
-		},
-
-		toggleSelected : function( selected_index ) {
-			var self = this;
-
-			self.$thumbnail_links.each(function(index) {
-					var $elm = jQuery(this);
-
-					if ( index === selected_index ) {
-						if ( !$elm.hasClass('selected') ) {
-							$elm.addClass('selected');
-						}
-
-						if ( self.$thumbnail_carousel ) {
-							self.$thumbnail_carousel.current_item_index = selected_index;
-						}
-					} else {
-						$elm.removeClass('selected');
-					}
-			});
-		},
-
-		updateCounts : function() {
-			this.$thumbnail_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' +
-				( this.$featured_carousel.get('current_item_index') + 1 ) +
-				' ' + I18n.t('javascripts.thumbnails.of') + ' ' +
-				this.items_collection_total
+		updatePaginationCount : function() {
+			this.$pagination_counts.html(
+				I18n.t('javascripts.thumbnails.item') + ' ' +	( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.pagination_total
 			);
-		},
-
-		handleThumbnailClick : function( evt ) {
-			var self = evt.data.self,
-					index = evt.data.index,
-					dir = index < self.$thumbnail_carousel.current_item_index ? 'prev' : 'next';
-
-			evt.preventDefault();
-
-			self.toggleSelected( index );
-			self.$featured_carousel.current_item_index = index;
-			self.$featured_carousel.transition();
-			self.$featured_carousel.toggleNav();
-			self.updateTumbnailCarouselPosition( dir );
-			self.updateCounts();
-		},
-
-		addThumbnailClickHandlers : function() {
-			var self = this;
-
-			self.$thumbnail_links.each(function(index) {
-				var $elm = jQuery(this);
-
-				if ( !jQuery.data( this, 'thumbnail-handler-added' ) ) {
-					$elm.on( 'click', { self : self, index : index }, carousels.handleThumbnailClick );
-					jQuery.data( this, 'thumbnail-handler-added', true );
-				}
-			});
-		},
-
-		navThumbnail : function( dir ) {
-			var $thumbnail = this.$thumbnail_carousel,
-					pos = dir === 'next' ? this.thumb_nav_by : -this.thumb_nav_by,
-					items_length = $thumbnail.options.items_collection_total > 0
-						? $thumbnail.options.items_collection_total
-						: $thumbnail.items_length;
-
-			$thumbnail.options.cancel_nav = true;
-
-			if ( $thumbnail.current_item_index + pos >= items_length ) {
-				pos = items_length - 1;
-			} else if ( $thumbnail.current_item_index + pos < 0 ) {
-				pos = 0;
-			} else {
-				pos = $thumbnail.current_item_index + pos;
-			}
-
-			if ( pos <= items_length - 1 ) {
-				if ( pos >= this.$thumbnail_carousel.items_length ) {
-					this.paginationContentCheck();
-				} else if ( $thumbnail.current_item_index !== pos )  {
-					this.$thumbnail_carousel
-						.$items
-						.eq( pos )
-						.find('a')
-						.trigger('click');
-
-					this.$thumbnail_carousel.toggleNav();
-				}
-			}
-		},
-
-		navFeatured : function( dir ) {
-			var $featured = this.$featured_carousel,
-					pos = dir === 'next' ? 1 : -1,
-					items_length = $featured.options.items_collection_total > 0
-						? $featured.options.items_collection_total
-						: $featured.items_length;
-
-			$featured.options.cancel_nav = true;
-
-			if ( $featured.current_item_index + pos >= items_length ) {
-				pos = items_length - 1;
-			} else if ( $featured.current_item_index + pos < 0 ) {
-				pos = 0;
-			} else {
-				pos = $featured.current_item_index + pos;
-			}
-
-			if ( pos <= items_length - 1 ) {
-				if ( pos >= this.$thumbnail_carousel.items_length ) {
-					this.paginationContentCheck();
-				} else if ( $featured.current_item_index !== pos )  {
-					this.$thumbnail_carousel
-						.$items
-						.eq( pos )
-						.find('a')
-						.trigger('click');
-
-					this.$thumbnail_carousel.toggleNav();
-				}
-			}
-		},
-
-		init : function() {
-			var self = this;
-
-				self.$featured_carousel =
-				jQuery('#contributions-featured').rCarousel({
-					items_collection_total : parseInt( self.items_collection_total, 10 ),
-					callbacks : {
-						before_nav : function( dir ) {
-							self.navFeatured( dir );
-						}
-					}
-				}).data('rCarousel');
-
-			jQuery('#contributions-thumbnails').imagesLoaded(function() {
-				self.$thumbnail_carousel =
-					this.rCarousel({
-						items_collection_total : parseInt( self.items_collection_total, 10 ),
-						listen_to_arrow_keys : false,
-						item_width_is_container_width : false,
-						nav_button_size : 'small',
-						navigation_style : 'one-way-by',
-						nav_by : this.thumb_nav_by,
-						callbacks : {
-							before_nav : function( dir ) {
-								self.navThumbnail( dir );
-							}
-						}
-					}).data('rCarousel');
-			});
-
-			self.addThumbnailClickHandlers();
-			self.updateCounts();
-			self.toggleSelected( self.$featured_carousel.get('current_item_index') );
-			self.setupAjaxHandler();
 		}
 	},
 

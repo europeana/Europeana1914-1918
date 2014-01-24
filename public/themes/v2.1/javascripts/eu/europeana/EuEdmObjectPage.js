@@ -13,14 +13,54 @@
 
 
 	carousels = {
+		ajax_load_processed : true,
 		$featured_carousel : null,
-		$pagination_counts : jQuery('#pagination-counts'),
-		pagination_total : jQuery('#pagination-total').text(),
+		$pagination_counts : $('#pagination-counts'),
+		pagination_total : $('#pagination-total').text(),
+		$pagination_next : jQuery('#carousel-pagination .pagination a[rel=next]').eq(0),
+		$contributions_featured_ul : jQuery('#institution-featured ul'),
 
-		updatePaginationCount : function() {
-			this.$pagination_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' +	( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.pagination_total
-			);
+		addImagesToLightbox : function( $new_content ) {
+			var	$pp_full_res = jQuery('#pp_full_res'),
+					$new_links = $new_content.find('#institution-featured > ul > li > a');
+
+			if ( $pp_full_res.length < 1 ) {
+				lightbox.init();
+				return;
+			}
+
+			$new_links.each(function() {
+				var $elm = jQuery(this);
+				window.pp_images.push( $elm.attr('href') );
+				window.pp_descriptions.push( $elm.attr('data-description') );
+			});
+
+			$.prettyPhoto.changePage('next');
+		},
+
+		/**
+		 *	ajax methods
+		 */
+		handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
+			var $new_content = this.$new_content.clone();
+
+			if ( this.ajax_load_processed ) {
+				return;
+			}
+
+			this.$contributions_featured_ul.append( this.$new_content.find('#institution-featured ul li') );
+			this.$featured_carousel.ajaxCarouselSetup();
+			this.$pagination_next = this.$new_content.find('#carousel-pagination .pagination a[rel=next]');
+			this.ajax_load_processed = true;
+
+			if ( add_lightbox ) {
+				this.addImagesToLightbox( $new_content );
+			} else {
+				lightbox.removeLightboxLinks();
+			}
+
+			this.$featured_carousel.$next.trigger('click');
+			this.$featured_carousel.hideOverlay();
 		},
 
 		init: function() {
@@ -28,9 +68,13 @@
 
 			$('#institution-featured').imagesLoaded( function() {
 				self.$featured_carousel =
-					jQuery('#institution-featured').rCarousel({
+					$('#institution-featured').rCarousel({
 						item_width_is_container_width : true,
+						items_collection_total : parseInt( self.pagination_total, 10 ),
 						callbacks : {
+							before_nav: function( dir ) {
+								carousels.paginationContentCheck( dir );
+							},
 							after_nav : function() {
 								carousels.updatePaginationCount();
 							}
@@ -39,6 +83,76 @@
 
 				carousels.updatePaginationCount();
 			});
+		},
+
+		/**
+		 *	decide whether or not to try and pull in additional carousel assets
+		 *	additional assets are pulled in via the following url schemes
+		 *
+		 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
+		 *		partial page, default count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2
+		 *    partial page, custom count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2&count=2
+		 */
+		paginationContentCheck : function( dir ) {
+			var href,
+					next_page_link,
+					next_carousel_item = 0,
+					current_carousel_count = this.$featured_carousel.items_length,
+					current_carousel_item = this.$featured_carousel.get('current_item_index') + 1;
+
+			this.$featured_carousel.options.cancel_nav = true;
+			next_page_link = this.$pagination_next.attr('href');
+
+			if ( dir === 'next' ) {
+				next_carousel_item = current_carousel_item + 1;
+			} else if ( current_carousel_item > 1 )  {
+				next_carousel_item = current_carousel_item - 1;
+			} else {
+				next_carousel_item = 1;
+			}
+
+			if ( !next_page_link || next_carousel_item <= current_carousel_count  ) {
+				this.$featured_carousel.options.cancel_nav = false;
+				return;
+			}
+
+			next_page_link = next_page_link.split('?');
+
+			href =
+				next_page_link[0] + '?carousel=true&' +
+				//( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
+				next_page_link[1];
+
+			this.retrieveContent( href );
+		},
+
+		retrieveContent : function( href ) {
+			var self = this;
+
+			if ( !href || !self.ajax_load_processed ) { return; }
+			self.ajax_load_processed = false;
+			self.$new_content = jQuery('<div/>');
+
+			try {
+				self.$featured_carousel.$overlay.fadeIn();
+
+				self.$new_content.load(
+					href,
+					null,
+					function( responseText, textStatus, XMLHttpRequest ) {
+						self.handleContentLoad( responseText, textStatus, XMLHttpRequest );
+					}
+				);
+
+			} catch(e) {
+				console.log(e);
+			}
+		},
+
+		updatePaginationCount : function() {
+			this.$pagination_counts.html(
+				I18n.t('javascripts.thumbnails.item') + ' ' +	( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.pagination_total
+			);
 		}
 	},
 
