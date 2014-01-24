@@ -78,6 +78,8 @@ class EuropeanaController < ApplicationController
           render :partial => 'edm/pdf'
         elsif params[:edmvideo] == 'true'
           render :partial => 'edm/video'
+        elsif params[:carousel] && [ 'v2.1' ].include?(session[:theme])
+          render :partial => '/edm/carousel', :locals => { :record => @object }
         end
       end
     end
