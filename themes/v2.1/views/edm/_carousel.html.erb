@@ -1,0 +1,108 @@
+<%
+	html = '<div class="col-cell">'
+
+		html += '<div class="img-panel">'
+			html += '<div id="institution-featured" class="carousel">'
+				html += '<ul>'
+
+				# add multiple images
+				if carouselImages.present? && carouselImages.size > 1
+
+					developer_content = '<!--carousel images-->'
+
+					carouselImages.each do |img_src|
+						link_image = '<img src="' + img_src + '" alt="' + title + '"/>'
+						link_content = link_image + link_text_image
+						html += '<li>' + link_to( link_content.html_safe, img_src, link_attrs ) + developer_content + '</li>'
+					end
+
+				# single image
+				else
+
+					# view at provider’s website
+					if edmIsShownAt &&
+						(
+							params[:controller] == 'federated_search/dpla' ||
+							params[:controller] == 'federated_search/trove' ||
+							params[:controller] == 'federated_search/digitalnz'
+						)
+
+						# link available at provider’s website
+						if readVal = edm_proxy_field(aggregation, 'edmIsShownAt')
+
+							developer_content = '<!--view on provider’s site-->'
+							link_content = link_image + link_text_image
+
+							link_attrs.merge!({
+								:class => 'original-context',
+								:target => '_blank',
+								:rel => nil
+							})
+
+							html += '<li>' + link_to( link_content.html_safe, readVal, link_attrs ) + developer_content + '</li>'
+
+						# do not view on provider’s website
+						else
+
+							developer_content = '<!--do not view on provider’s site-->'
+							html += '<li>' + link_image.html_safe + developer_content + '</li>'
+
+						end
+
+					# view on 1914-1918 website - show the edmIsShownBy in the lightbox
+					elsif edmIsShownBy
+
+						dimensions = '&width=100%&height=100%'
+						video_src = link_record + '?edmvideo=true&iframe=true'
+
+						# edmIsShownBy will be a direct link to a vimeo video
+						if /player.vimeo.com/.match( edmIsShownBy )
+
+							video_src = edmIsShownBy + '?iframe=true' + dimensions
+
+						# edmIsShownBy has several possible values
+						# eventhough the iframe dimensions are 640 x 480,
+						# because of the lightbox ui the dimensions need to be wider and higher
+						elsif /EFG - The European Film Gateway/.match( edmProvider )
+
+							if /api.picturepipe.net/.match( edmIsShownBy )
+								dimensions = '&width=657&height=510'
+							end
+
+						end
+
+						video_src = video_src + dimensions
+						link_content = link_image + link_text_image
+						developer_content = '<!--edmIsShownBy in lightbox-->'
+
+						if oembed
+							developer_content += '<!--oembeded content-->'
+						end
+
+						html += '<li>' + link_to( link_content.html_safe, video_src, link_attrs ) + developer_content + '</li>'
+
+					# view on 1914-1918 website - show the edmPreview, no lightbox
+					else
+
+						link_content = link_image
+						developer_content = '<!--edmPreview only, no lightbox-->'
+						html += '<li>' + link_content.html_safe + developer_content + '</li>'
+						#html += '<li>' + link_to( link_content.html_safe, edmPreview, link_attrs ) + developer_content + '</li>'
+
+					end
+
+				end
+
+				html += '</ul>'
+				html += '<div class="carousel-overlay"></div>'
+			html += '</div>' # end carousel
+		html += '</div>' # end carousel image panel
+	html += '</div>' # end carousel col-cell
+
+	# add pagination info if present
+	if carouselImages.present? && carouselImages.size > 1
+		html += '<div id="carousel-pagination">' + will_paginate( carouselImages ) + 'Total: <span id="pagination-total">' + carouselImages.total_entries.to_s + '</span></div>'
+		html += '<div class="col-cell"><ul id="pagination-counts"></ul></div>'
+	end
+-%>
+<%= html.html_safe -%>
