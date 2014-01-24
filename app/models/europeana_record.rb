@@ -60,7 +60,7 @@ class EuropeanaRecord < ActiveRecord::Base
   end
   
   def country
-    unless object['europeanaAggregation']['edmCountry'].blank?
+    unless object['europeanaAggregation'].blank? || object['europeanaAggregation']['edmCountry'].blank?
       object['europeanaAggregation']['edmCountry']['def']
     end
   end
