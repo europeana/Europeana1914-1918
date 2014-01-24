@@ -19,7 +19,7 @@
 	    #     end
 		# end
 		
-         if provider == '/europeana' 
+         if provider == '/collection' 
          
              label = linkText.split(': ')[0]
              value = linkText.split(': ')[1]
@@ -40,7 +40,7 @@
       %>
 
 
-      <%#= link[:reduce] %>
+      <%#= link %>
       
       <%= link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val], :class => 'filter-crop' } %>
    

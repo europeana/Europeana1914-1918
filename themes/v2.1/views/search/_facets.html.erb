@@ -20,12 +20,11 @@
             <%- for row in facet['fields'] -%>
               <li>
                 <h4>
-                
-		          <%- if provider == '/europeana' && facet["name"] == 'RIGHTS' -%>
+		          <%- if provider == '/collection' && facet["name"].upcase == 'RIGHTS' -%>
 						<% rowLabel = rightsLabel( row['label'] ) %>
-		          <%- elsif provider == '/europeana' && facet["name"] == 'LANGUAGE' -%>
+		          <%- elsif provider == '/collection' && facet["name"].upcase == 'LANGUAGE' -%>
 						<% rowLabel = languageLabel(row['label'])  %>
-		          <%- elsif provider == '/europeana' && facet["name"] == 'COUNTRY' -%>
+		          <%- elsif provider == '/collection' && facet["name"].upcase == 'COUNTRY' -%>
 						<% rowLabel = row['label'].split.map(&:capitalize)*' '  %>
 				  <%- else %>
 						<%rowLabel = row['label']%>
