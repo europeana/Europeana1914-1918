@@ -2,7 +2,6 @@ class Admin::EuropeanaController < AdminController
   class Options
     include ActiveModel::Validations
     attr_accessor :query, :limit, :start
-    validates_presence_of :query
     validates_numericality_of :limit, :allow_nil => true, :unless => Proc.new { |o| o.limit.blank? }
     validates_numericality_of :start, :allow_nil => true, :unless => Proc.new { |o| o.start.blank? }
     
