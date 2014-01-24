@@ -18,7 +18,7 @@
 
 		aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
 		if aggregation['hasView'].present?
-			carouselImages  = aggregation['hasView']
+			carouselImages  = aggregation['hasView'].dup
 			carouselImages.unshift(aggregation['edmIsShownBy']) unless aggregation['edmIsShownBy'].blank?
 			carouselImages  = paginate_array(carouselImages, params[:page] || 1, 3)
 		end
