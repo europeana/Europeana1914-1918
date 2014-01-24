@@ -68,6 +68,7 @@ module EuropeanaHelper
         return [ place["latitude"], place["longitude"] ].join(",")
       end
     end
+    nil
   end
   
   ##

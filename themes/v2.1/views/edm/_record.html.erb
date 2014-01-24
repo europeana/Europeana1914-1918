@@ -183,7 +183,7 @@
 				html += '</div>'
 
 				# add pagination info if present
-				if carouselImages.present?
+				if carouselImages.present? && carouselImages.size > 1
 					html += '<div id="carousel-pagination">' + will_paginate( carouselImages ) + 'Total: <span id="pagination-total">' + carouselImages.total_entries.to_s + '</span></div>'
 					html += '<div class="col-cell"><ul id="pagination-counts"></ul></div>'
 				end
