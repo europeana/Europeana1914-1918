@@ -18,7 +18,7 @@ protected
   
   def search_params
     search_params = { 
-      :text => params[:q] + ' AND ("world war, 1914-1918" OR "world war I" or "great war")',
+      :text => (params[:q] ? params[:q] + ' AND ' : '') + '("world war, 1914-1918" OR "world war I" or "great war")',
       :per_page => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       "without[content_partner][]" => "Europeana",
