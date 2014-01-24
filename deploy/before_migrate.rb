@@ -7,6 +7,9 @@ run "ln -nfs #{config.shared_path}/config/s3.yml #{config.release_path}/config/s
 # Federated search config
 run "ln -nfs #{config.shared_path}/config/federated_search.yml #{config.release_path}/config/federated_search.yml"
 
+# Google API key
+run "ln -nfs #{config.shared_path}/config/google_api_key.p12 #{config.release_path}/config/google_api_key.p12"
+
 # Sass config
 run "ln -nfs #{config.shared_path}/config/sass.yml #{config.release_path}/config/sass.yml"
 
