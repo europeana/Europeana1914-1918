@@ -258,8 +258,7 @@ private
   # @param [Integer] expires_in (60 minutes) Time in seconds to cache feed for.
   # 
   def cache_blog_feed(key, feed, expires_in = nil)
-    # @todo: reduced temporarily during development; revert to 60.minutes
-    expires_in ||= 5.minutes
+    expires_in ||= 60.minutes
     if feed.respond_to?(:entries) && feed.entries.present?
       controller.write_fragment(key, feed.to_yaml, :expires_in => expires_in)
     elsif !feed.respond_to?(:entries) && feed.present?
