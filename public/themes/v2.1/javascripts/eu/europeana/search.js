@@ -383,7 +383,7 @@
 
 
 		resultTabs.init(function(){
-			toggleAutoComplete();
+//			toggleAutoComplete();
 		});
 
 		if(window.location.href.indexOf('#')==-1){
