@@ -57,6 +57,10 @@ class EuropeanaRecord < ActiveRecord::Base
     integer :current_status do
       ContributionStatus::APPROVED
     end
+    
+    integer :contributor_id do
+      nil
+    end
   end
   
   def rights
