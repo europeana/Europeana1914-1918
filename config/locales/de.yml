@@ -233,7 +233,7 @@ de:
         takedown: Zur Seite mit der Löschungsregelungen
       view-image: Vollansicht
       view-pdf: Dokument öffnen
-    map_contribution_heading: ! 'Ort:'
+    map_contribution_heading: ! 'Ort: '
     menus:
       main:
         about: Info
@@ -293,9 +293,9 @@ de:
     - Freitag
     - Samstag
     formats:
-      default: ! '%Y-%m-%d'
+      default: ! '%d.%m.%Y'
       long: ! '%e. %B %Y'
-      short: ! '%e. %b %Y'
+      short: ! '%e. %b'
     month_names:
     - 
     - Januar
@@ -311,9 +311,9 @@ de:
     - November
     - Dezember
     order:
-    - :year
-    - :month
     - :day
+    - :month
+    - :year
   datetime:
     distance_in_words:
       about_x_hours:
@@ -730,13 +730,13 @@ de:
           character2_pod: Sterbeort
           collection_day: Aktionstag
           contributor_behalf: Beitrag im Namen von
-          date_from: Das Ereignis beginnt...
+          date_from: Zeitangabe
           date_to: Das Ereignis endet...
           description: ! 'Ereignis '
           editor_pick: Empfehlungen der Redaktion
           editor_pick_sig: Redaktionssignatur
           editor_pick_text: Redaktionstext
-          forces: Welche Streitkräfte kommen in Ihrem Beitrag vor?
+          forces: Streitkräfte
           keywords: Schlagwörter
           lang: Sprache
           lang_other: Sprache (sonstige)
@@ -753,7 +753,7 @@ de:
         contribution: Beitrag
       taxonomy_term:
         forces:
-          Allied Forces: Alliierte
+          Allied Forces: Entente und verbündete Mächte
           Central Powers: Mittelmächte
           Imperial Forces: British Empire
         keywords:
@@ -817,7 +817,7 @@ de:
       story_character2: Person 2
       story_characters: ! 'Um wen geht es in diesem Beitrag? '
       story_dates: Wann trug sich diese Geschichte zu?
-      story_forces: Enthält dieses Objekt
+      story_forces: ! 'Bezieht sich dieses Objekt auf die '
       story_front: Auf welche Front bezieht sich dieser Beitrag?
       story_keywords: ! 'Erleichtern Sie anderen Personen die Suche nach Ihrem Beitrag, indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
 
@@ -880,7 +880,7 @@ de:
       of: von
     translate:
       return-to-language: Zurück zur Originalsprache
-      translate-to: Übersetzen auf
+      translate-to: Übersetzen in
     truncate:
       show-less: Zeige weniger...
       show-more: Zeige mehr...
@@ -1000,7 +1000,7 @@ de:
     registration_required: Registrierung erforderlich
     relative_url_root: URL-Rootverzeichnis
     search_engine: Suchmaschine
-    sharethis_id: 
+    sharethis_id: Teilen Sie diese Publisher ID
     site_name: Site-Name
     site_url: URL
     ui_locales: ! 'Verfügbare Sprachversionen '
@@ -1147,14 +1147,14 @@ de:
             draft: Beitragsentwürfe (%{total})
             rejected: Zurückgewiesene Beiträge (%{total})
             revised: Überarbeitete Beiträge, die noch bestätigt werden müssen (%{total})
-            submitted: Noch zu bestätigende Beiträge, die noch bestätigt werden müssen (%{total})
+            submitted: Beiträge, die noch bestätigt werden müssen (%{total})
             withdrawn: Zurückgezogene Beiträge, die noch bestätigt werden müssen (%{total})
           empty:
             all:
               approved: Noch keine bestätigten Beiträge.
               draft: Noch keine Beitragsentwürfe vorhanden.
               rejected: Noch keine zurückgewiesenen Beiträge vorhanden.
-              revised: ! ' Noch keine überarbeiteten Beiträge, die noch bestätigt werden müssen.'
+              revised: Keine überarbeiteten Beiträge, die noch bestätigt werden müssen.
               submitted: Zurzeit keine eingereichten Beiträge, die bestätigt werden müssen.
               withdrawn: Keine zurückgezogenen Beiträge, die Ihrer Suchanfrage entsprechen.
             search:
@@ -1163,14 +1163,14 @@ de:
               rejected: Es gibt keine zurückgewiesenen Beiträge, die Ihrer Suchanfrage entsprechen.
               revised: Es gibt keine überarbeiteten Beiträge, die Ihren Suchkriterien entsprechen.
               submitted: Keine eingereichten Beiträge, die Ihrer Suchanfrage entsprechen.
-              withdrawn: 
+              withdrawn: Keine zurückgezogenen Beiträge, die Ihrer Suchanfrage entsprechen.
           title: Beiträge
         p1: Nachfolgend finden Sie drei Tabellen mit Beiträgen, die noch nicht zur Genehmigung eingereicht wurden, auf Genehmigung warten bzw. bereits genehmigt wurden. Klicken Sie auf einen Titel, um Daten zu einem Beitrag anzuzeigen. Sobald die Daten angezeigt werden, können Sie die Metadaten kopieren, den Beitrag löschen oder (für Beiträge, die auf Genehmigung warten) den Beitrag genehmigen.
       europeana:
         index:
-          instructions: 
-          introduction: 
-          title: 
+          instructions: Nach dem Drücken des Startknopfes beginnt der Einspielvorgang von Ersten Weltkriegsinhalten aus der Europeana Portal API, in die 1914-1918 Datenbank.
+          introduction: Momentan sind %{count} Europeana Datensätze mit Bezug zum Ersten Weltkrieg in der 1914-1918 Datenbank.
+          title: Europeana Portal Inhalte einspielen
       index:
         headings:
           export: Exportieren
@@ -1187,11 +1187,11 @@ de:
 '
             text: Exportieren
           export_csv:
-            description: Exportieren Sie die Sammlungsbeiträge nach CSV.
+            description: Exportieren Sie die Sammlungsbeiträge in eine CSV-Datei.
             text: Als CSV exportieren
           export_users:
-            description: 
-            text: 
+            description: ! 'Export aller Nutzerdaten mit mit mindestens einem Beitrag in eine CSV-Datei '
+            text: Export Nutzerdaten
           export_xml:
             description: Exportieren Sie die Sammlungsbeiträge und -anhänge als XML.
             text: Als XML exportieren
@@ -1199,8 +1199,8 @@ de:
             description: Exportieren Sie die Sammlungsbeiträge und -anhänge als XML, ausgenommen .zip-Dateianhänge.
             text: Als XML exportieren (ausgenommen .zip-Dateien)
           harvest_europeana:
-            description: 
-            text: 
+            description: Einspielen von Ersten Weltkriegsinhalten aus der Europeana Portal API
+            text: Europeana Portal Inhalte einspielen
           institutions:
             description: Konfigurieren Sie Institutionen als optional assoziiert mit Nutzerkonten.
           logs:
@@ -1213,7 +1213,7 @@ de:
             description: ! 'Aktualisieren Sie den Suchmaschinenindex. '
             text: Suchmaschine reindexieren
           statistics:
-            description: Jährliche Beitragsstatistiken ansehen.
+            description: Jährliche Statistik der Beiträge ansehen.
             text: Statistik
           users:
             description: ! 'Nutzerkonten verwalten: Administratoren, Bearbeiter & Beiträger.'
@@ -1258,7 +1258,7 @@ de:
           title: Reihenfolge der Metadatenfelder
       statistics:
         index:
-          introduction: Die untere Tabelle zeigt die Zahl veröffentlichter Geschichten und ihrer Objekte für ein bestimmtes Jahr sowie optional für einen bestimmten Aktionstag.
+          introduction: Die untere Tabelle zeigt die Zahl der veröffentlichten Beiträge und Objekte nach Jahr und optional nach Aktionstag.
           title: Statistik
       taxonomy_terms:
         delete:
@@ -1706,13 +1706,13 @@ de:
     search:
       facets:
         common:
-          category: Kategorie
+          category: Dokumentenart
           collection: Sammlung
           country: Land
           creator: Urheber
           format: Format
           language: Sprache
-          location: Standort
+          location: Ort
           provider: Beiträger
           rights: Rechte
           subject: Thema
@@ -1730,13 +1730,14 @@ de:
           provider: Beiträger
           theatres: Kriegsschauplätze
         digitalnz:
-          content_partner: Partner
+          content_partner: Institution
         europeana:
           data_provider: Institution
           reusability: Nachnutzbarkeit
           source_all: Alle Dokumente
           source_info: Sie erhalten weitere Filtermöglichkeiten, nachdem Sie eine der beiden Quellenoptionen gewählt haben.
           source_institution: aus Archiven, Bibliotheken und Museen
+          source_label: 
           source_ugc: von Privatpersonen
           ugc: User Generated Content
         matches_for: Treffer für Ihre Suche
@@ -1767,7 +1768,7 @@ de:
           europeana_pageviews: Seitenaufrufe (Partnerinstitutionen)
           object_pageviews: Seitenaufrufe (UGC)
           visits: Besuche
-        no_results: Keine Statistik
+        no_results: Keine Statistik vorhanden
         ugc_heading: Beiträge von unseren Nutzern
     table:
       header:
@@ -1814,4 +1815,4 @@ de:
     per_page_label: ! 'Ergebnisse pro Seite:'
     per_page_title: Zahl der Ergebnisse, die auf der Seite gezeigt werden
     previous_label: ← Vorige
-    previous_title: Nächste Seite
+    previous_title: Vorige Seite
