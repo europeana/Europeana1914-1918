@@ -558,6 +558,7 @@
 			mimetype.itemsTotal = mimetype.$items.length;
 
 			if ( mimetype.itemsTotal < 1 ) {
+				mimetype.revealCarousel();
 				return;
 			}
 
