@@ -69,8 +69,6 @@
 			$('#institution-featured').imagesLoaded( function() {
 				self.$featured_carousel =
 					$('#institution-featured').rCarousel({
-						item_width_is_container_width : true,
-						items_collection_total : parseInt( self.pagination_total, 10 ),
 						callbacks : {
 							before_nav: function( dir ) {
 								carousels.paginationContentCheck( dir );
@@ -78,7 +76,10 @@
 							after_nav : function() {
 								carousels.updatePaginationCount();
 							}
-						}
+						},
+						hide_overlay: false,
+						item_width_is_container_width : true,
+						items_collection_total : parseInt( self.pagination_total, 10 )
 					}).data('rCarousel');
 
 				carousels.updatePaginationCount();
@@ -493,11 +494,20 @@
 
 
 	mimetype = {
+		carousel_reveal_count: 0,
+		carousel_reveal_max_count: 100,
+		carousel_reveal_wait: 100,
 		$items: $('#institution-featured a'),
 		itemsHandled: 0,
 		itemsTotal: 0,
 
 		ajax: {
+			/**
+			 * retrieve the HTTP headers of a given URL
+			 * when proveded by the $elm’s data-record attribute
+			 *
+			 * @param {object} $elm
+			 */
 			get: function( $elm ) {
 				if ( $elm.attr('data-record') === undefined ) {
 					mimetype.incrementItemsHandled();
@@ -506,24 +516,30 @@
 
 				$.ajax({
 					complete: mimetype.incrementItemsHandled,
+					error: function() {
+						mimetype.removeLightbox( $elm );
+					},
 					success: function( data ) {
-						mimetype.ajax.success( data, $elm );
+						if ( data['content-type']
+							&& data['content-type'][0]
+							&& data['content-type'][0] === 'application/pdf'
+						) {
+							mimetype.replaceWithPdfLink( $elm );
+						}
 					},
 					timeout: 5000,
 					type: 'GET',
 					url: $elm.attr('data-record') + '/headers.json'
 				});
-			},
-
-			success: function( data, $elm ) {
-				if ( data['content-type'] && data['content-type'][0] && data['content-type'][0] === 'application/pdf' ) {
-					mimetype.removeLightbox( $elm );
-				}
 			}
 		},
 
 		incrementItemsHandled: function() {
 			mimetype.itemsHandled += 1;
+
+			if ( mimetype.itemsHandled === 1 ) {
+				mimetype.revealCarousel();
+			}
 
 			if ( mimetype.itemsHandled === mimetype.itemsTotal ) {
 				lightbox.init();
@@ -546,38 +562,47 @@
 		},
 
 		removeLightbox: function( $elm ) {
+			var img = $elm.find('img').clone(),
+			$parent = $elm.parent();
+			$elm.remove();
+			$parent.append( img );
+		},
+
+		replaceWithPdfLink: function( $elm ) {
 			$elm
 				.removeAttr( 'rel' )
 				.attr( 'href', $elm.attr( 'data-record' ) + '?edmpdf=true' )
 				.attr( 'target', '_blank' );
+		},
+
+		revealCarousel: function() {
+			if ( carousels.$featured_carousel !== null ) {
+				carousels.$featured_carousel.hideOverlay();
+			} else {
+				mimetype.carousel_reveal_count += 1;
+
+				if ( mimetype.carousel_reveal_count >= mimetype.carousel_reveal_max_count ) {
+					return;
+				}
+
+				setTimeout(
+					function() {
+						mimetype.revealCarousel();
+					},
+					mimetype.carousel_reveal_wait
+				);
+			}
 		}
 	};
 
 
 	(function() {
-
 		truncate.init();
 		RunCoCo.translation_services.init( jQuery('.translate-area') );
 		carousels.init();
 		map.init();
 		tags.init();
 		mimetype.init(); // lightbox is now initialized within this object
-
-		//js.utils.initSearch();
-
-		/*
-		js.loader.loadScripts([{
-			file : 'EuAccordionTabs.js',
-			path : themePath + "javascripts/eu/europeana/",
-			callback : function(){
-				new AccordionTabs( $('#explore-further'),
-					function(){
-						console.log("tab change event");
-					}
-				);
-			}
-		}]);
-		*/
 	}());
 
 }( jQuery ));
