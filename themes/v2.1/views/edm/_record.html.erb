@@ -33,37 +33,6 @@
 		places          = record['places'] ? record['places'] : {}
 		proxy           = record['proxies'][0]
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
-	    link_image      = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-
-		
-		link_record     = record['about'] ? europeana_record_url( record['about'] ) : nil
-		link_text_image = ''
-		link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
-
-		link_attrs      = {
-										'class' => 'image',
-										'data-description' => title,
-										:rel => 'prettyPhoto[gallery]',
-										:title => title
-		}
-
-		if type == 'TEXT'
-			link_attrs.merge!({
-				'data-record' => link_record
-			})
-		end
-
-		if edmProvider && edmProvider['def'] && edmProvider['def'][0]
-			edmProvider = edmProvider['def'][0]
-		end
-
-		if !(
-			params[:controller] == 'federated_search/dpla' ||
-		 	params[:controller] == 'federated_search/trove' ||
-		  params[:controller] == 'federated_search/digitalnz'
-		)
-			link_text_image = '<p class="view-item">' + t( 'common.links.view-image' ) + '</p>'
-		end
 
 	# end variable setup
 

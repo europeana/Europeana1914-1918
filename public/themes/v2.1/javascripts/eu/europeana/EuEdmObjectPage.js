@@ -522,9 +522,12 @@
 					success: function( data ) {
 						if ( data['content-type']
 							&& data['content-type'][0]
-							&& data['content-type'][0] === 'application/pdf'
 						) {
-							mimetype.replaceWithPdfLink( $elm );
+							if ( data['content-type'][0] === 'text/html' ) {
+								mimetype.removeLightbox( $elm );
+							} else if ( data['content-type'][0] === 'application/pdf' ) {
+								mimetype.replaceWithPdfLink( $elm );
+							}
 						}
 					},
 					timeout: 5000,
