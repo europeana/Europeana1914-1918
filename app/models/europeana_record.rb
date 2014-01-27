@@ -24,7 +24,13 @@ class EuropeanaRecord < ActiveRecord::Base
     end
     
     string :year, :multiple => true do
-      object['year']
+      years = [ ]
+      object['proxies'].each do |proxy|
+        if proxy['year'] && proxy['year']['eur']
+          years = years + proxy['year']['eur']
+        end
+      end
+      years.flatten.uniq
     end
     
     string :type do
