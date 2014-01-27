@@ -413,6 +413,7 @@
 	},
 
 
+	/*
 	truncate = {
 		init : function() {
 			if ( jQuery('#avatar').length < 1 ) {
@@ -428,10 +429,11 @@
 			});
 		}
 	};
+	*/
 
 
 	(function() {
-		truncate.init();
+		//truncate.init();
 		RunCoCo.translation_services.init( $('.translate-area') );
 		carousels.init();
 		map.init();
