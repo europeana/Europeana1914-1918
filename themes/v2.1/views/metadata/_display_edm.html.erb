@@ -10,6 +10,9 @@
   #    proxy_dc_creator:*
   #    proxy_dc_date:*
   #    proxy_dc_type:*
+  #    proxy_dc_format:*
+  #    proxy_dc_coverage:*
+  #    proxy_dc_rights:*
   #    proxy_dcterms_extent:*
   #    europeana_aggregation_edm_language:*
   #    provider_aggregation_edm_provider:*
@@ -45,7 +48,7 @@
       "name" => "dcCreator",
       "ns" => "dc",
       "label" => "creator",
-      "source" => proxy
+      "source" => euAggregation
       },
       {
       "name" => "dcType",
@@ -109,6 +112,7 @@
 %>
 
 
+
   <%- edmVals.each do |edmVal| -%>
 
 	<%- if readVal = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
@@ -144,3 +148,5 @@
 	<% end -%>
 
   <%- end -%>
+  
+  
