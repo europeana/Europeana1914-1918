@@ -14,7 +14,8 @@ class EuropeanaRecord < ActiveRecord::Base
     fulltext_fields = { 
       'proxies' => [ 
         'dcDescription', 'dcCreator', 'dcType', 'dcFormat', 'dcSubject', 
-        'dcDate', 'dcCoverage', 'dcRights', 'dcTitle', 'dcSource', 'dcRelation' 
+        'dcDate', 'dcCoverage', 'dcRights', 'dcTitle', 'dcSource', 'dcRelation',
+        'dcContributor'
       ],
       'aggregations' => [
         'edmDataProvider',
