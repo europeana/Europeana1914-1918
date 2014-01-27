@@ -258,7 +258,7 @@
 						changepicturecallback : self.handlePictureChange,
 						show_title : false,
 						social_tools: false,
-						collection_total : carousels.items_collection_total,
+						collection_total : carousels.pagination_total,
 						callback : function() {
 							//lightbox.init(); // Why is this run as a callback when pp is closed?
 							self.removeMediaElementPlayers();

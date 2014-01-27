@@ -165,6 +165,7 @@
 						changepagenext : self.handlePageChangeNext,
 						changepageprev : self.handlePageChangePrev,
 						changepicturecallback : self.handlePictureChange,
+						collection_total : carousels.pagination_total,
 						show_title : false,
 						social_tools: false
 					};
