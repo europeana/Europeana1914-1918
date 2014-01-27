@@ -44,7 +44,7 @@ protected
   # @return [String]
   def search_params
     search_params = { 
-      :q => (params[:q] ? params[:q] + ' AND ' : '') + '("first world war" OR "world war i" OR "world war, 1914-1918")',
+      :q => (params[:q].present? ? params[:q] + ' AND ' : '') + '("first world war" OR "world war i" OR "world war, 1914-1918")',
       :zone => extracted_facet_params[:zone].first,
       :encoding => "json",
       :n => params_with_defaults[:count],

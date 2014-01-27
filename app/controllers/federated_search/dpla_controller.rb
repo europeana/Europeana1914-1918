@@ -26,7 +26,7 @@ protected
 
   def search_params
     search_params = { 
-      :q => (params[:q] ? params[:q] + ' AND ' : '') + '("world war, 1914-1918" OR "world war I" OR "great war")',
+      :q => (params[:q].present? ? params[:q] + ' AND ' : '') + '("world war, 1914-1918" OR "world war I" OR "great war")',
 #      "sourceResource.subject.name" => '"World War, 1914-1918"',
       :page_size => params_with_defaults[:count],
       :page => params_with_defaults[:page],
@@ -82,6 +82,7 @@ protected
   end
   
   def facets_from_response(response)
+    return [] unless response["facets"].present?
     response["facets"].collect do |facet_name, facet_data|
       facet = {
         "name" => facet_name,
