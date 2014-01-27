@@ -187,7 +187,7 @@ limitations under the License.
 
 	</div> <!-- outerContainer -->
 	<div id="printContainer"></div>
-	<script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
+	<script>var DEFAULT_URL = '<%= inline_contribution_attachment_url(:id => @attachment.id, :contribution_id => @attachment.contribution_id, :style => "full", :extension => "pdf", :locale => nil) %>';</script>
 	<%
 		# supporting scripts
 		script_files = [
