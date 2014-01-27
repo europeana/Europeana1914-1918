@@ -523,7 +523,7 @@
 						if ( data['content-type']
 							&& data['content-type'][0]
 						) {
-							if ( data['content-type'][0] === 'text/html' ) {
+							if ( data['content-type'][0].indexOf( 'text/html' ) !== -1 ) {
 								mimetype.removeLightbox( $elm );
 							} else if ( data['content-type'][0] === 'application/pdf' ) {
 								mimetype.replaceWithPdfLink( $elm );
