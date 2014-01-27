@@ -54,6 +54,7 @@
                     <%- if facet_row_selected?(facet['name'], row['search']) -%>
                     
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
+                                            
                       <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
 
                     <%- else -%>
@@ -75,7 +76,12 @@
       <%- end -%>
     
     <%- end -%>
+    
+    <%= hidden_field_tag 'q', query %>
+    
     <%= submit_tag t('actions.submit'), :name => nil, :style => "visibility:hidden" %>
+    
+    
   <%- end -%>
 </ul>
 <%- end -%>
