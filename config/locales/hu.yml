@@ -1,0 +1,1782 @@
+hu:
+  actions:
+    approve: Műveletek
+    cancel: ! 'Mégse '
+    copy: 
+    delete: ! 'Törlés '
+    download: 
+    edit: ! 'Szerkesztés '
+    edit_story: A történet
+    filter: 
+    flag: 
+    new: 
+    reject: 
+    remove: 
+    save: ! 'Mentés '
+    submit: 
+    unflag: 
+    update: 
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: 
+        file: 
+        file_content_type: 
+        file_created_at: 
+        file_file_name: 
+        file_file_size: ! 'A file mérete '
+        file_updated_at: 
+        preview: ! 'Vizualizálás '
+        public: 
+      contact:
+        age: 
+        country: 
+        full_name: 
+        gender: 
+        locality: 
+        postal_code: 
+        region: 
+        street_address: 
+        tel: 
+      contribution:
+        approved_at: 
+        approved_by: 
+        approver: 
+        attachments: ! 'Dokumentumok '
+        catalogued_by: 
+        cataloguer: 
+        contributor: 
+        created_at: 
+        published_at: 
+        submitted_at: 
+        terms: 
+      contribution_status:
+        created_at: 
+      metadata_field:
+        cataloguing: 
+        field_type: Típus
+        hint: 
+        multi: 
+        name: 
+        position: 
+        required: 
+        searchable: ! ' Keresés '
+        show_in_listing: 
+      setting:
+        name: 
+        value: 
+      taxonomy_term:
+        metadata_field: 
+        term: 
+      user:
+        created_at: 
+        password: Jelszó
+        password_confirmation: 
+        role_name: 
+        username: Felhasználó név
+    errors:
+      full_messages:
+        format: ! '%{attribute} %{message}'
+      messages:
+        accepted: nincs elfogadva
+        blank: nincs megadva
+        confirmation: nem egyezik
+        empty: nincs megadva
+        equal_to: pontosan %{count} kell legyen
+        even: páros kell legyen
+        exclusion: nem elérhető
+        greater_than: nagyobb kell legyen, mint %{count}
+        greater_than_or_equal_to: legalább %{count} kell legyen
+        inclusion: nincs a listában
+        invalid: nem megfelelő
+        less_than: kevesebb, mint %{count} kell legyen
+        less_than_or_equal_to: legfeljebb %{count} lehet
+        not_a_number: nem szám
+        not_an_integer: egész számnak kell lennie
+        odd: páratlan kell legyen
+        record_invalid: Sikertelen validálás %{errors}
+        taken: már foglalt
+        too_long: túl hosszú (nem lehet több %{count} karakternél)
+        too_short: túl rövid (legalább %{count} karakter kell legyen)
+        wrong_length: nem megfelelő hosszúságú (%{count} karakter szükséges)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: 
+              presence: 
+              size: 
+        contribution:
+          attributes:
+            catalogued_by:
+              role_name: 
+            guest_id:
+              present: 
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: 
+            contribution:
+              or_attachment: 
+            field_type:
+              constancy: 
+            searchable:
+              field_type: 
+        metadata_record:
+          date_field_civil: 
+          one_cover_image: 
+          taxonomy_field_single: 
+        setting:
+          attributes:
+            name:
+              inclusion: 
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: 
+        user:
+          attributes:
+            current_password:
+              invalid: 
+            email:
+              taken: 
+            picture:
+              content_type: 
+      template:
+        body: ! 'Problémás mezők:'
+        header:
+          one: ! '1 hiba miatt nem menthető a következő: %{model}'
+          other: ! '%{count} hiba miatt nem menthető a következő: %{model}'
+    models:
+      attachment: 
+      contact: 
+      contribution: 
+      institution: 
+      metadata_field: 
+      metadata_record: 
+      taxonomy_term: 
+      user: 
+    options:
+      contact:
+        gender:
+          female: 
+          male: 
+      metadata_field:
+        field_type:
+          date: 
+          geo: 
+          string: 
+          taxonomy: 
+          text: 
+      user:
+        role_name:
+          administrator: 
+          blank: 
+          cataloguer: 
+          contributor: 
+  attributes:
+    contact: 
+    created_at: 
+    email: Email
+    id: 
+    metadata_record: 
+    title: ! 'Cím '
+    updated_at: 
+    url: 
+  common:
+    additional-information: 
+    download-item: 
+    editors_blog:
+      more_stories: 
+    editors_pick:
+      heading: 
+      more_stories: 
+    featured-categories: 
+    from-collection-days: 
+    google_maps:
+      help_text: 
+      label: Használja a Google Maps-et  ( opcionális)
+    help_text:
+      mandatory: Kötelező mező
+    labels:
+      co_funded: 
+    links:
+      about_the_project: ! 'A projektről  '
+      add-your-story: Csatólja történetét
+      add-your-story-brief: 
+      contact_us: Kapcsolat
+      contact_us_email: 
+      contribution-terms-pdf: 
+      contribution_terms: 
+      efg: 
+      explore-the-stories: Fedezze fel a történeteket
+      explore-the-stories-brief: 
+      explore_stories: 
+      help: Segítség
+      my_account: 
+      my_stories: 
+      national_collections: 
+      play-audio: 
+      play-video: 
+      privacy_policy: 
+      project_website: 
+      project_website_v2: 
+      register: Regisztrálás
+      sign_in: Bejelentkezés
+      statistics: 
+      takedown_policy: 
+      titles:
+        contribution_terms: 
+        great_war: 
+        takedown: 
+      view-image: 
+      view-pdf: 
+    map_contribution_heading: 
+    menus:
+      main:
+        about: 
+        add: 
+        collection-days: 
+        explore: 
+        home: ! 'Kezdõlap  '
+        remix: 
+        select_language: 
+        sign_in: Bejelentkezés
+        sign_out: 
+      menu: 
+    more-at: 
+    news: 
+    news_item:
+      heading: 
+    'no': 
+    options:
+      close: 
+      open: 
+      other_option: 
+    other:
+      contributor: 
+      preview: 
+      title: 
+      total: 
+    'yes': Igen
+  date:
+    abbr_day_names:
+    - v.
+    - h.
+    - k.
+    - sze.
+    - cs.
+    - p.
+    - szo.
+    abbr_month_names:
+    - 
+    - jan.
+    - febr.
+    - márc.
+    - ápr.
+    - máj.
+    - jún.
+    - júl.
+    - aug.
+    - szept.
+    - okt.
+    - nov.
+    - dec.
+    day_names:
+    - vasárnap
+    - hétfő
+    - kedd
+    - szerda
+    - csütörtök
+    - péntek
+    - szombat
+    formats:
+      default: ! '%Y.%m.%d.'
+      long: ! '%Y. %B %e.'
+      short: ! '%b %e.'
+    month_names:
+    - 
+    - január
+    - február
+    - március
+    - április
+    - május
+    - június
+    - július
+    - augusztus
+    - szeptember
+    - október
+    - november
+    - december
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: kb 1 óra
+        other: kb %{count} óra
+      about_x_months:
+        one: kb 1 hónap
+        other: kb %{count} hónap
+      about_x_years:
+        one: kb 1 év
+        other: kb %{count} év
+      almost_x_years:
+        one: majdnem 1 év
+        other: majdnem %{count} év
+      half_a_minute: fél perc
+      less_than_x_minutes:
+        one: kevesebb, mint 1 perc
+        other: kevesebb, mint %{count} perc
+      less_than_x_seconds:
+        one: kevesebb, mint 1 másodperc
+        other: kevesebb, mint %{count} másodperc
+      over_x_years:
+        one: több, mint 1 év
+        other: több, mint %{count} év
+      x_days:
+        one: 1 nap
+        other: ! '%{count} nap'
+      x_minutes:
+        one: 1 perc
+        other: ! '%{count} perc'
+      x_months:
+        one: 1 hónap
+        other: ! '%{count} hónap'
+      x_seconds:
+        one: 1 másodperc
+        other: ! '%{count} másodperc'
+    prompts:
+      day: Nap
+      hour: Óra
+      minute: Perc
+      month: Hónap
+      second: Másodperc
+      year: Év
+  devise:
+    failure:
+      admin:
+        unauthenticated: 
+      invalid: 
+      invalid_token: 
+      timeout: 
+      unauthenticated: 
+    mailer:
+      reset_password_instructions:
+        subject: ! 'Tárgy '
+    passwords:
+      link: Elfelejtette jelszavát?
+      send_instructions: 
+      updated: 
+    registrations:
+      destroyed: 
+      link: Regisztrálás
+      signed_up: 
+      updated: 
+    sessions:
+      link: 
+      signed_in: ! 'Sikeres bejelentkezés '
+      signed_out: 
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: nincs elfogadva
+      blank: nincs megadva
+      confirmation: nem egyezik
+      empty: nincs megadva
+      equal_to: pontosan %{count} kell legyen
+      even: páros kell legyen
+      exclusion: nem elérhető
+      greater_than: nagyobb kell legyen, mint %{count}
+      greater_than_or_equal_to: legalább %{count} kell legyen
+      inclusion: nincs a listában
+      invalid: nem megfelelő
+      less_than: kevesebb, mint %{count} kell legyen
+      less_than_or_equal_to: legfeljebb %{count} lehet
+      not_a_number: nem szám
+      not_an_integer: egész számnak kell lennie
+      odd: páratlan kell legyen
+      record_invalid: Sikertelen validálás %{errors}
+      taken: már foglalt
+      too_long: túl hosszú (nem lehet több %{count} karakternél)
+      too_short: túl rövid (legalább %{count} karakter kell legyen)
+      wrong_length: nem megfelelő hosszúságú (%{count} karakter szükséges)
+    template:
+      body: ! 'Problémás mezők:'
+      header:
+        one: ! '1 hiba miatt nem menthető a következő: %{model}'
+        other: ! '%{count} hiba miatt nem menthető a következő: %{model}'
+  flash:
+    actions:
+      create:
+        alert: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+    admin:
+      europeana:
+        harvest:
+          notice: 
+    attachments:
+      create:
+        alert: 
+        invalid_files: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      duplicate:
+        notice: 
+      links:
+        view-attachments_html: 
+      update:
+        alert: 
+        notice: 
+    configuration:
+      update:
+        alert: 
+        notice: 
+    contacts:
+      create:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+    contributions:
+      approve:
+        alert: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      draft:
+        create:
+          alert: 
+          notice: ! 'Kezdje el egy új hozzájárulás vázlatát '
+        submit:
+          alert: 
+          notice: 
+        update:
+          alert: 
+          notice: 
+      reject:
+        alert: 
+        notice: 
+      submitted:
+        edit:
+          alert: 
+      withdraw:
+        alert: 
+        notice: 
+    contributors:
+      create:
+        alert: 
+      update:
+        alert: 
+    fields:
+      reindexing: 
+    guest_contact:
+      create:
+        alert: 
+        notice: 
+      forget:
+        notice: 
+      update:
+        alert: 
+        notice: 
+    metadata_fields:
+      update_order:
+        notice: 
+    status:
+      alert: 
+      notice: 
+    tags:
+      create:
+        success: 
+      destroy:
+        success: 
+      flag:
+        success: 
+    taxonomy:
+      imported: 
+    users:
+      create:
+        alert: 
+        notice: 
+      destroy:
+        notice: 
+      register:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+  formtastic:
+    actions:
+      attachment:
+        add_edit: 
+        create: 
+        delete: 
+        update: 
+      contribution:
+        create: 
+        delete: ! 'Törölje a történetet '
+        save_draft: ! 'Mentse le a hozzájárulása vázlatát! '
+        submit: 
+        update: 
+        withdraw: 
+      contributor:
+        create: 
+      create: 
+      delete: 
+      filter:
+        submit: 
+      metadata_field:
+        delete: 
+        reindex: 
+      password:
+        create: 
+        update: 
+      search:
+        submit: 
+      sign_in: 
+      submit: 
+      tag:
+        flag: 
+      taxonomy_term:
+        import: 
+      update: 
+      upload: 
+      user:
+        create: 
+        delete: 
+        update: 
+    create: 
+    hints:
+      attachment:
+        dropbox_path: 
+        edit:
+          file: 
+        file: 
+        metadata:
+          attachment_description: ! 'Írja le a dokumentum fizikai jellegzetességeit, mi az, és milyen jelentőséggel bír számomra '
+          content: ! 'Milyen dokumentum (pl. vers, fénykép) kérjük, írja minél pontosabban körül. '
+          cover_image: ! 'Egy fedőlap: beazonosítja a történetet (hozzájárulást) a gyűjteményünkben. Hasonlít egy könyv borítójához. Lehet fénykép, egy napló címlapja vagy egy érem fényképe.  '
+          creator_given_name: ! 'Az eredeti tárgy/eredeti dokumentum alkotójának neve, például a levél vagy a napló szerzője vagy a fényképész neve. '
+          date_from: ! 'Mondd el, mikor hozták létre a dokumentumot, például mikor keltezték a levelet vagy mikor láttak hozzá az okirat összeállításához (például mikor kezdte a naplóírást). Ha nem tudod a pontos dátumot, add meg csupán az évet, vagy az évet és a hónapot. '
+          date_to: ! 'A dokumentum befejezési dátuma, például egy napló utolsó napja  '
+          forces: ! 'Megkérjük, ne jelöljön be egy mezőt se, ha nem releváns. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több releváns fogalom, kérjük, küldje el e-mailbe a következő címre: 1914-1918[@]europeana[.]eu'
+          format: 
+          keywords: ! "Csak azokat a kulcsszavakat írja be, amelyek megfelelő módon írják körül a főtémát vagy az ön hozzájárulásának egy tágabb koncepcióját jelölik. Ezen kulcsszavak célja, hogy megfelelő módon illusztrálják az ön történetét a gyűjteményünk keretén belül. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több kulcsszó, kérjük, küldje el e-mailbe a következő címre: \n1914-1918[@]europeana[.]eu. \n"
+          lang: 
+          location_placename: 
+          object_side: ! 'Egy olyan tárgy esetében, amelynek két oldala van, jelölje meg, hogy melyik oldalát láthatjuk '
+          page_number: ! 'Több oldalas dokumentum esetén, írja fel az illető oldal számát '
+          source: 
+          subject: ! 'Az a személy, hely vagy tárgy, amelyikre a dokumentum vonatkozik '
+          theatres: ! 'Megkérjük, ne jelöljön be egy mezőt se, ha nem releváns. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több releváns fogalom, kérjük, küldje el e-mailbe a következő címre: 1914-1918[@]europeana[.]eu'
+        new:
+          file: ! 'Annyi fájt tölthet fel, ahány csak szükséges, de csak egyenként. Jegyezze meg, hogy több fájl feltöltése esetén az egyiket „fedőlapnak” nevezheti ki (például egy képeslap vagy egy napló esetében). Egy fájl maximálisan megengedett nagysága: %{max}. Elfogadott fájl-típusok:  %{file_types}'
+        title: Egy rövid leíró cím vagy a tárgyhoz találó megnevezés, például „Az nagytatám, Otto Schmidt, Tiszteletbeli Érméje”
+      contact:
+        full_name: 
+      contribution:
+        metadata:
+          contributor_behalf: 
+          date_from: ! 'Mondja el, mikor zajlott a története! Ha nem tudja a pontos idejét, írja be csak az évet (például az én nagytatámat 1915-ben sorozták be).  '
+          date_to: ! 'Mondja el, mikor ért véget a története! Ha nem tudja a pontos idejét, írja be csak az évet (például az én nagytatám 2016-ban sérült meg) '
+          description: Az alábbiakban részletezze a hozzájárulása mögött álló történetét.
+          forces: ! 'Megkérjük, ne jelöljön be egy mezőt se, ha nem releváns. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több releváns fogalom, kérjük, küldje el e-mailbe a következő címre: 1914-1918[@]europeana[.]eu'
+          keywords: ! "Csak azokat a kulcsszavakat írja be, amelyek megfelelő módon írják körül a főtémát vagy az ön hozzájárulásának egy tágabb koncepcióját jelölik. Ezen kulcsszavak célja, hogy megfelelő módon illusztrálják az ön történetét a gyűjteményünk keretén belül. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több kulcsszó, kérjük, küldje el e-mailbe a következő címre: \n1914-1918[@]europeana[.]eu. \n"
+          lang: 
+          location_placename: ! 'Vezesse be annak a városnak a nevét, ahol a történet zajlott. Pl. London, Párizs '
+          theatres: ! 'Megkérjük, ne jelöljön be egy mezőt se, ha nem releváns. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több releváns fogalom, kérjük, küldje el e-mailbe a következő címre: 1914-1918[@]europeana[.]eu'
+        title: ! 'Adjon egy címet a teljes hozzájárulásának. '
+      metadata_field:
+        attachment: 
+        cataloguing: 
+        contribution: 
+        field_type: 
+        hint: 
+        multi: 
+        name: 
+        required: 
+        searchable: 
+        searchable_no_sphinx: 
+        show_in_listing: 
+        title: 
+      metadata_record:
+        date: 
+        geo: 
+      password:
+        new:
+          email: 
+      settings:
+        allowed_upload_extensions: 
+        banner_active: 
+        banner_text: 
+        bing_client_id: 
+        bing_client_secret: 
+        bing_translate_key: 
+        contribution_approval_required: 
+        gmap_api_key: 
+        google_analytics_key: 
+        google_api_email: 
+        max_upload_size: 
+        publish_contributions: 
+        registration_required: 
+        relative_url_root: 
+        sharethis_id: 
+        site_name: 
+        site_url: 
+        ui_locales: 
+        uploadify: 
+      taxonomy_term:
+        import: 
+        term: 
+      user:
+        current_password: 
+        edit:
+          password: 
+        email: 
+        password: 
+        update:
+          password: 
+        username: 
+    labels:
+      attachment:
+        metadata:
+          attachment_description: ! 'Leírás '
+          attachment_file: ! 'Egy fájl '
+          content: 
+          cover_image: ! 'Fedőlap '
+          creator_family_name: ! 'A szerző családneve  '
+          creator_given_name: ! 'A szerző keresztneve  '
+          date_from: ! 'A létrehozás dátuma  / Kezdeti datum '
+          date_to: ! 'A történet befejezésének ideje '
+          file_type: 
+          format: 
+          lang: 
+          lang_other: 
+          license: 
+          location_map: 
+          location_placename: ! 'Lokalizálja a dokumentum létrehozásának helyét! '
+          notes: 
+          object_side: 
+          page_number: ! 'Lapszám '
+          page_total: 
+          source: 
+          subject: 
+          ticket: 
+      content:
+        metadata:
+          dc:
+            contributor: 
+            country: 
+            coverage: 
+            creator: 
+            date: 
+            description: 
+            format: 
+            identifier: 
+            language: 
+            publisher: 
+            rights: 
+            subject: 
+            terms_alternative: 
+            terms_extent: 
+            title: 
+            type: 
+          edm:
+            country: 
+            data_provider: 
+            external_partner_site: 
+            language: 
+            partner_site: 
+            provider: 
+            rights: 
+      contribution:
+        metadata:
+          alternative: 
+          cataloguer: 
+          character1_dob: Születési idő
+          character1_dod: 
+          character1_family_name: ! 'Családnév '
+          character1_given_name: Keresztnév
+          character1_pob: Születési hely
+          character1_pod: ! 'A haláleset helye '
+          character2_dob: Születési idő
+          character2_dod: 
+          character2_family_name: ! 'Családnév '
+          character2_given_name: Keresztnév
+          character2_pob: Születési hely
+          character2_pod: ! 'A haláleset helye '
+          collection_day: 
+          contributor_behalf: 
+          date_from: A történet kezdete  ….
+          date_to: A történet vége…
+          description: 
+          editor_pick: 
+          editor_pick_sig: 
+          editor_pick_text: 
+          forces: 
+          keywords: Kulcsszavak
+          lang: ! 'Nyelv '
+          lang_other: 
+          location_map: 
+          location_placename: ! 'Jelölje meg azt a helyet, ahol a történet cselekménye zajlott! '
+          location_zoom: 
+          notes: 
+          summary: ! 'A tárgyak rövid leírása '
+          theatres: ! 'Harci színhelyek '
+          ticket: 
+        terms: 
+        title: A történet címe
+      metadata_field:
+        contribution: 
+      taxonomy_term:
+        forces:
+          Allied Forces: 
+          Central Powers: 
+          Imperial Forces: 
+        keywords:
+          Anti-War Movement: ! 'Háborúellenes '
+          Artillery: ! 'Tüzérség '
+          Conscientious Objection: ! 'Aktív oppozíció  '
+          Gas Warfare: ! 'Gáz használata a háborúban '
+          Home Front: ! 'Hazai front '
+          Manufacture: ! 'Különböző tárgyak  '
+          Medical: ! 'Orvosi '
+          Military Punishment: Hadi igazságszolgáltatás
+          Prisoners of War: Hadi fogoly
+          Propaganda: ! 'Háborús propaganda '
+          Recruitment and Conscription: ! 'Toborzás és besorozás '
+          Remembrance: Megemlékezés
+          Tanks and Armoured Fighting Vehicles: ! 'Tankok és páncélos harci kocsik '
+          Transport: ! 'Szállítás '
+          Trench Life: ! 'Élet a lövészárkokban '
+          Women: ! 'Nők '
+        theatres:
+          Aerial Warfare: Légi háború
+          African Wars: Afrika
+          Balkans: ! 'Balkán '
+          Eastern Front: ! 'Keleti front '
+          Gallipoli Front: Gallipoli front
+          Italian Front: ! 'Olasz front '
+          Middle East: ! 'Közép-Kelet '
+          Naval Warfare: Haditengerészet
+          Western Front: ! 'Nyugati front '
+      user:
+        delete_picture: 
+        terms: 
+    'no': 
+    required: 
+    titles:
+      account_details: 
+      admin_user: 
+      attachment_dates: Mikor hozták létre a dokumentumot?
+      attachment_details: ! 'Részletezd a dokumentumodat! '
+      attachment_front: Melyik frontról van szó a történetedben?
+      attachment_keywords: 
+      attachment_location: ! 'Hol hozták létre a dokumentumot? '
+      attachment_replace: 
+      attachment_upload: ! 'Csatoljon egy fájlt '
+      cataloguing_metadata: 
+      contact_address: 
+      contact_name: 
+      contact_other: 
+      contribution_attachments: 
+      contribution_terms: 
+      dropbox: 
+      fields: 
+      metadata: 
+      metadata_field_options: 
+      optional_details: 
+      personal_details: 
+      story_basics: 
+      story_character1: 1 személy
+      story_character2: 
+      story_characters: Kire vonatkozik a történet?
+      story_dates: Mikor zajlott az ön története?
+      story_forces: 
+      story_front: Melyik frontról van szó a történetedben?
+      story_keywords: Segíts másoknak, hogy hamarabb megtalálják történetedet, és ezért adj meg egy vagy akár több kulcsszót, az alábbiak közül
+      story_location: ! 'Hol zajlott a története? '
+      submit: 
+    update: 
+    'yes': 
+  helpers:
+    select:
+      prompt: Válasszon
+    submit:
+      create: Új %{model}
+      submit: ! '%{model} Mentése'
+      update: ! '%{model} Módosítása'
+  javascripts:
+    admin:
+      metadata_fields:
+        order: 
+    contribute:
+      errors_shown: 
+      hide_errors: 
+      show_errors: 
+    datepicker:
+      button_text: 
+    digital_object:
+      hints:
+        copy_from_story: 
+      labels:
+        copy_from_story: 
+      links:
+        copy_from_story: 
+    gmap:
+      canvas:
+        hide: 
+        hint: 
+        label: 
+        show: ! 'Használja a Google Maps-et '
+      errors:
+        empty: 
+        present: 
+        unknown: 
+      search:
+        button: 
+        hint: 
+        label: 
+      static:
+        hide: 
+        show: 
+    leaflet:
+      label:
+        map_view: 
+        satellite_view: 
+    next: 
+    previous: 
+    story:
+      took-place: 
+    thumbnails:
+      item: 
+      of: 
+    translate:
+      return-to-language: 
+      translate-to: 
+    truncate:
+      show-less: 
+      show-more: 
+    uploadify:
+      basic_ui: 
+      button_text: 
+      finished: 
+      hint: 
+      label: 
+      saved: 
+  languages:
+    da: 
+    de: 
+    en: 
+    fr: 
+    ga: 
+    hu: Magyar
+    nl: 
+    sk: 
+    sl: 
+  layout:
+    navigation:
+      about: 
+      admin: 
+      browse: ! 'Lapozás '
+      contact: Kapcsolat
+      contribute: 
+      help: 
+      home: 
+    software_engine: 
+  locale: Magyar
+  mail:
+    contributions:
+      published:
+        greeting: 
+        signature: 
+        subject: 
+        thanks: 
+    exports:
+      complete:
+        notice: 
+        subject: 
+  media_types:
+    all: 
+    binary: 
+    pdf: 
+    sound: 
+    spreadsheet: 
+    txt: 
+    unknown: 
+    video: 
+    wordprocessing: 
+  number:
+    currency:
+      format:
+        delimiter: ''
+        format: ! '%n %u'
+        precision: 0
+        separator: ! ','
+        significant: true
+        strip_insignificant_zeros: true
+        unit: Ft
+    format:
+      delimiter: ! ' '
+      precision: 2
+      separator: ! ','
+      significant: true
+      strip_insignificant_zeros: true
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Milliárd
+          million: Millió
+          quadrillion: Kvadrillió
+          thousand: Ezer
+          trillion: Trillió
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: bájt
+            other: bájt
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  settings:
+    allowed_upload_extensions: 
+    banner_active: 
+    banner_text: 
+    bing_client_id: 
+    bing_client_secret: 
+    bing_translate_key: 
+    contribution_approval_required: 
+    gmap_api_key: 
+    google_analytics_key: 
+    google_api_email: 
+    max_upload_size: 
+    publish_contributions: 
+    registration_required: 
+    relative_url_root: 
+    search_engine: 
+    sharethis_id: 
+    site_name: 
+    site_url: 
+    ui_locales: 
+    uploadify: 
+  support:
+    array:
+      last_word_connector: ! ' és '
+      two_words_connector: ! ' és '
+      words_connector: ! ', '
+    select:
+      prompt: Válasszon
+  time:
+    am: de.
+    formats:
+      default: ! '%Y. %b %e., %H:%M'
+      long: ! '%Y. %B %e., %A, %H:%M'
+      short: ! '%b %e., %H:%M'
+      timestamp: 
+    pm: du.
+  views:
+    about:
+      background:
+        heading: ! 'A projekt eredete '
+        p1: Az <b>Europeana 1914 -1918</b> projekt az Oxford-i Egyetem kezdeményezésére jött létre, ahol Nagy-Britannia lakosait arra kérték, hogy hozzanak családi leveleket, fotókat és más érdekes dolgot az Első Világháború idejéből, hogy elektronikus formában archiválják. Az ötlet sikeressége – amely a Háború Nagy Archívumának megalkotásában konkretizálódott – arra ösztönözte az Europeana-t – Európa Digitális Könyvtárát, Múzeumát és Archívumát, hogy folytassa ezt a folyamatot, és az Oxford-i Egyetem mellé más olyan helyi és európai intézményt is begyűjtsön, amelyek ezt folytatni fogják. Ez az együttműködés összegyűjti egy rendkívüli online gyűjteménybe az Első Világháború történeteit, a britektől, a németektől, a szlovénektől, a luxemburgiaktól, az írektől, stb.
+        p2: ! "<b>Europeana Collections 1914-1918</b>  projekt különbözik az Europeana 1914-1918 projekttől, az egy „könyvtári projekt”. Ez a projekt, 2014-ig, az Első Világháború kitörésének centenáriumáig, összegyűjt egy jelentős digitális kollekciót, amely nyolc európai nemzeti könyvtárból származik, amelyek e történelmi konfliktus ideje alatt a barikádok egyik vagy másik oldalán álltak.  \nKérjük, további információk érdekében, <a href=\"http://pro.europeana.eu/web/europeana-collections-1914-1918\" target=\"_blank\">nézze meg az Europeana Collections 1914-1918 projekt honlapját!</a>\n"
+      collection_days:
+        heading: A családi okiratok és emlékek gyűjtésének napja
+        p1: „A családi okiratok és emlékek gyűjtésének napján” felkérik az embereket, hogy hozzák be okirataikat, emléktárgyaikat, tárgyaikat, amelyek az Első Világháború idejéből származnak, hogy a projektben dolgozó csapat lefényképezhesse és bejegyezhesse, ugyanakkor megoszthatja a háborúval kapcsolatos családi történeteket is. A történeteket, a scannelt képeket vagy a tárgyak fényképeit archiválják.
+        p2: ! 'Már több ilyen „Gyűjtési napra” is sor került Európa területén.  '
+      online_collection:
+        heading: ! 'Az okiratok és történetek online gyűjteménye '
+        p1: Az okiratok és történetek online gyűjteményét 2011. márciusában vezették be. Bárki feltöltheti ebbe a gyűjteménybe saját tárgyait digitális formában és az ehhez tartozó részleteket. A feltöltés módjáról több információt is megszerezhet, ha a „%{add_your_story}” mezőre kattint. A digitális tárgyakat, dokumentumokat a projektben dolgozók ellenőrizni fogják, ezek után a felhasználók rendelkezésére bocsájtják az Europeana keretén belül.
+      privacy_policy:
+        p1: 
+        p2: 
+        p3: 
+        p4: 
+      project_partners:
+        heading: ! 'A projekt partnerei  '
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Az Oxford-i Egyetem </a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Németország Nemzeti Könyvtára – die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Luxemburg Nemzeti Könyvtára – Bibliothèque nationale du Luxembourg</a>
+        item4: ! "<a href=\"http://www.nli.ie\" target=\"_blank\">•\tÍrország Nemzeti Könyvtára</a>"
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Szlovénia Nemzeti Könyvtára - Narodna in univerzitetna knjižnica</a>
+        item6: ! "<a href=\"http://www.kb.dk/en/nb/\" target=\"_blank\">•\tKirályi Könyvtár: Dánia Nemzeti Könyvtára és a Koppenhágai Egyetem Könyvtára - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>"
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+      terms:
+        full_details:
+          heading: 
+        heading: Fogalmak és feltételek
+        summary:
+          heading: 
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          p1: 
+          p2: 
+          p3: 
+        user_contributions:
+          heading: 
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          item6: 
+          item7: 
+          p1: 
+          p2: 
+          p3: 
+          p4: 
+          p5: 
+          p6: 
+          p7: 
+      what_we_do:
+        heading: Mit csinálunk a projekt keretén belül?
+        item1: Az Europeana 1914 – 1918 honlapra feltölt egy képet az okiratáról / tárgyról vagy megszerkeszti online a történetét.
+        item2: „A családi okiratok és emlékek gyűjtésének napján” behozza tárgyait/okiratait az ilyen különleges rendezvényekre, és a projektben dolgozó csapat lefényképezi ezeket, lejegyzi a részleteket és a hozzuk fűződő történeteket.
+        p1: ! "A projekt célja, hogy tárgyakat, emléktárgyakat és történeteket gyűjtsön a „Nagy Háború” idejéről (1914-1918). A projekt ezen szakasza a releváns európai dokumentumokra fókuszál: levelek, képeslapok, fényképek és történetek, Németország, Luxemburg, Írország, Szlovénia és Nagy- Britannia területéről. \nKétféleképpen lehet hozzájárulni a gyűjtéshez:\n"
+    about_us:
+      blog:
+        heading: 
+      europeana:
+        heading: Europeana 1914-1918
+        p1: 
+        p2: 
+        p3: 
+        p4: 
+        p5: 
+      events:
+        heading: 
+        p1: 
+        p2: 
+        p3: 
+        p4: 
+      get_involved:
+        contribute_online:
+          heading: 
+          p1: 
+        education:
+          heading: 
+          p1: 
+        events:
+          p1: 
+          p2: 
+        heading: 
+        reuse:
+          heading: 
+          p1: 
+      help:
+        heading: 
+    admin:
+      config:
+        edit:
+          title: 
+        index:
+          links:
+            edit: 
+          table:
+            caption: 
+            headings:
+              name: 
+              value: 
+          title: 
+      contributions:
+        export:
+          title: 
+        index:
+          captions:
+            approved: 
+            draft: 
+            rejected: 
+            revised: 
+            submitted: 
+            withdrawn: 
+          empty:
+            all:
+              approved: 
+              draft: 
+              rejected: 
+              revised: 
+              submitted: 
+              withdrawn: 
+            search:
+              approved: 
+              draft: 
+              rejected: 
+              revised: 
+              submitted: 
+              withdrawn: 
+          title: 
+        p1: 
+      europeana:
+        index:
+          instructions: 
+          introduction: 
+          title: 
+      index:
+        headings:
+          export: 
+        links:
+          config:
+            description: 
+            text: 
+          contributions:
+            description: 
+            text: 
+          export:
+            description: 
+            text: 
+          export_csv:
+            description: 
+            text: 
+          export_users:
+            description: 
+            text: 
+          export_xml:
+            description: 
+            text: 
+          export_xml_nozip:
+            description: 
+            text: 
+          harvest_europeana:
+            description: 
+            text: 
+          institutions:
+            description: 
+          logs:
+            description: 
+            text: 
+          metadata_fields:
+            description: 
+            text: 
+          reindex:
+            description: 
+            text: 
+          statistics:
+            description: 
+            text: 
+          users:
+            description: 
+            text: 
+        title: 
+      institutions:
+        delete:
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        index:
+          title: 
+        new:
+          title: 
+      metadata_fields:
+        confirm_reindex:
+          info: 
+          note: 
+          title: 
+        delete:
+          button_confirm: 
+          question: 
+          title: 
+          warning: 
+        edit:
+          empty: 
+          instructions: 
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            new: 
+            order: 
+            terms: 
+          title: 
+        new:
+          title: 
+        order:
+          title: 
+      statistics:
+        index:
+          introduction: 
+          title: 
+      taxonomy_terms:
+        delete:
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        import:
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            back: 
+            import: 
+            new: 
+          title: 
+        new:
+          title: 
+      users:
+        delete:
+          button_confirm: 
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            new: 
+            show:
+              title: 
+          title: 
+        new:
+          title: 
+        show:
+          caption: 
+          links:
+            back: 
+            contributions: 
+            edit: 
+          title: 
+    attachments:
+      _form:
+        dropbox:
+          connect_html: 
+          connected_html: 
+          disconnect: 
+          empty: 
+          refresh: 
+      _summary:
+        caption: 
+      _table:
+        caption: 
+        links:
+          preview:
+            title: 
+        no_thumbnail: 
+      attachment_help:
+        item1: ! 'Csatoljon csak egy dokumentumot és fájlt '
+        item1-subitem1: ! 'Részletezze azt a dokumentumot '
+        item1-subitem2: ! 'Töltsön fel egy adatot csatolmányként '
+        item2: ! 'Csatoljon több tárgyat/dokumentumot és fájlt '
+        item2-subitem1: Töltsön fel több mellékelt fájlt, amelyek több tárgynak/ dokumentumnak felelnek meg
+        item2-subitem2: 
+        one-of-the-following: 
+      copy:
+        instructions: 
+        title: 
+      delete:
+        question: 
+        title: 
+      edit:
+        caption:
+          current: 
+          uploaded: 
+        title: 
+      index:
+        empty: ! 'Egy dokumentumot sem adott hozzá e történet előtt '
+        links:
+          new: 
+        title: 
+      new:
+        caption: 
+        title: 
+      show:
+        title: 
+    blog_posts:
+      read_more: 
+    browse:
+      collection-days:
+        heading: 
+      fronts:
+        heading: 
+      subjects:
+        heading: 
+      types:
+        heading: 
+    common:
+      permanent: 
+    contact:
+      heading: Kapcsolat
+      p1: 
+    contacts:
+      anonymous: 
+      edit:
+        title: 
+      no_name: 
+      show:
+        title: 
+    contributions:
+      _progress:
+        step_x_of_y: ! ' %{x}. lépés a %{y}-ból '
+      _summary:
+        caption: 
+      complete:
+        p1: 
+        title: 
+      delete:
+        question: 
+        title: 
+      digital_object:
+        heading: ! 'A történetéhez fűződő dokumentumok '
+        help_text:
+          add_attachment: 
+          attachment_count: ! 'A jelen pillanatban <strong>%{nr_digital_objects}</strong> dokumentum van csatolva ehhez a hozzájáruláshoz. Emlékezzen rá, hogy utólag csatoljon egy dokumentumot a történetéhez! '
+          language: 
+          object_type: ! 'Milyen dokumentum (pl. vers, fénykép) kérjük, írja minél pontosabban körül. '
+          save_digital: 
+          subject: ! 'Az a személy, hely vagy tárgy, amelyikre a dokumentum vonatkozik '
+          submit_contribution1: 
+          submit_contribution2: 
+          submit_story_button: 
+          summary: ! 'Az alábbiakban látható a történethez csatolt dokumentumok jegyzéke. Egyelőre üres, de bármennyi dokumentumot csatolhat. Ugyanakkor szerkesztheti a már létező dokumentumokat, ha ráklikkel a dokumentum mellett lévő „Szerkesztés” gombra. '
+          when: Mikor hozták létre a dokumentumot?
+          where: ! 'Hol hozták létre a dokumentumot? '
+        labels:
+          keywords: Segíts másoknak, hogy hamarabb megtalálják történetedet, és ezért adj meg egy vagy akár több kulcsszót, az alábbiak közül
+          location_map: 
+          location_place_name: 
+          save_digital: 
+          save_item_draft: 
+          submit_contribution: 
+        links:
+          add_another: ! 'Csatolj egy új dokumentumot '
+          add_item: ! 'Csatolj egy új dokumentumot '
+          edit: 
+          edit_story: ! 'Szerkessze meg a történetet '
+        options:
+          3d: 
+          artifact: 
+          audio: 
+          back: 
+          book: 
+          canvas: 
+          card: 
+          cc_by_sa: 
+          ceramic: 
+          diary: Naplók
+          digital: 
+          film: 
+          folio: 
+          front: 
+          image: 
+          journal: 
+          leaf: 
+          leather: 
+          letter: Levelek
+          medal: 
+          metal: 
+          mixed: 
+          multiple: ! 'Kombinált kategóriák '
+          newspaper: 
+          notebook: 
+          other_option: 
+          paper: 
+          photograph: 
+          photographic_paper: 
+          poem: 
+          postcard: 
+          public_domain: 
+          tape: 
+          text: 
+          text_memoir: 
+          text_transcript: 
+          unknown: 
+          video: 
+          vinyl: 
+          vinyl_record: 
+          wood: 
+        step2: ! '2. lépés – Csatolja okiratait és fájljait '
+      edit:
+        title: 
+      index:
+        empty: 
+        title: 
+      new:
+        title: 
+      no_title: 
+      search:
+        captions:
+          all: 
+          matching: 
+        heading: 
+        links:
+          titles:
+            show_contribution: 
+        matches-for: 
+        no_matches: 
+        related-europeana: 
+        result_count_label: 
+      show:
+        button_confirm: 
+        comments:
+          leave: 
+          no_comments: 
+          submit: 
+          title: 
+        empty_attachments: 
+        headings:
+          share: 
+          submit: 
+          tags: 
+        invalid: 
+        links:
+          new_attachment: 
+        related:
+          title: 
+        shared-this-story: 
+        title: 
+      status:
+        approved: 
+        approved_by: 
+        draft: 
+        label: 
+        rejected: 
+        rejected_by: 
+        revised: 
+        submitted: 
+        title: 
+        unknown: 
+        withdrawn: 
+      story:
+        complete:
+          heading: 
+          p1: 
+        help_text:
+          add_another_person: 
+          behalf_of: 
+          save_story: ! 'Ha a “Mentsd a hozzájárulásod vázlatát” gombra klikkelünk a folyamat következő lépésére térhetünk át.    '
+          sections: ! 'Klikkeljen az alábbi címszavakra a nyitáshoz és záráshoz: minden rész olyan kiegészítő információkat takar, amelyeket hozzáfűzhet történetéhez. '
+          use_google_maps: Használja a Google Maps-et
+        labels:
+          people: ! 'Vezesse be azoknak a személyeknek a neveit, akikről a történet szól '
+        step1: ! '1 - Meséld el történetedet! '
+      withdraw:
+        question: 
+        title: 
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: 
+          submitted: 
+        empty:
+          all: 
+          approved: 
+          draft: 
+          submitted: 
+        headings:
+          contributions: ! 'Az önök történetei '
+        links:
+          new: ! 'Csatoljon egy új dokumentumot  '
+        p1: ! 'Az alábbiakban olyan dokumentumok találhatók, amelyeket már csatolt. Szükség szerint szerkesztheti vagy letörölheti őket. '
+        title: Feltöltheti  történetét
+      dashboard_guest:
+        button_text: 
+        headings:
+          finished: 
+        identity: 
+        links:
+          edit_contact: 
+          new: 
+        notice: 
+        privacy: 
+        title: 
+      guests:
+        edit:
+          title: 
+        new:
+          contact_details: 
+          guest: 
+          links:
+            register: 
+            sign_in: 
+          notice: 
+          title: 
+      help:
+        adding_your_story:
+          heading: Hogy töltse fel csatolja történetét az Europeana 1914-1918 oldalra?
+          p1: ! "Történetét feltöltheti az Europeana 1914 – 1918 oldalra a honlapon található online gyűjtő-formanyomtatvány alkalmazásával. Egyszerűen vezessen be pár információt a hozzájárulásáról, kiemelve, hogy miben is áll ez (egy valaki által küldött képeslap, egy napló, stb.), és részletezze az ön által megosztani kívánt történetet (például a fényképen látható személyről, hogy szerezte meg ezt a képet, mit tud az illető tárgyról. stb.) Utána csatolhatja a tárgy digitális képét, például egy scannelt másolatot vagy a kép, napló, egyenruha vagy bármilyen más tárgy fényképét, amit küldeni szeretne. A hozzájárulás elküldése után egy szakértő ellenőrizni fogja, és ezt követően a többi felhasználó rendelkezésére bocsájtjuk. \n"
+        how_to_use:
+          heading: Hogy használja a történetek gyűjtésére alkalmas online interfészt?
+          item1: ! 'Klikkeljen a %{register} gombra, hogy egy új fiókot hozzon létre (ezt csak egyszer kell megtennie) vagy a %{sign_in} gombra, ha létrehozta már fiókját. '
+          item2: ! 'Vezessen be pár információt az ön hozzájárulásáról. '
+          item3: (Opcionálisan) Csatolja a tárgy digitális képét (fénykép, scannelt írott szöveg, audió-videó felvétel, stb.).
+          item4: Továbbítsa hozzájárulását a személyes történetek és dokumentumok gyűjteményéhez.
+          item5: ! 'Hozzájárulását az Europeana katalogizáló szakértője ellenőrizni fogja. Miután leellenőrizték és jóváhagyták az Europeana többi felhasználója számára is láthatóvá válik. '
+          p1: ! 'Ahhoz, hogy a személyes történetek gyűjteményéhez egy újabb eseményt online hozzáadjon, először rá kell klikkelnie a  %{sign_in} vagy a %{register} gombokra. Így lehetősége adódik, hogy személyes tárgyait, emlékeit hozzáadja az Europeana 1914-1918 honlapjára. '
+          p2: Ott a következő öt lépést kell végrehajtani. Nem szükséges, hogy első alkalommal véglegesítse a folyamatot, lementheti a hozzájárulását, és később visszatérhet, és befejezheti.
+        item1: Hogyan csatólja történetét az Europeana 1914-1918 pályázathoz – Nézd tóvább
+        item2: ! '%{privacy_policy} - Adatvédelem'
+        item3: ! '%{takedown_policy} - Visszavonás politika'
+        item4: ! '%{contribution_terms} - Fogalmak és feltételek az Europeana használój hozzájárulására'
+        item5: ! '%{about_the_project} - Az Europeana 1914-1918 projektről (pályázatról)'
+        p1: ! 'Az " Europeana 1914 - 1918" pályázat célja a  különböző tárgyak  gyűjtése a "nagy háborúról" (1914-1918)  és azoktól is akiket érintett a háború. Jelenleg tárgyakat (anyagokat) és történeteket  gyűjtünk  Nagy-Britanniaból, Németországból, Szlovéniaból, Luxemburgból, Írországból, stb. További információkat  a pályázatról és a  gyűjtött anyagokról találhatunk kattintva  %{about} '
+      index:
+        item1: Vezesse be a történetéről szóló alapinformációkat! voastră
+        item2: ! 'Mentse le a történetét vázlatként! '
+        item3: ! 'Csatoljon egy vagy több tárgyat (képeket, okiratokat, audió-videó dokumentumokat) '
+        item4: Igazolja vissza beleegyezését a megállapított fogalmakkal és feltételekkel kapcsolatosan és továbbítsa ellenőrzés céljából!
+        p1: ! 'Köszönjük, hogy hozzájárul az  Europeana 1914-1918 oldal gyűjteményéhez. A saját hozzájárulásának csatolása nagyon egyszerű. A saját történet hozzájárulása az alábbi „Töltsd fel saját történetedet! gombra való klikkeléssel kezdőik. Utána a következő lépések jönnek: '
+      registration_required:
+        p1: Hogy  feltöltse a virtuális tárgyakat és a történeteket az Europeana 1914-1918 honlapra kattintson az %{sign_in} vagy a  %{register}
+    devise:
+      passwords:
+        edit:
+          title: 
+        new:
+          title: 
+      registrations:
+        edit:
+          title: 
+        new:
+          title: 
+      sessions:
+        new:
+          instructions: Kérjük, jelentkezzen be a fiókjának megfelelő adatokkal!
+          title: 
+    errors:
+      api_error:
+        message: 
+        title: 
+      bad_request:
+        message: 
+        title: 
+      federated_search_error:
+        message: 
+        title: 
+      forbidden:
+        message: 
+        title: 
+      internal_server_error:
+        message: 
+        title: 
+      not_found:
+        message: 
+        title: 
+      search_offline:
+        message: 
+        title: 
+    explore:
+      heading: 
+      links:
+        diary: 
+        eastern_front: 
+        family: 
+        flanders: 
+        infantry: 
+        medal: 
+        military_passport: 
+        postcard: 
+        roadshows:
+          amberg_2012_01: 
+          berlin_2011_04: 
+          dresden_2011_06: 
+          erfurt_2011_06: 
+          frankfurt_2011_03: 
+          kiel_2011_06: 
+          luxembourg_2012_03: 
+          munich_2011_04: 
+          preston_2012_03: 
+          regensburg_2011_07: 
+          stuttgart_2011_04: 
+        trenches: 
+      p1: 
+      p2: 
+      p3: 
+      p5: 
+      search_for: 
+    home:
+      heading: 
+      links:
+        across_europe: 
+        video_guide: 
+      otto:
+        heading: 
+        p1: 
+      p1: 
+      p2: 
+    links:
+      back: 
+      back-to-search: 
+      previous_step: 
+      privacy_policy: 
+    register:
+      help_text:
+        email: 
+        password: 
+        profile_image: 
+        profile_photo: 
+        user_name: 
+      labels:
+        age_range: 
+        email: 
+        gender: 
+        password: 
+        password_repeat: 
+        profile_image: 
+        profile_photo: 
+        residence:
+          country: 
+          post_code: 
+        user_name: 
+      terms:
+        accept: 
+        heading: 
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+        p2: 
+        p3: 
+        terms: 
+    search:
+      facets:
+        common:
+          category: 
+          collection: 
+          country: 
+          creator: 
+          format: 
+          language: 
+          location: 
+          provider: 
+          rights: 
+          subject: 
+          type: 
+          year: 
+        contributions:
+          collection_day: 
+          content: 
+          file_type: 
+          keywords: 
+          lang: 
+          license: 
+          place_name: 
+          protagonist_names: 
+          provider: 
+          theatres: 
+        digitalnz:
+          content_partner: 
+        europeana:
+          data_provider: 
+          reusability: 
+          source_all: 
+          source_info: 
+          source_institution: 
+          source_label: 
+          source_ugc: 
+          ugc: 
+        matches_for: 
+        refine_results: 
+        trove:
+          availability: 
+          discipline: 
+      providers:
+        canadiana: 
+        collection: 
+        contributions: 
+        digitalnz: 
+        dpla: 
+        europeana: 
+        trove: 
+    statistics:
+      index:
+        heading: 
+        intervals:
+          last_month: 
+          last_quarter: 
+          last_week: 
+          last_year: 
+          this_month: 
+          this_week: 
+        metrics:
+          avgtimeonsite: 
+          europeana_pageviews: 
+          object_pageviews: 
+          visits: 
+        no_results: 
+        ugc_heading: 
+    table:
+      header:
+        actions: 
+    tags:
+      add: 
+      delete:
+        question: 
+        title: 
+      flag:
+        question: 
+        title: 
+      info: 
+    users:
+      _summary:
+        caption: 
+      account:
+        caption: 
+        links:
+          edit_contact: 
+          edit_user: 
+        title: 
+      sign-in:
+        help: ! 'A bejelentkezésnél kérem, írja be vagy az azonosítóját vagy az e-mail címét. Nincs szükség mind a kettőre. '
+  will_paginate:
+    entry_range_label: 
+    first_title: 
+    last_title: 
+    next_label: következő →
+    next_title: 
+    page_entries_info:
+      multi_page: 
+      multi_page_html: 
+      single_page: 
+      single_page_html: 
+    page_gap: ! '&hellip;'
+    page_total_label: 
+    per_page_label: 
+    per_page_title: 
+    previous_label: ← előző
+    previous_title: 
