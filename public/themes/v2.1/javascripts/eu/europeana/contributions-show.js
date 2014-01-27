@@ -410,7 +410,7 @@
 
 			$contributions_featured.on( 'click', '.pdf', pdf.handleClick );
 		}
-	},
+	};
 
 
 	/*
