@@ -95,6 +95,21 @@
         "rights" => "true",
         "expand" => 'rightsLabel(readVal, true)'
       },
+      
+      {
+        "name" => "dcSource",
+        "ns" => "dc",
+        "label" => "source",
+        "source" => proxy
+      },
+      
+      {
+        "name" => "dcRelation",
+        "ns" => "dc",
+        "label" => "relation",
+        "source" => proxy
+      },
+
       {
         "name" => "edmDataProvider",
         "ns" => "edm",
@@ -106,6 +121,13 @@
         "ns" => "edm",
         "label" => "provider",
         "source" => aggregation
+      },
+      
+      {
+        "name" => "edmCountry",
+        "ns" => "edm",
+        "label" => "country",
+        "source" => euAggregation
       }
    ]
 
