@@ -123,7 +123,7 @@
 		    %>
 		    <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
 		      <dt><b><%= contribution_field_title('contributor') %></b></dt>
-		      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id) %></dd>
+		      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id, :qf => [ 'index:c' ] ) %></dd>
 		    <% end -%>
 		    <%=
 		      render :partial => '/metadata/display',
