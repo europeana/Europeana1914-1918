@@ -1,6 +1,6 @@
 # Restart monit workers
 run 'sudo monit -g dj_europeana19141918 restart all'
-run 'sudo monit -g solr restart all'
+#run 'sudo monit -g solr restart all'
 
 # Clear asset cache if required
 if [ "app", "app_master" ].include?(config.current_role)
@@ -29,5 +29,5 @@ if [ "app", "app_master" ].include?(config.current_role)
   run "bundle exec rake assets:preload"
 end
 
-# @todo run sunspot:solr:reindex on solr host if app solr/conf directory 
+# @todo run sunspot:solr:reindex on solr host if app's config/solr/conf directory 
 #   changed since last release

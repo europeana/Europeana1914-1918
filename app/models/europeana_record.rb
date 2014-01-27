@@ -11,8 +11,35 @@ class EuropeanaRecord < ActiveRecord::Base
   
   # Solr index
   searchable do
-    text :title do
-      object['title']
+    fulltext_fields = { 
+      'proxies' => [ 
+        'dcDescription', 'dcCreator', 'dcType', 'dcFormat', 'dcSubject', 
+        'dcDate', 'dcCoverage', 'dcRights', 'dcTitle', 'dcSource', 'dcRelation',
+        'dcContributor'
+      ],
+      'aggregations' => [
+        'edmDataProvider',
+        'edmProvider'
+      ],
+      'europeanaAggregation' => [
+        'edmCountry'
+      ]
+    }
+      
+    fulltext_fields.each_pair do |key, fields|
+      fields.each do |field|
+        text field.to_sym do
+          fulltext_value = nil
+          if object[key].present?
+            fulltext_value = [ object[key] ].flatten.collect do |edm_object|
+              if edm_object[field] && edm_object[field]['def']
+                edm_object[field]['def']
+              end
+            end.flatten
+          end
+          fulltext_value
+        end
+      end
     end
     
     text :taxonomy_terms do
