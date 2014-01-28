@@ -14,12 +14,14 @@
 
 
 		jQuery('.stories:visible').imagesLoaded(function() {
-			jQuery('.stories:visible').masonry({
-				itemSelector : 'li:not(.result-count)',
-				isFitWidth : true,
-				isAnimated : true,
-				gutterWidth: 21
-			});
+			if( jQuery('li:not(.result-count)').length > 1 ){
+				jQuery('.stories:visible').masonry({
+					itemSelector : 'li:not(.result-count)',
+					isFitWidth : true,
+					isAnimated : true,
+					gutterWidth: 21
+				});				
+			}
 			hideSpinner();
 		});
     };
