@@ -17,11 +17,6 @@
 	# variable setup
 
 		aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
-		if aggregation['hasView'].present?
-			carouselImages  = aggregation['hasView'].dup
-			carouselImages.unshift(aggregation['edmIsShownBy']) unless aggregation['edmIsShownBy'].blank?
-			carouselImages  = paginate_array(carouselImages, params[:page] || 1, 3)
-		end
 		euAggregation   = record['europeanaAggregation'] || {}
 		edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 		edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
