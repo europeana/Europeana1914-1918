@@ -25,7 +25,6 @@
 					$new_links = $new_content.find('#institution-featured > ul > li > a');
 
 			if ( $pp_full_res.length < 1 ) {
-				lightbox.init();
 				return;
 			}
 
@@ -34,8 +33,6 @@
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
 			});
-
-			$.prettyPhoto.changePage('next');
 		},
 
 		/**
@@ -55,6 +52,7 @@
 
 			if ( add_lightbox ) {
 				this.addImagesToLightbox( $new_content );
+				lightbox.init();
 			} else {
 				lightbox.removeLightboxLinks();
 			}
@@ -121,7 +119,6 @@
 
 			href =
 				next_page_link[0] + '?carousel=true&' +
-				//( next_page_link[0].indexOf('/attachments') === -1 ? '/attachments?carousel=true&' : '?' ) +
 				next_page_link[1];
 
 			this.retrieveContent( href );
@@ -202,10 +199,10 @@
 		},
 
 		init : function() {
-			if ( add_lightbox) {
+			if ( add_lightbox ) {
 				this.setupPrettyPhoto();
 			} else {
-  				this.removeLightboxLinks();
+  			this.removeLightboxLinks();
 			}
 		}
 	},

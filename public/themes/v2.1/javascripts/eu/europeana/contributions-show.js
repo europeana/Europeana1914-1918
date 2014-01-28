@@ -28,7 +28,6 @@
 					$new_links = $new_content.find('#contributions-featured > ul > li > a');
 
 			if ( $pp_full_res.length < 1 ) {
-				lightbox.init();
 				return;
 			}
 
@@ -37,8 +36,6 @@
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
 			});
-
-			$.prettyPhoto.changePage('next');
 		},
 
 		/**
@@ -58,6 +55,7 @@
 
 			if ( add_lightbox ) {
 				this.addImagesToLightbox( $new_content );
+				lightbox.init();
 			} else {
 				lightbox.removeLightboxLinks();
 			}
@@ -260,55 +258,10 @@
 						social_tools: false,
 						collection_total : carousels.pagination_total,
 						callback : function() {
-							//lightbox.init(); // Why is this run as a callback when pp is closed?
 							self.removeMediaElementPlayers();
 						}
 					};
 
-			//jQuery("a[rel^='prettyPhoto']").prettyPhoto({
-			//	description_src : 'data-description',
-			//	overlay_gallery : false,
-			//	changepagenext : self.handlePageChangeNext,
-			//	changepageprev : self.handlePageChangePrev,
-			//	changepicturecallback : self.handlePictureChange,
-			//	show_title : false,
-			//	collection_total : carousels.items_collection_total,
-			//	callback : function() { lightbox.init(); }
-			//});
-			//jQuery("a[rel^='prettyPhoto'].video").each(function() {
-			//	// Videos are played by MediaElement.js, using prettyPhoto's inline
-			//	// content handler. MediaElements.js will not work if the video element
-			//	// is copied into prettyPhoto's container, the <video> element and
-			//	// MediaElement.js attachment to the <video> element needs to happen
-			//	// once the prettyPhoto container has been created.
-			//	// @see self.handlerPictureChange
-			//	var ppVideoOptions = ppOptions;
-			//	var video_link = jQuery(this);
-			//
-			//	ppVideoOptions.default_width = video_link.data('video-width');
-			//	ppVideoOptions.default_height = video_link.data('video-height');
-			//	jQuery(this).prettyPhoto(ppVideoOptions);
-			//});
-			//
-			//jQuery("a[rel^='prettyPhoto'].audio").each(function() {
-			//	var ppAudioOptions = ppOptions;
-			//	var audio_link = jQuery(this);
-			//
-			//	ppAudioOptions.default_width = audio_link.data('audio-width');
-			//	ppAudioOptions.default_height = audio_link.data('audio-height');
-			//	jQuery(this).prettyPhoto(ppAudioOptions);
-			//});
-			//
-			//jQuery("a[rel^='prettyPhoto']").not('.video,.audio').each(function() {
-			//	var ppImageOptions = ppOptions;
-			//	ppImageOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-			//	jQuery(this).prettyPhoto(ppImageOptions);
-			//});
-
-			// the above entries create isolated prettyPhoto groupings that are not connected to one another
-			// a different solution needs to be found so that no matter which media type is present
-			// they can all be part of the same prettyPhoto group
-			// for now, the following can be used for annotating images
 			ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
 			jQuery("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( ppOptions );
 		},
@@ -334,6 +287,7 @@
 			} else {
 				this.removeLightboxLinks();
 			}
+
 			this.setupAnnotorious();
 		}
 	},
