@@ -143,7 +143,7 @@
 		    %>
 		    <% unless (character1 = Contact.full_name(@contribution.metadata.fields['character1_given_name'], @contribution.metadata.fields['character1_family_name'])).blank? -%>
 		      <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
-		      <dd><%= link_to character1, search_contributions_path(:q => character1) %></dd>
+		      <dd><%= link_to character1, search_contributions_path(:q => character1.add_quote_marks) %></dd>
 		      <%=
 		      render :partial => '/metadata/display',
 		        :locals => {
@@ -166,7 +166,7 @@
 		    <% end -%>
 		    <% unless (character2 = Contact.full_name(@contribution.metadata.fields['character2_given_name'], @contribution.metadata.fields['character2_family_name'])).blank? %>
 		      <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
-		      <dd><%= link_to character2, search_contributions_path(:q => character2) %></dd>
+		      <dd><%= link_to character2, search_contributions_path(:q => character2.add_quote_marks) %></dd>
 		      <%=
 		        render :partial => '/metadata/display',
 		        :locals => {

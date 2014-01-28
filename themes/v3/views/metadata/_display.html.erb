@@ -42,7 +42,7 @@
     <%- elsif field.name == 'contributor_behalf' -%>
       <%- unless (field_value = metadata_record_field_value(metadata, field, true)).blank? -%> 
         <dt class="translate"><b><%= t(field_name_translate_base + field.name) %></b></dt>
-        <dd class="translate"><%= link_to field_value, search_contributions_path(:q => field_value) %></dd>
+        <dd class="translate"><%= link_to field_value, search_contributions_path(:q => field_value.add_quote_marks) %></dd>
       <%- end -%>
     <%- else -%>
       <%- unless (field_value = metadata_record_field_value(metadata, field, true, true)).blank? -%> 
