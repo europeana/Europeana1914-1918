@@ -239,9 +239,11 @@ protected
     if params[:locale].blank?
       # Uses http_accept_language plugin
       locale = request.compatible_language_from(I18n.available_locales) || Rails.configuration.i18n.default_locale
-    else
-      raise ActionController::RoutingError, "No route matches #{request.path}" unless I18n.available_locales.include?(params[:locale].to_sym)
+    elsif RunCoCo.configuration.ui_locales.include?(params[:locale])
       locale = params[:locale]
+    else
+      redirect_to url_for(:locale => Rails.configuration.i18n.default_locale, :status => 307)
+      return
     end
 
     I18n.locale = locale
