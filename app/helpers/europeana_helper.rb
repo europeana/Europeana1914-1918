@@ -47,10 +47,12 @@ module EuropeanaHelper
       nil
     elsif proxy[field_name].is_a?(String)
       proxy[field_name]
-    elsif proxy[field_name].has_key?(I18n.locale.to_s)
-      [ proxy[field_name][I18n.locale.to_s] ]
-    elsif proxy[field_name]["def"].present?
-      [ proxy[field_name]["def"] ]
+    elsif proxy[field_name].is_a?(Hash)
+      proxy[field_name].values
+#    elsif proxy[field_name].has_key?(I18n.locale.to_s)
+#      [ proxy[field_name][I18n.locale.to_s] ]
+#    elsif proxy[field_name]["def"].present?
+#      [ proxy[field_name]["def"] ]
     else
       proxy[field_name].values
     end
