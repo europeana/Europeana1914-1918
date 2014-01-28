@@ -32,10 +32,10 @@ class EuropeanaRecord < ActiveRecord::Base
           fulltext_value = nil
           if object[key].present?
             fulltext_value = [ object[key] ].flatten.collect do |edm_object|
-              if edm_object[field] && edm_object[field]['def']
-                edm_object[field]['def']
+              if edm_object[field]
+                edm_object[field].values
               end
-            end.flatten
+            end.flatten.uniq
           end
           fulltext_value
         end
