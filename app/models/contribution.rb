@@ -81,10 +81,13 @@ class Contribution < ActiveRecord::Base
 
   # Trigger syncing of public status of attachments to contribution's
   # published status.
-  after_save do |c|
-    c.attachments.each do |a|
-      a.set_public
-      a.save
+  after_save :if => :current_status_changed? do |c|
+    was_published = ContributionStatus.published.include?(current_status_was)
+    unless was_published == published?
+      c.attachments.each do |a|
+        a.set_public
+        a.save
+      end
     end
   end
 
