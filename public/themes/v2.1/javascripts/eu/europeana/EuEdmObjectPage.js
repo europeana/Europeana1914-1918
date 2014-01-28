@@ -52,7 +52,6 @@
 
 			if ( add_lightbox ) {
 				this.addImagesToLightbox( $new_content );
-				lightbox.init();
 			} else {
 				lightbox.removeLightboxLinks();
 			}
@@ -158,12 +157,15 @@
 		setupPrettyPhoto : function() {
 			var self = this,
 					ppOptions = {
-						description_src : 'data-description',
-						overlay_gallery : false,
+						callback : function() {
+							lightbox.init(); // this insures that additional content that was loaded while in lightbox is lightbox enabled if the lightbox is closed
+						},
 						changepagenext : self.handlePageChangeNext,
 						changepageprev : self.handlePageChangePrev,
 						changepicturecallback : self.handlePictureChange,
 						collection_total : carousels.pagination_total,
+						description_src : 'data-description',
+						overlay_gallery : false,
 						show_title : false,
 						social_tools: false
 					};
@@ -537,14 +539,10 @@
 		incrementItemsHandled: function() {
 			mimetype.itemsHandled += 1;
 
-			if ( mimetype.itemsHandled === 1 ) {
-				mimetype.revealCarousel();
-			}
-
 			if ( mimetype.itemsHandled === mimetype.itemsTotal ) {
 				lightbox.init();
+				mimetype.revealCarousel();
 			} else if ( mimetype.itemsHandled === 1 ) {
-				lightbox.init();
 				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
 			} else {
 				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );

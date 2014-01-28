@@ -55,7 +55,6 @@
 
 			if ( add_lightbox ) {
 				this.addImagesToLightbox( $new_content );
-				lightbox.init();
 			} else {
 				lightbox.removeLightboxLinks();
 			}
@@ -249,17 +248,18 @@
 		setupPrettyPhoto : function() {
 			var self = this,
 					ppOptions = {
-						description_src : 'data-description',
-						overlay_gallery : false,
+						callback : function() {
+							self.removeMediaElementPlayers();
+							lightbox.init(); // this insures that additional content that was loaded while in lightbox is lightbox enabled if the lightbox is closed
+						},
 						changepagenext : self.handlePageChangeNext,
 						changepageprev : self.handlePageChangePrev,
 						changepicturecallback : self.handlePictureChange,
-						show_title : false,
-						social_tools: false,
 						collection_total : carousels.pagination_total,
-						callback : function() {
-							self.removeMediaElementPlayers();
-						}
+						description_src : 'data-description',
+						overlay_gallery : false,
+						show_title : false,
+						social_tools: false
 					};
 
 			ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
