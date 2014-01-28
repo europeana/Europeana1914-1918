@@ -11,7 +11,7 @@ class CollectionController < SearchController
       @field = MetadataField.find_by_name!(params[:field_name])
       if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
         search_terms = I18n.available_locales.collect do |locale|
-          I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term)
+          I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term).add_quote_marks
         end
       end
     else
