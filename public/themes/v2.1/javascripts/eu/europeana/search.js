@@ -10,7 +10,7 @@
     		return;
     	}
 
-    	console.log('add masonry[' + msg + '], ' + jQuery('.stories:visible').length + ', has class? ' + jQuery('.stories:visible').hasClass('masonry')   );
+    	//console.log('add masonry[' + msg + '], ' + jQuery('.stories:visible').length + ', has class? ' + jQuery('.stories:visible').hasClass('masonry')   );
 
 
 		jQuery('.stories:visible').imagesLoaded(function() {
@@ -206,7 +206,7 @@
 
 		toggleLoaderDiv : function( active_tab_id ) {
 
-			console.log('toggle: active_tab_id = ' + active_tab_id );
+			//console.log('toggle: active_tab_id = ' + active_tab_id );
 
 			this.$tabs.each(function() {
 				var $elm = jQuery(this);
