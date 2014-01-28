@@ -14,7 +14,8 @@
 
 
 		jQuery('.stories:visible').imagesLoaded(function() {
-			if( jQuery('.stories li').length > 1 ){
+						
+			if( jQuery('.stories li').length > 2 ){
 				jQuery('.stories:visible').masonry({
 					itemSelector : 'li:not(.result-count)',
 					isFitWidth : true,
