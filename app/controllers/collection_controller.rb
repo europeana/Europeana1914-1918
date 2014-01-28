@@ -50,6 +50,14 @@ class CollectionController < SearchController
           query.with :contributor_id, params[:contributor_id]
         end
         
+        if params[:tag].present?
+          if tag = ActsAsTaggableOn::Tag.find_by_name(params[:tag])
+            query.with :tag_ids, tag.id
+          else
+            query.with :tag_ids, -1 # i.e. no results
+          end
+        end
+        
         if indices == Contribution
           # Contribution facets
           MetadataField.where(:facet => true, :field_type => 'taxonomy').each do |field|

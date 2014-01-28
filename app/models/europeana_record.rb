@@ -88,6 +88,10 @@ class EuropeanaRecord < ActiveRecord::Base
     integer :contributor_id do
       nil
     end
+    
+    integer :tag_ids, :multiple => true do
+      nil
+    end
   end
   
   def rights
