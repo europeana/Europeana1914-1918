@@ -276,6 +276,14 @@
 		      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
 		      <dd><%= l @contribution.created_at, :format => :short %></dd>
 		    <% end -%>
+		    
+		    <%#= t('formtastic.labels.content.metadata.dc.rights') %></b></dt>
+		    
+		    <dt><b><%= t('formtastic.labels.content.metadata.edm.rights') %></b></dt>
+		    <dd>
+				<a target="_new" href="http://www.europeana.eu/rights/rr-f/"><span class="rights-icon icon-copyright"></span> <span class="rights-text">Free Access - Rights Reserved</span></a>
+		    </dd>
+		    
 	    </dl>
 
 	    <% if @contribution.contributor.picture.present? -%>
