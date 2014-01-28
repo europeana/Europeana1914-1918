@@ -31,7 +31,7 @@
 		html            = ''
 		oembed          = oembed_fields( record )
 		places          = record['places'] ? record['places'] : {}
-		proxy           = record['proxies'][0]
+		proxy           = record['proxies']
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 
 	# end variable setup

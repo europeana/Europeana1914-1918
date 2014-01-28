@@ -32,30 +32,35 @@ module EuropeanaHelper
   # * the first non-empty "def" value if present; or
   # * all non-empty values joined.
   #
-  # @param [Hash] proxy Proxy object from an EDM record
+  # @param [Hash,Array<Hash>] proxy Proxy object(s) from an EDM record
   # @param [String] field_name Name of the field to retrieve
   # @return [String] Value to display for the field
   # @todo Add some validation to proxy param to aid debugging
   #
   def edm_proxy_field(proxy, field_name)
-    return nil unless proxy.respond_to?(:has_key?) && proxy.has_key?(field_name)
+    return nil unless proxy.is_a?(Array) ||
+      (proxy.respond_to?(:has_key?) && proxy.has_key?(field_name))
     
-    proxy_field = if proxy[field_name].nil?
+    proxy_field = if proxy.is_a?(Array)
+      proxy.collect { |one_proxy| edm_proxy_field(one_proxy, field_name) }
+    elsif proxy[field_name].nil?
       nil
     elsif proxy[field_name].is_a?(String)
       proxy[field_name]
     elsif proxy[field_name].has_key?(I18n.locale.to_s)
-      [ proxy[field_name][I18n.locale.to_s] ].flatten
+      [ proxy[field_name][I18n.locale.to_s] ]
     elsif proxy[field_name]["def"].present?
-      [ proxy[field_name]["def"] ].flatten
+      [ proxy[field_name]["def"] ]
     else
       proxy[field_name].values
     end
     
+    if proxy_field.is_a?(Array)
+      proxy_field = [ proxy_field ].flatten.reject(&:blank?).join('; ')
+    end
+    
     if proxy_field.blank?
       nil
-    elsif proxy_field.is_a?(Array)
-      proxy_field.reject(&:blank?).join('; ')
     else
       proxy_field
     end
