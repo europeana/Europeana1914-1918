@@ -63,31 +63,14 @@ private
   def create_record(record_id)
     record = EuropeanaRecord.find_or_initialize_by_record_id(record_id)
     if record.new_record?
-      retries = 5
-      begin
-        record.object = get_api_record(record_id)
-        record.save
-        record.index
-        Sunspot.commit
-        @harvested = @harvested + 1
-      rescue ActiveRecord::RecordNotUnique
-        # Another DJ process got to this record first, despite 
-        # record_id uniqueness validation in EuropeanaRecord.
-      rescue Europeana::API::Errors::RequestError => error
-        if error.message.match('"Unable to parse the API response."')
-          retries -= 1
-          raise unless retries > 0
-          sleep 10
-          retry
-        end
-        raise unless error.message.match('"Invalid record identifier: ') # ignore these
-      rescue Timeout::Error, Errno::ECONNREFUSED
-        retries -= 1
-        raise unless retries > 0
-        sleep 10
-        retry
-      end
+      record.save
+      record.index
+      Sunspot.commit
+      @harvested = @harvested + 1
     end
+  rescue ActiveRecord::RecordNotUnique
+    # Another DJ process got to this record first, despite 
+    # record_id uniqueness validation in EuropeanaRecord. Just ignore it.
   end
 
 end

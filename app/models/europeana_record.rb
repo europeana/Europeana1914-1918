@@ -9,6 +9,8 @@ class EuropeanaRecord < ActiveRecord::Base
   validates_uniqueness_of :record_id
   validates_presence_of :record_id, :object
   
+  before_validation :harvest_object, :on => :create
+  
   # Solr index
   searchable do
     fulltext_fields = { 
@@ -140,5 +142,28 @@ class EuropeanaRecord < ActiveRecord::Base
       'dcCreator' => dc_creator,
       'edmPreview' => object['europeanaAggregation'] ? [ object['europeanaAggregation']['edmPreview'] ] : nil
     }
+  end
+  
+  ##
+  # Gets the object data for this record from the Europeana portal
+  #
+  def harvest_object
+    retries = 5
+    begin
+      self.object = Europeana::API::Record.get(self.record_id)['object']
+    rescue Europeana::API::Errors::RequestError => error
+      if error.message.match('"Unable to parse the API response."')
+        retries -= 1
+        raise unless retries > 0
+        sleep 10
+        retry
+      end
+      raise unless error.message.match('"Invalid record identifier: ') # ignore these
+    rescue Timeout::Error, Errno::ECONNREFUSED
+      retries -= 1
+      raise unless retries > 0
+      sleep 10
+      retry
+    end
   end
 end
