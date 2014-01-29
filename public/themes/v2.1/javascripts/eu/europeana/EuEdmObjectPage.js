@@ -528,7 +528,10 @@
 						) {
 							if ( data['content-type'][0].indexOf( 'text/html' ) !== -1 ) {
 								mimetype.removeLightbox( $elm );
-							} else if ( data['content-type'][0] === 'application/pdf' ) {
+							} else if (
+								data['content-type'][0] === 'application/pdf'
+								|| data['content-type'][0] === 'pdf'
+							) {
 								mimetype.replaceWithPdfLink( $elm );
 							}
 						}
