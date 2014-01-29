@@ -55,7 +55,7 @@
 
 	html = '<div class="col-cell">'
 
-		html += '<div class="img-panel">'
+		html += '<div class="image-panel">'
 			html += '<div id="institution-featured" class="carousel">'
 				html += '<ul>'
 
@@ -155,12 +155,14 @@
 				html += '<div class="carousel-overlay"></div>'
 			html += '</div>' # end carousel
 		html += '</div>' # end carousel image panel
+
+		# add pagination info if present
+		if carouselImages.present? && carouselImages.total_pages > 1
+			html += '<div class="col-cell"><ul id="pagination-counts"></ul></div>'
+			html += '<div id="carousel-pagination">' + will_paginate( carouselImages ) + 'Total: <span id="pagination-total">' + carouselImages.total_entries.to_s + '</span></div>'
+		end
+
 	html += '</div>' # end carousel col-cell
 
-	# add pagination info if present
-	if carouselImages.present? && carouselImages.total_pages > 1
-		html += '<div id="carousel-pagination">' + will_paginate( carouselImages ) + 'Total: <span id="pagination-total">' + carouselImages.total_entries.to_s + '</span></div>'
-		html += '<div class="col-cell"><ul id="pagination-counts"></ul></div>'
-	end
 -%>
 <%= html.html_safe -%>

@@ -74,12 +74,6 @@
       <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>
 
-		<% if @attachments.present? && @attachments.size > 1 -%>
-    <div class="col-cell" >
-      <ul id="pagination-counts"></ul>
-  	</div>
-		<% end -%>
-
     <div class="col-cell" >
       <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>
       <%= render :partial => '/layouts/navigation/sharethis' %>
