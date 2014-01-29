@@ -1,5 +1,23 @@
 class SearchController < ApplicationController
   before_filter :redirect_to_search, :only => [ :search, :explore ]
+  
+  # Retry connections to search engine in case of temporary unavailability
+  around_filter do |controller, proxy|
+    tries = 3
+    begin
+      proxy.call
+    rescue Errno::ECONNREFUSED
+      tries -= 1
+      if tries == 0
+        logger.warn("Connection to #{controller.controller_name} search engine refused; aborting")
+        raise RunCoCo::SearchOffline
+      else
+        logger.warn("Connection to #{controller.controller_name} search engine refused; retrying")
+        sleep 5
+        retry
+      end
+    end
+  end
 
 protected
   

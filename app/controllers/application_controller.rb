@@ -43,9 +43,10 @@ class ApplicationController < ActionController::Base
       render_http_error(:forbidden, exception, :log => false)
     end
 
-    # Rescue attempts to search when Sphinx offline.
+    # Rescue attempts to search when Sphinx or Solr are offline.
     rescue_from RunCoCo::SearchOffline do |exception|
-      render_http_error(:service_unavailable, exception, :template => "/errors/search_offline")
+      @status = "search_offline"
+      render :template => '/pages/error', :status => 503
     end
 
     # Rescue Dropbox auth errors.
