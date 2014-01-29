@@ -64,6 +64,9 @@
           # add annotorious hint icon when annotations exist for this item
           if attachment.annotations.present?
             view_link_text = '<p class="view-item-annotorious" style="pointer-events:auto">' + view_link_text + '<span class="annotorious-carousel-icon"></span></p>'
+            link_attrs.merge!({
+              :title => t( 'common.links.view-image' ) + ' - ' + t( 'common.links.annotorious' )
+            })
           else
             view_link_text = '<p class="view-item">' + view_link_text + '</p>'
           end
