@@ -157,15 +157,13 @@ class AttachmentsController < ApplicationController
   def inline
     current_user.may_view_attachment!(@attachment)
     style = (params[:style] == 'full' ? 'original' : params[:style])
-    send_file_method = (@attachment.file.options[:storage] == :s3 ? :to_file : :path)
-    send_file @attachment.file.send(send_file_method, style), :type => @attachment.file.content_type, :disposition => 'inline'
+    send_attachment_file(@attachment, style, :disposition => 'inline')
   end
-
+  
   # GET /contributions/:contribution_id/attachments/:id/:filename
   def download
     current_user.may_view_attachment!(@attachment)
-    send_file_method = (@attachment.file.options[:storage] == :s3 ? :to_file : :path)
-    send_file @attachment.file.send(send_file_method), :type => @attachment.file.content_type
+    send_attachment_file(@attachment)
   end
 
   # GET /contributions/:contribution_id/attachments/:id/edit
@@ -262,6 +260,18 @@ protected
 
   def find_attachment
     @attachment = @contribution.attachments.find(params[:attachment_id] || params[:id], :include => [ :metadata ])
+  end
+  
+  def send_attachment_file(attachment, style = :original, options = {})
+    options.merge!(:type => attachment.file.content_type)
+    if attachment.file.options[:storage] == :s3
+      tmp_file = attachment.file.to_file(style)
+      send_file tmp_file, options
+      tmp_file.close unless tmp_file.closed?
+      tmp_file.unlink if tmp_file.respond_to?(:unlink) && tmp_file.path.present? && File.exist?(tmp_file.path)
+    else
+      send_file attachment.file.path(style), options
+    end
   end
 
   def cached(format)
