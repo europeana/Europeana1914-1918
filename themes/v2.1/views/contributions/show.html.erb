@@ -74,9 +74,11 @@
       <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>
 
+		<% if @attachments.present? && @attachments.size > 1 -%>
     <div class="col-cell" >
       <ul id="pagination-counts"></ul>
   	</div>
+		<% end -%>
 
     <div class="col-cell" >
       <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>
@@ -276,14 +278,14 @@
 		      <dt><b><%= t('activerecord.attributes.contribution.created_at') %></b></dt>
 		      <dd><%= l @contribution.created_at, :format => :short %></dd>
 		    <% end -%>
-		    
+
 		    <%#= t('formtastic.labels.content.metadata.dc.rights') %></b></dt>
-		    
+
 		    <dt><b><%= t('formtastic.labels.content.metadata.edm.rights') %></b></dt>
 		    <dd>
 				<a target="_new" title="CC BY-SA" href="http://creativecommons.org/licenses/by-sa/3.0/"> <span class="rights-icon icon-cc" title="CC BY-SA"></span> <span class="rights-icon icon-by" title="CC BY-SA"></span> <span class="rights-icon icon-sa" title="CC BY-SA"></span> <span class="rights-text"> CC-BY-SA 3.0</span></a>
 		    </dd>
-		    
+
 	    </dl>
 
 	    <% if @contribution.contributor.picture.present? -%>

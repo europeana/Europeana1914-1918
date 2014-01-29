@@ -147,6 +147,10 @@
 		},
 
 		updatePaginationCount : function() {
+			if ( this.pagination_total < 2 ) {
+				return;
+			}
+
 			this.$pagination_counts.html(
 				I18n.t('javascripts.thumbnails.item') + ' ' +	( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.pagination_total
 			);
