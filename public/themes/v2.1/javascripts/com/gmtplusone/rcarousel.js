@@ -61,13 +61,13 @@
 
 
 		hideOverlay : function() {
+			var self = this;
 
 			if ( this.$overlay.is(':visible') ) {
-
-				this.$overlay.fadeOut();
-
+				this.$overlay.fadeOut( function() {
+					self.callInitComplete();
+				});
 			}
-
 		},
 
 
@@ -500,6 +500,11 @@
 
 		},
 
+		callInitComplete: function() {
+			if ( 'function' === typeof this.options.callbacks.init_complete ) {
+				this.options.callbacks.init_complete.call( this );
+			}
+		},
 
 		init : function( options, carousel_container ) {
 
@@ -514,6 +519,8 @@
 
 			if ( this.options.hide_overlay ) {
 				this.hideOverlay();
+			} else {
+				this.callInitComplete();
 			}
 		}
 
@@ -545,8 +552,9 @@
 		nav_by : 3, // set a default for the one-way-by,
 		cancel_nav : false,
 		callbacks : {
+			after_nav : null,
 			before_nav : null,
-			after_nav : null
+			init_complete: null
 		}
 
 	};

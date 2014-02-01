@@ -1358,12 +1358,21 @@ ul#facets,
 
 .carousel input {
 	position: absolute;
-	opacity: 0.8;
+	opacity: 1.0;
 	-webkit-transition: opacity .3s ease-out;
 	-moz-transition: opacity .3s ease-out;
 	-ms-transition: opacity .3s ease-out;
 	-o-transition: opacity .3s ease-out;
 	transition: opacity .3s ease-out;
+}
+
+.carousel input.initial {
+	opacity: 0;
+	-webkit-transition: opacity .7s ease-out;
+	-moz-transition: opacity .7s ease-out;
+	-ms-transition: opacity .7s ease-out;
+	-o-transition: opacity .7s ease-out;
+	transition: opacity .7s ease-out;
 }
 
 .carousel input.large {
@@ -1387,6 +1396,20 @@ ul#facets,
 
 .carousel input:hover {
 	opacity: 1.0;
+	-webkit-transition: opacity .3s ease-out;
+	-moz-transition: opacity .3s ease-out;
+	-ms-transition: opacity .3s ease-out;
+	-o-transition: opacity .3s ease-out;
+	transition: opacity .3s ease-out;
+}
+
+.carousel input.focus {
+	opacity: 1.0;
+	-webkit-transition: opacity .3s ease-out;
+	-moz-transition: opacity .3s ease-out;
+	-ms-transition: opacity .3s ease-out;
+	-o-transition: opacity .3s ease-out;
+	transition: opacity .3s ease-out;
 }
 
 .carousel input[data-dir="next"] {

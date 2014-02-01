@@ -13,12 +13,13 @@
 
 
 	carousels = {
-		ajax_load_processed : true,
+		$contributions_featured_ul : jQuery('#institution-featured ul'),
 		$featured_carousel : null,
 		$pagination_counts : $('#pagination-counts'),
-		pagination_total : $('#pagination-total').text(),
 		$pagination_next : jQuery('#carousel-pagination .pagination a[rel=next]').eq(0),
-		$contributions_featured_ul : jQuery('#institution-featured ul'),
+		ajax_load_processed : true,
+		nav_initial_delay: 3000,
+		pagination_total : $('#pagination-total').text(),
 
 		addImagesToLightbox : function( $new_content ) {
 			var	$pp_full_res = jQuery('#pp_full_res'),
@@ -32,6 +33,39 @@
 				var $elm = jQuery(this);
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
+			});
+		},
+
+		addNavArrowHandling: function() {
+			if ( !carousels.$featured_carousel
+				|| !carousels.$featured_carousel.$items
+				|| carousels.$featured_carousel.$items.length < 2
+			) {
+				return;
+			}
+
+			setTimeout(
+				function() {
+					carousels.$featured_carousel.$next.addClass('initial');
+					carousels.$featured_carousel.$prev.addClass('initial');
+				},
+				carousels.nav_initial_delay
+			);
+
+			carousels.$featured_carousel.$items.each( function() {
+				var $elm = $(this);
+
+				// decided to use $elm.data instead of $(element).data('events')
+				// see http://blog.jquery.com/2012/08/09/jquery-1-8-released/ What's been removed
+				if ( !$elm.data( 'carousel-events-added' ) ) {
+					$elm
+						.on( 'mouseenter', carousels.navArrowReveal )
+						.on( 'mouseleave', carousels.navArrowHide )
+						.on( 'focus', carousels.navArrowReveal )
+						.on( 'blur', carousels.navArrowHide );
+
+					$elm.data( 'carousel-events-added', true );
+				}
 			});
 		},
 
@@ -67,11 +101,14 @@
 				self.$featured_carousel =
 					$('#institution-featured').rCarousel({
 						callbacks : {
+							after_nav : function() {
+								carousels.updatePaginationCount();
+							},
 							before_nav: function( dir ) {
 								carousels.paginationContentCheck( dir );
 							},
-							after_nav : function() {
-								carousels.updatePaginationCount();
+							init_complete: function() {
+								carousels.addNavArrowHandling();
 							}
 						},
 						hide_overlay: false,
@@ -81,6 +118,16 @@
 
 				carousels.updatePaginationCount();
 			});
+		},
+
+		navArrowHide: function() {
+			carousels.$featured_carousel.$next.removeClass('focus');
+			carousels.$featured_carousel.$prev.removeClass('focus');
+		},
+
+		navArrowReveal: function() {
+			carousels.$featured_carousel.$next.addClass('focus');
+			carousels.$featured_carousel.$prev.addClass('focus');
 		},
 
 		/**
