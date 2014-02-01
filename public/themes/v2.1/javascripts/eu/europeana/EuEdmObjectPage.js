@@ -53,7 +53,7 @@
 			);
 
 			carousels.$featured_carousel.$items.each( function() {
-				var $elm = $(this);
+				var $elm = $(this).find('a').eq(0);
 
 				// decided to use $elm.data instead of $(element).data('events')
 				// see http://blog.jquery.com/2012/08/09/jquery-1-8-released/ What's been removed
