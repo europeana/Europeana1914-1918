@@ -56,7 +56,7 @@
 			);
 
 			carousels.$featured_carousel.$items.each( function() {
-				var $elm = $(this).find('a').eq(0);
+				var $elm = $(this);
 
 				// decided to use $elm.data instead of $(element).data('events')
 				// see http://blog.jquery.com/2012/08/09/jquery-1-8-released/ What's been removed
@@ -64,8 +64,8 @@
 					$elm
 						.on( 'mouseenter', carousels.navArrowReveal )
 						.on( 'mouseleave', carousels.navArrowHide )
-						.on( 'focus', carousels.navArrowReveal )
-						.on( 'blur', carousels.navArrowHide );
+						.on( 'touchstart', carousels.navArrowReveal )
+						.on( 'touchend', carousels.navArrowHide );
 
 					$elm.data( 'carousel-events-added', true );
 				}
