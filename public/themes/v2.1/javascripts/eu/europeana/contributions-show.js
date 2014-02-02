@@ -1,9 +1,5 @@
 /*global jQuery */
 /*jslint browser: true, regexp: true, white: true */
-/**
- *	@todo: add method for handling window re-size so that lightbox & pdf viewer
- *	can be re-determined. also handle portrait/landscape issues
- */
 (function() {
 	'use strict';
 	var add_lightbox =
@@ -65,7 +61,8 @@
 						.on( 'mouseenter', carousels.navArrowReveal )
 						.on( 'mouseleave', carousels.navArrowHide )
 						.on( 'touchstart', carousels.navArrowReveal )
-						.on( 'touchend', carousels.navArrowHide );
+						.on( 'touchend', carousels.navArrowHide )
+						.on( 'touchcancel', carousels.navArrowHide );
 
 					$elm.data( 'carousel-events-added', true );
 				}
