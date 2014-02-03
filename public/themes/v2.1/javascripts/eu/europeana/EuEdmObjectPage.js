@@ -62,8 +62,7 @@
 						.on( 'mouseenter', carousels.navArrowReveal )
 						.on( 'mouseleave', carousels.navArrowHide )
 						.on( 'touchstart', carousels.navArrowReveal )
-						.on( 'touchend', carousels.navArrowHide )
-						.on( 'touchcancel', carousels.navArrowHide );
+						.on( 'touchend', carousels.navArrowHide );
 
 					$elm.data( 'carousel-events-added', true );
 				}
