@@ -24,7 +24,13 @@
 		html += '</div>'
 
 		html += '<div id="carousel-pagination">'
-			html += will_paginate(attachments)
+			
+			pagination = will_paginate(attachments)
+		    
+		    if pagination
+				html += will_paginate(attachments)
+			end
+			
 			html += 'Total: <span id="pagination-total">' + attachments.total_entries.to_s + '</span>'
 		html += '</div>'
 	end
