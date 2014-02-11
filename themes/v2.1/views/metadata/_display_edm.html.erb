@@ -20,192 +20,193 @@
   # check here for others:
   # /git/corelib/corelib-solr/src/test/resources/solr/search/conf/schema.xml
 
+	html = ''
 
   edmVals = [
-  
-  
-      {
-        "name" => "dctermsAlternative",
-        "ns" => "dc",
-        "label" => "terms_alternative",
-        "source" => proxy
-      },
-  
-      {
-        "name" => "dcDescription",
-        "ns" => "dc",
-        "label" => "description",
-        "source" => proxy
-      },
-#      {
-#      "name" => "edmLanguage",
-#        "ns" => "edm",
-#      "label" => "language",
-#      "source" => euAggregation,
-#      "href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
-#      "href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
-#      "expand" => 'languageLabel(readVal)'
-#      },
-      {
-      "name" => "dcLanguage",
-        "ns" => "dc",
-      "label" => "language",
-      "source" => proxy,
-      "expand" => 'languageLabel(readVal)'
-      },
-      {
-      "name" => "dcCreator",
-      "ns" => "dc",
-      "label" => "creator",
-      "source" => proxy
-      },
-      {
-      "name" => "dcContributor",
-      "ns" => "dc",
-      "label" => "contributor",
-      "source" => proxy
-      },
-      {
-      "name" => "dcType",
-      "ns" => "dc",
-      "label" => "type",
-      "source" => proxy
-      },
-      {
-      "name" => "dcFormat",
-      "ns" => "dc",
-      "label" => "format",
-      "source" => proxy
-      },
-      
-      {
-        "name" => "dctermsMedium",
-        "ns" => "dc",
-        "label" => "terms_medium",
-        "source" => proxy
-      },
-      {
-        "name" => "dctermsExtent",
-        "ns" => "dc",
-        "label" => "terms_extent",
-        "source" => proxy
-      },
-      
-      
-      {
-        "name" => "dcSubject",
-        "ns" => "dc",
-        "label" => "subject",
-        "source" => proxy
-      },
-      {
-      "name" => "dcDate",
-        "ns" => "dc",
-      "label" => "date",
-      "source" => proxy
-      },
-      {
-        "name" => "dcCoverage",
-        "ns" => "dc",
-        "label" => "coverage",
-        "source" => proxy
-      },
-      {
-        "name" => "dcRights",
-        "ns" => "dc",
-        "label" => "rights",
-        "source" => proxy
-      },
-      {
-        "name" => "edmRights",
-        "ns" => "edm",
-        "label" => "rights",
-        "source" => aggregation,
-        "target" => "_blank",
-        "rights" => "true",
-        "expand" => 'rightsLabel(readVal, true)'
-      },
+		{
+			"name" => "dctermsAlternative",
+			"ns" => "dc",
+			"label" => "terms_alternative",
+			"source" => proxy
+		},
 
-      {
-        "name" => "dcIdentifier",
-        "ns" => "dc",
-        "label" => "identifier",
-        "source" => proxy
-      },
-      
-      {
-        "name" => "dcSource",
-        "ns" => "dc",
-        "label" => "source",
-        "source" => proxy
-      },
-      
-      {
-        "name" => "dcRelation",
-        "ns" => "dc",
-        "label" => "relation",
-        "source" => proxy
-      },
+		{
+			"name" => "dcDescription",
+			"ns" => "dc",
+			"label" => "description",
+			"source" => proxy
+		},
 
-      {
-        "name" => "edmDataProvider",
-        "ns" => "edm",
-        "label" => "data_provider",
-        "source" => aggregation
-      },
-      {
-        "name" => "edmProvider",
-        "ns" => "edm",
-        "label" => "provider",
-        "source" => aggregation
-      },
-      
-      {
-        "name" => "edmCountry",
-        "ns" => "edm",
-        "label" => "country",
-        "source" => euAggregation
-      }
-   ]
+		#{
+		#	"name" => "edmLanguage",
+		#	"ns" => "edm",
+		#	"label" => "language",
+		#	"source" => euAggregation,
+		#	"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
+		#	"href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
+		#	"expand" => 'languageLabel(readVal)'
+		#},
 
-%>
+		{
+			"name" => "dcLanguage",
+			"ns" => "dc",
+			"label" => "language",
+			"source" => proxy,
+			"expand" => 'languageLabel(readVal)'
+		},
 
+		{
+			"name" => "dcCreator",
+			"ns" => "dc",
+			"label" => "creator",
+			"source" => proxy
+		},
 
+		{
+			"name" => "dcContributor",
+			"ns" => "dc",
+			"label" => "contributor",
+			"source" => proxy
+		},
 
-  <%- edmVals.each do |edmVal| -%>
+		{
+			"name" => "dcType",
+			"ns" => "dc",
+			"label" => "type",
+			"source" => proxy
+		},
 
-	<%- if readVal = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
+		{
+			"name" => "dcFormat",
+			"ns" => "dc",
+			"label" => "format",
+			"source" => proxy
+		},
 
-	    <%- if edmVal["name2"] -%>
-			<%- name2 = edm_proxy_field(edmVal["source"], edmVal["name2"]) -%>
-	        <%- next if !name2 -%>
-     	<% end -%>
+		{
+			"name" => "dctermsMedium",
+			"ns" => "dc",
+			"label" => "terms_medium",
+			"source" => proxy
+		},
 
-	    <%- if edmVal["capitalise"] -%>
-	      <%- readVal = readVal.split(' ').map {|w| w.capitalize }.join(' ') -%>
-     	<% end -%>
+		{
+			"name" => "dctermsExtent",
+			"ns" => "dc",
+			"label" => "terms_extent",
+			"source" => proxy
+		},
 
-	    <%- if edmVal["href"] ||  edmVal["name2"] ||  edmVal["rights"]  -%>
-	      <%- if edmVal["name2"] -%>
-		      <%- href = name2 -%>
-	      <%- elsif edmVal["rights"] -%>
-		      <%- href = readVal -%>
-	      <%- else -%>
-		      <%- href = edm_proxy_field(edmVal["source"], edmVal["name"]) -%>
-		      <%- href = href.index(' ') ? href.clone.gsub!(' ', '+') : href -%>
-		      <%- href = edmVal["href"] + href -%>
-          <%- end -%>
+		{
+			"name" => "dcSubject",
+			"ns" => "dc",
+			"label" => "subject",
+			"source" => proxy
+		},
 
-	      <%- readVal = edmVal["expand"] ? eval(edmVal["expand"]) : readVal -%>
-	      <%- readVal = ('<a href="' + href + '"' +  (edmVal["target"] ? ' target="' + edmVal["target"] + '"' : ' ')   + '>' + readVal + '</a>').html_safe -%>
-     	<% end -%>
+		{
+			"name" => "dcDate",
+			"ns" => "dc",
+			"label" => "date",
+			"source" => proxy
+		},
 
-		<dt><b><%= t('formtastic.labels.content.metadata.' + edmVal["ns"] + '.' + edmVal["label"]) -%></b></dt>
-		<dd class="translate">
-			<%= readVal %>
-		</dd>
-	<% end -%>
+		{
+			"name" => "dcCoverage",
+			"ns" => "dc",
+			"label" => "coverage",
+			"source" => proxy
+		},
 
-  <%- end -%>
-  
-  
+		{
+			"name" => "dcRights",
+			"ns" => "dc",
+			"label" => "rights",
+			"source" => proxy
+		},
+
+		{
+			"name" => "edmRights",
+			"ns" => "edm",
+			"label" => "rights",
+			"source" => aggregation,
+			"target" => "_blank",
+			"rights" => "true",
+			"expand" => 'rightsLabel(readVal, true)'
+		},
+
+		{
+			"name" => "dcIdentifier",
+			"ns" => "dc",
+			"label" => "identifier",
+			"source" => proxy
+		},
+
+		{
+			"name" => "dcSource",
+			"ns" => "dc",
+			"label" => "source",
+			"source" => proxy
+		},
+
+		{
+			"name" => "dcRelation",
+			"ns" => "dc",
+			"label" => "relation",
+			"source" => proxy
+		},
+
+		{
+			"name" => "edmDataProvider",
+			"ns" => "edm",
+			"label" => "data_provider",
+			"source" => aggregation
+		},
+
+		{
+			"name" => "edmProvider",
+			"ns" => "edm",
+			"label" => "provider",
+			"source" => aggregation
+		},
+
+		{
+			"name" => "edmCountry",
+			"ns" => "edm",
+			"label" => "country",
+			"source" => euAggregation
+		}
+  ]
+
+	edmVals.each do |edmVal|
+		if readVal = edm_proxy_field( edmVal["source"], edmVal["name"] )
+			if edmVal["name2"]
+				name2 = edm_proxy_field( edmVal["source"], edmVal["name2"] )
+	      next if !name2
+     	end
+
+	    if edmVal["capitalise"]
+	      readVal = readVal.split(' ').map {|w| w.capitalize }.join(' ')
+     	end
+
+	    if edmVal["href"] || edmVal["name2"] || edmVal["rights"]
+	      if edmVal["name2"]
+					href = name2
+	      elsif edmVal["rights"]
+		      href = readVal
+	      else
+		      href = edm_proxy_field( edmVal["source"], edmVal["name"] )
+		      href = href.index(' ') ? href.clone.gsub!(' ', '+') : href
+		      href = edmVal["href"] + href
+        end
+
+	      readVal = edmVal["expand"] ? eval( edmVal["expand"] ) : readVal
+	      readVal = '<a href="' + href + '"' + ( edmVal["target"] ? ' target="' + edmVal["target"] + '"' : ' ' ) + '>' + readVal + '</a>'
+			end
+
+			html += '<dt><b>' + t( 'formtastic.labels.content.metadata.' + edmVal["ns"] + '.' + edmVal["label"] ) + '</b></dt>'
+			html += '<dd class="translate">' + readVal + '</dd>'
+		end
+	end
+-%>
+<%= html.html_safe -%>
