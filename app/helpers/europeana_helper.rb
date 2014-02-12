@@ -25,12 +25,9 @@ module EuropeanaHelper
   end
   
   ##
-  # Selects an appropriate value for display of an EDM proxy object field
+  # Formats an appropriate value for display of an EDM proxy object field
   #
-  # Returns:
-  # * a localised version for the user's locale if it exists; or
-  # * the first non-empty "def" value if present; or
-  # * all non-empty values joined.
+  # Returns: all non-empty values joined, URLs as links.
   #
   # @param [Hash,Array<Hash>] proxy Proxy object(s) from an EDM record
   # @param [String] field_name Name of the field to retrieve
@@ -41,31 +38,19 @@ module EuropeanaHelper
     return nil unless proxy.is_a?(Array) ||
       (proxy.respond_to?(:has_key?) && proxy.has_key?(field_name))
     
-    proxy_field = if proxy.is_a?(Array)
+    proxy_field_values = if proxy.is_a?(Array)
       proxy.collect { |one_proxy| edm_proxy_field(one_proxy, field_name) }
-    elsif proxy[field_name].nil?
-      nil
     elsif proxy[field_name].is_a?(String)
-      proxy[field_name]
-    elsif proxy[field_name].is_a?(Hash)
+      [ proxy[field_name] ]
+    elsif proxy[field_name].respond_to?(:values)
       proxy[field_name].values
-#    elsif proxy[field_name].has_key?(I18n.locale.to_s)
-#      [ proxy[field_name][I18n.locale.to_s] ]
-#    elsif proxy[field_name]["def"].present?
-#      [ proxy[field_name]["def"] ]
     else
-      proxy[field_name].values
+      [ ]
     end
     
-    if proxy_field.is_a?(Array)
-      proxy_field = [ proxy_field ].flatten.reject(&:blank?).join('; ')
-    end
-    
-    if proxy_field.blank?
-      nil
-    else
-      proxy_field
-    end
+    proxy_field_values.reject!(&:blank?)
+    proxy_field_values.collect! { |value| value =~ /^#{URI::regexp}$/ ? link_to(value, value, :target => '_blank') : value }
+    proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
   end
   
   ##
