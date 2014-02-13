@@ -15,7 +15,7 @@ module Europeana
       #
       # The %s token will be replaced with the recordID.
       #
-      BASE_URL = 'http://europeana.eu/api/v2/record/%s.json'
+      BASE_URL = 'http://www.europeana.eu/api/v2/record/%s.json'
       
       class << self
         ##
@@ -29,9 +29,10 @@ module Europeana
         def get(record_id)
           record_uri = uri(record_id)
           Rails.logger.debug("Europeana API record URL: #{record_uri.to_s}")
-          response = JSON.parse(Net::HTTP.get(record_uri))
-          raise Errors::RequestError, response['error'] unless response['success']
-          response
+          response = Net::HTTP.get(record_uri)
+          json = JSON.parse(response)
+          raise Errors::RequestError, json['error'] unless json['success']
+          json
         rescue JSON::ParserError
           raise Errors::ResponseError
         end

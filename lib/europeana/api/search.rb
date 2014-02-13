@@ -12,7 +12,7 @@ module Europeana
       ##
       # Base URL for Search API requests
       #
-      BASE_URL = 'http://europeana.eu/api/v2/search.json'
+      BASE_URL = 'http://www.europeana.eu/api/v2/search.json'
       
       ##
       # Search terms
