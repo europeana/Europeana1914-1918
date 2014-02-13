@@ -39,8 +39,8 @@
   <div><%= submit_tag t('actions.submit') %></div>
 <% end -%>
 
-<%= render :partial => '/metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => false, :attachment => true } } %>
+<%= render :partial => 'metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => false, :attachment => true } } %>
 
 <% if current_user.may_catalogue_contributions? -%>
-  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => true, :attachment => true } } %>
+  <%= render :partial => 'metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => true, :attachment => true } } %>
 <% end -%>

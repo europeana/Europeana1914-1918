@@ -2,7 +2,7 @@
   
   <p><%= link_to( t('common.links.takedown_policy'), page_path('about/takedown'), :title => t('common.links.titles.takedown') ) %></p>
   
-  <%= render :partial => '/shared/search_form', :locals => { :query => @query } %>
+  <%= render :partial => 'shared/search_form', :locals => { :query => @query } %>
   
   <% if @contributions.size == 0 -%>
 	

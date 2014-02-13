@@ -8,7 +8,7 @@
   
   <h2><%= @title %></h2>
 
-    <%= render :partial => '/shared/search_form', :locals => { :query => @query, :count => 48 } %>
+    <%= render :partial => 'shared/search_form', :locals => { :query => @query, :count => 48 } %>
     
     <ul id="results-tabs">
       <li><%= link_to 'Europeana 1914-1918', '#stories', :id => 'results-tab-1914', :'data-search-action' => '/contributions/search', :'data-content-id' => '#results-1914', :'data-hash' => '#stories' %></li>

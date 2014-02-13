@@ -14,5 +14,5 @@
       <li><%= link_to t('views.links.privacy_policy'), page_path('about/privacy') %></li>
     </ul>
   </div>
-  <%= render :partial => '/contacts/summary', :locals => { :contact => current_user.contact, :caption => t('views.users.account.caption'), :email => false } %>
+  <%= render :partial => 'contacts/summary', :locals => { :contact => current_user.contact, :caption => t('views.users.account.caption'), :email => false } %>
 <% end -%>

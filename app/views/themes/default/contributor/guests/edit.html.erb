@@ -1,7 +1,7 @@
 <% @title = t('views.contributor.guests.edit.title') %>
 
 <%= semantic_form_for @contact, :url => contributor_guest_path do |form| %>
-  <%= render :partial => '/contacts/form_fields', :locals => { :form => form } %>
+  <%= render :partial => 'contacts/form_fields', :locals => { :form => form } %>
   <%= form.buttons do %>
     <%= redirect_field contributor_dashboard_path %>
     <%= form.commit_button %>

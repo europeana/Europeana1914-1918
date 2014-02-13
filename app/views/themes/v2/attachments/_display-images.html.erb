@@ -69,7 +69,7 @@
           <div id="audio-<%= attachment.id %>" style="width:<%= audio_width.to_s %>px; height:<%= audio_height.to_s %>px; display: none;" class="audio-wrapper"><div class="audio-element" data-src="<%= attachment_url(attachment, 'large') %>"></div></div>
         <% end %>
         <dl class="lightbox-metadata" id="inline-<%= inline.to_s %>">
-          <%= render :partial => '/metadata/display',
+          <%= render :partial => 'metadata/display',
             :locals => {
               :show_title => true,
               :contribution => contribution,

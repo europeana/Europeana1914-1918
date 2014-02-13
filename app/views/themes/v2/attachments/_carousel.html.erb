@@ -2,7 +2,7 @@
   <ul>
     <%- if local_assigns[:attachments].present? -%>
       <%=
-        render :partial => '/attachments/display-images',
+        render :partial => 'attachments/display-images',
         :locals => {
           :size => :medium,
           :prettyphoto => true,
@@ -19,7 +19,7 @@
   <ul>
     <%- if local_assigns[:attachments].present? -%>
       <%= 
-        render :partial => '/attachments/display-images', :locals => {
+        render :partial => 'attachments/display-images', :locals => {
           :size => :preview, 
           :attachments => attachments, 
           :contribution => contribution 

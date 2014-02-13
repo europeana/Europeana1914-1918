@@ -81,7 +81,7 @@
 
 				<h2 class="dcTitle hide-on-item-collapsed"> <%= edm_proxy_field(proxy, 'dcTitle') %></h2>
 
-				<%= render :partial => '/edm/data',  :locals => {
+				<%= render :partial => 'edm/data',  :locals => {
 					:proxy         => proxy,
 					:aggregation   => aggregation,
 					:euAggregation => euAggregation
@@ -112,7 +112,7 @@
             <%= link_to t('views.links.back-to-search'), :back, :class => 'link-back'  %>
         <% end %>
 
-        <%= render :partial => '/layouts/navigation/sharethis' %>
+        <%= render :partial => 'layouts/navigation/sharethis' %>
 
         <div id="shareicons">
             <span class='st_sharethis' displayText='&nbsp;'></span>
@@ -158,7 +158,7 @@
 
 
 		<%# Mediaplayer %>
-		<%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+		<%= render :partial => 'attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
 		<ul id="thumbnail-counts"></ul>
 
 
@@ -243,7 +243,7 @@
 					<% end %>
 
 					<%=
-						render :partial => '/metadata/display',
+						render :partial => 'metadata/display',
 						:locals => {
 							:show_title => false,
 							:contribution => @contribution,
@@ -262,7 +262,7 @@
 						<dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
 						<dd><%= link_to character1, search_contributions_path(:q => character1.add_quote_marks) %></dd>
 						<%=
-							render :partial => '/metadata/display',
+							render :partial => 'metadata/display',
 							:locals => {
 								:show_title => false,
 								:contribution => @contribution,
@@ -285,7 +285,7 @@
 						<dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
 						<dd><%= link_to character2, search_contributions_path(:q => character2.add_quote_marks) %></dd>
 						<%=
-							render :partial => '/metadata/display',
+							render :partial => 'metadata/display',
 							:locals => {
 								:show_title => false,
 								:contribution => @contribution,
@@ -306,7 +306,7 @@
 					<% end %>
 
 					<%=
-						render :partial => '/metadata/display',
+						render :partial => 'metadata/display',
 						:locals => {
 							:show_title => false,
 							:contribution => @contribution,
@@ -345,7 +345,7 @@
 					%>
 					<% if current_user.may_catalogue_contributions? %>
 						<%=
-							render :partial => '/metadata/display',
+							render :partial => 'metadata/display',
 								:locals => {
 									:show_title => false,
 									:contribution => @contribution,
@@ -364,7 +364,7 @@
 	        			<dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
     	    			<dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
 						<%=
-							render :partial => '/metadata/display',
+							render :partial => 'metadata/display',
 								:locals => {
 									:show_title => false,
 									:contribution => @contribution,
@@ -439,7 +439,7 @@
 
 
 			<div class="col-cell">
-			    <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+			    <%= render :partial => 'contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
 			</div>
 
 

@@ -37,7 +37,7 @@
           
           <%- unless @query.blank? && @facets.blank? -%>
           
-            <li class="filter-section"><%= render :partial => '/search/filters', :locals => { :query => @query, :facets => @facets, :provider => "/" + current_search_provider_stem }%></li>
+            <li class="filter-section"><%= render :partial => 'search/filters', :locals => { :query => @query, :facets => @facets, :provider => "/" + current_search_provider_stem }%></li>
           <%- end -%>
           
           <li class="refinements-section">
@@ -62,7 +62,7 @@
           </li>
 
           <%- unless @facets.blank? -%>
-            <%= render :partial => '/search/facets', :object => @facets, :locals => { :provider => "/" + current_search_provider_stem } %>
+            <%= render :partial => 'search/facets', :object => @facets, :locals => { :provider => "/" + current_search_provider_stem } %>
             
           <%- end -%>
           
@@ -93,7 +93,7 @@
 
   <section role="main">
     <%=
-      render :partial => '/search/results', :locals => {
+      render :partial => 'search/results', :locals => {
         :results => @results,
         :query => @query,
         :term => @term

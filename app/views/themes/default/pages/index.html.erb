@@ -13,7 +13,7 @@
 	
 	<h2><%= t('common.news_item.heading') %></h2>
     <div class="feedcontent">
-  	  <%= render :partial => '/blog_posts/list', :locals => { :blog => 'gwa', :titles => true, :category => 'news', :limit => 1 } %>
+  	  <%= render :partial => 'blog_posts/list', :locals => { :blog => 'gwa', :titles => true, :category => 'news', :limit => 1 } %>
 	  </div>
 	  <p>&nbsp;</p>
 	  <p><%= raw t( 'common.editors_pick.more_stories', :explore_stories => link_to( t( 'common.links.explore_stories' ), page_path('explore') ) ) %></p>

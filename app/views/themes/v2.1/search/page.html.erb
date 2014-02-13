@@ -28,7 +28,7 @@
           <% else -%>
             <div id="results-items">
               <%=
-              render :partial => '/search/results',
+              render :partial => 'search/results',
                 :locals => {
                   :results => @results,
                   :query => @query,
@@ -38,7 +38,7 @@
             </div>
             
             <div id="results-facets">
-              <%= render :partial => '/search/facets', :object => @facets, :locals => { :query => @query, :provider => provider } %>
+              <%= render :partial => 'search/facets', :object => @facets, :locals => { :query => @query, :provider => provider } %>
             </div>
             
           <% end -%>

@@ -80,7 +80,7 @@
 
 				html += '<div class="col-cell">'
 			    	html += '<span class="icon-share">' + t('views.contributions.show.headings.share') + '</span>'
- 					html += render :partial => '/layouts/navigation/sharethis'
+ 					html += render :partial => 'layouts/navigation/sharethis'
  				html += '</div>'
 
 				html += '<div class="col-cell translate-area" >'
@@ -93,7 +93,7 @@
 				html += '<div id="story-metadata" class="col middle metadata">'
 					html += '<h2 class="dcTitle hide-on-item-collapsed"> ' + title + '</h2>'
 					html += '<div class="col-cell">'
-						html +=	render :partial => '/metadata/display_edm',
+						html +=	render :partial => 'metadata/display_edm',
 							:locals => {
 								:proxy => proxy,
 								:aggregation => aggregation,

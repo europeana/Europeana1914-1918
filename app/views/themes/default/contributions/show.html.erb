@@ -3,14 +3,14 @@
 
 <%= render :partial => 'summary', :locals => { :contribution => @contribution } %>
 
-<%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :show_errors => @show_errors, :field_options => { :cataloguing => false, :contribution => true } } %>
+<%= render :partial => 'metadata_records/table', :locals => { :metadata => @contribution.metadata, :show_errors => @show_errors, :field_options => { :cataloguing => false, :contribution => true } } %>
 
 <% if current_user.may_catalogue_contribution?(@contribution) -%>
-  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @contribution.metadata, :show_errors => @show_errors, :field_options => { :cataloguing => true, :contribution => true } } %>
+  <%= render :partial => 'metadata_records/table', :locals => { :metadata => @contribution.metadata, :show_errors => @show_errors, :field_options => { :cataloguing => true, :contribution => true } } %>
 <% end -%>
 
 <% if @contribution.attachments.present? -%>
-  <%= render :partial => '/attachments/table', :locals => { :attachments => @contribution.attachments } %>
+  <%= render :partial => 'attachments/table', :locals => { :attachments => @contribution.attachments } %>
   <%- if current_user.may_create_contribution_attachment?(@contribution) %>
     <div><h3><%= link_to t('views.contributions.show.links.new_attachment'), new_contribution_attachment_path(@contribution), :class => 'attachment' %></h3></div>
   <%- end -%>

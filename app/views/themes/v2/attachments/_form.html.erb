@@ -51,7 +51,7 @@
   
     <%= form.semantic_fields_for :metadata do |metadata| %>
       <%=
-        render :partial => '/metadata_records/form_fields',
+        render :partial => 'metadata_records/form_fields',
         :locals => { :form => metadata,
           :type => :attachment,
           :field_options => {
@@ -67,7 +67,7 @@
     
     <%= form.semantic_fields_for :metadata do |metadata| %>
        <%=
-        render :partial => '/metadata_records/form_fields',
+        render :partial => 'metadata_records/form_fields',
         :locals => {
           :form => metadata, :type => :attachment,
           :field_options => {
@@ -83,34 +83,34 @@
   
   <%= form.inputs :attachment_dates, :class => @fieldset_class, :style => @fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => 'metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'date_from', 'date_to' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%= form.inputs :attachment_location, :class => @fieldset_class, :id => 'attachment_location', :style => @fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'location_placename', 'location_map', 'location_zoom' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => 'metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'location_placename', 'location_map', 'location_zoom' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%= form.inputs :attachment_keywords, :class => @fieldset_class, :style => @fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => 'metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'keywords' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%= form.inputs :attachment_front, :class => @fieldset_class, :style => @fieldset_style do %>
     <%= form.semantic_fields_for :metadata do |metadata| %>
-       <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :attachment => true } } %>
+       <%= render :partial => 'metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'theatres' ], :cataloguing => false, :attachment => true } } %>
     <% end %>
   <% end %>
   
   <%- if current_user.may_catalogue_contribution?(attachment.contribution) -%>
     <%= form.inputs :cataloguing_metadata, :class => @fieldset_class, :style => @fieldset_style do %>
       <%= form.semantic_fields_for :metadata do |metadata| %>
-        <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license' ], :cataloguing => true, :attachment => true } } %>
+        <%= render :partial => 'metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'forces', 'source', 'format', 'page_total', 'notes', 'file_type', 'license' ], :cataloguing => true, :attachment => true } } %>
         <%- if I18n.locale == :fr -%>
-          <%= render :partial => '/metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'extended_subjects' ], :cataloguing => true, :attachment => true } } %>
+          <%= render :partial => 'metadata_records/form_fields', :locals => { :form => metadata, :type => :attachment, :field_options => { :name => [ 'extended_subjects' ], :cataloguing => true, :attachment => true } } %>
         <%- end -%>
       <% end %>
     <% end %>

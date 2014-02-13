@@ -92,7 +92,7 @@
   
   
   <% if @contribution.ready_to_submit? -%>
-  <%= render :partial => '/contributions/submit_form', :locals => { :contribution => @contribution } %>
+  <%= render :partial => 'contributions/submit_form', :locals => { :contribution => @contribution } %>
   <%- end %>
   
   
@@ -126,7 +126,7 @@
   <% end -%>
   
   <% unless @contribution.submitted? -%>
-    <%= render :partial => '/contributions/progress', :locals => { :step => 2 } %>
+    <%= render :partial => 'contributions/progress', :locals => { :step => 2 } %>
   <% end -%>
 
 </div>

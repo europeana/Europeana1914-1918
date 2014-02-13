@@ -16,7 +16,7 @@
 
 <div class='section top'>
 	
-	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
+	<% doc = Hpricot( render :partial => 'blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
 	<% docTitle = doc/'h3' %>
 
 	<% (doc/'h3').remove %>
@@ -152,7 +152,7 @@
 	
 	<div id='index-aside' class='one-third-left-boxed box-gradient'>
 		
-		<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
+		<%= render :partial => 'blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
 		
 	</div>
 	
@@ -162,10 +162,10 @@
 		<h2><%= t('common.news') %></h2>
 		
 			<div id='index-follow-us'>
-				<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-follow-us', :titles => false, :deblogger => true } %>
+				<%= render :partial => 'blog_posts/list', :locals => { :category => 'index-follow-us', :titles => false, :deblogger => true } %>
 			</div>
 			
-			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'news', :tag => :div, :html_class => 'article', :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
+			<%= render :partial => 'blog_posts/list', :locals => { :blog => 'europeana', :category => 'news', :tag => :div, :html_class => 'article', :titles => true, :limit => 2, :deblogger => true, :read_more => true } %>
 		
 	</div>
 	

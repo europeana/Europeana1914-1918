@@ -10,7 +10,7 @@
 %>
 <div class='section top'>
 
-	<%#= render :partial => '/blog_posts/list', :locals => {:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false } %>
+	<%#= render :partial => 'blog_posts/list', :locals => {:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false } %>
 
     <%# read from http://europeana1914-1918.blogspot.com/feeds/posts/default  -%>
     <%
@@ -28,7 +28,7 @@
 	    heroImgBlurb = ''      
       end  
 %>
-	<% doc = Hpricot( render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
+	<% doc = Hpricot( render :partial => 'blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
 	<% (doc/'h3').remove %>
 
 
@@ -38,7 +38,7 @@
 
 	<div id='index-featured' class='carousel two-thirds-right'>	
 		<ul>
-			<%= render :partial => '/blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
+			<%= render :partial => 'blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
 		</ul>
 		<div class='carousel-overlay'></div>	
 	</div>
@@ -80,10 +80,10 @@
 			<%# Add :limit => 1 to the locals for here image %>
 		
 			<div id='index-follow-us'>
-				<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-follow-us', :titles => false, :deblogger => true } %>
+				<%= render :partial => 'blog_posts/list', :locals => { :category => 'index-follow-us', :titles => false, :deblogger => true } %>
 			</div>
 			
-			<%= render :partial => '/blog_posts/list', :locals => { 
+			<%= render :partial => 'blog_posts/list', :locals => { 
 				:blogs => [
 					{
 						:blog => 'europeana', 
@@ -107,7 +107,7 @@
 
 	<div id='index-aside' class='box-gradient'>
 		
-		<%= render :partial => '/blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
+		<%= render :partial => 'blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
 		
 	</div>
 	

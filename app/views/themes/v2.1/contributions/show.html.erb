@@ -71,12 +71,12 @@
 	</script>
 
     <div class="col-cell" >
-      <%= render :partial => '/attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
+      <%= render :partial => 'attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>
 
     <div class="col-cell" >
       <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>
-      <%= render :partial => '/layouts/navigation/sharethis' %>
+      <%= render :partial => 'layouts/navigation/sharethis' %>
     </div>
 
     <div class="col-cell translate-area" >
@@ -84,7 +84,7 @@
     </div>
 
     <div class="col-cell" style="clear:both;">
-      <%= render :partial => '/contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+      <%= render :partial => 'contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
     </div>
 
   </div>
@@ -100,7 +100,7 @@
         <dl id="story-metadata" class="metadata">
 
 		    <%=
-		      render :partial => '/metadata/display',
+		      render :partial => 'metadata/display',
 		      :locals => {
 		      :show_title => false,
 		      :contribution => @contribution,
@@ -122,7 +122,7 @@
 		      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id, :qf => [ 'index:c' ] ) %></dd>
 		    <% end -%>
 		    <%=
-		      render :partial => '/metadata/display',
+		      render :partial => 'metadata/display',
 		      :locals => {
 		      :show_title => false,
 		      :contribution => @contribution,
@@ -141,7 +141,7 @@
 		      <dt><b><%= t('formtastic.titles.story_character1') %></b></dt>
 		      <dd><%= link_to character1, search_contributions_path(:q => character1.add_quote_marks) %></dd>
 		      <%=
-		      render :partial => '/metadata/display',
+		      render :partial => 'metadata/display',
 		        :locals => {
 		        :show_title => false,
 		        :contribution => @contribution,
@@ -164,7 +164,7 @@
 		      <dt><b><%= t('formtastic.titles.story_character2') %></b></dt>
 		      <dd><%= link_to character2, search_contributions_path(:q => character2.add_quote_marks) %></dd>
 		      <%=
-		        render :partial => '/metadata/display',
+		        render :partial => 'metadata/display',
 		        :locals => {
 		          :show_title => false,
 		          :contribution => @contribution,
@@ -184,7 +184,7 @@
 		      %>
 		    <% end -%>
 		    <%=
-		      render :partial => '/metadata/display',
+		      render :partial => 'metadata/display',
 		      :locals => {
 		      :show_title => false,
 		      :contribution => @contribution,
@@ -228,7 +228,7 @@
 		    %>
 		    <% if current_user.may_catalogue_contributions? -%>
 		      <%=
-		      render :partial => '/metadata/display',
+		      render :partial => 'metadata/display',
 		        :locals => {
 		          :show_title => false,
 		          :contribution => @contribution,
@@ -247,7 +247,7 @@
 		      <dt><b><%= t('formtastic.labels.contribution.metadata.cataloguer') %></b></dt>
 		      <dd><%= @contribution.cataloguer.present? ? @contribution.cataloguer.contact.full_name : '' %></dd>
 		      <%=
-		      render :partial => '/metadata/display',
+		      render :partial => 'metadata/display',
 		        :locals => {
 		        :show_title => false,
 		        :contribution => @contribution,

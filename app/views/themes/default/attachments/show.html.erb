@@ -19,7 +19,7 @@
 <%= render :partial => 'summary', :locals => { :attachment => @attachment } %>
 
 <% if @attachment.contribution.submitted? && current_user.may_catalogue_contribution?(@attachment.contribution) -%>
-  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => false, :attachment => true } } %>
+  <%= render :partial => 'metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => false, :attachment => true } } %>
 
-  <%= render :partial => '/metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => true, :attachment => true } } %>
+  <%= render :partial => 'metadata_records/table', :locals => { :metadata => @attachment.metadata, :field_options => { :cataloguing => true, :attachment => true } } %>
 <% end -%>

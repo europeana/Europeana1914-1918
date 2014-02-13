@@ -14,7 +14,7 @@
 	<div id="explore-featured" class="carousel two-thirds-right">
 		<ul>
 			<%=
-				render :partial => '/blog_posts/list',
+				render :partial => 'blog_posts/list',
 				:locals => {
 					:blog => 'europeana',
 					:category => 'explore-featured',
@@ -27,7 +27,7 @@
 	</div>
 	
 	<div id="explore-introduction" class="one-third-left">
-		<%= render :partial => '/blog_posts/list', :locals => { :category => 'explore-introduction', :titles => true } %>
+		<%= render :partial => 'blog_posts/list', :locals => { :category => 'explore-introduction', :titles => true } %>
 	</div>
 	
 </div>
@@ -39,7 +39,7 @@
 	
 		<ol>
 			<%=
-				render :partial => '/blog_posts/list',
+				render :partial => 'blog_posts/list',
 				:locals => {
 					:blog => 'europeana',
 					:category => 'explore-featured-categories',
@@ -60,7 +60,7 @@
 		<div id="explore-collection-days" class="carousel">
 			<ul>
 				<%=
-					render :partial => '/blog_posts/list',
+					render :partial => 'blog_posts/list',
 					:locals => {
 						:category => 'collection-days',
 						:tag => :li,
@@ -81,7 +81,7 @@
 	<h2><%= t('common.editors_pick.heading') %></h2>
 		
 		<%=
-			render :partial => '/blog_posts/list',
+			render :partial => 'blog_posts/list',
 			:locals => {
 				:blog => 'gwa',
 				:tag => 'div',
