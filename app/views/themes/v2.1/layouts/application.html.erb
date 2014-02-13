@@ -8,7 +8,8 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 <meta charset='utf-8'/>
 <meta name='viewport' content='width=device-width, initial-scale=1'/>
 <%= csrf_meta_tag %>
-<%= render :partial => 'layouts/links' %>
+<%= theme_stylesheet_link_tag 'application', :media => 'all' %>
+<%= theme_stylesheet_link_tag 'application-screen', :media => 'screen, projection' %>
 <link rel='icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <link rel='shortcut icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <meta property='fb:app_id" content='185778248173748'/>
@@ -30,6 +31,7 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 	<%= render :partial => 'layouts/header' %>
 	
 	<div id='content' class='section'>
+
 		<%= flash_message(:alert) unless flash[:alert].blank? %>
 		<%= flash_message(:notice) unless flash[:notice].blank? %>
 		<%= yield :layout %>
@@ -37,7 +39,7 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 	</div>
 	
 	<%= render :partial => 'layouts/footer' %>
-	<%= render :partial => 'layouts/scripts' %>
+	<%= theme_javascript_include_tag 'application' %>
 	
 </body>
 </html>

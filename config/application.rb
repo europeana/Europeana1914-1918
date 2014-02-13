@@ -55,7 +55,7 @@ module RunCoCo
     config.assets.version = '1.0'
     
     # Additional assets to precompile
-    config.assets.precompile += [ 'gmap.js', 'uploadify.js' ]
+    config.assets.precompile += [ 'gmap.js', 'uploadify.js', 'application-screen.css' ]
   end
 end
 

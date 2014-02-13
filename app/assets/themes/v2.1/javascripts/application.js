@@ -6,4 +6,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree v2.1/javascripts
+//= require jquery.ui.autocomplete
+//= require i18n.js
+//= require translations.js
+//= require ./js/loader.js
+//= require ./js/utils.js
+//= require ./js/console.js
+//= require ./com/google/analytics.js
+//= require ./com/scottjehl/ios-orientationchange-fix.js
+//= require ./eu/europeana/navigation-mobile.js
+

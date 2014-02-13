@@ -1,12 +1,12 @@
 # Require any additional compass plugins here.
 
-# Set this to the root of your project when deployed:
-http_path = "/"
-css_dir = "public/themes/v3/stylesheets"
-#sass_dir = "sass"
-sass_dir = "public/themes/v3/stylesheets/sass"
-images_dir = "public/themes/v3/images"
-javascripts_dir = "public/themes/v3/javascripts"
+## Set this to the root of your project when deployed:
+#http_path = "/"
+#css_dir = "public/themes/v3/stylesheets"
+##sass_dir = "sass"
+#sass_dir = "public/themes/v3/stylesheets/sass"
+#images_dir = "public/themes/v3/images"
+#javascripts_dir = "public/themes/v3/javascripts"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
