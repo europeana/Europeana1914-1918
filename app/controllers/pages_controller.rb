@@ -10,13 +10,12 @@ class PagesController < ApplicationController
       path = $1
     end
     
-    tpaths = [ "/pages/#{path}", "/pages/#{path}/index" ]
+    views_prefix = 'pages'
     
-    logger.debug("Template paths: #{tpaths.inspect}")
-    if template_exists?(tpaths.first)
-      render :template => tpaths.first
-    elsif path.present? && template_exists?(tpaths.last)
-      render :template => tpaths.last
+    if template_exists?(path, [ views_prefix ])
+      render :template => "#{views_prefix}/#{path}"
+    elsif path.present? && template_exists?("#{path}/index", [ views_prefix ])
+      render :template => "#{views_prefix}/#{path}/index"
     else
       raise ActionController::RoutingError, "No resource found for request path \"#{request.fullpath}\"."
     end
