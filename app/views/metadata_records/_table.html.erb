@@ -5,7 +5,7 @@
   geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
   
   if geo_field
-    @javascripts[:gmap_display] = true
+    @javascripts[:gmap] = true
   end
 -%>
 <% unless fields.blank? || metadata.blank? -%>
