@@ -46,11 +46,25 @@ module EuropeanaHelper
       proxy[field_name].values
     else
       [ ]
-    end
+    end.flatten
     
     proxy_field_values.reject!(&:blank?)
-    proxy_field_values.collect! { |value| value =~ /^#{URI::regexp}$/ ? link_to(value, value, :target => '_blank') : value }
+    proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) }
     proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
+  end
+  
+  def edm_link_to_url(url, field_name)
+    text = url
+    if field_name == 'edmRights'
+      text = rightsLabel(url, true)
+    end
+    
+    if url =~ /^#{URI::regexp}$/
+      href = url.gsub(' ', '+')
+      link_to(text, href, :target => '_blank')
+    else
+      text
+    end
   end
   
   ##

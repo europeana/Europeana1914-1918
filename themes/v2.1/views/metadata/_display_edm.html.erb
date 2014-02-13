@@ -130,9 +130,7 @@
 			"ns" => "edm",
 			"label" => "rights",
 			"source" => aggregation,
-			"target" => "_blank",
 			"rights" => "true",
-			"expand" => 'rightsLabel(readVal, true)'
 		},
 
 		{
@@ -179,32 +177,10 @@
   ]
 
 	edmVals.each do |edmVal|
+		field_ns = edmVal["name"].underscore.split('_').first
+		field_label = edmVal["name"].underscore.split('_')[1..-1].join('_')
 		if readVal = edm_proxy_field( edmVal["source"], edmVal["name"] )
-			if edmVal["name2"]
-				name2 = edm_proxy_field( edmVal["source"], edmVal["name2"] )
-	      next if !name2
-     	end
-
-	    if edmVal["capitalise"]
-	      readVal = readVal.split(' ').map {|w| w.capitalize }.join(' ')
-     	end
-
-	    if edmVal["href"] || edmVal["name2"] || edmVal["rights"]
-	      if edmVal["name2"]
-					href = name2
-	      elsif edmVal["rights"]
-		      href = readVal
-	      else
-		      href = edm_proxy_field( edmVal["source"], edmVal["name"] )
-		      href = href.index(' ') ? href.clone.gsub!(' ', '+') : href
-		      href = edmVal["href"] + href
-        end
-
-	      readVal = edmVal["expand"] ? eval( edmVal["expand"] ) : readVal
-	      readVal = '<a href="' + href + '"' + ( edmVal["target"] ? ' target="' + edmVal["target"] + '"' : ' ' ) + '>' + readVal + '</a>'
-			end
-
-			html += '<dt><b>' + t( 'formtastic.labels.content.metadata.' + edmVal["ns"] + '.' + edmVal["label"] ) + '</b></dt>'
+			html += '<dt><b>' + t( 'formtastic.labels.content.metadata.' + field_ns + '.' + field_label ) + '</b></dt>'
 			html += '<dd class="translate">' + readVal + '</dd>'
 		end
 	end
