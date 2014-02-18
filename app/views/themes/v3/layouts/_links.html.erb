@@ -1,58 +1,23 @@
-<%
-stylesheets = {
-  'all' => [ "/themes/#{session[:theme]}/stylesheets/all.css" ],
-  'screen' => [],
-}
-
-if @javascripts[:autocomplete]
-  stylesheets['screen'] << "/themes/#{session[:theme]}/stylesheets/jquery-plugins/ui-flick/jquery-ui-1.8.23.custom.css"
-end
-
-if @javascripts[:uploadify]
-  stylesheets['screen'] << "/themes/#{session[:theme]}/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.css"
-end
-
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/main.css"
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/europeana-font-icons.css"
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/common.css"
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/header.css"
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/eumenu.css"
-
-
-
-if @stylesheets['index']
-	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/index.css"
-end
-
-if @stylesheets['search']
-	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/facets.css"
-	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/search.css"
-end
-
-if @javascripts[:video] || @javascripts[:audio]
-  stylesheets['screen'] << '/themes/common/mediaelement/mediaelementplayer.css'
-end
-
-# TODO: only include this stuff if we're on the item page
-
-if @stylesheets['item']
-	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/item.css"
-end
-
-
-
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/portlet.css"
-
-
-
--%>
-<% stylesheets.each_pair do |media, sources| -%>
-  <%- unless sources.blank? -%>
-    <%= stylesheet_link_tag sources, :media => media, :cache => '/cache/stylesheets/' + asset_bundle_id(sources) %>
-  <%- end -%>
+<%= theme_stylesheet_link_tag 'application', :media => 'all' %>
+<%= theme_stylesheet_link_tag 'application-screen', :media => 'screen, projection' %>
+<% if @javascripts[:lightbox] -%>
+  <%= theme_stylesheet_link_tag 'jquery-plugins/prettyphoto/prettyphoto.css', :media => 'screen, projection' %>
 <% end -%>
-
-<!--[if lt IE 9]><%= stylesheet_link_tag "/themes/#{session[:theme]}/stylesheets/ie.css", :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id("/themes/#{session[:theme]}/stylesheets/ie.css") %><![endif]-->
-<noscript><%= stylesheet_link_tag "/themes/#{session[:theme]}/stylesheets/noscript.css", :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id("/themes/#{session[:theme]}/stylesheets/noscript.css") %></noscript>
-
-<script src="/themes/<%=session[:theme]%>/javascripts/com/scottjehl/respond.min.js"></script>
+<% if @javascripts[:uploadify] -%>
+  <%= theme_stylesheet_link_tag 'com/jquery/plugins/uploadify/2.1.4/uploadify.css', :media => 'screen, projection' %>
+<% end -%>
+<% if @javascripts[:video] || @javascripts[:audio] -%>
+  <%= stylesheet_link_tag 'themes/common/mediaelement/mediaelementplayer.css', :media => 'screen, projection' %>
+<% end -%>
+<% if @javascripts[:annotorious] -%>
+  <%= stylesheet_link_tag 'themes/common/ait/annotorious/css/annotorious.css', :media => 'screen, projection' %>
+<% end -%>
+<% if @javascripts[:page] == 'index' -%>
+  <%= theme_stylesheet_link_tag "index.css" %>
+<% end -%>
+<% if @javascripts[:page] == 'search' -%>
+  <%= theme_stylesheet_link_tag "facets.css", "search.css" %>
+<% end -%>
+<!--[if lt IE 9]><%= theme_stylesheet_link_tag "ie", :media => 'all' %><![endif]-->
+<noscript><%= theme_stylesheet_link_tag "noscript", :media => 'all' %></noscript>
+<%= theme_javascript_include_tag 'com/scottjehl/respond.min.js' %>

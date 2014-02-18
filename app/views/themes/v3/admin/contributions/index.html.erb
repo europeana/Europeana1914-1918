@@ -1,6 +1,5 @@
 <%
-  @javascripts[:collapsible] = true
-  @javascripts[:admin_contributions] = true
+  @javascripts[:page] = 'admin-contributions'
   @title = t('views.admin.contributions.index.title')
 %>
 <div class="section top">
@@ -17,7 +16,7 @@
       <%= semantic_form_for(@options, :as => :options, :url => options_admin_contributions_path, :html => { :method => 'put' }) do |form| %>
         <%= form.inputs :fields, :class => 'inputs options collapsed' do %>
           <%= form.input :fields, :as => :check_boxes, :collection => contribution_fields, :label => false %>
-          <%= hidden_field_tag 'redirect', controller.request.request_uri %>
+          <%= hidden_field_tag 'redirect', controller.request.url %>
           <%= form.commit_button %>
         <% end %>
       <% end %>

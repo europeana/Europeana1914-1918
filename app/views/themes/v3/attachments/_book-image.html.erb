@@ -12,22 +12,8 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-    <link rel="stylesheet" type="text/css" href="/themes/v3/javascripts/org/openlibrary/BookReader.css"/>
-    <link rel="stylesheet" type="text/css" href="/themes/v3/javascripts/org/openlibrary/BookReaderEuropeana.css"/>
-
-	<%
-		script_files = [
-			'/themes/v3/javascripts/com/jquery/jquery-1.4.2.min.js',
-			'/themes/v3/javascripts/org/openlibrary/dragscrollable.js',
-			'/themes/v3/javascripts/com/jquery/plugins/jquery-ui-1.8.5.custom.min.js',
-			'/themes/v3/javascripts/com/jquery/plugins/jquery.colorbox-min.js',
-			'/themes/v3/javascripts/com/jquery/plugins/jquery.ui.ipad.js',
-			'/themes/v3/javascripts/com/jquery/plugins/jquery.bt.min.js',
-			'/themes/v3/javascripts/org/openlibrary/BookReader.js'
-		]
-	%>
-
-	<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
+	<%= theme_stylesheet_link_tag 'book-reader' %>
+	<%= theme_javascript_include_tag 'book-reader' %>
 	<style>
 		html,
 		body{

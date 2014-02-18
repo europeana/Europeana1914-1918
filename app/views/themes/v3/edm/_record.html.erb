@@ -1,13 +1,10 @@
 <%
   # @javascripts[:images_lazy_load] = true
-  # @javascripts[:gmap_display] = true
+  # @javascripts[:gmap] = true
 
 
-  @javascripts[:images_loaded] = true
-  @javascripts[:carousel] = true
-  @javascripts[:truncate] = true
   @javascripts[:translate] = true
-  @javascripts[:contributions_show] = true
+  @javascripts[:page] = 'contributions-show'
   if @contribution
 		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
 		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
@@ -49,7 +46,7 @@
 					<% if edmObject.present? %>
 						<img src="<%= edmObject %>"/>
 					<% else %>
-						<img src="/themes/v3/images/default-image.gif"/>
+						<%= theme_image_tag "default-image.gif" %>
 					<% end %>
 				</div>
 

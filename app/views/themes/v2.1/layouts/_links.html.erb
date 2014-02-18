@@ -1,39 +1,17 @@
-<%
-stylesheets = {
-  'all'     => [ '/themes/v2.1/stylesheets/all.css' ],
-  'screen'  => [ '/themes/v2.1/stylesheets/jquery-plugins/ui-flick/jquery-ui-1.8.23.custom.css' ],
-}
-
-if @javascripts[:lightbox]
-  stylesheets['screen'] << '/themes/v2.1/stylesheets/jquery-plugins/prettyphoto/prettyphoto.css'
-end
-
-if @javascripts[:uploadify]
-  stylesheets['screen'] << '/themes/v2.1/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.css'
-end
-
-if @javascripts[:video] || @javascripts[:audio]
-  stylesheets['screen'] << '/themes/common/mediaelement/mediaelementplayer.css'
-end
-
-if @stylesheets[:item]
-	stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/item.css"
-end
-
-stylesheets['all'] << "/themes/#{session[:theme]}/stylesheets/europeana-font-icons.css"
-
-
-if @javascripts[:annotorious]
-	stylesheets['screen'] << '/themes/common/ait/annotorious/css/annotorious.css'
-end
-
-stylesheets['all'] << '/themes/v2.1/stylesheets/portlet.css'
--%>
-<% stylesheets.each_pair do |media, sources| -%>
-  <%- unless sources.blank? -%>
-    <%= stylesheet_link_tag sources, :media => media, :cache => '/cache/stylesheets/' + asset_bundle_id(sources) %>
-  <%- end -%>
+<%= theme_stylesheet_link_tag 'application', :media => 'all' %>
+<%= theme_stylesheet_link_tag 'application-screen', :media => 'screen, projection' %>
+<% if @javascripts[:lightbox] -%>
+  <%= theme_stylesheet_link_tag 'jquery-plugins/prettyphoto/prettyphoto.css', :media => 'screen, projection' %>
 <% end -%>
-<!--[if lt IE 9]><%= stylesheet_link_tag '/themes/v2.1/stylesheets/ie.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2.1/stylesheets/ie.css') %><![endif]-->
-<noscript><%= stylesheet_link_tag '/themes/v2.1/stylesheets/noscript.css', :media => 'all', :cache => '/cache/stylesheets/' + asset_bundle_id('/themes/v2.1/stylesheets/noscript.css') %></noscript>
-<script src='/themes/v2.1/javascripts/com/scottjehl/respond.min.js'></script>
+<% if @javascripts[:uploadify] -%>
+  <%= theme_stylesheet_link_tag 'com/jquery/plugins/uploadify/2.1.4/uploadify.css', :media => 'screen, projection' %>
+<% end -%>
+<% if @javascripts[:video] || @javascripts[:audio] -%>
+  <%= stylesheet_link_tag 'themes/common/mediaelement/mediaelementplayer.css', :media => 'screen, projection' %>
+<% end -%>
+<% if @javascripts[:annotorious] -%>
+  <%= stylesheet_link_tag 'themes/common/ait/annotorious/css/annotorious.css', :media => 'screen, projection' %>
+<% end -%>
+<!--[if lt IE 9]><%= theme_stylesheet_link_tag "ie", :media => 'all' %><![endif]-->
+<noscript><%= theme_stylesheet_link_tag "noscript", :media => 'all' %></noscript>
+<%= theme_javascript_include_tag 'com/scottjehl/respond.min.js' %>

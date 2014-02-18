@@ -1,198 +1,4 @@
-<%
-
-	# supporting scripts
-
-	script_files = [
-		"i18n.js",
-		"translations.js",
-		"/themes/#{session[:theme]}/javascripts/com/jquery/jquery-1.7.1.min.js",
-		"/themes/#{session[:theme]}/javascripts/js/loader.js",
-		"/themes/#{session[:theme]}/javascripts/js/utils.js",
-		"/themes/#{session[:theme]}/javascripts/js/console.js",
-		"/themes/#{session[:theme]}/javascripts/com/google/analytics.js",
-		"/themes/#{session[:theme]}/javascripts/com/scottjehl/ios-orientationchange-fix.js",
-		"/themes/#{session[:theme]}/javascripts/eu/europeana/navigation-mobile.js",
-	]
-	remote_scripts = []
-
-	if @javascripts[:autocomplete]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/jquery-ui-1.8.23.custom.min.js"
-		)
-	end
-
-	if @javascripts[:carousel]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/jquery.touchwipe.1.1.2.js",
-			"/themes/#{session[:theme]}/javascripts/com/gmtplusone/rcarousel.js"
-		)
-	end
-
-	if @javascripts[:collapsible]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/jquery.collapsible.js",
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/fieldset-buttons.js"
-		)
-	end
-
-	if @javascripts[:generate_password]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/benjaminsterling/generate-password.js"
-		)
-	end
-
-	if @javascripts[:gmap_display] || @javascripts[:gmap_locate]
-		script_files.push(
-		  "/themes/#{session[:theme]}/javascripts/com/google/gmap-geo.v3.js"
-	  )
-		remote_scripts.push(
-		  'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=' + configuration(:gmap_api_key).to_s
-	  )
-	end
-
-	if @javascripts[:gmap_display]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/google/gmap-display.js"
-		)
-	end
-
-	if @javascripts[:gmap_locate]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/google/gmap-locate.js"
-		)
-	end
-
-	if @javascripts[:images_loaded]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/jquery.imagesloaded.min.js"
-		)
-	end
-
-	if @javascripts[:language_other]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/language-other.js"
-		)
-	end
-
-	if @javascripts[:masonry]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/jquery.masonry.min.js"
-		)
-	end
-
-	if @javascripts[:readmore]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/gmtplusone/readmore.js"
-		)
-	end
-
-	if @javascripts[:translate]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/microsoft/translator.js",
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/translation-services.js"
-		)
-	end
-
-	if @javascripts[:truncate]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/com/gmtplusone/truncate.js"
-		)
-	end
-
-	if @javascripts[:uploadify] && configuration(:uploadify)
-		script_files.push(
-			#'json2',
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/uploadify/2.1.4/swfobject.js",
-			"/themes/#{session[:theme]}/javascripts/com/jquery/plugins/uploadify/2.1.4/jquery.uploadify.v2.1.4.min.js",
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/uploadify.js"
-		)
-	end
-
-	if @javascripts[:video] || @javascripts[:audio]
-		script_files.push(
-			'/themes/common/mediaelement/mediaelement-and-player.min.js'
-		)
-	end
-
-
-	# page scripts
-
-	if @javascripts[:admin_contributions]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/admin-contributions.js"
-		)
-	end
-
-
-	if @javascripts[:attachments_new]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/attachments-new.js",
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/upload-one-many.js"
-		)
-	end
-
-	if @javascripts[:attachments_edit]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/attachments-edit.js",
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/upload-one-many.js"
-		)
-	end
-
-	if @javascripts[:collection_days]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/collection-days.js"
-		)
-	end
-
-	if @javascripts[:contributions_edit]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/contributions-edit.js"
-		)
-	end
-
-	if @javascripts[:contributions_new]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/contributions-new.js"
-		)
-	end
-
-	if @javascripts[:contributions_show]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/contributions-show.js"
-		)
-	end
-
-	if @javascripts[:explore]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/explore.js"
-		)
-	end
-
-	if @javascripts[:index]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/index.js"
-		)
-	end
-
-	if @javascripts[:register]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/register.js"
-		)
-	end
-
-	if @javascripts[:search]
-		script_files.push(
-			"/themes/#{session[:theme]}/javascripts/eu/europeana/search.js"
-		)
-	end
-
-	# share-this
-	remote_scripts.push(
-	  '//w.sharethis.com/button/buttons.js'
-  )
-
--%>
-<script>
+<script type="text/javascript">
 var themePath = "/themes/<%= session[:theme] -%>/";
 var switchTo5x = true;<% 'for share-this' %>
 if ( !window.RunCoCo ) { window.RunCoCo = {}; }
@@ -211,12 +17,27 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 RunCoCo.cataloguer = true;
 <% end -%>
 </script>
-<% unless remote_scripts.blank? -%>
-  <%= javascript_include_tag remote_scripts %>
-<% end -%>
-<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
-<script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
-<script>
+<%= javascript_include_tag '//w.sharethis.com/button/buttons.js' %>
+<%- if @javascripts[:translate] -%>
+  <%= theme_javascript_include_tag 'translator' -%>
+<%- end -%>
+<%= theme_javascript_include_tag 'application' %>
+<%- if configuration(:gmap_api_key).present? && @javascripts[:gmap] -%>
+  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=" + configuration(:gmap_api_key).to_s %>
+  <%= theme_javascript_include_tag 'gmap' %>
+<%- end -%>
+<%- if configuration(:uploadify) && @javascripts[:uploadify] -%>
+  <%= theme_javascript_include_tag 'uploadify' %>
+<%- end -%>
+<%- if @javascripts[:video] || @javascripts[:audio] -%>
+  <%= javascript_include_tag 'themes/common/mediaelement/mediaelement-and-player.min.js' -%>
+<%- end -%>
+<%- if @javascripts[:annotorious] -%>
+  <%= javascript_include_tag 'themes/common/ait/annotorious/annotorious.dev.js' -%>
+  <%= theme_javascript_include_tag 'eu/europeana/annotorious.runcoco.js' %>
+<%- end -%>
+<script type="text/javascript">I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
+<script type="text/javascript">
 if ( window.stLight ) { stLight.options({publisher : '<%= configuration(:sharethis_id) %>'}); } <% 'for share-this' %>
 if ( ( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ) { jQuery('.remix').hide(); }
 </script>

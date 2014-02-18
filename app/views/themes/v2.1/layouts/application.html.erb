@@ -8,8 +8,7 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 <meta charset='utf-8'/>
 <meta name='viewport' content='width=device-width, initial-scale=1'/>
 <%= csrf_meta_tag %>
-<%= theme_stylesheet_link_tag 'application', :media => 'all' %>
-<%= theme_stylesheet_link_tag 'application-screen', :media => 'screen, projection' %>
+<%= render :partial => 'layouts/links' %>
 <link rel='icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <link rel='shortcut icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <meta property='fb:app_id" content='185778248173748'/>

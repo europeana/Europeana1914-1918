@@ -24,10 +24,10 @@ if items.present?
 					book_reader_placed = true
 				end
 			else
-				html += '<li><img src="/images/style/icons/mimetypes/unknown.png" alt="' + t('media_types.unknown') + '"/></li>'
+				html += '<li><img src="<%= image_path('style/icons/mimetypes/unknown.png' %>" alt="' + t('media_types.unknown') + '"/></li>'
 			end
 		else
-			html += '<li><img src="/images/style/icons/mimetypes/unknown.png" alt="' + t('media_types.unknown') + '"/></li>'
+			html += '<li><img src="<%= image_path('style/icons/mimetypes/unknown.png' %>" alt="' + t('media_types.unknown') + '"/></li>'
 		end
 	end
 end
