@@ -1,15 +1,8 @@
 <%
-
-	@javascripts[:images_loaded] = true
-	@javascripts[:carousel] = true
 	@javascripts[:lightbox] = true
-	@javascripts[:truncate] = true
 	@javascripts[:translate] = true
-	@javascripts[:edm_object_page] = true
 	@javascripts[:shares] = true
-
-	@stylesheets[:item] = true
-
+	@javascripts[:page] ='EuEdmObjectPage'
 
 	if record['aggregations'].first['edmProvider'].blank? ||
 		( !record['aggregations'].first['edmProvider'].values.include?("Europeana 1914 - 1918") )

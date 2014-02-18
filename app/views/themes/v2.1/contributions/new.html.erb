@@ -1,11 +1,7 @@
 <%
-	
-	@javascripts[:language_other] = true
-	@javascripts[:collapsible] = true
-	@javascripts[:contributions_new] = true
-	
 	@fieldset_class = 'collapsed'
 	@title = t('views.contributions.story.step1')
+	@javascripts[:page] = 'contributions-new'
 	
 	
 	if 'cataloguer' == current_user.role.name

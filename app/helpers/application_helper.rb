@@ -20,7 +20,7 @@ module ApplicationHelper
   
   # Render flash message
   def flash_message(status, message = nil)
-    render :partial => '/layouts/flash_message', :locals => { :status => status, :message => message }
+    render :partial => 'layouts/flash_message', :locals => { :status => status, :message => message }
   end
   
   def redirect_path

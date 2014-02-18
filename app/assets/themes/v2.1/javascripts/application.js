@@ -14,5 +14,11 @@
 //= require ./js/console.js
 //= require ./com/google/analytics.js
 //= require ./com/scottjehl/ios-orientationchange-fix.js
-//= require ./eu/europeana/navigation-mobile.js
+//= require ./com/benjaminsterling/generate-password.js
+//= require ./com/jquery/plugins/jquery.collapsible.js
+//= require ./com/jquery/plugins/jquery.touchwipe.1.1.2.js
+//= require ./com/jquery/plugins/jquery.imagesloaded.min.js
+//= require ./com/jquery/plugins/jquery.masonry.min.js
+//= require_tree ./com/gmtplusone
+//= require ./eu/europeana
 

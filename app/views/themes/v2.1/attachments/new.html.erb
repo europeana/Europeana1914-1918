@@ -1,11 +1,4 @@
 <%
-  
-  @javascripts[:gmap_locate] = true
-  @javascripts[:uploadify] = true
-  @javascripts[:language_other] = true
-  @javascripts[:collapsible] = true
-  @javascripts[:attachments_new] = true
-  
   @attachment_upload_class = 'collapsible'
   @attachment_upload_style = ''
   
@@ -39,6 +32,8 @@
   end
   
   @title = t('views.contributions.digital_object.step2')
+  @javascripts[:page ] = 'attachments-new'
+  @javascripts[:uploadify] = true
   
 %>
 <div class="section top">

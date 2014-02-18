@@ -205,7 +205,12 @@ module SearchHelper
         facet_row_parts = filter_param[:value].match(/^([^:]+):(.+)$/)
         facet_name, field_value = facet_row_parts[1], facet_row_parts[2]
         facet = facets.find { |facet| facet["name"].to_s == facet_name }
-        
+
+        # Hack for facets in query but not in search response, req'd in dev env
+        # where caching is disabled
+        # @todo Replace with a solution that preserves facet info without
+        #   depending on caching being enabled
+        next unless facet.present?
 
         if controller.controller_name == "collection" && facet["label"] == 'Source'
            facet["label"] = t('views.search.facets.europeana.source_label')

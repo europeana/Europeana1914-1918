@@ -1,16 +1,11 @@
 <%
-
-  @javascripts[:gmap_locate] = true
-  @javascripts[:language_other] = true
-  @javascripts[:collapsible] = true
-  @javascripts[:contributions_edit] = true
-  
   @fieldset_class = 'collapsed'
   if 'cataloguer' == current_user.role.name
     @fieldset_class = 'collapsible'
   end
   
   @title = t('views.contributions.story.step1')
+  @javascripts[:page] = 'contributions-edit'
   
 %>
 <div class="section top">
