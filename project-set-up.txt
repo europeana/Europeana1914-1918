@@ -8,16 +8,16 @@
 8. create db and populate with initial values
 9. update the js localization files
 10. clear js & css cache
-11. start the server
-12. secure the admin account
-13. google usage statistics
-14. some ruby extras
-15. import a production db dump
-16. upgrading pdf.js viewer
-17. upgrading mediaelement
-18. reset password on localhost
-19. update thumbnails and dimmensions
-
+11. install solr
+12. start the server
+13. secure the admin account
+14. google usage statistics
+15. some ruby extras
+16. import a production db dump
+17. upgrading pdf.js viewer
+18. upgrading mediaelement
+19. reset password on localhost
+20. update thumbnails and dimmensions
 
 
 
@@ -190,7 +190,6 @@ create environment config
 $ cp config/environments/development.rb.example config/environments/development.rb
 
 
-
 initializers
 ============
 the following commands assume that you are at the root path of the project
@@ -221,7 +220,6 @@ create thinking sphinx config
 $ cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking_sphinx.rb
 
 
-
 database
 ========
 bundle exec rake db:drop
@@ -247,11 +245,9 @@ bundle exec rake db:migrate
 ###$ bundle exec rake db:reset  # drops the db if it exists
 
 
-
 update the js localization files
 ================================
 $ bundle exec rake i18n:js:export
-
 
 
 clear js & css cache
@@ -261,6 +257,42 @@ bundle exec rake assets:expire --trace
 # on test
 RAILS_ENV=production bundle exec rake assets:expire
 
+
+install solr
+============
+bundle exec rails generate sunspot_rails:install
+bundle exec rake sunspot:solr:start
+bundle exec rake sunspot:solr:stop
+
+auto-complete
+-------------
+for auto-complete to work, copy from the following config files from the 1418 config directory to the solr config directory.
+cp config/solr/conf/solrconfig.41.xml solr/conf/solrconfig.xml
+cp config/solr/conf/schema.xml solr/conf/schema.xml
+
+pre-populate europeana records
+------------------------------
+1. download the [europeana_records.sql file](https://www.assembla.com/spaces/europeana-1914-1918/documents/a3L0TgGQer445wacwqjQWU/download/a3L0TgGQer445wacwqjQWU)
+2. extract the file to a convenient location
+3. import the sql into your local 1914-1918 db mysql -u username -p databasename < path/example.sql
+
+re-index solr
+-------------
+bundle exec rake sunspot:solr:start
+bundle exec rake sunspot:reindex
+
+configure federated search
+---------------------------
+In order to retrieve federated search results you need to do the following:
+1. cp config/federated_search.yml.example config/federated_search.yml
+2. register for the appropriate api keys
+3. add them to the development section of config/federated_search.yml
+
+configure application to use solr
+---------------------------------
+On your installation of 1418, once you have started the server:
+1. go to the URL /en/admin/config/edit
+2. change the search engine drop-down setting to solr.
 
 
 start the server
