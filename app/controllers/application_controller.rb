@@ -261,6 +261,7 @@ protected
   # @see https://github.com/lucasefe/themes_for_rails
   #
   def theme_resolver
+  logger.debug("Current user role: #{current_user.role.name.inspect}")
     if params[:theme]
       session[:theme] = params[:theme]
     elsif session[:theme].nil?

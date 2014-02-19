@@ -1,17 +1,17 @@
 <%= theme_stylesheet_link_tag 'application', :media => 'all' %>
 <%= theme_stylesheet_link_tag 'application-screen', :media => 'screen, projection' %>
 <% if @javascripts[:lightbox] -%>
-  <%= theme_stylesheet_link_tag 'jquery-plugins/prettyphoto/prettyphoto.css', :media => 'screen, projection' %>
+  <%= theme_stylesheet_link_tag 'lightbox', :media => 'screen, projection' %>
 <% end -%>
 <% if @javascripts[:uploadify] -%>
-  <%= theme_stylesheet_link_tag 'com/jquery/plugins/uploadify/2.1.4/uploadify.css', :media => 'screen, projection' %>
+  <%= theme_stylesheet_link_tag 'uploadify', :media => 'screen, projection' %>
 <% end -%>
 <% if @javascripts[:video] || @javascripts[:audio] -%>
-  <%= stylesheet_link_tag 'themes/common/mediaelement/mediaelementplayer.css', :media => 'screen, projection' %>
+  <%= stylesheet_link_tag 'mediaelementplayer', :media => 'screen, projection' %>
 <% end -%>
 <% if @javascripts[:annotorious] -%>
-  <%= stylesheet_link_tag 'themes/common/ait/annotorious/css/annotorious.css', :media => 'screen, projection' %>
+  <%= stylesheet_link_tag 'annotorious', :media => 'screen, projection' %>
 <% end -%>
 <!--[if lt IE 9]><%= theme_stylesheet_link_tag "ie", :media => 'all' %><![endif]-->
 <noscript><%= theme_stylesheet_link_tag "noscript", :media => 'all' %></noscript>
-<%= theme_javascript_include_tag 'com/scottjehl/respond.min.js' %>
+<%= theme_javascript_include_tag 'respond' %>

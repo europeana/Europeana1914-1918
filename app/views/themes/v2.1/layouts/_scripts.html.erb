@@ -34,14 +34,13 @@ RunCoCo.cataloguer = true;
   <%= javascript_include_tag '//w.sharethis.com/button/buttons.js' %>
 <% end -%>
 <%- if @javascripts[:lightbox] -%>
-  <%= theme_javascript_include_tag 'com/jquery/plugins/jquery.prettyphoto.js' %>
+  <%= theme_javascript_include_tag 'lightbox' %>
 <%- end -%>
 <%- if @javascripts[:video] || @javascripts[:audio] -%>
-  <%= javascript_include_tag 'themes/common/mediaelement/mediaelement-and-player.min.js' -%>
+  <%= javascript_include_tag 'mediaelementplayer' -%>
 <%- end -%>
 <%- if @javascripts[:annotorious] -%>
-  <%= javascript_include_tag 'themes/common/ait/annotorious/annotorious.dev.js' -%>
-  <%= theme_javascript_include_tag 'eu/europeana/annotorious.runcoco.js' %>
+  <%= theme_javascript_include_tag 'annotorious' -%>
 <%- end -%>
 <script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
 <script>

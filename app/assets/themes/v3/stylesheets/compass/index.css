@@ -1,0 +1,320 @@
+/*
+	@import "compass";
+*/
+/* Breakpoints
+
+$break-desktop: 48em; */
+/* line 40, sass/partials/_buttons.scss */
+input[type=submit],
+a.button {
+  background-color: #007162;
+  color: #fff;
+  border: 0;
+  border-image-width: 0;
+  padding: 0.4em;
+  padding: 0.5em;
+  outline: 0;
+  position: relative;
+  top: 0;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-box-shadow: 2px 2px 2px rgba(34, 25, 25, 0.8);
+  -moz-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.8);
+  -ms-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.8);
+  -o-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.8);
+  box-shadow: 2px 2px 2px rgba(34, 25, 25, 0.8);
+}
+
+/* line 65, sass/partials/_buttons.scss */
+input[type=submit]:hover,
+input[type=submit]:focus,
+a.button:hover,
+a.button:focus {
+  border-color: #cecece #afafaf #afafaf #cecece;
+  outline: 0;
+  border: 0;
+  background-color: #2284A1;
+}
+
+/*
+@mixin boxShadow($h-shadow, $v-shadow, $blur, $color, $inset: inset ) {
+	-moz-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
+	-webkit-box-shadow:		$h-shadow $v-shadow $blur $color, $inset;
+	box-shadow:				$h-shadow $v-shadow $blur $color, $inset;
+}
+*/
+/* smaller header in index since the search is in a different place */
+/* line 5, sass/index.scss */
+#header {
+  height: 4em;
+}
+
+/* line 9, sass/index.scss */
+.carousel-intro {
+  background-color: white;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  z-index: 1;
+}
+/* line 17, sass/index.scss */
+.carousel-intro.big {
+  margin-left: 1.25em;
+  margin-top: 1.5em;
+  padding: 1.25em 1em;
+  position: absolute;
+  width: 42%;
+  font-size: 0.75em;
+  line-height: 1.2em;
+}
+/* line 27, sass/index.scss */
+.carousel-intro.small {
+  padding: 1.25em 0 0 0;
+  font-size: 1em;
+}
+/* line 32, sass/index.scss */
+.carousel-intro h4 {
+  font-size: 1.4em;
+  margin: 0 0 .7em 0;
+}
+/* line 38, sass/index.scss */
+.carousel-intro .h-flex-container input {
+  font-size: 0.875em;
+  margin: 0;
+}
+/* line 44, sass/index.scss */
+.carousel-intro #q {
+  border: 1px solid #cccccc;
+  padding: 0.5em;
+  background-image: none;
+}
+/* line 51, sass/index.scss */
+.carousel-intro a.button,
+.carousel-intro input[type=submit] {
+  -webkit-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+  -moz-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+  -ms-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+  -o-box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+  box-shadow: 0 2px 2px rgba(255, 255, 255, 0.5) inset;
+}
+/* line 59, sass/index.scss */
+.carousel-intro a.button {
+  padding: 0.5em 1.75em;
+}
+
+/* line 65, sass/index.scss */
+.big {
+  display: none  !important;
+}
+
+/* line 66, sass/index.scss */
+.small {
+  display: block !important;
+}
+
+@media only screen and (min-width: 55em) {
+  /* line 69, sass/index.scss */
+  .big {
+    display: block			!important;
+  }
+
+  /* line 70, sass/index.scss */
+  .small {
+    display: none !important;
+  }
+}
+/* line 74, sass/index.scss */
+.section.main {
+  margin-top: 1.56em;
+}
+
+/* line 81, sass/index.scss */
+.index-call-to-action {
+  margin: 2em 0 0.5em -1em;
+  text-align: left;
+}
+/* line 85, sass/index.scss */
+.index-call-to-action .button {
+  display: inline;
+  margin: 1em 0.25em 1em 1em;
+}
+
+/* main feature */
+/* line 95, sass/index.scss */
+#index-featured {
+  position: relative;
+}
+
+/* featured categories */
+/* line 102, sass/index.scss */
+#featured-categories {
+  margin: auto;
+}
+/* line 106, sass/index.scss */
+#featured-categories ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+/* line 112, sass/index.scss */
+#featured-categories ul li {
+  display: inline-block;
+  width: 50%;
+}
+/* line 117, sass/index.scss */
+#featured-categories ul .left-on-two {
+  padding: 0 0.75em 1.5em 0;
+  text-align: left;
+}
+/* line 122, sass/index.scss */
+#featured-categories ul .right-on-two {
+  padding: 0 0 1.5em 0.75em;
+  text-align: right;
+}
+/* line 129, sass/index.scss */
+#featured-categories img, #featured-categories a {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+/* line 135, sass/index.scss */
+#featured-categories img {
+  width: 100%;
+  max-width: 235px;
+  display: inline;
+  display: inline-block;
+  vertical-align: bottom;
+}
+/* line 143, sass/index.scss */
+#featured-categories .subtitle {
+  display: inline-block;
+  width: 100%;
+  line-height: 100%;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #333;
+  color: #f5f5f5;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0.5em;
+}
+/* line 159, sass/index.scss */
+#featured-categories img,
+#featured-categories .subtitle {
+  max-width: 235px;
+}
+
+/* recent activity */
+/* line 170, sass/index.scss */
+.recent-activity {
+  bottom: 0px;
+  margin: 3em 0 0 0;
+  padding: 1.5em;
+  right: 0.25em;
+  top: 0px;
+  border: 1px solid #d9d9d9;
+  background-color: #f2f2f2;
+  overflow-y: h;
+}
+/* line 180, sass/index.scss */
+.recent-activity h3 {
+  font-size: 1.5em;
+}
+/* line 183, sass/index.scss */
+.recent-activity h3 small {
+  border-bottom: 1px solid #D9D9D9;
+  display: block;
+  padding-bottom: 1.5em;
+  width: 100%;
+}
+/* line 192, sass/index.scss */
+.recent-activity .head {
+  text-align: center;
+}
+/* line 196, sass/index.scss */
+.recent-activity ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+/* line 202, sass/index.scss */
+.recent-activity ul li {
+  padding: 1.25em 0;
+}
+/* line 207, sass/index.scss */
+.recent-activity ul li:not(:last-child) {
+  border-bottom: 1px solid #d9d9d9;
+}
+
+@media only screen and (min-width: 55em) {
+  /* line 217, sass/index.scss */
+  #header {
+    margin-top: 1.56em;
+    height: auto;
+  }
+
+  /* line 222, sass/index.scss */
+  #featured-categories {
+    float: left;
+    width: 68%;
+  }
+  /* line 227, sass/index.scss */
+  #featured-categories ul .left-on-two,
+  #featured-categories ul .right-on-two {
+    padding: 0 2.5em 1.25em 0;
+  }
+  /* line 233, sass/index.scss */
+  #featured-categories ul li img,
+  #featured-categories ul li .subtitle {
+    display: block;
+  }
+
+  /* line 242, sass/index.scss */
+  .recent-activity {
+    margin: 0;
+  }
+  /* line 244, sass/index.scss */
+  .recent-activity .head {
+    height: 10%;
+  }
+  /* line 248, sass/index.scss */
+  .recent-activity ul {
+    max-height: 90%;
+    overflow-y: auto;
+  }
+
+  /* line 254, sass/index.scss */
+  .right-col {
+    width: 32%;
+    float: right;
+  }
+}
+@media only screen and (min-width: 58em) {
+  /* line 268, sass/index.scss */
+  #featured-categories ul li {
+    width: 33.333%;
+  }
+  /* line 272, sass/index.scss */
+  #featured-categories ul li img,
+  #featured-categories ul li .subtitle {
+    display: block;
+  }
+  /* line 277, sass/index.scss */
+  #featured-categories ul li.left-on-two, #featured-categories ul li.right-on-two {
+    padding: 0 2.25em 1.5em 0;
+  }
+}
+@media only screen and (min-width: 68em) {
+  /* line 290, sass/index.scss */
+  .carousel-intro.big {
+    font-size: 0.875em;
+    line-height: 1.5em;
+  }
+}

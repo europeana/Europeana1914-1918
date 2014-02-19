@@ -11,9 +11,9 @@
 //= require jquery.ui.tabs
 //= require jquery.ui.datepicker
 //= require i18n
-//= require translations
-//= require runcoco
-//= require jquery.collapsible
-//= require language-other
-//= require jquery.prettyPhoto-3.0.3.custom
-//= require prettyphoto
+//= require i18n/translations
+//= require ./runcoco
+//= require ./jquery.collapsible
+//= require ./language-other
+//= require ./jquery.prettyPhoto-3.0.3.custom
+//= require ./prettyphoto

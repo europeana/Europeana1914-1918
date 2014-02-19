@@ -55,7 +55,10 @@ module RunCoCo
     config.assets.version = '1.0'
     
     # Additional assets to precompile
-    config.assets.precompile += [ 'book-reader.css', 'book-reader.js', 'gmap.js', 'translator.js', 'uploadify.js', 'application-screen.css' ]
+    config.assets.precompile = [ 
+      /stylesheets\/[^\/]*\.css/,
+      /javascripts\/[^\/]*\.js/, /javascripts\/eu\/europeana\/pages\/[^\/]*\.js/
+    ]
   end
 end
 

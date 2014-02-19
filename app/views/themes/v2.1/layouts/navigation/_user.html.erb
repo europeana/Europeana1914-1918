@@ -1,5 +1,5 @@
 <ul id="navigation-user" class="menu">
-  <%- if user_signed_in? -%>
+  <%- if current_user.role.name != 'guest' -%>
     <li class="username"><%= current_user.email %></li>
   <%- end -%>
   <li class="lang-item">
@@ -12,7 +12,7 @@
     <li><a href="<%= page_path('users/register') %>"><%= t('common.links.register') %></a></li>
   <%- end -%>
 </ul>
-<% if user_signed_in? -%>
+<% if current_user.role.name != 'guest' -%>
   <ul id="navigation-user-menu" class="menu">
     <li><%= link_to (t('common.links.my_stories') + '<span class="underline"></span>').html_safe, contributor_dashboard_path %></li>
     <li><%= link_to (t('common.links.my_account') + '<span class="underline"></span>').html_safe, user_account_path %></li>

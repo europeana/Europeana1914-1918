@@ -30,14 +30,17 @@ RunCoCo.cataloguer = true;
   <%= theme_javascript_include_tag 'uploadify' %>
 <%- end -%>
 <%- if @javascripts[:video] || @javascripts[:audio] -%>
-  <%= javascript_include_tag 'themes/common/mediaelement/mediaelement-and-player.min.js' -%>
+  <%= javascript_include_tag 'mediaelementplayer' -%>
 <%- end -%>
 <%- if @javascripts[:annotorious] -%>
-  <%= javascript_include_tag 'themes/common/ait/annotorious/annotorious.dev.js' -%>
-  <%= theme_javascript_include_tag 'eu/europeana/annotorious.runcoco.js' %>
+  <%# uncomment below when implemented in this theme -%>
+  <%#= theme_javascript_include_tag 'annotorious' -%>
 <%- end -%>
 <script type="text/javascript">I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
 <script type="text/javascript">
 if ( window.stLight ) { stLight.options({publisher : '<%= configuration(:sharethis_id) %>'}); } <% 'for share-this' %>
 if ( ( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ) { jQuery('.remix').hide(); }
 </script>
+<% if @javascripts[:page].present? -%>
+  <%= theme_javascript_include_tag "eu/europeana/pages/" + @javascripts[:page] %>
+<% end -%>

@@ -699,7 +699,7 @@ BookReader.prototype.drawLeafsThumbnail = function( seekIndex ) {
 
                 // EUROPEANA CHANGE
                 //$(img).attr('src', this.imagesBaseURL + 'transparent.png')
-                $(img).attr('src', '/themes/v3/javascripts/org/openlibrary/images/transparent.png')
+                $(img).attr('src', '/assets/v3/javascripts/org/openlibrary/images/transparent.png')
                     .css({'width': leafWidth+'px', 'height': leafHeight+'px' })
                     .addClass('BRlazyload')
                     // Store the URL of the image that will replace this one
@@ -4600,7 +4600,7 @@ BookReader.prototype._getPageURI = function(index, reduce, rotate) {
     	
     	// EUROPEANA CHANGE
         //return this.imagesBaseURL + "transparent.png";
-        return "/themes/v3/javascripts/org/openlibrary/images/transparent.png";
+        return "/assets/v3/javascripts/org/openlibrary/images/transparent.png";
     }
     
     if ('undefined' == typeof(reduce)) {

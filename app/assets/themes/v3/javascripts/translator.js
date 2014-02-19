@@ -1,2 +1,2 @@
-//= require ./com/microsoft/translator.js
-//= require ./eu/europeana/translation-services.js
+//= require ./com/microsoft/translator
+//= require ./eu/europeana/translation-services

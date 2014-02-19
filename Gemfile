@@ -53,6 +53,9 @@ end
 # in production environments by default.
 group :assets do
   gem 'sass-rails', ' ~> 3.1.7'
+  # Uncomment for `compass watch` to work, i.e. in development
+#  gem 'compass-rails', :git => 'https://github.com/Compass/compass-rails.git', :branch => '1-1-stable'
+  # Uncomment for all other scenarios
   gem 'compass-rails', '~> 1.1.3'
   gem 'coffee-rails', ' ~> 3.1.0'
   gem 'uglifier', '~> 2.4.0'
