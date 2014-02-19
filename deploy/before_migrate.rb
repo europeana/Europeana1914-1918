@@ -10,9 +10,6 @@ run "ln -nfs #{config.shared_path}/config/federated_search.yml #{config.release_
 # Google API key
 run "ln -nfs #{config.shared_path}/config/google_api_key.p12 #{config.release_path}/config/google_api_key.p12"
 
-# Sass config
-run "ln -nfs #{config.shared_path}/config/sass.yml #{config.release_path}/config/sass.yml"
-
 # Sunspot config
 run "ln -nfs #{config.shared_path}/config/sunspot.yml #{config.release_path}/config/sunspot.yml"
 
