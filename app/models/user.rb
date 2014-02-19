@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   acts_as_tagger
 
   # Devise authentication
-  devise :database_authenticatable, :recoverable, :registerable
+  devise :database_authenticatable, :recoverable, :registerable,
+    :authentication_keys => [ :username, :email ]
   
   # Aegis roles
   has_role :default => 'guest'
