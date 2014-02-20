@@ -79,14 +79,7 @@ class CollectionController < SearchController
       end
       
       edm_results = search.results.collect do |result|
-        if result.is_a?(EuropeanaRecord)
-          edm = result.to_edm_result
-          id_parts = edm['id'].split('/')
-          edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
-          edm
-        else
-          result.edm.as_result
-        end
+        cached_edm_result(result)
       end
       
       @facets = [ index_facet ] + search.facets.collect { |facet|
@@ -240,5 +233,24 @@ private
         { "search" => "e", "label" => t('views.search.facets.europeana.source_institution')}
       ]
     }
+  end
+  
+  def cached_edm_result(result)
+    cache_key = "#{result.class.to_s.underscore.pluralize}/edm/result/#{result.id}"
+    
+    if fragment_exist?(cache_key)
+      edm = YAML::load(read_fragment(cache_key))
+    else
+      if result.is_a?(EuropeanaRecord)
+        edm = result.to_edm_result
+        id_parts = edm['id'].split('/')
+        edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
+      else
+        edm = result.edm.as_result
+      end
+      write_fragment(cache_key, edm.to_yaml)
+    end
+    
+    edm
   end
 end

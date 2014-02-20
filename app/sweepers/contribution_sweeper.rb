@@ -17,7 +17,9 @@ class ContributionSweeper < ActionController::Caching::Sweeper
 private
   
   def expire_cache_for(contribution)
-    fragments = []
+    fragments = [
+      "contributions/edm/result/#{contribution.id}"
+    ]
     
     [ "json", "nt", "xml" ].each do |format|
       fragments.push("contributions/#{format}/#{contribution.id}.#{format}")
