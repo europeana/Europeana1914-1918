@@ -1,5 +1,5 @@
-<% @javascripts[:gmap] = true %>
-<% content_for :title, t('views.contributions.show.title') %>
+<% provide :javascripts_gmap, true %>
+<% provide :title, t('views.contributions.show.title') %>
 
 <%= render :partial => 'summary', :locals => { :contribution => @contribution } %>
 

@@ -7,7 +7,7 @@
   RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
   
   
-  <%- if @javascripts[:uploadify] && configuration(:uploadify) -%>
+  <%- if content_for?(javascripts_uploadify) && configuration(:uploadify) -%>
 
     RunCoCo.uploadify = {
       maxUploadSize: <%= configuration(:max_upload_size) %>,

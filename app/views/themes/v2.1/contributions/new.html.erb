@@ -1,7 +1,7 @@
 <%
 	@fieldset_class = 'collapsed'
-	content_for :title, t('views.contributions.story.step1')
-	@javascripts[:page] = 'contributions-new'
+	provide :title, t('views.contributions.story.step1')
+	provide :javascripts_page, 'contributions-new'
 	
 	
 	if 'cataloguer' == current_user.role.name

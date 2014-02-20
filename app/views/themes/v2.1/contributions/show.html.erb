@@ -1,16 +1,16 @@
 <%
 
-  # @javascripts[:images_lazy_load] = true
-  @javascripts[:gmap] = true
-  @javascripts[:lightbox] = true
-  @javascripts[:translate] = true
-  @javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
-  @javascripts[:video] = @contribution.attachments.select(&:video?).present?
-  @javascripts[:annotorious] = true
-  @javascripts[:shares] = true
-  @stylesheets[:item] = true
-  @javascripts[:page] = 'contributions-show'
-  content_for :title, contribution_title(@contribution)
+  # provide :javascripts_images_lazy_load, true
+  provide :javascripts_gmap, true
+  provide :javascripts_lightbox, true
+  provide :javascripts_translate, true
+  provide :javascripts_audio, @contribution.attachments.select(&:audio?).present?
+  provide :javascripts_video, @contribution.attachments.select(&:video?).present?
+  provide :javascripts_annotorious, true
+  provide :javascripts_shares, true
+  provide :javascripts_page, 'contributions-show'
+  provide :stylesheets_item, true
+  provide :title, contribution_title(@contribution)
 
 -%>
 <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>

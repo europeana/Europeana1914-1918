@@ -1,22 +1,16 @@
 <%
-  # @javascripts[:images_lazy_load] = true
-  # @javascripts[:gmap] = true
+  # provide :javascripts_images_lazy_load, true
+  # provide :javascripts_gmap, true
 
 
-  @javascripts[:translate] = true
-  @javascripts[:page] = 'contributions-show'
+  provide :javascripts_translate, true
+  provide :javascripts_page, 'contributions-show'
   if @contribution
-		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
-		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
-		content_for :title, contribution_title(@contribution)
+		provide :javascripts_audio, @contribution.attachments.select(&:audio?).present?
+		provide :javascripts_video, @contribution.attachments.select(&:video?).present?
+		provide :title, contribution_title(@contribution)
 	end
 %>
-
-<%
-	@stylesheets['item'] = true
-%>
-
-
 
 <%# begin first section from the initial edm record view %>
 <%# http://localhost:3000/fr/europeana/record/09102/_CM_0160490.html %>

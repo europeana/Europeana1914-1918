@@ -14,7 +14,7 @@
   field_name_translate_base = 'formtastic.labels.' + (metadata.for_contribution? ? 'contribution' : 'attachment' ) + '.metadata.'
   
   if geo_field
-    @javascripts[:gmap] = true
+    provide :javascripts_gmap, true
   end
 -%>
 <% if show_title -%>

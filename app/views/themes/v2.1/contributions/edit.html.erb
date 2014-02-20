@@ -4,8 +4,8 @@
     @fieldset_class = 'collapsible'
   end
   
-  content_for :title, t('views.contributions.story.step1')
-  @javascripts[:page] = 'contributions-edit'
+  provide :title, t('views.contributions.story.step1')
+  provide :javascripts_page, 'contributions-edit'
   
 %>
 <div class="section top">

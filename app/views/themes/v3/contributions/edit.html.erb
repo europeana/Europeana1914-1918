@@ -1,13 +1,13 @@
 <%
 
-  @javascripts[:page] = 'contributions-edit'
+  provide :javascripts_page, 'contributions-edit'
   
   @fieldset_class = 'collapsed'
   if 'cataloguer' == current_user.role.name
     @fieldset_class = 'collapsible'
   end
   
-  content_for :title, t('views.contributions.story.step1')
+  provide :title, t('views.contributions.story.step1')
   
 %>
 <div class="section top">

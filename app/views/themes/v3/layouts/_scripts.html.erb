@@ -5,9 +5,9 @@ if ( !window.RunCoCo ) { window.RunCoCo = {}; }
 RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
 RunCoCo.gaId = '<%= configuration(:google_analytics_key) %>';
 <% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
-<% if @javascripts[:translate] %>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end %>
+<% if content_for?(:javascripts_translate) %>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end %>
 <% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title.gsub("'", "\\\\'") %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
-<% if @javascripts[:uploadify] && configuration(:uploadify) -%>
+<% if content_for?(:javascripts_uploadify) && configuration(:uploadify) -%>
 RunCoCo.uploadify_settings = { maxUploadSize: <%= configuration(:max_upload_size) %>, fileExt: '<%= uploadify_file_extensions %>', fileDesc: '<%= uploadify_file_desc %>', script: '<%= contribution_attachments_path(@contribution) %>' };
 RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forgery? %>';
 RunCoCo.sessionKeyName = '<%= session_key_name %>';
@@ -18,21 +18,21 @@ RunCoCo.cataloguer = true;
 <% end -%>
 </script>
 <%= javascript_include_tag '//w.sharethis.com/button/buttons.js' %>
-<%- if @javascripts[:translate] -%>
+<%- if content_for?(:javascripts_translate) -%>
   <%= theme_javascript_include_tag 'translator' -%>
 <%- end -%>
 <%= theme_javascript_include_tag 'application' %>
-<%- if configuration(:gmap_api_key).present? && @javascripts[:gmap] -%>
+<%- if configuration(:gmap_api_key).present? && content_for?(:javascripts_gmap) -%>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=" + configuration(:gmap_api_key).to_s %>
   <%= theme_javascript_include_tag 'gmap' %>
 <%- end -%>
-<%- if configuration(:uploadify) && @javascripts[:uploadify] -%>
+<%- if configuration(:uploadify) && content_for?(:javascripts_uploadify) -%>
   <%= theme_javascript_include_tag 'uploadify' %>
 <%- end -%>
-<%- if @javascripts[:video] || @javascripts[:audio] -%>
+<% if content_for?(:javascripts_video) || content_for?(:javascripts_audio) -%>
   <%= javascript_include_tag 'mediaelementplayer' -%>
 <%- end -%>
-<%- if @javascripts[:annotorious] -%>
+<%- if content_for?(:javascripts_annotorious) -%>
   <%# uncomment below when implemented in this theme -%>
   <%#= theme_javascript_include_tag 'annotorious' -%>
 <%- end -%>
@@ -41,6 +41,6 @@ RunCoCo.cataloguer = true;
 if ( window.stLight ) { stLight.options({publisher : '<%= configuration(:sharethis_id) %>'}); } <% 'for share-this' %>
 if ( ( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ) { jQuery('.remix').hide(); }
 </script>
-<% if @javascripts[:page].present? -%>
-  <%= theme_javascript_include_tag "eu/europeana/pages/" + @javascripts[:page] %>
+<% if content_for?(:javascripts_page) -%>
+  <%= theme_javascript_include_tag "eu/europeana/pages/" + content_for(:javascripts_page) %>
 <% end -%>

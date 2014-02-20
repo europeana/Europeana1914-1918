@@ -51,11 +51,11 @@
     </div><!-- /#wrapper -->
   
   <%= javascript_include_tag 'application', params[:controller] %>
-  <%- if configuration(:gmap_api_key).present? && @javascripts[:gmap] -%>
+  <%- if configuration(:gmap_api_key).present? && content_for?(:javascripts_gmap) -%>
     <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=" + configuration(:gmap_api_key) %>
     <%= javascript_include_tag 'gmap' %>
   <%- end -%>
-  <%- if configuration(:uploadify) && @javascripts[:uploadify] -%>
+  <%- if configuration(:uploadify) && content_for?(:javascripts_uploadify) -%>
     <%= javascript_include_tag 'uploadify' %>
   <%- end -%>
 

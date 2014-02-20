@@ -1,6 +1,6 @@
 <%
   
-  @javascripts[:uploadify] = true
+  provide :javascripts_uploadify, true
   
   @attachment_upload_class = 'collapsible'
   @attachment_upload_style = ''
@@ -43,7 +43,7 @@
 <% end %>
 
 
-<% content_for :title, t('views.contributions.digital_object.step2') %>
+<% provide :title, t('views.contributions.digital_object.step2') %>
   
   <div class="action-links">
 	

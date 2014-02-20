@@ -1,6 +1,6 @@
 <%
-	content_for :title, t 'views.home.heading'
-	@javascripts[:page] = 'index'
+	provide :title, t('views.home.heading')
+	provide :javascripts_page, 'index'
 	require 'hpricot'
 %>
 <div class='section top'>

@@ -1,4 +1,4 @@
-<% content_for :title, t('views.admin.contributions.index.title') %>
+<% provide :title, t('views.admin.contributions.index.title') %>
 <% if @contributor -%>
 <div><strong><%= t 'activerecord.options.user.role_name.contributor' %></strong> <%= @contributor.contact.full_name %></div>
 <% end -%>

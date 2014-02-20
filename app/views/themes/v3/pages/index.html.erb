@@ -1,11 +1,7 @@
 <%
-		@javascripts[:page] = 'index'
-		content_for :title, t 'views.home.heading'
+		provide :title, t('views.home.heading')
+		provide :javascripts_page, 'index'
 		require 'hpricot'	
-%>
-
-<% 
-	@stylesheets['index'] = true 
 %>
 
 <div class='section top'>

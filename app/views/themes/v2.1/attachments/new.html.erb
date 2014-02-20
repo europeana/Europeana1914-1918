@@ -31,9 +31,9 @@
   @submit_class = 'collapsible'
   end
   
-  content_for :title, t('views.contributions.digital_object.step2')
-  @javascripts[:page ] = 'attachments-new'
-  @javascripts[:uploadify] = true
+  provide :title, t('views.contributions.digital_object.step2')
+  provide :javascripts_page , 'attachments-new'
+  provide :javascripts_uploadify, true
   
 %>
 <div class="section top">

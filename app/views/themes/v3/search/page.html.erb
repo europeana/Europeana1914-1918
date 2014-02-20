@@ -1,7 +1,6 @@
 <%
-  @javascripts[:page] = 'search'
-  content_for :title, t('views.contributions.search.heading')
-  @stylesheets['search'] = true 
+  provide :title, t('views.contributions.search.heading')
+  provide :javascripts_page, 'search'
 %>
 
 <script type="text/javascript">

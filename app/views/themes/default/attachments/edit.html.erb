@@ -3,7 +3,7 @@
 	@fieldset_class = 'collapsible'
 	@submit_class = 'collapsible'
 %>
-<% content_for :title, t('views.contributions.digital_object.step2') %>
+<% provide :title, t('views.contributions.digital_object.step2') %>
 
 	<%= render :partial => 'contribution', :object => @attachment.contribution %>
 	<%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => (@attachment.file.dirty? ? t('views.attachments.edit.caption.uploaded') : t('views.attachments.edit.caption.current')) } %>
