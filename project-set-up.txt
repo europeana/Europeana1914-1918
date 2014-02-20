@@ -132,6 +132,9 @@ confirm that the ruby version and gemset match what you expect
 bundle install
 --------------
 bundle install, installs several packages for ruby that the project requires
+mac may have an issue with xcrun. to overcome it see this gist
+https://gist.github.com/thelibrarian/5520597
+
 $ cd /project-path
 $ rm Gemfile.lock
 $ bundle install
@@ -253,6 +256,7 @@ RAILS_ENV=production bundle exec rake assets:expire
 
 install solr
 ============
+make sure mysql is running
 bundle exec rails generate sunspot_rails:install
 bundle exec rake sunspot:solr:start
 bundle exec rake sunspot:solr:stop
@@ -287,6 +291,9 @@ On your installation of 1418, once you have started the server:
 1. go to the URL /en/admin/config/edit
 2. change the search engine drop-down setting to solr.
 
+solr dashboard
+--------------
+http://localhost:8982/solr/#/
 
 start the server
 ================
