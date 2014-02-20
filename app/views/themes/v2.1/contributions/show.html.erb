@@ -8,6 +8,7 @@
   @javascripts[:video] = @contribution.attachments.select(&:video?).present?
   @javascripts[:annotorious] = true
   @javascripts[:shares] = true
+  @stylesheets[:item] = true
   @javascripts[:page] = 'contributions-show'
   @title = contribution_title(@contribution)
 
