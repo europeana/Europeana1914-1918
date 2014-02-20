@@ -55,7 +55,7 @@ module RunCoCo
     config.assets.version = '1.0'
     
     # Additional assets to precompile
-    config.assets.precompile = [ 
+    config.assets.precompile += [ 
       /stylesheets\/[^\/]*\.css/,
       /javascripts\/[^\/]*\.js/, /javascripts\/eu\/europeana\/pages\/[^\/]*\.js/
     ]
