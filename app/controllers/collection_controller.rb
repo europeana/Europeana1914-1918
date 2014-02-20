@@ -1,4 +1,3 @@
-# @todo Restrict to published contributions
 class CollectionController < SearchController
   before_filter :require_solr!
   
