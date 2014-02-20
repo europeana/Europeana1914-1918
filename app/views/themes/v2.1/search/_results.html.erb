@@ -3,7 +3,7 @@
 	<li class="result-count"><b><%= t('views.contributions.search.matches-for') %></b> <%= query || term %> (<%= results.total_entries %> <%= t('views.contributions.search.result_count_label') -%>)</li>
 
     <%- for result in results -%>
-      <%- cache search_result_fragment_key(result), :expires_in => (@contribution ? nil : 1.day) do -%>
+      <%- cache search_result_fragment_key(result), :expires_in => 1.day do -%>
         <%- record = search_result_to_edm(result) -%>
         <%- title = record['title'].blank? ? '' : record['title'].first -%>
         <li>

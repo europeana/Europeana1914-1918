@@ -9,7 +9,7 @@
   <div id="result-tabs" class="accordion-tabs">
 
 
-    <%- for provider in [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ] -%>
+    <%- for provider in registered_search_providers -%>
       <%- if search_provider_link = link_to_search_provider(provider) -%>
 
         <%- if controller.controller_name == provider.split("/").last -%>
@@ -19,11 +19,10 @@
             <div class="content">
             
               <div class="results">
-                <ul class="stories"><% @results.each_with_index do |result, index| %><li class="<%= 'col-' + ((index+1) % 2 == 0 ? 'even' : 'odd').to_s %> <%= 'col-' + ((index % 3) + 1).to_s %>"><span class="story">
-                  <%- cache search_result_fragment_key(result), :expires_in => (@contribution ? nil : 1.day) do -%>
+                <ul class="stories"><% results.each_with_index do |result, index| %><li class="<%= 'col-' + ((index+1) % 2 == 0 ? 'even' : 'odd').to_s %> <%= 'col-' + ((index % 3) + 1).to_s %>"><span class="story">
+                  <%- cache search_result_fragment_key(result), :expires_in => 1.day do -%>
                     <%- record = search_result_to_edm(result) -%>
                     <%- title = record['title'].blank? ? '' : record['title'].first -%>
-                    
                     
                     <a href="<%= record['guid'] %>" title="<%= title %>">
                       <%- if edm_preview = search_result_preview(record) -%>

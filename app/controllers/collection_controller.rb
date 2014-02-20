@@ -1,5 +1,6 @@
 class CollectionController < SearchController
   before_filter :require_solr!
+  helper_method :search_result_to_edm
   
   # GET /collection/search
   def search
@@ -77,10 +78,6 @@ class CollectionController < SearchController
         query.paginate(pagination_params.dup)
       end
       
-      edm_results = search.results.collect do |result|
-        cached_edm_result(result)
-      end
-      
       @facets = [ index_facet ] + search.facets.collect { |facet|
         {
           "name" => facet.name.to_s,
@@ -97,7 +94,7 @@ class CollectionController < SearchController
       
       response = {
         'facets' => @facets,
-        'items' => edm_results,
+        'items' => search.results,
         'itemsCount' => search.results.size,
         'totalResults' => search.total
       }
@@ -120,6 +117,7 @@ class CollectionController < SearchController
         if response.blank?
           json = {}.to_json
         else
+          response['items'] = response['items'].collect { |result| search_result_to_edm(result) }
           json = response.to_json
         end
         json = "#{params[:callback]}(#{json});" unless params[:callback].blank?
@@ -234,19 +232,30 @@ private
     }
   end
   
+  def search_result_to_edm(result)
+    if result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
+      cached_edm_result(result)
+    else
+      result
+    end
+  end
+  
   def cached_edm_result(result)
+    return result unless result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
+    
     cache_key = "#{result.class.to_s.underscore.pluralize}/edm/result/#{result.id}"
     
     if fragment_exist?(cache_key)
       edm = YAML::load(read_fragment(cache_key))
     else
-      if result.is_a?(EuropeanaRecord)
+      if result.is_a?(Contribution)
+        edm = result.edm.as_result
+      else
         edm = result.to_edm_result
         id_parts = edm['id'].split('/')
         edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
-      else
-        edm = result.edm.as_result
       end
+
       write_fragment(cache_key, edm.to_yaml)
     end
     

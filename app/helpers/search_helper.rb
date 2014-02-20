@@ -120,19 +120,12 @@ module SearchHelper
   def search_result_id(result)
     if result.is_a?(Contribution)
       result.id
+    elsif result.is_a?(EuropeanaRecord)
+      result.record_id
     elsif result.is_a?(Enumerable) && result.has_key?('id')
       result['id']
     else
       raise ArgumentError, "Unable to retrieve search result ID from #{result.class}"
-    end
-  end
-  
-  def search_result_to_edm(result)
-    case controller.controller_name
-    when 'contributions'
-      result.edm.as_result
-    else
-      result
     end
   end
   
