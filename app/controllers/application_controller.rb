@@ -19,8 +19,8 @@ class ApplicationController < ActionController::Base
   # session.
   theme :theme_resolver
 
-  # Always use the v2 theme
-  #theme 'v2'
+  # Always use the v2.1 theme
+  #theme 'v2.1'
 
   #
   ##
@@ -261,7 +261,6 @@ protected
   # @see https://github.com/lucasefe/themes_for_rails
   #
   def theme_resolver
-  logger.debug("Current user role: #{current_user.role.name.inspect}")
     if params[:theme]
       session[:theme] = params[:theme]
     elsif session[:theme].nil?
@@ -270,14 +269,6 @@ protected
 
     if session[:theme] == 'v2'
       session[:theme] = 'v2.1'
-    end
-
-    if session[:theme] == 'v2.0'
-      session[:theme] = 'v2'
-    end
-
-    if session[:theme] == 'v3.0'
-      session[:theme] = 'v3'
     end
 
     session[:theme]
