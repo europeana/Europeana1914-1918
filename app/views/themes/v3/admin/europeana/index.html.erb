@@ -1,7 +1,7 @@
-<% @title = t('views.admin.europeana.index.title') %>
+<% content_for :title, t('views.admin.europeana.index.title') %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
   <p><%= t('views.admin.europeana.index.introduction', :count => EuropeanaRecord.count) %></p>
   

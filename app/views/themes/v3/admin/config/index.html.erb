@@ -1,7 +1,7 @@
-<% @title = t('views.admin.config.index.title') %>
+<% content_for :title, t('views.admin.config.index.title') %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
     <ul class="collection-actions">
       <li><%= link_to t('views.admin.config.index.links.edit'), admin_edit_config_path, :class => 'edit' %></li>

@@ -1,12 +1,12 @@
 <%
-  @title = t('views.contributions.search.heading')
+  content_for :title, t('views.contributions.search.heading')
   @javascripts[:page] = 'search'
 %>
 
 
 <div class="section search top">
   
-  <h2 class="search-results-title"><%= @title %></h2>
+  <h2 class="search-results-title"><%= yield :title %></h2>
     
   <ul id="results-tabs">
     <%- for provider in registered_search_providers -%>

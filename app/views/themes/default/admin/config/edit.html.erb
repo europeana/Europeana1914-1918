@@ -1,4 +1,4 @@
-<% @title = t('views.admin.config.edit.title') %>
+<% content_for :title, t('views.admin.config.edit.title') %>
 
 <%= semantic_form_for(@config, :as => :settings, :url => admin_config_path, :html => { :method => 'put' }) do |form| %>
   <%= form.inputs :settings do %>

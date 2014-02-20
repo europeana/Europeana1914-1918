@@ -1,8 +1,8 @@
-<% @title = t('views.tags.delete.title') %>
+<% content_for :title, t('views.tags.delete.title') %>
 
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
   <p><%= t 'views.tags.delete.question' %></p>
 

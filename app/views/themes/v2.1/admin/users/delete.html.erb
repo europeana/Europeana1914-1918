@@ -1,7 +1,7 @@
-<% @title = t('views.admin.users.delete.title') %>
+<% content_for :title, t('views.admin.users.delete.title') %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
     <p><%= raw t 'views.admin.users.delete.question', :email => "<strong>#{@user.email}</strong>" %></p>
     

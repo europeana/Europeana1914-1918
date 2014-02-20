@@ -8,11 +8,11 @@
 	@submit_class = 'collapsible'
 	
 %>
-<% @title = t('views.contributions.digital_object.step2') %>
+<% content_for :title, t('views.contributions.digital_object.step2') %>
 
 <div class="section top">
 	
-	<h2><%= @title %> testing</h2>
+	<h2><%= yield :title %> testing</h2>
 	
 		<h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
 		<%= render :partial => 'contribution', :object => @attachment.contribution %>

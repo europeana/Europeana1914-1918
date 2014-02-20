@@ -1,4 +1,4 @@
-<% @title = t('views.contributions.index.title') %>
+<% content_for :title, t('views.contributions.index.title') %>
 
 <% if @contributions.present? -%>
   <%= render :partial => 'listing', :locals => { :contributions => @contributions } %>

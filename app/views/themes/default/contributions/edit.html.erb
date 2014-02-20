@@ -5,7 +5,7 @@
 		@fieldset_class = 'collapsible'
 	end
 %>
-<% @title = t('views.contributions.story.step1') %>
+<% content_for :title, t('views.contributions.story.step1') %>
 
 <% if current_user.may_delete_contribution?(@contribution) -%>
     <div class="action-links">

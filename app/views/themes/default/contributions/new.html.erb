@@ -6,7 +6,7 @@
 	end
 %>
 
-<% @title = t('views.contributions.story.step1') %>
+<% content_for :title, t('views.contributions.story.step1') %>
   
   <%= render :partial => 'form', :locals => { :contribution => @contribution } %>
   <%= render :partial => 'progress', :locals => { :step => 1 } %>

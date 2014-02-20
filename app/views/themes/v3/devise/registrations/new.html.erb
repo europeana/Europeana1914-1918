@@ -1,10 +1,10 @@
 <%
   @javascripts[:page] = 'register'
-  @title = t('views.devise.registrations.new.title') 
+  content_for :title, t('views.devise.registrations.new.title') 
 %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   <% if @user.errors.present? %>
     <% flash.now[:alert] = t("flash.users.register.alert") %>
   <% end %>

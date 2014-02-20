@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<%= I18n.locale %>">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
+<title><%= configuration(:site_name) %><% if content_for(:title).present? %> - <%= yield :title %><% end %></title>
   <%= render 'layouts/javascripts' %>
   <%= stylesheet_link_tag 'application', :media => 'screen, projection' %>
   <link rel="icon" href="<%= image_path('favicon.ico') %>" type="image/x-icon" />
@@ -31,7 +31,7 @@
             </td>
             <td class="lfr-column center3" id="column-2" valign="top">
               <div class="lfr-portlet-column" id="layout-column_column-2">
-                <% unless @title.blank? %><h2 class="page-title"><%= @title %></h2><% end %>
+                <% unless content_for(:title).blank? %><h2 class="page-title"><%= yield :title %></h2><% end %>
                 <div id="documentsarea">
                   <%= flash_message(:alert) unless flash[:alert].blank? %>
                   <%= flash_message(:notice) unless flash[:notice].blank? %>

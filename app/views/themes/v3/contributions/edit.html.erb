@@ -7,12 +7,12 @@
     @fieldset_class = 'collapsible'
   end
   
-  @title = t('views.contributions.story.step1')
+  content_for :title, t('views.contributions.story.step1')
   
 %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
   <div class="action-links">
     <ul>

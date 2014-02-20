@@ -1,4 +1,4 @@
-<% @title = @contribution.title %>
+<% content_for :title, @contribution.title %>
 
 	<%= inline_errors_for(@contribution, :base, { :content_tag => :div } ) %>
 	<%= render :partial => 'contributions/submit_form', :locals => { :contribution => @contribution } %>

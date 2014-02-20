@@ -1,4 +1,4 @@
-<% @title = t('views.statistics.index.heading') %>
+<% content_for :title, t('views.statistics.index.heading') %>
 
 <div class="section top">
   
@@ -13,7 +13,7 @@
   
   <%- if @results.present? -%>
     
-    <h2><%= @title %></h2>
+    <h2><%= yield :title %></h2>
     <%- @results.each_pair do |interval, statistics| -%>
     
       <div class="usage-statistics">

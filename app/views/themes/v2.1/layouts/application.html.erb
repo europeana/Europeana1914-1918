@@ -12,14 +12,14 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 <link rel='icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <link rel='shortcut icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
 <meta property='fb:app_id' content='185778248173748'/>
-<meta property='og:title' content='<%= @title %>'/>
+<meta property='og:title' content='<%= yield :title %>'/>
 <meta property='og:type' content='website'/>
 <!--<meta property='og:image' content='http://europeana.png'/>-->
 <!--<meta property='og:url' content='http://www.europeana.eu/portal/'/>-->
-<meta property='og:description' content='<%= @title %>'/>
+<meta property='og:description' content='<%= yield :title %>'/>
 <meta property='og:site_name' content='Europeana 1914-1918'/>
 <link rel='author' href='/humans.txt'/>
-<title><%= configuration(:site_name) %><%= @title.nil? ? '' : ' - ' + @title %></title>
+<title><%= configuration(:site_name) %><% if content_for(:title).present? %> - <%= yield :title %><% end %></title>
 </head>
 <body>
 	

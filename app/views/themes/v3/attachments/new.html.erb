@@ -35,12 +35,12 @@
   @submit_class = 'collapsible'
   end
   
-  @title = t('views.contributions.digital_object.step2')
+  content_for :title, t('views.contributions.digital_object.step2')
   
 %>
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
   <div class="action-links">
     <ul>

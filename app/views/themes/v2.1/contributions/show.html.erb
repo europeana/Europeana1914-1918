@@ -10,7 +10,7 @@
   @javascripts[:shares] = true
   @stylesheets[:item] = true
   @javascripts[:page] = 'contributions-show'
-  @title = contribution_title(@contribution)
+  content_for :title, contribution_title(@contribution)
 
 -%>
 <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>

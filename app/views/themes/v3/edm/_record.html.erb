@@ -8,7 +8,7 @@
   if @contribution
 		@javascripts[:audio] = @contribution.attachments.select(&:audio?).present?
 		@javascripts[:video] = @contribution.attachments.select(&:video?).present?
-		@title = contribution_title(@contribution)
+		content_for :title, contribution_title(@contribution)
 	end
 %>
 

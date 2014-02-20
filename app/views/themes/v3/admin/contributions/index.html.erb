@@ -1,10 +1,10 @@
 <%
   @javascripts[:page] = 'admin-contributions'
-  @title = t('views.admin.contributions.index.title')
+  content_for :title, t('views.admin.contributions.index.title')
 %>
 <div class="section top">
 
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
   
     <% if @contributor -%>
       <div><strong><%= t 'activerecord.options.user.role_name.contributor' %></strong> <%= @contributor.contact.full_name %></div>

@@ -1,4 +1,4 @@
-<% @title = t('views.devise.registrations.edit.title') %>
+<% content_for :title, t('views.devise.registrations.edit.title') %>
 
 <% if @user.errors.present? %>
   <% flash.now[:alert] = t("flash.users.update.alert") %>

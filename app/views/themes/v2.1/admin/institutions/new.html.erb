@@ -1,8 +1,8 @@
-<% @title = t('views.admin.institutions.new.title') %>
+<% content_for :title, t('views.admin.institutions.new.title') %>
 
 <div class="section top">
   
-  <h2><%= @title %></h2>
+  <h2><%= yield :title %></h2>
 
   <%= render :partial => 'form', :locals => { :institution => @institution } %>
   
