@@ -243,7 +243,7 @@ private
   #   parameter.
   #
   def build_api_query(terms)
-    qualifiers = '"first world war" NOT europeana_collectionName: "2020601_Ag_ErsterWeltkrieg_EU"'
+    qualifiers = '"first world war" OR "world war I" OR "1914-1918" NOT europeana_collectionName:"2020601_Ag_ErsterWeltkrieg_EU"'
 
     if terms.blank?
       qualifiers
