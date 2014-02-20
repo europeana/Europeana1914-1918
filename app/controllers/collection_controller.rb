@@ -112,7 +112,7 @@ class CollectionController < SearchController
     end
     
     respond_to do |format|
-      format.html { render :template => 'search/page', :stream => true }
+      format.html { render :template => 'search/page' }
       format.json do
         if response.blank?
           json = {}.to_json
