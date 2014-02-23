@@ -7,3 +7,9 @@ for oxford univerty’s great war archive, http://www.oucs.ox.ac.uk/ww1lit/gwa/.
 in january 2012, europeana began an iterative enhancement to the application that
 created a diversion from the original runcoco software and the one being used
 by europeana today.
+
+
+installation
+------------
+clone the repository into a local directory and then follow the [project-set-up instructions](https://github.com/europeana/Europeana1914-1918/blob/master/project-set-up.txt)
+`git clone -o github https://github.com/europeana/Europeana1914-1918.git`
