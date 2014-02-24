@@ -1,3 +1,7 @@
+europeana 1914-1918 set-up
+==========================
+table of contents
+-----------------
 1. introduction
 2. required libraries
 3. suggested ruby install
@@ -21,14 +25,23 @@
 
 
 introduction
-============
+------------
 this document attempts to detail the installation requirements and tasks needed
 in order to set-up a local developer environment for europeana’s 1914-1918 website.
 
 
 required libraries
-==================
-the following libraries are required in order for paperclip to work properly
+------------------
+make sure all of the following libraries are installed. you can use the unix
+pacakage manager apt-get or the mac os x package manager homebrew to install
+them if they are not already installed.
+
+* curl
+* git
+* mysql
+
+the following libraries are required in order for ruby paperclip gem to work
+properly
 
 * ffmpeg
   for creating thumbnails from videos
@@ -40,150 +53,171 @@ the following libraries are required in order for paperclip to work properly
   for creating thumbnails for pdfs
 
 
-
 suggested ruby install
-======================
+----------------------
 use rvm, http://rvm.io/
 an article for ubuntu - http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/
 
+### install rvm - ubuntu
 
-install rvm - ubuntu
---------------------
-$ curl -L get.rvm.io | bash -s stable --autolibs=packages
-$ . ~/.bash_profile
-
-# find and install required packages (including git via build-essential)
+```
+curl -L get.rvm.io | bash -s stable --autolibs=packages
+source ~/.rvm/scripts/rvm
 rvm requirements
+```
 
-# Linux only
-sudo apt-get install build-essential openssl libreadline6 libreadline6-dev \
-curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 \
-libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison  \
-subversion pkg-config
-
-
-install rvm - mac os x
-----------------------
-$ curl -L get.rvm.io | bash -s stable --autolibs=homebrew --ignore-dotfiles
+### install rvm - mac os x
 
 rvm uses a package manager to insure dependencies are installed. mac os x does
-not come with a package manager, thus here i am recommending homebrew
-http://mxcl.github.io/homebrew/, if rvm does not find a package manager it will
+not come with a package manager, thus here we are recommending [homebrew]
+(http://mxcl.github.io/homebrew/). if rvm does not find a package manager it will
 attempt to install and use macports.
+
+```
+curl -L get.rvm.io | bash -s stable --autolibs=homebrew --ignore-dotfiles
+rvm requirements
+```
 
 the --ignore-dotfiles stops rvm from creating a .bash_profile and .bashrc file.
 the functionality of these can be created manually as indicated below.
 
-.bash_profile
-create or add to a ~/.bash_profile file with the following :
+### .bash_profile
+
+create or add to a ~/.bash_profile file the following.
+
+```
+nano ~/.bash_profile
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+```
 
-.bashrc
-instead of creating a .bashrc file with the following in it : PATH=$PATH:$HOME/.rvm/bin
-create a file called rvm in /etc/paths.d
-$ sudo touch rvm
-with the following contents in it :
-/Users/dan/.rvm/bin
+### .bashrc
+on a mac, instead of creating a .bashrc file with the following in it :
+PATH=$PATH:$HOME/.rvm/bin you can create a file called rvm in /etc/paths.d with
+the following contents in it :  
 
+```
+sudo nano /etc/paths.d rvm
+/Users/your-username/.rvm/bin
+```
 
-install ruby with rvm
----------------------
-any 1.8 or 1.9 version should work
-$ rvm install 1.9.3
+### install ruby with rvm
 
+any 1.9+ version should work
+
+```
+rvm install 1.9.3
+```
 
 
 setup the 1914-1918 project
 ===========================
 clone the project
 -----------------
-$ git clone -o github https://github.com/europeana/Europeana1914-1918.git
-$ cd /Europeana1914-1918
 
+```
+git clone -o github https://github.com/europeana/Europeana1914-1918.git
+```
 
+create a gemset
+---------------
 create a gemset for the project
--------------------------------
-$ rvm gemset create 1914
 
+```
+rvm gemset create 1914
+```
 
-create a .ruby-version file
----------------------------
-$ nano .ruby-version
-with the following in it :
+.ruby-version file
+------------------
+create a .runby-version file. the .ruby-version file will make sure that rvm
+switches to the ruby version specified in the file:
+
+```
+cd /Europeana1914-1918
+nano .ruby-version
 1.9.3
+```
 
+.ruby-gemset file
+-----------------
+create a .ruby-gemset file. the .ruby-gemset file will make sure that rvm
+uses the gemset inidicated in the file:
 
-create a .ruby-gemset file
---------------------------
-$ nano .ruby-gemset
-with the following in it
+``` 
+cd /Europeana1914-1918
+nano .ruby-gemset
 1914
-
+```
 
 confirm ruby version and gemset
 -------------------------------
-$ cd ..
-$ cd /project-path
-$ rvm info
 confirm that the ruby version and gemset match what you expect
 
+```
+cd ..
+cd /Europeana1914-1918
+rvm info
+```
 
 bundle install
 --------------
-bundle install, installs several packages for ruby that the project requires
-mac may have an issue with xcrun. to overcome it see this gist
-https://gist.github.com/thelibrarian/5520597
+bundle install, installs several packages for ruby that the project requires.
+mac os x may have an issue with xcrun. to overcome it [see this gist]
+(https://gist.github.com/thelibrarian/5520597)
 
-$ cd /project-path
-$ rm Gemfile.lock
-$ bundle install
-
-# some ubuntu issues
-# from project root (requires git):
-# Ubuntu: if this fails because of "curb" run the following 2 lines:
-$ sudo apt-get install libcurl3 libcurl3-gnutls libcurl4-openssl-dev
-$ gem install curb
-# ...then try to run bundle install again
-# Ubuntu: if this fails because of "mysql2" then try this:
-$ sudo apt-get install libmysql-ruby libmysqlclient-dev
-# ...and this
-$ gem install mysql2
-# ...then try to run bundle install again
-
+```
+cd /Europeana1914-1918
+bundle install
+```
 
 
 configurations
 ==============
 the following commands assume that you are at the root path of the project
 
-create a db config
-------------------
-$ cp config/database.yml.example config/database.yml
-edit the file as appropriate
-make sure the socket location is correct, e.g. /tmp/mysql.sock
-if you run into a mysql2/client.rb:44:in `connect': can't convert Fixnum into String (TypeError) you may need to place quotes around the databasename, username or password in database.yml
+db config
+---------
+create a db config. edit the file as appropriate. make sure the socket location
+is correct, e.g. /tmp/mysql.sock if you run into a error indicating
+mysql2/client.rb:44:in `connect': can't convert Fixnum into String (TypeError)
+placing quotes around the databasename, username or password in may resolve the
+issue
 
+```
+cp config/database.yml.example config/database.yml
+nano config/database.yml
+```
 
-create a sphinx config
-----------------------
-$ cp config/sphinx.yml.example config/sphinx.yml
-edit the file as appropriate
+sphinx config
+-------------
+if using sphinx, create a sphinx config file and edit the file as appropriate
 
+```
+cp config/sphinx.yml.example config/sphinx.yml
+nano config/sphinx.yml
+```
 
-create a sass config
-----------------------
-$ cp config/sass.yml.example config/sass.yml
-gem install compass
+sass config (???)
+-----------
+```
+cp config/sass.yml.example config/sass.yml
+nano config/sass.yml
+gem install compass 
+```
 
 
 environments
 ============
 the following commands assume that you are at the root path of the project
 
-create environment config
+environment config
 -------------------------
-$ cp config/environments/development.rb.example config/environments/development.rb
+create an environment config and edit as appropriate
+
+```
+cp config/environments/development.rb.example config/environments/development.rb
+nano config/environments/development.rb
+```
 
 
 initializers
@@ -192,66 +226,92 @@ the following commands assume that you are at the root path of the project
 
 create europeana config
 -----------------------
-$ cp config/initializers/europeana.rb.example config/initializers/europeana.rb
-edit the file and make sure it contains a valid europeana api key
+create a europeana config file. edit the file and make sure it contains a valid
+europeana api key. if you get an exception error : uninitialized constant
+EuropeanaController::Europeana then this config has probably not been set properly.
 
-if you get an exception error : uninitialized constant EuropeanaController::Europeana
-then this config has probably not been set properly.
+```
+cp config/initializers/europeana.rb.example config/initializers/europeana.rb
+nano config/initializers/europeana.rb
+````
 
+search engine config
+--------------------
+create a search_engine config file. edit the file and make sure the recommended
+settings are uncommented by removing the #
 
-create search suggestions config
---------------------------------
-$ cp config/initializers/search_suggestion.rb.example config/initializers/search_suggestion.rb
-edit the file and make sure the recommended settings are uncommented by removing the #
+````
+cp config/initializers/search_engine.rb.example config/initializers/search_engine.rb
+nano config/initializers/search_engine.rb
+````
 
+search suggestions config
+-------------------------
+create a search_suggestions config file. edit the file and make sure the recommended
+settings are uncommented by removing the #
 
-create secret token
--------------------
-$ cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
-edit the file and make sure the token is a phrase of at least 30 characters within quotes
+````
+cp config/initializers/search_suggestion.rb.example config/initializers/search_suggestion.rb
+nano config/initializers/search_suggestion.rb
+````
 
+secret token
+------------
+create a secret token file. edit the file and make sure the token is a phrase of
+at least 30 characters within quotes.
 
-create thinking sphinx config
------------------------------
-$ cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking_sphinx.rb
+```
+cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
+nano config/initializers/secret_token.rb
+```
+
+thinking sphinx config
+-----------------------
+if using sphinx, create a thinking sphinx config file. edit it as appropriate.
+```
+cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking_sphinx.rb
+nano config/initializers/thinking_sphinx.rb
+```
 
 
 database
 ========
+setup the database. the credentials from the config/database.yml will be used.
+the database will be populated with 
+```
 bundle exec rake db:drop
 bundle exec rake db:create
+```
+
+import db dump
+--------------
+if you want you can import a production db dump.
+
+```
 mysql -u developer -p db_name < db_dump.sql # import a production db dump
+```
+
+migrate the db
+--------------
+```
 bundle exec rake db:migrate
+```
 
 
-### these instructions seem to be outdated; richard would need to review and correct
-###make initial schema available
-###-----------------------------
-###$ cp db/schema-example.rb db/schema.rb
-###create db and populate with initial values
-###==========================================
-###instead of the following :
-### $ bundle exec rake db:create
-### $ bundle exec rake db:schema:load
-### $ bundle exec rake db:migrate
-### $ bundle exec rake db:seed
-###run this :
-###$ bundle exec rake db:setup  # creates the db if it does not exist
-###or
-###$ bundle exec rake db:reset  # drops the db if it exists
-
-
+update localization
+===================
 update the js localization files
-================================
-$ bundle exec rake i18n:js:export
+
+```
+bundle exec rake i18n:js:export
+```
 
 
 clear js & css cache
 ====================
-# add --trace at the end of the command to see potential issues as the command issues
-bundle exec rake assets:expire --trace
-# on test
-RAILS_ENV=production bundle exec rake assets:expire
+```
+bundle exec rake assets:expire
+```
 
 
 install solr
@@ -264,14 +324,17 @@ bundle exec rake sunspot:solr:stop
 auto-complete
 -------------
 for auto-complete to work, copy from the following config files from the 1418 config directory to the solr config directory.
+
+```
 cp config/solr/conf/solrconfig.41.xml solr/conf/solrconfig.xml
 cp config/solr/conf/schema.xml solr/conf/schema.xml
+```
 
 pre-populate europeana records
 ------------------------------
 1. download the [europeana_records.sql file](https://www.assembla.com/spaces/europeana-1914-1918/documents/a3L0TgGQer445wacwqjQWU/download/a3L0TgGQer445wacwqjQWU)
-2. extract the file to a convenient location
-3. import the sql into your local 1914-1918 db mysql -u username -p databasename < path/example.sql
+1. extract the file to a convenient location
+1. import the sql into your local 1914-1918 db `mysql -u username -p databasename < path/example.sql`
 
 re-index solr
 -------------
@@ -282,14 +345,14 @@ configure federated search
 ---------------------------
 In order to retrieve federated search results you need to do the following:
 1. cp config/federated_search.yml.example config/federated_search.yml
-2. register for the appropriate api keys
-3. add them to the development section of config/federated_search.yml
+1. register for the appropriate api keys
+1. add them to the development section of config/federated_search.yml
 
 configure application to use solr
 ---------------------------------
 On your installation of 1418, once you have started the server:
 1. go to the URL /en/admin/config/edit
-2. change the search engine drop-down setting to solr.
+1. change the search engine drop-down setting to solr.
 
 solr dashboard
 --------------
@@ -311,7 +374,6 @@ to the admin interface and modify those credentials in the My account : Edit sig
 section
 
 
-
 google usage statistics
 =======================
 add the google api key to the config/ directory
@@ -322,16 +384,36 @@ add the google api email address @developer.gserviceaccount.com
 
 stats are cached for one week
 # to clear the cache
-$ bundle exec rake cache:google_analytics:clear
-
+```
+bundle exec rake cache:google_analytics:clear
+```
 
 
 some ruby extras
 ================
-show rake tasks available
--------------------------
-$ bundle exec rake --tasks
+set rails environment
+---------------------
+before issuing a set of rake commands or starting rails, make sure the RAILS_ENV
+is set to the proper environment: development, test, production. in your dev
+environment you usually do not need to enter this command
 
+```
+RAILS_ENV=production
+```
+
+rake tasks
+----------
+display all of the rake tasks available
+
+```
+bundle exec rake rake-command --tasks
+```
+
+add --trace at the end of the command to see potential issues as the command issues
+
+```
+bundle exec rake rake-command assets:expire --trace
+```
 
 
 upgrading pdf.js viewer
