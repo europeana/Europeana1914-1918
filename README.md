@@ -13,4 +13,3 @@ installation
 ------------
 1. clone the repository into a local directory `git clone -o github https://github.com/europeana/Europeana1914-1918.git`
 1. then follow the [project-set-up instructions](https://github.com/europeana/Europeana1914-1918/blob/master/project-set-up.md)
-

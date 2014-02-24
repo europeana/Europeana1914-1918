@@ -5,7 +5,7 @@ table of contents
 1. [introduction](#introduction)
 1. [required libraries](#required-libraries)
 1. [suggested ruby install](#suggested-ruby-install)
-1. [setup the 1914-1918 project](#set-up-1914-1918-project)
+1. [project install](#project-install)
 1. [configurations](#configurations)
 1. [environments](#environments)
 1. [initializers](#initializers)
@@ -28,20 +28,22 @@ introduction
 ------------
 this document attempts to detail the installation requirements and tasks needed
 in order to set-up a local developer environment for europeana’s 1914-1918 website.
+you can of course use any cli editor, however nano is assumed to be your cli editor
+within these instructions.
 
 
 required libraries
 ------------------
-make sure all of the following libraries are installed. you can use the unix
-pacakage manager apt-get or the mac os x package manager homebrew to install
-them if they are not already installed.
+make sure all of the following libraries are installed. the easiest method is to
+use a pacakage manager such as apt-get or homebrew to install them if they are
+not already installed.
 
 * curl
 * git
 * mysql
 
-the following libraries are required in order for ruby paperclip gem to work
-properly
+the following libraries are required in order for the ruby paperclip gem to work
+properly.
 
 * ffmpeg
   for creating thumbnails from videos
@@ -55,10 +57,9 @@ properly
 
 suggested ruby install
 ----------------------
-use rvm, http://rvm.io/
-an article for ubuntu - http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/
+use [rvm](http://rvm.io/). a helpful [ubuntu article](http://ryanbigg.com/2010/12/ubuntu-ruby-rvm-rails-and-you/) for reference.
 
-### install rvm - ubuntu
+### install rvm (ubuntu)
 
 ```
 curl -L get.rvm.io | bash -s stable --autolibs=packages
@@ -66,24 +67,26 @@ source ~/.rvm/scripts/rvm
 rvm requirements
 ```
 
-### install rvm - mac os x
+### install rvm (mac os x)
 
 rvm uses a package manager to insure dependencies are installed. mac os x does
-not come with a package manager, thus here we are recommending [homebrew]
+not come with a package manager, thus, here we are recommending [homebrew]
 (http://mxcl.github.io/homebrew/). if rvm does not find a package manager it will
 attempt to install and use macports.
 
 ```
 curl -L get.rvm.io | bash -s stable --autolibs=homebrew --ignore-dotfiles
+source ~/.rvm/scripts/rvm
 rvm requirements
 ```
 
-the --ignore-dotfiles stops rvm from creating a .bash_profile and .bashrc file.
-the functionality of these can be created manually as indicated below.
+* `--autoblibs=` tells homebrew which pacakge manager to use
+* `--ignore-dotfiles` stops rvm from creating a `.bash_profile` and `.bashrc` file,
+  which you can be created manually as indicated below.
 
 ### .bash_profile
 
-create or add to a ~/.bash_profile file the following.
+create or add to a ~/.bash_profile file the following:
 
 ```
 nano ~/.bash_profile
@@ -93,8 +96,13 @@ nano ~/.bash_profile
 
 ### .bashrc
 on a mac, instead of creating a .bashrc file with the following in it :
-PATH=$PATH:$HOME/.rvm/bin you can create a file called rvm in /etc/paths.d with
-the following contents in it :  
+
+```
+sudo nano ~/.bashrc
+PATH=$PATH:$HOME/.rvm/bin
+```
+
+you can create a file called rvm in /etc/paths.d with the following contents in it :  
 
 ```
 sudo nano /etc/paths.d rvm
@@ -110,8 +118,8 @@ rvm install 1.9.3
 ```
 
 
-setup 1914-1918 project
------------------------
+project install
+---------------
 ### clone the project
 
 ```
@@ -169,13 +177,17 @@ configurations
 --------------
 the following commands assume that you are at the root path of the project
 
+```
+cd /Europeana1914-1918
+```
+
 ### db config
 
-create a db config. edit the file as appropriate. make sure the socket location
-is correct, e.g. /tmp/mysql.sock if you run into a error indicating
+create a db config file and edit the file as appropriate. make sure the socket 
+location is correct, e.g. /tmp/mysql.sock. if you run into an error indicating
 mysql2/client.rb:44:in `connect': can't convert Fixnum into String (TypeError)
-placing quotes around the databasename, username or password in may resolve the
-issue
+placing quotes around the databasename, username, and password may resolve the
+issue.
 
 ```
 cp config/database.yml.example config/database.yml
@@ -184,7 +196,7 @@ nano config/database.yml
 
 ### sphinx config
 
-if using sphinx, create a sphinx config file and edit the file as appropriate
+if using sphinx, create a sphinx config file and edit the file as appropriate.
 
 ```
 cp config/sphinx.yml.example config/sphinx.yml
@@ -204,9 +216,13 @@ environments
 ------------
 the following commands assume that you are at the root path of the project
 
+```
+cd /Europeana1914-1918
+```
+
 ### environment config
 
-create an environment config and edit as appropriate
+create an environment config and edit as appropriate.
 
 ```
 cp config/environments/development.rb.example config/environments/development.rb
@@ -216,13 +232,18 @@ nano config/environments/development.rb
 
 initializers
 ------------
-the following commands assume that you are at the root path of the project
+the following commands assume that you are at the root path of the project.
+
+```
+cd /Europeana1914-1918
+```
 
 ### create europeana config
 
-create a europeana config file. edit the file and make sure it contains a valid
-europeana api key. if you get an exception error : uninitialized constant
-EuropeanaController::Europeana then this config has probably not been set properly.
+create a europeana config file and edit the file as appropriate. make sure it
+contains a valid europeana api key. if you get an exception error :
+uninitialized constant EuropeanaController::Europeana then this config has
+probably not been set properly.
 
 ```
 cp config/initializers/europeana.rb.example config/initializers/europeana.rb
@@ -231,8 +252,8 @@ nano config/initializers/europeana.rb
 
 ### search engine config
 
-create a search_engine config file. edit the file and make sure the recommended
-settings are uncommented by removing the #
+create a search_engine config file and edit the file as appropriate. make sure
+the recommended settings are uncommented by removing the # where necessary.
 
 ````
 cp config/initializers/search_engine.rb.example config/initializers/search_engine.rb
@@ -241,8 +262,8 @@ nano config/initializers/search_engine.rb
 
 ### search suggestions config
 
-create a search_suggestions config file. edit the file and make sure the recommended
-settings are uncommented by removing the #
+create a search_suggestions config file and edit the file as appropriate. make
+sure the recommended settings are uncommented by removing the # where necessary.
 
 ````
 cp config/initializers/search_suggestion.rb.example config/initializers/search_suggestion.rb
@@ -251,8 +272,8 @@ nano config/initializers/search_suggestion.rb
 
 ### secret token
 
-create a secret token file. edit the file and make sure the token is a phrase of
-at least 30 characters within quotes.
+create a secret token file and edit the file as appropriate. make sure the token
+is a phrase of at least 30 characters within quotes.
 
 ```
 cp config/initializers/secret_token.rb.example config/initializers/secret_token.rb
@@ -261,7 +282,8 @@ nano config/initializers/secret_token.rb
 
 ### thinking sphinx config
 
-if using sphinx, create a thinking sphinx config file. edit it as appropriate.
+if using sphinx, create a thinking sphinx config file and edit it as appropriate.
+
 ```
 cp config/initializers/thinking_sphinx.rb.example config/initializers/thinking_sphinx.rb
 nano config/initializers/thinking_sphinx.rb
@@ -270,11 +292,33 @@ nano config/initializers/thinking_sphinx.rb
 
 database
 --------
-setup the database. the credentials from the config/database.yml will be used.
-the database will be populated with 
+the following commands assume that you are at the root path of the project.
+
+```
+cd /Europeana1914-1918
+```
+
+### schema
+
+create a database schmea file to be used when issuing rake commands on the
+database.
+
+```
+cp db/schema-example.rb db/schema.rb
+```
+
+the credentials from the config/database.yml will be used to carry out the following:
+1. drop any current database in the current RAILS_ENV
+1. create the database
+1. load the database schema
+1. initialize the database with the seed data
+
 ```
 bundle exec rake db:drop
 bundle exec rake db:create
+bundle exec rake db:seed
+bundle exec rake db:schema:load
+
 ```
 
 ### import db dump
@@ -405,7 +449,7 @@ RAILS_ENV=production
 display all of the rake tasks available
 
 ```
-bundle exec rake rake-command --tasks
+bundle exec rake --tasks
 ```
 
 add --trace at the end of the command to see potential issues as the command issues
