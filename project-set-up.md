@@ -70,19 +70,18 @@ rvm requirements
 ### install rvm (mac os x)
 
 rvm uses a package manager to insure dependencies are installed. mac os x does
-not come with a package manager, thus, here we are recommending [homebrew]
-(http://mxcl.github.io/homebrew/). if rvm does not find a package manager it will
-attempt to install and use macports.
+not come with a package manager. we recommendi using [homebrew](http://mxcl.github.io/homebrew/).
+if rvm does not find a package manager it will attempt to install and use macports.
+
+* `--autoblibs` tells homebrew which pacakge manager to use
+* `--ignore-dotfiles` stops rvm from creating a `.bash_profile` and `.bashrc` file,
+  which you can be created manually as indicated below.
 
 ```
 curl -L get.rvm.io | bash -s stable --autolibs=homebrew --ignore-dotfiles
 source ~/.rvm/scripts/rvm
 rvm requirements
 ```
-
-* `--autoblibs=` tells homebrew which pacakge manager to use
-* `--ignore-dotfiles` stops rvm from creating a `.bash_profile` and `.bashrc` file,
-  which you can be created manually as indicated below.
 
 ### .bash_profile
 
@@ -92,6 +91,9 @@ create or add to a ~/.bash_profile file the following:
 nano ~/.bash_profile
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# Set Rails Environment
+export RAILS_ENV=development
 ```
 
 ### .bashrc
@@ -308,6 +310,7 @@ cp db/schema-example.rb db/schema.rb
 ```
 
 the credentials from the config/database.yml will be used to carry out the following:
+
 1. drop any current database in the current RAILS_ENV
 1. create the database
 1. load the database schema
@@ -315,18 +318,15 @@ the credentials from the config/database.yml will be used to carry out the follo
 
 ```
 bundle exec rake db:drop
-bundle exec rake db:create
-bundle exec rake db:seed
-bundle exec rake db:schema:load
-
+bundle exec rake db:setup
 ```
 
 ### import db dump
 
-if you want you can import a production db dump.
+if you want you can import a production db dump instead.
 
 ```
-mysql -u developer -p db_name < db_dump.sql # import a production db dump
+mysql -u developer -p db_name < db_dump.sql
 ```
 
 ### migrate the db
