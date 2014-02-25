@@ -18,6 +18,7 @@ puts
 
 puts 'Initialising settings:'
 {
+  :site_url => 'http://www.example.com',
   :registration_required => true,
   :uploadify => true,
   :publish_contributions => true,
@@ -27,7 +28,7 @@ puts 'Initialising settings:'
   :allowed_upload_extensions => 'doc,docx,pdf,txt,jpg,jpeg,jp2,jpx,gif,png,tiff,mp3,ogg,ogv,webm,mp4,avi,mpg,zip,mp3',
   :site_name => 'Europeana 1914-1918',
   :banner_active => false,
-  :search_engine => :thinking_sphinx
+  :search_engine => :solr
 }.each_pair do |setting, value|
   puts "  #{setting.to_s} => #{value.to_s}"
   RunCoCo.configuration.send("#{setting.to_s}=", value)
