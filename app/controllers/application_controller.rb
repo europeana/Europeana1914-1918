@@ -313,7 +313,8 @@ protected
 
     begin
       translations = RunCoCo::BingTranslator.translate(text, from_locale)
-      write_fragment(bing_cache_key, translations.to_yaml, :expires_in => 1.year)
+      expiration = Rails.configuration.cache_store.first == :dalli_store ? 1.year.from_now.to_i : 1.year
+      write_fragment(bing_cache_key, translations.to_yaml, :expires_in => expiration)
     rescue Exception => exception
       RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
       translations = text
