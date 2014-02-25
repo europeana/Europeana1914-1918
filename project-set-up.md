@@ -196,6 +196,17 @@ cp config/database.yml.example config/database.yml
 nano config/database.yml
 ```
 
+### federated search
+
+In order to retrieve federated search results you need to do the following:
+
+```
+cp config/federated_search.yml.example config/federated_search.yml
+```
+
+1. register for the appropriate api keys
+1. add them to the development section of `config/federated_search.yml`
+
 ### sphinx config
 
 if using sphinx, create a sphinx config file and edit the file as appropriate.
@@ -295,7 +306,7 @@ cd /Europeana1914-1918
 
 ### schema
 
-create a database schmea file to be used when setting up the initial database.
+make sure the database schema file is available to the db rake commands.
 
 ```
 cp db/schema-example.rb db/schema.rb
@@ -365,7 +376,8 @@ bundle exec rake sunspot:solr:stop
 
 ### auto-complete
 
-for auto-complete to work, copy from the following config files from the 1418 config directory to the solr config directory.
+for auto-complete to work, copy from the following config files from the 1418
+config directory to the solr config directory.
 
 ```
 cp config/solr/conf/solrconfig.41.xml solr/conf/solrconfig.xml
@@ -380,21 +392,19 @@ cp config/solr/conf/schema.xml solr/conf/schema.xml
 
 ### re-index solr
 
+```
 bundle exec rake sunspot:solr:start
 bundle exec rake sunspot:reindex
-
-### configure federated search
-
-In order to retrieve federated search results you need to do the following:
-1. cp config/federated_search.yml.example config/federated_search.yml
-1. register for the appropriate api keys
-1. add them to the development section of config/federated_search.yml
+```
 
 ### configure application to use solr
 
-On your installation of 1418, once you have started the server:
-1. go to the URL /en/admin/config/edit
+Once the application has started, you may need to configure it to use solr.
+
+1. sign-in to the site
+1. browse to /admin/config/edit.
 1. change the search engine drop-down setting to solr.
+
 
 ### solr dashboard
 
