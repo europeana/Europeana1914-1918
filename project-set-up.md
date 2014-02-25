@@ -252,16 +252,6 @@ cp config/initializers/europeana.rb.example config/initializers/europeana.rb
 nano config/initializers/europeana.rb
 ````
 
-### search engine config
-
-create a search_engine config file and edit the file as appropriate. make sure
-the recommended settings are uncommented by removing the # where necessary.
-
-````
-cp config/initializers/search_engine.rb.example config/initializers/search_engine.rb
-nano config/initializers/search_engine.rb
-````
-
 ### search suggestions config
 
 create a search_suggestions config file and edit the file as appropriate. make
@@ -294,6 +284,9 @@ nano config/initializers/thinking_sphinx.rb
 
 database
 --------
+the credentials from the config/database.yml will be used to carry out the
+rake commands mentioned below.
+
 the following commands assume that you are at the root path of the project.
 
 ```
@@ -302,37 +295,46 @@ cd /Europeana1914-1918
 
 ### schema
 
-create a database schmea file to be used when issuing rake commands on the
-database.
+create a database schmea file to be used when setting up the initial database.
 
 ```
 cp db/schema-example.rb db/schema.rb
 ```
 
-the credentials from the config/database.yml will be used to carry out the following:
+### drop previous database
 
-1. drop any current database in the current RAILS_ENV
-1. create the database
-1. load the database schema
-1. initialize the database with the seed data
+if necessary, or preferred, you can drop a previous version of the database.
 
 ```
 bundle exec rake db:drop
-bundle exec rake db:setup
 ```
 
-### import db dump
+### import a previous version of the database
 
-if you want you can import a production db dump instead.
+if you want, you can import a production db dump instead of creating a clean database.
 
 ```
-mysql -u developer -p db_name < db_dump.sql
+mysql -u user_name -p db_name < db_dump.sql
 ```
 
 ### migrate the db
 
+used to make sure any existing database is up to date with any lifecycle database
+changes.
+
 ```
 bundle exec rake db:migrate
+```
+
+### create a clean version of the database
+
+1. create the database
+1. load the database schema
+1. initialize the database with the seed data
+1. run any necessary database migrations
+
+```
+bundle exec rake db:setup
 ```
 
 
