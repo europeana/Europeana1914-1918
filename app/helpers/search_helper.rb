@@ -98,8 +98,8 @@ module SearchHelper
     
     cache_key = "#{result.class.to_s.underscore.pluralize}/edm/result/#{result.id}"
     
-    if fragment_exist?(cache_key)
-      edm = YAML::load(read_fragment(cache_key))
+    if controller.fragment_exist?(cache_key)
+      edm = YAML::load(controller.read_fragment(cache_key))
     else
       if result.is_a?(Contribution)
         edm = result.edm.as_result
@@ -109,7 +109,7 @@ module SearchHelper
         edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
       end
 
-      write_fragment(cache_key, edm.to_yaml)
+      controller.write_fragment(cache_key, edm.to_yaml)
     end
     
     edm
