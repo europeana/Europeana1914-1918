@@ -9,6 +9,6 @@ class AddFormatColumnToExportsTable < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :exports
+    remove_column :exports, :format
   end
 end
