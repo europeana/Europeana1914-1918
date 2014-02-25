@@ -305,7 +305,7 @@ protected
 
     if fragment_exist?(bing_cache_key)
       translations = YAML::load(read_fragment(bing_cache_key))
-      if translations.is_a?(Hash) && translations.keys == I18n.available_locales
+      if translations.is_a?(Hash) && (translations.keys.sort == I18n.available_locales.sort)
         return translations
       end
       expire_fragment(bing_cache_key)
