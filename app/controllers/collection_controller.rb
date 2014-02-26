@@ -12,10 +12,11 @@ class CollectionController < SearchController
         search_terms = I18n.available_locales.collect do |locale|
           I18n.t("formtastic.labels.taxonomy_term.#{@field.name}.#{@term}", :locale => locale, :default => @term).add_quote_marks
         end
+        search_terms = [ search_terms.uniq ]
       end
     else
       @query = params[:q]
-      search_terms = solr_and_query(bing_translate(@query))
+      search_terms = @query.present? ? [ @query ] : []
     end
     
     if search_terms.present? || params[:term].blank?
@@ -36,7 +37,7 @@ class CollectionController < SearchController
       end
       
       if refine_search_terms = facet_params.delete(:q)
-        search_terms = '+(' + search_terms + ') +' + solr_and_query(refine_search_terms)
+        search_terms = search_terms + refine_search_terms
       end
       
       search = Sunspot.search indices do |query|
@@ -74,7 +75,7 @@ class CollectionController < SearchController
           query.facet "rights"
         end
         
-        query.fulltext search_terms, { :minimum_match => 1 }
+        query.fulltext solr_multiple_queries(search_terms), { :minimum_match => 1 }
         query.paginate(pagination_params.dup)
       end
       
@@ -233,21 +234,36 @@ private
     }
   end
   
-  def solr_and_query(search_terms)
-    search_terms = search_terms.dup
-    search_terms = case search_terms
+  # @param [String,Array] query_text Query text as entered by user, or an array
+  #   of terms.
+  # @return [String] Query string formatted to send to Solr, disjunct syntax
+  def solr_single_query(query_text)
+    translations = query_text.is_a?(String) ? bing_translate(query_text) : query_text
+    
+    search_terms = case translations
     when Hash
-      search_terms.values.uniq
+      translations.values.uniq
     when String
-      search_terms = [ search_terms ]
+      [ translations ]
     when Array
-      search_terms
-    else
-      raise ArgumentError, "Expected search_terms to be Hash, Array or String, got #{search_terms.class.to_s}"
+      translations
     end
     
-    search_terms.collect! { |term| '+' + term.strip.split(' ').join(' +') }
+    search_terms.collect! do |term|
+      if term[0] == '"' && term[-1] == '"'
+        term
+      else
+        '+' + term.strip.split(' ').join(' +')
+      end
+    end
+    
     '(' + search_terms.join(') (') + ')'
+  end
+  
+  # @param [Array<String>] queries Multiple query strings
+  # @return Query string formatted to send to Solr, disjunct syntax
+  def solr_multiple_queries(queries)
+    queries.collect { |q| '+(' + solr_single_query(q) + ')' }.join(' ')
   end
   
 end
