@@ -15,10 +15,7 @@ class CollectionController < SearchController
       end
     else
       @query = params[:q]
-      search_terms = bing_translate(@query)
-      if search_terms.is_a?(Hash)
-        search_terms = search_terms.dup.values.uniq.add_quote_marks.join(' ')
-      end
+      search_terms = solr_and_query(bing_translate(@query))
     end
     
     if search_terms.present? || params[:term].blank?
@@ -73,7 +70,7 @@ class CollectionController < SearchController
           query.facet "rights"
         end
         
-        query.fulltext search_terms, { :minimum_match => 1 } # Equivalent to Boolean OR in dismax query mode
+        query.fulltext search_terms, { :minimum_match => 1 }
         query.paginate(pagination_params.dup)
       end
       
@@ -230,6 +227,23 @@ private
         { "search" => "e", "label" => t('views.search.facets.europeana.source_institution')}
       ]
     }
+  end
+  
+  def solr_and_query(search_terms)
+    search_terms = search_terms.dup
+    search_terms = case search_terms
+    when Hash
+      search_terms.values.uniq
+    when String
+      search_terms = [ search_terms ]
+    when Array
+      search_terms
+    else
+      raise ArgumentError, "Expected search_terms to be Hash, Array or String, got #{search_terms.class.to_s}"
+    end
+    
+    search_terms.collect! { |translation| '+' + translation.strip.split(' ').join(' +') }
+    '(' + search_terms.join(') (') + ')'
   end
   
 end
