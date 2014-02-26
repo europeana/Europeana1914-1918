@@ -24,7 +24,9 @@ class CollectionController < SearchController
         :per_page => [ (params[:count] || 12).to_i, 100 ].min # Default 12, max 100
       }
       
-      indices = case extracted_facet_params[:index].first
+      facet_params = extracted_facet_params.dup
+      
+      indices = case facet_params.delete(:index).first
         when "a"
           [ Contribution, EuropeanaRecord ]
         when "c"
@@ -33,9 +35,11 @@ class CollectionController < SearchController
           EuropeanaRecord
       end
       
+      if refine_search_terms = facet_params.delete(:q)
+        search_terms = '+(' + search_terms + ') +' + solr_and_query(refine_search_terms)
+      end
+      
       search = Sunspot.search indices do |query|
-        facet_params = extracted_facet_params.dup
-        facet_params.delete(:index)
         facet_params.each_pair do |name, criteria|
           query.with(name.to_sym).all_of(criteria)
         end
@@ -242,7 +246,7 @@ private
       raise ArgumentError, "Expected search_terms to be Hash, Array or String, got #{search_terms.class.to_s}"
     end
     
-    search_terms.collect! { |translation| '+' + translation.strip.split(' ').join(' +') }
+    search_terms.collect! { |term| '+' + term.strip.split(' ').join(' +') }
     '(' + search_terms.join(') (') + ')'
   end
   

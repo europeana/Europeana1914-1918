@@ -226,19 +226,25 @@ module SearchHelper
       else
         facet_row_parts = filter_param[:value].match(/^([^:]+):(.+)$/)
         facet_name, field_value = facet_row_parts[1], facet_row_parts[2]
-        facet = facets.find { |facet| facet["name"].to_s == facet_name }
+        
+        if facet_name == "q" # Refine your search
+          link_text = field_value
+        else
+          facet = facets.find { |facet| facet["name"].to_s == facet_name }
 
-        # Hack for facets in query but not in search response, req'd in dev env
-        # where caching is disabled
-        # @todo Replace with a solution that preserves facet info without
-        #   depending on caching being enabled
-        next unless facet.present?
+          # Hack for facets in query but not in search response, req'd in dev env
+          # where caching is disabled
+          # @todo Replace with a solution that preserves facet info without
+          #   depending on caching being enabled
+          next unless facet.present?
 
-        if controller.controller_name == "collection" && facet["label"] == 'Source'
-           facet["label"] = t('views.search.facets.europeana.source_label')
+          if controller.controller_name == "collection" && facet["label"] == 'Source'
+             facet["label"] = t('views.search.facets.europeana.source_label')
+          end
+          
+          link_text = facet["label"] + ": " + facet["fields"].find { |field| field["search"].to_s == field_value }["label"]
         end
         
-        link_text = facet["label"] + ": " + facet["fields"].find { |field| field["search"].to_s == field_value }["label"]
         if facet_is_single_select?(facet_name)
           remove_url = nil
         else
