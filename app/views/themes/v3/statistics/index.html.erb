@@ -1,15 +1,11 @@
-<% provide :title, t('views.statistics.index.heading') %>
+<% provide :title, t('views.statistics.index.title') %>
 
 <div class="section top">
-  
-  <h2><%= yield :title %></h2>
-  
-  <%- if @results.present? -%>
-  
+
   <style type="text/css">
     .google-analytics-statistics {
       float: left;
-      width: 30%;
+      width: 45%;
       background-color: #EEEEEE;
       border: 1px solid #DADADA;
       margin: 0 1% 1% 0;
@@ -17,10 +13,35 @@
     }
   </style>
   
+  <h2><%= t 'views.statistics.index.contributions.heading' %></h2>
+  
+  <div class="google-analytics-statistics">
+    <h3><%= t 'views.statistics.index.contributions.ugc' %></h3>
+    <ul>
+      <li><%= t('activerecord.models.contribution').pluralize %>: <%= number_with_delimiter(Contribution.published.count, :delimiter => ',') %></li>
+      <li><%= t('activerecord.models.attachment').pluralize %>: <%= number_with_delimiter(Attachment.published.count, :delimiter => ',') %></li>
+    </ul>
+  </div>
+  
+  <div class="google-analytics-statistics">
+    <h3><%= t 'views.statistics.index.contributions.institutional' %></h3>
+    <ul>
+      <li><%= t 'views.statistics.index.providers.europeana' %>: <%= number_with_delimiter(count_all_europeana_items, :delimiter => ',') %></li>
+      <li><%= t 'views.statistics.index.providers.dpla' %>: <%= number_with_delimiter(count_all_dpla_items, :delimiter => ',') %></li>
+      <li><%= t 'views.statistics.index.providers.digitalnz' %>: <%= number_with_delimiter(count_all_digitalnz_items, :delimiter => ',') %></li>
+      <li><%= t 'views.statistics.index.providers.trove' %>: <%= number_with_delimiter(count_all_trove_items, :delimiter => ',') %></li>
+    </ul>
+  </div>
+  
+  <h2><%= yield :title %></h2>
+  
+  <%- if @results.present? -%>
+  
     <%- @results.each_pair do |interval, statistics| -%>
     
       <div class="google-analytics-statistics">
         <h3><%= t interval, :scope => "views.statistics.index.intervals" %></h3>
+        <% if statistics[:label] %><p><%= statistics[:label] %></p><% end %>
         <ul>
           <li><%= t 'views.statistics.index.metrics.visits' %>: <%= number_with_delimiter(statistics[:visits]) %></li>
           <li><%= t 'views.statistics.index.metrics.avgtimeonsite' %>: <%= distance_of_time_in_words(statistics[:avgTimeOnSite]) %></li>
@@ -34,5 +55,5 @@
   <%- else -%>
     <p><%= t 'views.statistics.index.no_results' %></p>
   <%- end -%>
-  
+
 </div>

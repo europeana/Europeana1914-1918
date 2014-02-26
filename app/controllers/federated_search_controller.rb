@@ -75,6 +75,12 @@ class FederatedSearchController < SearchController
     end
   end
   
+  def count_all
+    load_api_key
+    response = query_api(search_url, search_params)
+    total_entries_from_response(response)
+  end
+  
 protected
   
   ##
@@ -158,7 +164,6 @@ private
     else
       response = JSON.parse(Net::HTTP.get(url))
       validate_response!(response)
-#      logger.debug("Federated search response: #{response.inspect}")
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day)
     end
     

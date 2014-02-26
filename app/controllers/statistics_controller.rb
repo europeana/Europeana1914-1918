@@ -4,6 +4,8 @@ require 'google/api_client'
 # Public usage statistics for this site, from Google Analytics
 #
 class StatisticsController < ApplicationController
+  caches_action :index, :layout => false, :expires_in => 1.day, 
+    :cache_path => Proc.new { |c| session[:theme] + '/' + I18n.locale.to_s + '/statistics' }
 
   # GET /statistics
   def index
@@ -23,6 +25,7 @@ class StatisticsController < ApplicationController
         object_pageviews        = GoogleAnalytics.object_pageviews(@profile).results(date_params)
         europeana_pageviews     = GoogleAnalytics.europeana_pageviews(@profile).results(date_params)
         @results[interval]  = {
+          :label                => date_params[:label],
           :visits               => unfiltered_results.totals_for_all_results['visits'],
           :avgTimeOnSite        => unfiltered_results.totals_for_all_results['avgTimeOnSite'],
           :object_pageviews     => object_pageviews.totals_for_all_results['pageviews'],
@@ -55,9 +58,10 @@ private
     month_start   = Time.new(time.year, time.month, 1, 0, 0, 0)
     quarter       = ((time.month - 1) / 3) + 1
     quarter_start = Time.new(time.year, ((quarter - 1) * 3) + 1, 1, 0, 0, 0)
+    last_quarter  = quarter == 1 ? 4 : quarter - 1
     year_start    = Time.new(time.year, 1, 1, 0, 0, 0)
     
-    {
+    date_params = {
       :this_week    => { :start_date => week_start, :end_date => time },
       :last_week    => { :start_date => week_start - 1.week, :end_date => week_start - 1 },
       :this_month   => { :start_date => month_start, :end_date => time },
@@ -65,6 +69,16 @@ private
       :last_quarter => { :start_date => quarter_start - 3.months, :end_date => quarter_start - 1 },
       :last_year    => { :start_date => year_start - 1.year, :end_date => year_start - 1 }
     }
+    
+    # Labels
+    date_params[:this_week][:label] = (I18n.l(date_params[:this_week][:start_date], :format => :date) + ' &ndash; ' + I18n.l(date_params[:this_week][:end_date], :format => :date)).html_safe
+    date_params[:last_week][:label] = (I18n.l(date_params[:last_week][:start_date], :format => :date) + ' &ndash; ' + I18n.l(date_params[:last_week][:end_date], :format => :date)).html_safe
+    date_params[:this_month][:label] = I18n.t('date.month_names')[date_params[:this_month][:start_date].month]
+    date_params[:last_month][:label] = I18n.t('date.month_names')[date_params[:last_month][:start_date].month]
+    date_params[:last_quarter][:label] = last_quarter
+    date_params[:last_year][:label] = date_params[:last_year][:start_date].year
+    
+    date_params
   end
   
   ##

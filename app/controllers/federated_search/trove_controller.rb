@@ -70,7 +70,7 @@ protected
   end
   
   def total_entries_from_response(response)
-    zone_results(response)["records"]["total"].to_i
+    response['response']['zone'].collect { |zone| zone['records']['total'].to_i }.sum
   end
   
   def edm_results_from_response(response)

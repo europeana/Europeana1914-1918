@@ -108,6 +108,10 @@ class EuropeanaController < ApplicationController
     
     send_data content.body, :type => content['content-type'], :disposition => content["content-disposition"]
   end
+  
+  def count_all
+    response = Europeana::API::Search.new(build_api_query).run['totalResults']
+  end
 
 private
 
@@ -242,7 +246,7 @@ private
   # @return [String] The query string to send to the API as the searchTerms
   #   parameter.
   #
-  def build_api_query(terms)
+  def build_api_query(terms = nil)
     qualifiers = '"first world war" OR "world war I" OR "1914-1918" NOT europeana_collectionName:"2020601_Ag_ErsterWeltkrieg_EU"'
 
     if terms.blank?
