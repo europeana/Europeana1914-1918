@@ -9,14 +9,14 @@ table of contents
 1. [configurations](#configurations)
 1. [environments](#environments)
 1. [initializers](#initializers)
-1. create db and populate with initial values
-1. update the js localization files
-1. clear js & css cache
-1. install solr
-1. start the server
-1. secure the admin account
+1. [database](#database)
+1. [update localization](#update-localization)
+1. [clear js & css cache](#clear-js-&-css-cache)
+1. [install solr](#install-solr)
+1. [start the server](start-the-server)
+1. [secure the admin account](#secure-the-admin-account)
+1. [ruby help](#ruby-help)
 1. google usage statistics
-1. some ruby extras
 1. import a production db dump
 1. upgrading pdf.js viewer
 1. upgrading mediaelement
@@ -214,14 +214,6 @@ if using sphinx, create a sphinx config file and edit the file as appropriate.
 ```
 cp config/sphinx.yml.example config/sphinx.yml
 nano config/sphinx.yml
-```
-
-### sass config (???)
-
-```
-cp config/sass.yml.example config/sass.yml
-nano config/sass.yml
-gem install compass 
 ```
 
 
@@ -429,23 +421,8 @@ to the admin interface and modify those credentials in the My account : Edit sig
 section
 
 
-google usage statistics
------------------------
-add the google api key to the config/ directory
-log into the site as an admin
-go to the admin configuration page
-add the appropriate google analytics key
-add the google api email address @developer.gserviceaccount.com
-
-stats are cached for one week
-# to clear the cache
-```
-bundle exec rake cache:google_analytics:clear
-```
-
-
-some ruby extras
-----------------
+ruby help
+---------
 ### set rails environment
 
 before issuing a set of rake commands or starting rails, make sure the RAILS_ENV
@@ -468,6 +445,21 @@ add --trace at the end of the command to see potential issues as the command iss
 
 ```
 bundle exec rake rake-command assets:expire --trace
+```
+
+
+google usage statistics
+-----------------------
+add the google api key to the config/ directory
+log into the site as an admin
+go to the admin configuration page
+add the appropriate google analytics key
+add the google api email address @developer.gserviceaccount.com
+
+stats are cached for one week
+# to clear the cache
+```
+bundle exec rake cache:google_analytics:clear
 ```
 
 
