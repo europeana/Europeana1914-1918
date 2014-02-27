@@ -71,11 +71,11 @@ private
     }
     
     # Labels
-    date_params[:this_week][:label] = (I18n.l(date_params[:this_week][:start_date], :format => :date) + ' &ndash; ' + I18n.l(date_params[:this_week][:end_date], :format => :date)).html_safe
-    date_params[:last_week][:label] = (I18n.l(date_params[:last_week][:start_date], :format => :date) + ' &ndash; ' + I18n.l(date_params[:last_week][:end_date], :format => :date)).html_safe
-    date_params[:this_month][:label] = I18n.t('date.month_names')[date_params[:this_month][:start_date].month]
-    date_params[:last_month][:label] = I18n.t('date.month_names')[date_params[:last_month][:start_date].month]
-    date_params[:last_quarter][:label] = last_quarter
+    date_params[:this_week][:label] = (I18n.l(Date.parse(date_params[:this_week][:start_date].to_s), :format => :long_with_day) + ' &ndash; ' + I18n.l(Date.parse(date_params[:this_week][:end_date].to_s), :format => :long_with_day)).html_safe
+    date_params[:last_week][:label] = (I18n.l(Date.parse(date_params[:last_week][:start_date].to_s), :format => :long_with_day) + ' &ndash; ' + I18n.l(Date.parse(date_params[:last_week][:end_date].to_s), :format => :long_with_day)).html_safe
+    date_params[:this_month][:label] = I18n.l(Date.parse(date_params[:this_month][:start_date].to_s), :format => :month_and_year)
+    date_params[:last_month][:label] = I18n.l(Date.parse(date_params[:last_month][:start_date].to_s), :format => :month_and_year)
+    date_params[:last_quarter][:label] = I18n.l(Date.parse(date_params[:last_quarter][:start_date].to_s), :format => :quarter, :number => last_quarter)
     date_params[:last_year][:label] = date_params[:last_year][:start_date].year
     
     date_params

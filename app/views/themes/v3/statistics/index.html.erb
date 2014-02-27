@@ -26,10 +26,11 @@
   <div class="google-analytics-statistics">
     <h3><%= t 'views.statistics.index.contributions.institutional' %></h3>
     <ul>
-      <li><%= t 'views.statistics.index.providers.europeana' %>: <%= number_with_delimiter(count_all_europeana_items, :delimiter => ',') %></li>
-      <li><%= t 'views.statistics.index.providers.dpla' %>: <%= number_with_delimiter(count_all_dpla_items, :delimiter => ',') %></li>
-      <li><%= t 'views.statistics.index.providers.digitalnz' %>: <%= number_with_delimiter(count_all_digitalnz_items, :delimiter => ',') %></li>
-      <li><%= t 'views.statistics.index.providers.trove' %>: <%= number_with_delimiter(count_all_trove_items, :delimiter => ',') %></li>
+      <%- for provider in [ 'europeana', 'dpla', 'digitalnz', 'trove' ] -%>
+        <%- if provider_count = send(:"count_all_#{provider}_items") -%>
+          <li><%= t "views.statistics.index.providers.#{provider}" %>: <%= number_with_delimiter(provider_count, :delimiter => ',') %></li>
+        <%- end -%>
+      <%- end -%>
     </ul>
   </div>
   
