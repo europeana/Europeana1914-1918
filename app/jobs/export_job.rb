@@ -4,9 +4,12 @@
 # Sub-classes need to define:
 # * FORMAT: a string describing the export format, e.g. "XML"
 # * EXTENSION: a string specifying the file extension, e.g. ".xml.gz"
+# * GZIP (optional): true/false; whether to gzip the output before saving
 # * #perform: to write the export output to @file
 #
 class ExportJob
+  GZIP = false
+  
   attr_accessor :file, :export
   
   def initialize(options = {})
@@ -24,8 +27,19 @@ class ExportJob
   end
   
   def success(job)
+    if self.class::GZIP
+      Zlib::GzipWriter.open(self.file.path + '.gz') do |gz|
+        File.open(self.file.path).each do |line|
+          gz.write line
+        end
+      end
+      export_file = File.open(self.file.path + '.gz')
+    else
+      export_file = self.file.open
+    end
+
     self.export = Export.new(:user => user, :format => self.class::FORMAT)
-    self.export.file = self.file.open
+    self.export.file = export_file
     self.export.save
     
     filename = File.basename(self.export.file.path)
@@ -34,6 +48,9 @@ class ExportJob
       ExportsMailer.complete(self.export).deliver
     end
     
+    if self.class::GZIP
+      File.unlink(self.file.path + '.gz')
+    end
     self.file.unlink
   end
   

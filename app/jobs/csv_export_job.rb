@@ -7,12 +7,14 @@ class CSVExportJob < ExportJob
   include Rails.application.routes.url_helpers
   
   def perform
-    File.open(self.file.path, 'w') do |csv|
-      # Column headings in first row
-      csv << csv_headings
-      
-      Contribution.export(@filters) do |c|
-        csv << csv_contribution_row(c)
+    ::ActiveRecord::Base.cache do
+      File.open(self.file.path, 'w') do |csv|
+        # Column headings in first row
+        csv << csv_headings
+        
+        Contribution.export(@filters) do |c|
+          csv << csv_contribution_row(c)
+        end
       end
     end
   end

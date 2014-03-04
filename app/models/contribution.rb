@@ -298,7 +298,9 @@ class Contribution < ActiveRecord::Base
     end
     
     includes = [ 
-      { :contributor => :contact }
+      { :contributor => :contact },
+      { :metadata => :taxonomy_terms },
+      { :attachments => { :metadata => :taxonomy_terms } }
     ]
     
     query.includes(includes).find_in_batches(
@@ -307,12 +309,24 @@ class Contribution < ActiveRecord::Base
     
       batch.each do |contribution|
         
-        contribution.attachments.select! { |a| a.file.present? }
+        class << contribution
+          alias :all_attachments :attachments
+          
+          def export_attachments
+            all_attachments.select { |a| a.file.present? }
+          end
+          
+          def attachments
+            export_attachments
+          end
+        end
         
         if options[:exclude]
-          contribution.attachments.reject! do |a|
-            File.extname(a.file.path) == ext
-          end
+          eval(<<-EVAL)
+            def contribution.attachments
+              export_attachments.reject { |a| File.extname(a.file.path) == '#{ext}' }
+            end
+          EVAL
         end
       
         yield contribution
@@ -320,6 +334,7 @@ class Contribution < ActiveRecord::Base
       end
       
       ::ActiveRecord::Base.connection.clear_query_cache
+      GC.start
     end
   end
   

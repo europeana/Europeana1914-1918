@@ -1,18 +1,21 @@
 # DelayedJob processor for XML exports
 class XMLExportJob < ExportJob
   FORMAT    = 'XML'
-  EXTENSION = '.xml.gz'
+  EXTENSION = '.xml'
+  GZIP      = true
   
   include ContributionsHelper
   include Rails.application.routes.url_helpers
   
   def perform
-    Zlib::GzipWriter.open(self.file.path) do |gz|
-      xml = Builder::XmlMarkup.new(:target => gz, :indent => 2)
-      xml.instruct!
-      xml.collection do
-        Contribution.export(@filters) do |contribution|
-          export_contribution(xml, contribution)
+    ::ActiveRecord::Base.cache do
+      File.open(self.file.path, 'w') do |file|
+        xml = Builder::XmlMarkup.new(:target => file, :indent => 2)
+        xml.instruct!
+        xml.collection do
+          Contribution.export(@filters) do |contribution|
+            export_contribution(xml, contribution)
+          end
         end
       end
     end
