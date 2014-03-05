@@ -52,9 +52,10 @@ module Europeana
         ##
         # Converts the EDM metadata to RDF/XML
         #
+        # @param [Hash] options Options passed on to {RDF::RDFXML::Writer.buffer}
         # @return [String] XML
         #
-        def to_rdfxml
+        def to_rdfxml(options = {})
           namespace_prefixes = {
             :dc => "http://purl.org/dc/elements/1.1/",
             :dcterms => "http://purl.org/dc/terms/",
@@ -64,7 +65,7 @@ module Europeana
             :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
           }
           
-          RDF::RDFXML::Writer.buffer(:prefixes => namespace_prefixes, :max_depth => 1) do |writer|
+          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 4)) do |writer|
             writer << to_rdf_graph
           end
         end

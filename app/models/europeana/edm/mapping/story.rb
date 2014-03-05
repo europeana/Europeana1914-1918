@@ -120,30 +120,6 @@ module Europeana
           result
         end
         
-        def to_rdfxml
-          namespace_prefixes = {
-            :dc => "http://purl.org/dc/elements/1.1/",
-            :dcterms => "http://purl.org/dc/terms/",
-            :edm => "http://www.europeana.eu/schemas/edm/",
-            :ore => "http://www.openarchives.org/ore/terms/",
-            :skos => "http://www.w3.org/2004/02/skos/core#",
-            :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
-          }
-          
-          graph = to_rdf_graph
-          if @source.attachments.size > 1
-            @source.attachments[1..-1].each do |attachment|
-              attachment.edm.to_rdf_graph.each do |statement|
-                graph << statement
-              end
-            end
-          end
-          
-          RDF::RDFXML::Writer.buffer(:prefixes => namespace_prefixes, :max_depth => 1) do |writer|
-            writer << graph
-          end
-        end
-        
         ##
         # Constructs the edm:ProvidedCHO for this story
         #

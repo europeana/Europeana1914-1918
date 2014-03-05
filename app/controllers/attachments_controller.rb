@@ -148,8 +148,8 @@ class AttachmentsController < ApplicationController
           end
         end
       end
-      format.nt { render :text => cached(:nt) }
-      format.xml { render :xml => cached(:xml) }
+      format.nt { render :text => cached(@attachment, :nt) }
+      format.xml { render :xml => cached(@attachment, :xml) }
     end
   end
 
@@ -251,6 +251,24 @@ class AttachmentsController < ApplicationController
       format.json
     end
   end
+  
+  def cached(attachment, format)
+    cache_key = "attachments/#{format.to_s}/#{attachment.id}.#{format.to_s}"
+
+    if fragment_exist?(cache_key)
+      data = YAML::load(read_fragment(cache_key))
+    else
+      data = case format
+        when :nt
+          attachment.edm.to_ntriples
+        when :xml
+          attachment.edm.to_rdfxml
+      end
+      write_fragment(cache_key, data.to_yaml)
+    end
+
+    data
+  end
 
 protected
 
@@ -273,22 +291,5 @@ protected
       send_file attachment.file.path(style), options
     end
   end
-
-  def cached(format)
-    cache_key = "attachments/#{format.to_s}/#{@attachment.id}.#{format.to_s}"
-
-    if fragment_exist?(cache_key)
-      data = YAML::load(read_fragment(cache_key))
-    else
-      data = case format
-        when :nt
-          @attachment.edm.to_ntriples
-        when :xml
-          @attachment.edm.to_rdfxml
-      end
-      write_fragment(cache_key, data.to_yaml)
-    end
-
-    data
-  end
+  
 end
