@@ -19,10 +19,10 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 RunCoCo.cataloguer = true;
 <% end -%>
 </script>
+<%= theme_javascript_include_tag 'application' %>
 <%- if content_for?(:javascripts_translate) -%>
   <%= theme_javascript_include_tag 'translator' -%>
 <%- end -%>
-<%= theme_javascript_include_tag 'application' %>
 <%- if configuration(:gmap_api_key).present? && content_for?(:javascripts_gmap) -%>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=" + configuration(:gmap_api_key).to_s %>
   <%= theme_javascript_include_tag 'gmap' %>
