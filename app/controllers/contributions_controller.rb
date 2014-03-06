@@ -34,7 +34,8 @@ class ContributionsController < ApplicationController
           :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title), 
           :updated => item.status_timestamp,
           :id => contribution_url(item),
-          :link => contribution_url(item)
+          :link => contribution_url(item),
+          :image => item.attachments.cover_image
         }
       when ActsAsTaggableOn::Tagging
         contribution = item.taggable
@@ -44,7 +45,8 @@ class ContributionsController < ApplicationController
           :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => contribution.title), 
           :updated => item.created_at,
           :id => 'europeana19141918:tagging/' + item.id.to_s,
-          :link => contribution_url(contribution)
+          :link => contribution_url(contribution),
+          :image => contribution.attachments.cover_image
         }
       when Annotation
         contribution = item.attachment.contribution
@@ -54,7 +56,8 @@ class ContributionsController < ApplicationController
           :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title), 
           :updated => item.created_at,
           :id => 'europeana19141918:annotation/' + item.id.to_s,
-          :link => contribution_attachment_url(contribution, item.attachment)
+          :link => contribution_attachment_url(contribution, item.attachment),
+          :image => item.attachment
         }
       end
     end
@@ -64,8 +67,8 @@ class ContributionsController < ApplicationController
     
     @activities.each do |a|
       a[:summary] = a[:contribution].metadata.fields['description']
-      if cover_image = a[:contribution].attachments.cover_image
-        a[:thumb] = cover_image.thumbnail_url(:thumb)
+      if a[:image]
+        a[:thumb] = a[:image].thumbnail_url(:thumb)
       end
     end
   end
