@@ -51,7 +51,7 @@ class ContributionsController < ApplicationController
           :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => title), 
           :updated => item.created_at,
           :id => 'europeana19141918:annotation/' + item.id.to_s,
-          :link => contribution_url(item.attachment.contribution)
+          :link => contribution_attachment_url(item.attachment.contribution, item.attachment)
         }
       end
     end
