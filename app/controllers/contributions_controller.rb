@@ -1,7 +1,7 @@
 # set search result defaults in the #search method
 class ContributionsController < ApplicationController
   before_filter :find_contribution, 
-    :except => [ :index, :new, :create, :search, :explore, :complete ]
+    :except => [ :index, :new, :create, :search, :explore, :complete, :feed ]
   before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => :search
 
@@ -14,6 +14,50 @@ class ContributionsController < ApplicationController
     else
       @contributions = []
     end
+  end
+  
+  # GET /contributions/feed
+  def feed
+    count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
+    
+    items = Contribution.published.order('status_timestamp DESC').limit(count) +
+      ActsAsTaggableOn::Tagging.order('created_at DESC').limit(count) +
+      Annotation.order('created_at DESC').limit(count)
+
+    @activities = items.collect do |item|
+      case item
+      when Contribution
+        user = item.contributor.contact.full_name
+        title = item.title
+        { 
+          :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => title), 
+          :updated => item.status_timestamp,
+          :id => contribution_url(item),
+          :link => contribution_url(item)
+        }
+      when ActsAsTaggableOn::Tagging
+        user = item.tagger.contact.full_name
+        title = item.taggable.title
+        { 
+          :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => title), 
+          :updated => item.created_at,
+          :id => 'europeana19141918:tagging/' + item.id.to_s,
+          :link => contribution_url(item.taggable)
+        }
+      when Annotation
+        user = item.user.contact.full_name
+        title = item.attachment.contribution.title
+        { 
+          :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => title), 
+          :updated => item.created_at,
+          :id => 'europeana19141918:annotation/' + item.id.to_s,
+          :link => contribution_url(item.attachment.contribution)
+        }
+      end
+    end
+    
+    @activities.sort_by! { |a| a[:updated] }
+    @activities = @activities.reverse[0..(count - 1)]
   end
 
   # GET /contributions/new
@@ -143,6 +187,10 @@ class ContributionsController < ApplicationController
     else
       flash.now[:alert] = t('flash.contributions.draft.submit.alert')
     end
+  end
+  
+  # GET /contributions/complete
+  def complete
   end
   
   # PUT /contributions/:id/approve

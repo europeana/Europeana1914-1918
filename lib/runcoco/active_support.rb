@@ -10,4 +10,19 @@ module ActiveSupport
       end
     end
   end
+  
+  class TimeWithZone
+    def self.w3cdtf(date)
+      Time.w3cdtf(date)
+    end
+    
+    def w3cdtf
+      if usec.zero?
+        fraction_digits = 0
+      else
+        fraction_digits = Math.log10(usec.to_s.sub(/0*$/, '').to_i).floor + 1
+      end
+      xmlschema(fraction_digits)
+    end
+  end
 end
