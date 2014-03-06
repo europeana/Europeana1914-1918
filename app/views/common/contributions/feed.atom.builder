@@ -1,5 +1,5 @@
 xml.instruct!
-xml.feed :xmlns => "http://www.w3.org/2005/Atom" do |feed|
+xml.feed :xmlns => "http://www.w3.org/2005/Atom", "xml:base" => configuration(:site_url) do |feed|
   feed.title t('views.contributions.feed.title'), :type => 'html'
   feed.link :href => feed_contributions_url(:format => 'atom'), :rel => 'self', :type => "application/atom+xml"
   feed.author do |author|
@@ -20,7 +20,7 @@ xml.feed :xmlns => "http://www.w3.org/2005/Atom" do |feed|
         entry.summary truncate(a[:summary], :length => 140, :separator => ' '), :type => "html"
       end
       unless a[:thumb].blank?
-        entry.content :href => a[:thumb], :type => "image/jpeg", :rel => "enclosure"
+        entry.content :src => a[:thumb], :type => "image/jpeg"
       end
     end
   end
