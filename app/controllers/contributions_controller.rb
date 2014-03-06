@@ -27,7 +27,7 @@ class ContributionsController < ApplicationController
     @activities = items.collect do |item|
       case item
       when Contribution
-        user = item.contributor.contact.full_name
+        user = item.contributor.contact.full_name || (t('activerecord.models.user') + ' ' + item.user.id.to_s)
         title = item.title
         { 
           :contribution => item,
@@ -39,7 +39,7 @@ class ContributionsController < ApplicationController
         }
       when ActsAsTaggableOn::Tagging
         contribution = item.taggable
-        user = item.tagger.contact.full_name
+        user = item.tagger.contact.full_name || (t('activerecord.models.user') + ' ' + item.user.id.to_s)
         { 
           :contribution => contribution,
           :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => contribution.title), 
@@ -50,7 +50,7 @@ class ContributionsController < ApplicationController
         }
       when Annotation
         contribution = item.attachment.contribution
-        user = item.user.contact.full_name
+        user = item.user.contact.full_name || (t('activerecord.models.user') + ' ' + item.user.id.to_s)
         { 
           :contribution => contribution,
           :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title), 
