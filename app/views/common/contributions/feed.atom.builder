@@ -1,6 +1,6 @@
 xml.instruct!
 xml.feed :xmlns => "http://www.w3.org/2005/Atom", "xml:base" => configuration(:site_url) do |feed|
-  feed.title t('views.contributions.feed.title'), :type => 'html'
+  feed.title t('views.contributions.feed.title'), :type => 'text'
   feed.link :href => feed_contributions_url(:format => 'atom'), :rel => 'self', :type => "application/atom+xml"
   feed.author do |author|
     author.name RunCoCo.configuration.site_name
@@ -17,7 +17,7 @@ xml.feed :xmlns => "http://www.w3.org/2005/Atom", "xml:base" => configuration(:s
         entry.link :href => a[:link], :rel => "alternate", :type => "text/html"
       end
       unless a[:summary].blank?
-        entry.summary truncate(a[:summary], :length => 140, :separator => ' '), :type => "html"
+        entry.summary truncate(strip_tags(a[:summary]), :length => 140, :separator => ' '), :type => "text"
       end
       unless a[:thumb].blank?
         entry.content :src => a[:thumb], :type => "image/jpeg"
