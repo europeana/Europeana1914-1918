@@ -14,8 +14,14 @@ xml.feed :xmlns => "http://www.w3.org/2005/Atom" do |feed|
       entry.updated a[:updated].w3cdtf
       entry.id a[:id]
       unless a[:link].blank?
-       entry.link :href => a[:link], :rel => "alternate", :type => "text/html"
-     end
+        entry.link :href => a[:link], :rel => "alternate", :type => "text/html"
+      end
+      unless a[:summary].blank?
+        entry.summary truncate(a[:summary], :length => 140, :separator => ' '), :type => "html"
+      end
+      unless a[:thumb].blank?
+        entry.content :href => a[:thumb], :type => "image/jpeg", :rel => "enclosure"
+      end
     end
   end
 end

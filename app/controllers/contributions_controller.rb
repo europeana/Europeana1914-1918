@@ -30,34 +30,44 @@ class ContributionsController < ApplicationController
         user = item.contributor.contact.full_name
         title = item.title
         { 
-          :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => title), 
+          :contribution => item,
+          :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title), 
           :updated => item.status_timestamp,
           :id => contribution_url(item),
           :link => contribution_url(item)
         }
       when ActsAsTaggableOn::Tagging
+        contribution = item.taggable
         user = item.tagger.contact.full_name
-        title = item.taggable.title
         { 
-          :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => title), 
+          :contribution => contribution,
+          :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => contribution.title), 
           :updated => item.created_at,
           :id => 'europeana19141918:tagging/' + item.id.to_s,
-          :link => contribution_url(item.taggable)
+          :link => contribution_url(contribution)
         }
       when Annotation
+        contribution = item.attachment.contribution
         user = item.user.contact.full_name
-        title = item.attachment.contribution.title
         { 
-          :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => title), 
+          :contribution => contribution,
+          :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title), 
           :updated => item.created_at,
           :id => 'europeana19141918:annotation/' + item.id.to_s,
-          :link => contribution_attachment_url(item.attachment.contribution, item.attachment)
+          :link => contribution_attachment_url(contribution, item.attachment)
         }
       end
     end
     
     @activities.sort_by! { |a| a[:updated] }
     @activities = @activities.reverse[0..(count - 1)]
+    
+    @activities.each do |a|
+      a[:summary] = a[:contribution].metadata.fields['description']
+      if cover_image = a[:contribution].attachments.cover_image
+        a[:thumb] = cover_image.thumbnail_url(:thumb)
+      end
+    end
   end
 
   # GET /contributions/new
