@@ -1,7 +1,10 @@
 xml.instruct!
 xml.feed :xmlns => "http://www.w3.org/2005/Atom" do |feed|
   feed.title t('views.contributions.feed.title'), :type => 'html'
-  feed.author RunCoCo.configuration.site_name
+  feed.link :href => feed_contributions_url(:format => 'atom'), :rel => 'self', :type => "application/atom+xml"
+  feed.author do |author|
+    author.name RunCoCo.configuration.site_name
+  end
   feed.updated @activities.first[:updated].w3cdtf
   feed.id feed_contributions_url(:format => 'atom')
 
