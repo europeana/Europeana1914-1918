@@ -1,147 +1,172 @@
 sk:
   actions:
-    approve: ! "Zruši\x9D"
-    cancel: Zruši
-    copy: 
+    add: 
+    approve: Schváliť
+    cancel: Zrušiť
+    copy: Kopírovať
     delete: Zmazať
-    download: ! "Stiahnu\x9D"
+    download: ! "Stiahnu\x9Dť"
     edit: Upraviť
-    edit_story: Príbeh
-    filter: Filtrova
-    flag: ! "Oznaèi\x9D"
+    edit_story: Upraviť príbeh
+    filter: Filtrovať
+    flag: ! "Označiť\x9D"
     new: Nový
-    reject: ! "Zamietnu\x9D"
-    remove: ! "Odstráni\x9D"
-    save: Uložit
-    submit: ! ' Odovzdajte'
-    unflag: 
-    update: ! "Aktualizova\x9D"
+    reject: ! "Zamietnu\x9Dť"
+    remove: ! "Odstráni\x9Dť"
+    save: Uložiť
+    submit: ! ' Odovzdať'
+    unflag: Odznačiť
+    update: ! "Aktualizova\x9Dť"
   activerecord:
     attributes:
       attachment:
-        dropbox_path: 
+        dropbox_path: Súbor Dropbox
         file: Súbor
-        file_content_type: 
-        file_created_at: 
-        file_file_name: 
+        file_content_type: Typ obsahu
+        file_created_at: Vytvorené
+        file_file_name: Názov súboru
         file_file_size: Veľkosť súboru
-        file_updated_at: 
+        file_updated_at: Aktualizované
         preview: Ukážka
-        public: Verejnos
+        public: Verejné
       contact:
         age: Vek
-        country: Krajina
+        country: Krajina sídla
         full_name: Celé meno
-        gender: Rod
+        gender: Pohlavie
         locality: Miesto
-        postal_code: PSÈ
+        postal_code: PSČ
         region: kraj
         street_address: Ulica
         tel: Telefón
       contribution:
-        approved_at: 
-        approved_by: 
-        approver: 
+        approved_at: Schválené
+        approved_by: Schválené
+        approver: Schválené
         attachments: Objekty
         catalogued_by: Katalogizátor
         cataloguer: Katalogizátor
-        contributor: 
-        created_at: 
-        published_at: 
-        submitted_at: 
-        terms: 
+        contributor: Prispievateľ
+        created_at: Začaté
+        published_at: Zverejnené
+        submitted_at: Odovzdané
+        terms: Podmienky prijaté
       contribution_status:
-        created_at: 
+        created_at: Stav zmenený
       metadata_field:
-        cataloguing: 
+        cataloguing: Len katalogizácia
         field_type: Typ
-        hint: 
-        multi: 
-        name: 
-        position: 
-        required: povinná
-        searchable: 
-        show_in_listing: 
+        hint: Pomôcka
+        multi: Výber
+        name: ID
+        position: Pozícia
+        required: Povinné
+        searchable: Vyhľadateľné
+        show_in_listing: Ukázať v zoznamoch
       setting:
         name: Meno
-        value: 
+        value: Hodnota
       taxonomy_term:
-        metadata_field: pole
-        term: 
+        metadata_field: Pole
+        term: Termín
       user:
-        created_at: 
+        created_at: Dátum registrácie
         password: Heslo
-        password_confirmation: 
-        role_name: 
-        username: ! 'Užívateľské '
+        password_confirmation: Znovu zadať heslo
+        role_name: Úloha
+        username: Používateľské meno
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
-        accepted: musí byť potvrdené
-        blank: je povinná položka
-        confirmation: nebolo potvrdené
-        empty: nesmie byť prázdny/e
-        equal_to: sa musí rovnať %{count}
+        accepted: Pre pokračovanie musíte potvrdiť.
+        blank: Toto pole je povinné, nemôže zostať prázdne.
+        confirmation: Odlišné od potvrdenia.
+        empty: nesmie byť prázdne
+        equal_to:
+          few: Kliknite na zadanie textu / prekladu
+          one: Kliknite na zadanie textu / prekladu
+          other: musí sa rovnať %{count}
         even: musí byť párne číslo
-        exclusion: je vyhradené pre iný účel
-        greater_than: musí byť väčšie ako %{count}
-        greater_than_or_equal_to: musí byť väčšie alebo rovné %{count}
-        inclusion: nie je v zozname povolených hodnôt
-        invalid: nie je platná hodnota
-        less_than: musí byť menšie ako %{count}
-        less_than_or_equal_to: musí byť menšie alebo rovné %{count}
-        not_a_number: nie je číslo
+        exclusion: je vyhradené
+        greater_than:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: musí byť väčšie ako %{count}
+        greater_than_or_equal_to:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: musí byť väčšie alebo rovné %{count}
+        inclusion: Vybrať hodnotu zo zoznamu.
+        invalid: Neplatná hodnota; skontrolujte formát zadanej hodnoty.
+        less_than:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: musí byť menšie ako %{count}
+        less_than_or_equal_to:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: musí byť menšie alebo rovné %{count}
+        not_a_number: Táto hodnota nie je číslo, musí byť číslo.
         not_an_integer: musí byť celé číslo
         odd: musí byť nepárne číslo
         record_invalid: ! 'Validácia neúspešná: %{errors}'
-        taken: ste už použili
-        too_long: je príliš dlhá/ý (max. %{count} znakov)
-        too_short: je príliš krátky/a (min. %{count} znakov)
-        wrong_length: nemá správnu dĺžku (očakáva sa %{count} znakov)
+        taken: ! 'Toto pole musí byť unikátne, hodnota, ktorú ste zadali, v systéme už existuje. '
+        too_long:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: je príliš dlhé (max. %{count} znakov)
+        too_short:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: je príliš krátke (min. %{count} znakov)
+        wrong_length:
+          few: Kliknite pre zadanie textu / prekladu
+          one: Kliknite pre zadanie textu / prekladu
+          other: nemá správnu dĺžku (očakáva sa %{count} znakov)
       models:
         attachment:
           attributes:
             file:
-              content_type: 
-              presence: 
-              size: 
+              content_type: Tento typ súboru nie je povolený.
+              presence: Vybrať súbor na nahratie.
+              size: Nahratý súbor je príliš veľký.
         contribution:
           attributes:
             catalogued_by:
-              role_name: 
+              role_name: Katalogizátor musí mať úlohu administrátora alebo katalogizátora
             guest_id:
-              present: 
+              present: Prispieť ako hosť môžete len po zadaní kontaktných údajov.
         metadata_field:
           attributes:
             cataloguing:
-              optional: 
+              optional: Katalogizačné polia nemožno žiadať.
             contribution:
-              or_attachment: 
+              or_attachment: Na príspevky a/alebo prílohy sa musí vzťahovať pole.
             field_type:
-              constancy: 
+              constancy: Typ poľa nemožno meniť.
             searchable:
-              field_type: 
+              field_type: Taxonomické polia nemôžu byť vyhľadateľné.
         metadata_record:
-          date_field_civil: 
-          one_cover_image: 
-          taxonomy_field_single: 
+          date_field_civil: Neplatný dátum.
+          one_cover_image: Ako titulný obrázok môžete použiť len jeden objekt.
+          taxonomy_field_single: Možno zvoliť len jeden termín.
         setting:
           attributes:
             name:
-              inclusion: 
+              inclusion: nie je registrované konfiguračné nastavenie
         taxonomy_term:
           attributes:
             metadata_field:
-              type: 
+              type: Taxonomické termíny musia byť spojené s poľom taxonomických metadát.
         user:
           attributes:
             current_password:
-              invalid: 
+              invalid: nesprávne heslo
             email:
-              taken: 
+              taken: Používateľský účet s touto emailovou adresou už existuje.
             picture:
-              content_type: 
+              content_type: Obrázok profilu musí byť vo formáte GIF alebo JPEG.
       template:
         body: ! 'Nasledujúce polia obsahujú chybne vyplnené údaje:'
         header:
@@ -149,113 +174,120 @@ sk:
           other: Pri ukladaní objektu %{model} došlo k %{count} chybám a nebolo ho možné uložiť
     models:
       attachment: predmet
-      contact: 
+      contact: Kontakt
       contribution: Príbeh
-      institution: 
-      metadata_field: 
-      metadata_record: 
-      taxonomy_term: 
-      user: 
+      institution: Prispievateľ - inštitúcia
+      metadata_field: Pole metadát
+      metadata_record: Záznam metadát
+      taxonomy_term: Taxonomický termín
+      user: Používateľ
     options:
       contact:
         gender:
-          female: 
-          male: 
+          female: Žena
+          male: Muž
       metadata_field:
         field_type:
           date: Dátum
-          geo: 
-          string: 
-          taxonomy: 
-          text: 
+          geo: Geografické umiestnenie
+          string: Text v jednom riadku
+          taxonomy: Taxonómia
+          text: Text vo viacerých riadkoch
       user:
         role_name:
-          administrator: 
-          blank: 
-          cataloguer: 
-          contributor: 
+          administrator: Administrátor
+          blank: Akákoľvek úloha
+          cataloguer: Katalogizátor
+          contributor: Prispievateľ
   attributes:
     contact: Kontakt
-    created_at: 
+    created_at: Vytvorené
     email: Email
-    id: 
-    metadata_record: 
-    title: Τίτλος
-    updated_at: 
-    url: 
+    id: ID
+    metadata_record: Metadáta
+    title: Názov
+    updated_at: Aktualizované
+    url: URL
   common:
-    additional-information: Dodatoèné informácie
-    download-item: 
+    additional-information: Dodatočné informácie
+    download-item: Stiahnuť tento predmet
     editors_blog:
-      more_stories: 
+      more_stories: Viac príbehov na <a href="http://thegreatwararchive.blogspot.com/search/label/en">Editor’s pick blog</a>
     editors_pick:
-      heading: Vydavateľov výber
-      more_stories: 
+      heading: Výber redakcie
+      more_stories: <b>Viac príbehov na %{explore_stories} page.</b>
     featured-categories: Hlavné kategórie
     from-collection-days: Z našich zberných dní
     google_maps:
-      help_text: 
-      label: Použite Google Mapy (Voliteľné)
+      help_text: ! '<li><b>Auto-suggest</b> : Zadajte názov krajiny, mesta alebo adresu, mapy Google sa pokúsia toto miesto vyhľadať.</li>
+
+        <li><b>Specific address</b> :Zadajte špecifickú adresu alebo súradnice a kliknite na "Ísť"; ignorujte automatické návrhy z máp Google.</li>
+
+        <li><b>Map marker</b> : Keď sa na mape objaví značka, napríklad po zadaní adresy, môžete ju pretiahnuť na akúkoľvek inú pozíciu.</li>
+
+        <li><b>Zoom</b> : Priblížte alebo oddiaľte použitím + alebo - na ukazovateli v ľavej časti mapy.</li>'
+      label: Použiť mapy Google (Voliteľné)
     help_text:
-      mandatory: Povinné pole
+      mandatory: povinné pole
     labels:
-      co_funded: 
+      add-keywords: 
+      co_funded: spolufinancované Európskou úniou
     links:
       about_the_project: O projekte Europeana 1914-1918
-      add-your-story: Pridaj svoj príbeh!
-      add-your-story-brief: 
-      annotorious: 
+      add-your-story: Pridajte svoj príbeh!
+      add-your-story-brief: Pridajte!
+      annotorious: predmet má pripojené poznámky. Otvorte predmet na prečítanie.
       contact_us: Kontaktujte nás
-      contact_us_email: 
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=sk" target="_blank">Europeana podmienky pre užívate¾ské príspevky</a>
-      contribution_terms: ! 'Europeana podmienky pre užívateľské príspevky '
-      efg: <a href="http://www.europeanfilmgateway.eu/">http://www.europeanfilmgateway.eu/</a>
+      contact_us_email: Tiež nás môžete kontaktovať na emailovej adrese <span class="addr">1914-1918 [@] europeana [.] eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=sk" target="_blank">Podmienky Europeana pre používateľské príspevky</a>
+      contribution_terms: ! 'Podmienky Europeana pre používateľské príspevky '
+      efg: <a href="http://project.efg1914.eu" target="_blank">Zistite viac o zbere filmového materiálu</a>.
       explore-the-stories: Preskúmajte príbehy!
-      explore-the-stories-brief: 
+      explore-the-stories-brief: Preskúmajte!
       explore_stories: Preskúmajte príbehy
       help: ! 'Pomoc '
-      my_account: 
+      my_account: Môj účet
       my_stories: Moje príbehy
-      national_collections: 
-      play-audio: 
-      play-video: 
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Zistite viac o spájaní národných zbierok</a>.
+      play-audio: Prehrajte audio
+      play-video: Prehrajte video
       privacy_policy: ! 'Zásady ochrany osobných údajov '
       project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Pre viac informácií si pozrite našu projektovú stánku</a>
-      project_website_v2: 
-      register: ! 'Registrujte sa '
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Zistite viac o zbieraní rodinných príbehov</a>.
+      register: ! 'Registrovať '
       sign_in: Prihlásiť sa
-      statistics: 
+      statistics: Štatistika
       takedown_policy: Zásady stiahnutia sporného obsahu
       titles:
-        contribution_terms: 
+        contribution_terms: Pozrite si Podmienky Europeana pre používateľské príspevky
         great_war: Archív Veľkej vojny na univerzite v Oxforde
-        takedown: 
-      view-image: 
-      view-pdf: 
-    map_contribution_heading: 
+        takedown: Na stránku so zásadami stiahnutia sporného obsahu
+      view-image: Pozrieť plný objekt
+      view-pdf: Otvoriť dokument
+    map_contribution_heading: Príbeh sa stal v
     menus:
       main:
         about: O nás
-        add: Pridať
+        add: Pridať príbeh
         collection-days: Zberné dni
-        explore: Skúmať
+        explore: Prezerať
         home: Domov
-        remix: 
+        remix: Neočakávané priateľstvo
         select_language: Vyberte jazyk
         sign_in: Prihlásiť sa
-        sign_out: ! "Odhlási\x9D sa"
-      menu: 
-    more-at: 
-    news: 
+        sign_out: ! "Odhlásiť\x9D sa"
+      menu: Menu
+    more-at: Viac na
+    news: Novinky
     news_item:
-      heading: 
-    'no': 
+      heading: Nové roadshow rodinnej histórie
+    'no': Nie
     options:
       close: Zatvoriť
       open: Otvoriť
-      other_option: ! 'Ostatným '
+      other_option: Iné
     other:
-      contributor: 
+      contributor: Prispievateľ
       preview: ! 'Ukážka '
       title: Názov
       total: Celkovo
@@ -294,6 +326,9 @@ sk:
     formats:
       default: ! '%d.%m.%Y'
       long: ! '%d. %B %Y'
+      long_with_day: ! '%a, %d %B %Y'
+      month_and_year: ! '%B %Y'
+      quarter: Štvrťrok %{number} %Y
       short: ! '%d %b'
     month_names:
     - 
@@ -354,42 +389,42 @@ sk:
       hour: Hodina
       minute: Minúta
       month: Mesiac
-      second: Sekunda
+      second: Sekundy
       year: Rok
   devise:
     failure:
       admin:
-        unauthenticated: 
-      invalid: 
-      invalid_token: 
-      timeout: 
-      unauthenticated: 
+        unauthenticated: Pred pokračovaním sa musíte prihlásiť.
+      invalid: Neplatné používateľské meno/email alebo heslo.
+      invalid_token: Nesprávny autentifikačný znak.
+      timeout: Vaša relácia vypršala, pre pokračovanie sa prosím opäť prihláste.
+      unauthenticated: Pred pokračovaním sa musíte prihlásiť alebo zaregistrovať.
     mailer:
       reset_password_instructions:
-        subject: 
+        subject: Inštrukcie na obnovenie hesla.
     passwords:
       link: Zabudli ste heslo?
-      send_instructions: 
-      updated: 
+      send_instructions: Bol Vám zaslaný email s inštrukciami pre obnovenie hesla.
+      updated: Vaše heslo bolo úspešne zmenené. Ste prihlásený.
     registrations:
-      destroyed: 
-      link: ! 'Registrujte sa '
-      signed_up: 
-      updated: 
+      destroyed: Dovidenia! Váš účet bol úspešne zrušený. Dúfame, že Vás čoskoro uvidíme znovu.
+      link: ! 'Registrovať '
+      signed_up: Úspešne ste sa zaregistrovali.
+      updated: Úspešne ste aktualizovali svoj účet.
     sessions:
-      link: Prihlásenie
-      signed_in: ! 'Úspešne '
-      signed_out: Boli ste úspešne odlásený
+      link: Prihlásiť
+      signed_in: ! 'Úspešne prihlásený. '
+      signed_out: Boli ste úspešne odhlásený.
   errors:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: musí byť potvrdené
       blank: je povinná položka
-      confirmation: nebolo potvrdené
-      empty: nesmie byť prázdny/e
+      confirmation: nesúhlasí s potvrdením
+      empty: nesmie byť prázdne
       equal_to: sa musí rovnať %{count}
       even: musí byť párne číslo
-      exclusion: je vyhradené pre iný účel
+      exclusion: je vyhradené
       greater_than: musí byť väčšie ako %{count}
       greater_than_or_equal_to: musí byť väčšie alebo rovné %{count}
       inclusion: nie je v zozname povolených hodnôt
@@ -401,66 +436,72 @@ sk:
       odd: musí byť nepárne číslo
       record_invalid: ! 'Validácia neúspešná: %{errors}'
       taken: ste už použili
-      too_long: je príliš dlhá/ý (max. %{count} znakov)
-      too_short: je príliš krátky/a (min. %{count} znakov)
-      wrong_length: nemá správnu dĺžku (očakáva sa %{count} znakov)
+      too_long:
+        one: je príliš dlhé (max. 1 znak)
+        other: je príliš dlhé (max. %{count} znakov)
+      too_short:
+        one: je príliš krátke (min. 1 znak)
+        other: je príliš krátke (min. %{count} znakov)
+      wrong_length:
+        one: nemá správnu dĺžku (očakáva sa 1 znak)
+        other: nemá správnu dĺžku (očakáva sa %{count} znakov)
     template:
       body: ! 'Nasledujúce polia obsahujú chybne vyplnené údaje:'
       header:
-        one: Pri ukladaní objektu %{model} došlo k chybám a nebolo ho možné uložiť
+        one: Pri ukladaní objektu %{model} došlo k chybem a nebolo ho možné uložiť
         other: Pri ukladaní objektu %{model} došlo k %{count} chybám a nebolo ho možné uložiť
   flash:
     actions:
       create:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa vytvoriť %{resource_name}. Pozrite správu nižšie.
+        notice: Vytvorený nový %{resource_name}.
       destroy:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa vymazať %{resource_name}.
+        notice: ! '%{resource_name} bol úspešne vymazaný.'
       update:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa aktualizovať %{resource_name}. Pozrite správu nižšie.
+        notice: ! '%{resource_name} aktualizovaný.'
     admin:
       europeana:
         harvest:
-          notice: 
+          notice: Obsah portálu Europeana sa v pozadí harvestuje.
     attachments:
       create:
-        alert: 
-        invalid_files: 
-        notice: 
+        alert: Nepodarilo sa uložiť prílohu.
+        invalid_files: Niektoré súbory sa neuložili.
+        notice: Objekt uložený.
       destroy:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa vymazať prílohu.
+        notice: Príloha vymazaná.
       duplicate:
-        notice: 
+        notice: Metadáta objektu skopírované do iných vybraných objektov.
       links:
-        view-attachments_html: 
+        view-attachments_html: <a href="#attachments">Kliknite na ich prezeranie a editáciu</a>.
       update:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa uložiť prílohu.
+        notice: Objekt uložený.
     configuration:
       update:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa uložiť konfiguráciu.
+        notice: Konfigurácia aktualizovaná.
     contacts:
       create:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa vytvoriť kontakt.
+        notice: Kontakt vytvorený.
       update:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa aktualizovať kontakt.
+        notice: Kontakt aktualizovaný.
     contributions:
       approve:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa schváliť príspevok.
+        notice: Príspevok úspešne schválený.
       destroy:
-        alert: 
-        notice: 
+        alert: Nepodarilo sa vymazať príbeh.
+        notice: Príbeh vymazaný.
       draft:
         create:
-          alert: 
-          notice: Nový koncept príspevku bol uložený.
+          alert: Nepodarilo sa začať nový príspevok.
+          notice: Nový koncept príspevku bol začatý.
         submit:
           alert: 
           notice: 
@@ -1450,6 +1491,12 @@ sk:
         step2: Krok 2 – Pridajte vaše objekty a súbory
       edit:
         title: príspevku
+      feed:
+        entries:
+          annotation: 
+          contribution: 
+          tagging: 
+        title: 
       index:
         empty: 
         title: príspevky
@@ -1765,6 +1812,11 @@ sk:
           object_pageviews: 
           visits: 
         no_results: 
+        providers:
+          digitalnz: 
+          dpla: 
+          europeana: 
+          trove: 
         title: 
     table:
       header:

@@ -1,78 +1,79 @@
 it:
   actions:
-    approve: 
+    add: aggiungi
+    approve: approvare
     cancel: Cancella
-    copy: 
+    copy: copiare
     delete: Elimina
-    download: 
+    download: scaricare
     edit: Modifica
-    edit_story: 
-    filter: 
-    flag: 
-    new: 
-    reject: 
-    remove: 
+    edit_story: editare una storia
+    filter: filtro
+    flag: flag
+    new: nuovo
+    reject: rifiutare
+    remove: rimuovere
     save: Salva
-    submit: 
-    unflag: 
-    update: 
+    submit: presentare
+    unflag: rimuovere
+    update: aggiornare
   activerecord:
     attributes:
       attachment:
-        dropbox_path: 
-        file: 
-        file_content_type: 
-        file_created_at: 
-        file_file_name: 
+        dropbox_path: file Dropbox
+        file: file
+        file_content_type: tipo di contenuto
+        file_created_at: creato
+        file_file_name: nome del file
         file_file_size: Dimensione del file
-        file_updated_at: 
+        file_updated_at: aggiornato
         preview: Anteprima
-        public: 
+        public: pubblico
       contact:
-        age: 
-        country: 
-        full_name: 
-        gender: 
-        locality: 
-        postal_code: 
-        region: 
-        street_address: 
-        tel: 
+        age: età
+        country: paese di residenza
+        full_name: nome e cognome
+        gender: sesso
+        locality: città
+        postal_code: codice postale
+        region: provincia
+        street_address: via
+        tel: numero di telefono
       contribution:
-        approved_at: 
-        approved_by: 
-        approver: 
+        approved_at: approvato
+        approved_by: approvato da
+        approver: approvato da
         attachments: Contributo
-        catalogued_by: 
-        cataloguer: 
-        contributor: 
-        created_at: 
-        published_at: 
-        submitted_at: 
-        terms: 
+        catalogued_by: catalogatore
+        cataloguer: catalogatore
+        contributor: contributore
+        created_at: iniziato il
+        published_at: pubblicato il
+        submitted_at: presentato il
+        terms: condizioni accettate
       contribution_status:
-        created_at: 
+        created_at: status cambiato il
       metadata_field:
-        cataloguing: 
+        cataloguing: solo per la catalogazione
         field_type: Tipologia
-        hint: 
-        multi: 
-        name: 
-        position: 
-        required: 
-        searchable: 
-        show_in_listing: 
+        hint: suggerimento
+        multi: selezione multipla
+        name: ID (identificativo)
+        position: posizione
+        required: necessario
+        searchable: che può essere cercato
+        show_in_listing: cercare negli elenchi
       setting:
-        name: 
-        value: 
+        name: nome
+        value: valore
       taxonomy_term:
-        metadata_field: 
-        term: 
+        metadata_field: campo
+        term: termine
       user:
-        created_at: 
-        password: 
-        password_confirmation: 
-        role_name: 
+        created_at: data di registrazione
+        password: password
+        password_confirmation: ripetere la password
+        role_name: ruolo
         username: Username
     errors:
       full_messages:
@@ -109,33 +110,33 @@ it:
         attachment:
           attributes:
             file:
-              content_type: 
-              presence: 
-              size: 
+              content_type: Questo genere di file non è ammesso
+              presence: Selezionare un file da caricare
+              size: Le dimensioni del file sono eccessive
         contribution:
           attributes:
             catalogued_by:
-              role_name: 
+              role_name: Il catalogatore deve essere un utente col ruolo di amministratore o catalogatore
             guest_id:
-              present: 
+              present: Per i contributi esterni è necessario fornire le proprie informazioni di contatto
         metadata_field:
           attributes:
             cataloguing:
-              optional: 
+              optional: i campi relativi alla catalogazione non possono essere richiesti
             contribution:
-              or_attachment: 
+              or_attachment: un campo deve essere riferito ai contributi e/o agli allegati
             field_type:
-              constancy: 
+              constancy: questo genere di campo non può essere modificato
             searchable:
-              field_type: 
+              field_type: i campi relativi alle classificazioni non possono essere ricercabili
         metadata_record:
-          date_field_civil: 
-          one_cover_image: 
-          taxonomy_field_single: 
+          date_field_civil: data non valida
+          one_cover_image: è possibile selezionare solo un oggetto come immagine per la propria storia
+          taxonomy_field_single: è possibile selezionare solo un termine
         setting:
           attributes:
             name:
-              inclusion: 
+              inclusion: non è una configurazione registrata
         taxonomy_term:
           attributes:
             metadata_field:
@@ -166,106 +167,115 @@ it:
       contact:
         gender:
           female: 
-          male: 
+          male: maschio
       metadata_field:
         field_type:
-          date: 
-          geo: 
-          string: 
-          taxonomy: 
-          text: 
+          date: data
+          geo: ! 'località '
+          string: testo di una sola riga
+          taxonomy: tassonomia
+          text: testo di più righe
       user:
         role_name:
-          administrator: 
-          blank: 
-          cataloguer: 
-          contributor: 
+          administrator: amministratore
+          blank: qualunque ruolo
+          cataloguer: catalogatore
+          contributor: contributore
   attributes:
-    contact: 
-    created_at: 
-    email: 
-    id: 
-    metadata_record: 
+    contact: contatto
+    created_at: creato
+    email: email
+    id: ID (identificativo)
+    metadata_record: metadati
     title: Titolo
-    updated_at: 
-    url: 
+    updated_at: aggiornato
+    url: URL
   common:
-    additional-information: 
-    download-item: 
+    additional-information: informazioni aggiuntive
+    download-item: scarica questo oggetto
     editors_blog:
-      more_stories: 
+      more_stories: Altre storie su <a href="http://thegreatwararchive.blogspot.com/search/label/en">Editor’s pick blog</a>
     editors_pick:
-      heading: 
-      more_stories: 
-    featured-categories: 
-    from-collection-days: 
+      heading: scelto dall'editore
+      more_stories: <b>altre storie su %{explore_stories} pagina.</b>
+    featured-categories: categorie presentate
+    from-collection-days: dai nostri collection day
     google_maps:
-      help_text: 
+      help_text: ! '<li><b>Auto-suggest</b> : Inserisci il nome di un paese, una città o una via, Google Maps cercherà di trovare un possibile indirizzo.</li>
+
+        <li><b>Specific address</b> :Inserisci un indirizzo o le coordinate geografiche e clicca su "Vai", ignora i suggerimenti automatici di Google Maps.</li>
+
+        <li><b>Map marker</b> : Quando è presente un marcatore sulla mappa, ad esempio, dopo aver inserito un indirizzo, potrai spostarlo su qualunque località desideri.</li>
+
+        <li><b>Zoom</b> : per aumentare o diminuire lo zoon usa + o - sul cursore nella parte sinistra della mappa.</li>'
       label: Utilizza le mappe di Google (scelta opzionale)
     help_text:
       mandatory: Campo obbligatorio
     labels:
-      co_funded: 
+      add-keywords: 
+      co_funded: cofinanziato dall'Unione Europea
     links:
-      about_the_project: 
+      about_the_project: informazioni sul progetto Europeana 1914-1918
       add-your-story: Aggiungi la tua storia!
-      add-your-story-brief: 
-      annotorious: 
+      add-your-story-brief: aggiungi
+      annotorious: l'oggetto ha delle note in allegato. Aprirlo per leggerle
       contact_us: Contattaci
-      contact_us_email: 
-      contribution-terms-pdf: 
-      contribution_terms: 
+      contact_us_email: puoi contattarci anche via email all'indirizzo <span class="addr">1914-1918 [@] europeana [.] eu</span>
+      contribution-terms-pdf: ! '<a href="http://www.europeana.eu/portal/rights/condizioni-di-Europeana-per-i-contributi-forniti-dagli-utenti.html?lang=en" target="_blank">Condizioni di Europeana per i contributi forniti dagli utenti </a>
+
+'
+      contribution_terms: ! 'Condizioni di Europeana per i contributi forniti dagli utenti '
       efg: <a href="http://www.europeanfilmgateway.eu/">http://www.europeanfilmgateway.eu/</a>.
       explore-the-stories: Esplora le storie!
-      explore-the-stories-brief: 
-      explore_stories: 
+      explore-the-stories-brief: esplora
+      explore_stories: esplora le storie
       help: Guida
       my_account: ! 'Il mio account '
       my_stories: ! 'Le mie storie '
       national_collections: <a href="http://pro.europeana.eu/web/europeana-1914-1918"> Per saperne di più sulle collezioni</a>
-      play-audio: 
-      play-video: 
-      privacy_policy: 
-      project_website: 
-      project_website_v2: 
+      play-audio: avvia l'audio
+      play-video: avvia il video
+      privacy_policy: informativa sulla Privacy
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">per maggiori informazioni vedere il sito del progetto</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">scopri di più sulla raccolta di storie di famiglia</a>.
       register: Registrati
       sign_in: Accedi
-      statistics: 
-      takedown_policy: 
+      statistics: statistiche
+      takedown_policy: procedura di rimozione
       titles:
-        contribution_terms: 
-        great_war: 
-        takedown: 
-      view-image: 
-      view-pdf: 
-    map_contribution_heading: 
+        contribution_terms: ! 'Vedi le condizioni di Europeana per i contributi forniti dagli utenti '
+        great_war: L'Archivio sulla Grande Guerra dell'Università di Oxford
+        takedown: alla pagina "procedura di rimozione"
+      view-image: Guarda l'oggetto completo
+      view-pdf: ! 'apri il documento '
+    map_contribution_heading: La storia si svolge a/in
     menus:
       main:
         about: Informazioni
         add: Aggiungi
-        collection-days: 
+        collection-days: giornate di raccolta materiali
         explore: Esplora
         home: Home
         remix: Una insolita amicizia
-        select_language: 
+        select_language: seleziona una lingua
         sign_in: Accedi
         sign_out: Esci
-      menu: 
-    more-at: 
+      menu: menu
+    more-at: maggiori dettagli su
     news: Notizie
     news_item:
-      heading: 
-    'no': 
+      heading: nuovo Family History Roadshow
+    'no': 'no'
     options:
       close: Chiudi
       open: Apri
-      other_option: 
+      other_option: altro
     other:
-      contributor: 
+      contributor: contributore
       preview: Anteprima
       title: Titolo
-      total: 
-    'yes': 
+      total: totale
+    'yes': sì
   date:
     abbr_day_names:
     - Dom
@@ -300,6 +310,9 @@ it:
     formats:
       default: ! '%d-%m-%Y'
       long: ! '%d %B %Y'
+      long_with_day: ! '%a, %d %B %Y'
+      month_and_year: ! '%B %Y'
+      quarter: Quarter %{number} %Y
       short: ! '%d %b'
     month_names:
     - 
@@ -441,70 +454,70 @@ it:
     attachments:
       create:
         alert: 
-        invalid_files: 
-        notice: 
+        invalid_files: alcuni file non possono essere salvati
+        notice: oggetto salvato
       destroy:
-        alert: 
-        notice: 
+        alert: Si è verificato un errore nell'eliminare l'allegato
+        notice: allegato eliminato
       duplicate:
-        notice: 
+        notice: metadati dell'oggetto copiati negli altri oggetti selezionati
       links:
-        view-attachments_html: 
+        view-attachments_html: <a href="#allegati"> clicca per vedere e pubblicarli </a>.
       update:
-        alert: 
-        notice: 
+        alert: Si è verificato un errore nel salvataggio dell'allegato
+        notice: oggetto salvato
     configuration:
       update:
-        alert: 
-        notice: 
+        alert: Il salvataggio della configurazione non è riuscito
+        notice: configurazione aggiornata
     contacts:
       create:
-        alert: 
-        notice: 
+        alert: La creazione del contatto non è riuscita
+        notice: contatto creato
       update:
-        alert: 
-        notice: 
+        alert: l'aggiornamento del contatto non è riuscita
+        notice: contatto aggiornato
     contributions:
       approve:
-        alert: 
-        notice: 
+        alert: Approvazione del contributo non riuscita
+        notice: Il contributo è stato approvato
       destroy:
-        alert: 
-        notice: 
+        alert: l'eliminazione della storia non è riuscita
+        notice: storia eliminata
       draft:
         create:
-          alert: 
+          alert: si è verificato un errore nella creazione di un nuovo contributo
           notice: Il nuovo progetto è stato avviato con successo
         submit:
-          alert: 
-          notice: 
+          alert: Si è verificato un problema con il tuo contributo. Sei pregato di controllare i messaggi sottostanti
+          notice: Il tuo contributo è stato presentato. Grazie! Verrà controllato dallo staff del progetto ed apparirà sul sito dopo essere stato validato. Prima di vederlo pubblicato potrebbero passare alcune settimane. Ti chiediamo di essere comprensivo e paziente
         update:
-          alert: 
-          notice: 
+          alert: si è verificato un problema nel salvataggio del tuo contributo
+          notice: contributo salvato
       reject:
-        alert: 
-        notice: 
+        alert: l'esclusione del contributo è fallita
+        notice: contributo escluso con successo
       submitted:
         edit:
-          alert: 
+          alert: questo contributo è già stato presentato
       withdraw:
-        alert: 
-        notice: 
+        alert: non è stato possibile contrassegnare la tua storia come da ritirare dalla raccolta
+        notice: la tua storia è stata contrassegnata come da ritirare dalla raccolta
     contributors:
       create:
-        alert: 
+        alert: il tuo account non può essere creato
       update:
-        alert: 
+        alert: il tuo account non può essere aggiornato
     fields:
-      reindexing: 
+      reindexing: re-indicizza il motore di ricerca in background
     guest_contact:
       create:
         alert: 
-        notice: 
+        notice: informazioni di contatto ricevute
       forget:
-        notice: 
+        notice: informazioni di contatto rimosse
       update:
-        alert: 
+        alert: si è verificato un problema con le informazioni fornite. Si prega di correggerle e riprovare
         notice: 
     metadata_fields:
       update_order:
@@ -516,43 +529,43 @@ it:
       create:
         success: 
       destroy:
-        success: 
+        success: tag rimosso
       flag:
-        success: 
+        success: questo tag è stato contrassegnato come inappropriato
     taxonomy:
-      imported: 
+      imported: importate nuove classificazioni
     users:
       create:
-        alert: 
-        notice: 
+        alert: Impossibile creare un account
+        notice: account creato
       destroy:
-        notice: 
+        notice: utente cancellato
       register:
-        alert: 
-        notice: 
+        alert: si è verificato un errore nella registrazione. Si prega di correggere il dettagli sottostanti e riprovare
+        notice: registrazione avvenuta. Benvenuto!
       update:
-        alert: 
-        notice: 
+        alert: l'account non può essere aggiornato
+        notice: account aggiornato
   formtastic:
     actions:
       attachment:
-        add_edit: 
-        create: 
-        delete: 
+        add_edit: aggiungi/pubblica oggetti
+        create: caricamento
+        delete: elimina l'oggetto
         update: Salva
       contribution:
-        create: 
+        create: continua
         delete: Elimina la storia
         save_draft: Salva la storia come progetto
-        submit: 
-        update: 
-        withdraw: 
+        submit: presenta la storia
+        update: aggiorna il contributo
+        withdraw: ritira
       contributor:
         create: Registrati
-      create: 
-      delete: 
+      create: presenta
+      delete: elimina
       filter:
-        submit: 
+        submit: aggiorna
       metadata_field:
         delete: 
         reindex: 
@@ -604,13 +617,13 @@ it:
         full_name: 
       contribution:
         metadata:
-          contributor_behalf: 
+          contributor_behalf: lasciare in bianco a meno che non si stia stia aiutando qualcun altro a presentare il proprio contributo
           date_from: ! 'Raccontaci quando la storia ha avuto luogo. Se non conosci la data esatta compila solo il campo inerente all’anno.  Ad esempio: mio nonno si è arruolato nel 1915.'
           date_to: ! 'Raccontaci quando finisce la storia che stai raccontando. Se non conosci la data esatta compila solo il campo inerente all’anno. Ad esempio: mio nonno è stato ferito nel 1915.'
           description: ! 'Scrivi la tua storia '
           forces: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
           keywords: ! "Assegna solamente parole chiave che descrivano l'argomento principale della storia che stai raccontando. Lo scopo è quello di mettere in evidenza la tua storia all’interno delle nostre collezioni. Se una chiave di ricerca non è disponibile, ti preghiamo di contattarci al 1914-1918[@]europeana[.]eu. \n"
-          lang: 
+          lang: indicare in che lingua è scritta la storia
           location_placename: 
           theatres: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
         title: Dai un titolo al contributo nel suo complesso
@@ -1482,6 +1495,12 @@ it:
         step2: 
       edit:
         title: 
+      feed:
+        entries:
+          annotation: 
+          contribution: 
+          tagging: 
+        title: 
       index:
         empty: 
         title: 
@@ -1797,6 +1816,11 @@ it:
           object_pageviews: 
           visits: 
         no_results: 
+        providers:
+          digitalnz: 
+          dpla: 
+          europeana: 
+          trove: 
         title: 
     table:
       header:

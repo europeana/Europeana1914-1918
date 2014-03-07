@@ -1,85 +1,86 @@
 ro:
   actions:
-    approve: 
+    add: 
+    approve: Aprobati
     cancel: Anulare
-    copy: 
-    delete: 
-    download: 
-    edit: 
-    edit_story: 
-    filter: 
+    copy: Copiere
+    delete: Stergere
+    download: Incarcare
+    edit: Editare
+    edit_story: Editati povestirea
+    filter: ! 'Filtrare '
     flag: 
-    new: 
-    reject: 
-    remove: 
+    new: Nou
+    reject: Respingeti
+    remove: Indepartati
     save: Salvaţi
-    submit: 
+    submit: Transmiteti
     unflag: 
-    update: 
+    update: Actualizare
   activerecord:
     attributes:
       attachment:
         dropbox_path: 
-        file: 
-        file_content_type: 
+        file: Fisier
+        file_content_type: Tip de continut
         file_created_at: 
-        file_file_name: 
+        file_file_name: Numele fisierului
         file_file_size: Mărimea fişierului
-        file_updated_at: 
+        file_updated_at: Actualizat la
         preview: Vizualizare
-        public: 
+        public: Public
       contact:
         age: ! 'Vârsta '
-        country: 
+        country: Tara de resedinta
         full_name: Numele întreg
         gender: Sexul
         locality: Oraşul
-        postal_code: 
-        region: Codul Poştal
+        postal_code: Codul postal
+        region: Judetul
         street_address: Strada
-        tel: 
+        tel: Numarul de telefon
       contribution:
-        approved_at: 
-        approved_by: 
-        approver: 
+        approved_at: ! 'Aprobat la '
+        approved_by: ! 'Aprobat de '
+        approver: ! 'Aprobat de '
         attachments: Documente
         catalogued_by: ! 'Catalogator '
         cataloguer: ! 'Catalogator '
-        contributor: 
-        created_at: 
-        published_at: 
-        submitted_at: 
-        terms: 
+        contributor: Contributor
+        created_at: Inceput la
+        published_at: Publicat la
+        submitted_at: Transmis la
+        terms: Termeni acceptati
       contribution_status:
-        created_at: 
+        created_at: Schimbare de status la
       metadata_field:
-        cataloguing: 
+        cataloguing: Doar catalogare
         field_type: Τipul
-        hint: 
-        multi: 
+        hint: Indiciu
+        multi: Selectie multipla
         name: 
-        position: 
+        position: Pozitie
         required: 
         searchable: 
         show_in_listing: 
       setting:
-        name: 
-        value: 
+        name: Nume
+        value: Valoare
       taxonomy_term:
         metadata_field: 
         term: 
       user:
-        created_at: 
+        created_at: Data inregistrarii
         password: Parolă
         password_confirmation: Repetaţi parola
-        role_name: 
+        role_name: Rol
         username: Numele utilizatorului
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
         accepted: trebuie dat acceptul
-        blank: nu poate fi gol
+        blank: Acest camp trebuie completat , nu poate fi gol
         confirmation: nu este confirmat
         empty: nu poate fi gol
         equal_to: trebuie să fie egal cu %{count}
@@ -87,29 +88,29 @@ ro:
         exclusion: este rezervat
         greater_than: trebuie să fie mai mare decât %{count}
         greater_than_or_equal_to: trebuie să fie mai mare sau egal cu %{count}
-        inclusion: nu este inclus în listă
+        inclusion: Selectati o valoare  din listă
         invalid: este invalid
         less_than: trebuie să fie mai mic decât %{count}
         less_than_or_equal_to: trebuie să fie mai mic sau egal cu %{count}
         not_a_number: nu este un număr
-        not_an_integer: trebuie să fie un mumăr întreg
+        not_an_integer: trebuie să fie un număr întreg
         odd: trebuie să fie par
         record_invalid: Validare nereuşită %{errors}
         taken: este deja folosit
         too_long: este prea lung (se pot folosi maximum %{count} caractere)
-        too_short: este pre scurt (minumim de caractere este %{count})
+        too_short: este prea  scurt (minimum de caractere este %{count})
         wrong_length: nu are lungimea corectă (trebuie să aiba %{count} caractere)
       models:
         attachment:
           attributes:
             file:
-              content_type: 
-              presence: 
-              size: 
+              content_type: Acest tip de document nu este permis
+              presence: Selectati un fisier pentru a-l incarca
+              size: ! 'Documentul  incarcat  este  prea  mare '
         contribution:
           attributes:
             catalogued_by:
-              role_name: 
+              role_name: Catalogatorul trebuie sa fie un utilizator cu rol de administrator sau catalogator
             guest_id:
               present: 
         metadata_field:
@@ -199,6 +200,7 @@ ro:
     help_text:
       mandatory: câmp obligatoriu
     labels:
+      add-keywords: 
       co_funded: ! 'Cofinanţat de Uniunea Europeană '
     links:
       about_the_project: Despre proiectul  Europeana 1914-1918
@@ -294,6 +296,9 @@ ro:
     formats:
       default: ! '%d-%m-%Y'
       long: ! '%d %B %Y'
+      long_with_day: 
+      month_and_year: 
+      quarter: 
       short: ! '%d %b'
     month_names:
     - 
@@ -1444,6 +1449,12 @@ ro:
         step2: Pasul 2 – Adăugaţi  documentele şi fişierele voastre
       edit:
         title: 
+      feed:
+        entries:
+          annotation: 
+          contribution: 
+          tagging: 
+        title: 
       index:
         empty: 
         title: 
@@ -1757,6 +1768,11 @@ ro:
           object_pageviews: 
           visits: 
         no_results: 
+        providers:
+          digitalnz: 
+          dpla: 
+          europeana: 
+          trove: 
         title: 
     table:
       header:

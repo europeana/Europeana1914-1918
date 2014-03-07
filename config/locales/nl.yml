@@ -1,5 +1,6 @@
 nl:
   actions:
+    add: 
     approve: Goedkeuren
     cancel: Annuleren
     copy: Kopiëren
@@ -205,6 +206,7 @@ nl:
     help_text:
       mandatory: Verplicht veld
     labels:
+      add-keywords: 
       co_funded: Mede gesubsidieerd door de Europese Unie
     links:
       about_the_project: Meer over het Europeana 1914-1918 project
@@ -300,6 +302,9 @@ nl:
     formats:
       default: ! '%Y-%m-%d'
       long: ! '%e %B %Y'
+      long_with_day: 
+      month_and_year: 
+      quarter: 
       short: ! '%e %b'
     month_names:
     - 
@@ -613,15 +618,15 @@ nl:
         field_type: ! 'Dit kan niet veranderd worden nadat het veld opgeslagen is. '
         hint: Bijgevoegde tekst
         multi: Meerdere termen per contributie/bijlage zijn toegestaan
-        name: 
+        name: ! 'Database naam voor het veld. Moet uniek zijn. Valide tekens: a-z, 0-9, _'
         required: ! 'Ja: er moet iets worden ingevuld. Nee: dit veld is optioneel. Catalogusvelden moeten optioneel zijn. '
         searchable: ! 'Ja: dit veld wordt gebruikt om in bijdragen te zoeken. Nee: met dit veld wordt kan niet worden gezocht. Opmerking: na wijziging van deze waarde moet de zoekmachine worden geherindexeerd. '
         searchable_no_sphinx: ! 'Opmerking: metadatavelden zijn alleen doorzoekbaar wanneer de Spinx zoekmachine actief is &mdash; op het moment is deze niet actief. '
-        show_in_listing: 
-        title: 
+        show_in_listing: ! 'Maak dit veld zichtbaar in lijsten zoals zoekresultaten. '
+        title: ! 'Omschrijving voor het veld zoals zichtbaar voor gebruikers. Open laten voor suggesties. '
       metadata_record:
-        date: 
-        geo: 
+        date: ! 'Omschrijving: JJJJ-MM-DD, JJJJ-MM of JJJJ, b.v. 1998-04-20, 1998-04 of 1998'
+        geo: ! 'Omschrijving: LAT,LNG, e.g. 51.500,-0.126 (voor Londen)'
       password:
         new:
           email: ! 'Vul uw email adres in en wij zullen u instructies toesturen om uw wachtwoord te resetten. '
@@ -646,7 +651,7 @@ nl:
         ui_locales: 
         uploadify: 
       taxonomy_term:
-        import: 
+        import: Voer hier de taxonomische waarden voor dit veld in, één per regel.
         term: 
       user:
         current_password: ! 'Vul uw huidige wachtwoord in als u de gevens van uw account wilt wijzigen. '
@@ -685,14 +690,14 @@ nl:
       content:
         metadata:
           dc:
-            contributor: 
-            country: 
-            coverage: 
-            creator: 
-            date: 
-            description: 
-            format: 
-            identifier: 
+            contributor: Bijdrager
+            country: Land
+            coverage: Dekking
+            creator: Maker
+            date: Datum
+            description: Beschrijving
+            format: Bestandsindeling
+            identifier: Identificatie
             language: 
             publisher: 
             relation: 
@@ -1442,6 +1447,12 @@ nl:
         step2: Stap 2 - Voeg uw items en bestanden toe
       edit:
         title: Bijdrage
+      feed:
+        entries:
+          annotation: 
+          contribution: 
+          tagging: 
+        title: 
       index:
         empty: Er zijn nog geen verhalen gepubliceerd.
         title: Bijdrage
@@ -1753,6 +1764,11 @@ nl:
           object_pageviews: 
           visits: 
         no_results: 
+        providers:
+          digitalnz: 
+          dpla: 
+          europeana: 
+          trove: 
         title: 
     table:
       header:

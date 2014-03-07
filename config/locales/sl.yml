@@ -1,5 +1,6 @@
 sl:
   actions:
+    add: 
     approve: Potrdite
     cancel: Prekinite
     copy: Kopirajte
@@ -205,6 +206,7 @@ sl:
     help_text:
       mandatory: obvezno polje
     labels:
+      add-keywords: 
       co_funded: sofinancirala Evropska unija
     links:
       about_the_project: O projektu Europeana 1914-1918
@@ -228,8 +230,8 @@ sl:
       privacy_policy: Pravilnik o varstvu osebnih podatkov
       project_website: ! "<a href=\"http://pro.europeana.eu/web/europeana-1914-1918\"\n        target=\"_blank\">Za več informacij si poglejte našo projektno spletno stran</a>"
       project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Odkrijte več o povezovanju družinskih zgodb</a>.
-      register: Registrirati
-      sign_in: ! 'Prijavite '
+      register: Registracija
+      sign_in: Prijava
       statistics: Statistika
       takedown_policy: ! 'Lastništvo podatkov '
       titles:
@@ -248,7 +250,7 @@ sl:
         home: Domov
         remix: Neprijetno prijateljstvo
         select_language: Izberi jezik
-        sign_in: ! 'Prijavite '
+        sign_in: Prijava
         sign_out: Odjava
       menu: Meni
     more-at: Več v
@@ -299,6 +301,9 @@ sl:
     formats:
       default: ! '%Y-%m-%d'
       long: ! '%B %d, %Y'
+      long_with_day: ! '%a %d %B %Y'
+      month_and_year: ! '%B %Y'
+      quarter: Quarter  %{number} %Y
       short: ! '%b %d'
     month_names:
     - 
@@ -356,11 +361,11 @@ sl:
       updated: Vaše geslo je bilo uspešno spremenjeno. Zdaj ste prijavljeni.
     registrations:
       destroyed: Živjo! Vaš račun je bil uspešno preklican. Upamo, da se kmalu vidimo.
-      link: Registrirati
+      link: Registracija
       signed_up: Uspešno ste se vpisali.
       updated: Uspešno ste posodobili svoj račun.
     sessions:
-      link: ! 'Prijavite   '
+      link: ! 'Prijava '
       signed_in: Uspešno ste se prijavili.
       signed_out: Uspešno ste ste odjavili.
   errors:
@@ -528,7 +533,7 @@ sl:
         update: Spremeni moje geslo
       search:
         submit: Iskanje
-      sign_in: ! 'Prijavite '
+      sign_in: Prijava
       submit: Shrani
       tag:
         flag: Označeno kot neprimerno.
@@ -766,7 +771,7 @@ sl:
           location_zoom: Približanje lokacije
           notes: Beležke katalogizatorja
           summary: Povzetek opisov predmetov
-          theatres: Gledališča
+          theatres: Fronte
           ticket: Številka predmeta
         terms: Strinjam se z določili in pogoji
         title: Naslov zgodbe
@@ -1091,10 +1096,10 @@ sl:
         heading: Pogoji uporabe
         summary:
           heading: Europeana pogoji uporabe - povzetek
-          item1: Gradivo, ki ste ga priložili ni avtorsko pravno zasciten
-          item2: ! 'Imate avtorske pravice na to gradivo: ali'
+          item1: Gradivo, ki ste ga priložili, ni avtorsko pravno zaščiteno
+          item2: Imate avtorske pravice na to gradivo
           item3: lastnik avtorskih pravic je dovolil objavo digitaliziranega gradiva pod naslednjimi pogoji.
-          item4: Za vsebine, ki jih prispevate (kot na primer video, dnevnik, sliko ali zvočni zapis), dovoljujete vsakomur, da vsebino uporabi na kakršenkoli način, vendar morate zapisati ime lastnika avtorskih pravic. V primeru predelave morate dovoliti ostalim, da uporabijo predelano vsebino pod istimi pogoji.
+          item4: Za vsebine, ki jih prispevate (kot na primer video, dnevnik, sliko ali zvočni zapis), dovoljujete vsakomur, da vsebino uporabi na kakršenkoli način, vendar morate navesti ime lastnika avtorskih pravic. V primeru predelave morate dovoliti ostalim, da uporabijo predelano vsebino pod istimi pogoji.
           item5: Opisni podatki, ki jih prispevate (na primer opis ali ključne besede) bodo iskani z različnimi iskalniki. Dovoljujete, da opisne podatke lahko uporabi kdorkoli na kakršenkoli način brez dodatnih pogojev.
           p1: ! 'Preden posredujete vaše  gradivo Europeani, se morate strinjati s Pogoji za posredovanje gradiva. Pogoji so v celoti dostopni na spletni strani - preberite zgornje besedilo.
 
@@ -1402,7 +1407,7 @@ sl:
       subjects:
         heading: Predmet
       types:
-        heading: Tipi
+        heading: Vrste gradiva
     common:
       permanent: To dejanje ne more biti nedokončano.
     contact:
@@ -1510,6 +1515,12 @@ sl:
         step2: 2. korak – Dodajte priponko
       edit:
         title: Prispevek
+      feed:
+        entries:
+          annotation: 
+          contribution: 
+          tagging: 
+        title: 
       index:
         empty: Ni še prispevkov za javno objavo.
         title: Prispevki
@@ -1616,7 +1627,7 @@ sl:
           guest: Prispevate kot gost.
           links:
             register: Registrirate
-            sign_in: ! 'Prijavite '
+            sign_in: Prijava
           notice: ! 'Če želite shraniti svoje osebne podatke in slediti vašim prispevkom po njihovi oddaji, izvedite %{sign_in} ali %{register} pred nadaljevanjem.
 
 '
@@ -1668,7 +1679,7 @@ sl:
       sessions:
         new:
           instructions: ! 'Prosimo, prijavite se s svojimi podatki računa:'
-          title: ! 'Prijavite '
+          title: Prijava
     errors:
       api_error:
         message: Zunanji podatki trenutno niso na voljo.
@@ -1841,7 +1852,7 @@ sl:
           place_name: Ime kraja
           protagonist_names: Ime protagonista
           provider: Prispeval
-          theatres: Gledališča
+          theatres: Fronte
         digitalnz:
           content_partner: Partner
         europeana:
@@ -1869,8 +1880,8 @@ sl:
     statistics:
       index:
         contributions:
-          heading: 
-          institutional: 
+          heading: Prispevki
+          institutional: Prispevki institucij
           ugc: Prispevki uporabnikov
         intervals:
           last_month: Zadnji mesec
@@ -1885,6 +1896,11 @@ sl:
           object_pageviews: Ogledi zgodb
           visits: Obiski
         no_results: Statistični podatki niso na voljo.
+        providers:
+          digitalnz: DigitalNZ (Nova Zelandija)
+          dpla: DPLA (ZDA)
+          europeana: Europeana
+          trove: Trove (Avstralija)
         title: Statistika uporabe
     table:
       header:

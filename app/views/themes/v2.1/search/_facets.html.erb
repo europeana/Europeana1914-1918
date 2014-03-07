@@ -1,87 +1,94 @@
 <%= form_tag({}, { :method => :get }) do %>
 <ul id="facets">
-  <%- if search_filters_present? -%>
-    <li class="filter-section"><%= render :partial => 'search/filters', :locals => { :query => query, :facets => facets, :provider => provider } %></li>    
-  <%- end -%>
-  <%- unless facets.blank? -%>
-    
-    <li class="refine-section"><h2><%= t('views.search.facets.refine_results')-%>:</h2></li>
-  
-    <%- for facet in facets -%>
-    
-      <%- if facet['fields'].present? -%>
+  <% if search_filters_present? -%>
+    <li class="filter-section"><%= render :partial => 'search/filters', :locals => { :query => query, :facets => facets, :provider => provider } %></li>
+  <% end -%>
+  <% unless facets.blank? -%>
 
-      
+    <li class="refine-section"><h2><%= t('views.search.facets.refine_results')-%>:</h2></li>
+
+		<li>
+			<h3><a href="" class="facet-section icon-arrow-6" rel="nofollow"><%= t('common.labels.add-keywords')-%></a></h3>
+			<ul>
+				<li><input type="text" name="keyword[]"/><input type="submit" value="<%= t('actions.add') -%>" class="button"/></li>
+			</ul>
+		</li>
+
+    <% for facet in facets -%>
+
+      <% if facet['fields'].present? -%>
+
+
         <li>
           <h3><%= link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow" %></h3>
           <ul>
-            <%- showInfo = false -%>
-          
-            <%- for row in facet['fields'] -%>
+            <% showInfo = false -%>
+
+            <% for row in facet['fields'] -%>
               <li>
                 <h4>
-		          <%- if provider == '/collection' && facet["name"].upcase == 'RIGHTS' -%>
+		          <% if provider == '/collection' && facet["name"].upcase == 'RIGHTS' -%>
 						<% rowLabel = rightsLabel( row['label'] ) %>
-		          <%- elsif provider == '/collection' && facet["name"].upcase == 'LANGUAGE' -%>
+		          <% elsif provider == '/collection' && facet["name"].upcase == 'LANGUAGE' -%>
 						<% rowLabel = languageLabel(row['label'])  %>
-		          <%- elsif provider == '/collection' && facet["name"].upcase == 'COUNTRY' -%>
+		          <% elsif provider == '/collection' && facet["name"].upcase == 'COUNTRY' -%>
 						<% rowLabel = row['label'].split.map(&:capitalize)*' '  %>
-				  <%- else %>
+				  <% else %>
 						<%rowLabel = row['label']%>
-				  <%- end %>
+				  <% end %>
 
-                
-                  <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
-                  
-                    <%- if  (facet_row_selected?(facet["name"], row["search"]) && (provider == '/collection') && row['search'].to_s == 'a' )  -%>
-                      <%- showInfo = true -%>
-                    <%- end -%>
-                  
-                  
-                    <%- if facet_row_selected?(facet["name"], row["search"]) -%>
-                    
+
+                  <% if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
+
+                    <% if  (facet_row_selected?(facet["name"], row["search"]) && (provider == '/collection') && row['search'].to_s == 'a' )  -%>
+                      <% showInfo = true -%>
+                    <% end -%>
+
+
+                    <% if facet_row_selected?(facet["name"], row["search"]) -%>
+
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
                       <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
-                      
-                    <%- else -%>
+
+                    <% else -%>
                       <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
                       <%= link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe, false) %>
-                    <%- end -%>
-                  <%- else -%>
+                    <% end -%>
+                  <% else -%>
 
                     <%# checkboxes -%>
 
-                    <%- if facet_row_selected?(facet['name'], row['search']) -%>
-                    
+                    <% if facet_row_selected?(facet['name'], row['search']) -%>
+
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
-                                            
+
                       <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
 
-                    <%- else -%>
-                      
+                    <% else -%>
+
                       <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
                       <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel} (#{row['count']})</label>".html_safe) %>
-                      
-                    <%- end -%>
-                  <%- end -%>
+
+                    <% end -%>
+                  <% end -%>
                 </h4>
               </li>
-            <%- end -%>
+            <% end -%>
             <% if showInfo -%>
-              <li class="facet-info"><%= t('views.search.facets.europeana.source_info')-%></li>
+              <li class="facet-info"><%= t('views.search.facets.europeana.source_info') -%></li>
             <% end -%>
           </ul>
         </li>
-      
-      <%- end -%>
-    
-    <%- end -%>
-    
+
+      <% end -%>
+
+    <% end -%>
+
     <%= hidden_field_tag 'q', query %>
-    
+
     <%= submit_tag t('actions.submit'), :name => nil, :style => "visibility:hidden" %>
-    
-    
-  <%- end -%>
+
+
+  <% end -%>
 </ul>
-<%- end -%>
+<% end -%>
