@@ -23,10 +23,10 @@
               
                 <%- if facet_is_single_select?(facet["name"]) -%><%# Single selection pseudo-facet %>
                   <%- if facet_row_selected?(facet["name"], row["search"]) -%>
-                    <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
+                    <%= radio_button_tag "qf[#{facet['name']}]", row['search'], true %>
                     <label class="bold"><%= row['label'] %></label>
                   <%- else -%>
-                    <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
+                    <%= radio_button_tag "qf[#{facet['name']}]", row['search'] %>
                     <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe) %>
                   <%- end -%>
                 <%- else -%>
@@ -34,10 +34,10 @@
                   <%# checkboxes -%>
                 
                   <%- if facet_row_selected?(facet['name'], row['search']) -%>
-                    <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}", true %>
+                    <%= check_box_tag "qf[#{facet['name']}][]",row['search'], true %>
                     <%= link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' }) %>
                   <%- else -%>
-                    <%= check_box_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
+                    <%= check_box_tag "qf[#{facet['name']}][]", row['search'] %>
                     
                     
                     <%#= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe) %> 
