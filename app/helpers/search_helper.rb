@@ -22,13 +22,15 @@ module SearchHelper
 
     if facet_is_single_select?(facet_name)
       query_string.gsub!(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '')
-      query_string.sub!(/\A&/, '')
+      query_string.gsub!(/(\A|&)qf\[#{facet_name}\](\[\])?=[^\Z&]*/, '')
       query_string << '&' << CGI.escape("qf[#{facet_name}]") << '=' << CGI.escape(row_value)
     else
       if !facet_row_selected?(facet_name, row_value)
         query_string << '&' << CGI.escape("qf[#{facet_name}][]") << '=' << CGI.escape(row_value)
       end
     end
+    
+    query_string.sub!(/\A&/, '')
     
     facet_row_url = url_for().sub(/\?.*\Z/, '') + '?' + query_string
     
@@ -64,7 +66,7 @@ module SearchHelper
   end
   
   def remove_facet_row_query_string(facet_name, row_value)
-    request.query_string.sub(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '')
+    request.query_string.sub(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '').sub(/(\A|&)qf\[#{facet_name}\](\[\])?=[^\Z&]*/, '')
   end
   
   def link_to_remove_facet_row(facet_name, row_value, row_label = nil, html_options = {})
