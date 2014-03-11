@@ -336,12 +336,12 @@ EUSearch = function() {
 				
 		js.loader.loadScripts([{
 			file : 'EuCollapsibility.js',
-			path : themePath + "javascripts/eu/europeana/",
+			path : themePath + "javascripts/eu/europeana/common/",
 			callback : function(){
 				
 				js.loader.loadScripts([{
 					file : 'EuAccessibility.js',
-					path : themePath + "javascripts/eu/europeana/",
+					path : themePath + "javascripts/eu/europeana/common/",
 					callback : function(){
 						// make facet sections collapsible
 						$("#facets>li").not('.filter-section').each(function(i, ob){
@@ -383,7 +383,7 @@ EUSearch = function() {
 						
 						js.loader.loadScripts([{
 							file : 'EuMenu.js',
-							path : themePath + "javascripts/eu/europeana/",
+							path : themePath + "javascripts/eu/europeana/common/",
 							callback : function(){
 								var menuConfig = {
 									"fn_init": function(self){
@@ -399,7 +399,7 @@ EUSearch = function() {
 								js.loader.loadScripts([{
 									
 									file : 'EuAccordionTabs.js',
-									path : themePath + "javascripts/eu/europeana/",
+									path : themePath + "javascripts/eu/europeana/common/",
 									
 									callback : function(){
 								
@@ -412,7 +412,7 @@ EUSearch = function() {
 										js.loader.loadScripts([{
 											
 											file : 'EuPagination.js',
-											path : themePath + "javascripts/eu/europeana/",
+											path : themePath + "javascripts/eu/europeana/common/",
 											
 											callback : function(){
 												// Ajaxify the search if we're on the Europeana data provider

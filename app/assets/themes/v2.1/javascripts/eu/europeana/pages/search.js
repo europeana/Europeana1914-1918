@@ -54,7 +54,7 @@
 		if(typeof $('body').Collapsible == 'undefined'){
 			js.loader.loadScripts([{
         	   file : 'EuCollapsibility.js',
-        	   path : themePath + "javascripts/eu/europeana/",
+        	   path : themePath + "javascripts/eu/europeana/common/",
         	   name : 'collapsibility',
         	   callback : doIt
            }]);

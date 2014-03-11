@@ -321,7 +321,7 @@
 		/*
 		js.loader.loadScripts([{
 			file : 'accordion-tabs.js',
-			path : themePath + "javascripts/eu/europeana/",
+			path : themePath + "javascripts/eu/europeana/common/",
 			callback : function(){
 				new AccordionTabs( $('#explore-further'),
 					function(){

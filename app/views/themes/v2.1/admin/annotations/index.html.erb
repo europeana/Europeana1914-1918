@@ -1,0 +1,46 @@
+<%
+  provide :title, t('views.admin.annotations.index.title')
+%>
+<div class="section top">
+
+  <h2><%= yield :title %></h2>
+  
+    <% if @contributor -%>
+      <div><strong><%= t 'activerecord.options.user.role_name.contributor' %></strong> <%= @contributor.contact.full_name %></div>
+    <% end -%>
+    
+    <% if @annotations.present? -%>
+    
+      <%= semantic_form_for(@options, :as => :options, :url => options_admin_annotations_path, :html => { :method => 'put' }) do |form| %>
+        <%= form.inputs :fields, :class => 'inputs options collapsed' do %>
+          <%= form.input :fields, :as => :check_boxes, :collection => contribution_fields, :label => false %>
+          <%= hidden_field_tag 'redirect', controller.request.url %>
+          <%= form.commit_button %>
+        <% end %>
+      <% end %>
+
+    <%- end -%>
+      
+    <% if @contributor -%>
+    
+      <% @annotations.each_pair do |status, annotations| -%>
+        <%- if annotations.present? -%>
+          <%= render :partial => 'table', :locals => { :annotations => annotations, :caption => t("views.admin.annotations.index.captions.#{status.to_s}", :total => annotations.total_entries), :fields => @options.fields } %>
+        <%- end -%>
+      <%- end -%>
+    
+    <%- else -%>
+      
+      <%- if @annotations.present? -%>
+        <%= render :partial => 'table', :locals => { :annotations => @annotations, :caption => @status.present? ? t("views.admin.annotations.index.captions.#{@status}", :total => @annotations.total_entries) : '', :fields => @options.fields } %>
+      <%- else -%>
+        <%- if @query -%>
+          <p class="empty-table-notice"><%= t "views.admin.annotations.index.empty.search.#{@status}" %></p>
+        <%- else -%>
+          <p class="empty-table-notice"><%= t "views.admin.annotations.index.empty.all.#{@status}" %></p>
+        <%- end -%>
+      <%- end -%>
+      
+    <%- end -%>
+
+</div>
