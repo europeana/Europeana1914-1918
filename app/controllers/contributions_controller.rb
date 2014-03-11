@@ -3,6 +3,7 @@ class ContributionsController < ApplicationController
   before_filter :find_contribution, 
     :except => [ :index, :new, :create, :search, :explore, :complete, :feed ]
   before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
+  before_filter :rewrite_qf_array_param_as_hash, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => :search
 
   cache_sweeper :contribution_sweeper, :only => [ :create, :update, :destroy ]
@@ -416,6 +417,8 @@ protected
   end
   
   def redirect_to_search
+    return if performed?
+    
     # @todo Refine search results with an additional keyword, and replicate 
     #   across all providers
 #    unless params[:qf].blank?

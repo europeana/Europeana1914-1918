@@ -21,6 +21,8 @@ class FederatedSearch::TroveController < FederatedSearchController
 protected
 
   def redirect_to_search
+    return if performed?
+  
     zone = extracted_facet_params[:zone]
 
     # Validate zone:
@@ -30,7 +32,7 @@ protected
     unless zone.present? && (zone.size == 1) && [ "article", "book", "collection", "map", "music", "picture", "newspaper" ].include?(zone.first)
       facet_params = extracted_facet_params
       facet_params[:zone] = [ "picture" ]
-      params[:qf] = compile_facet_params(facet_params)
+      params[:qf] = facet_params
       @redirect_required = true
     end
     

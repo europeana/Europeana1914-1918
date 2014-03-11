@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  before_filter :rewrite_qf_array_param_as_hash, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => [ :search, :explore ]
   
   # Retry connections to search engine in case of temporary unavailability
@@ -32,6 +33,8 @@ protected
   # * call +super+
   #
   def redirect_to_search
+    return if performed?
+    
     if params[:provider] && params[:provider] != self.controller_name
       params.delete(:qf)
       params[:controller] = params[:provider]

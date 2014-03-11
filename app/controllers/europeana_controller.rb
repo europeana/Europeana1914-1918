@@ -7,6 +7,7 @@ require 'will_paginate/collection'
 class EuropeanaController < ApplicationController
   before_filter :europeana_api_configured?
   before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
+  before_filter :rewrite_qf_array_param_as_hash, :only => [ :search, :explore ]
   before_filter :redirect_to_search, :only => :search
 
   # GET /europeana/search
@@ -265,6 +266,8 @@ private
   end
 
   def redirect_to_search
+    return if performed?
+  
     if params[:provider] && params[:provider] != self.controller_name
       params.delete(:qf)
       params[:controller] = params[:provider]

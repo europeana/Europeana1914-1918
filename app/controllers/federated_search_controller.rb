@@ -46,7 +46,7 @@ class FederatedSearchController < SearchController
   #
   def search
     response = search_api
-    
+#    logger.debug("Query Params: #{request.query_parameters}")
     @query    = params[:q]
     @results  = response["results"]
     @facets   = response["facets"]

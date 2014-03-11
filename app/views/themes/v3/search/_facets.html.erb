@@ -27,7 +27,7 @@
                     <label class="bold"><%= row['label'] %></label>
                   <%- else -%>
                     <%= radio_button_tag "qf[]", "#{facet['name']}:#{row['search']}" %>
-                    <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe, false) %>
+                    <%= link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel}</label>".html_safe) %>
                   <%- end -%>
                 <%- else -%>
                 

@@ -11,41 +11,42 @@ module SearchHelper
     referer.path.match(/\/(search|explore)([?\/]|$)/).present?
   end
   
-  def link_to_facet_row(facet_name, row_value, row_label = nil, multiple = true, html_options = {})
+  def link_to_facet_row(facet_name, row_value, row_label = nil, html_options = {})
     row_label ||= row_value
+    row_value = row_value.to_s
+    facet_name = facet_name.to_s
 
-    request_params  = request.query_parameters.dup
-    facet_params    = request_params.has_key?(:qf) ? request_params[:qf].dup : []
-    row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
-    html_options['data-value'] ||= "&qf[]=#{row_param_value}"
+    query_string = request.query_string.dup
+    query_string.sub!(/(?<=\A|\?|&)page=[^\Z&]*/, 'page=1')
+    html_options['data-value'] ||= "&qf[#{facet_name}][]=#{row_value}"
 
-    if controller.controller_name == "collection" && facet_name == "index"
-      facet_params = [ row_param_value ]
-    elsif multiple
-      if !facet_row_selected?(facet_name, row_value)
-        facet_params << row_param_value
-      end
+    if facet_is_single_select?(facet_name)
+      query_string.gsub!(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '')
+      query_string << '&' << CGI.escape("qf[#{facet_name}]") << '=' << CGI.escape(row_value)
     else
-      index = facet_params.index { |fp| fp.match('^' + Regexp.quote(facet_name.to_s) + ':').present? }
-      facet_params.delete_at(index) unless index.nil?
-      facet_params << row_param_value
+      if !facet_row_selected?(facet_name, row_value)
+        query_string << '&' << CGI.escape("qf[#{facet_name}][]") << '=' << CGI.escape(row_value)
+      end
     end
     
-    facet_row_url = url_for(request_params.merge(:page => 1, :qf => facet_params))
+    facet_row_url = url_for().sub(/\?.*\Z/, '') + '?' + query_string
     
     link_to row_label, facet_row_url, html_options
   end
   
   def facet_row_selected?(facet_name, row_value)
-    !facet_row_index(facet_name, row_value).nil?
-  end
-  
-  def facet_row_index(facet_name, row_value)
-    params = request.query_parameters
-    if params[:qf].present?
-      params[:qf].index { |fp| fp.match('^' + Regexp.quote(facet_name.to_s) + ':' + Regexp.quote(row_value.to_s)).present? }
+    if request.query_parameters[:qf].present? && request.query_parameters[:qf][facet_name].present?
+      facet_param = request.query_parameters[:qf][facet_name]
+      case facet_param
+      when String
+        facet_param == row_value
+      when Array
+        !facet_param.find_index(row_value).nil?
+      else
+        false
+      end
     else
-      nil
+      false
     end
   end
   
@@ -57,24 +58,21 @@ module SearchHelper
     singles.find { |single| controller.controller_name == single.first && facet_name == single.last }
   end
   
-  def remove_facet_row_url_options(facet_name, row_value)
-    params = request.query_parameters.dup
-    index = facet_row_index(facet_name, row_value)
-    return params if index.nil?
-    
-    facet_params = params.delete(:qf)
-    facet_params.delete_at(index)
-    params[:qf] = facet_params unless facet_params.blank?
-    
-    params
+  def remove_facet_row_url(facet_name, row_value)
+    url_for().sub(/\?.*\Z/, '') + '?' + remove_facet_row_query_string(facet_name, row_value)
+  end
+  
+  def remove_facet_row_query_string(facet_name, row_value)
+    request.query_string.sub(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '')
   end
   
   def link_to_remove_facet_row(facet_name, row_value, row_label = nil, html_options = {})
     row_label ||= row_value
-    row_param_value = "#{facet_name.to_s}:#{row_value.to_s}"
-    html_options['data-value'] ||= "&qf[]=#{row_param_value}"
+    row_value = row_value.to_s
+    facet_name = facet_name.to_s
+    html_options['data-value'] ||= "&qf[#{facet_name}][]=#{row_value}"
     
-    link_to row_label, remove_facet_row_url_options(facet_name, row_value), html_options
+    link_to row_label, remove_facet_row_url(facet_name, row_value), html_options
   end
   
   def registered_search_providers
@@ -199,10 +197,10 @@ module SearchHelper
       param_parts = param.split('=')
       param_name  = CGI::unescape(param_parts[0])
       param_value = CGI::unescape(param_parts[1]) unless param_parts[1].nil?
-            
-      if controller.controller_name == "collection" && param_name == "qf[]" && param_value.match(/^index:/)
+      
+      if controller.controller_name == "collection" && param_name.match(/\Aqf\[index\]/)
         filter_params.unshift( { :name => param_name, :value => param_value } ) unless param_value.blank?
-      elsif param_name == "q" || param_name == "qf[]"
+      elsif param_name == "q" || param_name.match(/\Aqf\[[^\]]+\]/)
         filter_params << { :name => param_name, :value => param_value } unless param_value.blank?
       end
     end
@@ -224,8 +222,10 @@ module SearchHelper
         data_val_remove = "&q=#{query}"
         data_val = "&q=#{query}"
       else
-        facet_row_parts = filter_param[:value].match(/^([^:]+):(.+)$/)
-        facet_name, field_value = facet_row_parts[1], facet_row_parts[2]
+        facet_row_parts = filter_param[:name].match(/\Aqf\[([^\]]+)\](\[\])?\Z/)
+        facet_name = facet_row_parts[1]
+        facet_multiple = facet_row_parts[2].present? # @todo Needed?
+        field_value = filter_param[:value]
         
         if facet_name == "q" # Refine your search
           link_text = field_value
@@ -247,32 +247,26 @@ module SearchHelper
         
         if facet_is_single_select?(facet_name)
           remove_url = nil
+          data_val_remove = "&qf[#{facet_name.to_s}]=#{field_value.to_s}"
         else
-          remove_url = url_for(remove_facet_row_url_options(facet_name, field_value))
+          remove_url = url_for(remove_facet_row_url(facet_name, field_value))
+          data_val_remove = "&qf[#{facet_name.to_s}][]=#{field_value.to_s}"
         end
         
-        data_val_remove = "&qf[]=#{facet_name.to_s}:#{field_value.to_s}"
         data_index = index.to_s
       end
       
-      filter_params[0..index].each do |previous_param|
-        if previous_param[:name] == "q"
-          link_params[:q] = previous_param[:value]
-        else
-          link_params[:qf] ||= []
-          link_params[:qf] << previous_param[:value]
-        
-          data_val ||= ''
-          data_val += '&' + previous_param[:name] + '=' + previous_param[:value]
-        end
-      end
-
-      
-      
+      data_val = ''
+      reduce_query_string = filter_params[0..index].collect do |previous_param|
+        data_val += '&' + previous_param[:name] + '=' + previous_param[:value]
+        CGI.escape(previous_param[:name]) + '=' + CGI.escape(previous_param[:value])
+      end.join('&')
+      reduce_url = url_for().sub(/\?.*\Z/, '') + '?' + reduce_query_string
+     
       filter_links << {
         :reduce => {
           :text => link_text,
-          :url  => url_for(link_params)
+          :url  => reduce_url
         },
         :remove => {
           :url  => remove_url

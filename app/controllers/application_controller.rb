@@ -453,38 +453,30 @@ protected
     facets
   end
 
-  # @return [Hash<Array>] Hash of facet params, keyed by facet name
   def extracted_facet_params
-    unless @extracted_facet_params.present?
-      facets = HashWithIndifferentAccess.new
-      if params[:qf].is_a?(Array)
-        params[:qf].each do |facet_row|
-          facet_row_parts = facet_row.match(/^([^:]+):(.+)$/)
-          unless facet_row_parts.nil?
-            facet_name, row_name = facet_row_parts[1], facet_row_parts[2]
-            facets[facet_name] ||= []
-            facets[facet_name] << row_name
-          end
-        end
-      end
-      @extracted_facet_params = facets
-    end
-    @extracted_facet_params
-  end
-
-  # @param [Hash<Array>] Hash of facet params, keyed by facet name
-  # @return [Array<String>] Array of facet_name:row_name Strings
-  def compile_facet_params(facet_params)
-    facet_params.collect do |facet_name, facet_rows|
-      facet_rows.collect do |row_name|
-        "#{facet_name}:#{row_name}"
-      end
-    end.flatten
+    return (params[:qf] || HashWithIndifferentAccess.new).dup
   end
   
   def redirect_to_collection_controller
     if RunCoCo.configuration.search_engine == :solr
       params[:controller] = :collection
+      redirect_to params
+    end
+  end
+  
+  def rewrite_qf_array_param_as_hash
+    if params[:qf] && params[:qf].is_a?(Array)
+      facets = {}
+      params[:qf].each do |facet_row|
+        facet_row_parts = facet_row.match(/^([^:]+):(.+)$/)
+        unless facet_row_parts.nil?
+          facet_name, row_value = facet_row_parts[1], facet_row_parts[2]
+          facets[facet_name] ||= []
+          facets[facet_name] << row_value
+        end
+      end
+      params[:qf] = facets
+      
       redirect_to params
     end
   end

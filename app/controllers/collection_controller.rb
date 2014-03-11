@@ -194,6 +194,8 @@ private
   end
   
   def redirect_to_search
+    return if performed?
+    
     index = extracted_facet_params[:index]
 
     # Validate index:
@@ -203,7 +205,7 @@ private
     unless index.present? && (index.size == 1) && [ "a", "c", "e" ].include?(index.first)
       facet_params = extracted_facet_params
       facet_params[:index] = [ "a" ]
-      params[:qf] = compile_facet_params(facet_params)
+      params[:qf] = facet_params
       @redirect_required = true
     end
     
