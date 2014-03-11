@@ -15,7 +15,7 @@
 
 		containers : {
 
-			$loading_animation : jQuery('<img/>', { src : "/images/europeana-theme/progress_bar/loading_animation.gif", height : 32, width : 32, alt : "loading animation"} ),
+			$loading_animation : jQuery('<img/>', { src : "/assets/europeana-theme/progress_bar/loading_animation.gif", height : 32, width : 32, alt : "loading animation"} ),
 			$translation_services : jQuery( '<div/>', { id : "translation-services" } )
 
 		},
