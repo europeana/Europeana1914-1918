@@ -5,42 +5,31 @@
 
   <h2><%= yield :title %></h2>
   
-    <% if @contributor -%>
-      <div><strong><%= t 'activerecord.options.user.role_name.contributor' %></strong> <%= @contributor.contact.full_name %></div>
-    <% end -%>
-    
-    <% if @annotations.present? -%>
-    
-      <%= semantic_form_for(@options, :as => :options, :url => options_admin_annotations_path, :html => { :method => 'put' }) do |form| %>
-        <%= form.inputs :fields, :class => 'inputs options collapsed' do %>
-          <%= form.input :fields, :as => :check_boxes, :collection => contribution_fields, :label => false %>
-          <%= hidden_field_tag 'redirect', controller.request.url %>
-          <%= form.commit_button %>
-        <% end %>
-      <% end %>
-
-    <%- end -%>
-      
-    <% if @contributor -%>
-    
-      <% @annotations.each_pair do |status, annotations| -%>
-        <%- if annotations.present? -%>
-          <%= render :partial => 'table', :locals => { :annotations => annotations, :caption => t("views.admin.annotations.index.captions.#{status.to_s}", :total => annotations.total_entries), :fields => @options.fields } %>
+  <%- if @annotations.present? -%>
+    <table>
+      <thead>
+        <tr>
+          <td scope="col">Date</td>
+          <td scope="col"><%= t('activerecord.models.user') %></td>
+          <td scope="col"><%= t('activerecord.models.contribution') %></td>
+          <td scope="col">Annotation text</td>
+          <td scope="col">Annotation type</td>
+        </tr>
+      </thead>
+      <tbody>
+        <%- for annotation in @annotations -%>
+          <tr>
+            <td><%= l annotation[:created_at], :format => :short %></td>
+            <td><%= link_to annotation[:user_name], admin_user_path(annotation[:user]) %></td>
+            <td><%= link_to truncate(annotation[:contribution].title, :length => 140, :separator => ' '), contribution_path(annotation[:contribution]) %></td>
+            <td><%= truncate annotation[:text], :length => 140, :separator => ' ' %></td>
+            <td><%= annotation[:type] %></td>
+          </tr>
         <%- end -%>
-      <%- end -%>
+      </tbody>
+    </table>
+  <%- else -%>
     
-    <%- else -%>
-      
-      <%- if @annotations.present? -%>
-        <%= render :partial => 'table', :locals => { :annotations => @annotations, :caption => @status.present? ? t("views.admin.annotations.index.captions.#{@status}", :total => @annotations.total_entries) : '', :fields => @options.fields } %>
-      <%- else -%>
-        <%- if @query -%>
-          <p class="empty-table-notice"><%= t "views.admin.annotations.index.empty.search.#{@status}" %></p>
-        <%- else -%>
-          <p class="empty-table-notice"><%= t "views.admin.annotations.index.empty.all.#{@status}" %></p>
-        <%- end -%>
-      <%- end -%>
-      
-    <%- end -%>
+  <%- end -%>
 
 </div>

@@ -119,6 +119,10 @@ RunCoCo::Application.routes.draw do
         end
       end
       
+      resources :annotations, :except => [ :show ] do
+        get 'delete', :on => :member
+      end
+      
       resources :exports, :only => [ :index, :show ]
       
       resources :logs, :only => [ :index ]
