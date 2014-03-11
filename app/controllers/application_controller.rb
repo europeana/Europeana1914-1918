@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sphinx_running?, :current_user, :contribution_fields,
     :dropbox_authorized?, :dropbox_client, :dropbox_configured?,
-    :europeana_api_configured?
+    :europeana_api_configured?, :search_result_to_edm
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -107,7 +107,15 @@ class ApplicationController < ActionController::Base
     end
     @dropbox_client
   end
-
+  
+  def search_result_to_edm(result)
+    if result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
+      cached_edm_result(result)
+    else
+      result
+    end
+  end
+  
 protected
 
   ##
@@ -497,4 +505,28 @@ protected
   def http_content(url)
     Net::HTTP.get_response(URI.parse(url))
   end
+  
+  def cached_edm_result(result)
+    return result unless result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
+    
+    cache_key = "#{result.class.to_s.underscore.pluralize}/edm/result/#{result.id}"
+    
+    if fragment_exist?(cache_key)
+      edm = YAML::load(read_fragment(cache_key))
+    else
+      if result.is_a?(Contribution)
+        edm = result.edm.as_result
+      else
+        edm = result.to_edm_result
+        id_parts = edm['id'].split('/')
+        edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
+      end
+
+      write_fragment(cache_key, edm.to_yaml)
+    end
+    
+    edm
+  end
+
+  
 end

@@ -1,4 +1,5 @@
 class CollectionController < SearchController
+  include SearchHelper
   before_filter :require_solr!
   
   # GET /collection/search
@@ -118,7 +119,6 @@ class CollectionController < SearchController
         if response.blank?
           json = {}.to_json
         else
-          include SearchHelper
           response['items'] = response['items'].collect { |result| search_result_to_edm(result) }
           json = response.to_json
         end

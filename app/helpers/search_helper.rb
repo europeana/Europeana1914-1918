@@ -22,6 +22,7 @@ module SearchHelper
 
     if facet_is_single_select?(facet_name)
       query_string.gsub!(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '')
+      query_string.sub!(/\A&/, '')
       query_string << '&' << CGI.escape("qf[#{facet_name}]") << '=' << CGI.escape(row_value)
     else
       if !facet_row_selected?(facet_name, row_value)
@@ -81,36 +82,6 @@ module SearchHelper
     else
       [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
     end
-  end
-  
-  def search_result_to_edm(result)
-    if result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
-      cached_edm_result(result)
-    else
-      result
-    end
-  end
-  
-  def cached_edm_result(result)
-    return result unless result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
-    
-    cache_key = "#{result.class.to_s.underscore.pluralize}/edm/result/#{result.id}"
-    
-    if controller.fragment_exist?(cache_key)
-      edm = YAML::load(controller.read_fragment(cache_key))
-    else
-      if result.is_a?(Contribution)
-        edm = result.edm.as_result
-      else
-        edm = result.to_edm_result
-        id_parts = edm['id'].split('/')
-        edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
-      end
-
-      controller.write_fragment(cache_key, edm.to_yaml)
-    end
-    
-    edm
   end
   
   def link_to_search_provider(id)
