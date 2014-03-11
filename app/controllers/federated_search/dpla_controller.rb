@@ -35,7 +35,8 @@ protected
     
     extracted_facet_params.each_pair do |name, value|
       if name == "sourceResource.subject.name"
-        search_params[name] = search_params[name] + " " + value.join(" ")
+        value.unshift(search_params[name]) unless search_params[name].blank?
+        search_params[name] = value.join(" ")
       else
         search_params[name] = value.join(" ")
       end
