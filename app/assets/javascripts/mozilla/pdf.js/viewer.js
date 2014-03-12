@@ -48,7 +48,7 @@ var FindStates = {
 };
 
 PDFJS.imageResourcesPath = './images/';
-PDFJS.workerSrc = '/themes/common/mozilla/pdf.js/pdf.js';
+PDFJS.workerSrc = '/assets/mozilla/pdf.js/pdf.js';
 
 var mozL10n = document.mozL10n || document.webL10n;
 
