@@ -18,10 +18,6 @@
 			if /.flv/.match( edmIsShownBy ) || /.mp4/.match( edmIsShownBy )
 				mediaplayer = true
 				html = video_tag edmIsShownBy, :controls => true, :preload => 'none', :poster => edmPreview, :style => 'width:100%;height:100%;'
-				script_files = [
-					"/themes/#{session[:theme]}/javascripts/com/jquery/jquery-1.7.1.min.js",
-					'/assets/mediaelement/mediaelement-and-player.min.js'
-				]
 			elsif type == 'IMAGE'
 				html = '<img src="' + edmIsShownBy + '"/>'
 			else
@@ -48,7 +44,7 @@
 <body>
 <%= html.html_safe -%>
 <% if mediaplayer -%>
-<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
+<%= javascript_include_tag 'mediaelementplayer' %>
 <script>$('video').mediaelementplayer({pluginPath:'/assets/mediaelement/'});</script>
 <% end -%>
 </body>

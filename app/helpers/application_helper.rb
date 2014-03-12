@@ -1,5 +1,3 @@
-require 'digest/md5'
-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   # Adapted from Formtastic::SemanticFormBuilder#inline_errors_for 
@@ -113,18 +111,6 @@ module ApplicationHelper
   
   def yes_or_no(boolean)
     boolean ? t('common.yes') : t('common.no')
-  end
-  
-  ##
-  # Returns an ID for a bundle of assets (CSS / JS), for named cache bundles
-  #
-  # @param [String,Array<String>] assets Bundle of assets
-  # @return [String] ID as an MD5 hex digest of the assets
-  #
-  def asset_bundle_id(assets)
-    assets = assets.dup
-    assets = [ assets ].flatten.join(',')
-    Digest::MD5.hexdigest(assets)
   end
   
   ##
