@@ -20,7 +20,9 @@ xml.feed :xmlns => "http://www.w3.org/2005/Atom", "xml:base" => configuration(:s
         entry.summary truncate(strip_tags(a[:summary]), :length => 140, :separator => ' '), :type => "text"
       end
       unless a[:thumb].blank?
-        entry.content :src => a[:thumb], :type => "image/jpeg"
+        entry.content :type => "html" do |content|
+          content.img :src => a[:thumb], :alt => ''
+        end
       end
     end
   end
