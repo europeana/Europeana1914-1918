@@ -20,7 +20,7 @@
 				html = video_tag edmIsShownBy, :controls => true, :preload => 'none', :poster => edmPreview, :style => 'width:100%;height:100%;'
 				script_files = [
 					"/themes/#{session[:theme]}/javascripts/com/jquery/jquery-1.7.1.min.js",
-					'/themes/common/mediaelement/mediaelement-and-player.min.js'
+					'/assets/mediaelement/mediaelement-and-player.min.js'
 				]
 			elsif type == 'IMAGE'
 				html = '<img src="' + edmIsShownBy + '"/>'
@@ -36,7 +36,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <% if mediaplayer -%>
-<link rel="stylesheet" href="/themes/common/mediaelement/mediaelementplayer.min.css"/>
+<link rel="stylesheet" href="<%= asset_path('mediaelement/mediaelementplayer.min.css') %>"/>
 <% end -%>
 <title><%= title -%></title>
 <% if type == 'IMAGE' -%>
@@ -49,7 +49,7 @@
 <%= html.html_safe -%>
 <% if mediaplayer -%>
 <%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
-<script>$('video').mediaelementplayer({pluginPath:'/themes/common/mediaelement/'});</script>
+<script>$('video').mediaelementplayer({pluginPath:'/assets/mediaelement/'});</script>
 <% end -%>
 </body>
 </html>

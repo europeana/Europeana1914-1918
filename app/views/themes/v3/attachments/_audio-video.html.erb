@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<link rel="stylesheet" href="/themes/common/mediaelement/mediaelementplayer.min.css"/>
+<link rel="stylesheet" href="<%= asset_path('mediaelement/mediaelementplayer.min.css') %>"/>
 <title><%= title %></title>
 <style>body{margin:0;padding:0;overflow:hidden;}.mejs-container{max-height:480px;margin:auto;}</style>
 </head>
@@ -33,7 +33,7 @@
 <%
 	script_files = [
 		"/themes/#{session[:theme]}/javascripts/com/jquery/jquery-1.7.1.min.js",
-		'/themes/common/mediaelement/mediaelement-and-player.min.js'
+		'/assets/mediaelement/mediaelement-and-player.min.js'
 	]
 %>
 <%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
