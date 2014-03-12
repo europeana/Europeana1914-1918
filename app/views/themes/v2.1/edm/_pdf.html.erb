@@ -28,7 +28,7 @@ limitations under the License.
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<link rel="stylesheet" href="<%= asset_path('mozilla/pdf.js/viewer.css') %>"/>
+<%= stylesheet_link_tag 'pdf', :media => 'screen, projection' %>
 <link rel="resource" type="application/l10n" href="<%= asset_path('mozilla/pdf.js/locale/locale.properties') %>"/>
 <title><%= title %></title>
 </head>
@@ -191,16 +191,6 @@ limitations under the License.
 	</div> <!-- outerContainer -->
 	<div id="printContainer"></div>
 	<script>var DEFAULT_URL = '<%= link_record + '/content' %>';</script>
-	<%
-		# supporting scripts
-		script_files = [
-			'/assets/mozilla/pdf.js/compatibility.js',
-			'/assets/mozilla/pdf.js/l10n.js',
-			'/assets/mozilla/pdf.js/pdf.js',
-			'/assets/mozilla/pdf.js/debugger.js',
-			'/assets/mozilla/pdf.js/viewer.js'
-		]
-	%>
-	<%= javascript_include_tag script_files, :cache => '/cache/javascripts/' + asset_bundle_id(script_files) %>
+	<%= javascript_include_tag 'pdf' %>
 </body>
 </html>
