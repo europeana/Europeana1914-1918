@@ -12,7 +12,7 @@ class AttachmentsController < ApplicationController
       format.html do
         # @todo Does this need to respond similarly for theme v3?
         if params[:carousel] && [ 'v2', 'v2.1' ].include?(session[:theme])
-          render :partial => '/attachments/carousel', :locals => {
+          render :partial => 'attachments/carousel', :locals => {
             :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 ),
             :contribution => @contribution
           }

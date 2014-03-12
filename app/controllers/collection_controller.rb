@@ -105,7 +105,7 @@ class CollectionController < SearchController
     end
     
     if params.delete(:layout) == '0'
-      render :partial => '/search/results',
+      render :partial => 'search/results',
         :locals => {
           :results => @results,
           :query => @query,

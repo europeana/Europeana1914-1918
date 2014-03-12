@@ -318,7 +318,7 @@ class ContributionsController < ApplicationController
     end
 
     if params.delete(:layout) == '0'
-      render :partial => '/search/results',
+      render :partial => 'search/results',
         :locals => {
           :contributions => @contributions,
           :results => @results,

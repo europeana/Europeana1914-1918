@@ -40,7 +40,7 @@ class EuropeanaController < ApplicationController
     end
 
     if params.delete(:layout) == '0'
-      render :partial => '/search/results',
+      render :partial => 'search/results',
         :locals => {
           :results => @results,
           :query => @query,
@@ -80,7 +80,7 @@ class EuropeanaController < ApplicationController
         elsif params[:edmvideo] == 'true'
           render :partial => 'edm/video'
         elsif params[:carousel] && [ 'v2.1' ].include?(session[:theme])
-          render :partial => '/edm/carousel', :locals => { :record => @object }
+          render :partial => 'edm/carousel', :locals => { :record => @object }
         end
       end
     end
