@@ -104,7 +104,7 @@ sudo nano ~/.bashrc
 PATH=$PATH:$HOME/.rvm/bin
 ```
 
-you can create a file called rvm in /etc/paths.d with the following contents in it :  
+you can create a file called rvm in /etc/paths.d with the following contents in it :
 
 ```
 sudo nano /etc/paths.d rvm
@@ -149,7 +149,7 @@ nano .ruby-version
 create a .ruby-gemset file. the .ruby-gemset file will make sure that rvm
 uses the gemset inidicated in the file:
 
-``` 
+```
 cd /Europeana1914-1918
 nano .ruby-gemset
 1914
@@ -185,7 +185,7 @@ cd /Europeana1914-1918
 
 ### db config
 
-create a db config file and edit the file as appropriate. make sure the socket 
+create a db config file and edit the file as appropriate. make sure the socket
 location is correct, e.g. /tmp/mysql.sock. if you run into an error indicating
 mysql2/client.rb:44:in `connect': can't convert Fixnum into String (TypeError)
 placing quotes around the databasename, username, and password may resolve the
@@ -470,20 +470,20 @@ upgrading pdf.js viewer
 1.  $git clone https://github.com/mozilla/pdf.js.git
 1.  $node make generic
 1.  $cd /build/generic/web/
-1.  $cp -R * /public/themes/common/mozilla/pdf.js/
+1.  $cp -R * /app/assets/javascripts/mozilla/pdf.js/
 1.  $cd /build/generic/build/
-1.  $cp pdf.js /public/themes/common/mozilla/pdf.js/
+1.  $cp pdf.js /app/assets/javascripts/mozilla/pdf.js/
 1.  alter viewer.js
     comment out or delete the line
     var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
     comment out or delete the line
     PDFJS.workerSrc = '../build/pdf.js';
     replace it with
-    PDFJS.workerSrc = '/themes/common/mozilla/pdf.js/pdf.js';
-1.	in the erb file, e.g., /public/themes/v3/views/attachments/_pdf.html.erb,
+    PDFJS.workerSrc = '/app/assets/javascripts/mozilla/pdf.js/pdf.js';
+1.	in the erb file, e.g., /app/views/themes/v3/views/attachments/_pdf.html.erb,
     make sure you have a line similar to the following before viewer.js loads
     <script>var DEFAULT_URL = '<%= @attachment.file.url(:original) %>';</script>
-1.	alter viewer.css so that all url() entries point to /themes/common/mozilla/pdf.js/
+1.	alter viewer.css so that all url() entries point to /assets/mozilla/pdf.js/
     this is necessary because on test and in production the css reference is to a
 		cached css file that resides outside the pdf.js folder
 
@@ -493,9 +493,9 @@ upgrading mediaelement
 ----------------------
 1. cd to a working directory for storing mediaelement
 1. $git clone https://github.com/johndyer/mediaelement.git
-1. $cp /path/to/mediaelement/build/* /path/to/europeana-1914-1918/public/themes/common/mediaelement/
+1. $cp /path/to/mediaelement/build/* /path/to/europeana-1914-1918/app/assets/javascripts/mediaelement/
 1. delete any text files copied to europena-1914-1918
-1. alter mediaelementplayer.css so that all url() entries point to /themes/common/mediaelement/
+1. alter mediaelementplayer.css so that all url() entries point to /assets/mediaelement/
    this is necessary because on test and in production the css reference is to a
    cached css file that resides outside the pdf.js folder
 
