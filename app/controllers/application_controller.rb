@@ -68,7 +68,9 @@ class ApplicationController < ActionController::Base
   # not already in the request params.
   #
   rescue_from ActionController::MissingFile, ActiveRecord::RecordNotFound, ActionController::UnknownAction, ActionController::MethodNotAllowed, ActionController::RoutingError, ActionView::MissingTemplate, AWS::S3::Errors::NoSuchKey do |exception|
-    if (!params[:locale].blank? && !I18n.available_locales.include?(params[:locale].to_sym)) && !request.fullpath.match(/^\/(attachments|oai)\//)
+    if (!I18n.locale.blank? && I18n.available_locales.include?(I18n.locale.to_sym)) && (params[:locale].to_sym != I18n.locale.to_sym) && !request.fullpath.match(/^\/(attachments|oai)\//)
+      redirect_to "/#{I18n.locale.to_s}#{request.fullpath}"
+    elsif (!params[:locale].blank? && !I18n.available_locales.include?(params[:locale].to_sym)) && !request.fullpath.match(/^\/(attachments|oai)\//)
       I18n.locale = request.compatible_language_from(I18n.available_locales) || Rails.configuration.i18n.default_locale
       redirect_to "/#{I18n.locale.to_s}#{request.fullpath}"
     elsif Rails.configuration.consider_all_requests_local
@@ -242,7 +244,7 @@ protected
   end
 
   ##
-  # Set locale from URL param or HTTP Accept-Language header
+  # Set locale from session, URL param or HTTP Accept-Language header
   #
   def set_locale # :nodoc:
     if params[:locale].blank?
@@ -255,12 +257,18 @@ protected
         redirect_to url_for(request.query_parameters.merge({ :locale => Rails.configuration.i18n.default_locale })), :status => 307
         return
       end
-    else
-      raise ActionController::RoutingError, "No route matches #{request.path}"
+    end
+    
+    if locale.blank?
+      if session[:locale].present?
+        # Read from session if present
+        locale = session[:locale]
+      else
+        raise ActionController::RoutingError, "No route matches #{request.path}"
+      end
     end
 
-    I18n.locale = locale
-    (Rails.configuration.action_mailer.default_url_options ||= {}).merge!(:locale => params[:locale])
+    I18n.locale = session[:locale] = locale
   end
 
   ##
