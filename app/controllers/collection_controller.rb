@@ -21,10 +21,13 @@ class CollectionController < SearchController
     end
     
     if search_terms.present? || params[:term].blank?
-      pagination_params = {
-        :page => (params[:page] || 1).to_i,
-        :per_page => [ (params[:count] || 12).to_i, 100 ].min # Default 12, max 100
-      }
+      count = [ (params[:count] || 12).to_i, 100 ].min # Default 12, max 100
+      count = 12 unless count > 0
+      
+      page = (params[:page] || 1).to_i
+      page = 1 unless page > 0
+      
+      pagination_params = { :page => page, :per_page => count }
       
       facet_params = extracted_facet_params.dup
       
@@ -38,7 +41,7 @@ class CollectionController < SearchController
       end
       
       if refine_search_terms = facet_params.delete(:q)
-        search_terms = search_terms + refine_search_terms
+        search_terms = search_terms + refine_search_terms.reject(&:blank?)
       end
       
       search = Sunspot.search indices do |query|
