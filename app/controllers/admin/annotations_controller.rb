@@ -24,6 +24,7 @@ class Admin::AnnotationsController < AdminController
         }
       when Annotation
         { 
+          :attachment => item.attachment,
           :contribution => item.attachment.contribution,
           :user => item.user,
           :text => item.text,
