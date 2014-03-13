@@ -46,7 +46,7 @@ class FederatedSearchController < SearchController
   #
   def search
     @query    = params[:q]
-    @term     = CGI::unescape(params[:term])
+    @term     = params[:term] ? CGI::unescape(params[:term]) : nil
     response = search_api
 #    logger.debug("Query Params: #{request.query_parameters}")
     @results  = response["results"]
