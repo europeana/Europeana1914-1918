@@ -1,5 +1,5 @@
 <%
-	html = form_tag(url_for(params), { :method => :get }) do
+	html = form_tag({}, { :method => :get }) do
 		form = '<ul id="facets">'
 			if search_filters_present?
 				form += '<li class="filter-section">'

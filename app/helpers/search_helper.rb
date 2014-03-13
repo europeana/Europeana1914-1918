@@ -191,6 +191,7 @@ module SearchHelper
       elsif filter_param[:name] == "q"
         link_text = query
         remove_url = url_for(link_params.merge(request.query_parameters[:qf].present? ? { :qf => request.query_parameters[:qf] } : {}))
+        form_field = hidden_field_tag('q', filter_param[:value], :id => nil)
         
         data_val_remove = "&q=#{query}"
         data_val = "&q=#{query}"
@@ -199,10 +200,10 @@ module SearchHelper
         facet_name = facet_row_parts[1]
         facet_multiple = facet_row_parts[2].present? # @todo Needed?
         field_value = filter_param[:value]
+        form_field = hidden_field_tag(filter_param[:name], field_value, :id => nil)
         
         if facet_name == "q" # Refine your search
           link_text = field_value
-          form_field = hidden_field_tag('qf[q][]', field_value, :id => nil)
         else
           facet = facets.find { |facet| facet["name"].to_s == facet_name }
 
