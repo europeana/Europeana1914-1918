@@ -6,25 +6,24 @@
 
     var addMasonry = function(msg){
 
-    	if(typeof jQuery('.body').masonry=='undefined'){
-    		return;
-    	}
+    	//if ( jQuery('.body').masonry === undefined ){
+    	//	return;
+    	//}
 
     	//console.log('add masonry[' + msg + '], ' + jQuery('.stories:visible').length + ', has class? ' + jQuery('.stories:visible').hasClass('masonry')   );
 
+			jQuery('.stories:visible').imagesLoaded(function() {
 
-		jQuery('.stories:visible').imagesLoaded(function() {
-
-			if( jQuery('.stories li').length > 2 ){
-				jQuery('.stories:visible').masonry({
-					itemSelector : 'li:not(.result-count)',
-					isFitWidth : true,
-					isAnimated : true,
-					gutterWidth: 21
-				});
-			}
-			hideSpinner();
-		});
+				if( jQuery('.stories li').length > 2 ){
+					jQuery('.stories:visible').masonry({
+						itemSelector : 'li:not(.result-count)',
+						isFitWidth : true,
+						isAnimated : true,
+						gutterWidth: 21
+					});
+				}
+				hideSpinner();
+			});
     };
 
 	var addCollapsibility = function(){
@@ -383,20 +382,17 @@
 
 
 	function init() {
+		//resultTabs.init(function(){
+		//	//toggleAutoComplete();
+		//});
 
-
-		resultTabs.init(function(){
-//			toggleAutoComplete();
-		});
-
-		if(window.location.href.indexOf('#')==-1){
-			doAfterLoad();
-			//addMasonry('init');
-			//addCollapsibility();
-		}
-
+		//if(window.location.href.indexOf('#')==-1){
+		//	doAfterLoad();
+		//	//addMasonry('init');
+		//	//addCollapsibility();
+		//}
 	}
 
-	//init();
+	init();
 
 }());

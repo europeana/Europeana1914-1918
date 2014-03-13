@@ -539,6 +539,10 @@ input[type="submit"]:active {
 	max-width: 100%;
 }
 
+.noscript {
+	display: none;
+}
+
 /*
 .return-to-results{
 	margin-bottom: 1em;
@@ -981,7 +985,6 @@ a.button:hover {
 
 #results-facets ul ul h4 {
 	margin: 0.5em 0;
-	XXXposition: relative;
 }
 
 
@@ -1050,6 +1053,7 @@ ul#facets,
   border-top: 1px solid #C0C0C0;
   margin-bottom: 0.5em;
   padding-top: 0.2em;
+	cursor: pointer;
 }
 
 #facets h3,
@@ -1093,17 +1097,11 @@ ul#facets,
   color: #333;
 }
 
-
 #results-facets ul ul h4 a {
-  margin-left: 1.5em;
+  padding-left: 1.5em;
 }
 
-#facets input[type='checkbox'],
-#facets input[type='radio']{
-	margin-left: -19px;
-}
-
-#facets h4 label {
+#facets h4 a {
   display: inline-block;
   padding: 0 1.5em;
 }
@@ -1158,6 +1156,19 @@ ul#facets,
   padding: 0.2em;
 }
 
+.checked-checkbox,
+.unchecked-checkbox {
+	background-repeat: no-repeat;
+	background-position: 0 2px;
+}
+
+.unchecked-checkbox {
+	background-image: url('/assets/icons/unchecked-checkbox.png');
+}
+
+.checked-checkbox {
+	background-image: url('/assets/icons/checked-checkbox.png');
+}
 
 /** END FACETS **/
 

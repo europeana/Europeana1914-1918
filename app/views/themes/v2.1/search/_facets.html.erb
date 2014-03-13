@@ -12,7 +12,7 @@
 				form += '<li>'
 					#form += '<h3><a href="" class="facet-section icon-arrow-6" rel="nofollow">' + t('common.labels.add-keywords') + '</a></h3>'
 					form += '<h3 class="facet-section icon-arrow-6">' + t('common.labels.add-keywords') + '</h3>'
-					form += '<ul>'
+					form += '<ul class="">'
 						form += '<li><input type="text" name="qf[q][]"/><input type="submit" value="' + t('actions.add') + '" class="button"/></li>'
 					form += '</ul>'
 				form += '</li>'
@@ -20,12 +20,12 @@
 				for facet in facets
 					if facet['fields'].present?
 						form += '<li>'
-							form += '<h3 class="facet-section icon-arrow-7">' + facet['label']
+							form += '<h3 class="facet-section icon-arrow-6">' + facet['label']
 							#form += '<h3>'
 								#form += link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow"
 							form += '</h3>'
 
-							form += '<ul>'
+							form += '<ul class="">'
 								showInfo = false
 								for row in facet['fields']
 									form += '<li>'
@@ -48,38 +48,33 @@
 												end
 
 												if facet_row_selected?(facet["name"], row["search"])
-													form += '<label class="remove-facet bold" title="' + t('actions.remove') + '">'
-														form += radio_button_tag 'qf[' + facet['name'] + '][]', row['search'], true
-														form += row['label']
-													form += '</label>'
-													#form += radio_button_tag "qf[#{facet['name']}]", row['search'], true
-													#form += link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' })
+													form += link_to_remove_facet_row(
+														facet['name'], row['search'], checkbox + rowLabel,
+														{ :title => t('actions.remove'), :class => 'remove-facet bold checked-checkbox' }
+													)
 												else
-													form += '<label>'
-														form += radio_button_tag 'qf[' + facet['name'] + '][]', row['search']
-														form += row['label']
-													form += '</label>'
-													#form += radio_button_tag "qf[#{facet['name']}]", row['search']
-													#form += link_to_facet_row(facet['name'], row['search'], "<label>#{row['label']}</label>".html_safe)
+													form += link_to_facet_row(
+														facet['name'], row['search'],
+														row['label'],
+														{ :class => 'unchecked-checkbox' }
+													)
 												end
 
 											else
 
 												# checkboxes
 												if facet_row_selected?(facet['name'], row['search'])
-													form += '<label class="remove-facet bold" title="' + t('actions.remove') + '">'
-														form += check_box_tag 'qf[' + facet['name'] + '][]', row['search'], true
-														form += rowLabel
-													form += '</label>'
-													#form += check_box_tag "qf[#{facet['name']}][]", row['search'], true
-													#form += link_to_remove_facet_row(facet['name'], row['search'], "<label class=\"bold\">#{rowLabel}</label>".html_safe, { :title => t('actions.remove'), :class => 'remove-facet bold' })
+													form += link_to_remove_facet_row(
+														facet['name'], row['search'],
+														rowLabel,
+														{ :title => t('actions.remove'), :class => 'remove-facet bold checked-checkbox' }
+													)
 												else
-													form += '<label>'
-														form += check_box_tag 'qf[' + facet['name'] + '][]', row['search']
-														form += rowLabel + ' (' + row['count'].to_s + ')'
-													form += '</label>'
-													#form += check_box_tag "qf[#{facet['name']}][]", row['search']
-													#form += link_to_facet_row(facet['name'], row['search'], "<label>#{rowLabel} (#{row['count']})</label>".html_safe)
+													form += link_to_facet_row(
+														facet['name'], row['search'],
+														rowLabel + ' (' + row['count'].to_s + ')',
+														{ :class => 'unchecked-checkbox' }
+													)
 												end
 
 											end # if facet_is_single_select?(facet["name"])
@@ -97,8 +92,7 @@
 
 				form += hidden_field_tag 'q', query
 				form += hidden_field_tag 'count', params['count']
-				#form += submit_tag t('actions.submit'), :name => nil, :style => "visibility:hidden"
-				form += submit_tag t('actions.submit'), :name => nil
+				form += submit_tag t('actions.submit'), :name => nil, :class => ''
 			end # unless facets.blank?
 		form += '</ul>'
 		form.html_safe
