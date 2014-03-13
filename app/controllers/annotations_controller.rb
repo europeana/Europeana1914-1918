@@ -78,6 +78,12 @@ class AnnotationsController < ApplicationController
     end
   end
   
+  # GET /:locale/annotations/:id/edit(.:format)
+  def edit
+    @annotation = Annotation.find(params[:id])
+    current_user.may_edit_attachment_annotation!(@annotation)
+  end
+  
   # PUT /:locale/annotations/:id(.:format)
   def update
     @annotation = Annotation.find(params[:id])
@@ -87,13 +93,15 @@ class AnnotationsController < ApplicationController
       @annotation.text = params[:annotation][:text]
       @annotation.save!
       
-      @annotation.shapes = []
-      params[:annotation][:shapes].each_value do |shape_params|
-        AnnotationShape.new do |annotation_shape|
-          annotation_shape.geometry = shape_params[:geometry]
-          annotation_shape.units = shape_params[:units] || "relative"
-          annotation_shape.shape_type = shape_params[:type]
-          @annotation.shapes << annotation_shape
+      if params[:annotation][:shapes]
+        @annotation.shapes = []
+        params[:annotation][:shapes].each_value do |shape_params|
+          AnnotationShape.new do |annotation_shape|
+            annotation_shape.geometry = shape_params[:geometry]
+            annotation_shape.units = shape_params[:units] || "relative"
+            annotation_shape.shape_type = shape_params[:type]
+            @annotation.shapes << annotation_shape
+          end
         end
       end
       
@@ -103,6 +111,10 @@ class AnnotationsController < ApplicationController
     index_contribution
   
     respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.actions.update.notice', :resource_name => t('activerecord.models.annotation'))
+        redirect_to annotations_path
+      end
       format.json do
         render :json => {
           "success" => true,
@@ -113,6 +125,10 @@ class AnnotationsController < ApplicationController
     
   rescue ActiveRecord::RecordInvalid
     respond_to do |format|
+      format.html do
+        flash.now[:alert] = t('flash.actions.update.alert', :resource_name => t('activerecord.models.annotation'))
+        render :action => :edit
+      end
       format.json do
         render :json => {
           "success" => false,

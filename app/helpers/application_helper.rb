@@ -42,7 +42,8 @@ module ApplicationHelper
   end  
 
   def redirect_field(path = nil)
-    hidden_field_tag 'redirect', (path.nil? ? redirect_path : path)
+    path ||= redirect_path
+    path.nil? ? '' : hidden_field_tag('redirect', path)
   end
 
   def request_uri

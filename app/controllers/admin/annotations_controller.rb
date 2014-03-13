@@ -16,7 +16,8 @@ class Admin::AnnotationsController < AdminController
           :text => item.tag.name,
           :created_at => item.created_at,
           :id => item.id,
-          :type => 'tagging'
+          :type => t('activerecord.models.tagging'),
+          :edit => edit_tagging_path(item, :redirect => admin_annotations_path)
         }
       when Annotation
         { 
@@ -25,7 +26,8 @@ class Admin::AnnotationsController < AdminController
           :text => item.text,
           :created_at => item.created_at,
           :id => item.id,
-          :type => 'annotation'
+          :type => t('activerecord.models.annotation'),
+          :edit => edit_annotation_path(item, :redirect => admin_annotations_path)
         }
       end
     end

@@ -1,0 +1,12 @@
+<%= semantic_form_for annotation do |form| -%>
+  <%= form.inputs :annotation do %>
+    <%= form.input :text %>
+  <% end %>
+
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link annotations_path %>
+  <% end %>
+<% end -%>
+

@@ -9,11 +9,12 @@
     <table>
       <thead>
         <tr>
-          <td scope="col">Date</td>
-          <td scope="col"><%= t('activerecord.models.user') %></td>
-          <td scope="col"><%= t('activerecord.models.contribution') %></td>
-          <td scope="col">Annotation text</td>
-          <td scope="col">Annotation type</td>
+          <th scope="col"><%= t 'actions.created_at' %></th>
+          <th scope="col"><%= t 'activerecord.models.user' %></th>
+          <th scope="col"><%= t 'activerecord.models.contribution' %></th>
+          <th scope="col">Annotation text</th>
+          <th scope="col">Annotation type</th>
+          <th scope="col"><%= t 'views.table.header.actions' %></th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,7 @@
             <td><%= link_to truncate(annotation[:contribution].title, :length => 140, :separator => ' '), contribution_path(annotation[:contribution]) %></td>
             <td><%= truncate annotation[:text], :length => 140, :separator => ' ' %></td>
             <td><%= annotation[:type] %></td>
+            <td><%= link_to t('actions.edit'), annotation[:edit], :class => 'edit-member' %></td>
           </tr>
         <%- end -%>
       </tbody>

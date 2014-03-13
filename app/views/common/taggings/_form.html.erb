@@ -1,0 +1,11 @@
+<%= semantic_form_for tag, :as => 'tag', :url => tagging_path do |form| -%>
+  <%= form.inputs :tag do %>
+    <%= form.input :name %>
+  <% end %>
+
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link annotations_path %>
+  <% end %>
+<% end -%>

@@ -38,7 +38,7 @@ RunCoCo::Application.routes.draw do
       end
       
       # Tags
-      resources :tags, :only => [ 'index', 'create', 'destroy' ] do
+      resources :tags, :only => [ 'index', 'create', 'edit', 'update', 'destroy' ] do
         member do
           get 'delete'
           get 'flag', :action => 'confirm_flag'
@@ -51,6 +51,13 @@ RunCoCo::Application.routes.draw do
     
     # Annotations
     resources :annotations
+    
+    # Taggings
+    resources :taggings, :only => [ 'edit', 'update', 'destroy' ] do
+      member do
+        get 'delete'
+      end
+    end
     
     # Users
     devise_for :users,

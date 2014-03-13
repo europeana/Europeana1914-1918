@@ -99,6 +99,12 @@ class Permissions < Aegis::Permissions
     end
   end
   
+  action :edit_tagging do
+    allow :contributor do :tagging
+      tagging.tagger == user
+    end
+  end
+  
   action :approve_contributions do
   end
   
