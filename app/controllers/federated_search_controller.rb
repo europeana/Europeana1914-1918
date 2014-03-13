@@ -89,9 +89,15 @@ protected
   # Gets common search parameters with default values
   #
   def params_with_defaults
+    count = [ (params[:count] || 12).to_i, 100 ].min # Default 12, max 100
+    count = 12 unless count > 0
+    
+    page = (params[:page] || 1).to_i
+    page = 1 unless page > 0
+    
     @params_with_defaults ||= {
-      :page   => (params[:page] || 1).to_i,
-      :count  => [ (params[:count] || 12).to_i, 100 ].min, # Default 12, max 100
+      :page   => page,
+      :count  => count,
       :qf     => params[:qf] || []
     }
   end

@@ -27,16 +27,14 @@ protected
   def search_params
     search_params = { 
       :q => (params[:q].present? ? params[:q] + ' AND ' : '') + '("world war, 1914-1918" OR "world war I" OR "great war")',
-#      "sourceResource.subject.name" => '"World War, 1914-1918"',
       :page_size => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       :facets => "sourceResource.subject.name,sourceResource.spatial.name,provider.name,sourceResource.language.name,sourceResource.type"
     }.merge(authentication_params)
     
     extracted_facet_params.each_pair do |name, value|
-      if name == "sourceResource.subject.name"
-        value.unshift(search_params[name]) unless search_params[name].blank?
-        search_params[name] = value.join(" ")
+      if name == 'q'
+        search_params[:q] << ' AND ' << value.join(' AND ')
       else
         search_params[name] = value.join(" ")
       end

@@ -22,12 +22,15 @@ protected
       :per_page => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       "without[content_partner][]" => "Europeana",
-#      "or[subject]" => [ "Great War", "World War, 1914-1918" ],
       :facets => "category,creator,placename,year,content_partner,rights,collection"
     }
     
     extracted_facet_params.each_pair do |name, value|
-      search_params["and[#{name}]"] = value
+      if name == 'q'
+        search_params[:text] << ' AND ' << value.join(' AND ')
+      else
+        search_params["and[#{name}]"] = value
+      end
     end
     
     search_params.merge(authentication_params)

@@ -54,9 +54,11 @@ protected
       :facet => "format,availability,year,discipline"
     }.merge(authentication_params)
     
-    
     facet_params = extracted_facet_params.dup
     facet_params.delete(:zone)
+    if query = facet_params.delete(:q)
+      search_params[:q] << ' AND ' << query.join(' AND ')
+    end
     facet_params = facet_params.collect do |name, criteria|
       criteria.collect { |criterion| criterion.to_query("l-#{name}") }
     end.flatten
