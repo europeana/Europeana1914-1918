@@ -17,20 +17,23 @@ protected
   end
   
   def search_params
+    facet_params = extracted_facet_params.dup
+    
+    query_terms = [ 
+      @query, @term, facet_params.delete(:q),
+      '("world war, 1914-1918" OR "world war I" or "great war")'
+    ].reject(&:blank?)
+  
     search_params = { 
-      :text => (params[:q].present? ? params[:q] + ' AND ' : '') + '("world war, 1914-1918" OR "world war I" or "great war")',
+      :text => query_terms.join(' AND '),
       :per_page => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       "without[content_partner][]" => "Europeana",
       :facets => "category,creator,placename,year,content_partner,rights,collection"
     }
     
-    extracted_facet_params.each_pair do |name, value|
-      if name == 'q'
-        search_params[:text] = ( [ search_params[:text] ] + value.reject(&:blank?) ).join(' AND ')
-      else
-        search_params["and[#{name}]"] = value
-      end
+    facet_params.each_pair do |name, value|
+      search_params["and[#{name}]"] = value
     end
     
     search_params.merge(authentication_params)

@@ -146,7 +146,7 @@ module SearchHelper
   end
   
   def search_filters_present?
-    params[:q].present? || params[:qf].present? || (params[:field].present? && params[:term].present?)
+    params[:q].present? || params[:qf].present? || params[:term].present?
   end
   
   def back_to_search_link

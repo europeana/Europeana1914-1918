@@ -45,9 +45,10 @@ class FederatedSearchController < SearchController
   # call +super+ before the method end.
   #
   def search
+    @query    = params[:q]
+    @term     = CGI::unescape(params[:term])
     response = search_api
 #    logger.debug("Query Params: #{request.query_parameters}")
-    @query    = params[:q]
     @results  = response["results"]
     @facets   = response["facets"]
     
@@ -61,7 +62,6 @@ class FederatedSearchController < SearchController
   end
   
   def explore
-    params[:q] = CGI::unescape(params[:term])
     search
   end
   

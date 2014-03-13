@@ -25,19 +25,22 @@ protected
   end
 
   def search_params
+    facet_params = extracted_facet_params.dup
+    
+    query_terms = [ 
+      @query, @term, facet_params.delete(:q),
+      '("world war, 1914-1918" OR "world war I" OR "great war")'
+    ].reject(&:blank?)
+    
     search_params = { 
-      :q => (params[:q].present? ? params[:q] + ' AND ' : '') + '("world war, 1914-1918" OR "world war I" OR "great war")',
+      :q => query_terms.join(' AND '),
       :page_size => params_with_defaults[:count],
       :page => params_with_defaults[:page],
       :facets => "sourceResource.subject.name,sourceResource.spatial.name,provider.name,sourceResource.language.name,sourceResource.type"
     }.merge(authentication_params)
     
-    extracted_facet_params.each_pair do |name, value|
-      if name == 'q'
-        search_params[:q] = ( [ search_params[:q] ] + value.reject(&:blank?) ).join(' AND ')
-      else
-        search_params[name] = value.join(" ")
-      end
+    facet_params.each_pair do |name, value|
+      search_params[name] = value.join(" ")
     end
     
     search_params

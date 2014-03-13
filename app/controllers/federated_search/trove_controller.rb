@@ -45,8 +45,15 @@ protected
   
   # @return [String]
   def search_params
+    facet_params = extracted_facet_params.dup
+    
+    query_terms = [ 
+      @query, @term, facet_params.delete(:q),
+      '("first world war" OR "world war i" OR "world war, 1914-1918")'
+    ].reject(&:blank?)
+  
     search_params = { 
-      :q => (params[:q].present? ? params[:q] + ' AND ' : '') + '("first world war" OR "world war i" OR "world war, 1914-1918")',
+      :q => query_terms.join(' AND '),
       :zone => extracted_facet_params[:zone].first,
       :encoding => "json",
       :n => params_with_defaults[:count],
@@ -54,11 +61,8 @@ protected
       :facet => "format,availability,year,discipline"
     }.merge(authentication_params)
     
-    facet_params = extracted_facet_params.dup
     facet_params.delete(:zone)
-    if query = facet_params.delete(:q)
-      search_params[:q] = ([ search_params[:q] ] + query.reject(&:blank?)).join(' AND ')
-    end
+    
     facet_params = facet_params.collect do |name, criteria|
       criteria.collect { |criterion| criterion.to_query("l-#{name}") }
     end.flatten
