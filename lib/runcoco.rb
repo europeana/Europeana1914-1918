@@ -1,3 +1,4 @@
+require 'runcoco/active_record'
 require 'runcoco/active_support'
 require 'runcoco/core_ext'
 require 'runcoco/devise'
