@@ -2,10 +2,13 @@ class Admin::AnnotationsController < AdminController
   # GET /admin/annotations
   def index
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
-    page = params[:page] || 1
+    page = (params[:page] || 1).to_i
+    limit = count * page
     
-    items = ActsAsTaggableOn::Tagging.order('created_at DESC').limit(count) +
-      Annotation.order('created_at DESC').limit(count)
+    total = ActsAsTaggableOn::Tagging.count + Annotation.count
+    
+    items = ActsAsTaggableOn::Tagging.order('created_at DESC').limit(limit) +
+      Annotation.order('created_at DESC').limit(limit)
       
     @annotations = items.collect do |item|
       case item
@@ -33,7 +36,15 @@ class Admin::AnnotationsController < AdminController
     end
     
     @annotations.sort_by! { |a| a[:created_at] }
-    @annotations = @annotations.reverse[0..(count - 1)]
+    @annotations = @annotations.reverse
+    
+    @annotations = WillPaginate::Collection.create(page, count, total) do |pager|
+      if total == 0
+        pager.replace([])
+      else
+        pager.replace(@annotations[pager.offset, pager.per_page])
+      end
+    end
     
     @annotations.each do |a|
       a[:user_name] = a[:user].contact.full_name
