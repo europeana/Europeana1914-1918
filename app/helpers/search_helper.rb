@@ -202,6 +202,7 @@ module SearchHelper
         
         if facet_name == "q" # Refine your search
           link_text = field_value
+          form_field = hidden_field_tag('qf[q][]', field_value, :id => nil)
         else
           facet = facets.find { |facet| facet["name"].to_s == facet_name }
 
@@ -247,6 +248,9 @@ module SearchHelper
         :data => {
           :val_remove  => data_val_remove,
           :val => data_val
+        },
+        :form => {
+          :field => form_field
         }
       }
     end
