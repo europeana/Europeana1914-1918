@@ -34,7 +34,7 @@ protected
     
     extracted_facet_params.each_pair do |name, value|
       if name == 'q'
-        search_params[:q] << ' AND ' << value.join(' AND ')
+        search_params[:q] = ( [ search_params[:q] ] + value.reject(&:blank?) ).join(' AND ')
       else
         search_params[name] = value.join(" ")
       end

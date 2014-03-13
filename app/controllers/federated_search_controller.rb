@@ -98,7 +98,7 @@ protected
     @params_with_defaults ||= {
       :page   => page,
       :count  => count,
-      :qf     => params[:qf] || []
+      :qf     => params[:qf] || {}
     }
   end
   
