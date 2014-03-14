@@ -21,4 +21,3 @@
 //= require ./com/jquery/plugins/jquery.masonry.min
 //= require_tree ./com/gmtplusone
 //= require ./eu/europeana
-
