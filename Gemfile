@@ -22,7 +22,7 @@ gem 'hpricot', '~> 0.8.0'
 gem 'http_accept_language', '~> 1.0.0'
 gem 'i18n', '0.6.0' # Locked to avoid uninitialized constant I18n::INTERPOLATION_PATTERN error from 0.5.1
 gem 'i18n-js', '~> 2.1.0'
-gem 'jquery-rails', '~> 3.1.0'
+gem 'jquery-rails', '~> 2.1.4'
 gem 'jquery-ui-rails', '~> 3.0'
 gem 'legato', '~> 0.0.10'
 gem 'localized_country_select', '~> 0.9.2'
