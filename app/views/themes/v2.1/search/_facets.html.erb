@@ -30,14 +30,17 @@
 								for row in facet['fields']
 									form += '<li>'
 										form += '<h4>'
+
+											# pre-parse facet names and handle various adjustments
 											if provider == '/collection' && facet["name"].upcase == 'RIGHTS'
 												rowLabel = rightsLabel( row['label'] )
 											elsif provider == '/collection' && facet["name"].upcase == 'LANGUAGE'
-												rowLabel = languageLabel(row['label'])
+												rowLabel = languageLabel( row['label'] )
 											elsif provider == '/collection' && facet["name"].upcase == 'COUNTRY'
-												rowLabel = row['label'].split.map(&:capitalize)*' '
+												#rowLabel = row['label'].split.map(&:capitalize)*' '
+												rowLabel = row['label'].titlecase
 											else
-												rowLabel = row['label']
+												rowLabel = row['label'].humanize
 											end
 
 											# radio-buttons - single selection pseudo-facet
