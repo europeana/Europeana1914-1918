@@ -9,6 +9,7 @@
 	$facet_section_links = $('.facet-section a'),
 	$filter_section_links = $('.filter-section a'),
 	$results_tabs = $('#results-tabs a'),
+	$facet_form = $('#results-facets').find('form'),
 
 	showSpinner = function(){
 		$('#results')
@@ -29,7 +30,10 @@
 			$('#results-items')
 				.html('<div class="results-items-spinner"></div>')
 				.fadeIn( function() {
-					window.location = $elm.attr('href');
+					switch ( evt.type ) {
+						case 'click': window.location = $elm.attr('href'); break;
+						case 'submit': $facet_form.off('submit'); $facet_form.submit(); break;
+					}
 				});
 		});
 	},
@@ -79,6 +83,10 @@
 		$results_tabs.each( function() {
 			$(this).on('click', closeResultItems );
 		});
+	},
+
+	addFacetFormListener = function() {
+		$facet_form.on('submit', closeResultItems );
 	};
 
 	var addMasonry = function(msg) {
@@ -428,6 +436,7 @@
 		addFacetLinksListener();
 		addFilterLinksListener();
 		addResultsTabsListener();
+		addFacetFormListener();
 	}
 
 	init();
