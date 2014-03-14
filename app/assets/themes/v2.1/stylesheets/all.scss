@@ -59,6 +59,13 @@ p {
 	margin: 0 0 .9em 0;
 }
 
+li {
+	position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 a {
 	color: #0075FF;
 	text-decoration: none;
@@ -958,20 +965,8 @@ a.button:hover {
 	max-width: 100%;
 }
 
-
-#results-facets li {
-	margin: 0;
-	padding: 0;
-	line-height: 120%;
-	position: relative;
-}
-
 #results-facets > ul > li > h3 {
 	margin-bottom: 0;
-}
-
-#results-facets li label {
-	display: inline;
 }
 
 #results-facets li.facet-info{
@@ -979,12 +974,8 @@ a.button:hover {
   margin-top: 2em;
 }
 
-#results-facets ul ul {
-	margin-top: 0;
-}
-
 #results-facets ul ul h4 {
-	margin: 0.5em 0;
+	margin: 0;
 }
 
 
@@ -1017,6 +1008,19 @@ a.button:hover {
 	margin-bottom: -1px;
 }
 
+.results-items-spinner {
+	position: relative;
+	top: 100px;
+	left: 50%;
+	width: 32px;
+	height: 32px;
+	margin: 0 0 0 -16px;
+	text-align: center;
+	z-index: 1000;
+	background-image: image-url('/assets/v2.1/images/icons/loading-animation.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+}
 
 /** FACETS **/
 
@@ -1034,26 +1038,21 @@ ul#facets,
 }
 
 #facets,
-#facets a{
-  padding-top: 0.5em;
+#facets a {
   font-weight: 400;
   color: #333;
+	outline: none;
 }
 
-#facets li {
-  list-style: none outside none;
-
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
-}
-
-#facets h3 {
+.facet-section {
   border-top: 1px solid #C0C0C0;
-  margin-bottom: 0.5em;
-  padding-top: 0.2em;
 	cursor: pointer;
+}
+
+.facet-section h3 {
+	font-weight: 400;
+	margin: 0;
+  padding: 5px 0 8px 0;
 }
 
 #facets h3,
@@ -1097,16 +1096,10 @@ ul#facets,
   color: #333;
 }
 
-#results-facets ul ul h4 a {
-  padding-left: 1.5em;
+.facet-section a {
+	display: inline-block;
+  padding: 0 20px;
 }
-
-#facets h4 a {
-  display: inline-block;
-  padding: 0 1.5em;
-}
-
-
 
 #facets li:first-child h3 {
   border-top: none;
@@ -1118,11 +1111,6 @@ ul#facets,
 
 #facets li h4 {
   font-weight: lighter;
-}
-
-#facets a,
-#facets li a.facet-section {
-  outline: none;
 }
 
 #facets li h4 a.bold {
@@ -1157,17 +1145,38 @@ ul#facets,
 }
 
 .checked-checkbox,
-.unchecked-checkbox {
+.unchecked-checkbox,
+.checked-radiobutton,
+.unchecked-radiobutton {
 	background-repeat: no-repeat;
-	background-position: 0 2px;
 }
 
 .unchecked-checkbox {
 	background-image: url('/assets/icons/unchecked-checkbox.png');
+	background-position: 0 4px;
 }
 
 .checked-checkbox {
 	background-image: url('/assets/icons/checked-checkbox.png');
+	background-position: 0 2px;
+}
+
+.unchecked-radiobutton {
+	background-image: url('/assets/icons/unchecked-radiobutton.png');
+	background-position: 0 2px;
+}
+
+.checked-radiobutton {
+	background-image: url('/assets/icons/checked-radiobutton.png');
+	background-position: 0 2px;
+}
+
+#facets .facet-section ul {
+	padding-left: 4px;
+}
+
+#facets .facet-section li {
+	padding-bottom: 6px;
 }
 
 /** END FACETS **/

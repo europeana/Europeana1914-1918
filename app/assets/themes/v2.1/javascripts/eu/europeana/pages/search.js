@@ -4,74 +4,106 @@
 
 	'use strict';
 
-    var addMasonry = function(msg){
+	var
+	$facet_section_h3s = $('.facet-section h3'),
+	$facet_section_links = $('.facet-section a'),
+	$filter_section_links = $('.filter-section a'),
+	$results_tabs = $('#results-tabs a'),
 
-    	//if ( jQuery('.body').masonry === undefined ){
-    	//	return;
-    	//}
+	showSpinner = function(){
+		$('#results')
+			.addClass('loading')
+			.append('<div class="ajax-overlay"></div>');
+	},
 
-    	//console.log('add masonry[' + msg + '], ' + jQuery('.stories:visible').length + ', has class? ' + jQuery('.stories:visible').hasClass('masonry')   );
+	hideSpinner = function(){
+		$('#results').removeClass('loading');
+		$('.ajax-overlay').remove();
+	},
 
-			jQuery('.stories:visible').imagesLoaded(function() {
+	closeResultItems = function( evt ) {
+		var $elm = $(this);
+		evt.preventDefault();
 
-				if( jQuery('.stories li').length > 2 ){
-					jQuery('.stories:visible').masonry({
-						itemSelector : 'li:not(.result-count)',
-						isFitWidth : true,
-						isAnimated : true,
-						gutterWidth: 21
-					});
-				}
-				hideSpinner();
-			});
-    };
-
-	var addCollapsibility = function(){
-		var headingSelector		= "h3 a";
-
-		var doIt = function(){
-
-			var openers = [];
-
-			$("#facets>li").not('.filter-section').each(function(i, ob){
-				ob = $(ob);
-				ob.Collapsible({
-						"headingSelector"	: headingSelector,
-						"bodySelector"		: "ul"
+		$('#results-items').slideToggle( function() {
+			$('#results-items')
+				.html('<div class="results-items-spinner"></div>')
+				.fadeIn( function() {
+					window.location = $elm.attr('href');
 				});
+		});
+	},
 
-				if(ob.find('input[type=checkbox]:checked').length || ob.find('input[type=radio]:checked').length){
-					openers.push(ob.find(headingSelector));
-				}
-			});
+	handleFacetSectionClick = function() {
+		var $elm = $(this),
+			$target = $elm.next();
 
-			$.each(openers, function(i, opener){
-				opener.click();
-			});
+		$target.slideToggle(function() {
+			if ( $target.is(':visible') ) {
+				$elm.removeClass('icon-arrow-6').addClass('icon-arrow-7');
+			} else {
+				$elm.removeClass('icon-arrow-7').addClass('icon-arrow-6');
+			}
+		});
+	},
 
-		}
-		if(typeof $('body').Collapsible == 'undefined'){
-			js.loader.loadScripts([{
-        	   file : 'EuCollapsibility.js',
-        	   path : themePath + "javascripts/eu/europeana/common/",
-        	   name : 'collapsibility',
-        	   callback : doIt
-           }]);
-		}
-		else{
-			doIt();
-		}
+	addFacetSectionsListener = function() {
+		$facet_section_h3s.each(function() {
+			$(this).on('click', handleFacetSectionClick );
+		});
+	},
+
+	handleFacetLinkClick = function ( evt ) {
+		$(this).closest('ul').prev().trigger('click');
+		closeResultItems.call( this, evt );
+	},
+
+	addFacetLinksListener = function() {
+		$facet_section_links.each(function() {
+			var $elm = $(this);
+			$elm.on('click', handleFacetLinkClick );
+
+			if ( $elm.hasClass('checked-checkbox') || $elm.hasClass('checked-radiobutton') ) {
+				$(this).closest('ul').prev().trigger('click');
+			}
+		});
+	},
+
+	addFilterLinksListener = function() {
+		$filter_section_links.each( function() {
+			$(this).on('click', closeResultItems );
+		});
+	},
+
+	addResultsTabsListener = function() {
+		$results_tabs.each( function() {
+			$(this).on('click', closeResultItems );
+		});
 	};
 
-    var showSpinner = function(){
-    	$('#results').append('<div class="ajax-overlay"></div>');
-        $('#results').addClass('loading');
-    };
+	var addMasonry = function(msg) {
 
-    var hideSpinner = function(){
-    	$('.ajax-overlay').remove();
-        $('#results').removeClass('loading');
-    };
+		if ( jQuery('.body').masonry === undefined ){
+			return;
+		}
+
+		//console.log('add masonry[' + msg + '], ' + jQuery('.stories:visible').length + ', has class? ' + jQuery('.stories:visible').hasClass('masonry')   );
+
+		jQuery('.stories:visible').imagesLoaded(function() {
+
+			if( jQuery('.stories li').length > 2 ){
+				jQuery('.stories:visible').masonry({
+					itemSelector : 'li:not(.result-count)',
+					isFitWidth : true,
+					isAnimated : true,
+					gutterWidth: 21
+				});
+			}
+			hideSpinner();
+		});
+	};
+
+
 
 	var doAfterLoad = function(){
 
@@ -391,6 +423,11 @@
 		//	//addMasonry('init');
 		//	//addCollapsibility();
 		//}
+
+		addFacetSectionsListener();
+		addFacetLinksListener();
+		addFilterLinksListener();
+		addResultsTabsListener();
 	}
 
 	init();

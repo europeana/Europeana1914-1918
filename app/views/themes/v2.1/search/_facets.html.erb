@@ -9,23 +9,23 @@
 
 			unless facets.blank?
 				form += '<li class="refine-section"><h2>' + t('views.search.facets.refine_results') + ':</h2></li>'
-				form += '<li>'
-					#form += '<h3><a href="" class="facet-section icon-arrow-6" rel="nofollow">' + t('common.labels.add-keywords') + '</a></h3>'
-					form += '<h3 class="facet-section icon-arrow-6">' + t('common.labels.add-keywords') + '</h3>'
-					form += '<ul class="">'
+
+				# keywords
+				form += '<li class="facet-section">'
+					form += '<h3 class="icon-arrow-6">' + t('common.labels.add-keywords') + '</h3>'
+					form += '<ul class="noscript">'
 						form += '<li><input type="text" name="qf[q][]"/><input type="submit" value="' + t('actions.add') + '" class="button"/></li>'
 					form += '</ul>'
 				form += '</li>'
 
+				# facets
 				for facet in facets
 					if facet['fields'].present?
-						form += '<li>'
-							form += '<h3 class="facet-section icon-arrow-6">' + facet['label']
-							#form += '<h3>'
-								#form += link_to facet['label'], '', :class => "facet-section icon-arrow-7", :rel => "nofollow"
+						form += '<li class="facet-section">'
+							form += '<h3 class="icon-arrow-6">' + facet['label']
 							form += '</h3>'
 
-							form += '<ul class="">'
+							form += '<ul class="noscript">'
 								showInfo = false
 								for row in facet['fields']
 									form += '<li>'
@@ -40,7 +40,7 @@
 												rowLabel = row['label']
 											end
 
-											# Single selection pseudo-facet
+											# radio-buttons - single selection pseudo-facet
 											if facet_is_single_select?(facet["name"])
 
 												if (facet_row_selected?(facet["name"], row["search"]) && (provider == '/collection') && row['search'].to_s == 'a' )
@@ -50,19 +50,19 @@
 												if facet_row_selected?(facet["name"], row["search"])
 													form += link_to_remove_facet_row(
 														facet['name'], row['search'], rowLabel,
-														{ :title => t('actions.remove'), :class => 'remove-facet bold checked-checkbox' }
+														{ :title => t('actions.remove'), :class => 'remove-facet bold checked-radiobutton' }
 													)
 												else
 													form += link_to_facet_row(
 														facet['name'], row['search'],
 														row['label'],
-														{ :class => 'unchecked-checkbox' }
+														{ :class => 'unchecked-radiobutton' }
 													)
 												end
 
+											# checkboxes
 											else
 
-												# checkboxes
 												if facet_row_selected?(facet['name'], row['search'])
 													form += link_to_remove_facet_row(
 														facet['name'], row['search'],
@@ -89,10 +89,7 @@
 						form += '</li>'
 					end # if facet['fields'].present?
 				end # for facet in facets
-
-				form += hidden_field_tag 'q', query
-				form += hidden_field_tag 'count', params['count']
-				form += submit_tag t('actions.submit'), :name => nil, :class => ''
+				form += submit_tag t('actions.submit'), :name => nil, :class => 'noscript'
 			end # unless facets.blank?
 		form += '</ul>'
 		form.html_safe
