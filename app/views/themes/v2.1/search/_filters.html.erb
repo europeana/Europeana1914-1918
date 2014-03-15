@@ -30,7 +30,11 @@
             linkText = label + ': ' + lookupLanguage
           end
         end
-			end
+      end
+
+    if ( linkText.index('Country:') || linkText.index('Type:') )
+			linkText = linkText.titlecase
+    end
 
     # html += link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val], :class => 'filter-crop' }
 
