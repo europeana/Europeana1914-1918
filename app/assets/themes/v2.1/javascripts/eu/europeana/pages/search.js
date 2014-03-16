@@ -10,6 +10,9 @@
 	$results_tabs = $('#results-tabs a'),
 	$facet_form = $('#results-facets').find('form'),
 
+	/**
+	 * @param {object} jQuery Event object
+	 */
 	closeResultItems = function( evt ) {
 		var $elm = $(this);
 		evt.preventDefault();
@@ -45,6 +48,9 @@
 		});
 	},
 
+	/**
+	 * @param {object} jQuery Event object
+	 */
 	handleFacetLinkClick = function ( evt ) {
 		$(this).closest('ul').prev().trigger('click');
 		closeResultItems.call( this, evt );
@@ -61,9 +67,17 @@
 		});
 	},
 
+	/**
+	 * @param {object} jQuery Event object
+	 */
+	handleFilterLinkClick = function( evt ) {
+		$(this).closest('ul').slideToggle();
+		closeResultItems.call( this, evt );
+	},
+
 	addFilterLinksListener = function() {
 		$filter_section_links.each( function() {
-			$(this).on('click', closeResultItems );
+			$(this).on('click', handleFilterLinkClick );
 		});
 	},
 
@@ -73,8 +87,19 @@
 		});
 	},
 
+	/**
+	 * assumes there is only one input field with the name qf[q][]
+	 * used to add keywords
+	 *
+	 * @param {object} jQuery Event object
+	 */
+	handleFacetFormListener = function( evt ) {
+		$facet_form.find('input[name="qf[q][]"]').closest('ul').prev().trigger('click');
+		closeResultItems.call( this, evt );
+	},
+
 	addFacetFormListener = function() {
-		$facet_form.on('submit', closeResultItems );
+		$facet_form.on('submit', handleFacetFormListener );
 	},
 
 	addMasonry = function() {
