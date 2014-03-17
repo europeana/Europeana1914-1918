@@ -1022,6 +1022,16 @@ a.button:hover {
 	background-repeat: no-repeat;
 }
 
+.results-items-overlay {
+	position: absolute;
+  z-index: 100;
+	top: 0;
+	left: 0;
+	width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
 /** FACETS **/
 
 #facet-menu > div {
@@ -2427,8 +2437,14 @@ ul#facets,
 	}
 
 	#results-items {
+		position: relative;
 		float: right;
 		width: 74%;
+	}
+
+	.with-overlay {
+		height: 500px;
+		overflow: hidden;
 	}
 
 	.search-results-title{
@@ -2436,9 +2452,6 @@ ul#facets,
 	}
 
 }
-
-
-
 
 
 /**

@@ -7,6 +7,8 @@
 	$facet_section_h3s = $('.facet-section h3'),
 	$facet_section_links = $('.facet-section a'),
 	$filter_section_links = $('.filter-section a'),
+	$results_items = $('#results-items'),
+	$results_items_overlay = $('.results-items-overlay'),
 	$results_tabs = $('#results-tabs a'),
 	$facet_form = $('#results-facets').find('form'),
 
@@ -17,8 +19,8 @@
 		var $elm = $(this);
 		evt.preventDefault();
 
-		$('#results-items').slideToggle( function() {
-			$('#results-items')
+		$results_items.slideToggle( function() {
+			$results_items
 				.html('<div class="results-items-spinner"></div>')
 				.fadeIn( function() {
 					switch ( evt.type ) {
@@ -102,6 +104,11 @@
 		$facet_form.on('submit', handleFacetFormListener );
 	},
 
+	removeLoadingOverlay = function() {
+		$results_items_overlay.fadeOut();
+		$results_items.removeClass('with-overlay');
+	},
+
 	addMasonry = function() {
 		$('.stories').imagesLoaded( function() {
 			$('.stories').masonry({
@@ -110,6 +117,7 @@
 				isAnimated : true,
 				gutterWidth: 21
 			});
+			removeLoadingOverlay();
 		});
 	},
 

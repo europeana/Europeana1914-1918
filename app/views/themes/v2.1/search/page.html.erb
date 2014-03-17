@@ -5,9 +5,9 @@
 
 
 <div class="section search top">
-  
+
   <h2 class="search-results-title"><%= yield :title %></h2>
-    
+
   <ul id="results-tabs">
     <%- for provider in registered_search_providers -%>
       <%- if provider_stem = search_provider_stem(provider) -%>
@@ -15,9 +15,9 @@
       <%- end -%>
     <%- end -%>
   </ul>
-  
+
   <div id="results">
-    
+
     <%- for provider in registered_search_providers -%>
       <%- provider_stem = search_provider_stem(provider) -%>
       <div id="results-<%= provider_stem %>">
@@ -25,7 +25,7 @@
           <% if @results.size == 0 -%>
             <p><%= t('views.contributions.search.no_matches') %></p>
           <% else -%>
-            <div id="results-items">
+            <div id="results-items" class="with-overlay">
               <%=
               render :partial => 'search/results',
                 :locals => {
@@ -34,17 +34,18 @@
                   :term => @term
                 }
               %>
+              <div class="results-items-overlay"><div class="results-items-spinner"></div></div>
             </div>
-            
+
             <div id="results-facets">
               <%= render :partial => 'search/facets', :object => @facets, :locals => { :query => @query, :provider => provider } %>
             </div>
-            
+
           <% end -%>
         <%- end -%>
       </div>
     <%- end -%>
-  
+
   </div>
-  
+
 </div>
