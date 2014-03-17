@@ -7,25 +7,41 @@
 	$facet_section_h3s = $('.facet-section h3'),
 	$facet_section_links = $('.facet-section a'),
 	$filter_section_links = $('.filter-section a'),
+	$results = $('#results'),
 	$results_items = $('#results-items'),
 	$results_items_overlay = $('.results-items-overlay'),
 	$results_tabs = $('#results-tabs a'),
 	$facet_form = $('#results-facets').find('form'),
+
+	scrollToTop = function() {
+		$('body').animate({scrollTop:0}, 500, 'swing');
+	},
+
+	closeResults = function() {
+
+	},
 
 	/**
 	 * @param {object} jQuery Event object
 	 */
 	closeResultItems = function( evt ) {
 		var $elm = $(this);
-		evt.preventDefault();
 
+		evt.preventDefault();
+		scrollToTop();
+		
 		$results_items.slideToggle( function() {
 			$results_items
 				.html('<div class="results-items-spinner"></div>')
 				.fadeIn( function() {
 					switch ( evt.type ) {
-						case 'click': window.location = $elm.attr('href'); break;
-						case 'submit': $facet_form.off('submit'); $facet_form.submit(); break;
+						case 'click':
+							window.location = $elm.attr('href');
+							break;
+						case 'submit':
+							$facet_form.off('submit');
+							$facet_form.submit();
+							break;
 					}
 				});
 		});
@@ -127,6 +143,7 @@
 		addFilterLinksListener();
 		addResultsTabsListener();
 		addFacetFormListener();
+		scrollToTop();
 		addMasonry();
 	};
 

@@ -2,50 +2,44 @@
   provide :title, t('views.contributions.search.heading')
   provide :javascripts_page, 'search'
 %>
-
-
 <div class="section search top">
 
   <h2 class="search-results-title"><%= yield :title %></h2>
 
   <ul id="results-tabs">
-    <%- for provider in registered_search_providers -%>
-      <%- if provider_stem = search_provider_stem(provider) -%>
+    <% for provider in registered_search_providers -%>
+      <% if provider_stem = search_provider_stem(provider) -%>
         <li><%= link_to search_provider_name(provider), search_provider_href(provider), :id => "results-tab-#{provider_stem}", :'data-search-action' => search_provider_href(provider), :'data-content-id' => "#results-#{provider_stem}", :'data-hash' => "##{provider_stem}", :class => (provider_stem == current_search_provider_stem ? 'active' : '') %></li>
-      <%- end -%>
-    <%- end -%>
+      <% end -%>
+    <% end -%>
   </ul>
 
   <div id="results">
 
-    <%- for provider in registered_search_providers -%>
-      <%- provider_stem = search_provider_stem(provider) -%>
+    <% for provider in registered_search_providers -%>
+      <% provider_stem = search_provider_stem(provider) -%>
       <div id="results-<%= provider_stem %>">
-        <%- if provider_stem == current_search_provider_stem -%>
-          <% if @results.size == 0 -%>
-            <p><%= t('views.contributions.search.no_matches') %></p>
-          <% else -%>
-            <div id="results-items" class="with-overlay">
+        <% if provider_stem == current_search_provider_stem -%>
+          <div id="results-items" class="with-overlay">
+            <% if @results.size == 0 -%>
+              <p class="no-matches"><%= t('views.contributions.search.no_matches') %></p>
+            <% else -%>
               <%=
-              render :partial => 'search/results',
+                render :partial => 'search/results',
                 :locals => {
                   :results => @results,
                   :query => @query,
                   :term => @term
                 }
               %>
-              <div class="results-items-overlay"><div class="results-items-spinner"></div></div>
-            </div>
-
+            <% end -%>
+            <div class="results-items-overlay"><div class="results-items-spinner"></div></div>
+          </div>
             <div id="results-facets">
               <%= render :partial => 'search/facets', :object => @facets, :locals => { :query => @query, :provider => provider } %>
             </div>
-
-          <% end -%>
-        <%- end -%>
+        <% end -%>
       </div>
-    <%- end -%>
-
+    <% end -%>
   </div>
-
 </div>
