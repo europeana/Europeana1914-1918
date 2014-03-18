@@ -55,10 +55,11 @@
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
-								html += '<a href="' + edmIsShownAt + '" target="_blank">'
-								html += t('formtastic.labels.content.metadata.edm.external_partner_site')
-
- 								html += '</a>'
+								html += link_to(
+													t('formtastic.labels.content.metadata.edm.external_partner_site'),
+													edmIsShownAt,
+													:target => '_blank'
+												)
 							html += '</div>'
 						html += '</div>'
 
@@ -66,7 +67,12 @@
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
-								html += t('formtastic.labels.content.metadata.edm.partner_site') + '<a href="' + edmIsShownAt + '" target="_blank">' + ': ' + readLabel + '</a>'
+								html += t('formtastic.labels.content.metadata.edm.partner_site') +
+								html += link_to(
+													': ' + readLabel,
+													edmIsShownAt,
+													:target => '_blank'
+												)
 							html += '</div>'
 						html += '</div>'
 					end
