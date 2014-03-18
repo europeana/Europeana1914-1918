@@ -19,7 +19,11 @@
 -%>
 <% if show_title -%>
   <dt class="translate"><b><%= t('attributes.title') %>:</b></dt>
-  <dd class="translate"><%= contribution_title(contribution) %></dd>
+  <%- if metadata.for_attachment? && metadata.attachment.title.present? -%>
+    <dd class="translate"><%= metadata.attachment.title %></dd>
+  <%- else -%>
+    <dd class="translate"><%= contribution_title(contribution) %></dd>
+  <%- end -%>
 <% end -%>
 <% unless fields.blank? || metadata.blank? -%>
   <%- fields.each do |field| -%>
