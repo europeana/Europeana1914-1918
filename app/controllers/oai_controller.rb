@@ -19,6 +19,6 @@ protected
     Europeana::OAI::Provider.prefix = 'oai:' + request.host
     Europeana::OAI::Provider.name = RunCoCo.configuration.site_name
     Europeana::OAI::Provider.email = Devise.mailer_sender
-    Europeana::OAI::Provider.model = Europeana::OAI::ActiveRecordWrapper.new(OAIRecord, { :limit => 100 })
+    Europeana::OAI::Provider.model = Europeana::OAI::ContributionWrapper.new({ :limit => 100 })
   end
 end

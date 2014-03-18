@@ -29,10 +29,14 @@ module ContributionSearch
             
             integer :contributor_id
             integer :metadata_record_id
-            integer :current_status
+            string  :current_status do
+              current_status.status
+            end
             
             time    :created_at
-            time    :status_timestamp
+            time    :status_timestamp do
+              updated_at
+            end
             
             integer :tag_ids, :multiple => true
             text :tags do
@@ -105,9 +109,9 @@ module ContributionSearch
         solr_search do
           unless set.nil?
             if set == :published
-              with :current_status, ContributionStatus.published
+              with :current_status, Contribution.published_status
             else
-              with :current_status, ContributionStatus.const_get(set.to_s.upcase)
+              with :current_status, set.to_s
             end
           end
           

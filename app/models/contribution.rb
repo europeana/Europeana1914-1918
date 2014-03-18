@@ -61,7 +61,7 @@ class Contribution < ActiveRecord::Base
     end
   end
   
-  has_many :statuses, :class_name => 'ContributionStatus', :dependent => :destroy, :order => 'created_at ASC'
+  has_record_statuses :draft, :submitted, :approved, :rejected, :revised, :withdrawn
   
   accepts_nested_attributes_for :metadata
 
@@ -82,7 +82,7 @@ class Contribution < ActiveRecord::Base
   # Trigger syncing of public status of attachments to contribution's
   # published status.
   after_save :if => :current_status_changed? do |c|
-    was_published = ContributionStatus.published.include?(current_status_was)
+    was_published = self.class.published_status.include?(current_status_was)
     unless was_published == published?
       c.attachments.each do |a|
         a.set_public
@@ -96,7 +96,27 @@ class Contribution < ActiveRecord::Base
   @@per_page = 20
 
   def self.published
-    where(:current_status => ContributionStatus.published)
+    with_status(published_status)
+  end
+  
+  ##
+  # Returns the status code(s) indicating that a contribution is published on this
+  # installation of RunCoCo.
+  #
+  # The return value(s) will vary depending on the values of the configuration
+  # settings {RunCoCo.configuration.publish_contributions} and 
+  # {RunCoCo.configuration.contribution_approval_required}.
+  #
+  # @return [Array<Symbol>] Status codes for published contributions
+  #
+  def self.published_status
+    if !RunCoCo.configuration.publish_contributions
+      [ nil ] # i.e. never
+    elsif RunCoCo.configuration.contribution_approval_required
+      [ :approved ]
+    else
+      [ :submitted, :approved ]
+    end
   end
 
   def contact
@@ -110,52 +130,23 @@ class Contribution < ActiveRecord::Base
   ##
   # Returns a symbol representing this contribution's current status
   #
-  # @return [Symbol] (see ContributionStatus#to_sym)
+  # @return [Symbol] (see RecordStatus#to_sym)
   #
   def status
-    current_status.nil? ? nil : ContributionStatus.to_sym(current_status)
-  end
-
-  ##
-  # Changes the contribution's current status to that specified
-  #
-  # Creates a new ContributionStatus record.
-  #
-  # If the status param is a symbol, is should be one of those returned by 
-  # {ContributionStatus#to_sym}. If it is an integer, is should be one of the
-  # status constants defined in ContributionStatus, e.g. 
-  # {ContributionStatus::SUBMITTED}.
-  #
-  # @param [Symbol,Integer] The status to change this contribution to.
-  #
-  def change_status_to(status, user_id = nil)
-    if status.is_a?(Symbol)
-      status = ContributionStatus.const_get(status.to_s.upcase)
-    end
-    user_id ||= contributor_id
-
-    status_record = ContributionStatus.create(:contribution_id => id, :user_id => user_id, :status => status)
-    if status_record.id.present?
-      self.current_status = status_record.status
-      self.status_timestamp = status_record.created_at
-      save
-    else
-      false
-    end
+    current_status.nil? ? nil : current_status.to_sym
   end
 
   ##
   # Submits the contribution for approval.
   #
-  # Creates a {ContributionStatus} record with status = 
-  # {ContributionStatus::SUBMITTED}.
+  # Creates a {RecordStatus} record with status = 'submitted'
   #
-  # @return [Boolean] True if {ContributionStatus} record saved.
+  # @return [Boolean] True if {RecordStatus} record saved.
   #
   def submit
     @submitting = true
     if valid?
-      change_status_to(:submitted)
+      change_status_to(:submitted, contributor_id)
     else
       false
     end
@@ -212,7 +203,7 @@ class Contribution < ActiveRecord::Base
   end
   
   def published?
-    ContributionStatus.published.include?(current_status)
+    self.class.published_status.include?(current_status.to_sym)
   end
   
   def validate_contributor_or_contact
@@ -274,7 +265,7 @@ class Contribution < ActiveRecord::Base
       end
     end
     
-    query = Contribution.where(:current_status => ContributionStatus.published)
+    query = Contribution.published
     
     if options[:start_date].present?
       query = query.where("status_timestamp >= ?", options[:start_date])
@@ -338,6 +329,13 @@ class Contribution < ActiveRecord::Base
     end
   end
   
+  def oai_record
+    unless @oai_record.present?
+      @oai_record = Europeana::OAI::Record.new(self)
+    end
+    @oai_record
+  end
+  
 protected
 
   def build_metadata_unless_present
@@ -345,11 +343,10 @@ protected
   end
   
   ##
-  # Creates a {ContributionStatus} record with status = 
-  # {ContributionStatus::DRAFT}
+  # Creates a {RecrdStatus} record with status = 'draft'
   #
   def set_draft_status
-    change_status_to(:draft)
+    change_status_to(:draft, contributor_id)
   end
 end
 

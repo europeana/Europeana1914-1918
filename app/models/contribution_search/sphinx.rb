@@ -38,8 +38,8 @@ module ContributionSearch
         define_index_str << "  has contributor_id\n"
         define_index_str << "  has metadata_record_id\n"
         define_index_str << "  has created_at\n"
-        define_index_str << "  has current_status, :as => :status\n"
-        define_index_str << "  has status_timestamp\n"
+        define_index_str << "  has CRC32(current_status.status), :as => :status, :type => :integer\n"
+        define_index_str << "  has updated_at, :as => status_timestamp\n"
 
         # Index all searchable taxonomy terms at once, on a single join
         define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
@@ -90,9 +90,9 @@ module ContributionSearch
         
         unless set.nil?
           status_option = if (set == :published)
-            { :with => { :status => ContributionStatus.published } }
+            { :with => { :status => Contribution.published_status.collect(&:to_s).collect(&:to_crc32) } }
           else
-            { :with => { :status => ContributionStatus.const_get(set.to_s.upcase) } }
+            { :with => { :status => set.to_s.to_crc32 } }
           end
           options.merge!(status_option)
         end

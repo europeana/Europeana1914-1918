@@ -16,12 +16,14 @@ module ContributionsHelper
       raw(I18n.t('views.contributions.status.submitted'))
     when :approved
       if contribution.statuses.last.user.present? && current_user.may_approve_contributions?
+        approver_name = contribution.statuses.last.user.contact.full_name
+        approver_name = t('activerecord.models.user') + ' ' + contribution.statuses.last.user.id.to_s unless approver_name.present?
         if current_user.may_administer_users?
-          link = link_to(contribution.statuses.last.user.contact.full_name, admin_user_path(contribution.statuses.last.user))
+          link = link_to(approver_name, admin_user_path(contribution.statuses.last.user))
           raw(I18n.t('views.contributions.status.approved_by', :name => link))
         else
-          raw(I18n.t('views.contributions.status.approved_by', :name => contribution.statuses.last.user.contact.full_name))
-        end      
+          raw(I18n.t('views.contributions.status.approved_by', :name => approver_name))
+        end
       else
         raw(I18n.t('views.contributions.status.approved'))
       end

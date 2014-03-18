@@ -106,7 +106,7 @@ class Attachment < ActiveRecord::Base
   attr_accessor :dropbox_path
 
   def self.published
-    includes(:contribution).where('contributions.current_status' => ContributionStatus.published)
+    joins("INNER JOIN contributions ON attachments.contribution_id=contributions.id INNER JOIN (SELECT record_id, status FROM record_statuses WHERE record_type='Contribution' AND id=(SELECT id FROM record_statuses record_statuses_sub WHERE record_statuses_sub.record_id=record_statuses.record_id ORDER BY record_statuses_sub.created_at DESC LIMIT 1)) current_status ON contributions.id=current_status.record_id").where([ "current_status.status IN (?)", Contribution.published_status ])
   end
 
   ##

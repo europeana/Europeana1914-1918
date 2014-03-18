@@ -83,8 +83,8 @@ class EuropeanaRecord < ActiveRecord::Base
     end
     
     # Harvested Europeana records are always "approved"
-    integer :current_status do
-      ContributionStatus::APPROVED
+    string :current_status do
+      'approved'
     end
     
     integer :contributor_id do

@@ -384,7 +384,7 @@ class ContributionsController < ApplicationController
   # PUT /contributions/:id/withdraw
   def set_withdrawn
     current_user.may_withdraw_contribution!(@contribution)
-    if @contribution.change_status_to(:withdrawn)
+    if @contribution.change_status_to(:withdrawn, current_user.id)
       flash[:notice] = t('flash.contributions.withdraw.notice')
       redirect_to contributor_dashboard_url
     else

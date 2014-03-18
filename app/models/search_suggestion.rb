@@ -141,7 +141,7 @@ class SearchSuggestion < ActiveRecord::Base
       { :metadata => :taxonomy_terms }, 
       { :contributor => :contact }
     ]
-    Contribution.includes(includes).where(:current_status => ContributionStatus.published).find_each do |contribution|
+    Contribution.published.includes(includes).find_each do |contribution|
       phrases = [ ]
       phrases << contribution.title
       phrases << contribution.metadata.fields['alternative']

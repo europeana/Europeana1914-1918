@@ -36,23 +36,22 @@ module ContributionSearch
         
         options = options.dup
         
-        set_where = if set.nil?
-          1
-        elsif set == :published
-          [ 'current_status IN (?)', ContributionStatus.published ]
-        else
-          [ 'current_status=?', ContributionStatus.const_get(set.to_s.upcase) ]
+        ar_query = self
+        
+        if set == :published
+          ar_query = ar_query.published
+        elsif !set.nil?
+          ar_query = ar_query.with_status(set)
         end
         
-        query_where = if query.blank?
-          nil
-        elsif query.is_a?(Hash)
+        if query.is_a?(Hash)
           query_translations = query.dup
           query_translations[I18n.locale] = query_translations[I18n.locale].add_quote_marks('%')
           query_translations = query_translations.values.uniq
-          [ query_translations.collect { |qt| 'title LIKE ?' }.join(' OR ') ] + query_translations
-        else
-          [ 'title LIKE ?', query.add_quote_marks('%') ]
+          query_where = [ query_translations.collect { |qt| 'title LIKE ?' }.join(' OR ') ] + query_translations
+          ar_query = ar_query.where(query_where)
+        elsif query.present?
+          ar_query = ar_query.where([ 'title LIKE ?', query.add_quote_marks('%') ])
         end
         
         metadata_joins = []
@@ -72,16 +71,18 @@ module ContributionSearch
           order = (order.present? && [ 'DESC', 'ASC' ].include?(order.upcase)) ? order : 'ASC'
           
           sort_order = "#{sort_col} #{order}"
+        elsif set == :submitted
+          sort_order = 'updated_at ASC'
         else
-          if set == :submitted
-            options[:order] = 'status_timestamp ASC'
-          else
-            options[:order] = 'status_timestamp DESC'
-          end
+          sort_order = 'updated_at DESC'
         end
         
+        ar_query = ar_query.order(sort_order)
+        
         contributor_id = options.delete(:contributor_id)
-        contributor_where = contributor_id.present? ? { :contributor_id => contributor_id } : nil
+        if contributor_id.present?
+          ar_query = ar_query.where({ :contributor_id => contributor_id })
+        end
         
         taxonomy_term = options.delete(:taxonomy_term)
         if taxonomy_term.present?
@@ -92,20 +93,17 @@ module ContributionSearch
           else
             taxonomy_term_where = { "taxonomy_terms.id" => taxonomy_term.id }
           end
-        else
-          taxonomy_term_where = nil
+          ar_query = ar_query.where(taxonomy_term_where)
         end
         
         if tag = options.delete(:tag)
           joins << :tags
-          tag_where = { "tags.id" => tag.id }
-        else
-          tag_where = nil
+          ar_query = ar_query.where({ "tags.id" => tag.id })
         end
         
         joins << { :metadata => metadata_joins }
         
-        results = joins(joins).where(set_where).where(query_where).where(contributor_where).where(taxonomy_term_where).where(tag_where).order(sort_order)
+        results = ar_query.joins(joins)
           
         if options.has_key?(:page)
           pagination_options = options.select { |k,v| [ :page, :per_page, :count, :total_entries ].include?(k) }
