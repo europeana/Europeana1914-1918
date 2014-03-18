@@ -20,14 +20,17 @@ module SearchHelper
     query_string.sub!(/(?<=\A|\?|&)page=[^\Z&]*/, 'page=1')
     html_options['data-value'] ||= "&qf[#{facet_name}][]=#{row_value}"
 
-    if facet_is_single_select?(facet_name)
+    if facet_name == 'index' && controller.controller_name == 'collection'
+      # Switching index, so remove all facets
+      query_string.gsub!(/(\A|&)qf%5B.*?%5D(%5B%5D)?=[^\Z&]*/, '')
+      query_string.gsub!(/(\A|&)qf\[.*?\](\[\])?=[^\Z&]*/, '')
+      query_string << '&' << CGI.escape("qf[#{facet_name}]") << '=' << CGI.escape(row_value)
+    elsif facet_is_single_select?(facet_name)
       query_string.gsub!(/(\A|&)qf%5B#{facet_name}%5D(%5B%5D)?=[^\Z&]*/, '')
       query_string.gsub!(/(\A|&)qf\[#{facet_name}\](\[\])?=[^\Z&]*/, '')
       query_string << '&' << CGI.escape("qf[#{facet_name}]") << '=' << CGI.escape(row_value)
-    else
-      if !facet_row_selected?(facet_name, row_value)
-        query_string << '&' << CGI.escape("qf[#{facet_name}][]") << '=' << CGI.escape(row_value)
-      end
+    elsif !facet_row_selected?(facet_name, row_value)
+      query_string << '&' << CGI.escape("qf[#{facet_name}][]") << '=' << CGI.escape(row_value)
     end
     
     query_string.sub!(/\A&/, '')
