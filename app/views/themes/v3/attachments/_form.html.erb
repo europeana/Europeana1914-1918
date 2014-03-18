@@ -111,7 +111,7 @@
   
   <%= form.buttons :style => @fieldset_style do %>
     <%= redirect_field %>
-    <%= form.commit_button :label => 'Save' %>
+    <%= form.commit_button :label => t('actions.save'), :button_html => { :id => "attachment_submit" } %>
     <%= link_to t('actions.cancel'), contributor_dashboard_path %>
   <% end %>
   
