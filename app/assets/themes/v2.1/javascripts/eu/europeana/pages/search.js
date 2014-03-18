@@ -7,29 +7,36 @@
 	$facet_section_h3s = $('.facet-section h3'),
 	$facet_section_links = $('.facet-section a'),
 	$filter_section_links = $('.filter-section a'),
-	$results = $('#results'),
 	$results_items = $('#results-items'),
 	$results_items_overlay = $('.results-items-overlay'),
 	$results_tabs = $('#results-tabs a'),
 	$facet_form = $('#results-facets').find('form'),
 
-	scrollToTop = function() {
-		$('body').animate({scrollTop:0}, 500, 'swing');
-	},
-
-	closeResults = function() {
-
+	/**
+	 * @param {function} callback
+	 */
+	scrollToTop = function( callback ) {
+		$('body').animate(
+			{scrollTop:0},
+			500,
+			'swing',
+			function() {
+				if ( typeof callback === 'function' ) {
+					callback();
+				}
+			}
+		);
 	},
 
 	/**
-	 * @param {object} jQuery Event object
+	 * @param {object} evt jQuery Event object
 	 */
 	closeResultItems = function( evt ) {
 		var $elm = $(this);
 
 		evt.preventDefault();
 		scrollToTop();
-		
+
 		$results_items.slideToggle( function() {
 			$results_items
 				.html('<div class="results-items-spinner"></div>')
@@ -67,7 +74,7 @@
 	},
 
 	/**
-	 * @param {object} jQuery Event object
+	 * @param {object} evt jQuery Event object
 	 */
 	handleFacetLinkClick = function ( evt ) {
 		$(this).closest('ul').prev().trigger('click');
@@ -86,7 +93,7 @@
 	},
 
 	/**
-	 * @param {object} jQuery Event object
+	 * @param {object} evt jQuery Event object
 	 */
 	handleFilterLinkClick = function( evt ) {
 		$(this).closest('ul').slideToggle();
@@ -109,7 +116,7 @@
 	 * assumes there is only one input field with the name qf[q][]
 	 * used to add keywords
 	 *
-	 * @param {object} jQuery Event object
+	 * @param {object} evt jQuery Event object
 	 */
 	handleFacetFormListener = function( evt ) {
 		$facet_form.find('input[name="qf[q][]"]').closest('ul').prev().trigger('click');
@@ -117,12 +124,24 @@
 	},
 
 	addFacetFormListener = function() {
-		$facet_form.on('submit', handleFacetFormListener );
+		$facet_form.on('submit', handleFacetFormListener);
 	},
 
 	removeLoadingOverlay = function() {
 		$results_items_overlay.fadeOut();
 		$results_items.removeClass('with-overlay');
+	},
+
+	/**
+	 * @param {object} evt jQuery Event object
+	 */
+	handleResultItemClick = function( evt ) {
+		var self = this;
+		evt.preventDefault();
+
+		scrollToTop(function() {
+			closeResultItems.call( self, evt );
+		});
 	},
 
 	addMasonry = function() {
@@ -133,7 +152,12 @@
 				isAnimated : true,
 				gutterWidth: 21
 			});
+
 			removeLoadingOverlay();
+
+			$results_items.find('a').each( function() {
+				$(this).on('click', handleResultItemClick);
+			});
 		});
 	},
 
