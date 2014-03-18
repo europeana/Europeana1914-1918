@@ -31,12 +31,16 @@ module EuropeanaHelper
   #
   # @param [Hash,Array<Hash>] proxy Proxy object(s) from an EDM record
   # @param [String] field_name Name of the field to retrieve
+  # @param [Hash] options Options for formatting the field
+  # @option options [Boolean] :link If true, format URLs as links
   # @return [String] Value to display for the field
   # @todo Add some validation to proxy param to aid debugging
   #
-  def edm_proxy_field(proxy, field_name)
+  def edm_proxy_field(proxy, field_name, options = {})
     return nil unless proxy.is_a?(Array) ||
       (proxy.respond_to?(:has_key?) && proxy.has_key?(field_name))
+    
+    options.reverse_merge!({:link => true})
     
     proxy_field_values = if proxy.is_a?(Array)
       proxy.collect { |one_proxy| edm_proxy_field(one_proxy, field_name) }
@@ -49,7 +53,7 @@ module EuropeanaHelper
     end.flatten
     
     proxy_field_values.reject!(&:blank?)
-    proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) }
+    proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) } if options[:link]
     proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
   end
   
