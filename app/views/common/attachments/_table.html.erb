@@ -33,7 +33,7 @@ end
           <%- elsif attachment.file.present? -%>
             <td><%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.has_thumbnail?(:preview) ? "prettyPhoto[gal]" : nil) %></td>
           <% else %>
-            <td><img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" /></td>
+            <td><%= image_tag('style/icons/mimetypes/unknown.png', :alt => t('media_types.unknown')) %></td>
           <%- end -%>
           <td><%= attachment.title %></td>
           <td><%= number_to_human_size(attachment.file.size, :precision => 2) %></td>
@@ -60,4 +60,3 @@ end
     <%- end %>
   </table>
 <% end %>
-

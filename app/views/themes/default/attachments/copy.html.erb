@@ -24,7 +24,7 @@
             <%- if attachment.file.present? -%>
               <%= link_to attachment_preview(attachment), attachment.file.url, :class => 'preview', :rel => (attachment.image? ? "prettyPhoto[gal]" : nil) %>
             <% else %>
-              <img src="/images/style/icons/mimetypes/unknown.png" alt="<%= t('media_types.unknown') %>" />
+              <%= image_tag('style/icons/mimetypes/unknown.png', :alt => t('media_types.unknown')) %>
             <%- end -%>
           </td>
           <td><%= attachment.title %></td>
