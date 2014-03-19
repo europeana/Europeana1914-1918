@@ -18,7 +18,7 @@ module RunCoCo
         end
         
         self.send :define_singleton_method, :with_status do |status|
-          joins("INNER JOIN (SELECT record_id, status FROM record_statuses WHERE record_type='#{self.base_class.to_s}' AND id=(SELECT id FROM record_statuses record_statuses_sub WHERE record_statuses_sub.record_id=record_statuses.record_id ORDER BY record_statuses_sub.created_at DESC LIMIT 1)) current_status ON #{self.base_class.table_name}.id=current_status.record_id").where([ "current_status.status IN (?)", [ status ].flatten ])
+          joins("INNER JOIN (SELECT record_id, status FROM record_statuses WHERE id=(SELECT id FROM record_statuses record_statuses_sub WHERE record_type='#{self.base_class.to_s}' AND record_statuses_sub.record_id=record_statuses.record_id ORDER BY record_statuses_sub.created_at DESC LIMIT 1)) current_status ON #{self.base_class.table_name}.id=current_status.record_id").where([ "current_status.status IN (?)", [ status ].flatten ])
         end
         
         ##
