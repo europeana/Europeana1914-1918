@@ -10,9 +10,10 @@ namespace :cache do
     end
   end
 
-  namespace :assets do
+  namespace :clear do
+
     desc "Clears cached minified CSS and JS assets."
-    task :clear => :environment do
+    task :assets => :environment do
       [
         File.join(Rails.root, 'public', 'cache', 'javascripts', '*.js'),
         File.join(Rails.root, 'public', 'cache', 'stylesheets', '*.css')
@@ -24,19 +25,15 @@ namespace :cache do
         end
       end
     end
-  end
-  
-  namespace :europeana do
+
     desc "Clears cached Europeana API data."
-    task :clear => :environment do
+    task :europeana => :environment do
       puts "Clearing cached Europeana API data...\n"
       ActionController::Base.new.expire_fragment(/^views\/europeana\//)
     end
-  end
   
-  namespace :federated do
     desc "Clears cached federated search API data. Limit to one provider with PROVIDER=name."
-    task :clear => :environment do
+    task :federated => :environment do
       if provider = ENV['PROVIDER']
         known_providers = [ 'canadiana', 'digitalnz', 'dpla', 'trove' ]
         unless known_providers.include?(provider)
@@ -51,19 +48,15 @@ namespace :cache do
       fragment_pattern << "#{provider}/" unless provider.blank?
       ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
     end
-  end
     
-  namespace :bing_translate do
     desc "Clears cached Bing Translate API results."
-    task :clear => :environment do
+    task :bing_translate => :environment do
       puts "Clearing cached Bing Translate API results...\n"
       ActionController::Base.new.expire_fragment(/^views\/bing\//)
     end
-  end
   
-  namespace :search_results do
     desc "Clears cached rendered search results. Limit to one provider with PROVIDER=name."
-    task :clear => :environment do
+    task :search_results => :environment do
       if provider = ENV['PROVIDER']
         known_providers = [ 'contributions', 'europeana', 'canadiana', 'digitalnz', 'dpla', 'trove' ]
         unless known_providers.include?(provider)
@@ -75,26 +68,39 @@ namespace :cache do
         puts "Clearing cached rendered search results...\n"
       end
       I18n.available_locales.each do |locale|
-        [ "v2", "v2.1", "v3" ].each do |theme|
+        [ "v2.1", "v3" ].each do |theme|
           fragment_pattern = "^views/#{theme}/#{locale}/search/result/"
           fragment_pattern << "#{provider}/" unless provider.blank?
           ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
         end
       end
     end
-  end
+    
+    namespace :europeana_records do
+      desc "Clears cached EuropeanaRecord search result partials. Limit to one theme with THEME=name."
+      task :search_results => :environment do
+        themes = [ ENV['THEME'] ] || [ "v2.1", "v3" ]
+        EuropeanaRecord.find_in_batches do |batch|
+          batch.each do |er|
+            themes.each do |theme|
+              I18n.available_locales.each do |locale|
+                fragment_key =  "#{theme}/#{locale.to_s}/search/result/collection" + er.record_id.to_s
+                ActionController::Base.new.expire_fragment(fragment_key)
+              end
+            end
+          end
+        end
+      end
+    end
   
-  namespace :oembed do
     desc "Clears cached oEmbed responses."
-    task :clear => :environment do
+    task :oembed => :environment do
       puts "Clearing cached oEmbed responses...\n"
       ActionController::Base.new.expire_fragment(/^views\/oembed\/response\//)
     end
-  end
   
-  namespace :google_analytics do
     desc "Clears cached Google Analytics API results."
-    task :clear => :environment do
+    task :google_analytics => :environment do
       puts "Clearing cached Google Analytics API results...\n"
       ActionController::Base.new.expire_fragment(/^views\/google\/api\/analytics\/results$/)
     end
