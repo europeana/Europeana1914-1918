@@ -101,6 +101,7 @@ class TagsController < ApplicationController
     current_user.may_untag_contribution!(@contribution, @tag)
     
     @contribution.taggings.select { |tagging| tagging.tag == @tag }.each { |tagging| tagging.destroy }
+    @contribution.tags(:reload => true)
     
     respond_to do |format|
       format.html do

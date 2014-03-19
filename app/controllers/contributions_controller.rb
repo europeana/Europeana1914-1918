@@ -140,7 +140,7 @@ class ContributionsController < ApplicationController
       @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3)
     end
     
-    @tags = @contribution.tags
+    @tags = @contribution.taggings.with_status(:published).where(:context => 'tags').collect(&:tag)
     
     respond_to do |format|
       format.json { render :json => cached(@contribution, :json) }
