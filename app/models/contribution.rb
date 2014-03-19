@@ -79,18 +79,6 @@ class Contribution < ActiveRecord::Base
   
   after_initialize :build_metadata_unless_present
 
-  # Trigger syncing of public status of attachments to contribution's
-  # published status.
-  after_save :if => :current_status_changed? do |c|
-    was_published = self.class.published_status.include?(current_status_was)
-    unless was_published == published?
-      c.attachments.each do |a|
-        a.set_public
-        a.save
-      end
-    end
-  end
-
   # Number of contributions to show per page when paginating
   cattr_reader :per_page
   @@per_page = 20
@@ -334,6 +322,26 @@ class Contribution < ActiveRecord::Base
       @oai_record = Europeana::OAI::Record.new(self)
     end
     @oai_record
+  end
+  
+  ##
+  # Triggers syncing of public status of attachments to contribution's
+  # published status.
+  #
+  # @see RunCoCo::HasRecordStatuses#change_status_to
+  #
+  def change_status_to(status, user_id)
+    was_published = self.class.published_status.include?(current_status)
+    will_be_published = self.class.published_status.include?(status)
+    
+    super(status, user_id)
+    
+    unless was_published == will_be_published
+      c.attachments.each do |a|
+        a.set_public
+        a.save
+      end
+    end
   end
   
 protected
