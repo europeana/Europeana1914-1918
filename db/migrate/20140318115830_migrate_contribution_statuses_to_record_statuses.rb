@@ -31,7 +31,7 @@ class MigrateContributionStatusesToRecordStatuses < ActiveRecord::Migration
 
   def down
     print "Destroying RecordStatus records with record_type='Contribution'... "
-    RecordStatus.destroy_all("record_type = 'MigrateContributionStatusesToRecordStatuses::Contribution'")
+    RecordStatus.destroy_all("record_type = 'Contribution'")
     puts "done."
   end
 end
