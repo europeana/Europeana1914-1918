@@ -526,11 +526,14 @@ protected
         edm = result.edm.as_result
       else
         edm = result.to_edm_result
-        id_parts = edm['id'].split('/')
-        edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
       end
 
       write_fragment(cache_key, edm.to_yaml)
+    end
+    
+    if result.is_a?(EuropeanaRecord)
+      id_parts = edm['id'].split('/')
+      edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
     end
     
     edm
