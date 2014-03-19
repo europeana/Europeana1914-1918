@@ -9,8 +9,9 @@ class TagsController < ApplicationController
   def index
     respond_to do |format|
       format.json do 
+        tags = @contribution.taggings.with_status(:published).where(:context => 'tags').collect(&:tag).collect(&:name)
         render :json => { 
-          "tags" => @contribution.tags.collect(&:name),
+          "tags" => tags,
           "contrib_path" => contribution_path(@contribution),
           "tConfirm" => t('actions.delete'),
           "tDelete" => t('views.tags.delete.question')
@@ -72,7 +73,7 @@ class TagsController < ApplicationController
       current_user.tag(tagging, :with => "inappropriate", :on => :flags)
       
       if tagging.flags(:reload => true).size >= 3
-        tagging.destroy
+        tagging.change_status_to(:unpublished)
       end
     end
     
@@ -92,15 +93,14 @@ class TagsController < ApplicationController
   
   # GET /:locale/contributions/:contribution_id/tags/:id/:delete(.:format)
   def delete
-    current_user.may_untag_contribution!(@tag)
+    current_user.may_untag_contribution!(@contribution, @tag)
   end
   
   # DELETE /:locale/contributions/:contribution_id/tags/:id(.:format)
   def destroy
-    current_user.may_untag_contribution!(@tag)
+    current_user.may_untag_contribution!(@contribution, @tag)
     
-    @tag.taggings.each(&:destroy)
-    @contribution.tags(:reload => true)
+    @contribution.taggings.select { |tagging| tagging.tag == @tag }.each { |tagging| tagging.destroy }
     
     respond_to do |format|
       format.html do
