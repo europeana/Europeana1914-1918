@@ -79,8 +79,9 @@ namespace :cache do
     namespace :europeana_records do
       desc "Clears cached EuropeanaRecord search result partials. Limit to one theme with THEME=name."
       task :search_results => :environment do
+        puts "Clearing cached EuropeanaRecord search result partials...\n"
         themes = [ ENV['THEME'] ] || [ "v2.1", "v3" ]
-        EuropeanaRecord.find_in_batches do |batch|
+        EuropeanaRecord.select("id, record_id").find_in_batches do |batch|
           batch.each do |er|
             themes.each do |theme|
               I18n.available_locales.each do |locale|
