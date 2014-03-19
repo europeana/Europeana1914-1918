@@ -1,4 +1,3 @@
-require 'runcoco/active_record'
 require 'runcoco/active_support'
 require 'runcoco/core_ext'
 require 'runcoco/devise'
@@ -12,6 +11,7 @@ module RunCoCo
   autoload :Configuration,                'runcoco/configuration'
   autoload :Dropbox,                      'runcoco/dropbox'
   autoload :FlashSessionCookieMiddleware, 'runcoco/flash_session_cookie_middleware'
+  autoload :HasRecordStatuses,            'runcoco/has_record_statuses'
   autoload :Logger,                       'runcoco/logger'
   autoload :OEmbed,                       'runcoco/oembed'
 
@@ -49,3 +49,5 @@ module RunCoCo
   end
 end
 
+require 'runcoco/active_record'
+require 'runcoco/acts_as_taggable_on/tagging'

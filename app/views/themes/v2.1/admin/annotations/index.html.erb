@@ -15,6 +15,7 @@
           <th scope="col"><%= t 'activerecord.models.attachment' %></th>
           <th scope="col"><%= t 'views.admin.annotations.table.header.text' %></th>
           <th scope="col"><%= t 'views.admin.annotations.table.header.text' %></th>
+          <th scope="col">Status</th>
           <th scope="col"><%= t 'views.table.header.actions' %></th>
         </tr>
       </thead>
@@ -27,6 +28,7 @@
             <td><%= link_to truncate(annotation[:attachment].title.present? ? annotation[:attachment].title : annotation[:attachment].id.to_s, :length => 140, :separator => ' '), contribution_attachment_path(annotation[:contribution], annotation[:attachment]) unless annotation[:attachment].blank? %></td>
             <td><%= truncate annotation[:text], :length => 140, :separator => ' ' %></td>
             <td><%= annotation[:type] %></td>
+            <td><%= annotation[:status] %></td>
             <td><%= link_to t('actions.edit'), annotation[:edit], :class => 'edit-member' %></td>
           </tr>
         <%- end -%>

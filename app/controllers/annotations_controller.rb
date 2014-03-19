@@ -33,7 +33,7 @@ class AnnotationsController < ApplicationController
       @annotation.attachment_id = attachment_id
       @annotation.text = params[:annotation][:text]
       @annotation.save!
-    
+      
       params[:annotation][:shapes].each_value do |shape_params|
         AnnotationShape.new do |annotation_shape|
           annotation_shape.geometry = shape_params[:geometry]
@@ -44,6 +44,7 @@ class AnnotationsController < ApplicationController
       end
       
       @annotation.save!
+      @annotation.change_status_to(:published, current_user.id)
     end
     
     index_contribution

@@ -20,6 +20,7 @@ class Admin::AnnotationsController < AdminController
           :created_at => item.created_at,
           :id => item.id,
           :type => t('activerecord.models.tagging'),
+          :status => item.current_status.status,
           :edit => edit_tagging_path(item, :redirect => admin_annotations_path)
         }
       when Annotation
@@ -31,6 +32,7 @@ class Admin::AnnotationsController < AdminController
           :created_at => item.created_at,
           :id => item.id,
           :type => t('activerecord.models.annotation'),
+          :status => item.current_status.status,
           :edit => edit_annotation_path(item, :redirect => admin_annotations_path)
         }
       end

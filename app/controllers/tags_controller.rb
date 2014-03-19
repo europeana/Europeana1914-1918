@@ -28,6 +28,14 @@ class TagsController < ApplicationController
       user_tags = @contribution.owner_tags_on(current_user, :tags).collect(&:name)
       current_user.tag(@contribution, :with => user_tags + new_tags, :on => :tags)
       
+      @contribution.taggings.each do |tagging|
+        if tagging.context == 'tags'
+          if tagging.current_status.nil?
+            tagging.change_status_to(:published, current_user.id)
+          end
+        end
+      end
+      
       if @contribution.respond_to?(:index!)
         # Force index because change of owned tags are not detected by
         # dirty record checks.
