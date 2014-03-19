@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140318115830) do
+ActiveRecord::Schema.define(:version => 20140319120318) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -68,17 +68,6 @@ ActiveRecord::Schema.define(:version => 20140318115830) do
     t.string   "age",            :limit => 10
   end
 
-  create_table "contribution_statuses", :force => true do |t|
-    t.integer  "contribution_id", :null => false
-    t.integer  "user_id"
-    t.integer  "status",          :null => false
-    t.datetime "created_at"
-  end
-
-  add_index "contribution_statuses", ["contribution_id"], :name => "index_contribution_statuses_on_contribution_id"
-  add_index "contribution_statuses", ["status"], :name => "index_contribution_statuses_on_status"
-  add_index "contribution_statuses", ["user_id"], :name => "index_contribution_statuses_on_user_id"
-
   create_table "contributions", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -88,8 +77,6 @@ ActiveRecord::Schema.define(:version => 20140318115830) do
     t.integer  "guest_id"
     t.boolean  "delta",              :default => true, :null => false
     t.integer  "catalogued_by"
-    t.integer  "current_status"
-    t.datetime "status_timestamp"
   end
 
   add_index "contributions", ["catalogued_by"], :name => "index_contributions_on_catalogued_by"
