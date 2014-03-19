@@ -49,7 +49,7 @@ class CollectionController < SearchController
           query.with(name.to_sym).all_of(criteria)
         end
         
-        query.with :current_status, Contribution.published_status
+        query.with :status, Contribution.published_status
         
         if params[:contributor_id].present?
           query.with :contributor_id, params[:contributor_id]

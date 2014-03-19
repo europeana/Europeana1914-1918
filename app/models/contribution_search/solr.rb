@@ -29,7 +29,7 @@ module ContributionSearch
             
             integer :contributor_id
             integer :metadata_record_id
-            string  :current_status do
+            string  :status do
               current_status.status
             end
             
@@ -109,9 +109,9 @@ module ContributionSearch
         solr_search do
           unless set.nil?
             if set == :published
-              with :current_status, Contribution.published_status
+              with :status, Contribution.published_status
             else
-              with :current_status, set.to_s
+              with :status, set.to_s
             end
           end
           
