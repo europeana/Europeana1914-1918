@@ -42,7 +42,7 @@
 
                         <%- if current_user.may_untag_contribution?(tag) -%>
                         
-                            <%= link_to ('<span class="icon-remove" title="' + t('actions.delete') + '"></span>').html_safe, delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %>
+                            <%= link_to ('<span class="icon-remove" title="' + t('actions.delete') + '"></span>').html_safe, delete_contribution_tag_path(contribution, tag.name), :class => 'delete' %>
                             
                         <%- end -%>
                         
@@ -52,7 +52,7 @@
                                 <ul>
                                     <%- if current_user.may_flag_contribution_tag?(tag) -%>
                                         <li>
-                                            <%= link_to t('actions.flag') + '-flag', flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %>
+                                            <%= link_to t('actions.flag') + '-flag', flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag') %>
                                         </li>
                                     <%- end -%>
                                 </ul>
