@@ -45,8 +45,8 @@ module ContributionSearch
         define_index_str << "  indexes metadata.searchable_taxonomy_terms.term, :as => :taxonomy_terms\n"
         define_index_str << "  has metadata.searchable_taxonomy_terms(:id), :as => :taxonomy_term_ids\n"
         
-        define_index_str << "  indexes tags.name, :as => :tags\n"
-        define_index_str << "  has tags.id, :as => :tag_ids\n"
+        define_index_str << "  indexes visible_tags.name, :as => :tags\n"
+        define_index_str << "  has visible_tags.id, :as => :tag_ids\n"
 
         fields = MetadataField.where('searchable = ? AND field_type <> ?', true, 'taxonomy')
         unless fields.count == 0

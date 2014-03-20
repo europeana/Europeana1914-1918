@@ -38,9 +38,11 @@ module ContributionSearch
               updated_at
             end
             
-            integer :tag_ids, :multiple => true
+            integer :tag_ids, :multiple => true do 
+              visible_tags.collect(&:id)
+            end
             text :tags do
-              tags.collect(&:name)
+              visible_tags.collect(&:name)
             end
             
             text :annotations do

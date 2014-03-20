@@ -351,6 +351,7 @@ class Contribution < ActiveRecord::Base
   # Visible tags are those where the tagging currently has the status:
   # published, flagged or revised
   #
+  # @return [Array<ActsAsTaggableOn::Tag>] Visible tags
   # @see ActsAsTaggableOn
   #
   def visible_tags
