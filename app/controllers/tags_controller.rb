@@ -74,7 +74,7 @@ class TagsController < ApplicationController
       tagging.change_status_to(:flagged, current_user.id)
       
       if tagging.flags(:reload => true).size >= 3
-        tagging.change_status_to(:unpublished, current_user.id)
+        tagging.change_status_to(:depublished, current_user.id)
       end
     end
     
