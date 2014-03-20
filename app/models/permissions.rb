@@ -88,7 +88,7 @@ class Permissions < Aegis::Permissions
   
   action :untag_contribution do
     allow :cataloguer, :contributor do |contribution, tag|
-      contribution.owned_tags_on(user, :tags).include?(tag)
+      contribution.owner_tags_on(user, :tags).include?(tag)
     end
   end
   

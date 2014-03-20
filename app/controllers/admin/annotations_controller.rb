@@ -5,9 +5,11 @@ class Admin::AnnotationsController < AdminController
     page = (params[:page] || 1).to_i
     limit = count * page
     
-    total = ActsAsTaggableOn::Tagging.count + Annotation.count
+    taggings = ActsAsTaggableOn::Tagging.where(:context => 'tags')
     
-    items = ActsAsTaggableOn::Tagging.order('created_at DESC').limit(limit) +
+    total = taggings.count + Annotation.count
+    
+    items = taggings.order('created_at DESC').limit(limit) +
       Annotation.order('created_at DESC').limit(limit)
       
     @annotations = items.collect do |item|
@@ -20,7 +22,7 @@ class Admin::AnnotationsController < AdminController
           :created_at => item.created_at,
           :id => item.id,
           :type => t('activerecord.models.tagging'),
-          :status => item.current_status.status,
+          :status => item.current_status.name,
           :edit => edit_tagging_path(item, :redirect => admin_annotations_path)
         }
       when Annotation
@@ -32,7 +34,7 @@ class Admin::AnnotationsController < AdminController
           :created_at => item.created_at,
           :id => item.id,
           :type => t('activerecord.models.annotation'),
-          :status => item.current_status.status,
+          :status => item.current_status.name,
           :edit => edit_annotation_path(item, :redirect => admin_annotations_path)
         }
       end

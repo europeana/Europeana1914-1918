@@ -12,8 +12,10 @@ class TaggingsController < ApplicationController
     current_user.may_edit_tagging!(@tagging)
     
     @tagging.tag = ActsAsTaggableOn::Tag.find_or_create_by_name(params[:tag][:name])
+    tag_changed = @tagging.tag_id_changed?
     
     if @tagging.save
+      @tagging.change_status_to(:revised, current_user.id) if tag_changed
       flash[:notice] = t('flash.actions.update.notice', :resource_name => t('activerecord.models.tagging'))
       redirect_to tagging_path
     else

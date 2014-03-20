@@ -17,7 +17,7 @@
                         <%- if current_user.may_untag_contribution?(tag) || current_user.may_flag_contribution_tag?(tag) -%>
                             <div class="action-links">
                                 <ul>
-                                    <%- if current_user.may_untag_contribution?(tag) -%>
+                                    <%- if current_user.may_untag_contribution?(contribution, tag) -%>
                                         <li>
                                             <%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %>
                                         </li>

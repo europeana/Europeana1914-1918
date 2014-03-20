@@ -38,7 +38,7 @@ module ContributionSearch
         define_index_str << "  has contributor_id\n"
         define_index_str << "  has metadata_record_id\n"
         define_index_str << "  has created_at\n"
-        define_index_str << "  has CRC32(current_status.status), :as => :status, :type => :integer\n"
+        define_index_str << "  has CRC32(current_status.name), :as => :status, :type => :integer\n"
         define_index_str << "  has updated_at, :as => status_timestamp\n"
 
         # Index all searchable taxonomy terms at once, on a single join

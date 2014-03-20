@@ -330,11 +330,12 @@ class Contribution < ActiveRecord::Base
   #
   # @see RunCoCo::HasRecordStatuses#change_status_to
   #
+  alias_method :hrs_change_status_to, :change_status_to
   def change_status_to(status, user_id)
-    was_published = self.class.published_status.include?(current_status)
+    was_published     = self.class.published_status.include?(current_status.to_sym)
     will_be_published = self.class.published_status.include?(status)
     
-    super(status, user_id)
+    hrs_change_status_to(status, user_id)
     
     unless was_published == will_be_published
       c.attachments.each do |a|
@@ -342,6 +343,18 @@ class Contribution < ActiveRecord::Base
         a.save
       end
     end
+  end
+  
+  ##
+  # Returns the tags on this contribution that are visible to all users.
+  #
+  # Visible tags are those where the tagging currently has the status:
+  # published, flagged or revised
+  #
+  # @see ActsAsTaggableOn
+  #
+  def visible_tags
+    taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag)
   end
   
 protected

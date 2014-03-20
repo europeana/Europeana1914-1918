@@ -9,7 +9,7 @@ class TagsController < ApplicationController
   def index
     respond_to do |format|
       format.json do 
-        tags = @contribution.taggings.with_status(:published).where(:context => 'tags').collect(&:tag).collect(&:name)
+        tags = @contribution.visible_tags.collect(&:name)
         render :json => { 
           "tags" => tags,
           "contrib_path" => contribution_path(@contribution),
@@ -54,7 +54,7 @@ class TagsController < ApplicationController
         render :json => {
           "success" => true,
           "message" => t('flash.tags.create.success'),
-          "tags" => @contribution.tags.collect(&:name)
+          "tags" => @contribution.visible_tags.collect(&:name)
         }
       end
     end
@@ -71,9 +71,10 @@ class TagsController < ApplicationController
     
     @tag.taggings.each do |tagging|
       current_user.tag(tagging, :with => "inappropriate", :on => :flags)
+      tagging.change_status_to(:flagged, current_user.id)
       
       if tagging.flags(:reload => true).size >= 3
-        tagging.change_status_to(:unpublished)
+        tagging.change_status_to(:unpublished, current_user.id)
       end
     end
     

@@ -40,7 +40,7 @@
                         
                         <%= link_to tag.name, tag_search_contributions_path(tag.name), :class=> 'search-tags' %>
 
-                        <%- if current_user.may_untag_contribution?(tag) -%>
+                        <%- if current_user.may_untag_contribution?(contribution, tag) -%>
                         
                             <%= link_to ('<span class="icon-remove" title="' + t('actions.delete') + '"></span>').html_safe, delete_contribution_tag_path(contribution, tag.name), :class => 'delete' %>
                             
