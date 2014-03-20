@@ -17,20 +17,28 @@ class TaggingsController < ApplicationController
     if @tagging.save
       @tagging.change_status_to(:revised, current_user.id) if tag_changed
       flash[:notice] = t('flash.actions.update.notice', :resource_name => t('activerecord.models.tagging'))
-      redirect_to tagging_path
+      redirect_to @tagging.taggable
     else
       flash.now[:alert] = t('flash.actions.update.alert', :resource_name => t('activerecord.models.tagging'))
       render :action => :edit
     end
   end
   
-#  def delete
-#    current_user.may_delete_tagging!(@tagging)
-#  end
-#  
-#  def destroy
-#    current_user.may_delete_tagging!(@tagging)
-#  end
+  def depublish
+    current_user.may_depublish_tagging!(@tagging)
+  end
+  
+  def confirm_depublish
+    current_user.may_depublish_tagging!(@tagging)
+    
+    if @tagging.change_status_to(:depublished, current_user.id)
+      flash[:notice] = t('flash.taggings.depublish.notice')
+      redirect_to @tagging.taggable
+    else
+      flash.now[:alert] = t('flash.taggings.depublish.alert')
+      render :action => :depublish
+    end
+  end
   
 protected
   

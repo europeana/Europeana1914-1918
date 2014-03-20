@@ -9,10 +9,6 @@
     <dt><%= link_to t('views.admin.index.links.metadata_fields.text'), admin_metadata_fields_path %></dt>
     <dd><%= t('views.admin.index.links.metadata_fields.description') %></dd>
   <%- end -%>
-  <%- if current_user.may_administer_metadata_fields? && sphinx_running? && !ThinkingSphinx.remote_sphinx? -%>
-    <dt><%= link_to t('views.admin.index.links.reindex.text'), reindex_admin_metadata_fields_path %></dt>
-    <dd><%= t('views.admin.index.links.reindex.description') %></dd>
-  <%- end -%>
   <%- if current_user.may_administer_users? -%>
     <dt><%= link_to t('views.admin.index.links.users.text'), admin_users_path %></dt>
     <dd><%= t('views.admin.index.links.users.description') %></dd>

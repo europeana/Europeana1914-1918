@@ -1,3 +1,4 @@
+# @todo Combine with related initializer
 module ActsAsTaggableOn
   class Tagging
     has_record_statuses :published, :flagged, :depublished, :revised

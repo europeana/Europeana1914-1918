@@ -71,23 +71,8 @@ class Admin::MetadataFieldsController < AdminController
     redirect_to admin_metadata_fields_path
   end
   
-  # PUT /admin/fields/reindex
-  def reindex
-    if request.put?
-      flash[:notice] = t('flash.fields.reindexing')
-      p1 = fork do
-        if Gem::Platform.local.os == 'windows'
-          system('start rake ts:rebuild')
-        else
-          system('rake ts:rebuild')
-        end
-      end
-      Process.detach(p1)
-      redirect_to admin_root_path
-    end
-  end
-  
-  protected
+protected
+
   def authorize!
     current_user.may_administer_metadata_fields!
   end

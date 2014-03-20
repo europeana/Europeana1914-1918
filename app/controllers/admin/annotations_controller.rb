@@ -23,7 +23,8 @@ class Admin::AnnotationsController < AdminController
           :id => item.id,
           :type => t('activerecord.models.tagging'),
           :status => item.current_status.name,
-          :edit => edit_tagging_path(item, :redirect => admin_annotations_path)
+          :edit => edit_tagging_path(item, :redirect => admin_annotations_path),
+          :depublish => depublish_tagging_path(item, :redirect => admin_annotations_path)
         }
       when Annotation
         { 
@@ -35,7 +36,8 @@ class Admin::AnnotationsController < AdminController
           :id => item.id,
           :type => t('activerecord.models.annotation'),
           :status => item.current_status.name,
-          :edit => edit_annotation_path(item, :redirect => admin_annotations_path)
+          :edit => edit_annotation_path(item, :redirect => admin_annotations_path),
+          :depublish => nil
         }
       end
     end

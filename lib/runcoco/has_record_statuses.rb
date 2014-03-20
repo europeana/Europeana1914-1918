@@ -22,14 +22,23 @@ module RunCoCo
         end
         
         ##
-        # Changes the object's current status to that passed by creating a new RecordStatus record.
+        # Changes the object's current status to that passed.
+        #
+        # If the object's current status is already that passed, nothing needs
+        # to be done. Otherwise, status is changed by creating a new 
+        # {RecordStatus} record.
         #
         # @param [Symbol,String] status The status to change this contribution to.
         # @param [Integer] user_id The ID of the user making this status change.
         # @return [Boolean] True if the {RecordStatus} record saved.
         #
         self.send :define_method, :change_status_to do |status, user_id|
+          if current_status.present? && (current_status.to_sym == status.to_sym)
+            return true
+          end
+          
           record_status = RecordStatus.create(:record => self, :user_id => user_id, :name => status.to_s)
+          
           if record_status.id.present?
             if self.respond_to?(:updated_at)
               self.updated_at = record_status.created_at

@@ -1,0 +1,22 @@
+<% provide :title, t('views.taggings.depublish.title') %>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+  
+  <p><%= t 'views.taggings.depublish.question' %></p>
+
+  <ul>
+    <li><strong><%= t 'activerecord.models.contribution' %>:</strong> <%= link_to @tagging.taggable.title, @tagging.taggable %></li>
+    <li><strong><%= t 'activerecord.models.tag' %>:</strong> <%= @tagging.tag.name %></li>
+  </ul>
+
+  <%= semantic_form_for @tagging, :url => depublish_tagging_path(@tagging), :html => { :method => :put } do |form| %>
+    <%= form.buttons do %>
+      <%= redirect_field %>
+      <%= form.commit_button :label => t('actions.depublish') %>
+      <%= form_cancel_link @tagging.taggable %>
+    <% end %>
+  <% end %>
+
+</div>

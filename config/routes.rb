@@ -50,12 +50,18 @@ RunCoCo::Application.routes.draw do
     match 'explore/:field_name/:term' => 'contributions#explore', :as => 'term_search_contributions', :via => :get
     
     # Annotations
-    resources :annotations
+    resources :annotations do
+      member do
+        get 'depublish'
+        put 'depublish', :action => 'confirm_depublish'
+      end
+    end
     
     # Taggings
-    resources :taggings, :only => [ 'edit', 'update', 'destroy' ] do
+    resources :taggings, :only => [ 'edit', 'update' ] do
       member do
-        get 'delete'
+        get 'depublish'
+        put 'depublish', :action => 'confirm_depublish'
       end
     end
     
@@ -138,8 +144,6 @@ RunCoCo::Application.routes.draw do
         collection do
           get 'order'
           put 'order', :action => 'update_order'
-          get 'reindex', :action => 'confirm_reindex'
-          put 'reindex'
         end
         get 'delete', :on => :member
         

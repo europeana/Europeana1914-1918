@@ -61,12 +61,12 @@ class TagsController < ApplicationController
   end
   
   # GET /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
-  def confirm_flag
+  def flag
     current_user.may_flag_contribution_tag!(@contribution, @tag)
   end
   
   # PUT /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
-  def flag
+  def confirm_flag
     current_user.may_flag_contribution_tag!(@contribution, @tag)
     
     @contribution.taggings.select { |tagging| tagging.tag == @tag }.each do |tagging|

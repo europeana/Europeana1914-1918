@@ -15,8 +15,8 @@
           <th scope="col"><%= t 'activerecord.models.attachment' %></th>
           <th scope="col"><%= t 'views.admin.annotations.table.header.text' %></th>
           <th scope="col"><%= t 'views.admin.annotations.table.header.type' %></th>
-          <th scope="col">Status</th>
-          <th scope="col"><%= t 'views.table.header.actions' %></th>
+          <th scope="col"><%= t 'attributes.status' %></th>
+          <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
         </tr>
       </thead>
       <tbody>
@@ -30,6 +30,7 @@
             <td><%= annotation[:type] %></td>
             <td><%= annotation[:status] %></td>
             <td><%= link_to t('actions.edit'), annotation[:edit], :class => 'edit-member' %></td>
+            <td><%= link_to t('actions.depublish'), annotation[:depublish], :class => 'edit-member' %></td>
           </tr>
         <%- end -%>
       </tbody>
