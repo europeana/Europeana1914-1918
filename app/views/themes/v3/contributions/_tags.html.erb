@@ -14,7 +14,7 @@
                 <%- for tag in tags -%>
                     <li>
                         <%= link_to tag.name, tag_search_contributions_path(tag.name) %>
-                        <%- if current_user.may_untag_contribution?(tag) || current_user.may_flag_contribution_tag?(tag) -%>
+                        <%- if current_user.may_untag_contribution?(contribution, tag) || current_user.may_flag_contribution_tag?(contribution, tag) -%>
                             <div class="action-links">
                                 <ul>
                                     <%- if current_user.may_untag_contribution?(contribution, tag) -%>
@@ -22,7 +22,7 @@
                                             <%= link_to t('actions.delete'), delete_contribution_tag_path(contribution, tag.name), :confirm => t('views.tags.delete.question'), :method => :put, :class => 'delete' %>
                                         </li>
                                     <%- end -%>
-                                    <%- if current_user.may_flag_contribution_tag?(tag) -%>
+                                    <%- if current_user.may_flag_contribution_tag?(contribution, tag) -%>
                                         <li>
                                             <%= link_to t('actions.flag'), flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag'), :confirm => t('views.tags.flag.question'), :method => :put %>
                                         </li>

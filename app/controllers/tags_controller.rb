@@ -62,14 +62,14 @@ class TagsController < ApplicationController
   
   # GET /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
   def confirm_flag
-    current_user.may_flag_contribution_tag!(@tag)
+    current_user.may_flag_contribution_tag!(@contribution, @tag)
   end
   
   # PUT /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
   def flag
-    current_user.may_flag_contribution_tag!(@tag)
+    current_user.may_flag_contribution_tag!(@contribution, @tag)
     
-    @tag.taggings.each do |tagging|
+    @contribution.taggings.select { |tagging| tagging.tag == @tag }.each do |tagging|
       current_user.tag(tagging, :with => "inappropriate", :on => :flags)
       tagging.change_status_to(:flagged, current_user.id)
       

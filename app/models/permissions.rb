@@ -93,9 +93,15 @@ class Permissions < Aegis::Permissions
   end
   
   action :flag_contribution_tag do
-    allow :administrator, :cataloguer, :contributor do |tag|
-      !tag.taggings.collect(&:tagger).include?(user) &&
-      !tag.taggings.collect(&:taggings).flatten.uniq.select { |tagging| tagging.context == 'flags' }.collect(&:tagger_id).include?(user.id)
+    allow :administrator, :cataloguer, :contributor do |contribution, tag|
+      user_tagged_contribution = contribution.owner_tags_on(user, :tags).include?(tag)
+      
+      taggings = contribution.taggings.select { |tagging| tagging.tag == tag && tagging.context == 'tags' }
+      flaggings = taggings.collect(&:taggings).flatten.uniq.select { |tagging| tagging.context == 'flags' }
+      flagger_ids = flaggings.collect(&:tagger_id)
+      user_flagged_tag = flagger_ids.include?(user.id)
+
+      !user_tagged_contribution && !user_flagged_tag
     end
   end
   
