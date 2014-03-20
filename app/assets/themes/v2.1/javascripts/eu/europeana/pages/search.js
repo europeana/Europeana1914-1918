@@ -1,6 +1,6 @@
-/*global jQuery */
+/*global jQuery, I18n */
 /*jslint browser: true, regexp: true, white: true */
-(function( $ ) {
+(function( $, I18n ) {
 	'use strict';
 
 	var
@@ -11,6 +11,55 @@
 	$results_items_overlay = $('.results-items-overlay'),
 	$results_tabs = $('#results-tabs a'),
 	$facet_form = $('#results-facets').find('form'),
+	$search_form = $('#search'),
+	spinner_msgs = [
+		{
+			timeout: 10000,
+			msg: I18n.t( 'javascripts.search.10seconds' )
+		},
+		{
+			timeout: 30000,
+			msg: I18n.t( 'javascripts.search.30seconds' )
+		},
+		{
+			timeout: 60000,
+			msg: I18n.t( 'javascripts.search.60seconds' )
+		}
+	],
+
+	/**
+	 * @param {string} msg
+	 */
+	addResultsSpinnerMsg = function( msg ) {
+		var $msg = $('#results-spinner-msg');
+
+		$msg.fadeOut(function() {
+			$msg.html( msg ).fadeIn();
+		});
+	},
+
+	addResultsSpinnerTimer = function() {
+		setTimeout(
+			function() {
+				addResultsSpinnerMsg( spinner_msgs[0].msg );
+			},
+			spinner_msgs[0].timeout
+		);
+
+		setTimeout(
+			function() {
+				addResultsSpinnerMsg( spinner_msgs[1].msg );
+			},
+			spinner_msgs[1].timeout
+		);
+
+		setTimeout(
+			function() {
+				addResultsSpinnerMsg( spinner_msgs[2].msg );
+			},
+			spinner_msgs[2].timeout
+		);
+	},
 
 	/**
 	 * @param {function} callback
@@ -39,17 +88,19 @@
 
 		$results_items.slideToggle( function() {
 			$results_items
-				.html('<div class="results-items-spinner"></div>')
+				.html('<div class="results-items-spinner"></div><p id="results-spinner-msg"></p>')
 				.fadeIn( function() {
 					switch ( evt.type ) {
 						case 'click':
 							window.location = $elm.attr('href');
 							break;
 						case 'submit':
-							$facet_form.off('submit');
-							$facet_form.submit();
+							$elm.off('submit');
+							$elm.submit();
 							break;
 					}
+
+					addResultsSpinnerTimer();
 				});
 		});
 	},
@@ -127,9 +178,12 @@
 		$facet_form.on('submit', handleFacetFormListener);
 	},
 
-	removeLoadingOverlay = function() {
-		$results_items_overlay.fadeOut();
-		$results_items.removeClass('with-overlay');
+	handleSearchFormListener = function( evt ) {
+		closeResultItems.call( this, evt );
+	},
+
+	addSearchFormListener = function() {
+		$search_form.on('submit', handleSearchFormListener);
 	},
 
 	/**
@@ -144,6 +198,17 @@
 		});
 	},
 
+	addResultItemsListener = function() {
+		$results_items.find('a').each( function() {
+			$(this).on('click', handleResultItemClick);
+		});
+	},
+
+	removeLoadingOverlay = function() {
+		$results_items_overlay.fadeOut();
+		$results_items.removeClass('with-overlay');
+	},
+
 	addMasonry = function() {
 		$('.stories').imagesLoaded( function() {
 			$('.stories').masonry({
@@ -153,19 +218,18 @@
 				gutterWidth: 21
 			});
 
+			addResultItemsListener();
 			removeLoadingOverlay();
-
-			$results_items.find('a').each( function() {
-				$(this).on('click', handleResultItemClick);
-			});
 		});
 	},
 
 	init = function() {
+		addResultsSpinnerTimer();
 		addFacetSectionsListener();
 		addFacetLinksListener();
 		addFilterLinksListener();
 		addResultsTabsListener();
+		addSearchFormListener();
 		addFacetFormListener();
 		scrollToTop();
 		addMasonry();
@@ -416,4 +480,4 @@
 	//	}
 	//}
 
-}( jQuery ));
+}( jQuery, I18n ));

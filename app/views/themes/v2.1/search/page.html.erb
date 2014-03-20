@@ -33,7 +33,7 @@
                 }
               %>
             <% end -%>
-            <div class="results-items-overlay"><div class="results-items-spinner"></div></div>
+            <div class="results-items-overlay"><div class="results-items-spinner"></div><p id="results-spinner-msg"></p></div>
           </div>
             <div id="results-facets">
               <%= render :partial => 'search/facets', :object => @facets, :locals => { :query => @query, :provider => provider } %>
