@@ -30,7 +30,7 @@
 	#:poster => attachment_thumbnail_url( @attachment, 'preview' )
 %>
 <% end -%>
-<%= javascript_include_tag 'mediaelementplayer' %>
-<script>$('audio,video').mediaelementplayer({});</script>
+<%= theme_javascript_include_tag 'eu/europeana/pages/attachments-audio-video' %>
+<script>$('audio,video').mediaelementplayer({pluginPath:'/assets/mediaelement/'});</script>
 </body>
 </html>

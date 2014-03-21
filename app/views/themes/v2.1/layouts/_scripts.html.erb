@@ -36,9 +36,6 @@ RunCoCo.cataloguer = true;
 <%- if content_for?(:javascripts_lightbox) -%>
   <%= theme_javascript_include_tag 'lightbox' %>
 <%- end -%>
-<% if content_for?(:javascripts_video) || content_for?(:javascripts_audio) -%>
-  <%= javascript_include_tag 'mediaelementplayer' -%>
-<%- end -%>
 <%- if content_for?(:javascripts_annotorious) -%>
   <%= theme_javascript_include_tag 'annotorious' -%>
 <%- end -%>
