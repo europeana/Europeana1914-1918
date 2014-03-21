@@ -14,16 +14,19 @@
 	$search_form = $('#search'),
 	spinner_msgs = [
 		{
-			timeout: 10000,
-			msg: I18n.t( 'javascripts.search.10seconds' )
+			msg: I18n.t( 'javascripts.search.10seconds' ),
+			timer: 0,
+			timeout: 100
 		},
 		{
-			timeout: 30000,
-			msg: I18n.t( 'javascripts.search.30seconds' )
+			msg: I18n.t( 'javascripts.search.30seconds' ),
+			timer: 0,
+			timeout: 1000
 		},
 		{
-			timeout: 60000,
-			msg: I18n.t( 'javascripts.search.60seconds' )
+			msg: I18n.t( 'javascripts.search.60seconds' ),
+			timer: 0,
+			timeout: 2500
 		}
 	],
 
@@ -38,27 +41,34 @@
 		});
 	},
 
-	addResultsSpinnerTimer = function() {
-		setTimeout(
-			function() {
-				addResultsSpinnerMsg( spinner_msgs[0].msg );
-			},
-			spinner_msgs[0].timeout
-		);
+	cancelSpinnerTimers = function() {
+		var i,
+		ii = spinner_msgs.length;
 
-		setTimeout(
-			function() {
-				addResultsSpinnerMsg( spinner_msgs[1].msg );
-			},
-			spinner_msgs[1].timeout
-		);
+		for ( i = 0; i < ii; i += 1 ) {
+			clearTimeout( spinner_msgs[i].timer );
+		}
+	},
 
-		setTimeout(
+	/**
+	 * @param {int} i
+	 */
+	addResultsSpinnerTimer = function( i ) {
+		spinner_msgs[i].timer = setTimeout(
 			function() {
-				addResultsSpinnerMsg( spinner_msgs[2].msg );
+				addResultsSpinnerMsg( spinner_msgs[i].msg );
 			},
-			spinner_msgs[2].timeout
+			spinner_msgs[i].timeout
 		);
+	},
+
+	addResultsSpinnerListener = function() {
+		var i,
+		ii = spinner_msgs.length;
+
+		for ( i = 0; i < ii; i += 1 ) {
+			addResultsSpinnerTimer( i );
+		}
 	},
 
 	/**
@@ -100,7 +110,7 @@
 							break;
 					}
 
-					addResultsSpinnerTimer();
+					addResultsSpinnerListener();
 				});
 		});
 	},
@@ -207,6 +217,7 @@
 	removeLoadingOverlay = function() {
 		$results_items_overlay.fadeOut();
 		$results_items.removeClass('with-overlay');
+		cancelSpinnerTimers();
 	},
 
 	addMasonry = function() {
@@ -224,7 +235,7 @@
 	},
 
 	init = function() {
-		addResultsSpinnerTimer();
+		addResultsSpinnerListener();
 		addFacetSectionsListener();
 		addFacetLinksListener();
 		addFilterLinksListener();
