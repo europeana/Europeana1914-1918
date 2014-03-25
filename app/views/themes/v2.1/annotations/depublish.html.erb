@@ -15,7 +15,7 @@
     <%= form.buttons do %>
       <%= redirect_field %>
       <%= form.commit_button :label => t('actions.depublish') %>
-      <%= form_cancel_link @annotation.attachment %>
+      <%= form_cancel_link contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment) %>
     <% end %>
   <% end %>
 
