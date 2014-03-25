@@ -79,7 +79,7 @@ class FederatedSearchController < SearchController
     load_api_key
     response = query_api(search_url, search_params)
     total_entries_from_response(response)
-  rescue JSON::ParserError
+  rescue JSON::ParserError, Timeout::Error
     nil
   end
   
