@@ -11,8 +11,7 @@
         <tr>
           <th scope="col"><%= t 'actions.created_at' %></th>
           <th scope="col"><%= t 'activerecord.models.user' %></th>
-          <th scope="col"><%= t 'activerecord.models.contribution' %></th>
-          <th scope="col"><%= t 'activerecord.models.attachment' %></th>
+          <th scope="col"><%= t 'activerecord.models.contribution' %> / <%= t 'activerecord.models.attachment' %></th>
           <th scope="col"><%= t 'views.admin.annotations.table.header.text' %></th>
           <th scope="col"><%= t 'views.admin.annotations.table.header.type' %></th>
           <th scope="col"><%= t 'attributes.status' %></th>
@@ -24,8 +23,13 @@
           <tr>
             <td><%= l annotation[:created_at], :format => :short %></td>
             <td><%= link_to annotation[:user_name], admin_user_path(annotation[:user]) %></td>
-            <td><%= link_to truncate(annotation[:contribution].title, :length => 140, :separator => ' '), contribution_path(annotation[:contribution]) %></td>
-            <td><%= link_to truncate(annotation[:attachment].title.present? ? annotation[:attachment].title : annotation[:attachment].id.to_s, :length => 140, :separator => ' '), contribution_attachment_path(annotation[:contribution], annotation[:attachment]) unless annotation[:attachment].blank? %></td>
+            <td>
+              <%- if annotation[:attachment].present? -%>
+                <%= link_to truncate(attachment_title(annotation[:attachment]), :length => 140, :separator => ' '), contribution_attachment_path(annotation[:contribution], annotation[:attachment]) %>
+              <%- else -%>
+                <%= link_to truncate(annotation[:contribution].title, :length => 140, :separator => ' '), contribution_path(annotation[:contribution]) %>
+              <%- end -%>
+            </td>
             <td><%= truncate annotation[:text], :length => 140, :separator => ' ' %></td>
             <td><%= annotation[:type] %></td>
             <td><%= annotation[:status] %></td>

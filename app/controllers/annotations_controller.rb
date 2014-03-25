@@ -2,14 +2,15 @@
 # Handle storage and retrieval of Annotorious annotations
 #
 class AnnotationsController < ApplicationController
+  before_filter :find_annotation, :except => [ :index, :create ]
 
   # GET /:locale/annotations(.:format)
   def index
     attachment_id = params[:attachment_id] || attachment_id_from_src(params[:src])
     raise RunCoCo::BadRequest "attachment_id or src parameter required" unless attachment_id.present?
     
-    attachment = Attachment.find(attachment_id, :include => { :annotations => :shapes })
-    @annotations = attachment.annotations
+    attachment = Attachment.find(attachment_id)
+    @annotations = attachment.visible_annotations.includes(:shapes)
     
     respond_to do |format|
       format.json do
@@ -71,8 +72,6 @@ class AnnotationsController < ApplicationController
   
   # GET /:locale/annotations/:id(.:format)
   def show
-    @annotation = Annotation.find(params[:id])
-    
     respond_to do |format|
       format.json { render :json => @annotation.to_hash }
       format.nt { render :text => @annotation.to_ntriples }
@@ -81,13 +80,11 @@ class AnnotationsController < ApplicationController
   
   # GET /:locale/annotations/:id/edit(.:format)
   def edit
-    @annotation = Annotation.find(params[:id])
     current_user.may_edit_attachment_annotation!(@annotation)
   end
   
   # PUT /:locale/annotations/:id(.:format)
   def update
-    @annotation = Annotation.find(params[:id])
     current_user.may_edit_attachment_annotation!(@annotation)
     
     Annotation.transaction do
@@ -141,7 +138,6 @@ class AnnotationsController < ApplicationController
   
   # DELETE /:locale/annotations/:id(.:format)
   def destroy
-    @annotation = Annotation.find(params[:id])
     current_user.may_delete_attachment_annotation!(@annotation)
     
     Annotation.transaction do
@@ -159,6 +155,23 @@ class AnnotationsController < ApplicationController
     end
   end
   
+  def depublish
+    current_user.may_depublish_annotation!(@annotation)
+  end
+  
+  def confirm_depublish
+    current_user.may_depublish_annotation!(@annotation)
+    
+    if @annotation.change_status_to(:depublished, current_user.id)
+      index_contribution
+      flash[:notice] = t('flash.actions.depublish.notice', :resource_name => t('activerecord.models.annotation'))
+      redirect_to @annotation
+    else
+      flash.now[:alert] = t('flash.actions.depublish.alert', :resource_name => t('activerecord.models.annotation'))
+      render :action => :depublish
+    end
+  end
+  
 protected
 
   def attachment_id_from_src(src)
@@ -169,6 +182,10 @@ protected
     if @annotation.attachment.contribution.respond_to?(:index!)
       @annotation.attachment.contribution.index!
     end
+  end
+  
+  def find_annotation
+    @annotation = Annotation.find(params[:id])
   end
 
 end

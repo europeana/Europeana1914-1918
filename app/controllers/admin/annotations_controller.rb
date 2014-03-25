@@ -1,5 +1,8 @@
 class Admin::AnnotationsController < AdminController
   # GET /admin/annotations
+  # @todo Do not combine annotation types into one set, due to increasingly
+  #   inefficient queries for higher page numbers. Instead present sets as their 
+  #   own tabs.
   def index
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
     page = (params[:page] || 1).to_i
@@ -37,7 +40,7 @@ class Admin::AnnotationsController < AdminController
           :type => t('activerecord.models.annotation'),
           :status => item.current_status.name,
           :edit => edit_annotation_path(item, :redirect => admin_annotations_path),
-          :depublish => nil
+          :depublish => depublish_annotation_path(item, :redirect => admin_annotations_path)
         }
       end
     end

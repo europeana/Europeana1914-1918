@@ -32,10 +32,10 @@ class TaggingsController < ApplicationController
     current_user.may_depublish_tagging!(@tagging)
     
     if @tagging.change_status_to(:depublished, current_user.id)
-      flash[:notice] = t('flash.taggings.depublish.notice')
+      flash[:notice] = t('flash.actions.depublish.notice', :resource_name => t('activerecord.models.tagging'))
       redirect_to @tagging.taggable
     else
-      flash.now[:alert] = t('flash.taggings.depublish.alert')
+      flash.now[:alert] = t('flash.actions.depublish.alert', :resource_name => t('activerecord.models.tagging'))
       render :action => :depublish
     end
   end

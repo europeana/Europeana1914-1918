@@ -11,6 +11,15 @@ module AttachmentsHelper
     number_to_human_size(RunCoCo.configuration.max_upload_size, :precision => 2)
   end
   
+  def attachment_title(attachment)
+    if attachment.title.present?
+      attachment.title
+    else
+      number = attachment.contribution.attachment_ids.index(attachment.id) + 1
+      attachment.contribution.title + ' / ' + t('activerecord.models.attachment') + ' ' + number.to_s
+    end
+  end
+  
   # :thumb, :preview, :original, :large
   def attachment_preview(attachment, size = :preview)
     if attachment.has_thumbnail?(size)

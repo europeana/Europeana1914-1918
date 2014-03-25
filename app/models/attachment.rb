@@ -281,6 +281,18 @@ class Attachment < ActiveRecord::Base
     end
   end
   
+  ##
+  # Returns the annotations on this attachment that are visible to all users.
+  #
+  # Visible annotations are those that currently have the status:
+  # published, flagged or revised
+  #
+  # @return [Array<Annotation>] Visible annotation
+  #
+  def visible_annotations
+    annotations.with_status(:published, :flagged, :revised)
+  end
+  
 protected
 
   # Moves files between public/private paths when public attr changed

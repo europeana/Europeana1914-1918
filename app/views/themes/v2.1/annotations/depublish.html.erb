@@ -1,0 +1,22 @@
+<% provide :title, t('views.annotations.depublish.title') %>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+  
+  <p><%= t 'views.annotations.depublish.question' %></p>
+
+  <ul>
+    <li><strong><%= t 'activerecord.models.attachment' %>:</strong> <%= link_to attachment_title(@annotation.attachment), [ @annotation.attachment.contribution, @annotation.attachment ] %></li>
+    <li><strong><%= t 'activerecord.models.annotation' %>:</strong> <%= @annotation.text %></li>
+  </ul>
+
+  <%= semantic_form_for @annotation, :url => depublish_annotation_path(@annotation), :html => { :method => :put } do |form| %>
+    <%= form.buttons do %>
+      <%= redirect_field %>
+      <%= form.commit_button :label => t('actions.depublish') %>
+      <%= form_cancel_link @annotation.attachment %>
+    <% end %>
+  <% end %>
+
+</div>
