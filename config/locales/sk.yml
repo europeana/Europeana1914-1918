@@ -460,12 +460,11 @@ sk:
       create:
         alert: Nepodarilo sa vytvoriť %{resource_name}. Pozrite správu nižšie.
         notice: Vytvorený nový %{resource_name}.
-      depublish:
-        alert: Nepodarilo sa zneprístupniť %{resource_name}.
-        notice: ! '%{resource_name} znepristúpnené.'
       destroy:
         alert: Nepodarilo sa vymazať %{resource_name}.
         notice: ! '%{resource_name} bol úspešne vymazaný.'
+      taggings:
+        notice: Tagy znepristúpnené.
       update:
         alert: Nepodarilo sa aktualizovať %{resource_name}. Pozrite správu nižšie.
         notice: ! '%{resource_name} aktualizovaný.'
@@ -547,6 +546,9 @@ sk:
     status:
       alert: ! 'Výstraha:'
       notice: ! 'Poznámka:'
+    taggings:
+      depublish:
+        alert: Nepodarilo sa zneprístupniť tagy.
     tags:
       create:
         success: Vaše tagy boli pridané k príbehu.
@@ -1348,6 +1350,9 @@ sk:
             edit: Upraviť používateľský účet
           title: Používateľský účet
     annotations:
+      depublish:
+        question: 
+        title: 
       edit:
         title: Upraviť anotáciu
     attachments:

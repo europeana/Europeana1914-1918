@@ -436,12 +436,11 @@ en:
       create:
         alert: There was a problem creating %{resource_name}. See the messages below.
         notice: Created new %{resource_name}.
-      depublish:
-        alert: Failed to depublish this %{resource_name}.
-        notice: ! '%{resource_name} depublished.'
       destroy:
         alert: There was a problem deleting %{resource_name}.
         notice: ! '%{resource_name} was successfully deleted.'
+      taggings:
+        notice: Tagging depublished.
       update:
         alert: There was a problem updating %{resource_name}. See the messages below.
         notice: Updated %{resource_name}.
@@ -449,6 +448,13 @@ en:
       europeana:
         harvest:
           notice: Europeana portal content is being harvested in the background.
+    annotations:
+      depublish:
+        alert: Failed to depublish annotation.
+        notice: Annotation depublished.
+      flag:
+        alert: Failed to flag annotation as inappropriate.
+        notice: Annotation flagged as inappropriate.
     attachments:
       create:
         alert: There was a problem saving your attachment.
@@ -523,6 +529,9 @@ en:
     status:
       alert: ! 'Alert: '
       notice: ! 'Notice: '
+    taggings:
+      depublish:
+        alert: Failed to depublish this tagging.
     tags:
       create:
         success: Your tags have been added to this story.
@@ -1329,6 +1338,9 @@ en:
         title: Depublish annotation
       edit:
         title: Edit annotation
+      flag:
+        question: Are you sure you wish to flag this annotation as inappropriate?
+        title: Flag annotation as inappropriate
     attachments:
       _form:
         dropbox:

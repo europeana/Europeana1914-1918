@@ -5,6 +5,11 @@
   <h2><%= yield :title %></h2>
   
   <p><%= t 'views.tags.flag.question' %></p>
+  
+  <ul>
+    <li><strong><%= t 'activerecord.models.contribution' %>:</strong> <%= link_to @contribution.title, @contribution %></li>
+    <li><strong><%= t 'activerecord.models.tag' %>:</strong> <%= @tag.name %></li>
+  </ul>
 
   <%= semantic_form_for @tag, :url => flag_contribution_tag_path(@contribution, @tag.name), :html => { :method => :put } do |form| %>
     <%= form.buttons do %>

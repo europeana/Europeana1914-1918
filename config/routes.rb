@@ -41,8 +41,8 @@ RunCoCo::Application.routes.draw do
       resources :tags, :only => [ 'index', 'create', 'edit', 'update', 'destroy' ] do
         member do
           get 'delete'
-          get 'flag', :action => 'confirm_flag'
-          put 'flag'
+          get 'flag'
+          put 'flag', :action => 'confirm_flag'
         end
       end
     end
@@ -54,6 +54,8 @@ RunCoCo::Application.routes.draw do
       member do
         get 'depublish'
         put 'depublish', :action => 'confirm_depublish'
+        get 'flag'
+        put 'flag', :action => 'confirm_flag'
       end
     end
     

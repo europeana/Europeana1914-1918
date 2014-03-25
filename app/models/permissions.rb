@@ -178,6 +178,18 @@ class Permissions < Aegis::Permissions
     end
   end
   
+  action :flag_annotation do
+    allow :administrator, :cataloguer, :contributor do |annotation|
+      user_created_annotation = (annotation.user == user)
+      
+      flaggings = annotation.flags.collect(&:taggings).flatten.uniq
+      flagger_ids = flaggings.collect(&:tagger_id)
+      user_flagged_annotation = flagger_ids.include?(user.id)
+
+      !user_created_annotation && !user_flagged_annotation
+    end
+  end
+  
   action :delete_attachment_annotation do
     allow :contributor do |annotation|
       annotation.user == user

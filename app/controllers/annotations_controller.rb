@@ -155,19 +155,51 @@ class AnnotationsController < ApplicationController
     end
   end
   
+  # GET /:locale/annotations/:id/flag(.:format)
+  def flag
+    current_user.may_flag_annotation!(@annotation)
+  end
+  
+  # PUT /:locale/annotations/:id/flag(.:format)
+  def confirm_flag
+    current_user.may_flag_annotation!(@annotation)
+    
+    current_user.tag(@annotation, :with => "inappropriate", :on => :flags)
+    @annotation.change_status_to(:flagged, current_user.id)
+    
+    if @annotation.flags(:reload => true).size >= 3
+      @annotation.change_status_to(:depublished, current_user.id)
+    end
+    
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.annotations.flag.notice')
+        redirect_to contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment)
+      end
+      format.json do
+        render :json => {
+          "success" => true,
+          "message" => t('flash.annotations.flag.alert')
+        }
+      end
+    end
+  end
+  
+  # GET /:locale/annotations/:id/depublish(.:format)
   def depublish
     current_user.may_depublish_annotation!(@annotation)
   end
   
+  # PUT /:locale/annotations/:id/depublish(.:format)
   def confirm_depublish
     current_user.may_depublish_annotation!(@annotation)
     
     if @annotation.change_status_to(:depublished, current_user.id)
       index_contribution
-      flash[:notice] = t('flash.actions.depublish.notice', :resource_name => t('activerecord.models.annotation'))
-      redirect_to @annotation
+      flash[:notice] = t('flash.annotations.depublish.notice')
+      redirect_to contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment)
     else
-      flash.now[:alert] = t('flash.actions.depublish.alert', :resource_name => t('activerecord.models.annotation'))
+      flash.now[:alert] = t('flash.annotations.depublish.alert')
       render :action => :depublish
     end
   end

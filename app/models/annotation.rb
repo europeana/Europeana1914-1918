@@ -7,6 +7,7 @@ class Annotation < ActiveRecord::Base
   has_many :shapes, :class_name => "AnnotationShape", :dependent => :destroy
   
   has_record_statuses :published, :flagged, :depublished, :revised
+  acts_as_taggable_on :flags
   
   validates_presence_of :user, :attachment, :text
   validates_associated :shapes
