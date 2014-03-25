@@ -30,7 +30,7 @@
     
       <div class="usage-statistics">
         <h3><%= t interval, :scope => "views.statistics.index.intervals" %></h3>
-        <% if statistics[:label] %><p><%= statistics[:label] %></p><% end %>
+        <% if statistics[:label] %><p><%= raw statistics[:label] %></p><% end %>
         <ul>
           <li><%= t 'views.statistics.index.metrics.visits' %>: <%= number_with_delimiter(statistics[:visits]) %></li>
           <li><%= t 'views.statistics.index.metrics.avgtimeonsite' %>: <%= distance_of_time_in_words(statistics[:avgTimeOnSite]) %></li>
