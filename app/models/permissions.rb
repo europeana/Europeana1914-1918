@@ -178,7 +178,7 @@ class Permissions < Aegis::Permissions
     end
   end
   
-  action :flag_annotation do
+  action :flag_attachment_annotation do
     allow :administrator, :cataloguer, :contributor do |annotation|
       user_created_annotation = (annotation.user == user)
       

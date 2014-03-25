@@ -15,7 +15,12 @@ class AnnotationsController < ApplicationController
     respond_to do |format|
       format.json do
         render :json => {
-          "annotations" => @annotations.collect { |a| a.to_hash.merge(:editable => current_user.may_edit_attachment_annotation?(a)) },
+          "annotations" => @annotations.collect { |annotation|
+            annotation.to_hash.merge({
+              :editable => current_user.may_edit_attachment_annotation?(annotation),
+              :flaggable => current_user.may_flag_attachment_annotation?(annotation)
+            })
+          },
           "creatable" => current_user.may_create_attachment_annotation?(attachment)
         }
       end
@@ -157,12 +162,12 @@ class AnnotationsController < ApplicationController
   
   # GET /:locale/annotations/:id/flag(.:format)
   def flag
-    current_user.may_flag_annotation!(@annotation)
+    current_user.may_flag_attachment_annotation!(@annotation)
   end
   
   # PUT /:locale/annotations/:id/flag(.:format)
   def confirm_flag
-    current_user.may_flag_annotation!(@annotation)
+    current_user.may_flag_attachment_annotation!(@annotation)
     
     current_user.tag(@annotation, :with => "inappropriate", :on => :flags)
     @annotation.change_status_to(:flagged, current_user.id)
