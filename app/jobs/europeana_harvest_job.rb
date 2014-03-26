@@ -63,19 +63,20 @@ private
   def create_record(record_id)
     record = EuropeanaRecord.find_or_initialize_by_record_id(record_id)
     if record.new_record?
-      if record.save
-        begin
-          record.index
-          Sunspot.commit
-        rescue
-          # Indexing failed; do not store this record
-          RunCoCo.error_logger.error("#{self.class.to_s} failed to index Europeana record with ID \"#{record_id}\"")
-          record.destroy
-          return
-        end
+      record.save!
+      begin
+        record.index
+        Sunspot.commit
+      rescue
+        # Indexing failed; do not store this record
+        RunCoCo.error_logger.error("#{self.class.to_s} failed to index Europeana record with ID \"#{record_id}\"")
+        record.destroy
+        return
       end
       @harvested = @harvested + 1
     end
+  rescue ActiveRecord::RecordInvalid
+    RunCoCo.error_logger.error("#{self.class.to_s} failed to save Europeana record with ID \"#{record_id}\"")
   rescue ActiveRecord::RecordNotUnique
     # Another DJ process got to this record first, despite 
     # record_id uniqueness validation in EuropeanaRecord. Just ignore it.
