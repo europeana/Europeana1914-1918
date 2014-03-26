@@ -65,7 +65,7 @@ module Europeana
             :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
           }
           
-          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 4)) do |writer|
+          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 1)) do |writer|
             writer << to_rdf_graph
           end
         end
