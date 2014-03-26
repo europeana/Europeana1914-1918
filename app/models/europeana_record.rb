@@ -46,7 +46,9 @@ class EuropeanaRecord < ActiveRecord::Base
     
     text :taxonomy_terms do
       if object.has_key?('concepts')
-        object['concepts'].collect { |concept| concept['prefLabel'].collect { |code, labels| labels } }.flatten
+        object['concepts'].collect do |concept|
+          concept.has_key?('prefLabel') ? concept['prefLabel'].collect { |code, labels| labels } : []
+        end.flatten
       else
         nil
       end
