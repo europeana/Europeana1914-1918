@@ -21,7 +21,7 @@ class ContributionsController < ApplicationController
   def feed
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
     
-    items = Contribution.published.order('status_timestamp DESC').limit(count) +
+    items = Contribution.published.order('current_status.created_at DESC').limit(count) +
       ActsAsTaggableOn::Tagging.order('created_at DESC').limit(count) +
       Annotation.order('created_at DESC').limit(count)
 
@@ -34,7 +34,7 @@ class ContributionsController < ApplicationController
         { 
           :contribution => item,
           :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title), 
-          :updated => item.status_timestamp,
+          :updated => item.current_status.created_at,
           :id => contribution_url(item),
           :link => contribution_url(item),
           :image => item.attachments.cover_image

@@ -256,11 +256,11 @@ class Contribution < ActiveRecord::Base
     query = Contribution.published
     
     if options[:start_date].present?
-      query = query.where("status_timestamp >= ?", options[:start_date])
+      query = query.where("current_status.created_at >= ?", options[:start_date])
     end
     
     if options[:end_date].present?
-      query = query.where("status_timestamp <= ?", options[:end_date])
+      query = query.where("current_status.created_at <= ?", options[:end_date])
     end
     
     if options[:set].present?
