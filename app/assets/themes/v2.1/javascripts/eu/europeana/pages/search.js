@@ -16,12 +16,12 @@
 		{
 			msg: I18n.t( 'javascripts.search.10seconds' ),
 			timer: 0,
-			timeout: 5000
+			timeout: 3000
 		},
 		{
 			msg: I18n.t( 'javascripts.search.30seconds' ),
 			timer: 0,
-			timeout: 10000
+			timeout: 8000
 		},
 		{
 			msg: I18n.t( 'javascripts.search.60seconds' ),
