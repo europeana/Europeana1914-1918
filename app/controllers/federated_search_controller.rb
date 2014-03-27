@@ -65,8 +65,8 @@ class FederatedSearchController < SearchController
     @results  = response["results"]
     @facets   = response["facets"]
     
-    cache_search_facets("contributions", @facets)
-    preserve_params_facets("contributions", @facets)
+    cache_search_facets(controller_name, @facets)
+    preserve_params_facets(controller_name, @facets)
     
     respond_to do |format|
       format.html { render :template => 'search/page' }
