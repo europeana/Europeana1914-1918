@@ -53,14 +53,19 @@ protected
   end
   
   def validate_response!(response)
-    raise ResponseError.new(response) if response["message"] == "Internal Server Error"
+    case response["message"]
+    when "Internal Server Error"
+      raise ResponseError.new(response)
+    when "Document not found"
+      raise RecordNotFoundError.new(params[:id])
+    end
     
     if response["docs"].present?
       record = response["docs"].first
       if record.has_key?("error")
         case record["error"]
         when "404"
-          raise RecordNotFoundError
+          raise RecordNotFoundError.new(params[:id])
         else
           raise StandardError, record["error"]
         end

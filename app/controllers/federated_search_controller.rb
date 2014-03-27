@@ -5,7 +5,15 @@ class FederatedSearchController < SearchController
   before_filter :load_api_key
   before_filter :configured?
   
-  class ResponseError < RuntimeError
+  class RecordNotFoundError < StandardError
+    attr_reader :id
+    
+    def initialize(id)
+      @id = id
+    end
+  end
+  
+  class ResponseError < StandardError
     attr_reader :response
     
     def initialize(response)
@@ -13,27 +21,25 @@ class FederatedSearchController < SearchController
     end
   end
   
-  class RecordNotFoundError < StandardError; end
-  
   unless Rails.configuration.consider_all_requests_local 
-    rescue_from JSON::ParserError do |exception|
-      logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query")
-      render_error
+    rescue_from RecordNotFoundError do |exception|
+      logger.error("ERROR: No record found from #{controller_name} API with ID #{exception.id}")
+      render_http_error(:not_found, exception)
     end
     
     rescue_from ResponseError do |exception|
       logger.error("ERROR: Invalid response from #{controller_name} API query: #{exception.response}")
       render_error
     end
-  
-    rescue_from Timeout::Error, EOFError do |exception|
-      logger.error("ERROR: Failed to receive response from #{controller_name} API query")
+    
+    rescue_from JSON::ParserError do |exception|
+      logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query")
       render_error
     end
     
-    rescue_from RecordNotFoundError do |exception|
-      logger.error("ERROR: No record found from #{controller_name} API with ID #{params[:id]}")
-      render_http_error(:not_found, exception)
+    rescue_from Timeout::Error, EOFError do |exception|
+      logger.error("ERROR: Failed to receive response from #{controller_name} API query")
+      render_error
     end
   end
   

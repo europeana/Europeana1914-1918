@@ -46,7 +46,7 @@ protected
   def validate_response!(response)
     if response["errors"].present?
       if response["errors"].match(/\ARecord with ID .*? was not found\Z/)
-        raise RecordNotFoundError
+        raise RecordNotFoundError.new(params[:id])
       else
         raise ResponseError.new(response) 
       end

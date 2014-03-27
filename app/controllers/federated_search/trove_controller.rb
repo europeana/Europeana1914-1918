@@ -22,7 +22,7 @@ class FederatedSearch::TroveController < FederatedSearchController
     super
   rescue JSON::ParserError => exception
     if exception.message.match(/<title>Error 404 Not Found<\/title>/m)
-      raise RecordNotFoundError
+      raise RecordNotFoundError.new(params[:id])
     else
       raise
     end
