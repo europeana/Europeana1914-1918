@@ -40,7 +40,9 @@ protected
     }.merge(authentication_params)
     
     facet_params.each_pair do |name, value|
-      search_params[name] = value.join(" ")
+      if FACETS_I18N.has_key?(name)
+        search_params[name] = value.join(" ")
+      end
     end
     
     search_params
