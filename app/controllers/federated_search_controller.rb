@@ -13,6 +13,8 @@ class FederatedSearchController < SearchController
     end
   end
   
+  class RecordNotFoundError < StandardError; end
+  
   unless Rails.configuration.consider_all_requests_local 
     rescue_from JSON::ParserError do |exception|
       logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query")
@@ -27,6 +29,11 @@ class FederatedSearchController < SearchController
     rescue_from Timeout::Error, EOFError do |exception|
       logger.error("ERROR: Failed to receive response from #{controller_name} API query")
       render_error
+    end
+    
+    rescue_from RecordNotFoundError do |exception|
+      logger.error("ERROR: No record found from #{controller_name} API with ID #{params[:id]}")
+      render_http_error(:not_found, exception)
     end
   end
   
@@ -169,6 +176,7 @@ private
     cache_key = "search/federated/#{controller_name}/" + Digest::MD5.hexdigest(url.to_s)
     if fragment_exist?(cache_key)
       response = YAML::load(read_fragment(cache_key))
+      validate_response!(response)
     else
       response = JSON.parse(Net::HTTP.get(url))
       validate_response!(response)

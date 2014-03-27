@@ -18,6 +18,16 @@ class FederatedSearch::TroveController < FederatedSearchController
     end
   end
   
+  def show
+    super
+  rescue JSON::ParserError => exception
+    if exception.message.match(/<title>Error 404 Not Found<\/title>/m)
+      raise RecordNotFoundError
+    else
+      raise
+    end
+  end
+  
 protected
 
   def redirect_to_search

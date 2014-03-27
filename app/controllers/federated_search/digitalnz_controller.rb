@@ -44,7 +44,13 @@ protected
   end
   
   def validate_response!(response)
-    raise ResponseError.new(response) if response["errors"].present?
+    if response["errors"].present?
+      if response["errors"].match(/\ARecord with ID .*? was not found\Z/)
+        raise RecordNotFoundError
+      else
+        raise ResponseError.new(response) 
+      end
+   end 
   end
   
   def total_entries_from_response(response)

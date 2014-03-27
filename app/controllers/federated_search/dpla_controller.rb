@@ -54,6 +54,18 @@ protected
   
   def validate_response!(response)
     raise ResponseError.new(response) if response["message"] == "Internal Server Error"
+    
+    if response["docs"].present?
+      record = response["docs"].first
+      if record.has_key?("error")
+        case record["error"]
+        when "404"
+          raise RecordNotFoundError
+        else
+          raise StandardError, record["error"]
+        end
+      end
+    end
   end
   
   def total_entries_from_response(response)
