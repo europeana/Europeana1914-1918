@@ -182,7 +182,7 @@ module SearchHelper
     end
     
     filter_links = []
-    
+
     filter_params.each_with_index do |filter_param, index|
       link_params = request.query_parameters.dup
       link_params.delete(:q)
@@ -220,7 +220,11 @@ module SearchHelper
              facet["label"] = t('views.search.facets.europeana.source_label')
           end
           
-          link_text = facet["label"] + ": " + facet["fields"].find { |field| field["search"].to_s == field_value }["label"]
+          if facet_field = facet["fields"].find { |field| field["search"].to_s == field_value }
+            link_text = facet["label"] + ": " + facet_field["label"]
+          else
+            link_text = field_value
+          end
         end
         
         if facet_is_single_select?(facet_name)
@@ -240,7 +244,7 @@ module SearchHelper
         CGI.escape(previous_param[:name]) + '=' + CGI.escape(previous_param[:value])
       end.join('&')
       reduce_url = url_for().sub(/\?.*\Z/, '') + '?' + reduce_query_string
-     
+
       filter_links << {
         :reduce => {
           :text => link_text,

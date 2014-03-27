@@ -126,7 +126,7 @@ protected
     results = zone_results(response)
     facets = [ zone_facet ]
     if results["facets"] && results["facets"]["facet"]
-      facets = facets + results["facets"]["facet"]
+      facets = facets + [ results["facets"]["facet"] ].flatten
     end
     facets.collect { |facet|
       {

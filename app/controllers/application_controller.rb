@@ -412,15 +412,23 @@ protected
     cache_key = "search/facets/#{provider.to_s}"
 
     cached_facets = fragment_exist?(cache_key) ? YAML::load(read_fragment(cache_key)) : []
-    updated_facets = cached_facets.dup
+    updated_facets = cached_facets.collect(&:deep_dup)
 
-    facets.dup.each do |facet|
-      if known_facet = updated_facets.select { |f| f["name"] == facet["name"] }.first
-        known_fields = known_facet["fields"].collect { |field| field["search"] }
-        new_fields = facet["fields"].reject { |field| known_fields.include?(field["search"]) }.collect { |field| field.dup.delete("count"); field }
-        known_facet["fields"] = known_facet["fields"] + new_fields
+    facets.each do |facet|
+      if known_facet = updated_facets.find { |f| f["name"] == facet["name"] }
+        new_fields = facet["fields"].collect { |field| field["search"] }
+        known_facet["fields"].reject! { |field| new_fields.include?(field["search"]) }
+        known_facet["fields"] = known_facet["fields"] + facet["fields"]
       else
-        updated_facets << { "name" => facet["name"], "label" => facet["label"], "fields" => facet["fields"].collect { |field| field.dup.delete("count"); field } }
+        updated_facets << { "name" => facet["name"], "label" => facet["label"], "fields" => facet["fields"] }
+      end
+    end
+    
+    updated_facets.each do |facet|
+      facet["fields"] = facet["fields"].collect do |field| 
+        field_dup = field.deep_dup
+        field_dup.delete("count")
+        field_dup
       end
     end
 
@@ -446,6 +454,7 @@ protected
     end
 
     cached_facets = YAML::load(read_fragment(cache_key))
+    
     extracted_facet_params.each_pair do |param_facet_name, param_facet_fields|
       if i = facets.index { |facet| facet["name"] == param_facet_name }
         [ param_facet_fields ].flatten.each do |param_field|
@@ -459,7 +468,7 @@ protected
         end
       else
         if cached_facet = cached_facets.find { |cfacet| cfacet["name"] == param_facet_name }
-          facet_dup = cached_facet.dup
+          facet_dup = cached_facet.deep_dup
           facet_dup["fields"].reject! { |field| ![ param_facet_fields ].flatten.include?(field["search"]) }
           facets << facet_dup
         end
