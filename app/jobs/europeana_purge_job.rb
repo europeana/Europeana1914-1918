@@ -41,6 +41,7 @@ protected
       batch.each do |er|
         er.destroy unless @record_ids.include?(er.record_id)
       end
+      Sunspot.commit
     end
   end
 
