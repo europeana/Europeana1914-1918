@@ -10,16 +10,19 @@ protected
   def get_record_ids
     start = 1
     rows = 100
-    total = nil
+    items = nil
     @record_ids = []
     
-    while total.nil? || (start < total)
+    begin
       response = get_api_search_results(start, rows)
-      total = response['totalResults']
-      return unless response['items'].present?
-      @record_ids = @record_ids + response['items'].collect { |item| item['id'] }
-      start += rows
-    end
+      raise StandardError, "Europeana API request failed before purge completion" unless response['success']
+      
+      items = response['items']
+      if items.present?
+        @record_ids = @record_ids + response['items'].collect { |item| item['id'] }
+        start += rows
+      end
+    end while items.present?
   end
 
   def get_api_search_results(start, rows)
