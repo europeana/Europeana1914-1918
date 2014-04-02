@@ -102,13 +102,13 @@ module Europeana
           [ "keywords", "theatres", "forces", "extended_subjects" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
-                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => subject).append_to(graph, uri, RDF::DCElement.subject)
+                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
               end
             end
           end
           
           unless meta["content"].blank?
-            EDM::Resource::Concept.new(RDF::SKOS.prefLabel => meta["content"].first).append_to(graph, uri, RDF::DCElement.type)
+            EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(meta["content"].first, :language => :en)).append_to(graph, uri, RDF::DCElement.type)
           end
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])

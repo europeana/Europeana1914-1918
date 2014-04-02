@@ -162,7 +162,7 @@ module Europeana
           [ "keywords", "theatres", "forces", "extended_subjects" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
-                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => subject).append_to(graph, uri, RDF::DCElement.subject)
+                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
               end
             end
           end
