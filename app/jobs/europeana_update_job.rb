@@ -49,7 +49,7 @@ protected
     record = EuropeanaRecord.find_by_record_id(record_id)
     return if record.nil?
     
-    puts "Updating EuropeanaRecord with record_id \"#{record_id}\""
+    Delayed::Worker.logger.info("Updating EuropeanaRecord with record_id \"#{record_id}\"")
     record.harvest_object
     record.save
   end
