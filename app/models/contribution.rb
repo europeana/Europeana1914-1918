@@ -361,7 +361,11 @@ class Contribution < ActiveRecord::Base
 protected
 
   def build_metadata_unless_present
-    self.build_metadata unless self.metadata.present?
+    # Second condition prevents building empty metadata record when
+    # {Contribution#select} specifically omits it.
+    if self.metadata.blank? && self.attributes.has_key?("metadata_record_id")
+      self.build_metadata
+    end
   end
   
   ##

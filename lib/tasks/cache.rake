@@ -51,8 +51,9 @@ namespace :cache do
     
     desc "Clears cached Bing Translate API results."
     task :bing_translate => :environment do
-      puts "Clearing cached Bing Translate API results...\n"
+      print "Clearing cached Bing Translate API results... "
       ActionController::Base.new.expire_fragment(/^views\/bing\//)
+      puts "done."
     end
   
     desc "Clears cached rendered search results. Limit to one provider with PROVIDER=name."
@@ -63,9 +64,9 @@ namespace :cache do
           puts "Unknown provider \"#{provider}\"; known providers: " + known_providers.join(', ') + "\n"
           exit 1
         end
-        puts "Clearing cached rendered search results for provider \"#{provider}\"...\n"
+        print "Clearing cached rendered search results for provider \"#{provider}\"... "
       else
-        puts "Clearing cached rendered search results...\n"
+        print "Clearing cached rendered search results... "
       end
       I18n.available_locales.each do |locale|
         [ "v2.1", "v3" ].each do |theme|
@@ -74,12 +75,13 @@ namespace :cache do
           ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
         end
       end
+      puts "done."
     end
     
     namespace :europeana_records do
       desc "Clears cached EuropeanaRecord search result partials. Limit to one theme with THEME=name."
       task :search_results => :environment do
-        puts "Clearing cached EuropeanaRecord search result partials..."
+        print "Clearing cached EuropeanaRecord search result partials... "
         themes = [ ENV['THEME'] ] || [ "v2.1", "v3" ]
         EuropeanaRecord.select("id, record_id").find_in_batches do |batch|
           print "."
@@ -95,17 +97,33 @@ namespace :cache do
         puts " done."
       end
     end
+    
+    desc "Clears cached contribution EDM RDF/XML."
+    task :edm => :environment do
+      print "Clearing cached contribution EDM RDF/XML... "
+      Contribution.select("id").find_in_batches do |batch|
+        print "."
+        batch.each do |contribution|
+          fragment_key = "contributions/xml/#{contribution.id}.xml"
+          ActionController::Base.new.expire_fragment(fragment_key)
+        end
+      end
+      puts " done."
+    end
   
     desc "Clears cached oEmbed responses."
     task :oembed => :environment do
-      puts "Clearing cached oEmbed responses...\n"
+      print "Clearing cached oEmbed responses... "
       ActionController::Base.new.expire_fragment(/^views\/oembed\/response\//)
+      puts "done."
     end
   
     desc "Clears cached Google Analytics API results."
     task :google_analytics => :environment do
-      puts "Clearing cached Google Analytics API results...\n"
+      print "Clearing cached Google Analytics API results... "
       ActionController::Base.new.expire_fragment(/^views\/google\/api\/analytics\/results$/)
+      puts "done."
     end
-  end
+    
+  end # namespace :clear
 end
