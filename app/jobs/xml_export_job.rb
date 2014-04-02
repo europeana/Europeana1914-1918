@@ -24,7 +24,7 @@ class XMLExportJob < ExportJob
 protected
 
   def export_contribution(xml, contribution)
-    builder_filename = File.join(Rails.root, 'app', 'views', 'contributions', '_export.xml.builder')
+    builder_filename = File.join(Rails.root, 'app', 'views', 'common', 'contributions', '_export.xml.builder')
     builder_string = File.read(builder_filename)
     metadata_fields = MetadataField.all.collect { |mf| mf.name }
     instance_eval(builder_string)
