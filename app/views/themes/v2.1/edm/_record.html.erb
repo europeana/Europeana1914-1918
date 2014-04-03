@@ -63,16 +63,24 @@
 							html += '</div>'
 						html += '</div>'
 
-					elsif readLabel = edm_proxy_field(aggregation, 'edmDataProvider')
+					else
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
-								html += t('formtastic.labels.content.metadata.edm.partner_site')
-								html += link_to(
-													': ' + readLabel,
-													edmIsShownAt,
-													:target => '_blank'
-												)
+								if readLabel = edm_proxy_field(aggregation, 'edmDataProvider')
+									html += t('formtastic.labels.content.metadata.edm.partner_site')
+									html += link_to(
+														': ' + readLabel,
+														edmIsShownAt,
+														:target => '_blank'
+													)
+								else
+									html += link_to(
+														t('formtastic.labels.content.metadata.edm.external_partner_site'),
+														edmIsShownAt,
+														:target => '_blank'
+													)
+								end
 							html += '</div>'
 						html += '</div>'
 					end
