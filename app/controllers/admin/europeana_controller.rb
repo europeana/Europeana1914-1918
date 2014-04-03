@@ -30,7 +30,7 @@ class Admin::EuropeanaController < AdminController
   def harvest
     @options = Options.new(params[:options])
     if @options.valid?
-      Delayed::Job.enqueue EuropeanaHarvestJob.new(@options.for_job), :queue => 'europeana_harvest'
+      Delayed::Job.enqueue Europeana::HarvestJob.new(@options.for_job), :queue => 'europeana'
       flash[:notice] = I18n.t('flash.admin.europeana.harvest.notice')
       redirect_to admin_root_path
     else
