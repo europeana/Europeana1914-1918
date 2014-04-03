@@ -2,7 +2,7 @@ class EuropeanaUpdateJob
 
   def perform
     unless EuropeanaRecord.count > 0
-      Rails.logger.info("EuropeanaUpdateJob: No EuropeanaRecord objects to update.")
+      Delayed::Worker.logger.info("EuropeanaUpdateJob: No EuropeanaRecord objects to update.")
       return
     end
     
@@ -50,8 +50,8 @@ protected
     return if record.nil?
     
     Delayed::Worker.logger.info("Updating EuropeanaRecord with record_id \"#{record_id}\"")
-    record.harvest_object
-    record.save
+#    record.harvest_object
+#    record.save
   end
   
   def log_this_update_time

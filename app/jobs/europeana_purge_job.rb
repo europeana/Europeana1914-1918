@@ -37,12 +37,14 @@ protected
   end
   
   def purge_absent_records
-    EuropeanaRecord.select('id, record_id').find_in_batches do |batch|
-      batch.each do |er|
-        er.destroy unless @record_ids.include?(er.record_id)
-      end
-      Sunspot.commit
-    end
+    Delayed::Worker.logger.info("Purging #{@record_ids.count.to_s} EuropeanaRecords")
+    Delayed::Worker.logger.info("Record IDs to purge: \n  " + @record_ids.join("\n  "))
+#    EuropeanaRecord.select('id, record_id').find_in_batches do |batch|
+#      batch.each do |er|
+#        er.destroy unless @record_ids.include?(er.record_id)
+#      end
+#      Sunspot.commit
+#    end
   end
 
 end
