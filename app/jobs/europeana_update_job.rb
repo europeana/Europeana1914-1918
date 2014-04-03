@@ -9,7 +9,11 @@ class EuropeanaUpdateJob
     @log_file = File.join(Rails.root, 'log', "europeana_update_job-#{Rails.env}.log")
     @last_update_time = get_last_update_time
     @this_update_time = Time.zone.now
-    update_records
+    
+    ::ActiveRecord::Base.cache do
+      update_records
+    end
+    
     log_this_update_time
   end
   
@@ -38,7 +42,9 @@ protected
       items = response['items']
       if items.present?
         items.each do |item|
-          update_record(item['id'])
+          if record_needs_update?(item['id'], item['timestamp_update_epoch'].to_i)
+            update_record(item['id'])
+          end
         end
         start += rows
       end
@@ -52,6 +58,13 @@ protected
     Delayed::Worker.logger.info("Updating EuropeanaRecord with record_id \"#{record_id}\"")
 #    record.harvest_object
 #    record.save
+  end
+  
+  def record_needs_update?(record_id, updated_at)
+    record = EuropeanaRecord.find_by_record_id(record_id)
+    return false if record.nil?
+    
+    record.updated_at.to_i < updated_at
   end
   
   def log_this_update_time
