@@ -48,7 +48,7 @@ module Europeana
         items = response['items']
         if items.present?
           items.each do |item|
-            if record_needs_update?(item['id'], item['timestamp_update_epoch'].to_i)
+            if record_needs_update?(item['id'], item['timestamp_update_epoch'].to_i / 1000)
               update_record(item['id'])
             end
           end
