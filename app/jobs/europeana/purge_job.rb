@@ -51,8 +51,8 @@ module Europeana
       Delayed::Worker.logger.info("Europeana::PurgeJob: #{purge_record_ids.count.to_s} EuropeanaRecords to purge")
       
       purge_record_ids.each do |record_id|
-        Delayed::Worker.logger.info("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{record_id}\"")
-#        EuropeanaRecord.find_by_record_id(record_id).destroy
+        Delayed::Worker.logger.debug("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{record_id}\"")
+        EuropeanaRecord.find_by_record_id(record_id).destroy
       end
     end
 
