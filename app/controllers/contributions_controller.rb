@@ -143,8 +143,8 @@ class ContributionsController < ApplicationController
     @tags = @contribution.visible_tags
     
     respond_to do |format|
-      format.json { render :json => cached(@contribution, :json) }
       format.html
+      format.json { render :json => cached(@contribution, :json) }
       format.nt { render :text => cached(@contribution, :nt) }
       format.xml { render :xml => cached(@contribution, :xml) }
     end
