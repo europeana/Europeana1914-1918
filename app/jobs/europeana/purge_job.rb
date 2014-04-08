@@ -13,7 +13,7 @@ module Europeana
       start = 1
       rows = 100
       items = nil
-      @record_ids = []
+      @api_record_ids = []
       
       begin
         response = get_api_search_results(start, rows)
@@ -24,7 +24,7 @@ module Europeana
         
         items = response['items']
         if items.present?
-          @record_ids = @record_ids + response['items'].collect { |item| item['id'] }
+          @api_record_ids = @api_record_ids + response['items'].collect { |item| item['id'] }
           start += rows
         end
       end while items.present?
@@ -42,14 +42,17 @@ module Europeana
     end
     
     def purge_absent_records
-      Delayed::Worker.logger.info("Europeana::PurgeJob: #{@record_ids.count.to_s} EuropeanaRecords to purge")
+      db_record_ids = []
       EuropeanaRecord.select('id, record_id').find_in_batches do |batch|
-        batch.each do |er|
-          unless @record_ids.include?(er.record_id)
-            Delayed::Worker.logger.debug("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{er.record_id}\"")
-            er.destroy
-          end
-        end
+        db_record_ids = db_record_ids + batch.collect(&:record_id)
+      end
+      
+      purge_record_ids = db_record_ids - @api_record_ids
+      Delayed::Worker.logger.info("Europeana::PurgeJob: #{purge_record_ids.count.to_s} EuropeanaRecords to purge")
+      
+      purge_record_ids.each do |record_id|
+        Delayed::Worker.logger.info("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{record_id}\"")
+#        EuropeanaRecord.find_by_record_id(record_id).destroy
       end
     end
 
