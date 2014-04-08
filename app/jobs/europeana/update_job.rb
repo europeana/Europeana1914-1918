@@ -64,9 +64,9 @@ module Europeana
       record = EuropeanaRecord.find_by_record_id(record_id)
       return if record.nil?
       
-      Delayed::Worker.logger.info("Europeana::UpdateJob: Updating EuropeanaRecord with record_id \"#{record_id}\"")
-  #    record.harvest_object
-  #    record.save
+      Delayed::Worker.logger.debug("Europeana::UpdateJob: Updating EuropeanaRecord with record_id \"#{record_id}\"")
+      record.harvest_object
+      record.save
     end
     
     def record_needs_update?(record_id, updated_at)
