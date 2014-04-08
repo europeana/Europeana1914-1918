@@ -40,7 +40,7 @@ module RunCoCo
 
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
-    
+
     config.paths['app/views'] = [ "#{Rails.root}/app/views/common" ]
 
     # Configure the default encoding used in templates for Ruby 1.9.
@@ -48,17 +48,17 @@ module RunCoCo
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     # Additional assets to precompile
-    config.assets.precompile += [ 
+    config.assets.precompile += [
       'mediaelementplayer.js', 'pdf.js',
-      'annotorious.css', 'mediaelementplayer.css', 'pdf.css',
+      'annotorious-0.6.2.css', 'mediaelementplayer.css', 'pdf.css',
       '*/javascripts/eu/europeana/pages/*.js',
       /\/stylesheets\/[^\/]*\.css\Z/,
       /\/javascripts\/[^\/]*\.js\Z/,

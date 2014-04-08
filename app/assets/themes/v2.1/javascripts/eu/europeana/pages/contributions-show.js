@@ -2,6 +2,7 @@
 /*jslint browser: true, regexp: true, white: true */
 (function() {
 	'use strict';
+
 	var add_lightbox =
 		( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 )
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
@@ -289,7 +290,8 @@
 		},
 
 		setupAnnotorious : function() {
-			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } ) ;
+			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
+			anno.addPlugin( 'Flag', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
 		},
 
 		setupPrettyPhoto : function() {
@@ -432,14 +434,11 @@
 	};
 	*/
 
-
-	(function() {
-		//truncate.init();
-		RunCoCo.translation_services.init( $('.translate-area') );
-		carousels.init();
-		map.init();
-		lightbox.init();
-		pdf.init();
-	}());
+	//truncate.init();
+	RunCoCo.translation_services.init( $('.translate-area') );
+	carousels.init();
+	map.init();
+	lightbox.init();
+	pdf.init();
 
 }());
