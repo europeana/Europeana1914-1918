@@ -50,7 +50,6 @@ module Europeana
             er.destroy
           end
         end
-        Sunspot.commit
       end
     end
 
