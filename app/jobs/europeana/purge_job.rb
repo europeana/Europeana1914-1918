@@ -53,6 +53,7 @@ module Europeana
       purge_record_ids.each do |record_id|
         Delayed::Worker.logger.debug("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{record_id}\"")
         EuropeanaRecord.find_by_record_id(record_id).destroy
+        Sunspot.commit
       end
     end
 

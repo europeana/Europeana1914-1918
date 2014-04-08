@@ -67,6 +67,7 @@ module Europeana
       Delayed::Worker.logger.debug("Europeana::UpdateJob: Updating EuropeanaRecord with record_id \"#{record_id}\"")
       record.harvest_object
       record.save
+      Sunspot.commit
     end
     
     def record_needs_update?(record_id, updated_at)
