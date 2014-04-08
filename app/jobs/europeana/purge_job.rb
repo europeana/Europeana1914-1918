@@ -45,10 +45,12 @@ module Europeana
       Delayed::Worker.logger.info("Europeana::PurgeJob: #{@record_ids.count.to_s} EuropeanaRecords to purge")
       EuropeanaRecord.select('id, record_id').find_in_batches do |batch|
         batch.each do |er|
-          Delayed::Worker.logger.info("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{er.record_id}\"") unless @record_ids.include?(er.record_id)
-#          er.destroy unless @record_ids.include?(er.record_id)
+          unless @record_ids.include?(er.record_id)
+            Delayed::Worker.logger.debug("Europeana::PurgeJob: Purging EuropeanaRecord with record_id \"#{er.record_id}\"")
+            er.destroy
+          end
         end
-#        Sunspot.commit
+        Sunspot.commit
       end
     end
 
