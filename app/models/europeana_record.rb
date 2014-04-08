@@ -10,6 +10,8 @@ class EuropeanaRecord < ActiveRecord::Base
   validates_presence_of :record_id, :object
   
   before_validation :harvest_object, :on => :create
+  after_save :expire_cache_fragments, :on => :update
+  after_destroy :expire_cache_fragments
   
   # Solr index
   searchable do
@@ -166,6 +168,16 @@ class EuropeanaRecord < ActiveRecord::Base
       raise unless retries > 0
       sleep 10
       retry
+    end
+  end
+  
+  def expire_cache_fragments
+    fragments = [
+      "europeana_records/edm/result/#{id}"
+    ]
+    
+    fragments.each do |key|
+      ActionController::Base.new.expire_fragment(key)
     end
   end
 end
