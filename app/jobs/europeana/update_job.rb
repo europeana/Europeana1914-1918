@@ -24,9 +24,12 @@ module Europeana
 
     def get_last_update_time
       if File.exists?(@log_file)
-        last_line = IO.readlines(@log_file)[-1].strip
-        if last_line.match(/^\d+$/)
-          return Time.zone.at(last_line.to_i)
+        last_line = IO.readlines(@log_file)[-1]
+        if last_line.present?
+          last_line.strip!
+          if last_line.match(/^\d+$/)
+            return Time.zone.at(last_line.to_i)
+          end
         end
       end
       
