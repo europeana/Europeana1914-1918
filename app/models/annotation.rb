@@ -52,4 +52,15 @@ class Annotation < ActiveRecord::Base
   def rdf_uri
     @rdf_uri ||= RDF::URI.parse("europeana19141918:annotation/" + id.to_s)
   end
+  
+  ##
+  # Checks if a user has flagged this annotation
+  #
+  # @param [User] user The user to check
+  # @return [Boolean]
+  #
+  def flagged_by?(user)
+    flaggings = self.flags.collect(&:taggings).flatten.uniq
+    flaggings.collect(&:tagger_id).include?(user.id)
+  end
 end

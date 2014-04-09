@@ -180,13 +180,10 @@ class Permissions < Aegis::Permissions
   
   action :flag_attachment_annotation do
     allow :administrator, :cataloguer, :contributor do |annotation|
-      user_created_annotation = (annotation.user == user)
-      
-      flaggings = annotation.flags.collect(&:taggings).flatten.uniq
-      flagger_ids = flaggings.collect(&:tagger_id)
-      user_flagged_annotation = flagger_ids.include?(user.id)
-
-      !user_created_annotation && !user_flagged_annotation
+      # Flagging permitted if the user: 
+      # * Did not create the annotation
+      # * Has not already flagged the annotation
+      (annotation.user != user) && !annotation.flagged_by?(user)
     end
   end
   

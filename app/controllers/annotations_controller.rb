@@ -18,7 +18,8 @@ class AnnotationsController < ApplicationController
           "annotations" => @annotations.collect { |annotation|
             annotation.to_hash.merge({
               :editable => current_user.may_edit_attachment_annotation?(annotation),
-              :flaggable => current_user.may_flag_attachment_annotation?(annotation)
+              :flaggable => current_user.may_flag_attachment_annotation?(annotation),
+              :flagged => annotation.flagged_by?(current_user)
             })
           },
           "creatable" => current_user.may_create_attachment_annotation?(attachment)
