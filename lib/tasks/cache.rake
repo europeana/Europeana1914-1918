@@ -98,17 +98,40 @@ namespace :cache do
       end
     end
     
-    desc "Clears cached contribution EDM RDF/XML."
-    task :edm => :environment do
-      print "Clearing cached contribution EDM RDF/XML... "
-      Contribution.select("id").find_in_batches do |batch|
-        print "."
-        batch.each do |contribution|
-          fragment_key = "contributions/xml/#{contribution.id}.xml"
-          ActionController::Base.new.expire_fragment(fragment_key)
-        end
+    namespace :edm do
+      desc "Clears all cached EDM RDF/XML (contributions and attachments)."
+      task :all => :environment do
+        Rake::Task["cache:clear:edm:contributions"].invoke
+        Rake::Task["cache:clear:edm:attachments"].invoke
       end
-      puts " done."
+      
+      desc "Clears cached EDM RDF/XML for contributions."
+      task :contributions => :environment do
+        print "Clearing cached contribution EDM RDF/XML... "
+        controller = ActionController::Base.new
+        Contribution.select("id").find_in_batches do |batch|
+          print "."
+          batch.each do |contribution|
+            fragment_key = "contributions/xml/#{contribution.id}.xml"
+            controller.expire_fragment(fragment_key)
+          end
+        end
+        puts " done."
+      end
+      
+      desc "Clears cached EDM RDF/XML for contributions."
+      task :attachments => :environment do
+        print "Clearing cached attachment EDM RDF/XML... "
+        controller = ActionController::Base.new
+        Attachment.select("id").find_in_batches do |batch|
+          print "."
+          batch.each do |attachment|
+            fragment_key = "attachments/xml/#{attachment.id}.xml"
+            controller.expire_fragment(fragment_key)
+          end
+        end
+        puts " done."
+      end
     end
   
     desc "Clears cached oEmbed responses."
