@@ -9,7 +9,7 @@ module Europeana
       
       Delayed::Worker.logger.info("Europeana::UpdateJob: Updating EuropeanaRecords...")
       
-      @log_file = File.join(Rails.root, 'log', "europeana_update_job-#{Rails.env}.log")
+      @log_file = File.join(Rails.root, 'log', "europeana_update_job-#{Rails.env}.txt")
       @last_update_time = get_last_update_time
       @this_update_time = Time.zone.now
       
