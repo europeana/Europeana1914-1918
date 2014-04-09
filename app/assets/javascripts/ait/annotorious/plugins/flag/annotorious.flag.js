@@ -1,6 +1,6 @@
-/*global annotorious, jQuery */
+/*global annotorious, I18n, jQuery */
 /*jslint browser: true, nomen: true, regexp: true, white: true */
-(function ( annotorious, $ ) {
+(function ( annotorious, I18n, $ ) {
 	'use strict';
 
 	var Flag = {};
@@ -11,23 +11,35 @@
 	};
 
 	annotorious.plugin.Flag.prototype.onInitAnnotator = function( annotator ) {
+		Flag.preloadImages();
 		annotator.popup.addField( Flag.addFlagIcon );
+	};
+
+	annotorious.plugin.Flag.prototype.preloadImages = function() {
+		var image = [];
+
+		image[0] = new Image();
+		image[1] = new Image();
+		image[0].src = '/assets/ait/annotorious/plugins/flag/flag-gray.png';
+		image[1].src = '/assets/ait/annotorious/plugins/flag/flag-red.png';
 	};
 
 	annotorious.plugin.Flag.prototype.addFlagIcon = function( annotation ) {
 		var $flag_icon =
 			$('<a>')
-			.attr( 'title','Flag' )
 			.attr( 'href','#' )
-			.text( 'FLAG' )
 			.on( 'click', { annotation: annotation }, Flag.handleFlagClick );
 
 		if ( !annotation.flaggable ) {
 			$flag_icon
-				.attr( 'class','annotorious-popup-button annotorious-popup-flag-red' );
+				.attr( 'class','annotorious-popup-button annotorious-popup-flag-red' )
+				.attr( 'title', I18n.t('javascripts.annotorious.clear-flag') )
+				.text( I18n.t('javascripts.annotorious.clear-flag') );
 		} else {
 			$flag_icon
-				.attr( 'class','annotorious-popup-button annotorious-popup-flag-gray' );
+				.attr( 'class','annotorious-popup-button annotorious-popup-flag-gray' )
+				.attr( 'title', I18n.t('javascripts.annotorious.flag') )
+				.text( I18n.t('javascripts.annotorious.flag') );
 		}
 
 		return $flag_icon[0];
@@ -77,4 +89,4 @@
 		}
 	};
 
-}( annotorious, jQuery ));
+}( annotorious, I18n, jQuery ));
