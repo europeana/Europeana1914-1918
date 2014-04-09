@@ -156,5 +156,22 @@ module ApplicationHelper
       pager.replace(array[start..finish])
     end
   end
+  
+  def link_to_table_sort(text, col)
+    current_col   = params[:col].to_s
+    current_order = [ 'ASC', 'DESC' ].include?(params[:order].to_s.upcase) ? params[:order] : 'ASC'
+
+    if col == current_col
+      sort_order = (current_order.upcase == 'ASC') ? 'DESC' : 'ASC'
+    else
+      sort_order = 'ASC'
+    end
+    
+    html_options = { :class => 'sort ' + current_order.downcase }
+    if col == params[:col].to_s
+      html_options[:class] << ' active'
+    end
+    link_to text, { :col => col, :order => sort_order }, html_options
+  end
 end
 
