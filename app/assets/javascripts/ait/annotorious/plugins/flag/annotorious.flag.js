@@ -25,12 +25,16 @@
 	};
 
 	annotorious.plugin.Flag.prototype.addFlagIcon = function( annotation ) {
+		if ( !annotation.flaggable ) {
+			return;
+		}
+
 		var $flag_icon =
 			$('<a>')
 			.attr( 'href','#' )
 			.on( 'click', { annotation: annotation }, Flag.handleFlagClick );
 
-		if ( !annotation.flaggable ) {
+		if ( annotation.flagged ) {
 			$flag_icon
 				.attr( 'class','annotorious-popup-button annotorious-popup-flag-red' )
 				.attr( 'title', I18n.t('javascripts.annotorious.clear-flag') )
@@ -52,10 +56,8 @@
 		evt.preventDefault();
 		$elm.off('click');
 
-		if ( annotation.flaggable ) {
-			if ( !annotation.flagged ) {
-				Flag.flagAnnotation( annotation, $elm );
-			}
+		if ( !annotation.flagged ) {
+			Flag.flagAnnotation( annotation, $elm );
 		}
 	};
 
@@ -67,13 +69,12 @@
   };
 
   annotorious.plugin.Flag.prototype.flagAnnotation = function( annotation, $elm ) {
-
     $.ajax({
       type: "POST",
       url: Flag._BASE_URL + "/" + annotation.id + "/flag",
       beforeSend: Flag._preserveCSRFToken,
 			data: { '_method': 'put' },
-			success: function() { annotation.flaggable = false; Flag.toggleFlagIcon( $elm ); }
+			success: function() { annotation.flagged = true; Flag.toggleFlagIcon( $elm ); }
     });
   };
 
@@ -81,11 +82,13 @@
 		if ( $elm.hasClass( 'annotorious-popup-flag-gray' ) ) {
 			$elm
 				.removeClass( 'annotorious-popup-flag-gray' )
-				.addClass( 'annotorious-popup-flag-red' );
+				.addClass( 'annotorious-popup-flag-red' )
+				.text( I18n.t('javascripts.annotorious.clear-flag') );
 		} else {
 			$elm
 				.removeClass( 'annotorious-popup-flag-red' )
-				.addClass( 'annotorious-popup-flag-gray' );
+				.addClass( 'annotorious-popup-flag-gray' )
+				.text( I18n.t('javascripts.annotorious.flag') );
 		}
 	};
 
