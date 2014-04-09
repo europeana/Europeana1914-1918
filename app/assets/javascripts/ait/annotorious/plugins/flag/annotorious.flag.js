@@ -11,22 +11,26 @@
 	};
 
 	annotorious.plugin.Flag.prototype.onInitAnnotator = function( annotator ) {
-		annotator.popup.addField( Flag.addField );
+		annotator.popup.addField( Flag.addFlagIcon );
 	};
 
-	annotorious.plugin.Flag.prototype.addField = function( annotation ) {
-		var $field = '';
+	annotorious.plugin.Flag.prototype.addFlagIcon = function( annotation ) {
+		var $flag_icon =
+			$('<a>')
+			.attr( 'title','Flag' )
+			.attr( 'href','#' )
+			.text( 'FLAG' )
+			.on( 'click', { annotation: annotation }, Flag.handleFlagClick );
 
-		if ( annotation.flaggable ) {
-			$field = $('<a>')
-				.attr( 'class','annotorious-popup-button annotorious-popup-flag-gray' )
-				.attr( 'title','Flag' )
-				.attr( 'href','#' )
-				.text( 'FLAG' )
-				.on( 'click', { annotation: annotation }, Flag.handleFlagClick )[0];
+		if ( !annotation.flaggable ) {
+			$flag_icon
+				.attr( 'class','annotorious-popup-button annotorious-popup-flag-red' );
+		} else {
+			$flag_icon
+				.attr( 'class','annotorious-popup-button annotorious-popup-flag-gray' );
 		}
 
-		return $field;
+		return $flag_icon[0];
 	};
 
 	annotorious.plugin.Flag.prototype.handleFlagClick = function( evt ) {
@@ -34,9 +38,12 @@
 		annotation = evt.data.annotation;
 
 		evt.preventDefault();
+		$elm.off('click');
 
 		if ( annotation.flaggable ) {
-			Flag.flagAnnotation( annotation, $elm );
+			if ( !annotation.flagged ) {
+				Flag.flagAnnotation( annotation, $elm );
+			}
 		}
 	};
 
@@ -48,16 +55,13 @@
   };
 
   annotorious.plugin.Flag.prototype.flagAnnotation = function( annotation, $elm ) {
-    if ( !annotation.id ) {
-      return;
-    }
 
     $.ajax({
       type: "POST",
       url: Flag._BASE_URL + "/" + annotation.id + "/flag",
       beforeSend: Flag._preserveCSRFToken,
 			data: { '_method': 'put' },
-			success: Flag.toggleFlagIcon( $elm )
+			success: function() { annotation.flaggable = false; Flag.toggleFlagIcon( $elm ); }
     });
   };
 

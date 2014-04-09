@@ -208,6 +208,7 @@
 	lightbox = {
 		$metadata : [],
 		current : 0,
+		annotorious_setup: false,
 
 		addMetaDataOverlay : function( $elm ) {
 			var self = this,
@@ -290,8 +291,13 @@
 		},
 
 		setupAnnotorious : function() {
+			if ( this.annotorious_setup ) {
+				return;
+			}
+
 			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
 			anno.addPlugin( 'Flag', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
+			this.annotorious_setup = true;
 		},
 
 		setupPrettyPhoto : function() {
