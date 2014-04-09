@@ -542,7 +542,7 @@ protected
     
     if result.is_a?(EuropeanaRecord)
       id_parts = edm['id'].split('/')
-      edm['guid'] = show_europeana_url(:dataset_id => id_parts[1], :record_id => id_parts[2])
+      edm['guid'] = show_europeana_path(:dataset_id => id_parts[1], :record_id => id_parts[2])
     end
     
     edm
