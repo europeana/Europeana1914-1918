@@ -58,7 +58,7 @@ module RunCoCo
     # Additional assets to precompile
     config.assets.precompile += [
       'mediaelementplayer.js', 'pdf.js',
-      'annotorious-0.6.2.css', 'mediaelementplayer.css', 'pdf.css',
+      'annotorious.css', 'mediaelementplayer.css', 'pdf.css',
       '*/javascripts/eu/europeana/pages/*.js',
       /\/stylesheets\/[^\/]*\.css\Z/,
       /\/javascripts\/[^\/]*\.js\Z/,
