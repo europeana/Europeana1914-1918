@@ -2,6 +2,10 @@
 /*jslint browser: true, nomen: true, regexp: true, white: true */
 /**
  * flag plugin for annotorious developed for europeana 1914-1918
+ *
+ * @param {object} annotorious
+ * @param {object} I18n ruby localised messages for javascript
+ * @param {object} $ jQuery
  */
 (function ( annotorious, I18n, $ ) {
 	'use strict';
@@ -26,7 +30,6 @@
 
 	annotorious.plugin.Flag.prototype.preloadImages = function() {
 		var image = [];
-
 		image[0] = new Image();
 		image[1] = new Image();
 		image[0].src = '/assets/ait/annotorious/plugins/flag/flag-gray.png';
@@ -35,7 +38,7 @@
 
 	/**
 	 * @param {object} annotation
-	 * @returns {object} jQuery object representing the flag icon
+	 * @returns {object} DOM object representing the flag icon
 	 */
 	annotorious.plugin.Flag.prototype.addFlagIcon = function( annotation ) {
 		if ( !annotation.flaggable ) {
