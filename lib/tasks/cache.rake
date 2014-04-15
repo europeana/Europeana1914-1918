@@ -119,7 +119,7 @@ namespace :cache do
         puts " done."
       end
       
-      desc "Clears cached EDM RDF/XML for contributions."
+      desc "Clears cached EDM RDF/XML for attachments."
       task :attachments => :environment do
         print "Clearing cached attachment EDM RDF/XML... "
         controller = ActionController::Base.new
