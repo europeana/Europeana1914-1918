@@ -74,6 +74,10 @@ module Europeana
       record = EuropeanaRecord.find_by_record_id(record_id)
       return false if record.nil?
       
+      # Temporary workaround for discrepancy between timestamps returned by
+      # Europeana API on search results and records
+      return true
+      
       record.updated_at.to_i < updated_at
     end
     
