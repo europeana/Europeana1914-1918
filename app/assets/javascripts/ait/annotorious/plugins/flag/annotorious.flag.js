@@ -119,7 +119,7 @@
   annotorious.plugin.Flag.prototype.flagAnnotation = function( annotation, $elm ) {
     $.ajax({
       type: "POST",
-      url: Flag._BASE_URL + "/" + annotation.id + "/flag",
+      url: Flag._BASE_URL + "/" + annotation.id + "/flag.json",
       beforeSend: Flag._preserveCSRFToken,
 			data: { '_method': 'put' },
 			success: function() { annotation.flagged = true; Flag.toggleFlagIcon( annotation, $elm ); }
@@ -133,7 +133,7 @@
 	annotorious.plugin.Flag.prototype.unflagAnnotation = function( annotation, $elm ) {
     $.ajax({
       type: "POST",
-      url: Flag._BASE_URL + "/" + annotation.id + "/unflag",
+      url: Flag._BASE_URL + "/" + annotation.id + "/unflag.json",
       beforeSend: Flag._preserveCSRFToken,
 			data: { '_method': 'put' },
 			success: function() { annotation.flagged = true; Flag.toggleFlagIcon( annotation, $elm ); }
