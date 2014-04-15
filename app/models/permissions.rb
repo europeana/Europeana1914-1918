@@ -182,8 +182,7 @@ class Permissions < Aegis::Permissions
     allow :administrator, :cataloguer, :contributor do |annotation|
       # Flagging permitted if the user: 
       # * Did not create the annotation
-      # * Has not already flagged the annotation
-      (annotation.user != user) && !annotation.flagged_by?(user)
+      annotation.user != user
     end
   end
   
