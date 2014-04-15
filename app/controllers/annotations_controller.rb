@@ -185,7 +185,67 @@ class AnnotationsController < ApplicationController
       format.json do
         render :json => {
           "success" => true,
+          "message" => t('flash.annotations.flag.notice')
+        }
+      end
+    end
+  
+  rescue
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.annotations.flag.alert')
+        render :action => :flag
+      end
+      format.json do
+        render :json => {
+          "success" => false,
           "message" => t('flash.annotations.flag.alert')
+        }
+      end
+    end
+  end
+  
+  # GET /:locale/annotations/:id/unflag(.:format)
+  def unflag
+    current_user.may_flag_attachment_annotation!(@annotation)
+  end
+  
+  # PUT /:locale/annotations/:id/unflag(.:format)
+  def confirm_unflag
+    current_user.may_flag_attachment_annotation!(@annotation)
+    
+    @annotation.owner_tags_on(current_user, :flags).find { |f| f.name == "inappropriate" }.destroy
+    
+    case @annotation.flags(:reload => true).size
+    when 0
+      @annotation.change_status_to(:published, current_user.id)
+    when 1, 2
+      @annotation.change_status_to(:flagged, current_user.id)
+    end
+    
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.annotations.unflag.notice')
+        redirect_to contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment)
+      end
+      format.json do
+        render :json => {
+          "success" => true,
+          "message" => t('flash.annotations.unflag.notice')
+        }
+      end
+    end
+    
+  rescue
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t('flash.annotations.unflag.alert')
+        render :action => :unflag
+      end
+      format.json do
+        render :json => {
+          "success" => false,
+          "message" => t('flash.annotations.unflag.alert')
         }
       end
     end

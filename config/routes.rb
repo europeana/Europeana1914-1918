@@ -56,6 +56,8 @@ RunCoCo::Application.routes.draw do
         put 'depublish', :action => 'confirm_depublish'
         get 'flag'
         put 'flag', :action => 'confirm_flag'
+        get 'unflag'
+        put 'unflag', :action => 'confirm_unflag'
       end
     end
     
