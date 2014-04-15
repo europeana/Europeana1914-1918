@@ -134,9 +134,7 @@ RunCoCo::Application.routes.draw do
         end
       end
       
-      resources :annotations, :except => [ :show ] do
-        get 'delete', :on => :member
-      end
+      resources :annotations, :only => :index
       
       resources :exports, :only => [ :index, :show ]
       
@@ -159,6 +157,8 @@ RunCoCo::Application.routes.draw do
       end
       
       resources :statistics, :only => :index
+      
+      resources :taggings, :only => :index
       
       scope 'config' do
         match '/' => 'config#index', :as => 'config', :via => :get
