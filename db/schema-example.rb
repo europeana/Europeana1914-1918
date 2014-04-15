@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319120318) do
+ActiveRecord::Schema.define(:version => 20140320105859) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -209,13 +209,13 @@ ActiveRecord::Schema.define(:version => 20140319120318) do
   create_table "record_statuses", :force => true do |t|
     t.integer  "record_id"
     t.string   "record_type"
-    t.string   "status"
+    t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at"
   end
 
+  add_index "record_statuses", ["name"], :name => "index_record_statuses_on_status"
   add_index "record_statuses", ["record_id", "record_type"], :name => "index_record_statuses_on_record_id_and_record_type"
-  add_index "record_statuses", ["status"], :name => "index_record_statuses_on_status"
   add_index "record_statuses", ["user_id"], :name => "index_record_statuses_on_user_id"
 
   create_table "search_suggestions", :force => true do |t|

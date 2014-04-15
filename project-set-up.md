@@ -292,10 +292,6 @@ rake commands mentioned below.
 
 the following commands assume that you are at the root path of the project.
 
-```
-cd /Europeana1914-1918
-```
-
 ### schema
 
 make sure the database schema file is available to the db rake commands.
@@ -318,16 +314,7 @@ if you want, you can import a production db dump instead of creating a clean dat
 
 ```
 mysql -u user_name -p db_name < db_dump.sql
-```
 
-### migrate the db
-
-used to make sure any existing database is up to date with any lifecycle database
-changes.
-
-```
-bundle exec rake db:migrate
-```
 
 ### create a clean version of the database
 
@@ -338,6 +325,15 @@ bundle exec rake db:migrate
 
 ```
 bundle exec rake db:setup
+```
+
+### migrate the db
+
+used to make sure any existing database is up to date with any lifecycle database
+changes.
+
+```
+bundle exec rake db:migrate
 ```
 
 
