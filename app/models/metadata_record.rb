@@ -226,7 +226,8 @@ class MetadataRecord < ActiveRecord::Base
   
   ##
   # Alters incoming params hash for date fields input via select fields.
-  def attributes=(new_attributes, guard_protected_attributes = true)
+  #
+  def assign_attributes(new_attributes, options = {})
     return unless new_attributes.is_a?(Hash)
     attributes = new_attributes.stringify_keys
     
@@ -240,7 +241,7 @@ class MetadataRecord < ActiveRecord::Base
       end
     end
     
-    super(attributes, guard_protected_attributes)
+    super(attributes, options)
   end
   
   def for_contribution?
