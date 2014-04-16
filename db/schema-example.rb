@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140320105859) do
+ActiveRecord::Schema.define(:version => 20140416092404) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20140320105859) do
     t.string   "tagger_type"
     t.string   "context",       :limit => 128
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
