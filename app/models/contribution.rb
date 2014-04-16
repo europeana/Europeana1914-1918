@@ -337,7 +337,7 @@ class Contribution < ActiveRecord::Base
     return false unless hrs_change_status_to(status, user_id)
     
     unless was_published == will_be_published
-      c.attachments.each do |a|
+      attachments.each do |a|
         a.set_public
         return false unless a.save
       end
