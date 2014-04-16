@@ -10,6 +10,7 @@
       <thead>
         <tr>
           <th scope="col"><%= link_to_table_sort t('attributes.created_at'), 'created_at' %></th>
+          <th scope="col"><%= link_to_table_sort t('attributes.updated_at'), 'updated_at' %></th>
           <th scope="col"><%= t('activerecord.models.user') %></th>
           <th scope="col"><%= t('activerecord.models.contribution') %></th>
           <th scope="col"><%= link_to_table_sort t('views.admin.taggings.table.header.text'), 'tags.name' %></th>
@@ -21,6 +22,7 @@
         <%- for tagging in @taggings -%>
           <tr>
             <td><%= l tagging.created_at, :format => :short %></td>
+            <td><%= l tagging.updated_at, :format => :short %></td>
             <td>
               <%- if tagging.tagger.contact.full_name.present? -%>
                 <%= link_to tagging.tagger.contact.full_name, admin_user_path(tagging.tagger) %>
@@ -29,7 +31,7 @@
               <%- end -%>
             </td>
             <td>
-              <%= link_to truncate(tagging.taggable.title, :length => 140, :separator => ' '), contribution_path(tagging.taggable) %>
+              <%= link_to truncate(tagging.taggable.title, :length => 140, :separator => ' '), contribution_path(tagging.taggable), :target => '_blank' %>
             </td>
             <td><%= truncate tagging.tag.name, :length => 140, :separator => ' ' %></td>
             <td><%= tagging.current_status.name %></td>

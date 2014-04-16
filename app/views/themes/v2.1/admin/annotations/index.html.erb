@@ -10,6 +10,7 @@
       <thead>
         <tr>
           <th scope="col"><%= link_to_table_sort t('attributes.created_at'), 'created_at' %></th>
+          <th scope="col"><%= link_to_table_sort t('attributes.updated_at'), 'updated_at' %></th>
           <th scope="col"><%= t('activerecord.models.user') %></th>
           <th scope="col"><%= t('activerecord.models.attachment') %></th>
           <th scope="col"><%= link_to_table_sort t('views.admin.annotations.table.header.text'), 'text' %></th>
@@ -21,6 +22,7 @@
         <%- for annotation in @annotations -%>
           <tr>
             <td><%= l annotation.created_at, :format => :short %></td>
+            <td><%= l annotation.updated_at, :format => :short %></td>
             <td>
               <%- if annotation.user.contact.full_name.present? -%>
                 <%= link_to annotation.user.contact.full_name, admin_user_path(annotation.user) %>
@@ -29,7 +31,7 @@
               <%- end -%>
             </td>
             <td>
-              <%= link_to truncate(attachment_title(annotation.attachment), :length => 140, :separator => ' '), contribution_attachment_path(annotation.contribution, annotation.attachment) %>
+              <%= link_to truncate(attachment_title(annotation.attachment), :length => 140, :separator => ' '), contribution_attachment_path(annotation.contribution, annotation.attachment), :target => '_blank' %>
             </td>
             <td><%= truncate annotation.text, :length => 140, :separator => ' ' %></td>
             <td><%= annotation.current_status.name %></td>
