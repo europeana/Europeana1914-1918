@@ -65,7 +65,7 @@
 
 				} else {
 
-					RunCoCo.translation_services[translator].options.text_to_translate = self.source_text[i];
+					RunCoCo.translation_services[translator].options.text_to_translate = encodeURIComponent( self.source_text[i] );
 					RunCoCo.translation_services[translator].options.callback = 'RunCoCo.translation_services.translators.' + translator + '.callbacks[' + i + ']';
 					RunCoCo.translation_services.microsoft.translate();
 
