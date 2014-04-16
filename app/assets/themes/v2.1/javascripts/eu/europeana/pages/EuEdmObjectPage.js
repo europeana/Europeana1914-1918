@@ -1,36 +1,34 @@
 /*global jQuery */
-/*jslint browser: true, plusplus: true, regexp: true, white: true */
+/*jslint browser: true, regexp: true, white: true */
 (function( $ ) {
 
 	'use strict';
+
 	var pdf_viewer =
-		( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 )
+		( $(window).width() <= 768 || $(window).height() <= 500 )
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
 		? false
 		: true,
-		$contributions_featured = jQuery('#contributions-featured'),
 		add_lightbox = pdf_viewer,
 
 
 	carousels = {
-		$contributions_featured_ul : jQuery('#institution-featured ul'),
+		$contributions_featured_ul : $('#institution-featured ul'),
 		$featured_carousel : null,
 		$pagination_counts : $('#pagination-counts'),
-		$pagination_next : jQuery('#carousel-pagination .pagination a[rel=next]').eq(0),
+		$pagination_next : $('#carousel-pagination .pagination a[rel=next]').eq(0),
 		ajax_load_processed : true,
 		nav_initial_delay: 3000,
 		pagination_total : $('#pagination-total').text(),
 
 		addImagesToLightbox : function( $new_content ) {
-			var	$pp_full_res = jQuery('#pp_full_res'),
-					$new_links = $new_content.find('#institution-featured > ul > li > a');
-
-			if ( $pp_full_res.length < 1 ) {
+			if ( window.pp_images === undefined ) {
+				$("#institution-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 				return;
 			}
 
-			$new_links.each(function() {
-				var $elm = jQuery(this);
+			$new_content.find("#institution-featured a[rel^='prettyPhoto']").each(function() {
+				var $elm = $(this);
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
 			});
@@ -205,23 +203,25 @@
 	},
 
 	lightbox = {
-		setupPrettyPhoto : function() {
-			var self = this,
-					ppOptions = {
-						callback : function() {
-							lightbox.init(); // this insures that additional content that was loaded while in lightbox is lightbox enabled if the lightbox is closed
-						},
-						changepagenext : self.handlePageChangeNext,
-						changepageprev : self.handlePageChangePrev,
-						changepicturecallback : self.handlePictureChange,
-						collection_total : carousels.pagination_total,
-						description_src : 'data-description',
-						overlay_gallery : false,
-						show_title : false,
-						social_tools: false
-					};
+		ppOptions : {},
 
-			$("a[rel^='prettyPhoto']").prettyPhoto( ppOptions );
+		setupPrettyPhoto : function() {
+			lightbox.ppOptions.callback = function() {
+				// this insures that additional content that was loaded while
+				// in lightbox is lightbox enabled if the lightbox is closed
+				lightbox.init();
+			};
+
+			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
+			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
+			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
+			lightbox.ppOptions.collection_total = carousels.pagination_total;
+			lightbox.ppOptions.description_src = 'data-description';
+			lightbox.ppOptions.overlay_gallery = false;
+			lightbox.ppOptions.show_title = false;
+			lightbox.ppOptions.social_tools = false;
+
+			$("#institution-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 		},
 
 		handlePageChangeNext : function( keyboard ) {

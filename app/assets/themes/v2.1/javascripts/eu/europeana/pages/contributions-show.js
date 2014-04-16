@@ -1,15 +1,15 @@
 /*global jQuery */
 /*jslint browser: true, regexp: true, white: true */
-(function() {
+(function( $ ) {
+
 	'use strict';
 
-	var add_lightbox =
-		( jQuery(window).width() <= 768 || jQuery(window).height() <= 500 )
+	var pdf_viewer =
+		( $(window).width() <= 768 || $(window).height() <= 500 )
 		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
 		? false
 		: true,
-		pdf_viewer = add_lightbox,
-		$contributions_featured = jQuery('#contributions-featured'),
+		add_lightbox = pdf_viewer,
 
 
 	carousels = {
@@ -18,19 +18,17 @@
 		$pagination_counts : $('#pagination-counts'),
 		$pagination_next : $('#carousel-pagination .pagination a[rel=next]').eq(0),
 		ajax_load_processed : true,
-		pagination_total : $('#pagination-total').text(),
 		nav_initial_delay: 3000,
+		pagination_total : $('#pagination-total').text(),
 
 		addImagesToLightbox : function( $new_content ) {
-			var	$pp_full_res = jQuery('#pp_full_res'),
-					$new_links = $new_content.find('#contributions-featured > ul > li > a');
-
-			if ( $pp_full_res.length < 1 ) {
+			if ( window.pp_images === undefined ) {
+				$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 				return;
 			}
 
-			$new_links.each(function() {
-				var $elm = jQuery(this);
+			$new_content.find("#contributions-featured a[rel^='prettyPhoto']").each(function() {
+				var $elm = $(this);
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
 			});
@@ -209,6 +207,7 @@
 		$metadata : [],
 		current : 0,
 		annotorious_setup: false,
+		ppOptions : {},
 
 		addMetaDataOverlay : function( $elm ) {
 			var self = this,
@@ -301,24 +300,24 @@
 		},
 
 		setupPrettyPhoto : function() {
-			var self = this,
-					ppOptions = {
-						callback : function() {
-							self.removeMediaElementPlayers();
-							lightbox.init(); // this insures that additional content that was loaded while in lightbox is lightbox enabled if the lightbox is closed
-						},
-						changepagenext : self.handlePageChangeNext,
-						changepageprev : self.handlePageChangePrev,
-						changepicturecallback : self.handlePictureChange,
-						collection_total : carousels.pagination_total,
-						description_src : 'data-description',
-						overlay_gallery : false,
-						show_title : false,
-						social_tools: false
-					};
+			lightbox.ppOptions.callback = function() {
+				lightbox.removeMediaElementPlayers();
+				// this insures that additional content that was loaded while
+				// in lightbox is lightbox enabled if the lightbox is closed
+				lightbox.init();
+			};
 
-			ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-			jQuery("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( ppOptions );
+			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
+			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
+			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
+			lightbox.ppOptions.collection_total = carousels.pagination_total;
+			lightbox.ppOptions.description_src = 'data-description';
+			lightbox.ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
+			lightbox.ppOptions.overlay_gallery = false;
+			lightbox.ppOptions.show_title = false;
+			lightbox.ppOptions.social_tools = false;
+
+			jQuery("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 		},
 
 		removeLightboxLinks : function() {
@@ -417,7 +416,7 @@
 				return;
 			}
 
-			$contributions_featured.on( 'click', '.pdf', pdf.handleClick );
+			$('#contributions-featured').on( 'click', '.pdf', pdf.handleClick );
 		}
 	};
 
@@ -447,4 +446,4 @@
 	lightbox.init();
 	pdf.init();
 
-}());
+}( jQuery ));
