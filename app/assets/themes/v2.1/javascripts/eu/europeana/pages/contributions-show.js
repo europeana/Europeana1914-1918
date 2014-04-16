@@ -23,7 +23,6 @@
 
 		addImagesToLightbox : function( $new_content ) {
 			if ( window.pp_images === undefined ) {
-				$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 				return;
 			}
 
@@ -71,10 +70,15 @@
 		 *	ajax methods
 		 */
 		handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
+			// addImagesToLightbox needs an original version of the new content
 			var $new_content = this.$new_content.clone();
 
 			if ( this.ajax_load_processed ) {
 				return;
+			}
+
+			if ( add_lightbox ) {
+				this.$new_content.find("a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 			}
 
 			this.$contributions_featured_ul.append( this.$new_content.find('#contributions-featured ul li') );
