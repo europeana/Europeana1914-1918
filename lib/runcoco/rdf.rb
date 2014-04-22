@@ -5,3 +5,5 @@ module RDF
   autoload :OA,         'runcoco/rdf/oa'
   autoload :ORE,        'runcoco/rdf/ore'
 end
+
+require 'runcoco/rdf/rdfxml/writer/haml_templates'

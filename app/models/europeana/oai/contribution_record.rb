@@ -122,7 +122,7 @@ module Europeana
       end
       
       def to_oai_edm
-        edm.to_rdfxml.sub('<?xml version="1.0" encoding="UTF-8"?>', "")
+        edm.to_rdfxml.sub(/<\?xml .*? ?>/, "")
       end
     end
   end
