@@ -47,7 +47,7 @@ module Europeana
         response = net_get(search_uri)
         json = JSON.parse(response)
         raise Errors::RequestError, json['error'] unless json['success']
-        @result_set = response
+        @result_set = json
       rescue JSON::ParserError
         raise Errors::ResponseError
       end
