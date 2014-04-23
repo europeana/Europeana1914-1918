@@ -1,0 +1,35 @@
+<% provide :title, t('views.admin.collection_days.index.title') %>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+  
+  <div class="action-links">
+    <ul>
+      <li><%= link_to t('views.admin.collection_days.new.title'), new_admin_collection_day_path, :class => 'new-member' %></li>
+    </ul>
+  </div>
+  
+  <%- if @collection_days.present? -%>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Name</th>
+          <th scope="col" colspan="2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- for collection_day in @collection_days -%>
+          <tr>
+            <td><%= collection_day.code %></td>
+            <td><%= collection_day.name %></td>
+            <td><%= link_to t('actions.edit'), edit_admin_collection_day_path(collection_day) %></td>
+            <td><%= link_to t('actions.delete'), delete_admin_collection_day_path(collection_day) %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+  <%- end -%>
+  
+</div>

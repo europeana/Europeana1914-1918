@@ -1,0 +1,13 @@
+<%= semantic_form_for [ 'admin', collection_day ] do |form| -%>
+  <%= form.inputs :admin_collection_day do %>
+    <%= form.input :taxonomy_term_id, :as => :select, :collection => collection_days_without_records_for_select(collection_day.taxonomy_term_id) %>
+    <%= form.input :name %>
+    <%= form.input :description %>
+  <% end %>
+  
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link admin_collection_days_path %>
+  <% end %>
+<% end -%>

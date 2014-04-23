@@ -158,6 +158,10 @@ RunCoCo::Application.routes.draw do
         end
       end
       
+      resources :collection_days do
+        get 'delete', :on => :member
+      end
+      
       resources :statistics, :only => :index
       
       resources :taggings, :only => :index

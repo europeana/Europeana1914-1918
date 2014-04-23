@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140416092404) do
+ActiveRecord::Schema.define(:version => 20140423140238) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -51,6 +51,18 @@ ActiveRecord::Schema.define(:version => 20140416092404) do
 
   add_index "attachments", ["contribution_id"], :name => "index_attachments_on_contribution_id"
   add_index "attachments", ["metadata_record_id"], :name => "index_attachments_on_metadata_record_id"
+
+  create_table "collection_days", :force => true do |t|
+    t.integer  "taxonomy_term_id"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "collection_days", ["contact_id"], :name => "index_collection_days_on_contact_id"
+  add_index "collection_days", ["taxonomy_term_id"], :name => "index_collection_days_on_taxonomy_term_id"
 
   create_table "contacts", :force => true do |t|
     t.string   "full_name"
