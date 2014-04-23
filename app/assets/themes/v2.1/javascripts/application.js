@@ -9,9 +9,9 @@
 //= require jquery.ui.autocomplete
 //= require i18n
 //= require i18n/translations
-//= require ./js/loader
-//= require ./js/utils
-//= require ./js/console
+//= require js/loader
+//= require js/utils
+//= require js/console
 //= require ./com/google/analytics
 //= require ./com/scottjehl/ios-orientationchange-fix
 //= require ./com/benjaminsterling/generate-password
