@@ -14,6 +14,7 @@ module Europeana
     #
     mattr_accessor :key
     
+    autoload :Base,   'europeana/api/base'
     autoload :Errors, 'europeana/api/errors'
     autoload :Record, 'europeana/api/record'
     autoload :Search, 'europeana/api/search'

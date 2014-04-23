@@ -8,7 +8,7 @@ module Europeana
     #   result_set['totalResults'] #=> 1234
     #   result_set['items'].first
     #
-    class Search
+    class Search < Base
       ##
       # Base URL for Search API requests
       #
@@ -44,8 +44,9 @@ module Europeana
       def run(options = {})
         search_uri = uri(options)
         Rails.logger.debug("Europeana API search URL: #{search_uri.to_s}")
-        response = JSON.parse(Net::HTTP.get(search_uri))
-        raise Errors::RequestError, response['error'] unless response['success']
+        response = net_get(search_uri)
+        json = JSON.parse(response)
+        raise Errors::RequestError, json['error'] unless json['success']
         @result_set = response
       rescue JSON::ParserError
         raise Errors::ResponseError

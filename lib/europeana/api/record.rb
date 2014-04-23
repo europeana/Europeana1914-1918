@@ -9,13 +9,15 @@ module Europeana
     #   record['success'] #=> true
     #   record['object']['title'] #=> "Europeana record title"
     #
-    class Record
+    class Record < Base
       ##
       # Base URL for API Record requests, sprintf-formatted.
       #
       # The %s token will be replaced with the recordID.
       #
       BASE_URL = 'http://www.europeana.eu/api/v2/record/%s.json'
+      
+      attr_reader :record_id
       
       class << self
         ##
@@ -27,27 +29,40 @@ module Europeana
         #   of response object.
         #
         def get(record_id)
-          record_uri = uri(record_id)
-          Rails.logger.debug("Europeana API record URL: #{record_uri.to_s}")
-          response = Net::HTTP.get(record_uri)
-          json = JSON.parse(response)
-          raise Errors::RequestError, json['error'] unless json['success']
-          json
-        rescue JSON::ParserError
-          raise Errors::ResponseError
+          self.new(record_id).get
         end
       
         def uri(record_id)
-          raise Errors::MissingKeyError unless Europeana::API.key.present?
-          
-          params = {
-            :wskey => Europeana::API.key
-          }
-          
-          uri = URI.parse(sprintf(BASE_URL, record_id))
-          uri.query = params.to_query
-          uri
+          self.new(record_id).uri
         end
+      end
+      
+      def initialize(record_id)
+        @record_id = record_id
+      end
+      
+      def get
+        record_uri = uri
+        Rails.logger.debug("Europeana API record URL: #{record_uri.to_s}")
+
+        response = net_get(record_uri)
+        json = JSON.parse(response)
+        raise Errors::RequestError, json['error'] unless json['success']
+        json
+      rescue JSON::ParserError
+        raise Errors::ResponseError
+      end
+      
+      def uri
+        raise Errors::MissingKeyError unless Europeana::API.key.present?
+        
+        params = {
+          :wskey => Europeana::API.key
+        }
+        
+        uri = URI.parse(sprintf(BASE_URL, record_id))
+        uri.query = params.to_query
+        uri
       end
     end
   end

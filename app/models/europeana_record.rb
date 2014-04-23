@@ -163,11 +163,6 @@ class EuropeanaRecord < ActiveRecord::Base
         retry
       end
       raise unless error.message.match('"Invalid record identifier: ') # ignore these
-    rescue Timeout::Error, Errno::ECONNREFUSED
-      retries -= 1
-      raise unless retries > 0
-      sleep 10
-      retry
     end
   end
   
