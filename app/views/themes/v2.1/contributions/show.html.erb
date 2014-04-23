@@ -57,13 +57,6 @@
       <h2><%= contribution_title(@contribution) %></h2>
     </div>
 
-
-	<%# translation for map heading -%>
-
-	<script type="text/javascript">
-		window.translated_map_contribution_heading = '<%= t("common.map_contribution_heading") %>';
-	</script>
-
     <div class="col-cell" >
       <%= render :partial => 'attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>

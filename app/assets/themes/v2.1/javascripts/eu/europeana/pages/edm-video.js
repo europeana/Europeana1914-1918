@@ -5,4 +5,4 @@
 // the compiled file.
 //
 //= require jquery
-//= require mediaelementplayer.js
+//= require mediaelementplayer

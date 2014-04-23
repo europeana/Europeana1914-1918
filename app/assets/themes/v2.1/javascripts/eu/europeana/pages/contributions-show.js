@@ -1,15 +1,12 @@
-/*global jQuery */
+/*global I18n, anno, console, jQuery, mejs, RunCoCo */
 /*jslint browser: true, regexp: true, white: true */
-(function( $ ) {
+(function( I18n, anno, $, RunCoCo ) {
 
 	'use strict';
 
-	var pdf_viewer =
-		( $(window).width() <= 768 || $(window).height() <= 500 )
-		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
-		? false
-		: true,
-		add_lightbox = pdf_viewer,
+	var
+	pdf_viewer = true,
+	add_lightbox = true,
 
 
 	carousels = {
@@ -69,7 +66,7 @@
 		/**
 		 *	ajax methods
 		 */
-		handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
+		handleContentLoad : function() {
 			// addImagesToLightbox needs an original version of the new content
 			var $new_content = this.$new_content.clone();
 
@@ -173,20 +170,21 @@
 		},
 
 		retrieveContent : function( href ) {
-			var self = this;
+			if ( !href || !carousels.ajax_load_processed ) {
+				return;
+			}
 
-			if ( !href || !self.ajax_load_processed ) { return; }
-			self.ajax_load_processed = false;
-			self.$new_content = jQuery('<div/>');
+			carousels.ajax_load_processed = false;
+			carousels.$new_content = jQuery('<div>');
 
 			try {
-				self.$featured_carousel.$overlay.fadeIn();
+				carousels.$featured_carousel.$overlay.fadeIn();
 
-				self.$new_content.load(
+				carousels.$new_content.load(
 					href,
 					null,
 					function( responseText, textStatus, XMLHttpRequest ) {
-						self.handleContentLoad( responseText, textStatus, XMLHttpRequest );
+						carousels.handleContentLoad( responseText, textStatus, XMLHttpRequest );
 					}
 				);
 
@@ -282,12 +280,16 @@
 		},
 
 		removeMediaElementPlayers : function() {
-			if ( !window.mejs ) {
+			var i;
+
+			if ( window.mejs === undefined ) {
 				return;
 			}
 
-			for ( var i in mejs.players ) {
-				mejs.players[i].remove();
+			for ( i in mejs.players ) {
+				if ( mejs.players.hasOwnProperty(i) ) {
+					mejs.players[i].remove();
+				}
 			}
 
 			mejs.mepIndex = 0;
@@ -353,23 +355,23 @@
 
 	map = {
 
-		$map : jQuery('#location-map'),
-		$overlay : jQuery('<div/>', { 'class' : 'carousel-overlay' }),
-		$story_map : jQuery('<div/>', { id : 'story-map' }),
-		$google_map : jQuery('<div/>', { id : "google-map" }),
-		placename : jQuery('#location-placename').val(),
-		$placename_link : jQuery('<a/>'),
-		$story_took_place : jQuery('<b>' + translated_map_contribution_heading + ' </b>'),
+		$map : $('#location-map'),
+		$overlay : $('<div>', { 'class' : 'carousel-overlay' }),
+		$story_map : $('<div>', { id : 'story-map' }),
+		$google_map : $('<div>', { id : "google-map" }),
+		placename : $('#location-placename').val(),
+		$placename_link : $('<a>'),
+		$story_took_place : $('<b>').text( I18n.t( 'javascripts.story.took-place' ) ),
 
 		addMapContainer : function() {
-			jQuery('#story-info')
+			$('#story-info')
 				.after(
-					jQuery( this.$google_map )
+					$( this.$google_map )
 						.append( this.$story_took_place )
 						.append( this.$story_map )
 						.append( this.$overlay )
-				)
-			jQuery('#google-map').addClass( 'col-cell' );
+				);
+			$('#google-map').addClass( 'col-cell' );
 		},
 
 		removeOverlay : function() {
@@ -394,7 +396,6 @@
 					.html( self.placename );
 
 				self.$story_took_place
-					//.append( I18n.t('javascripts.story.took-place') + ' ' )
 					.append( self.$placename_link );
 			}
 		},
@@ -407,8 +408,8 @@
 	},
 
 	pdf = {
-		handleClick : function( evt ) {
-			var $elm = jQuery(this),
+		handleClick : function() {
+			var $elm = $(this),
 				destination_url;
 
 			destination_url = '/contributions/' + $elm.data('contribution-id') + '/attachments/' + $elm.data('attachment-id') + '?layout=0';
@@ -422,32 +423,68 @@
 
 			$('#contributions-featured').on( 'click', '.pdf', pdf.handleClick );
 		}
-	};
+	},
 
+	// http://localhost:3000/en/contributions/1#prettyPhoto[gallery]/3/
+	photoGallery = {
+		items_per_page: 3,
 
-	/*
-	truncate = {
-		init : function() {
-			if ( jQuery('#avatar').length < 1 ) {
+		checkHash: function() {
+			var hash = window.location.hash.substring(1),
+			href = null,
+			requested_item = 1,
+			requested_page = 1,
+			total_items = parseInt( $('#pagination-total').text(), 10 );
+
+			if ( hash.indexOf('/') < 0 ) {
 				return;
 			}
 
-			jQuery('#story-metadata').truncate({
-				limit : { pixels : 400 },
-				toggle_html : {
-					more : I18n.t('javascripts.truncate.show-more'),
-					less : I18n.t('javascripts.truncate.show-less')
-				}
-			});
+			hash = hash.split('/');
+
+			if ( hash.length !== 3 ) {
+				return;
+			}
+
+			requested_item = parseInt( hash[1], 10 ) + 1;
+			requested_page = Math.ceil( requested_item / this.items_per_page );
+
+			if (
+				requested_item <= this.items_per_page
+				|| requested_item > total_items
+			) {
+				return;
+			}
+
+			href = window.location.pathname + '/attachments?carousel=true&page=' + requested_page;
+			carousels.retrieveContent( href );
+		},
+
+		init: function() {
+			if ( carousels.$featured_carousel !== null ) {
+				photoGallery.checkHash();
+			} else {
+				setTimeout(
+					photoGallery.init,
+					100
+				);
+			}
 		}
 	};
-	*/
 
-	//truncate.init();
+	if (
+		( $(window).width() <= 768 || $(window).height() <= 500 )
+		&& !( /iPad/.test( navigator.platform ) )
+		&& navigator.userAgent.indexOf( "AppleWebKit" ) > -1
+	) {
+		pdf_viewer = add_lightbox = false;
+	}
+
 	RunCoCo.translation_services.init( $('.translate-area') );
 	carousels.init();
 	map.init();
 	lightbox.init();
 	pdf.init();
+	photoGallery.init();
 
-}( jQuery ));
+}( I18n, anno, jQuery, RunCoCo ));
