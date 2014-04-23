@@ -10,14 +10,19 @@ module Europeana
       Delayed::Worker.logger.info("Europeana::UpdateJob: Updating EuropeanaRecords...")
       
       @log_file = File.join(Rails.root, 'log', "europeana_update_job-#{Rails.env}.txt")
-      @last_update_time = get_last_update_time
-      @this_update_time = Time.zone.now
+      @last_update_time ||= get_last_update_time
+      @this_update_time ||= Time.zone.now
       
       ::ActiveRecord::Base.cache do
         update_records
       end
       
       log_this_update_time
+    end
+    
+    def error(job, exception)
+      # Store @start attribute to resume on next attempt
+      job.handler = self
     end
     
   protected
@@ -37,12 +42,12 @@ module Europeana
     end
     
     def update_records
-      start = 1
+      @start ||= 1
       rows = 100
       items = nil
       
       begin
-        response = get_api_search_results(start, rows)
+        response = get_api_search_results(@start, rows)
         unless response['success']
           Delayed::Worker.logger.info("Europeana::UpdateJob: Europeana API request failed before update completion")
           raise StandardError, "Europeana API request failed before update completion"
@@ -55,7 +60,7 @@ module Europeana
               update_record(item['id'])
             end
           end
-          start += rows
+          @start += rows
         end
       end while items.present?
     end
