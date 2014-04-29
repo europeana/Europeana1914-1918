@@ -9,6 +9,8 @@ module StatisticsHelper
       { :count => 1 }
     end
     controller.count_all
+  rescue FederatedSearchController::ResponseError
+    0
   end
   
   def count_all_digitalnz_items
@@ -17,6 +19,8 @@ module StatisticsHelper
       { :count => 1 }
     end
     controller.count_all
+  rescue FederatedSearchController::ResponseError
+    0
   end
   
   def count_all_trove_items
@@ -25,5 +29,7 @@ module StatisticsHelper
       { :count => 1, :qf => { :zone => 'article,book,collection,map,music,picture,newspaper' } }
     end
     controller.count_all
+  rescue FederatedSearchController::ResponseError
+    0
   end
 end
