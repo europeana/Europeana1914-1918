@@ -39,9 +39,9 @@ protected
     # * is present
     # * has only one value
     # * is a known value
-    unless zone.present? && (zone.size == 1) && [ "article", "book", "collection", "map", "music", "picture", "newspaper" ].include?(zone.first)
+    unless zone.present? && [ "article", "book", "collection", "map", "music", "picture", "newspaper" ].include?(zone)
       facet_params = extracted_facet_params
-      facet_params[:zone] = [ "picture" ]
+      facet_params[:zone] = "picture"
       params[:qf] = facet_params
       @redirect_required = true
     end
@@ -64,7 +64,7 @@ protected
   
     search_params = { 
       :q => query_terms.join(' AND '),
-      :zone => extracted_facet_params[:zone].first,
+      :zone => extracted_facet_params[:zone],
       :encoding => "json",
       :n => params_with_defaults[:count],
       :s => ((params_with_defaults[:page] - 1) * params_with_defaults[:count]),
@@ -93,7 +93,7 @@ protected
   
   def edm_results_from_response(response)
     zone_results = zone_results(response)
-    newspaper_zone = (extracted_facet_params[:zone].first == "newspaper")
+    newspaper_zone = (extracted_facet_params[:zone] == "newspaper")
     records_key = (newspaper_zone ? "article" : "work")
     records = zone_results["records"][records_key]
     
@@ -205,7 +205,7 @@ private
   end
   
   def zone_results(response)
-    zone_results = response["response"]["zone"].select { |zone| zone["name"] == extracted_facet_params[:zone].first }.first
+    zone_results = response["response"]["zone"].select { |zone| zone["name"] == extracted_facet_params[:zone] }.first
   end
   
 end

@@ -22,7 +22,7 @@ module StatisticsHelper
   def count_all_trove_items
     controller = FederatedSearch::TroveController.new
     def controller.params
-      { :count => 1, :qf => { :zone => [ 'article,book,collection,map,music,picture,newspaper' ] } }
+      { :count => 1, :qf => { :zone => 'article,book,collection,map,music,picture,newspaper' } }
     end
     controller.count_all
   end
