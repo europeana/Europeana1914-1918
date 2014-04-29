@@ -55,34 +55,30 @@ namespace :cache do
       ActionController::Base.new.expire_fragment(/^views\/bing\//)
       puts "done."
     end
-  
-    desc "Clears cached rendered search results. Limit to one provider with PROVIDER=name."
-    task :search_results => :environment do
-      if provider = ENV['PROVIDER']
-        known_providers = [ 'contributions', 'europeana', 'canadiana', 'digitalnz', 'dpla', 'trove' ]
-        unless known_providers.include?(provider)
-          puts "Unknown provider \"#{provider}\"; known providers: " + known_providers.join(', ') + "\n"
-          exit 1
-        end
-        print "Clearing cached rendered search results for provider \"#{provider}\"... "
-      else
-        print "Clearing cached rendered search results... "
-      end
-      I18n.available_locales.each do |locale|
-        [ "v2.1", "v3" ].each do |theme|
-          fragment_pattern = "^views/#{theme}/#{locale}/search/result/"
-          fragment_pattern << "#{provider}/" unless provider.blank?
-          ActionController::Base.new.expire_fragment(Regexp.new(fragment_pattern))
-        end
-      end
-      puts "done."
-    end
     
-    namespace :europeana_records do
+    namespace :search_results do
+      desc "Clears cached Contribution search result partials. Limit to one theme with THEME=name."
+      task :contributions => :environment do
+        print "Clearing cached Contribution search result partials... "
+        themes = [ ENV['THEME']|| [ "v2.1", "v3" ] ].flatten
+        Contribution.select("id").find_in_batches do |batch|
+          print "."
+          batch.each do |contribution|
+            themes.each do |theme|
+              I18n.available_locales.each do |locale|
+                fragment_key =  "#{theme}/#{locale.to_s}/search/result/collection/" + contribution.id.to_s
+                ActionController::Base.new.expire_fragment(fragment_key)
+              end
+            end
+          end
+        end
+        puts " done."
+      end
+      
       desc "Clears cached EuropeanaRecord search result partials. Limit to one theme with THEME=name."
-      task :search_results => :environment do
+      task :europeana_records => :environment do
         print "Clearing cached EuropeanaRecord search result partials... "
-        themes = [ ENV['THEME'] ] || [ "v2.1", "v3" ]
+        themes = [ ENV['THEME']|| [ "v2.1", "v3" ] ].flatten
         EuropeanaRecord.select("id, record_id").find_in_batches do |batch|
           print "."
           batch.each do |er|
