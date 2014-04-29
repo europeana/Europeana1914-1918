@@ -16,10 +16,11 @@ class Admin::StatisticsController < ApplicationController
   end
   
   def collection_years
-    Contribution.published.select('YEAR(created_at) creation_year').order('creation_year').group('YEAR(created_at)').collect { |c| c.creation_year }
+    Contribution.published.select('YEAR(contributions.created_at) creation_year').order('creation_year').group('YEAR(contributions.created_at)').collect { |c| c.creation_year }
   end
   
-  protected
+protected
+
   ##
   # Returns a hash of statistics for a given month
   def monthly_statistics(year, month, collection_day)
