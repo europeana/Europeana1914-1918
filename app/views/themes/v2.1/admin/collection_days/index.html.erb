@@ -6,7 +6,7 @@
   
   <div class="action-links">
     <ul>
-      <li><%= link_to t('views.admin.collection_days.new.title'), new_admin_collection_day_path, :class => 'new-member' %></li>
+      <li><%= link_to t('activerecord.models.taxonomy_term').pluralize, admin_metadata_field_taxonomy_terms_path(@metadata_field) %></li>
     </ul>
   </div>
   
@@ -26,7 +26,9 @@
             <td><%= collection_day.code %></td>
             <td><%= collection_day.name %></td>
             <td>
-              <%= l collection_day.start_date %>
+              <%- unless collection_day.start_date.blank? -%>
+                <%= l collection_day.start_date %>
+              <%- end -%>
               <%- unless collection_day.end_date.blank? -%>
                 &ndash; <%= l collection_day.end_date %>
               <%- end -%>
@@ -37,6 +39,8 @@
         <%- end -%>
       </tbody>
     </table>
+    
+    <%= will_paginate @collection_days %>
   <%- end -%>
   
 </div>

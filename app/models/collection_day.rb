@@ -1,4 +1,6 @@
 class CollectionDay < ActiveRecord::Base
+  INVALID_CODES = [ 'INTERNET' ]
+  
   belongs_to :taxonomy_term
   belongs_to :contact, :dependent => :destroy
   
@@ -9,6 +11,7 @@ class CollectionDay < ActiveRecord::Base
   validates_associated :contact
   
   validate :validate_taxonomy_term_belongs_to_collection_day_metadata_field
+  validate :validate_collection_day_code
   validate :validate_end_date_follows_start_date, :if => Proc.new { |cd| cd.end_date.present? }
   
   after_initialize :initialize_contact
@@ -34,7 +37,13 @@ protected
 
   def validate_taxonomy_term_belongs_to_collection_day_metadata_field
     unless taxonomy_term.metadata_field.name == 'collection_day'
-      errors.add :taxonomy_term, I18n.t('activerecord.errors.models.collection_day.taxonomy_term_metadata_field')
+      errors.add :taxonomy_term_id, I18n.t('activerecord.errors.models.collection_day.taxonomy_term_metadata_field')
+    end
+  end
+  
+  def validate_collection_day_code
+    if  INVALID_CODES.include?(code)
+      errors.add :taxonomy_term_id, I18n.t('activerecord.errors.models.collection_day.taxonomy_term_metadata_field')
     end
   end
   
@@ -43,4 +52,5 @@ protected
       errors.add :end_date, I18n.t('activerecord.errors.models.collection_day.end_date_follows_start_date')
     end
   end
+  
 end

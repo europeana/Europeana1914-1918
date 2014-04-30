@@ -161,7 +161,7 @@ RunCoCo::Application.routes.draw do
         end
       end
       
-      resources :collection_days do
+      resources :collection_days, :except => [ :show, :new, :create ] do
         get 'delete', :on => :member
       end
       
