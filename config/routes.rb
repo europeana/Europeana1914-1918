@@ -76,6 +76,9 @@ RunCoCo::Application.routes.draw do
 
     # Contacts
     resources :contacts, :only => [ :edit, :update, :show ]
+    
+    # Collection days
+    resources :collection_days, :only => [ :index, :show ]
 
     # Contributors
     match 'contributor' => 'contributor#dashboard', :as => :contributor_dashboard

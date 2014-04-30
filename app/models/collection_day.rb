@@ -17,6 +17,14 @@ class CollectionDay < ActiveRecord::Base
     taxonomy_term.term
   end
   
+  def to_param
+    code
+  end
+  
+  def self.find_by_code(code)
+    includes(:taxonomy_term).where('taxonomy_terms.term = ?', [ code ]).first
+  end
+  
 protected
 
   def initialize_contact
