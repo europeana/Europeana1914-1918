@@ -16,10 +16,10 @@ class Admin::TaxonomyTermsController < AdminController
   def create
     @term = @field.taxonomy_terms.build(params[:taxonomy_term])
     if @term.save
-      flash[:notice] = t('flash.actions.create.notice', :resource_name => TaxonomyTerm.human_name)
+      flash[:notice] = t('flash.actions.create.notice', :resource_name => TaxonomyTerm.model_name.human)
       redirect_to admin_metadata_field_taxonomy_terms_path(@field)
     else
-      flash.now[:alert] = t('flash.actions.create.alert', :resource_name => TaxonomyTerm.human_name)
+      flash.now[:alert] = t('flash.actions.create.alert', :resource_name => TaxonomyTerm.model_name.human)
       render :action => 'new'
     end
   end
@@ -40,10 +40,10 @@ class Admin::TaxonomyTermsController < AdminController
   # PUT /admin/fields/:metadata_field_id/terms/:id
   def update
     if @term.update_attributes(params[:taxonomy_term])
-      flash[:notice] = t('flash.actions.update.notice', :resource_name => TaxonomyTerm.human_name)
+      flash[:notice] = t('flash.actions.update.notice', :resource_name => TaxonomyTerm.model_name.human)
       redirect_to admin_metadata_field_taxonomy_terms_path(@field)
     else
-      flash.now[:alert] = t('flash.actions.update.alert', :resource_name => TaxonomyTerm.human_name)
+      flash.now[:alert] = t('flash.actions.update.alert', :resource_name => TaxonomyTerm.model_name.human)
       render :action => 'edit'
     end
   end
@@ -55,10 +55,10 @@ class Admin::TaxonomyTermsController < AdminController
   # DELETE /admin/fields/:metadata_field_id/terms/:id
   def destroy
     if @term.destroy
-      flash[:notice] = t('flash.actions.destroy.notice', :resource_name => TaxonomyTerm.human_name)
+      flash[:notice] = t('flash.actions.destroy.notice', :resource_name => TaxonomyTerm.model_name.human)
       redirect_to admin_metadata_field_taxonomy_terms_path(@field)
     else
-      flash.now[:alert] = t('flash.actions.destroy.alert', :resource_name => TaxonomyTerm.human_name)
+      flash.now[:alert] = t('flash.actions.destroy.alert', :resource_name => TaxonomyTerm.model_name.human)
       render :action => 'delete'
     end
   end

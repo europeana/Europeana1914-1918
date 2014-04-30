@@ -1,6 +1,6 @@
 <%
 if local_assigns[:caption].nil?
-  caption = Contact.human_name
+  caption = Contact.model_name.human
 end
 if local_assigns[:email].nil?
   email = true

@@ -29,14 +29,14 @@ class Admin::MetadataFieldsController < AdminController
   def create
     @field = MetadataField.new(params[:metadata_field])
     if @field.save
-      flash[:notice] = t('flash.actions.create.notice', :resource_name => MetadataField.human_name)
+      flash[:notice] = t('flash.actions.create.notice', :resource_name => MetadataField.model_name.human)
       if @field.has_options?
         redirect_to edit_admin_metadata_field_path(@field, :options => 1)
       else
         redirect_to admin_metadata_fields_path
       end
     else
-      flash.now[:alert] = t('flash.actions.create.alert', :resource_name => MetadataField.human_name)
+      flash.now[:alert] = t('flash.actions.create.alert', :resource_name => MetadataField.model_name.human)
       render :action => 'new'
     end
   end
@@ -51,10 +51,10 @@ class Admin::MetadataFieldsController < AdminController
   def update
     @field = MetadataField.find(params[:id])
     if @field.update_attributes(params[:metadata_field])
-      flash[:notice] = t('flash.actions.update.notice', :resource_name => MetadataField.human_name)
+      flash[:notice] = t('flash.actions.update.notice', :resource_name => MetadataField.model_name.human)
       redirect_to admin_metadata_fields_path
     else
-      flash.now[:alert] = t('flash.actions.update.alert', :resource_name => MetadataField.human_name)
+      flash.now[:alert] = t('flash.actions.update.alert', :resource_name => MetadataField.model_name.human)
       render :action => 'edit'
     end
   end
@@ -67,7 +67,7 @@ class Admin::MetadataFieldsController < AdminController
   # DELETE /admin/fields/:id
   def destroy
     @field = MetadataField.find(params[:id]).destroy
-    flash[:notice] = t('flash.actions.destroy.notice', :resource_name => MetadataField.human_name)
+    flash[:notice] = t('flash.actions.destroy.notice', :resource_name => MetadataField.model_name.human)
     redirect_to admin_metadata_fields_path
   end
   
