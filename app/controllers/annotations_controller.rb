@@ -6,24 +6,42 @@ class AnnotationsController < ApplicationController
 
   # GET /:locale/annotations(.:format)
   def index
-    attachment_id = params[:attachment_id] || attachment_id_from_src(params[:src])
-    raise RunCoCo::BadRequest "attachment_id or src parameter required" unless attachment_id.present?
-    
-    attachment = Attachment.find(attachment_id)
-    @annotations = attachment.visible_annotations.includes(:shapes)
-    
     respond_to do |format|
       format.json do
-        render :json => {
-          "annotations" => @annotations.collect { |annotation|
-            annotation.to_hash.merge({
-              :editable => current_user.may_edit_attachment_annotation?(annotation),
-              :flaggable => current_user.may_flag_attachment_annotation?(annotation),
-              :flagged => annotation.flagged_by?(current_user)
-            })
-          },
-          "creatable" => current_user.may_create_attachment_annotation?(attachment)
-        }
+        error = nil
+        
+        attachment_id = params[:attachment_id] || attachment_id_from_src(params[:src])
+
+        if attachment_id.present?
+          if attachment = Attachment.find(attachment_id)
+            annotations = attachment.visible_annotations.includes(:shapes)
+          else
+            error = "Invalid attachment ID in request."
+          end
+        else
+          error = "No attachment ID in request."
+        end
+        
+        if error.nil?
+          render :json => {
+            "success" => true,
+            "annotations" => annotations.collect { |annotation|
+              annotation.to_hash.merge({
+                :editable => current_user.may_edit_attachment_annotation?(annotation),
+                :flaggable => current_user.may_flag_attachment_annotation?(annotation),
+                :flagged => annotation.flagged_by?(current_user)
+              })
+            },
+            "creatable" => current_user.may_create_attachment_annotation?(attachment)
+          }
+        else
+          render :json => {
+            "success" => false,
+            "error" => error,
+            "annotations" => [],
+            "creatable" => false
+          }, :status => :bad_request
+        end
       end
     end
   end
@@ -273,7 +291,11 @@ class AnnotationsController < ApplicationController
 protected
 
   def attachment_id_from_src(src)
-    src.match(/\/attachments\/(\d+)\//)[1]
+    if id_match = src.match(/\/attachments\/(\d+)\//)
+      id_match[1]
+    else
+      nil
+    end
   end
 
   def index_contribution
