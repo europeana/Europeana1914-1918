@@ -22,7 +22,7 @@ class Admin::CollectionDaysController < AdminController
   end
   
   def edit
-  
+
   end
   
   def update

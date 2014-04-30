@@ -16,6 +16,7 @@
         <tr>
           <th scope="col">Code</th>
           <th scope="col">Name</th>
+          <th scope="col">Date</th>
           <th scope="col" colspan="2">Actions</th>
         </tr>
       </thead>
@@ -24,6 +25,12 @@
           <tr>
             <td><%= collection_day.code %></td>
             <td><%= collection_day.name %></td>
+            <td>
+              <%= l collection_day.start_date %>
+              <%- unless collection_day.end_date.blank? -%>
+                &ndash; <%= l collection_day.end_date %>
+              <%- end -%>
+            </td>
             <td><%= link_to t('actions.edit'), edit_admin_collection_day_path(collection_day) %></td>
             <td><%= link_to t('actions.delete'), delete_admin_collection_day_path(collection_day) %></td>
           </tr>

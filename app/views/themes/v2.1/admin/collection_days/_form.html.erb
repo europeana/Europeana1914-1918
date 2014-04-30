@@ -1,8 +1,24 @@
 <%= semantic_form_for [ 'admin', collection_day ] do |form| -%>
   <%= form.inputs :admin_collection_day do %>
     <%= form.input :taxonomy_term_id, :as => :select, :collection => collection_days_without_records_for_select(collection_day.taxonomy_term_id) %>
-    <%= form.input :name %>
+    <%= form.inputs :name %>
     <%= form.input :description %>
+    <%= form.input :url %>
+    <%= form.semantic_fields_for :contact do |contact| %>
+      <%= contact.input :full_name, :hint => '' %>
+    <% end %>
+    <%= form.input :start_date %>
+    <%= form.input :end_date %>
+  <% end %>
+  
+  <%= form.inputs :admin_collection_day_address do %>
+    <%= form.semantic_fields_for :contact do |contact| %>
+      <%= contact.input :street_address %>
+      <%= contact.input :locality %>
+      <%= contact.input :region %>
+      <%= contact.input :postal_code %>
+      <%= contact.input :country %>
+    <% end %>
   <% end %>
   
   <%= form.buttons do %>
