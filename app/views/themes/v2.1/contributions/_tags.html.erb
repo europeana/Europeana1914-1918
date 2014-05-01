@@ -62,13 +62,14 @@
 
 						# flag tag
 						# an <a> element that links to a flag action
-						if current_user.may_flag_contribution_tag?( contribution, tag )
+						if current_user.may_flag_contribution_tag?( contribution, tag ) &&
+							!current_user.may_untag_contribution?( contribution, tag )
 							link_url = flag_contribution_tag_path( contribution, tag.name )
 
 							link_content = image_tag(
 								'/assets/ait/annotorious/plugins/flag/flag-red.png',
-								:width => 16,
-								:height => 16,
+								:width => 13,
+								:height => 13,
 								:alt => t( 'formtastic.actions.tag.flag' ),
 								:class => 'icon-flag'
 							)
