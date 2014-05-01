@@ -1,6 +1,6 @@
 # set search result defaults in the #search method
 class ContributionsController < ApplicationController
-  before_filter :find_contribution, 
+  before_filter :find_contribution,
     :except => [ :index, :new, :create, :search, :explore, :complete, :feed ]
   before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
   before_filter :rewrite_qf_array_param_as_hash, :only => [ :search, :explore ]
@@ -16,11 +16,11 @@ class ContributionsController < ApplicationController
       @contributions = []
     end
   end
-  
+
   # GET /contributions/feed
   def feed
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
-    
+
     items = Contribution.published.order('current_status.created_at DESC').limit(count) +
       ActsAsTaggableOn::Tagging.order('created_at DESC').limit(count) +
       Annotation.order('created_at DESC').limit(count)
@@ -31,9 +31,9 @@ class ContributionsController < ApplicationController
         user = item.contributor.contact.full_name
         user = (t('activerecord.models.user') + ' ' + item.contributor.id.to_s) unless user.present?
         title = item.title
-        { 
+        {
           :contribution => item,
-          :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title), 
+          :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title),
           :updated => item.current_status.created_at,
           :id => contribution_url(item),
           :link => contribution_url(item),
@@ -43,9 +43,9 @@ class ContributionsController < ApplicationController
         contribution = item.taggable
         user = item.tagger.contact.full_name
         user = (t('activerecord.models.user') + ' ' + item.tagger.id.to_s) unless user.present?
-        { 
+        {
           :contribution => contribution,
-          :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => contribution.title), 
+          :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => contribution.title),
           :updated => item.created_at,
           :id => 'europeana19141918:tagging/' + item.id.to_s,
           :link => contribution_url(contribution),
@@ -55,9 +55,9 @@ class ContributionsController < ApplicationController
         contribution = item.attachment.contribution
         user = item.user.contact.full_name
         user = (t('activerecord.models.user') + ' ' + item.user.id.to_s) unless user.present?
-        { 
+        {
           :contribution => contribution,
-          :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title), 
+          :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title),
           :updated => item.created_at,
           :id => 'europeana19141918:annotation/' + item.id.to_s,
           :link => contribution_attachment_url(contribution, item.attachment),
@@ -65,10 +65,10 @@ class ContributionsController < ApplicationController
         }
       end
     end
-    
+
     @activities.sort_by! { |a| a[:updated] }
     @activities = @activities.reverse[0..(count - 1)]
-    
+
     @activities.each do |a|
       a[:summary] = a[:contribution].metadata.fields['description']
       if a[:image]
@@ -98,8 +98,8 @@ class ContributionsController < ApplicationController
       end
     end
     current_user.may_create_contribution!
-    
-    @contribution = Contribution.new 
+
+    @contribution = Contribution.new
     if current_user.may_catalogue_contributions?
       @contribution.catalogued_by = params[:contribution].delete(:catalogued_by)
     end
@@ -113,7 +113,7 @@ class ContributionsController < ApplicationController
     else
       @contribution.contributor = current_user
     end
-    
+
     if @contribution.save
       if current_user.role.name == 'guest'
         session[:guest][:contribution_id] = @contribution.id
@@ -133,15 +133,16 @@ class ContributionsController < ApplicationController
     if @contribution.draft? && current_user.may_edit_contribution?(@contribution)
       redirect_to edit_contribution_path(@contribution) and return
     end
-    
+
     if session[:theme] == 'v3'
       @attachments = attachments_with_books
     else
-      @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 3)
+      # @todo need to figure out a better way to allow all attachments and how to handle issue of no pagination in that case
+      @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 1000 )
     end
-    
+
     @tags = @contribution.visible_tags
-    
+
     respond_to do |format|
       format.html
       format.json { render :json => cached(@contribution, :json) }
@@ -149,7 +150,7 @@ class ContributionsController < ApplicationController
       format.xml { render :xml => cached(@contribution, :xml) }
     end
   end
-  
+
   # GET /contributions/:id/status_log
   def status_log
     current_user.may_view_contribution_status_log!(@contribution)
@@ -158,7 +159,7 @@ class ContributionsController < ApplicationController
   # GET /contributions/:id/edit
   def edit
     current_user.may_edit_contribution!(@contribution)
-    
+
     if current_user.may_catalogue_contributions?
       @contribution.metadata.cataloguing = true
       if @contribution.catalogued_by.blank?
@@ -192,7 +193,7 @@ class ContributionsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   # PUT /contributions/:id/submit
   def submit
     current_user.may_edit_contribution!(@contribution)
@@ -205,11 +206,11 @@ class ContributionsController < ApplicationController
       flash.now[:alert] = t('flash.contributions.draft.submit.alert')
     end
   end
-  
+
   # GET /contributions/complete
   def complete
   end
-  
+
   # PUT /contributions/:id/approve
   def approve
     current_user.may_approve_contributions!
@@ -229,7 +230,7 @@ class ContributionsController < ApplicationController
       render :action => 'show'
     end
   end
-  
+
   # PUT /contributions/:id/reject
   def reject
     current_user.may_reject_contributions!
@@ -243,13 +244,13 @@ class ContributionsController < ApplicationController
       render :action => 'show'
     end
   end
-  
+
   # GET /contributions/search?q=:q
   def search
     current_user.may_search_contributions!
-    
+
     @count = per_page = [ (params[:count] || 12).to_i, 100 ].min
-    
+
     # Rebuild metadata_xyz_ids facet names from abbreviated field names in params
     facet_params = {}
     extracted_facet_params.each_pair do |param_name, param_value|
@@ -260,17 +261,17 @@ class ContributionsController < ApplicationController
         facet_params[:"metadata_#{param_name.to_s}_ids"] = param_value
       end
     end
-    
+
     search_options = { :page => params[:page] || 1, :per_page => per_page, :contributor_id => params[:contributor_id], :facets => facet_params, :field => params[:field] }
-    
+
     # Uncomment for minimal eager loading of associations to optimize performance
     # when search result partials are not pre-cached.
     #search_options[:include] = [ :attachments, :metadata ]
-    
+
     if params[:field_name] && params[:term]
       @term = CGI::unescape(params[:term])
       @field = MetadataField.find_by_name!(params[:field_name])
-      
+
       if taxonomy_term = @field.taxonomy_terms.find_by_term(@term)
         search_options[:taxonomy_term] = taxonomy_term
       else
@@ -286,19 +287,19 @@ class ContributionsController < ApplicationController
       @query = params[:q]
       search_query = bing_translate(@query)
     end
-    
+
     if search.nil?
       search = Contribution.search(:published, search_query, search_options)
       @results = @contributions = search.results
     else
       @results = @contributions = []
     end
-    
+
     if search.respond_to?(:facets)
       # Modelled on the structure of facets returned by Europeana API
       @facets = search.facets.collect { |facet|
         facet_name = (term_field = facet.name.to_s.match(/^metadata_(.*)_ids$/)) ? term_field[1] : facet.name
-        
+
         {
           "name" => facet_name,
           "label" => facet_label(facet.name),
@@ -326,7 +327,7 @@ class ContributionsController < ApplicationController
           :term => @term
         } and return
     end
-    
+
     respond_to do |format|
       format.html { render :template => 'search/page' }
       # @todo Cache generation of EDM search result
@@ -343,18 +344,18 @@ class ContributionsController < ApplicationController
             "rows"  => @results.per_page
           }
         }.to_json
-        
+
         json = "#{params[:callback]}(#{json});" unless params[:callback].blank?
         render :json => json
       end
     end
   end
-  
+
   # GET /explore/:field_name/:term
   def explore
     search
   end
-  
+
   # GET /contributions/:id/delete
   def delete
     current_user.may_delete_contribution!(@contribution)
@@ -367,7 +368,7 @@ class ContributionsController < ApplicationController
       if current_user.role.name == 'guest'
         session[:guest].delete(:contribution_id)
       end
-        
+
       flash[:notice] = t('flash.contributions.destroy.notice')
       redirect_to ((current_user.role.name == 'administrator') ? admin_contributions_url : contributor_dashboard_url)
     else
@@ -375,12 +376,12 @@ class ContributionsController < ApplicationController
       render :action => 'delete'
     end
   end
-  
+
   # GET /contributions/:id/withdraw
   def withdraw
     current_user.may_withdraw_contribution!(@contribution)
   end
-  
+
   # PUT /contributions/:id/withdraw
   def set_withdrawn
     current_user.may_withdraw_contribution!(@contribution)
@@ -392,10 +393,10 @@ class ContributionsController < ApplicationController
       render :action => 'withdraw'
     end
   end
-  
+
   def cached(contribution, format)
     cache_key = "contributions/#{format.to_s}/#{contribution.id}.#{format.to_s}"
-    
+
     if fragment_exist?(cache_key)
       data = YAML::load(read_fragment(cache_key))
     else
@@ -409,7 +410,7 @@ class ContributionsController < ApplicationController
       end
       write_fragment(cache_key, data.to_yaml)
     end
-    
+
     data
   end
 
@@ -418,43 +419,43 @@ protected
   def find_contribution
     @contribution = Contribution.find(params[:id], :include => [ :contributor, :attachments, :metadata, :tags ])
   end
-  
+
   def redirect_to_search
     return if performed?
-    
-    # @todo Refine search results with an additional keyword, and replicate 
+
+    # @todo Refine search results with an additional keyword, and replicate
     #   across all providers
 #    unless params[:qf].blank?
 #      params.merge!(:q => params[:q] + " " + params[:qf])
 #      params.delete(:qf)
 #      redirect_required = true
 #    end
-    
+
     if params[:provider] && params[:provider] != self.controller_name
       params.delete(:qf)
       params.delete(:field)
       params[:controller] = params[:provider]
       redirect_required = true
     end
-    
+
     params.delete(:provider)
-    
+
     redirect_to params if redirect_required
   end
-  
+
   def facet_label(facet_name)
     if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
       field_name = taxonomy_field_facet[1]
     else
       field_name = facet_name
     end
-    
+
     t("views.search.facets.contributions.#{field_name}", :default => facet_name)
   end
-  
+
   def facet_row_label(facet_name, row_value)
     @@metadata_fields ||= {}
-    
+
     if row_value.is_a?(Integer)
       if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
         field_name = taxonomy_field_facet[1]
@@ -466,10 +467,10 @@ protected
         end
       end
     end
-    
+
     row_label || row_value.to_s
   end
-  
+
   def attachments_with_books
     attachments_with_books = @contribution.attachments.with_books
     WillPaginate::Collection.create(params[:page] || 1, params[:count] || 3, attachments_with_books.size) do |pager|

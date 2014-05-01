@@ -175,7 +175,11 @@
 		retrieveContent : function( href ) {
 			var self = this;
 
-			if ( !href || !self.ajax_load_processed ) { return; }
+			if ( !href || !self.ajax_load_processed ) {
+				return;
+			}
+
+			lightbox.hideLightboxContent();
 			self.ajax_load_processed = false;
 			self.$new_content = jQuery('<div/>');
 
@@ -238,6 +242,14 @@
 			if ( !keyboard ) {
 				carousels.$featured_carousel.$prev.trigger('click');
 			}
+		},
+
+		hideLightboxContent: function() {
+			var $pp_pic_holder = $('.pp_pic_holder');
+			$pp_pic_holder.find('#pp_full_res object,#pp_full_res embed').css('visibility','hidden');
+			$pp_pic_holder.find('.pp_fade').fadeOut('fast',function(){
+				$('.pp_loaderIcon').show();
+			});
 		},
 
 		removeLightboxLinks : function() {

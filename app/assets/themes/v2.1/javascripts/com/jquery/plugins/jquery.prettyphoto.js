@@ -6,7 +6,7 @@
 
 	modified for runcoco
 	@author dan entous <contact@gmtplusone.com>
-	@version 2012-05-23 12:27 gmt +1
+	@version 2014-04-30 08:46 gmt +1
 ------------------------------------------------------------------------- */
 (function($) {
 	$.prettyPhoto = {version: '3.1.4'};
@@ -223,7 +223,13 @@
 			// Display the current position
 			// runcoco edit
 			// $pp_pic_holder.find('.currentTextHolder').text((set_position+1) + settings.counter_separator_label + $(pp_images).size());
-			$pp_pic_holder.find('.currentTextHolder').text((set_position+1) + settings.counter_separator_label + ( settings.collection_total ? settings.collection_total : $(pp_images).size() ) );
+			$pp_pic_holder
+				.find('.currentTextHolder')
+				.text(
+					( set_position + 1 ) +
+					settings.counter_separator_label +
+					( settings.collection_total ? settings.collection_total : $(pp_images).size() )
+				);
 
 			// Set the description
 			if(typeof pp_descriptions[set_position] != 'undefined' && pp_descriptions[set_position] != ""){

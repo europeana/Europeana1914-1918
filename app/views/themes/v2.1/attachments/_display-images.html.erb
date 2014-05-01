@@ -1,88 +1,189 @@
 <%
-  count       = params['count'] ? params['count'].to_i : 3
+  #count       = params['count'] ? params['count'].to_i : 3
   html        = ''
-  page        = params['page'] ? params['page'].to_i : 1
-  inline      = count * page - count
+  #page        = params['page'] ? params['page'].to_i : 1
+  #inline      = count * page - count
+  item_count  = 0
   thumbnails  = thumbnails ? thumbnails : false
   prettyphoto = prettyphoto ? prettyphoto : false
+  carousel    = params['carousel'] ? params['carousel'] : false
 
   if attachments.present?
+
+    # builds a list of preview links for viewing mediafiles
+    # the main use of this list is within a carousel
     for attachment in attachments
-      html += '<li>'
+
+      # open the list item
+      if item_count == 0
+        html += '<li>'
+      else
+        # when not the first item, mark it as a placeholder
+        html += '<li class="item-placeholder">'
+      end
 
       if attachment.file.present?
-        link_url = attachment_url( attachment, 'large' )
-        view_link_text = t( 'common.links.view-image' )
         annotations_exist = true
 
+        # preview link url
+        # url to the main mediafile that is presented
+        # when the link on the preview image is clicked
+        link_url = attachment_url( attachment, 'large' )
+
+        # preview link text
+        # default text that is presented with the link and the preview image
+        link_text = t( 'common.links.view-image' )
+
+        # preview link content
+        # the content of the <a> tag, made up of the preview image and link text
+        link_content = ''
+
+        # unknown image
+        # except for the first mediafile in a list of items, this is the default preview image
+        # used on the preview link in order to save on the weight of the initial page load.
+        unknown_image = image_tag(
+          '/assets/style/icons/mimetypes/unknown.png',
+          :alt => t( 'media_types.unknown' )
+        )
+
+        # preview link attributes
+        # default attributes of the preview link
         link_attrs = {
           :target => '_blank',
           :title => attachment.title,
           'data-attachment-id' => attachment.id,
-          'data-contribution-id' => contribution.id
+          'data-contribution-id' => contribution.id,
+          'data-attachment-preview-url' => attachment_thumbnail_url( attachment, size ),
+          'data-attachment-title' => attachment_title( attachment )
         }
 
-        if ( prettyphoto && (attachment.image? || attachment.video? || attachment.audio?) )
+        # pretty photo lightbox
+        # attributes added when the item will be displayable in a pretty photo lightbox
+        if ( prettyphoto && ( attachment.image? || attachment.video? || attachment.audio? ) )
+
+          # preview link rel
+          # which identifies the item as being part of a pretty photo lightbox
           link_attrs.merge!({
-            'data-description' =>
-              '<a href="#inline-' + inline.to_s + '">' + t('common.additional-information') + '</a>' +
-              ' <a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>',
             :rel => 'prettyPhoto[gallery]'
           })
-        end
 
-        if ( prettyphoto && attachment.image? )
+          # preview link data-description
+          # additional info link and download link
+          # placed in the pretty photo lightbox under the mediafile
           link_attrs.merge!({
-            :class => 'image'
+            'data-description' =>
+              '<a href="#inline-' + item_count.to_s + '">' + t('common.additional-information') + '</a> ' +
+              '<a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>'
           })
+
+          # image
+          if ( attachment.image? )
+            # identifies the preview link as being for an image
+            link_attrs.merge!({
+              :class => 'image'
+            })
+          end
+
+          # video
+          if ( attachment.video? )
+            # changes the preview link text
+            link_text = t( 'common.links.play-video' )
+
+            # changes the preivew link url
+            link_url =
+              contribution_attachment_url( contribution, attachment ) +
+              '?layout=0&iframe=true&width=100%&height=100%'
+
+            # identifies the preview link as being for a video
+            link_attrs.merge!({
+              :class => 'video'
+            })
+          end
+
+          # audio
+          if ( attachment.audio? )
+            # changes the preview link text
+            link_text = t( 'common.links.play-audio' )
+
+            # changes the preivew link url
+            link_url =
+              contribution_attachment_url( contribution, attachment ) +
+              '?layout=0&iframe=true&width=100%&height=100%'
+
+            # identifies the preview link as being for an audio clip
+            link_attrs.merge!({
+              :class => 'audio'
+            })
+          end
         end
 
-        if ( prettyphoto && attachment.video? )
-          view_link_text = t( 'common.links.play-video' )
-          link_url = contribution_attachment_url( contribution, attachment ) + '?layout=0&iframe=true&width=100%&height=100%'
-          link_attrs.merge!({
-            :class => 'video'
-          })
-        end
-
-        if ( prettyphoto && attachment.audio? )
-          view_link_text = t( 'common.links.play-audio' )
-          link_url = contribution_attachment_url( contribution, attachment ) + '?layout=0&iframe=true&width=100%&height=100%'
-          link_attrs.merge!({
-            :class => 'audio'
-          })
-        end
-
+        # pdf
         if ( attachment.pdf? )
-          view_link_text = t( 'common.links.view-pdf' )
+          # changes the preview link text
+          link_text = t( 'common.links.view-pdf' )
+
+          # identifies the preview link as being for a pdf
           link_attrs.merge!({
             :class => 'pdf'
           })
         end
 
+        # distinguishes between a list of thumbnails and preview items
+        # preview items
         if !thumbnails
-          # add annotorious hint icon when annotations exist for this item
+
+          # annotations
           if attachment.annotations.present?
-            view_link_text = '<p class="view-item-annotorious" style="pointer-events:auto">' + view_link_text + '<span class="annotorious-carousel-icon"></span></p>'
+            # add annotorious feather icon as a hint to the user
+            link_text =
+              '<p class="view-item-annotorious" style="pointer-events:auto">' +
+                link_text +
+                '<span class="annotorious-carousel-icon"></span>' +
+              '</p>'
+
+            # change the preview link title
             link_attrs.merge!({
               :title => t( 'common.links.view-image' ) + ' - ' + t( 'common.links.annotorious' )
             })
           else
-            view_link_text = '<p class="view-item">' + view_link_text + '</p>'
+            # change the link text
+            link_text = '<p class="view-item">' + link_text + '</p>'
           end
 
-          view_link_text = attachment_preview( attachment, size ) + view_link_text.html_safe
-          html += link_to( view_link_text, link_url, link_attrs )
+          # link content
+          if item_count == 0
+            # when the first item in a list use its preview image
+            link_content = attachment_preview( attachment, size ) + link_text.html_safe
+          else
+            # otherwise use the unknown image to save on page weight
+            link_content = unknown_image + link_text.html_safe
+          end
+
+          # create the preview link
+          html += link_to( link_content, link_url, link_attrs )
+
+        # thumbnails
         else
-          html += link_to( attachment_preview( attachment, size ), link_url, link_attrs )
+          # create the thumbnail link
+          if item_count == 0
+            # when the first item in a list use its thumbnail image
+            html += link_to( attachment_preview( attachment, size ), link_url, link_attrs )
+          else
+            # otherwise use the unknown image to save on page weight
+            html += link_to( unknown_image, link_url, link_attrs )
+          end
         end
 
       else
-        html += image_tag('style/icons/mimetypes/unknown.png', :alt => t('media_types.unknown'))
+        # fallback in case there is no attachment file present
+        html += unknown_image
       end # if attachment.file.present?
 
+      # additional info
+      # metadata that is displayed when the additional info link is clicked
+      # when viewing an item in the pretty photo lightbox
       if prettyphoto
-        html += '<dl class="lightbox-metadata" id="inline-' + inline.to_s + '">'
+        html += '<dl class="lightbox-metadata" id="inline-' + item_count.to_s + '">'
 
         html += render :partial => 'metadata/display',
           :locals => {
@@ -124,9 +225,9 @@
 
         html += '</dl>'
 
-      end # if prettyphoto
+      end # additional info, if prettyphoto
 
-      inline += 1
+      item_count += 1
       html += '</li>'
 
     end # for attachment in attachments

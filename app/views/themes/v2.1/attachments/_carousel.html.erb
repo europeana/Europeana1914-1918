@@ -18,19 +18,19 @@
 		html += '</div>'
 	html += '</div>'
 
-	if local_assigns[:attachments].present? && local_assigns[:attachments].size > 1
+	if local_assigns[:attachments].present? && local_assigns[:attachments].size > 0
 		html += '<div class="col-cell">'
 			html += '<ul id="pagination-counts"></ul>'
 		html += '</div>'
 
 		html += '<div id="carousel-pagination">'
-			
+
 			pagination = will_paginate(attachments)
-		    
+
 		    if pagination
 				html += will_paginate(attachments)
 			end
-			
+
 			html += 'Total: <span id="pagination-total">' + attachments.total_entries.to_s + '</span>'
 		html += '</div>'
 	end

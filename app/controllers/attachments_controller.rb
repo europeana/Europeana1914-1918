@@ -1,7 +1,7 @@
 class AttachmentsController < ApplicationController
   before_filter :find_contribution
   before_filter :find_attachment, :except => [ :index, :new, :create ]
-  
+
   cache_sweeper :attachment_sweeper, :only => [ :create, :update, :destroy ]
 
   # GET /contributions/:contribution_id/attachments
@@ -13,7 +13,8 @@ class AttachmentsController < ApplicationController
         # @todo Does this need to respond similarly for theme v3?
         if params[:carousel] && [ 'v2', 'v2.1' ].include?(session[:theme])
           render :partial => 'attachments/carousel', :locals => {
-            :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 3 ),
+            # @todo need to figure out a better way to allow all attachments and how to handle issue of no pagination in that case
+            :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 1000 ),
             :contribution => @contribution
           }
         else
@@ -46,7 +47,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.new
     @attachment.build_metadata
     @attachment.post_process = false unless (@attachment.file.options[:storage] == :filesystem)
-    
+
     if params[:uploadify]
       attachment_attributes = (params[:attachment].is_a?(String) ? JSON.parse(params[:attachment]) : params[:attachment])
       attachment_attributes[:file] = params[:attachment_file]
@@ -87,9 +88,9 @@ class AttachmentsController < ApplicationController
         dropbox_error = exception.error
       end
     end
-    
+
     file_upload = attachment_attributes[:file]
-    
+
     if dropbox_error.blank? && @attachment.valid?
       if (@attachment.file.options[:storage] == :filesystem) || file_upload.blank?
         @attachment.save
@@ -97,11 +98,11 @@ class AttachmentsController < ApplicationController
         @attachment.file = nil
         @attachment.file_file_size = file_upload.tempfile.size
         @attachment.save
-        
+
         Delayed::Job.enqueue AttachmentFileTransferJob.new(@attachment.id, file_upload), :queue => Socket.gethostname
       end
-      
-      respond_to do |format| 
+
+      respond_to do |format|
         format.html do
           flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
           if @contribution.submitted?
@@ -128,7 +129,7 @@ class AttachmentsController < ApplicationController
   end
 
   # GET /contributions/:contribution_id/attachments/:id
-  def show    
+  def show
     current_user.may_view_attachment!(@attachment)
     respond_to do |format|
       format.html do
@@ -159,7 +160,7 @@ class AttachmentsController < ApplicationController
     style = (params[:style] == 'full' ? 'original' : params[:style])
     send_attachment_file(@attachment, style, :disposition => 'inline')
   end
-  
+
   # GET /contributions/:contribution_id/attachments/:id/:filename
   def download
     current_user.may_view_attachment!(@attachment)
@@ -243,7 +244,7 @@ class AttachmentsController < ApplicationController
       render :template => 'delete'
     end
   end
-  
+
   # GET /contributions/:contribution_id/attachments/:id/uploaded
   def uploaded
     current_user.may_view_attachment!(@attachment)
@@ -251,7 +252,7 @@ class AttachmentsController < ApplicationController
       format.json
     end
   end
-  
+
   def cached(attachment, format)
     cache_key = "attachments/#{format.to_s}/#{attachment.id}.#{format.to_s}"
 
@@ -279,7 +280,7 @@ protected
   def find_attachment
     @attachment = @contribution.attachments.find(params[:attachment_id] || params[:id], :include => [ :metadata ])
   end
-  
+
   def send_attachment_file(attachment, style = :original, options = {})
     options.merge!(:type => attachment.file.content_type)
     if attachment.file.options[:storage] == :s3
@@ -291,5 +292,5 @@ protected
       send_file attachment.file.path(style), options
     end
   end
-  
+
 end
