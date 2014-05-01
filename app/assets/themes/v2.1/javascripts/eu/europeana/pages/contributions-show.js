@@ -319,6 +319,7 @@
 
 			if ( this.photogallery_hash_check ) {
 				this.$featured_carousel.goToIndex( new_carousel_index );
+				this.updatePaginationCount();
 				this.photogallery_hash_check = false;
 			}
 		},
