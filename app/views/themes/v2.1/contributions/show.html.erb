@@ -12,34 +12,33 @@
 
 -%>
 <% if current_user.may_edit_contribution?(@contribution) || current_user.may_delete_contribution?(@contribution) || current_user.may_approve_contributions? -%>
-  <div class="section action-links top">
-    <ul>
-    <% if current_user.may_edit_contribution?(@contribution) %>
-      <% if @contribution.draft? %>
-      <%= form_previous_step_link edit_contribution_path(@contribution) %>
-      <% end %>
-      <li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
-    <% end %>
-    <% if current_user.may_create_contribution_attachment?(@contribution) -%>
-      <li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
-    <% end -%>
-    <% if current_user.may_withdraw_contribution?(@contribution) -%>
-      <li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
-    <% end -%>
-    <% if current_user.may_delete_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
-    <% if current_user.may_view_contribution_status_log?(@contribution) -%>
-      <li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
-    <% end -%>
-    <% if current_user.may_approve_contributions? && @contribution.pending_approval? -%>
-      <li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
-    <% end -%>
-    <% if current_user.may_reject_contributions? && @contribution.pending_approval? -%>
-      <li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
-    <% end -%>
-    </ul>
-  </div>
+	<div class="section action-links top">
+		<ul>
+		<% if current_user.may_edit_contribution?(@contribution) %>
+			<% if @contribution.draft? %>
+			<%= form_previous_step_link edit_contribution_path(@contribution) %>
+			<% end %>
+			<li><%= link_to t('actions.edit'), edit_contribution_path(@contribution) %></li>
+		<% end %>
+		<% if current_user.may_create_contribution_attachment?(@contribution) -%>
+			<li><%= link_to t('formtastic.actions.attachment.add_edit'), ( new_contribution_attachment_path(@contribution) ) %> (<%= @contribution.attachments.size %>)</li>
+		<% end -%>
+		<% if current_user.may_withdraw_contribution?(@contribution) -%>
+			<li><%= link_to t('formtastic.actions.contribution.withdraw'), ( withdraw_contribution_path(@contribution ) ) %></li>
+		<% end -%>
+		<% if current_user.may_delete_contribution?(@contribution) %><li><%= link_to t('actions.delete'), delete_contribution_path(@contribution) %></li><% end %>
+		<% if current_user.may_view_contribution_status_log?(@contribution) -%>
+			<li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
+		<% end -%>
+		<% if current_user.may_approve_contributions? && @contribution.pending_approval? -%>
+			<li><%= button_to t('actions.approve'), approve_contribution_path(@contribution), :method => :put %></li>
+		<% end -%>
+		<% if current_user.may_reject_contributions? && @contribution.pending_approval? -%>
+			<li><%= button_to t('actions.reject'), reject_contribution_path(@contribution), :method => :put %></li>
+		<% end -%>
+		</ul>
+	</div>
 <% end -%>
-
 
 <% if referred_by_search? -%>
   <div class="back-link-row hide-on-item-collapsed">
@@ -70,17 +69,17 @@
       <span class="icon-translate"></span>
     </div>
 
-    <div class="col-cell" style="clear:both;">
+    <div class="col-cell"><!-- begin -->
       <%= render :partial => 'contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
-    </div>
+    </div><!-- end tags -->
 
   </div>
 
   <div class="col middle">
 
-      <div class="col-cell hide-on-item-collapsed" >
-        <h2 class="translate"><%= contribution_title(@contribution) -%></h2>
-      </div>
+		<div class="col-cell hide-on-item-collapsed">
+			<h2 class="translate"><%= contribution_title(@contribution) -%></h2>
+		</div>
 
 	  <div id="story-info" class="col-cell">
 
@@ -95,10 +94,10 @@
 		      :field_options => {
 		        :contribution => true,
 		        :name => [
-		        'alternative',
-		        'description',
-		        'creator_family_name',
-		        'creator_given_name',
+							'alternative',
+							'description',
+							'creator_family_name',
+							'creator_given_name',
 		        ],
 		        :name_order => true
 		      }
@@ -260,12 +259,8 @@
 		      <dd><%= l @contribution.created_at, :format => :short %></dd>
 		    <% end -%>
 
-		    <%#= t('formtastic.labels.content.metadata.dc.rights') %></b></dt>
-
 		    <dt><b><%= t('formtastic.labels.content.metadata.edm.rights') %></b></dt>
-		    <dd>
-				<a target="_new" title="CC BY-SA" href="http://creativecommons.org/licenses/by-sa/3.0/"> <span class="rights-icon icon-cc" title="CC BY-SA"></span> <span class="rights-icon icon-by" title="CC BY-SA"></span> <span class="rights-icon icon-sa" title="CC BY-SA"></span> <span class="rights-text"> CC-BY-SA 3.0</span></a>
-		    </dd>
+		    <dd><a target="_blank" title="CC BY-SA" href="http://creativecommons.org/licenses/by-sa/3.0/"> <span class="rights-icon icon-cc" title="CC BY-SA"></span> <span class="rights-icon icon-by" title="CC BY-SA"></span> <span class="rights-icon icon-sa" title="CC BY-SA"></span> <span class="rights-text"> CC-BY-SA 3.0</span></a></dd>
 
 	    </dl>
 
@@ -290,6 +285,7 @@
 	        <% end -%>
 	      </div>
 	    <% end -%>
-	  </div>
-	</div>
-</div>
+
+	  </div><%# end story-info %>
+	</div><%# end col middle %>
+</div><%# end container %>

@@ -1,69 +1,90 @@
-    <% tags = [] unless local_assigns[:tags].present? -%>
-    
-    <% if (tags.length > 0) || current_user.may_tag_contribution?(contribution) -%>
-        <div class="add-tags">
-            <span class="icon-tag"><%= t('views.contributions.show.headings.tags') %></span>
-        </div>
-    <%- end -%>
-  
-    <%- if current_user.may_tag_contribution?(contribution) -%>
-        <%= form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do %>
-            <div class="add-tag-panel">
-                <div class="h-flex-container">
-                
-                  <%#= text_field_tag "tags", "", :size => 50 -%>
-                  <%# :size => 50 breaks layout-%>
-                  
+<%
 
-                  <div class="h-flex-fill">
-                    <%= text_field_tag "tags", "" %>
-                  </div>
-                  
-                  <div class="h-flex-fixed">
-                    <input type="submit" value="<%= t('views.tags.add') %>" class="button">
-                  </div>
-                </div>
-		       <span class="tag-info"><%= t('views.tags.info') -%></span>
-            </div>
-        <% end %>
-    <%- end -%>
-  
-    <% if (tags.length > 0) -%>
-      
-        <div class="tags-panel">
-        
-        
-            <ul class="tags clearfix">
-                
-                <%- for tag in tags -%>
-                    <li>
-                        
-                        <%= link_to tag.name, tag_search_contributions_path(tag.name), :class=> 'search-tags' %>
+	html = ''
+	tags = [] unless local_assigns[:tags].present?
 
-                        <%- if current_user.may_untag_contribution?(contribution, tag) -%>
-                        
-                            <%= link_to ('<span class="icon-remove" title="' + t('actions.delete') + '"></span>').html_safe, delete_contribution_tag_path(contribution, tag.name), :class => 'delete' %>
-                            
-                        <%- end -%>
-                        
-                        
-                        <%- if current_user.may_flag_contribution_tag?(contribution, tag) -%>
-                            <div class="action-links">
-                                <ul>
-                                    <li>
-                                        <%= link_to t('actions.flag') + '-flag', flag_contribution_tag_path(contribution, tag.name), :title => t('formtastic.actions.tag.flag') %>
-                                    </li>
-                                </ul>
-                            </div>
-                        <%- end -%>
-                    </li>
-                <%- end -%>
-                
-            </ul>
-        </div>
-        
-    <%- end -%>
-    
-  
-  
-  
+  if (tags.length > 0) || current_user.may_tag_contribution?(contribution)
+		html += '<div class="add-tags">' +
+			html += '<span class="icon-tag">' + t( 'views.contributions.show.headings.tags' ) +	'</span>'
+		html += '</div>'
+  end
+
+  if current_user.may_tag_contribution?( contribution )
+    html += form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do
+      form = '<div class="add-tag-panel">'
+				form += '<div class="h-flex-container">'
+					form += '<div class="h-flex-fill">'
+						# :size => 50 breaks layout
+						#= text_field_tag "tags", "", :size => 50
+						form += text_field_tag( "tags", "" )
+					form += '</div>'
+					form += '<div class="h-flex-fixed">'
+						form += '<input type="submit" value="' + t( 'views.tags.add' ) + '" class="button">'
+					form += '</div>'
+				form += '</div>'
+				form += '<span class="tag-info">' + t( 'views.tags.info' ) + '</span>'
+      form += '</div>'
+      form.html_safe
+    end
+  end
+
+	if (tags.length > 0)
+
+    html += '<div class="tags-panel">'
+			html += '<ul class="tags">'
+
+				# add tags to tags-panel
+				for tag in tags
+					html += '<li>'
+
+						# tag link
+						# an <a> element that links to a search using the actual tag text
+						html += link_to(
+							tag.name,
+							tag_search_contributions_path( tag.name ),
+							:class => 'search-tags',
+							:title => tag.name
+						)
+
+						# delete tag
+						# an <a> element that links to a delete action
+						if current_user.may_untag_contribution?( contribution, tag )
+							link_content = '<span class="icon-remove"></span>'
+							link_url = delete_contribution_tag_path( contribution, tag.name )
+
+							html +=	link_to(
+								link_content.html_safe,
+								link_url,
+								:title => t( 'actions.delete' ),
+								:class => 'delete'
+							)
+						end
+
+						# flag tag
+						# an <a> element that links to a flag action
+						if current_user.may_flag_contribution_tag?( contribution, tag )
+							link_url = flag_contribution_tag_path( contribution, tag.name )
+
+							link_content = image_tag(
+								'/assets/ait/annotorious/plugins/flag/flag-red.png',
+								:width => 16,
+								:height => 16,
+								:alt => t( 'formtastic.actions.tag.flag' ),
+								:class => 'icon-flag'
+							)
+
+							html += link_to(
+								link_content.html_safe,
+								link_url,
+								:title => t( 'formtastic.actions.tag.flag' )
+							)
+						end
+
+					html += '</li>'
+				end
+			html += '</ul>'
+		html += '</div>'
+
+	end
+-%>
+<%= html.html_safe -%>
