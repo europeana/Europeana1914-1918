@@ -12,7 +12,7 @@
 	edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 	edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 	edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : asset_path('style/icons/mimetypes/unknown.png')
-	edmProvider     = aggregation['edmProvider'] ? aggregation['edmProvider'] : nil
+	edmProvider     = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
 	type            = record['type'] ? record['type'] : nil
 	html            = ''
 	oembed          = oembed_fields( record )

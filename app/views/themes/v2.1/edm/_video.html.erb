@@ -1,14 +1,14 @@
 <%
 	record = @object
 
-	if record['aggregations'].first['edmProvider'].blank? ||
-		( record['aggregations'].first['edmProvider']['def'].first != "Europeana 1914 - 1918" )
-
-		proxy          = record['proxies'][0]
-		aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
-		edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
-		euAggregation  = record['europeanaAggregation']
-		edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : nil
+	proxy          = record['proxies'][0]
+	aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
+	edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+	euAggregation  = record['europeanaAggregation']
+	edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : nil
+	edmProvider    = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
+		
+	if edmProvider.blank? || (edmProvider != "Europeana 1914 - 1918")
 		mediaplayer    = false
 		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
 		type           = record['type'] ? record['type'] : nil
