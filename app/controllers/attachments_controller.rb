@@ -8,13 +8,15 @@ class AttachmentsController < ApplicationController
   def index
     current_user.may_view_contribution_attachments!(@contribution)
     @attachments = @contribution.attachments
+    if params[:page] && params[:count]
+      @attachments = @attachments.paginate(:page => params[:page], :per_page => params[:count])
+    end
     respond_to do |format|
       format.html do
         # @todo Does this need to respond similarly for theme v3?
         if params[:carousel] && [ 'v2', 'v2.1' ].include?(session[:theme])
           render :partial => 'attachments/carousel', :locals => {
-            # @todo need to figure out a better way to allow all attachments and how to handle issue of no pagination in that case
-            :attachments => @attachments.paginate(:page => params[:page], :per_page => params[:count] || 1000 ),
+            :attachments => @attachments,
             :contribution => @contribution
           }
         else
@@ -22,7 +24,7 @@ class AttachmentsController < ApplicationController
         end
       end
       format.json do
-        render :json => @attachments.paginate(:page => params[:page], :per_page => params[:count])
+        render :json => @attachments
       end
     end
   end

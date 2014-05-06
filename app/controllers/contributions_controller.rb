@@ -137,8 +137,10 @@ class ContributionsController < ApplicationController
     if session[:theme] == 'v3'
       @attachments = attachments_with_books
     else
-      # @todo need to figure out a better way to allow all attachments and how to handle issue of no pagination in that case
-      @attachments = @contribution.attachments.paginate(:page => params[:page], :per_page => params[:count] || 1000 )
+      @attachments = @contribution.attachments
+      if params[:page] && params[:count]
+        @attachments = @attachments.paginate(:page => params[:page], :per_page => params[:count])
+      end
     end
 
     @tags = @contribution.visible_tags

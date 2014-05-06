@@ -25,13 +25,14 @@
 
 		html += '<div id="carousel-pagination">'
 
-			pagination = will_paginate(attachments)
+			pagination = attachments.respond_to?(:total_pages) ? will_paginate(attachments) : nil
 
-		    if pagination
+			if pagination
 				html += will_paginate(attachments)
 			end
 
-			html += 'Total: <span id="pagination-total">' + attachments.total_entries.to_s + '</span>'
+			total = attachments.respond_to?(:total_entries) ? attachments.total_entries : attachments.count
+			html += 'Total: <span id="pagination-total">' + total.to_s + '</span>'
 		html += '</div>'
 	end
 -%>
