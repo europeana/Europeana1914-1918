@@ -126,7 +126,7 @@ protected
   end
   
   def find_tag
-    @tag = ActsAsTaggableOn::Tag.find_by_name!(params[:id])
+    @tag = ActsAsTaggableOn::Tag.find_by_id!(params[:id])
   end
 
 end

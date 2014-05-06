@@ -13,7 +13,7 @@
                 
                 <%- for tag in tags -%>
                     <li>
-                        <%= link_to tag.name, tag_search_contributions_path(tag.name) %>
+                        <%= link_to tag.name, search_contributions_path(:tag => tag.name) %>
                         <%- if current_user.may_untag_contribution?(contribution, tag) || current_user.may_flag_contribution_tag?(contribution, tag) -%>
                             <div class="action-links">
                                 <ul>

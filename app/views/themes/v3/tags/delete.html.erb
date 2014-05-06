@@ -6,7 +6,7 @@
   
   <p><%= t 'views.tags.delete.question' %></p>
 
-  <%= semantic_form_for @tag, :url => contribution_tag_path(@contribution, @tag.name), :html => { :method => :delete } do |form| %>
+  <%= semantic_form_for @tag, :url => contribution_tag_path(@contribution, @tag), :html => { :method => :delete } do |form| %>
     <%= form.buttons do %>
       <%= redirect_field %>
       <%= form.commit_button :label => t('actions.delete') %>

@@ -41,7 +41,7 @@
 						# an <a> element that links to a search using the actual tag text
 						html += link_to(
 							tag.name,
-							tag_search_contributions_path( tag.name ),
+							search_contributions_path( :tag => tag.name ),
 							:class => 'search-tags',
 							:title => tag.name
 						)
@@ -50,7 +50,7 @@
 						# an <a> element that links to a delete action
 						if current_user.may_untag_contribution?( contribution, tag )
 							link_content = '<span class="icon-remove"></span>'
-							link_url = delete_contribution_tag_path( contribution, tag.name )
+							link_url = delete_contribution_tag_path( contribution, tag )
 
 							html +=	link_to(
 								link_content.html_safe,
@@ -64,7 +64,7 @@
 						# an <a> element that links to a flag action
 						if current_user.may_flag_contribution_tag?( contribution, tag ) &&
 							!current_user.may_untag_contribution?( contribution, tag )
-							link_url = flag_contribution_tag_path( contribution, tag.name )
+							link_url = flag_contribution_tag_path( contribution, tag )
 
 							link_content = image_tag(
 								'/assets/ait/annotorious/plugins/flag/flag-red.png',

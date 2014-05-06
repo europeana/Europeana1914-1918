@@ -11,7 +11,7 @@
     <li><strong><%= t 'activerecord.models.tag' %>:</strong> <%= @tag.name %></li>
   </ul>
 
-  <%= semantic_form_for @tag, :url => flag_contribution_tag_path(@contribution, @tag.name), :html => { :method => :put } do |form| %>
+  <%= semantic_form_for @tag, :url => flag_contribution_tag_path(@contribution, @tag), :html => { :method => :put } do |form| %>
     <%= form.buttons do %>
       <%= redirect_field %>
       <%= form.commit_button :label => t('formtastic.actions.tag.flag') %>
