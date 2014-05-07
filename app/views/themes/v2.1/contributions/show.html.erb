@@ -70,7 +70,7 @@
     </div>
 
     <div class="col-cell"><!-- begin -->
-      <%= render :partial => 'contributions/tags', :object => @tags, :locals => { :contribution => @contribution } -%>
+      <%= render :partial => 'contributions/tags', :object => @contribution.tags, :locals => { :taggable => @contribution } -%>
     </div><!-- end tags -->
 
   </div>

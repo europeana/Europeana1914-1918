@@ -1,18 +1,17 @@
 ##
-# Handles ActsAsTaggableOn tagging of contributions
+# Handles ActsAsTaggableOn tagging of ActiveRecord objects
 #
 class TagsController < ApplicationController
-  before_filter :find_contribution
+  before_filter :find_taggable
   before_filter :find_tag, :except => [ :index, :create ]
 
-  # GET /:locale/contributions/:contribution_id/tags(.:format)
   def index
     respond_to do |format|
       format.json do 
-        tags = @contribution.visible_tags.collect(&:name)
+        tags = @taggable.visible_tags.collect(&:name)
         render :json => { 
           "tags" => tags,
-          "contrib_path" => contribution_path(@contribution),
+          "contrib_path" => taggable_path(@taggable),
           "tConfirm" => t('actions.delete'),
           "tDelete" => t('views.tags.delete.question')
         }
@@ -20,16 +19,15 @@ class TagsController < ApplicationController
     end
   end
 
-  # POST /:locale/contributions/:contribution_id/tags(.:format)
   def create
-    current_user.may_tag_contribution!(@contribution)
+    current_user.may_tag_object!(@taggable)
     
     if params[:tags].present?
-      new_tags = params[:tags].split(",").collect(&:strip) - @contribution.tags.collect(&:name)
-      user_tags = @contribution.owner_tags_on(current_user, :tags).collect(&:name)
-      current_user.tag(@contribution, :with => user_tags + new_tags, :on => :tags)
+      new_tags = params[:tags].split(",").collect(&:strip) - @taggable.tags.collect(&:name)
+      user_tags = @taggable.owner_tags_on(current_user, :tags).collect(&:name)
+      current_user.tag(@taggable, :with => user_tags + new_tags, :on => :tags)
       
-      @contribution.taggings.each do |tagging|
+      @taggable.taggings.each do |tagging|
         if tagging.context == 'tags'
           if tagging.current_status.nil?
             tagging.change_status_to(:published, current_user.id)
@@ -37,39 +35,37 @@ class TagsController < ApplicationController
         end
       end
       
-      if @contribution.respond_to?(:index!)
+      if @taggable.respond_to?(:index!)
         # Force index because change of owned tags are not detected by
         # dirty record checks.
-        @contribution.tags(:reload => true)
-        @contribution.index!
+        @taggable.tags(:reload => true)
+        @taggable.index!
       end
     end
     
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.tags.create.success')
-        redirect_to contribution_path(@contribution)
+        redirect_to taggable_path(@taggable)
       end
       format.json do
         render :json => {
           "success" => true,
           "message" => t('flash.tags.create.success'),
-          "tags" => @contribution.visible_tags.collect(&:name)
+          "tags" => @taggable.visible_tags.collect(&:name)
         }
       end
     end
   end
   
-  # GET /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
   def flag
-    current_user.may_flag_contribution_tag!(@contribution, @tag)
+    current_user.may_flag_contribution_tag!(@taggable, @tag)
   end
   
-  # PUT /:locale/contributions/:contribution_id/tags/:id/flag(.:format)
   def confirm_flag
-    current_user.may_flag_contribution_tag!(@contribution, @tag)
+    current_user.may_flag_contribution_tag!(@taggable, @tag)
     
-    @contribution.taggings.select { |tagging| tagging.tag == @tag }.each do |tagging|
+    @taggable.taggings.select { |tagging| tagging.tag == @tag }.each do |tagging|
       current_user.tag(tagging, :with => "inappropriate", :on => :flags)
       tagging.change_status_to(:flagged, current_user.id)
       
@@ -81,7 +77,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.tags.flag.success')
-        redirect_to contribution_path(@contribution)
+        redirect_to taggable_path(@taggable)
       end
       format.json do
         render :json => {
@@ -92,28 +88,26 @@ class TagsController < ApplicationController
     end
   end
   
-  # GET /:locale/contributions/:contribution_id/tags/:id/:delete(.:format)
   def delete
-    current_user.may_untag_contribution!(@contribution, @tag)
+    current_user.may_untag_object!(@taggable, @tag)
   end
   
-  # DELETE /:locale/contributions/:contribution_id/tags/:id(.:format)
   def destroy
-    current_user.may_untag_contribution!(@contribution, @tag)
+    current_user.may_untag_object!(@taggable, @tag)
     
-    @contribution.taggings.select { |tagging| tagging.tag == @tag }.each { |tagging| tagging.destroy }
-    @contribution.tags(:reload => true)
+    @taggable.taggings.select { |tagging| tagging.tag == @tag }.each { |tagging| tagging.destroy }
+    @taggable.tags(:reload => true)
     
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.tags.destroy.success')
-        redirect_to contribution_path(@contribution)
+        redirect_to taggable_path(@taggable)
       end
       format.json do
         render :json => {
           "success" => true,
           "message" => t('flash.tags.destroy.success'),
-          "tags" => @contribution.tags.collect(&:name)
+          "tags" => @taggable.tags.collect(&:name)
         }
       end
     end
@@ -121,10 +115,6 @@ class TagsController < ApplicationController
   
 protected
 
-  def find_contribution
-    @contribution = Contribution.find(params[:contribution_id], :include => :tags)
-  end
-  
   def find_tag
     @tag = ActsAsTaggableOn::Tag.find_by_id!(params[:id])
   end

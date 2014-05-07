@@ -2,15 +2,17 @@
 
 	html = ''
 	tags = [] unless local_assigns[:tags].present?
+	taggable_type = taggable.class.to_s.underscore
+	taggable_params = taggable.to_param unless local_assigns[:taggable_params].present?
 
-  if (tags.length > 0) || current_user.may_tag_contribution?(contribution)
+  if (tags.length > 0) || current_user.may_tag_object?(taggable)
 		html += '<div class="add-tags">' +
 			html += '<span class="icon-tag">' + t( 'views.contributions.show.headings.tags' ) +	'</span>'
 		html += '</div>'
   end
 
-  if current_user.may_tag_contribution?( contribution )
-    html += form_tag contribution_tags_path(contribution), :method => :post, :id => "add_tags_form" do
+  if current_user.may_tag_object?( taggable )
+    html += form_tag send(:"#{taggable_type}_tags_path", *taggable_params), :method => :post, :id => "add_tags_form" do
       form = '<div class="add-tag-panel">'
 				form += '<div class="h-flex-container">'
 					form += '<div class="h-flex-fill">'
@@ -48,9 +50,9 @@
 
 						# delete tag
 						# an <a> element that links to a delete action
-						if current_user.may_untag_contribution?( contribution, tag )
+						if current_user.may_untag_object?( taggable, tag )
 							link_content = '<span class="icon-remove"></span>'
-							link_url = delete_contribution_tag_path( contribution, tag )
+							link_url = send(:"delete_#{taggable_type}_tag_path", *taggable_params, tag)
 
 							html +=	link_to(
 								link_content.html_safe,
@@ -62,9 +64,9 @@
 
 						# flag tag
 						# an <a> element that links to a flag action
-						if current_user.may_flag_contribution_tag?( contribution, tag ) &&
-							!current_user.may_untag_contribution?( contribution, tag )
-							link_url = flag_contribution_tag_path( contribution, tag )
+						if current_user.may_flag_object_tag?( taggable, tag ) &&
+							!current_user.may_untag_object?( taggable, tag )
+							link_url = send(:"flag_#{taggable_type}_tag_path", *taggable_params, tag)
 
 							link_content = image_tag(
 								'/assets/ait/annotorious/plugins/flag/flag-red.png',

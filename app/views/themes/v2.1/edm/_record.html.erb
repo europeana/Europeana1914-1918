@@ -22,6 +22,7 @@
 		places          = record['places'] ? record['places'] : {}
 		proxy           = record['proxies']
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
+		taggable        = local_assigns[:taggable].present? ? local_assigns[:taggable] : false
 
 	# end variable setup
 
@@ -94,6 +95,12 @@
 				html += '<div class="col-cell translate-area" >'
 			    	html += '<span class="icon-translate"></span>'
  				html += '</div>'
+
+				if taggable
+					html += '<div class="col-cell">'
+						html += render :partial => 'contributions/tags', :object => taggable.tags, :locals => { :taggable => taggable, :taggable_params => local_assigns[:taggable_params].present? ? taggable_params : nil }
+					html += '</div>'
+				end
 
 			html += '</div>'
 

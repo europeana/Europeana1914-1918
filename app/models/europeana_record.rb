@@ -13,6 +13,9 @@ class EuropeanaRecord < ActiveRecord::Base
   after_save :expire_cache_fragments, :on => :update
   after_destroy :expire_cache_fragments
   
+  # @see ActsAsTaggableOn
+  acts_as_taggable
+  
   # Solr index
   searchable do
     fulltext_fields = { 
@@ -174,5 +177,30 @@ class EuropeanaRecord < ActiveRecord::Base
     fragments.each do |key|
       ActionController::Base.new.expire_fragment(key)
     end
+  end
+  
+#  def to_param
+#    { :dataset_id => dataset_id, :provider_record_id => provider_record_id }
+#  end
+  
+  def dataset_id
+    record_id.split('/')[1]
+  end
+  
+  def provider_record_id
+    record_id.split('/')[2]
+  end
+  
+  ##
+  # Returns the tags on this contribution that are visible to all users.
+  #
+  # Visible tags are those where the tagging currently has the status:
+  # published, flagged or revised
+  #
+  # @return [Array<ActsAsTaggableOn::Tag>] Visible tags
+  # @see ActsAsTaggableOn
+  #
+  def visible_tags
+    taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag)
   end
 end

@@ -1,1 +1,1 @@
-<%= render :partial => 'edm/record', :object => @object %>
+<%= render :partial => 'edm/record', :object => @object, :locals => { :taggable => @record.present? ? @record : nil, :taggable_params => @record.present? ? [ @record.dataset_id, @record.provider_record_id ] : nil } %>

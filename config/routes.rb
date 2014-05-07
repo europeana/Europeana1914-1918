@@ -38,7 +38,7 @@ RunCoCo::Application.routes.draw do
       end
       
       # Tags
-      resources :tags, :only => [ 'index', 'create', 'edit', 'update', 'destroy' ] do
+      resources :tags, :controller => 'tags/contributions', :only => [ 'index', 'create', 'edit', 'update', 'destroy' ] do
         member do
           get 'delete'
           get 'flag'
@@ -96,9 +96,18 @@ RunCoCo::Application.routes.draw do
     # Europeana API interface
     match 'europeana/search' => 'europeana#search', :as => 'search_europeana', :via => :get
     match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
-    match 'europeana/record/:dataset_id/:record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
-    match 'europeana/record/:dataset_id/:record_id/headers' => 'europeana#http_headers', :as => 'show_europeana_http_headers', :via => :get
-    match 'europeana/record/:dataset_id/:record_id/content' => 'europeana#http_content', :as => 'show_europeana_http_content', :via => :get
+    match 'europeana/record/:dataset_id/:provider_record_id' => 'europeana#show', :as => 'show_europeana', :via => :get
+    match 'europeana/record/:dataset_id/:provider_record_id/headers' => 'europeana#http_headers', :as => 'show_europeana_http_headers', :via => :get
+    match 'europeana/record/:dataset_id/:provider_record_id/content' => 'europeana#http_content', :as => 'show_europeana_http_content', :via => :get
+    scope 'europeana/record/:dataset_id/:provider_record_id' do
+      resources :tags, :as => 'europeana_record_tags', :controller => 'tags/europeana_records', :only => [ 'index', 'create', 'edit', 'update', 'destroy' ] do
+        member do
+          get 'delete'
+          get 'flag'
+          put 'flag', :action => 'confirm_flag'
+        end
+      end
+    end
     
     # Federated searches
     match 'canadiana/search' => 'federated_search/canadiana#search', :as => 'search_canadiana', :via => :get

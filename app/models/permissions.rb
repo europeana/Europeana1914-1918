@@ -80,28 +80,28 @@ class Permissions < Aegis::Permissions
     end
   end
   
-  action :tag_contribution do
-    allow :administrator, :cataloguer, :contributor do |contribution|
-      contribution.published?
+  action :tag_object do
+    allow :administrator, :cataloguer, :contributor do |taggable|
+      !taggable.respond_to?(:published?) || taggable.published?
     end
   end
   
-  action :untag_contribution do
-    allow :cataloguer, :contributor do |contribution, tag|
-      contribution.owner_tags_on(user, :tags).include?(tag)
+  action :untag_object do
+    allow :cataloguer, :contributor do |taggable, tag|
+      taggable.owner_tags_on(user, :tags).include?(tag)
     end
   end
   
-  action :flag_contribution_tag do
-    allow :administrator, :cataloguer, :contributor do |contribution, tag|
-      user_tagged_contribution = contribution.owner_tags_on(user, :tags).include?(tag)
+  action :flag_object_tag do
+    allow :administrator, :cataloguer, :contributor do |taggable, tag|
+      user_tagged_object = taggable.owner_tags_on(user, :tags).include?(tag)
       
-      taggings = contribution.taggings.select { |tagging| tagging.tag == tag && tagging.context == 'tags' }
+      taggings = taggable.taggings.select { |tagging| tagging.tag == tag && tagging.context == 'tags' }
       flaggings = taggings.collect(&:taggings).flatten.uniq.select { |tagging| tagging.context == 'flags' }
       flagger_ids = flaggings.collect(&:tagger_id)
       user_flagged_tag = flagger_ids.include?(user.id)
 
-      !user_tagged_contribution && !user_flagged_tag
+      !user_tagged_object && !user_flagged_tag
     end
   end
   
