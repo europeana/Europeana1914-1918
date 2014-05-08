@@ -1,9 +1,7 @@
 <%
   # vals have:of fields - all must be present to show
   #    name (the key of the hash)
-  #    label (translate key)
   #    source (read from proxy or aggregation)
-  #    required (optional list )
 
   # portal search strings for test data:
   #    europeana_aggregation_edm_country:*
@@ -22,166 +20,124 @@
 
 	html = ''
 
-  edmVals = [
+	edm_fields = [
 		{
 			"name" => "dctermsAlternative",
-			"ns" => "dc",
-			"label" => "terms_alternative",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcDescription",
-			"ns" => "dc",
-			"label" => "description",
 			"source" => proxy
 		},
 
-		#{
-		#	"name" => "edmLanguage",
-		#	"ns" => "edm",
-		#	"label" => "language",
-		#	"source" => euAggregation,
-		#	"href" => (controller.controller_name == 'europeana' ? (search_europeana_url + "?qf[]=LANGUAGE:") : nil),
-		#	"href" => home_url + '/europeana/search?qf[]=LANGUAGE:',
-		#	"expand" => 'languageLabel(readVal)'
-		#},
-
 		{
 			"name" => "dcLanguage",
-			"ns" => "dc",
-			"label" => "language",
 			"source" => proxy,
-			"expand" => 'languageLabel(readVal)'
 		},
 
 		{
 			"name" => "dcCreator",
-			"ns" => "dc",
-			"label" => "creator",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcContributor",
-			"ns" => "dc",
-			"label" => "contributor",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcType",
-			"ns" => "dc",
-			"label" => "type",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcFormat",
-			"ns" => "dc",
-			"label" => "format",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dctermsMedium",
-			"ns" => "dc",
-			"label" => "terms_medium",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dctermsExtent",
-			"ns" => "dc",
-			"label" => "terms_extent",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcSubject",
-			"ns" => "dc",
-			"label" => "subject",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcDate",
-			"ns" => "dc",
-			"label" => "date",
+			"source" => proxy
+		},
+		
+		{
+			"name" => "dctermsTemporal",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcCoverage",
-			"ns" => "dc",
-			"label" => "coverage",
+			"source" => proxy
+		},
+		
+		{
+			"name" => "dctermsSpatial",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcRights",
-			"ns" => "dc",
-			"label" => "rights",
 			"source" => proxy
 		},
 
 		{
 			"name" => "edmRights",
-			"ns" => "edm",
-			"label" => "rights",
-			"source" => aggregation,
-			"rights" => "true",
+			"source" => aggregation
 		},
 
 		{
 			"name" => "dcIdentifier",
-			"ns" => "dc",
-			"label" => "identifier",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcSource",
-			"ns" => "dc",
-			"label" => "source",
 			"source" => proxy
 		},
 
 		{
 			"name" => "dcRelation",
-			"ns" => "dc",
-			"label" => "relation",
 			"source" => proxy
 		},
 
 		{
 			"name" => "edmDataProvider",
-			"ns" => "edm",
-			"label" => "data_provider",
 			"source" => aggregation
 		},
 
 		{
 			"name" => "edmProvider",
-			"ns" => "edm",
-			"label" => "provider",
 			"source" => aggregation
 		},
 
 		{
 			"name" => "edmCountry",
-			"ns" => "edm",
-			"label" => "country",
 			"source" => euAggregation
 		}
-  ]
+	]
 
-	edmVals.each do |edmVal|
-		field_ns = edmVal["name"].underscore.split('_').first
-		field_label = edmVal["name"].underscore.split('_')[1..-1].join('_')
-		if readVal = edm_proxy_field( edmVal["source"], edmVal["name"] )
+	edm_fields.each do |edm_field|
+		field_ns = edm_field["name"].underscore.split('_').first
+		field_label = edm_field["name"].underscore.split('_')[1..-1].join('_')
+		if field_value = edm_proxy_field( edm_field["source"], edm_field["name"] )
 			html += '<dt><b>' + t( 'formtastic.labels.content.metadata.' + field_ns + '.' + field_label ) + '</b></dt>'
-			html += '<dd class="translate">' + readVal + '</dd>'
+			html += '<dd class="translate">' + field_value + '</dd>'
 		end
 	end
 -%>
