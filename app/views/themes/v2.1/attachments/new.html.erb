@@ -79,11 +79,13 @@
     </ul>
     </li>
     
-    <li><%= link_to 'Add items from Flickr', flickr_contribution_attachments_path(@contribution) %>
-      <ul>
-        <li>Import photos and their descriptions from your Flickr account</li>
-      </ul>
-    </li>
+    <%- if flickr_configured? -%>
+      <li><%= link_to 'Add items from Flickr', flickr_contribution_attachments_path(@contribution) %>
+        <ul>
+          <li>Import photos and their descriptions from your Flickr account</li>
+        </ul>
+      </li>
+    <%- end -%>
     
     <% if @contribution.ready_to_submit? -%>
     <li><a href="#submit-story" id="submit-story" class="<%= option_submit_class %>"><%= t('formtastic.titles.submit') %></a></li>

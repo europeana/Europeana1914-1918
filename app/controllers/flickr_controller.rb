@@ -1,6 +1,5 @@
-# @todo Check user has permission on specified contribution
 class FlickrController < ApplicationController
-  before_filter :init_flickr, :login_to_flickr
+  before_filter :check_flickr_configured, :init_flickr, :login_to_flickr
   before_filter :redirect_to_auth, :unless => :authorized?, :except => [ :auth, :unauth, :show ]
   
   def auth
@@ -35,6 +34,8 @@ class FlickrController < ApplicationController
     per_page = params[:count] || 100
     
     @contribution = Contribution.find_by_id!(params[:contribution_id])
+    current_user.may_create_contribution_attachment!(@contribution)
+    
     @photos = @flickr.photos.search(:user_id => @login.id, :page => page, :per_page => per_page)
     
     @photos = WillPaginate::Collection.create(page, per_page, @photos['total']) do |pager|
@@ -72,6 +73,10 @@ protected
   
   def redirect_to_auth
     redirect_to :action => :auth, :redirect => request.fullpath
+  end
+  
+  def check_flickr_configured
+    raise Exception, "Flickr API access is not configured" unless flickr_configured?
   end
 
 end
