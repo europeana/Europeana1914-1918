@@ -513,7 +513,7 @@
 									+				'</li>'
 									+			'</ul>'
 									+		'</div>'
-									+	'<li>');
+									+	'</li>');
 						console.log("done append" + i);
 					});
 				});
