@@ -29,6 +29,10 @@ RunCoCo::Application.routes.draw do
       
       # Attachment sub-resources
       resources :attachments do
+        collection do
+          get 'flickr', :controller => 'flickr', :action => 'select'
+          post 'flickr', :controller => 'flickr', :action => 'import'
+        end
         member do
           get 'delete'
           get 'copy'
@@ -124,6 +128,11 @@ RunCoCo::Application.routes.draw do
     # Collection search (both Contribution and EuropeanaRecord Solr indexes)
     match 'collection/search' => 'collection#search', :as => 'search_collection', :via => :get
     match 'collection/explore/:field_name/:term' => 'collection#explore', :as => 'explore_collection', :via => :get
+
+    # Flickr API interface
+    resource :flickr, :controller => :flickr, :only => :show do
+      get 'auth', :on => :collection
+    end
 
     # Public usage statistics
     resources :statistics, :only => :index

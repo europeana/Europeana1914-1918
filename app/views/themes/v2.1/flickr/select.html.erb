@@ -1,0 +1,20 @@
+<% provide :title, 'Flickr photos' %>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+
+  <% if @photos %>
+    <%= form_tag({}, { :id => 'flickr_select' }) do |form| %>
+      <ul>
+        <% for photo in @photos %>
+          <li><label for="flickr_ids_<%= photo.id %>"><%= image_tag FlickRaw.url_q(photo) %></label><%= check_box_tag("flickr_ids[#{photo.id}]") %></li>
+        <% end %>
+      </ul>
+      <div><%= submit_tag t('actions.submit') %></div>
+    <% end %>
+    
+    <%= will_paginate @photos %>
+  <% end %>
+
+</div>
