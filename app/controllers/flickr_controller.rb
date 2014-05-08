@@ -43,6 +43,20 @@ class FlickrController < ApplicationController
     end
   end
   
+  def import
+    @contribution = Contribution.find_by_id!(params[:contribution_id])
+    current_user.may_create_contribution_attachment!(@contribution)
+    
+    unless params[:flickr_ids].present?
+      flash[:alert] = 'No images selected'
+      redirect_to :action => :select and return
+    end
+    
+    Delayed::Job.enqueue FlickrFileTransferJob.new(@contribution.id, @flickr.access_token, @flickr.access_secret, params[:flickr_ids]), :queue => 'flickr'
+    flash[:notice] = 'Transferring Flickr images in the background.'
+    redirect_to new_contribution_attachment_path(@contribution)
+  end
+  
 protected
 
   def init_session
@@ -62,7 +76,7 @@ protected
   end
 
   def authorized?
-    @flickr.access_token && @flickr.access_secret
+    @flickr.access_token.present? && @flickr.access_secret.present?
   end
   
   def login_to_flickr
