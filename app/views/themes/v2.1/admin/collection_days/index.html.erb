@@ -23,7 +23,7 @@
       <tbody>
         <%- for collection_day in @collection_days -%>
           <tr>
-            <td><%= collection_day.code %></td>
+            <td><%= link_to collection_day.code, collection_day %></td>
             <td><%= collection_day.name %></td>
             <td>
               <%- unless collection_day.start_date.blank? -%>
@@ -34,7 +34,7 @@
               <%- end -%>
             </td>
             <td><%= link_to t('actions.edit'), edit_admin_collection_day_path(collection_day) %></td>
-            <td><%= link_to t('actions.delete'), delete_admin_collection_day_path(collection_day) %></td>
+            <td><%= link_to t('actions.delete'), delete_admin_collection_day_path(collection_day) unless collection_day.new_record? %></td>
           </tr>
         <%- end -%>
       </tbody>

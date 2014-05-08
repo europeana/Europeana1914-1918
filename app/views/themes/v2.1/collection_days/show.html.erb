@@ -4,6 +4,14 @@
   
   <h2><%= yield :title %></h2>
 
+  <%- if current_user.may_administer_metadata_fields? -%>
+    <div class="action-links">
+      <ul>
+        <li><%= link_to t('actions.edit'), edit_admin_collection_day_path(@collection_day, :redirect => collection_day_path(@collection_day)) %></li>
+      </ul>
+    </div>
+  <%- end -%>
+
   <%- unless @collection_day.description.blank? -%>
     <p><%= @collection_day.description %></p>
   <%- end -%>
