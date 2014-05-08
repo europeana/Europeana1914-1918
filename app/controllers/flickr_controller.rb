@@ -1,6 +1,7 @@
 # @todo Check user has permission on specified contribution
 class FlickrController < ApplicationController
   before_filter :init_flickr, :login_to_flickr
+  before_filter :redirect_to_auth, :unless => :authorized?, :except => [ :auth, :unauth, :show ]
   
   def auth
     if authorized?
@@ -14,10 +15,19 @@ class FlickrController < ApplicationController
       session[:flickr][:access_secret] = @flickr.access_secret
       redirect_to :action => :show
     else
-      token = @flickr.get_request_token(:oauth_callback => auth_flickr_url)
-      @auth_url = @flickr.get_authorize_url(token['oauth_token'], :perms => 'read')
+      token = @flickr.get_request_token(:oauth_callback => auth_flickr_url(:redirect => params.delete(:redirect)))
       session[:flickr][:request_token] = token
+      redirect_to @flickr.get_authorize_url(token['oauth_token'], :perms => 'read')
     end
+  end
+  
+  def unauth
+    session[:flickr] = {}
+    redirect_to :action => :show
+  end
+  
+  def show
+    
   end
   
   def select
@@ -58,6 +68,10 @@ protected
     if authorized?
       @login = @flickr.test.login
     end
+  end
+  
+  def redirect_to_auth
+    redirect_to :action => :auth, :redirect => request.fullpath
   end
 
 end

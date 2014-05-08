@@ -131,7 +131,10 @@ RunCoCo::Application.routes.draw do
 
     # Flickr API interface
     resource :flickr, :controller => :flickr, :only => :show do
-      get 'auth', :on => :collection
+      collection do
+        get 'auth'
+        get 'unauth'
+      end
     end
 
     # Public usage statistics
