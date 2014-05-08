@@ -1,5 +1,7 @@
 class CollectionController < SearchController
   include SearchHelper
+  include CollectionDaysHelper
+  
   before_filter :require_solr!
   
   # GET /collection/search
@@ -178,7 +180,7 @@ private
     end
     t("views.search.facets.#{provider}.#{field_name}", :default => "views.search.facets.common.#{field_name}".to_sym)
   end
-  
+
   def facet_row_label(facet_name, row_value)
     @@metadata_fields ||= {}
     
@@ -189,7 +191,11 @@ private
           @@metadata_fields[field_name] = MetadataField.includes(:taxonomy_terms).find_by_name(field_name)
         end
         if row_term = @@metadata_fields[field_name].taxonomy_terms.select { |term| term.id == row_value }.first
-          row_label = row_term.term
+          if (field_name == 'collection_day') && (collection_day = CollectionDay.find_by_code(row_term.term))
+            row_label = collection_day_summary(collection_day)
+          else
+            row_label = row_term.term
+          end
         end
       end
     end
