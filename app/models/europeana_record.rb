@@ -98,8 +98,12 @@ class EuropeanaRecord < ActiveRecord::Base
       nil
     end
     
-    integer :tag_ids, :multiple => true do
-      nil
+    integer :tag_ids, :multiple => true do 
+      visible_tags.collect(&:id)
+    end
+    
+    text :tags do
+      visible_tags.collect(&:name)
     end
   end
   
@@ -178,11 +182,7 @@ class EuropeanaRecord < ActiveRecord::Base
       ActionController::Base.new.expire_fragment(key)
     end
   end
-  
-#  def to_param
-#    { :dataset_id => dataset_id, :provider_record_id => provider_record_id }
-#  end
-  
+    
   def dataset_id
     record_id.split('/')[1]
   end

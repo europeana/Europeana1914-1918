@@ -505,7 +505,7 @@
 					$.each(res.tags, function(i, ob){
 						console.log("prepare to append... " + JSON.stringify(ob)  );
 						panel.append(	'<li>'
-									+		'<a href="' + res.contrib_path.replace(/[0-9]/g, '') + 'tagged/' + ob + '">' + ob + '</a>'
+									+		'<a href="/' + I18n.locale + '/collection/search?tag=' + ob + '">' + ob + '</a>'
 									+		'<div class="action-links">'
 									+			'<ul>'
 									+				'<li>'

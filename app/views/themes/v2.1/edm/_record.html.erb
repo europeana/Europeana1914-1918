@@ -98,7 +98,7 @@
 
 				if taggable
 					html += '<div class="col-cell">'
-						html += render :partial => 'contributions/tags', :object => taggable.tags, :locals => { :taggable => taggable, :taggable_params => local_assigns[:taggable_params].present? ? taggable_params : nil }
+						html += render :partial => 'tags/form', :object => taggable.tags, :locals => { :taggable => taggable, :taggable_params => local_assigns[:taggable_params].present? ? taggable_params : nil }
 					html += '</div>'
 				end
 

@@ -59,11 +59,11 @@ class TagsController < ApplicationController
   end
   
   def flag
-    current_user.may_flag_contribution_tag!(@taggable, @tag)
+    current_user.may_flag_object_tag!(@taggable, @tag)
   end
   
   def confirm_flag
-    current_user.may_flag_contribution_tag!(@taggable, @tag)
+    current_user.may_flag_object_tag!(@taggable, @tag)
     
     @taggable.taggings.select { |tagging| tagging.tag == @tag }.each do |tagging|
       current_user.tag(tagging, :with => "inappropriate", :on => :flags)
