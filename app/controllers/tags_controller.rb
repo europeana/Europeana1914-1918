@@ -44,14 +44,15 @@ class TagsController < ApplicationController
     end
     
     respond_to do |format|
+      taggable_type = @taggable.class.to_s.underscore
       format.html do
-        flash[:notice] = t('flash.tags.create.success')
+        flash[:notice] = t("flash.tags.#{taggable_type}.create.success")
         redirect_to taggable_path(@taggable)
       end
       format.json do
         render :json => {
           "success" => true,
-          "message" => t('flash.tags.create.success'),
+          "message" => t("flash.tags.#{taggable_type}.create.success"),
           "tags" => @taggable.visible_tags.collect(&:name)
         }
       end
