@@ -83,10 +83,11 @@ module SearchHelper
   
   def registered_search_providers
     if RunCoCo.configuration.search_engine == :solr
-      [ '/collection', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
+      providers = [ '/collection' ]
     else
-      [ '/contributions', '/europeana', '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove' ]
+      providers = [ '/contributions', '/europeana' ]
     end
+    providers + [ '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove', '/federated_search/canadiana' ]
   end
   
   def link_to_search_provider(id)

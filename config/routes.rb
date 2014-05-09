@@ -115,6 +115,8 @@ RunCoCo::Application.routes.draw do
     
     # Federated searches
     match 'canadiana/search' => 'federated_search/canadiana#search', :as => 'search_canadiana', :via => :get
+    match 'canadiana/explore/:field_name/:term' => 'federated_search/canadiana#explore', :as => 'explore_canadiana', :via => :get
+    match 'canadiana/record/:id' => 'federated_search/canadiana#show', :as => 'show_canadiana', :via => :get, :constraints => { :id => /.+/ }
     match 'digitalnz/search' => 'federated_search/digitalnz#search', :as => 'search_digitalnz', :via => :get
     match 'digitalnz/explore/:field_name/:term' => 'federated_search/digitalnz#explore', :as => 'explore_digitalnz', :via => :get
     match 'digitalnz/record/:id' => 'federated_search/digitalnz#show', :as => 'show_digitalnz', :via => :get
