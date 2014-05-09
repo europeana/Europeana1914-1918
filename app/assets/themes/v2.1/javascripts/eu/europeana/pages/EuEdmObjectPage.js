@@ -670,7 +670,7 @@
 		RunCoCo.translation_services.init( jQuery('.translate-area') );
 		carousels.init();
 		map.init();
-		tags.init();
+//		tags.init();
 		mimetype.init(); // lightbox is now initialized within this object
 	}());
 
