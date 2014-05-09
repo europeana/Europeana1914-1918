@@ -11,6 +11,7 @@ if [ "app", "util" ].include?(config.current_role)
     "#{config.shared_path}/config/federated_search.yml",
     "#{config.shared_path}/config/google_api_key.p12",
     "#{config.shared_path}/config/s3.yml",
+    "#{config.shared_path}/config/flickr.yml",
     "#{config.shared_path}/config/ssmtp/ssmtp.conf"
   ].each do |config_path|
     run "mkdir -p " + File.dirname(config_path)

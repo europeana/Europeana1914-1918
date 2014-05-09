@@ -13,6 +13,9 @@ run "ln -nfs #{config.shared_path}/config/google_api_key.p12 #{config.release_pa
 # Sunspot config
 run "ln -nfs #{config.shared_path}/config/sunspot.yml #{config.release_path}/config/sunspot.yml"
 
+# Flickr config
+run "ln -nfs #{config.shared_path}/config/flickr.yml #{config.release_path}/config/flickr.yml"
+
 # Paperclip config
 run "ln -nfs #{config.shared_path}/config/initializers/paperclip.rb #{config.release_path}/config/initializers/paperclip.rb"
 
