@@ -54,7 +54,28 @@ class FlickrController < ApplicationController
       redirect_to :action => :select and return
     end
     
-    Delayed::Job.enqueue FlickrFileTransferJob.new(@contribution.id, @flickr.access_token, @flickr.access_secret, params[:flickr_ids]), :queue => 'flickr'
+    params[:flickr_ids].each do |photo_id|
+      info = @flickr.photos.getInfo(:photo_id => photo_id)
+      
+      url = FlickRaw.url(info)
+      uri = URI.parse(url)
+      
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      head_response = http.request_head(uri.request_uri)
+      
+      attachment = Attachment.new
+      attachment.contribution_id = @contribution.id
+      attachment.title = info.title
+      attachment.build_metadata
+      attachment.metadata.field_attachment_description = info.description
+      attachment.file_file_size = head_response['content-length']
+      
+      if attachment.save
+        Delayed::Job.enqueue FlickrFileTransferJob.new(attachment.id, @flickr.access_token, @flickr.access_secret, photo_id), :queue => 'flickr'
+      end
+    end
+    
     flash[:notice] = 'Transferring Flickr images in the background.'
     redirect_to new_contribution_attachment_path(@contribution)
   end
