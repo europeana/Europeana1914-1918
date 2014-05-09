@@ -11,11 +11,13 @@ class FlickrFileTransferJob
     login_to_flickr
     
     @flickr_ids.each do |id|
-      puts "Flickr photo ID #{id}"
+      Delayed::Worker.logger.info("FlickrFileTransferJob: Importing Flickr photo with ID #{id}")
       info = @flickr.photos.getInfo(:photo_id => id)
       url = FlickRaw.url(info)
-      file = download_photo(url)
-      create_attachment(file)
+      uri = URI.parse(url)
+      file_name = uri.path.split('/').last
+      file = download_photo(uri)
+      create_attachment(file, file_name)
       delete_tmpfile(file)
     end
   end
@@ -29,13 +31,13 @@ protected
     @login = @flickr.test.login
   end
   
-  def download_photo(url)
-    uri = URI.parse(url)
+  def download_photo(uri)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     
-    file = Tempfile.new('runcoco-flickr-', Dir.tmpdir, 'wb')
+    extname = File.extname(uri.path.split('/').last)
+    
+    file = Tempfile.new([ 'runcoco-flickr-', extname ], Dir.tmpdir, 'wb')
     file.binmode
     
     http.request_get(uri.request_uri) do |resp|
@@ -48,12 +50,13 @@ protected
     file
   end
   
-  def create_attachment(file)
+  def create_attachment(file, file_name)
     attachment = Attachment.new
     attachment.build_metadata
     attachment.contribution_id = @contribution_id
     attachment.file = file
     attachment.file_content_type = file.content_type
+    attachment.file_file_name = file_name
     attachment.save!
   end
   
