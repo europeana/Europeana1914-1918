@@ -17,7 +17,7 @@ class FlickrFileTransferJob
       uri = URI.parse(url)
       file_name = uri.path.split('/').last
       file = download_photo(uri)
-      create_attachment(file, file_name)
+      create_attachment(file, file_name, info)
       delete_tmpfile(file)
     end
   end
@@ -50,9 +50,11 @@ protected
     file
   end
   
-  def create_attachment(file, file_name)
+  def create_attachment(file, file_name, info)
     attachment = Attachment.new
     attachment.build_metadata
+    attachment.title = info.title
+    attachment.metadata.field_attachment_description = info.description
     attachment.contribution_id = @contribution_id
     attachment.file = file
     attachment.file_content_type = file.content_type
