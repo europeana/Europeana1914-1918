@@ -4,7 +4,11 @@
   
   <h2><%= yield :title %></h2>
 
-  <% if @photos %>
+  <%= form_tag({ }, { :method => :get, :id => 'flickr_search' }) do |form| %>
+    <div><%= text_field_tag 'q', @flickr_query %> <%= submit_tag 'Search' %></div>
+  <% end %>
+
+  <% if @photos.present? %>
     <%= form_tag({}, { :id => 'flickr_select' }) do |form| %>
       <ul>
         <% for photo in @photos %>

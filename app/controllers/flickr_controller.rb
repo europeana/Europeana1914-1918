@@ -36,7 +36,9 @@ class FlickrController < ApplicationController
     @contribution = Contribution.find_by_id!(params[:contribution_id])
     current_user.may_create_contribution_attachment!(@contribution)
     
-    @photos = @flickr.photos.search(:user_id => @login.id, :page => page, :per_page => per_page)
+    @flickr_query = params[:q] || ''
+    
+    @photos = @flickr.photos.search(:user_id => @login.id, :text => @flickr_query, :page => page, :per_page => per_page)
     
     @photos = WillPaginate::Collection.create(page, per_page, @photos['total']) do |pager|
       pager.replace(@photos.to_a)
