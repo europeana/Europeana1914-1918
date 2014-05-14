@@ -1,8 +1,13 @@
 <%
 	html = ''
 
-	if @query
+	if @query && @query.length > 0
 		html += @query
+		html += ' - '
+	end
+
+	if @term && @term.length > 0
+		html += @term
 		html += ' - '
 	end
 
