@@ -32,7 +32,7 @@ class Contribution < ActiveRecord::Base
     end
     
     def with_file_uploaded
-      select { |attachment| attachment.file_file_size.present? }
+      select { |attachment| attachment.file_file_size.present? && attachment.file_file_name.present? && attachment.file_content_type.present? }
     end
 
     def to_json(options = nil)
