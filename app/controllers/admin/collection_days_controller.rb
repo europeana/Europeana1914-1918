@@ -24,6 +24,11 @@ class Admin::CollectionDaysController < AdminController
   
   def update
     prepare_new_collection_day unless find_collection_day
+    
+    if params[:delete_image] && !params[:collection_day][:image] && @collection_day.image.present?
+      @collection_day.image.destroy
+    end
+    
     @collection_day.attributes = params[:collection_day]
     if @collection_day.save
       flash[:notice] = t('flash.actions.update.notice', :resource_name => t('activerecord.models.collection_day'))

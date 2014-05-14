@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140514114526) do
+ActiveRecord::Schema.define(:version => 20140514120850) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -62,6 +62,10 @@ ActiveRecord::Schema.define(:version => 20140514114526) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "url"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "collection_days", ["contact_id"], :name => "index_collection_days_on_contact_id"

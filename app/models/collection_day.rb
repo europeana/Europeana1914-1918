@@ -17,6 +17,13 @@ class CollectionDay < ActiveRecord::Base
   
   after_initialize :initialize_contact
   
+  has_attached_file :image,
+    :path => (Paperclip::Attachment.default_options[:storage] == :filesystem ? ":rails_root/public/" : "") + "images/collection_days/:id/:style/:filename",
+    :url => (Paperclip::Attachment.default_options[:storage] == :s3 ? ":s3_domain_url" : "/images/collection_days/:id/:style/:filename"),
+    :styles => { :thumb => "100x100>", :medium => "200x200>" }
+  
+  validates_attachment_content_type :image, :content_type => [ 'image/jpeg', 'image/pjpeg', 'image/gif' ], :message => I18n.t('activerecord.errors.models.collection_day.attributes.image.content_type')
+  
   def code
     taxonomy_term.term
   end

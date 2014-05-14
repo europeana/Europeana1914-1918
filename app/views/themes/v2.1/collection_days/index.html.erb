@@ -8,6 +8,9 @@
     <dl>
       <%- for collection_day in @collection_days -%>
         <dt><%= link_to collection_day_summary(collection_day), collection_day %></dt>
+        <%- if collection_day.image.present? -%>
+          <dd class="collection-day-image"><%= image_tag(collection_day.image.url(:thumb)) %></dd>
+        <%- end -%>
         <%- unless collection_day.description.blank? -%>
           <dd><%= collection_day.description %></dd>
         <%- end -%>

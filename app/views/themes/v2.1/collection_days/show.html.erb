@@ -12,6 +12,9 @@
     </div>
   <%- end -%>
 
+  <%- if @collection_day.image.present? -%>
+    <div class="collection-day-image"><%= image_tag(@collection_day.image.url(:medium)) %></div>
+  <%- end -%>
   <%- unless @collection_day.description.blank? -%>
     <p><%= @collection_day.description %></p>
   <%- end -%>

@@ -9,6 +9,13 @@
     <% end %>
     <%= form.input :start_date %>
     <%= form.input :end_date %>
+    <%= form.input :image %>
+    <%- if form.object.image.present? && form.object.image.exists? -%>
+      <li class="input optional">
+        <p class="inline-hints"><%= image_tag(form.object.image.url(:thumb)) %></p>
+        <p class="inline-hints"><label for="delete_image"><%= check_box_tag 'delete_image' %> <%= t('formtastic.labels.collection_day.delete_image') %></label></p>
+      </li>
+    <%- end -%>
   <% end %>
   
   <%= form.inputs :admin_collection_day_address do %>
