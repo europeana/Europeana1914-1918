@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140430091726) do
+ActiveRecord::Schema.define(:version => 20140514114526) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20140430091726) do
   create_table "collection_days", :force => true do |t|
     t.integer  "taxonomy_term_id"
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
     t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"

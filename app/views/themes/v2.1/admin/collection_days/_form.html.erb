@@ -2,7 +2,7 @@
   <%= form.inputs :admin_collection_day do %>
     <%= form.input :taxonomy_term_id, :as => :select, :collection => collection_days_without_records_for_select(collection_day.taxonomy_term_id) %>
     <%= form.inputs :name %>
-    <%= form.input :description, :input_html => { :size => 100 } %>
+    <%= form.input :description, :input_html => { :rows => 4 } %>
     <%= form.input :url %>
     <%= form.semantic_fields_for :contact do |contact| %>
       <%= contact.input :full_name, :hint => '' %>
