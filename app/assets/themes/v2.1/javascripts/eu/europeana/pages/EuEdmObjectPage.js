@@ -306,17 +306,10 @@
 			var mapLongitude = parseFloat(latLong[1]);
 			var mapZoom      = typeof mapZoom != 'undefined' && mapZoom.length && parseInt(mapZoom).length ? parseInt(mapZoom) : 8;
 
-			var rootJsUrl    = themePath + 'javascripts/com/leaflet/';
-			var rootCssUrl   = themePath + 'stylesheets/com/leaflet/';
 			var dependencies = [
-			    'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;key=AIzaSyARYUuCXOrUv11afTLg72TqBN2n-o4XmCI',
-				'leaflet.js',
-				'Leaflet-MiniMap-master/src/Control.MiniMap.js',
-				'Leaflet-Pan/L.Control.Pan.js',
-				'leaflet-plugins-master/layer/tile/Google.js',
-				'leaflet.min.css',
-				'leaflet.ie.css',
-				'Leaflet-MiniMap-master/src/Control.MiniMap.css'
+				'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;key=AIzaSyARYUuCXOrUv11afTLg72TqBN2n-o4XmCI',
+				themePath + 'leaflet.js',
+				themePath + 'leaflet.css'
 			];
 
 			console.log(JSON.stringify(dependencies));
@@ -326,12 +319,12 @@
         		index = index ? index : 0;
         		if(dependencies.length > index){
 					if( dependencies[index].split('.').pop() == 'css'){
-						$('head').append('<link rel="stylesheet" href="' + rootCssUrl + dependencies[index] + '" type="text/css"/>');
+						$('head').append('<link rel="stylesheet" href="' + dependencies[index] + '" type="text/css"/>');
     					recursiveLoad(index + 1);
 					}
 					else{
 	          			$.ajax({
-            				"url": dependencies[index].indexOf('http') == 0 ? dependencies[index] :  rootJsUrl + dependencies[index],
+            				"url": dependencies[index],
             				"dataType": "script",
             				"success": function(){
             					recursiveLoad(index + 1);
