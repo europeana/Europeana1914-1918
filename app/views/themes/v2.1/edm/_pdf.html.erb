@@ -5,7 +5,7 @@
 	edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 	proxy          = record['proxies'][0]
 	title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
-	link_record     = record['about'] ? europeana_record_url( record['about'] ) : nil
+	link_record     = record['about'] ? europeana_record_id_url( record['about'] ) : nil
 
 -%>
 <!DOCTYPE html>

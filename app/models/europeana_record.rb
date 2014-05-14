@@ -107,6 +107,10 @@ class EuropeanaRecord < ActiveRecord::Base
     end
   end
   
+  def title
+    object['title'].join('; ')
+  end
+  
   def rights
     unless object['aggregations'].first['edmRights'].blank?
       object['aggregations'].first['edmRights']['def']
@@ -189,6 +193,10 @@ class EuropeanaRecord < ActiveRecord::Base
   
   def provider_record_id
     record_id.split('/')[2]
+  end
+  
+  def to_param
+    record_id[1..-1]
   end
   
   ##

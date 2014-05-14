@@ -21,7 +21,7 @@
 	title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 
 	link_image      = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-	link_record     = record['about'] ? europeana_record_url( record['about'] ) : nil
+	link_record     = record['about'] ? europeana_record_id_url( record['about'] ) : nil
 	link_text_image = ''
 	link_text_video = '<p class="view-item">' + t( 'common.links.play-video' ) + '</p>'
 

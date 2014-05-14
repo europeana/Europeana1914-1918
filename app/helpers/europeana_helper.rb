@@ -19,9 +19,9 @@ module EuropeanaHelper
     end
   end
   
-  def europeana_record_url(id)
-    dataset_id, provider_record_id = id[1..-1].split('/')
-    show_europeana_url(:dataset_id => dataset_id, :provider_record_id => provider_record_id)
+  def europeana_record_id_url(record_id)
+    id = record_id[1..-1]
+    europeana_record_url(id)
   end
   
   ##

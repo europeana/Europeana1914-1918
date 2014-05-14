@@ -11,7 +11,7 @@ class TagsController < ApplicationController
         tags = @taggable.visible_tags.collect(&:name)
         render :json => { 
           "tags" => tags,
-          "contrib_path" => taggable_path(@taggable),
+          "contrib_path" => @taggable,
           "tConfirm" => t('actions.delete'),
           "tDelete" => t('views.tags.delete.question')
         }
@@ -47,7 +47,7 @@ class TagsController < ApplicationController
       taggable_type = @taggable.class.to_s.underscore
       format.html do
         flash[:notice] = t("flash.tags.#{taggable_type}.create.success")
-        redirect_to taggable_path(@taggable)
+        redirect_to @taggable
       end
       format.json do
         render :json => {
@@ -78,7 +78,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.tags.flag.success')
-        redirect_to taggable_path(@taggable)
+        redirect_to @taggable
       end
       format.json do
         render :json => {
@@ -102,7 +102,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.tags.destroy.success')
-        redirect_to taggable_path(@taggable)
+        redirect_to @taggable
       end
       format.json do
         render :json => {

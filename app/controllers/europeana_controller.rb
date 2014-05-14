@@ -67,7 +67,7 @@ class EuropeanaController < ApplicationController
     search
   end
 
-  # GET /europeana/record/:dataset_id/:provider_record_id
+  # GET /europeana/record/:id
   # @todo Handle errors from Europeana API, e.g. on invalid ID param
   def show
     @object = cached_record(record_id_from_params)
@@ -130,7 +130,7 @@ private
   end
 
   def record_id_from_params
-    '/' + params[:dataset_id] + '/' + params[:provider_record_id]
+    '/' + params[:id]
   end
 
   ##
