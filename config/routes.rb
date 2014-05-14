@@ -101,7 +101,7 @@ RunCoCo::Application.routes.draw do
     match 'europeana/search' => 'europeana#search', :as => 'search_europeana', :via => :get
     match 'europeana/explore/:field_name/:term' => 'europeana#explore', :as => 'explore_europeana', :via => :get
     scope 'europeana', :as => 'europeana', :controller => 'europeana' do
-      resources 'record', :as => 'records', :only => [ 'show' ], :constraints => { :id => /[^\/]+\/[^\/]+/ } do
+      resources 'record', :as => 'records', :only => [ 'show' ], :constraints => { :id => /[^\/]+\/[^\/]+/ }, :controller => 'europeana' do
         member do
           get 'headers', :action => 'http_headers'
           get 'content', :action => 'http_content'
