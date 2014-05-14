@@ -552,8 +552,7 @@ protected
     if result.is_a?(Contribution)
       edm['guid'] = contribution_path(edm['id'])
     elsif result.is_a?(EuropeanaRecord)
-      id_parts = edm['id'].split('/')
-      edm['guid'] = show_europeana_path(:dataset_id => id_parts[1], :provider_record_id => id_parts[2])
+      edm['guid'] = europeana_record_path(edm['id'][1..-1])
     end
     
     edm
