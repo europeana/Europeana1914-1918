@@ -19,26 +19,26 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 <meta property='og:description' content='<%= yield :title %>'/>
 <meta property='og:site_name' content='Europeana 1914-1918'/>
 <link rel='author' href='/humans.txt'/>
-<title><%= configuration(:site_name) %><% if content_for(:title).present? %> - <%= yield :title %><% end %></title>
+<title><%= render :partial => 'layouts/title' %></title>
 </head>
 <body>
-	
+
 	<%- if configuration(:banner_active) -%>
 		<div id="maintenance-banner" class="portlet-msg-alert"><%= configuration(:banner_text) %></div>
 	<%- end -%>
-	
+
 	<%= render :partial => 'layouts/header' %>
-	
+
 	<div id='content' class='section'>
 
 		<%= flash_message(:alert) unless flash[:alert].blank? %>
 		<%= flash_message(:notice) unless flash[:notice].blank? %>
 		<%= yield :layout %>
-		
+
 	</div>
-	
+
 	<%= render :partial => 'layouts/footer' %>
 	<%= render :partial => 'layouts/scripts' %>
-	
+
 </body>
 </html>

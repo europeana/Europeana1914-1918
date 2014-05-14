@@ -1,0 +1,17 @@
+<%
+	html = ''
+
+	if @query
+		html += @query
+		html += ' - '
+	end
+
+	html += configuration(:site_name)
+
+	if content_for(:title).present?
+		html += ' - '
+		html += yield :title
+	end
+
+%>
+<%= html.html_safe %>
