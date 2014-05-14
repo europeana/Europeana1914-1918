@@ -1,80 +1,80 @@
 el:
   actions:
-    add: 
-    approve: 
+    add: "Προσθήκη"
+    approve: "Έγκριση"
     cancel: "Ακύρωση"
-    copy: 
-    delete: "Διαγραφ"
-    depublish: 
-    download: 
+    copy: "Αντιγραφή"
+    delete: "Διαγραφή"
+    depublish: Aναιρέσετε τη δημοσίευση
+    download: "Λήψη"
     edit: "Επεξεργασία"
-    edit_story: 
-    filter: 
+    edit_story: "Επεξεργασία ιστορίας"
+    filter: "Φίλτρο"
     flag: 
-    new: 
-    reject: 
-    remove: 
+    new: "Νέο"
+    reject: "Απόρριψη"
+    remove: Aφαίρεση
     save: "Αποθήκευση"
-    submit: 
+    submit: "Αποστολή"
     unflag: 
-    update: 
+    update: "Ανανέωση"
   activerecord:
     attributes:
       attachment:
-        dropbox_path: 
-        file: 
-        file_content_type: 
-        file_created_at: 
-        file_file_name: 
+        dropbox_path: "Αρχείο Dropbox"
+        file: "Αρχείο"
+        file_content_type: "Τύπος περιεχομένου"
+        file_created_at: "Δημιουργήθηκε την"
+        file_file_name: "Όνομα αρχείου"
         file_file_size: "Μέγεθος αρχείου"
-        file_updated_at: 
+        file_updated_at: "Ανανεώθηκε την"
         preview: "Προεπισκόπηση"
-        public: 
+        public: "Δημόσιο"
       contact:
-        age: 
-        country: 
-        full_name: 
-        gender: 
-        locality: 
-        postal_code: 
-        region: 
-        street_address: 
-        tel: 
+        age: "Ηλικία"
+        country: "Χώρα κατοικίας"
+        full_name: "Ονοματεπώνυμο"
+        gender: "Φύλο"
+        locality: "Πόλη"
+        postal_code: "Ταχυδρομικός κώδικας"
+        region: "Χώρα"
+        street_address: "Διεύθυνση"
+        tel: "Τηλέφωνο"
       contribution:
-        approved_at: 
-        approved_by: 
-        approver: 
+        approved_at: "Εγκρίθηκε την"
+        approved_by: "Εγκρίθηκε από"
+        approver: "Εγκρίθηκε από"
         attachments: "Αντικείμενα"
-        catalogued_by: 
-        cataloguer: 
-        contributor: 
-        created_at: 
-        published_at: 
-        submitted_at: 
+        catalogued_by: "καταλογογράφος"
+        cataloguer: "καταλογογράφος"
+        contributor: "Συνεργάτης"
+        created_at: "Ξεκίνησε την"
+        published_at: "Δημοσιεύτηκε την"
+        submitted_at: 'Yποβλήθηκε την '
         terms: 
       contribution_status:
         created_at: 
       metadata_field:
-        cataloguing: 
+        cataloguing: "Μόνο καταλογογράφηση"
         field_type: "Τύπος"
-        hint: 
-        multi: 
+        hint: "Υπόδειξη"
+        multi: "Πολλαπλή επιλογή"
         name: 
-        position: 
-        required: 
-        searchable: 
+        position: "Θέση"
+        required: "Απαιτείται"
+        searchable: "δυνατότητα αναζήτησης"
         show_in_listing: 
       setting:
-        name: 
-        value: 
+        name: "Όνομα"
+        value: "Τιμή"
       taxonomy_term:
-        metadata_field: 
-        term: 
+        metadata_field: "Πεδίο"
+        term: "Όρος"
       user:
-        created_at: 
+        created_at: "ημερομηνία εγγραφής"
         password: "Κωδικός"
-        password_confirmation: 
-        role_name: 
+        password_confirmation: "Επανάληψη κωδικού"
+        role_name: "Ρόλος"
         username: "Όνομα χρήστη "
     errors:
       full_messages:
@@ -105,16 +105,16 @@ el:
         attachment:
           attributes:
             file:
-              content_type: 
-              presence: 
-              size: 
+              content_type: "Ο τύπος αρχείου δεν επιτρέπεται"
+              presence: "Επιλογή αρχείου για μεταφόρτωση"
+              size: To μέγεθος του μεταφορτωμένου αρχείου είναι πολύ μεγάλο
         collection_day:
           end_date_follows_start_date: 
-          taxonomy_term_metadata_field: 
+          taxonomy_term_metadata_field: "Μη έγκυρη ημερομηνία συλλογής"
         contribution:
           attributes:
             catalogued_by:
-              role_name: 
+              role_name: "Ο καταλογογράφος πρέπει να έχει ρόλο διαχειριστή ή καταλογογράφου"
             guest_id:
               present: 
         metadata_field:
@@ -128,7 +128,7 @@ el:
             searchable:
               field_type: 
         metadata_record:
-          date_field_civil: 
+          date_field_civil: "Μη έγκυρη ημερομηνία"
           one_cover_image: 
           taxonomy_field_single: 
         setting:
@@ -155,16 +155,16 @@ el:
     models:
       annotation: 
       attachment: 
-      collection_day: 
-      contact: 
+      collection_day: "Ημέρα συλλογής"
+      contact: "Επικοινωνία"
       contribution: "Ιστορία"
-      institution: 
-      metadata_field: 
+      institution: "Φορέας παροχής"
+      metadata_field: "πεδίο μεταδεδομένων"
       metadata_record: 
       tag: 
       tagging: 
       taxonomy_term: 
-      user: 
+      user: "Χρήστης"
     options:
       contact:
         gender:
@@ -172,16 +172,16 @@ el:
           male: 
       metadata_field:
         field_type:
-          date: 
+          date: "Ημερομηνία"
           geo: 
           string: 
           taxonomy: 
           text: 
       user:
         role_name:
-          administrator: 
+          administrator: "Διαχειριστής"
           blank: 
-          cataloguer: 
+          cataloguer: "Καταλογογράφος"
           contributor: 
   attributes:
     contact: 
@@ -529,10 +529,14 @@ el:
       depublish:
         alert: 
     tags:
-      create:
-        success: 
+      contribution:
+        create:
+          success: 
       destroy:
         success: 
+      europeana_record:
+        create:
+          success: 
       flag:
         success: 
     taxonomy:
@@ -732,6 +736,9 @@ el:
             terms_medium: 
             title: 
             type: 
+          dcterms:
+            spatial: 
+            temporal: 
           edm:
             country: 
             data_provider: 
@@ -743,7 +750,7 @@ el:
       contribution:
         metadata:
           alternative: 
-          cataloguer: 
+          cataloguer: "Καταλογογράφος"
           character1_dob: "Ημερομηνία Γεννήσεως"
           character1_dod: "Τοποθεσία θανάτου"
           character1_family_name: "Επίθετο"
