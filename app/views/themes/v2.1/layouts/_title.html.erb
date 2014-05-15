@@ -1,22 +1,22 @@
 <%
-	html = ''
+	title = ''
 
 	if @query && @query.length > 0
-		html += @query
-		html += ' - '
+		title += @query
+		title += ' - '
 	end
 
 	if @term && @term.length > 0
-		html += @term
-		html += ' - '
+		title += @term
+		title += ' - '
 	end
 
-	html += configuration(:site_name)
+	title += configuration(:site_name)
 
 	if content_for(:title).present?
-		html += ' - '
-		html += yield :title
+		title += ' - '
+		title += yield :title
 	end
 
 %>
-<%= html.html_safe %>
+<%= title -%>
