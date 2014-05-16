@@ -26,6 +26,18 @@
       <%= contact.input :postal_code %>
       <%= contact.input :country %>
     <% end %>
+    <div id="location-map-placholder"></div>
+      <li id="gmap-container">
+        <label><%= raw t('common.google_maps.label') %></label>
+        <input type="text" id="google-places" />
+        <input type="button" id="google-places-button" value="<%= I18n.t('javascripts.gmap.search.button') %>" />
+        <ul class="inline-hints google">
+          <%= raw t('common.google_maps.help_text') %>
+        </ul>
+        <div id="gmap-locate"></div>
+      </li>
+    <%= form.input :map_latlng, :label => t('formtastic.labels.contribution.metadata.location_map') %>
+    <%= form.input :map_zoom, :input_html => { :min => 0, :max => 19 }, :label => t('formtastic.labels.contribution.metadata.location_zoom') %>
   <% end %>
   
   <%= form.buttons do %>

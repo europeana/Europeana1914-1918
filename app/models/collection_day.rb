@@ -9,6 +9,7 @@ class CollectionDay < ActiveRecord::Base
   validates :taxonomy_term, :name, :start_date, :contact, :presence => true
   validates :taxonomy_term_id, :uniqueness => true
   validates :description, :length => { :maximum => 1024 }
+  validates :map_zoom, :numericality => { :only_integer => true }, :inclusion => { :in => 0..19 }, :allow_nil => true, :allow_blank => true
   validates_associated :contact
   
   validate :validate_taxonomy_term_belongs_to_collection_day_metadata_field

@@ -1,4 +1,7 @@
-<% provide :title, collection_day_summary(@collection_day) %>
+<% 
+  provide :title, collection_day_summary(@collection_day) 
+  provide :javascripts_page, 'collection-days-show'
+%>
 
 <div class="section top">
   
@@ -28,6 +31,13 @@
     <%- end -%>
     <%= @collection_day.contact.postal_code %><br />
     <%= @collection_day.contact.country %>
+    <%- if @collection_day.map_latlng.present? && @collection_day.map_zoom.present? -%>
+      <%- provide :javascripts_gmap, true -%>
+      <div>
+        <input type="hidden" id="location-zoom" value="<%= @collection_day.map_zoom %>" />
+        <input type="hidden" id="location-map" value="<%= @collection_day.map_latlng %>" />
+      </div>
+    <%- end -%>
   </address></p>
   <p><%= link_to t('activerecord.models.contribution').pluralize, explore_collection_path('collection_day', @collection_day.code, :qf => { :index => 'c' }) %></p>
   

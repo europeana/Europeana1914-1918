@@ -9,9 +9,9 @@
 	var $location_placename = jQuery('input[id$="_metadata_attributes_field_location_placename"]'),
 		$google_places = jQuery('#google-places'),
 		$google_places_button = jQuery('#google-places-button'),
-		$location_map = jQuery('input[id$="_metadata_attributes_field_location_map"]'),
+		$location_map = jQuery('input[id$="_metadata_attributes_field_location_map"],input[id$="_map_latlng"]'),
 		$location_map_placeholder = jQuery('#location-map-placholder'),
-		$location_zoom = jQuery('input[id$="_metadata_attributes_field_location_zoom"]'),
+		$location_zoom = jQuery('input[id$="_metadata_attributes_field_location_zoom"],input[id$="_map_zoom"]'),
 		$location_zoom_placeholder = jQuery('#location-zoom-placholder');
 	
 	
