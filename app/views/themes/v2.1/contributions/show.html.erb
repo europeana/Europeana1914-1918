@@ -104,8 +104,10 @@
 		      }
 		    %>
 		    <% unless (contributor = contribution_field_value(@contribution, 'contributor')).blank? -%>
-		      <dt><b><%= contribution_field_title('contributor') %></b></dt>
-		      <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id, :qf => [ 'index:c' ] ) %></dd>
+		      <%- if @contribution.metadata.fields['contributor_behalf'].blank? || [ 'administrator', 'cataloguer' ].include?(current_user.role_name) -%>
+		        <dt><b><%= contribution_field_title('contributor') %></b></dt>
+		        <dd><%= link_to contributor, search_contributions_path(:contributor_id => @contribution.contributor_id, :qf => [ 'index:c' ] ) %></dd>
+	        <% end -%>
 		    <% end -%>
 		    <%=
 		      render :partial => 'metadata/display',
