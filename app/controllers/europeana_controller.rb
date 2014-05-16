@@ -248,7 +248,7 @@ private
   #   parameter.
   #
   def build_api_query(terms = nil)
-    qualifiers = '"first world war" OR "world war I" OR "1914-1918" NOT europeana_collectionName:"2020601_Ag_ErsterWeltkrieg_EU"'
+    qualifiers = '("first world war" OR "world war I" OR "1914-1918" NOT europeana_collectionName:"2020601_Ag_ErsterWeltkrieg_EU")'
 
     if terms.blank?
       qualifiers
@@ -258,10 +258,10 @@ private
       joined_terms = if quoted_terms.size == 1
         quoted_terms.first
       else
-        '(' + quoted_terms.join(' OR ') + ')'
+        quoted_terms.join(' OR ')
       end
 
-      joined_terms + ' AND ' + qualifiers
+      '(' + joined_terms + ') AND ' + qualifiers
     end
   end
 
