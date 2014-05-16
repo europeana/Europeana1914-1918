@@ -1,2 +1,0 @@
-module Contributor::GuestsHelper
-end
