@@ -1,6 +1,7 @@
 class FlickrController < ApplicationController
   before_filter :check_flickr_configured, :init_flickr, :login_to_flickr
   before_filter :redirect_to_auth, :unless => :authorized?, :except => [ :auth, :unauth, :show ]
+  helper_method :flickr_license_permitted?
   
   def auth
     if authorized?
@@ -38,7 +39,7 @@ class FlickrController < ApplicationController
     
     @flickr_query = params[:q] || ''
     
-    @photos = @flickr.photos.search(:user_id => @login.id, :text => @flickr_query, :page => page, :per_page => per_page)
+    @photos = @flickr.photos.search(:user_id => @login.id, :text => @flickr_query, :page => page, :per_page => per_page, :extras => 'license')
     
     @photos = WillPaginate::Collection.create(page, per_page, @photos['total']) do |pager|
       pager.replace(@photos.to_a)
@@ -54,31 +55,59 @@ class FlickrController < ApplicationController
       redirect_to :action => :select and return
     end
     
+    invalid_license_photos = []
+    
     params[:flickr_ids].each do |photo_id|
       info = @flickr.photos.getInfo(:photo_id => photo_id)
       
-      url = FlickRaw.url(info)
-      uri = URI.parse(url)
+      if flickr_license_permitted?(info)
       
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      head_response = http.request_head(uri.request_uri)
+        url = FlickRaw.url(info)
+        uri = URI.parse(url)
+        
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        head_response = http.request_head(uri.request_uri)
+        
+        attachment = Attachment.new
+        attachment.contribution_id = @contribution.id
+        attachment.title = info.title
+        attachment.build_metadata
+        attachment.metadata.field_attachment_description = info.description
+        attachment.metadata.field_file_type_terms = [ MetadataField.find_by_name('file_type').taxonomy_terms.find_by_term('IMAGE') ]
+        # @todo Store license data
+#        attachment.metadata.field_license_terms
+        attachment.file_file_size = head_response['content-length']
+        
+        if attachment.save
+          Delayed::Job.enqueue FlickrFileTransferJob.new(attachment.id, @flickr.access_token, @flickr.access_secret, photo_id), :queue => 'flickr'
+        end
       
-      attachment = Attachment.new
-      attachment.contribution_id = @contribution.id
-      attachment.title = info.title
-      attachment.build_metadata
-      attachment.metadata.field_attachment_description = info.description
-      attachment.metadata.field_file_type_terms = [ MetadataField.find_by_name('file_type').taxonomy_terms.find_by_term('IMAGE') ]
-      attachment.file_file_size = head_response['content-length']
-      
-      if attachment.save
-        Delayed::Job.enqueue FlickrFileTransferJob.new(attachment.id, @flickr.access_token, @flickr.access_secret, photo_id), :queue => 'flickr'
+      else
+        
+        invalid_license_photos << info.title
+        
       end
     end
     
     flash[:notice] = 'Transferring Flickr images in the background.'
+    
+    unless invalid_license_photos.blank?
+      flash[:alert] = "<p>The following photos have an incompatible license and will not be imported:</p>"
+      flash[:alert] << "<ul>"
+      flash[:alert] << invalid_license_photos.collect { |title| "<li>#{title}</li>" }.join('')
+      flash[:alert] << "</ul>"
+    end
+    
     redirect_to new_contribution_attachment_path(@contribution)
+  end
+  
+  # @see https://www.flickr.com/services/api/flickr.photos.licenses.getInfo.html
+  def flickr_license_permitted?(photo)
+    # 4: Attribution License
+    # 5: Attribution-ShareAlike License
+    # 7: No known copyright restrictions
+    [ 4, 5, 7 ].include?(photo.license.to_i)
   end
   
 protected
