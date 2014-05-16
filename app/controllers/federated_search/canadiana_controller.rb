@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ##
 # Interface to Canadiana API.
 #
@@ -69,13 +71,23 @@ protected
   
   def facets_from_response(response)
     response["facet"].collect { |facet_name, facet_data|
+      facet_label_key = facet_name == 'lang' ? 'language' : facet_name
       {
         "name" => facet_name,
-        "label" => facet_name,
+        "label" => t("views.search.facets.common.#{facet_label_key}", :default => :"views.search.facets.canadiana.#{facet_label_key}"),
         "fields" => facet_data.each_slice(2).collect { |field_data|
+          field_search = field_data.first
+          field_label = if facet_name == 'lang' && field_search == 'eng'
+            'English'
+          elsif facet_name == 'lang' && field_search == 'fra'
+            'Français'
+          else
+            field_search
+          end
+          
           {
-            "label" => field_data.first,
-            "search" => field_data.first,
+            "label" => field_label,
+            "search" => field_search,
             "count" => field_data.last
           }
         }
