@@ -69,6 +69,7 @@ class FlickrController < ApplicationController
       attachment.title = info.title
       attachment.build_metadata
       attachment.metadata.field_attachment_description = info.description
+      attachment.metadata.field_file_type_terms = [ MetadataField.find_by_name('file_type').taxonomy_terms.find_by_term('IMAGE') ]
       attachment.file_file_size = head_response['content-length']
       
       if attachment.save
