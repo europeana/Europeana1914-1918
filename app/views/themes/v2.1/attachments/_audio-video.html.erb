@@ -31,6 +31,27 @@
 %>
 <% end -%>
 <%= theme_javascript_include_tag 'eu/europeana/pages/attachments-audio-video' %>
-<script>$('audio,video').mediaelementplayer({pluginPath:'/assets/mediaelement/'});</script>
+<script>
+(function() {
+	function startMejs() {
+		console.log('initializing mejs');
+		$('audio,video').mediaelementplayer({
+			pluginPath: '/assets/mediaelement/',
+			plugins: ['flash'],
+			enablePluginDebug: true
+		});
+	}
+	function initEdmVideo() {
+		if ( !window.mejs ) {
+			setTimeout(
+				initEdmVideo,
+				100
+			);
+		} else {
+			startMejs();
+		}
+	}
+}());
+</script>
 </body>
 </html>
