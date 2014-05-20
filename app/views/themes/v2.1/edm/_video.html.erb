@@ -45,7 +45,24 @@
 <%= html.html_safe -%>
 <% if mediaplayer -%>
 <%= theme_javascript_include_tag 'eu/europeana/pages/edm-video' %>
-<script>$('video').mediaelementplayer({pluginPath:'/assets/mediaelement/',plugins:['flash'],enablePluginDebug:true});</script>
+<script>
+(function() {
+	function startMejs() {
+		console.log('initializing mejs');
+		$('video').mediaelementplayer({pluginPath:'/assets/mediaelement/',plugins:['flash'],enablePluginDebug:true});
+	}
+	function initEdmVideo() {
+		if ( !window.mejs ) {
+			setTimeout(
+				initEdmVideo,
+				100
+			);
+		} else {
+			startMejs();
+		}
+	}
+}());
+</script>
 <% end -%>
 </body>
 </html>
