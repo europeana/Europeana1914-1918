@@ -17,7 +17,22 @@
 		if edmIsShownBy
 			if /.flv/.match( edmIsShownBy ) || /.mp4/.match( edmIsShownBy )
 				mediaplayer = true
-				html = video_tag edmIsShownBy, :controls => true, :preload => 'none', :poster => edmPreview, :style => 'width:100%;height:100%;'
+
+				if /.flv/.match( edmIsShownBy )
+					video_type = 'video/x-flv'
+				else if if /.mp4/.match( edmIsShownBy )
+					video_type = 'video/mp4'
+				end
+
+				html = video_tag(
+					edmIsShownBy,
+					:controls => true,
+					:id => 'player1',
+					:preload => 'none',
+					:poster => edmPreview,
+					:style => 'width:100%;height:100%;',
+					:type => video_type
+				)
 			elsif type == 'IMAGE'
 				html = '<img src="' + edmIsShownBy + '"/>'
 			else
@@ -46,26 +61,12 @@
 <% if mediaplayer -%>
 <%= theme_javascript_include_tag 'eu/europeana/pages/edm-video' %>
 <script>
-(function() {
-	function startMejs() {
-		console.log('initializing mejs');
-		$('video').mediaelementplayer({
-			pluginPath:'/assets/mediaelement/',
-			enablePluginDebug: true
-		});
+$('audio,video').mediaelementplayer({
+	pluginPath:'/assets/mediaelement/',
+	success: function( player, node ) {
+		$( '#' + node.id + '-mode' ).html( 'mode: ' + player.pluginType );
 	}
-	function initEdmVideo() {
-		if ( !window.mejs ) {
-			setTimeout(
-				initEdmVideo,
-				100
-			);
-		} else {
-			startMejs();
-		}
-	}
-	initEdmVideo();
-}());
+});
 </script>
 <% end -%>
 </body>
