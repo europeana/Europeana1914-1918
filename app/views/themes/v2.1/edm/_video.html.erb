@@ -7,7 +7,7 @@
 	euAggregation  = record['europeanaAggregation']
 	edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : nil
 	edmProvider    = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
-		
+
 	if edmProvider.blank? || (edmProvider != "Europeana 1914 - 1918")
 		mediaplayer    = false
 		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
@@ -45,7 +45,7 @@
 <%= html.html_safe -%>
 <% if mediaplayer -%>
 <%= theme_javascript_include_tag 'eu/europeana/pages/edm-video' %>
-<script>$('video').mediaelementplayer({pluginPath:'/assets/mediaelement/'});</script>
+<script>$('video').mediaelementplayer({pluginPath:'/assets/mediaelement/',plugins:['flash'],enablePluginDebug:true});</script>
 <% end -%>
 </body>
 </html>
