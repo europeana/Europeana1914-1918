@@ -37,12 +37,11 @@
 		console.log('initializing mejs');
 		$('audio,video').mediaelementplayer({
 			pluginPath: '/assets/mediaelement/',
-			plugins: ['flash'],
 			enablePluginDebug: true
 		});
 	}
 	function initEdmVideo() {
-		if ( !window.mejs ) {
+		if ( window.mejs === undefined ) {
 			setTimeout(
 				initEdmVideo,
 				100
@@ -51,6 +50,7 @@
 			startMejs();
 		}
 	}
+	initEdmVideo();
 }());
 </script>
 </body>
