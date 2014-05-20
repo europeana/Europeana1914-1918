@@ -492,8 +492,6 @@ upgrading mediaelement
 1. cp /path/to/mediaelement/build/* /path/to/europeana-1914-1918/app/assets/javascripts/mediaelement/
 1. delete any text files copied to europena-1914-1918
 1. alter mediaelementplayer.css so that all url() entries point to /assets/mediaelement/
-   this is necessary because on test and in production the css reference is to a
-   cached css file that resides outside the pdf.js folder
 
 
 

@@ -152,8 +152,8 @@
 						end
 
 						video_src = video_src + dimensions
-						link_content = link_image + link_text_image
 						developer_content = '<!--edmIsShownBy in lightbox-->'
+						link_content = link_image + link_text_image + developer_content
 
 						if oembed
 							developer_content += '<!--oembeded content-->'
@@ -162,21 +162,25 @@
 						if type == 'IMAGE'
 							html += content_tag(
 								'li',
-								link_to( link_content.html_safe, edmIsShownBy, link_attrs ) + developer_content
+								link_to( link_content.html_safe, edmIsShownBy, link_attrs )
 							)
 						else
 							html += content_tag(
 								'li',
-								link_to( link_content.html_safe, video_src, link_attrs ) + developer_content
+								link_to( link_content.html_safe, video_src, link_attrs )
 							)
 						end
 
 					# view on 1914-1918 website - show the edmPreview, no lightbox
 					else
 
-						link_content = link_image
 						developer_content = '<!--edmPreview only, no lightbox-->'
-						html += '<li>' + link_content.html_safe + developer_content + '</li>'
+						link_content = link_image + developer_content
+
+						html += content_tag(
+							'li',
+							link_content.html_safe
+						)
 
 					end
 
