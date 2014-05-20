@@ -4,26 +4,31 @@
 
 	'use strict';
 
-	var pdf_viewer =
-		( $(window).width() <= 768 || $(window).height() <= 500 )
-		&& ( !( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) )
-		? false
-		: true,
-		add_lightbox = pdf_viewer,
+	var
+	pdf_viewer = true,
+	add_lightbox = true,
 
 
 	carousels = {
-		$contributions_featured_ul : $('#institution-featured ul'),
 		$featured_carousel : null,
 		$pagination_counts : $('#pagination-counts'),
-		$pagination_next : $('#carousel-pagination .pagination a[rel=next]').eq(0),
-		ajax_load_processed : true,
 		nav_initial_delay: 3000,
 		pagination_total : $('#pagination-total').text(),
+		photogallery_hash_check: false,
 
-		addImagesToLightbox : function( $new_content ) {
-			if ( window.pp_images === undefined ) {
-				return;
+		/**
+		 * make sure each new rel=prettyPhoto item gets
+		 * added to the opened lightbox
+		 *
+		 * @param {object}
+		 * a jQuery object representing the new content
+		 *
+		 * @returns {bool}
+		 */
+		addImagesToOpenedLightbox : function( $new_content ) {
+			// if lightbox is not open return
+			if ( $('.pp_pic_holder').length < 1 ) {
+				return false;
 			}
 
 			$new_content.find("#institution-featured a[rel^='prettyPhoto']").each(function() {
@@ -31,6 +36,8 @@
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
 			});
+
+			return true;
 		},
 
 		addNavArrowHandling: function() {
@@ -67,33 +74,16 @@
 		},
 
 		/**
-		 *	ajax methods
+		 * @param {int} index
 		 */
-		handleContentLoad : function( responseText, textStatus, XMLHttpRequest ) {
-			// addImagesToLightbox needs an original version of the new content
-			var $new_content = this.$new_content.clone();
+		goToIndex: function( index ) {
+			index = parseInt( index, 10 );
 
-			if ( this.ajax_load_processed ) {
-				return;
+			if ( ( index + 1 ) > items_length ) {
+				index = carousels.$featured_carousel.items.length - 1;
+			} else if ( index < 0 ) {
+				index = 0;
 			}
-
-			if ( add_lightbox ) {
-				this.$new_content.find("a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
-			}
-
-			this.$contributions_featured_ul.append( this.$new_content.find('#institution-featured ul li') );
-			this.$featured_carousel.ajaxCarouselSetup();
-			this.$pagination_next = this.$new_content.find('#carousel-pagination .pagination a[rel=next]');
-			this.ajax_load_processed = true;
-
-			if ( add_lightbox ) {
-				this.addImagesToLightbox( $new_content );
-			} else {
-				lightbox.removeLightboxLinks();
-			}
-
-			this.$featured_carousel.$next.trigger('click');
-			this.$featured_carousel.hideOverlay();
 		},
 
 		init: function() {
@@ -102,20 +92,20 @@
 			$('#institution-featured').imagesLoaded( function() {
 				self.$featured_carousel =
 					$('#institution-featured').rCarousel({
+						hide_overlay: false,
+						item_width_is_container_width : true,
+						items_collection_total : parseInt( self.pagination_total, 10 ),
 						callbacks : {
-							after_nav : function() {
+							after_nav: function() {
 								carousels.updatePaginationCount();
 							},
 							before_nav: function( dir ) {
-								carousels.paginationContentCheck( dir );
+								carousels.replaceItemPlaceholderCheck( dir );
 							},
 							init_complete: function() {
 								carousels.addNavArrowHandling();
 							}
-						},
-						hide_overlay: false,
-						item_width_is_container_width : true,
-						items_collection_total : parseInt( self.pagination_total, 10 )
+						}
 					}).data('rCarousel');
 
 				carousels.updatePaginationCount();
@@ -133,70 +123,61 @@
 		},
 
 		/**
-		 *	decide whether or not to try and pull in additional carousel assets
-		 *	additional assets are pulled in via the following url schemes
+		 * @param {int} new_carousel_index
 		 *
-		 *		full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
-		 *		partial page, default count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2
-		 *    partial page, custom count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2&count=2
+		 * @param {object} $elm_plcaeholder
+		 * jQuery object representing a placeholder item
 		 */
-		paginationContentCheck : function( dir ) {
-			var href,
-					next_page_link,
-					next_carousel_item = 0,
-					current_carousel_count = this.$featured_carousel.items_length,
-					current_carousel_item = this.$featured_carousel.get('current_item_index') + 1;
+		replaceItemPlaceholder: function( new_carousel_index, $elm_placeholder ) {
+			var $a = $elm_placeholder.find('a').eq(0),
+			$img = $elm_placeholder.find('img').eq(0);
 
-			this.$featured_carousel.options.cancel_nav = true;
-			next_page_link = this.$pagination_next.attr('href');
+			$img
+				.attr( 'src', '/assets/v2.1/images/icons/loading-animation.gif' )
+				.attr( 'src', $a.attr( 'data-attachment-preview-url' ) )
+				.attr( 'alt', $a.attr( 'data-attachment-title' ) );
 
-			if ( dir === 'next' ) {
-				next_carousel_item = current_carousel_item + 1;
-			} else if ( current_carousel_item > 1 )  {
-				next_carousel_item = current_carousel_item - 1;
-			} else {
-				next_carousel_item = 1;
+			$elm_placeholder.removeClass( 'item-placeholder' );
+
+			if ( this.photogallery_hash_check ) {
+				this.$featured_carousel.goToIndex( new_carousel_index );
+				this.updatePaginationCount();
+				this.photogallery_hash_check = false;
 			}
-
-			if ( !next_page_link || next_carousel_item <= current_carousel_count  ) {
-				this.$featured_carousel.options.cancel_nav = false;
-				return;
-			}
-
-			next_page_link = next_page_link.split('?');
-
-			href =
-				next_page_link[0] + '?carousel=true&' +
-				next_page_link[1];
-
-			this.retrieveContent( href );
 		},
 
-		retrieveContent : function( href ) {
-			var self = this;
+		/**
+		 * decide whether or not to pull in additional carousel items
+		 *
+		 * @param {string|int} dir
+		 * expected string next|prev
+		 */
+		replaceItemPlaceholderCheck: function( dir ) {
+			var $elm_placeholder,
+			href,
+			new_carousel_index = 0,
+			current_carousel_index = this.$featured_carousel.get('current_item_index');
 
-			if ( !href || !self.ajax_load_processed ) {
+			if ( dir === 'next' ) {
+				new_carousel_index = current_carousel_index + 1;
+			} else if ( dir === 'prev' ) {
+				new_carousel_index = current_carousel_index - 1;
+			} else {
+				new_carousel_index = parseInt( dir, 10 );
+			}
+
+			$elm_placeholder = this.$featured_carousel.$items.eq( new_carousel_index );
+
+			if (
+				new_carousel_index === -1
+				|| ( new_carousel_index + 1 ) > this.$featured_carousel.items_length
+				|| !$elm_placeholder.hasClass('item-placeholder')
+			) {
 				return;
 			}
 
-			lightbox.hideLightboxContent();
-			self.ajax_load_processed = false;
-			self.$new_content = jQuery('<div/>');
-
-			try {
-				self.$featured_carousel.$overlay.fadeIn();
-
-				self.$new_content.load(
-					href,
-					null,
-					function( responseText, textStatus, XMLHttpRequest ) {
-						self.handleContentLoad( responseText, textStatus, XMLHttpRequest );
-					}
-				);
-
-			} catch(e) {
-				console.log(e);
-			}
+			// replace item-placeholder
+			this.replaceItemPlaceholder( new_carousel_index, $elm_placeholder );
 		},
 
 		updatePaginationCount : function() {
@@ -205,7 +186,10 @@
 			}
 
 			this.$pagination_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' +	( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' + I18n.t('javascripts.thumbnails.of') + ' ' + this.pagination_total
+				I18n.t('javascripts.thumbnails.item') + ' ' +
+				( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' +
+				I18n.t('javascripts.thumbnails.of') + ' ' +
+				this.pagination_total
 			);
 		}
 	},
@@ -655,16 +639,69 @@
 				);
 			}
 		}
+	},
+
+	photoGallery = {
+		items_per_page: 1,
+
+		checkHash: function() {
+			var $elm,
+			hash = window.location.hash.substring(1),
+			requested_index = 0,
+			requested_item = 1,
+			total_items = parseInt( $('#pagination-total').text(), 10 );
+
+			if ( hash.indexOf('/') < 0 ) {
+				return;
+			}
+
+			hash = hash.split('/');
+
+			if ( hash.length !== 3 ) {
+				return;
+			}
+
+			requested_index = parseInt( hash[1], 10 );
+			requested_item = requested_index + 1;
+			//requested_page = Math.ceil( requested_item / this.items_per_page );
+
+			if (
+				requested_item < 1
+				|| requested_item > total_items
+			) {
+				return;
+			}
+
+			carousels.photogallery_hash_check = true;
+			carousels.replaceItemPlaceholderCheck( requested_index );
+		},
+
+		init: function() {
+			if ( carousels.$featured_carousel !== null ) {
+				photoGallery.checkHash();
+				carousels.$featured_carousel.hideOverlay();
+			} else {
+				setTimeout(
+					photoGallery.init,
+					100
+				);
+			}
+		}
 	};
 
+	if (
+		( $(window).width() <= 768 || $(window).height() <= 500 )
+		&& !( /iPad/.test( navigator.platform ) )
+		&& navigator.userAgent.indexOf( "AppleWebKit" ) > -1
+	) {
+		pdf_viewer = add_lightbox = false;
+	}
 
-	(function() {
-		truncate.init();
-		RunCoCo.translation_services.init( jQuery('.translate-area') );
-		carousels.init();
-		map.init();
-//		tags.init();
-		mimetype.init(); // lightbox is now initialized within this object
-	}());
+	truncate.init();
+	RunCoCo.translation_services.init( jQuery('.translate-area') );
+	carousels.init();
+	map.init();
+	mimetype.init(); // lightbox is now initialized within this object
+	photoGallery.init();
 
 }( jQuery ));
