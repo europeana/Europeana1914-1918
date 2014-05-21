@@ -13,10 +13,12 @@
 
 	title += configuration(:site_name)
 
+	title = h(title)
+
 	if content_for(:title).present?
 		title += ' - '
-		title += yield :title
+		title += yield(:title)
 	end
 
 %>
-<%= title -%>
+<%= raw title -%>
