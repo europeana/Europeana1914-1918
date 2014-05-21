@@ -152,12 +152,12 @@ class ContributionsController < ApplicationController
       format.xml { render :xml => cached(@contribution, :xml) }
     end
   end
-
-  # GET /contributions/:id/status_log
+  
+  # GET /contributions/:id/status
   def status_log
     current_user.may_view_contribution_status_log!(@contribution)
   end
-
+  
   # GET /contributions/:id/edit
   def edit
     current_user.may_edit_contribution!(@contribution)
@@ -206,6 +206,20 @@ class ContributionsController < ApplicationController
       redirect_to complete_contributions_url
     else
       flash.now[:alert] = t('flash.contributions.draft.submit.alert')
+    end
+  end
+  
+  # GET /contributions/:id/submittable
+  def submittable
+    current_user.may_edit_contribution!(@contribution)
+    
+    respond_to do |format|
+      format.json do
+        render :json => {
+          :id           => @contribution.id,
+          :submittable  => @contribution.ready_to_submit?
+        }
+      end
     end
   end
 
