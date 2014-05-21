@@ -1,36 +1,33 @@
 <%
-
-	# variable setup
-
 	aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
+
 	if aggregation['hasView'].present?
 		carouselImages  = aggregation['hasView']
 		carouselImages.unshift(aggregation['edmIsShownBy']) unless aggregation['edmIsShownBy'].blank?
 	end
+
 	euAggregation   = record['europeanaAggregation'] || {}
 	edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 	edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 	edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : asset_path('style/icons/mimetypes/unknown.png')
 	edmProvider     = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
+	@item_count     = 0
 	type            = record['type'] ? record['type'] : nil
-	html            = ''
-	item_count      = 0
 	oembed          = oembed_fields( record )
 	places          = record['places'] ? record['places'] : {}
 	proxy           = record['proxies'][0]
 	title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 	unknown_image   = image_tag( '/assets/style/icons/mimetypes/unknown.png', :alt => t( 'media_types.unknown' ) )
-	link_image      = '<img src="' + edmPreview + '" alt="' + title + '"/>'
-	link_record     = record['about'] ? europeana_record_id_url( record['about'] ) : nil
-	link_text_image = ''
-	link_text_video = content_tag( 'p', t( 'common.links.play-video' ), :class => 'view-item' )
 
 	link_attrs      = {
 		'class' => 'image',
 		'data-description' => title,
-		:rel => 'prettyPhoto[gallery]',
 		:title => title
 	}
+
+	link_image      = image_tag( edmPreview, :alt => title )
+	link_record     = record['about'] ? europeana_record_id_url( record['about'] ) : nil
+	link_text       = ''
 
 	if type == 'TEXT' || type == 'IMAGE'
 		link_attrs.merge!({
@@ -47,163 +44,74 @@
 		params[:controller] == 'federated_search/trove' ||
 		params[:controller] == 'federated_search/digitalnz'
 	)
-		link_text_image = content_tag( 'p', t( 'common.links.view-image' ), :class => 'view-item' )
+		link_text = content_tag( 'p', t( 'common.links.view-image' ), :class => 'view-item' )
 	end
-
-	# end variable setup
 
 
 	html = '<div class="col-cell">'
-
 		html += '<div class="image-panel">'
 			html += '<div id="institution-featured" class="carousel">'
 				html += '<ul>'
+					# add multiple images
+					if carouselImages.present? && carouselImages.size > 1
+						html += render :partial => 'edm/images/carousel-images',
+							:locals => {
+								:carouselImages => carouselImages,
+								:item_count => @item_count,
+								:link_attrs => link_attrs,
+								:link_text => link_text,
+								:title => title,
+								:unknown_image => unknown_image
+							}
 
-				# add multiple images
-				if carouselImages.present? && carouselImages.size > 1
-
-					developer_content = '<!--carousel images-->'
-
-					carouselImages.each do |img_src|
-						# add the first item
-						if item_count == 0
-							link_image = image_tag( img_src, :alt => title )
-							link_content = link_image + link_text_image
-
-							html += content_tag(
-								'li',
-								link_to( link_content, img_src, link_attrs )
-							)
-
-							html += developer_content
-
-						# when not the first item, add a placeholder
-						else
-							link_content = unknown_image + link_text_image
-
-							link_attrs.merge!({
-								'data-attachment-preview-url' => img_src
-							})
-
-							html += content_tag(
-								'li',
-								link_to( link_content, img_src, link_attrs ),
-								:class => 'item-placeholder'
-							)
-
-							html += developer_content
-						end
-						item_count += 1
-					end
-
-				# single image
-				else
-
+					# single image
 					# view at provider’s website
-					if edmIsShownAt &&
-						(
-							params[:controller] == 'federated_search/dpla' ||
-							params[:controller] == 'federated_search/trove' ||
-							params[:controller] == 'federated_search/digitalnz'
-						)
+					elsif edmIsShownAt && (
+						params[:controller] == 'federated_search/dpla' ||
+						params[:controller] == 'federated_search/trove' ||
+						params[:controller] == 'federated_search/digitalnz'
+					)
+						html += render :partial => 'edm/images/edm-is-shown-at',
+							:locals => {
+								:aggregation => aggregation,
+								:link_attrs => link_attrs,
+								:link_image => link_image,
+								:link_text => link_text
+							}
 
-						# link available at provider’s website
-						if readVal = edm_proxy_field(aggregation, 'edmIsShownAt', :link => false)
-
-							developer_content = '<!--view on provider’s site-->'
-							link_content = link_image + link_text_image
-
-							link_attrs.merge!({
-								:class => 'original-context',
-								:target => '_blank',
-								:rel => nil
-							})
-
-							html += '<li>' + link_to( link_content.html_safe, readVal, link_attrs ) + developer_content + '</li>'
-
-						# do not view on provider’s website
-						else
-
-							developer_content = '<!--do not view on provider’s site-->'
-							html += '<li>' + link_image.html_safe + developer_content + '</li>'
-
-						end
-
-					# view on 1914-1918 website - show the edmIsShownBy in the lightbox
+					# single image
+					# view on 1914-1918 website
+					# show the edmIsShownBy in the lightbox
 					elsif edmIsShownBy
+						html += render :partial => 'edm/images/edm-is-shown-by',
+							:locals => {
+								:edmIsShownBy => edmIsShownBy,
+								:edmProvider => edmProvider,
+								:link_attrs => link_attrs,
+								:link_image => link_image,
+								:link_record => link_record,
+								:link_text => link_text,
+								:oembed => oembed,
+								:type => type
+							}
 
-						dimensions = '&width=100%&height=100%'
-						video_src = link_record + '?edmvideo=true&iframe=true'
-
-						# edmIsShownBy will be a direct link to a vimeo video
-						if /player.vimeo.com/.match( edmIsShownBy )
-
-							video_src = edmIsShownBy + '?iframe=true' + dimensions
-
-						# edmIsShownBy has several possible values
-						# eventhough the iframe dimensions are 640 x 480,
-						# because of the lightbox ui the dimensions need to be wider and higher
-						elsif /EFG - The European Film Gateway/.match( edmProvider )
-
-							if /api.picturepipe.net/.match( edmIsShownBy )
-								dimensions = '&width=657&height=510'
-							end
-
-						end
-
-						video_src = video_src + dimensions
-						developer_content = '<!--edmIsShownBy in lightbox-->'
-						link_content = link_image + link_text_image + developer_content
-
-						if oembed
-							developer_content += '<!--oembeded content-->'
-						end
-
-						if type == 'IMAGE'
-							html += content_tag(
-								'li',
-								link_to( link_content.html_safe, edmIsShownBy, link_attrs )
-							)
-						else
-							html += content_tag(
-								'li',
-								link_to( link_content.html_safe, video_src, link_attrs )
-							)
-						end
-
-					# view on 1914-1918 website - show the edmPreview, no lightbox
+					# single image
+					# view on 1914-1918 website
+					# show the edmPreview, no lightbox
 					else
-
-						developer_content = '<!--edmPreview only, no lightbox-->'
-						link_content = link_image + developer_content
-
-						html += content_tag(
-							'li',
-							link_content.html_safe
-						)
-
+						html += render :partial => 'edm/images/edm-preview',
+							:locals => {
+								:link_image => link_image
+							}
 					end
-
-				end
-
 				html += '</ul>'
 				html += content_tag( 'div', '', :class => 'carousel-overlay' )
 			html += '</div>' # end carousel
 		html += '</div>' # end carousel image panel
-
-		# add pagination info
-		html += content_tag(
-			'div',
-			content_tag( 'ul', '', :id => 'pagination-counts' ),
-			:class => 'col-cell'
-		)
-
-		html += content_tag(
-			'div',
-			content_tag( 'span', item_count.to_s, :id => 'pagination-total' ),
-			:id => 'carousel-pagination'
-		)
-
+		html += render :partial => 'edm/pagination',
+			:locals => {
+				:item_count => @item_count
+			}
 	html += '</div>' # end carousel col-cell
 
 -%>

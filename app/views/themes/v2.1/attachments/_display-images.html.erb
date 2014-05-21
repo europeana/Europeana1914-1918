@@ -1,8 +1,6 @@
 <%
-  #count       = params['count'] ? params['count'].to_i : 3
+
   html        = ''
-  #page        = params['page'] ? params['page'].to_i : 1
-  #inline      = count * page - count
   item_count  = 0
   thumbnails  = thumbnails ? thumbnails : false
   prettyphoto = prettyphoto ? prettyphoto : false
@@ -17,8 +15,10 @@
       # open the list item
       if item_count == 0
         html += '<li>'
+
+      # when not the first item, mark it as a placeholder
       else
-        # when not the first item, mark it as a placeholder
+
         html += '<li class="item-placeholder">'
       end
 

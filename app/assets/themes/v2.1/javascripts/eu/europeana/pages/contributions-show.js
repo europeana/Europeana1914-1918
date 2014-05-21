@@ -10,12 +10,8 @@
 
 
 	carousels = {
-		$contributions_featured_ul : $('#contributions-featured ul'),
 		$featured_carousel : null,
 		$pagination_counts : $('#pagination-counts'),
-		$pagination_next : $('#carousel-pagination .pagination a[rel=next]').eq(0),
-		ajax_load_processed : true,
-		handling_content_load: false,
 		nav_initial_delay: 3000,
 		pagination_total : $('#pagination-total').text(),
 		photogallery_hash_check: false,
@@ -78,27 +74,6 @@
 		},
 
 		/**
-		 * @returns {string}
-		 */
-		getNextPageLinkWithoutPageNr: function() {
-			var result = '',
-			next_page_link = carousels.$pagination_next.attr('href');
-
-			if ( next_page_link.length === 0 ) {
-				return result;
-			}
-
-			next_page_link = next_page_link.split('?');
-			result = next_page_link[0];
-			result += next_page_link[0].indexOf('/attachments') === -1
-				? '/attachments?carousel=true&page='
-				: '?page=';
-			//href += next_page_link[1];
-
-			return result;
-		},
-
-		/**
 		 * @param {int} index
 		 */
 		goToIndex: function( index ) {
@@ -109,65 +84,6 @@
 			} else if ( index < 0 ) {
 				index = 0;
 			}
-		},
-
-		/**
-		 * @param {int} new_carousel_index
-		 *
-		 * @param {object} $elm_placeholder
-		 * jQuery object representing a placeholder item
-		 * that will be replaced with the content retrieved
-		 */
-		handleContentLoad : function( new_carousel_index, $elm_placeholder ) {
-			// no longer needed, but preserving logic edits made during this commit
-			// @todo can be removed after this commit when new implementation proves itself
-			return;
-
-			if ( this.ajax_load_processed ) {
-				return;
-			}
-
-			// addImagesToLightbox needs a cloned version of the new content
-			var $new_content = this.$new_content.clone(),
-			$new_elm = this.$new_content.find('#contributions-featured ul li');
-
-			this.handling_content_load = true;
-
-			if ( $elm_placeholder === undefined ) {
-				this.$contributions_featured_ul.append( $new_elm );
-			} else {
-				$elm_placeholder.replaceWith( $new_elm );
-			}
-
-			this.$featured_carousel.ajaxCarouselSetup();
-			this.$pagination_next = this.$new_content.find('#carousel-pagination .pagination a[rel=next]');
-			this.ajax_load_processed = true;
-
-			if ( add_lightbox ) {
-				// add a lightbox trigger to the new element
-				if ( !this.addImagesToOpenedLightbox( $new_content ) ) {
-					// lightbox isn’t open so re-init the lightbox so that it
-					// picks up the just loaded content and adds it to the
-					// window.pp_images array
-					lightbox.init();
-				}
-			} else {
-				lightbox.removeLightboxLinks();
-			}
-
-			this.$featured_carousel.goToIndex( new_carousel_index );
-
-			// because nav is canceled, the init::after_nav function is not called
-			this.updatePaginationCount();
-
-			this.$featured_carousel.hideOverlay();
-
-			if ( this.photogallery_hash_check ) {
-				$new_elm.find('a').trigger('click');
-			}
-
-			this.photogallery_hash_check = false;
-			this.handling_content_load = false;
 		},
 
 		init: function() {
@@ -204,100 +120,6 @@
 		navArrowReveal: function() {
 			carousels.$featured_carousel.$next.addClass('focus');
 			carousels.$featured_carousel.$prev.addClass('focus');
-		},
-
-		/**
-		 * additional assets are pulled in via the following url schemes:
-		 * full page comes from next link -> http://localhost:3000/en/contributions/2226?page=2
-		 * partial page, default count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2
-		 * partial page, custom count -> http://localhost:3000/en/contributions/2226/attachments?carousel=true&page=2&count=2
-		 * /en/contributions/1/attachments?carousel=true&page=2
-		 *
-		 * @param {int} new_carousel_index
-		 *
-		 * @param {object} $elm_plcaeholder
-		 * jQuery object representing a placeholder item
-		 * that will be replaced with the content retrieved
-		 */
-		retrieveContent : function( new_carousel_index, $elm_placeholder ) {
-			// no longer needed, but preserving logic edits made during this commit
-			// @todo can be removed after this commit when new implementation proves itself
-			return;
-
-			if ( !carousels.ajax_load_processed ) {
-				return;
-			}
-
-			if ( $elm_placeholder !== undefined ) {
-				lightbox.hideLightboxContent();
-			}
-
-			var href = window.location.pathname +
-				'/attachments?carousel=true&page=' +
-				( new_carousel_index + 1 );
-
-			carousels.ajax_load_processed = false;
-			carousels.$new_content = jQuery('<div>');
-
-			try {
-				carousels.$featured_carousel.$overlay.fadeIn();
-
-				carousels.$new_content.load(
-					href,
-					null,
-					function() {
-						carousels.handleContentLoad( new_carousel_index, $elm_placeholder );
-					}
-				);
-
-			} catch(e) {
-				console.log(e);
-			}
-		},
-
-		/**
-		 * decide whether or not to pull in additional carousel items
-		 *
-		 * @param {string|int} dir
-		 * expected string next|prev
-		 */
-		retrieveContentCheck : function( dir ) {
-			// no longer needed, but preserving logic edits made during this commit
-			// @todo can be removed after this commit when new implementation proves itself
-			return;
-
-			if ( carousels.handling_content_load ) {
-				return;
-			}
-
-			var $elm_placeholder,
-			href,
-			new_carousel_index = 0,
-			current_carousel_index = this.$featured_carousel.get('current_item_index');
-
-			if ( dir === 'next' ) {
-				new_carousel_index = current_carousel_index + 1;
-			} else if ( dir === 'prev' ) {
-				new_carousel_index = current_carousel_index - 1;
-			} else {
-				new_carousel_index = parseInt( dir, 10 );
-			}
-
-			$elm_placeholder = this.$featured_carousel.$items.eq( new_carousel_index );
-
-			if (
-				new_carousel_index === -1
-				|| ( new_carousel_index + 1 ) > this.$featured_carousel.items_length
-				|| !$elm_placeholder.hasClass('item-placeholder')
-			) {
-				// no need to retrieve new content
-				this.$featured_carousel.options.cancel_nav = false;
-				return;
-			}
-
-			// retrieve new content
-			this.$featured_carousel.options.cancel_nav = true;
-			this.retrieveContent( new_carousel_index, $elm_placeholder );
 		},
 
 		/**
@@ -455,6 +277,30 @@
 			});
 		},
 
+		init : function() {
+			if ( add_lightbox ) {
+				this.setupPrettyPhoto();
+				this.setupAnnotorious();
+			} else {
+				this.removeLightboxLinks();
+			}
+		},
+
+		removeLightboxLinks : function() {
+			jQuery('#contributions-featured a').each(function() {
+				var $elm = jQuery(this),
+						contents = $elm.contents();
+
+				if ( !$elm.hasClass('pdf') ) {
+					$elm.replaceWith(contents);
+				}
+			});
+
+			$('#contributions-featured .view-item').each(function() {
+				jQuery(this).remove();
+			});
+		},
+
 		removeMediaElementPlayers : function() {
 			var i;
 
@@ -493,44 +339,13 @@
 			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
 			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
 			lightbox.ppOptions.collection_total = carousels.pagination_total;
-			//lightbox.ppOptions.getCurrentIndex = function() {
-			//	if ( !carousels.$featured_carousel ) {
-			//		return;
-			//	}
-			//	return carousels.$featured_carousel.get('current_item_index');
-			//}
 			lightbox.ppOptions.description_src = 'data-description';
 			lightbox.ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
 			lightbox.ppOptions.overlay_gallery = false;
 			lightbox.ppOptions.show_title = false;
 			lightbox.ppOptions.social_tools = false;
 
-			jQuery("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
-		},
-
-		removeLightboxLinks : function() {
-			jQuery('#contributions-featured a').each(function() {
-				var $elm = jQuery(this),
-						contents = $elm.contents();
-
-				if ( !$elm.hasClass('pdf') ) {
-					$elm.replaceWith(contents);
-				}
-			});
-
-			$('#contributions-featured .view-item').each(function() {
-				jQuery(this).remove();
-			});
-		},
-
-		init : function() {
-			if ( add_lightbox ) {
-				this.setupPrettyPhoto();
-			} else {
-				this.removeLightboxLinks();
-			}
-
-			this.setupAnnotorious();
+			$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 		}
 	},
 

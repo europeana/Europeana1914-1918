@@ -1,0 +1,49 @@
+<%
+
+	developer_content = '<!--carousel images-->'
+	html = ''
+
+	link_attrs.merge!({
+		:rel => 'prettyPhoto[gallery]'
+	})
+
+	carouselImages.each do |img_src|
+
+		# add the first item with its preview image
+		if @item_count == 0
+			link_image = image_tag( img_src, :alt => title )
+			link_content = link_image + link_text
+
+			link_attrs.merge!({
+				'data-attachment-id' => item_count
+			})
+
+			html += content_tag(
+				'li',
+				link_to( link_content, img_src, link_attrs )
+			)
+
+			html += developer_content
+
+		# when not the first item, add a placeholder
+		else
+			link_content = unknown_image + link_text
+
+			link_attrs.merge!({
+				'data-attachment-id' => item_count,
+				'data-attachment-preview-url' => img_src
+			})
+
+			html += content_tag(
+				'li',
+				link_to( link_content, img_src, link_attrs ),
+				:class => 'item-placeholder'
+			)
+
+			html += developer_content
+		end
+		@item_count += 1
+	end
+
+%>
+<%= html.html_safe -%>

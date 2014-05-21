@@ -194,27 +194,10 @@
 		}
 	},
 
+
 	lightbox = {
+		annotorious_setup: false,
 		ppOptions : {},
-
-		setupPrettyPhoto : function() {
-			lightbox.ppOptions.callback = function() {
-				// this insures that additional content that was loaded while
-				// in lightbox is lightbox enabled if the lightbox is closed
-				lightbox.init();
-			};
-
-			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
-			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
-			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
-			lightbox.ppOptions.collection_total = carousels.pagination_total;
-			lightbox.ppOptions.description_src = 'data-description';
-			lightbox.ppOptions.overlay_gallery = false;
-			lightbox.ppOptions.show_title = false;
-			lightbox.ppOptions.social_tools = false;
-
-			$("#institution-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
-		},
 
 		handlePageChangeNext : function( keyboard ) {
 			if ( !keyboard ) {
@@ -228,12 +211,26 @@
 			}
 		},
 
+		handlePictureChange : function() {
+			anno.reset();
+			anno.hideSelectionWidget();
+		},
+
 		hideLightboxContent: function() {
 			var $pp_pic_holder = $('.pp_pic_holder');
 			$pp_pic_holder.find('#pp_full_res object,#pp_full_res embed').css('visibility','hidden');
 			$pp_pic_holder.find('.pp_fade').fadeOut('fast',function(){
 				$('.pp_loaderIcon').show();
 			});
+		},
+
+		init : function() {
+			if ( add_lightbox ) {
+				this.setupPrettyPhoto();
+				this.setupAnnotorious();
+			} else {
+  			this.removeLightboxLinks();
+			}
 		},
 
 		removeLightboxLinks : function() {
@@ -251,12 +248,34 @@
 			});
 		},
 
-		init : function() {
-			if ( add_lightbox ) {
-				this.setupPrettyPhoto();
-			} else {
-  			this.removeLightboxLinks();
+		setupAnnotorious : function() {
+			if ( this.annotorious_setup ) {
+				return;
 			}
+
+			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
+			anno.addPlugin( 'Flag', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
+			this.annotorious_setup = true;
+		},
+
+		setupPrettyPhoto : function() {
+			lightbox.ppOptions.callback = function() {
+				// this insures that additional content that was loaded while
+				// in lightbox is lightbox enabled if the lightbox is closed
+				lightbox.init();
+			};
+
+			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
+			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
+			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
+			lightbox.ppOptions.collection_total = carousels.pagination_total;
+			lightbox.ppOptions.description_src = 'data-description';
+			lightbox.ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
+			lightbox.ppOptions.overlay_gallery = false;
+			lightbox.ppOptions.show_title = false;
+			lightbox.ppOptions.social_tools = false;
+
+			$("#institution-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 		}
 	},
 
@@ -679,7 +698,6 @@
 		init: function() {
 			if ( carousels.$featured_carousel !== null ) {
 				photoGallery.checkHash();
-				carousels.$featured_carousel.hideOverlay();
 			} else {
 				setTimeout(
 					photoGallery.init,

@@ -1,0 +1,51 @@
+<%
+
+	developer_content = '<!--edmIsShownBy in lightbox-->'
+	dimensions = '&width=100%&height=100%'
+	html = ''
+	video_src = link_record + '?edmvideo=true&iframe=true'
+
+	link_attrs.merge!({
+		:rel => 'prettyPhoto'
+	})
+
+	if oembed
+		developer_content += '<!--oembeded content-->'
+	end
+
+	# edmIsShownBy will be a direct link to a vimeo video
+	if /player.vimeo.com/.match( edmIsShownBy )
+		video_src = edmIsShownBy + '?iframe=true'
+
+	# edmIsShownBy video link has several possible values
+	# eventhough the iframe dimensions are 640 x 480,
+	# because of the lightbox ui the dimensions need to be wider and higher
+	elsif /EFG - The European Film Gateway/.match( edmProvider )
+		if /api.picturepipe.net/.match( edmIsShownBy )
+			dimensions = '&width=657&height=510'
+		end
+	end
+
+	# video item
+	if type == 'VIDEO'
+		video_src = video_src + dimensions
+		link_text = content_tag( 'p', t( 'common.links.play-video' ), :class => 'view-item' )
+		link_content = link_image + link_text + developer_content.html_safe
+
+		html += content_tag(
+			'li',
+			link_to( link_content, video_src, link_attrs )
+		)
+
+	# type = IMAGE | TEXT | ?
+	else
+		link_content = link_image + link_text + developer_content.html_safe
+
+		html += content_tag(
+			'li',
+			link_to( link_content, edmIsShownBy, link_attrs )
+		)
+	end
+
+%>
+<%= html.html_safe -%>
