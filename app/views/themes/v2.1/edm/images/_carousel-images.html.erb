@@ -21,12 +21,14 @@
 				'data-annotatable-id' => annotatable.id
 			})
 
-			this_link_text = content_tag(
-				'p',
-				t( 'common.links.view-image' ).html_safe +
-				content_tag( 'span', '', :class => 'annotorious-carousel-icon' ),
-				:class => 'view-item-annotorious'
-			)
+			if annotatable.annotations.where(:src => img_src).present?
+				this_link_text = content_tag(
+					'p',
+					t( 'common.links.view-image' ).html_safe +
+					content_tag( 'span', '', :class => 'annotorious-carousel-icon' ),
+					:class => 'view-item-annotorious'
+				)
+			end
 		end
 
 		# add the first item with its preview image
