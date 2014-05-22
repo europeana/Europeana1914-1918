@@ -135,7 +135,7 @@
 	edm_fields.each do |edm_field|
 		field_ns = edm_field["name"].underscore.split('_').first
 		field_label = edm_field["name"].underscore.split('_')[1..-1].join('_')
-		if field_value = edm_proxy_field( edm_field["source"], edm_field["name"] )
+		if field_value = edm_proxy_field( edm_field["source"], edm_field["name"], :concepts => record['concepts'] )
 			html += '<dt><b>' + t( 'formtastic.labels.content.metadata.' + field_ns + '.' + field_label ) + '</b></dt>'
 			html += '<dd class="translate">' + field_value + '</dd>'
 		end

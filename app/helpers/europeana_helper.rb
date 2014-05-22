@@ -33,6 +33,9 @@ module EuropeanaHelper
   # @param [String] field_name Name of the field to retrieve
   # @param [Hash] options Options for formatting the field
   # @option options [Boolean] :link If true, format URLs as links
+  # @option options [Array<Hash>] :concepts EDM concepts. If present, any URI
+  #   values where the pref label is included will be removed from the returned
+  #   string.
   # @return [String] Value to display for the field
   # @todo Add some validation to proxy param to aid debugging
   #
@@ -43,7 +46,7 @@ module EuropeanaHelper
     options.reverse_merge!({:link => true})
     
     proxy_field_values = if proxy.is_a?(Array)
-      proxy.collect { |one_proxy| edm_proxy_field(one_proxy, field_name) }
+      proxy.collect { |one_proxy| edm_proxy_field(one_proxy, field_name, options) }
     elsif proxy[field_name].is_a?(String)
       [ proxy[field_name] ]
     elsif proxy[field_name].respond_to?(:values)
@@ -53,8 +56,29 @@ module EuropeanaHelper
     end.flatten
     
     proxy_field_values.reject!(&:blank?)
+    if options[:concepts].present?
+      proxy_field_values = edm_reject_labelled_concept_uris(proxy_field_values, options[:concepts])
+    end
     proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) } if options[:link]
     proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
+  end
+  
+  # @param [Array<String>] values
+  # @param [Array<Hash>] concepts
+  # @return [Array<String>]
+  def edm_reject_labelled_concept_uris(values, concepts)
+    values.dup.each_with_index do |value, i|
+      next unless value =~ /^#{URI::regexp}$/
+      next unless (uri_concept = concepts.find { |concept| concept['about'] == value }).present?
+      
+      locale = uri_concept['prefLabel'].has_key?(I18n.locale) ? I18n.locale : I18n.default_locale
+      locale = locale.to_s
+      if uri_concept['prefLabel'][locale].present?
+        values[i] = uri_concept['prefLabel'][locale]
+      end
+    end
+    
+    values
   end
   
   def edm_link_to_url(url, field_name)
