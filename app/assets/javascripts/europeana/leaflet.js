@@ -141,11 +141,8 @@
 		},
 
 		setMapZoom: function() {
-			if (
-				window.mapZoom !== undefined
-				&& window.mapZoom.length !== undefined )
-			{
-				parseInt( window.mapZoom, 10 );
+			if ( RunCoCo.mapZoom !== undefined ) {
+				this.mapZoom = parseInt( RunCoCo.mapZoom, 10 );
 			}
 		},
 
@@ -159,7 +156,7 @@
 			self.map = map;
 			self.grp = null;
 
-			self._setLayer = function(index){
+			self._setLayer = function( index ) {
 				var layer = self.ops[index].layer;
 				self.grp.clearLayers();
 				self.grp.addLayer(layer);
@@ -177,6 +174,9 @@
 
 			self.cmp.find("span").each(function(){
 				$(this).click( function() {
+					if ( $(this).hasClass('active') ) {
+						return;
+					}
 					self._setLayer( parseInt( jQuery(this).attr('class'), 10 ) );
 				});
 			});

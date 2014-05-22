@@ -18,6 +18,9 @@ RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 <% if content_for?( :lat_long ) %>
 RunCoCo.latLong = [<%= content_for( :lat_long ) %>];
 <% end -%>
+<% if content_for?( :map_zoom ) %>
+RunCoCo.mapZoom = <%= content_for( :map_zoom ) %>
+<% end -%>
 <% if 'cataloguer' === current_user.role.name -%>
 RunCoCo.cataloguer = true;
 <% end -%>
@@ -27,7 +30,7 @@ RunCoCo.cataloguer = true;
   <%= theme_javascript_include_tag 'translator' -%>
 <% end -%>
 <% if content_for?(:javascripts_gmap) -%>
-  <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=" + configuration(:gmap_api_key).to_s %>
+  <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places' %>
   <%= theme_javascript_include_tag 'gmap' %>
 <% end -%>
 <% if configuration(:uploadify) && content_for?(:javascripts_uploadify) -%>
@@ -47,7 +50,7 @@ RunCoCo.cataloguer = true;
 <% end -%>
 <% if content_for?( :lat_long ) -%>
   <%= theme_javascript_include_tag 'leaflet' -%>
-  <%= javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.2&sensor=false' %>
+  <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.2&sensor=false' %>
 <% end -%>
 <script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
 <script>

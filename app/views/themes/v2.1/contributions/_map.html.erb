@@ -2,6 +2,7 @@
 
   html = ''
   provide :lat_long, metadata.fields['location_map']
+  provide :map_zoom, metadata.fields['location_zoom']
 
 	if content_for?( :lat_long )
 		html = content_tag(
