@@ -12,7 +12,7 @@
           <th scope="col"><%= link_to_table_sort t('attributes.created_at'), 'created_at' %></th>
           <th scope="col"><%= link_to_table_sort t('attributes.updated_at'), 'updated_at' %></th>
           <th scope="col"><%= t('activerecord.models.user') %></th>
-          <th scope="col"><%= t('activerecord.models.attachment') %></th>
+          <th scope="col"><%= 'Annotated item' %></th>
           <th scope="col"><%= link_to_table_sort t('views.admin.annotations.table.header.text'), 'text' %></th>
           <th scope="col"><%= link_to_table_sort t('attributes.status'), 'current_status.name' %></th>
           <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
@@ -31,7 +31,7 @@
               <%- end -%>
             </td>
             <td>
-              <%= link_to truncate(attachment_title(annotation.attachment), :length => 140, :separator => ' '), contribution_attachment_path(annotation.contribution, annotation.attachment), :target => '_blank' %>
+              <%= link_to truncate(annotatable_title(annotation.annotatable), :length => 140, :separator => ' '), annotatable_path(annotation.annotatable), :target => '_blank' %>
             </td>
             <td><%= truncate annotation.text, :length => 140, :separator => ' ' %></td>
             <td><%= annotation.current_status.name %></td>
