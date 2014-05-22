@@ -3,59 +3,37 @@
 #
 class AnnotationsController < ApplicationController
   before_filter :find_annotation, :except => [ :index, :create ]
+  before_filter :find_annotatable
 
   # GET /:locale/annotations(.:format)
   def index
     respond_to do |format|
       format.json do
-        error = nil
-        
-        attachment_id = params[:attachment_id] || attachment_id_from_src(params[:src])
-
-        if attachment_id.present?
-          if attachment = Attachment.find(attachment_id)
-            annotations = attachment.visible_annotations.includes(:shapes)
-          else
-            error = "Invalid attachment ID in request."
-          end
-        else
-          error = "No attachment ID in request."
-        end
-        
-        if error.nil?
-          render :json => {
-            "success" => true,
-            "annotations" => annotations.collect { |annotation|
-              annotation.to_hash.merge({
-                :editable => current_user.may_edit_attachment_annotation?(annotation),
-                :flaggable => current_user.may_flag_attachment_annotation?(annotation),
-                :flagged => annotation.flagged_by?(current_user)
-              })
-            },
-            "creatable" => current_user.may_create_attachment_annotation?(attachment)
-          }
-        else
-          render :json => {
-            "success" => false,
-            "error" => error,
-            "annotations" => [],
-            "creatable" => false
-          }, :status => :bad_request
-        end
+        annotations = @annotatable.visible_annotations.includes(:shapes)
+        render :json => {
+          "success" => true,
+          "annotations" => annotations.collect { |annotation|
+            annotation.to_hash.merge({
+              :editable => current_user.may_edit_annotation?(annotation),
+              :flaggable => current_user.may_flag_annotation?(annotation),
+              :flagged => annotation.flagged_by?(current_user)
+            })
+          },
+          "creatable" => current_user.may_create_annotation?(@annotatable)
+        }
       end
     end
   end
   
   # POST /:locale/annotations(.:format)
   def create
-    attachment_id = attachment_id_from_src(params[:annotation][:src])
-    attachment = Attachment.find(attachment_id)
-    current_user.may_create_attachment_annotation!(attachment)
+    current_user.may_create_annotation!(@annotatable)
     
     Annotation.transaction do
       @annotation = Annotation.new
       @annotation.user_id = current_user.id
-      @annotation.attachment_id = attachment_id
+      @annotation.annotatable = @annotatable
+      @annotation.src = params[:annotation][:src]
       @annotation.text = params[:annotation][:text]
       @annotation.save!
       
@@ -72,7 +50,7 @@ class AnnotationsController < ApplicationController
       @annotation.change_status_to(:published, current_user.id)
     end
     
-    index_contribution
+    index_annotatable!
     
     respond_to do |format|
       format.json do
@@ -104,12 +82,12 @@ class AnnotationsController < ApplicationController
   
   # GET /:locale/annotations/:id/edit(.:format)
   def edit
-    current_user.may_edit_attachment_annotation!(@annotation)
+    current_user.may_edit_annotation!(@annotation)
   end
   
   # PUT /:locale/annotations/:id(.:format)
   def update
-    current_user.may_edit_attachment_annotation!(@annotation)
+    current_user.may_edit_annotation!(@annotation)
     
     Annotation.transaction do
       @annotation.text = params[:annotation][:text]
@@ -130,7 +108,7 @@ class AnnotationsController < ApplicationController
       @annotation.save!
     end
     
-    index_contribution
+    index_annotatable!
   
     respond_to do |format|
       format.html do
@@ -162,13 +140,13 @@ class AnnotationsController < ApplicationController
   
   # DELETE /:locale/annotations/:id(.:format)
   def destroy
-    current_user.may_delete_attachment_annotation!(@annotation)
+    current_user.may_delete_annotation!(@annotation)
     
     Annotation.transaction do
       @annotation.destroy
     end
     
-    index_contribution
+    index_annotatable!
     
     respond_to do |format|
       format.json do
@@ -181,12 +159,12 @@ class AnnotationsController < ApplicationController
   
   # GET /:locale/annotations/:id/flag(.:format)
   def flag
-    current_user.may_flag_attachment_annotation!(@annotation)
+    current_user.may_flag_annotation!(@annotation)
   end
   
   # PUT /:locale/annotations/:id/flag(.:format)
   def confirm_flag
-    current_user.may_flag_attachment_annotation!(@annotation)
+    current_user.may_flag_annotation!(@annotation)
     
     current_user.tag(@annotation, :with => "inappropriate", :on => :flags)
     @annotation.change_status_to(:flagged, current_user.id)
@@ -198,7 +176,7 @@ class AnnotationsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.annotations.flag.notice')
-        redirect_to contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment)
+        redirect_to @annotatable
       end
       format.json do
         render :json => {
@@ -225,12 +203,12 @@ class AnnotationsController < ApplicationController
   
   # GET /:locale/annotations/:id/unflag(.:format)
   def unflag
-    current_user.may_flag_attachment_annotation!(@annotation)
+    current_user.may_flag_annotation!(@annotation)
   end
   
   # PUT /:locale/annotations/:id/unflag(.:format)
   def confirm_unflag
-    current_user.may_flag_attachment_annotation!(@annotation)
+    current_user.may_flag_annotation!(@annotation)
     
     @annotation.owner_tags_on(current_user, :flags).find { |f| f.name == "inappropriate" }.destroy
     
@@ -244,7 +222,7 @@ class AnnotationsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:notice] = t('flash.annotations.unflag.notice')
-        redirect_to contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment)
+        redirect_to @annotatable
       end
       format.json do
         render :json => {
@@ -279,9 +257,9 @@ class AnnotationsController < ApplicationController
     current_user.may_depublish_annotation!(@annotation)
     
     if @annotation.change_status_to(:depublished, current_user.id)
-      index_contribution
+      index_annotatable!
       flash[:notice] = t('flash.annotations.depublish.notice')
-      redirect_to contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment)
+      redirect_to @annotatable
     else
       flash.now[:alert] = t('flash.annotations.depublish.alert')
       render :action => :depublish
@@ -290,22 +268,58 @@ class AnnotationsController < ApplicationController
   
 protected
 
-  def attachment_id_from_src(src)
-    if id_match = src.match(/\/attachments\/(\d+)\//)
-      id_match[1]
-    else
-      nil
-    end
-  end
-
-  def index_contribution
-    if @annotation.attachment.contribution.respond_to?(:index!)
-      @annotation.attachment.contribution.index!
+  def index_annotatable!
+    if @annotatable.respond_to?(:index!)
+      @annotatable.index!
     end
   end
   
   def find_annotation
     @annotation = Annotation.find(params[:id])
+  end
+  
+  def find_annotatable
+    if @annotation.present?
+      @annotatable = @annotation.annotatable
+      return
+    end
+    
+    annotatable_id = params[:annotatable_id]
+    annotatable_type = params[:annotatable_type]
+    
+    if annotatable_id.blank?
+      error = "No annotatable_id param in request."
+    elsif annotatable_type.blank?
+      error = "No annotatable_type param in request."
+    else
+      begin
+        annotatable_class = annotatable_type.constantize
+        unless (annotatable_class < ActiveRecord::Base) == true # e.g. Hash
+          raise StandardError
+        end
+        
+        @annotatable = annotatable_class.find(annotatable_id)
+      rescue ActiveRecord::RecordNotFound
+        error = "Invalid annotatable_id param in request."
+      rescue
+        error = "Invalid annotatable_type param in request."
+      end
+    end
+      
+    unless error.nil?
+      respond_to do |format|
+        format.html do
+          raise RunCoCo::BadRequest, error
+        end
+        format.json do
+          render :json => {
+            "success" => false,
+            "error" => error
+          }, :status => :bad_request
+        end
+      end
+      return false
+    end
   end
 
 end

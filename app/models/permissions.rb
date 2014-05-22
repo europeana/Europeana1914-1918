@@ -166,19 +166,19 @@ class Permissions < Aegis::Permissions
     end
   end
   
-  action :create_attachment_annotation do
-    allow :contributor do |attachment|
-      attachment.contribution.published?
+  action :create_annotation do
+    allow :contributor do |annotatable|
+      !annotatable.is_a?(Attachment) || annotatable.contribution.published?
     end
   end
   
-  action :edit_attachment_annotation do
+  action :edit_annotation do
     allow :contributor do |annotation|
       annotation.user == user
     end
   end
   
-  action :flag_attachment_annotation do
+  action :flag_annotation do
     allow :administrator, :cataloguer, :contributor do |annotation|
       # Flagging permitted if the user: 
       # * Did not create the annotation
@@ -186,7 +186,7 @@ class Permissions < Aegis::Permissions
     end
   end
   
-  action :delete_attachment_annotation do
+  action :delete_annotation do
     allow :contributor do |annotation|
       annotation.user == user
     end

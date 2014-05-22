@@ -28,7 +28,7 @@
         # preview link url
         # url to the main mediafile that is presented
         # when the link on the preview image is clicked
-        link_url = attachment_url( attachment, 'large' )
+        link_url = attachment_url( attachment, 'large', :timestamp => false )
 
         # preview link text
         # default text that is presented with the link and the preview image
@@ -80,7 +80,8 @@
           if ( attachment.image? )
             # identifies the preview link as being for an image
             link_attrs.merge!({
-              :class => 'image'
+              :class => 'image',
+              'data-annotatable-type' => 'Attachment'
             })
           end
 
@@ -133,7 +134,7 @@
         if !thumbnails
 
           # annotations
-          if attachment.annotations.present?
+          if attachment.visible_annotations.present?
             # add annotorious feather icon as a hint to the user
             link_text =
               '<p class="view-item-annotorious" style="pointer-events:auto">' +

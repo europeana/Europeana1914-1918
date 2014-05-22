@@ -24,7 +24,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :contribution
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   
-  has_many :annotations, :dependent => :destroy
+  has_many :annotations, :as => :annotatable, :dependent => :destroy
   
   accepts_nested_attributes_for :metadata
   
@@ -291,6 +291,12 @@ class Attachment < ActiveRecord::Base
   #
   def visible_annotations
     annotations.with_status(:published, :flagged, :revised)
+  end
+  
+  def index!
+    if contribution.respond_to?(:index!)
+      contribution.index!
+    end
   end
   
 protected

@@ -321,6 +321,7 @@
 				return;
 			}
 
+			anno.addPlugin( 'RunCoCo_Attachment', { } );
 			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
 			anno.addPlugin( 'Flag', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
 			this.annotorious_setup = true;
@@ -343,6 +344,7 @@
 			lightbox.ppOptions.overlay_gallery = false;
 			lightbox.ppOptions.show_title = false;
 			lightbox.ppOptions.social_tools = false;
+			lightbox.ppOptions.open_callback = function() { alert('open sesame!'); }
 
 			$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 		}

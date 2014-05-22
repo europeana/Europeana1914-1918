@@ -41,8 +41,8 @@ module AttachmentsHelper
     end
   end
   
-  def attachment_url(attachment, size = :preview)
-    attachment.image? ? attachment.file.url(size) : attachment.file.url
+  def attachment_url(attachment, size = :preview, options = {})
+    attachment.image? ? attachment.file.url(size, options) : attachment.file.url(options)
   end
   
   def attachment_file_media_type(attachment)

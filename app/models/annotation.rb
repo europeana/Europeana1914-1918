@@ -3,14 +3,16 @@
 #
 class Annotation < ActiveRecord::Base
   belongs_to :user
-  belongs_to :attachment
+  belongs_to :annotatable, :polymorphic => true
   has_one :contribution, :through => :attachment
   has_many :shapes, :class_name => "AnnotationShape", :dependent => :destroy
   
   has_record_statuses :published, :flagged, :depublished, :revised
   acts_as_taggable_on :flags
   
-  validates_presence_of :user, :attachment, :text
+  validates :user, :annotatable, :text, :src, :presence => true
+  validates :src, :length => { :maximum => 2048 }
+  validates :src, :uri => true
   validates_associated :shapes
   
   accepts_nested_attributes_for :shapes
@@ -22,10 +24,6 @@ class Annotation < ActiveRecord::Base
       :text => text,
       :shapes => shapes.collect(&:to_hash)
     }
-  end
-  
-  def src
-    RunCoCo.configuration.site_url + attachment.file.url(:large, :timestamp => false)
   end
   
   def to_rdf_graph

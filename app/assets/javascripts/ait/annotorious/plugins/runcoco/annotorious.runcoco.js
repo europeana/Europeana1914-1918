@@ -14,12 +14,12 @@
   annotorious.plugin.RunCoCo.prototype.initPlugin = function(anno) {
     var self = this;
 
-    anno.addHandler('onAnnotationCreated', function(annotation) {
-      self._create(annotation);
+    anno.addHandler('onAnnotationCreated', function(annotation, item) {
+      self._create(annotation, item);
     });
 
-    anno.addHandler('onAnnotationUpdated', function(annotation) {
-      self._update(annotation);
+    anno.addHandler('onAnnotationUpdated', function(annotation, item) {
+      self._update(annotation, item);
     });
 
     anno.addHandler('onAnnotationRemoved', function(annotation) {
@@ -40,8 +40,11 @@
 
   annotorious.plugin.RunCoCo.prototype._loadAnnotations = function(annotator) {
     var self = this,
+    img = $(annotator.getItem().element),
     params = {
-      src: annotator.getItem().src
+      src: annotator.getItem().src,
+      annotatable_id: img.data('annotatable-id'),
+      annotatable_type: img.data('annotatable-type')
     };
 
     $.ajax({
@@ -64,10 +67,13 @@
     });
   };
 
-  annotorious.plugin.RunCoCo.prototype._create = function(annotation) {
+  annotorious.plugin.RunCoCo.prototype._create = function(annotation, item) {
     var self = this,
+    img = $(item.element),
     params = {
-      annotation: annotation
+      annotation: annotation,
+      annotatable_id: img.data('annotatable-id'),
+      annotatable_type: img.data('annotatable-type')
     };
 
     $.ajax({
@@ -81,7 +87,7 @@
     });
   };
 
-  annotorious.plugin.RunCoCo.prototype._update = function(annotation) {
+  annotorious.plugin.RunCoCo.prototype._update = function(annotation, item) {
     var self = this,
     params = {
       annotation: annotation
