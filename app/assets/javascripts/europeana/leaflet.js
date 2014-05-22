@@ -12,8 +12,8 @@
 		$europeanaCtrls: $('<div>').attr('id', 'europeana-ctrls'),
 		googleLayer: {},
 		map: {},
-		mapLatitude: parseFloat( RunCoCo.latLong[0] ),
-		mapLongitude: parseFloat( RunCoCo.latLong[1] ),
+		mapLatitude: 0,
+		mapLongitude: 0,
 		mapQuestAtribution:
 			'Tiles © ' +
 			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
@@ -123,7 +123,14 @@
 				return false;
 			}
 
+			this.setLatLong();
+
 			return true;
+		},
+
+		setLatLong: function() {
+			this.mapLatitude = parseFloat( RunCoCo.latLong[0] );
+			this.mapLongitude = parseFloat( RunCoCo.latLong[1] );
 		},
 
 		setMap: function() {
