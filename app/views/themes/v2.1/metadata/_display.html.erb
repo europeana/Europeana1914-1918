@@ -9,7 +9,6 @@
   field_options = {} if local_assigns[:field_options].nil?
   show_title = true if local_assigns[:show_title].nil?
   fields = metadata_record_fields(field_options)
-  geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
   date_to_field = fields.select { |f| f.name == 'date_to' }.first
   fields.delete(date_to_field)
   field_name_translate_base = 'formtastic.labels.' + (metadata.for_contribution? ? 'contribution' : 'attachment' ) + '.metadata.'

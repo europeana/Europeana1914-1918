@@ -15,7 +15,7 @@ RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forg
 RunCoCo.sessionKeyName = '<%= session_key_name %>';
 RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 <% end -%>
-<% if content_for( :lat_long ) %>
+<% if content_for?( :lat_long ) %>
 RunCoCo.latLong = [<%= content_for( :lat_long ) %>];
 <% end -%>
 <% if 'cataloguer' === current_user.role.name -%>
@@ -42,7 +42,7 @@ RunCoCo.cataloguer = true;
 <% if content_for?(:javascripts_annotorious) -%>
   <%= theme_javascript_include_tag 'annotorious' -%>
 <% end -%>
-<% if content_for?(:lat_long) -%>
+<% if content_for?( :lat_long ) -%>
   <%= theme_javascript_include_tag 'leaflet' -%>
   <%= javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.2&sensor=false' %>
 <% end -%>

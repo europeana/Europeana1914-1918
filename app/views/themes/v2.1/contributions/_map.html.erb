@@ -1,13 +1,9 @@
 <%
 
-	fields = metadata_record_fields( field_options )
-  geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
+  html = ''
+  provide :lat_long, metadata.fields['location_map']
 
-  if geo_field
-    provide :lat_long, geo_field
-  end
-
-	if content_for( :lat_long )
+	if content_for?( :lat_long )
 		html = content_tag(
 			'div',
 			content_tag(
