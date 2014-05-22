@@ -18,6 +18,7 @@
 	proxy           = record['proxies'][0]
 	title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 	unknown_image   = image_tag( '/assets/style/icons/mimetypes/unknown.png', :alt => t( 'media_types.unknown' ) )
+	annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
 
 	link_attrs      = {
 		'class' => 'image',

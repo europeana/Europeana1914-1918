@@ -27,6 +27,7 @@
 		proxy           = record['proxies']
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 		taggable        = local_assigns[:taggable].present? ? local_assigns[:taggable] : false
+		annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
 
 		provide :lat_long, latLong
 
