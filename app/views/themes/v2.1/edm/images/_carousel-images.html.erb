@@ -17,6 +17,13 @@
 			link_attrs.merge!({
 				'data-attachment-id' => item_count
 			})
+			
+			if annotatable.present?
+				link_attrs.merge!({
+					'data-annotatable-type' => annotatable.class,
+					'data-annotatable-id' => annotatable.id
+				})
+			end
 
 			html += content_tag(
 				'li',

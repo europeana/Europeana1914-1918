@@ -251,6 +251,7 @@
 				return;
 			}
 
+			anno.addPlugin( 'RunCoCo_EDM', { } );
 			anno.addPlugin( 'RunCoCo', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
 			anno.addPlugin( 'Flag', { base_url : RunCoCo.siteUrl + "/" + RunCoCo.locale + "/annotations" } );
 			this.annotorious_setup = true;

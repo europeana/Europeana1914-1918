@@ -49,7 +49,7 @@
 				html += '</div>'
 
 				# add carousel
-				html += render :partial => 'edm/carousel', :locals => { :record => record }
+				html += render :partial => 'edm/carousel', :locals => { :record => record, :annotatable => annotatable }
 
 				# add view at provider’s website text link
 				if edmIsShownAt

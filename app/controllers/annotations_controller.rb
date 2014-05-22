@@ -9,7 +9,7 @@ class AnnotationsController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        annotations = @annotatable.visible_annotations.includes(:shapes)
+        annotations = @annotatable.visible_annotations.includes(:shapes).select { |a| a.src == params[:src] }
         render :json => {
           "success" => true,
           "annotations" => annotations.collect { |annotation|

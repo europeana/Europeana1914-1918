@@ -16,6 +16,8 @@ class EuropeanaRecord < ActiveRecord::Base
   # @see ActsAsTaggableOn
   acts_as_taggable
   
+  has_many :annotations, :as => :annotatable, :dependent => :destroy
+  
   # Solr index
   searchable do
     fulltext_fields = { 
@@ -210,5 +212,10 @@ class EuropeanaRecord < ActiveRecord::Base
   #
   def visible_tags
     taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag)
+  end
+  
+  # @see Attachment#visible_annotations
+  def visible_annotations
+    annotations.with_status(:published, :flagged, :revised)
   end
 end
