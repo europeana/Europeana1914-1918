@@ -57,7 +57,7 @@ module EuropeanaHelper
     
     proxy_field_values.reject!(&:blank?)
     if options[:concepts].present?
-      proxy_field_values = edm_reject_labelled_concept_uris(proxy_field_values, options[:concepts])
+      proxy_field_values = edm_translate_concept_uris(proxy_field_values, options[:concepts])
     end
     proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) } if options[:link]
     proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
@@ -66,7 +66,7 @@ module EuropeanaHelper
   # @param [Array<String>] values
   # @param [Array<Hash>] concepts
   # @return [Array<String>]
-  def edm_reject_labelled_concept_uris(values, concepts)
+  def edm_translate_concept_uris(values, concepts)
     values.dup.each_with_index do |value, i|
       next unless value =~ /^#{URI::regexp}$/
       next unless (uri_concept = concepts.find { |concept| concept['about'] == value }).present?
