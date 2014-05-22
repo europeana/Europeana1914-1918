@@ -86,10 +86,6 @@
 			).addTo( this.map );
 		},
 
-		addZoomControl: function() {
-			L.control.zoom().addTo( this.map );
-		},
-
 		init: function(){
 			if ( !this.latLangIsValid() ) {
 				return;
@@ -98,7 +94,6 @@
 			this.setMapZoom();
 			this.setMap();
 			this.addMarker();
-			this.addZoomControl();
 			this.addMapQuestLayer();
 			this.addGoogleLayer();
 			this.addMiniMap();
@@ -138,8 +133,9 @@
 				'map',
 				{
 					center: new L.LatLng( this.mapLatitude, this.mapLongitude ),
-					zoomControl: false,
-					zoom: this.mapZoom
+					zoomControl: true,
+					zoom: this.mapZoom,
+					scrollWheelZoom: false
 				}
 			);
 		},
