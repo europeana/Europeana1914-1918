@@ -11,6 +11,11 @@ module AnnotationsHelper
   end
   
   def annotatable_path(annotatable)
-    contribution_attachment_path(annotatable.contribution, annotatable)
+    case annotatable
+    when Attachment
+      contribution_attachment_path(annotatable.contribution, annotatable)
+    else
+      annotatable
+    end
   end
 end
