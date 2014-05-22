@@ -167,4 +167,5 @@ map = {
         	recursiveLoad();
 
 		}
-	},
+	};
+
