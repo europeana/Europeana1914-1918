@@ -1,11 +1,10 @@
-/*global jQuery */
-/*jslint browser: true, regexp: true, white: true */
+/*global anno, I18n, jQuery, L, RunCoCo */
+/*jslint browser: true, nomen: true, white: true */
 (function( $ ) {
 
 	'use strict';
 
 	var
-	pdf_viewer = true,
 	add_lightbox = true,
 
 
@@ -79,8 +78,8 @@
 		goToIndex: function( index ) {
 			index = parseInt( index, 10 );
 
-			if ( ( index + 1 ) > items_length ) {
-				index = carousels.$featured_carousel.items.length - 1;
+			if ( ( index + 1 ) > this.$featured_carousel.items_length ) {
+				index = this.$featured_carousel.items_length - 1;
 			} else if ( index < 0 ) {
 				index = 0;
 			}
@@ -154,7 +153,6 @@
 		 */
 		replaceItemPlaceholderCheck: function( dir ) {
 			var $elm_placeholder,
-			href,
 			new_carousel_index = 0,
 			current_carousel_index = this.$featured_carousel.get('current_item_index');
 
@@ -279,177 +277,6 @@
 		}
 	},
 
-	map = {
-
-	    cancel:function(){
-	    	$("#map-container").remove();
-	    },
-		init:function(){
-
-			if(typeof latLong == 'undefined'){
-				map.cancel();
-				return;
-			}
-
-			if(typeof latLong[0] =='string'  || latLong.length != 2){
-				map.cancel();
-				return;
-			}
-
-			// this test could happen on the back end too
-
-			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/
-
-			if( ! latLong.join(',').match(regex) ){
-				map.cancel();
-				return;
-			}
-
-			var mapLatitude  = parseFloat(latLong[0]);
-			var mapLongitude = parseFloat(latLong[1]);
-			var mapZoom      = typeof mapZoom != 'undefined' && mapZoom.length && parseInt(mapZoom).length ? parseInt(mapZoom) : 8;
-
-			var dependencies = [
-				'http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;key=AIzaSyARYUuCXOrUv11afTLg72TqBN2n-o4XmCI',
-				themePath + 'leaflet.js',
-				themePath + 'leaflet.css'
-			];
-
-			console.log(JSON.stringify(dependencies));
-
-
-        	var recursiveLoad = function(index){
-        		index = index ? index : 0;
-        		if(dependencies.length > index){
-					if( dependencies[index].split('.').pop() == 'css'){
-						$('head').append('<link rel="stylesheet" href="' + dependencies[index] + '" type="text/css"/>');
-    					recursiveLoad(index + 1);
-					}
-					else{
-	          			$.ajax({
-            				"url": dependencies[index],
-            				"dataType": "script",
-            				"success": function(){
-            					recursiveLoad(index + 1);
-            				},
-            				"fail":function(e){console.log('fail: ' + e);},
-            				"error":function(e){console.log('error: ' + e);},
-            	            "contentType" :	"application/x-www-form-urlencoded;charset=UTF-8"
-            			});
-					}
-        		}
-        		else{
-        			var mqTilesAttr = 'Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />';
-
-        			// map quest
-        			var mq = new L.TileLayer(
-        				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
-        				{
-        					minZoom: 4,
-        					maxZoom: 18,
-        					attribution: mqTilesAttr,
-        					subdomains: '1234',
-        					type: 'osm'
-        				}
-        			);
-
-        			var map = L.map('map', {
-        			    center: new L.LatLng(mapLatitude, mapLongitude),
-        			    zoomControl: false,
-        			    zoom: mapZoom
-        			});
-
-        			L.Icon.Default.imagePath = rootCssUrl + 'images/';
-    				L.marker([mapLatitude, mapLongitude]).addTo(map);
-
-        			var europeanaCtrls = jQuery('<div id="europeana-ctrls">').prependTo('#map-container');
-
-        			var EuropeanaLayerControl = function(map, ops){
-
-        				var self = this;
-
-        				self.ops = ops;
-        				self.map = map;
-        				self.grp = null;
-
-        				self._setLayer = function(index){
-        					var layer = self.ops[index].layer;
-        					self.grp.clearLayers();
-        					self.grp.addLayer(layer);
-
-        					jQuery(self.cmp.find("span")).removeClass('active');
-        					jQuery(self.cmp.find("span").get(index)).addClass('active');
-        				};
-
-        				var html	= '';
-        				var layers	= [];
-
-        				jQuery.each(self.ops, function(i, ob){
-        					html += '<a href="#' + ob.title + '"><span class="' + i + '">' + ob.title + '</span></a>';
-        					layers[layers.length] = ob.layer;
-        				});
-
-
-        				self.cmp = jQuery('<div id="layer-ctrl">' + html + '</div>');
-
-        				self.cmp.find("span").each(function(){
-        					jQuery(this).click(function(){
-        						self._setLayer(parseInt(jQuery(this).attr('class')));
-        					});
-        				});
-
-        				self.grp = L.layerGroup(layers);
-        				self.grp.addTo(self.map);
-        				self._setLayer(0);
-
-        				return {
-        					getCmp : function(index){
-        						return self.cmp;
-        					}
-        				}
-        			};
-
-        			var ggl = new L.Google();
-        			map.addLayer(ggl);
-
-        			var ctrlLayer = new EuropeanaLayerControl(map,
-        				[
-        					{
-        					    "title":	I18n.t('javascripts.leaflet.label.map_view'),
-        					    "layer":	mq
-        				    },
-        				    {
-        					    "title":	I18n.t('javascripts.leaflet.label.satellite_view'),
-        					    "layer":	ggl
-        				    }
-        			    ]
-        			);
-
-        			europeanaCtrls.append(ctrlLayer.getCmp());
-
-        			// Overview map - requires duplicate layer
-        			//var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
-        			new L.Control.MiniMap(
-        				new L.TileLayer(
-        					'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
-        					{
-        						minZoom: 0,
-        						maxZoom: 13,
-        						attribution: mqTilesAttr,
-        						subdomains: '1234',
-        						type: 'osm'
-        					}),
-        				{toggleDisplay: true }
-        			).addTo(map);
-        			L.control.zoom().addTo(map);
-
-        		}
-        	}
-        	recursiveLoad();
-
-		}
-	},
-
 
 	truncate = {
 		init : function() {
@@ -464,93 +291,6 @@
 					less : I18n.t('javascripts.truncate.show-less')
 				}
 			});
-		}
-	},
-
-
-	tags = {
-		init : function() {
-
-			var form     = $('#add_tags_form');
-			var tagInput = $('#tags');
-			var token    = $('input[name=authenticity_token]').val();
-
-
-			var writeTags = function(){
-
-				tagInput.val('');
-
-				// update tags display
-				var pageUrl = window.location.href;
-				pageUrl = pageUrl.indexOf('?') > -1 ? pageUrl.substr(0, pageUrl.indexOf('?')) : pageUrl;
-					console.log('pageUrl: ' + pageUrl)
-				$.ajax({
-					url:  pageUrl + '/tags.json?ajax=true'
-				}).done(function(res) {
-					var panel = $('.tags-panel ul');
-					if(!panel.length){
-						$('#add_tags_form').before('<div class="panel tags-panel"><ul class="tags clearfix"></ul></div>');
-						var panel = $('.tags-panel ul');
-						console.log("CREATED a tags panel");
-					}
-					else{
-						console.log("we have a tags panel");
-					}
-					console.log(JSON.stringify(res));
-					panel.empty();
-					$.each(res.tags, function(i, ob){
-						console.log("prepare to append... " + JSON.stringify(ob)  );
-						panel.append(	'<li>'
-									+		'<a href="/' + I18n.locale + '/collection/search?tag=' + ob + '">' + ob + '</a>'
-									+		'<div class="action-links">'
-									+			'<ul>'
-									+				'<li>'
-									+					'<a href="' + res.contrib_path + '/tags/' + ob + '/delete" data-confirm="' + res.tDelete + '" data-mathod="put" class="delete">' + res.tConfirm + '</a>'
-									+				'</li>'
-									+			'</ul>'
-									+		'</div>'
-									+	'</li>');
-						console.log("done append" + i);
-					});
-				});
-			}
-
-
-			if (form.length) {
-				// form submission
-				form.submit(function(){
-
-					$.ajax({
-						type: "POST",
-						url:  form.attr('action'),
-						data: {"tags": tagInput.val(), "authenticity_token" : token }
-					}).done(function() {
-						writeTags();
-					});
-					return false;
-				});
-
-				// delete links
-
-				$( ".tags-panel" ).on("click", "a.delete",
-					function( e ) {
-						e.stopPropagation();
-						e.preventDefault();
-						e = $(e.target);
-						var tagName = e.closest('.action-links').prev('a').html();
-						if( confirm( e.attr('data-confirm') )){
-							$.ajax({
-								type: "POST",
-								url:  form.attr('action') + '/' + tagName,
-								data: { "authenticity_token" : token, "_method" : "delete" }
-							}).done(function() {
-								writeTags();
-							})
-
-						}
-				} );
-
-			}
 		}
 	},
 
@@ -664,7 +404,7 @@
 		items_per_page: 1,
 
 		checkHash: function() {
-			var $elm,
+			var
 			hash = window.location.hash.substring(1),
 			requested_index = 0,
 			requested_item = 1,
@@ -712,13 +452,13 @@
 		&& !( /iPad/.test( navigator.platform ) )
 		&& navigator.userAgent.indexOf( "AppleWebKit" ) > -1
 	) {
-		pdf_viewer = add_lightbox = false;
+		add_lightbox = false;
 	}
 
 	truncate.init();
 	RunCoCo.translation_services.init( jQuery('.translate-area') );
 	carousels.init();
-	map.init();
+	europeana.leaflet.init();
 	mimetype.init(); // lightbox is now initialized within this object
 	photoGallery.init();
 

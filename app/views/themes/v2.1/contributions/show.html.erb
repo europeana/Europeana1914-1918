@@ -1,7 +1,5 @@
 <%
 
-  # provide :javascripts_images_lazy_load, true
-  provide :javascripts_gmap, true
   provide :javascripts_lightbox, true
   provide :javascripts_translate, true
   provide :javascripts_annotorious, true
@@ -287,6 +285,15 @@
 	        <% end -%>
 	      </div>
 	    <% end -%>
+
+			<%=
+				render :partial => 'contributions/map',
+				:locals => {
+					:field_options => {
+						:cataloguing => true,
+					}
+				}
+			-%>
 
 	  </div><%# end story-info %>
 	</div><%# end col middle %>

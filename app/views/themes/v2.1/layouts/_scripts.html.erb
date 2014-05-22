@@ -7,7 +7,7 @@ RunCoCo.relativeUrlRoot = '<%= configuration(:relative_url_root) %>';
 RunCoCo.gaId = '<%= configuration(:google_analytics_key) %>';
 RunCoCo.locale = '<%= I18n.locale %>';
 <% if @contribution && @contribution.ready_to_submit? %>RunCoCo.ready_for_submit = true;<% end %>
-<% if content_for?(:javascripts_translate) %>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end %>
+<% if content_for?(:javascripts_translate) -%>RunCoCo.bing_translate_key = '<%= configuration(:bing_translate_key) %>';<% end -%>
 <% if @attachment %>RunCoCo.contribution = { title: '<%= @attachment.contribution.title.gsub("'", "\\\\'") %>', metadata: <%= raw metadata_json(@attachment.contribution) %> };<% end %>
 <% if content_for?(:javascripts_uploadify) && configuration(:uploadify) -%>
 RunCoCo.uploadify_settings = { maxUploadSize: <%= configuration(:max_upload_size) %>, fileExt: '<%= uploadify_file_extensions %>', fileDesc: '<%= uploadify_file_desc %>', script: '<%= contribution_attachments_path(@contribution) %>' };
@@ -15,30 +15,37 @@ RunCoCo.authenticityToken = '<%= form_authenticity_token if protect_against_forg
 RunCoCo.sessionKeyName = '<%= session_key_name %>';
 RunCoCo.sessionKey = '<%= cookies[session_key_name] %>';
 <% end -%>
+<% if content_for( :lat_long ) %>
+RunCoCo.latLong = [<%= content_for( :lat_long ) %>];
+<% end -%>
 <% if 'cataloguer' === current_user.role.name -%>
 RunCoCo.cataloguer = true;
 <% end -%>
 </script>
 <%= theme_javascript_include_tag 'application' %>
-<%- if content_for?(:javascripts_translate) -%>
+<% if content_for?(:javascripts_translate) -%>
   <%= theme_javascript_include_tag 'translator' -%>
-<%- end -%>
-<%- if configuration(:gmap_api_key).present? && content_for?(:javascripts_gmap) -%>
+<% end -%>
+<% if content_for?(:javascripts_gmap) -%>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?&sensor=false&libraries=places&key=" + configuration(:gmap_api_key).to_s %>
   <%= theme_javascript_include_tag 'gmap' %>
-<%- end -%>
-<%- if configuration(:uploadify) && content_for?(:javascripts_uploadify) -%>
+<% end -%>
+<% if configuration(:uploadify) && content_for?(:javascripts_uploadify) -%>
   <%= theme_javascript_include_tag 'uploadify' %>
-<%- end -%>
-<%- if content_for?(:javascripts_shares) -%>
+<% end -%>
+<% if content_for?(:javascripts_shares) -%>
   <%= javascript_include_tag '//w.sharethis.com/button/buttons.js' %>
 <% end -%>
-<%- if content_for?(:javascripts_lightbox) -%>
+<% if content_for?(:javascripts_lightbox) -%>
   <%= theme_javascript_include_tag 'lightbox' %>
-<%- end -%>
-<%- if content_for?(:javascripts_annotorious) -%>
+<% end -%>
+<% if content_for?(:javascripts_annotorious) -%>
   <%= theme_javascript_include_tag 'annotorious' -%>
-<%- end -%>
+<% end -%>
+<% if content_for?(:lat_long) -%>
+  <%= theme_javascript_include_tag 'leaflet' -%>
+  <%= javascript_include_tag 'http://maps.google.com/maps/api/js?v=3.2&sensor=false' %>
+<% end -%>
 <script>I18n.locale = '<%= I18n.locale %>';</script><% 'need this here because loading I18n will overwrite if value is set before load' -%>
 <script>
 if ( window.stLight ) { stLight.options({publisher : '<%= configuration(:sharethis_id) %>'}); } <% 'for share-this' %>

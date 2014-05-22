@@ -1,5 +1,5 @@
-/*global I18n, anno, console, jQuery, mejs, RunCoCo */
-/*jslint browser: true, regexp: true, white: true */
+/*global I18n, anno, jQuery, mejs, RunCoCo */
+/*jslint browser: true, white: true */
 (function( I18n, anno, $, RunCoCo ) {
 
 	'use strict';
@@ -79,8 +79,8 @@
 		goToIndex: function( index ) {
 			index = parseInt( index, 10 );
 
-			if ( ( index + 1 ) > items_length ) {
-				index = carousels.$featured_carousel.items.length - 1;
+			if ( ( index + 1 ) > this.$featured_carousel.items_length ) {
+				index = this.$featured_carousel.items_length - 1;
 			} else if ( index < 0 ) {
 				index = 0;
 			}
@@ -154,7 +154,6 @@
 		 */
 		replaceItemPlaceholderCheck: function( dir ) {
 			var $elm_placeholder,
-			href,
 			new_carousel_index = 0,
 			current_carousel_index = this.$featured_carousel.get('current_item_index');
 
@@ -427,7 +426,7 @@
 		items_per_page: 1,
 
 		checkHash: function() {
-			var $elm,
+			var
 			hash = window.location.hash.substring(1),
 			requested_index = 0,
 			requested_item = 1,
@@ -481,9 +480,10 @@
 
 	RunCoCo.translation_services.init( $('.translate-area') );
 	carousels.init();
-	map.init();
+	//map.init();
 	lightbox.init();
 	pdf.init();
 	photoGallery.init();
+	europeana.leaflet.init();
 
 }( I18n, anno, jQuery, RunCoCo ));

@@ -109,7 +109,7 @@ class ApplicationController < ActionController::Base
     end
     @dropbox_client
   end
-  
+
   def search_result_to_edm(result)
     if result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
       cached_edm_result(result)
@@ -117,7 +117,7 @@ class ApplicationController < ActionController::Base
       result
     end
   end
-  
+
 protected
 
   ##
@@ -258,7 +258,7 @@ protected
         return
       end
     end
-    
+
     if locale.blank?
       if session[:locale].present?
         # Read from session if present
@@ -307,7 +307,7 @@ protected
   def europeana_api_configured?
     defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::API.key.present?
   end
-  
+
   ##
   # Checks whether Flickr API library is configured.
   #
@@ -432,9 +432,9 @@ protected
         updated_facets << { "name" => facet["name"], "label" => facet["label"], "fields" => facet["fields"] }
       end
     end
-    
+
     updated_facets.each do |facet|
-      facet["fields"] = facet["fields"].collect do |field| 
+      facet["fields"] = facet["fields"].collect do |field|
         field_dup = field.deep_dup
         field_dup.delete("count")
         field_dup
@@ -463,7 +463,7 @@ protected
     end
 
     cached_facets = YAML::load(read_fragment(cache_key))
-    
+
     extracted_facet_params.each_pair do |param_facet_name, param_facet_fields|
       if i = facets.index { |facet| facet["name"] == param_facet_name }
         [ param_facet_fields ].flatten.each do |param_field|
@@ -490,14 +490,14 @@ protected
   def extracted_facet_params
     return (params[:qf] || HashWithIndifferentAccess.new).dup
   end
-  
+
   def redirect_to_collection_controller
     if RunCoCo.configuration.search_engine == :solr
       params[:controller] = :collection
       redirect_to params
     end
   end
-  
+
   def rewrite_qf_array_param_as_hash
     if params[:qf] && params[:qf].is_a?(Array)
       facets = {}
@@ -510,11 +510,11 @@ protected
         end
       end
       params[:qf] = facets
-      
+
       redirect_to params
     end
   end
-  
+
   def http_headers(url)
     url = URI.parse(url)
     response = nil
@@ -527,16 +527,16 @@ protected
     }
     response
   end
-  
+
   def http_content(url)
     Net::HTTP.get_response(URI.parse(url))
   end
-  
+
   def cached_edm_result(result)
     return result unless result.is_a?(Contribution) || result.is_a?(EuropeanaRecord)
-    
+
     cache_key = "#{result.class.to_s.underscore.pluralize}/edm/result/#{result.id}"
-    
+
     if fragment_exist?(cache_key)
       edm = YAML::load(read_fragment(cache_key))
     else
@@ -548,15 +548,15 @@ protected
 
       write_fragment(cache_key, edm.to_yaml)
     end
-    
+
     if result.is_a?(Contribution)
       edm['guid'] = contribution_path(edm['id'])
     elsif result.is_a?(EuropeanaRecord)
       edm['guid'] = europeana_record_path(edm['id'][1..-1])
     end
-    
+
     edm
   end
 
-  
+
 end

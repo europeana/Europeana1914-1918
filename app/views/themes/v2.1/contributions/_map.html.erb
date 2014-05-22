@@ -1,0 +1,27 @@
+<%
+
+	fields = metadata_record_fields( field_options )
+  geo_field = fields.select { |f| (f.field_type == 'geo') && !metadata[f.column_name].blank? }.present?
+
+  if geo_field
+    provide :lat_long, geo_field
+  end
+
+	if content_for( :lat_long )
+		html = content_tag(
+			'div',
+			content_tag(
+				'div',
+				content_tag(
+					'div',
+					'',
+					:id => 'map'
+				),
+				:id => 'map-container'
+			),
+			:class => 'col-cell'
+		)
+	end
+
+-%>
+<%= html.html_safe -%>

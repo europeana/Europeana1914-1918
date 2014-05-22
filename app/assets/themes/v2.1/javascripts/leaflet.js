@@ -1,5 +1,4 @@
-//= require ./com/leaflet/leaflet.js
-//= require ./com/leaflet/Leaflet-MiniMap-master/src/Control.MiniMap.js
-//= require ./com/leaflet/Leaflet-Pan/L.Control.Pan.js
-//= require ./com/leaflet/leaflet-plugins-master/layer/tile/Google.js
-
+//= require europeana/leaflet.js
+//= require leaflet/leaflet-0.7.2-src.js
+//= require leaflet/Control.MiniMap.js
+//= require leaflet/Google.js
