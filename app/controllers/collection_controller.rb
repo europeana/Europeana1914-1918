@@ -264,11 +264,40 @@ private
       if term[0] == '"' && term[-1] == '"'
         term
       else
-        '+' + term.strip.split(' ').join(' +')
+        solr_dismax_query_from_boolean_or(term)
       end
     end
     
     '(' + search_terms.join(') (') + ')'
+  end
+  
+  def solr_dismax_query_from_boolean_or(term)
+    term_words = term.split(/ +/)
+    term_word_count = term_words.length
+
+    parsed_words = []
+    i = 0
+    
+    while i < term_word_count
+      this_word = term_words[i]
+      alt_word = nil
+      if (i + 1) <= (term_word_count - 2) # at least two words remain
+        next_word = term_words[i + 1]
+        if next_word == 'OR'
+          alt_word = term_words[i + 2]
+        end
+      end
+      
+      if alt_word.nil?
+        parsed_words << this_word
+        i += 1
+      else
+        parsed_words << '(' + this_word + ' ' + alt_word + ')'
+        i += 3
+      end
+    end
+
+    '+' + parsed_words.join(' +')
   end
   
   # @param [Array<String>] queries Multiple query strings
