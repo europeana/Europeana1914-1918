@@ -20,7 +20,7 @@ RunCoCo::Application.routes.draw do
       member do
         get 'status', :action => 'status_log'
         get 'delete'
-        get 'submit', :action => 'submittable'
+        get 'submittable'
         put 'submit'
         put 'approve'
         put 'reject'
