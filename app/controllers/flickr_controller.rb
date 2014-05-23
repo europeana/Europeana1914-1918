@@ -72,12 +72,20 @@ class FlickrController < ApplicationController
         attachment = Attachment.new
         attachment.contribution_id = @contribution.id
         attachment.title = info.title
+        attachment.file_file_size = head_response['content-length']
+        
         attachment.build_metadata
         attachment.metadata.field_attachment_description = info.description
         attachment.metadata.field_file_type_terms = [ MetadataField.find_by_name('file_type').taxonomy_terms.find_by_term('IMAGE') ]
-        # @todo Store license data
-#        attachment.metadata.field_license_terms
-        attachment.file_file_size = head_response['content-length']
+
+        local_license = case info.license.to_i
+        when 5
+          'http://creativecommons.org/licenses/by-sa/3.0/'
+        when 7
+          'http://creativecommons.org/publicdomain/mark/1.0/'
+        end
+        attachment.metadata.field_license_terms = [ MetadataField.find_by_name('license').taxonomy_terms.find_by_term(local_license) ]
+
         
         if attachment.save
           Delayed::Job.enqueue FlickrFileTransferJob.new(attachment.id, @flickr.access_token, @flickr.access_secret, photo_id), :queue => 'flickr'
@@ -107,7 +115,7 @@ class FlickrController < ApplicationController
     # 4: Attribution License
     # 5: Attribution-ShareAlike License
     # 7: No known copyright restrictions
-    [ 4, 5, 7 ].include?(photo.license.to_i)
+    [ 5, 7 ].include?(photo.license.to_i)
   end
   
 protected
