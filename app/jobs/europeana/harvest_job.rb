@@ -1,18 +1,26 @@
 module Europeana
   class HarvestJob
     def initialize(options = {})
-      @options = options
+      @start ||= (options[:start] || 1)
+      @query ||= (options[:query] || nil)
+      @limit ||= (options[:limit] || nil)
+      
       @per_page = 100
-      @harvested = 0
-      @keep_harvesting = true
+      @harvested ||= 0
+      @keep_harvesting ||= true
     end
 
     def perform
-      start = @options[:start] || 1
+      
       while keep_harvesting?
-        harvest_set(start)
-        start = start + @per_page
+        harvest_set(@start)
+        @start = @start + @per_page
       end
+    end
+    
+    def error(job, exception)
+      # Store attributes to resume on next attempt
+      job.handler = self
     end
     
   private
@@ -26,7 +34,7 @@ module Europeana
         results['items'].each do |result|
           record_id = result['id']
           create_record(record_id)
-          if @options[:limit] && (@harvested >= @options[:limit])
+          if @limit && (@harvested >= @limit)
             stop_harvesting
             return
           end
@@ -44,8 +52,8 @@ module Europeana
 
     def get_api_search_results(start)
       query_string = '("first world war" OR "world war I" OR "1914-1918" NOT europeana_collectionName:"2020601_Ag_ErsterWeltkrieg_EU")'
-      if @options[:query]
-        query_string = '(' + @options[:query] + ') AND ' + query_string
+      if @query
+        query_string = '(' + @query + ') AND ' + query_string
       end
       query_options = {
         :start    => start,
