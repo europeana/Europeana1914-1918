@@ -7,28 +7,42 @@
 	meta += tag( 'meta', :name => 'viewport', :content => 'width=device-width, initial-scale=1' ) + "\n"
 	meta += csrf_meta_tag + "\n"
 	meta += tag( 'meta', :property => 'fb:app_id', :content => '185778248173748') + "\n"
-	meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
 	meta += tag( 'meta', :property => 'og:type', :content => 'website') + "\n"
+	meta += tag( 'meta', :property => 'og:site_name', :content => 'Europeana 1914-1918' ) + "\n"
 
 	if @contribution
+		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
+		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) )
 
 		if @attachments.present? && @attachments.size > 0
 			attachment_url = configuration(:site_url) + attachment_thumbnail_url( @attachments[0], 'medium' )
 			meta += tag( 'meta', :property => 'og:image', :content =>  attachment_url ) + "\n"
 		end
 
-		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) ) + "\n"
-
 		if !@contribution.metadata['field_description'].blank?
 			description = truncate( @contribution.metadata['field_description'], :length => 200 )
-			meta += tag( 'meta', :property => 'og:description', :content => description ) + "\n"
+			meta += "\n" + tag( 'meta', :property => 'og:description', :content => description ) + "\n"
 		end
 
-	else
-		meta += tag( 'meta', :property => 'og:description', :content => title ) + "\n"
-	end
+	elsif record
 
-	meta += tag( 'meta', :property => 'og:site_name', :content => 'Europeana 1914-1918' )
+		euAggregation = record['europeanaAggregation'] || {}
+		edmPreview = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : asset_path('style/icons/mimetypes/unknown.png')
+		proxy = record['proxies']
+		title = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
+		description = edm_proxy_field( proxy, 'dcDescription', :concepts => record['concepts'] )
+		description = truncate( description, :length => 200 )
+
+		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) ) + "\n"
+		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
+		meta += tag( 'meta', :property => 'og:image', :content =>  edmPreview ) + "\n"
+		meta += tag( 'meta', :property => 'og:description', :content => description )
+
+	else
+		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
+		meta += tag( 'meta', :property => 'og:description', :content => title )
+
+	end
 
 %>
 <%= meta.html_safe %>
