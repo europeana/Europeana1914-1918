@@ -80,7 +80,7 @@ class FlickrController < ApplicationController
 
         local_license = case info.license.to_i
         when 5
-          'http://creativecommons.org/licenses/by-sa/3.0/'
+          'https://creativecommons.org/licenses/by-sa/2.0/'
         when 7
           'http://creativecommons.org/publicdomain/mark/1.0/'
         end
