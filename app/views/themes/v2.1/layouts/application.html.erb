@@ -5,27 +5,15 @@ xmlns="http://www.w3.org/1999/xhtml"
 xmlns:og="http://ogp.me/ns#"
 xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
-<meta charset='utf-8'/>
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
-<%= csrf_meta_tag %>
+<%= render :partial => 'layouts/meta' %>
 <%= render :partial => 'layouts/links' %>
-<link rel='icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
-<link rel='shortcut icon' href='<%= image_path('favicon.ico') %>' type='image/x-icon'/>
-<meta property='fb:app_id' content='185778248173748'/>
-<meta property='og:title' content='<%= yield :title %>'/>
-<meta property='og:type' content='website'/>
-<!--<meta property='og:image' content='http://europeana.png'/>-->
-<!--<meta property='og:url' content='http://www.europeana.eu/portal/'/>-->
-<meta property='og:description' content='<%= yield :title %>'/>
-<meta property='og:site_name' content='Europeana 1914-1918'/>
-<link rel='author' href='/humans.txt'/>
 <title><%= render :partial => 'layouts/title' %></title>
 </head>
 <body>
 
-	<%- if configuration(:banner_active) -%>
+	<% if configuration(:banner_active) -%>
 		<div id="maintenance-banner" class="portlet-msg-alert"><%= configuration(:banner_text) %></div>
-	<%- end -%>
+	<% end -%>
 
 	<%= render :partial => 'layouts/header' %>
 
