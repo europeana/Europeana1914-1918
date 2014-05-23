@@ -15,7 +15,7 @@ module Europeana
       #
       # The %s token will be replaced with the recordID.
       #
-      BASE_URL = 'http://www.europeana.eu/api/v2/record/%s.json'
+      BASE_URL = 'http://www.europeana.eu/api/v2/record%s.json'
       
       attr_reader :record_id
       
@@ -38,6 +38,9 @@ module Europeana
       end
       
       def initialize(record_id)
+        unless record_id[0] == '/'
+          record_id = '/' + record_id
+        end
         @record_id = record_id
       end
       
@@ -46,11 +49,17 @@ module Europeana
         Rails.logger.debug("Europeana API record URL: #{record_uri.to_s}")
 
         response = net_get(record_uri)
-        json = JSON.parse(response)
+        json = JSON.parse(response.body)
         raise Errors::RequestError, json['error'] unless json['success']
         json
       rescue JSON::ParserError
-        raise Errors::ResponseError
+        if response.code.to_i == 404
+          # Handle HTML 404 responses on malformed record ID, emulating API's
+          # JSON response.
+          raise Errors::RequestError, "Invalid record identifier: #{@record_id}"
+        else
+          raise Errors::ResponseError
+        end
       end
       
       def uri

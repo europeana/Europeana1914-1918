@@ -6,7 +6,9 @@ module Europeana
         retries = 5
         
         begin
-          Net::HTTP.get(uri)
+          http = Net::HTTP.new(uri.host, uri.port)
+          request = Net::HTTP::Get.new(uri.request_uri)
+          http.request(request)
         rescue Timeout::Error, Errno::ECONNREFUSED, EOFError
           retries -= 1
           raise unless retries > 0

@@ -45,7 +45,7 @@ module Europeana
         search_uri = uri(options)
         Rails.logger.debug("Europeana API search URL: #{search_uri.to_s}")
         response = net_get(search_uri)
-        json = JSON.parse(response)
+        json = JSON.parse(response.body)
         raise Errors::RequestError, json['error'] unless json['success']
         @result_set = json
       rescue JSON::ParserError
