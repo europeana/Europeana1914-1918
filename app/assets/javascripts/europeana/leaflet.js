@@ -1,4 +1,6 @@
-(function() {
+/*global europeana, I18n, jQuery, L, RunCoCo */
+/*jslint browser: true, nomen: true, white: true */
+(function( $ ) {
 
 	'use strict';
 
@@ -194,4 +196,4 @@
 
 	};
 
-}());
+}( jQuery ));

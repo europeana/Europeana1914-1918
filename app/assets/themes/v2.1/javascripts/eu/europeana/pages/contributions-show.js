@@ -1,197 +1,13 @@
-/*global I18n, anno, jQuery, mejs, RunCoCo */
+/*global anno, I18n, europeana, jQuery, mejs, RunCoCo */
 /*jslint browser: true, white: true */
-(function( I18n, anno, $, RunCoCo ) {
+(function( $ ) {
 
 	'use strict';
 
 	var
 	pdf_viewer = true,
 	add_lightbox = true,
-
-
-	carousels = {
-		$featured_carousel : null,
-		$pagination_counts : $('#pagination-counts'),
-		nav_initial_delay: 3000,
-		pagination_total : $('#pagination-total').text(),
-		photogallery_hash_check: false,
-
-		/**
-		 * make sure each new rel=prettyPhoto item gets
-		 * added to the opened lightbox
-		 *
-		 * @param {object}
-		 * a jQuery object representing the new content
-		 *
-		 * @returns {bool}
-		 */
-		addImagesToOpenedLightbox : function( $new_content ) {
-			// if lightbox is not open return
-			if ( $('.pp_pic_holder').length < 1 ) {
-				return false;
-			}
-
-			$new_content.find("#contributions-featured a[rel^='prettyPhoto']").each(function() {
-				var $elm = $(this);
-				window.pp_images.push( $elm.attr('href') );
-				window.pp_descriptions.push( $elm.attr('data-description') );
-			});
-
-			return true;
-		},
-
-		addNavArrowHandling: function() {
-			if ( !carousels.$featured_carousel
-				|| !carousels.$featured_carousel.$items
-				|| carousels.$featured_carousel.$items.length < 2
-			) {
-				return;
-			}
-
-			setTimeout(
-				function() {
-					carousels.$featured_carousel.$next.addClass('initial');
-					carousels.$featured_carousel.$prev.addClass('initial');
-				},
-				carousels.nav_initial_delay
-			);
-
-			carousels.$featured_carousel.$items.each( function() {
-				var $elm = $(this);
-
-				// decided to use $elm.data instead of $(element).data('events')
-				// see http://blog.jquery.com/2012/08/09/jquery-1-8-released/ What's been removed
-				if ( !$elm.data( 'carousel-events-added' ) ) {
-					$elm
-						.on( 'mouseenter', carousels.navArrowReveal )
-						.on( 'mouseleave', carousels.navArrowHide )
-						.on( 'touchstart', carousels.navArrowReveal )
-						.on( 'touchend', carousels.navArrowHide );
-
-					$elm.data( 'carousel-events-added', true );
-				}
-			});
-		},
-
-		/**
-		 * @param {int} index
-		 */
-		goToIndex: function( index ) {
-			index = parseInt( index, 10 );
-
-			if ( ( index + 1 ) > this.$featured_carousel.items_length ) {
-				index = this.$featured_carousel.items_length - 1;
-			} else if ( index < 0 ) {
-				index = 0;
-			}
-		},
-
-		init: function() {
-			var self = this;
-
-			$('#contributions-featured').imagesLoaded( function() {
-				self.$featured_carousel =
-					$('#contributions-featured').rCarousel({
-						hide_overlay: false,
-						item_width_is_container_width : true,
-						items_collection_total : parseInt( self.pagination_total, 10 ),
-						callbacks : {
-							after_nav: function() {
-								carousels.updatePaginationCount();
-							},
-							before_nav: function( dir ) {
-								carousels.replaceItemPlaceholderCheck( dir );
-							},
-							init_complete: function() {
-								carousels.addNavArrowHandling();
-							}
-						}
-					}).data('rCarousel');
-
-				carousels.updatePaginationCount();
-			});
-		},
-
-		navArrowHide: function() {
-			carousels.$featured_carousel.$next.removeClass('focus');
-			carousels.$featured_carousel.$prev.removeClass('focus');
-		},
-
-		navArrowReveal: function() {
-			carousels.$featured_carousel.$next.addClass('focus');
-			carousels.$featured_carousel.$prev.addClass('focus');
-		},
-
-		/**
-		 * @param {int} new_carousel_index
-		 *
-		 * @param {object} $elm_plcaeholder
-		 * jQuery object representing a placeholder item
-		 */
-		replaceItemPlaceholder: function( new_carousel_index, $elm_placeholder ) {
-			var $a = $elm_placeholder.find('a').eq(0),
-			$img = $elm_placeholder.find('img').eq(0);
-
-			$img
-				.attr( 'src', '/assets/v2.1/images/icons/loading-animation.gif' )
-				.attr( 'src', $a.attr( 'data-attachment-preview-url' ) )
-				.attr( 'alt', $a.attr( 'data-attachment-title' ) );
-
-			$elm_placeholder.removeClass( 'item-placeholder' );
-
-			if ( this.photogallery_hash_check ) {
-				this.$featured_carousel.goToIndex( new_carousel_index );
-				this.updatePaginationCount();
-				this.photogallery_hash_check = false;
-			}
-		},
-
-		/**
-		 * decide whether or not to pull in additional carousel items
-		 *
-		 * @param {string|int} dir
-		 * expected string next|prev
-		 */
-		replaceItemPlaceholderCheck: function( dir ) {
-			var $elm_placeholder,
-			new_carousel_index = 0,
-			current_carousel_index = this.$featured_carousel.get('current_item_index');
-
-			if ( dir === 'next' ) {
-				new_carousel_index = current_carousel_index + 1;
-			} else if ( dir === 'prev' ) {
-				new_carousel_index = current_carousel_index - 1;
-			} else {
-				new_carousel_index = parseInt( dir, 10 );
-			}
-
-			$elm_placeholder = this.$featured_carousel.$items.eq( new_carousel_index );
-
-			if (
-				new_carousel_index === -1
-				|| ( new_carousel_index + 1 ) > this.$featured_carousel.items_length
-				|| !$elm_placeholder.hasClass('item-placeholder')
-			) {
-				return;
-			}
-
-			// replace item-placeholder
-			this.replaceItemPlaceholder( new_carousel_index, $elm_placeholder );
-		},
-
-		updatePaginationCount : function() {
-			if ( this.pagination_total < 2 ) {
-				return;
-			}
-
-			this.$pagination_counts.html(
-				I18n.t('javascripts.thumbnails.item') + ' ' +
-				( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' +
-				I18n.t('javascripts.thumbnails.of') + ' ' +
-				this.pagination_total
-			);
-		}
-	},
+	carousel = europeana.carousel,
 
 
 	lightbox = {
@@ -229,13 +45,13 @@
 
 		handlePageChangeNext : function( keyboard ) {
 			if ( !keyboard ) {
-				carousels.$featured_carousel.$next.trigger('click');
+				carousel.$featured_carousel.$next.trigger('click');
 			}
 		},
 
 		handlePageChangePrev : function( keyboard ) {
 			if ( !keyboard ) {
-				carousels.$featured_carousel.$prev.trigger('click');
+				carousel.$featured_carousel.$prev.trigger('click');
 			}
 		},
 
@@ -338,13 +154,12 @@
 			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
 			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
 			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
-			lightbox.ppOptions.collection_total = carousels.pagination_total;
+			lightbox.ppOptions.collection_total = carousel.pagination_total;
 			lightbox.ppOptions.description_src = 'data-description';
 			lightbox.ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
 			lightbox.ppOptions.overlay_gallery = false;
 			lightbox.ppOptions.show_title = false;
 			lightbox.ppOptions.social_tools = false;
-			lightbox.ppOptions.open_callback = function() { alert('open sesame!'); }
 
 			$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
 		}
@@ -455,14 +270,14 @@
 				return;
 			}
 
-			carousels.photogallery_hash_check = true;
-			carousels.replaceItemPlaceholderCheck( requested_index );
+			carousel.photogallery_hash_check = true;
+			carousel.replaceItemPlaceholderCheck( requested_index );
 		},
 
 		init: function() {
-			if ( carousels.$featured_carousel !== null ) {
+			if ( carousel.$featured_carousel !== null ) {
 				photoGallery.checkHash();
-				carousels.$featured_carousel.hideOverlay();
+				carousel.$featured_carousel.hideOverlay();
 			} else {
 				setTimeout(
 					photoGallery.init,
@@ -480,12 +295,11 @@
 		pdf_viewer = add_lightbox = false;
 	}
 
+	europeana.leaflet.init();
 	RunCoCo.translation_services.init( $('.translate-area') );
-	carousels.init();
-	//map.init();
+	europeana.carousel.init('contributions-featured');
 	lightbox.init();
 	pdf.init();
 	photoGallery.init();
-	europeana.leaflet.init();
 
-}( I18n, anno, jQuery, RunCoCo ));
+}( jQuery ));
