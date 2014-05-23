@@ -26,8 +26,6 @@
 			meta += "\n" + tag( 'meta', :property => 'og:description', :content => description )
 		end
 
-		meta += "\n"
-
 	elsif record
 
 		euAggregation = record['europeanaAggregation'] || {}
@@ -40,11 +38,11 @@
 		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) ) + "\n"
 		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
 		meta += tag( 'meta', :property => 'og:image', :content =>  edmPreview ) + "\n"
-		meta += tag( 'meta', :property => 'og:description', :content => description ) + "\n"
+		meta += tag( 'meta', :property => 'og:description', :content => description )
 
 	else
 		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
-		meta += tag( 'meta', :property => 'og:description', :content => title ) + "\n"
+		meta += tag( 'meta', :property => 'og:description', :content => title )
 
 	end
 
