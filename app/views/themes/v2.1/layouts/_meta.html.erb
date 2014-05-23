@@ -18,9 +18,12 @@
 		end
 
 		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) ) + "\n"
+
 		if !@contribution.metadata['field_description'].blank?
-			meta += tag( 'meta', :property => 'og:description', :content => @contribution.metadata['field_description'] ) + "\n"
+			description = truncate( @contribution.metadata['field_description'], :length => 330 )
+			meta += tag( 'meta', :property => 'og:description', :content => description ) + "\n"
 		end
+
 	else
 		meta += tag( 'meta', :property => 'og:description', :content => title ) + "\n"
 	end
