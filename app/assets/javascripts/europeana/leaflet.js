@@ -21,6 +21,7 @@
 			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
 			'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
 		mapQuestLayer: {},
+		marker: {},
 		mapZoom: 8,
 		miniMap: {},
 		miniMapLayer: {},
@@ -65,7 +66,7 @@
 
 		addMarker: function() {
 			L.Icon.Default.imagePath = '/assets/leaflet/images/';
-			L.marker( [this.mapLatitude, this.mapLongitude] ).addTo( this.map );
+			this.marker = L.marker( [this.mapLatitude, this.mapLongitude] ).addTo( this.map );
 		},
 
 		addMiniMap: function() {
@@ -88,6 +89,12 @@
 			).addTo( this.map );
 		},
 
+		bindMarkerPopup: function() {
+			if ( RunCoCo.mapPlacename !== undefined ) {
+				this.marker.bindPopup(RunCoCo.mapPlacename).openPopup();
+			}
+		},
+
 		init: function(){
 			if ( !this.latLangIsValid() ) {
 				return;
@@ -96,6 +103,7 @@
 			this.setMapZoom();
 			this.setMap();
 			this.addMarker();
+			this.bindMarkerPopup();
 			this.addMapQuestLayer();
 			this.addGoogleLayer();
 			this.addMiniMap();

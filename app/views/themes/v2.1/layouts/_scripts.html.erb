@@ -50,6 +50,10 @@
     script += "RunCoCo.mapZoom = " + content_for( :map_zoom ) + ";" + "\n"
   end
 
+  if content_for?( :map_placename )
+    script += "RunCoCo.mapPlacename = '" + content_for( :map_placename ) + "';" + "\n"
+  end
+
   if current_user.role.name === 'cataloguer'
     script += "RunCoCo.cataloguer = true;" + "\n"
   end
