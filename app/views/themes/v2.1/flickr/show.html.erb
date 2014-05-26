@@ -1,9 +1,9 @@
 <% provide :title, 'Flickr' %>
 
 <div class="section top">
-  
+
   <h2><%= yield :title %></h2>
-  
+
   <% if @login %>
     <p>You are linked into Flickr as <strong><%= @login.username %></strong></p>
     <p><%= link_to 'Unlink Flickr account', unauth_flickr_path %></p>

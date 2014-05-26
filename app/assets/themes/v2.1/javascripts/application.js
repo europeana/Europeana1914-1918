@@ -5,9 +5,6 @@
 // the compiled file.
 //
 //= require jquery
-//= require jquery_ujs
-//= require jquery.ui.autocomplete
-//= require jquery.ui.dialog
 //= require i18n
 //= require i18n/translations
 //= require js/loader

@@ -100,6 +100,10 @@
     script_includes += ( javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.2&sensor=false' ) + "\n"
   end
 
+  if content_for?( :reveal )
+    script_includes += ( theme_javascript_include_tag 'reveal' ) + "\n"
+  end
+
 
   # script2
   # need this here because loading I18n will overwrite this value
