@@ -40,8 +40,13 @@
 
   annotorious.plugin.RunCoCo.prototype._loadAnnotations = function(annotator) {
     var self = this,
-    img = $(annotator.getItem().element),
-    params = {
+    img = $(annotator.getItem().element);
+    
+    if ( ! img.data('annotatable-id') || ! img.data('annotatable-type') ) {
+      return false;
+    }
+    
+    var params = {
       src: annotator.getItem().src,
       annotatable_id: img.data('annotatable-id'),
       annotatable_type: img.data('annotatable-type')
