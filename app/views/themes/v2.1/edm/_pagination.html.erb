@@ -1,16 +1,20 @@
 <%
 
-	html = content_tag(
-		'div',
-		content_tag( 'ul', '', :id => 'pagination-counts' ),
-		:class => 'col-cell'
-	)
+	html = ''
 
-	html += content_tag(
-		'div',
-		content_tag( 'span', @item_count.to_s, :id => 'pagination-total' ),
-		:id => 'carousel-pagination'
-	)
+	if @item_count > 1
+		html = content_tag(
+			'div',
+			content_tag( 'ul', '', :id => 'pagination-counts' ),
+			:class => 'col-cell'
+		)
+
+		html += content_tag(
+			'div',
+			content_tag( 'span', @item_count.to_s, :id => 'pagination-total' ),
+			:id => 'carousel-pagination'
+		)
+	end
 
 %>
 <%= html.html_safe -%>
