@@ -4,11 +4,13 @@
 	dimensions = '&width=100%&height=100%'
 	html = ''
 	video_src = link_record + '?edmvideo=true&iframe=true'
+	annotatable = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
+	edmIsShownBy.strip! # some records have leading / trailing space around this URL
 
 	link_attrs.merge!({
 		:rel => 'prettyPhoto'
 	})
-
+	
 	if oembed
 		developer_content += '<!--oembeded content-->'
 	end
@@ -39,6 +41,22 @@
 
 	# type = IMAGE | TEXT | ?
 	else
+		if annotatable.present?
+			link_attrs.merge!({
+				'data-annotatable-type' => annotatable.class,
+				'data-annotatable-id' => annotatable.id
+			})
+
+			if annotatable.annotations.select { |a| a.src == edmIsShownBy }.present?
+				link_text = content_tag(
+					'p',
+					t( 'common.links.view-image' ).html_safe +
+					content_tag( 'span', '', :class => 'annotorious-carousel-icon' ),
+					:class => 'view-item-annotorious'
+				)
+			end
+		end
+		
 		link_content = link_image + link_text + developer_content.html_safe
 
 		html += content_tag(

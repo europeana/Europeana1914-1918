@@ -22,7 +22,7 @@
 				'data-annotatable-id' => annotatable.id
 			})
 
-			if annotatable.annotations.where(:src => img_src).present?
+			if annotatable.annotations { |a| a.src == img_src }.present?
 				this_link_text = content_tag(
 					'p',
 					t( 'common.links.view-image' ).html_safe +
