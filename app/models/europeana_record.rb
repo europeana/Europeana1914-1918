@@ -103,9 +103,12 @@ class EuropeanaRecord < ActiveRecord::Base
     integer :tag_ids, :multiple => true do 
       visible_tags.collect(&:id)
     end
-    
     text :tags do
       visible_tags.collect(&:name)
+    end
+    
+    text :annotations do
+      visible_annotations.collect(&:text)
     end
   end
   

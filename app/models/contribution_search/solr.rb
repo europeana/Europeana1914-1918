@@ -47,7 +47,7 @@ module ContributionSearch
             
             text :annotations do
               attachments.collect do |attachment|
-                attachment.annotations.collect(&:text)
+                attachment.visible_annotations.collect(&:text)
               end
             end
             
