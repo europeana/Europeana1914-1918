@@ -12,6 +12,29 @@ class FederatedSearch::CanadianaController < FederatedSearchController
     "http://search.canadiana.ca/view/#{params[:id]}"
   end
   
+  FACET_LABELS = {
+    'contributor' => {
+      'otu'       => 'University of Toronto',
+      'bvau'      => 'University of British Columbia',
+      'alouette'  => 'Alouette Canada',
+      'oocihm'    => 'Canadiana.org',
+      'otp'       => 'Toronto Public Library',
+      'manitobia' => 'Manitobia',
+      'aeu'       => 'University of Alberta',
+      'bva'       => 'Vancouver Public Library',
+      'mun'       => 'Memorial University of Newfoundland',
+      'ooe'       => 'Foreign Affairs and International Trade Canada',
+      'oong'      => 'National Gallery of Canada',
+      'ac'        => 'Calgary Public Library',
+      'nbfu'      => 'University of New Brunswick',
+      'nsngp'     => 'Pictou-Antigonish Regional Library'
+    },
+    'lang' => {
+      'eng' => 'English',
+      'fra' => 'Français'
+    }
+  }
+  
 protected
   
   # @return [String]
@@ -70,17 +93,16 @@ protected
   end
   
   def facets_from_response(response)
-    response["facet"].collect { |facet_name, facet_data|
+    facets = response["facet"].reject { |facet_name, facet_data| facet_name == 'collection' }
+    facets.collect { |facet_name, facet_data|
       facet_label_key = facet_name == 'lang' ? 'language' : facet_name
       {
         "name" => facet_name,
         "label" => t("views.search.facets.common.#{facet_label_key}", :default => :"views.search.facets.canadiana.#{facet_label_key}"),
         "fields" => facet_data.each_slice(2).collect { |field_data|
           field_search = field_data.first
-          field_label = if facet_name == 'lang' && field_search == 'eng'
-            'English'
-          elsif facet_name == 'lang' && field_search == 'fra'
-            'Français'
+          field_label = if FACET_LABELS.has_key?(facet_name) && FACET_LABELS[facet_name].has_key?(field_search)
+            FACET_LABELS[facet_name][field_search]
           else
             field_search
           end
