@@ -6,13 +6,13 @@
 	meta += tag( 'meta', :charset => 'utf-8' ) + "\n"
 	meta += tag( 'meta', :name => 'viewport', :content => 'width=device-width, initial-scale=1' ) + "\n"
 	meta += csrf_meta_tag + "\n"
-	meta += tag( 'meta', :name => 'twitter:card', :content => 'summary' ) + "\n"
-	meta += tag( 'meta', :name => 'twitter:site', :content => '@Europeana1914' ) + "\n"
 	meta += tag( 'meta', :property => 'fb:app_id', :content => '185778248173748') + "\n"
 	meta += tag( 'meta', :property => 'og:type', :content => 'website') + "\n"
 	meta += tag( 'meta', :property => 'og:site_name', :content => 'Europeana 1914-1918' ) + "\n"
+	meta += tag( 'meta', :name => 'twitter:site', :content => '@Europeana1914' ) + "\n"
 
 	if @contribution
+		meta += tag( 'meta', :name => 'twitter:card', :content => 'summary_large_image' ) + "\n"
 		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
 		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) )
 
@@ -35,6 +35,7 @@
 		description = edm_proxy_field( proxy, 'dcDescription', :concepts => record['concepts'] )
 		description = truncate( description, :length => 200 )
 
+		meta += tag( 'meta', :name => 'twitter:card', :content => 'summary' ) + "\n"
 		meta += tag( 'meta', :property => 'og:url', :content => url_for( :only_path => false ) ) + "\n"
 		meta += tag( 'meta', :property => 'og:title', :content => title ) + "\n"
 		meta += tag( 'meta', :property => 'og:image', :content =>  edmPreview ) + "\n"
