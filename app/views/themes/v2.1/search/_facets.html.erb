@@ -39,6 +39,8 @@
 											elsif provider == '/collection' && facet["name"].upcase == 'COUNTRY'
 												#rowLabel = row['label'].split.map(&:capitalize)*' '
 												rowLabel = row['label'].titlecase
+											elsif provider == '/federated_search/canadiana' && facet["name"] == 'contributor'
+												rowLabel = row['label']
 											else
 												rowLabel = row['label'].humanize
 											end
