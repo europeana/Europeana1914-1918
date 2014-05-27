@@ -19,7 +19,7 @@
 		edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
 		edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
 		edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : asset_path('style/icons/mimetypes/unknown.png')
-		edmProvider     = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
+		edmProvider     = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider', :link => false) : nil
 		type            = record['type'] ? record['type'] : nil
 		html            = ''
 		oembed          = oembed_fields( record )
@@ -76,7 +76,7 @@
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
-								if readLabel = edm_proxy_field(aggregation, 'edmDataProvider')
+								if readLabel = edm_proxy_field(aggregation, 'edmDataProvider', :link => false)
 									html += t('formtastic.labels.content.metadata.edm.partner_site')
 									html += link_to(
 														': ' + readLabel,
