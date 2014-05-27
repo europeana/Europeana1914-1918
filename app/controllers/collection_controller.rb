@@ -261,18 +261,14 @@ private
     end
     
     search_terms.collect! do |term|
-      if term[0] == '"' && term[-1] == '"'
-        term
-      else
-        solr_dismax_query_from_boolean_or(term)
-      end
+      solr_dismax_query_from_boolean(term)
     end
     
     '(' + search_terms.join(') (') + ')'
   end
   
-  def solr_dismax_query_from_boolean_or(term)
-    term_words = term.split(/ +/)
+  def solr_dismax_query_from_boolean(term)
+    term_words = term.scan(/("[^"]+"|[^ ]+)/).flatten
     term_word_count = term_words.length
 
     parsed_words = []
