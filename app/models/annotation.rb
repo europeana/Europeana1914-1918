@@ -4,7 +4,6 @@
 class Annotation < ActiveRecord::Base
   belongs_to :user
   belongs_to :annotatable, :polymorphic => true
-  has_one :contribution, :through => :attachment
   has_many :shapes, :class_name => "AnnotationShape", :dependent => :destroy
   
   has_record_statuses :published, :flagged, :depublished, :revised

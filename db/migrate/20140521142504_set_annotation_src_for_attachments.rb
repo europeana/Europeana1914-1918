@@ -1,3 +1,8 @@
+class Annotation < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :annotatable, :polymorphic => true
+end
+
 class SetAnnotationSrcForAttachments < ActiveRecord::Migration
   def up
     Annotation.where('annotatable_type IS NULL').update_all(:annotatable_type => 'Attachment')
