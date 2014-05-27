@@ -32,4 +32,14 @@ module StatisticsHelper
   rescue FederatedSearchController::ResponseError
     0
   end
+  
+  def count_all_canadiana_items
+    controller = FederatedSearch::CanadianaController.new
+    def controller.params
+      { :count => 1 }
+    end
+    controller.count_all
+  rescue FederatedSearchController::ResponseError
+    0
+  end
 end

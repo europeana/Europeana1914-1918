@@ -15,7 +15,7 @@
   <div class="usage-statistics">
     <h3><%= t 'views.statistics.index.contributions.institutional' %></h3>
     <ul>
-      <%- for provider in [ 'europeana', 'dpla', 'digitalnz', 'trove' ] -%>
+      <%- for provider in [ 'europeana', 'dpla', 'digitalnz', 'trove', 'canadiana' ] -%>
         <%- if provider_count = send(:"count_all_#{provider}_items") -%>
           <li><%= t "views.statistics.index.providers.#{provider}" %>: <%= number_with_delimiter(provider_count, :delimiter => ',') %></li>
         <%- end -%>
