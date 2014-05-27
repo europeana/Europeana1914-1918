@@ -1,19 +1,21 @@
 <%
-  provide :title, 'Flickr photos'
+  provide :title, t('views.flickr.select.title')
   provide :reveal, true
 %>
 
 <div class="section top">
 
   <h2><%= yield :title %></h2>
+  
+  <p><%= t 'views.flickr.select.instruction' %></p>
 
   <%= form_tag({ }, { :method => :get, :id => 'flickr_search' }) do |form| %>
     <div><%= text_field_tag 'q', @flickr_query %> <%= submit_tag 'Search' %></div>
   <% end %>
 
   <div id="myModal" class="reveal-modal">
-    <h3>Compatible licenses</h3>
-    <p>Only photos with the following compatible licenses may be imported into Europeana 1914-1918:</p>
+    <h3><%= t 'views.flickr.select.licenses.heading' %></h3>
+    <p><%= t 'views.flickr.select.licenses.instruction' %></p>
     <ul>
       <!--<li>Attribution License</li>-->
       <li>Attribution-ShareAlike License</li>
@@ -32,12 +34,12 @@
               <%= check_box_tag("flickr_ids[]", photo.id, false, :id => "flickr_ids_#{photo.id}") %>
             <%- else -%>
               <%= image_tag FlickRaw.url_q(photo) %>
-              <p class="flickr_license_invalid">Incompatible license <a href="#" data-reveal-id="myModal">?</a></p>
+              <p class="flickr_license_invalid"><%= t 'views.flickr.select.licenses.incompatible' %> <a href="#" data-reveal-id="myModal">?</a></p>
             <%- end -%>
           </li>
         <% end %>
       </ul>
-      <div><%= submit_tag t('actions.submit') %></div>
+      <div><%= submit_tag t('actions.import') %></div>
     <% end %>
 
     <%= will_paginate @photos %>

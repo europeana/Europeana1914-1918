@@ -5,11 +5,11 @@
   <h2><%= yield :title %></h2>
 
   <% if @login %>
-    <p>You are linked into Flickr as <strong><%= @login.username %></strong></p>
-    <p><%= link_to 'Unlink Flickr account', unauth_flickr_path %></p>
+    <p><%= t 'views.flickr.show.status.linked', :username => ('<strong>' + h(@login.username) + '</strong>').html_safe %></p>
+    <p><%= link_to t('views.flickr.show.action.link'), unauth_flickr_path %></p>
   <% else %>
-    <p>You are not linked into Flickr</p>
-    <p><%= link_to 'Link Flickr account', auth_flickr_path %></p>
+    <p><%= t 'views.flickr.show.status.unlinked' %></p>
+    <p><%= link_to t('views.flickr.show.action.link'), auth_flickr_path %></p>
   <% end %>
 
 </div>

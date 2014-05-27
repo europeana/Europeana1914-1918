@@ -51,7 +51,7 @@ class FlickrController < ApplicationController
     current_user.may_create_contribution_attachment!(@contribution)
     
     unless params[:flickr_ids].present?
-      flash[:alert] = 'No images selected'
+      flash[:alert] = I18n.t('flash.flickr.import.alert.empty')
       redirect_to :action => :select and return
     end
     
@@ -98,13 +98,13 @@ class FlickrController < ApplicationController
       end
     end
     
-    flash[:notice] = 'Transferring Flickr images in the background.'
+    flash[:notice] = I18n.t('flash.flickr.import.notice')
     
     unless invalid_license_photos.blank?
-      flash[:alert] = "<p>The following photos have an incompatible license and will not be imported:</p>"
-      flash[:alert] << "<ul>"
+      flash[:alert] = '<p>' + Ia8n.t('flash.flickr.import.alert.invalid_license') + '</p>'
+      flash[:alert] << '<ul>'
       flash[:alert] << invalid_license_photos.collect { |title| "<li>#{title}</li>" }.join('')
-      flash[:alert] << "</ul>"
+      flash[:alert] << '</ul>'
     end
     
     redirect_to new_contribution_attachment_path(@contribution)
