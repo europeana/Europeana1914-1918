@@ -16,7 +16,7 @@
 		map: {},
 		mapLatitude: 0,
 		mapLongitude: 0,
-		mapQuestAtribution:
+		mapQuestAttribution:
 			'Tiles © ' +
 			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
 			'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
