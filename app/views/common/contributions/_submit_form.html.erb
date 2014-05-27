@@ -7,14 +7,18 @@
     :input_html => { :style => @submit_wrapper_style } do
   %>
     
-    <p><%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %></p>
+    <li><p><%= raw t('views.contributions.digital_object.help_text.submit_contribution2') %></p></li>
     
     <%= form.buttons do %>
-      <%=
-        form.commit_button :label => t('formtastic.actions.contribution.submit'),
-        :button_html => {
+      <% 
+        button_html = {
           :confirm => t('views.contributions.show.button_confirm')
         }
+        button_html.merge!({ :disabled => 'disabled'}) unless contribution.ready_to_submit?
+      %>
+      <%=
+        form.commit_button :label => t('formtastic.actions.contribution.submit'),
+        :button_html => button_html
       %>
     <%- end %>
     

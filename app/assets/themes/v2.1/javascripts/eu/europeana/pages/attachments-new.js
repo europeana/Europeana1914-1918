@@ -1,4 +1,6 @@
-(function() {
+/*global I18n */
+/*jslint browser: true, white: true */
+(function( ) {
 
   'use strict';
 
@@ -9,7 +11,13 @@
   RunCoCo.fieldsetButtons.init();
   RunCoCo.uploadify.init();
 
-  jQuery("table.attachments td.pending").each(function() {
+  var pendingUploads = jQuery("table.attachments td.pending");
+  if (pendingUploads.length > 0) {
+    jQuery("form[id^='edit_contribution'] > fieldset > ol > *").hide();
+    jQuery("form[id^='edit_contribution'] > fieldset > ol").append(jQuery('<li id="contribution_uploads_pending"><p>' + I18n.t('javascripts.attachments.uploading') + '</p></li>'));
+  }
+  
+  pendingUploads.each(function() {
     var thumnailTableCell = this;
     var spinner = jQuery('<img src="/assets/europeana-theme/progress_bar/loading_animation.gif" height="32" width="32" alt="" />');
     jQuery(this).text('').append(spinner);
@@ -36,6 +44,13 @@
                 downloadLink.fadeIn();
               });
             }).remove();
+            
+            jQuery(thumnailTableCell).removeClass('pending');
+            if (jQuery("table.attachments td.pending").length == 0) {
+              jQuery('#contribution_uploads_pending').fadeOut().remove();
+              jQuery("form[id^='edit_contribution'] > fieldset > ol > *").fadeIn();
+              jQuery("form[id^='edit_contribution'] input[type='submit']").removeAttr('disabled');
+            }
           } else {
             window.setTimeout(runCheck, 5000);
           }
@@ -327,4 +342,4 @@
 	init();
 
 
-}());
+}( ));
