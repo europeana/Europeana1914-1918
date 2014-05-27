@@ -45,8 +45,22 @@ module EuropeanaHelper
     
     options.reverse_merge!({:link => true})
     
-    proxy_field_values = if proxy.is_a?(Array)
-      proxy.collect { |one_proxy| edm_proxy_field(one_proxy, field_name, options) }
+    proxy_field_values = edm_proxy_field_values(proxy, field_name)
+    
+    proxy_field_values.reject!(&:blank?)
+    if options[:concepts].present?
+      proxy_field_values = edm_translate_concept_uris(proxy_field_values, options[:concepts])
+    end
+    if options[:link]
+      proxy_field_values.collect! { |value| edm_link_to_search(value, field_name) }
+      proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) }
+    end
+    proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
+  end
+  
+  def edm_proxy_field_values(proxy, field_name)
+    if proxy.is_a?(Array)
+      proxy.collect { |one_proxy| edm_proxy_field_values(one_proxy, field_name) }
     elsif proxy[field_name].is_a?(String)
       [ proxy[field_name] ]
     elsif proxy[field_name].respond_to?(:values)
@@ -54,13 +68,6 @@ module EuropeanaHelper
     else
       [ ]
     end.flatten
-    
-    proxy_field_values.reject!(&:blank?)
-    if options[:concepts].present?
-      proxy_field_values = edm_translate_concept_uris(proxy_field_values, options[:concepts])
-    end
-    proxy_field_values.collect! { |value| edm_link_to_url(value, field_name) } if options[:link]
-    proxy_field_values.blank? ? nil : proxy_field_values.join('; ')
   end
   
   # @param [Array<String>] values
@@ -77,7 +84,23 @@ module EuropeanaHelper
       end
     end
     
-    values
+    values.flatten
+  end
+  
+  def edm_link_to_search(value, field_name)
+    link_fields = [
+      'dcCreator', 'dcDate', 'dctermsTemporal', 'dcType', 'dcFormat',
+      'dctermsMedium', 'dcSubject', 'dcCoverage', 'dctermsSpatial',
+      'edmDataProvider', 'edmProvider', 'edmCountry'
+    ]
+    
+    if value =~ /^#{URI::regexp}$/
+      value
+    elsif link_fields.include?(field_name)
+      link_to(value, { :action => :search, :q => '"' + value + '"' })
+    else
+      value
+    end
   end
   
   def edm_link_to_url(url, field_name)
