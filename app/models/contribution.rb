@@ -71,6 +71,7 @@ class Contribution < ActiveRecord::Base
 
   validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validate :validate_attachment_file_presence, :if => :submitting?
+  validate :validate_attachment_files_uploaded, :if => :submitting?
   validate :validate_cataloguer_role, :if => Proc.new { |c| c.catalogued_by.present? }
 
   attr_accessible :metadata_attributes, :title
@@ -155,6 +156,7 @@ class Contribution < ActiveRecord::Base
       else
         valid?
         validate_attachment_file_presence
+        validate_attachment_files_uploaded
         @ready_to_submit = self.errors.blank?
       end
     end
@@ -201,7 +203,19 @@ class Contribution < ActiveRecord::Base
   end
   
   def validate_attachment_file_presence
-    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.with_file_uploaded.count == attachments.count
+    self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.present?
+  end
+  
+  def validate_attachment_files_uploaded
+    self.errors.add(:base, I18n.t('activerecord.errors.models.contribution.attachments.uploaded')) unless attachment_files_uploaded?
+  end
+  
+  def attachment_files_uploaded?
+    attachments.with_file_uploaded.count == attachments.count
+  end
+  
+  def attachment_files_uploading?
+    ! attachment_files_uploaded?
   end
   
   def validate_cataloguer_role

@@ -80,22 +80,22 @@
     </li>
     
     <%- if flickr_configured? -%>
-      <li><%= link_to 'Add items from Flickr', flickr_contribution_attachments_path(@contribution) %>
+      <li><%= link_to t('views.attachments.attachment_help.flickr.link'), flickr_contribution_attachments_path(@contribution) %>
         <ul>
-          <li>Import photos and their descriptions from your Flickr account</li>
+          <li><%= t 'views.attachments.attachment_help.flickr.description' %></li>
         </ul>
       </li>
     <%- end -%>
     
-    <% if @contribution.ready_to_submit? -%>
+    <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
     <li><a href="#submit-story" id="submit-story" class="<%= option_submit_class %>"><%= t('formtastic.titles.submit') %></a></li>
     <% end %>
     
     </ol>
   
   
-  <% if @contribution.ready_to_submit? -%>
-  <%= render :partial => 'contributions/submit_form', :locals => { :contribution => @contribution } %>
+  <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
+    <%= render :partial => 'contributions/submit_form', :locals => { :contribution => @contribution } %>
   <%- end %>
   
   
@@ -117,7 +117,7 @@
     <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
     <% end -%>
     
-    <% if @contribution.ready_to_submit? -%>
+    <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
     <li><a href="#submit-story" id="submit-your-story"><%= t('formtastic.titles.submit') %></a></li>
     <% end -%>
   </ul>
