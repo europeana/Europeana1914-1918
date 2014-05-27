@@ -121,7 +121,7 @@
 			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
 			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
 			self.addMetaDataOverlay( $additional_info_link );
-			self.manageShareThis( $('#inline-' + self.current ), $additional_info_link, self.current );
+			//self.manageShareThis( $('#inline-' + self.current ), $additional_info_link, self.current );
 		},
 
 		hideLightboxContent: function() {
