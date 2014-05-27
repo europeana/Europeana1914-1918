@@ -72,8 +72,18 @@
           # placed in the pretty photo lightbox under the mediafile
           link_attrs.merge!({
             'data-description' =>
-              '<a href="#inline-' + item_count.to_s + '">' + t('common.additional-information') + '</a> ' +
-              '<a href="' + attachment.file.url + '" class="download" title="' + t('common.download-item') + '" target="_blank"></a>'
+              '<a ' +
+                'href="#inline-' + item_count.to_s + '" ' +
+                'class="info" ' +
+                'title="' + t('common.additional-information') + '"' +
+              '>' +
+              '</a>' +
+              '<a ' +
+                'href="' + attachment.file.url + '" ' +
+                'class="download" ' +
+                'title="' + t('common.download-item') + '" ' +
+                'target="_blank">' +
+              '</a>'
           })
 
           # image
@@ -184,9 +194,8 @@
       # metadata that is displayed when the additional info link is clicked
       # when viewing an item in the pretty photo lightbox
       if prettyphoto
-        html += '<dl class="lightbox-metadata" id="inline-' + item_count.to_s + '">'
-
-        html += render :partial => 'metadata/display',
+      		metadata_html =
+          render :partial => 'metadata/display',
           :locals => {
             :show_title => true,
             :contribution => contribution,
@@ -221,7 +230,22 @@
             }
           }
 
-        html += '</dl>'
+        metadata_image = ''
+
+        if attachment.file.present?
+          metadata_image = configuration(:site_url) + attachment_thumbnail_url( attachment, 'large' )
+        end
+
+        html += content_tag(
+          'dl',
+          metadata_html,
+          :class => 'lightbox-metadata',
+          :id => 'inline-' + item_count.to_s,
+          'data-title' => attachment_title( attachment ),
+          'data-url' => url_for( :only_path => false ),
+          'data-image' => metadata_image,
+          'data-summary' => attachment.metadata.fields['attachment_description']
+        )
 
       end # additional info, if prettyphoto
 

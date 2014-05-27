@@ -12,14 +12,21 @@
 
 	lightbox = {
 		$metadata : [],
-		current : 0,
 		annotorious_setup: false,
+		current : 0,
 		ppOptions : {},
+		Shareable: {},
+		$sharethis_elm: {},
 
+		/**
+		 * @param {object} $elm
+		 * jQuery object
+		 */
 		addMetaDataOverlay : function( $elm ) {
-			var self = this,
-					$pic_full_res = jQuery('#pp_full_res'),
-					$pp_content = jQuery('.pp_content');
+			var
+			self = this,
+			$pic_full_res = jQuery('#pp_full_res'),
+			$pp_content = jQuery('.pp_content');
 
 			if ( !self.$metadata[self.current] ) {
 				self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
@@ -35,6 +42,38 @@
 			});
 
 			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
+		},
+
+		/**
+		 * @see http://support.sharethis.com/customer/portal/articles/475260-examples
+		 * @see http://support.sharethis.com/customer/portal/articles/475079-share-properties-and-sharing-custom-information#Dynamic_Specification_through_JavaScript
+		 *
+		 * @param {object} $metadata
+		 * jQuery object
+		 *
+		 * @param {object} $additional_info_link
+		 * jQuery object
+		 *
+		 * @param {int} current
+		 * the current item index
+		 */
+		addShareThis: function( $metadata, $additional_info_link, current ) {
+			var
+			$target = $('<span>').attr('id', 'lightbox-share-this' ),
+			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
+			options = {
+				"service":"sharethis",
+				"element": $target[0],
+				"url": $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : '',
+				"title": $metadata.attr('data-title') ? $metadata.attr('data-title') : '',
+				"type": "large",
+				"image": $metadata.attr('data-image') ? $metadata.attr('data-image') : '',
+				"summary": $metadata.attr('data-summary') ? $metadata.attr('data-summary') : ''
+			};
+
+			this.Shareable = stWidget.addEntry( options );
+			this.$sharethis_elm = $target;
+			$additional_info_link.before( this.$sharethis_elm );
 		},
 
 		handleMetaDataClick : function( evt ) {
@@ -82,6 +121,7 @@
 			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
 			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
 			self.addMetaDataOverlay( $additional_info_link );
+			self.manageShareThis( $('#inline-' + self.current ), $additional_info_link, self.current );
 		},
 
 		hideLightboxContent: function() {
@@ -98,6 +138,24 @@
 				this.setupAnnotorious();
 			} else {
 				this.removeLightboxLinks();
+			}
+		},
+
+		/**
+		 * @param {object} $metadata
+		 * jQuery object
+		 *
+		 * @param {object} $additional_info_link
+		 * jQuery object
+		 *
+		 * @param {int} current
+		 * the current item index
+		 */
+		manageShareThis: function( $metadata, $additional_info_link, current ) {
+			if ( $.isEmptyObject( this.Shareable ) ) {
+				this.addShareThis( $metadata, $additional_info_link, current );
+			} else {
+				this.updateShareThis( $metadata, $additional_info_link, current );
 			}
 		},
 
@@ -162,6 +220,25 @@
 			lightbox.ppOptions.social_tools = false;
 
 			$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
+		},
+
+		/**
+		 * @param {object} $metadata
+		 * jQuery object
+		 *
+		 * @param {object} $additional_info_link
+		 * jQuery object
+		 *
+		 * @param {int} current
+		 * the current item index
+		 */
+		updateShareThis: function( $metadata, $additional_info_link, current ) {
+			var prettyfragement = '#prettyPhoto[gallery]/' + current + '/';
+			this.Shareable.url = $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : '';
+			this.Shareable.title = $metadata.attr('data-title') ? $metadata.attr('data-title') : '';
+			this.Shareable.image = $metadata.attr('data-image') ? $metadata.attr('data-image') : '';
+			this.Shareable.summary = $metadata.attr('data-summary') ? $metadata.attr('data-summary') : '';
+			$additional_info_link.before( this.$sharethis_elm );
 		}
 	},
 

@@ -111,8 +111,14 @@
   script2 = "\n" + "I18n.locale = '" + I18n.locale.to_s + "';" + "\n"
 
   # for share this
-  script2 += "if ( window.stLight ) {"
-    script2 += "\tstLight.options({ publisher: '" + configuration(:sharethis_id) + "' }); "
+  # http://support.sharethis.com/customer/portal/articles/961937-copynshare-settings
+  script2 += "if ( window.stLight ) {\n"
+    script2 += "\tstLight.options({\n"
+      script2 += "\t\tpublisher: '" + configuration(:sharethis_id) + "'\n"
+      #script2 += "\t\tdoNotHash: false,\n"
+      #script2 += "\t\tdoNotCopy: false,\n"
+      #script2 += "\t\thashAddressBar: false\n"
+    script2 += "\t});\n"
   script2 += "}" + "\n"
 
   script2 += "if ( ( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( \"AppleWebKit\" ) > -1 ) ) { $('.remix').hide(); }" + "\n"
