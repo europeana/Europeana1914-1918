@@ -50,6 +50,7 @@
               jQuery('#contribution_uploads_pending').fadeOut().remove();
               jQuery("form[id^='edit_contribution'] > fieldset > ol > *").fadeIn();
               jQuery("form[id^='edit_contribution'] input[type='submit']").removeAttr('disabled');
+              jQuery(".portlet-msg-success").fadeOut().remove();
             }
           } else {
             window.setTimeout(runCheck, 5000);
