@@ -9,6 +9,8 @@
     <ul>
       <li><%= t('activerecord.models.contribution').pluralize %>: <%= number_with_delimiter(Contribution.published.count, :delimiter => ',') %></li>
       <li><%= t('activerecord.models.attachment').pluralize %>: <%= number_with_delimiter(Attachment.published.count, :delimiter => ',') %></li>
+      <li><%= t('activerecord.models.tag').pluralize %>: <%= number_with_delimiter(ActsAsTaggableOn::Tagging.where(:context => 'tags').count, :delimiter => ',') %></li>
+      <li><%= t('activerecord.models.annotation').pluralize %>: <%= number_with_delimiter(Annotation.count, :delimiter => ',') %></li>
     </ul>
   </div>
   
