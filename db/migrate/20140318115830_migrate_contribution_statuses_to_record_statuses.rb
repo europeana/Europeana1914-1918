@@ -7,6 +7,11 @@ class Contribution < ActiveRecord::Base
   has_record_statuses :draft, :submitted, :approved, :rejected, :revised, :withdrawn
 end
 
+class RecordStatus < ActiveRecord::Base
+  belongs_to :record, :polymorphic => true
+  belongs_to :user
+end
+
 class MigrateContributionStatusesToRecordStatuses < ActiveRecord::Migration
   def up
     print "Creating RecordStatus records from ContributionStatus records... "
