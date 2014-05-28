@@ -75,7 +75,7 @@ module EuropeanaHelper
   # @return [Array<String>]
   def edm_translate_concept_uris(values, concepts)
     values.dup.each_with_index do |value, i|
-      next unless value =~ /^#{URI::regexp}$/
+      next unless value =~ /\A#{URI::regexp}\Z/
       next unless (uri_concept = concepts.find { |concept| concept['about'] == value }).present?
       
       locale = uri_concept['prefLabel'].has_key?(I18n.locale.to_s) ? I18n.locale.to_s : I18n.default_locale.to_s
@@ -94,7 +94,7 @@ module EuropeanaHelper
       'edmDataProvider', 'edmProvider', 'edmCountry'
     ]
     
-    if value =~ /^#{URI::regexp}$/
+    if value =~ /\A#{URI::regexp}\Z/
       value
     elsif link_fields.include?(field_name)
       link_to(value, { :action => :search, :q => '"' + value + '"' })
@@ -109,7 +109,7 @@ module EuropeanaHelper
       text = rightsLabel(url, true)
     end
     
-    if url =~ /^#{URI::regexp}$/
+    if url =~ /\A#{URI::regexp}\Z/
       href = url.gsub(' ', '+')
       link_to(text, href, :target => '_blank')
     else
