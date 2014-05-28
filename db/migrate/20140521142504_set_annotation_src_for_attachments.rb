@@ -21,6 +21,18 @@ class Contribution < ActiveRecord::Base
   end
 end
 
+class RecordStatus < ActiveRecord::Base
+  belongs_to :record, :polymorphic => true
+  belongs_to :user
+  
+  validates_presence_of :name
+  validates_inclusion_of :name, :in => lambda { |status| status.record.class.valid_record_statuses }
+  
+  def to_sym
+    name.to_sym
+  end
+end
+
 class SetAnnotationSrcForAttachments < ActiveRecord::Migration
   def up
     Annotation.where('annotatable_type IS NULL').update_all(:annotatable_type => 'Attachment')
