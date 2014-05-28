@@ -47,7 +47,7 @@
 				'data-annotatable-id' => annotatable.id
 			})
 
-			if annotatable.annotations.select { |a| a.src == edmIsShownBy }.present?
+			if annotatable.visible_annotations.select { |a| a.src == edmIsShownBy }.present?
 				link_text = content_tag(
 					'p',
 					t( 'common.links.view-image' ).html_safe +

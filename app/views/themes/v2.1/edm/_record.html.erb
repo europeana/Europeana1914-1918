@@ -106,7 +106,7 @@
 
 				if taggable
 					html += '<div class="col-cell">'
-						html += render :partial => 'tags/form', :locals => { :tags => taggable.tags, :taggable => taggable }
+						html += render :partial => 'tags/form', :locals => { :tags => taggable.visible_tags, :taggable => taggable }
 					html += '</div>'
 				end
 
