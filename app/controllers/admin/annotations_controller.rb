@@ -11,7 +11,7 @@ class Admin::AnnotationsController < AdminController
     params[:order] = params[:order].to_s.upcase
     params[:order] = 'DESC' unless [ 'ASC', 'DESC' ].include?(params[:order])
     
-    @annotations = Annotation.join_current_status.order("#{params[:col]} #{params[:order]}").paginate(:page => params[:page])
+    @annotations = Annotation.joins(:current_status).order("#{params[:col]} #{params[:order]}").paginate(:page => params[:page])
   end
   
 end

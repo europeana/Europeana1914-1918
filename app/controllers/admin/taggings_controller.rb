@@ -10,6 +10,6 @@ class Admin::TaggingsController < AdminController
     params[:order] = params[:order].to_s.upcase
     params[:order] = 'DESC' unless [ 'ASC', 'DESC' ].include?(params[:order])
     
-    @taggings = ActsAsTaggableOn::Tagging.where(:context => 'tags').includes('tag').join_current_status.order("#{params[:col]} #{params[:order]}").paginate(:page => params[:page])
+    @taggings = ActsAsTaggableOn::Tagging.where(:context => 'tags').includes('tag').joins(:current_status).order("#{params[:col]} #{params[:order]}").paginate(:page => params[:page])
   end
 end
