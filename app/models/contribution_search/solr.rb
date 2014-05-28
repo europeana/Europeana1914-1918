@@ -30,7 +30,11 @@ module ContributionSearch
             integer :contributor_id
             integer :metadata_record_id
             string  :status do
-              current_status.name
+              if current_status.present?
+                current_status.name
+              else
+                statuses.first.name
+              end
             end
             
             time    :created_at
