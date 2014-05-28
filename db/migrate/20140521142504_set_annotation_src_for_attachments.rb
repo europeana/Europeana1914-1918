@@ -4,10 +4,21 @@ class Annotation < ActiveRecord::Base
 end
 
 class Contribution < ActiveRecord::Base
+  has_record_statuses :draft, :submitted, :approved, :rejected, :revised, :withdrawn
+  
   def published?
     self.class.published_status.include?(current_status.to_sym)
   end
-  has_record_statuses :draft, :submitted, :approved, :rejected, :revised, :withdrawn
+  
+  def self.published_status
+    if !RunCoCo.configuration.publish_contributions
+      [ nil ] # i.e. never
+    elsif RunCoCo.configuration.contribution_approval_required
+      [ :approved ]
+    else
+      [ :submitted, :approved ]
+    end
+  end
 end
 
 class SetAnnotationSrcForAttachments < ActiveRecord::Migration
