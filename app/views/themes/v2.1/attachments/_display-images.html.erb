@@ -233,7 +233,10 @@
         metadata_image = ''
 
         if attachment.file.present?
-          metadata_image = configuration(:site_url) + attachment_thumbnail_url( attachment, 'large' )
+          metadata_image = attachment_thumbnail_url( attachment, 'large' )
+          if metadata_image[0] == '/'
+            metadata_image = configuration(:site_url) + metadata_image
+          end
         end
 
         html += content_tag(
