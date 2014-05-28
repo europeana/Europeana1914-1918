@@ -7,7 +7,7 @@
   <p><%= t 'views.annotations.flag.question' %></p>
   
   <ul>
-    <li><strong><%= t 'activerecord.models.attachment' %>:</strong> <%= link_to attachment_title(@annotation.attachment), [ @annotation.attachment.contribution, @annotation.attachment ] %></li>
+    <li><strong><%= t "activerecord.models.#{@annotation.annotatable_type.underscore.downcase}" %>:</strong> <%= link_to truncate(annotatable_title(@annotation.annotatable), :length => 140, :separator => ' '), annotatable_path(@annotation.annotatable) %></li>
     <li><strong><%= t 'activerecord.models.annotation' %>:</strong> <%= @annotation.text %></li>
   </ul>
 
@@ -15,7 +15,7 @@
     <%= form.buttons do %>
       <%= redirect_field %>
       <%= form.commit_button :label => t('actions.flag') %>
-      <%= form_cancel_link contribution_attachment_path(@annotation.attachment.contribution, @annotation.attachment) %>
+      <%= form_cancel_link annotatable_path(@annotation.annotatable) %>
     <% end %>
   <% end %>
 
