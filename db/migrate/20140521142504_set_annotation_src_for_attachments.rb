@@ -3,6 +3,13 @@ class Annotation < ActiveRecord::Base
   belongs_to :annotatable, :polymorphic => true
 end
 
+class Contribution < ActiveRecord::Base
+  def published?
+    self.class.published_status.include?(current_status.to_sym)
+  end
+  has_record_statuses :draft, :submitted, :approved, :rejected, :revised, :withdrawn
+end
+
 class SetAnnotationSrcForAttachments < ActiveRecord::Migration
   def up
     Annotation.where('annotatable_type IS NULL').update_all(:annotatable_type => 'Attachment')
