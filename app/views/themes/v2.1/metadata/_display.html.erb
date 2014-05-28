@@ -41,6 +41,7 @@
         end
       elsif field.name == 'license'
         unless (field_value = metadata_record_field_value(metadata, field, true)).blank?
+          html += '<dt class="translate"><b>' + t(field_name_translate_base + field.name) + '</b></dt>'
           html += '<dd class="metadata-license">' + field_value + '</dd>'
         end
       elsif field.name == 'contributor_behalf'
