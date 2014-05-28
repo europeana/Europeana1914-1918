@@ -87,7 +87,7 @@ module SearchHelper
     else
       providers = [ '/contributions', '/europeana' ]
     end
-    providers + [ '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/trove', '/federated_search/canadiana' ]
+    providers + [ '/federated_search/digitalnz', '/federated_search/dpla', '/federated_search/canadiana' ]
   end
   
   def link_to_search_provider(id)
