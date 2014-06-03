@@ -22,8 +22,8 @@ class ContributionsController < ApplicationController
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
 
     items = Contribution.published.order('current_statuses.created_at DESC').limit(count) +
-      ActsAsTaggableOn::Tagging.order('created_at DESC').limit(count) +
-      Annotation.order('created_at DESC').limit(count)
+      ActsAsTaggableOn::Tagging.where(:taggable_type => 'Contribution').order('created_at DESC').limit(count) +
+      Annotation.where(:annotatable_type => 'Attachment').order('created_at DESC').limit(count)
 
     @activities = items.collect do |item|
       case item
@@ -52,7 +52,7 @@ class ContributionsController < ApplicationController
           :image => contribution.attachments.cover_image
         }
       when Annotation
-        contribution = item.attachment.contribution
+        contribution = item.annotatable.contribution
         user = item.user.contact.full_name
         user = (t('activerecord.models.user') + ' ' + item.user.id.to_s) unless user.present?
         {
@@ -60,8 +60,8 @@ class ContributionsController < ApplicationController
           :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title),
           :updated => item.created_at,
           :id => 'europeana19141918:annotation/' + item.id.to_s,
-          :link => contribution_attachment_url(contribution, item.attachment),
-          :image => item.attachment
+          :link => contribution_attachment_url(contribution, item.annotatable),
+          :image => item.annotatable
         }
       end
     end
