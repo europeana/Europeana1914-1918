@@ -22,59 +22,40 @@ class ContributionsController < ApplicationController
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
 
     items = Contribution.published.order('current_statuses.created_at DESC').limit(count) +
-      ActsAsTaggableOn::Tagging.where(:taggable_type => 'Contribution').order('created_at DESC').limit(count) +
-      Annotation.where(:annotatable_type => 'Attachment').order('created_at DESC').limit(count)
+      ActsAsTaggableOn::Tagging.where(:context => 'tags').order('created_at DESC').limit(count) +
+      Annotation.order('created_at DESC').limit(count)
 
     @activities = items.collect do |item|
       case item
       when Contribution
-        user = item.contributor.contact.full_name
-        user = (t('activerecord.models.user') + ' ' + item.contributor.id.to_s) unless user.present?
-        title = item.title
         {
-          :contribution => item,
-          :title => I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title),
+          :item => item,
           :updated => item.current_status.created_at,
-          :id => contribution_url(item),
-          :link => contribution_url(item),
+          :id => url_for(item),
+          :link => url_for(item),
           :image => item.attachments.cover_image
         }
       when ActsAsTaggableOn::Tagging
-        contribution = item.taggable
-        user = item.tagger.contact.full_name
-        user = (t('activerecord.models.user') + ' ' + item.tagger.id.to_s) unless user.present?
         {
-          :contribution => contribution,
-          :title => I18n.t('views.contributions.feed.entries.tagging', :user => user, :title => contribution.title),
+          :item => item,
           :updated => item.created_at,
           :id => 'europeana19141918:tagging/' + item.id.to_s,
-          :link => contribution_url(contribution),
-          :image => contribution.attachments.cover_image
+          :link => url_for(item.taggable),
+          :image => ''#contribution.attachments.cover_image
         }
       when Annotation
-        contribution = item.annotatable.contribution
-        user = item.user.contact.full_name
-        user = (t('activerecord.models.user') + ' ' + item.user.id.to_s) unless user.present?
         {
-          :contribution => contribution,
-          :title => I18n.t('views.contributions.feed.entries.annotation', :user => user, :title => contribution.title),
+          :item => item,
           :updated => item.created_at,
           :id => 'europeana19141918:annotation/' + item.id.to_s,
-          :link => contribution_attachment_url(contribution, item.annotatable),
-          :image => item.annotatable
+          :link => item.annotatable.is_a?(Attachment) ? contribution_attachment_url(item.annotatable.contribution, item.annotatable) : url_for(item.annotatable),
+          :image => '' #item.annotatable
         }
       end
     end
 
     @activities.sort_by! { |a| a[:updated] }
     @activities = @activities.reverse[0..(count - 1)]
-
-    @activities.each do |a|
-      a[:summary] = a[:contribution].metadata.fields['description']
-      if a[:image]
-        a[:thumb] = a[:image].thumbnail_url(:thumb)
-      end
-    end
   end
 
   # GET /contributions/new
