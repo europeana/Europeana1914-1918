@@ -1,35 +1,28 @@
-<% provide :title, t('views.collection_days.index.title') %>
+<%
 
-<div class="section top">
-  
-  <h2><%= yield :title %></h2>
-  
-  <%- if @collection_days.present? -%>
-    <dl>
-      <%- for collection_day in @collection_days -%>
-        <dt><%= link_to collection_day_summary(collection_day), collection_day %></dt>
-        <%- if collection_day.image.present? -%>
-          <dd class="collection-day-image"><%= image_tag(collection_day.image.url(:thumb)) %></dd>
-        <%- end -%>
-        <%- unless collection_day.description.blank? -%>
-          <dd><%= collection_day.description %></dd>
-        <%- end -%>
-        <dd><%= link_to collection_day.url, collection_day.url %></dd>
-        <dd><%= collection_day.contact.full_name %></dd>
-        <dd><address>
-          <%= collection_day.contact.street_address %><br />
-          <%= collection_day.contact.locality %><br />
-          <%- unless collection_day.contact.region.blank? -%>
-            <%= collection_day.contact.region %><br />
-          <%- end -%>
-          <%= collection_day.contact.postal_code %><br />
-          <%= collection_day.contact.country %>
-        </address></dd>
-        <dd><%= link_to t('activerecord.models.contribution').pluralize, explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' }) %></dd>
-      <%- end -%>
-    </dl>
-    
-    <%= will_paginate @collection_days %>
-  <%- end -%>
+  provide :title, t('views.collection_days.index.title')
+  html = ''
 
-</div>
+  html += content_tag( 'div', '', :class => 'section' )
+
+  html += '<div class="section">'
+
+    html += '<div class="col-one-third">'
+      html += '<h2>' + t( 'views.collection_days.what-is-it-heading' ) + '</h2>'
+      html += simple_format( t( 'views.collection_days.what-is-it-content' ) )
+    html += '</div>'
+
+    html += '<div class="col-one-third">'
+      html += '<h2>' + t( 'views.collection_days.who-is-it-for-heading' ) + '</h2>'
+      html += simple_format( t( 'views.collection_days.who-is-it-for-content' ) )
+    html += '</div>'
+
+    html += '<div class="col-one-third">'
+      html += '<h2>' + t( 'views.collection_days.what-do-you-get-heading' ) + '</h2>'
+      html += simple_format( t( 'views.collection_days.what-do-you-get-content' ) )
+    html += '</div>'
+
+  html += '</div>'
+
+%>
+<%= html.html_safe %>

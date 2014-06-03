@@ -11,6 +11,7 @@ el:
     edit_story: "Επεξεργασία ιστορίας"
     filter: "Φίλτρο"
     flag: 
+    import: 
     new: "Νέο"
     reject: "Απόρριψη"
     remove: Aφαίρεση
@@ -109,9 +110,14 @@ el:
               presence: "Επιλογή αρχείου για μεταφόρτωση"
               size: To μέγεθος του μεταφορτωμένου αρχείου είναι πολύ μεγάλο
         collection_day:
+          attributes:
+            image:
+              content_type: 
           end_date_follows_start_date: 
           taxonomy_term_metadata_field: "Μη έγκυρη ημερομηνία συλλογής"
         contribution:
+          attachments:
+            uploaded: 
           attributes:
             catalogued_by:
               role_name: "Ο καταλογογράφος πρέπει να έχει ρόλο διαχειριστή ή καταλογογράφου"
@@ -510,6 +516,12 @@ el:
         alert: 
     fields:
       reindexing: 
+    flickr:
+      import:
+        alert:
+          empty: 
+          invalid_license: 
+        notice: 
     guest_contact:
       create:
         alert: 
@@ -528,6 +540,7 @@ el:
     taggings:
       depublish:
         alert: 
+        notice: 
     tags:
       contribution:
         create:
@@ -714,6 +727,7 @@ el:
         contact:
           country: 
           full_name: 
+        delete_image: 
       content:
         metadata:
           dc:
@@ -871,6 +885,8 @@ el:
     annotorious:
       clear-flag: 
       flag: 
+    attachments:
+      uploading: 
     contribute:
       errors_shown: 
       hide_errors: 
@@ -1385,6 +1401,9 @@ el:
             title: 
         no_thumbnail: 
       attachment_help:
+        flickr:
+          description: 
+          link: 
         item1: "Προσθέστε ένα αντικείμενο και αρχείο"
         item1-subitem1: "Περιγράψτε το αντικείμενο"
         item1-subitem2: "Μεταφορτώστε ένα συνημμένο αρχείο"
@@ -1427,6 +1446,12 @@ el:
     collection_days:
       index:
         title: 
+      what-do-you-get-content: 
+      what-do-you-get-heading: 
+      what-is-it-content: 
+      what-is-it-heading: 
+      who-is-it-for-content: 
+      who-is-it-for-heading: 
     common:
       permanent: 
     contact:
@@ -1726,6 +1751,21 @@ el:
       p3: 
       p5: 
       search_for: 
+    flickr:
+      select:
+        instruction: 
+        licenses:
+          heading: 
+          incompatible: 
+          instruction: 
+        title: 
+      show:
+        action:
+          link: 
+          unlink: 
+        status:
+          linked: 
+          unlinked: 
     home:
       heading: "άγνωστες μαρτυρίες & επίσημες ιστορίες του Α’Παγκοσμίου Πολέμου "
       links:
@@ -1777,11 +1817,13 @@ el:
         common:
           category: 
           collection: 
+          contributor: 
           country: 
           creator: 
           format: 
           language: 
           location: 
+          media: 
           provider: 
           rights: 
           subject: 
@@ -1842,6 +1884,7 @@ el:
           visits: 
         no_results: 
         providers:
+          canadiana: 
           digitalnz: 
           dpla: 
           europeana: 
