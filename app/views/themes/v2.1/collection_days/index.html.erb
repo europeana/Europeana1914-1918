@@ -1,9 +1,31 @@
 <%
 
   provide :title, t('views.collection_days.index.title')
+  provide :javascripts_page, 'collection-days'
+  provide :lat_long, '55.231943, 15.320313'
+  provide :map_zoom, '5'
+  provide :javascripts_europeana_leaflet, true
+
   html = ''
 
-  html += content_tag( 'div', '', :class => 'section' )
+  html += content_tag(
+    'div',
+    content_tag(
+			'div',
+			content_tag(
+				'div',
+				content_tag(
+					'div',
+					'',
+					:id => 'map'
+				),
+				:id => 'map-container',
+				:class => 'collection-days'
+			),
+			:class => 'col-cell'
+		),
+    :class => 'section'
+  )
 
   html += '<div class="section">'
 

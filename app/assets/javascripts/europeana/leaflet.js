@@ -25,9 +25,17 @@
 		mapZoom: 8,
 		miniMap: {},
 		miniMapLayer: {},
+		options: {
+			europeana_ctrls: true,
+			minimap: true
+		},
 
 
 		addEuropeanaCtrls: function() {
+			if ( !this.options.europeana_ctrls ) {
+				return;
+			}
+
 			this.$europeanaCtrls.prependTo('#map-container');
 			this.$europeanaCtrls.append(
 				new europeana.leaflet.EuropeanaLayerControl(
@@ -70,6 +78,10 @@
 		},
 
 		addMiniMap: function() {
+			if ( !this.options.minimap ) {
+				return;
+			}
+
 			this.miniMapLayer = new L.TileLayer(
 				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
 				{
@@ -95,10 +107,15 @@
 			}
 		},
 
-		init: function(){
+		/**
+		 * @param {object} options
+		 */
+		init: function( options ) {
 			if ( !this.latLangIsValid() ) {
 				return;
 			}
+
+			this.options = jQuery.extend( true, {}, this.options, options );
 
 			this.setMapZoom();
 			this.setMap();
