@@ -25,15 +25,19 @@ class StatisticsController < ApplicationController
         object_pageviews        = GoogleAnalytics.object_pageviews(@profile).results(date_params)
         europeana_pageviews     = GoogleAnalytics.europeana_pageviews(@profile).results(date_params)
         @results[interval]  = {
-          :label                => date_params[:label],
           :visits               => unfiltered_results.totals_for_all_results['visits'],
           :avgTimeOnSite        => unfiltered_results.totals_for_all_results['avgTimeOnSite'],
           :object_pageviews     => object_pageviews.totals_for_all_results['pageviews'],
           :europeana_pageviews  => europeana_pageviews.totals_for_all_results['pageviews'],
+          :date_params          => date_params
         }
       end
       
       write_fragment(cache_key, @results.to_yaml, :expires_in => 1.day)
+    end
+    
+    @results.each_pair do |interval, results|
+      results[:label] = interval_label(interval, results[:date_params])
     end
     
   rescue
@@ -66,19 +70,26 @@ private
       :last_week    => { :start_date => week_start - 1.week, :end_date => week_start - 1 },
       :this_month   => { :start_date => month_start, :end_date => time },
       :last_month   => { :start_date => month_start - 1.month, :end_date => month_start - 1 },
-      :last_quarter => { :start_date => quarter_start - 3.months, :end_date => quarter_start - 1 },
+      :last_quarter => { :start_date => quarter_start - 3.months, :end_date => quarter_start - 1, :number => last_quarter },
       :last_year    => { :start_date => year_start - 1.year, :end_date => year_start - 1 }
     }
-    
-    # Labels
-    date_params[:this_week][:label] = (I18n.l(Date.parse(date_params[:this_week][:start_date].to_s), :format => :long_with_day) + ' &ndash; ' + I18n.l(Date.parse(date_params[:this_week][:end_date].to_s), :format => :long_with_day))
-    date_params[:last_week][:label] = (I18n.l(Date.parse(date_params[:last_week][:start_date].to_s), :format => :long_with_day) + ' &ndash; ' + I18n.l(Date.parse(date_params[:last_week][:end_date].to_s), :format => :long_with_day))
-    date_params[:this_month][:label] = I18n.l(Date.parse(date_params[:this_month][:start_date].to_s), :format => :month_and_year)
-    date_params[:last_month][:label] = I18n.l(Date.parse(date_params[:last_month][:start_date].to_s), :format => :month_and_year)
-    date_params[:last_quarter][:label] = I18n.l(Date.parse(date_params[:last_quarter][:start_date].to_s), :format => :quarter, :number => last_quarter)
-    date_params[:last_year][:label] = date_params[:last_year][:start_date].year
-    
-    date_params
+  end
+  
+  def interval_label(interval, date_params)
+    case interval
+    when :this_week
+      (I18n.l(Date.parse(date_params[:start_date].to_s), :format => :long_with_day) + ' &ndash; ' + I18n.l(Date.parse(date_params[:end_date].to_s), :format => :long_with_day))
+    when :last_week
+      (I18n.l(Date.parse(date_params[:start_date].to_s), :format => :long_with_day) + ' &ndash; ' + I18n.l(Date.parse(date_params[:end_date].to_s), :format => :long_with_day))
+    when :this_month
+      I18n.l(Date.parse(date_params[:start_date].to_s), :format => :month_and_year)
+    when :last_month
+      I18n.l(Date.parse(date_params[:start_date].to_s), :format => :month_and_year)
+    when :last_quarter
+      I18n.l(Date.parse(date_params[:start_date].to_s), :format => :quarter, :number => date_params[:number])
+    when :last_year
+      date_params[:start_date].year
+    end
   end
   
   ##
