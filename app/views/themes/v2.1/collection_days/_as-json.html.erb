@@ -18,7 +18,16 @@
 									content += link_to t('activerecord.models.contribution').pluralize, explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
 									script += content.gsub!('"','\"')
 								script += '"'
-						script += '}'
+						script += '},'
+						if collection_day.start_date < Date.today
+							if collection_day.has_contributions?
+								script += '"type":"red"'
+							else
+								script += '"type":"purple"'
+							end
+						else
+							script += '"type":"green"'
+						end
 					script += '},'
 			end
 

@@ -90,6 +90,19 @@
 				return;
 			}
 
+			var
+			marker,
+			marker_icon = {},
+			greenIcon = L.icon({
+				iconUrl: '/assets/leaflet/images/marker-icon-green.png'
+			}),
+			purpleIcon = L.icon({
+				iconUrl: '/assets/leaflet/images/marker-icon-purple.png'
+			}),
+			redIcon = L.icon({
+				iconUrl: '/assets/leaflet/images/marker-icon-red.png'
+			});
+
 			L.Icon.Default.imagePath = '/assets/leaflet/images/';
 
 			$.each( markers, function() {
@@ -97,7 +110,25 @@
 					return;
 				}
 
-				var marker = L.marker( this.latlng );
+				switch ( this.type ) {
+					case 'green':
+						marker_icon = { icon: greenIcon };
+						break;
+
+					case 'purple':
+						marker_icon = { icon: purpleIcon };
+						break;
+
+					case 'red':
+						marker_icon = { icon: redIcon };
+						break;
+
+					default:
+						marker_icon = {};
+						break;
+				}
+
+				marker = L.marker( this.latlng, marker_icon );
 				marker.addTo( europeana.leaflet.map );
 
 				if ( this.popup !== undefined ) {
