@@ -4,6 +4,9 @@ class CollectionDay < ActiveRecord::Base
   belongs_to :taxonomy_term
   belongs_to :contact, :dependent => :destroy
   
+  has_many :metadata_records, :through => :taxonomy_term
+  has_many :contributions, :through => :metadata_records
+  
   accepts_nested_attributes_for :contact
   
   validates :taxonomy_term, :name, :start_date, :contact, :presence => true
@@ -35,6 +38,10 @@ class CollectionDay < ActiveRecord::Base
   
   def self.find_by_code(code)
     includes(:taxonomy_term).where('taxonomy_terms.term = ?', [ code ]).first
+  end
+  
+  def has_contributions?
+    contributions.size > 0
   end
   
 protected
