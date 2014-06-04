@@ -104,6 +104,10 @@
     script_includes += ( theme_javascript_include_tag 'reveal' ) + "\n"
   end
 
+  if content_for?(:javascripts_chosen)
+    script_includes += ( theme_javascript_include_tag 'chosen' ) + "\n"
+  end
+
 
   # script2
   # need this here because loading I18n will overwrite this value

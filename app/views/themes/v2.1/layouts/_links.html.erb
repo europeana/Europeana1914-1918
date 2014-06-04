@@ -32,6 +32,10 @@
     link += theme_stylesheet_link_tag 'reveal', :media => 'all' + "\n"
   end
 
+  if content_for?(:javascripts_chosen)
+    link += theme_stylesheet_link_tag 'chosen', :media => 'all' + "\n"
+  end
+
   link += '<!--[if lt IE 9]>'
     link += theme_stylesheet_link_tag "ie", :media => 'all'
   link += '<![endif]-->' + "\n"

@@ -1,0 +1,22 @@
+<%
+	html = ''
+
+  if @collection_days.present?
+		html += '<div>'
+			html += t( 'views.collection_days.cant-find-collection-day' )
+			html += ' '
+			html += '<select class="chosen-select" data-placeholder="' + t( 'select-collection-day' ) + '">'
+				html += '<option></option>'
+
+				for collection_day in @collection_days
+					html += '<optgroup label="' + collection_day.contact.country + '">'
+						html += '<option value="' + collection_day.code + '">' + collection_day_summary( collection_day ) + '</option>'
+					html += '<optgroup>'
+				end
+
+			html += '</select>'
+    html += '</div>'
+  end
+
+%>
+<%= html.html_safe %>

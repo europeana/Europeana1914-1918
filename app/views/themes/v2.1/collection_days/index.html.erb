@@ -5,30 +5,17 @@
   provide :lat_long, '55.231943, 15.320313'
   provide :map_zoom, '5'
   provide :javascripts_europeana_leaflet, true
+  provide :javascripts_chosen, true
 
-  html = ''
+  html = '<div class="section">'
+    html += '<div id="map-container" class="collection-days">'
+      html += '<div id="map"></div>'
+    html += '</div>'
 
-  html += content_tag(
-    'div',
-    content_tag(
-			'div',
-			content_tag(
-				'div',
-				content_tag(
-					'div',
-					'',
-					:id => 'map'
-				),
-				:id => 'map-container',
-				:class => 'collection-days'
-			),
-			:class => 'col-cell'
-		),
-    :class => 'section'
-  )
+		html += render :partial => 'collection_days/as-select'
+	html += '</div>'
 
   html += '<div class="section">'
-
     html += '<div class="col-one-third">'
       html += '<h2>' + t( 'views.collection_days.what-is-it-heading' ) + '</h2>'
       html += simple_format( t( 'views.collection_days.what-is-it-content' ) )
@@ -43,7 +30,6 @@
       html += '<h2>' + t( 'views.collection_days.what-do-you-get-heading' ) + '</h2>'
       html += simple_format( t( 'views.collection_days.what-do-you-get-content' ) )
     html += '</div>'
-
   html += '</div>'
 
 %>
