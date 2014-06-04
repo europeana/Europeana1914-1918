@@ -27,6 +27,7 @@
 		miniMapLayer: {},
 		options: {
 			europeana_ctrls: true,
+			google_layer: true,
 			minimap: true
 		},
 
@@ -55,6 +56,10 @@
 		},
 
 		addGoogleLayer: function() {
+			if ( !this.options.google_layer ) {
+				return;
+			}
+
 			this.googleLayer = new L.Google();
 			this.map.addLayer( this.googleLayer );
 		},
