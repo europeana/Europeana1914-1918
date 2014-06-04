@@ -1,13 +1,13 @@
 <%
 	title = ''
 
-	if @query && @query.length > 0
-		title += @query
+	if content_for?(:search_query)
+		title += content_for(:search_query)
 		title += ' - '
 	end
 
-	if @term && @term.length > 0
-		title += @term
+	if content_for?(:search_term)
+		title += content_for(:search_term)
 		title += ' - '
 	end
 
@@ -15,9 +15,9 @@
 
 	title = h(title)
 
-	if content_for(:title).present?
+	if content_for?(:title)
 		title += ' - '
-		title += yield(:title)
+		title += content_for(:title)
 	end
 
 %>
