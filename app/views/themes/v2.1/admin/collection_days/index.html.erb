@@ -23,7 +23,13 @@
       <tbody>
         <%- for collection_day in @collection_days -%>
           <tr>
-            <td><%= link_to collection_day.code, collection_day %></td>
+            <td>
+              <%- if collection_day.new_record? -%>
+                <%= collection_day.code %>
+              <%- else -%>
+                <%= link_to collection_day.code, collection_day %>
+              <%- end -%>
+            </td>
             <td><%= collection_day.name %></td>
             <td>
               <%- unless collection_day.start_date.blank? -%>
