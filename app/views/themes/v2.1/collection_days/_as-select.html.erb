@@ -9,7 +9,7 @@
 				html += '<option></option>'
 
 				for collection_day in @collection_days
-					html += '<optgroup label="' + collection_day.contact.country + '">'
+					html += '<optgroup label="' + t( "countries.#{collection_day.contact.country}" ) + '">'
 						html += '<option value="' + collection_day.code + '">' + collection_day_summary( collection_day ) + '</option>'
 					html += '<optgroup>'
 				end
