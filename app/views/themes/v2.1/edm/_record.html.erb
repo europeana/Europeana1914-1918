@@ -23,14 +23,14 @@
 		type            = record['type'] ? record['type'] : nil
 		html            = ''
 		oembed          = oembed_fields( record )
-		latLong         = edm_places_latlng(record['places'])
+		latLng          = edm_places_latlng(record['places'])
 		places          = record['places'] ? record['places'] : {}
 		proxy           = record['proxies']
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 		taggable        = local_assigns[:taggable].present? ? local_assigns[:taggable] : false
 		annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
 
-		provide :lat_long, latLong
+		provide :map_latlng, latLng
 
 	# end variable setup
 
@@ -126,7 +126,7 @@
 					html += '</div>'
 
 
-					if content_for?( :lat_long )
+					if content_for?( :map_latlng )
 						html += content_tag(
 							'div',
 							content_tag(

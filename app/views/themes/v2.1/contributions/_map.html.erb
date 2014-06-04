@@ -1,11 +1,11 @@
 <%
 
   html = ''
-  provide :lat_long, metadata.fields['location_map']
+  provide :map_latlng, metadata.fields['location_map']
   provide :map_zoom, metadata.fields['location_zoom']
   provide :map_placename, metadata.fields['location_placename']
 
-	if content_for?( :lat_long )
+	if content_for?( :map_latlng )
 		html = content_tag(
 			'div',
 			content_tag(

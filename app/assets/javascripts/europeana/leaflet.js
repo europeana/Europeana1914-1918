@@ -21,7 +21,6 @@
 			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
 			'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
 		mapQuestLayer: {},
-		marker: {},
 		mapZoom: 8,
 		miniMap: {},
 		miniMapLayer: {},
@@ -77,9 +76,40 @@
 			).addTo( this.map );
 		},
 
-		addMarker: function() {
+		/**
+		 * @param {array} markers
+		 * @param {object} markers[n]
+		 * @param {array} markers[n].latlng
+		 * @param {object|undefined} markers[n].popup
+		 * @param {bool|undefined} markers[n].popup.open
+		 * @param {string} markers[n].popup.type
+		 * @param {string|undefined} markers[n].popup.content
+		 */
+		addMarkers: function( markers ) {
+			if ( markers.length < 1 ) {
+				return;
+			}
+
 			L.Icon.Default.imagePath = '/assets/leaflet/images/';
-			this.marker = L.marker( [this.mapLatitude, this.mapLongitude] ).addTo( this.map );
+
+			$.each( markers, function() {
+				if ( !europeana.leaflet.latLngIsValid( this.latlng ) ) {
+					return;
+				}
+
+				var marker = L.marker( this.latlng );
+				marker.addTo( europeana.leaflet.map );
+
+				if ( this.popup !== undefined ) {
+					if ( this.popup.content !== undefined ) {
+						marker.bindPopup( this.popup.content );
+					}
+
+					if ( this.popup.open ) {
+						marker.openPopup();
+					}
+				}
+			});
 		},
 
 		addMiniMap: function() {
@@ -106,17 +136,19 @@
 			).addTo( this.map );
 		},
 
-		bindMarkerPopup: function() {
-			if ( RunCoCo.mapPlacename !== undefined ) {
-				this.marker.bindPopup(RunCoCo.mapPlacename).openPopup();
-			}
-		},
-
 		/**
 		 * @param {object} options
 		 */
 		init: function( options ) {
-			if ( !this.latLangIsValid() ) {
+			if (
+				RunCoCo === undefined
+				|| RunCoCo.leaflet === undefined
+				|| RunCoCo.leaflet.centre === undefined
+			) {
+				return;
+			}
+
+			if ( !this.setMapCentre( RunCoCo.leaflet.centre ) ) {
 				return;
 			}
 
@@ -124,8 +156,14 @@
 
 			this.setMapZoom();
 			this.setMap();
-			this.addMarker();
-			this.bindMarkerPopup();
+
+			if (
+				RunCoCo.leaflet.markers !== undefined
+				&& $.isArray( RunCoCo.leaflet.markers )
+			) {
+				this.addMarkers( RunCoCo.leaflet.markers );
+			}
+
 			this.addMapQuestLayer();
 			this.addGoogleLayer();
 			this.addMiniMap();
@@ -133,31 +171,43 @@
 		},
 
 		/**
+		 * @param {array} latlng
+		 * e.g., [51.5085159,-0.12548849999996037]
+		 *
 		 * @returns {bool}
 		 */
-		latLangIsValid: function() {
+		latLngIsValid: function( latlng ) {
 			if (
-				!$.isArray( RunCoCo.latLong )
-				|| RunCoCo.latLong.length !== 2
+				!$.isArray( latlng )
+				|| latlng.length !== 2
 			) {
 				return false;
 			}
 
-			// this test could happen on the back end too
 			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/;
 
-			if ( !RunCoCo.latLong.join(',').match( regex ) ) {
+			if ( !latlng.join(',').match( regex ) ) {
 				return false;
 			}
-
-			this.setLatLong();
 
 			return true;
 		},
 
-		setLatLong: function() {
-			this.mapLatitude = parseFloat( RunCoCo.latLong[0] );
-			this.mapLongitude = parseFloat( RunCoCo.latLong[1] );
+		/**
+		 * @param {array} latlng
+		 * e.g., [51.5085159,-0.12548849999996037]
+		 *
+		 * @returns {bool}
+		 */
+		setMapCentre: function( latlng ) {
+			if ( !this.latLngIsValid( latlng ) ) {
+				return false;
+			}
+
+			this.mapLatitude = parseFloat( latlng[0] );
+			this.mapLongitude = parseFloat( latlng[1] );
+
+			return true;
 		},
 
 		setMap: function() {
@@ -173,9 +223,17 @@
 		},
 
 		setMapZoom: function() {
-			if ( RunCoCo.mapZoom !== undefined ) {
-				this.mapZoom = parseInt( RunCoCo.mapZoom, 10 );
+			if ( RunCoCo.leaflet.mapZoom === undefined ) {
+				return;
 			}
+
+			var zoom = parseInt( RunCoCo.leaflet.mapZoom, 10 );
+
+			if ( !$.isNumeric( zoom ) ) {
+				return;
+			}
+
+			this.mapZoom = zoom;
 		},
 
 		EuropeanaLayerControl: function( map, ops ) {

@@ -42,16 +42,33 @@
     script += "RunCoCo.sessionKey = '" + cookies[session_key_name] + "';" + "\n"
   end
 
-  if content_for?( :lat_long )
-    script += "RunCoCo.latLong = [" + content_for( :lat_long ) + "];" + "\n"
+  if content_for?( :map_latlng ) || content_for?( :map_zoom ) || content_for?( :map_placename )
+    script += 'RunCoCo.leaflet = {};' + "\n"
+
+    if content_for?( :map_latlng )
+      script += 'RunCoCo.leaflet.centre = [' + content_for( :map_latlng ) + '];' + "\n"
+
+      script += 'RunCoCo.leaflet.markers = [{'
+        script += '"latlng":[' + content_for( :map_latlng ) + '],'
+
+        if content_for?( :map_placename )
+          script += '"popup":{'
+            script += '"content":"' + content_for( :map_placename ) + '",'
+            script += '"open":true'
+          script += '},'
+        end
+
+        script = script[0...-1]
+      script += '}];' + "\n"
+    end
+
+    if content_for?( :map_zoom )
+      script += "RunCoCo.leaflet.mapZoom = " + content_for( :map_zoom ) + ";" + "\n"
+    end
   end
 
-  if content_for?( :map_zoom )
-    script += "RunCoCo.mapZoom = " + content_for( :map_zoom ) + ";" + "\n"
-  end
-
-  if content_for?( :map_placename )
-    script += "RunCoCo.mapPlacename = '" + content_for( :map_placename ) + "';" + "\n"
+  if content_for?( :javascripts_page ) && content_for( :javascripts_page ) == 'collection-days'
+    script += render :partial => 'collection_days/as-json'
   end
 
   if current_user.role.name === 'cataloguer'
@@ -95,7 +112,7 @@
     script_includes += ( theme_javascript_include_tag 'europeana-leaflet' ) + "\n"
   end
 
-  if content_for?( :lat_long )
+  if content_for?( :map_latlng )
     script_includes += ( theme_javascript_include_tag 'leaflet' ) + "\n"
     script_includes += ( javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.2&sensor=false' ) + "\n"
   end

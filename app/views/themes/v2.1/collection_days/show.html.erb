@@ -35,7 +35,7 @@
   </address></p>
   <p><%= link_to t('activerecord.models.contribution').pluralize, explore_collection_path('collection_day', @collection_day.code, :qf => { :index => 'c' }) %></p>
   <% if @collection_day.map_latlng.present? -%>
-    <% provide :lat_long, @collection_day.map_latlng -%>
+    <% provide :map_latlng, @collection_day.map_latlng -%>
     <div class="col-cell">
       <div id="map-container">
         <div id="map"></div>
