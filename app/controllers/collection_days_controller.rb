@@ -1,6 +1,7 @@
 class CollectionDaysController < ApplicationController
   def index
-    @collection_days = CollectionDay.order('start_date DESC, end_date DESC').paginate(:page => params[:page] || 1)
+    @collection_days = CollectionDay.includes(:taxonomy_term, :contact).all
+    @collection_days.sort_by! { |cd| [ I18n.t("countries.#{cd.contact.country}"), cd.name ] }
   end
   
   def show
