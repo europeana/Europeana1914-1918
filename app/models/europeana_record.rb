@@ -91,6 +91,11 @@ class EuropeanaRecord < ActiveRecord::Base
       rights
     end
     
+    # URIs of skos:Concept elements
+    string :uri, :multiple => true do
+      uri
+    end
+    
     # Harvested Europeana records are always "approved"
     string :status do
       'approved'
@@ -143,6 +148,12 @@ class EuropeanaRecord < ActiveRecord::Base
   def dc_creator
     unless object['proxies'].first['dcCreator'].blank?
       object['proxies'].first['dcCreator']['def']
+    end
+  end
+  
+  def uri
+    unless object['concepts'].blank?
+      object['concepts'].collect { |concept| concept['about'] }
     end
   end
   

@@ -79,6 +79,7 @@ class CollectionController < SearchController
           query.facet "data_provider"
           query.facet "country"
           query.facet "rights"
+          query.facet "uri"
         end
         
         query.fulltext solr_multiple_queries(search_terms), { :minimum_match => 1 }
