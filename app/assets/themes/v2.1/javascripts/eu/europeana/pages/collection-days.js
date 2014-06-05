@@ -27,11 +27,41 @@
 	},
 
 	leaflet = {
+		banner_content: '',
 		legend_content: '',
 
 		init: function() {
 			this.setLegendContent();
+			this.setBannerContent();
 			this.setUpLeaflet();
+		},
+
+		setBannerContent: function() {
+			if (
+				!$.isArray( RunCoCo.leaflet.upcoming )
+				|| RunCoCo.leaflet.upcoming.length < 1
+			) {
+				return;
+			}
+
+			var
+			upcoming_day = RunCoCo.leaflet.upcoming[0],
+			upcoming_values = {
+				"name": upcoming_day.name ? upcoming_day.name : '',
+				"city": upcoming_day.city ? upcoming_day.city: '',
+				"country": upcoming_day.country ? upcoming_day.country : '',
+				"start-date": upcoming_day.date ? upcoming_day.date : ''
+			};
+
+			this.banner_content =
+				I18n.t(
+					'javascripts.collection-days.next-collection-day',
+					upcoming_values
+				) +
+				' ' +
+				'<a href="collection-days/' + RunCoCo.leaflet.upcoming[0].code + '">' +
+					I18n.t( 'javascripts.collection-days.find-more' ) +
+				'</a>';
 		},
 
 		setLegendContent: function() {
@@ -46,13 +76,20 @@
 
 		setUpLeaflet: function() {
 			europeana.leaflet.init({
+				banner: {
+					display: true,
+					content: this.banner_content
+				},
 				europeana_ctrls: false,
 				google_layer: false,
 				legend: {
 					display: true,
 					content: this.legend_content
 				},
-				minimap: false
+				minimap: false,
+				zoom_control: {
+					position: 'bottomleft'
+				}
 			});
 		}
 	};

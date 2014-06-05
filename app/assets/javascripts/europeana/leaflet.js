@@ -25,15 +25,41 @@
 		miniMap: {},
 		miniMapLayer: {},
 		options: {
+			banner: {
+				content: '',
+				display: false,
+				position: 'topright'
+			},
 			europeana_ctrls: true,
 			google_layer: true,
 			legend: {
+				content: '',
 				display: false,
-				content: ''
+				position: 'topright'
 			},
-			minimap: true
+			minimap: true,
+			zoom_control: {
+				display: true,
+				position: 'topleft'
+			}
 		},
 
+
+		addBanner: function() {
+			if ( !this.options.banner.display ) {
+				return;
+			}
+
+			var banner = L.control({ position: this.options.banner.position });
+
+			banner.onAdd = function (map) {
+				var div = L.DomUtil.create('div', 'banner');
+				div.innerHTML = europeana.leaflet.options.banner.content;
+				return div;
+			};
+
+			banner.addTo( this.map );
+		},
 
 		addEuropeanaCtrls: function() {
 			if ( !this.options.europeana_ctrls ) {
@@ -72,7 +98,7 @@
 				return;
 			}
 
-			var legend = L.control({position: 'topright'});
+			var legend = L.control({ position: this.options.legend.position });
 
 			legend.onAdd = function (map) {
 				var div = L.DomUtil.create('div', 'legend');
@@ -94,6 +120,18 @@
 					type: 'osm'
 				}
 			).addTo( this.map );
+		},
+
+		addMapZoomControl: function() {
+			if ( !this.options.zoom_control.display ) {
+				return;
+			}
+
+			var zoomControl = new L.Control.Zoom({
+				position: this.options.zoom_control.position
+			});
+
+			zoomControl.addTo( this.map );
 		},
 
 		/**
@@ -184,7 +222,9 @@
 				{
 					toggleDisplay: true
 				}
-			).addTo( this.map );
+			);
+
+			this.miniMap.addTo( this.map );
 		},
 
 		/**
@@ -218,6 +258,8 @@
 			this.addMapQuestLayer();
 			this.addGoogleLayer();
 			this.addMiniMap();
+			this.addMapZoomControl();
+			this.addBanner();
 			this.addLegend();
 			this.addEuropeanaCtrls();
 		},
@@ -267,7 +309,7 @@
 				'map',
 				{
 					center: new L.LatLng( this.mapLatitude, this.mapLongitude ),
-					zoomControl: true,
+					zoomControl: false,
 					zoom: this.mapZoom,
 					scrollWheelZoom: false
 				}

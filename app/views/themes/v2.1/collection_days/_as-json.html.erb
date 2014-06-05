@@ -1,46 +1,59 @@
 <%
 
-	script = 'RunCoCo.leaflet.markers = ['
+	markers = ''
+	upcoming = ''
 
-		if @collection_days.present?
+	if @collection_days.present?
 
-			for collection_day in @collection_days
-				if collection_day.start_date < Date.today
-					if collection_day.has_contributions?
-						icon = '"type":"red"'
-						link = link_to t( 'views.collection_days.open-collection' ), explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
-					else
-						icon = '"type":"purple"'
-						link = link_to t( 'views.collection_days.get-notified' ), 'collection-days/' + collection_day.code
-					end
+		for collection_day in @collection_days
+			if collection_day.start_date < Date.today
+				if collection_day.has_contributions?
+					icon = '"type":"red"'
+					marker_link = link_to t( 'views.collection_days.open-collection' ), explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
 				else
-					icon = '"type":"green"'
-					link = link_to t( 'views.collection_days.visiting-information' ), 'collection-days/' + collection_day.code
+					icon = '"type":"purple"'
+					marker_link = link_to t( 'views.collection_days.get-notified' ), 'collection-days/' + collection_day.code
 				end
-
-				script += '{'
-					script += '"latlng":[' + collection_day.map_latlng + '],'
-					script += '"popup":{'
-						script += '"content":'
-							script += '"'
-								content = '<b>'  + collection_day.name + '</b><br />'
-								content += collection_day.contact.locality + ', '
-								content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
-								content += localize( collection_day.start_date )
-								content += '<br /><br />'
-								content += link
-								script += content.gsub!('"','\"')
-							script += '"'
-					script += '},'
-
-					script += icon
-				script += '},'
+			else
+				icon = '"type":"green"'
+				marker_link = link_to t( 'views.collection_days.visiting-information' ), 'collection-days/' + collection_day.code
+				upcoming += '{'
+					upcoming += '"name":"' + collection_day.name + '",'
+					upcoming += '"city":"' + collection_day.contact.locality + '",'
+					upcoming += '"country":"' + t( "countries.#{collection_day.contact.country}" ) + '",'
+					upcoming += '"date":"' + localize( collection_day.start_date ) + '",'
+					upcoming += '"code":"' + collection_day.code + '"'
+				upcoming += '}'
 			end
 
+			markers += '{'
+				markers += '"latlng":[' + collection_day.map_latlng + '],'
+				markers += '"popup":{'
+					markers += '"content":'
+						markers += '"'
+							marker_content = '<b>'  + collection_day.name + '</b><br />'
+							marker_content += collection_day.contact.locality + ', '
+							marker_content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
+							marker_content += localize( collection_day.start_date )
+							marker_content += '<br /><br />'
+							marker_content += marker_link
+							markers += marker_content.gsub!('"','\"')
+						markers += '"'
+				markers += '},'
+
+				markers += icon
+			markers += '},'
 		end
 
-	script = script[0...-1]
+	end
+
+	script = 'RunCoCo.leaflet.markers = ['
+		script += markers[0...-1]
 	script += '];' + "\n"
+
+	script += 'RunCoCo.leaflet.upcoming = ['
+		script += upcoming
+	script +=  '];' + "\n"
 
 %>
 <%= script.html_safe %>
