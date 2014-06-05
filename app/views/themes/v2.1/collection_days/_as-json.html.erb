@@ -5,30 +5,36 @@
 		if @collection_days.present?
 
 			for collection_day in @collection_days
-					script += '{'
-						script += '"latlng":[' + collection_day.map_latlng + '],'
-						script += '"popup":{'
-							script += '"content":'
-								script += '"'
-									content = '<b>'  + collection_day.name + '</b><br />'
-									content += collection_day.contact.locality + ', '
-									content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
-									content += localize( collection_day.start_date )
-									content += '<br /><br />'
-									content += link_to t('activerecord.models.contribution').pluralize, explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
-									script += content.gsub!('"','\"')
-								script += '"'
-						script += '},'
-						if collection_day.start_date < Date.today
-							if collection_day.has_contributions?
-								script += '"type":"red"'
-							else
-								script += '"type":"purple"'
-							end
-						else
-							script += '"type":"green"'
-						end
+				if collection_day.start_date < Date.today
+					if collection_day.has_contributions?
+						icon = '"type":"red"'
+						link = link_to t( 'views.collection_days.open-collection' ), explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
+					else
+						icon = '"type":"purple"'
+						link = link_to t( 'views.collection_days.get-notified' ), 'collection-days/' + collection_day.code
+					end
+				else
+					icon = '"type":"green"'
+					link = link_to t( 'views.collection_days.visiting-information' ), 'collection-days/' + collection_day.code
+				end
+
+				script += '{'
+					script += '"latlng":[' + collection_day.map_latlng + '],'
+					script += '"popup":{'
+						script += '"content":'
+							script += '"'
+								content = '<b>'  + collection_day.name + '</b><br />'
+								content += collection_day.contact.locality + ', '
+								content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
+								content += localize( collection_day.start_date )
+								content += '<br /><br />'
+								content += link
+								script += content.gsub!('"','\"')
+							script += '"'
 					script += '},'
+
+					script += icon
+				script += '},'
 			end
 
 		end
