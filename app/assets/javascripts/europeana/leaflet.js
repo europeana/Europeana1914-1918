@@ -27,6 +27,10 @@
 		options: {
 			europeana_ctrls: true,
 			google_layer: true,
+			legend: {
+				display: false,
+				content: ''
+			},
 			minimap: true
 		},
 
@@ -61,6 +65,22 @@
 
 			this.googleLayer = new L.Google();
 			this.map.addLayer( this.googleLayer );
+		},
+
+		addLegend: function() {
+			if ( !this.options.legend.display ) {
+				return;
+			}
+
+			var legend = L.control({position: 'topright'});
+
+			legend.onAdd = function (map) {
+				var div = L.DomUtil.create('div', 'legend');
+				div.innerHTML = europeana.leaflet.options.legend.content;
+				return div;
+			};
+
+			legend.addTo( this.map );
 		},
 
 		addMapQuestLayer: function() {
@@ -198,6 +218,7 @@
 			this.addMapQuestLayer();
 			this.addGoogleLayer();
 			this.addMiniMap();
+			this.addLegend();
 			this.addEuropeanaCtrls();
 		},
 

@@ -11,7 +11,7 @@ hr:
     edit_story: Uredi priču
     filter: Razvrstaj
     flag: Označi
-    import: 
+    import: Uvezi
     new: Novo
     reject: Odbaci
     remove: Ukloni
@@ -112,12 +112,12 @@ hr:
         collection_day:
           attributes:
             image:
-              content_type: 
-          end_date_follows_start_date: 
-          taxonomy_term_metadata_field: 
+              content_type: Dozvoljeni su samo JPEG i GIF formati slika.
+          end_date_follows_start_date: Datum završetka mora biti kasniji od datuma početka.
+          taxonomy_term_metadata_field: Ovo nije valjani Dan prikupljanja memorabilija.
         contribution:
           attachments:
-            uploaded: 
+            uploaded: Neke datoteke se još prenose.
           attributes:
             catalogued_by:
               role_name: Katalogizator mora biti korisnik sa statusom administratora ili katalogizatora
@@ -158,11 +158,11 @@ hr:
         header:
           few: 'Nisam uspio spremiti %{model}: %{count} greške.'
           one: 'Nisam uspio spremiti %{model}: 1 greška'
-          other: 'Nisam uspio spremiti %{model}: %{count} greški.'
+          other: 'Nisam uspio spremiti %{model}: %{count} grešaka.'
     models:
       annotation: Anotacija
       attachment: Predmet
-      collection_day: 
+      collection_day: Dan prikupljanja memorabilija
       contact: Kontakt
       contribution: Priča
       institution: Institucionalni pružatelj podataka
@@ -209,7 +209,7 @@ hr:
       heading: Urednikov odabir
       more_stories: Više priča na stranici %{explore_stories}.</b>
     featured-categories: Istaknute kategorije
-    from-collection-days: Iz naših Dana prikupljanja
+    from-collection-days: Iz naših Dana prikupljanja memorabilija
     google_maps:
       help_text: |-
         <li><b>Auto-suggest</b> : Upiši ime države, grada ili adresu, Google karte će pokušati pronaći moguću adresu.</li>
@@ -259,7 +259,7 @@ hr:
       main:
         about: O nama
         add: Dodajte svoju priču
-        collection-days: Dani prikupljanja
+        collection-days: Dani prikupljanja memorabilija
         explore: Pretražite
         home: Početna stranica
         remix: Neočekivano prijateljstvo
@@ -270,7 +270,7 @@ hr:
     more-at: Više na
     news: Vijesti
     news_item:
-      heading: Novi Dani prikupljanja uspomena
+      heading: Novi Dani prikupljanja memorabilija
     'no': Ne
     options:
       close: Zatvori
@@ -433,9 +433,9 @@ hr:
       odd: mora biti neparno
       record_invalid: 'Neuspješna potvrda: %{errors}'
       taken: je zauzeto
-      too_long: je predugačak (ne više od %{count} karaktera)
-      too_short: je prekratak (ne manje od %{count} karaktera)
-      wrong_length: nije odgovarajuće dužine (mora imati %{count} karaktera)
+      too_long: je predugačak (ne više od %{count} znakova)
+      too_short: je prekratak (ne manje od %{count} znakova)
+      wrong_length: nije odgovarajuće dužine (mora imati %{count} znakova)
     template:
       body: 'Molim Vas provjerite slijedeća polja:'
       header:
@@ -531,9 +531,9 @@ hr:
     flickr:
       import:
         alert:
-          empty: 
-          invalid_license: 
-        notice: 
+          empty: Nijedna slika nije odabrana
+          invalid_license: Navedene fotografije nemaju kompatiblinu licencu i neće biti uvezene.
+        notice: Flickr slike se prenose u pozadini.
     guest_contact:
       create:
         alert: Postoji problem s podacima koje ste unijeli. Molim vas, ispravite ih i pokušajte ponovno.
@@ -552,7 +552,7 @@ hr:
     taggings:
       depublish:
         alert: Odjavljivanje ove oznake neuspješno.
-        notice: 
+        notice: Oznaka odjavljena.
     tags:
       contribution:
         create:
@@ -561,7 +561,7 @@ hr:
         success: Oznaka uklonjena.
       europeana_record:
         create:
-          success: 
+          success: Vaše oznake dodane su ovom predmetu.
       flag:
         success: Oznaka označena kao neprimjerena.
     taxonomy:
@@ -737,9 +737,9 @@ hr:
           ticket: Broj predmeta
       collection_day:
         contact:
-          country: 
-          full_name: 
-        delete_image: 
+          country: Država
+          full_name: Organizacija
+        delete_image: Izbriši sliku
       content:
         metadata:
           dc:
@@ -763,8 +763,8 @@ hr:
             title: Naslov
             type: Vrsta
           dcterms:
-            spatial: 
-            temporal: 
+            spatial: Mjesto
+            temporal: Datum
           edm:
             country: Država koja je pružila
             data_provider: Pružatelj podataka
@@ -789,7 +789,7 @@ hr:
           character2_given_name: Ime
           character2_pob: Mjesto rođenja
           character2_pod: Mjesto smrti
-          collection_day: Dan prikupljanja
+          collection_day: Dan prikupljanja memorabilija
           contributor_behalf: Pridoneseno u ime
           date_from: Priča počinje ...
           date_to: Priča završava ...
@@ -898,7 +898,14 @@ hr:
       clear-flag: Ukloni oznaku
       flag: Označi
     attachments:
-      uploading: 
+      uploading: Neke vaše datoteke se još prenose. Kada prijenos završi moći ćete predati svoju priču.
+    collection-days:
+      legend: 
+      past-entered: 
+      past-not-entered: 
+      show-past: 
+      upcoming: 
+      what-is-it: 
     contribute:
       errors_shown: Zašto ne? Pogledajte obavijesti iznad.
       hide_errors: Sakrij obavijesti o pogreškama.
@@ -1088,12 +1095,12 @@ hr:
     about:
       background:
         heading: Europeana 1914-1918
-        p1: "<b>Europeana 1914-1918</b> objedinjuje podatke iz tri velika europska projekta koji se bave različitim vrstama materijala iz Prvog svjetskog rata. Rezultat toga je arhiva koja omogućava sjedinjavanje nacionalnih zbirka knjižnica s osobnim pričama i predmetima i važnim filmskim arhivama. Zajedno one stvaraju jedinstvenu perspektivu Prvog svjetskog rata, prikazujući obje strane bojišta i uvide iz svih perspektiva. S vremenom će se sve više materijala dodavati u ovu arhivu pa vas molimo da se nastavite vraćati!"
-        p2: "<b>Priče iz javnosti:</b>U suradnji s Sveučilištem u Oxfordu, Facts & Files i mnogim drugim partnerima diljem Europe Europeana 1914-1918 prikuplja prethodno neobjavljena pisma, fotografije i uspomene iz rata koje će se digitalizirati i objaviti na internetu. Do kraja 2013. godine sudjelovalo je više od desetak zemalja, a digitaliziralo se preko 60.000 predmeta."
+        p1: "<b>Europeana 1914-1918</b> objedinjuje podatke prikupljene kroz tri velika europska projekta koji su prikupili različite vrste materijala iz Prvog svjetskog rata. Rezultat toga je arhiva koja je sjedinila nacionalne zbirke knjižnica s osobnim pričama i predmetima građana i važnim filmskim arhivama. Zajedno one stvaraju jedinstvenu perspektivu Prvog svjetskog rata, prikazujući obje strane bojišta i uvide iz svih perspektiva. S vremenom će se sve više materijala dodavati u ovu arhivu pa vas molimo da se nastavite vraćati!"
+        p2: "<b>Osobne priče:</b>U suradnji s Sveučilištem u Oxfordu, Facts & Files i mnogim drugim partnerima diljem Europe projekt Europeana 1914-1918 prikuplja prethodno neobjavljena pisma, fotografije i uspomene iz rata koje će se digitalizirati i objaviti na internetu. Do kraja 2013. godine sudjelovalo je više od desetak zemalja, a digitaliziralo se preko 60.000 predmeta."
       collection_days:
-        heading: Dani prikupljanja
-        p1: Za vrijeme Dana prikupljanja pozivaju se pripadnici javnosti da donesu dokumente, predmete i priče iz Prvog svjetskog rata koje će snimati osoblje projekta. Priče i skenirane ili fotografirane slike predmeta se zatim dodaju u arhivu.
-        p2: Dani prikupljanja su se prethodno održavali diljem Europe
+        heading: Dani prikupljanja memorabilija
+        p1: Za vrijeme Dana prikupljanja memorabilija pozivaju se pripadnici javnosti da donesu dokumente, predmete i priče iz Prvog svjetskog rata koje će snimati osoblje projekta. Priče i skenirane ili fotografirane slike predmeta se zatim dodaju u arhivu.
+        p2: Dani prikupljanja memorabilija su se prethodno održavali diljem Europe
       online_collection:
         heading: Online zbirka priča
         p1: Ova online zbirka priča otvorena je u ožujku 2011. godine. Na web stranici svatko može dodati svoje predmete kolekciji zajedno s njihovim pričama. Više informacija o tome kako dodati nešto u kolekciju može se pronaći stranici “%{add_your_story}”. Predane predmete pregledava projektni tim, a zatim su dostupni na Europeani.
@@ -1112,7 +1119,7 @@ hr:
         item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Kraljevska knjižnica: Danska nacionalna knjižnica i Sveučilišna knjižnica u Kopenhagenu - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
         item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
       takedown:
-        item1: Vaši kontaktni podaci
+        item1: Vaši kontakt podaci
         item2: Sve pojedinosti o materijalu
         item3: Točan URL gdje ste pronašli materijal (npr. http://www.europeana1914-1918.eu/en/contributions/96)
         item4: Dokaz da ste nositelj prava ili ovlašteni predstavnik nositelja prava
@@ -1123,14 +1130,14 @@ hr:
           heading: 'Europeanini uvjeti korištenja: svi pravni podaci dostupni samo na engleskom jeziku'
         heading: Uvjeti uporabe
         summary:
-          heading: Europeanini uvjeti korištenja
+          heading: 'Europeanini uvjeti korištenja: sažetak'
           item1: digitalizirani materijali koje predajete nisu zaštićeni autorskim pravima; ili
           item2: vi nosite prava na digitalizirane materijale; ili
           item3: vas je vlasnik ovih prava ovlastio da predate digitalizirane materijale pod sljedećim uvjetima.
           item4: Dopuštate svakome da koristi sadržaj koji doprinosite (npr. video, fotografija, dnevnik, slika ili zvučni zapis) na gotovo bilo koji način. Međutim, moraju naznačiti vlasnika prava. Ako izmijene sadržaj moraju dopustiti drugima da ga koriste uz jednake uvjete.
           item5: Dopuštate svima da koriste opisne podatke koje ćete dodati (poput opisa ili oznaka) kako bi se vaš sadržaj vidio na tražilicama na bilo koji način i bez dodatnih uvjeta.
           p1: 'Prije nego što predate digitalizirane materijale Europeani morate prihvatiti Europeanine Uvjete za doprinose korisnika. Neki od najvažnijih rezultata prihvaćanja ovih uvjeta su idući:'
-          p2: "<b>Jamčite da ćete:</b>"
+          p2: "<b>Jamčite da:</b>"
           p3: "<b>Ako ne želite prihvatiti ove uvjete molimo vas da ne dopridonosite sadržajima ili opisima Europeani</b>."
         user_contributions:
           heading: Europeanini Uvjeti za doprinose korisnika
@@ -1151,34 +1158,34 @@ hr:
       what_we_do:
         heading: 'Nacionalne kolekcije:'
         item1: Putem Europeana 1914-1918 web stranice dodajte fotografiju predmeta ili upišite priču.
-        item2: Za vrijeme Dana prikupljanja donesite predmet(e) na događanje gdje će projektno osoblje fotografirati predmete i zabilježiti njihove priče
+        item2: Za vrijeme Dana prikupljanja memorabilija donesite predmet(e) na događanje gdje će projektno osoblje fotografirati predmete i zabilježiti njihove priče
         p1: Projekt Europeana Collections 1914-1918 stvorio je veliku digitaliziranu kolekciju s više od 400.000 predmeta iz kolekcija nacionalnih knjižnica iz osam zemalja koje su se našle na različitim stranama povijesnog sukoba.
     about_us:
       blog:
         heading: Blog
       europeana:
         heading: Europeana 1914-1918
-        p1: "<b>Europeana 1914-1918</b> objedinjuje podatke iz tri velika europska projekta koji se bave različitim vrstama materijala iz Prvog svjetskog rata. Rezultat toga je arhiva koja omogućava sjedinjavanje nacionalnih zbirka knjižnica s osobnim pričama i predmetima i važnim filmskim arhivama. Zajedno one stvaraju jedinstvenu perspektivu Prvog svjetskog rata, prikazujući obje strane bojišta i uvide iz svih perspektiva. S vremenom će se sve više materijala dodavati u ovu arhivu pa vas molimo da se nastavite vraćati!"
-        p2: <b>Priče iz javnosti:</b>U suradnji s Sveučilištem u Oxfordu, Facts & Files i mnogim drugim partnerima diljem Europe Europeana 1914-1918 prikuplja prethodno neobjavljena pisma, fotografije i uspomene iz rata koje će se digitalizirati i objaviti na internetu. Do kraja 2013. godine sudjelovalo je više od desetak zemalja, a digitaliziralo se preko 60.000 predmeta.  <a href="http://pro.europeana.eu/web/europeana-1914-1918">Saznajte više o projektu ovdje</a>
+        p1: Europeana 1914-1918 objedinjuje podatke prikupljene kroz tri velika europska projekta koji su prikupili različite vrste materijala iz Prvog svjetskog rata. Rezultat toga je arhiva koja je sjedinila nacionalne zbirke knjižnica s osobnim pričama i predmetima građana i važnim filmskim arhivama. Zajedno one stvaraju jedinstvenu perspektivu Prvog svjetskog rata, prikazujući obje strane bojišta i uvide iz svih perspektiva. S vremenom će se sve više materijala dodavati u ovu arhivu pa vas molimo da se nastavite vraćati!
+        p2: <b>Osobne priče:</b>U suradnji s Sveučilištem u Oxfordu, Facts & Files i mnogim drugim partnerima diljem Europe projekt Europeana 1914-1918 prikuplja prethodno neobjavljena pisma, fotografije i uspomene iz rata koje će se digitalizirati i objaviti na internetu. Do kraja 2013. godine sudjelovalo je više od desetak zemalja, a digitaliziralo se preko 60.000 predmeta. <a href="http://pro.europeana.eu/web/europeana-1914-1918">Saznajte više o projektu ovdje</a>
         p3: "<b>Nacionalne zbirke:</b> Projekt Europeana Collections 1914-1918 stvorio je veliku digitaliziranu kolekciju s više od 400.000 predmeta iz kolekcija nacionalnih knjižnica iz osam zemalja koje su se našle na različitim stranama povijesnog sukoba."
-        p4: "<b>Filmski arhivi:</b> Projekt European Film Gateway 1914 pruža 650 sati filmova i sličnih materijala vezanih uz Prvi svjetski rat. Oni uključuju vijesti, dokumentarce, igrane filmove, propagandne filmove i anti-ratne filmove. Ovi materijali su iznimno važni zato što je samo 20&#37; kompletne produkcije nijemog filma ovog razdoblja preživjelo."
+        p4: "<b>Filmski arhivi:</b> Projekt European Film Gateway 1914 daje uvid u 650 sati filmova i sličnih materijala vezanih uz Prvi svjetski rat, što uključuje vijesti, dokumentarce, igrane filmove, propagandne filmove i anti-ratne filmove. Ovi materijali su iznimno važni zato što je samo 20&#37; kompletne produkcije nijemog filma ovog razdoblja preživjelo do današnjih dana."
         p5: "<b>Još više:</b> Na ovoj web stranici također možete pronaći materijale iz drugih europskih kolekcija i projekata, kao i informacije izvan Europe iz Američke digitalne javne knjižnice, Trovea (Australija) i Digitalnog Novog Zelanda. "
       events:
-        heading: Dani prikupljanja
+        heading: Dani prikupljanja memorabilija
         p4: Ako želite pokrenuti vlastito događanje digitalizacije i dodati materijale Europeani 1914-1918 možemo vam ponuditi pomoć i savjete <a href="http://pro.europeana.eu/web/europeana-1914-1918">ovdje</a>
       get_involved:
         contribute_online:
-          heading: Doprinesite online
-          p1: Ako ne možete stići na Dane prikupljanja možete podijeliti svoje priče i materijale izravnim prijenosom na web stranicu. Otiđite na našu <a href="http://europeana1914-1918.eu/en/contributor">'Contribute' stranicu </a> i sljedite uputstva.
+          heading: Doprinesite sadržaj online
+          p1: Ako ne možete stići na Dane prikupljanja memorabilija možete podijeliti svoje priče i materijale izravnim prijenosom na web stranicu. Otiđite na našu <a href="http://europeana1914-1918.eu/en/contributor">'Contribute' stranicu </a> i sljedite uputstva.
         education:
           heading: Obrazovanje
-          p1: Naši partneri u Britanskoj knjižnici razvili su <a href="http://bl.uk/world-war-one">web stranicu</a> na engleskom jeziku koja se bavi učiteljima koji su planirali obrazovne programe za vrijeme Prvog svjetskog rata.
+          p1: Naši partneri u Britanskoj knjižnici razvili su <a href="http://bl.uk/world-war-one">web stranicu</a> na engleskom jeziku knamjenjenu učiteljima koji planiraju obrazovne aktivnosti o Prvom svjetskog ratu.
         events:
-          p1: Na <a href="http://www.europeana1914-1918.eu">početnoj stranici</a> možete vidjeti gdje će se idući Dani prikupljanja održati. Molimo vas da ponesete svoje dokumetne, predmete i priče koje se odnose na Prvi svjetski rat tako da ih se može skenirati ili fotografirati, te dodati u arhivu.
-          p2: Ako želite pokrenuti vlastiti Dan prikupljanja za prikupljanje i digitalizaciju materijala za Europeanu 1914-1918, možemo vam ponuditi <a href="http://pro.europeana.eu/web/europeana-1914-1918">pomoć i savjete</a>.
-        heading: Uključi se
+          p1: Na <a href="http://www.europeana1914-1918.eu">početnoj stranici</a> možete vidjeti gdje će se idući Dani prikupljanja memorabilija održati. Molimo vas da ponesete svoje dokumetne, predmete i priče koje se odnose na Prvi svjetski rat tako da ih se može skenirati ili fotografirati, te dodati u arhivu.
+          p2: Ako želite pokrenuti vlastiti Dan prikupljanja memorabilija za prikupljanje i digitalizaciju materijala za Europeanu 1914-1918, možemo vam ponuditi <a href="http://pro.europeana.eu/web/europeana-1914-1918">pomoć i savjete</a>.
+        heading: Uključite se
         reuse:
-          heading: Koristi materijal
+          heading: Koristite materijale
           p1: Svi materijali Europeane 1914-1918 dostupni su za ponovno korištenje. Programeri ih mogu koristiti za vlastite projekte putem <a href="http://europeana.eu/portal/api-introduction.html">Europeana API-a</a>. Ako želite koristiti materijale Američke digitalne knjižnice, Trovea ili DigitalNZ-a, molimo vas da posjetite njihove web stranice za dodatne informacije.
       help:
         heading: Pomoć
@@ -1192,12 +1199,12 @@ hr:
             type: Vrsta anotacije
       collection_days:
         delete:
-          question: 
-          title: 
+          question: Jeste li sigurni da želite izbrisati dodatne informacije o Danu prikupljanja memorabilija %{code}?
+          title: Izbriši Dan prikupljanja memorabilija
         edit:
-          title: 
+          title: Uredi Dan prikupljanja memorabilija
         index:
-          title: 
+          title: Dani prikupljanja memorabilija
       config:
         edit:
           title: Uredi postavke
@@ -1250,7 +1257,7 @@ hr:
           annotations:
             description: Pregledaj i moderiraj anotacije korisnika na slikama predmeta.
           collection_days:
-            description: 
+            description: Pridodaj dodatne informacije o Danu prikupljanja memorabilija.
           config:
             description: Uredi postavke web stranice
             text: Konfiguracija
@@ -1334,7 +1341,7 @@ hr:
           title: Redoslijed polja metapodataka
       statistics:
         index:
-          introduction: Tablica ispod pokazuje broj objavljenih priča i njihove predmete za određenu godinu, te opcionalno za određeni Dan prikupljanja.
+          introduction: Tablica ispod pokazuje broj objavljenih priča i njihove predmete za određenu godinu, te opcionalno za određeni Dan prikupljanja memorabilija.
           title: Statistički podaci
       taggings:
         index:
@@ -1413,8 +1420,8 @@ hr:
         no_thumbnail: Generiranje ikona.
       attachment_help:
         flickr:
-          description: 
-          link: 
+          description: Uvezite fotografije i njihove opise s vašeg Flickr korisničkog računa
+          link: Dodajte predmete s Flickr-a
         item1: Dodaj jedan predmet i datoteku
         item1-subitem1: Opišite taj predmet
         item1-subitem2: Prenesi datoteku u prilogu
@@ -1447,27 +1454,27 @@ hr:
       read_more: Pročitajte više
     browse:
       collection-days:
-        heading: Dani prikupljanja
+        heading: Dani prikupljanja memorabilija
       fronts:
         heading: Frontovi
       subjects:
         heading: Predmeti
       types:
-        heading: Vrste
+        heading: Vrste predmeta
     collection_days:
-      cant-find-collection-day: 
-      get-notified: 
+      cant-find-collection-day: Nije moguće pronaći Dan prikupljanja koji tražite na karti.
+      get-notified: Primajte obavijesti.
       index:
-        title: 
-      open-collection: 
-      select-collection-day: 
-      visiting-information: 
+        title: Dani prikupljanja memorabilija
+      open-collection: Otvori Dan prikupljanja memorabilija
+      select-collection-day: Odaberi Dan prikupljanja memorabilija
+      visiting-information: Informacije za posjetitelje
       what-do-you-get-content: 
-      what-do-you-get-heading: 
+      what-do-you-get-heading: "Što dobivate?"
       what-is-it-content: 
-      what-is-it-heading: 
+      what-is-it-heading: "Što je to?"
       who-is-it-for-content: 
-      who-is-it-for-heading: 
+      who-is-it-for-heading: "Čemu služi?"
     common:
       permanent: Ova radnja se ne može poništiti.
     contact:
@@ -1566,12 +1573,12 @@ hr:
       feed:
         entries:
           annotation:
-            item: 
-            story: "%{user} je ostavio komentar na sliku priče %{title}"
-          contribution: "%{user} je objavio priču %{title}"
+            item: "%{user} je ostavio/la komentar za predmet %{title}"
+            story: "%{user} je ostavio/la komentar na sliku priče %{title}"
+          contribution: "%{user} je objavio/la priču %{title}"
           tagging:
-            item: 
-            story: "%{user} je označio priču %{title}"
+            item: "%{user} je označio/la predmet %{title}"
+            story: "%{user} je označio/la priču %{title}"
         title: Aktivnost Europeane 1914-1918
       index:
         empty: Još nema doprinosa za javnu objavu.
@@ -1590,7 +1597,7 @@ hr:
         matches-for: 'Rezultati:'
         no_matches: Nema rezultata. Molimo pokušajte ponovno.
         related-europeana: Slični sadržaji s portala Europeana
-        result_count_label: rezultati
+        result_count_label: rezultata
       show:
         button_confirm: Jeste li sigurni da ste spremni predati ovaj doprinos kolekciji?
         comments:
@@ -1612,11 +1619,11 @@ hr:
         title: Priča
       status:
         approved: Odobreno
-        approved_by: Potvrdio %{name}
+        approved_by: Potvrdio/la %{name}
         draft: Nacrt &mdash; još nije predan
         label: Stanje
         rejected: Odbijeno
-        rejected_by: Odbio %{name}
+        rejected_by: Odbio/la %{name}
         revised: Revidirano
         submitted: Predano &mdash; odobrenje u tijeku
         title: Podaci o stanju
@@ -1674,7 +1681,7 @@ hr:
           links:
             register: registracija
             sign_in: prijava
-          notice: Ako želite pohraniti svoje kontaktne podatke i pratiti svoje doprinose nakon što su predani, %{sign_in} ili %{register} prije nastavljanja.
+          notice: Potrebna je %{sign_in} ili %{register} prije nastavljanja ako želite pohraniti svoje kontaktne podatke i pratiti svoje doprinose nakon što su predani.
           title: Kontaktni podaci gosta
       help:
         adding_your_story:
@@ -1682,19 +1689,19 @@ hr:
           p1: Svoju priču možete dodati Europeani 1914-1918 pomoću online obrasca za prikupljanje koji se nalazi na ovoj web stranici. Jednostavno upišete neke informacije o svojem doprinosu, kažete što je (razglednica poslana iz XX, dnevnik, itd.) i dodate bilo koju priču koju želite podijeliti (npr. o osobi na fotografiji, kako ste je dobili, što znate o predmetu). Tada možete priložiti digitaliziranu verziju predmeta, npr. skeniranu ili fotografiranu kopiju fotografije, dnevnika, uniforme ili štogod dijelite. Nakon što je vaš doprinos podnesen pregledat će ga stručnjak i postat će dostupan drugima.
         how_to_use:
           heading: Kako koristiti sučelje za online prikupljanje priča
-          item1: "%{register} kako bi dobili korisnički račun (ovo morate učiniti samo jednom) ili se %{sign_in} ako ste se već registrirali."
+          item1: Potrebna je %{register} kako bi dobili korisnički račun (ovo morate učiniti samo jednom) ili %{sign_in} ako ste se već registrirali.
           item2: Dodajte informacije o svojem doprinosu
           item3: "(opcionalno) Priložite digitalnu verziju svojeg predmeta (fotografija, skenirani tekst, video, audio, etc.)."
           item4: Predajte doprinos online zbirci priča
           item5: Vaš doprinos će pregledati Europeanin katalogizator. Nakon što je vaš doprinos pregledan i prihvaćen postat će vidljiv drugima.
-          p1: Kako bi dodali nešto našoj online kolekciji priča morate se %{sign_in} ili %{register}. Nakon toga ćete moći dodati svoje predmete i priče Europeani 1914-1918.
+          p1: Kako bi dodali nešto našoj online kolekciji priča potrebna je %{sign_in} ili %{register}. Nakon toga ćete moći dodati svoje predmete i priče Europeani 1914-1918.
           p2: Zatražit će vas da ispunite sljedećih pet koraka. Ne morate završiti cijeli proces odjednom; možete pohraniti svoje unose i završiti ga kasnije.
         item1: Dodajte svoju priču Europeani 1914-1918 – Pogledajte ispod
         item2: "%{privacy_policy} - Zasebna stranica"
         item3: "%{takedown_policy} - Zasebna stranica"
         item4: "%{contribution_terms} - Zasebna stranica"
         item5: "%{about_the_project} - Zasebna stranica"
-        p1: Cilj projekta 'Europeana 1914-1918' je prikupiti materijale vezane uz Prvi svjetski rat (1914-1918) i one koji su bili uključeni ili pogođeni njime. U trenutnoj fazi prikupljamo materijale i priče iz Velike Britanije, Njemačke, Slovenije, Luksemburga, Irske i drugih zemalja. Više informacija o projektu i vrstama materijala koje prikupljamo možete pročitati na stranici %{about}.
+        p1: Cilj projekta 'Europeana 1914-1918' je prikupiti materijale vezane uz Prvi svjetski rat (1914-1918) i osobe koje su bile uključene ili pogođene njime. U trenutnoj fazi prikupljamo materijale i priče iz Velike Britanije, Njemačke, Slovenije, Luksemburga, Irske i drugih zemalja. Više informacija o projektu i vrstama materijala koje prikupljamo možete pročitati na stranici %{about}.
       index:
         item1: Unesite informacije o svojoj priči.
         item2: Pohranite svoju priču kao nacrt.
@@ -1702,7 +1709,7 @@ hr:
         item4: Potvrdite da prihvaćate uvjete i predajete doprinos na pregled.
         p1: 'Hvala vam što ste se ponudili doprinijeti projektu Europeana 1914-1918. Doprinos je jednostavan. Kliknite na tipku ''Dodaj novu priču'' ispod kako bi počele. Zatim će vas provesti kroz sljedeće korake:'
       registration_required:
-        p1: Molimo %{sign_in} ili %{register} kako biste mogli dodati predmete i priče Europeani 1914-1918.
+        p1: Potrebna je %{sign_in} ili %{register} kako biste mogli dodati predmete i priče Europeani 1914-1918.
     devise:
       passwords:
         edit:
@@ -1752,38 +1759,38 @@ hr:
         military_passport: <a href="contributions/search?utf8=✓&q=Militärpass" title="Traži 'vojnu iskaznice'">military passport</a>
         postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="Traži 'razglednice'">postcard</a>
         roadshows:
-          amberg_2012_01: <a href="contributions/search?utf8=✓&q=AM15" title="Predmeti s Dana prikupljanja u Ambergu">Amberg 26. siječnja 2012. g.</a>
-          berlin_2011_04: <a href="contributions/search?utf8=✓&q=BE08" title="Predmeti s Dana prikupljanja u Berlinu">Berlin 2. travnja 2011. g.</a>
-          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Predmeti s Dana prikupljanja u Dresdenu">Dresden 22. lipnja 2011. g.</a>
-          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Predmeti s Dana prikupljanja u Erfurtu">Erfurt 14. lipnja 2011. g.</a>
-          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Predmeti s Dana prikupljanja u Frankfurtu">Frankfurt 31. ožujka 2011. g.</a>
-          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Predmeti s Dana prikupljanja u Kielu">Kiel 29. lipnja 2011. g.</a>
-          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Predmeti s Dana prikupljanja u Luksemburgu">Luksemburg 6. ožujka 2012. g.</a>
+          amberg_2012_01: <a href="contributions/search?utf8=✓&q=AM15" title="Predmeti s Dana prikupljanja memorabilija u Ambergu">Amberg 26. siječnja 2012. g.</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&q=BE08" title="Predmeti s Dana prikupljanja memorabilija u Berlinu">Berlin 2. travnja 2011. g.</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Predmeti s Dana prikupljanja memorabilija u Dresdenu">Dresden 22. lipnja 2011. g.</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&q=EF11" title="Predmeti s Dana prikupljanja memorabilija u Erfurtu">Erfurt 14. lipnja 2011. g.</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Predmeti s Dana prikupljanja memorabilija u Frankfurtu">Frankfurt 31. ožujka 2011. g.</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Predmeti s Dana prikupljanja memorabilija u Kielu">Kiel 29. lipnja 2011. g.</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Predmeti s Dana prikupljanja memorabilija u Luksemburgu">Luksemburg 6. ožujka 2012. g.</a>
           munich_2011_04: <a href="contributions/search?utf8=✓&q=MU09" title="Predmeti s Dana prikupljana u Münchenu">München 6. travnja 2011. g.</a>
-          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Predmeti s Dana prikupljanja u Prestonu">Preston 10. ožujka 2012. g.</a>
-          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Predmeti s Dana prikupljanja u Regensburgu">Regensburg 20. srpnja 2011. g.</a>
-          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Predmeti s Dana prikupljanja u Stuttgartu">Stuttgart 12. travnja 2011. g.</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Predmeti s Dana prikupljanja memorabilija u Prestonu">Preston 10. ožujka 2012. g.</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Predmeti s Dana prikupljanja memorabilija u Regensburgu">Regensburg 20. srpnja 2011. g.</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Predmeti s Dana prikupljanja memorabilija u Stuttgartu">Stuttgart 12. travnja 2011. g.</a>
         trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Traži 'rovove'">trenches</a>
       p1: Ovdje možete vidjeti što je do sada dodano u našu zbirku priča.
       p2: Koristite tražilicu kako bi pronašli predmete koji <b>odgovaraju određenoj riječi ili izrazu</b>. Kako bi <b>vidjeli sve<b> što je dodano u zbirku priča pritisnite "traži" bez unosa.
       p3: Također možete <b>pretražiti zbirku priča<b>. Stisnite na ponuđeni izraz ispod kako bi pretražili tu riječ. Broj rezultata će se povećati dodavanjem novih materijala arhivu.
-      p5: "<b>Materijali prikupljeni za vrijeme javnih Dana prikupljanja:</b>"
+      p5: "<b>Materijali prikupljeni za vrijeme Dana prikupljanja memorabilija:</b>"
       search_for: "<b>Tražite:</b>"
     flickr:
       select:
-        instruction: 
+        instruction: Označite predmete koje želite uvesti. Naslovi i opisi će se uvesti automatski.
         licenses:
-          heading: 
-          incompatible: 
-          instruction: 
-        title: 
+          heading: Označite fotografije s vašeg Flickr korisničkog računa
+          incompatible: Licenca nije kompatibilna
+          instruction: Samo fotografije s navedenim kompatibilnim licencama mogu biti uvezene u Europeanu 1914-1918.
+        title: Odaberite fotografije s vaše Flickr korisničkog računa
       show:
         action:
-          link: 
-          unlink: 
+          link: Povežite Flickr korisnički račun
+          unlink: Poništite povezivanje s Flickr korisničkim računom
         status:
-          linked: 
-          unlinked: 
+          linked: Povezani ste s Flickr-om kao %{username}
+          unlinked: Niste povezani s Flickr-om
     home:
       heading: neispričane priče i službena povijest Prvog svjetskog rata
       links:
@@ -1829,7 +1836,7 @@ hr:
         item4: Dopuštate svakome da koristi sadržaj koji doprinosite (npr. video, fotografija, dnevnik, slika ili zvučni zapis) na gotovo bilo koji način. Međutim, moraju naznačiti vlasnika prava. Ako izmijene sadržaj moraju dopustiti drugima da ga koriste uz jednake uvjete.
         item5: Dopuštate svima da koriste opisne podatke koje ćete dodati (poput opisa ili oznaka) kako bi se vaš sadržaj vidio na tražilicama na bilo koji način i bez dodatnih uvjeta.
         p1: 'Prije nego što predate digitalizirane materijale Europeani morate prihvatiti %{contribution_terms}. Neki od najvažnijih rezultata prihvaćanja ovih uvjeta su idući:'
-        p2: "<b>Jamčite da ćete:</b>"
+        p2: "<b>Jamčite da:</b>"
         p3: Ako ne želite prihvatiti ove uvjete molimo vas da ne dopridonosite sadržajima ili opisima Europeani.
         terms: uvjeti
     search:
@@ -1837,20 +1844,20 @@ hr:
         common:
           category: Kategorija
           collection: Zbirka
-          contributor: 
+          contributor: Doprinositelj
           country: Država
           creator: Stvaratelj
           format: Format
           language: Jezik
           location: Lokacija
-          media: 
+          media: Vrsta medija
           provider: Pružatelj
           rights: Prava
           subject: Predmet
           type: Vrsta
           year: Godina
         contributions:
-          collection_day: Dan prikupljanja
+          collection_day: Dan prikupljanja memorabilija
           content: Vrsta predmeta
           file_type: Vrsta medija
           keywords: Ključne riječi
@@ -1904,7 +1911,7 @@ hr:
           visits: Posjeti
         no_results: Statistički podaci nisu dostupni.
         providers:
-          canadiana: 
+          canadiana: Canadiana (Kanada)
           digitalnz: DigitalNZ (Novi Zeland)
           dpla: DPLA (SAD)
           europeana: Europeana
