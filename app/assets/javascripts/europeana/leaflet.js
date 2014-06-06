@@ -201,7 +201,7 @@
 				if ( markers.length === 1 ) {
 					marker.addTo( europeana.leaflet.map );
 
-					if ( this.popup.open ) {
+					if ( this.popup !== undefined && this.popup.open ) {
 						marker.openPopup();
 					}
 				} else if ( this.past ) {
