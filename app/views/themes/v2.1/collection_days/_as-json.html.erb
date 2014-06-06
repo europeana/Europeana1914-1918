@@ -7,6 +7,7 @@
 
 		for collection_day in @collection_days
 			if collection_day.start_date < Date.today
+				collection_day_past = 'true'
 				if collection_day.has_contributions?
 					icon = '"type":"red"'
 					marker_link = link_to t( 'views.collection_days.open-collection' ), explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
@@ -15,6 +16,7 @@
 					marker_link = link_to t( 'views.collection_days.get-notified' ), 'collection-days/' + collection_day.code
 				end
 			else
+				collection_day_past = 'false'
 				icon = '"type":"green"'
 				marker_link = link_to t( 'views.collection_days.visiting-information' ), 'collection-days/' + collection_day.code
 				upcoming += '{'
@@ -28,6 +30,7 @@
 
 			markers += '{'
 				markers += '"latlng":[' + collection_day.map_latlng + '],'
+				markers += '"past":' + collection_day_past + ','
 				markers += '"popup":{'
 					markers += '"content":'
 						markers += '"'

@@ -43,6 +43,8 @@
 				position: 'topleft'
 			}
 		},
+		past_collection_day_layer: {},
+		upcoming_collection_day_layer: {},
 
 
 		addBanner: function() {
@@ -151,6 +153,8 @@
 			var
 			marker,
 			marker_icon = {},
+			markers_past = [],
+			markers_upcoming = [],
 			greenIcon = L.icon({
 				iconUrl: '/assets/leaflet/images/marker-icon-green.png'
 			}),
@@ -187,7 +191,6 @@
 				}
 
 				marker = L.marker( this.latlng, marker_icon );
-				marker.addTo( europeana.leaflet.map );
 
 				if ( this.popup !== undefined ) {
 					if ( this.popup.content !== undefined ) {
@@ -198,7 +201,19 @@
 						marker.openPopup();
 					}
 				}
+
+				if ( this.past ) {
+					markers_past.push( marker );
+				} else {
+					markers_upcoming.push( marker );
+				}
 			});
+
+			this.past_collection_day_layer = L.layerGroup( markers_past );
+			this.map.addLayer( this.past_collection_day_layer );
+
+			this.upcoming_collection_day_layer = L.layerGroup( markers_upcoming );
+			this.map.addLayer( this.upcoming_collection_day_layer );
 		},
 
 		addMiniMap: function() {
