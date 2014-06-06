@@ -196,24 +196,30 @@
 					if ( this.popup.content !== undefined ) {
 						marker.bindPopup( this.popup.content );
 					}
+				}
+
+				if ( markers.length === 1 ) {
+					marker.addTo( europeana.leaflet.map );
 
 					if ( this.popup.open ) {
 						marker.openPopup();
 					}
-				}
-
-				if ( this.past ) {
+				} else if ( this.past ) {
 					markers_past.push( marker );
 				} else {
 					markers_upcoming.push( marker );
 				}
 			});
 
-			this.past_collection_day_layer = L.layerGroup( markers_past );
-			this.map.addLayer( this.past_collection_day_layer );
+			if ( markers_past.length > 0 ) {
+				this.past_collection_day_layer = L.layerGroup( markers_past );
+				this.map.addLayer( this.past_collection_day_layer );
+			}
 
-			this.upcoming_collection_day_layer = L.layerGroup( markers_upcoming );
-			this.map.addLayer( this.upcoming_collection_day_layer );
+			if ( markers_upcoming.length > 0 ) {
+				this.upcoming_collection_day_layer = L.layerGroup( markers_upcoming );
+				this.map.addLayer( this.upcoming_collection_day_layer );
+			}
 		},
 
 		addMiniMap: function() {
