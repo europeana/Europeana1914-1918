@@ -273,7 +273,12 @@
 	}
 
 	truncate.init();
-	europeana.leaflet.init();
+
+	europeana.leaflet.init({
+		europeana_ctrls: true,
+		minimap: true
+	});
+
 	RunCoCo.translation_services.init( jQuery('.translate-area') );
 	europeana.carousel.init('institution-featured');
 	mimetype.init(); // lightbox is now initialized within this object

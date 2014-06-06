@@ -80,13 +80,10 @@
 					display: true,
 					content: this.banner_content
 				},
-				europeana_ctrls: false,
-				google_layer: false,
 				legend: {
 					display: true,
 					content: this.legend_content
 				},
-				minimap: false,
 				zoom_control: {
 					position: 'bottomleft'
 				}

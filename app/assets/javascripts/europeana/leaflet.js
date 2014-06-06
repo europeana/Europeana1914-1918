@@ -30,14 +30,13 @@
 				display: false,
 				position: 'topright'
 			},
-			europeana_ctrls: true,
-			google_layer: true,
+			europeana_ctrls: false,
 			legend: {
 				content: '',
 				display: false,
 				position: 'topright'
 			},
-			minimap: true,
+			minimap: false,
 			zoom_control: {
 				display: true,
 				position: 'topleft'
@@ -68,7 +67,9 @@
 				return;
 			}
 
+			this.addGoogleLayer();
 			this.$europeanaCtrls.prependTo('#map-container');
+
 			this.$europeanaCtrls.append(
 				new europeana.leaflet.EuropeanaLayerControl(
 					this.map,
@@ -87,10 +88,6 @@
 		},
 
 		addGoogleLayer: function() {
-			if ( !this.options.google_layer ) {
-				return;
-			}
-
 			this.googleLayer = new L.Google();
 			this.map.addLayer( this.googleLayer );
 		},
@@ -277,7 +274,6 @@
 			}
 
 			this.addMapQuestLayer();
-			this.addGoogleLayer();
 			this.addMiniMap();
 			this.addMapZoomControl();
 			this.addBanner();

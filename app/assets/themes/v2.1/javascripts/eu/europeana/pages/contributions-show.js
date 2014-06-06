@@ -372,7 +372,11 @@
 		pdf_viewer = add_lightbox = false;
 	}
 
-	europeana.leaflet.init();
+	europeana.leaflet.init({
+		europeana_ctrls: true,
+		minimap: true
+	});
+
 	RunCoCo.translation_services.init( $('.translate-area') );
 	europeana.carousel.init('contributions-featured');
 	lightbox.init();

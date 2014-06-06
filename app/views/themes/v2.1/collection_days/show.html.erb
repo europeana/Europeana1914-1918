@@ -2,48 +2,153 @@
   provide :title, collection_day_summary(@collection_day)
   provide :javascripts_page, 'collection-days-show'
   provide :javascripts_europeana_leaflet, true
+  provide :stylesheets_collection_days, true
+
+  html = '<div class="section top">'
+
+    # admin menu
+    if current_user.may_administer_metadata_fields?
+      html += '<ul class="action-links">'
+        html += content_tag(
+          'li',
+          link_to(
+            t('actions.edit'),
+            edit_admin_collection_day_path(
+              @collection_day,
+              :redirect => collection_day_path( @collection_day )
+            )
+          )
+        )
+      html += '</ul>'
+    end
+
+    # map & metadata
+    html += '<div class="section">'
+
+      # map
+      if @collection_day.map_latlng.present?
+        if @collection_day.map_zoom.present?
+          provide :map_zoom, @collection_day.map_zoom.to_s
+        end
+
+        provide :map_latlng, @collection_day.map_latlng
+
+        html += '<div id="map-container">'
+          html += '<div id="map"></div>'
+
+          if @collection_day.start_date >= Date.today()
+            html += '<a href="">' + t( 'views.collection_days.get-directions' ) + '</a>'
+          end
+        html += '</div>'
+      end
+
+      # metadata
+      html += '<div id="collection-day-metadata">'
+
+        # title
+        html += '<h2>' + @collection_day.name + '</h2>'
+
+        # date
+        html += '<h3>' + localize( @collection_day.start_date ) + '</h3>'
+
+        # image
+        if @collection_day.image.present?
+          html += content_tag(
+            'div',
+            image_tag( @collection_day.image.url( :medium ) ),
+            :class => 'collection-day-image'
+          )
+        end
+
+        # description
+        unless @collection_day.description.blank?
+          html += content_tag(
+            'p',
+            @collection_day.description
+          )
+        end
+
+        html += '<dl>'
+
+        # where
+        html += '<dt>Where: </dt>'
+        html += '<dd>'
+          unless @collection_day.contact.street_address.blank?
+            html += @collection_day.contact.street_address + ', '
+          end
+
+          unless @collection_day.contact.locality.blank?
+          html += @collection_day.contact.locality + ', '
+          end
+
+          unless @collection_day.contact.region.blank?
+            html += @collection_day.contact.region + ', '
+          end
+
+          unless @collection_day.contact.country.blank?
+            html += t( "countries.#{@collection_day.contact.country}" )
+          end
+        html += '</dd>'
+
+        # website
+        unless @collection_day.url.blank?
+          html += '<dt>' + t( 'views.collection_days.website' ) + ' </dt>'
+          html += content_tag(
+            'dd',
+            link_to( @collection_day.url, @collection_day.url )
+          )
+        end
+
+        # stores
+        html += '<dt>' + t( 'views.collection_days.stories' ) + ' </dt>'
+        if @collection_day.has_contributions?
+          html += content_tag(
+          'dd',
+          link_to(
+            t( 'collection_days.view-stories' ).pluralize,
+              explore_collection_path(
+                'collection_day',
+                @collection_day.code,
+                :qf => { :index => 'c' }
+              )
+            )
+          )
+        else
+          # no stories exist yet
+          html += '<dd>'
+            html += t( 'views.collection_days.no-stories' )
+            html += render :partial => 'get-notified-form', :locals => { :collection_day => @collection_day }
+
+            # recommended for now
+            html += t( 'views.collection_days.in-the-meantime' )
+            html += '<p>' + link_to( 'alternative collection to view for now', '#' ) + '</p>'
+            html += '<p><b>Current collection day model does not provide for an alternative collection name and search result. Do we need to add this to the colelction day model?</b></p>'
+          html += '</dd>'
+        end
+
+
+      html += '</div>' # end metadata
+    html += '</div>' # end map & metadata
+
+    # what is it
+    html += '<div class="section">'
+      html += '<div id="what-is-it" class="col-one-third">'
+        html += '<h2>' + t( 'views.collection_days.what-is-it-heading' ) + '</h2>'
+        html += simple_format( t( 'views.collection_days.what-is-it-content' ) )
+      html += '</div>'
+
+      html += '<div class="col-one-third">'
+        html += '<h2>' + t( 'views.collection_days.who-is-it-for-heading' ) + '</h2>'
+        html += simple_format( t( 'views.collection_days.who-is-it-for-content' ) )
+      html += '</div>'
+
+      html += '<div class="col-one-third">'
+        html += '<h2>' + t( 'views.collection_days.what-do-you-get-heading' ) + '</h2>'
+        html += simple_format( t( 'views.collection_days.what-do-you-get-content' ) )
+      html += '</div>'
+    html += '</div>'
+
+  html += '</div>'
+
 %>
-
-<div class="section top">
-
-  <h2><%= yield :title %></h2>
-
-  <% if current_user.may_administer_metadata_fields? -%>
-    <div class="action-links">
-      <ul>
-        <li><%= link_to t('actions.edit'), edit_admin_collection_day_path(@collection_day, :redirect => collection_day_path(@collection_day)) %></li>
-      </ul>
-    </div>
-  <% end -%>
-
-  <% if @collection_day.image.present? -%>
-    <div class="collection-day-image"><%= image_tag(@collection_day.image.url(:medium)) %></div>
-  <% end -%>
-  <% unless @collection_day.description.blank? -%>
-    <p><%= @collection_day.description %></p>
-  <% end -%>
-  <p><%= link_to @collection_day.url, @collection_day.url %></p>
-  <p><%= @collection_day.contact.full_name %></p>
-  <p><address>
-    <%= @collection_day.contact.street_address %><br />
-    <%= @collection_day.contact.locality %><br />
-    <% unless @collection_day.contact.region.blank? -%>
-      <%= @collection_day.contact.region %><br />
-    <% end -%>
-    <%= @collection_day.contact.postal_code %><br />
-    <%= @collection_day.contact.country %>
-  </address></p>
-  <p><%= link_to t('activerecord.models.contribution').pluralize, explore_collection_path('collection_day', @collection_day.code, :qf => { :index => 'c' }) %></p>
-  <% if @collection_day.map_latlng.present? -%>
-    <% provide :map_latlng, @collection_day.map_latlng -%>
-    <div class="col-cell">
-      <div id="map-container">
-        <div id="map"></div>
-      </div>
-    </div>
-  <% end -%>
-  <% if @collection_day.map_zoom.present? -%>
-    <% provide :map_zoom, @collection_day.map_zoom.to_s -%>
-  <% end -%>
-
-</div>
+<%= html.html_safe %>

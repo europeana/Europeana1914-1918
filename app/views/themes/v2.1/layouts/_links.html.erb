@@ -36,6 +36,10 @@
     link += theme_stylesheet_link_tag 'chosen', :media => 'all' + "\n"
   end
 
+  if content_for?(:stylesheets_collection_days)
+    link += theme_stylesheet_link_tag 'collection-days', :media => 'all' + "\n"
+  end
+
   link += '<!--[if lt IE 9]>'
     link += theme_stylesheet_link_tag "ie", :media => 'all'
   link += '<![endif]-->' + "\n"
