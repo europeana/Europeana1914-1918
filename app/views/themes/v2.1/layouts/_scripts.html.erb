@@ -112,9 +112,12 @@
     script_includes += ( theme_javascript_include_tag 'europeana-leaflet' ) + "\n"
   end
 
+  if content_for?(:map_google)
+    script_includes += ( javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.2&sensor=false' ) + "\n"
+  end
+
   if content_for?( :map_latlng )
     script_includes += ( theme_javascript_include_tag 'leaflet' ) + "\n"
-    script_includes += ( javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.2&sensor=false' ) + "\n"
   end
 
   if content_for?( :reveal )

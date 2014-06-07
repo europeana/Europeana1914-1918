@@ -4,6 +4,11 @@
   provide :javascripts_europeana_leaflet, true
   provide :stylesheets_collection_days, true
 
+  if  ( @collection_day.end_date && @collection_day.end_date >= Date.today() ) ||
+      ( @collection_day.start_date >= Date.today() )
+    provide :collection_day_upcoming, true
+  end
+
   html = '<div class="section top">'
 
     # admin menu
@@ -113,17 +118,17 @@
               )
             )
           )
-        elsif
-          ( @collection_day.end_date && @collection_day.end_date >= Date.today() ) ||
-          ( @collection_day.start_date >= Date.today() )
-          # collection day hasn’t happend yet or is not yet complete
+
+        # collection day hasn’t happend yet or is not yet complete
+        elsif content_for?( :collection_day_upcoming )
           html += '<dd>'
             html += t( 'views.collection_days.join-us' )
             html += ' '
             html += link_to( t( 'views.collection_days.in-the-meantime' ),  '/' + I18n.locale.to_s + '/collection-days' )
           html += '</dd>'
+
+        # no stories exist yet
         else
-          # no stories exist yet
           html += '<dd>'
             html += t( 'views.collection_days.no-stories' )
             html += ' '
