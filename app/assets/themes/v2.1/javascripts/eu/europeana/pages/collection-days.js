@@ -14,11 +14,29 @@
 		 * @param {string} arguments[1].selected
 		 */
 		handleChange: function() {
-			window.location.href =
-				window.location.protocol + "//" +
-				window.location.host + "/" +
-				'collection-days/' +
-				arguments[1].selected;
+			if (
+				arguments[1] === undefined ||
+				arguments[1].selected === undefined
+			) {
+				return;
+			}
+
+			var pieces = arguments[1].selected.split('|');
+
+			if ( pieces.length === 2 && pieces[1] === 'searchable' ) {
+				window.location.href =
+					window.location.protocol + "//" +
+					window.location.host + "/" +
+					'collection/explore/collection_day/' +
+					pieces[0] +
+					'?qf[index]=c';
+			} else {
+				window.location.href =
+					window.location.protocol + "//" +
+					window.location.host + "/" +
+					'collection-days/' +
+					arguments[1].selected;
+			}
 		},
 
 		init: function() {

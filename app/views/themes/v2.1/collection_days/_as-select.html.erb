@@ -10,7 +10,11 @@
 
 				for collection_day in @collection_days
 					html += '<optgroup label="' + t( "countries.#{collection_day.contact.country}" ) + '">'
-						html += '<option value="' + collection_day.code + '">' + collection_day_summary( collection_day ) + '</option>'
+						if collection_day.has_contributions?
+							html += '<option value="' + collection_day.code + '|searchable">' + collection_day_summary( collection_day ) + '</option>'
+						else
+							html += '<option value="' + collection_day.code + '">' + collection_day_summary( collection_day ) + '</option>'
+						end
 					html += '<optgroup>'
 				end
 
