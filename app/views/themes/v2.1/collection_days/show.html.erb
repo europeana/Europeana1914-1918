@@ -105,7 +105,7 @@
           html += content_tag(
           'dd',
           link_to(
-            t( 'collection_days.view-stories' ).pluralize,
+            t( 'views.collection_days.view-stories' ).pluralize,
               explore_collection_path(
                 'collection_day',
                 @collection_day.code,
@@ -113,16 +113,21 @@
               )
             )
           )
+        elsif
+          ( @collection_day.end_date && @collection_day.end_date >= Date.today() ) ||
+          ( @collection_day.start_date >= Date.today() )
+          # collection day hasn’t happend yet or is not yet complete
+          html += '<dd>'
+            html += t( 'views.collection_days.join-us' )
+            html += ' '
+            html += link_to( t( 'views.collection_days.in-the-meantime' ),  '/' + I18n.locale.to_s + '/collection-days' )
+          html += '</dd>'
         else
           # no stories exist yet
           html += '<dd>'
             html += t( 'views.collection_days.no-stories' )
-            html += render :partial => 'get-notified-form', :locals => { :collection_day => @collection_day }
-
-            # recommended for now
-            html += t( 'views.collection_days.in-the-meantime' )
-            html += '<p>' + link_to( 'alternative collection to view for now', '#' ) + '</p>'
-            html += '<p><b>Current collection day model does not provide for an alternative collection name and search result. Do we need to add this to the colelction day model?</b></p>'
+            html += ' '
+            html += link_to( t( 'views.collection_days.in-the-meantime' ),  '/' + I18n.locale.to_s + '/collection-days' )
           html += '</dd>'
         end
 
