@@ -23,7 +23,7 @@
 					upcoming += '"name":"' + collection_day.name + '",'
 					upcoming += '"city":"' + collection_day.contact.locality + '",'
 					upcoming += '"country":"' + t( "countries.#{collection_day.contact.country}" ) + '",'
-					upcoming += '"date":"' + localize( collection_day.start_date ) + '",'
+					upcoming += '"date":"' + collection_day.start_date.strftime('%d %B %y') + '",'
 					upcoming += '"code":"' + collection_day.code + '"'
 				upcoming += '}'
 			end
@@ -37,7 +37,7 @@
 							marker_content = '<b>'  + collection_day.name + '</b><br />'
 							marker_content += collection_day.contact.locality + ', '
 							marker_content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
-							marker_content += localize( collection_day.start_date )
+							marker_content += collection_day.start_date.strftime('%d %B %y')
 							marker_content += '<br /><br />'
 							marker_content += marker_link
 							markers += marker_content.gsub!('"','\"')
