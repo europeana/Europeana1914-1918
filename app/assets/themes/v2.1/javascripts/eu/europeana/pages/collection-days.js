@@ -56,8 +56,8 @@
 
 		setBannerContent: function() {
 			if (
-				!$.isArray( RunCoCo.leaflet.upcoming )
-				|| RunCoCo.leaflet.upcoming.length < 1
+				!$.isArray( RunCoCo.leaflet.upcoming ) ||
+				RunCoCo.leaflet.upcoming.length < 1
 			) {
 				return;
 			}

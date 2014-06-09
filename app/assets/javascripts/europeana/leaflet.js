@@ -250,9 +250,9 @@
 		 */
 		init: function( options ) {
 			if (
-				RunCoCo === undefined
-				|| RunCoCo.leaflet === undefined
-				|| RunCoCo.leaflet.centre === undefined
+				RunCoCo === undefined ||
+				RunCoCo.leaflet === undefined ||
+				RunCoCo.leaflet.centre === undefined
 			) {
 				return;
 			}
@@ -267,8 +267,8 @@
 			this.setMap();
 
 			if (
-				RunCoCo.leaflet.markers !== undefined
-				&& $.isArray( RunCoCo.leaflet.markers )
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
 			) {
 				this.addMarkers( RunCoCo.leaflet.markers );
 			}
@@ -289,8 +289,8 @@
 		 */
 		latLngIsValid: function( latlng ) {
 			if (
-				!$.isArray( latlng )
-				|| latlng.length !== 2
+				!$.isArray( latlng ) ||
+				latlng.length !== 2
 			) {
 				return false;
 			}

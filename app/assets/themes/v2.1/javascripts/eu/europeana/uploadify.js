@@ -232,12 +232,15 @@
 		
 		addUploadify : function() {
 			
-			if ( this.uploadify_added
-					 || !window.swfobject
-					 || !swfobject.hasFlashPlayerVersion("9.0.24")
-					 || (window.location.search.indexOf('?ui=basic') !== -1)
-					 || (window.location.search.indexOf('&ui=basic') !== -1)
-			) { return; }
+			if (
+				this.uploadify_added ||
+				!window.swfobject ||
+				!swfobject.hasFlashPlayerVersion("9.0.24") ||
+				(window.location.search.indexOf('?ui=basic') !== -1) ||
+				(window.location.search.indexOf('&ui=basic') !== -1)
+			) {
+				return;
+			}
 			
 			this.setOptions();
 			this.setupHtml();

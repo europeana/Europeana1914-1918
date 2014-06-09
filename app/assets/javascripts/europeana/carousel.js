@@ -42,9 +42,10 @@
 		},
 
 		addNavArrowHandling: function() {
-			if ( !europeana.carousel.$featured_carousel
-				|| !europeana.carousel.$featured_carousel.$items
-				|| europeana.carousel.$featured_carousel.$items.length < 2
+			if (
+				!europeana.carousel.$featured_carousel ||
+				!europeana.carousel.$featured_carousel.$items ||
+				europeana.carousel.$featured_carousel.$items.length < 2
 			) {
 				return;
 			}
@@ -174,9 +175,9 @@
 			$elm_placeholder = this.$featured_carousel.$items.eq( new_carousel_index );
 
 			if (
-				new_carousel_index === -1
-				|| ( new_carousel_index + 1 ) > this.$featured_carousel.items_length
-				|| !$elm_placeholder.hasClass('item-placeholder')
+				new_carousel_index === -1 ||
+				( new_carousel_index + 1 ) > this.$featured_carousel.items_length ||
+				!$elm_placeholder.hasClass('item-placeholder')
 			) {
 				return;
 			}

@@ -139,14 +139,15 @@
 						mimetype.removeLightbox( $elm );
 					},
 					success: function( data ) {
-						if ( data['content-type']
-							&& data['content-type'][0]
+						if (
+							data['content-type'] &&
+							data['content-type'][0]
 						) {
 							if ( data['content-type'][0].indexOf( 'text/html' ) !== -1 ) {
 								mimetype.removeLightbox( $elm );
 							} else if (
-								data['content-type'][0] === 'application/pdf'
-								|| data['content-type'][0] === 'pdf'
+								data['content-type'][0] === 'application/pdf' ||
+								data['content-type'][0] === 'pdf'
 							) {
 								mimetype.replaceWithPdfLink( $elm );
 							}
@@ -242,8 +243,8 @@
 			//requested_page = Math.ceil( requested_item / this.items_per_page );
 
 			if (
-				requested_item < 1
-				|| requested_item > total_items
+				requested_item < 1 ||
+				requested_item > total_items
 			) {
 				return;
 			}
@@ -265,9 +266,9 @@
 	};
 
 	if (
-		( $(window).width() <= 768 || $(window).height() <= 500 )
-		&& !( /iPad/.test( navigator.platform ) )
-		&& navigator.userAgent.indexOf( "AppleWebKit" ) > -1
+		( $(window).width() <= 768 || $(window).height() <= 500 ) &&
+		!( /iPad/.test( navigator.platform ) ) &&
+		navigator.userAgent.indexOf( "AppleWebKit" ) > -1
 	) {
 		add_lightbox = false;
 	}

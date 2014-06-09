@@ -33,7 +33,7 @@
           xhr.setRequestHeader("X-CSRF-Token", jQuery('meta[name="csrf-token"]').attr('content'));
         },
         success: function(response) {
-          if (response.uploaded == true) {
+          if (response.uploaded === true) {
             var thumbnailLink = jQuery(response.thumbnailLink).hide();
             jQuery(thumnailTableCell).append(thumbnailLink);
             var downloadLink = jQuery(response.downloadLink).hide();
@@ -46,7 +46,7 @@
             }).remove();
             
             jQuery(thumnailTableCell).removeClass('pending');
-            if (jQuery("table.attachments td.pending").length == 0) {
+            if (jQuery("table.attachments td.pending").length === 0) {
               jQuery('#contribution_uploads_pending').fadeOut().remove();
               jQuery("form[id^='edit_contribution'] > fieldset > ol > *").fadeIn();
               jQuery("form[id^='edit_contribution'] input[type='submit']").removeAttr('disabled');
@@ -221,8 +221,10 @@
 
 					case 'show' :
 
-						if ( 'attachment_upload' === $elm.attr('id')
-							&& ( 'single-item' === except_id || 'multiple-item' === except_id ) ) {
+						if (
+							'attachment_upload' === $elm.attr('id') &&
+							( 'single-item' === except_id || 'multiple-item' === except_id )
+						) {
 
 							openFieldset( $elm );
 
@@ -232,8 +234,10 @@
 
 						}
 
-						if ( ( 'single-item' === except_id || 'attachment_upload' === except_id )
-							&& 'submit' === $elm.attr('id') ) {
+						if (
+							'submit' === $elm.attr('id') &&
+							( 'single-item' === except_id || 'attachment_upload' === except_id )
+						) {
 
 							hideFieldset( $elm );
 

@@ -36,9 +36,10 @@
 			self.$metadata[ self.current ].data('clone').appendTo( $pp_content );
 
 			self.$metadata[ self.current ].data('clone').css({
-				height : $pic_full_res.find('img').height()
-					- parseInt( self.$metadata[ self.current ].data('clone').css('padding-top'), 10 )
-					- parseInt( self.$metadata[ self.current ].data('clone').css('padding-bottom'), 10 )
+				height :
+					$pic_full_res.find('img').height() -
+					parseInt( self.$metadata[ self.current ].data('clone').css('padding-top'), 10 ) -
+					parseInt( self.$metadata[ self.current ].data('clone').css('padding-bottom'), 10 )
 			});
 
 			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
@@ -195,9 +196,29 @@
 				return;
 			}
 
-			anno.addPlugin( 'RunCoCo_Attachment', { } );
-			anno.addPlugin( 'RunCoCo', { base_url : window.location.protocol + "//" + window.location.host + "/" + RunCoCo.locale + "/annotations" } );
-			anno.addPlugin( 'Flag', { base_url : window.location.protocol + "//" + window.location.host + "/" + RunCoCo.locale + "/annotations" } );
+			anno.addPlugin(
+				'RunCoCo_Attachment',
+				{}
+			);
+			anno.addPlugin(
+				'RunCoCo',
+				{
+					base_url :
+						window.location.protocol + "//" +
+						window.location.host + "/" +
+						RunCoCo.locale +
+						"/annotations"
+				}
+			);
+			anno.addPlugin(
+				'Flag',
+				{
+					base_url :
+						window.location.protocol + "//" +
+						window.location.host + "/" +
+							RunCoCo.locale + "/annotations"
+				}
+			);
 			this.annotorious_setup = true;
 		},
 
@@ -282,7 +303,11 @@
 
 			if ( self.placename ) {
 				self.$placename_link
-					.attr('href', '/contributions/search?q=' + self.placename.replace(/,/g,'').replace(/ /g,'+') )
+					.attr(
+						'href',
+						'/contributions/search?q=' +
+						self.placename.replace(/,/g,'').replace(/ /g,'+')
+					)
 					.html( self.placename );
 
 				self.$story_took_place
@@ -299,10 +324,15 @@
 
 	pdf = {
 		handleClick : function() {
-			var $elm = $(this),
-				destination_url;
+			var
+			$elm = $(this),
+			destination_url =
+				'/contributions/' +
+				$elm.data('contribution-id') +
+				'/attachments/' +
+				$elm.data('attachment-id') +
+				'?layout=0';
 
-			destination_url = '/contributions/' + $elm.data('contribution-id') + '/attachments/' + $elm.data('attachment-id') + '?layout=0';
 			$elm.attr( 'href', destination_url );
 		},
 
@@ -341,8 +371,8 @@
 			//requested_page = Math.ceil( requested_item / this.items_per_page );
 
 			if (
-				requested_item < 1
-				|| requested_item > total_items
+				requested_item < 1 ||
+				requested_item > total_items
 			) {
 				return;
 			}
@@ -365,9 +395,9 @@
 	};
 
 	if (
-		( $(window).width() <= 768 || $(window).height() <= 500 )
-		&& !( /iPad/.test( navigator.platform ) )
-		&& navigator.userAgent.indexOf( "AppleWebKit" ) > -1
+		( $(window).width() <= 768 || $(window).height() <= 500 ) &&
+		!( /iPad/.test( navigator.platform ) ) &&
+		navigator.userAgent.indexOf( "AppleWebKit" ) > -1
 	) {
 		pdf_viewer = add_lightbox = false;
 	}
