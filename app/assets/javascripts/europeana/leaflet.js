@@ -152,6 +152,9 @@
 			marker_icon = {},
 			markers_past = [],
 			markers_upcoming = [],
+			blueIcon = L.icon({
+				iconUrl: '/assets/leaflet/images/marker-icon.png'
+			}),
 			greenIcon = L.icon({
 				iconUrl: '/assets/leaflet/images/marker-icon-green.png'
 			}),
@@ -170,6 +173,10 @@
 				}
 
 				switch ( this.type ) {
+					case 'blue':
+						marker_icon = { icon: blueIcon };
+						break;
+
 					case 'green':
 						marker_icon = { icon: greenIcon };
 						break;
