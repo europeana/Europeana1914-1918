@@ -118,6 +118,10 @@
 
   if content_for?( :map_latlng )
     script_includes += ( theme_javascript_include_tag 'leaflet' ) + "\n"
+
+    if content_for?( :collection_day_upcoming )
+      script_includes += ( theme_javascript_include_tag 'leaflet-routing-machine' ) + "\n"
+    end
   end
 
   if content_for?( :reveal )

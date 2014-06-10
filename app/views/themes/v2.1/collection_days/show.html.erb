@@ -4,8 +4,8 @@
   provide :javascripts_europeana_leaflet, true
   provide :stylesheets_collection_days, true
 
-  if  ( @collection_day.end_date && @collection_day.end_date >= Date.today() ) ||
-      ( @collection_day.start_date >= Date.today() )
+  if  ( @collection_day.end_date && @collection_day.end_date >= Date.today ) ||
+      ( @collection_day.start_date >= Date.today )
     provide :collection_day_upcoming, true
   end
 
@@ -42,7 +42,7 @@
           html += '<div id="map"></div>'
 
           if @collection_day.start_date >= Date.today()
-            html += '<a href="">' + t( 'views.collection_days.get-directions' ) + '</a>'
+            html += '<a href="" id="get-directions">' + t( 'views.collection_days.get-directions' ) + '</a>'
           end
         html += '</div>'
       end

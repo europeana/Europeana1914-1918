@@ -37,6 +37,7 @@
 				position: 'topright'
 			},
 			minimap: false,
+			routing: false,
 			zoom_control: {
 				display: true,
 				position: 'topleft'
@@ -252,6 +253,15 @@
 			this.miniMap.addTo( this.map );
 		},
 
+		addRouting: function addRouting() {
+			L.Routing.control({
+				waypoints: [
+					L.latLng(48.8588,2.3469),
+					L.latLng(52.3546,4.9039)
+				]
+			}).addTo( this.map );
+		},
+
 		/**
 		 * @param {object} options
 		 */
@@ -286,6 +296,8 @@
 			this.addBanner();
 			this.addLegend();
 			this.addEuropeanaCtrls();
+
+			return this.map;
 		},
 
 		/**
