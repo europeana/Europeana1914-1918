@@ -183,11 +183,11 @@
 						break;
 
 					case 'purple':
-						marker_icon = { icon: purpleIcon };
+						marker_icon = { icon: purpleIcon, opacity: 0 };
 						break;
 
 					case 'red':
-						marker_icon = { icon: redIcon };
+						marker_icon = { icon: redIcon, opacity: 0 };
 						break;
 
 					default:

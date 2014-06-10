@@ -48,10 +48,29 @@
 		banner_content: '',
 		legend_content: '',
 
+
+		addPreviousToggleListener: function() {
+			$('#toggle-previous').on('click', this.handlePreviousToggle );
+		},
+
+		handlePreviousToggle: function() {
+			$.each( europeana.leaflet.past_collection_day_layer._layers, function() {
+				$(this._icon).fadeToggle();
+			});
+		},
+
 		init: function() {
 			this.setLegendContent();
 			this.setBannerContent();
 			this.setUpLeaflet();
+			this.removePreviousMarkersOpacity();
+			this.addPreviousToggleListener();
+		},
+
+		removePreviousMarkersOpacity: function() {
+			$.each( europeana.leaflet.past_collection_day_layer._layers, function() {
+				$(this._icon).css({'display':'none','opacity':''});
+			});
 		},
 
 		setBannerContent: function() {
@@ -88,7 +107,7 @@
 				'<div class="marker-icon marker-icon-blue">' + I18n.t( 'javascripts.collection-days.upcoming' ) + '</div>' +
 				'<div class="marker-icon marker-icon-red">' + I18n.t( 'javascripts.collection-days.past-entered' ) + '</div>' +
 				'<div class="marker-icon marker-icon-purple">' + I18n.t( 'javascripts.collection-days.past-not-entered' ) + '</div>' +
-				'<label><input type="checkbox" /> ' + I18n.t( 'javascripts.collection-days.show-past' ) + '</label>' +
+				'<label><input type="checkbox" id="toggle-previous" /> ' + I18n.t( 'javascripts.collection-days.show-past' ) + '</label>' +
 				'<a href="#what-is-it">' + I18n.t( 'javascripts.collection-days.what-is-it' ) + '</a>';
 		},
 
