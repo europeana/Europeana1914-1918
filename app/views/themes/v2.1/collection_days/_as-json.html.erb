@@ -6,7 +6,6 @@
 	if @collection_days.present?
 
 		for collection_day in @collection_days
-		Rails.logger.debug("**** collection_day: #{collection_day.code}")
 			if collection_day.start_date < Date.today
 				collection_day_past = 'true'
 				if collection_day.has_contributions?
