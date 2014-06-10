@@ -25,7 +25,7 @@
 					upcoming += '"country":"' + t( "countries.#{collection_day.contact.country}" ) + '",'
 					upcoming += '"date":"' + collection_day.start_date.strftime('%d %B %Y') + '",'
 					upcoming += '"code":"' + collection_day.code + '"'
-				upcoming += '}'
+				upcoming += '},'
 			end
 
 			markers += '{'
@@ -55,7 +55,7 @@
 	script += '];' + "\n"
 
 	script += 'RunCoCo.leaflet.upcoming = ['
-		script += upcoming
+		script += upcoming[0...-1]
 	script +=  '];' + "\n"
 
 %>
