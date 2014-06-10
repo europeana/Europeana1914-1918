@@ -6,6 +6,7 @@
 	if @collection_days.present?
 
 		for collection_day in @collection_days
+		Rails.logger.debug("**** collection_day: #{collection_day.code}")
 			if collection_day.start_date < Date.today
 				collection_day_past = 'true'
 				if collection_day.has_contributions?
@@ -29,7 +30,7 @@
 			end
 
 			markers += '{'
-				markers += '"latlng":[' + collection_day.map_latlng + '],'
+				markers += '"latlng":[' + collection_day.map_latlng.to_s + '],'
 				markers += '"past":' + collection_day_past + ','
 				markers += '"popup":{'
 					markers += '"content":'
