@@ -113,7 +113,7 @@
 				return;
 			}
 
-			// RunCoCo Edit for autocompletion
+			// RunCoCo Edit - adds autocompletion
 			this._complete(this._resultFn, true);
 
 			if (e.keyCode === 13) {
@@ -146,7 +146,7 @@
 		},
 
 		_keyDown: function(e) {
-			// RunCoCo Edit for autocompletion
+			// RunCoCo Edit - adds autocompletion
 			if ( e.keyCode === 8 ) {
 				this._complete(this._resultFn, true);
 			}
@@ -868,6 +868,8 @@
 				this._geocoderElems.push(geocoderElem);
 			}
 
+			// RunCoCo Edit - remove the ability to add additional waypoints
+			/*
 			addWpBtn = L.DomUtil.create('button', '', container);
 			addWpBtn.setAttribute('type', 'button');
 			addWpBtn.innerHTML = '+';
@@ -876,6 +878,7 @@
 			}, this);
 
 			this.on('waypointsspliced', this._updateGeocoders);
+			*/
 
 			return container;
 		},

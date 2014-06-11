@@ -22,9 +22,9 @@ jQuery.support.transition = (function(){
 			this.$get_directions.on('click', this.handleGetDirectionsClick);
 		},
 
-		addLeafletMap: function addLeafletMap( add_routing ) {
+		addLeafletMap: function addLeafletMap() {
 			this.map = europeana.leaflet.init({
-				routing: add_routing
+				routing: true
 			});
 		},
 
@@ -43,8 +43,6 @@ jQuery.support.transition = (function(){
 						RunCoCo.leaflet.markers[0].latlng[0],
 						RunCoCo.leaflet.markers[0].latlng[1]
 					)
-				//L.latLng(48.8588,2.3469),
-				//L.latLng(52.3546,4.9039)
 				],
 				geocoder: L.Control.Geocoder.nominatim(),
 				lineOptions: {
@@ -63,6 +61,11 @@ jQuery.support.transition = (function(){
 			this.$routing_ctrl = $(this.routing_ctrl._container);
 		},
 
+		addRoutingAndResize: function addRoutingAndResize() {
+			leaflet.invalidateSize();
+			leaflet.addRouting();
+		},
+
 		/**
 		 *
 		 * @param {Event} evt
@@ -73,28 +76,31 @@ jQuery.support.transition = (function(){
 
 			if ( leaflet.$map_container.hasClass('expand') ) {
 				leaflet.$map_container.removeClass('expand');
+				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.get-directions' ) );
 				leaflet.$routing_ctrl.fadeOut();
 			} else {
 				leaflet.$map_container.addClass('expand');
+				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.close-directions' ) );
 
 				if ( leaflet.routing_ctrl !== undefined ) {
 					leaflet.$routing_ctrl.fadeIn();
+				} else if ( !$.support.transition ) {
+					console.log('here');
+					setTimeout(
+						leaflet.addRoutingAndResize,
+						500
+					);
 				}
 			}
 		},
 
 		init: function init() {
-			if ( !$.support.transition ) {
-				this.addLeafletMap( false );
-				this.$get_directions.hide();
-			} else {
-				this.addLeafletMap( true );
-				this.addGetDirectionsListener();
-				this.addMapContainerListener();
-			}
+			this.addLeafletMap();
+			this.addGetDirectionsListener();
+			this.addMapContainerListener();
 		},
 
-		invalidateSize: function invalidateSize() {;
+		invalidateSize: function invalidateSize() {
 			this.map.invalidateSize({
 				animate: true,
 				pan: false
@@ -103,8 +109,7 @@ jQuery.support.transition = (function(){
 
 		mapComtainerTransitionHandler: function mapComtainerTransitionHandler( evt ) {
 			if ( evt.target === evt.currentTarget ) {
-				leaflet.invalidateSize();
-				leaflet.addRouting();
+				leaflet.addRoutingAndResize();
 				leaflet.$map_container.off(
 					'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd'
 				);
