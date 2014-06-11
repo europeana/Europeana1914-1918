@@ -27,8 +27,13 @@ module FeedHelper
       key = item.taggable.is_a?(Contribution) ? 'story' : 'item'
       I18n.t("views.contributions.feed.entries.tagging.#{key}", :user => user, :title => item.taggable.title)
     when Contribution
-      user = item.contributor.contact.full_name
-      user = (t('activerecord.models.user') + ' ' + item.contributor.id.to_s) unless user.present?
+      user = if item.metadata.fields['contributor_behalf'].present?
+        item.metadata.fields['contributor_behalf']
+      elsif item.contributor.contact.full_name.present?
+        item.contributor.contact.full_name
+      else
+        (t('activerecord.models.user') + ' ' + item.contributor.id.to_s)
+      end
       I18n.t('views.contributions.feed.entries.contribution', :user => user, :title => item.title)
     end
   end
