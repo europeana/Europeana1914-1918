@@ -1,6 +1,7 @@
 /*global europeana, I18n, jQuery */
 /*jslint browser: true, white: true */
-(function($ ) {
+//= require jquery/plugins/jquery.cookie-1.4.1.js
+(function( $ ) {
 
 	'use strict';
 
@@ -47,13 +48,21 @@
 	leaflet = {
 		banner_content: '',
 		legend_content: '',
+		$toggle_previous: {},
 
 
 		addPreviousToggleListener: function() {
-			$('#toggle-previous').on('click', this.handlePreviousToggle );
+			this.$toggle_previous = $('#toggle-previous');
+			this.$toggle_previous.on('click', this.handlePreviousToggle );
 		},
 
 		handlePreviousToggle: function() {
+			if ( $(this).attr('checked') ) {
+				$.cookie('show-previous', true, { path: '/' });
+			} else {
+				$.cookie('show-previous', false, { path: '/' });
+			}
+
 			$.each( europeana.leaflet.past_collection_day_layer._layers, function() {
 				$(this._icon).fadeToggle();
 			});
@@ -65,11 +74,16 @@
 			this.setUpLeaflet();
 			this.removePreviousMarkersOpacity();
 			this.addPreviousToggleListener();
+			this.setPreviousCheckboxState();
 		},
 
 		removePreviousMarkersOpacity: function() {
 			$.each( europeana.leaflet.past_collection_day_layer._layers, function() {
-				$(this._icon).css({'display':'none','opacity':''});
+				if ( $.cookie('show-previous') === 'true' ) {
+					$(this._icon).css({'opacity':''});
+				} else {
+					$(this._icon).css({'display':'none','opacity':''});
+				}
 			});
 		},
 
@@ -109,6 +123,12 @@
 				'<div class="marker-icon marker-icon-purple">' + I18n.t( 'javascripts.collection-days.past-not-entered' ) + '</div>' +
 				'<label><input type="checkbox" id="toggle-previous" /> ' + I18n.t( 'javascripts.collection-days.show-past' ) + '</label>' +
 				'<a href="#what-is-it">' + I18n.t( 'javascripts.collection-days.what-is-it' ) + '</a>';
+		},
+
+		setPreviousCheckboxState: function() {
+			if ( $.cookie('show-previous') === 'true' ) {
+				this.$toggle_previous.attr('checked', 'checked');
+			}
 		},
 
 		setUpLeaflet: function() {
