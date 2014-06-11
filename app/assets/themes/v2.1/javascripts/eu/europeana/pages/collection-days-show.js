@@ -46,7 +46,17 @@ jQuery.support.transition = (function(){
 				//L.latLng(48.8588,2.3469),
 				//L.latLng(52.3546,4.9039)
 				],
-				geocoder: L.Control.Geocoder.nominatim()
+				geocoder: L.Control.Geocoder.nominatim(),
+				lineOptions: {
+					styles: [
+						// Shadow
+						{color: 'black', opacity: 0.8, weight: 11},
+						// Outline
+						{color: 'green', opacity: 0.8, weight: 8},
+						// Center
+						{color: 'orange', opacity: 1, weight: 4}
+					]
+				}
 			});
 
 			this.routing_ctrl.addTo(this.map);
