@@ -113,6 +113,9 @@
 				return;
 			}
 
+			// RunCoCo Edit for autocompletion
+			this._complete(this._resultFn, true);
+
 			if (e.keyCode === 13) {
 				this._complete(this._resultFn, true);
 			}
@@ -143,6 +146,11 @@
 		},
 
 		_keyDown: function(e) {
+			// RunCoCo Edit for autocompletion
+			if ( e.keyCode === 8 ) {
+				this._complete(this._resultFn, true);
+			}
+
 			if (this._isOpen) {
 				switch (e.keyCode) {
 				// Up
