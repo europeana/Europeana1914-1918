@@ -21,7 +21,7 @@ class ContributionsController < ApplicationController
   def feed
     count = [ (params[:count] || 20).to_i, 100 ].min # Default 20, max 100
 
-    items = Contribution.published.order('current_statuses.created_at DESC').limit(count) +
+    items = Contribution.published.order('current_statuses.updated_at DESC').limit(count) +
       ActsAsTaggableOn::Tagging.where(:context => 'tags').order('created_at DESC').limit(count) +
       Annotation.order('created_at DESC').limit(count)
 
