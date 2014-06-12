@@ -46,25 +46,30 @@
     script += 'RunCoCo.leaflet = {};' + "\n"
 
     if content_for?( :map_latlng )
-      script += 'RunCoCo.leaflet.centre = [' + content_for( :map_latlng ) + '];' + "\n"
+      script += 'RunCoCo.leaflet.map_options = {'
+      script += '"center":[' + content_for( :map_latlng ) + '],'
+      if content_for?( :map_zoom )
+        script += '"zoom":' + content_for( :map_zoom )
+      else
+        script = script[0...-1]
+      end
+      script += '};' + "\n"
 
-      script += 'RunCoCo.leaflet.markers = [{'
+      if content_for?( :javascripts_page ) && content_for( :javascripts_page ) != 'collection-days'
+        script += 'RunCoCo.leaflet.markers = [{'
         script += '"latlng":[' + content_for( :map_latlng ) + '],'
 
         if content_for?( :map_placename )
           script += '"popup":{'
-            script += '"content":"' + content_for( :map_placename ) + '",'
-            script += '"open":true'
+          script += '"content":"' + content_for( :map_placename ) + '",'
+          script += '"open":true'
           script += '},'
         end
 
         script = script[0...-1]
-      script += '}];' + "\n"
-    end
-
-    if content_for?( :map_zoom )
-      script += "RunCoCo.leaflet.mapZoom = " + content_for( :map_zoom ) + ";" + "\n"
-    end
+        script += '}];' + "\n"
+      end
+		end
   end
 
   if content_for?( :javascripts_page ) && content_for( :javascripts_page ) == 'collection-days'

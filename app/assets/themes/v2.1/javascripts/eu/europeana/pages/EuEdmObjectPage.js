@@ -95,18 +95,28 @@
 	},
 
 
-	truncate = {
-		init : function() {
-			if ( jQuery('#avatar').length < 1 ) {
-				return;
+	leaflet = {
+		init: function() {
+			var
+				map_options,
+				markers;
+
+			if (
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
+				) {
+				markers = RunCoCo.leaflet.markers
 			}
 
-			jQuery('#story-metadata').truncate({
-				limit : { pixels : 400 },
-				toggle_html : {
-					more : I18n.t('javascripts.truncate.show-more'),
-					less : I18n.t('javascripts.truncate.show-less')
-				}
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options
+			}
+
+			europeana.leaflet.init({
+				add_europeana_ctrl: true,
+				add_minimap: true,
+				map_options: map_options,
+				markers: markers
 			});
 		}
 	},
@@ -218,6 +228,7 @@
 		}
 	},
 
+
 	photoGallery = {
 		items_per_page: 1,
 
@@ -263,7 +274,25 @@
 				);
 			}
 		}
+	},
+
+
+	truncate = {
+		init : function() {
+			if ( jQuery('#avatar').length < 1 ) {
+				return;
+			}
+
+			jQuery('#story-metadata').truncate({
+				limit : { pixels : 400 },
+				toggle_html : {
+					more : I18n.t('javascripts.truncate.show-more'),
+					less : I18n.t('javascripts.truncate.show-less')
+				}
+			});
+		}
 	};
+
 
 	if (
 		( $(window).width() <= 768 || $(window).height() <= 500 ) &&
@@ -274,15 +303,10 @@
 	}
 
 	truncate.init();
-
-	europeana.leaflet.init({
-		europeana_ctrls: true,
-		minimap: true
-	});
-
 	RunCoCo.translation_services.init( jQuery('.translate-area') );
 	europeana.carousel.init('institution-featured');
 	mimetype.init(); // lightbox is now initialized within this object
 	photoGallery.init();
+	leaflet.init();
 
 }( jQuery ));

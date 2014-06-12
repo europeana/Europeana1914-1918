@@ -132,6 +132,25 @@
 		},
 
 		setUpLeaflet: function() {
+			var
+			map_options,
+			markers;
+
+			if (
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
+			) {
+				markers = RunCoCo.leaflet.markers;
+			}
+
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options;
+			}
+
+			map_options.zoomControl = new L.Control.Zoom({
+				position: 'bottomleft'
+			});
+
 			europeana.leaflet.init({
 				banner: {
 					display: true,
@@ -141,9 +160,8 @@
 					display: true,
 					content: this.legend_content
 				},
-				zoom_control: {
-					position: 'bottomleft'
-				}
+				map_options: map_options,
+				markers: markers
 			});
 		}
 	};

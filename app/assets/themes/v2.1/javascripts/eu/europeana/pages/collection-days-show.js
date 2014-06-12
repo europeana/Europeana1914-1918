@@ -23,8 +23,25 @@ jQuery.support.transition = (function(){
 		},
 
 		addLeafletMap: function addLeafletMap() {
+			var
+			map_options,
+			markers;
+
+			if (
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
+			) {
+				markers = RunCoCo.leaflet.markers;
+			}
+
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options;
+			}
+
 			this.map = europeana.leaflet.init({
-				routing: true
+				add_routing: true,
+				map_options: map_options,
+				markers: markers
 			});
 		},
 

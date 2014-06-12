@@ -264,6 +264,33 @@
 	},
 
 
+	leaflet = {
+		init: function() {
+			var
+			map_options,
+			markers;
+
+			if (
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
+			) {
+				markers = RunCoCo.leaflet.markers;
+			}
+
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options;
+			}
+
+			europeana.leaflet.init({
+				add_europeana_ctrl: true,
+				add_minimap: true,
+				map_options: map_options,
+				markers: markers
+			});
+		}
+	},
+
+
 	map = {
 
 		$map : $('#location-map'),
@@ -402,15 +429,11 @@
 		pdf_viewer = add_lightbox = false;
 	}
 
-	europeana.leaflet.init({
-		europeana_ctrls: true,
-		minimap: true
-	});
-
 	RunCoCo.translation_services.init( $('.translate-area') );
 	europeana.carousel.init('contributions-featured');
 	lightbox.init();
 	pdf.init();
 	photoGallery.init();
+	leaflet.init();
 
 }( jQuery ));

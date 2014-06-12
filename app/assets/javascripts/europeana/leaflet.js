@@ -11,20 +11,10 @@
 
 	europeana.leaflet = {
 
-		$europeanaCtrls: $('<div>').attr('id', 'europeana-ctrls'),
-		googleLayer: {},
-		map: {},
-		mapLatitude: 0,
-		mapLongitude: 0,
-		mapQuestAttribution:
-			'Tiles © ' +
-			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
-			'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
-		mapQuestLayer: {},
-		mapZoom: 8,
-		miniMap: {},
-		miniMapLayer: {},
-		options: {
+		default_options: {
+			add_europeana_ctrl: false,
+			add_minimap: false,
+			add_routing: false,
 			banner: {
 				content: '',
 				display: false,
@@ -36,35 +26,61 @@
 				display: false,
 				position: 'topright'
 			},
-			minimap: false,
-			routing: false,
-			zoom_control: {
-				display: true,
-				position: 'topleft'
+			markers: [],
+			map_options: {
+				id: 'map',
+				center: [0,0],
+				scrollWheelZoom: false,
+				zoom: 8,
+				zoomControl: true
 			}
 		},
+		$europeanaCtrls: $('<div>').attr('id', 'europeana-ctrls'),
+		googleLayer: {},
+		map: {},
+		mapQuestAttribution:
+			'Tiles © ' +
+			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
+			'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
+		mapQuestLayer: {},
+		miniMap: {},
+		miniMapLayer: {},
 		past_collection_day_layer: {},
 		upcoming_collection_day_layer: {},
 
 
-		addBanner: function() {
-			if ( !this.options.banner.display ) {
-				return;
+		/**
+		 *
+		 * @param {object} banner
+		 * @param {string} banner.content
+		 * @param {bool} banner.display
+		 * @param {string} banner.position
+		 * @returns {europeana.leaflet}
+		 */
+		addBanner: function( banner ) {
+			if ( !banner.display ) {
+				return this;
 			}
 
-			var banner = L.control({ position: this.options.banner.position });
+			var banner_ctrl = L.control({ position: banner.position });
 
-			banner.onAdd = function (map) {
+			banner_ctrl.onAdd = function (map) {
 				var div = L.DomUtil.create('div', 'banner');
-				div.innerHTML = europeana.leaflet.options.banner.content;
+				div.innerHTML = banner.content;
 				return div;
 			};
 
-			banner.addTo( this.map );
+			banner_ctrl.addTo( this.map );
+			return this;
 		},
 
-		addEuropeanaCtrls: function() {
-			if ( !this.options.europeana_ctrls ) {
+		/**
+		 *
+		 * @param {bool} add_europeana_ctrl
+		 * @returns {europeana.leaflet}
+		 */
+		addEuropeanaCtrl: function( add_europeana_ctrl ) {
+			if ( !add_europeana_ctrl ) {
 				return;
 			}
 
@@ -86,6 +102,8 @@
 					]
         ).getCmp()
 			);
+
+			return this;
 		},
 
 		addGoogleLayer: function() {
@@ -93,22 +111,38 @@
 			this.map.addLayer( this.googleLayer );
 		},
 
-		addLegend: function() {
-			if ( !this.options.legend.display ) {
-				return;
+		/**
+		 *
+		 * @param {object} legend
+		 * @param {string} legend.content
+		 * @param {bool} legend.display
+		 * @param {string} legend.position
+		 * @returns {europeana.leaflet}
+		 */
+		addLegend: function( legend ) {
+			if ( !legend.display ) {
+				return this;
 			}
 
-			var legend = L.control({ position: this.options.legend.position });
+			var legend_ctrl = L.control({ position: legend.position });
 
-			legend.onAdd = function (map) {
+			legend_ctrl.onAdd = function (map) {
 				var div = L.DomUtil.create('div', 'legend');
-				div.innerHTML = europeana.leaflet.options.legend.content;
+				div.innerHTML = legend.content;
 				return div;
 			};
 
-			legend.addTo( this.map );
+			legend_ctrl.addTo( this.map );
+			return this;
 		},
 
+		/**
+		 * - creates the layer
+		 * - stores the layer for use by map controls in this.mapQuestLayer
+		 * - adds the layer to this.map
+		 *
+		 * @returns {europeana.leaflet}
+		 */
 		addMapQuestLayer: function() {
 			this.mapQuestLayer = new L.TileLayer(
 				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
@@ -119,19 +153,10 @@
 					subdomains: '1234',
 					type: 'osm'
 				}
-			).addTo( this.map );
-		},
+			);
 
-		addMapZoomControl: function() {
-			if ( !this.options.zoom_control.display ) {
-				return;
-			}
-
-			var zoomControl = new L.Control.Zoom({
-				position: this.options.zoom_control.position
-			});
-
-			zoomControl.addTo( this.map );
+			this.mapQuestLayer.addTo( this.map );
+			return this;
 		},
 
 		/**
@@ -144,8 +169,8 @@
 		 * @param {string|undefined} markers[n].popup.content
 		 */
 		addMarkers: function( markers ) {
-			if ( markers.length < 1 ) {
-				return;
+			if ( !$.isArray( markers ) || markers.length < 1 ) {
+				return this;
 			}
 
 			var
@@ -225,11 +250,21 @@
 				this.upcoming_collection_day_layer = L.layerGroup( markers_upcoming );
 				this.map.addLayer( this.upcoming_collection_day_layer );
 			}
+
+			return this;
 		},
 
-		addMiniMap: function() {
-			if ( !this.options.minimap ) {
-				return;
+		/**
+		 * - creates the layer
+		 * - stores the layer for use by map controls in this.miniMapLayer
+		 * - adds the layer to this.map
+		 *
+		 * @param {bool} add_minimap
+		 * @returns {europeana.leaflet}
+		 */
+		addMiniMap: function( add_minimap ) {
+			if ( !add_minimap ) {
+				return this;
 			}
 
 			this.miniMapLayer = new L.TileLayer(
@@ -251,9 +286,10 @@
 			);
 
 			this.miniMap.addTo( this.map );
+			return this;
 		},
 
-		addRouting: function addRouting() {
+		addRouting: function() {
 			L.Routing.control({
 				waypoints: [
 					L.latLng(48.8588,2.3469),
@@ -263,39 +299,129 @@
 		},
 
 		/**
-		 * @param {object} options
+		 * add a custom Zoom Control after the map has been created
+		 *
+		 * @param {L.Control.Zoom} zoomControl
+		 * @returns {europeana.leaflet}
 		 */
-		init: function( options ) {
-			if (
-				RunCoCo === undefined ||
-				RunCoCo.leaflet === undefined ||
-				RunCoCo.leaflet.centre === undefined
-			) {
-				return;
+		addZoomControl: function( zoomControl ) {
+			if ( zoomControl instanceof L.Control.Zoom ) {
+				zoomControl.addTo( this.map );
 			}
 
-			if ( !this.setMapCentre( RunCoCo.leaflet.centre ) ) {
-				return;
+			return this;
+		},
+
+		/**
+		 *
+		 * @param {string} id
+		 * @param {object} map_options
+		 * @returns {europeana.leaflet}
+		 */
+		createMap: function( id, map_options ) {
+			this.map = L.map( id, map_options );
+			return this;
+		},
+
+		/**
+		 *
+		 * @param {array} center
+		 * e.g., [51.5085159,-0.12548849999996037]
+		 *
+		 * @returns {L.LatLng}
+		 */
+		getMapCentre: function( center ) {
+			if ( !this.latLngIsValid( center ) ) {
+				center = this.default_options.map_options.center;
 			}
 
-			this.options = jQuery.extend( true, {}, this.options, options );
+			return new L.LatLng(
+				parseFloat( center[0] ),
+				parseFloat( center[1] )
+			);
+		},
 
-			this.setMapZoom();
-			this.setMap();
+		/**
+		 *
+		 * @param {string} id
+		 * @returns {string}
+		 */
+		getMapId: function( id ) {
+			return id || this.default_options.map_options.id;
+		},
 
-			if (
-				RunCoCo.leaflet.markers !== undefined &&
-				$.isArray( RunCoCo.leaflet.markers )
-			) {
-				this.addMarkers( RunCoCo.leaflet.markers );
+		/**
+		 *
+		 * @param {object} map_options
+		 * @returns {object}
+		 */
+		getMapOptions: function( map_options ) {
+			return {
+				center: this.getMapCentre( map_options.center ),
+				scrollWheelZoom: map_options.scrollWheelZoom,
+				zoom: this.getMapZoom( map_options.zoom ),
+				zoomControl: this.getMapZoomControl( map_options.zoomControl )
+			};
+		},
+
+		/**
+		 *
+		 * @param {int} zoom
+		 * @returns {int}
+		 */
+		getMapZoom: function( zoom ) {
+			if ( zoom === undefined ) {
+				zoom = this.default_options.map_options.zoom;
 			}
 
-			this.addMapQuestLayer();
-			this.addMiniMap();
-			this.addMapZoomControl();
-			this.addBanner();
-			this.addLegend();
-			this.addEuropeanaCtrls();
+			zoom = parseInt( zoom, 10 );
+
+			if ( !$.isNumeric( zoom ) ) {
+				zoom = this.default_options.map_options.zoom;
+			}
+
+			return zoom;
+		},
+
+		/**
+		 * whether or not to display the default map Zoom Control
+		 *
+		 * @param {bool|L.Control.Zoom} zoomControl
+		 * @returns {bool}
+		 */
+		getMapZoomControl: function( zoomControl ) {
+			if ( zoomControl !== undefined && zoomControl.constructor === Boolean ) {
+				return zoomControl;
+			}
+
+			if ( zoomControl instanceof L.Control.Zoom ) {
+				return false;
+			}
+		},
+
+		/**
+		 * @param {object} user_options
+		 */
+		init: function( user_options ) {
+			user_options = $.extend(
+				true,
+				{},
+				this.default_options,
+				user_options
+			);
+
+			this
+				.createMap(
+					this.getMapId( user_options.map_options.id ),
+					this.getMapOptions( user_options.map_options )
+				)
+				.addMarkers( user_options.markers )
+				.addMapQuestLayer()
+				.addZoomControl( user_options.map_options.zoomControl )
+				.addMiniMap( user_options.add_minimap )
+				.addBanner( user_options.banner )
+				.addLegend( user_options.legend )
+				.addEuropeanaCtrl( user_options.add_europeana_ctrl );
 
 			return this.map;
 		},
@@ -307,63 +433,17 @@
 		 * @returns {bool}
 		 */
 		latLngIsValid: function( latlng ) {
-			if (
-				!$.isArray( latlng ) ||
-				latlng.length !== 2
-			) {
+			if ( !$.isArray( latlng ) || latlng.length !== 2 ) {
 				return false;
 			}
 
-			var regex = /^\s*-?\d+\.\d+\,\s?-?\d+\.\d+\s*$/;
+			var regex = /^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/;
 
 			if ( !latlng.join(',').match( regex ) ) {
 				return false;
 			}
 
 			return true;
-		},
-
-		/**
-		 * @param {array} latlng
-		 * e.g., [51.5085159,-0.12548849999996037]
-		 *
-		 * @returns {bool}
-		 */
-		setMapCentre: function( latlng ) {
-			if ( !this.latLngIsValid( latlng ) ) {
-				return false;
-			}
-
-			this.mapLatitude = parseFloat( latlng[0] );
-			this.mapLongitude = parseFloat( latlng[1] );
-
-			return true;
-		},
-
-		setMap: function() {
-			this.map = L.map(
-				'map',
-				{
-					center: new L.LatLng( this.mapLatitude, this.mapLongitude ),
-					zoomControl: false,
-					zoom: this.mapZoom,
-					scrollWheelZoom: false
-				}
-			);
-		},
-
-		setMapZoom: function() {
-			if ( RunCoCo.leaflet.mapZoom === undefined ) {
-				return;
-			}
-
-			var zoom = parseInt( RunCoCo.leaflet.mapZoom, 10 );
-
-			if ( !$.isNumeric( zoom ) ) {
-				return;
-			}
-
-			this.mapZoom = zoom;
 		},
 
 		EuropeanaLayerControl: function( map, ops ) {
