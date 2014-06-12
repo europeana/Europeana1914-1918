@@ -291,64 +291,6 @@
 	},
 
 
-	map = {
-
-		$map : $('#location-map'),
-		$overlay : $('<div>', { 'class' : 'carousel-overlay' }),
-		$story_map : $('<div>', { id : 'story-map' }),
-		$google_map : $('<div>', { id : "google-map" }),
-		placename : $('#location-placename').val(),
-		$placename_link : $('<a>'),
-		$story_took_place : $('<b>').text( I18n.t( 'javascripts.story.took-place' ) ),
-
-		addMapContainer : function() {
-			$('#story-info')
-				.after(
-					$( this.$google_map )
-						.append( this.$story_took_place )
-						.append( this.$story_map )
-						.append( this.$overlay )
-				);
-			$('#google-map').addClass( 'col-cell' );
-		},
-
-		removeOverlay : function() {
-			if ( map.$overlay.is(':visible') ) {
-				setTimeout( function() { map.$overlay.fadeOut(); }, 200 );
-			}
-		},
-
-		locationMap : function() {
-			if ( this.$map.length === 1 ) {
-				this.addMapContainer();
-				RunCoCo.GMap.Display.init('story-map', this.removeOverlay );
-			}
-		},
-
-		addStoryTookPlace : function() {
-			var self = this;
-
-			if ( self.placename ) {
-				self.$placename_link
-					.attr(
-						'href',
-						'/contributions/search?q=' +
-						self.placename.replace(/,/g,'').replace(/ /g,'+')
-					)
-					.html( self.placename );
-
-				self.$story_took_place
-					.append( self.$placename_link );
-			}
-		},
-
-
-		init : function() {
-			this.addStoryTookPlace();
-			this.locationMap();
-		}
-	},
-
 	pdf = {
 		handleClick : function() {
 			var
@@ -371,6 +313,7 @@
 			$('#contributions-featured').on( 'click', '.pdf', pdf.handleClick );
 		}
 	},
+
 
 	// http://localhost:3000/en/contributions/1#prettyPhoto[gallery]/3/
 	photoGallery = {
