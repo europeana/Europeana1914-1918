@@ -112,6 +112,10 @@ jQuery.support.transition = (function(){
 		},
 
 		init: function init() {
+			if ( RunCoCo.leaflet === undefined ) {
+				return;
+			}
+
 			this.addLeafletMap();
 			this.addGetDirectionsListener();
 			this.addMapContainerListener();

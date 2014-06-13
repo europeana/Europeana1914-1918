@@ -96,15 +96,15 @@
 
 
 	leaflet = {
-		init: function() {
+		addLeafletMap: function() {
 			var
-				map_options,
-				markers;
+			map_options,
+			markers;
 
 			if (
 				RunCoCo.leaflet.markers !== undefined &&
 				$.isArray( RunCoCo.leaflet.markers )
-				) {
+			) {
 				markers = RunCoCo.leaflet.markers
 			}
 
@@ -118,6 +118,14 @@
 				map_options: map_options,
 				markers: markers
 			});
+		},
+
+		init: function() {
+			if ( RunCoCo.leaflet === undefined ) {
+				return;
+			}
+
+			this.addLeafletMap();
 		}
 	},
 

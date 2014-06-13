@@ -51,6 +51,40 @@
 		$toggle_previous: {},
 
 
+		addLeafletMap: function() {
+			var
+			map_options,
+			markers;
+
+			if (
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
+			) {
+				markers = RunCoCo.leaflet.markers;
+			}
+
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options;
+			}
+
+			map_options.zoomControl = new L.Control.Zoom({
+				position: 'bottomleft'
+			});
+
+			europeana.leaflet.init({
+				banner: {
+					display: true,
+					content: this.banner_content
+				},
+				legend: {
+					display: true,
+					content: this.legend_content
+				},
+				map_options: map_options,
+				markers: markers
+			});
+		},
+
 		addPreviousToggleListener: function() {
 			this.$toggle_previous = $('#toggle-previous');
 			this.$toggle_previous.on('click', this.handlePreviousToggle );
@@ -69,9 +103,13 @@
 		},
 
 		init: function() {
+			if ( RunCoCo.leaflet === undefined ) {
+				return;
+			}
+
 			this.setLegendContent();
 			this.setBannerContent();
-			this.setUpLeaflet();
+			this.addLeafletMap();
 			this.removePreviousMarkersOpacity();
 			this.addPreviousToggleListener();
 			this.setPreviousCheckboxState();
@@ -129,40 +167,6 @@
 			if ( $.cookie('show-previous') === 'true' ) {
 				this.$toggle_previous.attr('checked', 'checked');
 			}
-		},
-
-		setUpLeaflet: function() {
-			var
-			map_options,
-			markers;
-
-			if (
-				RunCoCo.leaflet.markers !== undefined &&
-				$.isArray( RunCoCo.leaflet.markers )
-			) {
-				markers = RunCoCo.leaflet.markers;
-			}
-
-			if ( RunCoCo.leaflet.map_options !== undefined ) {
-				map_options = RunCoCo.leaflet.map_options;
-			}
-
-			map_options.zoomControl = new L.Control.Zoom({
-				position: 'bottomleft'
-			});
-
-			europeana.leaflet.init({
-				banner: {
-					display: true,
-					content: this.banner_content
-				},
-				legend: {
-					display: true,
-					content: this.legend_content
-				},
-				map_options: map_options,
-				markers: markers
-			});
 		}
 	};
 
