@@ -1,12 +1,14 @@
 <%
 
   html = ''
-  provide :map_google, true
   provide :map_latlng, metadata.fields['location_map']
-  provide :map_zoom, metadata.fields['location_zoom']
-  provide :map_placename, metadata.fields['location_placename']
 
 	if content_for?( :map_latlng )
+	  provide :map_google, true
+	  provide :javascripts_europeana_leaflet, true
+	  provide :map_zoom, metadata.fields['location_zoom']
+	  provide :map_placename, metadata.fields['location_placename']
+
 		html = content_tag(
 			'div',
 			content_tag(

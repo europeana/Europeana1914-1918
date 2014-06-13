@@ -7,7 +7,6 @@
 	provide :javascripts_page, 'EuEdmObjectPage'
 	provide :stylesheets_item, true
 	provide :javascripts_europeana_carousel, true
-	provide :javascripts_europeana_leaflet, true
 
 	if record['aggregations'].first['edmProvider'].blank? ||
 		( !record['aggregations'].first['edmProvider'].values.include?("Europeana 1914 - 1918") )
@@ -23,15 +22,18 @@
 		type            = record['type'] ? record['type'] : nil
 		html            = ''
 		oembed          = oembed_fields( record )
-		latLng          = edm_places_latlng(record['places'])
 		places          = record['places'] ? record['places'] : {}
 		proxy           = record['proxies']
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 		taggable        = local_assigns[:taggable].present? ? local_assigns[:taggable] : false
 		annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
 
-		provide :map_latlng, latLng
-		provide :map_google, true
+		provide :map_latlng, edm_places_latlng(record['places'])
+
+		if content_for?( :map_latlng )
+			provide :map_google, true
+			provide :javascripts_europeana_leaflet, true
+		end
 
 	# end variable setup
 
