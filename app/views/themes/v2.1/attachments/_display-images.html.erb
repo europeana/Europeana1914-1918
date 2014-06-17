@@ -6,6 +6,14 @@
   prettyphoto = prettyphoto ? prettyphoto : false
   carousel    = params['carousel'] ? params['carousel'] : false
 
+  # unknown image
+  # except for the first mediafile in a list of items, this is the default preview image
+  # used on the preview link in order to save on the weight of the initial page load.
+  unknown_image = image_tag(
+    '/assets/style/icons/mimetypes/unknown.png',
+    :alt => t( 'media_types.unknown' )
+  )
+
   if attachments.present?
 
     # builds a list of preview links for viewing mediafiles
@@ -37,14 +45,6 @@
         # preview link content
         # the content of the <a> tag, made up of the preview image and link text
         link_content = ''
-
-        # unknown image
-        # except for the first mediafile in a list of items, this is the default preview image
-        # used on the preview link in order to save on the weight of the initial page load.
-        unknown_image = image_tag(
-          '/assets/style/icons/mimetypes/unknown.png',
-          :alt => t( 'media_types.unknown' )
-        )
 
         # preview link attributes
         # default attributes of the preview link
