@@ -30,7 +30,7 @@ class ContributionsController < ApplicationController
       when Contribution
         {
           :item => item,
-          :updated => item.current_status.created_at,
+          :updated => item.current_status.updated_at,
           :id => url_for(item),
           :link => url_for(item),
           :image => item.attachments.cover_image
