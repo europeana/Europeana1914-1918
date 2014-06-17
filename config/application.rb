@@ -66,4 +66,5 @@ module RunCoCo
   end
 end
 
+require File.expand_path('../../lib/europeana', __FILE__)
 require 'europeana/edm/mapping/railtie'

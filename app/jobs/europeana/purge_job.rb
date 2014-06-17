@@ -33,12 +33,13 @@ module Europeana
     def get_api_search_results(start, rows)
       query_string = '"first world war" OR "world war I" OR "1914-1918" NOT europeana_collectionName:"2020601_Ag_ErsterWeltkrieg_EU"'
       query_options = {
+        :query    => query_string,
         :start    => start,
         :rows     => rows,
         :profile  => 'minimal'
       }
       
-      Europeana::API::Search.new(query_string).run(query_options)
+      Europeana.search(query_options)
     end
     
     def purge_absent_records

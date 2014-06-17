@@ -181,8 +181,8 @@ class EuropeanaRecord < ActiveRecord::Base
   def harvest_object
     retries = 5
     begin
-      self.object = Europeana::API::Record.get(self.record_id)['object']
-    rescue Europeana::API::Errors::RequestError => error
+      self.object = Europeana.record(self.record_id)['object']
+    rescue Europeana::Errors::RequestError => error
       if error.message.match('"Unable to parse the API response."')
         retries -= 1
         raise unless retries > 0

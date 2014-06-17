@@ -111,7 +111,7 @@ class EuropeanaController < ApplicationController
   end
   
   def count_all
-    response = Europeana::API::Search.new(build_api_query).run['totalResults']
+    response = Europeana.search(build_api_query)['totalResults']
   end
 
 private
@@ -123,7 +123,7 @@ private
     elsif (RunCoCo.configuration.search_engine == :solr) && (@record = EuropeanaRecord.find_by_record_id(record_id))
       @record.object
     else
-      response = Europeana::API::Record.get(record_id)
+      response = Europeana.record(record_id)
       write_fragment(cache_key, response['object'].to_yaml, :expires_in => 1.day)
       response['object']
     end
@@ -143,7 +143,7 @@ private
   # @option options [String,Integer] :page The page number of results to return.
   #   Default 1.
   # @option options All other options will be passed on to
-  #   +Europeana::API::Search#run+
+  #   {Europeana.search}
   # @return [Hash] Full response from the API.
   # @see http://www.europeana.eu/portal/api-search-json.html Documentation
   #   of fields in result set.
@@ -166,6 +166,7 @@ private
 
     count = query_options.delete(:count)
     page = query_options.delete(:page)
+    query_options[:qf] = query_options.delete(:facets)
 
     quoted_terms = terms.add_quote_marks
     quoted_terms_digest = Digest::MD5.hexdigest(quoted_terms.join(','))
@@ -177,10 +178,11 @@ private
       query_string = build_api_query(terms)
       logger.debug("Europeana query: #{query_string}")
 
+      query_options[:query] = query_string
       query_options[:rows] = count
       query_options[:start] = ((page - 1) * count) + 1
 
-      response = Europeana::API::Search.new(query_string).run(query_options)
+      response = Europeana.search(query_options)
 
       # Exclude certain facets from view
       response["facets"].reject! { |facet| [ "REUSABILITY", "UGC" ].include?(facet["name"]) }
@@ -205,8 +207,8 @@ private
       }
 
       response["items"].each do |item|
-        guid_match = /http:\/\/www.europeana.eu\/portal\/record\/([^\/]+)\/([^\/]+)\.html/.match(item["guid"])
-        item["guid"] = show_europeana_url(:dataset_id => guid_match[1], :provider_record_id => guid_match[2])
+        guid_match = /http:\/\/www.europeana.eu\/portal\/record\/([^\/]+\/[^\/]+)\.html/.match(item["guid"])
+        item["guid"] = europeana_record_url(guid_match[1])
       end
 
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day) unless options[:facets].present?
@@ -214,7 +216,7 @@ private
 
     response
 
-  rescue Europeana::API::Errors::ResponseError
+  rescue Europeana::Errors::ResponseError
     { 'itemsCount' => 0, 'totalResults' => 0 }
   end
 

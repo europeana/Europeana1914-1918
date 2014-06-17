@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Rescue API errors
-    rescue_from Europeana::API::Errors::ResponseError do |exception|
+    rescue_from Europeana::Errors::ResponseError do |exception|
       @status = "api_error"
       render :template => '/pages/error', :status => 500
     end
@@ -305,7 +305,7 @@ protected
   # @return [Boolean]
   #
   def europeana_api_configured?
-    defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::API.key.present?
+    defined?(Europeana) == 'constant' && Europeana.class == Module && Europeana::api_key.present?
   end
 
   ##

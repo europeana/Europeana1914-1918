@@ -11,7 +11,6 @@ module Europeana
     end
 
     def perform
-      
       while keep_harvesting?
         harvest_set(@start)
         @start = @start + @per_page
@@ -56,16 +55,17 @@ module Europeana
         query_string = '(' + @query + ') AND ' + query_string
       end
       query_options = {
+        :query    => query_string,
         :start    => start,
         :rows     => @per_page,
         :profile  => 'minimal'
       }
       
-      Europeana::API::Search.new(query_string).run(query_options)
+      Europeana.search(query_options)
     end
     
     def get_api_record(record_id)
-      response = Europeana::API::Record.get(record_id)
+      response = Europeana.record(record_id)
       response['object']
     end
     
