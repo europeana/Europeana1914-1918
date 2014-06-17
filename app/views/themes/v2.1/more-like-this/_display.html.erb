@@ -1,0 +1,16 @@
+<%
+
+	moreLikeThis = [
+		:image_src => 'test.jpg'
+	]
+
+	html = ''
+
+	if moreLikeThis.present? && moreLikeThis.size > 0
+		html += '<h2>Other items you may be interested in:</h2>'
+		html += '<div id="more-like-this">'
+		html += '</div>'
+	end
+
+%>
+<%= html.html_safe %>
