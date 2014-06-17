@@ -1,7 +1,16 @@
 <%
 
 	moreLikeThis = [
-		:image_src => 'test.jpg'
+		[
+			:src => 'test.jpg',
+	    :title => 'Test',
+	    :url => 'contributions/3'
+		],
+		[
+			:src => 'test.jpg',
+			:title => 'Test',
+			:url => 'contributions/3'
+		]
 	]
 
 	html = ''
@@ -9,6 +18,16 @@
 	if moreLikeThis.present? && moreLikeThis.size > 0
 		html += '<h2>Other items you may be interested in:</h2>'
 		html += '<div id="more-like-this">'
+
+		moreLikeThis.each do |image|
+			# html += '<li>'
+			# 	html += '<a href="' + image['url'] + '">'
+			# 		html += '<img src="' + image['src'] + '" alt="' + image['title'] + '" />'
+			# 	html += '</a>'
+			# html += '</li>'
+		  html += image.to_s
+		end
+
 		html += '</div>'
 	end
 
