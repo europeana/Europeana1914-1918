@@ -54,7 +54,9 @@ module AttachmentsHelper
   end
   
   def file_media_type(filename)
-    mime_type_map = {  
+    return 'unknown' if filename.nil?
+    
+    mime_type_map = {
       'binary'          => [ 'application/octet-stream' ],
       'pdf'             => [ 'application/pdf' ],
       'sound'           => [ /^audio\// ],
