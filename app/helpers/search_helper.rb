@@ -167,7 +167,7 @@ module SearchHelper
     filter_params = []
     
     if params[:term]
-      filter_params << { :name => "term", :value => params[:term] }
+      filter_params << { :name => "term", :value => params[:term], :field => params[:field_name] }
     end
     
     request.query_string.split('&').each do |param|
@@ -190,7 +190,11 @@ module SearchHelper
       link_params.delete(:qf)
       
       if filter_param[:name] == "term"
-        link_text = CGI::unescape(filter_param[:value])
+        if (filter_param[:field] == "collection_day") && (collection_day = CollectionDay.find_by_code(filter_param[:value]))
+          link_text = collection_day_summary(collection_day)
+        else
+          link_text = CGI::unescape(filter_param[:value])
+        end
         remove_url = url_for(link_params.merge(:action => :search, :term => nil, :field => nil, :qf => request.query_parameters[:qf]))
       elsif filter_param[:name] == "q"
         link_text = query
