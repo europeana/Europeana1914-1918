@@ -1,31 +1,30 @@
 <%
 
 	moreLikeThis = [
-		[
-			:src => 'test.jpg',
-	    :title => 'Test',
-	    :url => 'contributions/3'
-		],
-		[
-			:src => 'test.jpg',
-			:title => 'Test',
-			:url => 'contributions/3'
-		]
+		{
+			:src => 'http://www.medical-enc.ru/topographic_anatomy/images/pirogov.jpg',
+			:title => 'Nikolai Ivanovich Pirogov',
+			:url => 'contributions/1'
+		},
+		{
+			:src => 'http://www.wellcome.ac.uk/stellent/groups/corporatesite/@msh_publishing_group/documents/image/wtx052931.jpg',
+			:title => 'The Trustees of the Wellcome Trust',
+			:url => 'contributions/1'
+		}
 	]
 
 	html = ''
 
 	if moreLikeThis.present? && moreLikeThis.size > 0
-		html += '<h2>Other items you may be interested in:</h2>'
-		html += '<div id="more-like-this">'
+		html += '<h3>Other items you may be interested in:</h3>'
+		html += '<div id="more-like-this" class="carousel">'
 
-		moreLikeThis.each do |image|
-			# html += '<li>'
-			# 	html += '<a href="' + image['url'] + '">'
-			# 		html += '<img src="' + image['src'] + '" alt="' + image['title'] + '" />'
-			# 	html += '</a>'
-			# html += '</li>'
-		  html += image.to_s
+		moreLikeThis.each do |item|
+			html += '<li>'
+				html += '<a href="' + item[:url] + '">'
+					html += '<img src="' + item[:src] + '" alt="' + item[:title] + '" />'
+				html += '</a>'
+			html += '</li>'
 		end
 
 		html += '</div>'
