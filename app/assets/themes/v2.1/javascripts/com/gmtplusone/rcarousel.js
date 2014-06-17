@@ -332,20 +332,34 @@
 
 
 		getItemWidth : function() {
-			var self = this,
-			i,
-			ii = self.items_length,
-			width = 0;
+			var width = 0;
 
-			if ( self.options.item_width_is_container_width ) {
-				return self.carousel_container_width;
+			if ( this.options.item_width_is_container_width ) {
+				return this.carousel_container_width;
 			}
 
-			for ( i = 0; i < ii; i += 1) {
-				if ( self.$items.eq(i).outerWidth(true) > width ) {
-					width = self.$items.eq(i).outerWidth(true);
+			$.each( this.$items, function() {
+				var $elm = $(this);
+
+				if ( $elm.outerWidth( true ) > width ) {
+					width = $elm.outerWidth( true );
 				}
+			});
+
+			return width;
+		},
+
+		getTotalWidth: function() {
+			var width = 0;
+
+			if ( this.options.item_width_is_container_width ) {
+				return this.items_length * this.item_width;
 			}
+
+			$.each( this.$items, function() {
+				var $elm = $(this);
+				width += $elm.outerWidth( true );
+			});
 
 			return width;
 		},
@@ -378,7 +392,7 @@
 			this.items_length = this.$items.length;
 			this.carousel_container_width = this.$carousel_container.width();
 			this.item_width = this.getItemWidth();
-			this.items_total_width = this.items_length * this.item_width;
+			this.items_total_width = this.getTotalWidth();
 			this.items_per_container = Math.round( this.carousel_container_width / this.item_width );
 		},
 
@@ -387,6 +401,10 @@
 			var self = evt ? evt.data.self : this;
 					self.calculateDimmensions();
 					self.setCarouselWidth();
+
+			if ( !self.options.item_width_is_container_width ) {
+				return;
+			}
 
 			self.$items.each(function() {
 				var $item = jQuery(this);

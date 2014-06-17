@@ -299,6 +299,25 @@
 	},
 
 
+	more_like_this = {
+		$carousel: {},
+		node_id: '',
+
+		init: function( node_id ) {
+			var self = this;
+
+			this.node_id = node_id;
+
+			$('#' + this.node_id).imagesLoaded( function() {
+				self.$carousel =
+					$('#' + self.node_id).rCarousel({
+						item_width_is_container_width : false
+					}).data('rCarousel');
+			});
+		}
+	},
+
+
 	pdf = {
 		handleClick : function() {
 			var
@@ -382,6 +401,7 @@
 
 	RunCoCo.translation_services.init( $('.translate-area') );
 	europeana.carousel.init('contributions-featured');
+	more_like_this.init('more-like-this');
 	lightbox.init();
 	pdf.init();
 	photoGallery.init();

@@ -16,17 +16,21 @@
 	html = ''
 
 	if moreLikeThis.present? && moreLikeThis.size > 0
-		html += '<h3>Other items you may be interested in:</h3>'
+		html += '<h3>' + t( 'views.common.more-like-this' ) + '</h3>'
 		html += '<div id="more-like-this" class="carousel">'
+			html += '<ul>'
 
-		moreLikeThis.each do |item|
-			html += '<li>'
-				html += '<a href="' + item[:url] + '">'
-					html += '<img src="' + item[:src] + '" alt="' + item[:title] + '" />'
-				html += '</a>'
-			html += '</li>'
-		end
+			moreLikeThis.each do |item|
+				html += '<li>'
+					html += '<a href="' + item[:url] + '" title="' + item[:title] + '">'
+						html += '<img src="' + item[:src] + '" alt="' + item[:title] + '" />'
+					html += '</a>'
+					html += '<span>' + item[:title] + '</span>'
+				html += '</li>'
+			end
 
+			html += '<div class="carousel-overlay"></div>'
+			html += '</ul>'
 		html += '</div>'
 	end
 
