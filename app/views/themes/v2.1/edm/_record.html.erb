@@ -25,8 +25,7 @@
 		places          = record['places'] ? record['places'] : {}
 		proxy           = record['proxies']
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
-		taggable        = local_assigns[:taggable].present? ? local_assigns[:taggable] : false
-		annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
+		object          = local_assigns[:object].present? ? local_assigns[:object] : false
 
 		provide :map_latlng, edm_places_latlng(record['places'])
 
@@ -54,7 +53,7 @@
 				html += '</div>'
 
 				# add carousel
-				html += render :partial => 'edm/carousel', :locals => { :record => record, :annotatable => annotatable }
+				html += render :partial => 'edm/carousel', :locals => { :record => record, :annotatable => object }
 
 				# add view at provider’s website text link
 				if edmIsShownAt
@@ -107,9 +106,9 @@
 			    	html += '<span class="icon-translate"></span>'
  				html += '</div>'
 
-				if taggable
+				if object
 					html += '<div class="col-cell">'
-						html += render :partial => 'tags/form', :locals => { :tags => taggable.visible_tags, :taggable => taggable }
+						html += render :partial => 'tags/form', :locals => { :tags => object.visible_tags, :taggable => object }
 					html += '</div>'
 				end
 
@@ -148,7 +147,9 @@
 
 				html += '</div>'
 			html += '</div>'
-			html += render :partial => 'more-like-this/display', :locals => { :moreLikeThis => [] }
+			if object.present?
+				html += render :partial => 'more-like-this/display', :locals => { :object => object }
+			end
 		html += '</div>'
 	end
 

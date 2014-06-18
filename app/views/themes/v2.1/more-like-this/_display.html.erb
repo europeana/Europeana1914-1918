@@ -1,41 +1,21 @@
 <%
-
-	moreLikeThis = [
-		{
-			:src => 'http://www.medical-enc.ru/topographic_anatomy/images/pirogov.jpg',
-			:title => 'Nikolai Ivanovich Pirogov Nikolai Ivanovich Pirogov Nikolai Ivanovich Pirogov',
-			:url => 'contributions/1'
-		},
-		{
-			:src => 'http://www.wellcome.ac.uk/stellent/groups/corporatesite/@msh_publishing_group/documents/image/wtx052931.jpg',
-			:title => 'The Trustees of the Wellcome Trust',
-			:url => 'contributions/1'
-		},
-		{
-			:src => 'http://www.medical-enc.ru/topographic_anatomy/images/pirogov.jpg',
-			:title => 'Nikolai Ivanovich Pirogov',
-			:url => 'contributions/1'
-		},
-		{
-			:src => 'http://www.wellcome.ac.uk/stellent/groups/corporatesite/@msh_publishing_group/documents/image/wtx052931.jpg',
-			:title => 'The Trustees of the Wellcome Trust',
-			:url => 'contributions/1'
-		}
-	]
-
 	html = ''
+	more_objects = more_like_this(object, :per_page => 4)
 
-	if moreLikeThis.present? && moreLikeThis.size > 0
+	if more_objects.present?
 		html += '<h3>' + t( 'views.common.more-like-this' ) + '</h3>'
 		html += '<div id="more-like-this" class="carousel">'
 			html += '<ul>'
 
-			moreLikeThis.each do |item|
+			more_objects.each do |item|
+				record = search_result_to_edm(item)
 				html += '<li>'
-					html += '<a href="' + item[:url] + '" title="' + item[:title] + '">'
-						html += '<img src="' + item[:src] + '" alt="' + item[:title] + '" />'
+					html += '<a href="' + h(record["guid"]) + '" title="' + h(record["title"].first) + '">'
+					unless record["edmPreview"].first.blank?
+						html += '<img src="' + h(record["edmPreview"].first) + '" alt="' + h(record["title"].first) + '" />'
+					end
 					html += '</a>'
-					html += '<span>' + item[:title] + '</span>'
+					html += '<span>' + h(record["title"].first) + '</span>'
 				html += '</li>'
 			end
 
@@ -43,6 +23,5 @@
 			html += '</ul>'
 		html += '</div>'
 	end
-
 %>
 <%= html.html_safe %>

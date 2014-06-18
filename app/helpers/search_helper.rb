@@ -270,5 +270,16 @@ module SearchHelper
 
     filter_links
   end
+  
+  # @return [Array<Object>]
+  def more_like_this(object, paginate_options = {})
+    return [] unless RunCoCo.configuration.search_engine == :solr
+    
+    mlt = object.more_like_this do |query| 
+      query.paginate(paginate_options)
+    end
+    
+    mlt.results
+  end
 end
 
