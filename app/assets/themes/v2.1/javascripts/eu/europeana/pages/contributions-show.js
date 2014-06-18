@@ -311,7 +311,8 @@
 			$('#' + this.node_id).imagesLoaded( function() {
 				self.$carousel =
 					$('#' + self.node_id).rCarousel({
-						item_width_is_container_width : false
+						item_width_is_container_width : false,
+						listen_to_arrow_keys: false
 					}).data('rCarousel');
 			});
 		}
