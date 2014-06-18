@@ -237,6 +237,26 @@
 	},
 
 
+	more_like_this = {
+		$carousel: {},
+		node_id: '',
+
+		init: function( node_id ) {
+			var self = this;
+
+			this.node_id = node_id;
+
+			$('#' + this.node_id).imagesLoaded( function() {
+				self.$carousel =
+					$('#' + self.node_id).rCarousel({
+						item_width_is_container_width : false,
+						listen_to_arrow_keys: false
+					}).data('rCarousel');
+			});
+		}
+	},
+
+
 	photoGallery = {
 		items_per_page: 1,
 
@@ -316,5 +336,6 @@
 	mimetype.init(); // lightbox is now initialized within this object
 	photoGallery.init();
 	leaflet.init();
+	more_like_this.init( 'more-like-this' );
 
 }( jQuery ));

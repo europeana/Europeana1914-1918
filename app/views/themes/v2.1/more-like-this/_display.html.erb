@@ -9,19 +9,29 @@
 
 			more_objects.each do |item|
 				record = search_result_to_edm(item)
-				html += '<li>'
-					html += '<a href="' + h(record["guid"]) + '" title="' + h(record["title"].first) + '">'
-					unless record["edmPreview"].first.blank?
-						html += '<img src="' + h(record["edmPreview"].first) + '" alt="' + h(record["title"].first) + '" />'
-					end
-					html += '</a>'
-					html += '<span>' + h(record["title"].first) + '</span>'
-				html += '</li>'
+				title = ''
+				caption = ''
+
+				if record["title"].present? && !record["title"].first.blank?
+				  title = ' title="' + h( record["title"].first ) + '"'
+				  caption = '<span>' + h( record["title"].first ) + '</span>'
+				end
+
+				if record["edmPreview"].present? && !record["edmPreview"].first.blank?
+					html += '<li>'
+						html += '<a href="' + h( record["guid"] ) + '"' + title + '>'
+							html += '<img src="' + h( record["edmPreview"].first ) + '" alt="' + title + '" />'
+						html += '</a>'
+						html += caption
+					html += '</li>'
+				end
 			end
 
 			html += '<div class="carousel-overlay"></div>'
 			html += '</ul>'
 		html += '</div>'
 	end
+
+
 %>
 <%= html.html_safe %>
