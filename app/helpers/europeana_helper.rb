@@ -338,4 +338,21 @@ module EuropeanaHelper
     languageLabels[key] || key
     
   end
+  
+  def remote_video_mime_type(url, max_redirects = 5)
+    if max_redirects == 0
+      nil
+    elsif /\.flv\Z/.match(url)
+      'video/x-flv'
+    elsif /\.mp4\Z/.match(url)
+      'video/mp4'
+    else
+      headers = get_http_headers(url)
+      if headers.is_a?(Net::HTTPRedirection) && (location = headers['location']) && (location != url)
+        remote_video_mime_type(location, max_redirects - 1)
+      else
+        headers['content-type']
+      end
+    end
+  end
 end

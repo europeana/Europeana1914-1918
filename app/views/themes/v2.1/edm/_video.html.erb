@@ -15,14 +15,8 @@
 
 
 		if edmIsShownBy
-			if /.flv/.match( edmIsShownBy ) || /.mp4/.match( edmIsShownBy )
+			if video_type = remote_video_mime_type( edmIsShownBy )
 				mediaplayer = true
-
-				if /.flv/.match( edmIsShownBy )
-					video_type = 'video/x-flv'
-				elsif /.mp4/.match( edmIsShownBy )
-					video_type = 'video/mp4'
-				end
 
 				html = video_tag(
 					edmIsShownBy,

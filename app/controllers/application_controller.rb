@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   helper_method :sphinx_running?, :current_user, :contribution_fields,
     :dropbox_authorized?, :dropbox_client, :dropbox_configured?,
-    :europeana_api_configured?, :flickr_configured?, :search_result_to_edm
+    :europeana_api_configured?, :flickr_configured?, :search_result_to_edm,
+    :get_http_headers
 
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -515,7 +516,7 @@ protected
     end
   end
 
-  def http_headers(url)
+  def get_http_headers(url)
     url = URI.parse(url)
     response = nil
     Net::HTTP.start(url.host, url.port) { |http|
@@ -528,7 +529,7 @@ protected
     response
   end
 
-  def http_content(url)
+  def get_http_content(url)
     Net::HTTP.get_response(URI.parse(url))
   end
 
