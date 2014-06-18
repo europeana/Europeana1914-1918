@@ -1,1 +1,1 @@
-//= require reveal/jquery.reveal.js
+//= require jquery/plugins/reveal/jquery.reveal.js
