@@ -53,8 +53,9 @@
 
 		addLeafletMap: function() {
 			var
-			map_options,
-			markers;
+				map_config = {},
+				map_options,
+				markers;
 
 			if (
 				RunCoCo.leaflet.markers !== undefined &&
@@ -71,18 +72,22 @@
 				position: 'bottomleft'
 			});
 
-			europeana.leaflet.init({
-				banner: {
+			map_config.map_options = map_options;
+			map_config.markers = markers;
+
+			if ( $(window).width() > 768 ) {
+				map_config.banner = {
 					display: true,
 					content: this.banner_content
-				},
-				legend: {
+				};
+
+				map_config.legend = {
 					display: true,
 					content: this.legend_content
-				},
-				map_options: map_options,
-				markers: markers
-			});
+				};
+			}
+
+			europeana.leaflet.init( map_config );
 		},
 
 		addPreviousToggleListener: function() {
