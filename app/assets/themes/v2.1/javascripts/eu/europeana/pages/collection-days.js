@@ -1,6 +1,5 @@
 /*global europeana, I18n, jQuery */
 /*jslint browser: true, white: true */
-//= require jquery/plugins/jquery.cookie-1.4.1.js
 (function( $ ) {
 
 	'use strict';

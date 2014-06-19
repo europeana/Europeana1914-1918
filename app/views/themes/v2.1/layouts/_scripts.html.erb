@@ -69,6 +69,10 @@
         script = script[0...-1]
         script += '}];' + "\n"
       end
+
+			if content_for?( :collection_day_upcoming )
+				script += 'RunCoCo.leaflet.get_directions = true;'
+			end
 		end
   end
 
@@ -123,6 +127,7 @@
 
   if content_for?( :map_latlng )
     script_includes += ( theme_javascript_include_tag 'leaflet' ) + "\n"
+    script_includes += ( javascript_include_tag 'jquery/plugins/jquery.cookie-1.4.1' ) + "\n"
 
     if content_for?( :collection_day_upcoming )
       script_includes += ( theme_javascript_include_tag 'leaflet-routing-machine' ) + "\n"

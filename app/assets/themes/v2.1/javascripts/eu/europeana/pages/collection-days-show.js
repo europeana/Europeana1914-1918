@@ -1,31 +1,42 @@
-// http://www.abeautifulsite.net/blog/2012/12/feature-detection-for-css-transitions-via-jquery-support/
-jQuery.support.transition = (function(){
-	var thisBody = document.body || document.documentElement,
-		thisStyle = thisBody.style,
-		support = thisStyle.transition !== undefined || thisStyle.WebkitTransition !== undefined || thisStyle.MozTransition !== undefined || thisStyle.MsTransition !== undefined || thisStyle.OTransition !== undefined;
-	return support;
-})();
-
+/*global europeana, I18n, jQuery, L, RunCoCo */
+/*jslint browser: true, nomen: true, white: true */
 (function( $ ) {
 
 	'use strict';
 
 	var leaflet = {
 
-		$get_directions: $('#get-directions'),
+		get_directions: false,
+		$get_directions: {},
 		map: {},
 		$map_container: $('#map-container'),
 		routing_ctrl: undefined,
 
 
-		addGetDirectionsListener: function addGetDirectionsListener() {
+		addGetDirections: function() {
+			if ( !this.get_directions ) {
+				return;
+			}
+
+			this.$map_container.append(
+				$('<a>')
+					.attr( 'href', '' )
+					.attr( 'id', 'get-directions' )
+					.text( I18n.t( 'javascripts.collection-days.get-directions' ) ) );
+
+			this.$get_directions = $('#get-directions');
+			this.addGetDirectionsListener();
+		},
+
+		addGetDirectionsListener: function() {
 			this.$get_directions.on('click', this.handleGetDirectionsClick);
 		},
 
-		addLeafletMap: function addLeafletMap() {
+		addLeafletMap: function() {
 			var
-			map_options,
-			markers;
+				map_config = {},
+				map_options,
+				markers;
 
 			if (
 				RunCoCo.leaflet.markers !== undefined &&
@@ -38,11 +49,14 @@ jQuery.support.transition = (function(){
 				map_options = RunCoCo.leaflet.map_options;
 			}
 
-			this.map = europeana.leaflet.init({
-				add_routing: true,
-				map_options: map_options,
-				markers: markers
-			});
+			map_config.map_options = map_options;
+			map_config.markers = markers;
+
+			if ( this.add_directions ) {
+				map_config.add_routing = true;
+			}
+
+			this.map = europeana.leaflet.init( map_config );
 		},
 
 		addMapContainerListener: function addMapContainerListener() {
@@ -74,8 +88,8 @@ jQuery.support.transition = (function(){
 				}
 			});
 
-			this.routing_ctrl.addTo(this.map);
-			this.$routing_ctrl = $(this.routing_ctrl._container);
+			this.routing_ctrl.addTo( this.map );
+			this.$routing_ctrl = $( this.routing_ctrl._container );
 		},
 
 		addRoutingAndResize: function addRoutingAndResize() {
@@ -94,7 +108,10 @@ jQuery.support.transition = (function(){
 			if ( leaflet.$map_container.hasClass('expand') ) {
 				leaflet.$map_container.removeClass('expand');
 				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.get-directions' ) );
-				leaflet.$routing_ctrl.fadeOut();
+
+				if ( leaflet.routing_ctrl !== undefined ) {
+					leaflet.$routing_ctrl.fadeOut();
+				}
 			} else {
 				leaflet.$map_container.addClass('expand');
 				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.close-directions' ) );
@@ -102,7 +119,6 @@ jQuery.support.transition = (function(){
 				if ( leaflet.routing_ctrl !== undefined ) {
 					leaflet.$routing_ctrl.fadeIn();
 				} else if ( !$.support.transition ) {
-					console.log('here');
 					setTimeout(
 						leaflet.addRoutingAndResize,
 						500
@@ -116,8 +132,8 @@ jQuery.support.transition = (function(){
 				return;
 			}
 
+			this.setGetDirections();
 			this.addLeafletMap();
-			this.addGetDirectionsListener();
 			this.addMapContainerListener();
 		},
 
@@ -134,6 +150,13 @@ jQuery.support.transition = (function(){
 				leaflet.$map_container.off(
 					'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd'
 				);
+			}
+		},
+
+		setGetDirections: function() {
+			if ( $(window).width() > 768 && RunCoCo.leaflet.get_directions ) {
+				this.get_directions = true;
+				this.addGetDirections();
 			}
 		}
 	};

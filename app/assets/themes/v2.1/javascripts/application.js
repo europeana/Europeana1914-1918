@@ -17,5 +17,6 @@
 //= require ./com/jquery/plugins/jquery.touchwipe.1.1.2
 //= require ./com/jquery/plugins/jquery.imagesloaded.min
 //= require ./com/jquery/plugins/jquery.masonry.min
+//= require jquery/plugins/jquery.transition-support
 //= require_tree ../../../javascripts/gmtplusone
 //= require ./eu/europeana
