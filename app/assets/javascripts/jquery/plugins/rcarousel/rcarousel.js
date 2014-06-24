@@ -524,7 +524,9 @@
 		 * @param {Event|undefined} evt
 		 */
 		setDimmensions : function( evt ) {
-			var self = evt ? evt.data.self : this;
+			var
+				self = evt ? evt.data.self : this;
+
 			self.calculateDimmensions();
 			self.setCarouselWidth();
 			self.setCarouselHeight();

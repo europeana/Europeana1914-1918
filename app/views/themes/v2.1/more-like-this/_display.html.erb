@@ -17,7 +17,7 @@
 				if record["title"].present? && !record["title"].first.blank?
 				  alt = h( record["title"].first )
 				  title = ' title="' + h( record["title"].first ) + '"'
-				  caption = '<span>' + truncate( h( record["title"].first ), :length => 90 ) + '</span>'
+				  caption = '<div class="caption">' + truncate( h( record["title"].first ), :length => 90 ) + '</div>'
 				end
 
 				if record["edmPreview"].present? && !record["edmPreview"].first.blank?
