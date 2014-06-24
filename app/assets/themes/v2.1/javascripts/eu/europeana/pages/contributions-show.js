@@ -85,13 +85,13 @@
 
 		handlePageChangeNext : function( keyboard ) {
 			if ( !keyboard ) {
-				carousel.$featured_carousel.$next.trigger('click');
+				carousel.$featured_carousel.$nav_next.trigger('click');
 			}
 		},
 
 		handlePageChangePrev : function( keyboard ) {
 			if ( !keyboard ) {
-				carousel.$featured_carousel.$prev.trigger('click');
+				carousel.$featured_carousel.$nav_prev.trigger('click');
 			}
 		},
 
@@ -312,7 +312,23 @@
 				self.$carousel =
 					$('#' + self.node_id).rCarousel({
 						item_width_is_container_width : false,
-						listen_to_arrow_keys: false
+						listen_to_arrow_keys: false,
+						$nav_next : $('<input>', {
+							'type' : 'image',
+							'class' : 'medium',
+							'alt' : 'next',
+							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-right.png',
+							'style' : 'display: none;',
+							'data-dir' : 'next'
+						}),
+						$nav_prev : $('<input>', {
+							'type' : 'image',
+							'class' : 'medium',
+							'alt' : 'previous',
+							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-left.png',
+							'style' : 'display: none;',
+							'data-dir' : 'prev'
+						})
 					}).data('rCarousel');
 			});
 		}

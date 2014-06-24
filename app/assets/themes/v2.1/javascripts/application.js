@@ -18,5 +18,7 @@
 //= require ./com/jquery/plugins/jquery.imagesloaded.min
 //= require ./com/jquery/plugins/jquery.masonry.min
 //= require jquery/plugins/jquery.transition-support
-//= require_tree ../../../javascripts/gmtplusone
+//= require jquery/plugins/rcarousel/rcarousel
+//= require gmtplusone/readmore
+//= require gmtplusone/truncate
 //= require ./eu/europeana

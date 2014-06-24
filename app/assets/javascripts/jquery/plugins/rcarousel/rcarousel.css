@@ -1,0 +1,156 @@
+/**
+ *	carousel
+ */
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel ul {
+  margin: 0;
+  padding: 0;
+	-webkit-transition: margin-left 1.3;
+	-moz-transition: margin-left 1.3;
+	-ms-transition: margin-left 1.3;
+	-o-transition: margin-left 1.3;
+	transition: margin-left 1.3s;
+}
+
+.carousel li {
+  display: inline-block;
+  vertical-align: middle;
+	line-height: 0;
+	text-align: center;
+}
+
+.carousel a {
+	text-decoration: none;
+}
+
+.carousel img,
+.carousel iframe,
+.carousel video {
+  max-width: 100%;
+	border: none;
+}
+
+.caption {
+  width: 94%;
+  text-align: center;
+  line-height: 120%;
+  background-color: #000;
+  background-color: rgba( 0, 0, 0, 0.7 );
+  color: #f5f5f5;
+  padding: .5em 3%;
+}
+
+
+/**
+ * carousel navigation
+ */
+.carousel input {
+	position: absolute;
+	opacity: 1.0;
+	-webkit-transition: opacity .3s ease-out;
+	-moz-transition: opacity .3s ease-out;
+	-ms-transition: opacity .3s ease-out;
+	-o-transition: opacity .3s ease-out;
+	transition: opacity .3s ease-out;
+}
+
+.carousel input.initial {
+	opacity: 0;
+	-webkit-transition: opacity .7s ease-out;
+	-moz-transition: opacity .7s ease-out;
+	-ms-transition: opacity .7s ease-out;
+	-o-transition: opacity .7s ease-out;
+	transition: opacity .7s ease-out;
+}
+
+.carousel input.large {
+	top: 50%;
+	margin-top: -50px;
+}
+
+.carousel input.medium {
+	top: 50%;
+	margin-top: -40px;
+	width: 59px;
+	height: 75px;
+}
+
+.carousel input.small {
+	top: 50%;
+	width: 39px;
+	height: 50px;
+	margin-top: -25px;
+}
+
+.carousel input:hover {
+	opacity: 1.0;
+	-webkit-transition: opacity .3s ease-out;
+	-moz-transition: opacity .3s ease-out;
+	-ms-transition: opacity .3s ease-out;
+	-o-transition: opacity .3s ease-out;
+	transition: opacity .3s ease-out;
+}
+
+.carousel input.focus {
+	opacity: 1.0;
+	-webkit-transition: opacity .3s ease-out;
+	-moz-transition: opacity .3s ease-out;
+	-ms-transition: opacity .3s ease-out;
+	-o-transition: opacity .3s ease-out;
+	transition: opacity .3s ease-out;
+}
+
+.carousel input[data-dir="next"] {
+	right: 0;
+}
+
+.carousel input[data-dir="prev"] {
+	left: 0;
+}
+
+
+/**
+ * carousel overlay
+ */
+.carousel-overlay {
+	position: absolute;
+	z-index: 100;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #fff;
+	background-image: url(images/loading-animation.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+/**
+ * non-essential styles
+ */
+html {
+	font-family: sans-serif;
+}
+
+/* don’t place margin, padding, or borders on the container,
+   instead, place them on the li element */
+#carousel-container {
+	max-height: 100px;
+	border: 1px solid #d6d6d6;
+}
+
+#carousel-container .caption {
+	max-width: 337px;
+}
+
+#carousel-container li {
+	border: 1px solid #d6d6d6;
+	margin: 1em;
+	padding: 1em 0 0 0;
+	overflow: hidden;
+}

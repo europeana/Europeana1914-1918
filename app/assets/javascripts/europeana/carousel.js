@@ -11,7 +11,6 @@
 	europeana.carousel = {
 
 		$featured_carousel : null,
-		nav_initial_delay: 3000,
 		node_id: '',
 		$pagination_counts : $('#pagination-counts'),
 		pagination_total : $('#pagination-total').text(),
@@ -39,40 +38,6 @@
 			});
 
 			return true;
-		},
-
-		addNavArrowHandling: function() {
-			if (
-				!europeana.carousel.$featured_carousel ||
-				!europeana.carousel.$featured_carousel.$items ||
-				europeana.carousel.$featured_carousel.$items.length < 2
-			) {
-				return;
-			}
-
-			setTimeout(
-				function() {
-					europeana.carousel.$featured_carousel.$next.addClass('initial');
-					europeana.carousel.$featured_carousel.$prev.addClass('initial');
-				},
-				europeana.carousel.nav_initial_delay
-			);
-
-			europeana.carousel.$featured_carousel.$items.each( function() {
-				var $elm = $(this);
-
-				// decided to use $elm.data instead of $(element).data('events')
-				// see http://blog.jquery.com/2012/08/09/jquery-1-8-released/ What's been removed
-				if ( !$elm.data( 'carousel-events-added' ) ) {
-					$elm
-						.on( 'mouseenter', europeana.carousel.navArrowReveal )
-						.on( 'mouseleave', europeana.carousel.navArrowHide )
-						.on( 'touchstart', europeana.carousel.navArrowReveal )
-						.on( 'touchend', europeana.carousel.navArrowHide );
-
-					$elm.data( 'carousel-events-added', true );
-				}
-			});
 		},
 
 		/**
@@ -108,31 +73,34 @@
 							},
 							before_nav: function( dir ) {
 								europeana.carousel.replaceItemPlaceholderCheck( dir );
-							},
-							init_complete: function() {
-								europeana.carousel.addNavArrowHandling();
 							}
-						}
+						},
+						$nav_next : $('<input>', {
+							'type' : 'image',
+							'class' : 'medium',
+							'alt' : 'next',
+							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-right.png',
+							'style' : 'display: none;',
+							'data-dir' : 'next'
+						}),
+						$nav_prev : $('<input>', {
+							'type' : 'image',
+							'class' : 'medium',
+							'alt' : 'previous',
+							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-left.png',
+							'style' : 'display: none;',
+							'data-dir' : 'prev'
+						})
 					}).data('rCarousel');
 
 				europeana.carousel.updatePaginationCount();
 			});
 		},
 
-		navArrowHide: function() {
-			europeana.carousel.$featured_carousel.$next.removeClass('focus');
-			europeana.carousel.$featured_carousel.$prev.removeClass('focus');
-		},
-
-		navArrowReveal: function() {
-			europeana.carousel.$featured_carousel.$next.addClass('focus');
-			europeana.carousel.$featured_carousel.$prev.addClass('focus');
-		},
-
 		/**
 		 * @param {int} new_carousel_index
 		 *
-		 * @param {object} $elm_plcaeholder
+		 * @param {object} $elm_placeholder
 		 * jQuery object representing a placeholder item
 		 */
 		replaceItemPlaceholder: function( new_carousel_index, $elm_placeholder ) {
