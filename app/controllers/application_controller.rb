@@ -353,6 +353,28 @@ protected
 
     translations
   end
+  
+  def openskos_concept_label(uri)
+    openskos_cache_key = "openskos/#{uri.to_s}"
+
+    if fragment_exist?(openskos_cache_key)
+      skos_concept = YAML::load(read_fragment(openskos_cache_key))
+    else
+      skos_concept = OpenSKOS::Concept.find(URI.parse(uri), :format => 'json')
+      expiration = Rails.configuration.cache_store.first == :dalli_store ? 1.day.from_now.to_i : 1.day
+      write_fragment(openskos_cache_key, skos_concept.to_yaml, :expires_in => expiration)
+    end
+    
+    if skos_concept["prefLabel@#{I18n.locale.to_s}"]
+      skos_concept["prefLabel@#{I18n.locale.to_s}"].first
+    elsif skos_concept["prefLabel@#{I18n.default_locale.to_s}"]
+      skos_concept["prefLabel@#{I18n.default_locale.to_s}"].first
+    else
+      uri
+    end
+  rescue RestClient::ResourceNotFound, OpenSKOS::Errors::URLError
+    uri
+  end
 
   ##
   # Returns the fields associated with contributions.

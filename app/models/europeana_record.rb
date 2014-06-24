@@ -153,7 +153,7 @@ class EuropeanaRecord < ActiveRecord::Base
   
   def uri
     unless object['concepts'].blank?
-      object['concepts'].collect { |concept| concept['about'] }
+      object['concepts'].select { |concept| concept['about'].match("http://data.europeana.eu/concept/loc") }.collect { |concept| concept['about'] }
     end
   end
   

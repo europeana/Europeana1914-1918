@@ -184,7 +184,7 @@ private
 
   def facet_row_label(facet_name, row_value)
     @@metadata_fields ||= {}
-    
+
     if row_value.is_a?(Integer)
       if taxonomy_field_facet = facet_name.to_s.match(/^metadata_(.+)_ids$/)
         field_name = taxonomy_field_facet[1]
@@ -199,7 +199,10 @@ private
           end
         end
       end
+    elsif facet_name.to_s == 'uri'
+      row_label = openskos_concept_label(row_value)
     end
+    
     row_label || row_value.to_s
   end
   
