@@ -326,6 +326,7 @@ protected
   #
   def bing_translate(text, from_locale = I18n.locale)
     return text unless text.present? && RunCoCo::BingTranslator.configured?
+    return text if self.class.class_variable_defined?(:@@bing_translate_retry_time) && (Time.now < self.class.class_variable_get(:@@bing_translate_retry_time))
 
     bing_cache_key = "bing/#{from_locale}/#{text}"
 
@@ -342,6 +343,10 @@ protected
       expiration = Rails.configuration.cache_store.first == :dalli_store ? 1.year.from_now.to_i : 1.year
       write_fragment(bing_cache_key, translations.to_yaml, :expires_in => expiration)
     rescue Exception => exception
+      if exception.message.match(/The Azure Market Place Translator Subscription associated with the request credentials has zero balance/)
+        # Query quota exceeded; wait one day before trying again
+        self.class.class_variable_set(:@@bing_translate_retry_time, Time.now + 24.hours)
+      end
       RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
       translations = text
     end
