@@ -58,7 +58,7 @@
 		 * @returns {europeana.leaflet}
 		 */
 		addBanner: function( banner ) {
-			if ( !banner.display ) {
+			if ( !banner.display || banner.content.length < 1 ) {
 				return this;
 			}
 
