@@ -100,10 +100,31 @@
 			this.layerGroup.addLayer( this.layers[index] );
 		},
 
+		getTarget: function( evt ) {
+			var target;
+
+			if ( !evt ) {
+				evt = window.event;
+			}
+
+			if ( evt.target ) {
+				target = evt.target;
+			} else if ( evt.srcElement ) {
+				target = evt.srcElement;
+			}
+
+			// defeat Safari bug
+			if ( target.nodeType === 3 ) {
+				target = target.parentNode;
+			}
+
+			return target;
+		},
+
 		toggleLayer: function( evt ) {
 			var
 				i,
-				button_clicked = evt.target, // is this .target cross browser compatible?
+				button_clicked = this.getTarget( evt ),
 				button_in_collection;
 
 			for ( i = 0; i < this.buttons.length; i += 1 ) {
