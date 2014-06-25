@@ -127,7 +127,6 @@
 
   if content_for?( :map_latlng )
     script_includes += ( theme_javascript_include_tag 'leaflet' ) + "\n"
-    script_includes += ( javascript_include_tag 'jquery/plugins/jquery.cookie-1.4.1' ) + "\n"
 
     if content_for?( :collection_day_upcoming )
       script_includes += ( theme_javascript_include_tag 'leaflet-routing-machine' ) + "\n"
