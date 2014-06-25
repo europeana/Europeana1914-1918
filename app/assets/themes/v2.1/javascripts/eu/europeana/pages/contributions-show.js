@@ -282,7 +282,7 @@
 			}
 
 			europeana.leaflet.init({
-				add_europeana_ctrl: true,
+				add_layer_toggle_ctrl: true,
 				add_minimap: true,
 				map_options: map_options,
 				markers: markers

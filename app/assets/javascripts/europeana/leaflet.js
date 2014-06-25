@@ -12,7 +12,7 @@
 	europeana.leaflet = {
 
 		default_options: {
-			add_europeana_ctrl: false,
+			add_layer_toggle_ctrl: false,
 			add_minimap: false,
 			add_routing: false,
 			banner: {
@@ -20,7 +20,6 @@
 				display: false,
 				position: 'topright'
 			},
-			europeana_ctrls: false,
 			legend: {
 				content: '',
 				display: false,
@@ -30,12 +29,13 @@
 			map_options: {
 				id: 'map',
 				center: [0,0],
+				doubleClickZoom: false,
 				scrollWheelZoom: false,
+				touchZoom: false,
 				zoom: 8,
 				zoomControl: true
 			}
 		},
-		$europeanaCtrls: $('<div>').attr('id', 'europeana-ctrls'),
 		googleLayer: {},
 		map: {},
 		mapQuestAttribution:
@@ -76,39 +76,43 @@
 
 		/**
 		 *
-		 * @param {bool} add_europeana_ctrl
 		 * @returns {europeana.leaflet}
 		 */
-		addEuropeanaCtrl: function( add_europeana_ctrl ) {
-			if ( !add_europeana_ctrl ) {
+		addGoogleLayer: function() {
+			this.googleLayer = new L.Google();
+			this.map.addLayer( this.googleLayer );
+			return this;
+		},
+
+		/**
+		 *
+		 * @param {bool} add_layer_toggle_ctrl
+		 * @returns {europeana.leaflet}
+		 */
+		addLayerToggleCtrl: function( add_layer_toggle_ctrl ) {
+			if ( !add_layer_toggle_ctrl ) {
 				return;
 			}
 
 			this.addGoogleLayer();
-			this.$europeanaCtrls.prependTo('#map-container');
 
-			this.$europeanaCtrls.append(
-				new europeana.leaflet.EuropeanaLayerControl(
-					this.map,
-        	[
-        		{
-        			"title":	I18n.t('javascripts.leaflet.label.map_view'),
-        			"layer":	this.mapQuestLayer
-        		},
+			this.map.addControl(
+				new L.Control.LayerToggle({
+					buttons: [
 						{
-							"title":	I18n.t('javascripts.leaflet.label.satellite_view'),
-							"layer":	this.googleLayer
+							active: true,
+							title: I18n.t('javascripts.leaflet.label.map_view'),
+							layer: this.mapQuestLayer
+						},
+						{
+							title: I18n.t('javascripts.leaflet.label.satellite_view'),
+							layer: this.googleLayer
 						}
 					]
-        ).getCmp()
+				})
 			);
 
 			return this;
-		},
-
-		addGoogleLayer: function() {
-			this.googleLayer = new L.Google();
-			this.map.addLayer( this.googleLayer );
 		},
 
 		/**
@@ -278,6 +282,10 @@
 				}
 			);
 
+			// note: altered the options for the minimap so that
+			// scrollWheelZoom and doubleClickZoom are set independantly of zoomLevelFixed
+			// so that it creates a zoomLevel on the minimap, but allows control of
+			// whether or not it’s zoomable with the scroll wheel, doubleclick or touch zoom
 			this.miniMap = new L.Control.MiniMap(
 				this.miniMapLayer,
 				{
@@ -358,7 +366,9 @@
 		getMapOptions: function( map_options ) {
 			return {
 				center: this.getMapCentre( map_options.center ),
+				doubleClickZoom: map_options.doubleClickZoom,
 				scrollWheelZoom: map_options.scrollWheelZoom,
+				touchZoom: map_options.touchZoom,
 				zoom: this.getMapZoom( map_options.zoom ),
 				zoomControl: this.getMapZoomControl( map_options.zoomControl )
 			};
@@ -421,7 +431,7 @@
 				.addMiniMap( user_options.add_minimap )
 				.addBanner( user_options.banner )
 				.addLegend( user_options.legend )
-				.addEuropeanaCtrl( user_options.add_europeana_ctrl );
+				.addLayerToggleCtrl( user_options.add_layer_toggle_ctrl );
 
 			return this.map;
 		},
@@ -444,54 +454,7 @@
 			}
 
 			return true;
-		},
-
-		EuropeanaLayerControl: function( map, ops ) {
-			var
-			html	= '',
-			layers	= [],
-			self = this;
-
-			self.ops = ops;
-			self.map = map;
-			self.grp = null;
-
-			self._setLayer = function( index ) {
-				var layer = self.ops[index].layer;
-				self.grp.clearLayers();
-				self.grp.addLayer(layer);
-
-				$(self.cmp.find("span")).removeClass('active');
-				$(self.cmp.find("span").get(index)).addClass('active');
-			};
-
-			$.each( self.ops, function( i, ob ) {
-				html += '<a href="#' + ob.title + '"><span class="' + i + '">' + ob.title + '</span></a>';
-				layers[layers.length] = ob.layer;
-			});
-
-			self.cmp = $('<div>').attr('id', 'layer-ctrl').html( html );
-
-			self.cmp.find("span").each(function(){
-				$(this).click( function() {
-					if ( $(this).hasClass('active') ) {
-						return;
-					}
-					self._setLayer( parseInt( jQuery(this).attr('class'), 10 ) );
-				});
-			});
-
-			self.grp = L.layerGroup(layers);
-			self.grp.addTo(self.map);
-			self._setLayer(0);
-
-			return {
-				getCmp : function() {
-					return self.cmp;
-				}
-			};
 		}
-
 	};
 
 }( jQuery ));

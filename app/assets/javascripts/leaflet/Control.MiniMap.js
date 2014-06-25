@@ -8,6 +8,9 @@ L.Control.MiniMap = L.Control.extend({
 		zoomLevelOffset: -5,
 		zoomLevelFixed: false,
 		zoomAnimation: false,
+		touchZoom: false, // europeana 1914-1918 edit
+		scrollWheelZoom: false, // europeana 1914-1918 edit
+		doubleClickZoom: false, // europeana 1914-1918 edit
 		autoToggleDisplay: false,
 		width: 150,
 		height: 150,
@@ -46,9 +49,9 @@ L.Control.MiniMap = L.Control.extend({
 			zoomControl: false,
 			zoomAnimation: this.options.zoomAnimation,
 			autoToggleDisplay: this.options.autoToggleDisplay,
-			touchZoom: !this.options.zoomLevelFixed,
-			scrollWheelZoom: !this.options.zoomLevelFixed,
-			doubleClickZoom: !this.options.zoomLevelFixed,
+			touchZoom: this.options.touchZoom, // europeana 1914-1918 edit
+			scrollWheelZoom: this.options.scrollWheelZoom, // europeana 1914-1918 edit
+			doubleClickZoom: this.options.doubleClickZoom, // europeana 1914-1918 edit
 			boxZoom: !this.options.zoomLevelFixed,
 			crs: map.options.crs
 		});
