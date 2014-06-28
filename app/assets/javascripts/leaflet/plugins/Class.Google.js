@@ -1,7 +1,7 @@
 /* global google: true */
 /*
  * Google layer using Google Maps API
- * https://github.com/shramov/leaflet-plugins/blob/master/layer/tile/Google.js
+ * https://github.com/shramov/leaflet-plugins/blob/master/layer/tile/Class.Google.js
  */
 L.Google = L.Class.extend({
 	includes: L.Mixin.Events,

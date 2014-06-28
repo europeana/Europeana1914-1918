@@ -1,2 +1,2 @@
-//= require leaflet/Control.Geocoder
-//= require leaflet/leaflet-routing-machine-0.2.1
+//= require leaflet/plugins/Control.Geocoder
+//= require leaflet/plugins/Control.RoutingMachine-0.2.1

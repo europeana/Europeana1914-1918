@@ -30,6 +30,7 @@
 				id: 'map',
 				center: [0,0],
 				doubleClickZoom: false,
+				maxZoom: 15,
 				scrollWheelZoom: false,
 				touchZoom: false,
 				zoom: 8,
@@ -367,6 +368,7 @@
 			return {
 				center: this.getMapCentre( map_options.center ),
 				doubleClickZoom: map_options.doubleClickZoom,
+				maxZoom: map_options.maxZoom,
 				scrollWheelZoom: map_options.scrollWheelZoom,
 				touchZoom: map_options.touchZoom,
 				zoom: this.getMapZoom( map_options.zoom ),

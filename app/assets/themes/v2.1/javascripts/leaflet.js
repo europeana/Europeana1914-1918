@@ -1,4 +1,4 @@
 //= require leaflet/leaflet-0.7.2-src
-//= require leaflet/Control.MiniMap
-//= require leaflet/Google
-//= require leaflet/Control.LayerToggle
+//= require leaflet/plugins/Control.MiniMap
+//= require leaflet/plugins/Class.Google
+//= require leaflet/plugins/Control.LayerToggle

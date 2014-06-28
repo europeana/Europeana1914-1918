@@ -27,6 +27,10 @@
   if content_for?(:map_latlng)
     link += theme_stylesheet_link_tag 'leaflet', :media => 'all' + "\n"
 
+    if content_for?( :collection_days )
+      link += theme_stylesheet_link_tag 'leaflet-marker-cluster', :media => 'all' + "\n"
+    end
+
     if content_for?( :collection_day_upcoming )
       link += theme_stylesheet_link_tag 'leaflet-routing-machine', :media => 'all' + "\n"
     end
