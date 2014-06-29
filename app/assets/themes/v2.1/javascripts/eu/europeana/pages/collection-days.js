@@ -45,6 +45,7 @@
 	},
 
 	leaflet = {
+		add_markers_as_cluster: true,
 		banner_content: '',
 		legend_content: '',
 		$toggle_previous: {},
@@ -73,8 +74,9 @@
 
 			map_config.map_options = map_options;
 			map_config.markers = markers;
+			map_config.add_markers_as_cluster = this.add_markers_as_cluster;
 
-			if ( $(window).width() > 768 ) {
+			if ( $( window ).width() > 768 ) {
 				map_config.banner = {
 					display: true,
 					content: this.banner_content
@@ -95,6 +97,10 @@
 		},
 
 		handlePreviousToggle: function() {
+			if ( europeana.leaflet.past_collection_day_layer._layers === undefined ) {
+				return;
+			}
+
 			if ( $(this).attr('checked') ) {
 				$.cookie('show-previous', true, { path: '/' });
 			} else {
@@ -114,12 +120,19 @@
 			this.setLegendContent();
 			this.setBannerContent();
 			this.addLeafletMap();
-			this.removePreviousMarkersOpacity();
-			this.addPreviousToggleListener();
-			this.setPreviousCheckboxState();
+
+			if ( !this.add_markers_as_cluster ) {
+				this.removePreviousMarkersOpacity();
+				this.addPreviousToggleListener();
+				this.setPreviousCheckboxState();
+			}
 		},
 
 		removePreviousMarkersOpacity: function() {
+			if ( europeana.leaflet.past_collection_day_layer._layers === undefined ) {
+				return;
+			}
+
 			$.each( europeana.leaflet.past_collection_day_layer._layers, function() {
 				if ( $.cookie('show-previous') === 'true' ) {
 					$(this._icon).css({'opacity':''});
@@ -162,9 +175,13 @@
 				'<h2>' + I18n.t( 'javascripts.collection-days.legend' ) + '</h2>' +
 				'<div class="marker-icon marker-icon-blue">' + I18n.t( 'javascripts.collection-days.upcoming' ) + '</div>' +
 				'<div class="marker-icon marker-icon-red">' + I18n.t( 'javascripts.collection-days.past-entered' ) + '</div>' +
-				'<div class="marker-icon marker-icon-purple">' + I18n.t( 'javascripts.collection-days.past-not-entered' ) + '</div>' +
-				'<label><input type="checkbox" id="toggle-previous" /> ' + I18n.t( 'javascripts.collection-days.show-past' ) + '</label>' +
-				'<a href="#what-is-it">' + I18n.t( 'javascripts.collection-days.what-is-it' ) + '</a>';
+				'<div class="marker-icon marker-icon-purple">' + I18n.t( 'javascripts.collection-days.past-not-entered' ) + '</div>';
+
+			if ( !this.add_markers_as_cluster ) {
+				this.legend_content += '<label><input type="checkbox" id="toggle-previous" /> ' + I18n.t( 'javascripts.collection-days.show-past' ) + '</label>';
+			}
+
+			this.legend_content += '<a href="#what-is-it">' + I18n.t( 'javascripts.collection-days.what-is-it' ) + '</a>';
 		},
 
 		setPreviousCheckboxState: function() {

@@ -13,6 +13,7 @@
 
 		default_options: {
 			add_layer_toggle_ctrl: false,
+			add_markers_as_cluster: false,
 			add_minimap: false,
 			add_routing: false,
 			banner: {
@@ -38,6 +39,10 @@
 			}
 		},
 		googleLayer: {},
+		icon_blue: {},
+		icon_green: {},
+		icon_purple: {},
+		icon_red: {},
 		map: {},
 		mapQuestAttribution:
 			'Tiles © ' +
@@ -165,6 +170,21 @@
 		},
 
 		/**
+		 * @param {object} marker
+		 * @param {object} popup
+		 */
+		addMarkerPopup: function( marker, popup ) {
+			if ( popup === undefined ) {
+				return;
+			}
+
+			if ( popup.content !== undefined && popup.content.length > 1 ) {
+				marker.bindPopup( popup.content );
+			}
+		},
+
+		/**
+		 * @param {bool} add_as_cluster
 		 * @param {array} markers
 		 * @param {object} markers[n]
 		 * @param {array} markers[n].latlng
@@ -173,65 +193,32 @@
 		 * @param {string} markers[n].popup.type
 		 * @param {string|undefined} markers[n].popup.content
 		 */
-		addMarkers: function( markers ) {
+		addMarkers: function( markers, add_as_cluster ) {
 			if ( !$.isArray( markers ) || markers.length < 1 ) {
 				return this;
 			}
 
 			var
-			marker,
-			marker_icon = {},
-			markers_past = [],
-			markers_upcoming = [],
-			blueIcon = L.icon({
-				iconUrl: '/assets/leaflet/images/marker-icon.png'
-			}),
-			greenIcon = L.icon({
-				iconUrl: '/assets/leaflet/images/marker-icon-green.png'
-			}),
-			purpleIcon = L.icon({
-				iconUrl: '/assets/leaflet/images/marker-icon-purple.png'
-			}),
-			redIcon = L.icon({
-				iconUrl: '/assets/leaflet/images/marker-icon-red.png'
-			});
+				marker,
+				marker_cluster = {},
+				markers_past = [],
+				markers_upcoming = [],
+				self = this;
 
-			L.Icon.Default.imagePath = '/assets/leaflet/images/';
+			if ( add_as_cluster ) {
+				marker_cluster = new L.MarkerClusterGroup();
+			}
 
 			$.each( markers, function() {
-				if ( !europeana.leaflet.latLngIsValid( this.latlng ) ) {
+				if ( !self.latLngIsValid( this.latlng ) ) {
 					return;
 				}
 
-				switch ( this.type ) {
-					case 'blue':
-						marker_icon = { icon: blueIcon };
-						break;
-
-					case 'green':
-						marker_icon = { icon: greenIcon };
-						break;
-
-					case 'purple':
-						marker_icon = { icon: purpleIcon, opacity: 0 };
-						break;
-
-					case 'red':
-						marker_icon = { icon: redIcon, opacity: 0 };
-						break;
-
-					default:
-						marker_icon = {};
-						break;
-				}
-
-				marker = L.marker( this.latlng, marker_icon );
-
-				if ( this.popup !== undefined ) {
-					if ( this.popup.content !== undefined ) {
-						marker.bindPopup( this.popup.content );
-					}
-				}
+				marker = L.marker(
+					this.latlng,
+					self.getMarkerIcon( this.type, add_as_cluster )
+				);
+				self.addMarkerPopup( marker, this.popup );
 
 				if ( markers.length === 1 ) {
 					marker.addTo( europeana.leaflet.map );
@@ -239,6 +226,8 @@
 					if ( this.popup !== undefined && this.popup.open ) {
 						marker.openPopup();
 					}
+				} else if ( add_as_cluster ) {
+					marker_cluster.addLayer( marker );
 				} else if ( this.past ) {
 					markers_past.push( marker );
 				} else {
@@ -246,14 +235,18 @@
 				}
 			});
 
-			if ( markers_past.length > 0 ) {
-				this.past_collection_day_layer = L.layerGroup( markers_past );
-				this.map.addLayer( this.past_collection_day_layer );
-			}
+			if ( add_as_cluster ) {
+				this.map.addLayer( marker_cluster );
+			} else {
+				if (markers_past.length > 0) {
+					this.past_collection_day_layer = L.layerGroup(markers_past);
+					this.map.addLayer(this.past_collection_day_layer);
+				}
 
-			if ( markers_upcoming.length > 0 ) {
-				this.upcoming_collection_day_layer = L.layerGroup( markers_upcoming );
-				this.map.addLayer( this.upcoming_collection_day_layer );
+				if (markers_upcoming.length > 0) {
+					this.upcoming_collection_day_layer = L.layerGroup(markers_upcoming);
+					this.map.addLayer(this.upcoming_collection_day_layer);
+				}
 			}
 
 			return this;
@@ -412,6 +405,52 @@
 		},
 
 		/**
+		 * @param {bool} add_as_cluster
+		 * @param {string} icon_type
+		 * @returns {object}
+		 */
+		getMarkerIcon: function( icon_type, add_as_cluster ) {
+			var
+				marker_icon = {};
+
+			switch ( icon_type ) {
+				case 'blue':
+					marker_icon.icon = this.icon_blue;
+					break;
+
+				case 'green':
+					marker_icon.icon = this.icon_green;
+					break;
+
+				case 'purple':
+					marker_icon.icon = this.icon_purple;
+					marker_icon.className = 'previous';
+
+					if ( !add_as_cluster ) {
+						marker_icon.opacity = 0;
+					}
+
+					break;
+
+				case 'red':
+					marker_icon.icon = this.icon_red;
+					marker_icon.className = 'previous';
+
+					if ( !add_as_cluster ) {
+						marker_icon.opacity = 0;
+					}
+
+					break;
+
+				default:
+					marker_icon = {};
+					break;
+			}
+
+			return marker_icon;
+		},
+
+		/**
 		 * @param {object} user_options
 		 */
 		init: function( user_options ) {
@@ -427,7 +466,8 @@
 					this.getMapId( user_options.map_options.id ),
 					this.getMapOptions( user_options.map_options )
 				)
-				.addMarkers( user_options.markers )
+				.setImageIcons()
+				.addMarkers( user_options.markers, user_options.add_markers_as_cluster )
 				.addMapQuestLayer()
 				.addZoomControl( user_options.map_options.zoomControl )
 				.addMiniMap( user_options.add_minimap )
@@ -456,6 +496,18 @@
 			}
 
 			return true;
+		},
+
+		/**
+		 * @returns {europeana.leaflet}
+		 */
+		setImageIcons: function() {
+			L.Icon.Default.imagePath = '/assets/leaflet/images/';
+			this.icon_blue = L.icon({ iconUrl: '/assets/leaflet/images/marker-icon.png' });
+			this.icon_green = L.icon({ iconUrl: '/assets/leaflet/images/marker-icon-green.png' });
+			this.icon_purple = L.icon({ iconUrl: '/assets/leaflet/images/marker-icon-purple.png' });
+			this.icon_red = L.icon({ iconUrl: '/assets/leaflet/images/marker-icon-red.png' });
+			return this;
 		}
 	};
 
