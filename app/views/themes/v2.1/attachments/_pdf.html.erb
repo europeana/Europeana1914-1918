@@ -32,7 +32,15 @@ http://sourceforge.net/adobe/cmap/wiki/License/
 	<%= stylesheet_link_tag 'pdf', :media => 'screen, projection' %>
 	<link rel="resource" type="application/l10n" href="<%= asset_path('mozilla/pdf.js/locale/locale.properties') %>"/>
   <script>
-	  var DEFAULT_URL = '<%= inline_contribution_attachment_url(:id => @attachment.id, :contribution_id => @attachment.contribution_id, :style => "full", :extension => "pdf", :locale => nil) %>';</script>
+	  var DEFAULT_URL = '<%= inline_contribution_attachment_url(:id => @attachment.id, :contribution_id => @attachment.contribution_id, :style => "full", :extension => "pdf", :locale => nil) %>';
+
+	  // Initializing PDFJS global object (if still undefined)
+	  if (typeof PDFJS === 'undefined') {
+		  (typeof window !== 'undefined' ? window : this).PDFJS = {};
+	  }
+
+	  PDFJS.workerSrc = '<%= asset_path( 'pdf.worker.js' ) %>';
+  </script>
   <%= javascript_include_tag 'pdf' %>
 	<title><%= title %></title>
 </head>
