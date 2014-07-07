@@ -75,6 +75,10 @@
 						html += '</div>'
 
 					else
+						if edmIsShownAt.match(/^http:\/\/europeana.eu\/api\/[^\/]+\/redirect\?shownAt=http%253A%252F%252F/)
+							edmIsShownAt = CGI.unescape(edmIsShownAt)
+						end
+					
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
