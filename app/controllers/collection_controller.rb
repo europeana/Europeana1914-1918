@@ -201,6 +201,11 @@ private
       end
     elsif facet_name.to_s == 'uri'
       row_label = openskos_concept_label(row_value)
+      wwi_uri = "http://data.europeana.eu/concept/loc/sh85148236"
+      unless wwi_uri == row_value
+        wwi_prefix = openskos_concept_label(wwi_uri)
+        row_label.sub!(/^#{wwi_prefix} -- /i, '')
+      end
     end
     
     row_label || row_value.to_s
