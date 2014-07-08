@@ -6,6 +6,7 @@ if [ "app", "util" ].include?(config.current_role)
     "#{config.shared_path}/config/initializers/action_mailer.rb",
     "#{config.shared_path}/config/initializers/devise.rb",
     "#{config.shared_path}/config/initializers/europeana.rb",
+    "#{config.shared_path}/config/initializers/localeapp.rb",
     "#{config.shared_path}/config/initializers/paperclip.rb",
     "#{config.shared_path}/config/initializers/secret_token.rb",
     "#{config.shared_path}/config/federated_search.yml",
