@@ -37,7 +37,18 @@ class EuropeanaRecord < ActiveRecord::Base
       
     fulltext_fields.each_pair do |key, fields|
       fields.each do |field|
-        text field.to_sym, :more_like_this => true do
+        text field.to_sym do
+          fulltext_value = nil
+          if object[key].present?
+            fulltext_value = [ object[key] ].flatten.collect do |edm_object|
+              if edm_object[field]
+                edm_object[field].values
+              end
+            end.flatten.uniq
+          end
+          fulltext_value
+        end
+        text "#{field}_mlt".to_sym, :more_like_this => true do
           fulltext_value = nil
           if object[key].present?
             fulltext_value = [ object[key] ].flatten.collect do |edm_object|
@@ -51,7 +62,16 @@ class EuropeanaRecord < ActiveRecord::Base
       end
     end
     
-    text :taxonomy_terms, :more_like_this => true do
+    text :taxonomy_terms do
+      if object.has_key?('concepts')
+        object['concepts'].collect do |concept|
+          concept.has_key?('prefLabel') ? concept['prefLabel'].collect { |code, labels| labels } : []
+        end.flatten
+      else
+        nil
+      end
+    end
+    text :taxonomy_terms_mlt, :more_like_this => true do
       if object.has_key?('concepts')
         object['concepts'].collect do |concept|
           concept.has_key?('prefLabel') ? concept['prefLabel'].collect { |code, labels| labels } : []
@@ -108,7 +128,10 @@ class EuropeanaRecord < ActiveRecord::Base
     integer :tag_ids, :multiple => true do 
       visible_tags.collect(&:id)
     end
-    text :tags, :more_like_this => true do
+    text :tags do
+      visible_tags.collect(&:name)
+    end
+    text :tags_mlt, :more_like_this => true do
       visible_tags.collect(&:name)
     end
     
