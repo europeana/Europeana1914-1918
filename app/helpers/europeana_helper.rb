@@ -97,7 +97,7 @@ module EuropeanaHelper
     if value =~ /\A#{URI::regexp}\Z/
       value
     elsif link_fields.include?(field_name)
-      link_to(value, { :action => :search, :q => '"' + value + '"' })
+      link_to(value, { :action => :search, :q => '"' + value.to_s + '"' })
     else
       value
     end
