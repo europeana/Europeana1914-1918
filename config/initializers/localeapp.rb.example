@@ -3,4 +3,9 @@ require 'localeapp/rails'
 Localeapp.configure do |config|
   # Localeapp project API key
   config.api_key = 'YOUR_API_KEY'
+  
+  # Disable sending, polling and reloading in development
+  config.sending_environments = []
+  config.polling_environments = []
+  config.reloading_environments = []
 end
