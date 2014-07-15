@@ -11,9 +11,7 @@
 		title += ' - '
 	end
 
-	title += configuration(:site_name)
-
-	title = h(title)
+	title += h(configuration(:site_name))
 
 	if content_for?(:title)
 		title += ' - '

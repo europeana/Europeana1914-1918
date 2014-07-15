@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.12'
+gem 'rails', '3.2.19'
 
 gem 'acts-as-taggable-on', '2.4.1', :path => 'vendor/gems/acts-as-taggable-on-2.4.1' # Local fix pending merge of pull request for issue: <https://github.com/mbleigh/acts-as-taggable-on/issues/365>
 gem 'aegis', '~> 3.0.1', :git => 'https://github.com/JohnB/aegis.git', :ref => 'b1853a5'
@@ -22,7 +22,7 @@ gem 'google-api-client', '~> 0.6.4'
 gem 'haml', '~> 4.0.3'
 gem 'hpricot', '~> 0.8.0'
 gem 'http_accept_language', '~> 1.0.0'
-gem 'i18n', '0.6.0' # Locked to avoid uninitialized constant I18n::INTERPOLATION_PATTERN error from 0.5.1
+gem 'i18n', '~> 0.6.4'
 gem 'i18n-js', '~> 2.1.0'
 gem 'jquery-rails', '~> 2.1.4'
 gem 'jquery-ui-rails', '~> 3.0'
@@ -57,11 +57,11 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', ' ~> 3.1.7'
+  gem 'sass-rails', ' ~> 3.2.3'
   # Uncomment for `compass watch` to work, i.e. in development
 #  gem 'compass-rails', :git => 'https://github.com/Compass/compass-rails.git', :branch => '1-1-stable'
   # Uncomment for all other scenarios
   gem 'compass-rails', '~> 1.1.3'
-  gem 'coffee-rails', ' ~> 3.1.0'
+  gem 'coffee-rails', ' ~> 3.2.1'
   gem 'uglifier', '~> 2.4.0'
 end
