@@ -64,11 +64,6 @@ module Europeana
       Europeana.search(query_options)
     end
     
-    def get_api_record(record_id)
-      response = Europeana.record(record_id)
-      response['object']
-    end
-    
     def create_record(record_id)
       record = EuropeanaRecord.find_or_initialize_by_record_id(record_id)
       if record.new_record?
@@ -88,6 +83,9 @@ module Europeana
     rescue ActiveRecord::RecordNotUnique
       # Another DJ process got to this record first, despite 
       # record_id uniqueness validation in EuropeanaRecord. Just ignore it.
+    rescue ArgumentError
+      # Invalid record ID, caused by data bug in the API. Skip it and a future
+      # harvest will pick the record up once its data is fixed.
     end
 
   end
