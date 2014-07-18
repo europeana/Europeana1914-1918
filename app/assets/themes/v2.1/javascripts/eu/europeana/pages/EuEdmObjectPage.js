@@ -348,6 +348,7 @@
 
 	truncate.init();
 	RunCoCo.translation_services.init( jQuery('.translate-area') );
+	europeana.embedly.init();
 	europeana.carousel.init('institution-featured');
 	mimetype.init(); // lightbox is now initialized within this object
 	photoGallery.init();

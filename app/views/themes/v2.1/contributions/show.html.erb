@@ -51,17 +51,18 @@
 
   <div class="col left">
 
-    <div class="col-cell show-on-item-collapsed" >
+    <div class="col-cell show-on-item-collapsed">
       <h2><%= contribution_title(@contribution) %></h2>
     </div>
 
-    <div class="col-cell" >
+    <div class="col-cell">
       <%= render :partial => 'attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>
 
-    <div class="col-cell" >
+    <div class="col-cell share-on">
       <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>
       <%= render :partial => 'layouts/navigation/sharethis' %>
+			<%= render :partial => 'layouts/navigation/embedly', :locals => { :title => title } %>
     </div>
 
     <div class="col-cell translate-area" >

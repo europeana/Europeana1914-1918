@@ -417,6 +417,7 @@
 	}
 
 	RunCoCo.translation_services.init( $('.translate-area') );
+	europeana.embedly.init();
 	europeana.carousel.init('contributions-featured');
 	more_like_this.init('more-like-this');
 	lightbox.init();

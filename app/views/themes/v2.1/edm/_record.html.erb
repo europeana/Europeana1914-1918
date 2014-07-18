@@ -78,7 +78,7 @@
 						if edmIsShownAt.match(/^http:\/\/europeana.eu\/api\/[^\/]+\/redirect\?shownAt=http%253A%252F%252F/)
 							edmIsShownAt = CGI.unescape(edmIsShownAt)
 						end
-					
+
 						html += '<div class="col-cell">'
 					    	html += '<span class="icon-external"></span>'
 							html += '<div class="external-link">'
@@ -101,9 +101,10 @@
 					end
 				end
 
-				html += '<div class="col-cell">'
+				html += '<div class="col-cell share-on">'
 			    	html += '<span class="icon-share">' + t('views.contributions.show.headings.share') + '</span>'
  					html += render :partial => 'layouts/navigation/sharethis'
+ 					html += render :partial => 'layouts/navigation/embedly', :locals => { :title => title }
  				html += '</div>'
 
 				html += '<div class="col-cell translate-area" >'

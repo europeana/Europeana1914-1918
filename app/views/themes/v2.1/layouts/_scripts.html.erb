@@ -145,6 +145,11 @@
     script_includes += ( theme_javascript_include_tag 'chosen' ) + "\n"
   end
 
+  if content_for?( :embedly )
+    script_includes += ( javascript_include_tag '//cdn.embedly.com/widgets/platform.js' ) + "\n"
+    script_includes += ( theme_javascript_include_tag 'europeana-embedly' ) + "\n"
+  end
+
 
   # script2
   # need this here because loading I18n will overwrite this value
