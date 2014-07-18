@@ -62,7 +62,7 @@
     <div class="col-cell share-on">
       <span class="icon-share"><%= t('views.contributions.show.headings.share') %></span>
       <%= render :partial => 'layouts/navigation/sharethis' %>
-			<%= render :partial => 'layouts/navigation/embedly', :locals => { :title => title } %>
+			<%= render :partial => 'layouts/navigation/embedly', :locals => { :title => contribution_title(@contribution) } %>
     </div>
 
     <div class="col-cell translate-area" >
