@@ -28,8 +28,6 @@
 		$carousel_ul : null,
 		$items : null,
 		$overlay : null,
-		$prev : null,
-		$next : null,
 
 		carousel_container_width : 0,
 
@@ -78,7 +76,7 @@
 		},
 
 		addNavArrowHandling : function() {
-			if ( this.$items.length < 2 ) {
+			if ( this.$items.length < 2 || this.$nav_next === undefined ) {
 				return;
 			}
 
@@ -118,13 +116,11 @@
 				) {
 					return;
 				}
-			} else {
-				if (
-					this.items_length < this.items_per_container
-					&& this.options.items_collection_total < this.items_length
-				) {
-					return;
-				}
+			} else if (
+				this.items_length < this.items_per_container
+				&& this.options.items_collection_total < this.items_length
+			) {
+				return;
 			}
 
 			// create the nav elements

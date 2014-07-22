@@ -66,7 +66,7 @@
 					$('#' + self.node_id).rCarousel({
 						hide_overlay: false,
 						item_width_is_container_width : true,
-						items_collection_total : parseInt( self.pagination_total, 10 ),
+						items_collection_total : $.isNumeric( self.pagination_total ) ? parseInt( self.pagination_total, 10 ) : 0,
 						callbacks : {
 							after_nav: function() {
 								europeana.carousel.updatePaginationCount();
