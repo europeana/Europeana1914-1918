@@ -118,15 +118,15 @@ fr:
         collection_day:
           attributes:
             image:
-              content_type: 
-          end_date_follows_start_date: 
-          taxonomy_term_metadata_field: 
+              content_type: Seules les images au format JPEG et GIF sont autorisées.
+          end_date_follows_start_date: La date de fin doit être postérieure à la date de début.
+          taxonomy_term_metadata_field: ! 'Ceci n''est pas un jour de collecte valide. '
         contribution:
           attachments:
-            uploaded: 
+            uploaded: ! 'Certains fichiers sont encore en cours de téléchargement. '
           attributes:
             catalogued_by:
-              role_name: 
+              role_name: ! 'Un catalogueur doit avoir le statut d''admisnistrateur ou de catalogueur. '
             guest_id:
               present: Les coordonnées de contact sont nécessaires pour les contributions des invités.
         metadata_field:
@@ -165,15 +165,15 @@ fr:
           one: ! 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
           other: ! 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
     models:
-      annotation: 
+      annotation: ! 'Légende de l''image '
       attachment: Fichier
-      collection_day: 
+      collection_day: ! 'La Grande Collecte '
       contact: Contact
       contribution: Histoire
       institution: ! 'Champ de métadonnées '
       metadata_field: Champ de métadonnées
       metadata_record: Enregistrement de métadonnées
-      tag: 
+      tag: Onglet
       tagging: 
       taxonomy_term: Terme taxinomique
       user: Utilisateur
@@ -201,7 +201,7 @@ fr:
     email: mél
     id: ID
     metadata_record: Métadonnée
-    status: 
+    status: Statut
     title: Titre
     updated_at: Actualisé à
     url: URL
@@ -221,30 +221,30 @@ fr:
     help_text:
       mandatory: Champ obligatoire
     labels:
-      add-keywords: 
+      add-keywords: ! 'Ajoutez les mots-clés '
       co_funded: cofinancé par l'Union européenne
     links:
       about_the_project: À propos du projet Europeana 1914-1918
       add-your-story: Ajouter votre histoire
       add-your-story-brief: 
-      annotorious: 
+      annotorious: ! 'L''objet a des notes jointes. Ouvrez l''objet pour les lire. '
       contact_us: ! 'Contactez-nous '
-      contact_us_email: 
+      contact_us_email: Vous pouvez également nous contacter via l'adresse email <span class="addr">1914-1918 [@] europeana [.] eu</span>
       contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html ?lang=nl" target="_blank">Les conditions d'Europeana pour les contributions</a>
       contribution_terms: Les conditions d'Europeana pour les contributions
       efg: <a href="http://www.europeanfilmgateway.eu/1914">http://www.europeanfilmgateway.eu/</a>.
       explore-the-stories: Explorez les histoires!
-      explore-the-stories-brief: 
+      explore-the-stories-brief: ! 'Explorer! '
       explore_stories: Explorez les histoires
       help: Aide
       my_account: Mon compte
       my_stories: Mes histoires
-      national_collections: 
-      play-audio: 
-      play-video: 
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collectes-1914-1918" target="_blank">En savoir plus sur les collectes nationales</a>.
+      play-audio: Lire les fichiers audio
+      play-video: Lire la vidéo
       privacy_policy: Politique de confidentialité
       project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Veuillez consulter le site du projet pour de plus amples informations</a>
-      project_website_v2: 
+      project_website_v2: <a herf="http://pro.europeana.eu/web/europeana-1914-1918"target="_blank">En savoir plus sur la collecte d'histoires de famille</a>
       register: Enregistrez-vous
       sign_in: Identifiez-vous
       statistics: 
@@ -466,7 +466,7 @@ fr:
         notice: 
       flag:
         alert: 
-        notice: 
+        notice: ! 'Légende signalée comme inappropriée. '
       unflag:
         alert: 
         notice: 
@@ -514,8 +514,8 @@ fr:
           alert: Un problème est survenu lors de la sauvegarde de votre contribution.
           notice: Contribution enregistrée.
       reject:
-        alert: 
-        notice: 
+        alert: Echec du rejet de la contribution.
+        notice: Contribution rejetée avec succès.
       submitted:
         edit:
           alert: Cette contribution a déjà été soumise.
@@ -533,8 +533,8 @@ fr:
       import:
         alert:
           empty: 
-          invalid_license: 
-        notice: 
+          invalid_license: ! 'Les photographies suivantes ont une licence incompatible et ne seront pas importées. '
+        notice: ! 'Transfert des images Flickr dans l''arrière plan en cours. '
     guest_contact:
       create:
         alert: Les détails fournis posent problème. Veuillez les corriger et réessayer.
@@ -849,6 +849,8 @@ fr:
           Middle East: Moyen-Orient
           Naval Warfare: Guerre navale
           Western Front: Front occidental
+        format:
+          Digital: 
       user:
         delete_picture: Supprimer la photo
         terms: J'accepte les termes & conditions
