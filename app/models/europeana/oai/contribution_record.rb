@@ -109,13 +109,13 @@ module Europeana
       #
       def to_oai_europeana19141918
         Rails.application.routes.default_url_options[:locale] ||= Rails.configuration.i18n.default_locale
-        xml = Builder::XmlMarkup.new
+        xml = ::Builder::XmlMarkup.new
         xml.tag!("oai_europeana19141918:europeana19141918",
           Europeana::OAI::MetadataFormat::Europeana19141918.instance.header_specification
         ) do
           c = self
           @metadata_fields = MetadataField.all.collect { |mf| mf.name }
-          builder_file = File.read(File.join(::Rails.root.to_s, 'app', 'views', 'contributions', '_contribution.xml.builder'))
+          builder_file = File.read(File.join(::Rails.root.to_s, 'app', 'views', 'common', 'contributions', '_contribution.xml.builder'))
           instance_eval builder_file
         end
         xml.target!
