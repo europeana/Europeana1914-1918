@@ -1,4 +1,4 @@
-class OAIController < ApplicationController
+class OaiController < ApplicationController
   before_filter :init_provider
   
   def index
