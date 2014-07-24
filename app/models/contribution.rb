@@ -345,21 +345,27 @@ class Contribution < ActiveRecord::Base
   #
   alias_method :hrs_change_status_to, :change_status_to
   def change_status_to(status, user_id)
-    was_published     = current_status.nil? ? false : self.class.published_status.include?(current_status.to_sym)
-    will_be_published = self.class.published_status.include?(status)
+    success = false
     
-    return false unless hrs_change_status_to(status, user_id)
+    Contribution.transaction do
+      was_published     = current_status.nil? ? false : self.class.published_status.include?(current_status.to_sym)
+      will_be_published = self.class.published_status.include?(status)
     
-    unless was_published == will_be_published
-      attachments.each do |a|
-        a.set_public
-        return false unless a.save
+      raise ActiveRecord::Rollback unless hrs_change_status_to(status, user_id)
+    
+      unless was_published == will_be_published
+        attachments.each do |a|
+          a.set_public
+          raise ActiveRecord::Rollback unless a.save
+        end
       end
+      
+      success = true
     end
     
-    true
+    success
   end
-  
+ 
   ##
   # Returns the tags on this contribution that are visible to all users.
   #
