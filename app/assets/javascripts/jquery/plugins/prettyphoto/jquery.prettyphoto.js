@@ -4,9 +4,7 @@
 	Author: Stephane Caron (http://www.no-margin-for-errors.com)
 	Version: 3.1.4
 
-	modified for runcoco
-	@author dan entous <contact@gmtplusone.com>
-	@version 2014-04-30 08:46 gmt +1
+	** modified for runcoco
 ------------------------------------------------------------------------- */
 (function($) {
 	$.prettyPhoto = {version: '3.1.4'};

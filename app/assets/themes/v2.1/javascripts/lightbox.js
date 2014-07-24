@@ -1,1 +1,1 @@
-//= require ./com/jquery/plugins/jquery.prettyphoto
+//= require jquery/plugins/prettyphoto/jquery.prettyphoto
