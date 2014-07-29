@@ -73,13 +73,13 @@ class CollectionController < SearchController
           query.facet "place_name"
         elsif indices == EuropeanaRecord
           # EuropeanaRecord facets
+          query.facet "uri"
           query.facet "year"
           query.facet "type"
           query.facet "provider"
           query.facet "data_provider"
           query.facet "country"
           query.facet "rights"
-          query.facet "uri"
         end
         
         query.fulltext solr_multiple_queries(search_terms), { :minimum_match => 1 }
