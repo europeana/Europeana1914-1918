@@ -77,6 +77,8 @@ hu:
         password_confirmation: 
         role_name: 
         username: Felhasználó név
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -629,6 +631,10 @@ hu:
           source: 
           subject: ! 'Az a személy, hely vagy tárgy, amelyikre a dokumentum vonatkozik '
           theatres: ! 'Megkérjük, ne jelöljön be egy mezőt se, ha nem releváns. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több releváns fogalom, kérjük, küldje el e-mailbe a következő címre: 1914-1918[@]europeana[.]eu'
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Annyi fájt tölthet fel, ahány csak szükséges, de csak egyenként. Jegyezze meg, hogy több fájl feltöltése esetén az egyiket „fedőlapnak” nevezheti ki (például egy képeslap vagy egy napló esetében). Egy fájl maximálisan megengedett nagysága: %{max}. Elfogadott fájl-típusok:  %{file_types}'
         title: Egy rövid leíró cím vagy a tárgyhoz találó megnevezés, például „Az nagytatám, Otto Schmidt, Tiszteletbeli Érméje”
@@ -697,6 +703,30 @@ hu:
         update:
           password: 
         username: 
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -722,6 +752,14 @@ hu:
           source: 
           subject: 
           ticket: 
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -823,6 +861,7 @@ hu:
           Transport: ! 'Szállítás '
           Trench Life: ! 'Élet a lövészárkokban '
           Women: ! 'Nők '
+          Refugees: 
         theatres:
           Aerial Warfare: Légi háború
           African Wars: Afrika
@@ -835,9 +874,67 @@ hu:
           Western Front: ! 'Nyugati front '
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: 
         terms: 
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': 
     required: 
     titles:
@@ -872,8 +969,60 @@ hu:
       story_keywords: Segíts másoknak, hogy hamarabb megtalálják történetedet, és ezért adj meg egy vagy akár több kulcsszót, az alábbiak közül
       story_location: ! 'Hol zajlott a története? '
       submit: 
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: 
     'yes': 
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Válasszon
@@ -881,6 +1030,44 @@ hu:
       create: Új %{model}
       submit: ! '%{model} Mentése'
       update: ! '%{model} Módosítása'
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1944,6 +2131,10 @@ hu:
         title: 
       sign-in:
         help: ! 'A bejelentkezésnél kérem, írja be vagy az azonosítóját vagy az e-mail címét. Nincs szükség mind a kettőre. '
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: 
     first_title: 
@@ -1961,3 +2152,22 @@ hu:
     per_page_title: 
     previous_label: ← előző
     previous_title: 
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

@@ -77,6 +77,8 @@ sl:
         password_confirmation: Ponovite geslo
         role_name: Vloga
         username: Uporabniško ime
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -622,6 +624,10 @@ sl:
           theatres: ! 'Prosimo, ne kliknite, če ni pomembno. Če ustrezna ključna beseda ni na voljo, nam prosimo, pošljite e-sporočilo na: 1914-1918 [@] europeana [.] eu''
 
 '
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Naložite lahko več datotek hkrati. Opomba če prenesete veliko datotek, boste lahko označili eno izmed datotek kot “naslovno sliko” za vašo zgodbo, npr. razglednica ali dnevnik. Največja velikost datoteke: %{max}. Dovoljene vrste datoteke: %{file_types}.'
         title: Kratek opisni naslov ali lastno ime, na primer, “Medalja časti mojega sijajnega starega očeta, Otto Schmidta”
@@ -722,6 +728,30 @@ sl:
 
 '
         username: Najmanj trije znaki. Veljavni znaki so od A do Z, 0-9 -_.@
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -749,6 +779,14 @@ sl:
           ticket: ! 'Številka predmeta
 
 '
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -850,6 +888,7 @@ sl:
           Transport: Transport
           Trench Life: Življenje v jarkih
           Women: Ženske
+          Refugees: 
         theatres:
           Aerial Warfare: Zračna vojna
           African Wars: Afrika
@@ -862,9 +901,67 @@ sl:
           Western Front: Zahodna fronta
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Izbriši sliko
         terms: Strinjam se z določili in pogoji
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Ne
     required: zahtevano
     titles:
@@ -901,8 +998,60 @@ sl:
       story_keywords: Pomagajte drugim, da najdejo svojo zgodbo tako, da dodate eno ali več         sledečih ključnih besed.
       story_location: Kje se je ta zgodba zgodila
       submit: Oddaj svojo zgodbo
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Posodobi %{model}
     'yes': Da
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Prosimo izberite
@@ -910,6 +1059,44 @@ sl:
       create: Prosimo, izberite %{model}
       submit: Shrani %{model}
       update: Posodobi %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -2086,6 +2273,10 @@ sl:
         title: Vaš račun
       sign-in:
         help: Za prijavo lahko uporabite svoje uporabniško ime ali naslov e-pošte. Ni treba uporabiti obeh.  Uporabniško ime.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Rezultati %{first}–%{last} of %{total}
     first_title: Prva stran
@@ -2109,3 +2300,22 @@ sl:
     per_page_title: Število rezultatov, ki se prikažejo na strani
     previous_label: ← prejšnji
     previous_title: Prejšnja stran
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

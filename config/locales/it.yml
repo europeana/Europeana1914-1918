@@ -77,6 +77,8 @@ it:
         password_confirmation: ripeti la password
         role_name: ruolo
         username: username (nome utente)
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -651,6 +653,10 @@ it:
           source: l'originale da cui è stata ricavata la versione digitale (es. un foglio, un taccuino, una bobina)
           subject: La persona, il luogo o l’oggetto protagonista del contributo
           theatres: ! "Non cliccare su nessuna di queste opzioni se non ti sembra rilevante. \nSe una parola chiave non è disponibile scrivici a: 1914-1918[@]europeana[.]eu.\n"
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'È possibile allegare quanti file si vuole, uno alla volta. Si noti che se si caricano più file vi sarà data la possibilità di sceglierne uno come copertina della storia, ad esempio, una cartolina o un calendario. Massima dimensione: %{max}. Formati consentiti: %{file_types}.'
         title: ! 'Breve descrizione o nome del contributo: per esempio ''La medaglia d’onore del mio bisnonno Otto Schmidt'''
@@ -719,6 +725,30 @@ it:
         update:
           password: inserire una nuova password se si vuole modificarla, altrimenti lasciare in bianco. La lunghezza minima deve essere di 6 caratteri.
         username: ! 'la lunghezza minima deve essere di 3 caratteri. Caratteri validi: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -744,6 +774,14 @@ it:
           source: fonte
           subject: soggetto
           ticket: numero del biglietto
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -845,6 +883,7 @@ it:
           Transport: Trasporti
           Trench Life: Vita di trincea
           Women: Donne
+          Refugees: 
         theatres:
           Aerial Warfare: Guerra aerea
           African Wars: Campagna d’Africa
@@ -857,9 +896,67 @@ it:
           Western Front: Fronte occidentale
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: cancella l'immagine
         terms: accetto le condizioni
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': 'no'
     required: obbligatorio
     titles:
@@ -894,8 +991,60 @@ it:
       story_keywords: Aiuta gli utenti a trovare la tua storia con l'introduzione di una o più delle seguenti parole chiave.
       story_location: Quando ha avuto luogo la storia
       submit: presenta la tua storia
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: aggiorna %{model}
     'yes': sì
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Per favore, seleziona
@@ -903,6 +1052,44 @@ it:
       create: Crea %{model}
       submit: salva %{model}
       update: Aggiorna %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -2014,6 +2201,10 @@ it:
         title: il tuo account
       sign-in:
         help: Per accedere puoi utilizzare il nome utente o l'indirizzo email. Non c'è bisogno di utilizzare entrambi.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: risultati%{first}–%{last} di%{total}
     first_title: prima pagina
@@ -2031,3 +2222,22 @@ it:
     per_page_title: numero di risultati mostrati nella pagina
     previous_label: ← precedente
     previous_title: pagina precedente
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

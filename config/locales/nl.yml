@@ -11,7 +11,7 @@ nl:
     edit_story: Pas uw verhaal aan
     filter: Filter
     flag: Markeer
-    import: 
+    import: Importeren
     new: Nieuw
     reject: Afwijzen
     remove: Verwijderen
@@ -77,6 +77,8 @@ nl:
         password_confirmation: Herhaal wachtwoord
         role_name: Role
         username: Gebruikersnaam
+        institution: 
+        terms: Voorwaarden
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -112,12 +114,12 @@ nl:
         collection_day:
           attributes:
             image:
-              content_type: 
-          end_date_follows_start_date: 
-          taxonomy_term_metadata_field: 
+              content_type: Uitsluitend JPEG en GIF zijn toegestaan.
+          end_date_follows_start_date: Einddatum moet later zijn startdatum.
+          taxonomy_term_metadata_field: ! 'Dit is geen geldige collectiedag. '
         contribution:
           attachments:
-            uploaded: 
+            uploaded: ! 'Enkele bestanden worden nog verplaatst. '
           attributes:
             catalogued_by:
               role_name: Degene die catalogeerd moet de rol van "admin" of "cataloguer" toegewezen hebben gekregen
@@ -161,7 +163,7 @@ nl:
     models:
       annotation: Annotatie
       attachment: Object
-      collection_day: 
+      collection_day: Collectiedag
       contact: Contact
       contribution: Verhaal
       institution: Institutionele provider
@@ -457,11 +459,11 @@ nl:
         alert: Intrekken annotatie mislukt.
         notice: ! 'Annotatie ingetrokken. '
       flag:
-        alert: 
-        notice: 
+        alert: ! 'Kon opmerking niet als ongepast aanmerken. '
+        notice: ! 'Opmerking als ongepast aanmerken. '
       unflag:
-        alert: 
-        notice: 
+        alert: ! 'Kon '
+        notice: ! 'Opmerking als ongepast aanmerken ongedaan maken. '
     attachments:
       create:
         alert: Er is een probleem opgetreden tijdens het opslaan van uw bijlage.
@@ -524,9 +526,9 @@ nl:
     flickr:
       import:
         alert:
-          empty: 
-          invalid_license: 
-        notice: 
+          empty: Geen bestanden geselecteerd
+          invalid_license: ! 'De volgende foto''s hebben een niet-compatibele licentie en zullen niet worden geïmprteerd: '
+        notice: ! 'Flicker foto''s worden overgebracht. '
     guest_contact:
       create:
         alert: ! 'De gegevens die u heeft ingevoerd zijn onjuist. Gelieve dit te corrigeren en het nogmaals te proberen. '
@@ -544,7 +546,7 @@ nl:
       notice: ! 'Let op: '
     taggings:
       depublish:
-        alert: 
+        alert: ! 'Tag kon niet verwijderd worden. '
         notice: 
     tags:
       contribution:
@@ -635,6 +637,10 @@ nl:
           source: De bron van het item. (Zoals bijvoorbeeld uit een krant, een notitieboek, of een stukje film.)
           subject: ! 'De persoon of de plaats waarmee het object correspondeert. '
           theatres: Laat dit gedeelte open als het niet relevant is. Mocht relevante informatie ontbreken, email ons dan via 1914-1918 [@] europeana [.] eu
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'U kunt zoveel bijlagen toevoegen als u wilt; dit gaat wel een voor een. Let er op dat als u van plan bent veel materiaal toe te voegen, u een bestand als omslag voor uw verhaal kunt kiezen. Maximale bestandgrootte: %{max}. Mogelijke extensies: %{file_types}.'
         title: ! 'Geef een krachtige titel of naam mee aan uw object. Een voorbeeld kan zijn: "Otto Schmidt''s Eremedaille". '
@@ -703,6 +709,30 @@ nl:
         update:
           password: ! 'Geef een nieuw wachtwoord op als u het oude wilt wijzigen. Als dit niet het geval is, kunt u het open laten. Minimaal 6 karakters zijn vereist. '
         username: ! 'Minimaal 3 karakters. Toegestaan zijn: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -728,6 +758,14 @@ nl:
           source: Bron
           subject: Onderwerp
           ticket: Ticket nummer
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -829,6 +867,7 @@ nl:
           Transport: Transport
           Trench Life: Het leven in de loopgraven
           Women: Vrouwen
+          Refugees: 
         theatres:
           Aerial Warfare: In het luchtruim
           African Wars: Afrika
@@ -841,9 +880,67 @@ nl:
           Western Front: Westfront
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Verwijder foto
         terms: Ik ga akkoord met de voorwaarden
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': nee
     required: verplicht
     titles:
@@ -878,8 +975,60 @@ nl:
       story_keywords: Help anderen uw verhaal te vinden door keywords te koppelen.
       story_location: Waar vond dit verhaal plaats
       submit: Verzend uw verhaal
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Update %{model}
     'yes': Ja
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Selecteer
@@ -887,6 +1036,44 @@ nl:
       create: ! '%{model} toevoegen'
       submit: ! '%{model} opslaan'
       update: ! '%{model} bewaren'
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1954,6 +2141,10 @@ nl:
         title: U account
       sign-in:
         help: Gebruik uw gebruikersnaam of email om in te loggen
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Resultaten %{first}-%{last} van %{total}
     first_title: Eerste pagina
@@ -1975,3 +2166,22 @@ nl:
     per_page_title: Aantal zichtbare resultaten op de pagina
     previous_label: ← vorige
     previous_title: Vorige pagina
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Land
+          data_provider_sm: Gegevensverstrekker
+          metadata_collection_day_ids_im: Collectiedag
+          metadata_content_ids_im: Itemtype
+          metadata_file_type_ids_im: Mediabestandstype
+          metadata_keywords_ids_im: ! 'Trefwoorden '
+          metadata_lang_ids_im: Taal
+          metadata_theatres_ids_im: Front
+          place_name_s: ! 'Plaatsnaam '
+          provider_sm: Gegevensverstrekker
+          rights_sm: Rechten
+          type_s: Type
+          uri_sm: Onderwerp
+          year_sm: Jaar
+  Polish: 

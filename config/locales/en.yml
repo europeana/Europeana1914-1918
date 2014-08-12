@@ -77,6 +77,8 @@ en:
         password_confirmation: Repeat password
         role_name: Role
         username: Username
+        institution: 
+        terms: Terms
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -641,6 +643,10 @@ en:
           source: The source that the item was digitised from (for example a leaf, a folio, a notebook, a reel of film).
           subject: The person or place or object the item is about.
           theatres: ! 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'You can upload as many files as necessary; one at a time. Note that if you upload many files you will be given the opportunity to mark one of them as a “cover image” for your story; i.e., a postcard or diary. Maximum file size: %{max}. Allowed file types: %{file_types}.'
         title: Short descriptive title or proper name of the object, for example, “My great grandfather, Otto Schmidt’s, Medal of Honor”
@@ -709,6 +715,30 @@ en:
         update:
           password: Enter a new password if you want to change it, otherwise leave this blank. Minimum 6 characters.
         username: ! 'Minimum 3 characters. Valid characters: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -734,6 +764,14 @@ en:
           source: Source
           subject: Subject
           ticket: Ticket number
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: Country
@@ -835,6 +873,7 @@ en:
           Transport: Transport
           Trench Life: Trench Life
           Women: Women
+          Refugees: Refugees
         theatres:
           Aerial Warfare: Aerial Warfare
           African Wars: Africa
@@ -847,11 +886,112 @@ en:
           Western Front: Western Front
         content:
           Photograph: Photograph
+          Official Document: Official Document
+          Autograph: Autograph
+          Book: Book
+          Map: Map
+          Other: Other
+          Diary: Diary
+          Interview: Interview
+          Medal: Medal
+          Memorabilia: Memorabilia
+          Painting: Painting
+          Poem: Poem
+          Weapon: Weapon
+          Letter: Letter
+          Music: Music
+          Official document: Official document
+          Drawing: Drawing
+          Postcard: Postcard
+          Memoir: Memoir
+          Multiple: Multiple
+          Publication: Publication
+          Collection: Collection
+          Footage: Footage
         format:
           Digital: Digital
+          Card: Card
+          Mixed: Mixed
+          Paper: Paper
+          Canvas: Canvas
+          Metal: Metal
+          Wood: Wood
+          Leather: Leather
+          Photographic paper: Photographic paper
+          Other: Other
+          ! 'Text: memoir': ! 'Text: memoir'
+          Unknown: Unknown
+          Tape: Tape
+          ! 'Text: transcription': ! 'Text: transcription'
+        object_side:
+          Back: Back
+          Front: Front
+        lang:
+          Deutsch: Deutsch
+          Slovenščina: Slovenščina
+          English: English
+          Other: Other
+          Ελληνικά: Ελληνικά
+          Français: Français
+          Nederlands: Nederlands
+          Dansk: Dansk
+          Italiano: Italiano
+          Magyar: Magyar
+          Română: Română
+          Slovenčina: Slovenčina
+          Gaeilge: Gaeilge
+        source:
+          Book: Book
+          Artifact: Artifact
+          Other: Other
+          Photograph: Photograph
+          Journal: Journal
+          Notebook: Notebook
+          Unknown: Unknown
+          Newspaper: Newspaper
+          Folio: Folio
+          Leaf: Leaf
+          Postcard: Postcard
+          Tape: Tape
+          Film: 
+          Multiple: Multiple
+        cover_image:
+          'yes': 'yes'
+        collection_day:
+          Fr07: Fr07
       user:
         delete_picture: Delete picture
         terms: ! ' I accept the terms & conditions'
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': 'No'
     required: required
     titles:
@@ -886,8 +1026,60 @@ en:
       story_keywords: Help others find your story by adding one or several of the following keywords.
       story_location: Where did this story take place
       submit: Submit your story
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Update %{model}
     'yes': 'Yes'
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Please select
@@ -895,6 +1087,44 @@ en:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1969,6 +2199,10 @@ en:
         title: Your account
       sign-in:
         help: To sign in use either your username or your email address. You don’t need to use both.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Results %{first}–%{last} of %{total}
     first_title: First page
@@ -1992,3 +2226,22 @@ en:
     per_page_title: Number of results shown on the page
     previous_label: <
     previous_title: Previous page
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Country
+          data_provider_sm: Data provider
+          metadata_collection_day_ids_im: Collection day
+          metadata_content_ids_im: Item type
+          metadata_file_type_ids_im: Media type
+          metadata_keywords_ids_im: Keywords
+          metadata_lang_ids_im: Language
+          metadata_theatres_ids_im: Theatres
+          place_name_s: Place name
+          provider_sm: Provider
+          rights_sm: Rights
+          type_s: Type
+          uri_sm: Subject
+          year_sm: Year
+  Polish: 

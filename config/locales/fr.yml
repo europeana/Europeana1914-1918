@@ -77,6 +77,8 @@ fr:
         password_confirmation: Répétez le mot de passe
         role_name: Rôle
         username: 
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -645,6 +647,10 @@ fr:
           source: Source à partir de laquelle l'image numérique a d'été prise (une feuille, un folio, un carnet de note, une bobine de film)
           subject: ! ' Personne ou lieu dont il est question dans le document'
           theatres: Ne cliquez pas si ce n'est pas pertinent. Si un mot-clé pertinent n'est pas disponible, envoyez-nous un mél  à 1914-1918 [@] europeana [.] eu
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Vous pouvez télécharger autant de fichiers que nécessaire, un par un. Si vous  téléchargez un grand nombre de fichiers, vous pouvez en choisir un comme image de couverture de votre histoire (par exemple une carte postale ou un journal). Taille maximale du fichier : %{max}. Types de fichiers autorisés: %{file_types}.'''
         title: Titre descriptif ou nom propre de l'objet, par exemple "Mon arrière-grand-père, Jean Dupont. Médaille d'Honneur".
@@ -713,6 +719,30 @@ fr:
         update:
           password: Introduisez un nouveau mot de passe si vous souhaitez le modifier, sinon laissez ce champ vierge. 6 caractères minimum.
         username: ! '3 caractères minimum. Caractères valables : a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -738,6 +768,14 @@ fr:
           source: Source
           subject: Sujet
           ticket: Numéro de ticket
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -753,7 +791,7 @@ fr:
             date: 
             description: 
             format: 
-            identifier: 
+            identifier: Identificateur
             language: 
             publisher: 
             relation: 
@@ -762,7 +800,7 @@ fr:
             subject: 
             terms_alternative: 
             terms_extent: 
-            terms_medium: 
+            terms_medium: Moyen
             title: 
             type: 
           dcterms:
@@ -839,6 +877,7 @@ fr:
           Transport: ! 'Transport '
           Trench Life: Vie dans les tranchées
           Women: Femmes
+          Refugees: 
         theatres:
           Aerial Warfare: Guerre aérienne
           African Wars: Afrique
@@ -851,9 +890,67 @@ fr:
           Western Front: Front occidental
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Supprimer la photo
         terms: J'accepte les termes & conditions
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Non
     required: requis
     titles:
@@ -888,8 +985,60 @@ fr:
       story_keywords: Aidez les autres à trouver votre histoire en ajoutant un ou plusieurs des mots-clé suivants.
       story_location: ! 'Où cette histoire s''est-elle déroulée '
       submit: Proposez votre histoire
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Actualisez %{model}
     'yes': Oui
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Veuillez sélectionner
@@ -897,6 +1046,44 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrez ce(tte) %{model}
       update: Modifier ce(tte) %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1995,6 +2182,10 @@ fr:
         title: ! 'Votre compte '
       sign-in:
         help: Pour vous identifier, utilisez votre nom d'utilisateur ou votre adresse email. Vous n'êtes pas obligés d'utiliser les deux.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: 
     first_title: 
@@ -2016,3 +2207,22 @@ fr:
     per_page_title: 
     previous_label: ← précédent
     previous_title: 
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: La Grande Collecte
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: Mots-clefs
+          metadata_lang_ids_im: Langue
+          metadata_theatres_ids_im: Théâtres
+          place_name_s: 
+          provider_sm: 
+          rights_sm: Droits
+          type_s: Type
+          uri_sm: Sujet
+          year_sm: Année
+  Polish: 

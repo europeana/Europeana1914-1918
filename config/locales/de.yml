@@ -1,6 +1,6 @@
 de:
   actions:
-    add: 
+    add: Hinzufügen
     approve: Akzeptieren
     cancel: Abbrechen
     copy: Kopieren
@@ -11,7 +11,7 @@ de:
     edit_story: Beitrag bearbeiten
     filter: Filtern
     flag: Markieren
-    import: 
+    import: Importieren
     new: Neu
     reject: Ablehnen
     remove: Entfernen
@@ -79,6 +79,8 @@ de:
         password_confirmation: Passwort wiederholen
         role_name: Rolle
         username: Benutzername
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -114,7 +116,7 @@ de:
         collection_day:
           attributes:
             image:
-              content_type: 
+              content_type: Nur JPG und GIF Dateien werden zugelassen
           end_date_follows_start_date: 
           taxonomy_term_metadata_field: 
         contribution:
@@ -163,7 +165,7 @@ de:
     models:
       annotation: 
       attachment: Objekt
-      collection_day: 
+      collection_day: Aktionstag
       contact: Kontakt
       contribution: ! 'Beitrag '
       institution: Institution
@@ -633,6 +635,10 @@ de:
           source: ! 'Die Quelle, von der das Objekt digitalisiert wurde (z.B. eine Seite, ein Notizbuch, eine Filmspule). '
           subject: Die Person, der Ort oder das Objekt, um die bzw. den oder das es geht.
           theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist. Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Sie können mehrere Dateien gleichzeitig hochladen. Jede Datei wird automatisch ein separates Objekt, das Sie individuell bearbeiten können. Hinweis: Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert sein. Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
         title: Kurzer, aussagekräftiger Titel oder Eigenname des Objekts, z.B. "Mein Urgroßvater, Otto Schmidt, Tapferkeitsmedaille".
@@ -707,6 +713,30 @@ de:
         update:
           password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
         username: ! 'Mindestens 3 Zeichen erforderlich. Gültige Eingabe: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -732,10 +762,18 @@ de:
           source: Quelle
           subject: Thema
           ticket: Ticketnummer
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
-          country: 
-          full_name: 
+          country: Land
+          full_name: Organisation
         delete_image: 
       content:
         metadata:
@@ -833,6 +871,7 @@ de:
           Transport: Verkehr
           Trench Life: Leben im Schützengraben
           Women: Frauen
+          Refugees: 
         theatres:
           Aerial Warfare: Luftkrieg
           African Wars: Afrika
@@ -845,9 +884,67 @@ de:
           Western Front: Westfront
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Bild löschen
         terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen.
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Nein
     required: erforderlich
     titles:
@@ -886,8 +983,60 @@ de:
 '
       story_location: Wo trug sich dieses Ereignis zu?
       submit: Beitrag senden
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: ! '%{model} aktualisieren'
     'yes': Ja
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Bitte wählen
@@ -895,6 +1044,44 @@ de:
       create: ! '%{model} erstellen'
       submit: ! '%{model} speichern'
       update: ! '''%{model} aktualisieren'' '
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1974,6 +2161,10 @@ de:
         title: Ihr Konto
       sign-in:
         help: Melden Sie sich entweder mit Ihrem Benutzernamen oder Ihrer E-Mail-Adresse an. Sie brauchen nicht beide zu verwenden.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Ergebnisse %{first}-%{last} von %{total}
     first_title: Erste Seite
@@ -1997,3 +2188,22 @@ de:
     per_page_title: Zahl der Ergebnisse, die auf der Seite gezeigt werden
     previous_label: ← Vorige
     previous_title: Vorige Seite
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

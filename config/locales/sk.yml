@@ -6,7 +6,7 @@ sk:
     copy: Kopírovať
     delete: Zmazať
     depublish: Zneprístupniť
-    download: ! "Stiahnu\x9Dť"
+    download: Stiahnuť
     edit: Upraviť
     edit_story: Upraviť príbeh
     filter: Filtrovať
@@ -14,7 +14,7 @@ sk:
     import: 
     new: Nový
     reject: ! "Zamietnu\x9Dť"
-    remove: ! "Odstráni\x9Dť"
+    remove: Odstrániť
     save: Uložiť
     submit: ! ' Odovzdať'
     unflag: Odznačiť
@@ -77,6 +77,8 @@ sk:
         password_confirmation: Znovu zadať heslo
         role_name: Úloha
         username: Používateľské meno
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -665,6 +667,10 @@ sk:
           source: Zdroj, z ktorého bol objekt digitalizovaný (napr. list, fólia, zápisník, film apod.)
           subject: Osoba, miesto alebo vec, ku ktorej sa objekt viaže.
           theatres: ! 'Neklikajte prosím, pokiaľ to nie je relevantné. Pokiaľ relevantné kľúčové slovo nie je dostupné, napíšte nám email na: 1914-1918 [@] europeana [.] eu'
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Môžete nahrať toľko súborov, koľko je potrebných, jeden za druhým. Pamätajte, že ak nahrávate viacero súborov,  budete mať možnosť označiť jeden z nich ako ‘obálku’ pre váš príbeh, napr. pohľadnicu alebo denník. Maximálna veľkosť súboru je %{max}. Povolené typy súborov: %{file_types}'
         title: Krátky popisný názov alebo skutočný názov objektu, napr. “Medaila cti môjho starého otca Otta Schmidta”
@@ -733,6 +739,30 @@ sk:
         update:
           password: Zadajte nové heslo v prípade, že ho chcete zmeniť, inak nevypĺňajte. Minimálne 6 znakov.
         username: ! 'Minimálne 3 znaky. Platné znaky: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -758,6 +788,14 @@ sk:
           source: Zdroj
           subject: Predmet
           ticket: Číslo lístka
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -859,6 +897,7 @@ sk:
           Transport: Preprava
           Trench Life: Zákopový život
           Women: Ženy
+          Refugees: 
         theatres:
           Aerial Warfare: Vojna vo vzduchu
           African Wars: Afrika
@@ -871,9 +910,67 @@ sk:
           Western Front: Západný front
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Vymazať obrázok
         terms: Súhlasím s podmienkami
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Nie
     required: povinné
     titles:
@@ -908,8 +1005,60 @@ sk:
       story_keywords: Pomôžte ostatným nájsť váš príbeh pridaním jedného alebo viacerých kľúčových slov.
       story_location: Kde sa váš príbeh odohral
       submit: Odovzdajte svoj príbeh
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: ! "Aktualizovať\x9D %{model}"
     'yes': Áno
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Prosím vyberte si
@@ -917,6 +1066,44 @@ sk:
       create: Vytvoriť %{model}
       submit: Uložiť %{model}
       update: Aktualizovať %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1990,6 +2177,10 @@ sk:
         title: Váš účet
       sign-in:
         help: Na prihlásenie použite užívateľské meno alebo vašu emailovú adresu. Nemusíte použiť obidve.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Výsledky %{first}–%{last} z %{total}
     first_title: Prvá strana
@@ -2013,3 +2204,22 @@ sk:
     per_page_title: Počet výsledkov zobrazených na tejto strane
     previous_label: ! '&#8592; Predchádzajúca'
     previous_title: Predchádzajúca strana
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

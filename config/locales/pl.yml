@@ -1,0 +1,2443 @@
+pl:
+  actions:
+    add: Dodaj
+    approve: Akceptuj
+    cancel: Przerwij
+    copy: Kopiuj
+    delete: Usuń
+    depublish: 
+    download: Pobierz
+    edit: Edytuj
+    edit_story: Edytuj historię
+    filter: Filtruj
+    flag: Zaznacz
+    import: Importuj
+    new: Nowy
+    reject: Odrzuć
+    remove: Usuń
+    save: Zapisz
+    submit: Wyślij
+    unflag: Odznacz
+    update: Aktualizuj
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Plik Dropbox
+        file: Plik
+        file_content_type: ! 'Typ zawartości '
+        file_created_at: Utworzono
+        file_file_name: Nazwa pliku
+        file_file_size: Rozmiar pliku
+        file_updated_at: Zaktualizowano
+        preview: Podgląd
+        public: Publiczny
+      contact:
+        age: Wiek
+        country: Państwo
+        full_name: Imię i Nazwisko
+        gender: Płeć
+        locality: Miasto
+        postal_code: Kod pocztowy
+        region: Województwo
+        street_address: Ulica i numer domu
+        tel: Numer telefonu
+      contribution:
+        approved_at: Zatwierdzono
+        approved_by: Zatwierdzono przez
+        approver: Zaakceptowano przez
+        attachments: Obiekty
+        catalogued_by: Skatalogowano przez
+        cataloguer: Autor
+        contributor: Autor
+        created_at: Rozpoczęto
+        published_at: Opublikowano
+        submitted_at: Dostarczono
+        terms: Akceptuj warunki
+      contribution_status:
+        created_at: Status został zmieniony
+      metadata_field:
+        cataloguing: tylko Kataloguj
+        field_type: Kategoria
+        hint: Wskazówka
+        multi: Wielokrotny wybór
+        name: ID
+        position: Pozycja
+        required: Wymagane
+        searchable: przeszukaj
+        show_in_listing: Pokaż na liście
+      setting:
+        name: Nazwa
+        value: Wartość
+      taxonomy_term:
+        metadata_field: Pole
+        term: szukana fraza
+      user:
+        created_at: Data registracji
+        institution: 
+        password: Hasło
+        password_confirmation: powtórz hasło
+        role_name: Rola
+        terms: 
+        username: Nazwa użytkownika
+    errors:
+      full_messages:
+        format: ! '%{attribute} %{message}'
+      messages:
+        accepted: musi zostać zaakceptowane, aby kontynuować
+        blank: To pole jest wymagane, nie może zostać puste
+        confirmation: Nie zgadza się z potwierdzeniem
+        empty: nie może być puste
+        equal_to: musi być równe %{count}
+        even: musi być parzyste
+        exclusion: jest zarezerwowane
+        greater_than: musi być większe od %{count}
+        greater_than_or_equal_to: musi być większe lub równe %{count}
+        inclusion: nie znajduje się na liście dopuszczalnych wartości
+        invalid: ! 'Wprowadzone dane są niepoprawne. Proszę upewnić się, że format jest prawidłowy. '
+        less_than: musi być mniejsze od %{count}
+        less_than_or_equal_to: musi być mniejsze lub równe %{count}
+        not_an_integer: musi być liczbą całkowitą
+        not_a_number: nie jest liczbą
+        odd: musi być nieparzyste
+        record_invalid: ! 'Negatywne sprawdzenie poprawności: %{errors}'
+        taken: zostało już zajęte
+        too_long: jest za długie (maksymalnie %{count} znaków)
+        too_short: jest za krótkie (przynajmniej %{count} znaków)
+        wrong_length: ma nieprawidłową długość (powinna wynosić %{count} znaków)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Rozmiar pliku nie jest dopuszalny
+              presence: Wybierz plik, który chcesz załadować
+              size: Załadowany plik przekracza dopuszczalny limit
+        collection_day:
+          attributes:
+            image:
+              content_type: Dozwolone są wyłącznie pliki w formacie JPEG i GIF
+          end_date_follows_start_date: Data zakończenia musi być późniejsza niż data początkowa
+          taxonomy_term_metadata_field: Podany dzień zbiórki nie jest prawidłowy
+        contribution:
+          attachments:
+            uploaded: Przekazywanie niektórych plików nadal trwa
+          attributes:
+            catalogued_by:
+              role_name: Autor musi byćrównież administratorem strony
+            guest_id:
+              present: Publikując jako gość należy podać dane kontaktowe
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Nie można przywołać pól katalogowych.
+            contribution:
+              or_attachment: ! 'Jedno z pól musi odnosić się do przesłanej treści i/lub załączników '
+            field_type:
+              constancy: Typ pola nie może zostać zmieniony
+            searchable:
+              field_type: Pole taksonomi nie może zostać przeszukane
+        metadata_record:
+          date_field_civil: Nieprawidłowa data
+          one_cover_image: ! 'Jako zdjęcie tytułowe można wybrać tylko jeden element. '
+          taxonomy_field_single: Można wybrać tylko jedno słowo
+        setting:
+          attributes:
+            name:
+              inclusion: Ustawienie konfiguracji nie jest zarejestrowane
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: ! 'Terminy taksonomii muszą być połączone z polami taksonomii. '
+        user:
+          attributes:
+            current_password:
+              invalid: Błędne hasło
+            email:
+              taken: Użytkownik z podanym adresem  E-Mail już istnieje
+            picture:
+              content_type: Zdjęcie profilowe musi być w formacie GIF lub PDF
+      template:
+        body: ! 'Błędy dotyczą następujących pól:'
+        header:
+          one: ! '%{model} nie został zachowany z powodu jednego błędu'
+          other: ! '%{model} nie został zachowany z powodu %{count} błędów'
+    models:
+      annotation: Adnotacja obrazu
+      attachment: Obiekt
+      collection_day: ! ' Dzień zbiórki'
+      contact: Kontakt
+      contribution: Historia
+      institution: Instytucja
+      metadata_field: Pole metadanych
+      metadata_record: Zapis metadanych
+      tag: Tag
+      tagging: Tagowanie
+      taxonomy_term: Termin taksonomii
+      user: Użytkownik
+    options:
+      contact:
+        gender:
+          female: Kobieta
+          male: Mężczyzna
+      metadata_field:
+        field_type:
+          date: Data
+          geo: Lokalizacja geograficzna
+          string: Tekst w jednej linijce
+          taxonomy: Taksonomia
+          text: Tekst w wielu linijkach
+      user:
+        role_name:
+          administrator: Administrator
+          blank: Wszystkie role
+          cataloguer: Korektor
+          contributor: Autor
+  attributes:
+    contact: Kontakt
+    created_at: Utworzono
+    email: Email
+    id: ID
+    metadata_record: Metadane
+    status: Status
+    title: ! 'Tytuł '
+    updated_at: Zaktualizowano
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Państwo
+          data_provider_sm: Dostawca danych
+          metadata_collection_day_ids_im: ! ' Dzień zbiórki'
+          metadata_content_ids_im: Typ obiektu
+          metadata_file_type_ids_im: ! 'Typ '
+          metadata_keywords_ids_im: Słowa kluczowe
+          metadata_lang_ids_im: ! 'Języki '
+          metadata_theatres_ids_im: Teatry
+          place_name_s: Nazwa miejsca
+          provider_sm: Dostawca
+          rights_sm: Prawa
+          type_s: Typ
+          uri_sm: 
+          year_sm: Rok
+  common:
+    additional-information: Informacje dodatkowe
+    download-item: Pobierz ten obiekt
+    editors_blog:
+      more_stories: Więcej historii na <a href="http://thegreatwararchive.blogspot.com/search/label/en">Blog mit den Empfehlungen der Redaktion</a>
+    editors_pick:
+      heading: Polecane przez redakcję
+      more_stories: <b> Więcej histori na stronie %{explore_stories}.</b>
+    featured-categories: Wybrane tematy
+    from-collection-days: Z naszych dni zbiórek
+    google_maps:
+      help_text: ! "! '<li><b>Automatyczne propozycje</b> : Proszę podać nazwę państwa, miasta lub adres. Google Maps postara się odnaleźć podany adres. Proszę zaznaczyć jedną z podanych propozycji jeśli odpowiada ona szukanemu miejscu.</li>\n <li><b>Dokładny adres</b> : Proszę podać dokładny adres  lub współrzędne geograficzne i  nacisnąć klawisz Szukaj; Proszę zignorować automatyczne propozycje Google Maps.</li>\n <li><b>Zaznaczenie na mapie</b> : Jeżeli po podaniu adresu na mapie pojawi się zaznaczenie, mogą je Państwo przesunąć na wybraną przez siebie stronę.</li>\n<li><b>Powiększenie</b> : Mogą Państwo przybliżyć lub oddalić wybraną lokalizację, naciskając na + lub - po lewej stronie mapy.</li>'\n"
+      label: Użyj Google Maps (opcjonalnie)
+    help_text:
+      mandatory: pole wymagane
+    labels:
+      add-keywords: Dodaj słowa kluczowe
+      co_funded: ! ' współfinansowany ze środków Unii Europejskiej'
+    links:
+      about_the_project: O projekcie Europeana 1914-1918
+      add-your-story: ! 'Dodaj swoją historię '
+      add-your-story-brief: Dodaj
+      annotorious: ! 'Wybrany przedmiot zawiera załączniki. Otwórz go, żeby uzyskać do nich dostęp '
+      contact_us: Skontaktuj się z nami
+      contact_us_email: ! 'Mogą się Państwo z nami skontaktować wybierając adres Email: <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.'
+      contribution_terms: Warunki dla publikowanych na Europeana historii
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Warunki dla publikowanych na Europeana historii</a>
+      efg: <a href="http://www.europeanfilmgateway.eu/de/content/efg1914-projekt">Dowiedz się więcej o kulisach projektu i poszczególnych zbiorach filmów</a>.
+      explore_stories: Poznaj historie
+      explore-the-stories: Poznaj tę historię!
+      explore-the-stories-brief: Odkryj
+      help: ! 'Pomoc
+
+'
+      my_account: Moje konto
+      my_stories: Moje historie
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918">Dowiedz się więcej o międzynarodowych zbiorach Europeana 1914-1918.</a>
+      play-audio: Odtwórz plik audio
+      play-video: Odtwórz plik video
+      privacy_policy: Ochrona danych
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Dalsze informacje dostępne  na stronie projektu.</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Dowiedz się więcej o zbiórkach prywatnych pamiątek (Informacja w j. angielskim).</a>.
+      register: Zarejestruj się
+      sign_in: Zaloguj się
+      statistics: Statystyki
+      takedown_policy: Zasady usuwania opublikowanej historii
+      titles:
+        contribution_terms: 
+        great_war: 
+        takedown: 
+      view-image: Tryb pełnoekranowy
+      view-pdf: ! ' Otwórz dokument'
+    map_contribution_heading: Historia miała miejsce
+    menus:
+      main:
+        about: 
+        add: 
+        collection-days: 
+        explore: 
+        home: Strona główna
+        remix: 
+        select_language: 
+        sign_in: 
+        sign_out: 
+      menu: Menu
+    more-at: Więcej poniżej
+    news: ! 'Wiadomości '
+    news_item:
+      heading: Nowe dni zbiórek
+    'no': Nie
+    options:
+      close: ! 'Zamknij '
+      open: Otwórz
+      other_option: Pozostałe
+    other:
+      contributor: 
+      preview: 
+      title: 
+      total: 
+    'yes': Tak
+  date:
+    abbr_day_names:
+    - nd
+    - pn
+    - wt
+    - śr
+    - czw
+    - pt
+    - sob
+    abbr_month_names:
+    - 
+    - sty
+    - lut
+    - mar
+    - kwi
+    - maj
+    - cze
+    - lip
+    - sie
+    - wrz
+    - paź
+    - lis
+    - gru
+    day_names:
+    - niedziela
+    - poniedziałek
+    - wtorek
+    - środa
+    - czwartek
+    - piątek
+    - sobota
+    formats:
+      default: ! '%d-%m-%Y'
+      long: ! '%B %d, %Y'
+      long_with_day: 
+      month_and_year: 
+      quarter: 
+      short: ! '%d %b'
+    month_names:
+    - 
+    - styczeń
+    - luty
+    - marzec
+    - kwiecień
+    - maj
+    - czerwiec
+    - lipiec
+    - sierpień
+    - wrzesień
+    - październik
+    - listopad
+    - grudzień
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: około godziny
+        few: około %{count} godziny
+        other: około %{count} godzin
+      about_x_months:
+        one: około miesiąca
+        few: około %{count} miesiące
+        other: około %{count} miesięcy
+      about_x_years:
+        one: około rok
+        few: około %{count} lata
+        other: około %{count} lat
+      almost_x_years:
+        one: prawie rok
+        few: prawie %{count} lata
+        other: prawie %{count} lat
+      half_a_minute: pół minuty
+      less_than_x_minutes:
+        one: mniej niż minutę
+        few: mniej niż %{count} minuty
+        other: mniej niż %{count} minut
+      less_than_x_seconds:
+        one: mniej niż sekundę
+        few: mniej niż %{count} sekundy
+        other: mniej niż %{count} sekund
+      over_x_years:
+        one: ponad rok
+        few: ponad %{count} lata
+        other: ponad %{count} lat
+      x_days:
+        one: 1 dzień
+        few: ! '%{count} dni'
+        other: ! '%{count} dni'
+      x_minutes:
+        one: 1 minuta
+        few: ! '%{count} minuty'
+        other: ! '%{count} minut'
+      x_months:
+        one: 1 miesiąc
+        few: ! '%{count} miesiące'
+        other: ! '%{count} miesięcy'
+      x_seconds:
+        one: 1 sekunda
+        few: ! '%{count} sekundy'
+        other: ! '%{count} sekund'
+    prompts:
+      day: Dzień
+      hour: Godzina
+      minute: Minuta
+      month: Miesiąc
+      second: Sekundy
+      year: Rok
+  devise:
+    failure:
+      admin:
+        unauthenticated: 
+      invalid: 
+      invalid_token: 
+      timeout: 
+      unauthenticated: 
+    mailer:
+      reset_password_instructions:
+        subject: 
+    passwords:
+      link: 
+      send_instructions: 
+      updated: 
+    registrations:
+      destroyed: 
+      link: 
+      signed_up: 
+      updated: 
+    sessions:
+      link: 
+      signed_in: 
+      signed_out: 
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: musi zostać zaakceptowane
+      blank: nie może być puste
+      confirmation: nie zgadza się z potwierdzeniem
+      empty: nie może być puste
+      equal_to: musi być równe %{count}
+      even: musi być parzyste
+      exclusion: jest zarezerwowane
+      greater_than: musi być większe od %{count}
+      greater_than_or_equal_to: musi być większe lub równe %{count}
+      inclusion: nie znajduje się na liście dopuszczalnych wartości
+      invalid: jest nieprawidłowe
+      less_than: musi być mniejsze od %{count}
+      less_than_or_equal_to: musi być mniejsze lub równe %{count}
+      not_an_integer: musi być liczbą całkowitą
+      not_a_number: nie jest liczbą
+      odd: musi być nieparzyste
+      record_invalid: ! 'Negatywne sprawdzenie poprawności: %{errors}'
+      taken: zostało już zajęte
+      too_long: jest za długie (maksymalnie %{count} znaków)
+      too_short: jest za krótkie (przynajmniej %{count} znaków)
+      wrong_length: ma nieprawidłową długość (powinna wynosić %{count} znaków)
+    template:
+      body: ! 'Błędy dotyczą następujących pól:'
+      header:
+        one: ! '%{model} nie został zachowany z powodu jednego błędu'
+        other: ! '%{model} nie został zachowany z powodu %{count} błędów'
+  flash:
+    actions:
+      create:
+        alert: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      taggings:
+        notice: 
+      update:
+        alert: 
+        notice: 
+    admin:
+      europeana:
+        harvest:
+          notice: 
+    annotations:
+      depublish:
+        alert: 
+        notice: 
+      flag:
+        alert: 
+        notice: 
+      unflag:
+        alert: 
+        notice: 
+    attachments:
+      create:
+        alert: 
+        invalid_files: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      duplicate:
+        notice: 
+      links:
+        view-attachments_html: 
+      update:
+        alert: 
+        notice: 
+    configuration:
+      update:
+        alert: 
+        notice: 
+    contacts:
+      create:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+    contributions:
+      approve:
+        alert: 
+        notice: 
+      destroy:
+        alert: 
+        notice: 
+      draft:
+        create:
+          alert: 
+          notice: 
+        submit:
+          alert: 
+          notice: 
+        update:
+          alert: 
+          notice: 
+      reject:
+        alert: 
+        notice: 
+      submitted:
+        edit:
+          alert: 
+      withdraw:
+        alert: 
+        notice: 
+    contributors:
+      create:
+        alert: 
+      update:
+        alert: 
+    fields:
+      reindexing: 
+    flickr:
+      import:
+        alert:
+          empty: 
+          invalid_license: 
+        notice: 
+    guest_contact:
+      create:
+        alert: 
+        notice: 
+      forget:
+        notice: 
+      update:
+        alert: 
+        notice: 
+    metadata_fields:
+      update_order:
+        notice: 
+    status:
+      alert: 
+      notice: 
+    taggings:
+      depublish:
+        alert: 
+        notice: 
+    tags:
+      contribution:
+        create:
+          success: 
+      destroy:
+        success: 
+      europeana_record:
+        create:
+          success: 
+      flag:
+        success: 
+    taxonomy:
+      imported: 
+    users:
+      create:
+        alert: 
+        notice: 
+      destroy:
+        notice: 
+      register:
+        alert: 
+        notice: 
+      update:
+        alert: 
+        notice: 
+  formtastic:
+    actions:
+      attachment:
+        add_edit: 
+        create: 
+        delete: 
+        update: 
+      contribution:
+        create: 
+        delete: 
+        save_draft: 
+        submit: 
+        update: 
+        withdraw: 
+      contributor:
+        create: 
+      create: 
+      delete: 
+      filter:
+        submit: 
+      metadata_field:
+        delete: 
+        reindex: 
+      password:
+        create: 
+        update: 
+      search:
+        submit: 
+      sign_in: 
+      submit: 
+      tag:
+        flag: 
+      taxonomy_term:
+        import: 
+      update: 
+      upload: 
+      user:
+        create: 
+        delete: 
+        update: 
+    create: 
+    hints:
+      attachment:
+        dropbox_path: 
+        edit:
+          file: 
+        file: 
+        metadata:
+          attachment_description: 
+          content: 
+          cover_image: 
+          creator_family_name: 
+          creator_given_name: 
+          date_from: 
+          date_to: 
+          forces: 
+          format: 
+          keywords: 
+          lang: 
+          lang_other: 
+          location_map: 
+          location_placename: 
+          location_zoom: 
+          object_side: 
+          page_number: 
+          source: 
+          subject: 
+          theatres: 
+        new:
+          file: 
+        title: 
+      contact:
+        full_name: 
+      contribution:
+        contribution:
+          new:
+            catalogued_by: 
+        metadata:
+          alternative: 
+          character1_dob: 
+          character1_dod: 
+          character1_family_name: 
+          character1_given_name: 
+          character1_pob: 
+          character1_pod: 
+          character2_dob: 
+          character2_dod: 
+          character2_family_name: 
+          character2_given_name: 
+          character2_pob: 
+          character2_pod: 
+          collection_day: 
+          contributor_behalf: 
+          date_from: 
+          date_to: 
+          description: 
+          editor_pick: 
+          editor_pick_sig: 
+          editor_pick_text: 
+          forces: 
+          keywords: 
+          lang: 
+          lang_other: 
+          location_map: 
+          location_placename: 
+          location_zoom: 
+          notes: 
+          summary: 
+          theatres: 
+          ticket: 
+        title: 
+      metadata_field:
+        attachment: 
+        cataloguing: 
+        contribution: 
+        field_type: 
+        hint: 
+        multi: 
+        name: 
+        required: 
+        searchable: 
+        searchable_no_sphinx: 
+        show_in_listing: 
+        title: 
+      metadata_record:
+        date: 
+        geo: 
+      password:
+        new:
+          email: 
+      settings:
+        allowed_upload_extensions: 
+        banner_active: 
+        banner_text: 
+        bing_client_id: 
+        bing_client_secret: 
+        bing_translate_key: 
+        contribution_approval_required: 
+        gmap_api_key: 
+        google_analytics_key: 
+        google_api_email: 
+        max_upload_size: 
+        publish_contributions: 
+        registration_required: 
+        relative_url_root: 
+        sharethis_id: 
+        site_name: 
+        site_url: 
+        ui_locales: 
+        uploadify: 
+      taxonomy_term:
+        import: 
+        term: 
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        current_password: 
+        edit:
+          password: 
+        email: 
+        password: 
+        update:
+          password: 
+        user:
+          create:
+            password_confirmation: 
+            terms: 
+          new:
+            password_confirmation: 
+            terms: 
+        username: 
+    labels:
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata:
+          attachment_description: 
+          attachment_file: 
+          content: 
+          cover_image: 
+          creator: 
+          creator_family_name: 
+          creator_given_name: 
+          date: 
+          date_from: 
+          date_to: 
+          file_type: 
+          forces: 
+          format: 
+          keywords: 
+          lang: 
+          lang_other: 
+          license: 
+          location_map: 
+          location_placename: 
+          location_zoom: 
+          notes: 
+          object_side: 
+          page_number: 
+          page_total: 
+          source: 
+          subject: 
+          theatres: 
+          ticket: 
+      collection_day:
+        contact:
+          country: Państwo
+          full_name: Organizacja
+        delete_image: 
+      content:
+        metadata:
+          dc:
+            contributor: 
+            country: 
+            coverage: 
+            creator: 
+            date: 
+            description: 
+            format: 
+            identifier: 
+            language: 
+            publisher: 
+            relation: 
+            rights: 
+            source: 
+            subject: 
+            terms_alternative: 
+            terms_extent: 
+            terms_medium: 
+            title: 
+            type: 
+          dcterms:
+            alternative: 
+            extent: 
+            medium: 
+            spatial: 
+            temporal: 
+          edm:
+            country: 
+            data_provider: 
+            external_partner_site: 
+            language: 
+            partner_site: 
+            provider: 
+            rights: 
+      contribution:
+        metadata:
+          alternative: 
+          cataloguer: 
+          character1_dob: 
+          character1_dod: 
+          character1_family_name: 
+          character1_given_name: 
+          character1_pob: 
+          character1_pod: 
+          character2_dob: 
+          character2_dod: 
+          character2_family_name: 
+          character2_given_name: 
+          character2_pob: 
+          character2_pod: 
+          collection_day: 
+          contributor_behalf: 
+          date_from: 
+          date_to: 
+          description: 
+          editor_pick: 
+          editor_pick_sig: 
+          editor_pick_text: 
+          forces: 
+          keywords: 
+          lang: 
+          lang_other: 
+          location_map: 
+          location_placename: 
+          location_zoom: 
+          notes: 
+          summary: 
+          theatres: 
+          ticket: 
+        terms: 
+        title: 
+      metadata_field:
+        contribution: 
+      taxonomy_term:
+        collection_day:
+          AA22: 
+          AC15: 
+          AM15: 
+          AN21: 
+          BA15: 
+          BA23: 
+          BC18: 
+          BE08: 
+          BE30: 
+          BN12: 
+          BO02: 
+          BR10: 
+          BR19: 
+          BU01: 
+          CE22: 
+          CGW01: 
+          CL01: 
+          CY01: 
+          DD12: 
+          DU: 
+          DU18: 
+          EF11: 
+          EN10: 
+          Fr07: 
+          FR07: 
+          FRAD001: 
+          FRAD004: 
+          FRAD006: 
+          FRAD007: 
+          FRAD008: 
+          FRAD010: 
+          FRAD012: 
+          FRAD013: 
+          FRAD014: 
+          FRAD017: 
+          FRAD018: 
+          FRAD021: 
+          FRAD022: 
+          FRAD02A: 
+          FRAD033: 
+          FRAD034: 
+          FRAD036: 
+          FRAD037: 
+          FRAD038: 
+          FRAD041: 
+          FRAD043: 
+          FRAD044: 
+          FRAD048: 
+          FRAD049: 
+          FRAD050: 
+          FRAD052: 
+          FRAD053: 
+          FRAD055: 
+          FRAD057: 
+          FRAD059: 
+          FRAD061: 
+          FRAD062: 
+          FRAD063: 
+          FRAD066: 
+          FRAD067: 
+          FRAD068: 
+          FRAD071: 
+          FRAD073: 
+          FRAD076: 
+          FRAD077: 
+          FRAD078: 
+          FRAD080: 
+          FRAD082: 
+          FRAD083: 
+          FRAD085: 
+          FRAD087: 
+          FRAD088: 
+          FRAD094: 
+          FRAMBE: 
+          FRAMCA: 
+          FRAMLC: 
+          FRAMLI: 
+          FRAMLM: 
+          FRAMLP: 
+          FRAMMA: 
+          FRAMMO: 
+          FRAMPO: 
+          FRAMSG: 
+          FRAMSM: 
+          FRAMSQ: 
+          FRAMTR: 
+          FRAMVE: 
+          FRAMVI: 
+          FRANPA: 
+          FRANPR: 
+          FRBDIC: 
+          FRBMAC: 
+          FRBMAN: 
+          FRBMBO: 
+          FRBMCC: 
+          FRBMLI: 
+          FRBMLY: 
+          FRBMSC: 
+          FRBMTO: 
+          FRBNBU: 
+          FRBNFM: 
+          FRBNSA: 
+          FRBNUS: 
+          FRCISA: 
+          FRCO: 
+          FRHI80: 
+          FRLOLE: 
+          FRME: 
+          FRSHDCH: 
+          HA21: 
+          HB22: 
+          HE14: 
+          INTERNET: 
+          KA23: 
+          KI13: 
+          LE21: 
+          LI05: 
+          LI12: 
+          LJ23: 
+          LOG25: 
+          LU16: 
+          MB007: 
+          MB011: 
+          MB20: 
+          MU09: 
+          NG19: 
+          PO21: 
+          PR17: 
+          RG14: 
+          RM15: 
+          SKBA1: 
+          SKKE1: 
+          SKMT1: 
+          SO14: 
+          ST10: 
+          TR16: 
+          TU07: 
+          UNKNOWN: 
+          UT1: 
+          VP18: 
+          YP01: 
+        content:
+          Autograph: 
+          Book: 
+          Collection: 
+          Diary: 
+          Drawing: 
+          Footage: 
+          Interview: 
+          Letter: 
+          Map: 
+          Medal: 
+          Memoir: 
+          Memorabilia: 
+          Multiple: 
+          Music: 
+          Official document: 
+          Official Document: 
+          Other: 
+          Painting: 
+          Photograph: 
+          Poem: 
+          Postcard: 
+          Publication: 
+          Weapon: 
+        cover_image:
+          'yes': 
+        editor_pick:
+          'yes': 
+        forces:
+          Allied Forces: 
+          Central Powers: 
+          Imperial Forces: 
+        format:
+          Canvas: 
+          Card: 
+          Digital: 
+          Leather: 
+          Metal: 
+          Mixed: 
+          Other: 
+          Paper: 
+          Photographic paper: 
+          Tape: 
+          ! 'Text: memoir': 
+          ! 'Text: transcription': 
+          Unknown: 
+          Wood: 
+        keywords:
+          Anti-War Movement: 
+          Artillery: 
+          Conscientious Objection: 
+          Gas Warfare: 
+          Home Front: 
+          Manufacture: 
+          Medical: 
+          Military Punishment: 
+          Prisoners of War: 
+          Propaganda: 
+          Recruitment and Conscription: 
+          Refugees: 
+          Remembrance: 
+          Tanks and Armoured Fighting Vehicles: 
+          Transport: 
+          Trench Life: 
+          Women: 
+        lang:
+          Dansk: 
+          Deutsch: 
+          English: 
+          Français: 
+          Gaeilge: 
+          Italiano: 
+          Magyar: 
+          Nederlands: 
+          Other: 
+          Română: 
+          Slovenčina: 
+          Slovenščina: 
+          Ελληνικά: 
+        object_side:
+          Back: 
+          Front: 
+        source:
+          Artifact: 
+          Book: 
+          Film: 
+          Folio: 
+          Journal: 
+          Leaf: 
+          Multiple: 
+          Newspaper: 
+          Notebook: 
+          Other: 
+          Photograph: 
+          Postcard: 
+          Tape: 
+          Unknown: 
+        taxonomy_term:
+          new:
+            term: 
+        theatres:
+          Aerial Warfare: 
+          African Wars: 
+          Balkans: 
+          Eastern Front: 
+          Gallipoli Front: 
+          Italian Front: 
+          Middle East: 
+          Naval Warfare: 
+          Western Front: 
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        delete_picture: 
+        terms: 
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    'no': 
+    placeholders:
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+      contribution:
+        contribution:
+          new:
+            title: 
+        metadata_record:
+          new:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
+      taxonomy_term:
+        taxonomy_term:
+          new:
+            term: 
+      user:
+        contact:
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    required: 
+    titles:
+      account_details: 
+      admin_user: 
+      attachment_dates: 
+      attachment_details: 
+      attachment_front: 
+      attachment_keywords: 
+      attachment_location: 
+      attachment_replace: 
+      attachment_upload: 
+      cataloguing_metadata: 
+      contact_address: 
+      contact_name: 
+      contact_other: 
+      contribution_attachments: 
+      contribution_terms: 
+      dropbox: 
+      fields: 
+      metadata: 
+      metadata_field_options: 
+      optional_details: 
+      personal_details: 
+      story_basics: 
+      story_character1: 
+      story_character2: 
+      story_characters: 
+      story_dates: 
+      story_forces: 
+      story_front: 
+      story_keywords: 
+      story_location: 
+      submit: 
+      taxonomy_term:
+        new:
+          taxonomy_term: 
+      user:
+        create:
+          accept_terms: 
+          user_session: 
+        new:
+          accept_terms: 
+          user_session: 
+    update: 
+    'yes': 
+  helpers:
+    label:
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+      taxonomy_term:
+        taxonomy_term:
+          new:
+            term: 
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    select:
+      prompt: Proszę wybrać
+    submit:
+      create: Utwórz %{model}
+      submit: Zapisz %{model}
+      update: Aktualizuj %{model}
+  javascripts:
+    admin:
+      metadata_fields:
+        order: 
+    annotorious:
+      clear-flag: 
+      flag: 
+    attachments:
+      uploading: 
+    collection-days:
+      close-directions: 
+      find-more: 
+      get-directions: 
+      legend: 
+      next-collection-day: 
+      past-entered: 
+      past-not-entered: 
+      show-past: 
+      upcoming: 
+      what-is-it: 
+    contribute:
+      errors_shown: 
+      hide_errors: 
+      show_errors: 
+    datepicker:
+      button_text: 
+    digital_object:
+      hints:
+        copy_from_story: 
+      labels:
+        copy_from_story: 
+      links:
+        copy_from_story: 
+    gmap:
+      canvas:
+        hide: 
+        hint: 
+        label: 
+        show: 
+      errors:
+        empty: 
+        present: 
+        unknown: 
+      search:
+        button: 
+        hint: 
+        label: 
+      static:
+        hide: 
+        show: 
+    leaflet:
+      label:
+        map_view: 
+        satellite_view: 
+    next: 
+    previous: 
+    search:
+      10seconds: 
+      30seconds: 
+      60seconds: 
+    story:
+      took-place: 
+    thumbnails:
+      item: 
+      of: 
+    translate:
+      return-to-language: 
+      translate-to: 
+    truncate:
+      show-less: 
+      show-more: 
+    uploadify:
+      basic_ui: 
+      button_text: 
+      finished: 
+      hint: 
+      label: 
+      saved: 
+  languages:
+    da: 
+    de: 
+    en: 
+    fr: 
+    ga: 
+    hu: 
+    nl: 
+    sk: 
+    sl: 
+  layout:
+    navigation:
+      about: 
+      admin: 
+      browse: 
+      contact: 
+      contribute: 
+      help: 
+      home: 
+    software_engine: 
+  locale: 
+  mail:
+    contributions:
+      published:
+        greeting: 
+        signature: 
+        subject: 
+        thanks: 
+    exports:
+      complete:
+        notice: 
+        subject: 
+  media_types:
+    all: 
+    binary: 
+    pdf: 
+    sound: 
+    spreadsheet: 
+    txt: 
+    unknown: 
+    video: 
+    wordprocessing: 
+  number:
+    currency:
+      format:
+        delimiter: ! ' '
+        format: ! '%u %n'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: true
+        unit: PLN
+    format:
+      delimiter: ! ' '
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Miliard
+          million: Milion
+          quadrillion: Biliard
+          thousand: Tysiąc
+          trillion: Bilion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: bajt
+            other: bajty
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  Polish: 
+  settings:
+    allowed_upload_extensions: 
+    banner_active: 
+    banner_text: 
+    bing_client_id: 
+    bing_client_secret: 
+    bing_translate_key: 
+    contribution_approval_required: 
+    gmap_api_key: 
+    google_analytics_key: 
+    google_api_email: 
+    max_upload_size: 
+    publish_contributions: 
+    registration_required: 
+    relative_url_root: 
+    search_engine: 
+    sharethis_id: 
+    site_name: 
+    site_url: 
+    ui_locales: 
+    uploadify: 
+  support:
+    array:
+      last_word_connector: ! ' oraz '
+      two_words_connector: ! ' i '
+      words_connector: ! ', '
+    select:
+      prompt: Proszę wybrać
+  time:
+    am: przed południem
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+      timestamp: 
+    pm: po południu
+  views:
+    about:
+      background:
+        heading: 
+        p1: 
+        p2: 
+      collection_days:
+        heading: 
+        p1: 
+        p2: 
+      online_collection:
+        heading: 
+        p1: 
+      privacy_policy:
+        p1: 
+        p2: 
+        p3: 
+        p4: 
+      project_partners:
+        heading: 
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        item6: 
+        item7: 
+      takedown:
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+      terms:
+        full_details:
+          heading: 
+        heading: 
+        summary:
+          heading: 
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          p1: 
+          p2: 
+          p3: 
+        user_contributions:
+          heading: 
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          item6: 
+          item7: 
+          p1: 
+          p2: 
+          p3: 
+          p4: 
+          p5: 
+          p6: 
+          p7: 
+      what_we_do:
+        heading: 
+        item1: 
+        item2: 
+        p1: 
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
+    about_us:
+      blog:
+        heading: 
+      europeana:
+        heading: 
+        p1: 
+        p2: 
+        p3: 
+        p4: 
+        p5: 
+      events:
+        heading: 
+        p4: 
+      get_involved:
+        contribute_online:
+          heading: 
+          p1: 
+        education:
+          heading: 
+          p1: 
+        events:
+          p1: 
+          p2: 
+        heading: 
+        reuse:
+          heading: 
+          p1: 
+      help:
+        heading: 
+    admin:
+      annotations:
+        index:
+          title: 
+        table:
+          header:
+            text: 
+            type: 
+      collection_days:
+        delete:
+          question: 
+          title: 
+        edit:
+          title: 
+        index:
+          title: 
+      config:
+        edit:
+          title: 
+        index:
+          links:
+            edit: 
+          table:
+            caption: 
+            headings:
+              name: 
+              value: 
+          title: 
+      contributions:
+        export:
+          title: 
+        index:
+          captions:
+            approved: 
+            draft: 
+            rejected: 
+            revised: 
+            submitted: 
+            withdrawn: 
+          empty:
+            all:
+              approved: 
+              draft: 
+              rejected: 
+              revised: 
+              submitted: 
+              withdrawn: 
+            search:
+              approved: 
+              draft: 
+              rejected: 
+              revised: 
+              submitted: 
+              withdrawn: 
+          title: 
+        p1: 
+      europeana:
+        index:
+          instructions: 
+          introduction: 
+          title: 
+      index:
+        headings:
+          export: 
+        links:
+          annotations:
+            description: 
+          collection_days:
+            description: 
+          config:
+            description: 
+            text: 
+          contributions:
+            description: 
+            text: 
+          export_csv:
+            description: 
+            text: 
+          export:
+            description: 
+            text: 
+          export_users:
+            description: 
+            text: 
+          export_xml:
+            description: 
+            text: 
+          export_xml_nozip:
+            description: 
+            text: 
+          harvest_europeana:
+            description: 
+            text: 
+          institutions:
+            description: 
+          logs:
+            description: 
+            text: 
+          metadata_fields:
+            description: 
+            text: 
+          reindex:
+            description: 
+            text: 
+          statistics:
+            description: 
+            text: 
+          taggings:
+            description: 
+          users:
+            description: 
+            text: 
+        title: 
+      institutions:
+        delete:
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        index:
+          title: 
+        new:
+          title: 
+      metadata_fields:
+        confirm_reindex:
+          info: 
+          note: 
+          title: 
+        delete:
+          button_confirm: 
+          question: 
+          title: 
+          warning: 
+        edit:
+          empty: 
+          instructions: 
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            new: 
+            order: 
+            terms: 
+          title: 
+        new:
+          title: 
+        order:
+          title: 
+      statistics:
+        index:
+          introduction: 
+          title: 
+      taggings:
+        index:
+          title: 
+      taxonomy_terms:
+        delete:
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        import:
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            back: 
+            import: 
+            new: 
+          title: 
+        new:
+          title: 
+      users:
+        delete:
+          button_confirm: 
+          question: 
+          title: 
+          warning: 
+        edit:
+          title: 
+        index:
+          caption: 
+          empty: 
+          links:
+            new: 
+            show:
+              title: 
+          title: 
+        new:
+          title: 
+        show:
+          caption: 
+          links:
+            back: 
+            contributions: 
+            edit: 
+          title: 
+    annotations:
+      depublish:
+        question: 
+        title: 
+      edit:
+        title: 
+      flag:
+        question: 
+        title: 
+      unflag:
+        question: 
+        title: 
+    attachments:
+      attachment_help:
+        flickr:
+          description: 
+          link: 
+        item1: 
+        item1-subitem1: 
+        item1-subitem2: 
+        item2: 
+        item2-subitem1: 
+        item2-subitem2: 
+        one-of-the-following: 
+      copy:
+        instructions: 
+        title: 
+      delete:
+        question: 
+        title: 
+      edit:
+        caption:
+          current: 
+          uploaded: 
+        title: 
+      _form:
+        dropbox:
+          connected_html: 
+          connect_html: 
+          disconnect: 
+          empty: 
+          refresh: 
+      index:
+        empty: 
+        links:
+          new: 
+        title: 
+      new:
+        caption: 
+        title: 
+      show:
+        title: 
+      _summary:
+        caption: 
+      _table:
+        caption: 
+        links:
+          preview:
+            title: 
+        no_thumbnail: 
+    blog_posts:
+      read_more: 
+    browse:
+      collection-days:
+        heading: 
+      fronts:
+        heading: 
+      subjects:
+        heading: 
+      types:
+        heading: 
+    collection_days:
+      cant-find-collection-day: 
+      index:
+        title: 
+      in-the-meantime: 
+      join-us: 
+      no-stories: 
+      open-collection: 
+      select-collection-day: 
+      stories: 
+      view-stories: 
+      visiting-information: 
+      website: 
+      what-do-you-get-content: 
+      what-do-you-get-heading: 
+      what-is-it-content: 
+      what-is-it-heading: 
+      who-is-it-for-content: 
+      who-is-it-for-heading: 
+    common:
+      loading: 
+      more-like-this: 
+      permanent: 
+    contact:
+      heading: 
+      p1: 
+    contacts:
+      anonymous: 
+      edit:
+        title: 
+      no_name: 
+      show:
+        title: 
+    contributions:
+      complete:
+        p1: 
+        title: 
+      delete:
+        question: 
+        title: 
+      digital_object:
+        heading: 
+        help_text:
+          add_attachment: 
+          attachment_count: 
+          language: 
+          object_type: 
+          save_digital: 
+          subject: 
+          submit_contribution1: 
+          submit_contribution2: 
+          submit_story_button: 
+          summary: 
+          when: 
+          where: 
+        labels:
+          keywords: 
+          location_map: 
+          location_place_name: 
+          save_digital: 
+          save_item_draft: 
+          submit_contribution: 
+        links:
+          add_another: 
+          add_item: 
+          edit: 
+          edit_story: 
+        options:
+          3d: 
+          artifact: 
+          audio: 
+          back: 
+          book: 
+          canvas: 
+          card: 
+          cc_by_sa: 
+          ceramic: 
+          diary: 
+          digital: 
+          film: 
+          folio: 
+          front: 
+          image: 
+          journal: 
+          leaf: 
+          leather: 
+          letter: 
+          medal: 
+          metal: 
+          mixed: 
+          multiple: 
+          newspaper: 
+          notebook: 
+          other_option: 
+          paper: 
+          photograph: 
+          photographic_paper: 
+          poem: 
+          postcard: 
+          public_domain: 
+          tape: 
+          text: 
+          text_memoir: 
+          text_transcript: 
+          unknown: 
+          video: 
+          vinyl: 
+          vinyl_record: 
+          wood: 
+        step2: 
+      edit:
+        title: 
+      feed:
+        entries:
+          annotation:
+            item: 
+            story: 
+          contribution: 
+          tagging:
+            item: 
+            story: 
+        title: 
+      index:
+        empty: 
+        title: 
+      new:
+        title: 
+      no_title: 
+      _progress:
+        step_x_of_y: 
+      search:
+        captions:
+          all: 
+          matching: 
+        heading: 
+        links:
+          titles:
+            show_contribution: 
+        matches-for: 
+        no_matches: 
+        related-europeana: 
+        result_count_label: 
+      show:
+        button_confirm: 
+        comments:
+          leave: 
+          no_comments: 
+          submit: 
+          title: 
+        empty_attachments: 
+        headings:
+          share: 
+          submit: 
+          tags: 
+        invalid: 
+        links:
+          new_attachment: 
+        related:
+          title: 
+        shared-this-story: 
+        title: 
+      status:
+        approved: 
+        approved_by: 
+        draft: 
+        label: 
+        rejected: 
+        rejected_by: 
+        revised: 
+        submitted: 
+        title: 
+        unknown: 
+        withdrawn: 
+      story:
+        complete:
+          heading: 
+          p1: 
+        help_text:
+          add_another_person: 
+          behalf_of: 
+          save_story: 
+          sections: 
+          use_google_maps: 
+        labels:
+          people: 
+        step1: 
+      _summary:
+        caption: 
+      withdraw:
+        question: 
+        title: 
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: 
+          submitted: 
+        empty:
+          all: 
+          approved: 
+          draft: 
+          submitted: 
+        headings:
+          contributions: 
+        links:
+          new: 
+        p1: 
+        title: 
+      dashboard_guest:
+        button_text: 
+        headings:
+          finished: 
+        identity: 
+        links:
+          edit_contact: 
+          new: 
+        notice: 
+        privacy: 
+        title: 
+      guests:
+        edit:
+          title: 
+        new:
+          contact_details: 
+          guest: 
+          links:
+            register: 
+            sign_in: 
+          notice: 
+          title: 
+      help:
+        adding_your_story:
+          heading: 
+          p1: 
+        how_to_use:
+          heading: 
+          item1: 
+          item2: 
+          item3: 
+          item4: 
+          item5: 
+          p1: 
+          p2: 
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+      index:
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        p1: 
+      registration_required:
+        p1: 
+    devise:
+      passwords:
+        edit:
+          title: 
+        new:
+          title: 
+      registrations:
+        edit:
+          title: 
+        new:
+          title: 
+      sessions:
+        new:
+          instructions: 
+          title: 
+    errors:
+      api_error:
+        message: 
+        title: 
+      bad_request:
+        message: 
+        title: 
+      federated_search_error:
+        message: 
+        title: 
+      forbidden:
+        message: 
+        title: 
+      internal_server_error:
+        message: 
+        title: 
+      not_found:
+        message: 
+        title: 
+      search_offline:
+        message: 
+        title: 
+    explore:
+      heading: 
+      links:
+        diary: 
+        eastern_front: 
+        family: 
+        flanders: 
+        infantry: 
+        medal: 
+        military_passport: 
+        postcard: 
+        roadshows:
+          amberg_2012_01: 
+          berlin_2011_04: 
+          dresden_2011_06: 
+          erfurt_2011_06: 
+          frankfurt_2011_03: 
+          kiel_2011_06: 
+          luxembourg_2012_03: 
+          munich_2011_04: 
+          preston_2012_03: 
+          regensburg_2011_07: 
+          stuttgart_2011_04: 
+        trenches: 
+      p1: 
+      p2: 
+      p3: 
+      p5: 
+      search_for: 
+    flickr:
+      select:
+        instruction: 
+        licenses:
+          heading: 
+          incompatible: 
+          instruction: 
+        title: 
+      show:
+        action:
+          link: 
+          unlink: 
+        status:
+          linked: 
+          unlinked: 
+    home:
+      heading: 
+      links:
+        across_europe: 
+        video_guide: 
+      otto:
+        heading: 
+        p1: 
+      p1: 
+      p2: 
+    links:
+      back: 
+      back-to-search: 
+      previous_step: 
+      privacy_policy: 
+    register:
+      help_text:
+        email: 
+        password: 
+        profile_image: 
+        profile_photo: 
+        user_name: 
+      labels:
+        age_range: 
+        email: 
+        gender: 
+        password: 
+        password_repeat: 
+        profile_image: 
+        profile_photo: 
+        residence:
+          country: 
+          post_code: 
+        user_name: 
+      terms:
+        accept: 
+        heading: 
+        item1: 
+        item2: 
+        item3: 
+        item4: 
+        item5: 
+        p1: 
+        p2: 
+        p3: 
+        terms: 
+    search:
+      facets:
+        common:
+          category: 
+          collection: 
+          contributor: 
+          country: 
+          creator: 
+          format: 
+          language: 
+          location: 
+          media: 
+          provider: 
+          rights: 
+          subject: 
+          type: 
+          year: 
+        contributions:
+          collection_day: 
+          content: 
+          file_type: 
+          keywords: 
+          lang: 
+          license: 
+          place_name: 
+          protagonist_names: 
+          provider: 
+          theatres: 
+        digitalnz:
+          content_partner: 
+        europeana:
+          data_provider: 
+          reusability: 
+          source_all: 
+          source_info: 
+          source_institution: 
+          source_label: 
+          source_ugc: 
+          ugc: 
+          uri: 
+        matches_for: 
+        refine_results: 
+        trove:
+          availability: 
+          discipline: 
+      providers:
+        canadiana: 
+        collection: 
+        contributions: 1914-1918
+        digitalnz: 
+        dpla: 
+        europeana: 
+        trove: 
+    statistics:
+      index:
+        contributions:
+          heading: 
+          institutional: 
+          ugc: 
+        intervals:
+          last_month: 
+          last_quarter: 
+          last_week: 
+          last_year: 
+          this_month: 
+          this_week: 
+        metrics:
+          avgtimeonsite: 
+          europeana_pageviews: 
+          object_pageviews: 
+          visits: 
+        no_results: 
+        providers:
+          canadiana: 
+          digitalnz: 
+          dpla: 
+          europeana: 
+          trove: 
+        title: 
+    table:
+      header:
+        actions: 
+    taggings:
+      depublish:
+        question: 
+        title: 
+      edit:
+        title: 
+    tags:
+      add: 
+      delete:
+        question: 
+        title: 
+      flag:
+        question: 
+        title: 
+      info: 
+    test-key: 
+    users:
+      account:
+        caption: 
+        links:
+          edit_contact: 
+          edit_user: 
+        title: 
+      sign-in:
+        help: 
+      _summary:
+        caption: 
+  will_paginate:
+    entry_range_label: 
+    first_title: 
+    last_title: 
+    next_label: Następna &#8594;
+    next_title: 
+    page_entries_info:
+      multi_page: Wyświetlam %{model} %{from} - %{to} z %{count} wszystkich
+      multi_page_html: Wyświetlam %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> z <b>%{count}</b> wszystkich
+      single_page:
+        one: Wyświetlam 1 %{model}
+        other: Wyświetlam wszystkie %{count} %{model}
+      single_page_html:
+        one: Wyświetlam <b>1</b> %{model}
+        other: wyświetlam <b>wszystkie&nbsp;%{count}</b> %{model}
+    page_gap: ! '&hellip;'
+    page_total_label: 
+    per_page_label: 
+    per_page_title: 
+    previous_label: ! '&#8592; Poprzednia'
+    previous_title: 

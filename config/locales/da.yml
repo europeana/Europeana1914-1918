@@ -77,6 +77,8 @@ da:
         password_confirmation: Gentag kodeord
         role_name: Rolle
         username: 
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -641,6 +643,10 @@ da:
           source: Kilden til den digitaliserede genstand (f.eks. et ark papir, en bogside, en notesbog, en rulle film).
           subject: Personen eller stedet eller emnet genstanden omhandler.
           theatres: ! 'Klik venligst ikke på nogen muligheder, hvis du ikke finder et relevant nøgleord. Hvis et relevant nøgleord ikke er til rådighed bedes du e-maile os på: 1914-1918 [@] europeana [.] eu'
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Du kan uploade så mange filer, du har brug for - én ad gangen. Bemærk, at hvis du uploader mange filer, vil du få mulighed for at markere en af dem som "coverbillede" til din beretning, f.eks. et postkort eller en dagbog. Maksimum filstørrelse: %{max}. Tilladte filtyper: %{file_types}.'
         title: Kort, beskrivende titel eller passende navn til genstanden, f.eks "Min oldefar, Otto Schmidts, tapperhedsmedalje"
@@ -709,6 +715,30 @@ da:
         update:
           password: Indtast et nyt kodeord, hvis du vil ændre det, ellers lad det stå tomt. Minimum 6 tegn.
         username: ! 'Minimum 3 tegn. Gyldige tegn: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -734,6 +764,14 @@ da:
           source: Kilde
           subject: Tema
           ticket: Sagsnummer
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -835,6 +873,7 @@ da:
           Transport: Transport
           Trench Life: Livet i skyttegravene
           Women: Kvinder
+          Refugees: 
         theatres:
           Aerial Warfare: Luftkrig
           African Wars: Afrika
@@ -847,9 +886,67 @@ da:
           Western Front: Vestfronten
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Slet billede
         terms: Jeg accepterer betingelserne
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Nej
     required: skal udfyldes
     titles:
@@ -884,8 +981,60 @@ da:
       story_keywords: Hjælp andre med at finde din historie ved at tilføje et eller flere af de følgende nøgleord.
       story_location: Hvor foregik denne historie
       submit: Send din beretning
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Opdater %{model}
     'yes': Ja
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Vælg venligst
@@ -893,6 +1042,44 @@ da:
       create: Opret %{model}
       submit: Gem %{model}
       update: Opdater %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1962,6 +2149,10 @@ da:
         title: Din konto
       sign-in:
         help: For at logge ind skal du bruge enten brugernavn eller din e-mail-adresse. Du behøver ikke at bruge dem begge.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: 
     first_title: 
@@ -1979,3 +2170,22 @@ da:
     per_page_title: 
     previous_label: ← forrige
     previous_title: 
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

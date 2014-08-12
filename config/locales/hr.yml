@@ -77,6 +77,8 @@ hr:
         password_confirmation: Ponovite lozinku
         role_name: Uloga
         username: Korisničko ime
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -644,6 +646,10 @@ hr:
           source: Izvor iz kojeg je predmet digitaliziran (npr. stranica, knjiga, bilježnica, filmska vrpca).
           subject: Osoba, mjesto ili stvar na koju se predmet odnosi.
           theatres: ! 'Molimo vas, nemojte kliknuti ako nije relevantno. Ako relevantna ključna riječ nije dostupna molimo vas pošaljite nam e-mail na: 1914-1918 [@] europeana [.] eu'
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Možete prenijeti koliko god datoteka je potrebno, jednu po jednu.Imajte na umu da ako prenesete više datoteka dobit ćete priliku označiti jednu od njih kao "naslovnicu" svoje priče; npr. razglednicu ili dnevnik. Maksimalna veličina datoteke: %{max}. Dopuštene vrste datoteka: %{file_types}.'
         title: Kratak opisni naslov ili puni naziv. Na primjer, "Orden časti mojeg pradjeda, Otta Schmidta"
@@ -712,6 +718,30 @@ hr:
         update:
           password: Upišite novu lozinku ako je želite promijeniti, inače ostavite ovo prazno. Minimalno 6 znakova.
         username: ! 'Minimalno 3 znaka. Važeći znakovi su: a-z A-Z 0-9 - _ . @'
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -737,6 +767,14 @@ hr:
           source: Izvor
           subject: Predmet
           ticket: Broj predmeta
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: Država
@@ -838,6 +876,7 @@ hr:
           Transport: Transport
           Trench Life: Život u rovovima
           Women: Žene
+          Refugees: 
         theatres:
           Aerial Warfare: Zračno ratovanje
           African Wars: Afrika
@@ -850,9 +889,67 @@ hr:
           Western Front: Zapadni front
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Izbriši sliku
         terms: Prihvaćam uvjete
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Ne
     required: obavezno
     titles:
@@ -887,8 +984,60 @@ hr:
       story_keywords: Pomognite drugima da pronađu ovu priču dodavanjem jedne ili više sljedećih ključnih riječi.
       story_location: Kada se dogodila ova priča
       submit: Predajte svoju priču
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Ažuriraj %{model}
     'yes': Da
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Molimo odaberite
@@ -896,6 +1045,44 @@ hr:
       create: Stvorite %{model}
       submit: Pohranite %{model}
       update: Ažurirajte %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1789,7 +1976,7 @@ hr:
           stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Predmeti s Dana prikupljanja memorabilija u Stuttgartu">Stuttgart 12. travnja 2011. g.</a>
         trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Traži 'rovove'">trenches</a>
       p1: Ovdje možete vidjeti što je do sada dodano u našu zbirku priča.
-      p2: Koristite tražilicu kako bi pronašli predmete koji <b>odgovaraju određenoj riječi ili izrazu</b>. Kako bi <b>vidjeli sve<b> što je dodano u zbirku priča pritisnite "traži" bez unosa.
+      p2: Koristite tražilicu kako bi pronašli predmete koji <b>odgovaraju određenoj riječi ili izrazu</b>. Kako bi <b>vidjeli sve</b> što je dodano u zbirku priča pritisnite "traži" bez unosa.
       p3: Također možete <b>pretražiti zbirku priča<b>. Stisnite na ponuđeni izraz ispod kako bi pretražili tu riječ. Broj rezultata će se povećati dodavanjem novih materijala arhivu.
       p5: <b>Materijali prikupljeni za vrijeme Dana prikupljanja memorabilija:</b>
       search_for: <b>Tražite:</b>
@@ -1963,6 +2150,10 @@ hr:
         title: Vaš korisnički račun
       sign-in:
         help: Za prijavu koristite svoje korisničko ime ili e-mail adresu. Ne morate koristiti oboje.
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Rezultati %{first}–%{last} od %{total}
     first_title: Prva stranica
@@ -1986,3 +2177,22 @@ hr:
     per_page_title: Broj rezultata koji se prikazuje po stranici
     previous_label: <
     previous_title: Prethodna stranica
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 

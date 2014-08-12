@@ -77,6 +77,8 @@ ro:
         password_confirmation: Repetaţi parola
         role_name: Rol
         username: Numele utilizatorului
+        institution: 
+        terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -635,6 +637,10 @@ ro:
           source: Suportul documentului care a fost digitizat  ( de exemplu foaie, folio, carnet, rolă de film )
           subject: Persoana ,ori locul sau obiectul la care se referă documentul
           theatres: ! 'Vă rugăm nu bifaţi nici un cȃmp  dacă nu este relevant . Ȋn cazul absenţei din listă  a unui termen  relevant  vă rugăm să ne trimiteţi  un e-mail la adresa: 1914-1918[@]europeana[.]eu'
+          creator_family_name: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
         new:
           file: ! 'Puteţi ȋncărca oricȃte fişiere  este necesar , cȃte unul odată. Reţineţi faptul că , ȋn cazul ȋncărcării mai multor fişiere ,aveţi posibilitatea de a alege  unul dintre ele drept “imagine emblemă “a documentului vostru ( de exemplu ȋn cazul unei cărţi poştale sau a unui jurnal). Extensia  maximă permisă a unui fişier : %{max}. Tipuri de fişiere acceptate  : %{file_types}'
         title: Un scurt titlu  descriptiv sau un nume potrivit obiectului , de exemplu “ Medalia de Onoare a străbunicului meu Otto Schmidt”
@@ -703,6 +709,30 @@ ro:
         update:
           password: Introduceţi o parolă nouă dacă doriţi să îl schimbaţi, altfel lăsaţi acest camp necompletat.Minimum 6 caractere
         username: Minimum 3 caractere.Caractere valide :a-z A-Z 0-9-_@
+        contact:
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            password_confirmation: 
+            terms: 
+          create:
+            password_confirmation: 
+            terms: 
     labels:
       attachment:
         metadata:
@@ -728,6 +758,14 @@ ro:
           source: Sursa
           subject: Subiectul
           ticket: Numărul tichetului
+          date: 
+          creator: 
+          location_zoom: 
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
       collection_day:
         contact:
           country: 
@@ -829,6 +867,7 @@ ro:
           Transport: Transport
           Trench Life: Viaţa ȋn tranşee
           Women: Femei
+          Refugees: 
         theatres:
           Aerial Warfare: Război aviatic
           African Wars: Αfrica
@@ -841,9 +880,67 @@ ro:
           Western Front: Frontul de vest
         format:
           Digital: 
+          Card: 
+          Mixed: 
+          Canvas: 
+          Wood: 
+          Leather: 
+          Other: 
+          ! 'Text: memoir': 
+          Unknown: 
+          ! 'Text: transcription': 
+        content:
+          Official Document: 
+          Autograph: 
+          Book: 
+          Map: 
+          Interview: 
+          Memorabilia: 
+          Painting: 
+          Poem: 
+          Weapon: 
+          Music: 
+        source:
+          Book: 
+          Journal: 
+          Notebook: 
+          Unknown: 
+          Film: 
+        collection_day:
+          Fr07: 
       user:
         delete_picture: Ştergeţi imaginea
         terms: Accept aceşti termeni şi condiţiii de folosire
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': Nu
     required: necesar
     titles:
@@ -878,8 +975,60 @@ ro:
       story_keywords: Ajută-i  pe ceilalţi să-ţi descopere povestea adăugȃnd unul sau mai multe din cuvintele cheie de mai jos
       story_location: Unde s-a petrecut acţiunea povestirii voastre?
       submit: Trimiteţi povestirea voastră
+      user:
+        new:
+          accept_terms: 
+          user_session: 
+        create:
+          accept_terms: 
+          user_session: 
     update: Actualizaţi %{model}
     'yes': Da
+    placeholders:
+      user:
+        contact:
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_subject: 
   helpers:
     select:
       prompt: Alegeţi
@@ -887,6 +1036,44 @@ ro:
       create: Creare %{model}
       submit: Salvare %{model}
       update: Actualizare %{model}
+    label:
+      user:
+        contact:
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
   javascripts:
     admin:
       metadata_fields:
@@ -1962,6 +2149,10 @@ ro:
         title: Contul vostru
       sign-in:
         help: Pentru a vă autentifica folosiţi fie numele vostru de  utilizator fie adresa de E-mail.Nu aveţi nevoie de amândouă
+    ! "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
   will_paginate:
     entry_range_label: Rezultate %{first}–%{last} din %{total}
     first_title: Prima pagină
@@ -1985,3 +2176,22 @@ ro:
     per_page_title: Număr de rezultate prezentate pe pagină
     previous_label: ← anterior
     previous_title: Pagina precedentă
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 
+          data_provider_sm: 
+          metadata_collection_day_ids_im: 
+          metadata_content_ids_im: 
+          metadata_file_type_ids_im: 
+          metadata_keywords_ids_im: 
+          metadata_lang_ids_im: 
+          metadata_theatres_ids_im: 
+          place_name_s: 
+          provider_sm: 
+          rights_sm: 
+          type_s: 
+          uri_sm: 
+          year_sm: 
+  Polish: 
