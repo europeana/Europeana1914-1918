@@ -9,92 +9,6 @@
 	carousel = europeana.carousel,
 
 
-	lightbox = {
-		annotorious_setup: false,
-		ppOptions : {},
-
-		handlePageChangeNext : function( keyboard ) {
-			if ( !keyboard ) {
-				carousel.$featured_carousel.$nav_next.trigger('click');
-			}
-		},
-
-		handlePageChangePrev : function( keyboard ) {
-			if ( !keyboard ) {
-				carousel.$featured_carousel.$nav_prev.trigger('click');
-			}
-		},
-
-		handlePictureChange : function() {
-			anno.reset();
-			anno.hideSelectionWidget();
-		},
-
-		hideLightboxContent: function() {
-			var $pp_pic_holder = $('.pp_pic_holder');
-			$pp_pic_holder.find('#pp_full_res object,#pp_full_res embed').css('visibility','hidden');
-			$pp_pic_holder.find('.pp_fade').fadeOut('fast',function(){
-				$('.pp_loaderIcon').show();
-			});
-		},
-
-		init : function() {
-			if ( add_lightbox ) {
-				this.setupPrettyPhoto();
-				this.setupAnnotorious();
-			} else {
-  			this.removeLightboxLinks();
-			}
-		},
-
-		removeLightboxLinks : function() {
-			$('#institution-featured a').each(function() {
-				var $elm = jQuery(this),
-						contents = $elm.contents();
-
-				if ( !$elm.hasClass('pdf') && !$elm.hasClass('original-context') ) {
-					$elm.replaceWith(contents);
-				}
-			});
-
-			$('#institution-featured .view-item').each(function() {
-				jQuery(this).remove();
-			});
-		},
-
-		setupAnnotorious : function() {
-			if ( this.annotorious_setup ) {
-				return;
-			}
-
-			anno.addPlugin( 'RunCoCo_EDM', { } );
-			anno.addPlugin( 'RunCoCo', { base_url : window.location.protocol + "//" + window.location.host + "/" + RunCoCo.locale + "/annotations" } );
-			anno.addPlugin( 'Flag', { base_url : window.location.protocol + "//" + window.location.host + "/" + RunCoCo.locale + "/annotations" } );
-			this.annotorious_setup = true;
-		},
-
-		setupPrettyPhoto : function() {
-			lightbox.ppOptions.callback = function() {
-				// this insures that additional content that was loaded while
-				// in lightbox is lightbox enabled if the lightbox is closed
-				lightbox.init();
-			};
-
-			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
-			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
-			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
-			lightbox.ppOptions.collection_total = carousel.pagination_total;
-			lightbox.ppOptions.description_src = 'data-description';
-			lightbox.ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-			lightbox.ppOptions.overlay_gallery = false;
-			lightbox.ppOptions.show_title = false;
-			lightbox.ppOptions.social_tools = false;
-
-			$("#institution-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
-		}
-	},
-
-
 	leaflet = {
 		addLeafletMap: function() {
 			var
@@ -105,11 +19,11 @@
 				RunCoCo.leaflet.markers !== undefined &&
 				$.isArray( RunCoCo.leaflet.markers )
 			) {
-				markers = RunCoCo.leaflet.markers
+				markers = RunCoCo.leaflet.markers;
 			}
 
 			if ( RunCoCo.leaflet.map_options !== undefined ) {
-				map_options = RunCoCo.leaflet.map_options
+				map_options = RunCoCo.leaflet.map_options;
 			}
 
 			europeana.leaflet.init({
@@ -130,6 +44,11 @@
 	},
 
 
+	/**
+	 * this iterates over the items in the featured carousel and tests the
+	 * <a> data-record attribute if it exists in order to make sure pdf links
+	 * take the user to the pdf viewer page
+	 */
 	mimetype = {
 		carousel_reveal_count: 0,
 		carousel_reveal_max_count: 100,
@@ -182,7 +101,12 @@
 			mimetype.itemsHandled += 1;
 
 			if ( mimetype.itemsHandled === mimetype.itemsTotal ) {
-				lightbox.init();
+				europeana.lightbox.init({
+					$elm: $('#institution-featured'),
+					add_lightbox: add_lightbox,
+					carousel: europeana.carousel,
+					edm_page: true
+				});
 				mimetype.revealCarousel();
 			} else if ( mimetype.itemsHandled === 1 ) {
 				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
@@ -349,7 +273,7 @@
 	truncate.init();
 	RunCoCo.translation_services.init( jQuery('.translate-area') );
 	europeana.embedly.init();
-	europeana.carousel.init('institution-featured');
+	europeana.carousel.init( $('#institution-featured') );
 	mimetype.init(); // lightbox is now initialized within this object
 	photoGallery.init();
 	leaflet.init();

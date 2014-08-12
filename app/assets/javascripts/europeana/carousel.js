@@ -12,6 +12,7 @@
 
 		$featured_carousel : null,
 		node_id: '',
+		$elm: null,
 		$pagination_counts : $('#pagination-counts'),
 		pagination_total : $('#pagination-total').text(),
 		photogallery_hash_check: false,
@@ -31,7 +32,7 @@
 				return false;
 			}
 
-			$new_content.find("#" + this.node_id + " a[rel^='prettyPhoto']").each(function() {
+			$new_content.find( this.$elm.find("a[rel^='prettyPhoto']" ) ).each(function() {
 				var $elm = $(this);
 				window.pp_images.push( $elm.attr('href') );
 				window.pp_descriptions.push( $elm.attr('data-description') );
@@ -54,16 +55,16 @@
 		},
 
 		/**
-		 * @param {string} node_id
+		 * @param {object} $elm
+		 * jQuery object that represents the carousel container
 		 */
-		init: function( node_id ) {
+		init: function( $elm, init_complete_callback ) {
 			var self = this;
+			this.$elm = $elm;
 
-			this.node_id = node_id;
-
-			$('#' + this.node_id).imagesLoaded( function() {
+			this.$elm.imagesLoaded( function() {
 				self.$featured_carousel =
-					$('#' + self.node_id).rCarousel({
+					self.$elm.rCarousel({
 						hide_overlay: false,
 						item_width_is_container_width : true,
 						items_collection_total : $.isNumeric( self.pagination_total ) ? parseInt( self.pagination_total, 10 ) : 0,
@@ -73,6 +74,11 @@
 							},
 							before_nav: function( dir ) {
 								europeana.carousel.replaceItemPlaceholderCheck( dir );
+							},
+							init_complete: function() {
+								if ( $.isFunction( init_complete_callback ) ) {
+									init_complete_callback();
+								}
 							}
 						},
 						$nav_next : $('<input>', {

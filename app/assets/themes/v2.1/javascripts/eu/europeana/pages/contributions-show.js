@@ -10,191 +10,6 @@
 	carousel = europeana.carousel,
 
 
-	lightbox = {
-		$metadata : [],
-		annotorious_setup: false,
-		current : 0,
-		ppOptions : {},
-
-		/**
-		 * @param {object} $elm
-		 * jQuery object
-		 */
-		addMetaDataOverlay : function( $elm ) {
-			var
-			self = this,
-			$pic_full_res = jQuery('#pp_full_res'),
-			$pp_content = jQuery('.pp_content');
-
-			if ( !self.$metadata[self.current] ) {
-				self.$metadata[self.current] = ( jQuery( $elm.attr('href') ) );
-				self.$metadata[ self.current ].data('clone', self.$metadata[ self.current ].clone() );
-			}
-
-			self.$metadata[ self.current ].data('clone').appendTo( $pp_content );
-
-			self.$metadata[ self.current ].data('clone').css({
-				height :
-					$pic_full_res.find('img').height() -
-					parseInt( self.$metadata[ self.current ].data('clone').css('padding-top'), 10 ) -
-					parseInt( self.$metadata[ self.current ].data('clone').css('padding-bottom'), 10 )
-			});
-
-			$pic_full_res.append( self.$metadata[ self.current ].find('.metadata-license').html() );
-		},
-
-		handleMetaDataClick : function( evt ) {
-			var self = evt.data.self;
-			evt.preventDefault();
-			self.$metadata[self.current].data('clone').slideToggle();
-		},
-
-		handlePageChangeNext : function( keyboard ) {
-			if ( !keyboard ) {
-				carousel.$featured_carousel.$nav_next.trigger('click');
-			}
-		},
-
-		handlePageChangePrev : function( keyboard ) {
-			if ( !keyboard ) {
-				carousel.$featured_carousel.$nav_prev.trigger('click');
-			}
-		},
-
-		/**
-		 *	this - refers to the generated lightbox div
-		 *	the div is removed each time the lightbox is closed
-		 *	so these elements need to be added back to the div
-		 *	with each open
-		 */
-		handlePictureChange : function() {
-			var self = lightbox,
-			$elm = jQuery(this),
-			$additional_info_link = $elm.find('.pp_description a').first();
-
-			anno.reset();
-			anno.hideSelectionWidget();
-
-			if ( self.$metadata[self.current] ) {
-				if ( self.$metadata[self.current].data('clone').is(':visible') ) {
-					self.$metadata[self.current].data('clone').hide();
-				}
-
-				if ( self.$metadata[self.current].data('cloned') ) {
-					self.$metadata[self.current].data('cloned', false);
-				}
-			}
-
-			$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
-			self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
-			self.addMetaDataOverlay( $additional_info_link );
-			europeana.sharethis.manageShareThis( $('#inline-' + self.current ), $additional_info_link, self.current );
-			//europeana.embedly.manageEmbedly( $('#inline-' + self.current ), $additional_info_link, self.current );
-		},
-
-		hideLightboxContent: function() {
-			var $pp_pic_holder = $('.pp_pic_holder');
-			$pp_pic_holder.find('#pp_full_res object,#pp_full_res embed').css('visibility','hidden');
-			$pp_pic_holder.find('.pp_fade').fadeOut('fast',function(){
-				$('.pp_loaderIcon').show();
-			});
-		},
-
-		init : function() {
-			if ( add_lightbox ) {
-				this.setupPrettyPhoto();
-				this.setupAnnotorious();
-			} else {
-				this.removeLightboxLinks();
-			}
-		},
-
-		removeLightboxLinks : function() {
-			jQuery('#contributions-featured a').each(function() {
-				var $elm = jQuery(this),
-						contents = $elm.contents();
-
-				if ( !$elm.hasClass('pdf') ) {
-					$elm.replaceWith(contents);
-				}
-			});
-
-			$('#contributions-featured .view-item').each(function() {
-				jQuery(this).remove();
-			});
-		},
-
-		removeMediaElementPlayers : function() {
-			var i;
-
-			if ( window.mejs === undefined ) {
-				return;
-			}
-
-			for ( i in mejs.players ) {
-				if ( mejs.players.hasOwnProperty(i) ) {
-					mejs.players[i].remove();
-				}
-			}
-
-			mejs.mepIndex = 0;
-		},
-
-		setupAnnotorious : function() {
-			if ( this.annotorious_setup ) {
-				return;
-			}
-
-			anno.addPlugin(
-				'RunCoCo_Attachment',
-				{}
-			);
-			anno.addPlugin(
-				'RunCoCo',
-				{
-					base_url :
-						window.location.protocol + "//" +
-						window.location.host + "/" +
-						RunCoCo.locale +
-						"/annotations"
-				}
-			);
-			anno.addPlugin(
-				'Flag',
-				{
-					base_url :
-						window.location.protocol + "//" +
-						window.location.host + "/" +
-							RunCoCo.locale + "/annotations"
-				}
-			);
-			this.annotorious_setup = true;
-		},
-
-		setupPrettyPhoto : function() {
-			lightbox.ppOptions.callback = function() {
-				lightbox.removeMediaElementPlayers();
-				// this insures that additional content that was loaded while
-				// in lightbox is lightbox enabled if the lightbox is closed
-				lightbox.init();
-			};
-
-			lightbox.ppOptions.changepagenext = lightbox.handlePageChangeNext;
-			lightbox.ppOptions.changepageprev = lightbox.handlePageChangePrev;
-			lightbox.ppOptions.changepicturecallback = lightbox.handlePictureChange;
-			lightbox.ppOptions.collection_total = carousel.pagination_total;
-			lightbox.ppOptions.description_src = 'data-description';
-			lightbox.ppOptions.image_markup = '<img id="fullResImage" src="{path}" class="annotatable">';
-			lightbox.ppOptions.overlay_gallery = false;
-			lightbox.ppOptions.show_title = false;
-			lightbox.ppOptions.social_tools = false;
-
-			$("#contributions-featured a[rel^='prettyPhoto']").prettyPhoto( lightbox.ppOptions );
-		}
-
-	},
-
-
 	leaflet = {
 		addLeafletMap: function() {
 			var
@@ -349,9 +164,17 @@
 
 	RunCoCo.translation_services.init( $('.translate-area') );
 	europeana.embedly.init();
-	europeana.carousel.init('contributions-featured');
+	europeana.carousel.init( $('#contributions-featured'), function() {
+		europeana.lightbox.init({
+			$elm: $('#contributions-featured'),
+			add_lightbox: add_lightbox,
+			add_metadata: true,
+			carousel: europeana.carousel,
+			contribution_page: true
+		});
+	});
 	more_like_this.init('more-like-this');
-	lightbox.init();
+	//lightbox.init();
 	pdf.init();
 	photoGallery.init();
 	leaflet.init();
