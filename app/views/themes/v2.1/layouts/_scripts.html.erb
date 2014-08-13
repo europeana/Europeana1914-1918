@@ -161,7 +161,8 @@
   # http://support.sharethis.com/customer/portal/articles/961937-copynshare-settings
   script2 += "if ( window.stLight ) {\n"
     script2 += "\tstLight.options({\n"
-      script2 += "\t\tpublisher: '" + configuration(:sharethis_id) + "'\n"
+      script2 += "\t\tpublisher: '" + configuration(:sharethis_id) + "',\n"
+      script2 += "\t\tonhover: false\n"
       #script2 += "\t\tdoNotHash: false,\n"
       #script2 += "\t\tdoNotCopy: false,\n"
       #script2 += "\t\thashAddressBar: false\n"
