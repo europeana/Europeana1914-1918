@@ -169,6 +169,7 @@
 			$elm: $('#contributions-featured'),
 			add_lightbox: add_lightbox,
 			add_metadata: true,
+			add_sharethis: true,
 			carousel: europeana.carousel,
 			contribution_page: true
 		});

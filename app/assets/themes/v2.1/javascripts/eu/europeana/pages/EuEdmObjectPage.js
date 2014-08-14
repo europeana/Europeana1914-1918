@@ -104,6 +104,8 @@
 				europeana.lightbox.init({
 					$elm: $('#institution-featured'),
 					add_lightbox: add_lightbox,
+					add_metadata: true,
+					add_sharethis: true,
 					carousel: europeana.carousel,
 					edm_page: true
 				});

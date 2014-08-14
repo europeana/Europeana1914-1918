@@ -12,8 +12,21 @@
 		this_link_text = link_text
 
 		link_attrs.merge!({
-			'data-attachment-id' => item_count,
+			'data-attachment-id' => @item_count,
 			'data-attachment-preview-url' => img_src
+		})
+
+		# preview link data-description
+		# additional info link
+		# placed in the pretty photo lightbox under the mediafile
+		link_attrs.merge!({
+			'data-description' =>
+				'<a ' +
+					'href="#inline-' + @item_count.to_s + '" ' +
+					'class="lightbox-info" ' +
+					'title="' + t('common.additional-information') + '"' +
+				'>' +
+				'</a>'
 		})
 
 		if annotatable.present?
@@ -56,6 +69,16 @@
 
 			html += developer_content
 		end
+
+		html += content_tag(
+			'dl',
+			title,
+			:class => 'lightbox-metadata',
+			:id => 'inline-' + @item_count.to_s,
+			'data-title' => title,
+      'data-url' => url_for( :only_path => false ),
+      'data-image' => img_src
+		)
 
 		@item_count += 1
 

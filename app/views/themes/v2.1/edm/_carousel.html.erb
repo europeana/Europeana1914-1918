@@ -23,7 +23,7 @@
 
 	link_attrs      = {
 		'class' => 'image',
-		'data-description' => title,
+		#'data-description' => title,
 		:title => title
 	}
 
@@ -59,7 +59,6 @@
 						html += render :partial => 'edm/images/carousel-images',
 							:locals => {
 								:carouselImages => carouselImages,
-								:item_count => @item_count,
 								:link_attrs => link_attrs,
 								:link_text => link_text,
 								:title => title,
@@ -112,10 +111,7 @@
 				html += content_tag( 'div', '', :class => 'carousel-overlay' )
 			html += '</div>' # end carousel
 		html += '</div>' # end carousel image panel
-		html += render :partial => 'edm/pagination',
-			:locals => {
-				:item_count => @item_count
-			}
+		html += render :partial => 'edm/pagination'
 	html += '</div>' # end carousel col-cell
 
 -%>

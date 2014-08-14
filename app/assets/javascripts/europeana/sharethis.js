@@ -20,13 +20,13 @@
 		 * @param {object} $metadata
 		 * jQuery object
 		 *
-		 * @param {object} $additional_info_link
+		 * @param {object} $target_elm
 		 * jQuery object
 		 *
 		 * @param {int} current
 		 * the current item index
 		 */
-		addShareThis: function( $metadata, $additional_info_link, current ) {
+		addShareThis: function( $metadata, $target_elm, current ) {
 			var
 			$target = $('<span>')
 				.attr('class', 'st_sharethis_custom'),
@@ -43,24 +43,24 @@
 
 			this.Shareable = stWidget.addEntry( options );
 			this.$sharethis_elm = $target;
-			$additional_info_link.before( this.$sharethis_elm );
+			$target_elm.prepend( this.$sharethis_elm );
 		},
 
 		/**
 		 * @param {object} $metadata
 		 * jQuery object
 		 *
-		 * @param {object} $additional_info_link
+		 * @param {object} $target_elm
 		 * jQuery object
 		 *
 		 * @param {int} current
 		 * the current item index
 		 */
-		manageShareThis: function( $metadata, $additional_info_link, current ) {
+		manageShareThis: function( $metadata, $target_elm, current ) {
 			if ( $.isEmptyObject( this.Shareable ) ) {
-				this.addShareThis( $metadata, $additional_info_link, current );
+				this.addShareThis( $metadata, $target_elm, current );
 			} else {
-				this.updateShareThis( $metadata, $additional_info_link, current );
+				this.updateShareThis( $metadata, $target_elm, current );
 			}
 		},
 
@@ -68,19 +68,19 @@
 		 * @param {object} $metadata
 		 * jQuery object
 		 *
-		 * @param {object} $additional_info_link
+		 * @param {object} $target_elm
 		 * jQuery object
 		 *
 		 * @param {int} current
 		 * the current item index
 		 */
-		updateShareThis: function( $metadata, $additional_info_link, current ) {
+		updateShareThis: function( $metadata, $target_elm, current ) {
 			var prettyfragement = '#prettyPhoto[gallery]/' + current + '/';
 			this.Shareable.url = $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : '';
 			this.Shareable.title = $metadata.attr('data-title') ? $metadata.attr('data-title') : '';
 			this.Shareable.image = $metadata.attr('data-image') ? $metadata.attr('data-image') : '';
 			this.Shareable.summary = $metadata.attr('data-summary') ? $metadata.attr('data-summary') : '';
-			$additional_info_link.before( this.$sharethis_elm );
+			$target_elm.prepend( this.$sharethis_elm );
 		}
 
 	};

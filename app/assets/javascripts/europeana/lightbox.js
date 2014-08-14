@@ -15,8 +15,10 @@
 		current : 0,
 		$metadata : [],
 		options: {
+			add_embedly: false,
 			add_lightbox: false,
 			add_metadata: false,
+			add_sharethis: false,
 			carousel: {},
 			contribution_page: false,
 			edm_page: false
@@ -78,7 +80,8 @@
 		handlePictureChange : function() {
 			var self = europeana.lightbox,
 			$elm = jQuery(this),
-			$additional_info_link = $elm.find('.pp_description a').first();
+			$lightbox_description = $elm.find('.pp_description'),
+			$additional_info_link = $lightbox_description.find('a.lightbox-info').first();
 
 			anno.reset();
 			anno.hideSelectionWidget();
@@ -97,8 +100,14 @@
 				$additional_info_link.on('click', { self : self }, self.handleMetaDataClick );
 				self.current = parseInt( $additional_info_link.attr('href').replace('#inline-',''), 10 );
 				self.addMetaDataOverlay( $additional_info_link );
-				europeana.sharethis.manageShareThis( $('#inline-' + self.current ), $additional_info_link, self.current );
-				//europeana.embedly.manageEmbedly( $('#inline-' + self.current ), $additional_info_link, self.current );
+			}
+
+			if ( self.options.add_sharethis ) {
+				europeana.sharethis.manageShareThis( $('#inline-' + self.current ), $lightbox_description, self.current );
+			}
+
+			if ( self.options.add_embedly ) {
+				europeana.embedly.manageEmbedly( $('#inline-' + self.current ), $lightbox_description, self.current );
 			}
 		},
 
