@@ -509,7 +509,7 @@ pl:
         notice: Obiekt zapisano.
     configuration:
       update:
-        alert: 
+        alert: Nie udało się zapisać konfiguracji.
         notice: 
     contacts:
       create:
@@ -1064,6 +1064,8 @@ pl:
           DUP1: DUP1
           DUP2: DUP2
           UPC1: 
+          UPC2: 
+          UPC3: 
         content:
           Autograph: 
           Book: 
@@ -1495,15 +1497,15 @@ pl:
       label: 
       saved: 
   languages:
-    da: 
-    de: 
-    en: 
-    fr: 
-    ga: 
-    hu: 
-    nl: 
-    sk: 
-    sl: 
+    da: Duński
+    de: Niemiecki
+    en: Angielski
+    fr: Francuski
+    ga: Irlandzki
+    hu: Węgierski
+    nl: Holenderski
+    sk: Słowacki
+    sl: Słoweński
   layout:
     navigation:
       about: O nas
@@ -1588,8 +1590,8 @@ pl:
   Polish: 
   settings:
     allowed_upload_extensions: Dopuszczalne typi plików podcyas ładowania
-    banner_active: 
-    banner_text: 
+    banner_active: Aktywny komunikat o konieczności przeprowadzenia konserwacji
+    banner_text: Tekst komunikatu o konieczności przeprowadzenia koserwacji
     bing_client_id: ! 'ID klienta Bing
 
 '
@@ -1608,7 +1610,7 @@ pl:
     site_name: Nazwa strony
     site_url: URL strony
     ui_locales: Dostępne wersje językowe
-    uploadify: 
+    uploadify: Aktywuj Uploadify
   support:
     array:
       last_word_connector: ! ' oraz '
@@ -1690,7 +1692,7 @@ pl:
           p7: 
       what_we_do:
         heading: Czym się zajmujemy
-        item1: 
+        item1: ! 'Za pośrednictwem strony Europeana 1914-1918-dodaj obiekt lub udostępnij online swoją historię. '
         item2: ! 'Na dni zbiórek- przynieś koniecznie obiekty, które mają zostać zdygitalizowane. Nasz zespół chętnie je dla Ciebie udostępni w internecie i nagra historię, którą chcesz udostępnić '
         p1: ! 'Głównym celem projektu jest zebranie pamiątek i historii z czasów I wojny światowej (1914-1918). W tej chwili, na kolekcję składają się: listy, pocztówki, zdjęcia, pryedmioty codziennego użytku i historie pochodzące z: Wielkiej Brytanii, Niemiec, Słoweni, Luksemburga, Irlandii, Włoch, Belgii, Cypru i Danii. Możesz pomóc nam rozwinąć kolejcję na dwa sposoby:'
     ! "abou\tt":
@@ -1781,7 +1783,7 @@ pl:
               submitted: 
               withdrawn: 
           title: 
-        p1: 
+        p1: Poniżej znajdują się trzy tabele z poszczególnymi wątkami, które nie zostały jeszcze przekazane do zatwierdzenia, czekają na zatwierdzenie lub już zostały zatwierdzone. Prosimy kliknąc na tytuł wątki, aby odczytać szczegółowe informacje. Po wyświetleniu się dalszych informacji można skopiować metadane, usunąć cały wątek lub (w przypadku wątków które czekają na zatwierdzenie) zatwierdzić wątek.
       europeana:
         index:
           instructions: 
@@ -1929,15 +1931,15 @@ pl:
           title: 
     annotations:
       depublish:
-        question: 
+        question: \jeste
         title: 
       edit:
         title: Edytuj adnotację
       flag:
-        question: Jeste
+        question: 
         title: 
       unflag:
-        question: Czy na pewno odznaczyć tę adnotację i uznać ją za niestosowną?
+        question: 
         title: 
     attachments:
       attachment_help:
@@ -1948,11 +1950,11 @@ pl:
         item1-subitem1: Opisz ten obiekt
         item1-subitem2: Załaduj załącznik do pliku
         item2: ! 'Dodaj więcej obiektów i plików. '
-        item2-subitem1: 
+        item2-subitem1: Jednoczesne przekazanie kilku załączników odnoszących się do różnych obiektów.
         item2-subitem2: Możesz sam opisać swój obiekt.
         one-of-the-following: ! 'Wybierz jedą z poniższych opcji:'
       copy:
-        instructions: 
+        instructions: Prosimy wybrać jeden lub więcej obiektów, które są połączone z tym wątkiem
         title: Skopiuj metadane tego obiektu
       delete:
         question: Czy na pewno chcesz usunąć ten obiekt "%{filename}"?
@@ -2038,8 +2040,8 @@ pl:
         p1: Serdecznie dziękujemy za przekazanie nam swojej historii. Zaraz po sprawdzeniu plików przez naszych redaktorów zosanie ona udostępniona na naszej stronie. Cały proces może potrwać nawet kilka tygodni, prosimy o wyrozumiałość i cierpliwość.
         title: Zakończ wątek
       delete:
-        question: 
-        title: Porzuć wątek
+        question: Czy na pewno całkowicie anulować wątek  "<strong>%{title}</strong>" ?
+        title: ! ' Odrzuć wątek'
       digital_object:
         heading: Obiekty, które zostały dołączone do Twojego wątku
         help_text:
@@ -2121,10 +2123,10 @@ pl:
           tagging:
             item: 
             story: 
-        title: 
+        title: Aktywność Europeana 1914-1918
       index:
-        empty: 
-        title: 
+        empty: ! 'Nie ma jeszcze żadnych wątków, które mogłyby zostać udostępnione. '
+        title: Wątki
       new:
         title: 
       no_title: bez tytułu
@@ -2208,16 +2210,16 @@ pl:
         p1: Poniżej znajdują się dodane przez Ciebie historie. Możesz je w każdej chwili usunąc lub edytować
         title: Dodaj swoją historię
       dashboard_guest:
-        button_text: 
+        button_text: Wątek zakończono
         headings:
           finished: 
-        identity: 
+        identity: (Jeśli nie jesteś %{name}, kliknij na "wątek zakończono" poniżej.)
         links:
           edit_contact: 
           new: 
-        notice: 
-        privacy: 
-        title: 
+        notice: ! '%{name}, publikujesz jako gość.'
+        privacy: Jeśli wątek został zakończony, prosimy kliknąć poniższy przycisk, aby wyczyścić swoje dane kontaktowe. W ten sposób chronisz swoją prywatność na wspólnym komputerze.
+        title: Panel sterowania dla gości
       guests:
         edit:
           title: 
@@ -2514,4 +2516,4 @@ pl:
     per_page_label: Wyników na stronie
     per_page_title: Liczba wzników wyświetlonych na stronie
     previous_label: ! '&#8592; Poprzednia'
-    previous_title: 
+    previous_title: Poprzednia strona
