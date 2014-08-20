@@ -17,13 +17,12 @@
 	oembed          = oembed_fields( record )
 	places          = record['places'] ? record['places'] : {}
 	proxy           = record['proxies'][0]
-	title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
+	title           = proxy ? edm_proxy_field( proxy, 'dcTitle' ) ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 	unknown_image   = image_tag( '/assets/style/icons/mimetypes/unknown.png', :alt => t( 'media_types.unknown' ) )
 	annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
 
 	link_attrs      = {
 		'class' => 'image',
-		#'data-description' => title,
 		:title => title
 	}
 
@@ -45,7 +44,7 @@
 		params[:controller] == 'federated_search/dpla' ||
 		params[:controller] == 'federated_search/trove' ||
 		params[:controller] == 'federated_search/digitalnz'
-	)
+	) ||
 		link_text = content_tag( 'p', t( 'common.links.view-image' ), :class => 'view-item' )
 	end
 
@@ -54,8 +53,14 @@
 		html += '<div class="img-panel">'
 			html += '<div id="institution-featured" class="carousel">'
 				html += '<ul>'
+
 					# add multiple images
+					# lightbox
 					if carouselImages.present? && carouselImages.size > 1
+						link_attrs.merge!({
+							:title => t( 'common.links.view-image' )
+						})
+
 						html += render :partial => 'edm/images/carousel-images',
 							:locals => {
 								:carouselImages => carouselImages,
@@ -68,6 +73,7 @@
 
 					# single image
 					# view at provider’s website
+					# no lightbox
 					elsif edmIsShownAt && (
 						params[:controller] == 'federated_search/dpla' ||
 						params[:controller] == 'federated_search/trove' ||
@@ -82,8 +88,8 @@
 							}
 
 					# single image
-					# view on 1914-1918 website
-					# show the edmIsShownBy in the lightbox
+					# show the edmIsShownBy image
+					# lightbox
 					elsif edmIsShownBy
 						html += render :partial => 'edm/images/edm-is-shown-by',
 							:locals => {
@@ -99,14 +105,15 @@
 							}
 
 					# single image
-					# view on 1914-1918 website
-					# show the edmPreview, no lightbox
+					# show the edmPreview
+					# no lightbox
 					else
 						html += render :partial => 'edm/images/edm-preview',
 							:locals => {
 								:link_image => link_image
 							}
 					end
+
 				html += '</ul>'
 				html += content_tag( 'div', '', :class => 'carousel-overlay' )
 			html += '</div>' # end carousel

@@ -8,6 +8,7 @@
 		:rel => 'prettyPhoto[gallery]'
 	})
 
+	# cycle over the carousel images available
 	carouselImages.each do |img_src|
 		this_link_text = link_text
 
@@ -16,9 +17,9 @@
 			'data-attachment-preview-url' => img_src
 		})
 
-		# preview link data-description
-		# additional info link
-		# placed in the pretty photo lightbox under the mediafile
+		# data-description
+		# add the buttons that will be available in the lightbox
+		# placed in the lightbox under the mediafile
 		link_attrs.merge!({
 			'data-description' =>
 				'<a ' +
@@ -29,6 +30,7 @@
 				'</a>'
 		})
 
+		# add annotations
 		if annotatable.present?
 			link_attrs.merge!({
 				'data-annotatable-type' => annotatable.class,
@@ -70,15 +72,12 @@
 			html += developer_content
 		end
 
-		html += content_tag(
-			'dl',
-			title,
-			:class => 'lightbox-metadata',
-			:id => 'inline-' + @item_count.to_s,
-			'data-title' => title,
-      'data-url' => url_for( :only_path => false ),
-      'data-image' => img_src
-		)
+		# add metadata
+		html += render :partial => 'metadata/edm',
+			:locals => {
+				:title => title,
+				:img_src => img_src
+			}
 
 		@item_count += 1
 
