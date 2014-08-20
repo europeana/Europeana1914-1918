@@ -503,14 +503,14 @@ pl:
       duplicate:
         notice: Obiekt już istnieje
       links:
-        view-attachments_html: 
+        view-attachments_html: <a href="#attachments">Kliknij żeby zobaczyć i edytować</a>.
       update:
-        alert: 
+        alert: Przy zapisywaniu załącznika wystąpił problem
         notice: Obiekt zapisano.
     configuration:
       update:
         alert: Nie udało się zapisać konfiguracji.
-        notice: 
+        notice: Zaktualizowano konfigurację
     contacts:
       create:
         alert: Tworzenie kontaktu nie powiodło się
@@ -520,10 +520,10 @@ pl:
         notice: Aktualizuj kontakt
     contributions:
       approve:
-        alert: 
-        notice: 
+        alert: Nie udało się zatwierdzić wątku
+        notice: ! 'Wątek został zatwierdzony '
       destroy:
-        alert: 
+        alert: Nie udało się wykasować historii
         notice: Wątek usunięto
       draft:
         create:
@@ -534,9 +534,9 @@ pl:
           notice: 
         update:
           alert: 
-          notice: 
+          notice: Wątek zapisano
       reject:
-        alert: 
+        alert: Nie udało się odrzucić wątku.
         notice: 
       submitted:
         edit:
@@ -581,10 +581,10 @@ pl:
         create:
           success: 
       destroy:
-        success: 
+        success: Tag przeniesiono
       europeana_record:
         create:
-          success: 
+          success: Twoje tagi zostały dodane do tego obiektu
       flag:
         success: 
     taxonomy:
@@ -1120,10 +1120,10 @@ pl:
         keywords:
           Anti-War Movement: 
           Artillery: Artyleria
-          Conscientious Objection: 
+          Conscientious Objection: Odmowa służby wojskowej
           Gas Warfare: Wojna gazowa
-          Home Front: 
-          Manufacture: 
+          Home Front: Front ojczy
+          Manufacture: Manufaktura
           Medical: Medycyna
           Military Punishment: 
           Prisoners of War: 
@@ -1419,10 +1419,10 @@ pl:
   javascripts:
     admin:
       metadata_fields:
-        order: 
+        order: Przeciągnij aby dowolnie rozmieścić pola. Kliknij "Zapisz" aby zapisać wybrane rozmieszczenie pól
     annotorious:
-      clear-flag: 
-      flag: 
+      clear-flag: Usuń oznaczenia
+      flag: Oznaczenie
     attachments:
       uploading: Trwa transfer niektórych plikow. Mozesz dodać wątek po zakończeniu procesu.
     collection-days:
@@ -1430,7 +1430,7 @@ pl:
       find-more: Dowiedz się więcej,
       get-directions: 
       legend: Legenda
-      next-collection-day: 
+      next-collection-day: Kolejny dzień zbiórki zostanie zorganizowany w <b>%{name}, %{city}, %{country}</b> on <b>%{start-date}
       past-entered: Poprzednie  dni zbiórki
       past-not-entered: Poprzednie dni zbiórki (jeszcze nieudostępnione historie)
       show-past: Pokaż poprzednie dni zbiórki
@@ -1446,56 +1446,56 @@ pl:
       button_text: Pokaż kalendarz
     digital_object:
       hints:
-        copy_from_story: 
+        copy_from_story: Po kliknięciu na przycisk powyżej rozpocznie się kopiowanie podobnych metadanych z wątku do obiektu.
       labels:
-        copy_from_story: 
+        copy_from_story: Kopiuj informacje
       links:
-        copy_from_story: 
+        copy_from_story: Kopiuj z wątku
     gmap:
       canvas:
-        hide: 
-        hint: 
-        label: 
-        show: 
+        hide: Zamknij Google Maps
+        hint: Przesuń oznaczenie na wybrane miejsce"{{field}}".
+        label: Google Maps
+        show: Użyj Google Maps
       errors:
-        empty: 
+        empty: Prosimy podać szukany adres
         present: 
-        unknown: 
+        unknown: Adres nieznany
       search:
-        button: 
-        hint: 
-        label: 
+        button: Szukaj
+        hint: Prosimy podać adres, który ma zostać znaleziony na mapie
+        label: Szukaj adresu
       static:
-        hide: 
-        show: 
+        hide: Zamknij kartę
+        show: Pokaż w Google Maps
     leaflet:
       label:
-        map_view: 
-        satellite_view: 
+        map_view: Mapa
+        satellite_view: Satelita
     next: Dalej →
     previous: ← Poprzednie
     search:
-      10seconds: Proces szukania trwa. Prosimy o cierpliwość.
-      30seconds: 
-      60seconds: 
+      10seconds: Trwa szukanie. Prosimy o cierpliwość.
+      30seconds: Wyszukiwanie trwa dłużej niż oczekiwano. Prosimy spróbować ponownie lub kontynuować czekanie!
+      60seconds: W trakcie wyszukiwanie pojawił się problem. Prosimy spróbować ponownie później
     story:
-      took-place: 
+      took-place: Wydarzenie miało miejsce w
     thumbnails:
-      item: 
-      of: 
+      item: Obiekt
+      of: z
     translate:
-      return-to-language: 
-      translate-to: 
+      return-to-language: Powrót do oryginalnej wersji językowej
+      translate-to: Przetłumacz na...
     truncate:
-      show-less: 
-      show-more: 
+      show-less: Pokaż mniej...
+      show-more: Pokaż więcej
     uploadify:
-      basic_ui: 
-      button_text: 
-      finished: 
-      hint: 
-      label: 
-      saved: 
+      basic_ui: W razie problemów przy wyszukiwaniu, prosimy spróbować <a href="{{href}}">basic upload</a>
+      button_text: Wybierz pliki
+      finished: Z powrotem do wątku
+      hint: ! 'Możliwe jest jednoczesne załadowanie większej ilości plików. Każdy plik stanowi automatyczniej osobny obiekt, który można indywidualnie edytować. Uwaga: Przy wielokrotnym ładowaniu plików należy zainstalować w wyszukiwarce Flash. Maksymalna wielkość pliku: {{size}}. Dopuszczalne formaty : {{types}}.'
+      label: Więcej plików
+      saved: Zapisz
   languages:
     da: Duński
     de: Niemiecki
