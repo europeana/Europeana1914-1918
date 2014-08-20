@@ -53,6 +53,7 @@ de:
         published_at: Veröffentlicht am
         submitted_at: Eingereicht am
         terms: Bedingungen akzeptiert
+        metadata: 
       contribution_status:
         created_at: ! 'Aktualisiert am
 
@@ -81,6 +82,8 @@ de:
         username: Benutzername
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -139,7 +142,7 @@ de:
               field_type: Taxonomiefelder können nicht durchsuchbar gemacht werden.
         metadata_record:
           date_field_civil: Kein gültiges Kalenderdatum.
-          one_cover_image: Sie können nur ein Element als Cover-Bild für Ihren Beitrag auswählen.
+          one_cover_image: Sie können nur ein Objekt als Cover-Bild für Ihren Beitrag auswählen.
           taxonomy_field_single: Es kann nur ein Begriff ausgewählt werden.
         setting:
           attributes:
@@ -199,7 +202,7 @@ de:
     email: E-Mail
     id: ID
     metadata_record: Metadatensatz
-    status: 
+    status: Status
     title: Titel
     updated_at: Aktualisiert am
     url: URL
@@ -315,7 +318,7 @@ de:
     formats:
       default: ! '%d.%m.%Y'
       long: ! '%e. %B %Y'
-      long_with_day: 
+      long_with_day: ! '%a, %d %B %Y'
       month_and_year: ! '%B %Y'
       quarter: 
       short: ! '%e. %b'
@@ -474,7 +477,7 @@ de:
         view-attachments_html: <a href="#attachments">Klicken Sie hier um das Objekt anzuzeigen und zu bearbeiten</a>.
       update:
         alert: Beim Speichern Ihres Anhangs ist ein Problem aufgetreten.
-        notice: Objekt gesichert.
+        notice: Objekt gespeichert.
     configuration:
       update:
         alert: Konfiguration konnte nicht gespeichert werden.
@@ -639,11 +642,15 @@ de:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Sie können mehrere Dateien gleichzeitig hochladen. Jede Datei wird automatisch ein separates Objekt, das Sie individuell bearbeiten können. Hinweis: Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert sein. Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
         title: Kurzer, aussagekräftiger Titel oder Eigenname des Objekts, z.B. "Mein Urgroßvater, Otto Schmidt, Tapferkeitsmedaille".
       contact:
-        full_name: Dieser Name wird öffentlich als Herkunft des Beitrags angezeigt.
+        full_name: Dieser Name wird öffentlich als Quelle Ihrer Beiträge angezeigt.
       contribution:
         metadata:
           contributor_behalf: Bitte lassen Sie dieses Feld leer, außer Sie helfen jemandem bei der Erstellung dieses Beitrags.
@@ -658,6 +665,9 @@ de:
           location_placename: Geben Sie den Namen der Stadt ein, in der das Ereignis stattgefunden hat, z.B. Bielefeld oder Bochum.
           theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist. Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
         title: Titel für den gesamten Beitrag. Dies ist ein Pflichtfeld.
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: ! 'Geben Sie an, ob sich dieses Feld auf Beiträge bezieht.
 
@@ -737,6 +747,10 @@ de:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -774,7 +788,7 @@ de:
         contact:
           country: Land
           full_name: Organisation
-        delete_image: 
+        delete_image: Bild löschen
       content:
         metadata:
           dc:
@@ -845,6 +859,7 @@ de:
           summary: Zusammenfassende Beschreibung der Objekte
           theatres: Kriegsschauplätze
           ticket: Ticketnummer
+          date: 
         terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen von Europeana für Benutzerbeiträge.
         title: Titel des Beitrags
       metadata_field:
@@ -893,6 +908,8 @@ de:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -910,8 +927,105 @@ de:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
-          Fr07: 
+          Fr07: Fr07
+          DUP1: DUP1
+          DUP2: DUP2
+          UPC1: 
+          AA22: AA22
+          AC15: AC15
+          AM15: AM15
+          AN21: AN21
+          BA15: BA15
+          BA23: BA23
+          BC18: BC18
+          BE08: BE08
+          BE30: BE30
+          BN12: BN12
+          BO02: BO02
+          BR10: BR10
+          BR19: BR19
+          BU01: BU01
+          CE22: CE22
+          CGW01: CGW01
+          CL01: CL01
+          CY01: CY01
+          DD12: DD12
+          DU: DU
+          DU18: DU18
+          EF11: EF11
+          EN10: EN10
+          FR07: FR07
+          FRAD001: FRAD001
+          FRAD004: FRAD004
+          FRAD006: FRAD006
+          FRAD007: FRAD007
+          FRAD008: FRAD008
+          FRAD010: FRAD010
+          FRAD012: FRAD012
+          FRAD013: FRAD013
+          FRAD014: FRAD014
+          FRAD017: FRAD017
+          FRAD018: FRAD018
+          FRAD021: FRAD021
+          FRAD022: FRAD022
+          FRAD02A: FRAD02A
+          FRAD033: FRAD033
+          FRAD034: FRAD034
+          FRAD036: FRAD036
+          FRAD037: FRAD037
+          FRAD038: FRAD038
+          FRAD041: FRAD041
+          FRAD043: FRAD043
+          FRAD044: FRAD044
+          FRAD048: FRAD048
+          FRAD049: FRAD049
+          FRAD050: FRAD050
+          FRAD052: FRAD052
+          FRAD053: FRAD053
+          FRAD055: FRAD055
+          FRAD057: FRAD057
+          FRAD059: FRAD059
+          FRAD061: FRAD061
+          FRAD062: FRAD062
+          FRAD063: FRAD063
+          FRAD066: FRAD066
+          FRBNBU: FRBNBU
+          FRBNFM: FRBNFM
+          FRBNSA: FRBNSA
+          FRBNUS: FRBNUS
+          FRCISA: FRCISA
+          FRCO: FRCO
+          FRHI80: FRHI80
+          FRLOLE: FRLOLE
+          FRME: FRME
+          FRSHDCH: FRSHDCH
+          HA21: HA21
+          HB22: HB22
+          HE14: HE14
+          INTERNET: INTERNET
+          KA23: KA23
+          KI13: KI13
+          LE21: LE21
+          LI05: LI05
+          LI12: LI12
+          LJ23: LJ23
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: Bild löschen
         terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen.
@@ -1030,6 +1144,7 @@ de:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1037,6 +1152,27 @@ de:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Bitte wählen
@@ -1270,7 +1406,7 @@ de:
     relative_url_root: URL-Rootverzeichnis
     search_engine: Suchmaschine
     sharethis_id: Teilen Sie diese Publisher ID
-    site_name: Site-Name
+    site_name: Seite-Name
     site_url: URL
     ui_locales: ! 'Verfügbare Sprachversionen '
     uploadify: ! 'Uploadify aktivieren '
@@ -1292,8 +1428,8 @@ de:
   views:
     about:
       background:
-        heading: Hintergrund
-        p1: <b>Europeana 1914-1918</b> basiert auf einer Initiative der Universität Oxford, zu der Menschen in ganz Großbritannien eingeladen wurden, Briefe, Fotos und Erinnerungsstücke ihrer Familie aus dem Ersten Weltkrieg digitalisieren zu lassen. Der Erfolg dieser Idee, aus der sich das Great War Archive entwickelte, ermutigte Europeana, das europäische digitale Archiv, Bibliothek und Museum, eine Zusammenarbeit auch anderer nationaler oder lokaler Einrichtungen in ganz Europa mit der Universität Oxford anzuregen. Diese Kooperation umfasst  bislang Beiträge aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland, Italien, Belgien, Zypern und Dänemark die eine einzigartige  Online-Sammlung von Geschichten zum Ersten Weltkrieg bilden. 2014 werden weitere Länder mit ihren Beiträgen folgen.
+        heading: Europeana 1914-1918
+        p1: <b>Europeana 1914-1918</b> basiert auf einer Initiative der Universität Oxford, zu der Menschen in ganz Großbritannien eingeladen wurden, Briefe, Fotos und Erinnerungsstücke ihrer Familie aus dem Ersten Weltkrieg digitalisieren zu lassen. Der Erfolg dieser Idee, aus der sich das Great War Archive entwickelte, ermutigte Europeana, das europäische digitale Archiv, Bibliothek und Museum,eine Zusammenarbeit auch anderer nationaler oder lokaler Einrichtungen in ganz Europa mit der Universität Oxford anzururegen. Diese Kooperation umfasst  bislang Beiträge aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland, Italien, Belgien, Zypern und Dänemark die eine einzigartige  Online-Sammlung von Geschichten zum Ersten Weltkrieg bilden. 2014 werden weitere Länder mit ihren Beiträgen folgen.u lassen.eine Zusammenarbeit auch anderer nationaler oder lokaler Einrichtungen in ganz Europa mit der Universität Oxford anzururegen.
         p2: ! '<b>Europeana Collections 1914-1918</b> ist ein anderes Projekt als Europeana 1914-1918: Die ‘Europeana Collection 1914-1918’ ist ein Bibliotheksprojekt. Es wird bis 2014 – dem hundertsten Jahrestag des Ausbruchs des Ersten Weltkriegs - eine digitale Sammlung von Material aus Nationalbibliotheken in acht Ländern hervorbringen, die in diesem historischen Konflikt auf unterschiedlichen Seiten standen. <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Weitere Informationen finden Sie auf der Projekt-Website ‘Europeana Collections 1914-1918’</a>.'
       collection_days:
         heading: Aktionstage
@@ -1679,9 +1815,9 @@ de:
       visiting-information: 
       website: 
       what-do-you-get-content: 
-      what-do-you-get-heading: 
+      what-do-you-get-heading: Was bekommen Sie?
       what-is-it-content: 
-      what-is-it-heading: 
+      what-is-it-heading: Was ist das?
       who-is-it-for-content: 
       who-is-it-for-heading: 
     common:
@@ -2192,13 +2328,13 @@ de:
     search:
       fields:
         facet:
-          country_sm: 
+          country_sm: Staat
           data_provider_sm: 
           metadata_collection_day_ids_im: 
           metadata_content_ids_im: 
           metadata_file_type_ids_im: 
-          metadata_keywords_ids_im: 
-          metadata_lang_ids_im: 
+          metadata_keywords_ids_im: Schlagwörter
+          metadata_lang_ids_im: Sprache
           metadata_theatres_ids_im: 
           place_name_s: Ortsname
           provider_sm: 

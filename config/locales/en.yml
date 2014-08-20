@@ -53,6 +53,7 @@ en:
         published_at: Published at
         submitted_at: Submitted at
         terms: Terms accepted
+        metadata: Metadata
       contribution_status:
         created_at: Status changed at
       metadata_field:
@@ -79,6 +80,8 @@ en:
         username: Username
         institution: 
         terms: Terms
+      metadata_record:
+        field_alternative: Field alternative
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -647,6 +650,10 @@ en:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'You can upload as many files as necessary; one at a time. Note that if you upload many files you will be given the opportunity to mark one of them as a “cover image” for your story; i.e., a postcard or diary. Maximum file size: %{max}. Allowed file types: %{file_types}.'
         title: Short descriptive title or proper name of the object, for example, “My great grandfather, Otto Schmidt’s, Medal of Honor”
@@ -663,7 +670,33 @@ en:
           lang: Indicate the language that this story is written in.
           location_placename: Enter the name of a city where the story took place, i.e., London or Paris.
           theatres: ! 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          alternative: 
+          character1_dob: 
+          character1_dod: 
+          character1_family_name: 
+          character1_given_name: 
+          character1_pob: 
+          character1_pod: 
+          character2_dob: 
+          character2_dod: 
+          character2_family_name: 
+          character2_given_name: 
+          character2_pob: 
+          character2_pod: 
+          collection_day: 
+          editor_pick: 
+          editor_pick_sig: 
+          editor_pick_text: 
+          lang_other: 
+          location_map: 
+          location_zoom: 
+          notes: 
+          summary: 
+          ticket: 
         title: A title for this contribution as a whole.
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: Specify whether this field applies to attachments.
         cataloguing: ! 'Yes: only show this field in the admin interface, for cataloguing purposes. No: also show to contributors.'
@@ -739,6 +772,10 @@ en:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -764,9 +801,12 @@ en:
           source: Source
           subject: Subject
           ticket: Ticket number
-          date: 
-          creator: 
-          location_zoom: 
+          date: Date
+          creator: Creator
+          location_zoom: Location zoom
+          forces: Forces
+          keywords: Keywords
+          theatres: Theatres
         attachment:
           edit:
             title: 
@@ -847,6 +887,7 @@ en:
           summary: Summary description of items
           theatres: Theatres
           ticket: Ticket number
+          date: 
         terms: I accept the terms & conditions
         title: Story title
       metadata_field:
@@ -923,6 +964,8 @@ en:
           Unknown: Unknown
           Tape: Tape
           ! 'Text: transcription': ! 'Text: transcription'
+          Ceramic/China: Ceramic/China
+          Vinyl: Vinyl
         object_side:
           Back: Back
           Front: Front
@@ -953,12 +996,53 @@ en:
           Leaf: Leaf
           Postcard: Postcard
           Tape: Tape
-          Film: 
+          Film: Film
           Multiple: Multiple
+          Vinyl record: Vinyl record
         cover_image:
           'yes': 'yes'
         collection_day:
           Fr07: Fr07
+          FR07: FR07
+          AM15: AM15
+          BE08: BE08
+          DD12: DD12
+          DU18: DU18
+          DUP1: DUP1
+          DUP2: DUP2
+          EF11: EF11
+          INTERNET: INTERNET
+          KI13: KI13
+          LU16: LU16
+          MB007: MB007
+          MB011: MB011
+          MB20: MB20
+          MU09: MU09
+          NG19: NG19
+          PR17: PR17
+          RG14: RG14
+          SO14: SO14
+          ST10: ST10
+          UNKNOWN: UNKNOWN
+          UPC1: UPC1
+          UT1: UT1
+        editor_pick:
+          'yes': 'yes'
+        file_type:
+          3D: 3D
+          IMAGE: IMAGE
+          SOUND: SOUND
+          TEXT: TEXT
+          VIDEO: VIDEO
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
       user:
         delete_picture: Delete picture
         terms: ! ' I accept the terms & conditions'
@@ -1073,6 +1157,7 @@ en:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1080,6 +1165,27 @@ en:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Please select

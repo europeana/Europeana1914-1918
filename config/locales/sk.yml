@@ -53,6 +53,7 @@ sk:
         published_at: Zverejnené
         submitted_at: Odovzdané
         terms: Podmienky prijaté
+        metadata: 
       contribution_status:
         created_at: Stav zmenený
       metadata_field:
@@ -79,6 +80,8 @@ sk:
         username: Používateľské meno
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -470,7 +473,9 @@ sk:
   flash:
     actions:
       create:
-        alert: Nepodarilo sa vytvoriť %{resource_name}. Pozrite správu nižšie.
+        alert: ! 'Nepodarilo sa vytvoriť %{resource_name}. Pozrite správu nižšie.
+
+'
         notice: Vytvorený nový %{resource_name}.
       destroy:
         alert: Nepodarilo sa vymazať %{resource_name}.
@@ -671,6 +676,10 @@ sk:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Môžete nahrať toľko súborov, koľko je potrebných, jeden za druhým. Pamätajte, že ak nahrávate viacero súborov,  budete mať možnosť označiť jeden z nich ako ‘obálku’ pre váš príbeh, napr. pohľadnicu alebo denník. Maximálna veľkosť súboru je %{max}. Povolené typy súborov: %{file_types}'
         title: Krátky popisný názov alebo skutočný názov objektu, napr. “Medaila cti môjho starého otca Otta Schmidta”
@@ -688,6 +697,9 @@ sk:
           location_placename: Napíšte meno mesta, kde sa váš príbeh odohral, napr. Londýn alebo Paríž.
           theatres: ! 'Neklikajte prosím, pokiaľ to nie je relevantné. Pokiaľ relevantné kľúčové slovo nie je dostupné, napíšte nám email na: 1914-1918 [@] europeana [.] eu'
         title: Názov celého príspevku.
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: Uveďte, či sa toto pole vzťahuje na prílohy.
         cataloguing: ! 'Áno: ukázať toto pole len v administrátorskom rozhraní pre účely katalogizácie. Nie: ukázať tiež prispievateľom.'
@@ -763,6 +775,10 @@ sk:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -871,6 +887,7 @@ sk:
           summary: Zhrnutie popisu objektov.
           theatres: Bojiská
           ticket: Číslo lístka
+          date: 
         terms: Súhlasím s podmienkami
         title: Názov príbehu
       metadata_field:
@@ -919,6 +936,8 @@ sk:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -936,8 +955,109 @@ sk:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
-          Fr07: 
+          Fr07: Fr07
+          DUP1: DUP1
+          DUP2: DUP2
+          UPC1: 
+          AA22: ! 'AA22
+
+'
+          AC15: AC15
+          AM15: AM15
+          AN21: AN21
+          BA15: BA15
+          BA23: BA23
+          BC18: BC18
+          BE08: BE08
+          BE30: BE30
+          BN12: BN12
+          BO02: BO02
+          BR10: BR10
+          BR19: BR19
+          BU01: BU01
+          CE22: CE22
+          CGW01: CGW01
+          CL01: CL01
+          CY01: CY01
+          DD12: DD12
+          DU: DU
+          DU18: ! 'DU18
+
+'
+          EF11: EF11
+          EN10: EN10
+          FR07: FR07
+          FRAD001: FRAD001
+          FRAD004: FRAD004
+          FRAD006: FRAD006
+          FRAD007: FRAD007
+          FRAD008: FRAD008
+          FRAD010: FRAD010
+          FRAD012: FRAD012
+          FRAD013: FRAD013
+          FRAD014: FRAD014
+          FRAD017: FRAD017
+          FRAD018: FRAD018
+          FRAD021: FRAD021
+          FRAD022: FRAD022
+          FRAD02A: FRAD02A
+          FRAD033: FRAD033
+          FRAD034: FRAD034
+          FRAD036: FRAD036
+          FRAD037: FRAD037
+          FRAD038: FRAD038
+          FRAD041: FRAD041
+          FRAD043: FRAD043
+          FRAD044: FRAD044
+          FRAD048: FRAD048
+          FRAD049: FRAD049
+          FRAD050: FRAD050
+          FRAD052: FRAD052
+          FRAD053: FRAD053
+          FRAD055: FRAD055
+          FRAD057: FRAD057
+          FRAD059: FRAD059
+          FRAD061: FRAD061
+          FRAD062: FRAD062
+          FRAD063: FRAD063
+          FRAD066: FRAD066
+          FRBNBU: FRBNBU
+          FRBNFM: FRBNFM
+          FRBNSA: FRBNSA
+          FRBNUS: FRBNUS
+          FRCISA: FRCISA
+          FRCO: FRCO
+          FRHI80: FRHI80
+          FRLOLE: FRLOLE
+          FRME: FRME
+          FRSHDCH: FRSHDCH
+          HA21: HA21
+          HB22: HB22
+          HE14: HE14
+          INTERNET: INTERNET
+          KA23: KA23
+          KI13: KI13
+          LE21: LE21
+          LI05: LI05
+          LI12: LI12
+          LJ23: LJ23
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: Vymazať obrázok
         terms: Súhlasím s podmienkami
@@ -1052,6 +1172,7 @@ sk:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1059,6 +1180,27 @@ sk:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Prosím vyberte si
@@ -1282,7 +1424,7 @@ sk:
     bing_translate_key: Bing Translate Key
     contribution_approval_required: Zverejniť len schválené príspevky
     gmap_api_key: API kľúč máp Google
-    google_analytics_key: Kľúč Google Analytics
+    google_analytics_key: AKľúč Google Analytics
     google_api_email: Google API email
     max_upload_size: Maximálna veľkosť súboru na nahratie
     publish_contributions: Zverejniť príspevky
@@ -1330,9 +1472,9 @@ sk:
       project_partners:
         heading: Partneri projektu
         item1: <a href="http://www.ox.ac.uk" target="_blank">Univerzita v Oxforde</a>
-        item2: <a href="http://www.d-nb.de" target="_blank">Nemecká národná knižnica - die Deutsche Nationalbibliothek</a>
+        item2: <a href="http://www.d-nb.de" target="_blank"> - Nemška Nacionalna Knjižnica</a>
         item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Národná knižnica Luxemburgu - Bibliothèque nationale du Luxembourg</a>
-        item4: <a href="http://www.nli.ie" target="_blank">Národná knižnica Írska</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Národná knižnica Írska- National Library of Ireland</a>
         item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Národná knižnica Slovinska - Narodna in univerzitetna knjižnica</a>
         item6: ! '<a href="http://www.kb.dk/en/nb/" target="_blank">Kráľovská knižnica – Národná knižnica Dánska a Univerzitná knižnica Copenhagen  - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
         item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>

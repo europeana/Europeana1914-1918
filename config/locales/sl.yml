@@ -53,6 +53,7 @@ sl:
         published_at: Objavljeno
         submitted_at: Oddano
         terms: Sprejeti pogoji
+        metadata: 
       contribution_status:
         created_at: Status se je spremenil
       metadata_field:
@@ -79,6 +80,8 @@ sl:
         username: Uporabniško ime
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -628,6 +631,10 @@ sl:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Naložite lahko več datotek hkrati. Opomba če prenesete veliko datotek, boste lahko označili eno izmed datotek kot “naslovno sliko” za vašo zgodbo, npr. razglednica ali dnevnik. Največja velikost datoteke: %{max}. Dovoljene vrste datoteke: %{file_types}.'
         title: Kratek opisni naslov ali lastno ime, na primer, “Medalja časti mojega sijajnega starega očeta, Otto Schmidta”
@@ -647,6 +654,9 @@ sl:
           location_placename: Vpišite ime mesta kjer se je zgodba dogajala i.e. London ali Pariz
           theatres: ! 'Prosimo, ne kliknite, če ni pomembno. Če ustrezna ključna beseda ni na voljo, nam prosimo, pošljite e-sporočilo na: 1914-1918 [@] europeana [.] eu'''
         title: Naslov prispevka kot celote
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: Določite, če se polje sklicuje na priponke.
         cataloguing: ! 'Da: to polje prikaži le v vmesniku skrbnika, za katalogizacijo. Ne: prikaže tudi prispevajoče.'''
@@ -752,6 +762,10 @@ sl:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -862,6 +876,7 @@ sl:
           summary: Povzetek opisov predmetov
           theatres: Fronte
           ticket: Številka predmeta
+          date: 
         terms: Strinjam se z določili in pogoji
         title: Naslov zgodbe
       metadata_field:
@@ -910,6 +925,8 @@ sl:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -927,8 +944,27 @@ sl:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
           Fr07: 
+          DUP1: 
+          DUP2: 
+          UPC1: 
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: Izbriši sliko
         terms: Strinjam se z določili in pogoji
@@ -1045,6 +1081,7 @@ sl:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1052,6 +1089,27 @@ sl:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Prosimo izberite

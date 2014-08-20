@@ -53,6 +53,7 @@ nl:
         published_at: Plublicatie datum
         submitted_at: Verzonden op
         terms: Akkoord gegaan met de voorwaarden
+        metadata: 
       contribution_status:
         created_at: Status gewijzigd op
       metadata_field:
@@ -79,6 +80,8 @@ nl:
         username: Gebruikersnaam
         institution: 
         terms: Voorwaarden
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -641,6 +644,10 @@ nl:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'U kunt zoveel bijlagen toevoegen als u wilt; dit gaat wel een voor een. Let er op dat als u van plan bent veel materiaal toe te voegen, u een bestand als omslag voor uw verhaal kunt kiezen. Maximale bestandgrootte: %{max}. Mogelijke extensies: %{file_types}.'
         title: ! 'Geef een krachtige titel of naam mee aan uw object. Een voorbeeld kan zijn: "Otto Schmidt''s Eremedaille". '
@@ -658,6 +665,9 @@ nl:
           location_placename: In welke plaats vind dit verhaal plaats?
           theatres: Laat dit gedeelte open als het niet relevant is. Mocht relevante informatie ontbreken, email ons dan via 1914-1918 [@] europeana [.] eu
         title: ! 'Geeft een titel voor het verhaal en de bijbehorende objecten. '
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: ! 'Geef aan op welke bijlage dit veld betrekking heeft? '
         cataloguing: ! 'Yes: only show this field in the admin interface, for cataloguing purposes. No: also show to contributors.'
@@ -733,6 +743,10 @@ nl:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -841,6 +855,7 @@ nl:
           summary: Korte beschrijving van de items
           theatres: Theaters
           ticket: Ticket nummer
+          date: 
         terms: Ik ga akkoord met de algemene voorwaarden
         title: Titel
       metadata_field:
@@ -889,6 +904,8 @@ nl:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -906,8 +923,27 @@ nl:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
           Fr07: 
+          DUP1: 
+          DUP2: 
+          UPC1: 
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: Verwijder foto
         terms: Ik ga akkoord met de voorwaarden
@@ -1022,6 +1058,7 @@ nl:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1029,6 +1066,27 @@ nl:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Selecteer

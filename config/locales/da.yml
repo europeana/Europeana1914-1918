@@ -53,6 +53,7 @@ da:
         published_at: Offentliggjort d.
         submitted_at: Sendt d.
         terms: Betingelser accepteret
+        metadata: 
       contribution_status:
         created_at: 
       metadata_field:
@@ -79,6 +80,8 @@ da:
         username: 
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -647,6 +650,10 @@ da:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Du kan uploade så mange filer, du har brug for - én ad gangen. Bemærk, at hvis du uploader mange filer, vil du få mulighed for at markere en af dem som "coverbillede" til din beretning, f.eks. et postkort eller en dagbog. Maksimum filstørrelse: %{max}. Tilladte filtyper: %{file_types}.'
         title: Kort, beskrivende titel eller passende navn til genstanden, f.eks "Min oldefar, Otto Schmidts, tapperhedsmedalje"
@@ -664,6 +671,9 @@ da:
           location_placename: Indtast navnet på byen, hvor historien foregik, f.eks. London eller Paris.
           theatres: ! 'Klik venligst ikke på nogen muligheder, hvis du ikke finder et relevant nøgleord. Hvis et relevant nøgleord ikke er til rådighed bedes du e-maile os på: 1914-1918 [@] europeana [.] eu '
         title: En overordnet titel til dette bidrag.
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: Angiv om dette felt henviser til vedhæftede filer.
         cataloguing: ! 'Ja: vis kun dette felt i admin brugerflade, til katalogiseringsformål. Nej: vis også til bidragydere.'
@@ -739,6 +749,10 @@ da:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -847,6 +861,7 @@ da:
           summary: Sammenfattende beskrivelse af genstande
           theatres: 
           ticket: Sagsnummer
+          date: 
         terms: Jeg accepterer betingelserne
         title: Beretningens titel
       metadata_field:
@@ -895,6 +910,8 @@ da:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -912,8 +929,27 @@ da:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
           Fr07: 
+          DUP1: 
+          DUP2: 
+          UPC1: 
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: Slet billede
         terms: Jeg accepterer betingelserne
@@ -1028,6 +1064,7 @@ da:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1035,6 +1072,27 @@ da:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Vælg venligst

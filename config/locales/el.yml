@@ -53,6 +53,7 @@ el:
         published_at: Δημοσιεύτηκε την
         submitted_at: ! 'Yποβλήθηκε την '
         terms: 
+        metadata: 
       contribution_status:
         created_at: 
       metadata_field:
@@ -79,6 +80,8 @@ el:
         username: ! 'Όνομα χρήστη '
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -637,6 +640,10 @@ el:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Μπορείτε να επισυνάψετε όσα αρχεία χρειάζεται. Ένα κάθε φορά. Σημειώστε ότι αν μεταφορτώσετε πολλά αρχεία θα σας δοθεί η δυνατότητα να επιλέξετε ένα από αυτά ως εξώφυλλο στην ιστορία σας, π.χ μια καρτ ποστάλ ή ένα ημερολόγιο. Μέγιστο μέγεθος αρχείου: %{max}. Επιτρεπόμενοι τύποι αρχείων: %{file_types}.'
         title: ! 'Σύντομος περιγραφικός τίτλος ή όνομα για το αντικείμενο π.χ ‘Ο προπάππους μου Otto Schmidt’s, Τιμητικό Μετάλλιο’  '
@@ -654,6 +661,9 @@ el:
           location_placename: Πληκτρολογήστε το όνομα της πόλης όπου διαδραματίστηκαν τα γεγονότα της ιστορίας π.χ Λονδίνο ή Παρίσι
           theatres: Παρακαλώ μην καταχωρήσετε τοποθεσία εάν δεν είναι σχετική. Εάν μια τοποθεσία δεν είναι διαθέσιμη παρακαλώ επικοινωνήστε μαζί μας στο 1914-1918[@]europeana[.]eu
         title: Ολοκληρωμένος τίτλος για αυτή την καταχώρηση.
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: 
         cataloguing: 
@@ -729,6 +739,10 @@ el:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -837,6 +851,7 @@ el:
           summary: Περιληπτική περιγραφή των αντικειμένων
           theatres: Τοποθεσίες
           ticket: 
+          date: 
         terms: 
         title: Τίτλος Θέματος
       metadata_field:
@@ -885,6 +900,8 @@ el:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -902,8 +919,27 @@ el:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
           Fr07: 
+          DUP1: 
+          DUP2: 
+          UPC1: 
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: 
         terms: 
@@ -1018,6 +1054,7 @@ el:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1025,6 +1062,27 @@ el:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Παρακαλώ επιλέξτε

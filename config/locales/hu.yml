@@ -53,6 +53,7 @@ hu:
         published_at: 
         submitted_at: 
         terms: 
+        metadata: 
       contribution_status:
         created_at: 
       metadata_field:
@@ -79,6 +80,8 @@ hu:
         username: Felhasználó név
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -635,6 +638,10 @@ hu:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Annyi fájt tölthet fel, ahány csak szükséges, de csak egyenként. Jegyezze meg, hogy több fájl feltöltése esetén az egyiket „fedőlapnak” nevezheti ki (például egy képeslap vagy egy napló esetében). Egy fájl maximálisan megengedett nagysága: %{max}. Elfogadott fájl-típusok:  %{file_types}'
         title: Egy rövid leíró cím vagy a tárgyhoz találó megnevezés, például „Az nagytatám, Otto Schmidt, Tiszteletbeli Érméje”
@@ -652,6 +659,9 @@ hu:
           location_placename: ! 'Vezesse be annak a városnak a nevét, ahol a történet zajlott. Pl. London, Párizs '
           theatres: ! 'Megkérjük, ne jelöljön be egy mezőt se, ha nem releváns. Ha az a véleménye, hogy a fenti listából hiányzik egy vagy több releváns fogalom, kérjük, küldje el e-mailbe a következő címre: 1914-1918[@]europeana[.]eu'
         title: ! 'Adjon egy címet a teljes hozzájárulásának. '
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: 
         cataloguing: 
@@ -727,6 +737,10 @@ hu:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -835,6 +849,7 @@ hu:
           summary: ! 'A tárgyak rövid leírása '
           theatres: ! 'Harci színhelyek '
           ticket: 
+          date: 
         terms: 
         title: A történet címe
       metadata_field:
@@ -883,6 +898,8 @@ hu:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -900,8 +917,27 @@ hu:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
           Fr07: 
+          DUP1: 
+          DUP2: 
+          UPC1: 
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: 
         terms: 
@@ -1016,6 +1052,7 @@ hu:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1023,6 +1060,27 @@ hu:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Válasszon

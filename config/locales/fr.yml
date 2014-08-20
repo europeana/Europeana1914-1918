@@ -53,6 +53,7 @@ fr:
         published_at: Publié à
         submitted_at: Soumis le
         terms: Termes acceptés
+        metadata: 
       contribution_status:
         created_at: Créé le
       metadata_field:
@@ -79,6 +80,8 @@ fr:
         username: 
         institution: 
         terms: 
+      metadata_record:
+        field_alternative: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -651,6 +654,10 @@ fr:
           lang_other: 
           location_map: 
           location_zoom: 
+          file_type: 
+          license: 
+          notes: 
+          page_total: 
         new:
           file: ! 'Vous pouvez télécharger autant de fichiers que nécessaire, un par un. Si vous  téléchargez un grand nombre de fichiers, vous pouvez en choisir un comme image de couverture de votre histoire (par exemple une carte postale ou un journal). Taille maximale du fichier : %{max}. Types de fichiers autorisés: %{file_types}.'''
         title: Titre descriptif ou nom propre de l'objet, par exemple "Mon arrière-grand-père, Jean Dupont. Médaille d'Honneur".
@@ -668,6 +675,9 @@ fr:
           location_placename: Indiquez la ville où l'histoire s'est déroulée, par exemple Londres ou Paris
           theatres: Ne cliquez pas si ce n'est pas pertinent. Si un mot-clé pertinent n'est pas disponible, envoyez-nous un e-mail à 1914-1918 [@] europeana [.] eu
         title: Un titre pour cette contribution dans son ensemble.
+        contribution:
+          edit:
+            catalogued_by: 
       metadata_field:
         attachment: Spécifiez si ce champ s'applique aux fichiers joints.
         cataloguing: ! 'Oui : affiche ce champ uniquement dans l''interface d''administration, à des fins de catalogage. Non : s''affiche également pour les contributeurs.'
@@ -743,6 +753,10 @@ fr:
           create:
             password_confirmation: 
             terms: 
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
     labels:
       attachment:
         metadata:
@@ -851,6 +865,7 @@ fr:
           summary: Description sommaire des documents / objets
           theatres: Théâtres de guerre
           ticket: Numéro de ticket
+          date: 
         terms: J'accepte les termes & conditions
         title: Titre de l'histoire
       metadata_field:
@@ -899,6 +914,8 @@ fr:
           ! 'Text: memoir': 
           Unknown: 
           ! 'Text: transcription': 
+          Ceramic/China: 
+          Vinyl: 
         content:
           Official Document: 
           Autograph: 
@@ -916,8 +933,27 @@ fr:
           Notebook: 
           Unknown: 
           Film: 
+          Vinyl record: 
         collection_day:
           Fr07: 
+          DUP1: 
+          DUP2: 
+          UPC1: 
+        file_type:
+          3D: 
+          IMAGE: 
+          SOUND: 
+          TEXT: 
+          VIDEO: 
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: 
+            org/publicdomain/mark/1:
+              0/: 
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: 
       user:
         delete_picture: Supprimer la photo
         terms: J'accepte les termes & conditions
@@ -1032,6 +1068,7 @@ fr:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1039,6 +1076,27 @@ fr:
             field_location_placename: 
             field_page_number: 
             field_subject: 
+            field_page_total: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
   helpers:
     select:
       prompt: Veuillez sélectionner
