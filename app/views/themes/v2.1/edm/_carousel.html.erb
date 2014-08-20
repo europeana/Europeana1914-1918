@@ -58,7 +58,8 @@
 					# lightbox
 					if carouselImages.present? && carouselImages.size > 1
 						link_attrs.merge!({
-							:title => t( 'common.links.view-image' )
+							:title => t( 'common.links.view-image' ),
+							'data-edmpreview' => edmPreview
 						})
 
 						html += render :partial => 'edm/images/carousel-images',

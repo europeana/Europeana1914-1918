@@ -73,6 +73,8 @@
 				$.ajax({
 					complete: mimetype.incrementItemsHandled,
 					error: function() {
+						$elm.find( 'img' ).attr( 'src', $elm.attr( 'data-edmpreview' ) );
+						$elm.parent().removeClass( 'item-placeholder' );
 						mimetype.removeLightbox( $elm );
 					},
 					success: function( data ) {
