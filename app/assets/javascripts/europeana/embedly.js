@@ -49,16 +49,16 @@
 		 */
 		addEmbedlyButton: function( $metadata, $target_elm, current ) {
 			var
-			$embedly_elm =
-				$target_elm
-				.find('.lightbox-embedly').eq(0)
-				.on('click', this.openEmbedlyModal),
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
 				"image": $metadata.attr('data-image') || '',
 				"title": $metadata.attr('data-title') || '',
 				"url": $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : ''
 			};
+
+			$target_elm
+				.find('.lightbox-embedly').eq(0)
+				.on('click', { options: options }, this.openEmbedlyModal);
 
 			this.alterOg( options );
 		},
@@ -79,8 +79,13 @@
 			this.addEmbedlyButton( $metadata, $target_elm, current );
 		},
 
-		openEmbedlyModal: function() {
-			embedly.modal();
+		/**
+		 * @param {Event} evt
+		 * jQuery Event
+		 */
+		openEmbedlyModal: function( evt ) {
+			console.log(evt);
+			embedly.modal( evt.data.options );
 			return false;
 		},
 
