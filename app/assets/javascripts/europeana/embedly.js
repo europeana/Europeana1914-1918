@@ -51,6 +51,7 @@
 			var
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
+				"description": $metadata.attr('data-summary') || '',
 				"image": $metadata.attr('data-image') || '',
 				"title": $metadata.attr('data-title') || '',
 				"url": $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : ''
@@ -99,6 +100,7 @@
 		 * @param {object} options
 		 */
 		setOg: function( options ) {
+			$("meta[property='og:description']").attr('content', options.description);
 			$("meta[property='og:image']").attr('content', options.image);
 			$("meta[property='og:title']").attr('content', options.title);
 			$("meta[property='og:url']").attr('content', options.url);
@@ -110,6 +112,7 @@
 		storeOg: function() {
 			if ( this.originalOg === null ) {
 				this.originalOg = {
+					description: $("meta[property='og:description']").attr('content'),
 					image: $("meta[property='og:image']").attr('content'),
 					title: $("meta[property='og:title']").attr('content'),
 					url: $("meta[property='og:url']").attr('content')

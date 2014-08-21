@@ -19,9 +19,7 @@
 
 
 		# data-description
-		render :partial =>
-			'lightbox/data-description'
-
+		render :partial => 'lightbox/data-description'
 		link_attrs.merge!({ 'data-description' => @data_description })
 
 
@@ -71,7 +69,8 @@
 		html += render :partial => 'metadata/edm',
 			:locals => {
 				:title => title,
-				:img_src => img_src
+				:img_src => img_src,
+				:data_summary => data_summary
 			}
 
 		@item_count += 1
