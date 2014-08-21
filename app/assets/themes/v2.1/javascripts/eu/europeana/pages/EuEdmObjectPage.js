@@ -104,10 +104,10 @@
 
 			if ( mimetype.itemsHandled === mimetype.itemsTotal ) {
 				europeana.lightbox.init({
-					add_embedly: true,
+					add_embedly: RunCoCo.lightbox.add_embedly,
 					add_lightbox: add_lightbox,
-					add_metadata: true,
-					add_sharethis: true,
+					add_metadata: RunCoCo.lightbox.add_metadata,
+					add_sharethis: RunCoCo.lightbox.add_sharethis,
 					carousel: europeana.carousel,
 					$elm: $('#institution-featured'),
 					edm_page: true

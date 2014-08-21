@@ -17,18 +17,13 @@
 			'data-attachment-preview-url' => img_src
 		})
 
+
 		# data-description
-		# add the buttons that will be available in the lightbox
-		# placed in the lightbox under the mediafile
-		link_attrs.merge!({
-			'data-description' =>
-				'<a ' +
-					'href="#inline-' + @item_count.to_s + '" ' +
-					'class="lightbox-info" ' +
-					'title="' + t('common.additional-information') + '"' +
-				'>' +
-				'</a>'
-		})
+		render :partial =>
+			'lightbox/data-description'
+
+		link_attrs.merge!({ 'data-description' => @data_description })
+
 
 		# add annotations
 		if annotatable.present?

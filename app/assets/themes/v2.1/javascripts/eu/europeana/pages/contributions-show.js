@@ -167,10 +167,10 @@
 	europeana.carousel.init( $('#contributions-featured'), function() {
 		europeana.lightbox.init({
 			$elm: $('#contributions-featured'),
-			add_embedly: true,
+			add_embedly: RunCoCo.lightbox.add_embedly,
 			add_lightbox: add_lightbox,
-			add_metadata: true,
-			add_sharethis: true,
+			add_metadata: RunCoCo.lightbox.add_metadata,
+			add_sharethis: RunCoCo.lightbox.add_sharethis,
 			carousel: europeana.carousel,
 			contribution_page: true
 		});

@@ -50,8 +50,8 @@
 		addEmbedlyButton: function( $metadata, $target_elm, current ) {
 			var
 			$embedly_elm =
-				$('<span>')
-				.attr('class', 'lightbox-embedly')
+				$target_elm
+				.find('.lightbox-embedly').eq(0)
 				.on('click', this.openEmbedlyModal),
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
@@ -61,7 +61,6 @@
 			};
 
 			this.alterOg( options );
-			$target_elm.prepend( $embedly_elm );
 		},
 
 		/**

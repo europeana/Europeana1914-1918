@@ -84,6 +84,29 @@
     script += "RunCoCo.cataloguer = true;" + "\n"
   end
 
+  # lightbox buttons
+  if content_for?( :javascripts_lightbox )
+    script += 'RunCoCo.lightbox = {'
+      if content_for?( :lightbox_add_embedly )
+        script += 'add_embedly:true,'
+      else
+        script += 'add_embedly:false,'
+      end
+
+      if content_for?( :lightbox_add_metadata )
+        script += 'add_metadata:true,'
+      else
+        script += 'add_metadata:false,'
+      end
+
+      if content_for?( :lightbox_add_sharethis )
+        script += 'add_sharethis:true'
+      else
+        script += 'add_sharethis:false'
+      end
+    script += '};' + "\n"
+  end
+
 
   # script includes
   script_includes = ( theme_javascript_include_tag 'application' ) + "\n"

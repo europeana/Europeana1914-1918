@@ -28,7 +28,7 @@
 		 */
 		addShareThis: function( $metadata, $target_elm, current ) {
 			var
-			$target = $('<span>').attr('class', 'st_sharethis_custom'),
+			$target = $target_elm.find('.st_sharethis_custom').eq(0),
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
 				"element": $target[0],
@@ -42,7 +42,6 @@
 
 			this.Shareable = stWidget.addEntry( options );
 			this.$sharethis_elm = $target;
-			$target_elm.prepend( this.$sharethis_elm );
 		},
 
 		/**
@@ -79,7 +78,7 @@
 			this.Shareable.title = $metadata.attr('data-title') || '';
 			this.Shareable.image = $metadata.attr('data-image') || '';
 			this.Shareable.summary = $metadata.attr('data-summary') || '';
-			$target_elm.prepend( this.$sharethis_elm );
+			$target_elm.find('.st_sharethis_custom').eq(0).replaceWith( this.$sharethis_elm );
 		}
 
 	};

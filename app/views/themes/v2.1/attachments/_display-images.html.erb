@@ -1,7 +1,7 @@
 <%
 
   html        = ''
-  item_count  = 0
+  @item_count  = 0
   thumbnails  = thumbnails ? thumbnails : false
   prettyphoto = prettyphoto ? prettyphoto : false
   carousel    = params['carousel'] ? params['carousel'] : false
@@ -21,7 +21,7 @@
     for attachment in attachments
 
       # open the list item
-      if item_count == 0
+      if @item_count == 0
         html += '<li>'
 
       # when not the first item, mark it as a placeholder
@@ -67,24 +67,14 @@
             :rel => 'prettyPhoto[gallery]'
           })
 
-          # preview link data-description
-          # additional info link and download link
-          # placed in the pretty photo lightbox under the mediafile
-          link_attrs.merge!({
-            'data-description' =>
-              '<a ' +
-                'href="#inline-' + item_count.to_s + '" ' +
-                'class="lightbox-info" ' +
-                'title="' + t('common.additional-information') + '"' +
-              '>' +
-              '</a>' +
-              '<a ' +
-                'href="' + attachment.file.url + '" ' +
-                'class="lightbox-download" ' +
-                'title="' + t('common.download-item') + '" ' +
-                'target="_blank">' +
-              '</a>'
-          })
+
+          # data-description
+          render :partial =>
+            'lightbox/data-description',
+            :locals => { :attachment => attachment }
+
+          link_attrs.merge!({ 'data-description' => @data_description })
+
 
           # image
           if ( attachment.image? )
@@ -162,7 +152,7 @@
           end
 
           # link content
-          if item_count == 0
+          if @item_count == 0
             # when the first item in a list use its preview image
             link_content = attachment_preview( attachment, size ) + link_text.html_safe
           else
@@ -176,7 +166,7 @@
         # thumbnails
         else
           # create the thumbnail link
-          if item_count == 0
+          if @item_count == 0
             # when the first item in a list use its thumbnail image
             html += link_to( attachment_preview( attachment, size ), link_url, link_attrs )
           else
@@ -243,7 +233,7 @@
           'dl',
           metadata_html,
           :class => 'lightbox-metadata',
-          :id => 'inline-' + item_count.to_s,
+          :id => 'inline-' + @item_count.to_s,
           'data-title' => attachment_title( attachment ),
           'data-url' => url_for( :only_path => false ),
           'data-image' => metadata_image,
@@ -252,7 +242,7 @@
 
       end # additional info, if prettyphoto
 
-      item_count += 1
+      @item_count += 1
       html += '</li>'
 
     end # for attachment in attachments
