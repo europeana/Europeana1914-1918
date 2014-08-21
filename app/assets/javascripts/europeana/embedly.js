@@ -60,7 +60,7 @@
 				.find('.lightbox-embedly').eq(0)
 				.on('click', { options: options }, this.openEmbedlyModal);
 
-			this.alterOg( options );
+			//this.alterOg( options );
 		},
 
 		/**
@@ -84,7 +84,6 @@
 		 * jQuery Event
 		 */
 		openEmbedlyModal: function( evt ) {
-			console.log(evt);
 			embedly.modal( evt.data.options );
 			return false;
 		},
