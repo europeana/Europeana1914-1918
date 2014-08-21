@@ -28,8 +28,7 @@
 		 */
 		addShareThis: function( $metadata, $target_elm, current ) {
 			var
-			$target = $('<span>')
-				.attr('class', 'st_sharethis_custom'),
+			$target = $('<span>').attr('class', 'st_sharethis_custom'),
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
 				"element": $target[0],

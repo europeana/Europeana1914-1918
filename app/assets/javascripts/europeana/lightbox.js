@@ -204,11 +204,18 @@
 		setupPrettyPhoto : function() {
 			var self = this;
 
+			// called when the lightbox closes
 			self.ppOptions.callback = function() {
 				self.removeMediaElementPlayers();
-				// this insures that additional content that was loaded while
-				// in lightbox is lightbox enabled if the lightbox is closed
+
+				// re-init of the lightbox insures that any additional content that
+				// was loaded while the lightbox was displayed is lightbox enabled
+				// when the lightbox is closed
 				self.init();
+
+				if ( self.options.add_embedly ) {
+					europeana.embedly.resetOg();
+				}
 			};
 
 			self.ppOptions.changepagenext = self.handlePageChangeNext;

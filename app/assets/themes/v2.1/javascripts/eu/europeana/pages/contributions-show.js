@@ -167,6 +167,7 @@
 	europeana.carousel.init( $('#contributions-featured'), function() {
 		europeana.lightbox.init({
 			$elm: $('#contributions-featured'),
+			add_embedly: true,
 			add_lightbox: add_lightbox,
 			add_metadata: true,
 			add_sharethis: true,
@@ -175,7 +176,6 @@
 		});
 	});
 	more_like_this.init('more-like-this');
-	//lightbox.init();
 	pdf.init();
 	photoGallery.init();
 	leaflet.init();

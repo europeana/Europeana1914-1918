@@ -104,11 +104,12 @@
 
 			if ( mimetype.itemsHandled === mimetype.itemsTotal ) {
 				europeana.lightbox.init({
-					$elm: $('#institution-featured'),
+					add_embedly: true,
 					add_lightbox: add_lightbox,
 					add_metadata: true,
 					add_sharethis: true,
 					carousel: europeana.carousel,
+					$elm: $('#institution-featured'),
 					edm_page: true
 				});
 				mimetype.revealCarousel();
