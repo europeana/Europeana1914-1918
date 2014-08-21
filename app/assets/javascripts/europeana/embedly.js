@@ -15,7 +15,7 @@
 
 
 		addEmbedButtonListener: function() {
-			$('.embedly-button').on( 'click', this.openEmbedlyModal );
+			$('.embedly-button').on('click', this.openEmbedlyModal);
 		},
 
 		/**
@@ -58,9 +58,9 @@
 
 			$target_elm
 				.find('.lightbox-embedly').eq(0)
-				.on('click', { options: options }, this.openEmbedlyModal);
+				.on('click', this.openEmbedlyModal);
 
-			//this.alterOg( options );
+			this.alterOg( options );
 		},
 
 		/**
@@ -79,12 +79,8 @@
 			this.addEmbedlyButton( $metadata, $target_elm, current );
 		},
 
-		/**
-		 * @param {Event} evt
-		 * jQuery Event
-		 */
-		openEmbedlyModal: function( evt ) {
-			embedly.modal( evt.data.options );
+		openEmbedlyModal: function() {
+			embedly.modal();
 			return false;
 		},
 
