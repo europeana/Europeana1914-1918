@@ -26,7 +26,7 @@
 		 * @param {object} options
 		 */
 		alterOg: function( options ) {
-			this.storeOg( options );
+			this.storeOg();
 			this.setOg( options );
 		},
 
@@ -55,8 +55,8 @@
 				.on('click', this.openEmbedlyModal),
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
-				"image": $metadata.attr('data-image') ? $metadata.attr('data-image') : '',
-				"title": $metadata.attr('data-title') ? $metadata.attr('data-title') : '',
+				"image": $metadata.attr('data-image') || '',
+				"title": $metadata.attr('data-title') || '',
 				"url": $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : ''
 			};
 
@@ -107,9 +107,8 @@
 
 		/**
 		 * store the original og meta tag properties
-		 * @param {object} options
 		 */
-		storeOg: function( options ) {
+		storeOg: function() {
 			if ( this.originalOg === null ) {
 				this.originalOg = {
 					image: $("meta[property='og:image']").attr('content'),

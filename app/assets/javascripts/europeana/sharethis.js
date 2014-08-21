@@ -1,4 +1,4 @@
-/*global europeana, jQuery */
+/*global europeana, jQuery, stWidget */
 /*jslint browser: true, white: true */
 (function( $ ) {
 
@@ -32,11 +32,11 @@
 			prettyfragement = '#prettyPhoto[gallery]/' + current + '/',
 			options = {
 				"element": $target[0],
-				"image": $metadata.attr('data-image') ? $metadata.attr('data-image') : '',
-				"title": $metadata.attr('data-title') ? $metadata.attr('data-title') : '',
+				"image": $metadata.attr('data-image') || '',
+				"title": $metadata.attr('data-title') || '',
 				"type": "none",
 				"service":"sharethis",
-				"summary": $metadata.attr('data-summary') ? $metadata.attr('data-summary') : '',
+				"summary": $metadata.attr('data-summary') || '',
 				"url": $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : ''
 			};
 
@@ -76,9 +76,9 @@
 		updateShareThis: function( $metadata, $target_elm, current ) {
 			var prettyfragement = '#prettyPhoto[gallery]/' + current + '/';
 			this.Shareable.url = $metadata.attr('data-url') ? $metadata.attr('data-url') + prettyfragement : '';
-			this.Shareable.title = $metadata.attr('data-title') ? $metadata.attr('data-title') : '';
-			this.Shareable.image = $metadata.attr('data-image') ? $metadata.attr('data-image') : '';
-			this.Shareable.summary = $metadata.attr('data-summary') ? $metadata.attr('data-summary') : '';
+			this.Shareable.title = $metadata.attr('data-title') || '';
+			this.Shareable.image = $metadata.attr('data-image') || '';
+			this.Shareable.summary = $metadata.attr('data-summary') || '';
 			$target_elm.prepend( this.$sharethis_elm );
 		}
 
