@@ -5,7 +5,7 @@ pl:
     cancel: Przerwij
     copy: Kopiuj
     delete: Usuń
-    depublish: Uniepublicznij
+    depublish: 
     download: Pobierz
     edit: Edytuj
     edit_story: Edytuj wątek
@@ -24,13 +24,14 @@ pl:
       attachment:
         dropbox_path: Plik Dropbox
         file: Plik
-        file_content_type: ! 'Typ zawartości '
+        file_content_type: Rodzaj wątku
         file_created_at: Utworzono
         file_file_name: Nazwa pliku
         file_file_size: Rozmiar pliku
         file_updated_at: Zaktualizowano
         preview: Podgląd
         public: Publiczny
+        metadata: 
       contact:
         age: Wiek
         country: Państwo
@@ -64,46 +65,49 @@ pl:
         name: ID
         position: Pozycja
         required: Wymagane
-        searchable: przeszukaj
+        searchable: Przeszukaj
         show_in_listing: Pokaż na liście
       setting:
         name: Nazwa
         value: Wartość
       taxonomy_term:
         metadata_field: Pole
-        term: szukana fraza
+        term: Szukana fraza
       user:
-        created_at: Data registracji
+        created_at: Data rejestracji
         institution: 
         password: Hasło
-        password_confirmation: powtórz hasło
+        password_confirmation: Powtórz hasło
         role_name: Rola
         terms: 
         username: Nazwa użytkownika
       metadata_record:
         field_alternative: Pola alternatywne
+        field_file_type_terms: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
       messages:
-        accepted: musi zostać zaakceptowane, aby kontynuować
-        blank: To pole jest wymagane, nie może zostać puste
-        confirmation: Nie zgadza się z potwierdzeniem
+        accepted: Naciśnij "Akceptuj", żeby kontynuować
+        blank: To pole jest wymagane, nie może pozostać puste
+        confirmation: Odbiega od potwierdzenia
         empty: nie może być puste
         equal_to: musi być równe %{count}
-        even: musi być parzyste
+        even: musi być liczbą parzystą
         exclusion: jest zarezerwowane
         greater_than: musi być większe od %{count}
         greater_than_or_equal_to: musi być większe lub równe %{count}
-        inclusion: nie znajduje się na liście dopuszczalnych wartości
-        invalid: ! 'Wprowadzone dane są niepoprawne. Proszę upewnić się, że format jest prawidłowy. '
+        inclusion: Prosimy wybrać z listy
+        invalid: ! 'Wprowadzone dane są niepoprawne. Proszimy upewnić się, że format jest prawidłowy. '
         less_than: musi być mniejsze od %{count}
         less_than_or_equal_to: musi być mniejsze lub równe %{count}
         not_an_integer: musi być liczbą całkowitą
-        not_a_number: nie jest liczbą
-        odd: musi być nieparzyste
-        record_invalid: ! 'Negatywne sprawdzenie poprawności: %{errors}'
-        taken: zostało już zajęte
+        not_a_number: Wprowadzony znak powinien być liczbą!
+        odd: musi być liczbą nieparzystą
+        record_invalid: ! 'Sprawdzanie poprawności nie powiodło się: %{errors}'
+        taken: ! 'To pole musi zawierać jednorazowo wprowadzoną wartość. Podana wartość już instnieje w naszym systemie
+
+'
         too_long: jest za długie (maksymalnie %{count} znaków)
         too_short: jest za krótkie (przynajmniej %{count} znaków)
         wrong_length: ma nieprawidłową długość (powinna wynosić %{count} znaków)
@@ -111,9 +115,9 @@ pl:
         attachment:
           attributes:
             file:
-              content_type: Rozmiar pliku nie jest dopuszalny
+              content_type: Ten format pliku nie jest dopuszalny
               presence: Wybierz plik, który chcesz załadować
-              size: Załadowany plik przekracza dopuszczalny limit
+              size: Rozmiar pliku przekracza dopuszczalny limit
         collection_day:
           attributes:
             image:
@@ -125,9 +129,9 @@ pl:
             uploaded: Przekazywanie niektórych plików nadal trwa
           attributes:
             catalogued_by:
-              role_name: Autor musi byćrównież administratorem strony
+              role_name: Edytor musi być administratorem strony
             guest_id:
-              present: Publikując jako gość należy podać dane kontaktowe
+              present: Zamieszczający wątki goście muszą podać dane kontaktowe
         metadata_field:
           attributes:
             cataloguing:
@@ -174,7 +178,7 @@ pl:
       metadata_record: Zapis metadanych
       tag: Tag
       tagging: Tagowanie
-      taxonomy_term: Termin taksonomii
+      taxonomy_term: Słowo klucz
       user: Użytkownik
     options:
       contact:
@@ -184,7 +188,7 @@ pl:
       metadata_field:
         field_type:
           date: Data
-          geo: Lokalizacja geograficzna
+          geo: Położenie geograficzne
           string: Tekst w jednej linijce
           taxonomy: Taksonomia
           text: Tekst w wielu linijkach
@@ -213,7 +217,7 @@ pl:
           metadata_collection_day_ids_im: ! ' Dzień zbiórki'
           metadata_content_ids_im: Typ obiektu
           metadata_file_type_ids_im: ! 'Typ '
-          metadata_keywords_ids_im: Słowa kluczowe
+          metadata_keywords_ids_im: Słowa klucze
           metadata_lang_ids_im: ! 'Języki '
           metadata_theatres_ids_im: Teatry
           place_name_s: Nazwa miejsca
@@ -226,14 +230,14 @@ pl:
     additional-information: Informacje dodatkowe
     download-item: Pobierz ten obiekt
     editors_blog:
-      more_stories: Więcej historii na <a href="http://thegreatwararchive.blogspot.com/search/label/en">Blog mit den Empfehlungen der Redaktion</a>
+      more_stories: Więcej historii na <a href="http://thegreatwararchive.blogspot.com/search/label/en">Editor’s pick blog<</a>
     editors_pick:
       heading: Polecane przez redakcję
       more_stories: <b> Więcej histori na stronie %{explore_stories}.</b>
     featured-categories: Wybrane tematy
     from-collection-days: Z naszych dni zbiórek
     google_maps:
-      help_text: ! "! '<li><b>Automatyczne propozycje</b> : Proszę podać nazwę państwa, miasta lub adres. Google Maps postara się odnaleźć podany adres. Proszę zaznaczyć jedną z podanych propozycji jeśli odpowiada ona szukanemu miejscu.</li>\n <li><b>Dokładny adres</b> : Proszę podać dokładny adres  lub współrzędne geograficzne i  nacisnąć klawisz Szukaj; Proszę zignorować automatyczne propozycje Google Maps.</li>\n <li><b>Zaznaczenie na mapie</b> : Jeżeli po podaniu adresu na mapie pojawi się zaznaczenie, mogą je Państwo przesunąć na wybraną przez siebie stronę.</li>\n<li><b>Powiększenie</b> : Mogą Państwo przybliżyć lub oddalić wybraną lokalizację, naciskając na + lub - po lewej stronie mapy.</li>'\n"
+      help_text: ! "! '<li><b>Automatyczne propozycje</b> : Proszę podać nazwę państwa, miasta lub adres. Google Maps postara się odnaleźć podany adres. Proszę zaznaczyć jedną z podanych propozycji jeśli odpowiada ona szukanej lokalizacji.</li>\n <li><b>Dokładny adres</b> : Proszę podać dokładny adres  lub współrzędne geograficzne i  nacisnąć klawisz Szukaj; Proszę zignorować automatyczne propozycje Google Maps.</li>\n <li><b>Zaznaczenie na mapie</b> : Jeżeli po podaniu adresu na mapie pojawi się zaznaczenie, mogą je Państwo przesunąć na wybraną przez siebie stronę.</li>\n<li><b>Powiększenie</b> : Mogą Państwo przybliżyć lub oddalić wybraną lokalizację, naciskając  + lub - po lewej stronie mapy.</li>'"
       label: Użyj Google Maps (opcjonalnie)
     help_text:
       mandatory: pole wymagane
@@ -246,9 +250,9 @@ pl:
       add-your-story-brief: Dodaj
       annotorious: ! 'Wybrany przedmiot zawiera załączniki. Otwórz go, żeby uzyskać do nich dostęp '
       contact_us: Skontaktuj się z nami
-      contact_us_email: ! 'Mogą się Państwo z nami skontaktować wybierając adres Email: <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.'
-      contribution_terms: Warunki dla publikowanych na Europeana wątków
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Warunki dla publikowanych na Europeana wątków</a>
+      contact_us_email: ! 'Mogą się Państwo z nami skontaktować wysyłając e-mai nal: <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.'
+      contribution_terms: Warunki dotyczące publikowanych na Europeana wątków
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Warunki dotyczące publikowanych na Europeana wątków</a>
       efg: <a href="http://www.europeanfilmgateway.eu/de/content/efg1914-projekt">Dowiedz się więcej o kulisach projektu i poszczególnych zbiorach filmów</a>.
       explore_stories: Poznaj historie
       explore-the-stories: Poznaj tę historię!
@@ -267,14 +271,14 @@ pl:
       register: Zarejestruj się
       sign_in: Zaloguj się
       statistics: Statystyki
-      takedown_policy: Zasady usuwania opublikowanego wątku
+      takedown_policy: Zasady usuwania udostępnionego wątku
       titles:
         contribution_terms: Zobacz warunki tworzenia nowych wątków dla użytkowników
         great_war: Archiwum, Wielkiej Wojny (Great War Archive) Uniwersytetu Oksfordzkiego
-        takedown: Do strony z zasadami usuwania nieodpowiednich treści
+        takedown: Do strony z zasadami usuwania treści
       view-image: Tryb pełnoekranowy
       view-pdf: ! ' Otwórz dokument'
-    map_contribution_heading: Historia miała miejsce
+    map_contribution_heading: Historia wydarzyła się w
     menus:
       main:
         about: O nas
@@ -287,7 +291,7 @@ pl:
         sign_in: Zaloguj się
         sign_out: Wyloguj się
       menu: Menu
-    more-at: Więcej poniżej
+    more-at: Więcej na
     news: ! 'Wiadomości '
     news_item:
       heading: Nowe dni zbiórek
@@ -419,7 +423,7 @@ pl:
       invalid: Niepoprawna nazwa użytkownika/e-mail lub hasło
       invalid_token: Nieprawidłowy token uwierzytelnienia
       timeout: Sesja wygasła. Zaloguj się ponowniownie, aby kontynuować
-      unauthenticated: Należy się zameldować lub zaregistrować, aby móc kontynuować
+      unauthenticated: Należy się zalogować lub zarejestrować, aby kontynuować
     mailer:
       reset_password_instructions:
         subject: Instrukcja do odnowienia hasła
@@ -441,22 +445,22 @@ pl:
     messages:
       accepted: musi zostać zaakceptowane
       blank: nie może być puste
-      confirmation: nie zgadza się z potwierdzeniem
+      confirmation: niezgodne z potwierdzeniem
       empty: nie może być puste
       equal_to: musi być równe %{count}
       even: musi być parzyste
       exclusion: jest niedostępne
       greater_than: musi być większe od %{count}
       greater_than_or_equal_to: musi być większe lub równe %{count}
-      inclusion: nie znajduje się na liście dopuszczalnych wartości
+      inclusion: nie jest dopuszczalną wartością
       invalid: jest nieprawidłowe
       less_than: musi być mniejsze od %{count}
       less_than_or_equal_to: musi być mniejsze lub równe %{count}
       not_an_integer: musi być liczbą całkowitą
       not_a_number: nie jest liczbą
       odd: musi być nieparzyste
-      record_invalid: ! 'Negatywne sprawdzenie poprawności: %{errors}'
-      taken: zostało już zajęte
+      record_invalid: ! 'Sprawdzanie poprawności nie powiodło się: %{errors}'
+      taken: jest już zajęty
       too_long: jest za długie (maksymalnie %{count} znaków)
       too_short: jest za krótkie (przynajmniej %{count} znaków)
       wrong_length: ma nieprawidłową długość (powinna wynosić %{count} znaków)
@@ -472,12 +476,12 @@ pl:
         notice: ! '%{resource_name} został powtórnie stworzony'
       destroy:
         alert: ! 'Podczas usuwania %{resource_name} wystąpił problem. '
-        notice: ! '%{resource_name} pomyślnie usunięto'
+        notice: ! '%{resource_name}  usunięto pomyślnie'
       taggings:
         notice: Tagi nie są dostępne
       update:
-        alert: Podcyas aktualizacji %{resource_name} wystąpił problem. Patrz raport ponieżej.
-        notice: ! '%{resource_name}  zostanie zaktualizowany'
+        alert: Podczas aktualizacji %{resource_name} wystąpił problem. Patrz raport ponieżej.
+        notice: ! '%{resource_name}  został zaktualizowany'
     admin:
       europeana:
         harvest:
@@ -546,11 +550,11 @@ pl:
         notice: 
     contributors:
       create:
-        alert: 
+        alert: Nie udało się stworzyć konta
       update:
-        alert: 
+        alert: Nie udało się zaktualizować konta.
     fields:
-      reindexing: Wyszukiwarka zostanie zreindeksowana w tle.
+      reindexing: Wyszukiwarka zostanie reindeksowana w tle.
     flickr:
       import:
         alert:
@@ -620,7 +624,7 @@ pl:
       contributor:
         create: Rejestracja
       create: Wyślij
-      delete: Wymaż
+      delete: Usuń
       filter:
         submit: Aktualizowanie
       metadata_field:
@@ -808,6 +812,8 @@ pl:
             title: 
           new:
             title: 
+          update:
+            title: 
         metadata:
           attachment_description: Opis
           attachment_file: Pojedynczy plik
@@ -819,7 +825,7 @@ pl:
           date: 
           date_from: Data utworzenia/Data początkowa
           date_to: Data ukończenia
-          file_type: Typ no
+          file_type: Typ medium
           forces: 
           format: Medium
           keywords: 
@@ -1241,6 +1247,8 @@ pl:
             title: 
           new:
             title: 
+          update:
+            title: 
         metadata_record:
           edit:
             field_creator_family_name: 
@@ -1258,6 +1266,14 @@ pl:
             field_page_number: 
             field_subject: 
             field_page_total: 
+          update:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_page_total: 
+            field_subject: 
       contribution:
         contribution:
           new:
@@ -1374,6 +1390,8 @@ pl:
           edit:
             title: 
           new:
+            title: 
+          update:
             title: 
       taxonomy_term:
         taxonomy_term:
@@ -1642,7 +1660,7 @@ pl:
       privacy_policy:
         p1: Twoje nazwisko zostanie opublikowane jak tylko udostępniony przez iebie materiał zostanie zaakceptowany.
         p2: Pozostałe dane kontaktowe, które zostały wcześniej wprowadzone np. adres email, nie zostaną udostępnione. Wykorzystamy je wyłącznie w razie konieczno
-        p3: 
+        p3: Podane dane kontaktowe nigdy nie zostaną przekazane jakimkolwiek innym podmiotom.
         p4: Dalsze informacje dotyczące ochrony danych osobowych dostępne są na stronie <a http://www.europeana.eu/portal/privacy.html target="_blank">Europeana</a>.
       project_partners:
         heading: ! 'Partenrzy projektu '
@@ -1858,7 +1876,15 @@ pl:
           title: Nowa instytucja
       metadata_fields:
         confirm_reindex:
-          info: 
+          info: ! 'Po  zmianie statusu możliwości wyszukiwania  jednego/wielu pól metadanych lub usunięciu uprzednio wyszukiwanych pól należy reindeksować wyszukiwarkę używając w tym celu poniższego przycisku.
+
+
+
+
+
+
+
+'
           note: Prosimy zauważyć, że nie ma konieczności reindeksowania wyszukiwarki po aktualizowaniu wątków, dzieje się to automatycznie.
           title: Reindeksowanie wyszukiwarki
         delete:
