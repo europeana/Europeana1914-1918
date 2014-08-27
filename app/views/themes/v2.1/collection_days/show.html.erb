@@ -30,19 +30,6 @@
     # map & metadata
     html += '<div class="section">'
 
-      # map
-      if @collection_day.map_latlng.present?
-        if @collection_day.map_zoom.present?
-          provide :map_zoom, @collection_day.map_zoom.to_s
-        end
-
-        provide :map_latlng, @collection_day.map_latlng
-
-        html += '<div id="map-container" class="collection-day">'
-          html += '<div id="map"></div>'
-        html += '</div>'
-      end
-
       # metadata
       html += '<div id="collection-day-metadata">'
 
@@ -134,6 +121,20 @@
 
 
       html += '</div>' # end metadata
+
+      # map
+      if @collection_day.map_latlng.present?
+        if @collection_day.map_zoom.present?
+          provide :map_zoom, @collection_day.map_zoom.to_s
+        end
+
+        provide :map_latlng, @collection_day.map_latlng
+
+        html += '<div id="map-container" class="collection-day">'
+          html += '<div id="map"></div>'
+        html += '</div>'
+      end
+
     html += '</div>' # end map & metadata
 
     # what is it
