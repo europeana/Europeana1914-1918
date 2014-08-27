@@ -59,7 +59,7 @@
 
 			$target_elm
 				.find('.lightbox-embedly').eq(0)
-				.on('click', this.openEmbedlyModal);
+				.on('click', { options: options }, this.openEmbedlyModal);
 
 			this.alterOg( options );
 		},
@@ -80,8 +80,9 @@
 			this.addEmbedlyButton( $metadata, $target_elm, current );
 		},
 
-		openEmbedlyModal: function() {
-			embedly.modal();
+		openEmbedlyModal: function( evt ) {
+			console.log( evt.data.options );
+			embedly.modal( evt.data.options );
 			return false;
 		},
 
