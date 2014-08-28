@@ -68,7 +68,12 @@
 		 * jQuery Event Object
 		 */
 		openEmbedlyModal: function( evt ) {
-			embedly.modal( evt.data.options );
+			if ( evt && evt.data && evt.data.options ) {
+				embedly.modal( evt.data.options );
+			} else {
+				embedly.modal();
+			}
+
 			return false;
 		}
 
