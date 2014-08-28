@@ -5,44 +5,7 @@
 	'use strict';
 
 	var
-	chosen = {
-		/**
-		 * @param {Event} arguments[0]
-		 * jQuery Event
-		 *
-		 * @param {object} arguments[1]
-		 * @param {string} arguments[1].selected
-		 */
-		handleChange: function() {
-			if (
-				arguments[1] === undefined ||
-				arguments[1].selected === undefined
-			) {
-				return;
-			}
-
-			var pieces = arguments[1].selected.split('|');
-
-			if ( pieces.length === 2 && pieces[1] === 'searchable' ) {
-				window.location.href =
-					window.location.protocol + "//" +
-					window.location.host + "/" +
-					'collection/explore/collection_day/' +
-					pieces[0] +
-					'?qf[index]=c';
-			} else {
-				window.location.href =
-					window.location.protocol + "//" +
-					window.location.host + "/" +
-					'collection-days/' +
-					arguments[1].selected;
-			}
-		},
-
-		init: function() {
-			$('.chosen-select').chosen().change( this.handleChange );
-		}
-	},
+	add_leaflet = true,
 
 	leaflet = {
 		add_markers_as_cluster: true,
@@ -76,7 +39,7 @@
 			map_config.markers = markers;
 			map_config.add_markers_as_cluster = this.add_markers_as_cluster;
 
-			if ( $( window ).width() > 768 ) {
+			if ( $(window).width() > 768 ) {
 				map_config.banner = {
 					display: true,
 					content: this.banner_content
@@ -112,8 +75,27 @@
 			});
 		},
 
+		hideLeafletMap: function() {
+			$('#map-container').hide();
+		},
+
 		init: function() {
 			if ( RunCoCo.leaflet === undefined ) {
+				this.hideLeafletMap();
+				return;
+			}
+
+			if ( !add_leaflet ) {
+				this.hideLeafletMap();
+
+				if ( RunCoCo.leaflet.upcoming && RunCoCo.leaflet.upcoming.length > 0 ) {
+					this.redirectToCollectionDay( RunCoCo.leaflet.upcoming[0].code );
+				} else {
+					$('#collection-day-selector-label').text(
+						I18n.t( 'javascripts.collection-days.no-upcoming' )
+					);
+				}
+
 				return;
 			}
 
@@ -126,6 +108,19 @@
 				this.addPreviousToggleListener();
 				this.setPreviousCheckboxState();
 			}
+		},
+
+		/**
+		 * @param {string} collection_day_code
+		 */
+		redirectToCollectionDay: function( collection_day_code ) {
+			$('#content, #footer').hide();
+
+			window.location.href =
+				window.location.protocol + "//" +
+				window.location.host + "/" +
+				'collection-days/' +
+				collection_day_code;
 		},
 
 		removePreviousMarkersOpacity: function() {
@@ -191,7 +186,11 @@
 		}
 	};
 
-	chosen.init();
+	if ( ( $(window).width() <= 768 || $(window).height() <= 500 ) ) {
+		add_leaflet = false;
+	}
+
+	europeana.chosen.init();
 	leaflet.init();
 
 }( jQuery ));

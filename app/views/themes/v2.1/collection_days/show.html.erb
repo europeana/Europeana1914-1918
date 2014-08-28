@@ -1,7 +1,9 @@
 <%
+
   provide :title, collection_day_summary(@collection_day)
   provide :javascripts_page, 'collection-days-show'
   provide :javascripts_europeana_leaflet, true
+  provide :javascripts_chosen, true
   provide :stylesheets_collection_days, true
 
   if  ( @collection_day.end_date && @collection_day.end_date >= Date.today ) ||
@@ -133,12 +135,15 @@
         html += '<div id="map-container" class="collection-day">'
           html += '<div id="map"></div>'
         html += '</div>'
+
+        html += render :partial => 'collection_days/as-select',
+					:locals => {
+						:collection_day_selector_label => t( 'views.collection_days.different-collection-day' )
+					}
       end
 
-    html += '</div>' # end map & metadata
-
     # what is it
-    html += '<div class="section">'
+    html += '<div class="section" style="clear:both;">'
       html += '<div id="what-is-it" class="col-one-third">'
         html += '<h2>' + t( 'views.collection_days.what-is-it-heading' ) + '</h2>'
         html += simple_format( t( 'views.collection_days.what-is-it-content' ) )
@@ -154,6 +159,10 @@
         html += simple_format( t( 'views.collection_days.what-do-you-get-content' ) )
       html += '</div>'
     html += '</div>'
+
+
+
+    html += '</div>' # end map & metadata
 
   html += '</div>'
 

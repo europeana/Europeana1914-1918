@@ -2,8 +2,8 @@
 	html = ''
 
   if @collection_days.present?
-		html += '<div tabindex="0">'
-			html += t( 'views.collection_days.cant-find-collection-day' )
+		html += '<div id="collection-day-selector" tabindex="0">'
+			html += '<span id="collection-day-selector-label">' + collection_day_selector_label + '</span>'
 			html += ' '
 			html += '<select class="chosen-select" data-placeholder="' + t( 'views.collection_days.select-collection-day' ) + '">'
 				html += '<option></option>'

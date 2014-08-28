@@ -98,9 +98,8 @@
 		},
 
 		/**
-		 *
-		 * @param {Event} evt
-		 * jQuery Event
+		 * @param {object} evt
+		 * jQuery Event Object
 		 */
 		handleGetDirectionsClick: function handleGetDirectionsClick( evt ) {
 			evt.preventDefault();
@@ -108,6 +107,7 @@
 			if ( leaflet.$map_container.hasClass('expand') ) {
 				leaflet.$map_container.removeClass('expand');
 				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.get-directions' ) );
+				$('#collection-day-metadata').css('float', 'right');
 
 				if ( leaflet.routing_ctrl !== undefined ) {
 					leaflet.$routing_ctrl.fadeOut();
@@ -115,6 +115,7 @@
 			} else {
 				leaflet.$map_container.addClass('expand');
 				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.close-directions' ) );
+				$('#collection-day-metadata').css('float', 'none');
 
 				if ( leaflet.routing_ctrl !== undefined ) {
 					leaflet.$routing_ctrl.fadeIn();
@@ -161,6 +162,7 @@
 		}
 	};
 
+	europeana.chosen.init();
 	leaflet.init();
 
 }( jQuery ));

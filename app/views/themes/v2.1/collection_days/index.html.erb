@@ -15,7 +15,10 @@
       html += '<div id="map"></div>'
     html += '</div>'
 
-		html += render :partial => 'collection_days/as-select'
+		html += render :partial => 'collection_days/as-select',
+			:locals => {
+				:collection_day_selector_label => t( 'views.collection_days.cant-find-collection-day' )
+			}
 	html += '</div>'
 
   # what is it
