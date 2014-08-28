@@ -24,14 +24,14 @@ pl:
       attachment:
         dropbox_path: Plik Dropbox
         file: Plik
-        file_content_type: Rodzaj wątku
+        file_content_type: Rodzaj treści
         file_created_at: Utworzono
         file_file_name: Nazwa pliku
         file_file_size: Rozmiar pliku
         file_updated_at: Zaktualizowano
         preview: Podgląd
         public: Publiczny
-        metadata: 
+        metadata: Metadane
       contact:
         age: Wiek
         country: Państwo
@@ -48,7 +48,7 @@ pl:
         approver: Zaakceptowano przez
         attachments: Obiekty
         catalogued_by: Skatalogowano przez
-        cataloguer: Autor
+        cataloguer: Edytor
         contributor: Autor
         created_at: Rozpoczęto
         published_at: Udostępniono
@@ -56,9 +56,9 @@ pl:
         terms: Akceptuj warunki
         metadata: Metadane
       contribution_status:
-        created_at: Status został zmieniony
+        created_at: Status zmieniono
       metadata_field:
-        cataloguing: tylko Kataloguj
+        cataloguing: tylko kataloguj
         field_type: Kategoria
         hint: Wskazówka
         multi: Wielokrotny wybór
@@ -79,11 +79,18 @@ pl:
         password: Hasło
         password_confirmation: Powtórz hasło
         role_name: Rola
-        terms: 
+        terms: Warunki
         username: Nazwa użytkownika
       metadata_record:
         field_alternative: Pola alternatywne
         field_file_type_terms: 
+      collection_day:
+        description: Opis
+        end_date: Data końcowa
+        image: 
+        name: 
+        start_date: Data początkowa
+        taxonomy_term_id: 
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -97,8 +104,8 @@ pl:
         exclusion: jest zarezerwowane
         greater_than: musi być większe od %{count}
         greater_than_or_equal_to: musi być większe lub równe %{count}
-        inclusion: Prosimy wybrać z listy
-        invalid: ! 'Wprowadzone dane są niepoprawne. Proszimy upewnić się, że format jest prawidłowy. '
+        inclusion: Proszę wybrać z listy
+        invalid: ! 'Wprowadzone dane są niepoprawne. Proszę upewnić się, że format jest prawidłowy. '
         less_than: musi być mniejsze od %{count}
         less_than_or_equal_to: musi być mniejsze lub równe %{count}
         not_an_integer: musi być liczbą całkowitą
@@ -116,7 +123,7 @@ pl:
           attributes:
             file:
               content_type: Ten format pliku nie jest dopuszalny
-              presence: Wybierz plik, który chcesz załadować
+              presence: Proszę wybrać plik do załadowania
               size: Rozmiar pliku przekracza dopuszczalny limit
         collection_day:
           attributes:
@@ -131,7 +138,7 @@ pl:
             catalogued_by:
               role_name: Edytor musi być administratorem strony
             guest_id:
-              present: Zamieszczający wątki goście muszą podać dane kontaktowe
+              present: Zamieszczający wątki goście muszą podać swoje dane kontaktowe
         metadata_field:
           attributes:
             cataloguing:
@@ -196,7 +203,7 @@ pl:
         role_name:
           administrator: Administrator
           blank: Wszystkie role
-          cataloguer: Korektor
+          cataloguer: Edytor
           contributor: Autor
   attributes:
     contact: Kontakt
@@ -249,7 +256,7 @@ pl:
       add-your-story: Dodaj swój wątek
       add-your-story-brief: Dodaj
       annotorious: ! 'Wybrany przedmiot zawiera załączniki. Otwórz go, żeby uzyskać do nich dostęp '
-      contact_us: Skontaktuj się z nami
+      contact_us: Kontakt
       contact_us_email: ! 'Mogą się Państwo z nami skontaktować wysyłając e-mai nal: <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.'
       contribution_terms: Warunki dotyczące publikowanych na Europeana wątków
       contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Warunki dotyczące publikowanych na Europeana wątków</a>
@@ -271,18 +278,18 @@ pl:
       register: Zarejestruj się
       sign_in: Zaloguj się
       statistics: Statystyki
-      takedown_policy: Zasady usuwania udostępnionego wątku
+      takedown_policy: Zasady usuwania  wątku
       titles:
-        contribution_terms: Zobacz warunki tworzenia nowych wątków dla użytkowników
+        contribution_terms: Tu mogą Państwo zobaczyć warunki tworzenia nowych wątków
         great_war: Archiwum, Wielkiej Wojny (Great War Archive) Uniwersytetu Oksfordzkiego
         takedown: Do strony z zasadami usuwania treści
       view-image: Tryb pełnoekranowy
       view-pdf: ! ' Otwórz dokument'
-    map_contribution_heading: Historia wydarzyła się w
+    map_contribution_heading: Miejsce
     menus:
       main:
         about: O nas
-        add: Dodaj swój wątek
+        add: Dodaj  wątek
         collection-days: Dzień zbiórki
         explore: Przeglądaj
         home: Strona główna
@@ -432,14 +439,14 @@ pl:
       send_instructions: Intrukcja do odnowienia hasła została wysłana na podany adres E-mail
       updated: Hasło zostało zmienione. Jesteś zalogowany.
     registrations:
-      destroyed: Do zobaczenia! Twoje konto zostało pomyślnie usunięte
+      destroyed: Do zobaczenia! Konto zostało pomyślnie usunięte
       link: Rejestruj
       signed_up: Rejestracja przebiegła pomyślnie
       updated: Konto zostalo pomyślnie zaktuwalizowane
     sessions:
       link: Zaloguj
-      signed_in: Wylogowałe
-      signed_out: Wylogowałeś się pomyślnie
+      signed_in: 
+      signed_out: Zostałeś pomyślnie wylogowany
   errors:
     format: ! '%{attribute} %{message}'
     messages:
@@ -478,7 +485,7 @@ pl:
         alert: ! 'Podczas usuwania %{resource_name} wystąpił problem. '
         notice: ! '%{resource_name}  usunięto pomyślnie'
       taggings:
-        notice: Tagi nie są dostępne
+        notice: Podane tagi są niedostępne
       update:
         alert: Podczas aktualizacji %{resource_name} wystąpił problem. Patrz raport ponieżej.
         notice: ! '%{resource_name}  został zaktualizowany'
@@ -657,7 +664,7 @@ pl:
         metadata:
           attachment_description: Proszę opisać fizyczne cechy przedmiotu, jego funkcę i wartość sentymentalną.
           content: Czym jest obiekt (np. wierszem, listem, zdjęciem)? Prosimy o możliwie najbardziej szczegółowy opis.
-          cover_image: ! 'Zdjęcie tytułowe reprezentuje cały wątek w naszej kolekcji. Przypomina nieco okładkę książki. Może ono ilustrować osobę, która jest głównym tematem wątku, okładkę dziennika, a nawet medal, czy przedmiot codzinnego użytku.  '
+          cover_image: ! 'Zdjęcie tytułowe reprezentuje cały wątek w kolekcji. Przypomina nieco okładkę książki. Może ono ilustrować osobę, która jest głównym tematem wątku, okładkę dziennika, a nawet medal, czy przedmiot codzinnego użytku.  '
           creator_family_name: 
           creator_given_name: Nazwisko osoby, które stworzyła oryginalny przedmiot np. autor listu, dziennika lub fotograf.
           date_from: Powiedz nam, kiedy powstał ten obiekt np. kiedy napisano dany list, rozpoczęto prowadzenie dziennkina. Jeśli dokładna data nie jest znana, wystarczy podać rok lub miesiąc.
@@ -730,7 +737,7 @@ pl:
         attachment: ! 'Wskaż, czy to pole odnosi się do załączników. '
         cataloguing: ! 'Tak: wyświetl to pole w interfejsie administratora do katalogizacji. Nie: Pokaż także autorom wątku'
         contribution: Określ, czy to pole odnosi się również do innych wątków.
-        field_type: Po zapisaniu zmian, nie będzie można zmienić.
+        field_type: Po zapisaniu zmian, nie będzie można nanieść zmian.
         hint: Tekst do wyświetlenia obok pola "wstaw" jako przewodnik dla autorów i edytorów
         multi: Dopuść wybór większej ilości słów kluczowych na historię/załącznik.
         name: ! 'Nazwa bazy danych dla tego pola. Musi być jednorayowa. Dopuszanle znaki: a-z, 0-9, _'
@@ -805,6 +812,41 @@ pl:
         admin/contributions_controller/options:
           index:
             fields: 
+      collection_day:
+        collection_day:
+          edit:
+            description: 
+            end_date: 
+            image: 
+            map_latlng: 
+            map_zoom: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+          update:
+            taxonomy_term_id: 
+            name: 
+            description: 
+            end_date: 
+            image: 
+            map_latlng: 
+            map_zoom: 
+            start_date: 
+            url: 
+        contact:
+          edit:
+            country: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          update:
+            country: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
     labels:
       attachment:
         attachment:
@@ -847,7 +889,34 @@ pl:
         contact:
           country: Państwo
           full_name: Organizacja
+          edit:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          update:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
         delete_image: Usuń obraz
+        collection_day:
+          edit:
+            description: 
+            end_date: 
+            image: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+          update:
+            name: 
+            taxonomy_term_id: 
+            description: 
+            end_date: 
+            image: 
+            start_date: 
+            url: 
       content:
         metadata:
           dc:
@@ -857,25 +926,25 @@ pl:
             creator: 
             date: 
             description: 
-            format: 
+            format: Format
             identifier: 
-            language: 
-            publisher: 
+            language: Język
+            publisher: Wydawca
             relation: 
-            rights: 
-            source: 
+            rights: Prawa
+            source: Źródło
             subject: 
-            terms_alternative: 
+            terms_alternative: Tytuł alternatywny
             terms_extent: 
-            terms_medium: 
-            title: 
-            type: 
+            terms_medium: Medium
+            title: Tytuł
+            type: Typ
           dcterms:
-            alternative: 
+            alternative: Tytuł alternatywny
             extent: 
             medium: 
-            spatial: 
-            temporal: 
+            spatial: Miejsce
+            temporal: Data
           edm:
             country: 
             data_provider: 
@@ -1063,29 +1132,29 @@ pl:
           ST10: 
           TR16: 
           TU07: 
-          UNKNOWN: 
-          UT1: 
-          VP18: 
-          YP01: 
+          UNKNOWN: nieznany
+          UT1: UT1
+          VP18: VP18
+          YP01: YP01
           DUP1: DUP1
           DUP2: DUP2
-          UPC1: 
-          UPC2: 
-          UPC3: 
+          UPC1: UPC1
+          UPC2: UPC2
+          UPC3: UPC3
         content:
-          Autograph: 
-          Book: 
-          Collection: 
-          Diary: 
+          Autograph: Autograf
+          Book: Książka
+          Collection: kolekcja
+          Diary: Pamiętnik
           Drawing: 
           Footage: 
-          Interview: 
-          Letter: 
-          Map: 
-          Medal: 
-          Memoir: 
-          Memorabilia: 
-          Multiple: 
+          Interview: Wywiad
+          Letter: List
+          Map: Mapa
+          Medal: Medal
+          Memoir: Pamiętnik
+          Memorabilia: Pamiątki
+          Multiple: Różne
           Music: 
           Official document: 
           Official Document: 
@@ -1158,23 +1227,23 @@ pl:
           Română: 
           Slovenčina: 
           Slovenščina: 
-          Ελληνικά: 
+          Ελληνικά: Grecki
         object_side:
-          Back: 
-          Front: 
+          Back: Tył
+          Front: Przód
         source:
-          Artifact: 
-          Book: 
-          Film: 
+          Artifact: Artefakt
+          Book: Książka
+          Film: Film
           Folio: 
           Journal: 
           Leaf: 
           Multiple: 
-          Newspaper: 
+          Newspaper: Gazeta
           Notebook: 
-          Other: 
-          Photograph: 
-          Postcard: 
+          Other: Inne
+          Photograph: Fotografia
+          Postcard: Pocztówka
           Tape: 
           Unknown: 
           Vinyl record: 
@@ -1200,12 +1269,12 @@ pl:
         license:
           http://creativecommons:
             org/licenses/by-sa/3:
-              0/: 
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
             org/publicdomain/mark/1:
-              0/: 
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
           https://creativecommons:
             org/licenses/by-sa/2:
-              0/: 
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
       user:
         contact:
           create:
@@ -1338,6 +1407,29 @@ pl:
             password: 
             password_confirmation: 
             username: 
+      collection_day:
+        collection_day:
+          edit:
+            map_latlng: 
+            map_zoom: 
+            name: 
+            url: 
+          update:
+            name: 
+            map_latlng: 
+            map_zoom: 
+            url: 
+        contact:
+          edit:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          update:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
     required: wymagane
     titles:
       account_details: Dane logowania
@@ -1381,6 +1473,13 @@ pl:
         new:
           accept_terms: 
           user_session: 
+      collection_day:
+        edit:
+          admin_collection_day: 
+          admin_collection_day_address: 
+        update:
+          admin_collection_day: 
+          admin_collection_day_address: 
     update: ! 'Aktualizuj %{model} '
     'yes': Tak
   helpers:
@@ -1428,6 +1527,35 @@ pl:
             password: 
             password_confirmation: 
             username: 
+      collection_day:
+        collection_day:
+          edit:
+            description: 
+            end_date: 
+            image: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+          update:
+            name: 
+            taxonomy_term_id: 
+            description: 
+            end_date: 
+            image: 
+            start_date: 
+            url: 
+        contact:
+          edit:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          update:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
     select:
       prompt: Proszę wybrać
     submit:
