@@ -11,23 +11,8 @@
 
 	europeana.embedly = {
 
-		originalOg: null,
-
-
 		addEmbedButtonListener: function() {
 			$('.embedly-button').on('click', this.openEmbedlyModal);
-		},
-
-		/**
-		 * control method used to:
-		 * - store the original og meta tag properties
-		 * - set the og meta tag properties to this item’s metadata
-		 *
-		 * @param {object} options
-		 */
-		alterOg: function( options ) {
-			this.storeOg();
-			this.setOg( options );
 		},
 
 		init: function() {
@@ -60,8 +45,6 @@
 			$target_elm
 				.find('.lightbox-embedly').eq(0)
 				.on('click', { options: options }, this.openEmbedlyModal);
-
-			this.alterOg( options );
 		},
 
 		/**
@@ -80,45 +63,13 @@
 			this.addEmbedlyButton( $metadata, $target_elm, current );
 		},
 
+		/**
+		 * @param {object} evt
+		 * jQuery Event Object
+		 */
 		openEmbedlyModal: function( evt ) {
-			console.log( evt.data.options );
 			embedly.modal( evt.data.options );
 			return false;
-		},
-
-		/**
-		 * reset the og meta tag properties to the original item’s metadata
-		 */
-		resetOg: function() {
-			if ( this.originalOg !== null ) {
-				this.setOg( this.originalOg );
-			}
-		},
-
-		/**
-		 * set the og meta tag properties to this item’s metadata
-		 *
-		 * @param {object} options
-		 */
-		setOg: function( options ) {
-			$("meta[property='og:description']").attr('content', options.description);
-			$("meta[property='og:image']").attr('content', options.image);
-			$("meta[property='og:title']").attr('content', options.title);
-			$("meta[property='og:url']").attr('content', options.url);
-		},
-
-		/**
-		 * store the original og meta tag properties
-		 */
-		storeOg: function() {
-			if ( this.originalOg === null ) {
-				this.originalOg = {
-					description: $("meta[property='og:description']").attr('content'),
-					image: $("meta[property='og:image']").attr('content'),
-					title: $("meta[property='og:title']").attr('content'),
-					url: $("meta[property='og:url']").attr('content')
-				};
-			}
 		}
 
 	};

@@ -212,10 +212,6 @@
 				// was loaded while the lightbox was displayed is lightbox enabled
 				// when the lightbox is closed
 				self.init();
-
-				if ( self.options.add_embedly ) {
-					europeana.embedly.resetOg();
-				}
 			};
 
 			self.ppOptions.changepagenext = self.handlePageChangeNext;
