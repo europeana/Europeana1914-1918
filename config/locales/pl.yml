@@ -223,7 +223,7 @@ pl:
           data_provider_sm: Dostawca danych
           metadata_collection_day_ids_im: ! ' Dzień zbiórki'
           metadata_content_ids_im: Typ obiektu
-          metadata_file_type_ids_im: ! 'Typ '
+          metadata_file_type_ids_im: Typ medium
           metadata_keywords_ids_im: Słowa klucze
           metadata_lang_ids_im: Język
           metadata_theatres_ids_im: Teatry
@@ -255,14 +255,14 @@ pl:
       about_the_project: O projekcie Europeana 1914-1918
       add-your-story: Dodaj swój wątek
       add-your-story-brief: Dodaj
-      annotorious: ! 'Wybrany przedmiot zawiera załączniki. Otwórz go, żeby uzyskać do nich dostęp '
+      annotorious: ! 'Wybrany przedmiot zawiera załączniki. Otwórz go, aby uzyskać do nich dostęp '
       contact_us: Kontakt
       contact_us_email: ! 'Mogą się Państwo z nami skontaktować wysyłając e-mai nal: <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.'
-      contribution_terms: Warunki dotyczące udostępnianych na Europeana treści
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Warunki dotyczące udostępnianzch na portalu Europeana treści</a>
+      contribution_terms: Warunki dotyczące udostępnianych na Europeanie treści
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Warunki dotyczące udostępnianych na portalu Europeana treści</a>
       efg: <a href="http://www.europeanfilmgateway.eu/de/content/efg1914-projekt">Dowiedz się więcej o kulisach projektu i poszczególnych zbiorach filmów</a>.
       explore_stories: Poznaj historie
-      explore-the-stories: Poznaj tę historię!
+      explore-the-stories: Poznaj te historie!
       explore-the-stories-brief: Odkryj
       help: ! 'Pomoc
 
@@ -442,7 +442,7 @@ pl:
       destroyed: Do zobaczenia! Konto zostało pomyślnie usunięte
       link: Rejestruj
       signed_up: Rejestracja przebiegła pomyślnie
-      updated: Konto zostalo pomyślnie zaktuwalizowane
+      updated: Konto zostalo pomyślnie zaktualizowane
     sessions:
       link: Zaloguj
       signed_in: Udało Ci się pomyślnie zalogować
@@ -480,7 +480,7 @@ pl:
     actions:
       create:
         alert: Przy tworzeniu %{resource_name} wystąpił problem. Patrz raport poniżej.
-        notice: ! '%{resource_name} został powtórnie stworzony'
+        notice: ! '%{resource_name} został ponownie utworzony'
       destroy:
         alert: ! 'Podczas usuwania %{resource_name} wystąpił problem. '
         notice: ! '%{resource_name}  usunięto pomyślnie'
@@ -492,17 +492,17 @@ pl:
     admin:
       europeana:
         harvest:
-          notice: 
+          notice: Treści portalu Europeana będą harwestowane w tle
     annotations:
       depublish:
-        alert: ! 'Nie udało się uniedostępnić adnotacji. '
+        alert: ! 'Nie udało się ukryć adnotacji. '
         notice: Adnotacja nie jest już dostępna
       flag:
-        alert: Nie udało się oznaczyć adnotacji jako niewłaściwą
-        notice: Adnotacja oznaczona jako niewłaściwa
+        alert: Nie udało się oznaczyć adnotacji jako nieodpowiednią
+        notice: Adnotacja oznaczona jako nieodpowiednia
       unflag:
         alert: Nie udało się odznaczyć adnotacji oznaczonej jako nieodpowiednia
-        notice: Odznacz adnotację oznaczoną jako nieodpowiednia
+        notice: Odznacz oznaczenie adnotacji jako nieodpowiednia
     attachments:
       create:
         alert: Podczas zapisywania obiektu wystąpił błąd
@@ -532,16 +532,18 @@ pl:
     contributions:
       approve:
         alert: Nie udało się zatwierdzić treści
-        notice: ! 'Wątek został zatwierdzony '
+        notice: ! 'Historia została zatwierdzona '
       destroy:
-        alert: Nie udało się wykasować historii
-        notice: Wątek usunięto
+        alert: Nie udało się usunąć historii
+        notice: Historię usunięto
       draft:
         create:
           alert: Wystąpił problem przy tworzeniu nowej historii
-          notice: Rozpoczęto tworzenie kopii roboczej dla nowej historii
+          notice: Rozpoczęto tworzenie projektu nowej historii
         submit:
-          alert: Wystapił problem z Twoją historią. Prosimy sprawdzić poniższe wskazówki.
+          alert: ! 'Wystapił problem z Twoją historią. Sprawdź poniższą wiadomość
+
+'
           notice: Twoja historia została dodana. Dziękujemy! Teraz zostanie sprawdzona przez naszych ekspertów i udostępniona na stronie. To może potrwać nawet kilka tygodni. Prosimy o wyrozumiałość i cierpliwość.
         update:
           alert: Problem z zapisaniem wiadomości
@@ -551,7 +553,7 @@ pl:
         notice: Historia została odrzucona
       submitted:
         edit:
-          alert: Ta historia już została dodana
+          alert: Ta historia została właśnie przedłożona.
       withdraw:
         alert: Nie udało się wycofać historii z kolekcji
         notice: Historia została wycofana z kolekcji
@@ -568,17 +570,17 @@ pl:
           empty: ! 'Nie wybrano obiektów
 
 '
-          invalid_license: Nie zgodna licencja zdjęcia. Nie można importować.
+          invalid_license: ! ' Licencja zdjęcia nie jest zgodna. Nie można importować.'
         notice: Transfer obrazów Flickr w tle
     guest_contact:
       create:
-        alert: Wystąpił problem z danymi, które zostały przez Ciebie dostarczone. Prosimy o naniesienie poprawek i przesłanie ich ponownie.
-        notice: Dane kontaktowe otrzymano
+        alert: Wystąpił problem z danymi, które zostały nam przez Ciebie dostarczone. Prosimy o naniesienie poprawek i przesłanie ich ponownie.
+        notice: ! 'Otrzymano dane kontaktowe '
       forget:
-        notice: Dane kontaktowe usunięto
+        notice: ! 'Usunięto dane kontaktowe '
       update:
         alert: Wystąpił problem z danymi, które zostały przez Ciebie dostarczone. Prosimy o naniesienie poprawek i przesłanie ich ponownie.
-        notice: Dane kontaktowe zaktualizowano
+        notice: ! 'Zaktualizowano dane kontaktowe '
     metadata_fields:
       update_order:
         notice: ! 'Zaktualizowano kolejność pól metadanych '
@@ -599,13 +601,13 @@ pl:
         create:
           success: Twoje tagi zostały dodane do tego obiektu
       flag:
-        success: Tag został zaznaczony jako nieodpowiedni
+        success: Tag został oznaczony jako nieodpowiedni
     taxonomy:
       imported: Import nowych słów kluczy
     users:
       create:
         alert: Nie udało się założyć konta
-        notice: Konto użytkownika utworzono
+        notice: utworzono konto użytkownika
       destroy:
         notice: Dane użytkownika usunięto
       register:
@@ -620,7 +622,7 @@ pl:
         add_edit: Dodaj/Edytuj obiekty
         create: ! 'Prześlij '
         delete: Usuń obiekt
-        update: Zachowaj
+        update: Aktualizuj
       contribution:
         create: Dalej
         delete: Usuń wątek
@@ -657,7 +659,7 @@ pl:
     create: Utwórz %{model}
     hints:
       attachment:
-        dropbox_path: ! 'Wybierz w swoim  Dropbox folder "Apps/Europeana 1914-1918". Pliki zapisane w nieodpowiednim formacie lub zabierające za dużo miejsca nie zostaną wyświetlone. '
+        dropbox_path: ! 'Wybierz w swoim  Dropbox folder "Apps/Europeana 1914-1918". Pliki zapisane w nieodpowiednim formacie lub zabierające za dużo miejsca nie będą wyświetlane. '
         edit:
           file: ! 'Proszę załadować nowe pliki wyłącznie, żeby zastąpnić nimi te już udostępnione. Maksymalna wielkość pliku:  %{max}. Dopuszczalne typy formatów: %{file_types}.'
         file: Prześlij plik
@@ -669,9 +671,9 @@ pl:
           creator_given_name: Nazwisko osoby, które stworzyła przedmiot np. autor listu, dziennika lub fotograf.
           date_from: Kiedy powstał ten obiekt np. kiedy napisano list, rozpoczęto prowadzenie dziennkina? Jeśli dokładna data nie jest Ci znana, wystarczy podać rok lub miesiąc.
           date_to: Data końcowa, np. data ostatniego wpisu w dzienniku
-          forces: Jeśli odpowiednie słowo klucz nie jest dostępna, prosimy nie klikać, ale wysłać nam wiadomość e-mail na 1914-1918 [@] europeana [.] eu.
+          forces: Jeśli odpowiednie słowo klucz nie jest dostępne, prosimy nie klikać, ale wysłać nam wiadomość e-mail na 1914-1918 [@] europeana [.] eu.
           format: Materiał, z którego wykonano zdygitalizowany obiekt (np. papier, karton, taśma)
-          keywords: ! 'Prosimy przypisać słowa kluczowe, które najlepiej oddają zamieszczony obiekt lub temat historii. Celem wprowadzanie słów kluczowych jest oznaczenie Twojej historii w kolekcji. Jeśli znalezienie odpowiedniego słowa- klucza nie jest możliwe, prosimy o kontakt na:  1914-1918 [@] europeana [.] eu.'
+          keywords: ! 'Prosimy przypisać słowa kluczowe, które najlepiej oddają zamieszczony obiekt lub temat historii. Celem wprowadzania słów kluczowych jest możliwie najdokładniejsze zaznaczenie Twojej historii w kolekcji. Jeśli znalezienie odpowiedniego słowa- klucza nie jest możliwe, prosimy o kontakt na:  1914-1918 [@] europeana [.] eu.'
           lang: Jeśli przedmiot ma związek z mową np. jest listem, pamiętnikiem, podaj język w jakim został sformułowany.
           lang_other: 
           location_map: 
@@ -680,7 +682,7 @@ pl:
           object_side: Proszę oznaczyć stronę obiektu, np. moneta; awers i rewers/przyód i tył
           page_number: Jeśli dany obiekt zawiera więcej stron, należy wpisać dokładny numer strony
           source: Źródło, dzięki któremu zdygitalizowano obiekt (arkusz, rolka filmu, notatnik)
-          subject: Osoba, miejsce lub obiekt powiązane, które są powiązane z przedmiotem
+          subject: Osoba, miejsce lub obiekt, które są powiązane z przedmiotem
           theatres: ! 'Jeśli odpowiednie słowo klucz nie jest dostępne, prosimy nie klikać, ale poinformować nas o tym, wysyłając e-mail na: 1914-1918 [@] europeana [.] eu.'
           file_type: 
           license: 
@@ -712,9 +714,9 @@ pl:
           character2_pob: 
           character2_pod: 
           collection_day: 
-          contributor_behalf: Proszę wypełnić pole wyłącznie jeśli pomagasz w spółtworzeniu tej historii
-          date_from: Prosimy sprecyzować, kiedy całe wydarzenie się zaczęło. Jeżeli dokładna data nie jest znana, wystarczy podać rok np. np. mój pradziadek zaciągną się do wojska w 1915, etc.
-          date_to: Prosimy sprecyzować, kiedy wydarzenie się zakończyło. Jeżeli dokładna data nie jest znana, wystarczy podać rok np. np. mój pradziadek został ranny w 1916, etc.
+          contributor_behalf: Proszę wypełnić pole wyłącznie jeśli współtworzysz tej historii
+          date_from: Prosimy sprecyzować, kiedy całe wydarzenie się zaczęło. Jeżeli dokładna data nie jest znana, wystarczy podać rok np. mój pradziadek zaciągnął się do wojska w 1915, etc.
+          date_to: Prosimy sprecyzować, kiedy wydarzenie się zakończyło. Jeżeli dokładna data nie jest znana, wystarczy podać rok np. mój pradziadek został ranny w 1916, etc.
           description: Opowiedz historię, z którą związany jest twój wątek.
           editor_pick: 
           editor_pick_sig: 
@@ -757,14 +759,14 @@ pl:
         bing_client_id: Bing klienta ID z Azure DataMarket. Wymaga ankiety dla tłumaczenia  Europeana OpenSearch API
         bing_client_secret: Bing klienta ID z Azure DataMarket. Wymaga ankiety dla tłumaczenia  Europeana OpenSearch API
         bing_translate_key: Klucz Bing Translate. Jeśli zostanie pozostawiony pusty, Microsoft, Bing Translate nie będzie funkcjonował
-        contribution_approval_required: Jeśli to możliwe przesłane historie będa udostępniane dopiero po zatwierdzeniu. W innym wypadku udostępnienie nastąpi bezpośrednio po wysłaniu. Nie ma znaczenia jeśli polecenie "udostępnij historie" nie jest aktywne
+        contribution_approval_required: Jeśli to możliwe przesłane historie będa udostępniane dopiero po zatwierdzeniu przez ekspertów. W innym wypadku udostępnienie nastąpi bezpośrednio po wysłaniu. Nie ma znaczenia jeśli polecenie "udostępnij historie" nie jest aktywne
         gmap_api_key: ! 'Google Maps API-Klucz. Bez tego klucza nie można zastosować Google Maps udostępnić położenia geograficznego. Klucz można uzyskać na:  <http://code.google.com/apis/maps/signup.html>'
-        google_analytics_key: Klucz Google Analytics. Jeśli pozostanie puste, zostanie użyty klucz awaryjny UA-XXXXXXXX-1. Prosimy się upewnić, że testy i środowisko produkcyjne wykorzystują odpowiednie klucze.
+        google_analytics_key: Klucz Google Analytics. Jeśli pozostanie pusty, zostanie użyty klucz awaryjny UA-XXXXXXXX-1. Prosimy się upewnić, że testy i środowisko produkcyjne wykorzystują odpowiednie klucze.
         google_api_email: ! 'Udostępnij Google API swój adres e-mail, aby uzyskać dostęp do publicznych statystyk  Google Analytics. '
-        max_upload_size: Maksymalna wielkość plików w bajtach.
+        max_upload_size: Maksymalna wielkość plików podana w bajtach.
         publish_contributions: ! 'Proszę aktywować opcję udostępniania treści. Jeśli opcja  pozostanie nieaktywna, materiały mogą być gromadzone, ale nie zostaną udostępnione innym odbiorcom. '
         registration_required: Aby móc dodawać nowe treści, trzeba posiadać konto użytkownika. W przypadku braku konta, po wprowadzeniu danych kontaktowych można dodawać nowe treści jako gość.
-        relative_url_root: ! 'Główny adres URL, z którego strona jest wyświetlana (bey ukośników). Pozostaw puste dla najwyższego poziomu URL. '
+        relative_url_root: ! 'Główny adres URL, z którego strona jest wyświetlana (bez ukośników). Pozostaw pusty dla najwyższego poziomu URL. '
         sharethis_id: 
         site_name: Nazwa strony internetowej. Nazwa będzie wyświetlana domyślnie w tytułach stron i nagłówkach.
         site_url: Pełny adres URL, za pomocą którego można uzyskać dostęp do strony startowej, bez wersji językowych i ukośników.
@@ -791,10 +793,10 @@ pl:
             postal_code: 
             region: 
             street_address: 
-        current_password: Wprowadź swoje hasło jeśli chcesz wprowadzić zmiany na swoim koncie.
+        current_password: Jeśli chcesz wprowadzić zmiany na swoim koncie, podaj hasło.
         edit:
           password: ! 'Jeśli stare hasło ma zostać zmienione, prosimy o wpisanie nowego w poniższe pole. W innym wypadku prosimy pozostawić je puste. Hasło powinno zawierać przynajmniej 6 znaków. '
-        email: Podczas logowanie można użyć zamiast nazwy użytkownika, podanego adresu e-mail. Ta opcja jest fakultatywna, polecami jednak wprowadzenie adresu e-mail na wypadek jeśli zapomnisz hasła.
+        email: Podczas logowanie można użyć, zamiast nazwy użytkownika, podanego przy rejestracji adresu e-mail. Ta opcja jest fakultatywna, polecamy jednak podanie adresu e-mail na wypadek jeśli zapomnisz hasła.
         password: Przynajmniej 6 znaków
         update:
           password: ! 'Jeśli stare hasło ma zostać zmienione, prosimy o wpisanie nowego w poniższe pole. W innym wypadku prosimy pozostawić je puste. Hasło powinno zawierać przynajmniej 6 znaków. '
@@ -956,7 +958,7 @@ pl:
           alternative: Tytuł w języku angielskim
           cataloguer: Edytor
           character1_dob: Data urodzenia
-          character1_dod: Data śmierci
+          character1_dod: Data zgonu
           character1_family_name: Nazwisko
           character1_given_name: Imię
           character1_pob: MIejsce urodzenia
@@ -966,9 +968,9 @@ pl:
           character2_family_name: Nazwisko
           character2_given_name: Imię
           character2_pob: MIejsce urodzenia
-          character2_pod: Miejsce śmierci
+          character2_pod: Miejsce zgonu
           collection_day: Dzień zbiórki
-          contributor_behalf: Wątek w imieniu
+          contributor_behalf: Historia spisana w imieniu
           date_from: Historia zaczyna się...
           date_to: Historia kończy się...
           description: Historia
@@ -987,7 +989,7 @@ pl:
           theatres: Pola bitwy
           ticket: Numer biletu
           date: 
-        terms: ! 'Akceptuję wszystkie warunki '
+        terms: Akceptuję regulamin Europeany
         title: Tytuł historii
       metadata_field:
         contribution: Historia
@@ -1155,7 +1157,7 @@ pl:
           Multiple: Różne
           Music: Muzyka
           Official document: Dokument urzędowy
-          Official Document: Dokument urzędkowy
+          Official Document: Dokument urzędowy
           Other: Inne
           Painting: Obraz
           Photograph: Fotografia
@@ -1195,7 +1197,7 @@ pl:
           Artillery: Artyleria
           Conscientious Objection: Odmowa służby wojskowej
           Gas Warfare: Wojna gazowa
-          Home Front: Front ojczy
+          Home Front: Front ojczyźniany
           Manufacture: Manufaktura
           Medical: Medycyna
           Military Punishment: Kara wojskowa
@@ -1234,8 +1236,8 @@ pl:
           Book: Książka
           Film: Film
           Folio: 
-          Journal: 
-          Leaf: 
+          Journal: Czasopismo
+          Leaf: Liść
           Multiple: 
           Newspaper: Gazeta
           Notebook: Notatnik
@@ -1244,12 +1246,12 @@ pl:
           Postcard: Pocztówka
           Tape: 
           Unknown: Nieznane
-          Vinyl record: 
+          Vinyl record: Płyta winylowa
         taxonomy_term:
           new:
             term: 
         theatres:
-          Aerial Warfare: 
+          Aerial Warfare: Wojna powietrzna
           African Wars: Afryka
           Balkans: Bałkany
           Eastern Front: Front Wschodni
@@ -1432,7 +1434,7 @@ pl:
     titles:
       account_details: Dane logowania
       admin_user: Dane logowania
-      attachment_dates: Kiedy obiekt został stworzony?
+      attachment_dates: Kiedy stworzono?
       attachment_details: Proszę opisać swój obiekt!
       attachment_front: Z kórym z frontów wojny ten obiekt jest związany?
       attachment_keywords: Pomóż innym znaleźć Twój obiekt dodając do niego minimum jedno słowo klucz
