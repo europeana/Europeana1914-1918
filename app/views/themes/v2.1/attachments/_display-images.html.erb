@@ -52,9 +52,7 @@
           :target => '_blank',
           :title => attachment.title,
           'data-attachment-id' => attachment.id,
-          'data-contribution-id' => contribution.id,
-          'data-attachment-preview-url' => attachment_thumbnail_url( attachment, size ),
-          'data-attachment-title' => attachment_title( attachment )
+          'data-contribution-id' => contribution.id
         }
 
         # pretty photo lightbox
@@ -221,11 +219,17 @@
           }
 
         metadata_image = ''
+        preview_image = ''
 
         if attachment.file.present?
           metadata_image = attachment_thumbnail_url( attachment, 'large' )
           if metadata_image[0] == '/'
             metadata_image = configuration(:site_url) + metadata_image
+          end
+
+          preview_image = attachment_thumbnail_url( attachment, 'medium' )
+          if preview_image[0] == '/'
+            preview_image = configuration(:site_url) + preview_image
           end
         end
 
@@ -237,6 +241,7 @@
           'data-title' => attachment_title( attachment ),
           'data-url' => url_for( :only_path => false ),
           'data-image' => metadata_image,
+          'data-image-preview' => preview_image,
           'data-summary' => attachment.metadata.fields['attachment_description']
         )
 

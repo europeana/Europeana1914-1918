@@ -16,6 +16,11 @@
 		$pagination_counts : $('#pagination-counts'),
 		pagination_total : $('#pagination-total').text(),
 		photogallery_hash_check: false,
+		placeholder: {
+			alt_attr: 'data-title',
+			src_attr: 'data-image-preview',
+			src_loading: '/assets/v2.1/images/icons/loading-animation.gif'
+		},
 
 		/**
 		 * make sure each new rel=prettyPhoto item gets
@@ -110,13 +115,13 @@
 		 * jQuery object representing a placeholder item
 		 */
 		replaceItemPlaceholder: function( new_carousel_index, $elm_placeholder ) {
-			var $a = $elm_placeholder.find('a').eq(0),
+			var $dl = $elm_placeholder.find('dl').eq(0),
 			$img = $elm_placeholder.find('img').eq(0);
 
 			$img
-				.attr( 'src', '/assets/v2.1/images/icons/loading-animation.gif' )
-				.attr( 'src', $a.attr( 'data-attachment-preview-url' ) )
-				.attr( 'alt', $a.attr( 'data-attachment-title' ) );
+				.attr( 'src', this.placeholder.src_loading )
+				.attr( 'src', $dl.attr( this.placeholder.src_attr ) )
+				.attr( 'alt', $dl.attr( this.placeholder.alt_attr ) );
 
 			$elm_placeholder.removeClass( 'item-placeholder' );
 
