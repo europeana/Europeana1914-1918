@@ -31,6 +31,12 @@
 
 		carousel_container_width : 0,
 
+		dimensions: {
+			tallest_item: 0,
+			total_width: 0,
+			widest_item: 0
+		},
+
 		item_width : 0,
 		items_length : 0,
 		items_total : 0,
@@ -109,17 +115,9 @@
 
 		addNavigation : function() {
 			// return if no nav elements are needed
-			if ( this.options.item_width_is_container_width ) {
-				if (
-					this.items_length < 2
-					&& this.options.items_collection_total < this.items_length
-				) {
-					return;
-				}
-			} else if (
-				this.items_length < this.items_per_container
-				&& this.options.items_collection_total < this.items_length
-			) {
+			if ( this.items_length === 1 ) {
+				return;
+			} else if ( this.items_length <= this.items_per_container ) {
 				return;
 			}
 
@@ -149,7 +147,7 @@
 			setInterval(
 				function() {
 					if ( window.orientation !== self.orientation ) {
-						self.setDimmensions();
+						self.setDimensions();
 						self.orientation_count += 1;
 
 						if ( self.orientation_count >= 2 ) {
@@ -205,41 +203,49 @@
 				return;
 			}
 
-			$(window).on( 'resize', { self : this }, this.setDimmensions );
+			$(window).on( 'resize', { self : this }, this.setDimensions );
 		},
 
 		ajaxCarouselSetup : function() {
 			this.$items = this.$carousel_container.find( 'li' );
-			this.setDimmensions();
+			this.setDimensions();
 			this.addSwipeHandler();
 		},
 
-		calculateDimmensions : function() {
-			this.items_length = this.$items.length;
-			this.items_total = this.items_length - 1;
+		calculateDimensions : function() {
+			this.items_length = this.options.items_collection_total || this.$items.length;
+			this.items_last_index = this.items_length - 1;
 			this.carousel_container_width = this.$carousel_container.width();
-			this.item_width = this.getItemWidth();
-			this.items_total_width = this.getTotalWidth();
-			this.items_per_container = Math.round( this.carousel_container_width / this.item_width );
+
+			this.setWidthHeight();
+
+			this.items_per_container = Math.round(
+				this.carousel_container_width / this.dimensions.widest_item
+			);
 		},
 
 		calculateNavNext : function() {
 			var
-				previous_amt = 0,
-				new_values = {
-					new_index: 0,
-					new_width: 0
-				},
-				self = this;
+			previous_amt = 0,
+			new_values = {
+				new_index: 0,
+				new_width: 0
+			},
+			self = this;
 
 			$.each( this.$items, function( index ) {
 				var $elm = $( this );
 
 				// stop carousel from scrolling beyond last element
-				if ( self.current_item_index === self.$items.length - 1 ) {
+				if ( self.current_item_index === self.items_last_index ) {
+					new_values.new_index = self.items_last_index;
+					new_values.new_width = -1 * parseInt( this.$carousel_ul.css( 'margin-left' ) , 10 );
 					return false;
+
+				// if the each index item is larger than the current index add its width to new_width
 				} else if ( index >= self.current_item_index ) {
 					new_values.new_width += $elm.outerWidth( true );
+					new_values.new_index = index;
 
 					if ( ( new_values.new_width - previous_amt ) > self.carousel_container_width ) {
 						// this can happen if the window is smaller than the element’s width
@@ -250,20 +256,27 @@
 							new_values.new_index = index + 1;
 						}
 
+						new_values.new_width -= $elm.outerWidth( true );
 						return false;
 					}
+
+					return true;
+
+				// if each index <= current_item_index add it as a previous width and
+				// increment the new_width by that amount
 				} else {
 					new_values.new_width += $elm.outerWidth( true );
 					previous_amt = new_values.new_width;
+					return true;
 				}
 			});
 
 			// stop carousel from scrolling beyond last element
 			if (
-				this.current_item_index === this.items_total ||
-				new_values.new_width >= this.items_total_width
+				this.current_item_index === this.items_last_index ||
+				new_values.new_width >= this.dimensions.total_width
 			) {
-				new_values.new_index = this.items_total;
+				new_values.new_index = this.items_last_index;
 				new_values.new_width = -1 * parseInt( this.$carousel_ul.css( 'margin-left' ) , 10 );
 			}
 
@@ -280,7 +293,7 @@
 				self = this;
 
 			if ( this.current_direction === 'prev' && this.current_item_index !== 0 ) {
-				for ( i = this.items_total; i >= 0; i -= 1 ) {
+				for ( i = this.items_last_index; i >= 0; i -= 1 ) {
 					if ( i <= this.current_item_index - 1 ) {
 						new_values.new_width += this.$items.eq( i ).outerWidth( true );
 
@@ -306,6 +319,8 @@
 					new_values.new_width -= $elm.outerWidth( true );
 					return false;
 				}
+
+				return true;
 			});
 
 			return new_values;
@@ -348,44 +363,34 @@
 			return this[property];
 		},
 
-		/**
-		 *
-		 * @returns {number}
-		 */
-		getItemWidth : function() {
-			var width = 0;
+		setWidthHeight: function() {
+			var self = this;
 
-			if ( this.options.item_width_is_container_width ) {
-				return this.carousel_container_width;
-			}
+			self.dimensions.total_width = 0;
+			self.dimensions.tallest_item = 0;
+			self.dimensions.widest_item = 0;
 
 			$.each( this.$items, function() {
-				var $elm = $( this );
+				var
+				$elm = $( this ),
+				item_width = $elm.outerWidth( true ),
+				item_height = $elm.outerHeight( true );
 
-				if ( $elm.outerWidth( true ) > width ) {
-					width = $elm.outerWidth( true );
+				if ( item_width > self.dimensions.widest_item ) {
+					self.dimensions.widest_item = item_width;
 				}
+
+				if ( item_height > self.dimensions.tallest_item ) {
+					self.dimensions.tallest_item = item_height;
+				}
+
+				self.dimensions.total_width += item_width;
 			});
-
-			return width;
-		},
-
-		/**
-		 * @returns {number}
-		 */
-		getTotalWidth: function() {
-			var width = 0;
 
 			if ( this.options.item_width_is_container_width ) {
-				return this.items_length * this.item_width;
+				this.dimensions.widest_item = this.carousel_container_width;
+				this.dimensions.total_width = this.items_length * this.dimensions.widest_item;
 			}
-
-			$.each( this.$items, function( index ) {
-				width += $( this ).outerWidth( true );
-			});
-
-			// strange hack. when the browser width is at its smallest total width doesn’t work
-			return width;
 		},
 
 		/**
@@ -460,7 +465,7 @@
 		init : function( options, carousel_container ) {
 			this.options = $.extend( true, {}, $.fn.rCarousel.options, options );
 			this.deriveCarouselElements( carousel_container );
-			this.setDimmensions();
+			this.setDimensions();
 			this.addNavigation();
 			this.toggleNav();
 
@@ -510,22 +515,20 @@
 		},
 
 		setCarouselWidth : function() {
-			this.$carousel_ul.css(
-				'width', this.items_total_width
-			);
+			this.$carousel_ul.css( 'width', this.dimensions.total_width );
 		},
 
 		/**
 		 *
 		 * @param {Event|undefined} evt
 		 */
-		setDimmensions : function( evt ) {
+		setDimensions : function( evt ) {
 			var
-				self = evt ? evt.data.self : this;
+			self = evt ? evt.data.self : this;
 
-			self.calculateDimmensions();
-			self.setCarouselWidth();
+			self.calculateDimensions();
 			self.setCarouselHeight();
+			self.setCarouselWidth();
 
 			if ( !self.options.item_width_is_container_width ) {
 				return;
@@ -533,7 +536,7 @@
 
 			self.$items.each(function() {
 				var $item = $(this);
-				$item.css('width', self.item_width );
+				$item.css( 'width', self.dimensions.widest_item );
 			});
 		},
 
@@ -564,7 +567,7 @@
 
 				if ( this.options.item_width_is_container_width ) {
 					new_values.new_index = this.current_item_index + 1;
-					new_values.new_width = new_values.new_index * this.item_width;
+					new_values.new_width = new_values.new_index * this.dimensions.widest_item;
 				} else {
 					new_values = this.calculateNavNext();
 				}
@@ -575,7 +578,7 @@
 
 				if ( this.options.item_width_is_container_width ) {
 					new_values.new_index = this.current_item_index - 1;
-					new_values.new_width = new_values.new_index * this.item_width;
+					new_values.new_width = new_values.new_index * this.dimensions.widest_item;
 				} else {
 					new_values = this.calculateNavPrev();
 				}
@@ -583,7 +586,7 @@
 			// handle index nav
 			} else if ( $.isNumeric( dir ) ) {
 				new_values.new_index = parseInt( dir, 10 );
-				new_values.new_width = new_values.new_index * this.item_width;
+				new_values.new_width = new_values.new_index * this.dimensions.widest_item;
 
 				if ( new_values.new_index <= this.current_item_index ) {
 					this.current_direction = 'prev';
@@ -593,9 +596,9 @@
 			}
 
 			// protect against next setting width or index beyond total carousel width or total nr of items
-			if ( new_values.new_width > this.items_total_width || new_values.new_index > this.items_total ) {
-				new_values.new_index = this.items_total;
-				new_values.new_width = this.items_total_width - this.$items.eq( this.items_total).outerWidth( true );
+			if ( new_values.new_width > this.dimensions.total_width || new_values.new_index > this.items_last_index ) {
+				new_values.new_index = this.items_last_index;
+				new_values.new_width = this.dimensions.total_width - this.$items.eq( this.items_last_index).outerWidth( true );
 			}
 
 			// protect against prev setting width of index before first element
@@ -617,10 +620,6 @@
 		},
 
 		toggleNav : function() {
-			var items_length = this.options.items_collection_total > 0
-				? this.options.items_collection_total
-				: this.items_length;
-
 			if ( this.$nav_prev ) {
 				if ( this.current_item_index === 0 ) {
 					this.$nav_prev.fadeOut();
@@ -630,7 +629,7 @@
 			}
 
 			if ( this.$nav_next ) {
-				if ( this.current_item_index >= items_length - 1 ) {
+				if ( this.current_item_index >= this.items_length - 1 ) {
 					this.$nav_next.fadeOut();
 				} else if ( this.$nav_next.is(':hidden') ) {
 					this.$nav_next.fadeIn();
