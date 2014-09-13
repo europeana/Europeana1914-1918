@@ -8,7 +8,6 @@
 
 	'use strict';
 
-
 	if ( 'function' !== typeof Object.create ) {
 		Object.create = function( obj ) {
 			function F() {
@@ -19,7 +18,6 @@
 			return new F();
 		};
 	}
-
 
 	var RCarousel = {
 
@@ -49,7 +47,6 @@
 		new_index: 0,
 		new_width: 0,
 
-
 		orientation : window.orientation,
 		orientation_count : 0,
 
@@ -60,7 +57,6 @@
 
 		loading_content : false,
 		page_nr : 1,
-
 
 		addKeyboardHandler : function() {
 			if ( !this.options.listen_to_arrow_keys ) {
@@ -139,10 +135,11 @@
 		},
 
 		addOrientationHandler : function() {
-			var self = this;
 			if ( window.orientation === undefined ) {
 				return;
 			}
+
+			var self = this;
 
 			setInterval(
 				function() {
@@ -180,8 +177,14 @@
 
 				if ( !$.data( this, 'touchwipe-added' ) ) {
 					$elm.touchwipe({
-						wipeLeft : function( evt ) { evt.preventDefault(); self.$nav_next.trigger('click'); },
-						wipeRight : function( evt ) { evt.preventDefault(); self.$nav_prev.trigger('click'); },
+						wipeLeft : function( evt ) {
+							evt.preventDefault();
+							self.$nav_next.trigger('click');
+						},
+						wipeRight : function( evt ) {
+							evt.preventDefault();
+							self.$nav_prev.trigger('click');
+						},
 						wipeUp : function() {
 							return;
 						},
@@ -197,13 +200,22 @@
 
 		addWindowResizeHandler : function() {
 			if (
-				window.onresize === undefined
-				|| window.onorientationchange !== undefined
+				window.onresize === undefined ||
+				window.onorientationchange !== undefined
 			) {
 				return;
 			}
 
-			$(window).on( 'resize', { self : this }, this.setDimensions );
+			var self = this;
+
+			// a version of smartresize is currently included in jquery.masonry
+			// another version is also at
+			// http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/
+			$( window ).smartresize(
+				function() {
+					self.setDimensions( { data: { self: self } } );
+				}, 400
+			);
 		},
 
 		ajaxCarouselSetup : function() {
@@ -361,36 +373,6 @@
 		 */
 		get : function( property ) {
 			return this[property];
-		},
-
-		setWidthHeight: function() {
-			var self = this;
-
-			self.dimensions.total_width = 0;
-			self.dimensions.tallest_item = 0;
-			self.dimensions.widest_item = 0;
-
-			$.each( this.$items, function() {
-				var
-				$elm = $( this ),
-				item_width = $elm.outerWidth( true ),
-				item_height = $elm.outerHeight( true );
-
-				if ( item_width > self.dimensions.widest_item ) {
-					self.dimensions.widest_item = item_width;
-				}
-
-				if ( item_height > self.dimensions.tallest_item ) {
-					self.dimensions.tallest_item = item_height;
-				}
-
-				self.dimensions.total_width += item_width;
-			});
-
-			if ( this.options.item_width_is_container_width ) {
-				this.dimensions.widest_item = this.carousel_container_width;
-				this.dimensions.total_width = this.items_length * this.dimensions.widest_item;
-			}
 		},
 
 		/**
@@ -612,11 +594,39 @@
 				new_values.new_width = -1 * new_values.new_width;
 			}
 
-
-
 			// set values
 			this.new_width = new_values.new_width;
 			this.new_index = new_values.new_index;
+		},
+
+		setWidthHeight: function() {
+			var self = this;
+
+			self.dimensions.total_width = 0;
+			self.dimensions.tallest_item = 0;
+			self.dimensions.widest_item = 0;
+
+			$.each( this.$items, function() {
+				var
+				$elm = $( this ),
+				item_width = $elm.outerWidth( true ),
+				item_height = $elm.outerHeight( true );
+
+				if ( item_width > self.dimensions.widest_item ) {
+					self.dimensions.widest_item = item_width;
+				}
+
+				if ( item_height > self.dimensions.tallest_item ) {
+					self.dimensions.tallest_item = item_height;
+				}
+
+				self.dimensions.total_width += item_width;
+			});
+
+			if ( this.options.item_width_is_container_width ) {
+				this.dimensions.widest_item = this.carousel_container_width;
+				this.dimensions.total_width = this.items_length * this.dimensions.widest_item;
+			}
 		},
 
 		toggleNav : function() {
