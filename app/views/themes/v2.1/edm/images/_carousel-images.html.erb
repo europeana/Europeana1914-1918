@@ -39,6 +39,14 @@
 			end
 		end
 
+		# get metadata
+		metadata_html = render :partial => 'metadata/edm',
+			:locals => {
+				:title => title,
+				:img_src => img_src,
+				:data_summary => data_summary
+			}
+
 		# add the first item with its preview image
 		if @item_count == 0
 			link_image = image_tag( img_src, :alt => title )
@@ -46,7 +54,7 @@
 
 			html += content_tag(
 				'li',
-				link_to( link_content, img_src, link_attrs )
+				link_to( link_content, img_src, link_attrs ) + metadata_html
 			)
 
 			html += developer_content
@@ -57,20 +65,12 @@
 
 			html += content_tag(
 				'li',
-				link_to( link_content, img_src, link_attrs ),
+				link_to( link_content, img_src, link_attrs ) + metadata_html,
 				:class => 'item-placeholder'
 			)
 
 			html += developer_content
 		end
-
-		# add metadata
-		html += render :partial => 'metadata/edm',
-			:locals => {
-				:title => title,
-				:img_src => img_src,
-				:data_summary => data_summary
-			}
 
 		@item_count += 1
 
