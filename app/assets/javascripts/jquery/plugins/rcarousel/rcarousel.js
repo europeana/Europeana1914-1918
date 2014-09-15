@@ -144,7 +144,7 @@
 			setInterval(
 				function() {
 					if ( window.orientation !== self.orientation ) {
-						self.setDimensions();
+						self.calculateDimensions();
 						self.orientation_count += 1;
 
 						if ( self.orientation_count >= 2 ) {

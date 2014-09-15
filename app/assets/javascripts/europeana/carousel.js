@@ -130,6 +130,9 @@
 				this.updatePaginationCount();
 				this.photogallery_hash_check = false;
 			}
+
+			this.$featured_carousel.calculateDimensions();
+			this.$featured_carousel.transition();
 		},
 
 		/**
