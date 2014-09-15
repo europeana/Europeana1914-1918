@@ -209,11 +209,11 @@
 			var self = this;
 
 			// a version of smartresize is currently included in jquery.masonry
-			// another version is also at
+			// another version is available at this url if needed
 			// http://www.paulirish.com/2009/throttled-smartresize-jquery-event-handler/
 			$( window ).smartresize(
 				function() {
-					self.setDimensions( { data: { self: self } } );
+					self.calculateDimensions( { data: { self: self } } );
 				}, 400
 			);
 		},
@@ -224,16 +224,30 @@
 			this.addSwipeHandler();
 		},
 
-		calculateDimensions : function() {
-			this.items_length = this.options.items_collection_total || this.$items.length;
-			this.items_last_index = this.items_length - 1;
-			this.carousel_container_width = this.$carousel_container.width();
-
-			this.setWidthHeight();
-
+		calculateAttributes : function() {
 			this.items_per_container = Math.round(
 				this.carousel_container_width / this.dimensions.widest_item
 			);
+		},
+
+		/**
+		 * @param {Event|undefined} evt
+		 * jQuery Event
+		 */
+		calculateDimensions: function( evt ) {
+			var
+			self = evt ? evt.data.self : this;
+
+			self.deriveCarouselElements();
+			self.calculateWidestTallest();
+
+			// determine total width
+			self.dimensions.total_width =
+				self.items_length * self.dimensions.widest_item;
+
+			self.equalizeItemWidth();
+			self.setCarouselHeight();
+			self.setCarouselWidth();
 		},
 
 		calculateNavNext : function() {
@@ -338,6 +352,34 @@
 			return new_values;
 		},
 
+		calculateWidestTallest: function() {
+			var self = this;
+
+			this.dimensions.tallest_item = 0;
+			this.dimensions.widest_item = 0;
+
+			$.each( this.$items, function() {
+				var
+				$elm = $( this ),
+				item_width = Math.ceil( $elm.outerWidth( true ) ),
+				item_height = Math.ceil( $elm.outerHeight( true ) );
+
+				// determine widest item
+				if ( item_width > self.dimensions.widest_item ) {
+					self.dimensions.widest_item = item_width;
+				}
+
+				// determine tallest item
+				if ( item_height > self.dimensions.tallest_item ) {
+					self.dimensions.tallest_item = item_height;
+				}
+			});
+
+			if ( this.options.item_width_is_container_width ) {
+				this.dimensions.widest_item = this.carousel_container_width;
+			}
+		},
+
 		callInitComplete: function() {
 			if ( 'function' === typeof this.options.callbacks.init_complete ) {
 				this.options.callbacks.init_complete.call( this );
@@ -354,15 +396,40 @@
 			this.nav_elements_created = true;
 		},
 
-		/**
-		 *
-		 * @param carousel_container
-		 */
-		deriveCarouselElements : function( carousel_container ) {
-			this.$carousel_container = $( carousel_container );
-			this.$carousel_ul = this.$carousel_container.find( 'ul' );
+		deriveCarouselElements: function() {
 			this.$items = this.$carousel_container.find( 'li' );
 			this.$overlay = this.$carousel_container.find( '.carousel-overlay' );
+
+			this.items_length =
+				this.options.items_collection_total ||
+				this.$items.length;
+
+			this.items_last_index = this.items_length - 1;
+			this.carousel_container_width = this.$carousel_container.width();
+		},
+
+		/**
+		 * @param {DOM Element} carousel_container
+		 */
+		deriveMainCarouselElements: function( carousel_container ) {
+			this.$carousel_container = $( carousel_container );
+			this.$carousel_ul = this.$carousel_container.find( 'ul' );
+		},
+
+		/**
+		 * sets the width of all carousel elements to the widest carousel element
+		 */
+		equalizeItemWidth: function() {
+			if ( !this.options.item_width_is_container_width ) {
+				return;
+			}
+
+			var
+			self = this;
+
+			this.$items.each(function() {
+				$(this).css( 'width', self.dimensions.widest_item );
+			});
 		},
 
 		/**
@@ -442,12 +509,14 @@
 
 		/**
 		 * @param {object} options
-		 * @param {} carousel_container
+		 * @param {DOM Element} carousel_container
 		 */
 		init : function( options, carousel_container ) {
 			this.options = $.extend( true, {}, $.fn.rCarousel.options, options );
-			this.deriveCarouselElements( carousel_container );
-			this.setDimensions();
+
+			this.deriveMainCarouselElements( carousel_container );
+			this.calculateDimensions();
+
 			this.addNavigation();
 			this.toggleNav();
 
@@ -492,34 +561,13 @@
 			this.nav_elements_placed = true;
 		},
 
+
 		setCarouselHeight: function() {
 			this.$carousel_container.css( 'height', 'auto' );
 		},
 
 		setCarouselWidth : function() {
 			this.$carousel_ul.css( 'width', this.dimensions.total_width );
-		},
-
-		/**
-		 *
-		 * @param {Event|undefined} evt
-		 */
-		setDimensions : function( evt ) {
-			var
-			self = evt ? evt.data.self : this;
-
-			self.calculateDimensions();
-			self.setCarouselHeight();
-			self.setCarouselWidth();
-
-			if ( !self.options.item_width_is_container_width ) {
-				return;
-			}
-
-			self.$items.each(function() {
-				var $item = $(this);
-				$item.css( 'width', self.dimensions.widest_item );
-			});
 		},
 
 		/**
@@ -599,36 +647,6 @@
 			this.new_index = new_values.new_index;
 		},
 
-		setWidthHeight: function() {
-			var self = this;
-
-			self.dimensions.total_width = 0;
-			self.dimensions.tallest_item = 0;
-			self.dimensions.widest_item = 0;
-
-			$.each( this.$items, function() {
-				var
-				$elm = $( this ),
-				item_width = $elm.outerWidth( true ),
-				item_height = $elm.outerHeight( true );
-
-				if ( item_width > self.dimensions.widest_item ) {
-					self.dimensions.widest_item = item_width;
-				}
-
-				if ( item_height > self.dimensions.tallest_item ) {
-					self.dimensions.tallest_item = item_height;
-				}
-
-				self.dimensions.total_width += item_width;
-			});
-
-			if ( this.options.item_width_is_container_width ) {
-				this.dimensions.widest_item = this.carousel_container_width;
-				this.dimensions.total_width = this.items_length * this.dimensions.widest_item;
-			}
-		},
-
 		toggleNav : function() {
 			if ( this.$nav_prev ) {
 				if ( this.current_item_index === 0 ) {
@@ -699,7 +717,12 @@
 		cancel_nav : false,
 		hide_overlay: true,
 		item_width_is_container_width : true,
+
+		// allows user to override item total found in the container
+		// main use case is when only a certain nr of items are in the container
+		// and an ajax call will pull in additional items
 		items_collection_total : 0,
+
 		listen_to_arrow_keys : true,
 		nav_by : 3, // set a default for the one-way-by,
 		nav_initial_delay : 3000,
