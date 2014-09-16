@@ -27,7 +27,7 @@
   
   <%- if @results.present? -%>
     
-    <h2><%= yield :title %></h2>
+    <h2><%= content_for :title %></h2>
     <%- @results.each_pair do |interval, statistics| -%>
     
       <div class="usage-statistics">
