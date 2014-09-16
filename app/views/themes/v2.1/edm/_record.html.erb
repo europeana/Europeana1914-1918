@@ -27,6 +27,7 @@
 		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
 		object          = local_assigns[:object].present? ? local_assigns[:object] : false
 
+		provide :title, title
 		provide :map_latlng, edm_places_latlng(record['places'])
 
 		if content_for?( :map_latlng )

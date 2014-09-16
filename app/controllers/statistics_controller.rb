@@ -4,9 +4,6 @@ require 'google/api_client'
 # Public usage statistics for this site, from Google Analytics
 #
 class StatisticsController < ApplicationController
-  caches_action :index, :layout => false, :expires_in => 1.day, 
-    :cache_path => Proc.new { |c| session[:theme] + '/' + I18n.locale.to_s + '/statistics' }
-
   # GET /statistics
   def index
     cache_key = "google/api/analytics/results"
