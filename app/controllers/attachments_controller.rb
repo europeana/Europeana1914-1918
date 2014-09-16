@@ -286,10 +286,10 @@ protected
   def send_attachment_file(attachment, style = :original, options = {})
     options.merge!(:type => attachment.file.content_type)
     if attachment.file.options[:storage] == :s3
-      tmp_file = attachment.file.to_file(style)
-      send_file tmp_file, options
+      tmp_file = Tempfile.new('paperclip-s3')
+      attachment.file.copy_to_local_file(style, tmp_file.path)
       tmp_file.close unless tmp_file.closed?
-      tmp_file.unlink if tmp_file.respond_to?(:unlink) && tmp_file.path.present? && File.exist?(tmp_file.path)
+      send_file tmp_file.path, options
     else
       send_file attachment.file.path(style), options
     end

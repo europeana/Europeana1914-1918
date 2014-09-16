@@ -6,8 +6,16 @@ class Admin::ExportsController < AdminController
   def show
     @export = Export.find(params[:id])
     
-    send_file_method = (@export.file.options[:storage] == :s3 ? :to_file : :path)
-    send_file @export.file.send(send_file_method), 
+    if @export.file.options[:storage] == :s3
+      tmp_file = Tempfile.new('paperclip-s3')
+      @export.file.copy_to_local_file(:original, tmp_file.path)
+      tmp_file.close unless tmp_file.closed?
+      file_path = tmp_file.path
+    else
+      file_path = @export.file.path
+    end
+    
+    send_file file_path, 
       :type => @export.file.content_type,
       :filename => File.basename(@export.file.path)
   end
