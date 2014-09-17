@@ -77,6 +77,7 @@ module EuropeanaHelper
     values.dup.each_with_index do |value, i|
       next unless value =~ /\A#{URI::regexp}\Z/
       next unless (uri_concept = concepts.find { |concept| concept['about'] == value }).present?
+      next unless uri_concept['prefLabel'].respond_to?(:has_key?)
       
       locale = uri_concept['prefLabel'].has_key?(I18n.locale.to_s) ? I18n.locale.to_s : I18n.default_locale.to_s
       if uri_concept['prefLabel'][locale].present?
