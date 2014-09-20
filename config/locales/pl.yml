@@ -84,13 +84,14 @@ pl:
       metadata_record:
         field_alternative: Pole alternatywne
         field_file_type_terms: 
+        field_collection_day_terms: 
       collection_day:
         description: Opis
         end_date: Data końcowa
-        image: 
-        name: 
+        image: Obraz
+        name: Dzień zbiórki
         start_date: Data początkowa
-        taxonomy_term_id: Słowo klucz
+        taxonomy_term_id: Identyfikator
     errors:
       full_messages:
         format: ! '%{attribute} %{message}'
@@ -205,6 +206,7 @@ pl:
           blank: Wszystkie role
           cataloguer: Edytor
           contributor: Autor
+          institutional_provider: 
   attributes:
     contact: Kontakt
     created_at: Utworzono
@@ -215,6 +217,7 @@ pl:
     title: ! 'Tytuł '
     updated_at: Zaktualizowano
     url: URL
+    username: 
   blacklight:
     search:
       fields:
@@ -226,7 +229,7 @@ pl:
           metadata_file_type_ids_im: Typ medium
           metadata_keywords_ids_im: Słowa klucze
           metadata_lang_ids_im: Język
-          metadata_theatres_ids_im: Teatry
+          metadata_theatres_ids_im: Teatry wojny
           place_name_s: Nazwa miejsca
           provider_sm: Dostarczyciel
           rights_sm: Prawa
@@ -470,7 +473,9 @@ pl:
       taken: jest już zajęty
       too_long: jest za długie (maksymalnie %{count} znaków)
       too_short: jest za krótkie (przynajmniej %{count} znaków)
-      wrong_length: ma nieprawidłową długość (powinna wynosić %{count} znaków)
+      wrong_length:
+        other: ma nieprawidłową długość (powinna wynosić %{count} znaków)
+        one: ma nieprawidłową długość (powinna wynosić %{count} znaków)
     template:
       body: ! 'Błędy dotyczą następujących pól:'
       header:
@@ -485,7 +490,7 @@ pl:
         alert: ! 'Podczas usuwania %{resource_name} wystąpił problem. '
         notice: ! '%{resource_name}  usunięto pomyślnie'
       taggings:
-        notice: Podane tagi są niedostępne
+        notice: Tagi są niedostępne
       update:
         alert: Podczas aktualizacji %{resource_name} wystąpił problem. Patrz raport ponieżej.
         notice: ! '%{resource_name}  został zaktualizowany'
@@ -498,8 +503,8 @@ pl:
         alert: ! 'Nie udało się ukryć adnotacji. '
         notice: Adnotacja nie jest już dostępna
       flag:
-        alert: Nie udało się oznaczyć adnotacji jako nieodpowiednią
-        notice: Adnotacja oznaczona jako nieodpowiednia
+        alert: Nie udało się oznaczyć adnotacji jako nieodpowiednia
+        notice: Adnotację oznaczono jako nieodpowiednią
       unflag:
         alert: Nie udało się odznaczyć adnotacji oznaczonej jako nieodpowiednia
         notice: Odznacz oznaczenie adnotacji jako nieodpowiednia
@@ -516,7 +521,7 @@ pl:
       links:
         view-attachments_html: <a href="#attachments">Kliknij żeby zobaczyć i edytować</a>.
       update:
-        alert: Przy zapisywaniu załącznika wystąpił problem
+        alert: ! ' Wystąpił problem podczas zapisywania załącznika'
         notice: Obiekt zapisano.
     configuration:
       update:
@@ -531,7 +536,7 @@ pl:
         notice: Aktualizuj kontakt
     contributions:
       approve:
-        alert: Nie udało się zatwierdzić treści
+        alert: Nie udało się zatwierdzić historii
         notice: ! 'Historia została zatwierdzona '
       destroy:
         alert: Nie udało się usunąć historii
@@ -1763,7 +1768,7 @@ pl:
     registration_required: Wymagana rejestracja
     relative_url_root: Główny adres URL
     search_engine: Wyszukiwarka
-    sharethis_id: 
+    sharethis_id: ! "Udostępnij ID Edytora \n"
     site_name: Nazwa strony
     site_url: URL strony
     ui_locales: Dostępne wersje językowe
@@ -1986,7 +1991,7 @@ pl:
             description: Konfiguruj instytucje jako ewentualnie powiązane z kontami użytkowników
           logs:
             description: 
-            text: 
+            text: Pliki logowania
           metadata_fields:
             description: Konfiguruj pola zgromadzone dla historii użytkowników
             text: Pola metadanych

@@ -23,6 +23,8 @@ pt:
           Memoir: Memória
           Official document: Documento oficial
           Postcard: Postal
+          Other: Outro
+          Publication: Publicação
         format:
           Digital: Digital
           Card: Cartão
@@ -32,8 +34,8 @@ pt:
           Leather: Couro
           Other: Outro
           ! 'Text: memoir': ! 'Texto: memória'
-          Unknown: 
-          ! 'Text: transcription': ! 'Texto: trasncrição'
+          Unknown: Desconhecido
+          ! 'Text: transcription': ! 'Texto: transcrição'
           Ceramic/China: 
           Vinyl: Vinil
           Metal: Metal
@@ -53,6 +55,8 @@ pt:
           Photograph: Fotografia
           Postcard: Postal
           Tape: ! 'Fita '
+          Folio: Fólio
+          Multiple: Múltiplo
         keywords:
           Refugees: Refiguados
           Artillery: Artilharia
@@ -61,6 +65,9 @@ pt:
           Transport: Transporte
           Trench Life: Vida nas Trincheiras
           Women: Mulheres
+          Anti-War Movement: Movimento anti-guerra
+          Conscientious Objection: Objeção de consciência
+          Home Front: Frente Interna
         collection_day:
           Fr07: Fr07
           DUP1: DUP1
@@ -231,6 +238,7 @@ pt:
           English: Inglês
           Italiano: Italiano
           Other: Outro
+          Français: Francês
         theatres:
           African Wars: África
           Balkans: Balcãs
@@ -240,6 +248,8 @@ pt:
           Middle East: Médio Oriente
           Naval Warfare: Guerra naval
           Western Front: Frente Ocidental
+        object_side:
+          Back: Voltar
       content:
         metadata:
           dcterms:
@@ -304,6 +314,7 @@ pt:
             password_confirmation: 
             username: 
         delete_picture: Eliminar imagem
+        terms: Aceito os termos & condições
       attachment:
         metadata:
           date: Data
@@ -329,6 +340,8 @@ pt:
           subject: Assunto
           theatres: Teatros
           ticket: Número do bilhete
+          license: Licença
+          location_placename: Localize onde o seu item foi criado.
         attachment:
           edit:
             title: 
@@ -367,6 +380,7 @@ pt:
           notes: Notas do catalogador
           summary: Descrição resumida dos itens
           theatres: Teatros
+          ticket: Número do bilhete
         terms: Aceito os termos & condições
         title: Título da história
       collection_day:
@@ -480,6 +494,7 @@ pt:
           lang: Indique em que língua esta história está escrita.
           location_placename: Indique o nome de uma cidade em que a história teve lugar, por ex., Paris ou Londres
           theatres: ! 'Escolha apenas se for adequado. Se não estiver disponível uma palavra-chave adequada por favor envie-nos um email: 1914-1918 [@] europeana [.] eu'
+        title: Um título geral para esta contribuição.
       options:
         admin/contributions_controller/options:
           index:
@@ -529,6 +544,7 @@ pt:
         required: ! 'Sim: o contribuidor tem de introduzir algo neste campo: Não: este campo é opcional. Os campos de catalogação devem ser opcionais.'
         searchable_no_sphinx: ! 'Nota: os campos de metadados só são pesquisáveis se o motor de pesquisa Sphinx estiver a correr; de momento não está.'
         show_in_listing: Mostrar este campo em listas como resultados de pesquisa.
+        contribution: Especificar se este campo se aplica a contribuições.
       metadata_record:
         date: ! 'Formato: AAAA-MM-DD, AAAA-MM ou AAAA, por ex. 1998-04-20, 1998-04 ou 1998'
         geo: ! 'Formato: latitude, longitude, por ex. 51.500,-0.126 (para Londres)'
@@ -728,6 +744,9 @@ pt:
       upload: Upload
     create: Criar %{model}
     required: necessário
+    'no': Não
+    update: Atualização %{model}
+    'yes': Sim
   blacklight:
     search:
       fields:
@@ -822,7 +841,625 @@ pt:
         user_contributions:
           p3: 
     collection_days:
-      different-collection-day: 
+      different-collection-day: Quer ver um "collection day" diferente?
+      cant-find-collection-day: Não encontra o "collection day" que procura no mapa?
+      index:
+        title: Collection days
+      in-the-meantime: Dê uma vista de olhos a "collection days" anteriores que já têm histórias publicadas.
+      join-us: O "collection day" ainda não foi completado. Por favor volte a verificar mais tarde, quando o collection day já estiver completo.
+      no-stories: O conteúdo deste "collection day" ainda não está em linha. Os nossos catalogadores estão coupados a rever as histórias recolhidas durante o collection day, e devem começar a publicá-lo em breve.
+      select-collection-day: Escolher um Collection Day
+      stories: ! 'Histórias:'
+      view-stories: Ver histórias
+      website: ! 'Sítio web:'
+      what-do-you-get-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+      what-is-it-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+      what-is-it-heading: O que é?
+      who-is-it-for-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio."
+      who-is-it-for-heading: A quem se destina?
+    about:
+      background:
+        heading: Europeana 1914-1918
+        p1: <b>Europeana 1914-1918</b> reúne os recursos de três grandes projetos europeus, cada um deles relativo a diferentes tipos de materiais da Primeira Guerra Mundial. O resultado é um arquivo que permite colocar as coleções das bibliotecas nacionais lado a lado com histórias e tesouros pessoais, e importantes arquivos de filmes.  Em conjunto, é assim criada uma perspectiva única da primeira Guerra Mundial,. mostrada de todos os lados das linhas de batalha, e com diferentes ângulos de perspectiva. Estamos sempre a adicionar mais material a este arquivo, por isso volte novamente!
+        p2: <b>Histórias do público:</b>Em colaboração com a Universidade de Oxford, Facts & Files e muitos outros parceiros de toda a Europa, A Europeana 1914-1918 está a recolher junto do público cartas, fotografias e recordações da guerra,  para serem digitalizadas e disponibilizadas em linha. Até ao final de 2013, participaram mais de uma dezena de países, digitalizando mais de 60.000 itens.
+      collection_days:
+        heading: Dias da Memória (Collection Days)
+        p1: Nos eventos dos "collection days", os membros do público são convidados a trazer os seus documentos, artefactos e histórias da Primeira Guerra Mundial para serem registados pela equipa do projeto. As histórias e as imagens dos objetos, digitalizados ou fotografados, são então adicionados ao arquivo.
+        p2: Vários Collections Days tiveram já lugar por toda a Europa.
+      online_collection:
+        heading: Coleção de histórias em linha
+        p1: A coleção de histórias em linha surgiu em Março de 2011. No site, qualquer pessoa pode juntar os seus objetos à coleção, juntamente com as suas histórias. Na página “%{add_your_story}” encontra mais informação sobre como fazer para juntar algo novo à coleção. Os objetos que são submetidos são verificados pela equipa do projeto, e depois disponibilizados através da Europeana.
+      privacy_policy:
+        p1: Iremos mostrar publicamente o seu nome juntamente com as suas contribuições, após a aprovação destas.
+        p2: Apenas utilizaremos quaisquer outros dados de contacto que indique, incluindo o seu endereço de email, para o contactar sobre as suas contribuições para esta coleção.
+        p3: Nunca partilharemos os seus dados de contacto com quaisquer outras organizações.
+        p4: Saiba mais sobre a nossa Política de Privacidade em <a http://www.europeana.eu/portal/privacy.html target="_blank">Europeana</a>.
+      project_partners:
+        heading: Parceiros do projeto
+        item1: <a href="http://www.ox.ac.uk" target="_blank">University of Oxford</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">German National Library – die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">National Library of Luxembourg – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">National Library of Ireland</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">National Library of Slovenia – Narodna in univerzitetna knjižnica</a>
+        item6: ! '<a href="http://www.kb.dk/en/nb/" target="_blank">The Royal Library: The National Library of Denmark and Copenhagen University Library - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: Os seus dados de contacto
+        item2: Dados completos do material
+        item3: ! 'URL exacto onde encontrou o material (i.e.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item4: Prova de que é o detentor dos direitos ou um representante legal do detentor dos direitos
+        item5: ! 'Envie-nos um email para: 1914-1918 [@] europeana [.] eu'
+        p1: ! 'Se é detentor dos direitos e está preocupado por ter encontrado materiais , no nosso sítio web, para o qual não deu permissão, retirá-lo-emos. Por favor contacte-nos por email dizendo o seguinte:'
+      terms:
+        full_details:
+          heading: ! 'Termos de utilização da Europeana: full legal details – Disponível apenas em inglês'
+        heading: Termos e condições
+        summary:
+          heading: ! 'Termos de utilização de Europeana: resumo'
+          item1: o material digital que submete não está protegido por copyright; ou
+          item2: vocês é o detentor dos direitos sobre este material digital; ou
+          item3: o detentor destes direitos autorizou-o a submeter o material digital nas seguintes condições.
+          item4: Ao contribuir com os seus conteúdos (um vídeo, uma fotografia, um diário, um desenho ou um registo áudio), está a permitir que todos utilizem este conteúdo da forma que desejarem. No entanto, deve ser sempre referência ao detentor dos direitos. E se forem efectuadas alterações aos conteúdo, terão de permitir que outros utilizem o conteúdo modificado nas mesmas condições.
+          item5: Para os dados descritivos que submete (tais como descrições ou etiquetas) para que o seu conteúdo possa ser encontrado por motores de pesquisa, está a autorizar, sem quaisquer condições, que estes dados descritivos sejam utilizados livremente.
+          p1: ! 'Antes de poder submeter material digitais à Europeana, deve concordar com os Termos de utilização da Europeana para contribuições dos utilizadores - ver parágrafo acima. Algumas das consequências mais importantes de aceitar estes termos, estão as seguintes:'
+          p2: <b>Você assegura que:</b>
+          p3: <b>Se não quer aceitar estes termos, por favor não contribua para a Europeana com conteúdos ou dados descritivos</b>.
+        user_contributions:
+          heading: Termos de utilização da Europeana para contribuições de utilizadores
+          item1: Passwords e início de sessão (Artigo 3)
+          item2: Responsabilidade pelas operações da plataforma (Artigo 4)
+          item3: Direitos de propriedade intelectual dos conteúdos (Artigo 5)
+          item4: Direitos de propriedade intelectual dos metadados (Artigo 6)
+          item5: Utilização ilegítima do serviço
+          item6: Dados pessoais do utilizador (privacidade) (Artigo 8)
+          item7: Responsabilidade das partes em caso de danos ou perdas (Artigo 9)
+          p1: Este documentos contém os termos aplicáveis aos utilizadores que contribuem com conteúdos e metadados para o sítio web Europeana.eu, da Europeana Foundation. O utilizador deverá ter presente que a Europeana Foundation está empenhada em disponibilizar todos os conteúdos e metadados para reutilização, com o mínimo de restrições.
+          p2: Como parte desta política, os <b>Europeana Terms for User Contributions</b> estabelecem que todos os conteúdos que os utilizadores submetem à Europeana são disponibilizados em Europeana.eu com uma licença <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution ShareAlike license</a>. Isto significa que, ao colocar conteúdos no site Europeana.eu, o utilizador está a autorizar terceiros a usarem livremente esses conteúdos, desde que façam referência ao autor da obra e partilhem, nas mesmas condições, as alterações que façam a esses conteúdos.
+          p3: Além disso, todos os metadados submetidos à Europeana pelos utilizadores serão disponibilizados, em Europeana.eu, com um licença <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>.  Isto significa que o utilizador autoriza que esses metadados sejam utilizados livremente por terceiros, sem quaisquer restrições.
+          p4: <b>Se não concorda com esta política, por favor não submeta conteúdos ou metadados à Europeana.</b>
+          p5: ! 'Estes Termos de Utilização de Contribuições de Utilizadores determina, entre outros, os seguintes aspetos da relação entre os utilizadores que submetem conteúdos para a Europeana.eu e a Europeana:'
+          p6: Ao criar uma conta em Europeana.eu, o utilizador indica que aceita estes termos e condições. Uma vez criada uma conta de utilizador, as condições podem ser consultadas em <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html" target="_blank">www.europeana.eu</a>.
+      what_we_do:
+        heading: ! 'Coleções nacionais:'
+        item1: Através do site Europeana 1914-1918 - junte uma imagem do item ou digite a história online.
+        item2: Nos eventos dos "Collection Days" - traga o(s) item(s) ao evento, a equipa do projeto irá fotografar os itens e registar as suas histórias.
+        p1: O projeto Europeana Collections 1914-1918 produziu uma coleção digital muito significativa de mais de 400 000 recursos das coleções digitais nacionais, proveniente de oito países que estiveram em lados opostos do conflito.
+    about_us:
+      blog:
+        heading: Blogue
+      europeana:
+        heading: Europeana 1914-1918
+        p1: A Europeana 1914-1918 reúne recursos de três grandes projetos europeus, cada um deles relativo a diferentes tipos de materiais da Primeira Guerra Mundial. O resultado é um arquivo que permite mostrar, lado a lado, as colções das bibliotecas nacionais, as histórias e objetos pessoais, e importantes arquivos de filmes, Em conjunto, é criada uma perspectiva unica da Primeira Guerra Mundial, mostrando-a dos vários ângulos das linhas de batalha,e  com perspetivas diferentes. Ao longo do tempo irá ser adicionado novo material a este arquivo, por isso volte novamente!
+        p2: <b>HIstórias do público:</b> Em colaboração com a Universidade de Oxford, Facts & Files e muitos outros parceiros de toda a Europea, a Europeana 1914-1918 está a recolher junto do público cartas, fotografias e recordações da guerra até agora desconhecidas, para serem digitalizadas e disponibilizadas em linha. No final de 2013 tinham participado neste iniciativa mais de uma dezena de países, digitalizando mais de 60 000 itens.  <a href="http://pro.europeana.eu/web/europeana-1914-1918">Mais informação sobre o projeto aqui</a>
+        p3: <b>Coleções nacionais:</b> O projeto Europeana Collections 1914-1918 criou uma coleção digital muito significativa de mais de 400 000 recursos de bibliotecas nacionais de oito paises, que estiveram em lados diferentes do conflito.
+        p4: <b>Arquivos de filmes:</b> O projeto European Film Gateway 1914 oferece-nos 650 horas de filmes a materiais relacionados sobre a Primeira Guerra Mundial, incluindo notícias, documentários, filmes de ficção, filmes de propaganda e filmes contra a guerra. Este material é especialmente importante, já que apenas cerca de 20&#37; da produção da época de filmes mudos sobreviveu até aos nossos dias.
+        p5: <b>E ainda mais:</b> Pode encontrar também neste site material de outras coleções e projetos europeus, bem como informação de fora da Europa - da Digital Public Library of America, Trove (Austrália) e Digital New Zealand.
+      events:
+        heading: Dias da Memória (Collection Days)
+        p4: Se estiver interessado em realizar o seu próprio evento para digitalizar e juntar materiais para a Europeana 1914-1918, podemos ajudar e dar alguns conselhos sobre como o fazer a href="http://pro.europeana.eu/web/europeana-1914-1918">aqui</a>
+      get_involved:
+        contribute_online:
+          heading: Contribuir online
+          p1: Se não puder ir a um roadshow, pode ainda assim partilhar as suas histórias e objetos, fazendo o upload diretamente no sítio web. Vá a <a href="http://europeana1914-1918.eu/en/contributor">'Contribute' page </a> e siga a instruções aí existentes.
+        education:
+          heading: Educação
+          p1: Os nossos parceiros da British Library desenvolveram um <a href="http://bl.uk/world-war-one">sítio web </a> em inglês destinado aos professores que concebem programas educativos sobre a Primeira Guerra Mundial.
+        events:
+          p1: Na página <a href="http://www.europeana1914-1918.eu">Home</a> deste site pode ver onde irão ter lugar os próximos roadshowa de história de família. Traga os seus documento, objetos e histórias da Primeira Guerra Mundial, para que possam ser digitalizadas ou fotografadas, e adicionadas ao arquivo.
+          p2: ! 'Se estiver interessado em realizar o seu próprio evento para digitalizar e juntar materials ao Europeana 1914-1918, podemos dar-lhe <a href="http://pro.europeana.eu/web/europeana-1914-1918">ajuda e aconselhá-lo sobre como o fazer</a>. '
+        heading: Envolva-se
+        reuse:
+          heading: Use o material
+          p1: Todo o material de Europeana 1914-1918 está disponível para reutilização. Os developers são convidados a utilizá-lo para os seus próprios projetos através da <a href="http://europeana.eu/portal/api-introduction.html">Europeana API</a>. Se pretender reutilizar os materiais da Digital Library of America, Trove ou DigitalNZ, visite os respetivos sítios web para informação.
+      help:
+        heading: Ajuda
+    admin:
+      annotations:
+        index:
+          title: Anotações à imaem feitas pelo utilizador
+        table:
+          header:
+            text: Texto da anotação
+            type: Tipo de anotação
+      collection_days:
+        delete:
+          question: Tem a certeza que pretende apagar a informação adicional sobre o "collection day" %{code}?
+          title: Apagar "collection day"
+        edit:
+          title: Editar "collection day"
+        index:
+          title: Collection days
+      config:
+        edit:
+          title: Editar parâmetros de configuração
+        index:
+          links:
+            edit: Editar parâmetros
+          table:
+            caption: Parâmetros
+            headings:
+              name: Nome
+              value: Valor
+          title: Configuração
+      contributions:
+        export:
+          title: Exportar coleção
+        index:
+          captions:
+            approved: Contributos aprovados (%{total} total)
+            draft: Contributos em versão preliminar (%{total} total)
+            rejected: Contributos rejeitados (%{total} total)
+            revised: Contribuições revistas a aguardar aprovação (%{total} total)
+            submitted: Contribuições submetidas a aguardar aprovação (%{total} total)
+            withdrawn: Contribuições retiradas a aguardar aprovação (%{total} total)
+          empty:
+            all:
+              approved: Contribuições ainda não aprovadas
+              draft: Ainda não existem contribuições em versão preliminar.
+              rejected: Ainda não existem contribuições rejeitadas.
+              revised: De momento não há contribuições revistas a aguardar aprovação.
+              submitted: De momento não há constribuições submetidas a aguardar aprovação.
+              withdrawn: De momento não há constribuições retiradas a aguardar aprovação.
+            search:
+              approved: Não existem contribuições aprovadas que correspondam à sua pesquisa.
+              draft: Não existem contribuições em versão preliminar que correspondam à sua pesquisa.
+              rejected: Não existem contribuições rejeitadas que correspondam à sua pesquisa.
+              revised: Não existem contribuições revistas que correspondam à sua pesquisa.
+              submitted: Não existem contribuições submetidas que correspondam à sua pesquisa.
+              withdrawn: Não existem contribuições retiradas que correspondam à sua pesquisa.
+          title: Contribuições/Contributos
+        p1: ! 'Abaixo constam três tabelas contendo contributos que: não foram submetidos para aprovação, estão a aguardar aprovação ou foram aprovados. Clique num título para ver detalhes sobre um contributo. Uma vez apresentados os detalhes, pode optar por editar os metadados, apagar o contributo, ou (para contributos que aguardam aprovação) aprovar o contributo.'
+      europeana:
+        index:
+          instructions: Carregar no botão Submeter dará início à recolha dos conteúdos relacionados com a Primeira Guerra Mundial a partir da API do portal Europeana, para a base de dados 1914-1918.
+          introduction: Neste momento existem %{count} registos da Europeana relacionados com a Primeira Guerra Mundial na base de dados 1914-1918.
+          title: Recolher conteúdos do portal Europeana
+      index:
+        headings:
+          export: Exportar
+        links:
+          annotations:
+            description: Rever e moderar anotações de utilizadores nos itens de imagens.
+          collection_days:
+            description: Fornecer informação adicional sobre os "collection days".
+          config:
+            description: Configurar parâmetros do site.
+            text: Configuração
+          contributions:
+            description: Rever e aprovar ou rejeitar contributos.
+            text: Contribuições
+          export_csv:
+            description: Exportar a coleção de contribuições para CSV.
+            text: Exportar como CSV
+          export:
+            description: Exportar a coleção como XML ou CSV.
+            text: Exportar
+          export_users:
+            description: Exportar os dados de utilizador para CSV para todos os contribuidores que fizeram pelo menos uma contribuição.
+            text: Exportar contribuidores
+          export_xml:
+            description: Exportar a coleção de contribuições e anexos para XML.
+            text: Exportar como XML
+          export_xml_nozip:
+            description: Exportar a coleção de contribuições e anexos para XML, incluindo anexos em ficheiros .zip.
+            text: Exportar como XML (excluindo ficheiros .zip)
+          harvest_europeana:
+            description: Recolher registos relacionados com a Primeira Guerra Mundial da API do portal Europeana.
+            text: Recolher conteúdos do portal Europeana
+          logs:
+            text: Log files
+          metadata_fields:
+            text: Campos de metadados
+          reindex:
+            description: Atualizar o índice do motor de pesquisa.
+            text: Re-indexar o motor de pesquisa
+          statistics:
+            description: Ver estatísticas anuais das histórias.
+            text: Estatísticas
+          users:
+            description: ! 'Gestão de contas de utilizador: administradores, catalogadores & contribuidores.'
+            text: Contas de utilizador
+        title: Admin
+      institutions:
+        delete:
+          question: Tem a certeza que quer apagar o fornecedor de conteúdos %{name}?
+          title: Apagar o fornecedor de conteúdos
+        edit:
+          title: Editar fornecedor de conteúdos
+        index:
+          title: Fornecedores de conteúdos
+        new:
+          title: Novo fornecedor de conteúdos
+      metadata_fields:
+        confirm_reindex:
+          note: Não é necessário re-indexar o motor de pesquisa quando as contribuiçoes são atualizadas; tal acontece automaticamente.
+          title: Re-indexar motor de pesquisa
+        delete:
+          button_confirm: Apagar mesmo este campo?
+          question: Tem a certeza que quer apagar o campo de metadados %{field_name}?
+          title: Apagar campo de metadados
+          warning: <strong>Aviso:</strong> Esta ação resultará na eliminação de quaisquer dados na sua coleção já reunidos para este campo.
+        edit:
+          empty: Ainda não existem campos de metadados.
+          instructions: Introduza um número para a posição de cada campo.
+          title: Editar campo de metadados
+        index:
+          caption: Campos de metadados
+          empty: Ainda não existem campos de metadados.
+          links:
+            new: Novo campo
+            order: Alterar ordem dos campos
+            terms: Termos
+          title: Campos de metadados
+        new:
+          title: Novo campo de metadados
+        order:
+          title: Ordem do campo de metadados
+      statistics:
+        index:
+          introduction: A tabela abaixo mostra o número de histórias publicadas e os respectivos itens para um dado ano, e opcionalmente um determinado "collection day".
+          title: Estatísticas
+      taxonomy_terms:
+        delete:
+          question: Tem a ceteza que quer apagar o termo "%{term}"?
+          title: Apagar termo taxonómico
+        index:
+          empty: Ainda não existem termos taxonómicos para este campo.
+          links:
+            back: lista de campos de metadados
+            import: Importar termos da lista
+            new: Novo termo
+          title: Termos taxonómicos
+        new:
+          title: Novo termo taxonómico
+      users:
+        delete:
+          button_confirm: Apagar mesmo esta conta de utilizador?
+          question: Tem a certeza quer quer apagar a conta de utilizador %{email}?
+          title: Apagar conta de utilizador
+          warning: <strong>Aviso:</strong> Esta acção também apagará todas as contribuições dos utilizadores.
+        edit:
+          title: Editar conta de utilizador
+        index:
+          caption: Contas de utilizador
+          empty: Não existem contas de utilizador para mostrar.
+          links:
+            new: Novo utilizador
+            show:
+              title: Ver todos os detalhes de utilizador
+          title: Contas de utilizador
+        new:
+          title: Nova conta de utilizador
+        show:
+          caption: Dados pessoais
+          links:
+            back: lista de contas de utilizador
+            contributions: Contribuições
+            edit: Editar conta de utilizador
+          title: Conta de utilizador
+    annotations:
+      edit:
+        title: Editar anotação
+      flag:
+        question: Tem a certeza que quer assinalar esta anotação como inapropriada?
+        title: Assinalar anotação como inapropriada
+    attachments:
+      attachment_help:
+        flickr:
+          description: Importar fotos e suas descrições da sua conta Flickr
+          link: Adicionar itens do Flickr
+        item1: Adicionar um único item e ficheiro.
+        item1-subitem1: Descrever esse item
+        item1-subitem2: ! 'Carregar um ficheiro como anexo '
+        item2: Adicionar vários itens e ficheiros
+        item2-subitem1: Carregar como anexos vários ficheiros que representam vários itens.
+        item2-subitem2: Pode descrever o itens individualmente
+        one-of-the-following: Pode escolher fazer um dos seguintes
+      copy:
+        instructions: Selecionar um ou mais dos outros itens anexados a esta história, para substituir com os metadados deste item (mostrados abaixo).
+        title: Copiar metadados do item
+      delete:
+        question: Tem a certeza que pretende apagar o item "%{filename}"?
+        title: Apagar item
+      edit:
+        caption:
+          current: Ficheiro atual
+          uploaded: Ficheiro carregado
+        title: Editar anexo
+      _form:
+        dropbox:
+          connected_html: Está ligado ao Dropbox como <strong>%{user}</strong>
+          connect_html: Se tem uma conta Dropbox, pode enviar-nos ficheiros diretamente da sua pasta Dropbox. Se quiser usar esta funcionalidade, por favor <a href="%{href}">ligue-se à sua conta Dropbox</a>.
+          disconnect: Desligar da sua conta Dropbox
+          empty: Copie alguns ficheiros para a pasta "/Apps/Europeana 1914-1918" na sua conta Dropbox, eles surgirão aqui depois de clicar em "Refrescar lista de ficheiros".
+          refresh: Refrescar lista de ficheiros
+      index:
+        empty: Não foram carregados ficheiros para esta história.
+        links:
+          new: Novo anexo
+        title: Itens
+      new:
+        caption: Ficheiro carregado
+        title: Novo anexo
+      show:
+        title: Anexo
+      _summary:
+        caption: Informação do anexo
+      _table:
+        caption: Itens
+        links:
+          preview:
+            title: Ver detalhes dos anexos
+        no_thumbnail: Geração de miniaturas
+    blog_posts:
+      read_more: Ler mais
+    browse:
+      collection-days:
+        heading: Collection days
+      subjects:
+        heading: Assuntos
+      types:
+        heading: Tipos
+    common:
+      loading: a carregar ...
+      more-like-this: ! 'Outros itens que lhe podem interessar:'
+      permanent: Esta ação não pode ser anulada.
+    contact:
+      heading: Contacte-nos
+      p1: Para contactar a equipa do projeto Europeana 1914-1918, por favor use o endereço de email 1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: Anónimo
+      edit:
+        title: Editar dados pessoais
+      no_name: sem nome de contacto
+      show:
+        title: Dados de contacto
+    contributions:
+      complete:
+        p1: O seu contributo foi submetido. Obrigado! Será verificado pela equipa do projeto e depois de aprovado ficará disponível no site. Por vezes este processo pode levar algumas semanas. Pedimos a sua compreensão e paciência.
+        title: Contribuição completada
+      digital_object:
+        heading: Itens anexados à sua história
+        help_text:
+          add_attachment: Lembre-se de adicionar pelo menos um item à sua história.
+          attachment_count: Neste momento há <strong>%{nr_digital_objects}</strong> itens anexos à sua história.
+          language: Indique a língua utilizada no item, por exemplo, a(s) língua(s) em que é escrito um diário.
+          object_type: O que é o item (por exemplo poema, carta, fotografia); tente ser tão específico quanto possível.
+          save_digital: Ao clicar em "Guardar item", estará a gravar o item e terá de o modificar para adicionar mais itens ou submeter a sua contribuição como um todo.
+          subject: A pesso, lugar ou objeto a que o item diz respeito.
+          submit_contribution1: Se terminou a sua contribuição,  <a href="#continue-to-submission">continue para a etapa de sumissão</a>.
+          submit_contribution2: Ao clicar em "Submeter história", dará por concluída a sua submissão. Uma vez submetida a sua contribuição, esta será revista por um especialista e ficará disponível a outros.
+          submit_story_button: Submeter história
+          summary: Abaixo segue um resumo de itens já anexados a esta história, de início não há nenhum. No entanto, pode adicionar tantos quantos desejar. Pode também editar itens clicando no link de edição ao lado, na lista abaixo.
+          when: Quando foi criado este item
+          where: Onde foi criado este item
+        labels:
+          keywords: Ajude outros a encontrar o seu item, adicionando uma ou várias das seguintes palavras-chave.
+          location_map: Localização (mapa)
+          location_place_name: Localização (nome do lugar)
+          save_digital: Guardar objeto digital
+          save_item_draft: Guardar versão preliminar do item
+          submit_contribution: Submeter contribuição
+        links:
+          add_another: Adicionar outro item
+          add_item: Anexar um item
+          edit: editar ou adicionar mais informação
+          edit_story: Editar a história
+        options:
+          3d: 3D
+          artifact: Artefacto
+          audio: Áudio
+          back: Voltar
+          book: Livro
+          canvas: Tela
+          card: 
+          cc_by_sa: cc-by-sa
+          ceramic: Cerâmica/China
+          diary: Diário
+          digital: Digital
+          film: Filme
+          folio: Fólio
+          front: Frente
+          image: Imagem
+          journal: Revista
+          leaf: Folha
+          leather: Pele
+          letter: Carta
+          medal: Medalha
+          metal: Metal
+          mixed: Misto
+          multiple: Múltiplo
+          newspaper: Jornal
+          notebook: Agenda
+          other_option: Outro
+          paper: Papel
+          photograph: Fotografia
+          photographic_paper: Papel fotográfico
+          poem: Poema
+          postcard: Postal
+          public_domain: domínio público
+          tape: Fita
+          text: Texto
+          text_memoir: ! 'Texto: memória'
+          text_transcript: ! 'Texto: transcrição'
+          unknown: Desconhecido
+          video: Vídeo
+          vinyl: Vinil
+          vinyl_record: Disco vinil
+          wood: Madeira
+        step2: Passo 2 - Adicionar os seus itens e ficheiros
+      edit:
+        title: Contribuição
+      feed:
+        entries:
+          annotation:
+            item: ! '%{user} fez um comentário numa imagem do item %{title}'
+            story: ! '%{user} fez um comentário numa imagem da história %{title}'
+          contribution: ! '%{user} publicou a história %{title}'
+        title: Atividade Europeana 1914-1918
+      index:
+        empty: Ainda não existem contribuições para mostrar ao público.
+        title: Contribuições
+      new:
+        title: Contribuição
+      no_title: sem título
+      _progress:
+        step_x_of_y: Passo %{x} de %{y}
+      search:
+        captions:
+          all: Todas as contribuições
+          matching: Contribuições correspondentes a "%{query}"
+        heading: Resultados da pesquisa
+        links:
+          titles:
+            show_contribution: Ver contribuição
+        matches-for: ! 'Resultados para:'
+        no_matches: Sem resultados. Por favor tente novamente.
+        related-europeana: Conteúdos relacionados do portal Europeana
+        result_count_label: resultados
+      show:
+        button_confirm: Tem a certeza que está pronto para submeter esta contribuição para a coleção?
+        comments:
+          leave: Deixe um Comentário
+          no_comments: Não há comentário, porque não deixa um abaixo...
+          submit: Submeter Comentário
+          title: Comentários
+        empty_attachments: Esta história não tem itens.
+        headings:
+          share: Partilhar em
+          submit: Submeter contribuição
+          tags: Adicionar etiquetas
+        invalid: Esta contribuição ainda não está pronta para ser submetida. Clique em "Porque não?" para obter uma explicação. Clique em EDITAR abaixo para adicionar mais informação.
+        links:
+          new_attachment: Adicionar um item
+        related:
+          title: Conteúdo relacionado
+        shared-this-story: partilhou esta história sobre
+        title: História
+      status:
+        approved: Aprovado
+        approved_by: Aprovado por %{name}
+        draft: Draft &mdash; ainda não foi submetido
+        label: Estado
+        rejected: Rejeitado
+        rejected_by: Rejeitado por %{name}
+        revised: Revisto
+        submitted: Submetido &mdash; aguarda aprovação
+        title: Status log
+        unknown: Desconhecido
+        withdrawn: Retirado
+      story:
+        complete:
+          heading: História completa
+        help_text:
+          add_another_person: Pode adicionar mais do que uma pessoa.
+          behalf_of: Deixe em branco, a não ser que esteja a ajudar alguém a fazer esta contribuição
+          save_story: Ao clicar em "Guardar versão preliminar da história", passará ao próximo passo na contribuição
+          sections: Clique nos títulos de secção abaixo para abrir e fechar; cada secção contém informação adicional que pode juntar à sua história
+          use_google_maps: Usar o Google Maps
+        labels:
+          people: Adicionar os nomes das pessoas a que esta história diz respeito.
+        step1: Passo 1 - Contar a sua história
+      _summary:
+        caption: Resumo
+      withdraw:
+        question: Tem a certeza que quer retirar a história  “<strong>%{title}</strong>” da coleção?
+        title: Retirar história
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Versões preliminares
+          submitted: Submetido
+        empty:
+          all: Ainda não começou nenhuma história.
+          approved: Ainda não tem histórias aprovadas.
+          draft: De momento não tem nenhuma versão preliminar de histórias
+          submitted: Ainda não submeteu nenhuma história.
+        headings:
+          contributions: As suas histórias
+        links:
+          new: Adicionar uma nova história
+        p1: Abaixo constam as histórias que já adicionou. Pode editá-las ou apagá-las como for necessário.
+        title: ! 'Adicione a sua história '
+      dashboard_guest:
+        button_text: Contribuição concluída
+        headings:
+          finished: Terminou a sua contribuição?
+        identity: (Se não é %{name}, clique no botão "Contribuição concluída", abaixo.)
+        links:
+          edit_contact: Editar dados de contacto
+          new: Nova contribuição
+        notice: ! '%{name}, está a contribuir como convidado.'
+        privacy: Quando tiver concluído a sua contribuição, use o botão abaixo para limpar os seus dados de contacto. Isto ajudará a proteger a sua privacidade num computador partilhado.
+      guests:
+        edit:
+          title: Editar dados de contacto de convidao
+        new:
+          contact_details: ! 'Em alternativa, dê-nos primeiro os seus dados de contacto:'
+          guest: Está a contribuidor como convidado.
+          links:
+            register: registe-se
+            sign_in: inicie sessão
+          notice: Se pretender guardar os seus dados de contacto e acompanhar o estado das suas contribuições após serem submetidas, %{sign_in} our %{register} antes de continuar continuing.
+          title: Dados de contacto de convidado
+      help:
+        adding_your_story:
+          heading: Adicionando a sua história à Europeana 1914-1918
+          p1: Pode adicionar a sua história à Europeana 1914-1918 usando o formulário da coleção em linha neste sítio web. Só tem de introduzir alguma informação sobre a sua contribuição, dizendo o que é (um postal enviado de XX, um diário, etc.) e adicionar qualquer história que queira partilhar (por exemplo sobre a pessoa na fotografia, como a obteve, o que sabe sobre o objeto). Depois, pode anexar uma versão digital do objeto, por exemplo uma digitalização ou fotografia do desenho, diário, uniforme ou o que quer que seja que estiver a partilhar. Uma vez submetida a sua contribuição, será revista por um perito e ficará disponível.
+        how_to_use:
+          heading: Como usar o interface da coleção de histórias em linha
+          item1: ! '%{register} para obter uma conta (só tem de o fazer uma vez) ou %{sign_in} se já se registou.'
+          item2: Adicionar informação sobre a sua contribuição
+          item3: (opcional) Anexe uma versão digital do seu objeto (fotografia, texto digitalizado, vídeo, áudio, etc.)
+          item4: Submeta a contribuição à coleção de histórias em linha
+          item5: A sua contribuição será revista por um catalogador da Europeana. Quando a sua contribuição tiver sido revista e aceite ficará visível para outros.
+          p1: Para adicionar algo à coleção de histórias em linha, tem primeiro de %{sign_in} ou %{register}. De seguida poderá adicionar os seus objetos e histórias à Europeana 1914-1918.
+          p2: Ser-lhe-á pedido para completar os cinco passos que se seguem. Não tem de completar todo o processo de uma vez, pode guardar a sua contribuição e terminar posteriomente.
+        item1: Adicionando a sua história à Europeana 1914-1918 - Ver abaixo.
+        item2: ! '%{privacy_policy} - Página separada'
+        item3: ! '%{takedown_policy} - Página separada'
+        item4: ! '%{contribution_terms} - Página separada'
+        item5: ! '%{about_the_project} - Página separada'
+        p1: O projeto Europeana 1914-1918 destina-se a recolher material relacionado com a Grande Guerra (1914-1918) e com aqueles que nela estiveram envolvidos ou por ela foram afectados. Na fase aual estamos a recolher material e histórias da Grã-Bretanha, Alemanha, Eslovénia, Luxemburgo, Irlanda, etc. Na página %{about} pode encontrar mais informação sobre o projeto e o tipo de material que estamos a recolher.
+      index:
+        item1: Intriduza informação sobre a sua história.
+        item2: Guardar a sua história como rascunho
+        item3: Adicionar um ou mais itens (imagens, documentos de texto, áudio, vídeo, etc.)
+        item4: Confirme que concorda com os termos e condições e submeta para revisão.
+        p1: ! 'Obrigado por se oferecer para contribuir para a Europeana 1914-1918. Fazer uma contribuição é um processo simples. Clique abaixo em "Adicionar uma nova história" para começar. Será então levado pelas etapas seguintes:'
+      registration_required:
+        p1: Por favor %{sign_in} ou %{register} para poder adicionar os seus objetos e histórias à Europeana 1914-1918.
+    devise:
+      passwords:
+        edit:
+          title: Alterar a sua password
+        new:
+          title: Esqueceu a sua password?
+      registrations:
+        edit:
+          title: Alterar dados da conta
+        new:
+          title: Registar
+      sessions:
+        new:
+          instructions: ! 'Por favor inicie sessão com os seus dados de conta:'
+          title: Iniciar sessão
+    errors:
+      api_error:
+        message: A informação dão está disponível de momento.
+        title: Erro API
+      bad_request:
+        message: Ocorreu um problema com o pedido que submeteu, pelo que não pode ser processado.
+        title: Pedido incorreto
+      federated_search_error:
+        message: 
+        title: Erro na pesquisa federada
+      forbidden:
+        message: Não tem permissão para aceder ao recurso pedido.
+        title: Proibido
+      internal_server_error:
+        message: Ocorreu um problema que não nos permite processar o seu pedido.
+        title: Erro interno do servidor
   actions:
     approve: Aprovar
     cancel: Cancelar
@@ -842,6 +1479,7 @@ pt:
     reject: Rejeitar
     remove: Remover
     unflag: Desmarcar
+    edit_story: Editar história
   activerecord:
     attributes:
       attachment:
@@ -854,6 +1492,7 @@ pt:
         metadata: Metadados
         file_file_size: Tamanho do ficheiro
         preview: Pré-vizualização
+        dropbox_path: Ficheiro dropbox
       contact:
         age: Idade
         country: País onde reside
@@ -873,6 +1512,9 @@ pt:
         submitted_at: Submetido a
         metadata: Metadados
         attachments: Itens
+        contributor: Contribuidor
+        created_at: Iniciado em
+        terms: Termos aceites
       contribution_status:
         created_at: estado modificado em
       metadata_field:
@@ -881,6 +1523,9 @@ pt:
         searchable: Pesquisável
         show_in_listing: Mostrar em listas
         multi: Seleção múltipla
+        cataloguing: Catalogação
+        hint: Conselho
+        required: Requisitos
       setting:
         name: Nome
         value: Valor
@@ -897,6 +1542,7 @@ pt:
       metadata_record:
         field_alternative: 
         field_file_type_terms: 
+        field_collection_day_terms: 
       collection_day:
         description: Descrição
         end_date: Data de fim
@@ -964,6 +1610,7 @@ pt:
         role_name:
           administrator: Administrador
           cataloguer: Catalogador
+          institutional_provider: 
   attributes:
     status: Estado
     title: Título
@@ -974,6 +1621,7 @@ pt:
     email: Email
     id: ID
     metadata_record: Metadados
+    username: 
   common:
     additional-information: Informação adicional
     download-item: Fazer download do item
@@ -998,9 +1646,12 @@ pt:
       register: Registar
       sign_in: Iniciar sessão
       titles:
-        contribution_terms: Ver Termos de utilização da Europeana para Contributos de Uilizadores
+        contribution_terms: Ver Termos de utilização da Europeana para Contributos de Utilizadores
         great_war: Arquivo da Grande Guerra na Universidade de Oxford
       view-image: Ver item completo
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Saiba mais sobre como reunir as coleções nacionais</a>.
+      play-audio: Ouvir audio
+      play-video: Ver vídeo
     menus:
       main:
         about: Sobre
@@ -1011,6 +1662,7 @@ pt:
         select_language: Escolher língua
         sign_in: Iniciar sessão
         sign_out: Fechar sessão
+        add: Acrescente a sua história
       menu: Menu
     more-at: Mais em
     'no': Não
@@ -1154,12 +1806,18 @@ pt:
           unit: ''
       format:
         delimiter: ''
+        precision: 1
     percentage:
       format:
         delimiter: ''
     precision:
       format:
         delimiter: ''
+    currency:
+      format:
+        significant: true
+    format:
+      precision: 2
   Polish: 
   javascripts:
     collection-days:
@@ -1234,3 +1892,56 @@ pt:
       button_text: Seleccionar ficheiros
       finished: Voltar à contribuição
       label: Vários ficheiros
+      saved: Guardado
+  languages:
+    de: Alemão
+    en: Inglês
+    fr: Francês
+    ga: Irlandês
+    hu: Húngaro
+  layout:
+    navigation:
+      about: Sobre
+      admin: Admin
+      browse: Navegar
+      contact: Contacte-nos
+      help: Ajuda
+      home: Início
+  locale: Inglês
+  mail:
+    contributions:
+      published:
+        greeting: Caro contribuidor da Europeana 1914-1918,
+        signature: ! 'Cumprimentos,
+
+          A Equipa Europeana 1914-1918'
+        subject: A sua contribuição para a Europeana 1914-1918 foi publicada
+        thanks: ! 'Obrigado por partilhar as suas histórias e objetos connosco! A sua contribuição foi publicada no nosso site. Pode vê-la clicando em:'
+    exports:
+      complete:
+        notice: ! 'A exportação da coleção que iniciou já está completa, e pode ser descarregada em:'
+        subject: Expotação de coleção completa
+  media_types:
+    all: Todos
+    binary: Ficheiro binário
+    pdf: PDF
+    sound: Ficheiro de som
+    txt: Ficheiro de texto
+    unknown: Tipo de documento desconhecido
+    video: Ficheiro de vídeo
+    wordprocessing: Documento word
+  settings:
+    allowed_upload_extensions: Tipos de upload permitidos
+    bing_client_id: ID cliente Bing
+    bing_client_secret: Segredo cliente Bing
+    contribution_approval_required: Publicar apenas contribuições aprovadas
+    gmap_api_key: Chave API Google Maps
+    google_api_email: Email Google API
+    max_upload_size: Tamanho máximo para upload
+    publish_contributions: Publicar contribuições
+    registration_required: É necessário registo
+    search_engine: Motor de pesquisa
+    site_name: Nome do site
+    site_url: URL do site
+  time:
+    am: am
