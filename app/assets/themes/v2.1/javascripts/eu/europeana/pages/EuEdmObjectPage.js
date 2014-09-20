@@ -180,22 +180,22 @@
 					$('#' + self.node_id).rCarousel({
 						item_width_is_container_width : false,
 						listen_to_arrow_keys: false,
-						$nav_next : $('<input>', {
+						nav_next: {
 							'type' : 'image',
 							'class' : 'medium',
 							'alt' : 'next',
 							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-right.png',
 							'style' : 'display: none;',
 							'data-dir' : 'next'
-						}),
-						$nav_prev : $('<input>', {
+						},
+						nav_prev: {
 							'type' : 'image',
 							'class' : 'medium',
 							'alt' : 'previous',
 							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-left.png',
 							'style' : 'display: none;',
 							'data-dir' : 'prev'
-						})
+						}
 					}).data('rCarousel');
 			});
 		}

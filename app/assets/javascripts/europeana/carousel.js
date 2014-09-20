@@ -86,22 +86,22 @@
 								}
 							}
 						},
-						$nav_next : $('<input>', {
+						nav_next: {
 							'type' : 'image',
 							'class' : 'medium',
 							'alt' : 'next',
 							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-right.png',
 							'style' : 'display: none;',
 							'data-dir' : 'next'
-						}),
-						$nav_prev : $('<input>', {
+						},
+						nav_prev: {
 							'type' : 'image',
 							'class' : 'medium',
 							'alt' : 'previous',
 							'src' : '/assets/jquery/plugins/rcarousel/images/carousel-arrow-left.png',
 							'style' : 'display: none;',
 							'data-dir' : 'prev'
-						})
+						}
 					}).data('rCarousel');
 
 				europeana.carousel.updatePaginationCount();
@@ -132,7 +132,7 @@
 			}
 
 			this.$featured_carousel.calculateDimensions();
-			this.$featured_carousel.transition();
+			//this.$featured_carousel.move();
 		},
 
 		/**
@@ -144,7 +144,7 @@
 		replaceItemPlaceholderCheck: function( dir ) {
 			var $elm_placeholder,
 			new_carousel_index = 0,
-			current_carousel_index = this.$featured_carousel.get('current_item_index');
+			current_carousel_index = this.$featured_carousel.getCurrentItemIndex();
 
 			if ( dir === 'next' ) {
 				new_carousel_index = current_carousel_index + 1;
@@ -175,7 +175,7 @@
 
 			this.$pagination_counts.html(
 				I18n.t('javascripts.thumbnails.item') + ' ' +
-				( this.$featured_carousel.get('current_item_index') + 1 ) +	' ' +
+				( this.$featured_carousel.getCurrentItemIndex() + 1 ) +	' ' +
 				I18n.t('javascripts.thumbnails.of') + ' ' +
 				this.pagination_total
 			);

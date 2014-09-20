@@ -21,68 +21,109 @@
 
 	var RCarousel = {
 
-		options : null,
+		options : {
+			add_swipe_handler : true,
+			add_nav_arrow_reveal : true,
+			callbacks : {
+				after_nav : null,
+				before_nav : null,
+				init_complete: null
+			},
+			cancel_nav : false,
+			hide_overlay: true,
+			item_width_is_container_width : true,
+
+			// allows user to override item total found in the container
+			// main use case is when only a certain nr of items are in the container
+			// and an ajax call will pull in additional items
+			items_collection_total : 0,
+
+			listen_to_arrow_keys : true,
+			nav_initial_delay : 3000,
+			nav_next : {
+				'type' : 'image',
+				'class' : 'medium',
+				'alt' : 'next',
+				'src' : 'js/jquery/plugins/rcarousel/images/carousel-arrow-right.png',
+				'style' : 'display: none;',
+				'data-dir' : 'next'
+			},
+			nav_prev : {
+				'type' : 'image',
+				'class' : 'medium',
+				'alt' : 'previous',
+				'src' : 'js/jquery/plugins/rcarousel/images/carousel-arrow-left.png',
+				'style' : 'display: none;',
+				'data-dir' : 'prev'
+			}
+		},
+
 		$carousel_container : null,
 		$carousel_ul : null,
 		$items : null,
+		$nav_next : null,
+		$nav_prev : null,
 		$overlay : null,
 
-		carousel_container_width : 0,
-
-		dimensions: {
-			tallest_item: 0,
-			total_width: 0,
-			widest_item: 0
+		attributes: {
+			container_width : 0,
+			current_item_index : 0,
+			item_total : 0,
+			items_last_index : 0,
+			tallest_item : 0,
+			total_width : 0,
+			ul_width : 0,
+			widest_item : 0
 		},
 
-		item_width : 0,
-		items_length : 0,
-		items_total : 0,
-		items_total_width : 0,
-		items_per_container : 0,
+		arrow_key_handler_added : false,
+		loading_content : false,
+		nav_elements_created : false,
+		nav_elements_placed : false,
+		nav_click_handler_added : false,
 
-		current_direction: '',
-		current_item_index : 0,
-		next_item_index: 0,
-		new_index: 0,
-		new_width: 0,
+		new_nav : {
+			direction : '',
+			index : 0
+		},
 
 		orientation : window.orientation,
 		orientation_count : 0,
 
-		nav_elements_created : false,
-		nav_elements_placed : false,
-		nav_click_handler_added : false,
-		arrow_key_handler_added : false,
-
-		loading_content : false,
-		page_nr : 1,
-
 		addKeyboardHandler : function() {
-			if ( !this.options.listen_to_arrow_keys ) {
+			if (
+				!this.options.listen_to_arrow_keys ||
+				this.arrow_key_handler_added
+			) {
 				return;
 			}
 
-			if ( this.arrow_key_handler_added ) {
-				return;
-			}
-
-			$(document).on('keyup', { self : this }, this.handleKeyUp );
+			$( document ).on( 'keyup', { self: this }, this.handleKeyUp );
 			this.arrow_key_handler_added = true;
 		},
 
 		addNavClickHandler : function() {
-			if ( this.nav_click_handler_added ) { return; }
-			this.$nav_prev.add( this.$nav_next ).on( 'click', { self : this }, this.handleNavClick );
+			if ( this.nav_click_handler_added ) {
+				return;
+			}
+
+			var
+			self = this;
+
+			this.$nav_prev.add( this.$nav_next ).on( 'click', { self: self }, self.handleNavClick );
 			this.nav_click_handler_added = true;
 		},
 
 		addNavArrowHandling : function() {
-			if ( this.$items.length < 2 || this.$nav_next === undefined ) {
+			if (
+				this.$items.length < 2 ||
+				this.$nav_next === undefined
+			) {
 				return;
 			}
 
-			var self = this;
+			var
+			self = this;
 
 			setTimeout(
 				function() {
@@ -111,9 +152,7 @@
 
 		addNavigation : function() {
 			// return if no nav elements are needed
-			if ( this.items_length === 1 ) {
-				return;
-			} else if ( this.items_length <= this.items_per_container ) {
+			if ( this.attributes.item_total === 1 ) {
 				return;
 			}
 
@@ -139,7 +178,8 @@
 				return;
 			}
 
-			var self = this;
+			var
+			self = this;
 
 			setInterval(
 				function() {
@@ -148,7 +188,7 @@
 						self.orientation_count += 1;
 
 						if ( self.orientation_count >= 2 ) {
-							self.transition();
+							self.animate();
 							self.orientation = window.orientation;
 							self.orientation_count = 0;
 						}
@@ -159,21 +199,20 @@
 		},
 
 		addSwipeHandler : function() {
-			var self = this;
+			var
+			$elm,
+			self = this;
 
 			if (
-				!self.options.add_swipe_handler
-				|| document.documentElement.ontouchstart === undefined
-				) {
-				return;
-			}
-
-			if ( !$().touchwipe ) {
+				!self.options.add_swipe_handler ||
+				document.documentElement.ontouchstart === undefined ||
+				!$().touchwipe
+			) {
 				return;
 			}
 
 			self.$items.each(function() {
-				var $elm = $(this);
+				$elm = $( this );
 
 				if ( !$.data( this, 'touchwipe-added' ) ) {
 					$elm.touchwipe({
@@ -220,17 +259,50 @@
 
 		ajaxCarouselSetup : function() {
 			this.$items = this.$carousel_container.find( 'li' );
-			this.setDimensions();
+			this.calculateDimensions();
 			this.addSwipeHandler();
 		},
 
-		calculateAttributes : function() {
-			this.items_per_container = Math.round(
-				this.carousel_container_width / this.dimensions.widest_item
-			);
+		/**
+		 * animates the carousel to its new position
+		 */
+		animate : function() {
+			var
+			self = this;
+
+			if ( self.loading_content ) {
+				setTimeout(
+					function() {
+						self.animate();
+					},
+					100
+				);
+
+				return;
+			}
+
+			if ( this.new_nav.width !== this.attributes.ul_width ) {
+				if ( $.support.transition ) {
+					this.$carousel_ul.css( 'margin-left', this.new_nav.width );
+				} else {
+					this.$carousel_ul.animate({
+						'margin-left': this.new_nav.width
+					});
+				}
+
+				this.attributes.ul_width = this.new_nav.width;
+			}
+
+			this.attributes.current_item_index = this.new_nav.index;
 		},
 
 		/**
+		 * this method is called at various moments. sometimes with jQuery events
+		 * and sometimes not, thus the need to define self as below.
+		 *
+		 * it’s used to calculate and re-calculate carousel attributes based on
+		 * the items within the carousel
+		 *
 		 * @param {Event|undefined} evt
 		 * jQuery Event
 		 */
@@ -238,146 +310,181 @@
 			var
 			self = evt ? evt.data.self : this;
 
-			self.deriveCarouselElements();
+			self.deriveCarouselItems();
 			self.calculateWidestTallest();
-
-			// determine total width
-			self.dimensions.total_width =
-				self.items_length * self.dimensions.widest_item;
-
 			self.equalizeItemWidth();
+			self.calculateTotalWidth();
+
 			self.setCarouselHeight();
 			self.setCarouselWidth();
 		},
 
-		calculateNavNext : function() {
-			var
-			previous_amt = 0,
-			new_values = {
-				new_index: 0,
-				new_width: 0
-			},
-			self = this;
-
-			$.each( this.$items, function( index ) {
-				var $elm = $( this );
-
-				// stop carousel from scrolling beyond last element
-				if ( self.current_item_index === self.items_last_index ) {
-					new_values.new_index = self.items_last_index;
-					new_values.new_width = -1 * parseInt( this.$carousel_ul.css( 'margin-left' ) , 10 );
-					return false;
-
-				// if the each index item is larger than the current index add its width to new_width
-				} else if ( index >= self.current_item_index ) {
-					new_values.new_width += $elm.outerWidth( true );
-					new_values.new_index = index;
-
-					if ( ( new_values.new_width - previous_amt ) > self.carousel_container_width ) {
-						// this can happen if the window is smaller than the element’s width
-						if ( index !== self.current_item_index ) {
-							new_values.new_width -= $elm.outerWidth( true );
-							new_values.new_index = index;
-						} else {
-							new_values.new_index = index + 1;
-						}
-
-						new_values.new_width -= $elm.outerWidth( true );
-						return false;
-					}
-
-					return true;
-
-				// if each index <= current_item_index add it as a previous width and
-				// increment the new_width by that amount
-				} else {
-					new_values.new_width += $elm.outerWidth( true );
-					previous_amt = new_values.new_width;
-					return true;
-				}
-			});
-
-			// stop carousel from scrolling beyond last element
-			if (
-				this.current_item_index === this.items_last_index ||
-				new_values.new_width >= this.dimensions.total_width
-			) {
-				new_values.new_index = this.items_last_index;
-				new_values.new_width = -1 * parseInt( this.$carousel_ul.css( 'margin-left' ) , 10 );
+		/**
+		 * calculates new nav values,
+		 * preparing for navigation in the carousel
+		 *
+		 * @param {string|int} dir
+		 */
+		calculateNewNav: function( dir ) {
+			// validate dir
+			if (dir !== 'next' && dir !== 'prev' && !$.isNumeric( dir ) ) {
+				throw new Error( 'cannot evaluate nav click direction or value' );
 			}
 
-			return new_values;
+			// reset new nav values
+			this.new_nav.direction = '';
+			this.new_nav.index = 0;
+			this.new_nav.width = 0;
+
+			// handle next nav
+			if ( dir === 'next' ) {
+				this.new_nav.index = this.attributes.current_item_index + 1;
+
+				if ( this.options.item_width_is_container_width ) {
+					this.new_nav.width = -1 * ( this.new_nav.index * this.attributes.container_width );
+				} else {
+					this.calculateNewNavNext();
+				}
+
+			// handle prev nav
+			} else if ( dir === 'prev' ) {
+				this.new_nav.index = this.attributes.current_item_index - 1;
+
+				if ( this.options.item_width_is_container_width ) {
+					this.new_nav.width = -1 * ( this.new_nav.index * this.attributes.container_width );
+				} else {
+					this.calculateNewNavPrev();
+				}
+
+			// handle index nav
+			} else if ( $.isNumeric( dir ) ) {
+				this.new_nav.index = parseInt( dir, 10 );
+				this.new_nav.width = -1 * ( this.new_nav.index * this.attributes.container_width );
+
+				// set direction for an index nav value
+				if ( this.new_nav.index <= this.attributes.current_item_index ) {
+					this.new_nav.direction = 'prev';
+				} else if ( this.new_nav.index >= this.attributes.current_item_index ) {
+					this.new_nav.direction = 'next';
+				}
+			}
 		},
 
-		calculateNavPrev : function() {
-			var
-				i,
-				new_values = {
-					new_index: 0,
-					new_width: 0
-				},
-				self = this;
-
-			if ( this.current_direction === 'prev' && this.current_item_index !== 0 ) {
-				for ( i = this.items_last_index; i >= 0; i -= 1 ) {
-					if ( i <= this.current_item_index - 1 ) {
-						new_values.new_width += this.$items.eq( i ).outerWidth( true );
-
-						if ( new_values.new_width > this.carousel_container_width ) {
-							new_values.new_index = i;
-							break;
-						}
-
-						new_values.new_index = i;
-					}
-				}
+		/**
+		 * calculates the next new nav values for
+		 * carousel containers that have items of varying widths
+		 */
+		calculateNewNavNext: function() {
+			// you should only get here if the carousel item is not the container width
+			if ( this.options.item_width_is_container_width ) {
+				return;
 			}
 
-			// reset width after running over to find an index
-			new_values.new_width = 0;
+			var
+			item_width,
+			new_additional_width = 0,
+			self = this;
+
+			// reset new_nav width
+			this.new_nav.width = 0;
 
 			$.each( this.$items, function( index ) {
-				var $elm = $( this );
+				item_width = $(this).outerWidth(true);
 
-				new_values.new_width += $elm.outerWidth( true );
+				if ( index > self.attributes.current_item_index ) {
+					new_additional_width += item_width;
+				}
 
-				if ( index === new_values.new_index ) {
-					new_values.new_width -= $elm.outerWidth( true );
+				if ( new_additional_width > self.attributes.container_width ) {
+					new_additional_width -= item_width;
 					return false;
 				}
 
+				self.new_nav.index = index;
 				return true;
 			});
 
-			return new_values;
+			this.new_nav.width = -1 * ( new_additional_width - self.attributes.ul_width );
+		},
+
+		/**
+		 * calculates the previous new nav values for
+		 * carousel containers that have items of varying widths
+		 */
+		calculateNewNavPrev: function() {
+			// you should only get here if the carousel item is not the container width
+			if ( this.options.item_width_is_container_width ) {
+				return;
+			}
+
+			var
+			i,
+			item_width = 0,
+			new_lessening_width = 0;
+
+			// reset new_nav width
+			this.new_nav.width = 0;
+
+			for ( i = this.attributes.items_last_index; i >= 0; i -= 1 ) {
+				item_width = this.$items.eq(i).outerWidth(true);
+
+				if ( i <= this.attributes.current_item_index - 1 ) {
+					new_lessening_width += item_width;
+				}
+
+				if ( new_lessening_width > this.attributes.container_width ) {
+					new_lessening_width -= item_width;
+					break;
+				}
+
+				this.new_nav.index = i;
+			}
+
+			this.new_nav.width = this.attributes.ul_width + new_lessening_width;
+		},
+
+		/**
+		 * calculates and sets the carousel ul’s total width
+		 */
+		calculateTotalWidth: function() {
+			var
+			self = this;
+
+			this.attributes.total_width = 0;
+
+			this.$items.each(function() {
+				self.attributes.total_width += Math.ceil( $( this ).outerWidth( true ) );
+			});
+
+			// strange hack to overcome issue found in chrome
+			self.attributes.total_width += 1;
 		},
 
 		calculateWidestTallest: function() {
-			var self = this;
+			var
+			$elm,
+			item_height,
+			item_width,
+			self = this;
 
-			this.dimensions.tallest_item = 0;
-			this.dimensions.widest_item = 0;
+			this.attributes.tallest_item = 0;
+			this.attributes.widest_item = 0;
 
 			$.each( this.$items, function() {
-				var
-				$elm = $( this ),
-				item_width = Math.ceil( $elm.outerWidth( true ) ),
+				$elm = $( this );
+				item_width = Math.ceil( $elm.outerWidth( true ) );
 				item_height = Math.ceil( $elm.outerHeight( true ) );
 
 				// determine widest item
-				if ( item_width > self.dimensions.widest_item ) {
-					self.dimensions.widest_item = item_width;
+				if ( item_width > self.attributes.widest_item ) {
+					self.attributes.widest_item = item_width;
 				}
 
 				// determine tallest item
-				if ( item_height > self.dimensions.tallest_item ) {
-					self.dimensions.tallest_item = item_height;
+				if ( item_height > self.attributes.tallest_item ) {
+					self.attributes.tallest_item = item_height;
 				}
 			});
-
-			if ( this.options.item_width_is_container_width ) {
-				this.dimensions.widest_item = this.carousel_container_width;
-			}
 		},
 
 		callInitComplete: function() {
@@ -391,21 +498,16 @@
 				return;
 			}
 
-			this.$nav_prev = this.options.$nav_prev;
-			this.$nav_next = this.options.$nav_next;
+			this.$nav_prev = $( '<input>', this.options.nav_prev );
+			this.$nav_next = $( '<input>', this.options.nav_next );
 			this.nav_elements_created = true;
 		},
 
-		deriveCarouselElements: function() {
+		deriveCarouselItems: function() {
+			this.attributes.container_width = this.$carousel_container.width();
 			this.$items = this.$carousel_container.find( 'li' );
-			this.$overlay = this.$carousel_container.find( '.carousel-overlay' );
-
-			this.items_length =
-				this.options.items_collection_total ||
-				this.$items.length;
-
-			this.items_last_index = this.items_length - 1;
-			this.carousel_container_width = this.$carousel_container.width();
+			this.attributes.item_total = this.options.items_collection_total || this.$items.length;
+			this.attributes.items_last_index = this.attributes.item_total - 1;
 		},
 
 		/**
@@ -414,10 +516,14 @@
 		deriveMainCarouselElements: function( carousel_container ) {
 			this.$carousel_container = $( carousel_container );
 			this.$carousel_ul = this.$carousel_container.find( 'ul' );
+			this.$overlay = this.$carousel_container.find( '.carousel-overlay' );
 		},
 
 		/**
-		 * sets the width of all carousel elements to the widest carousel element
+		 * sets the width of all carousel elements to the widest carousel element.
+		 *
+		 * the use case for this is when the item width needs to limited to the
+		 * carousel width; thus the carousel displays only one item at a time.
 		 */
 		equalizeItemWidth: function() {
 			if ( !this.options.item_width_is_container_width ) {
@@ -428,18 +534,15 @@
 			self = this;
 
 			this.$items.each(function() {
-				$(this).css( 'width', self.dimensions.widest_item );
+				$(this).css( 'width', self.attributes.container_width );
 			});
 		},
 
 		/**
-		 * helper function for external scripts
-		 *
-		 * @param property
-		 * @returns {*}
+		 * @returns {int}
 		 */
-		get : function( property ) {
-			return this[property];
+		getCurrentItemIndex : function() {
+			return this.attributes.current_item_index;
 		},
 
 		/**
@@ -447,23 +550,27 @@
 		 * @param {int} index
 		 */
 		goToIndex: function( index ) {
-			index = parseInt( index, 10 );
-			this.setNavValues( index );
-			this.transition();
-			this.toggleNav();
+			var
+			dir = parseInt( index, 10 );
+
+			this.move( dir );
 		},
 
+		/**
+		 * @param {Event} evt
+		 * jQuery Event
+		 */
 		handleKeyUp : function( evt ) {
-			if ( !evt || !evt.keyCode ) { return; }
-			var self = evt.data.self;
+			var
+			self = evt.data.self;
 
 			switch( evt.keyCode ) {
 				case 37 :
-					self.$nav_prev.trigger('click');
+					self.$nav_prev.trigger( 'click' );
 					break;
 
 				case 39 :
-					self.$nav_next.trigger('click');
+					self.$nav_next.trigger( 'click' );
 					break;
 			}
 		},
@@ -471,36 +578,40 @@
 		/**
 		 *
 		 * @param [Event} evt
+		 * jQuery Event
 		 */
-		handleNavClick : function( evt ) {
+		handleNavClick: function( evt ) {
 			var
-				self = evt.data.self,
-				$elm = $( this ),
-				dir = $elm.data( 'dir' );
+			self = evt.data.self,
+			$elm = $( this ),
+			dir = $elm.attr( 'data-dir' );
 
 			evt.preventDefault();
+			evt.stopPropagation();
 
+			// call any callbacks before moving the carousel
 			if ( $.isFunction( self.options.callbacks.before_nav ) ) {
 				self.options.callbacks.before_nav.call( this, dir );
 			}
 
+			// move the carousel
 			if ( !self.options.cancel_nav ) {
-				self.setNavValues( dir );
-				self.transition();
-				self.toggleNav();
+				self.move( dir );
 			}
 
+			// call any callbacks after moving the carousel
 			if ( $.isFunction( self.options.callbacks.after_nav ) ) {
 				self.options.callbacks.after_nav.call( this, dir );
 			}
 
+			// why is this here?
 			self.options.cancel_nav = false;
 		},
 
 		hideOverlay : function() {
 			var self = this;
 
-			if ( this.$overlay.is(':visible') ) {
+			if ( this.$overlay.is( ':visible' ) ) {
 				this.$overlay.fadeOut( function() {
 					self.callInitComplete();
 				});
@@ -512,13 +623,13 @@
 		 * @param {DOM Element} carousel_container
 		 */
 		init : function( options, carousel_container ) {
-			this.options = $.extend( true, {}, $.fn.rCarousel.options, options );
+			this.initializeInstance( options );
 
 			this.deriveMainCarouselElements( carousel_container );
 			this.calculateDimensions();
 
 			this.addNavigation();
-			this.toggleNav();
+			this.toggleNavArrows();
 
 			this.addWindowResizeHandler();
 			this.addOrientationHandler();
@@ -535,19 +646,72 @@
 		},
 
 		/**
+		 * need to make sure that each instance of this object has its own
+		 * version of the object properties otherwise the jQuery objects created
+		 * will all use the same prototype properties
+		 *
+		 * @param {object} options
+		 * allows the user to override default options
+		 */
+		initializeInstance: function( options ) {
+			this.options = $.extend( true, {}, this.options, options );
+			this.attributes = $.extend( true, {}, this.attributes, {} );
+
+			this.$carousel_container = null;
+			this.$carousel_ul = null;
+			this.$items = null;
+			this.$nav_next = null;
+			this.$nav_prev = null;
+			this.$overlay = null;
+
+			this.arrow_key_handler_added = false;
+			this.loading_content = false;
+			this.nav_elements_created = false;
+			this.nav_elements_placed = false;
+			this.nav_click_handler_added = false;
+
+			this.new_nav = {
+				direction: '',
+				index: 0
+			};
+
+			this.orientation = window.orientation;
+			this.orientation_count = 0;
+		},
+
+		/**
+		 * moves the carousel in a given direction or to a specific index
+		 *
+		 * @param {string|int} dir
+		 * a direction such as next|prev
+		 * or to a specific index such as 3
+		 */
+		move: function( dir ) {
+			this.calculateNewNav( dir );
+			this.validateNewNav();
+			this.animate();
+			this.toggleNavArrows();
+		},
+
+		/**
 		 * @param {Event} evt
 		 */
 		navArrowHide : function( evt ) {
-			var self = evt.data.self;
+			var
+			self = evt.data.self;
+
 			self.$nav_next.removeClass( 'focus' );
 			self.$nav_prev.removeClass( 'focus' );
 		},
 
 		/**
 		 * @param {Event} evt
+		 * jQuery Event
 		 */
 		navArrowReveal : function( evt ) {
-			var self = evt.data.self;
+			var
+			self = evt.data.self;
+
 			self.$nav_next.addClass( 'focus' );
 			self.$nav_prev.addClass( 'focus' );
 		},
@@ -561,95 +725,20 @@
 			this.nav_elements_placed = true;
 		},
 
-
 		setCarouselHeight: function() {
 			this.$carousel_container.css( 'height', 'auto' );
 		},
 
 		setCarouselWidth : function() {
-			this.$carousel_ul.css( 'width', this.dimensions.total_width );
+			this.$carousel_ul.css( 'width', this.attributes.total_width );
 		},
 
 		/**
-		 * sets the following nav values within the object
-		 *
-		 * this.new_width
-		 * this.new_index
-		 * this.current_direction
-		 *
-		 * @param {string|dir} dir
+		 * toggle display of nav arrows
 		 */
-		setNavValues : function( dir ) {
-			// validate dir
-			if (dir !== 'next' && dir !== 'prev' && !$.isNumeric(dir)) {
-				throw new Error('cannot evaluate nav click direction or value');
-			}
-
-			// set locale vars
-			var new_values = {
-				new_index: 0,
-				new_width: 0
-			};
-
-			// handle next nav
-			if ( dir === 'next' ) {
-				this.current_direction = dir;
-
-				if ( this.options.item_width_is_container_width ) {
-					new_values.new_index = this.current_item_index + 1;
-					new_values.new_width = new_values.new_index * this.dimensions.widest_item;
-				} else {
-					new_values = this.calculateNavNext();
-				}
-
-			// handle prev nav
-			} else if ( dir === 'prev' ) {
-				this.current_direction = dir;
-
-				if ( this.options.item_width_is_container_width ) {
-					new_values.new_index = this.current_item_index - 1;
-					new_values.new_width = new_values.new_index * this.dimensions.widest_item;
-				} else {
-					new_values = this.calculateNavPrev();
-				}
-
-			// handle index nav
-			} else if ( $.isNumeric( dir ) ) {
-				new_values.new_index = parseInt( dir, 10 );
-				new_values.new_width = new_values.new_index * this.dimensions.widest_item;
-
-				if ( new_values.new_index <= this.current_item_index ) {
-					this.current_direction = 'prev';
-				} else if ( new_values.new_index >= this.current_item_index ) {
-					this.current_direction = 'next';
-				}
-			}
-
-			// protect against next setting width or index beyond total carousel width or total nr of items
-			if ( new_values.new_width > this.dimensions.total_width || new_values.new_index > this.items_last_index ) {
-				new_values.new_index = this.items_last_index;
-				new_values.new_width = this.dimensions.total_width - this.$items.eq( this.items_last_index).outerWidth( true );
-			}
-
-			// protect against prev setting width of index before first element
-			if ( new_values.new_width < 0 || new_values.new_index < 0 ) {
-				new_values.new_index = 0;
-				new_values.new_width = 0;
-			}
-
-			// convert width to margin-left value
-			if ( new_values.new_width > 0 ) {
-				new_values.new_width = -1 * new_values.new_width;
-			}
-
-			// set values
-			this.new_width = new_values.new_width;
-			this.new_index = new_values.new_index;
-		},
-
-		toggleNav : function() {
+		toggleNavArrows : function() {
 			if ( this.$nav_prev ) {
-				if ( this.current_item_index === 0 ) {
+				if ( this.attributes.current_item_index === 0 ) {
 					this.$nav_prev.fadeOut();
 				} else if ( this.$nav_prev.is(':hidden') ) {
 					this.$nav_prev.fadeIn();
@@ -657,7 +746,7 @@
 			}
 
 			if ( this.$nav_next ) {
-				if ( this.current_item_index >= this.items_length - 1 ) {
+				if ( this.attributes.current_item_index >= this.attributes.item_total - 1 ) {
 					this.$nav_next.fadeOut();
 				} else if ( this.$nav_next.is(':hidden') ) {
 					this.$nav_next.fadeIn();
@@ -665,31 +754,29 @@
 			}
 		},
 
-		transition : function() {
-			var	self = this;
-
-			if ( self.loading_content ) {
-				setTimeout(
-					function() {
-						self.transition();
-					},
-					100
+		validateNewNav: function() {
+			var
+			max_width =
+				-1 *
+				(
+					this.attributes.total_width -
+					this.attributes.container_width -
+					1 // to deal with the hack in calculateTotalWidth
 				);
 
-				return;
+			// validate index
+			if ( this.new_nav.index > this.attributes.items_last_index ) {
+				this.new_nav.index = this.attributes.items_last_index;
+			} else if ( this.new_nav.index < 0 ) {
+				this.new_nav.index = 0;
 			}
 
-			if ( this.new_width !== parseInt( this.$carousel_ul.css('margin-left'), 10 ) ) {
-				if ( $.support.transition ) {
-					this.$carousel_ul.css( 'margin-left', this.new_width );
-				} else {
-					this.$carousel_ul.animate({
-						'margin-left': this.new_width
-					});
-				}
+			// validate width
+			if ( this.new_nav.width > 0 ) {
+				this.new_nav.width = 0;
+			} else if ( this.new_nav.width < max_width ) {
+				this.new_nav.width = max_width;
 			}
-
-			this.current_item_index = this.new_index;
 		}
 	};
 
@@ -699,49 +786,13 @@
 	 * @returns {*}
 	 */
 	$.fn.rCarousel = function( options ) {
+		// the each cycles over the selectors provided, typically one, but more
+		// than one could be provided, e.g. $('#carousel-1, #carousel-2').rCarousel()
 		return this.each(function() {
 			var rcarousel = Object.create( RCarousel );
 			rcarousel.init( options, this );
 			$(this).data( 'rCarousel', rcarousel );
 		});
-	};
-
-	$.fn.rCarousel.options = {
-		add_swipe_handler : true,
-		add_nav_arrow_reveal : true,
-		callbacks : {
-			after_nav : null,
-			before_nav : null,
-			init_complete: null
-		},
-		cancel_nav : false,
-		hide_overlay: true,
-		item_width_is_container_width : true,
-
-		// allows user to override item total found in the container
-		// main use case is when only a certain nr of items are in the container
-		// and an ajax call will pull in additional items
-		items_collection_total : 0,
-
-		listen_to_arrow_keys : true,
-		nav_by : 3, // set a default for the one-way-by,
-		nav_initial_delay : 3000,
-		$nav_next : $('<input>', {
-			'type' : 'image',
-			'class' : 'medium',
-			'alt' : 'next',
-			'src' : 'js/jquery/plugins/rcarousel/images/carousel-arrow-right.png',
-			'style' : 'display: none;',
-			'data-dir' : 'next'
-		}),
-		$nav_prev : $('<input>', {
-			'type' : 'image',
-			'class' : 'medium',
-			'alt' : 'previous',
-			'src' : 'js/jquery/plugins/rcarousel/images/carousel-arrow-left.png',
-			'style' : 'display: none;',
-			'data-dir' : 'prev'
-		})
 	};
 
 }( jQuery ));
