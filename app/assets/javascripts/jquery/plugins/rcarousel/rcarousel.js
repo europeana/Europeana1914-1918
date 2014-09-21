@@ -188,7 +188,7 @@
 						self.orientation_count += 1;
 
 						if ( self.orientation_count >= 2 ) {
-							self.animate();
+							self.goToIndex( self.getCurrentItemIndex() );
 							self.orientation = window.orientation;
 							self.orientation_count = 0;
 						}
