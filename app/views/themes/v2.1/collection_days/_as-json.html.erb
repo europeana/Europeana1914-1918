@@ -1,6 +1,8 @@
 <%
 
-	markers = ''
+	markers_past = ''
+	markers_upcoming = ''
+	script = ''
 	upcoming = ''
 
 	if @collection_days.present?
@@ -15,6 +17,25 @@
 					icon = '"type":"purple"'
 					marker_link = link_to t( 'views.collection_days.open-collection' ), 'collection-days/' + collection_day.code
 				end
+
+				markers_past += '{'
+					markers_past += '"latlng":[' + collection_day.map_latlng.to_s + '],'
+					markers_past += '"past":' + collection_day_past + ','
+					markers_past += '"popup":{'
+						markers_past += '"content":'
+							markers_past += '"'
+								marker_content = '<b>'  + collection_day.name + '</b><br />'
+								marker_content += collection_day.contact.locality + ', '
+								marker_content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
+								marker_content += collection_day.start_date.strftime('%d %B %Y')
+								marker_content += '<br /><br />'
+								marker_content += marker_link
+								markers_past += marker_content.gsub!('"','\"')
+							markers_past += '"'
+					markers_past += '},'
+
+					markers_past += icon
+				markers_past += '},'
 			else
 				collection_day_past = 'false'
 				icon = '"type":"blue"'
@@ -26,32 +47,36 @@
 					upcoming += '"date":"' + collection_day.start_date.strftime('%d %B %Y') + '",'
 					upcoming += '"code":"' + collection_day.code + '"'
 				upcoming += '},'
+
+				markers_upcoming += '{'
+					markers_upcoming += '"latlng":[' + collection_day.map_latlng.to_s + '],'
+					markers_upcoming += '"past":' + collection_day_past + ','
+					markers_upcoming += '"popup":{'
+						markers_upcoming += '"content":'
+							markers_upcoming += '"'
+								marker_content = '<b>'  + collection_day.name + '</b><br />'
+								marker_content += collection_day.contact.locality + ', '
+								marker_content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
+								marker_content += collection_day.start_date.strftime('%d %B %Y')
+								marker_content += '<br /><br />'
+								marker_content += marker_link
+								markers_upcoming += marker_content.gsub!('"','\"')
+							markers_upcoming += '"'
+					markers_upcoming += '},'
+
+					markers_upcoming += icon
+				markers_upcoming += '},'
 			end
-
-			markers += '{'
-				markers += '"latlng":[' + collection_day.map_latlng.to_s + '],'
-				markers += '"past":' + collection_day_past + ','
-				markers += '"popup":{'
-					markers += '"content":'
-						markers += '"'
-							marker_content = '<b>'  + collection_day.name + '</b><br />'
-							marker_content += collection_day.contact.locality + ', '
-							marker_content += t( "countries.#{collection_day.contact.country}" ) + '<br />'
-							marker_content += collection_day.start_date.strftime('%d %B %Y')
-							marker_content += '<br /><br />'
-							marker_content += marker_link
-							markers += marker_content.gsub!('"','\"')
-						markers += '"'
-				markers += '},'
-
-				markers += icon
-			markers += '},'
 		end
 
 	end
 
-	script = 'RunCoCo.leaflet.markers = ['
-		script += markers[0...-1]
+	script += 'RunCoCo.leaflet.markers_past = ['
+		script += markers_past[0...-1]
+	script += '];' + "\n"
+
+	script += 'RunCoCo.leaflet.markers_upcoming = ['
+		script += markers_upcoming[0...-1]
 	script += '];' + "\n"
 
 	script += 'RunCoCo.leaflet.upcoming = ['

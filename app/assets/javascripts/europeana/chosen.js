@@ -4,6 +4,9 @@
 
 	'use strict';
 
+	var
+	mobile_context = false;
+
 	if ( !window.europeana ) {
 		window.europeana = {};
 	}
@@ -14,18 +17,27 @@
 		 * @param {Event} arguments[0]
 		 * jQuery Event
 		 *
-		 * @param {object} arguments[1]
-		 * @param {string} arguments[1].selected
+		 * @param {Event} evt
+		 * a jQuery Event object
+		 *
+		 * @param {object} chosen
+		 * a chosen object that contains:
+		 *  - a selected attribute with the value of any items in the dropdown
+		 *    selected, separated by a |
+		 *  - a deselected attribute with the value of any items in the dropdown
+		 *    deselected, separated by a |
+		 *
 		 */
-		handleChange: function() {
+		handleChange: function( evt, chosen ) {
 			if (
-				arguments[1] === undefined ||
-				arguments[1].selected === undefined
+				chosen === undefined ||
+				chosen.selected === undefined
 			) {
 				return;
 			}
 
-			var pieces = arguments[1].selected.split('|');
+			var
+			pieces = chosen.selected.split('|');
 
 			if ( pieces.length === 2 && pieces[1] === 'searchable' ) {
 				window.location.href =
@@ -39,13 +51,21 @@
 					window.location.protocol + "//" +
 					window.location.host + "/" +
 					'collection-days/' +
-					arguments[1].selected;
+					chosen.selected;
 			}
 		},
 
 		init: function() {
-			$('.chosen-select').chosen().change( this.handleChange );
+			if ( mobile_context ) {
+				$('#collection-day-selector').hide();
+			} else {
+				$('.chosen-select').chosen().change( this.handleChange );
+			}
 		}
 	};
+
+	if ( ( $(window).width() <= 768 || $(window).height() <= 500 ) ) {
+		mobile_context = true;
+	}
 
 }( jQuery ));

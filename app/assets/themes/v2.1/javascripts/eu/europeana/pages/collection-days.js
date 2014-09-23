@@ -1,11 +1,11 @@
-/*global europeana, I18n, jQuery */
-/*jslint browser: true, white: true */
+/*global europeana, I18n, jQuery, L, RunCoCo */
+/*jslint browser: true, nomen: true, white: true */
 (function( $ ) {
 
 	'use strict';
 
 	var
-	add_leaflet = true,
+	mobile_context = false,
 
 	leaflet = {
 		add_markers_as_cluster: true,
@@ -16,30 +16,13 @@
 
 		addLeafletMap: function() {
 			var
-				map_config = {},
-				map_options,
-				markers;
+			map_config = {};
 
-			if (
-				RunCoCo.leaflet.markers !== undefined &&
-				$.isArray( RunCoCo.leaflet.markers )
-			) {
-				markers = RunCoCo.leaflet.markers;
-			}
-
-			if ( RunCoCo.leaflet.map_options !== undefined ) {
-				map_options = RunCoCo.leaflet.map_options;
-			}
-
-			map_options.zoomControl = new L.Control.Zoom({
-				position: 'bottomleft'
-			});
-
-			map_config.map_options = map_options;
-			map_config.markers = markers;
+			map_config.markers = this.getMarkers();
+			map_config.map_options = this.getMapOptions( map_config );
 			map_config.add_markers_as_cluster = this.add_markers_as_cluster;
 
-			if ( $(window).width() > 768 ) {
+			if ( !mobile_context ) {
 				map_config.banner = {
 					display: true,
 					content: this.banner_content
@@ -57,6 +40,65 @@
 		addPreviousToggleListener: function() {
 			this.$toggle_previous = $('#toggle-previous');
 			this.$toggle_previous.on('click', this.handlePreviousToggle );
+		},
+
+		/**
+		 * @param {object} map_config
+		 * @returns {object}
+		 */
+		getMapOptions: function( map_config ) {
+			var
+			map_options = {};
+
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options;
+			}
+
+			if (
+				mobile_context &&
+				map_config.markers !== undefined &&
+				map_config.markers.length > 0
+			) {
+				map_options.center = map_config.markers[0].latlng;
+			}
+
+			map_options.zoomControl = new L.Control.Zoom({
+				position: 'bottomleft'
+			});
+
+			return map_options;
+		},
+
+		/**
+		 * @returns {array}
+		 */
+		getMarkers: function() {
+			var
+			result = [],
+			markers_past = [],
+			markers_upcoming = [];
+
+			if (
+				RunCoCo.leaflet.markers_upcoming !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers_upcoming )
+			) {
+				markers_upcoming = RunCoCo.leaflet.markers_upcoming;
+			}
+
+			if (
+				RunCoCo.leaflet.markers_past !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers_past )
+			) {
+				markers_past = RunCoCo.leaflet.markers_past;
+			}
+
+			if ( mobile_context ) {
+				result = markers_upcoming;
+			} else {
+				result = $.merge( markers_upcoming, markers_past );
+			}
+
+			return result;
 		},
 
 		handlePreviousToggle: function() {
@@ -85,28 +127,29 @@
 				return;
 			}
 
-			if ( !add_leaflet ) {
-				this.hideLeafletMap();
+			if ( mobile_context ) {
+				//this.hideLeafletMap();
+				//
+				//if ( RunCoCo.leaflet.upcoming && RunCoCo.leaflet.upcoming.length > 0 ) {
+				//	this.redirectToCollectionDay( RunCoCo.leaflet.upcoming[0].code );
+				//} else {
+				//	$('#collection-day-selector-label').text(
+				//		I18n.t( 'javascripts.collection-days.no-upcoming' )
+				//	);
+				//}
+				//
+				//return;
+				this.addLeafletMap();
+			} else {
+				this.setLegendContent();
+				this.setBannerContent();
+				this.addLeafletMap();
 
-				if ( RunCoCo.leaflet.upcoming && RunCoCo.leaflet.upcoming.length > 0 ) {
-					this.redirectToCollectionDay( RunCoCo.leaflet.upcoming[0].code );
-				} else {
-					$('#collection-day-selector-label').text(
-						I18n.t( 'javascripts.collection-days.no-upcoming' )
-					);
+				if ( !this.add_markers_as_cluster ) {
+					this.removePreviousMarkersOpacity();
+					this.addPreviousToggleListener();
+					this.setPreviousCheckboxState();
 				}
-
-				return;
-			}
-
-			this.setLegendContent();
-			this.setBannerContent();
-			this.addLeafletMap();
-
-			if ( !this.add_markers_as_cluster ) {
-				this.removePreviousMarkersOpacity();
-				this.addPreviousToggleListener();
-				this.setPreviousCheckboxState();
 			}
 		},
 
@@ -148,10 +191,10 @@
 			var
 			upcoming_day = RunCoCo.leaflet.upcoming[0],
 			upcoming_values = {
-				"name": upcoming_day.name ? upcoming_day.name : '',
-				"city": upcoming_day.city ? upcoming_day.city: '',
-				"country": upcoming_day.country ? upcoming_day.country : '',
-				"start-date": upcoming_day.date ? upcoming_day.date : ''
+				"name": upcoming_day.name || '',
+				"city": upcoming_day.city || '',
+				"country": upcoming_day.country || '',
+				"start-date": upcoming_day.date || ''
 			};
 
 			this.banner_content =
@@ -187,7 +230,7 @@
 	};
 
 	if ( ( $(window).width() <= 768 || $(window).height() <= 500 ) ) {
-		add_leaflet = false;
+		mobile_context = true;
 	}
 
 	europeana.chosen.init();
