@@ -346,9 +346,9 @@ pl:
     formats:
       default: ! '%d-%m-%Y'
       long: ! '%B %d, %Y'
-      long_with_day: ! '%a, %d %B %Y'
+      long_with_day: ! '%a. %d %B %Y'
       month_and_year: ! '%B %Y'
-      quarter: Kwartał %{number} %Y
+      quarter: kwartał %{number} %Y
       short: ! '%d %b'
     month_names:
     - 
@@ -773,6 +773,9 @@ pl:
         site_url: Pełny adres URL, za pomocą którego można uzyskać dostęp do strony startowej, bez wersji językowych i ukośników.
         ui_locales: Wersje językowe, do których link znajduje się w nagłówkach strony
         uploadify: Zastosuj Uplodify, aby edytować załadowane załączniki i udostępnić jedocześnie większą ilość plików. Dokładniejsze informacje i demo na <http://www.uploadify.com>.
+        run_co_co/configuration:
+          edit:
+            search_engine: 
       taxonomy_term:
         import: Prosimy podać słowa klucze dla tego pola metadanych, jeden na wers
         term: Musi być jednoznaczne w polu metadanych
@@ -1431,6 +1434,20 @@ pl:
             locality: 
             postal_code: 
             region: 
+      settings:
+        run_co_co/configuration:
+          edit:
+            allowed_upload_extensions: 
+            bing_client_id: 
+            bing_client_secret: 
+            bing_translate_key: 
+            gmap_api_key: 
+            google_analytics_key: 
+            google_api_email: 
+            max_upload_size: 
+            sharethis_id: 
+            site_name: 
+            site_url: 
     required: wymagane
     titles:
       account_details: Dane logowania
@@ -1481,6 +1498,9 @@ pl:
         update:
           admin_collection_day: 
           admin_collection_day_address: 
+      run_co_co/configuration:
+        edit:
+          settings: 
     update: ! 'Aktualizuj %{model} '
     'yes': Tak
   helpers:
@@ -1579,8 +1599,8 @@ pl:
       legend: Legenda
       next-collection-day: Kolejny dzień zbiórki zostanie zorganizowany w <b>%{name}, %{city}, %{country}</b> on <b>%{start-date}
       past-entered: Poprzednie  dni zbiórki
-      past-not-entered: Poprzednie dni zbiórki (jeszcze nieudostępnione historie)
-      show-past: Pokaż poprzednie dni zbiórki
+      past-not-entered: Dotychczas zorganizowane dni zbiórki (jeszcze nieudostępnione historie)
+      show-past: Dotychczas zorganizowane dni zbiórki
       upcoming: Nadchodzące dni zbiórki
       what-is-it: ! 'Czym jest dzień zbiórki
 
@@ -1691,7 +1711,7 @@ pl:
   number:
     currency:
       format:
-        delimiter: ! ' ,'
+        delimiter: .
         format: ! '%u %n'
         precision: 2
         separator: .
@@ -1699,7 +1719,7 @@ pl:
         strip_insignificant_zeros: true
         unit: PLN
     format:
-      delimiter: ! ' ,'
+      delimiter: ! ' .'
       precision: 2
       separator: .
       significant: false
@@ -2174,17 +2194,17 @@ pl:
       types:
         heading: Typy
     collection_days:
-      cant-find-collection-day: Dni zbiórek, których szukasz, nie ma na mapie?
+      cant-find-collection-day: Wybierz dzień zbiórki
       index:
         title: Dni zbiórki
       in-the-meantime: ! 'W międzyczasie zachęcamy do zapoznania się z materiałami z poprzednich zbiórek. '
       join-us: Szukany dzień zbiórki jeszcze się nie zakończył. Zachęcamy do wzięcia w nim udziału lub prosimy sprawdzić później.
       no-stories: Przepraszamy, ale wybrane treści nie są jeszcze dostępne online. Trwa opracowywanie materiałów przekazanych nam podczas dni zbiórek, ich udostępnianie  wkrótce się rozpocznie
       open-collection: Otwórz dzień zbiórki
-      select-collection-day: Wybierz dzień zbiórki
+      select-collection-day: Lista dni zbiórek
       stories: ! 'Historie:'
       view-stories: Zobacz historie użytkowników
-      visiting-information: Informacje
+      visiting-information: Informacje dla odwiedzających
       website: Strona internetowa
       what-do-you-get-content: 
       what-do-you-get-heading: Co możesz otrzymać?
@@ -2619,8 +2639,8 @@ pl:
     statistics:
       index:
         contributions:
-          heading: Historie
-          institutional: Obiekty instytucji
+          heading: Statystyka
+          institutional: Obiekty instytucji kulturalnych
           ugc: Historie  użytkowników
         intervals:
           last_month: Ostatni miesiąc
@@ -2632,12 +2652,12 @@ pl:
         metrics:
           avgtimeonsite: Czas spędzony na stronie
           europeana_pageviews: Ilość odsłon (Instytucje partenrskie)
-          object_pageviews: ! 'Wyświetlenia '
+          object_pageviews: Wyświetlenia (UGC)
           visits: Odwiedziny
         no_results: Brak dostępnych statystyk
         providers:
           canadiana: Canadiana (Kanada)
-          digitalnz: DigitalNZ (Newa Zelandia)
+          digitalnz: DigitalNZ (Nowa Zelandia)
           dpla: DPLA (USA)
           europeana: Europeana
           trove: Trove (Australia)

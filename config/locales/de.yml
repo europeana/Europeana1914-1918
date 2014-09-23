@@ -180,8 +180,8 @@ de:
       institution: Institution
       metadata_field: Metadatenfeld
       metadata_record: Metadatensatz
-      tag: 
-      tagging: 
+      tag: Bezeichnung (tag)
+      tagging: Bezeichnung (tag) einfügen
       taxonomy_term: Schlagwort
       user: Nutzer
     options:
@@ -256,7 +256,7 @@ de:
       project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Erfahren Sie mehr über das Sammeln privater Erinnerungsstücke (Infromation auf Englisch).</a>.
       register: Registrieren
       sign_in: Anmelden
-      statistics: Statistiken
+      statistics: Statistik
       takedown_policy: Löschungsregelungen
       titles:
         contribution_terms: ! 'Siehe die Bedingungen für Nutzerbeiträge zur Europeana '
@@ -326,9 +326,9 @@ de:
     formats:
       default: ! '%d.%m.%Y'
       long: ! '%e. %B %Y'
-      long_with_day: ! '%a, %d %B %Y'
+      long_with_day: ! '%a. %d. %B %Y'
       month_and_year: ! '%B %Y'
-      quarter: 
+      quarter: ! '%{number}. Quartal  %Y'
       short: ! '%e. %b'
     month_names:
     - 
@@ -719,6 +719,9 @@ de:
         site_url: Die vollständige URL, über die die Homepage erreicht werden kann, ohne Sprachversion and ohne trailing slash.
         ui_locales: Sprachversionen, auf die im Seiten-Header verlinkt werden können.
         uploadify: Verwenden Sie Uplodify, um Uploads mit Anhängen zu bearbeiten und mehrere Dateien gleichzeitig hochzuladen. Weitere Informationen und Demos finden Sie unter <http://www.uploadify.com/>,
+        run_co_co/configuration:
+          edit:
+            search_engine: 
       taxonomy_term:
         import: Geben Sie die Schlagwörter für dieses Metadatenfeld ein, je eines pro Zeile.
         term: Muss innerhalb des Metadatenfeldes eindeutig sein.
@@ -1163,6 +1166,21 @@ de:
           https://creativecommons:
             org/licenses/by-sa/2:
               0/: 
+        lang:
+          Deutsch: Deutsch
+          English: Englisch
+          Français: Französisch
+          Gaeilge: Irisch
+          Italiano: ! 'Italienisch
+
+'
+          Magyar: Ungarisch
+          Nederlands: Niederländisch
+          Other: Andere
+          Română: Rumänisch
+          Slovenčina: Slowenisch
+          Slovenščina: Slowenisch
+          Ελληνικά: Griechisch
       user:
         delete_picture: Bild löschen
         terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen.
@@ -1248,6 +1266,9 @@ de:
         update:
           admin_collection_day: 
           admin_collection_day_address: 
+      run_co_co/configuration:
+        edit:
+          settings: 
     update: ! '%{model} aktualisieren'
     'yes': Ja
     placeholders:
@@ -1350,6 +1371,20 @@ de:
             locality: 
             postal_code: 
             region: 
+      settings:
+        run_co_co/configuration:
+          edit:
+            allowed_upload_extensions: 
+            bing_client_id: 
+            bing_client_secret: 
+            bing_translate_key: 
+            gmap_api_key: 
+            google_analytics_key: 
+            google_api_email: 
+            max_upload_size: 
+            sharethis_id: 
+            site_name: 
+            site_url: 
   helpers:
     select:
       prompt: Bitte wählen
@@ -1550,7 +1585,7 @@ de:
   number:
     currency:
       format:
-        delimiter: ! ','
+        delimiter: .
         format: ! '%u%n'
         precision: 2
         separator: .
@@ -1558,7 +1593,7 @@ de:
         strip_insignificant_zeros: false
         unit: €
     format:
-      delimiter: ! ','
+      delimiter: .
       precision: 2
       separator: .
       significant: false
@@ -1716,7 +1751,7 @@ de:
         p4: <b>Filmarchive:</b> Das Projekt “European Film Gateway 1914” trägt über 660 Stunden Filmmaterial zum Ersten Weltkrieg bei. Die Sammlung enthält u.a. Wochenschauen, Dokumentationen, Spiel-,  Propaganda- und Antikriegsfilme. Da nur geschätzte 20% der in der Stummfilmzeit produzierten Filme bis heute erhalten sind, stellen die im Rahmen des EFG1914 Projekts digitalisierten Filme eine wichtige Überlieferung aus dieser Zeit dar.
         p5: ! '<b>Und noch mehr:</b> Auf Europeana1914-1918 finden Sie außerdem Dokumente aus weiteren europäischen Projekten und Sammlungen, sowie Materialien von außerhalb Europas, z.B. aus der Digitalen Bibliothek Amerika (Digital Public Library of America), Trove (Australien) und der Plattform Digital New Zealand. '
       events:
-        heading: Veranstaltungen
+        heading: Aktionstage
         p4: Wenn Sie Interesse haben, einen Aktionstag auszurichten, um Materialien zu digitalisieren und zu Europeana1914-1918 beizutragen, helfen wir Ihnen gerne weiter. Erfahren Sie mehr hier <a href="http://pro.europeana.eu/web/europeana-1914-1918">Europeana 1914-1918</a> oder kontaktieren Sie uns per E-Mail unter 1914-1918@europeana.eu.
       get_involved:
         contribute_online:
@@ -2011,25 +2046,25 @@ de:
       types:
         heading: ! "Erkunden Sie Europeana 1914-1918 nach \nDokumentenarten"
     collection_days:
-      cant-find-collection-day: 
+      cant-find-collection-day: Wählen Sie einen Aktionstag.
       in-the-meantime: 
       index:
-        title: 
+        title: Aktionstage
       join-us: 
       no-stories: 
-      open-collection: 
-      select-collection-day: 
-      stories: 
-      view-stories: 
-      visiting-information: 
-      website: 
+      open-collection: Aktionstag öffnen
+      select-collection-day: Auswahlliste Aktionstage
+      stories: ! 'Beiträge:'
+      view-stories: Beiträge ansehen
+      visiting-information: Besucherinformation
+      website: ! 'Webseite:'
       what-do-you-get-content: 
       what-do-you-get-heading: Was bekommen Sie?
       what-is-it-content: 
       what-is-it-heading: Was ist das?
       who-is-it-for-content: 
       who-is-it-for-heading: 
-      different-collection-day: 
+      different-collection-day: Wählen Sie einen anderen Aktionstag.
     common:
       loading: 
       more-like-this: 
@@ -2405,7 +2440,7 @@ de:
         common:
           category: Dokumentenart
           collection: Sammlung
-          contributor: 
+          contributor: Beiträger
           country: Land
           creator: Urheber
           format: Format
@@ -2455,8 +2490,8 @@ de:
     statistics:
       index:
         contributions:
-          heading: 
-          institutional: 
+          heading: Statistik
+          institutional: Beiträge von Kulturinstitutionen
           ugc: Beiträge von unseren Nutzern
         intervals:
           last_month: Letzter Monat
@@ -2473,7 +2508,7 @@ de:
         no_results: Keine Statistik vorhanden
         providers:
           canadiana: 
-          digitalnz: 
+          digitalnz: DigitalNZ (Neuseeland)
           dpla: 
           europeana: 
           trove: 
