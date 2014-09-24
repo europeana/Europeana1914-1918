@@ -772,8 +772,8 @@ pt:
       fields:
         facet:
           country_sm: País
-          data_provider_sm: 
-          metadata_collection_day_ids_im: 
+          data_provider_sm: Fornecedor de dados
+          metadata_collection_day_ids_im: Dias da Memória
           metadata_content_ids_im: Tipo de item
           metadata_file_type_ids_im: 
           metadata_keywords_ids_im: Palavras
@@ -1736,6 +1736,7 @@ pt:
         cataloguing: Catalogação
         hint: Conselho
         required: Requisitos
+        position: Cargo
       setting:
         name: Nome
         value: Valor
@@ -1749,8 +1750,9 @@ pt:
         created_at: Data de registo
         password_confirmation: Repetir password
         username: Utilizador
+        role_name: Função
       metadata_record:
-        field_alternative: 
+        field_alternative: Campo alternativo
         field_file_type_terms: 
         field_collection_day_terms: 
       collection_day:
@@ -1767,7 +1769,7 @@ pt:
         confirmation: Não coincide com a confirmação.
         inclusion: Escolha um valor da lista.
         not_a_number: valor não é um número
-        taken: Não está disponível
+        taken: Este campo deve ser único, mas o valor introduzido já existe no nosso sistema.
       models:
         attachment:
           attributes:
@@ -1780,18 +1782,28 @@ pt:
             image:
               content_type: Apenas permitidas imagens JPEG e GIF.
           end_date_follows_start_date: A data de fim tem de ser posterior à data de início.
+          taxonomy_term_metadata_field: Não é um dia de recolha válido.
         contribution:
           attachments:
             uploaded: Alguns ficheiros ainda estão a ser transferidos.
+          attributes:
+            catalogued_by:
+              role_name: Um catalogador deve ter estatudo de administrador ou de catalogador.
+            guest_id:
+              present: Os dados de contacto são necessários para as contribuições de visitantes.
         metadata_field:
           attributes:
             field_type:
               constancy: Tipo do ficheiro não pode ser alterado.
             searchable:
               field_type: Campos de taxonomia não são pesquisáveis.
+            cataloguing:
+              optional: Facultativo
+            contribution:
+              or_attachment: Um campo deve aplicar-se a contribuições e/ou anexos.
         metadata_record:
           date_field_civil: Data de calendário inválida.
-          one_cover_image: Selecionar apenas um item para imagem da capa da memória/estória
+          one_cover_image: Selecionar apenas um item para imagem de cobertura da sua história.
           taxonomy_field_single: Seleccionar apenas um termo.
         user:
           attributes:
@@ -1801,11 +1813,26 @@ pt:
               taken: Já existe uma conta de utilizador com este endereço de email.
             picture:
               content_type: Imagem de perfil tem de ser GIF ou JPEG.
+        setting:
+          attributes:
+            name:
+              inclusion: não é um parâmetro de configuração registado
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Termos taxonómicos devem estar associados a um campo de metadados taxonómicos.
     models:
       user: Utilizador
       attachment: Item
       contact: Contacto
       contribution: História
+      annotation: Legenda de imagem
+      collection_day: Dias da Memória
+      institution: Fornecedor institucional
+      metadata_record: Registo de metadados
+      tag: Tag
+      tagging: Tagging
+      taxonomy_term: Termo taxonómico
     options:
       contact:
         gender:
@@ -1816,11 +1843,15 @@ pt:
           date: Data
           taxonomy: Taxonomia
           geo: Localização geográfica
+          string: Texto de linha única
+          text: Texto de várias linhas
       user:
         role_name:
           administrator: Administrador
           cataloguer: Catalogador
           institutional_provider: 
+          blank: Qualquer função
+          contributor: Contribuidor
   attributes:
     status: Estado
     title: Título
