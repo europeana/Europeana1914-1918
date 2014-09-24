@@ -90,8 +90,6 @@
 				if ( map_config.markers.length === 1 ) {
 					map_options.zoom = 11;
 				}
-
-				map_options.zoomControl = true;
 			}
 
 			map_options.zoomControl = new L.Control.Zoom({

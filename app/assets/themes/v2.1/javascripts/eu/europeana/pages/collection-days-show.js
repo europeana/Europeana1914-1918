@@ -4,7 +4,10 @@
 
 	'use strict';
 
-	var leaflet = {
+	var
+	mobile_context = false,
+
+	leaflet = {
 
 		get_directions: false,
 		$get_directions: {},
@@ -34,23 +37,10 @@
 
 		addLeafletMap: function() {
 			var
-				map_config = {},
-				map_options,
-				markers;
+			map_config = {};
 
-			if (
-				RunCoCo.leaflet.markers !== undefined &&
-				$.isArray( RunCoCo.leaflet.markers )
-			) {
-				markers = RunCoCo.leaflet.markers;
-			}
-
-			if ( RunCoCo.leaflet.map_options !== undefined ) {
-				map_options = RunCoCo.leaflet.map_options;
-			}
-
-			map_config.map_options = map_options;
-			map_config.markers = markers;
+			map_config.markers = this.getMarkers();
+			map_config.map_options = this.getMapOptions( map_config );
 
 			if ( this.add_directions ) {
 				map_config.add_routing = true;
@@ -95,6 +85,46 @@
 		addRoutingAndResize: function addRoutingAndResize() {
 			leaflet.invalidateSize();
 			leaflet.addRouting();
+		},
+
+		/**
+		 * @param {object} map_config
+		 * @returns {object}
+		 */
+		getMapOptions: function( map_config ) {
+			var
+			map_options = {};
+
+			if ( RunCoCo.leaflet.map_options !== undefined ) {
+				map_options = RunCoCo.leaflet.map_options;
+			}
+
+			if ( !RunCoCo.collection_day_has_stories ) {
+				map_options.zoomControl = false;
+			} else {
+				map_options.zoomControl = new L.Control.Zoom({
+					position: 'bottomleft'
+				});
+			}
+
+			return map_options;
+		},
+
+		/**
+		 * @returns {array}
+		 */
+		getMarkers: function() {
+			var
+			result = [];
+
+			if (
+				RunCoCo.leaflet.markers !== undefined &&
+				$.isArray( RunCoCo.leaflet.markers )
+			) {
+				result = RunCoCo.leaflet.markers;
+			}
+
+			return result;
 		},
 
 		/**
@@ -161,6 +191,11 @@
 			}
 		}
 	};
+
+	// http://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-handheld-device-in-jquery#answer-3540295
+	if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ) ) {
+		mobile_context = true;
+	}
 
 	europeana.chosen.init();
 	leaflet.init();

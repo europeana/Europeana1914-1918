@@ -76,6 +76,14 @@
 		end
   end
 
+	if content_for?( :collection_day_has_stories )
+		if content_for( :collection_day_has_stories ) == 'true'
+			script += 'RunCoCo.collection_day_has_stories = true;' + "\n"
+		else
+			script += 'RunCoCo.collection_day_has_stories = false;' + "\n"
+		end
+	end
+
   if content_for?( :javascripts_page ) && content_for( :javascripts_page ) == 'collection-days'
     script += render :partial => 'collection_days/as-json'
   end

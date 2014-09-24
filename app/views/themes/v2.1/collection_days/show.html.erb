@@ -89,9 +89,11 @@
           )
         end
 
-        # stores
+        # stories
         html += '<dt>' + t( 'views.collection_days.stories' ) + ' </dt>'
         if @collection_day.has_contributions?
+					provide :collection_day_has_stories, 'true'
+
           html += content_tag(
           'dd',
           link_to(
@@ -104,8 +106,10 @@
             )
           )
 
-        # collection day hasn’t happend yet or is not yet complete
+        # collection day hasn’t happend yet
         elsif content_for?( :collection_day_upcoming )
+					provide :collection_day_has_stories, 'false'
+
           html += '<dd>'
             html += t( 'views.collection_days.join-us' )
             html += ' '
@@ -114,6 +118,8 @@
 
         # no stories exist yet
         else
+					provide :collection_day_has_stories, 'false'
+
           html += '<dd>'
             html += t( 'views.collection_days.no-stories' )
             html += ' '
