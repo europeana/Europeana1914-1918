@@ -13,14 +13,18 @@
 				if collection_day.has_contributions?
 					icon = '"type":"red"'
 					marker_link = link_to t( 'views.collection_days.open-collection' ), explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
+					marker_url = explore_collection_path('collection_day', collection_day.code, :qf => { :index => 'c' })
 				else
 					icon = '"type":"purple"'
 					marker_link = link_to t( 'views.collection_days.open-collection' ), 'collection-days/' + collection_day.code
+					marker_url = 'collection-days/' + collection_day.code
 				end
 
 				markers_past += '{'
 					markers_past += '"latlng":[' + collection_day.map_latlng.to_s + '],'
 					markers_past += '"past":' + collection_day_past + ','
+					markers_past += '"url":"' + marker_url + '",'
+
 					markers_past += '"popup":{'
 						markers_past += '"content":'
 							markers_past += '"'
@@ -40,6 +44,8 @@
 				collection_day_past = 'false'
 				icon = '"type":"blue"'
 				marker_link = link_to t( 'views.collection_days.visiting-information' ), 'collection-days/' + collection_day.code
+				marker_url = 'collection-days/' + collection_day.code
+
 				upcoming += '{'
 					upcoming += '"name":"' + collection_day.name + '",'
 					upcoming += '"city":"' + collection_day.contact.locality + '",'
@@ -51,6 +57,7 @@
 				markers_upcoming += '{'
 					markers_upcoming += '"latlng":[' + collection_day.map_latlng.to_s + '],'
 					markers_upcoming += '"past":' + collection_day_past + ','
+					markers_upcoming += '"url":"' + marker_url + '",'
 					markers_upcoming += '"popup":{'
 						markers_upcoming += '"content":'
 							markers_upcoming += '"'

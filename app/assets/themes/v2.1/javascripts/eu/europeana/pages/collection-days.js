@@ -22,7 +22,10 @@
 			map_config.map_options = this.getMapOptions( map_config );
 			map_config.add_markers_as_cluster = this.add_markers_as_cluster;
 
-			if ( !mobile_context ) {
+			if ( mobile_context ) {
+				map_config.add_marker_popup_handler = false;
+				map_config.add_marker_click_handler = this.redirectToCollectionDay;
+			} else {
 				map_config.banner = {
 					display: true,
 					content: this.banner_content
@@ -95,7 +98,7 @@
 			if ( mobile_context ) {
 				result = markers_upcoming;
 			} else {
-				result = $.merge( markers_upcoming, markers_past );
+				result = $.merge( $.merge( [], markers_upcoming ), markers_past );
 			}
 
 			return result;
@@ -128,17 +131,15 @@
 			}
 
 			if ( mobile_context ) {
-				//this.hideLeafletMap();
-				//
-				//if ( RunCoCo.leaflet.upcoming && RunCoCo.leaflet.upcoming.length > 0 ) {
-				//	this.redirectToCollectionDay( RunCoCo.leaflet.upcoming[0].code );
-				//} else {
-				//	$('#collection-day-selector-label').text(
-				//		I18n.t( 'javascripts.collection-days.no-upcoming' )
-				//	);
-				//}
-				//
-				//return;
+				if (
+					RunCoCo.leaflet.upcoming &&
+					RunCoCo.leaflet.upcoming.length < 1
+				) {
+					$('#collection-day-selector-label').text(
+						I18n.t( 'javascripts.collection-days.no-upcoming' )
+					);
+				}
+
 				this.addLeafletMap();
 			} else {
 				this.setLegendContent();
@@ -154,16 +155,15 @@
 		},
 
 		/**
-		 * @param {string} collection_day_code
+		 * @param {string} url_path
 		 */
-		redirectToCollectionDay: function( collection_day_code ) {
+		redirectToCollectionDay: function( url_path ) {
 			$('#content, #footer').hide();
 
 			window.location.href =
 				window.location.protocol + "//" +
 				window.location.host + "/" +
-				'collection-days/' +
-				collection_day_code;
+				url_path;
 		},
 
 		removePreviousMarkersOpacity: function() {
@@ -229,7 +229,7 @@
 		}
 	};
 
-	if ( ( $(window).width() <= 768 || $(window).height() <= 500 ) ) {
+	if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ) ) {
 		mobile_context = true;
 	}
 

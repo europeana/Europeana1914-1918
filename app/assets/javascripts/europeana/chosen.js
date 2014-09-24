@@ -64,7 +64,7 @@
 		}
 	};
 
-	if ( ( $(window).width() <= 768 || $(window).height() <= 500 ) ) {
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 		mobile_context = true;
 	}
 

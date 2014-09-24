@@ -13,6 +13,8 @@
 
 		default_options: {
 			add_layer_toggle_ctrl: false,
+			add_marker_click_handler: false,
+			add_marker_popup_handler: true,
 			add_markers_as_cluster: false,
 			add_minimap: false,
 			add_routing: false,
@@ -61,6 +63,7 @@
 		 * @param {string} banner.content
 		 * @param {bool} banner.display
 		 * @param {string} banner.position
+		 *
 		 * @returns {europeana.leaflet}
 		 */
 		addBanner: function( banner ) {
@@ -81,7 +84,6 @@
 		},
 
 		/**
-		 *
 		 * @returns {europeana.leaflet}
 		 */
 		addGoogleLayer: function() {
@@ -91,13 +93,12 @@
 		},
 
 		/**
-		 *
 		 * @param {bool} add_layer_toggle_ctrl
 		 * @returns {europeana.leaflet}
 		 */
 		addLayerToggleCtrl: function( add_layer_toggle_ctrl ) {
 			if ( !add_layer_toggle_ctrl ) {
-				return;
+				return this;
 			}
 
 			this.addGoogleLayer();
@@ -125,8 +126,9 @@
 		 *
 		 * @param {object} legend
 		 * @param {string} legend.content
-		 * @param {bool} legend.display
+		 * @param {bool}   legend.display
 		 * @param {string} legend.position
+		 *
 		 * @returns {europeana.leaflet}
 		 */
 		addLegend: function( legend ) {
@@ -171,9 +173,25 @@
 
 		/**
 		 * @param {object} marker
-		 * @param {object} popup
+		 * @param {function} fn
+		 * @param {array} args
 		 */
-		addMarkerPopup: function( marker, popup ) {
+		addMarkerClickHandler: function( marker, fn, args ) {
+			var
+			self = this;
+
+			marker.on( 'click', function( evt ) {
+				args.push( evt );
+				fn.apply( self, args );
+			});
+		},
+
+		/**
+		 * @param {object} marker
+		 * @param {object} popup
+		 * @param {string} popup.content
+		 */
+		addMarkerPopupHandler: function( marker, popup ) {
 			if ( popup === undefined ) {
 				return;
 			}
@@ -184,49 +202,63 @@
 		},
 
 		/**
-		 * @param {bool} add_as_cluster
-		 * @param {array} markers
-		 * @param {object} markers[n]
-		 * @param {array} markers[n].latlng
-		 * @param {object|undefined} markers[n].popup
-		 * @param {bool|undefined} markers[n].popup.open
-		 * @param {string} markers[n].popup.type
-		 * @param {string|undefined} markers[n].popup.content
+		 * @param {object}  options
+		 * @param {bool}    options.add_as_cluster
+		 * @param {array}   options.markers
+		 *
+		 * @param {array}            options.markers[n].latlng
+		 * @param {object|undefined} options.markers[n].popup
+		 * @param {string|undefined} options.markers[n].popup.content
+		 * @param {bool|undefined}   options.markers[n].popup.open
+		 * @param {string}           options.markers[n].popup.type
+		 *
+		 * @returns {europeana.leaflet}
 		 */
-		addMarkers: function( markers, add_as_cluster ) {
-			if ( !$.isArray( markers ) || markers.length < 1 ) {
+		addMarkers: function( options ) {
+			if ( !$.isArray( options.markers ) || options.markers.length < 1 ) {
 				return this;
 			}
 
 			var
-				marker,
-				marker_cluster = {},
-				markers_past = [],
-				markers_upcoming = [],
-				self = this;
+			marker,
+			marker_cluster = {},
+			markers_past = [],
+			markers_upcoming = [],
+			self = this;
 
-			if ( add_as_cluster ) {
+			if ( options.add_markers_as_cluster ) {
 				marker_cluster = new L.MarkerClusterGroup();
 			}
 
-			$.each( markers, function() {
+			$.each( options.markers, function() {
 				if ( !self.latLngIsValid( this.latlng ) ) {
 					return;
 				}
 
 				marker = L.marker(
 					this.latlng,
-					self.getMarkerIcon( this.type, add_as_cluster )
+					self.getMarkerIcon( this.type, options.add_markers_as_cluster )
 				);
-				self.addMarkerPopup( marker, this.popup );
 
-				if ( markers.length === 1 ) {
+				if ( options.add_marker_popup_handler ) {
+					self.addMarkerPopupHandler( marker, this.popup );
+				}
+
+				if ( $.isFunction( options.add_marker_click_handler ) ) {
+					self.addMarkerClickHandler(
+						marker,
+						options.add_marker_click_handler,
+						[this.url]
+					);
+				}
+
+				if ( options.markers.length === 1 ) {
 					marker.addTo( europeana.leaflet.map );
 
 					if ( this.popup !== undefined && this.popup.open ) {
 						marker.openPopup();
 					}
-				} else if ( add_as_cluster ) {
+				} else if ( options.add_markers_as_cluster ) {
 					marker_cluster.addLayer( marker );
 				} else if ( this.past ) {
 					markers_past.push( marker );
@@ -235,17 +267,17 @@
 				}
 			});
 
-			if ( add_as_cluster ) {
+			if ( options.add_markers_as_cluster ) {
 				this.map.addLayer( marker_cluster );
 			} else {
-				if (markers_past.length > 0) {
-					this.past_collection_day_layer = L.layerGroup(markers_past);
-					this.map.addLayer(this.past_collection_day_layer);
+				if ( markers_past.length > 0 ) {
+					this.past_collection_day_layer = L.layerGroup( markers_past );
+					this.map.addLayer( this.past_collection_day_layer );
 				}
 
-				if (markers_upcoming.length > 0) {
-					this.upcoming_collection_day_layer = L.layerGroup(markers_upcoming);
-					this.map.addLayer(this.upcoming_collection_day_layer);
+				if ( markers_upcoming.length > 0 ) {
+					this.upcoming_collection_day_layer = L.layerGroup( markers_upcoming );
+					this.map.addLayer( this.upcoming_collection_day_layer );
 				}
 			}
 
@@ -402,16 +434,18 @@
 			if ( zoomControl instanceof L.Control.Zoom ) {
 				return false;
 			}
+
+			return true;
 		},
 
 		/**
-		 * @param {bool} add_as_cluster
+		 * @param {bool} add_markers_as_cluster
 		 * @param {string} icon_type
 		 * @returns {object}
 		 */
-		getMarkerIcon: function( icon_type, add_as_cluster ) {
+		getMarkerIcon: function( icon_type, add_markers_as_cluster ) {
 			var
-				marker_icon = {};
+			marker_icon = {};
 
 			switch ( icon_type ) {
 				case 'blue':
@@ -426,7 +460,7 @@
 					marker_icon.icon = this.icon_purple;
 					marker_icon.className = 'previous';
 
-					if ( !add_as_cluster ) {
+					if ( !add_markers_as_cluster ) {
 						marker_icon.opacity = 0;
 					}
 
@@ -436,7 +470,7 @@
 					marker_icon.icon = this.icon_red;
 					marker_icon.className = 'previous';
 
-					if ( !add_as_cluster ) {
+					if ( !add_markers_as_cluster ) {
 						marker_icon.opacity = 0;
 					}
 
@@ -467,7 +501,7 @@
 					this.getMapOptions( user_options.map_options )
 				)
 				.setImageIcons()
-				.addMarkers( user_options.markers, user_options.add_markers_as_cluster )
+				.addMarkers( user_options )
 				.addMapQuestLayer()
 				.addZoomControl( user_options.map_options.zoomControl )
 				.addMiniMap( user_options.add_minimap )
