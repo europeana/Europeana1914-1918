@@ -57,12 +57,19 @@
 				map_options = RunCoCo.leaflet.map_options;
 			}
 
-			if (
-				mobile_context &&
-				map_config.markers !== undefined &&
-				map_config.markers.length > 0
-			) {
-				map_options.center = map_config.markers[0].latlng;
+			if ( mobile_context ) {
+				if (
+					map_config.markers !== undefined &&
+					map_config.markers.length > 0
+				) {
+					map_options.center = map_config.markers[0].latlng;
+				}
+
+				if ( map_config.markers.length === 1 ) {
+					map_options.zoom = 11;
+				}
+
+				map_options.zoomControl = true;
 			}
 
 			map_options.zoomControl = new L.Control.Zoom({
@@ -135,12 +142,15 @@
 					RunCoCo.leaflet.upcoming &&
 					RunCoCo.leaflet.upcoming.length < 1
 				) {
-					$('#collection-day-selector-label').text(
-						I18n.t( 'javascripts.collection-days.no-upcoming' )
-					);
+					$('#map-container')
+						.hide()
+						.after(
+							$('<p>')
+								.text( I18n.t( 'javascripts.collection-days.no-upcoming' ) )
+						);
+				} else {
+					this.addLeafletMap();
 				}
-
-				this.addLeafletMap();
 			} else {
 				this.setLegendContent();
 				this.setBannerContent();
@@ -229,6 +239,7 @@
 		}
 	};
 
+	// http://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-handheld-device-in-jquery#answer-3540295
 	if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ) ) {
 		mobile_context = true;
 	}
