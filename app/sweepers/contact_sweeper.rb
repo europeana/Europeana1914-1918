@@ -2,8 +2,10 @@ class ContactSweeper < ActionController::Caching::Sweeper
   observe Contact
   
   def after_update(contact)
-    contact.user.contributions.find_each do |contribution|
-      expire_cache_for_contribution(contribution)
+    unless contact.user.nil?
+      contact.user.contributions.find_each do |contribution|
+        expire_cache_for_contribution(contribution)
+      end
     end
   end
 
