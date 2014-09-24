@@ -40,6 +40,28 @@
 			europeana.leaflet.init( map_config );
 		},
 
+		/**
+		 * intercepts popup content <a> tags so that user feedback can be provided
+		 * when the <a> tag is clicked
+		 */
+		addPopupIntercept: function() {
+			$('#map-container').on(
+				'click',
+				'.leaflet-popup-content a',
+				{ self: this },
+				this.handlePopUpLinkClick
+			);
+		},
+
+		/**
+		 * @param {Event} evt
+		 * jQuery Event
+		 */
+		handlePopUpLinkClick: function( evt ) {
+			evt.preventDefault();
+			evt.data.self.redirectToCollectionDay( $(this).attr('href') );
+		},
+
 		addPreviousToggleListener: function() {
 			this.$toggle_previous = $('#toggle-previous');
 			this.$toggle_previous.on('click', this.handlePreviousToggle );
@@ -162,18 +184,38 @@
 					this.setPreviousCheckboxState();
 				}
 			}
+
+			this.addPopupIntercept();
 		},
 
 		/**
+		 * clears content, adds the animated loading gif as a visual cue,
+		 * and then reidrects to the url path given
+		 *
 		 * @param {string} url_path
 		 */
 		redirectToCollectionDay: function( url_path ) {
-			$('#content, #footer').hide();
+			$('#footer')
+				.slideUp()
+				.html('');
 
-			window.location.href =
-				window.location.protocol + "//" +
-				window.location.host + "/" +
-				url_path;
+			$('#content')
+				.slideUp( function() {
+					$(this)
+						.html('<div class="loading-feedback"></div>')
+						.slideDown();
+
+					// give a beat so that animation is seen
+					setTimeout(
+						function() {
+							window.location.href =
+								window.location.protocol + "//" +
+								window.location.host + "/" +
+								url_path;
+						},
+						200
+					);
+				});
 		},
 
 		removePreviousMarkersOpacity: function() {

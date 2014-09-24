@@ -29,6 +29,21 @@
 	margin: .5em 0;
 }
 
+.loading-feedback {
+	position: relative;
+	display: block;
+	top: 0;
+	left: 50%;
+	width: 32px;
+	height: 32px;
+	margin: 0 0 3em -16px;
+	text-align: center;
+	z-index: 1000;
+	background-image: image-url('/assets/v2.1/images/icons/loading-animation.gif');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
 @media screen and (min-width: 769px) {
   #map-container.collection-day {
     float: left;
@@ -48,6 +63,10 @@
 
 	#collection-day-selector {
 		margin: .5em 0 0 0;
+	}
+
+	.loading-feedback {
+		top: 2em;
 	}
 }
 
