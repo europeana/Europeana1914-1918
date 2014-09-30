@@ -15,7 +15,15 @@ module UsersHelper
     end
   end
   
-  def cataloguing_users
-    User.where(:role_name => [ 'administrator', 'cataloguer' ]).includes(:contact).order('contacts.full_name')
+  def cataloguing_users(contribution = nil)
+    users = User.where(:role_name => [ 'administrator', 'cataloguer' ]).includes(:contact).order('contacts.full_name')
+    
+    # Handle the case where a contribution was already catalogued by a user
+    # no longer of the role administrator or cataloguer.
+    if contribution.present? && contribution.cataloguer.present? && !users.include?(contribution.cataloguer)
+      users.unshift(contribution.cataloguer)
+    end
+    
+    users
   end
 end

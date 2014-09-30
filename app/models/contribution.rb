@@ -72,7 +72,7 @@ class Contribution < ActiveRecord::Base
   validate :validate_contributor_or_contact, :unless => Proc.new { RunCoCo.configuration.registration_required? }
   validate :validate_attachment_file_presence, :if => :submitting?
   validate :validate_attachment_files_uploaded, :if => :submitting?
-  validate :validate_cataloguer_role, :if => Proc.new { |c| c.catalogued_by.present? }
+  validate :validate_cataloguer_role, :if => Proc.new { |c| c.catalogued_by.present? && c.catalogued_by_changed? }
 
   attr_accessible :metadata_attributes, :title
 
