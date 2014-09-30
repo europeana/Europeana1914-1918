@@ -12,6 +12,7 @@
 		banner_content: '',
 		legend_content: '',
 		$toggle_previous: {},
+		single_event_zoom: 13,
 
 
 		addLeafletMap: function() {
@@ -22,9 +23,14 @@
 			map_config.map_options = this.getMapOptions( map_config );
 			map_config.add_markers_as_cluster = this.add_markers_as_cluster;
 
+			// add_marker_popup_handler is the default
+			// for mobile, when a marker is clicked, redirect to the collection day,
+			// instead of opening the pop-up display
 			if ( mobile_context ) {
 				map_config.add_marker_popup_handler = false;
 				map_config.add_marker_click_handler = this.redirectToCollectionDay;
+
+			// add banner and legend only when not in a mobile context
 			} else {
 				map_config.banner = {
 					display: true,
@@ -79,17 +85,18 @@
 				map_options = RunCoCo.leaflet.map_options;
 			}
 
-			if ( mobile_context ) {
-				if (
-					map_config.markers !== undefined &&
-					map_config.markers.length > 0
-				) {
-					map_options.center = map_config.markers[0].latlng;
-				}
+			// always centre on the first marker in the array,
+			// which will be an upcoming event if one exists
+			if (
+				map_config.markers !== undefined &&
+				map_config.markers.length > 0
+			) {
+				map_options.center = map_config.markers[0].latlng;
+			}
 
-				if ( map_config.markers.length === 1 ) {
-					map_options.zoom = 11;
-				}
+			// if only a single event is displayed, use the single event zoom level
+			if ( map_config.markers.length === 1 ) {
+				map_options.zoom = this.single_event_zoom;
 			}
 
 			map_options.zoomControl = new L.Control.Zoom({
@@ -159,7 +166,7 @@
 
 			if ( mobile_context ) {
 				if (
-					RunCoCo.leaflet.upcoming &&
+					!$.isArray( RunCoCo.leaflet.upcoming ) ||
 					RunCoCo.leaflet.upcoming.length < 1
 				) {
 					$('#map-container')
