@@ -154,10 +154,12 @@ class ContributionsController < ApplicationController
   # PUT /contributions/:id
   def update
     current_user.may_edit_contribution!(@contribution)
-
+    
+    catalogued_by = params[:contribution].delete(:catalogued_by)
     if current_user.may_catalogue_contributions? && @contribution.catalogued_by.blank?
-      @contribution.catalogued_by = params[:contribution].delete(:catalogued_by)
+      @contribution.catalogued_by = catalogued_by
     end
+    
     @contribution.attributes = params[:contribution]
     if current_user.may_catalogue_contributions?
       @contribution.metadata.cataloguing = true
