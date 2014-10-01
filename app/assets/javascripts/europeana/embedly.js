@@ -68,17 +68,17 @@
 		 * jQuery Event Object
 		 */
 		openEmbedlyModal: function( evt ) {
-			if ( evt && evt.data && evt.data.options ) {
-				embedly.modal( evt.data.options );
-			} else {
-				embedly.modal();
-			}
-
 			com.google.analytics.trackEvent(
 				'Embed.ly',
 				'openEmbedlyModal',
 				window.location.href.replace('www.','')
 			);
+
+			if ( evt && evt.data && evt.data.options ) {
+				embedly.modal( evt.data.options );
+			} else {
+				embedly.modal();
+			}
 
 			return false;
 		}
