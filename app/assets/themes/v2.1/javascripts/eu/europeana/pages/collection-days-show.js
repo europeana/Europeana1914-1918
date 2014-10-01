@@ -5,46 +5,18 @@
 	'use strict';
 
 	var
-	mobile_context = false,
-
 	leaflet = {
 
-		get_directions: false,
-		$get_directions: {},
 		map: {},
 		$map_container: $('#map-container'),
 		routing_ctrl: undefined,
-
-
-		addGetDirections: function() {
-			if ( !this.get_directions ) {
-				return;
-			}
-
-			this.$map_container.append(
-				$('<a>')
-					.attr( 'href', '' )
-					.attr( 'id', 'get-directions' )
-					.text( I18n.t( 'javascripts.collection-days.get-directions' ) ) );
-
-			this.$get_directions = $('#get-directions');
-			this.addGetDirectionsListener();
-		},
-
-		addGetDirectionsListener: function() {
-			this.$get_directions.on('click', this.handleGetDirectionsClick);
-		},
 
 		addLeafletMap: function() {
 			var
 			map_config = {};
 
 			map_config.markers = this.getMarkers();
-			map_config.map_options = this.getMapOptions( map_config );
-
-			if ( this.add_directions ) {
-				map_config.add_routing = true;
-			}
+			map_config.map_options = this.getMapOptions();
 
 			this.map = europeana.leaflet.init( map_config );
 		},
@@ -56,42 +28,11 @@
 			);
 		},
 
-		addRouting: function addRouting() {
-			this.routing_ctrl = L.Routing.control({
-				waypoints: [
-					'',
-					L.latLng(
-						RunCoCo.leaflet.markers[0].latlng[0],
-						RunCoCo.leaflet.markers[0].latlng[1]
-					)
-				],
-				geocoder: L.Control.Geocoder.nominatim(),
-				lineOptions: {
-					styles: [
-						// Shadow
-						{color: 'black', opacity: 0.8, weight: 11},
-						// Outline
-						{color: 'green', opacity: 0.8, weight: 8},
-						// Center
-						{color: 'orange', opacity: 1, weight: 4}
-					]
-				}
-			});
-
-			this.routing_ctrl.addTo( this.map );
-			this.$routing_ctrl = $( this.routing_ctrl._container );
-		},
-
-		addRoutingAndResize: function addRoutingAndResize() {
-			leaflet.invalidateSize();
-			leaflet.addRouting();
-		},
-
 		/**
 		 * @param {object} map_config
 		 * @returns {object}
 		 */
-		getMapOptions: function( map_config ) {
+		getMapOptions: function() {
 			var
 			map_options = {};
 
@@ -106,6 +47,8 @@
 					position: 'bottomleft'
 				});
 			}
+
+			map_options.dragging = false;
 
 			return map_options;
 		},
@@ -127,43 +70,11 @@
 			return result;
 		},
 
-		/**
-		 * @param {object} evt
-		 * jQuery Event Object
-		 */
-		handleGetDirectionsClick: function handleGetDirectionsClick( evt ) {
-			evt.preventDefault();
-
-			if ( leaflet.$map_container.hasClass('expand') ) {
-				leaflet.$map_container.removeClass('expand');
-				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.get-directions' ) );
-				$('#collection-day-metadata').css('float', 'right');
-
-				if ( leaflet.routing_ctrl !== undefined ) {
-					leaflet.$routing_ctrl.fadeOut();
-				}
-			} else {
-				leaflet.$map_container.addClass('expand');
-				leaflet.$get_directions.text( I18n.t( 'javascripts.collection-days.close-directions' ) );
-				$('#collection-day-metadata').css('float', 'none');
-
-				if ( leaflet.routing_ctrl !== undefined ) {
-					leaflet.$routing_ctrl.fadeIn();
-				} else if ( !$.support.transition ) {
-					setTimeout(
-						leaflet.addRoutingAndResize,
-						500
-					);
-				}
-			}
-		},
-
 		init: function init() {
 			if ( RunCoCo.leaflet === undefined ) {
 				return;
 			}
 
-			this.setGetDirections();
 			this.addLeafletMap();
 			this.addMapContainerListener();
 		},
@@ -177,27 +88,145 @@
 
 		mapComtainerTransitionHandler: function mapComtainerTransitionHandler( evt ) {
 			if ( evt.target === evt.currentTarget ) {
-				leaflet.addRoutingAndResize();
+				leaflet.invalidateSize();
 				leaflet.$map_container.off(
 					'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd'
 				);
 			}
+		}
+	},
+
+	directions = {
+
+		check_geolocation: {
+			active: false,
+			count: 0,
+			limit: 100 // assuming getCurrentPosition timeout is 3 milliseconds
+		},
+		geolocation_available: false,
+		$get_directions: $( '#get-directions' ),
+
+		addGetDirectionsListener: function() {
+			if ( !RunCoCo.get_directions ) {
+				return;
+			}
+
+			this.$get_directions.on( 'click', { self: this }, this.handleGetDirectionsClick );
 		},
 
-		setGetDirections: function() {
-			if ( $(window).width() > 768 && RunCoCo.leaflet.get_directions ) {
-				this.get_directions = true;
-				this.addGetDirections();
+		/**
+		 * @see http://dev.w3.org/geo/api/spec-source.html#get-current-position
+		 * @see http://dev.w3.org/geo/api/spec-source.html#position-options
+		 */
+		getGeolocation: function() {
+			var
+			self = this;
+
+			this.check_geolocation.count += 1;
+
+			// the success and failure callbacks return window as the this object
+			// so set it to this object instead
+			navigator.geolocation.getCurrentPosition(
+				function() { self.handleGeolocationSuccess.apply( self, arguments ); },
+				function() { self.handleGeolocationError.apply( self, arguments ); },
+				{
+					enableHighAccuracy: true,
+					maximumAge: 0
+				}
+			);
+		},
+
+		/**
+		 * @param {object} evt
+		 * jQuery Event object
+		 */
+		handleGetDirectionsClick: function( evt ) {
+			var
+			self = evt.data.self;
+
+			if ( self.geolocation_available ) {
+				evt.preventDefault();
+
+				// prevent multiple clicks on get directions
+				if ( !self.check_geolocation.active ) {
+					self.check_geolocation.active = true;
+					self.getGeolocation();
+				}
+			}
+		},
+
+		/**
+		 * handle the following scenarios:
+		 *
+		 * - user permission denied to access geolocation
+		 *   will redirect to google maps without a start destination
+		 *
+		 * - geolocation unavailable
+		 *   will attempt this.check_geolocation.limit times to obtain the geolocation
+		 *
+		 * @see http://dev.w3.org/geo/api/spec-source.html#position-error
+		 *
+		 * @param {object} position_error
+		 * @param {int} position_error.PERMISSION_DENIED = 1
+		 * @param {int} position_error.POSITION_UNAVAILABLE = 2
+		 */
+		handleGeolocationError: function( position_error ) {
+			var
+			redirect = false;
+
+			if ( position_error.PERMISSION_DENIED === 1 ) {
+				redirect = true;
+			} else if (
+				position_error.POSITION_UNAVAILABLE === 2 &&
+				this.check_geolocation.count >= this.check_geolocation.limit
+			) {
+				redirect = true;
+			}
+
+			if ( redirect ) {
+				window.location.href = this.$get_directions.attr( 'href' );
+			} else {
+				this.getGeolocation();
+			}
+		},
+
+		/**
+		 * add current geolocation coordinates as a start destination
+		 * to the get directions link
+		 *
+		 * @see http://dev.w3.org/geo/api/spec-source.html#coordinates
+		 *
+		 * @param {object} position
+		 * @param {float} position.coords.latitude
+		 * @param {float} position.coords.longitude
+		 */
+		handleGeolocationSuccess: function( position ) {
+			var
+			lat = parseFloat( position.coords.latitude ),
+			lng = parseFloat( position.coords.longitude ),
+			href = this.$get_directions.attr( 'href' ) + '&saddr=' + lat + ',' + lng;
+
+			window.location.href = href;
+		},
+
+		init: function() {
+			this.setGeolocationAvailable();
+			this.addGetDirectionsListener();
+		},
+
+		setGeolocationAvailable: function() {
+			if (
+				navigator !== undefined &&
+				navigator.geolocation !== undefined &&
+				$.isFunction( navigator.geolocation.getCurrentPosition )
+			) {
+				this.geolocation_available = true;
 			}
 		}
 	};
 
-	// http://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-handheld-device-in-jquery#answer-3540295
-	if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent ) ) {
-		mobile_context = true;
-	}
-
 	europeana.chosen.init();
 	leaflet.init();
+	directions.init();
 
 }( jQuery ));

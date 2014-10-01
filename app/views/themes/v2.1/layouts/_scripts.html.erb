@@ -71,7 +71,7 @@
       end
 
 			if content_for?( :collection_day_upcoming )
-				script += 'RunCoCo.leaflet.get_directions = true;'
+				script += 'RunCoCo.get_directions = true;' + "\n"
 			end
 		end
   end
@@ -163,10 +163,6 @@
     if content_for?( :collection_days )
       script_includes += ( theme_javascript_include_tag 'leaflet-marker-cluster' ) + "\n"
 		end
-
-    if content_for?( :collection_day_upcoming )
-      script_includes += ( theme_javascript_include_tag 'leaflet-routing-machine' ) + "\n"
-    end
   end
 
   if content_for?( :reveal )

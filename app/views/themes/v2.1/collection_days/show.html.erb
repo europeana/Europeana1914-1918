@@ -140,12 +140,24 @@
 
         html += '<div id="map-container" class="collection-day">'
           html += '<div id="map"></div>'
-        html += '</div>'
 
-        html += render :partial => 'collection_days/as-select',
+					# get directions
+          if content_for?( :collection_day_upcoming )
+						html += '<p>'
+							html += link_to(
+								t( 'javascripts.collection-days.get-directions' ),
+								'https://maps.google.com?daddr=' + @collection_day.map_latlng,
+								:id => 'get-directions'
+							)
+						html += '</p>'
+          end
+
+          # collection-day dropdown
+          html += render :partial => 'collection_days/as-select',
 					:locals => {
 						:collection_day_selector_label => t( 'views.collection_days.different-collection-day' )
 					}
+        html += '</div>'
       end
 
     # what is it

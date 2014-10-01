@@ -73,7 +73,7 @@
 
 			var banner_ctrl = L.control({ position: banner.position });
 
-			banner_ctrl.onAdd = function (map) {
+			banner_ctrl.onAdd = function () {
 				var div = L.DomUtil.create('div', 'banner');
 				div.innerHTML = banner.content;
 				return div;
@@ -138,7 +138,7 @@
 
 			var legend_ctrl = L.control({ position: legend.position });
 
-			legend_ctrl.onAdd = function (map) {
+			legend_ctrl.onAdd = function () {
 				var div = L.DomUtil.create('div', 'legend');
 				div.innerHTML = legend.content;
 				return div;
@@ -390,7 +390,8 @@
 		 * @returns {object}
 		 */
 		getMapOptions: function( map_options ) {
-			return {
+			var
+			options = {
 				center: this.getMapCentre( map_options.center ),
 				doubleClickZoom: map_options.doubleClickZoom,
 				maxZoom: map_options.maxZoom,
@@ -399,6 +400,12 @@
 				zoom: this.getMapZoom( map_options.zoom ),
 				zoomControl: this.getMapZoomControl( map_options.zoomControl )
 			};
+
+			if ( map_options.dragging !== undefined ) {
+				options.dragging = map_options.dragging;
+			}
+
+			return options;
 		},
 
 		/**
