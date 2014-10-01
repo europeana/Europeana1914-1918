@@ -236,7 +236,7 @@ de:
       about_the_project: Über das Projekt Europeana 1914-1918
       add-your-story: Fügen Sie Ihren Beitrag hinzu!
       add-your-story-brief: Hinzufügen!
-      annotorious: 
+      annotorious: Objekt hat Anmerkungen. Objekt öffnen zum Lesen.
       contact_us: Kontakt
       contact_us_email: Sie können uns über die Emailadresse <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.
       contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Bedingungen für Nutzerbeiträge auf Europeana</a>
@@ -463,13 +463,13 @@ de:
           notice: Die Inhalte des Europeana Portals werden im Hintergrund abgefragt.
     annotations:
       depublish:
-        alert: 
-        notice: 
+        alert: Verbergen der Anmerkung gescheitert.
+        notice: Anmerkung verborgen.
       flag:
-        alert: 
-        notice: 
+        alert: Markierung der Anmerkung als unpassend gescheitert.
+        notice: Anmerkung markiert als unpassend.
       unflag:
-        alert: 
+        alert: Löschung der Markierung der Anmerkung als unpassend gescheitert.
         notice: 
     attachments:
       create:
@@ -533,9 +533,9 @@ de:
     flickr:
       import:
         alert:
-          empty: 
-          invalid_license: 
-        notice: 
+          empty: Keine Bilder ausgewählt
+          invalid_license: ! 'Die folgenden Fotos haben eine inkompatible Lizenz und werden nicht importiert:'
+        notice: Flickr Bilder im Hintergrund übertragen.
     guest_contact:
       create:
         alert: Bei den von Ihnen übermittelten Daten ist ein Fehler aufgetreten. Bitte korrigieren Sie sie und versuchen Sie es noch einmal.
@@ -563,7 +563,7 @@ de:
         success: Schlagwort entfernt.
       europeana_record:
         create:
-          success: 
+          success: Ihre Schlagwörter wurden zum Objekt hinzugefügt.
       flag:
         success: Dieses Schlagwort wurde als unpassend markiert.
     taxonomy:
@@ -722,6 +722,14 @@ de:
         run_co_co/configuration:
           edit:
             search_engine: 
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
       taxonomy_term:
         import: Geben Sie die Schlagwörter für dieses Metadatenfeld ein, je eines pro Zeile.
         term: Muss innerhalb des Metadatenfeldes eindeutig sein.
@@ -1214,6 +1222,15 @@ de:
             password: 
             password_confirmation: 
             username: 
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
     'no': Nein
     required: erforderlich
     titles:
@@ -1268,6 +1285,9 @@ de:
           admin_collection_day_address: 
       run_co_co/configuration:
         edit:
+          settings: 
+      admin/contributions_controller/export_settings:
+        export:
           settings: 
     update: ! '%{model} aktualisieren'
     'yes': Ja
@@ -1385,6 +1405,9 @@ de:
             sharethis_id: 
             site_name: 
             site_url: 
+        admin/contributions_controller/export_settings:
+          export:
+            exclude: 
   helpers:
     select:
       prompt: Bitte wählen
@@ -1461,6 +1484,15 @@ de:
             postal_code: 
             region: 
             street_address: 
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
   javascripts:
     admin:
       metadata_fields:
