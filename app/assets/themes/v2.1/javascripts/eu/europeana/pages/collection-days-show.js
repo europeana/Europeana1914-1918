@@ -184,6 +184,7 @@
 			}
 
 			if ( redirect ) {
+				this.resetCheckGeolocation();
 				window.location.href = this.$get_directions.attr( 'href' );
 			} else {
 				this.getGeolocation();
@@ -206,12 +207,18 @@
 			lng = parseFloat( position.coords.longitude ),
 			href = this.$get_directions.attr( 'href' ) + '&saddr=' + lat + ',' + lng;
 
+			this.resetCheckGeolocation();
 			window.location.href = href;
 		},
 
 		init: function() {
 			this.setGeolocationAvailable();
 			this.addGetDirectionsListener();
+		},
+
+		resetCheckGeolocation: function() {
+			this.check_geolocation.active = false;
+			this.check_geolocation.count = 0;
 		},
 
 		setGeolocationAvailable: function() {
