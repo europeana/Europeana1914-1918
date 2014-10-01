@@ -74,6 +74,12 @@
 				embedly.modal();
 			}
 
+			com.google.analytics.trackEvent(
+				'Embed.ly',
+				'openEmbedlyModal',
+				window.location.href.replace('www.','')
+			);
+
 			return false;
 		}
 
