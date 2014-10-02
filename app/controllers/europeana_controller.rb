@@ -72,6 +72,9 @@ class EuropeanaController < ApplicationController
   def show
     @object = cached_record(record_id_from_params)
 
+    # @bing_access_token = RunCoCo::BingTranslator.get_bing_access_token()
+    @bing_access_token = { :status => 'not yet implemented' }
+
     respond_to do |format|
       format.html do
         if params[:edmpdf] == 'true'
@@ -85,7 +88,7 @@ class EuropeanaController < ApplicationController
       format.json  { render :json => { :result => 'success', :object => @object } }
     end
   end
-  
+
   def http_headers
     @object = cached_record(record_id_from_params)
 
@@ -99,17 +102,17 @@ class EuropeanaController < ApplicationController
       end
     end
   end
-  
+
   def http_content
     @object = cached_record(record_id_from_params)
 
     url = @object['aggregations'].first['edmIsShownBy']
     raise RunCoCo::BadRequest, "No URL for this Europeana record" unless url.present?
     content = get_http_content(url)
-    
+
     send_data content.body, :type => content['content-type'], :disposition => content["content-disposition"]
   end
-  
+
   def count_all
     response = Europeana.search(build_api_query)['totalResults']
   end
@@ -269,7 +272,7 @@ private
 
   def redirect_to_search
     return if performed?
-  
+
     if params[:provider] && params[:provider] != self.controller_name
       params.delete(:qf)
       params[:controller] = params[:provider]

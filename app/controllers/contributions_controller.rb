@@ -125,6 +125,8 @@ class ContributionsController < ApplicationController
     end
 
     @tags = @contribution.visible_tags
+    # @bing_access_token = RunCoCo::BingTranslator.get_bing_access_token()
+    @bing_access_token = { :status => 'not yet implemented' }
 
     respond_to do |format|
       format.html
@@ -133,12 +135,12 @@ class ContributionsController < ApplicationController
       format.xml { render :xml => cached(@contribution, :xml) }
     end
   end
-  
+
   # GET /contributions/:id/status
   def status_log
     current_user.may_view_contribution_status_log!(@contribution)
   end
-  
+
   # GET /contributions/:id/edit
   def edit
     current_user.may_edit_contribution!(@contribution)
@@ -154,12 +156,12 @@ class ContributionsController < ApplicationController
   # PUT /contributions/:id
   def update
     current_user.may_edit_contribution!(@contribution)
-    
+
     catalogued_by = params[:contribution].delete(:catalogued_by)
     if current_user.may_catalogue_contributions? && @contribution.catalogued_by.blank?
       @contribution.catalogued_by = catalogued_by
     end
-    
+
     @contribution.attributes = params[:contribution]
     if current_user.may_catalogue_contributions?
       @contribution.metadata.cataloguing = true
@@ -191,11 +193,11 @@ class ContributionsController < ApplicationController
       flash.now[:alert] = t('flash.contributions.draft.submit.alert')
     end
   end
-  
+
   # GET /contributions/:id/submittable
   def submittable
     current_user.may_edit_contribution!(@contribution)
-    
+
     respond_to do |format|
       format.json do
         render :json => {

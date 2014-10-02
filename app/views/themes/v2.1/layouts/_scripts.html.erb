@@ -17,6 +17,7 @@
 
   if content_for?(:javascripts_translate)
     script += "RunCoCo.bing_translate_key = '" + configuration(:bing_translate_key) + "';" + "\n"
+    script += "RunCoCo.bing_access_token = " + @bing_access_token.to_json + ";" + "\n"
   end
 
   if @attachment

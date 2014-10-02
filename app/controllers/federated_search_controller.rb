@@ -4,53 +4,53 @@
 class FederatedSearchController < SearchController
   before_filter :load_api_key
   before_filter :configured?
-  
+
   class RecordNotFoundError < StandardError
     attr_reader :id
-    
+
     def initialize(id)
       @id = id
     end
   end
-  
+
   class ResponseError < StandardError
     attr_reader :response
-    
+
     def initialize(response)
       @response = response
     end
   end
-  
-  unless Rails.configuration.consider_all_requests_local 
+
+  unless Rails.configuration.consider_all_requests_local
     rescue_from RecordNotFoundError do |exception|
       logger.error("ERROR: No record found from #{controller_name} API with ID #{exception.id}")
       render_http_error(:not_found, exception)
     end
-    
+
     rescue_from ResponseError do |exception|
       logger.error("ERROR: Invalid response from #{controller_name} API query: #{exception.response}")
       render_error
     end
-    
+
     rescue_from JSON::ParserError do |exception|
       logger.error("ERROR: Unable to parse non-JSON response from #{controller_name} API query")
       render_error
     end
-    
+
     rescue_from Timeout::Error, EOFError do |exception|
       logger.error("ERROR: Failed to receive response from #{controller_name} API query")
       render_error
     end
   end
-  
+
   class << self
     # [String] Key to access the federated search's API, set in config/federated_search.yml
     attr_accessor :api_key
-    
+
     # [String] URL to which API queries are sent
     attr_accessor :api_url
   end
-  
+
   ##
   # Search action for a federated search.
   #
@@ -64,30 +64,32 @@ class FederatedSearchController < SearchController
 #    logger.debug("Query Params: #{request.query_parameters}")
     @results  = response["results"]
     @facets   = response["facets"]
-    
+
     cache_search_facets(controller_name, @facets)
     preserve_params_facets(controller_name, @facets)
-    
+
     respond_to do |format|
       format.html { render :template => 'search/page' }
       format.json { render :json => format_results_as_json }
     end
   end
-  
+
   def explore
     search
   end
-  
+
   def show
     response  = get_record_from_api
     @record   = edm_record_from_response(response)
-    
+    # @bing_access_token = RunCoCo::BingTranslator.get_bing_access_token()
+    @bing_access_token = { :status => 'not yet implemented' }
+
     respond_to do |format|
       format.html { render :template => 'search/record' }
       format.json { render :json => response.to_json }
     end
   end
-  
+
   def count_all
     load_api_key
     response = query_api(search_url, search_params)
@@ -95,26 +97,26 @@ class FederatedSearchController < SearchController
   rescue JSON::ParserError, Timeout::Error
     nil
   end
-  
+
 protected
-  
+
   ##
   # Gets common search parameters with default values
   #
   def params_with_defaults
     count = [ (params[:count] || 12).to_i, 100 ].min # Default 12, max 100
     count = 12 unless count > 0
-    
+
     page = (params[:page] || 1).to_i
     page = 1 unless page > 0
-    
+
     @params_with_defaults ||= {
       :page   => page,
       :count  => count,
       :qf     => params[:qf] || {}
     }
   end
-  
+
   ##
   # Gets the parameters to send to the federated search API
   #
@@ -127,7 +129,7 @@ protected
   def search_params
     {}
   end
-  
+
   ##
   # Gets the parameters for retrieval of an individual record from the API
   #
@@ -137,7 +139,7 @@ protected
   def record_params
     raise NotImplementedError, "#record_params not implemented in #{self.class.name}"
   end
-  
+
   ##
   # Gets the authentication params required by the API.
   #
@@ -146,7 +148,7 @@ protected
   def authentication_params
     raise NotImplementedError, "#authentication_params not implemented in #{self.class.name}"
   end
-  
+
   ##
   # Validates response from API
   #
@@ -159,7 +161,7 @@ protected
   def validate_response!(response)
     raise ResponseError.new(response) if response.nil?
   end
-  
+
 private
 
   def render_error
@@ -188,26 +190,26 @@ private
       validate_response!(response)
       write_fragment(cache_key, response.to_yaml, :expires_in => 1.day)
     end
-    
+
     response
   end
-  
+
   # @return [Hash] Normalized API response, with keys "results" and "facets"
   def search_api
     response = query_api(search_url, search_params)
-  
+
     edm_results = edm_results_from_response(response)
     results = paginate_search_results(edm_results, params_with_defaults[:page], params_with_defaults[:count], total_entries_from_response(response))
     facets = facets_from_response(response)
-    
+
     { "results" => results, "facets" => facets }
   end
-  
+
   # @return (see #query_api)
   def get_record_from_api
     query_api(record_url, record_params)
   end
-  
+
   ##
   # Tests whether the federated search is configured.
   #
@@ -220,7 +222,7 @@ private
       raise RuntimeError, "Federated search \"#{controller_name}\" not configured." unless self.class.api_key.present?
     end
   end
-  
+
   ##
   # Returns +true+ if the API requires configuration
   #
@@ -231,7 +233,7 @@ private
   def configuration_required?
     true
   end
-  
+
   ##
   # Formats the results as JSON based on Europeana API search response.
   #
@@ -255,12 +257,12 @@ private
         "rows"  => @results.per_page
       }
     }.to_json
-    
+
     jsonp = "#{params[:callback]}(#{json});" unless params[:callback].blank?
-    
+
     jsonp || json
   end
-  
+
   ##
   # Reads configuration for federated search APIs from config file
   #
@@ -277,18 +279,18 @@ private
       {}
     end
   end
-  
+
   ##
   # Sets the API key class instance variable from the configuration file
   #
   def load_api_key
     self.class.api_key ||= configuration[controller_name]
   end
-  
+
   def search_url
     self.class.api_url
   end
-  
+
   ##
   # Constructs the URL for the API query
   #
@@ -302,7 +304,7 @@ private
     url.query = params.is_a?(String) ? params : params.to_query
     url
   end
-  
+
   ##
   # Paginates search results for use with +will_paginate+
   #
