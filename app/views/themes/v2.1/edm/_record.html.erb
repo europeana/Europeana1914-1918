@@ -118,10 +118,12 @@
 
 			html += '</div>'
 
+			# story metadata
 			html += '<div class="col middle metadata">'
 				html += '<div id="story-metadata" class="col middle metadata">'
 					html += '<h2 class="dcTitle hide-on-item-collapsed translate"> ' + title + '</h2>'
-					html += '<div class="col-cell">'
+
+						# add metadata
 						html +=	render :partial => 'metadata/display_edm',
 							:locals => {
 								:proxy => proxy,
@@ -129,25 +131,23 @@
 								:euAggregation => euAggregation,
 								:record => record
 							}
-					html += '</div>'
 
-
-					if content_for?( :map_latlng )
-						html += content_tag(
-							'div',
-							content_tag(
+						# add map
+						if content_for?( :map_latlng )
+							html += content_tag(
 								'div',
 								content_tag(
 									'div',
-									'',
-									:id => 'map'
+									content_tag(
+										'div',
+										'',
+										:id => 'map'
+									),
+									:id => 'map-container'
 								),
-								:id => 'map-container'
-							),
-							:class => 'col-cell'
-						)
-					end
-
+								:class => 'col-cell'
+							)
+						end
 
 				html += '</div>'
 			html += '</div>'
