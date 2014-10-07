@@ -81,8 +81,7 @@ class FederatedSearchController < SearchController
   def show
     response  = get_record_from_api
     @record   = edm_record_from_response(response)
-    # @bing_access_token = RunCoCo::BingTranslator.get_bing_access_token()
-    @bing_access_token = { :status => 'not yet implemented' }
+    @bing_access_token = RunCoCo::BingTranslator.get_access_token()
 
     respond_to do |format|
       format.html { render :template => 'search/record' }

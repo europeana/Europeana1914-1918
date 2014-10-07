@@ -40,10 +40,10 @@ module RunCoCo
         translations
       end
 
-      def get_bing_access_token
+      def get_access_token
         begin
           translator = ::BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
-          token = translator.get_bing_access_token
+          token = translator.get_access_token
           token[:status] = 'success'
         rescue Exception => exception
           RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")

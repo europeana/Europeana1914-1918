@@ -162,7 +162,7 @@
 		pdf_viewer = add_lightbox = false;
 	}
 
-	RunCoCo.translation_services.init( $('.translate-area') );
+	europeana.translator.init( '.translate-area', '#story-metadata > .translate' );
 	europeana.embedly.init();
 	europeana.carousel.init( $('#contributions-featured'), function() {
 		europeana.lightbox.init({

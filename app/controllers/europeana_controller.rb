@@ -71,9 +71,7 @@ class EuropeanaController < ApplicationController
   # @todo Handle errors from Europeana API, e.g. on invalid ID param
   def show
     @object = cached_record(record_id_from_params)
-
-    # @bing_access_token = RunCoCo::BingTranslator.get_bing_access_token()
-    @bing_access_token = { :status => 'not yet implemented' }
+    @bing_access_token = RunCoCo::BingTranslator.get_access_token()
 
     respond_to do |format|
       format.html do

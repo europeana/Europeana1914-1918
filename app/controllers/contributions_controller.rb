@@ -125,8 +125,7 @@ class ContributionsController < ApplicationController
     end
 
     @tags = @contribution.visible_tags
-    # @bing_access_token = RunCoCo::BingTranslator.get_bing_access_token()
-    @bing_access_token = { :status => 'not yet implemented' }
+    @bing_access_token = RunCoCo::BingTranslator.get_access_token()
 
     respond_to do |format|
       format.html

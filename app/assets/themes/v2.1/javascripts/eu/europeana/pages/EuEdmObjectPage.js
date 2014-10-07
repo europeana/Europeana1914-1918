@@ -276,7 +276,7 @@
 	}
 
 	truncate.init();
-	RunCoCo.translation_services.init( jQuery('.translate-area') );
+	europeana.translator.init( '.translate-area', '#story-metadata > .translate' );
 	europeana.embedly.init();
 	europeana.carousel.init( $('#institution-featured') );
 	mimetype.init(); // lightbox is now initialized within this object

@@ -11,7 +11,7 @@
   script += "RunCoCo.gaId = '" + configuration(:google_analytics_key) + "';" + "\n"
   script += "RunCoCo.locale = '" + I18n.locale.to_s + "';" + "\n"
 
-  if @contribution && @contribution.ready_to_submit?
+	if @contribution && @contribution.ready_to_submit?
     script += "RunCoCo.ready_for_submit = true;" + "\n"
   end
 
@@ -116,12 +116,17 @@
     script += '};' + "\n"
   end
 
+	# remove console if not in development or test context
+  if Rails.env != 'development' && Rails.env != 'test'
+		script += "if ( window.console && window.console.log ) { window.console.log = function() {}; }" + "\n"
+	end
+
 
   # script includes
   script_includes = ( theme_javascript_include_tag 'application' ) + "\n"
 
   if content_for?(:javascripts_translate)
-    script_includes += ( theme_javascript_include_tag 'translator' ) + "\n"
+    script_includes += ( theme_javascript_include_tag 'microsoft.translator' ) + "\n"
   end
 
   if content_for?(:javascripts_gmap)
