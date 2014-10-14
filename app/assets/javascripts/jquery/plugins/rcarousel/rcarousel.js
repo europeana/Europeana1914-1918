@@ -102,6 +102,7 @@
 
 		orientation : window.orientation,
 		orientation_count : 0,
+		recalc: 0,
 
 		addKeyboardHandler : function() {
 			if (
@@ -275,7 +276,7 @@
 
 		ajaxCarouselSetup : function() {
 			this.$items = this.$carousel_container.find( 'li' );
-			this.calculateDimensions();
+			this.calculateDimensions( { data: { self: this } } );
 			this.addSwipeHandler();
 		},
 
@@ -333,6 +334,21 @@
 
 			self.setCarouselHeight();
 			self.setCarouselWidth();
+
+			// when the width of the carousel is less than the widest item and
+			// the carousel is not set to item width is container width, the
+			// carousel wraps to a seocnd row. this fix takes care of this issue
+			if ( self.recalc === 0 ) {
+				if (
+					!self.options.item_width_is_container_width &&
+					self.attributes.widest_item >= self.attributes.container_width
+				) {
+					self.recalc += 1;
+					self.calculateDimensions( { data: { self: self } } );
+				}
+			}
+
+			self.recalc = 0;
 		},
 
 		/**
@@ -683,7 +699,7 @@
 			this.initializeInstance( options );
 
 			this.deriveMainCarouselElements( carousel_container );
-			this.calculateDimensions();
+			this.calculateDimensions( { data: { self: this } } );
 
 			this.addNavigation();
 			this.toggleNavArrows();
