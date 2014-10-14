@@ -830,7 +830,7 @@
 		 * toggle display of nav arrows
 		 */
 		toggleNavArrows : function() {
-			if ( this.$nav_prev.length === 1 ) {
+			if ( this.$nav_prev && this.$nav_prev.length === 1 ) {
 				// don’t display if on first item
 				if ( this.attributes.current_item_index === 0 ) {
 					this.$nav_prev.fadeOut();
@@ -844,7 +844,7 @@
 				}
 			}
 
-			if ( this.$nav_next.length === 1 ) {
+			if ( this.$nav_next && this.$nav_next.length === 1 ) {
 				// don’t display if on last item
 				if ( this.attributes.current_item_index >= this.attributes.item_total - 1 ) {
 					this.$nav_next.fadeOut();
