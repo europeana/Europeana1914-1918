@@ -332,7 +332,7 @@ protected
 
     if fragment_exist?(bing_cache_key)
       translations = YAML::load(read_fragment(bing_cache_key))
-      if translations.is_a?(Hash) && (translations.keys.sort == I18n.available_locales.sort)
+      if translations.is_a?(Hash)
         return translations
       end
       expire_fragment(bing_cache_key)
@@ -343,12 +343,16 @@ protected
       expiration = Rails.configuration.cache_store.first == :dalli_store ? 1.year.from_now.to_i : 1.year
       write_fragment(bing_cache_key, translations.to_yaml, :expires_in => expiration)
     rescue Exception => exception
-      if exception.message.match(/The Azure Market Place Translator Subscription associated with the request credentials has zero balance/)
-        # Query quota exceeded; wait one day before trying again
-        self.class.class_variable_set(:@@bing_translate_retry_time, Time.now + 24.hours)
+      if Rails.configuration.consider_all_requests_local
+        raise exception
+      else
+        if exception.message.match(/The Azure Market Place Translator Subscription associated with the request credentials has zero balance/)
+          # Query quota exceeded; wait one day before trying again
+          self.class.class_variable_set(:@@bing_translate_retry_time, Time.now + 24.hours)
+        end
+        RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
+        translations = text
       end
-      RunCoCo.error_logger.error("Bing Translator: \"#{exception.message}\"")
-      translations = text
     end
 
     translations

@@ -32,9 +32,11 @@ module RunCoCo
         translations = { from_locale => text }
 
         other_locales = I18n.available_locales.reject { |locale| locale == from_locale }
+        other_locales.select! { |locale| translator.supported_language_codes.include?(locale.to_s) }
         other_locales.each do |to_locale|
+          Rails.logger.debug("... to #{to_locale}")
           translations[to_locale] = translator.translate(text, :from => from_locale, :to => to_locale)
-          Rails.logger.debug("... to #{to_locale} => \"#{translations[to_locale]}\"")
+          Rails.logger.debug("    => \"#{translations[to_locale]}\"")
         end
 
         translations
