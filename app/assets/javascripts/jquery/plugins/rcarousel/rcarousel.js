@@ -1,8 +1,15 @@
 /*global jQuery */
 /*jslint browser: true, white: true */
 /**
- *	@author dan entous <contact@gmtplusone.com>
- *	@version 2014-06-23 19:51 gmt +1
+ * rCarousel
+ * @see https://github.com/dan-nl/rCarousel
+ *
+ * @version 0.1.1
+ * @author dan entous
+ *
+ * released under the MIT license
+ * @see https://github.com/dan-nl/rCarousel/blob/master/LICENSE.md
+ * © 2014 dan entous
  */
 (function( $ ) {
 
@@ -17,6 +24,12 @@
 			F.prototype = obj;
 			return new F();
 		};
+	}
+
+	function debug( msg ) {
+		if ( window.console && window.console.log ) {
+			console.log( msg );
+		}
 	}
 
 	var RCarousel = {
@@ -184,13 +197,15 @@
 			setInterval(
 				function() {
 					if ( window.orientation !== self.orientation ) {
-						self.calculateDimensions();
 						self.orientation_count += 1;
 
 						if ( self.orientation_count >= 2 ) {
 							self.goToIndex( self.getCurrentItemIndex() );
 							self.orientation = window.orientation;
 							self.orientation_count = 0;
+
+							self.calculateDimensions( { data: { self: self } } );
+							self.toggleNavArrows();
 						}
 					}
 				},
@@ -253,6 +268,7 @@
 			$( window ).smartresize(
 				function() {
 					self.calculateDimensions( { data: { self: self } } );
+					self.toggleNavArrows();
 				}, 400
 			);
 		},
@@ -737,17 +753,29 @@
 		 * toggle display of nav arrows
 		 */
 		toggleNavArrows : function() {
-			if ( this.$nav_prev ) {
+			if ( this.$nav_prev.length === 1 ) {
+				// don’t display if on first item
 				if ( this.attributes.current_item_index === 0 ) {
 					this.$nav_prev.fadeOut();
+
+				// don’t display if total item width is less than container width
+				} else if ( this.attributes.total_width <= this.attributes.container_width ) {
+					this.$nav_prev.fadeOut();
+
 				} else if ( this.$nav_prev.is(':hidden') ) {
 					this.$nav_prev.fadeIn();
 				}
 			}
 
-			if ( this.$nav_next ) {
+			if ( this.$nav_next.length === 1 ) {
+				// don’t display if on last item
 				if ( this.attributes.current_item_index >= this.attributes.item_total - 1 ) {
 					this.$nav_next.fadeOut();
+
+				// don’t display if total item width is less than container width
+				} else if ( this.attributes.total_width <= this.attributes.container_width ) {
+					this.$nav_next.fadeOut();
+
 				} else if ( this.$nav_next.is(':hidden') ) {
 					this.$nav_next.fadeIn();
 				}
