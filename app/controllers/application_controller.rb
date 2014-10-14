@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     end
 
     # Rescue "403 Forbidden" exceptions
-    rescue_from Aegis::AccessDenied do |exception|
+    rescue_from Aegis::AccessDenied, ActionController::InvalidAuthenticityToken do |exception|
       render_http_error(:forbidden, exception, :log => false)
     end
 
