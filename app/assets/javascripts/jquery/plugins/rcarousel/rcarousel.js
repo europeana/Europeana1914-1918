@@ -375,7 +375,6 @@
 			// handle index nav
 			} else if ( $.isNumeric( dir ) ) {
 				this.new_nav.index = parseInt( dir, 10 );
-				this.new_nav.width = -1 * ( this.new_nav.index * this.attributes.container_width );
 
 				// set direction for an index nav value
 				if ( this.new_nav.index <= this.attributes.current_item_index ) {
@@ -383,11 +382,53 @@
 				} else if ( this.new_nav.index >= this.attributes.current_item_index ) {
 					this.new_nav.direction = 'next';
 				}
+
+				// calculate the new nav width
+				if ( this.options.item_width_is_container_width ) {
+					this.new_nav.width = -1 * ( this.new_nav.index * this.attributes.container_width );
+				} else {
+					this.calculateNewNavIndex();
+				}
 			}
 		},
 
 		/**
-		 * calculates the next new nav values for
+		 * calculate the new_nav.width based on the new_nav.index
+		 */
+		calculateNewNavIndex: function() {
+			// you should only get here if the carousel item is not the container width
+			if ( this.options.item_width_is_container_width ) {
+				return;
+			}
+
+			var
+			item_width,
+			new_additional_width = 0,
+			self = this;
+
+			// reset new_nav width
+			this.new_nav.width = 0;
+
+			$.each( this.$items, function( index ) {
+				item_width = $(this).outerWidth(true);
+
+				if ( index < self.new_nav.index ) {
+					new_additional_width += item_width;
+				}
+
+				if ( new_additional_width > self.new_nav.index ) {
+					new_additional_width -= item_width;
+					return false;
+				}
+
+				return true;
+			});
+
+			this.new_nav.width = -1 * ( new_additional_width - self.attributes.ul_width );
+		},
+
+		/**
+		 * calculates the new_nav.width and new_nav.index values for
 		 * carousel containers that have items of varying widths
 		 */
 		calculateNewNavNext: function() {
@@ -424,7 +465,7 @@
 		},
 
 		/**
-		 * calculates the previous new nav values for
+		 * calculates the new_nav.width and new_nav.index values for
 		 * carousel containers that have items of varying widths
 		 */
 		calculateNewNavPrev: function() {
@@ -801,6 +842,8 @@
 
 			// validate width
 			if ( this.new_nav.width > 0 ) {
+				this.new_nav.width = 0;
+			} else if ( this.attributes.total_width <= this.attributes.container_width ) {
 				this.new_nav.width = 0;
 			} else if ( this.new_nav.width < max_width ) {
 				this.new_nav.width = max_width;
