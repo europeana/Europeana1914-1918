@@ -26,7 +26,6 @@ gem 'i18n-js', '~> 2.1.0'
 gem 'jquery-rails', '~> 2.1.4'
 gem 'jquery-ui-rails', '~> 3.0'
 gem 'legato', '~> 0.0.10'
-gem 'localeapp', '~> 0.8.0'
 gem 'localized_country_select', '~> 0.9.8'
 gem 'mime-types', '1.16', :require => 'mime/types'
 gem 'mysql2', '~> 0.3.0'
@@ -49,6 +48,7 @@ gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem 'will_paginate', '~> 3.0.0'
 
 group :development do
+  gem 'localeapp', '~> 0.8.0'
   gem 'sunspot_solr', '~> 2.1.0'
   gem 'thin'
 end
