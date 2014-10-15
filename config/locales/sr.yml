@@ -1,86 +1,1059 @@
 sr:
-  formtastic:
-    labels:
+  Polish: 
+  actions:
+    add: "додај"
+    approve: "одобри"
+    cancel: "откажи"
+    copy: "копирај"
+    delete: "избриши"
+    depublish: "одјави"
+    download: "преузми"
+    edit: "измени"
+    edit_story: "измени причу"
+    filter: "филтрирај"
+    flag: "означи"
+    import: "увези"
+    new: "ново"
+    reject: "одбаци"
+    remove: "уклони"
+    save: "сачувај"
+    submit: "пошаљи"
+    unflag: "скини ознаку"
+    update: "ажурирај"
+  activerecord:
+    attributes:
+      annotation:
+        text: 
+      attachment:
+        dropbox_path: Dropbox датотека
+        file: "датотека"
+        file_content_type: "врста садржаја"
+        file_created_at: "креирано у"
+        file_file_name: "назив датотеке"
+        file_file_size: "величина датотеке"
+        file_updated_at: "ажурирано"
+        metadata: "метаподаци"
+        preview: "преглед"
+        public: "јавно"
+      collection_day:
+        description: "опис"
+        end_date: "крајњи датум"
+        image: "слика"
+        name: "име"
+        start_date: "почетни датум"
+        taxonomy_term_id: 
+      contact:
+        age: "узраст"
+        country: "држава боравка"
+        full_name: "пуно име"
+        gender: "пол"
+        locality: "град"
+        postal_code: "поштански број"
+        region: "округ"
+        street_address: "адреса"
+        tel: "број телефона"
+      contribution:
+        approved_by: "одобрено од"
+        approver: "одобрено од"
+        attachments: "јединице"
+        catalogued_by: "каталогизатор"
+        cataloguer: "каталогизатор"
+        contributor: "дародавац"
+        created_at: "започето"
+        metadata: "метаподаци"
+        published_at: "објављено"
+        submitted_at: "послато"
+      contribution_status:
+        created_at: "статус промењен"
+      metadata_field:
+        cataloguing: "само за каталогизацију"
+        field_type: "врста"
+        hint: "савет"
+        multi: "вишеструки избор"
+        name: ID
+        position: "позиција"
+        required: "обавезно"
+        searchable: "претраживо"
+        show_in_listing: "прикажи у исписима"
+      metadata_record:
+        field_alternative: 
+        field_collection_day_terms: 
+        field_file_type_terms: 
+      setting:
+        name: "име"
+        value: "вредност"
       taxonomy_term:
-        content:
-          Photograph: Фотографија
-          Official Document: Званичан документ
-          Autograph: Аутограм
-          Book: Књифа
-          Map: Мапа
-          Interview: Интервју
-          Memorabilia: Успомена
-          Painting: Слика
-          Poem: Песма
-          Weapon: Оружје
-          Music: Музика
-          Collection: Колекција
-          Diary: Дневник
-          Drawing: Цртеж
-          Footage: Снимак
-          Letter: Писмо
-          Medal: Одликовање
-          Memoir: Сећање
-          Multiple: Вишеструко
-          Official document: Званичан документ
-          Other: Друго
-          Postcard: Разгледница
-          Publication: Публикација
-        format:
-          Digital: Дигитално
-          Card: Картице
-          Mixed: Мешано
-          Canvas: Платна
-          Wood: Дрво
-          Leather: Кожа
-          Other: Друго
-          ! 'Text: memoir': ! 'Текст: успомена'
-          Unknown: Непознато
-          Metal: Метал
-          Paper: Папир
-          Photographic paper: Фото папир
-          Tape: Трака
-          ! 'Text: transcription': ! 'Текст: препис'
-          Ceramic/China: 
-          Vinyl: 
-        source:
-          Book: Књига
-          Journal: Часопис
-          Notebook: Свеска
-          Unknown: Непознато
-          Artifact: Предмет
-          Film: 
-          Folio: Табак
-          Leaf: Лист
-          Multiple: Вишеструко
-          Newspaper: Новина
-          Other: Друго
-          Photograph: Фотографија
-          Postcard: Разгледница
-          Tape: Трака
-          Vinyl record: 
-        keywords:
-          Refugees: Избеглице
-          Anti-War Movement: Анти-ратни покрет
-          Artillery: Артиљерија
-          Conscientious Objection: Приговор савести
-          Gas Warfare: Рат гасом
-          Home Front: Домаћи фронт
-          Manufacture: Производња
-          Medical: Медицински
-          Military Punishment: Војна казна
-          Prisoners of War: Ратни заробљеници
-          Propaganda: Пропаганда
-          Recruitment and Conscription: Регрутовање  и служење војног рока
-          Remembrance: Сећање
-          Tanks and Armoured Fighting Vehicles: Тенкови и оклопна возила
-          Transport: Транспорт
-          Trench Life: Живот у рововима
-          Women: Жене
+        metadata_field: "поље"
+        term: "појам"
+      user:
+        created_at: "датум регистрације"
+        institution: 
+        password: "лозинка"
+        password_confirmation: "понови лозинку"
+        role_name: "улога"
+        terms: "Термини"
+        username: "корисничко име"
+    errors:
+      messages:
+        accepted: "Мора прихватити да би сте наставили."
+        blank: "Ово поље је обавезно; не сме остати празно."
+        confirmation: "Не подудара се са потврдом."
+        empty: "не сме бити празно"
+        equal_to: "мора бити једнако са %{count}"
+        even: "мора бити парно"
+        exclusion: "резервисано"
+        greater_than: "мора бити веће од %{count}"
+        greater_than_or_equal_to: "мора бити веће или једнако са %{count}"
+        inclusion: "Одаберите вредност са листе."
+        invalid: "Унос није исправан; проверите облик унете вредности."
+        less_than: "мора бити мање од %{count}"
+        less_than_or_equal_to: "мора бити мање или једнако %{count}"
+        not_a_number: "Вредност није број, а требало би да буде."
+        not_an_integer: "мора бити цео број"
+        odd: "мора бити непарно"
+        record_invalid: "Валидација неуспешна: %{errors}"
+        taken: "Ово поље мора бити јединствено, унета вредност већ постоји."
+        too_long: "је предугачак (не више од %{count} карактера)"
+        too_short: "је прекратак (не мање од %{count} карактера)"
+        wrong_length: "није одговарајуће дужине (мора имати %{count} карактера)"
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: "Ова врста датотека није дозвољена."
+              presence: "Одабери датотеку за слање."
+              size: "Датотека за слање је превелика."
         collection_day:
-          Fr07: Fr07
-          AA22: АА22
-          AC15: АC15
+          attributes:
+            image:
+              content_type: "Дозвољени су само слике у JPEG и GIF формату."
+          end_date_follows_start_date: "Датум завршетка мора бити након датума почетка."
+          taxonomy_term_metadata_field: "Ово није одговарајући дан прикупљања."
+        contribution:
+          attachments:
+            uploaded: "Неке датотеке још увек чекају на пренос."
+          attributes:
+            catalogued_by:
+              role_name: "Каталогизатор мора имати улогу администратора или каталогизатора."
+            guest_id:
+              present: "Подаци за контакт су обавезни за гостујуће донаторе грађе."
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: "Поља за каталогизацију не могу бити обавезна."
+            contribution:
+              or_attachment: "Поље мора да се односи на донаторе и/или прилоге."
+            field_type:
+              constancy: "Није могуће променити врсту поља."
+            searchable:
+              field_type: "Поља таксономије нису претражива."
+        metadata_record:
+          date_field_civil: "Није валидан датум у календару."
+          one_cover_image: "Можеш одабради једну јединицу као насловну слику за твоју причу."
+          taxonomy_field_single: "Само један термин може бити одабран."
+        setting:
+          attributes:
+            name:
+              inclusion: "није регистровано подешавање конфигурације"
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: "Термини таксономије морају бити придружени пољу метаподатака таксономије."
+        user:
+          attributes:
+            current_password:
+              invalid: "нетачна лозинка"
+            email:
+              taken: "Кориснички налог са овом имејл адресом већ постоји."
+            picture:
+              content_type: "Слика профила мора бити GIF или JPEG."
+      template:
+        body: "Молимo Вас да проверите следећа поља:"
+        header:
+          few: "Није могуће да се сачува %{model}: %{count} грешке."
+          one: 1 грешка не дозвољава да се сачува %{model}
+          other: "Није могуће да се сачува %{model}: %{count} грешки."
+    models:
+      annotation: "Анотација слике"
+      attachment: "Јединица"
+      collection_day: "Дан прикупљања"
+      contact: "Контакт"
+      contribution: "Прича"
+      institution: "Инстутуционални провајдер"
+      metadata_field: "Поље метаподатака"
+      metadata_record: "Запис метаподатака"
+      tag: "Ознака"
+      tagging: "Таговање"
+      taxonomy_term: "Јединица таксономије"
+      user: "Корисник"
+    options:
+      contact:
+        gender:
+          female: "Женски"
+          male: "Мушки"
+      metadata_field:
+        field_type:
+          date: "Датум"
+          geo: "Географска локација"
+          string: "Текст без прекида у једном реду"
+          taxonomy: "Таксономија"
+          text: "Текст у вше линија"
+      user:
+        role_name:
+          administrator: "Администратор"
+          blank: "Било која улога"
+          cataloguer: "Каталогизатор"
+          contributor: "Донатор"
+          institutional_provider: 
+  attributes:
+    contact: "Контакт"
+    created_at: "Креирано у"
+    email: "имејл"
+    id: ID
+    metadata_record: "Метаподаци"
+    status: "Статус"
+    title: "Наслов"
+    updated_at: "Ажутирано"
+    url: URL
+    username: 
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: "Држава"
+          data_provider_sm: "Провајдер података"
+          metadata_collection_day_ids_im: "Дан прикупљања"
+          metadata_content_ids_im: "Врста грађе"
+          metadata_file_type_ids_im: "Врста медија"
+          metadata_keywords_ids_im: "Кључне речи"
+          metadata_lang_ids_im: "Језик"
+          metadata_theatres_ids_im: "Позоришта"
+          place_name_s: "Назив места"
+          provider_sm: "Провајдер"
+          rights_sm: "Права"
+          type_s: "Врста"
+          uri_sm: "Предмет"
+          year_sm: "Година"
+  common:
+    additional-information: "Додатне информације"
+    download-item: "Преузмите ову јединицу"
+    editors_blog:
+      more_stories: 'Више прича на <a href="http://thegreatwararchive.blogspot.com/search/label/en">блогу: Избор уредника</a>'
+    editors_pick:
+      heading: "Избор уредника"
+      more_stories: "<b>Више прича на %{explore_stories} страници.</b>"
+    featured-categories: "Истакнуте категорије"
+    from-collection-days: "Са наших Дана прикупљања породичних успомена"
+    google_maps:
+      help_text: |-
+        <li><b>Auto-suggest</b> : Упишите име државе, града или адресу, апликација Google мапе ће покушати да пронађе жељену адресу.</li>
+        <li><b>Specific address</b> Упишите специфичну адресу или гео-координате и притисните "Крени," занемарите аутоматске сугестије апликације Google мапе.</li>
+        <li><b>Map marker</b> : Кад се појави ознака на карти, на пример након што сте уписали адресу, можете је померити на било коју локацију./li>
+        <li><b>Zoom</b> : Повећајте или умањите карту користећи + или - на клизачу са леве стране карте.</li>
+      label: "Користите Google мапе (опционо)"
+    help_text:
+      mandatory: "обавезно поље"
+    labels:
+      add-keywords: "Додајте ваше кључне речи"
+      co_funded: "суфинансирала Европска унија"
+    links:
+      about_the_project: "О пројекту Еуропеана 1914-1918"
+      add-your-story: "Додајте своју причу!"
+      add-your-story-brief: "Додајте!"
+      annotorious: "Јединица нема прикључених белешки. Отворите јединицу да бисте је прочитали."
+      contact_us: "Контактирајте нас"
+      contact_us_email: Можете нас контактирати и путем имејла <span class="addr">1914-1918 [@] europeana [.] eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en" target="_blank">Еуропеанини услови под којима је могућ допринос корисника</a>
+      contribution_terms: "Еуропеанини услови под којима је могућ допринос корисника"
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Сазнајте више о прикупљању филмског материјала</a>.
+      explore-the-stories: "Прегледајте приче!"
+      explore-the-stories-brief: "Прегледајте!"
+      explore_stories: "Прегледајте приче"
+      help: "Помоћ"
+      my_account: "Мој налог"
+      my_stories: "Моје приче"
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Сазнајте више о обједињавању националних колекција</a>.
+      play-audio: "Пустите аудио"
+      play-video: "Пустите видео"
+      privacy_policy: "Политика приватности"
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">За више информација молимо вас посетите наш веб сајт</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Сазнајте више о прикупљању породичних прича</a>.
+      register: "Региструјте се"
+      sign_in: "Пријавите се"
+      statistics: "Статистика"
+      takedown_policy: Takedown политика
+      titles:
+        contribution_terms: "Погледајте Еуропеанине услове под којима је могућ допринос корисника"
+        great_war: "Архива Великог рата на Универзитету Оксфорд"
+        takedown: "На стреницу Takedown политике"
+      view-image: "Погледајте целу јединицу"
+      view-pdf: "Отворите документ"
+    map_contribution_heading: "Ова прича се догодила у"
+    menus:
+      main:
+        about: "О нама"
+        add: "Додајте своју причу"
+        collection-days: "Дани прикупљања породичне историје"
+        explore: "Прегледајте"
+        home: "Почетна страница"
+        remix: "Неочекивано пријатељство"
+        select_language: "Одаберите језик"
+        sign_in: "Пријава"
+        sign_out: "Одјава"
+      menu: "Мени"
+    more-at: "Више на"
+    news: "Вести"
+    news_item:
+      heading: "Нови Дани прикупљања породичне историје"
+    'no': "не"
+    options:
+      close: "затвори"
+      open: "отвори"
+      other_option: "друго"
+    other:
+      contributor: "особа која је допринела"
+      preview: "преглед"
+      title: "наслов"
+      total: "укупно"
+    'yes': "да"
+  date:
+    abbr_day_names:
+    - "Нед"
+    - "Пон"
+    - "Уто"
+    - "Сре"
+    - "Чет"
+    - "Пет"
+    - "Суб"
+    abbr_month_names:
+    - 
+    - "јан"
+    - "феб"
+    - "мар"
+    - "апр"
+    - "мај"
+    - "јун"
+    - "јул"
+    - "авг"
+    - "сеп"
+    - "окт"
+    - "нов"
+    - "дец"
+    day_names:
+    - "недеља"
+    - "понедељак"
+    - "уторак"
+    - "среда"
+    - "четвртак"
+    - "петак"
+    - "субота"
+    formats:
+      default: "%d/. %m /%Y."
+      long: " %d. %B %Y."
+      long_with_day: "%a, %d. %B %Y."
+      month_and_year: "%B %Y."
+      quarter: "%{number} тромесечје %Y"
+      short: "%d %b"
+    month_names:
+    - 
+    - "јануар"
+    - "фебруар"
+    - "март"
+    - "април"
+    - "мај"
+    - "јун"
+    - "јул"
+    - "август"
+    - "септембар"
+    - "октобар"
+    - "новембар"
+    - "децембар"
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        few: "око %{count} сата"
+        many: "отприлике много сати"
+        one: "око 1 сат"
+        other: "око %{count} сати"
+      about_x_months:
+        few: "око %{count} месеца"
+        many: "отприлике много месеци"
+        one: "око 1 месец"
+        other: "око %{count} месеци"
+      about_x_years:
+        few: "отприлике неколико година"
+        many: "отприлике много година"
+        one: "отприлике 1 годинa"
+        other: "отприлике %{count} године"
+      almost_x_years:
+        few: "скоро неколико година"
+        many: "много година"
+        one: "скоро 1 година."
+        other: "скоро %{count} година"
+      half_a_minute: "пола минуте"
+      less_than_x_minutes:
+        few: "мање од неколико минута"
+        many: "много минута"
+        one: "мање од 1 минуте"
+        other: "мање од %{count} минута"
+        zero: "мање од минута"
+      less_than_x_seconds:
+        few: "мање од %{count} секунде"
+        many: "много минута"
+        one: "мање од 1 секунде"
+        other: "мање од %{count} секунди"
+        zero: "мање од 1 секунде"
+      over_x_years:
+        few: "више од неколико година"
+        many: "много година"
+        one: "више од 1 године"
+        other: "преко %{count} године"
+      x_days:
+        few: "неколико дана"
+        many: "много дана"
+        one: 1 дан
+        other: "%{count} дана"
+      x_minutes:
+        few: "неколико минута"
+        many: "много минута"
+        one: 1 минут
+        other: "%{count} минута"
+      x_months:
+        few: "%{count} месеца"
+        many: "много месеци"
+        one: 1 месец
+        other: "%{count} месеци"
+      x_seconds:
+        few: "%{count} секунде"
+        many: "много секунди"
+        one: 1 секунда
+        other: "%{count} секунди"
+    prompts:
+      day: "дан"
+      hour: "сат"
+      minute: "минут"
+      month: "месец"
+      second: "секунда"
+      year: "година"
+  devise:
+    failure:
+      admin:
+        unauthenticated: "Морате да се пријавите пре него што наставите."
+      invalid: "Неправилно корисничко име/ имејл или лозинка"
+      invalid_token: "Неправилан токен за аутентификацију."
+      timeout: "Ваша сесија је истекла, молимо да се поново улогујете како бисте наставили. "
+      unauthenticated: "Морате да се пријавите или направите налог како бисте наставили."
+    mailer:
+      reset_password_instructions:
+        subject: "Поново поставите инструкције за лозинку"
+    passwords:
+      link: "Заборавили сте лозинку?"
+      send_instructions: "Послат вам је имејл са инструкцијама за ресетовање ваше лозинке."
+      updated: "Ваша лозинка је успешно измењена. Сада сте пријављени."
+    registrations:
+      destroyed: "Довиђења! Ваш налог је успешно угашен. Надамо се да ћемо вас ускоро поново видети."
+      link: "Региструјте се"
+      signed_up: "Успешно сте направили налог"
+      updated: "Успешно сте ажурирали свој налог."
+    sessions:
+      link: "Пријавите се"
+      signed_in: "Успешно сте пријављени"
+      signed_out: "Успешно сте одјављени."
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: "мора бити прихваћено"
+      blank: "не може остати празно"
+      confirmation: "се не слаже са потврдом"
+      empty: "не може бити празно"
+      equal_to: "мора бити једнако %{count}"
+      even: "мора бити парно"
+      exclusion: "није доступно"
+      greater_than: "мора бити веће од %{count}"
+      greater_than_or_equal_to: "мора бити веће или једнако %{count}"
+      inclusion: "није у листи"
+      invalid: "није исправно"
+      less_than: "мора бити мање од %{count}"
+      less_than_or_equal_to: "мора бити мање или једнако %{count}"
+      not_a_number: "није број"
+      not_an_integer: "мора бити број"
+      odd: "мора бити непарно"
+      record_invalid: "Валидација неуспешна : %{errors}"
+      taken: "је заузето"
+      too_long:
+        one: "предугачко је (максимум 1 карактер)"
+        other: "предугачако је (не више од %{count} карактера)"
+      too_short: "је прекратак (не мање од %{count} карактера)"
+      wrong_length: "није одговарајуће дужине (мора имати %{count} карактера)"
+    template:
+      body: "Молим Вас да проверите следећа поља:"
+      header:
+        few: "Нисам успео сачувати %{model}: %{count} грешке."
+        one: "Нисам успео сачувати %{model}: 1 грешка."
+        other: "Нисам успео сачувати %{model}: %{count} грешки."
+  flash:
+    actions:
+      create:
+        alert: "Десио се проблем при креирању %{resource_name}. Погледајте поруку испод."
+        notice: "Креиран нови %{resource_name}."
+      destroy:
+        alert: "Постоји проблем при брисању %{resource_name}."
+        notice: "%{resource_name} је успешно обрисан."
+      taggings:
+        notice: "Таговање је уклоњено."
+      update:
+        alert: "Постоји проблем при ажурурању %{resource_name}. Погледајте поруку испод."
+        notice: "Ажуриран %{resource_name}."
+    admin:
+      europeana:
+        harvest:
+          notice: "Садржај портала Еуропеана се прикупља у позадини."
+    annotations:
+      depublish:
+        alert: "Неуспешно брисање анотације."
+        notice: "Анотација обрисана."
+      flag:
+        alert: "Неуспешно обележавање анотације као непригодне."
+        notice: "Анотација обележена као непригодне."
+      unflag:
+        alert: "Неуспешно брисање обележене анотације као непригодне."
+        notice: "Обрисана анотација као непригодна."
+    attachments:
+      create:
+        alert: "Проблем при чувању вашег прилога."
+        invalid_files: "Неки фајлови не могу да се сачувају."
+        notice: "Објекат сачуван"
+      destroy:
+        alert: "Дошло је до проблема при брисању вашег прилога."
+        notice: "Прилог избрисан."
+      duplicate:
+        notice: "Копирајте метаподатке јединице у друге одабране јединице."
+      links:
+        view-attachments_html: <a href="#attachments">Кликните како би их прегледали и уредили.</a>.
+      update:
+        alert: "Дошло је до проблема при чивању вашег прилога."
+        notice: "Јединица сачувана."
+    configuration:
+      update:
+        alert: "Чување конфигурације неуспешно."
+        notice: "Конфигурација сачувана."
+    contacts:
+      create:
+        alert: "Неуспешно стварање контакта."
+        notice: "Контакт креиран."
+      update:
+        alert: "Неуспешно ажурирање контакта."
+        notice: "Контакт ажуриран."
+    contributions:
+      approve:
+        alert: "Неуспешно потврђивање доприноса."
+        notice: "Допринос је успешно потврђен."
+      destroy:
+        alert: "Брисање приче није упело."
+        notice: "Прича избрисана."
+      draft:
+        create:
+          alert: "Дошло је до проблема при започинању новог доприноса."
+          notice: "Започет нацрт новог доприноса."
+        submit:
+          alert: "Дошло је до проблема код вашег доприноса. Молим вас, погледајте поруке испод."
+          notice: "Ваш допринос је предат. Хвала вам! Запослени на пројекту ће га прегледати и када га одобре појавиће се на wеб страници. То може потрајати неколико недеља, уколико имамо посла. Молимо вас за разумевање и стрпљење."
+        update:
+          alert: "Дошло је до проблема код чувања вашег доприноса."
+          notice: "Допринос је сачуван."
+      reject:
+        alert: "Неуспешно одбијање доприноса."
+        notice: "Допринос је успешно одбијен."
+      submitted:
+        edit:
+          alert: "Овај допринос је већ предат."
+      withdraw:
+        alert: "Неуспешно означавање повлачења ваше приче."
+        notice: "Ваша прича је означена за повлачење."
+    contributors:
+      create:
+        alert: "Ваш налог не може бити креиран"
+      update:
+        alert: "Ваш налог не може бити ажуриран"
+    fields:
+      reindexing: "У позадини се одвија поновно индексирање машине за претрагу."
+    flickr:
+      import:
+        alert:
+          empty: "Нема одабраних слика"
+          invalid_license: "Слдеће фотографије немају одговарајуће дозволе и неће бити увезене:"
+        notice: "Пренос фотографија са Фликера у позадини."
+    guest_contact:
+      create:
+        alert: "Постоји проблем у вези са подацима које сте навели. Молимо вас да их исправите и покушате поново."
+        notice: "Примљени подаци за контакт."
+      forget:
+        notice: "Подаци за контакт обрисани."
+      update:
+        alert: "Постоји проблем у вези са подацима које сте навели. Молимо вас да их исправите и покушате поново."
+        notice: "Подаци за контакт ажурирани."
+    metadata_fields:
+      update_order:
+        notice: "Редослед поља метаподатака ажуриран."
+    status:
+      alert: "Упозорење:"
+      notice: "Обавештење:"
+    taggings:
+      depublish:
+        alert: "Неуспело укидање објаве ових тагова."
+        notice: "Укинута објава тага!"
+    tags:
+      contribution:
+        create:
+          success: "Ваше ознаке су додате овој причи."
+      destroy:
+        success: "Ознака уклоњена."
+      europeana_record:
+        create:
+          success: "Ваше однаке су додате овој јединици."
+      flag:
+        success: "Ознака означена као непримерена."
+    taxonomy:
+      imported: "Импортовани су нови термини таксономије."
+    users:
+      create:
+        alert: "Кориснички налог не може бити креиран."
+        notice: "Кориснички налог креиран."
+      destroy:
+        notice: "Корисник избрисан"
+      register:
+        alert: "Регистрација неуспешна. Молимо вас да измените податке испод и да пробате поново."
+        notice: "Регистрација успешна! Добродошли!"
+      update:
+        alert: "Кориснички налог не моеже бити ажуриран."
+        notice: "Кориснички налог ажуриран."
+  formtastic:
+    actions:
+      attachment:
+        add_edit: "Додај/уреди јединицу"
+        create: "Пошаљи"
+        delete: "Обриши јединицу"
+        update: "Сачувај"
+      contribution:
+        create: "Настави"
+        delete: "Обриши причу"
+        save_draft: "Сачувај нацрт приче"
+        submit: "Пошаљи причу"
+        update: "Ажурирај допринос"
+        withdraw: "Повуци"
+      contributor:
+        create: "Региструјте се"
+      create: "Постави"
+      delete: "Обриши"
+      filter:
+        submit: "Ажурирај"
+      metadata_field:
+        delete: "Обришите поље метаподатака"
+        reindex: "Реиндексирајте машину за претрагу"
+      password:
+        create: "Пошаљи"
+        update: "Промени моју лозинку"
+      search:
+        submit: "Претрага"
+      sign_in: "Улогуј се"
+      submit: "Сачувај"
+      tag:
+        flag: "Означи као неодговарајуће"
+      taxonomy_term:
+        import: "Увези"
+      update: "Сачувај измене"
+      upload: "Приложи"
+      user:
+        create: "Региструј"
+        delete: "Обришите налог"
+        update: "Ажурирај"
+    create: "Направи %{model}"
+    hints:
+      annotation:
+        annotation:
+          edit:
+            text: 
+      attachment:
+        dropbox_path: Одаберите датотеку како бисте је копирали из вашег Дропбокс фолдера "Apps/Europeana 1914-1918". Датотеке које нису одговарајуће врсте или су превелике неће бити приказане.
+        edit:
+          file: "Пошаљите нову датотеку ако желите да замените постојећи. Максимална величина датотеке: %{max}. Дозвољене врсте датотека: %{file_types}."
+        file: "Пошаљи ову датотеку"
+        metadata:
+          attachment_description: "Опишите физичке карактеристике јединице као и шта она вама представља/значи."
+          content: "Каква је то јединица (нпр. песма, писмо, фотографија...); покушајте да будете што одређенији."
+          cover_image: "Насловна слика представља вашу причу у колекцији; слично као корица књиге. То може бити фотографија оного о коме је прича, насловна страна дневника или слика одликовања."
+          creator_family_name: 
+          creator_given_name: "Име особе која је сачинила оригинални објекат, нпр. аутор писма или дневника или име фотографа."
+          date_from: "Кажите нам када је јединица настала, нпр. када је писмо написано или када је објекат започет, нпр. када је започето писање дневника. Уколико не знате тачан датум, молимо наведите годину или годину и месец. "
+          date_to: "Завршни датум, нпр. последњи дан дневника."
+          file_type: 
+          forces: "Молимо вас да не кликнете уколико није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu"
+          format: "Материјал дигитализоване јединице (нпр. папир, картица, трака)"
+          keywords: "Доделите само кључне речи које описују главни предмет или шири концепт ваше јединице. Сврха ових кључних речи је да се помогне у осветљавању ваше приче у нашој колекцији. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu"
+          lang: "Наведите језик коришћен у јединици, нпр. језик(е) коришћене у дневнику."
+          lang_other: 
+          license: 
+          location_map: 
+          location_placename: "Унесите назив места где је јединица креирана (где је писмо написано или начињена фотографија), нпр. Лонодн или Париз"
+          location_zoom: 
+          notes: 
+          object_side: "За јединице са две стране, нпр. разгледнице, означите страну"
+          page_number: "За јединице са више страница, означите сваку појединачну страну"
+          page_total: 
+          source: "Извор са кога је јединица дигитализована (нпр. лист, табак, бележница, ролна филма)"
+          subject: "Особа или место или предмет о којем је јединица."
+          theatres: "Молимо вас да не кликнете уколико није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu"
+        new:
+          file: 'Можете послати колико год датотека је потребно; једну по једну. Знајте да у случају када шаљете више датотека биће дата могућност да се једна означи као "насловна слика" за вашу причу. Макисмална величина датотеке: %{max}. Дозвољена врста датотеке: %{file_types}.'
+        title: Кратак описни наслов или одговарајући назив објекта, нпр. "Медаља за храброст мог чукундеде Отоа Шмита"
+      collection_day:
+        collection_day:
+          edit:
+            description: 
+            end_date: 
+            image: 
+            map_latlng: 
+            map_zoom: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+          update:
+            description: 
+            end_date: 
+            image: 
+            map_latlng: 
+            map_zoom: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+        contact:
+          edit:
+            country: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          update:
+            country: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+      contact:
+        full_name: "Ово ће бити јавно објављено као признање уз одобрене доприносе."
+      contribution:
+        contribution:
+          edit:
+            catalogued_by: 
+          new:
+            catalogued_by: 
+        metadata:
+          alternative: 
+          character1_dob: 
+          character1_dod: 
+          character1_family_name: 
+          character1_given_name: 
+          character1_pob: 
+          character1_pod: 
+          character2_dob: 
+          character2_dod: 
+          character2_family_name: ''
+          character2_given_name: 
+          character2_pob: 
+          character2_pod: 
+          collection_day: 
+          contributor_behalf: "Оставите непопуњено осим уколико ви помажете некоме да пошаље свој прилог."
+          date_from: "Реците нам где се одиграла прича. Уколико не знате тачно место, молимо вас да унесете само годину. нпр. мој прадеда је учествовао 1915, итд."
+          date_to: "Реците када се прича завршава. Уколико не знате тачно када, молимо вас да унесете само годину. нпр. мој прадеда је рањен 1916, итд."
+          description: "Запишите причу уз ваш прилог."
+          editor_pick: 
+          editor_pick_sig: 
+          editor_pick_text: 
+          forces: "Молимо вас да не кликнете ако ово није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu"
+          keywords: "Доделите само кључне речи које описују главни предмет или шири концепт ваше јединице. Сврха ових кључних речи је да се помогне у осветљавању ваше приче у нашој колекцији. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu"
+          lang: "Наведите језик на коме је ова прича испричана."
+          lang_other: 
+          location_map: 
+          location_placename: "Унесите назив места или граде где се прича одиграва, нпр. Лондон или Париз."
+          location_zoom: 
+          notes: 
+          summary: 
+          theatres: "Молимо вас да не кликнете одве ако није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu"
+          ticket: 
+        title: "Наслов за овај прилог у целини."
+      metadata_field:
+        attachment: "Прецизирајте да ли се ово поље односи на додатке."
+        cataloguing: "Да: прикажи ово поље само у админ окружењу, за потребе каталогизације. Не: такође прикажи и донаторима."
+        contribution: "Прецизирајте да ли се ово поље односи на прилоге."
+        field_type: "Не може бити промењено након што се поље сачува."
+        hint: "Текст за приказ уз поље уноса као водич донаторима/каталогизаторима."
+        multi: "Омогућити одабир више термина по доприносту/додатку."
+        name: "Назив базе за поље. Мора бити јединствено. Дозвољени карактери су: a-z, 0-9, _"
+        required: "Да: донатор мора унети нешто у ово поље. Не: ово поље је необавезно. Поља каталогизације морају бити необавезна."
+        searchable: "Да: претрага за доприносима на овом пољу метаподатака. Не: ово поље није претражено. Напомена: Након промене вредности овог поља потребно је да реиндексирате машину за претрагу."
+        searchable_no_sphinx: "Напомена: Поља метаподатака су једино претражива уколико је машина за претраживање Sphinx покренута — тренутно није."
+        show_in_listing: "Прикажи ово поље у исписима као што је нпр. резултат претраге."
+        title: "Описни наслов за ово поље, као што је приказано донаторима. Остави празно како би се попунило из назива."
+      metadata_record:
+        date: "Формат: YYYY-MM-DD, YYYY-MM или YYYY, тј. 1998-04-20, 1998-04 или 1998"
+        geo: "Формат: LAT,LNG, тј. 51.500,-0.126 (за Лондон)"
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
+      password:
+        new:
+          email: "Унесите вашу имејл адресу под којом сте се регистровали и послаћемо вам упутство за промену ваше лозинке."
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
+        allowed_upload_extensions: Дозвољене екстензије датотека за слање, одвојене зарезима, нпр. "pdf,doc,jpg,gif". Оставите празно да се дозволе све врсте датотека.
+        banner_active: "Уколико је укључена опција, порука о одржавању ће бити видљива на свим страницама сајта, користећи текст унет испод."
+        banner_text: "Текст за приказ поруке о одржавању, уколико је укључена горе."
+        bing_client_id: ID Бинг клијента за Azure DataMarket. Обавезан за превод API упита Еуропеаниног OpenSearch-а.
+        bing_client_secret: "Тајни Бинг клијент за Azure DataMarket. Обавезан за превод API упита Еуропеаниног OpenSearch-а."
+        bing_translate_key: "Кључ за Бинг транслејт. Ако се остави непоуњено Мајкрософт Бинг транслејт опција неће радити."
+        contribution_approval_required: Уколико је ова опција укључена, доприноси ће бити објављени искључиво након одобрења. У супротном, биће одмах објављени након слања. Нема утицаја ако опција "Објави допринос" није укључена.
+        gmap_api_key: "Кључ за Гугл мапс. Без овог кључа, Гугл мапс не може бити искоришћен за унос података о географској локацији. Пријавите се за кључ на <http://code.google.com/apis/maps/signup.html>."
+        google_analytics_key: "Кључ за Гугл аналитикс. Уколико се остави празно, користиће се кључ UA-XXXXXXXX-1. Побрините се да тестно и стварно окружење користе одговарајуће кључеве."
+        google_api_email: "Унесите имејл адресу за Гугл API налог како бисте користили претрагу статистике коришћења преко сервиса Гугл аналитикс."
+        max_upload_size: "Максимална величина датотека за слање у бајтовима."
+        publish_contributions: "Омогућите јавни приказ доприноса. Уколико ова опција није укључена, доприноси и даље могу да се шаљу, али нису јавно приказани."
+        registration_required: "Уколико је укључена ова опција, корисници се морају регистровати и отворити налог како би послали прилог. Уколико је искључена, корисници могу бити гости остављајући само своје податке за контакт."
+        relative_url_root: "Корена URL веб сајта, без пратећих косих црта. Оставите празно за URL на највишем нивоу."
+        run_co_co/configuration:
+          edit:
+            search_engine: 
+        sharethis_id: "ИД ShareThis Publisher-а. Ако се остави празно ShareThis елеменити неће бити испраћени у оквиру налога ShareThis. ShareThis скрипт ће покушати да меморише записе елемената у оквиру налога Гугл аналитикс ако постоји на страници; скрипт ће потражити вредност UA- и користити је ако постоји."
+        site_name: "Назив овог веб сајта. По основном подешавању, биће приказано као наслов странице и заглавље."
+        site_url: "Пуна URL адреса на којој се налази почетна страница овог сајта, без locale и без пратећих косих црта."
+        ui_locales: "Линк Locales за повезивање у заглављу странице."
+        uploadify: "Користите Uploadify за управљање слањем додатака, омогућите вишеструко слање докумената. За више информација и демо погледајте <http://www.uploadify.com/>"
+      taxonomy_term:
+        import: "Унесите терминине таксономије за додавање у ово поље метаподатака, један по линији."
+        term: "Мора бити једениствено у оквиру свог поља метаподатака"
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            gender: ID Бинг клијента за Azure DataMarket. Обавезан за превод API упита Еуропеаниног OpenSearch-а.
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          edit:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+            tel: 
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        current_password: "Унесите вашу важећу лозинку уколико желите да промените податке у вашем налогу."
+        edit:
+          password: "Унеси нову лозинку уколико желите да је промените, у супротном оставите празно. Минимално 6 карактера."
+        email: "Можете се пријавити коришћењем ваше имејл адресе уместо корисничког имена. Ово је опционо, али вам препоручујемо да оставите и имејл адресу у случају да заборавите лозинку."
+        password: "Минимум 6 карактера"
+        update:
+          password: "Унеси нову лозинку уколико желите да је промените, у супротном оставите празно. Минимално 6 карактера."
+        user:
+          create:
+            password_confirmation: 
+            terms: 
+          edit:
+            institution: 
+            password_confirmation: 
+            role_name: 
+            terms: 
+          new:
+            password_confirmation: 
+            terms: 
+        username: "Минимум 3 карактера. Исправни карактери су: a-z A-Z 0-9 - _ . @"
+    labels:
+      annotation:
+        annotation:
+          edit:
+            text: 
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+          update:
+            title: 
+        metadata:
+          attachment_description: "Опис"
+          attachment_file: "Један докуменат"
+          content: "Врста"
+          cover_image: "Насловна слика"
+          creator: 
+          creator_family_name: "Презиме аутора"
+          creator_given_name: "Име аутора"
+          date: 
+          date_from: "Датум израде / датум почетка"
+          date_to: "Датум завршетка"
+          file_type: "Врста грађе"
+          forces: 
+          format: "Медиј"
+          keywords: 
+          lang: "Језик"
+          lang_other: "Језик (други)"
+          license: "Дозовола"
+          location_map: "Географска ширина и дужина"
+          location_placename: "Лоцирајте где је ваша јединица креирана."
+          location_zoom: 
+          notes: "Напомене каталогизатора"
+          object_side: "Страна"
+          page_number: "Број странице"
+          page_total: "Укупан број страница"
+          source: "Извор"
+          subject: "Предмет"
+          theatres: 
+          ticket: "Број тикета"
+      collection_day:
+        collection_day:
+          edit:
+            description: 
+            end_date: 
+            image: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+          update:
+            description: 
+            end_date: 
+            image: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+        contact:
+          country: "Држава"
+          edit:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          full_name: "Организација"
+          update:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        delete_image: "Обришите слику"
+      content:
+        metadata:
+          dc:
+            contributor: "Донатор"
+            country: "Држава"
+            coverage: "Покривеност"
+            creator: "Аутор"
+            date: "Датум"
+            description: "Опис"
+            format: "Формат"
+            identifier: "Идентификатор"
+            language: "Језик"
+            publisher: "Издавач"
+            relation: "Однос"
+            rights: "Права"
+            source: "Извор"
+            subject: "Предмет"
+            terms_alternative: "Алтернативни наслов"
+            terms_extent: "Обим"
+            terms_medium: "Медиј"
+            title: "Наслов"
+            type: "Врста"
+          dcterms:
+            alternative: "Алтернативни наслов"
+            extent: "Обим"
+            medium: 
+            spatial: "Место"
+            temporal: "Датум"
+          edm:
+            country: "Земља прилога"
+            data_provider: "Провајдер података"
+            external_partner_site: "Погледајте на веб сајту партнера"
+            language: "Језик"
+            partner_site: "Прегледајте јединицу на"
+            provider: "Провајдер"
+            rights: "Копирајт"
+      contribution:
+        metadata:
+          alternative: "Алтернативни наслов"
+          cataloguer: "Каталогизатор"
+          character1_dob: "Датум рођења"
+          character1_dod: "Датим смрти"
+          character1_family_name: "Презиме"
+          character1_given_name: "Име"
+          character1_pob: "Место рођења"
+          character1_pod: "Место смрти"
+          character2_dob: "Датум рођења"
+          character2_dod: "Датум смрти"
+          character2_family_name: "Презиме"
+          character2_given_name: "Име"
+          character2_pob: "Место рођења"
+          character2_pod: "Место рођења"
+          collection_day: "Дан прикупљања"
+          contributor_behalf: "Допринос у име"
+          date: 
+          date_from: "Прича почиње..."
+          date_to: "Прича се завршава"
+          description: "Прича"
+          editor_pick: "Избор уредника"
+          editor_pick_sig: "Потпис испод избора уредника"
+          editor_pick_text: "Текст испод избора уредника"
+          forces: "Снаге"
+          keywords: "Кључне речи"
+          lang: "Језик"
+          lang_other: "Језик (други)"
+          location_map: "Географска душина и ширина"
+          location_placename: "Лоцирајте где се одиграва ваша прича"
+          location_zoom: "Увеличајте локацију"
+          notes: "Напомене каталогизатора"
+          summary: "Резиме описа јединице"
+          theatres: "Позоришта"
+          ticket: "Број тикета"
+        terms: "Прихватам услове"
+        title: "Наслов приче"
+      metadata_field:
+        contribution: "Прилог"
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
+      taxonomy_term:
+        collection_day:
+          AA22: "АА22"
+          AC15: "АC15"
           AM15: AM15
           AN21: AN21
           BA15: BA15
@@ -89,19 +1062,28 @@ sr:
           BE08: BE08
           BE30: BE30
           BN12: BN12
+          BO/BC18: 
           BO02: BO02
           BR10: BR10
           BR19: BR19
           BU01: BU01
+          BZ: 
           CE22: CE22
           CGW01: CGW01
+          CHA01: 
+          CISA: 
           CL01: CL01
           CY01: CY01
           DD12: DD12
+          DE18: 
+          DO28: 
           DU: DU
           DU18: DU18
+          DUP1: 
+          DUP2: 
           EF11: EF11
           EN10: EN10
+          FF22: 
           FR07: FR07
           FRAD001: FRAD001
           FRAD004: FRAD004
@@ -151,6 +1133,17 @@ sr:
           FRAD087: FRAD087
           FRAD088: FRAD088
           FRAD094: FRAD094
+          FRAD22: 
+          FRADO071: 
+          FRADO077: 
+          FRADO078: 
+          FRADO080: 
+          FRADO083: 
+          FRADO085: 
+          FRADO087: 
+          FRADO088: 
+          FRADO59: 
+          FRADO87: 
           FRAMBE: FRAMBE
           FRAMCA: FRAMCA
           FRAMLC: FRAMLC
@@ -175,6 +1168,7 @@ sr:
           FRBMCC: FRBMCC
           FRBMLI: FRBMLI
           FRBMLY: FRBMLY
+          FRBMMA: 
           FRBMSC: FRBMSC
           FRBMTO: FRBMTO
           FRBNBU: FRBNBU
@@ -187,88 +1181,140 @@ sr:
           FRLOLE: FRLOLE
           FRME: FRME
           FRSHDCH: FRSHDCH
+          Fr07: Fr07
+          GE08: 
           HA21: HA21
           HB22: HB22
           HE14: HE14
           INTERNET: INTERNET
           KA23: KA23
           KI13: KI13
+          LE10: 
           LE21: LE21
           LI05: LI05
           LI12: LI12
+          LI17: 
           LJ23: LJ23
           LOG25: LOG25
           LU16: LU16
+          MA19: 
           MB007: MB007
           MB011: MB011
           MB20: MB20
+          MO08: 
           MU09: MU09
           NG19: NG19
+          NLG01: 
           PO21: PO21
           PR17: PR17
           RG14: RG14
           RM15: RM15
+          RO24: 
+          SER01: 
           SKBA1: SKBA1
           SKKE1: SKKE1
           SKMT1: SKMT1
           SO14: SO14
           ST10: ST10
+          THE01: 
           TR16: TR16
           TU07: TU07
           UNKNOWN: UNKNOWN
-          UT1: UT1
-          VP18: VP18
-          YP01: YP01
-          DUP1: 
-          DUP2: 
           UPC1: 
           UPC2: 
           UPC3: 
+          UT1: UT1
+          VER01: 
+          VP18: VP18
+          YP01: YP01
+        content:
+          Autograph: "Аутограм"
+          Book: "Књифа"
+          Collection: "Колекција"
+          Diary: "Дневник"
+          Drawing: "Цртеж"
+          Footage: "Снимак"
+          Interview: "Интервју"
+          Letter: "Писмо"
+          Map: "Мапа"
+          Medal: "Одликовање"
+          Memoir: "Сећање"
+          Memorabilia: "Успомена"
+          Multiple: "Вишеструко"
+          Music: "Музика"
+          Official Document: "Званичан документ"
+          Official document: "Званичан документ"
+          Other: "Друго"
+          Painting: "Слика"
+          Photograph: "Фотографија"
+          Poem: "Песма"
+          Postcard: "Разгледница"
+          Publication: "Публикација"
+          Weapon: "Оружје"
         cover_image:
-          'yes': да
+          'yes': "да"
         editor_pick:
-          'yes': да
-        forces:
-          Allied Forces: Савезници
-          Central Powers: Силе центра
-          Imperial Forces: Империјалне снаге
-        lang:
-          Dansk: Дански
-          Deutsch: Немачки
-          English: Енглески
-          Français: Француски
-          Gaeilge: Галски
-          Italiano: Италијански
-          Magyar: Мађарски
-          Nederlands: Холандски
-          Other: Други
-          Română: Румунски
-          Slovenčina: Словачки
-          Slovenščina: Словеначки
-          Ελληνικά: Грчки
-          português: 
-        object_side:
-          Back: Назад
-          Front: Фронт
-        taxonomy_term:
-          new:
-            term: 
-        theatres:
-          Aerial Warfare: Рат у ваздуху
-          African Wars: Африка
-          Balkans: Балкан
-          Eastern Front: Источни фронт
-          Gallipoli Front: Фронт на Галипољу
-          Italian Front: Италијански фронт
-          Middle East: Блиски исток
-          Naval Warfare: Рат на мору
-          Western Front: Западни фронт
+          'yes': "да"
         file_type:
           3D: 
           IMAGE: 
           SOUND: 
           TEXT: 
           VIDEO: 
+        forces:
+          Allied Forces: "Савезници"
+          Central Powers: "Силе центра"
+          Imperial Forces: "Империјалне снаге"
+        format:
+          Canvas: "Платна"
+          Card: "Картице"
+          Ceramic/China: 
+          Digital: "Дигитално"
+          Leather: "Кожа"
+          Metal: "Метал"
+          Mixed: "Мешано"
+          Other: "Друго"
+          Paper: "Папир"
+          Photographic paper: "Фото папир"
+          Tape: "Трака"
+          'Text: memoir': "Текст: успомена"
+          'Text: transcription': "Текст: препис"
+          Unknown: "Непознато"
+          Vinyl: 
+          Wood: "Дрво"
+        keywords:
+          Anti-War Movement: "Анти-ратни покрет"
+          Artillery: "Артиљерија"
+          Conscientious Objection: "Приговор савести"
+          Gas Warfare: "Рат гасом"
+          Home Front: "Домаћи фронт"
+          Manufacture: "Производња"
+          Medical: "Медицински"
+          Military Punishment: "Војна казна"
+          Prisoners of War: "Ратни заробљеници"
+          Propaganda: "Пропаганда"
+          Recruitment and Conscription: "Регрутовање  и служење војног рока"
+          Refugees: "Избеглице"
+          Remembrance: "Сећање"
+          Tanks and Armoured Fighting Vehicles: "Тенкови и оклопна возила"
+          Transport: "Транспорт"
+          Trench Life: "Живот у рововима"
+          Women: "Жене"
+        lang:
+          Dansk: "Дански"
+          Deutsch: "Немачки"
+          English: "Енглески"
+          Français: "Француски"
+          Gaeilge: "Галски"
+          Italiano: "Италијански"
+          Magyar: "Мађарски"
+          Nederlands: "Холандски"
+          Other: "Други"
+          Română: "Румунски"
+          Slovenčina: "Словачки"
+          Slovenščina: "Словеначки"
+          português: 
+          "Ελληνικά": "Грчки"
         license:
           http://creativecommons:
             org/licenses/by-sa/3:
@@ -278,492 +1324,127 @@ sr:
           https://creativecommons:
             org/licenses/by-sa/2:
               0/: 
-      content:
-        metadata:
-          dcterms:
-            alternative: Алтернативни наслов
-            extent: Обим
-            medium: 
-            spatial: Место
-            temporal: Датум
-          dc:
-            contributor: Донатор
-            country: Држава
-            coverage: Покривеност
-            creator: Аутор
-            date: Датум
-            description: Опис
-            format: Формат
-            identifier: Идентификатор
-            language: Језик
-            publisher: Издавач
-            relation: Однос
-            rights: Права
-            source: Извор
-            subject: Предмет
-            terms_alternative: Алтернативни наслов
-            terms_extent: Обим
-            terms_medium: Медиј
-            title: Наслов
-            type: Врста
-          edm:
-            country: Земља прилога
-            data_provider: Провајдер података
-            external_partner_site: Погледајте на веб сајту партнера
-            language: Језик
-            partner_site: Прегледајте јединицу на
-            provider: Провајдер
-            rights: Копирајт
-      user:
-        contact:
-          new:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          create:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        user:
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-        delete_picture: Обришите слику
-        terms: Прихватам услове
-      attachment:
-        metadata:
-          date: 
-          creator: 
-          attachment_description: Опис
-          attachment_file: Један докуменат
-          content: Врста
-          cover_image: Насловна слика
-          creator_family_name: Презиме аутора
-          creator_given_name: Име аутора
-          date_from: Датум израде / датум почетка
-          date_to: Датум завршетка
-          file_type: Врста грађе
-          forces: 
-          format: Медиј
-          keywords: 
-          lang: Језик
-          lang_other: Језик (други)
-          license: Дозовола
-          location_map: Географска ширина и дужина
-          location_placename: Лоцирајте где је ваша јединица креирана.
-          location_zoom: 
-          notes: Напомене каталогизатора
-          object_side: Страна
-          page_number: Број странице
-          page_total: Укупан број страница
-          source: Извор
-          subject: Предмет
-          theatres: 
-          ticket: Број тикета
-        attachment:
-          edit:
-            title: 
-          new:
-            title: 
-          update:
-            title: 
-      collection_day:
-        contact:
-          country: Држава
-          full_name: Организација
-          edit:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          update:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        delete_image: Обришите слику
-        collection_day:
-          edit:
-            description: 
-            end_date: 
-            image: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-          update:
-            name: 
-            taxonomy_term_id: 
-            description: 
-            end_date: 
-            image: 
-            start_date: 
-            url: 
-      contribution:
-        metadata:
-          alternative: Алтернативни наслов
-          cataloguer: Каталогизатор
-          character1_dob: Датум рођења
-          character1_dod: Датим смрти
-          character1_family_name: Презиме
-          character1_given_name: Име
-          character1_pob: Место рођења
-          character1_pod: Место смрти
-          character2_dob: Датум рођења
-          character2_dod: Датум смрти
-          character2_family_name: Презиме
-          character2_given_name: Име
-          character2_pob: Место рођења
-          character2_pod: Место рођења
-          collection_day: Дан прикупљања
-          contributor_behalf: Допринос у име
-          date_from: Прича почиње...
-          date_to: Прича се завршава
-          description: Прича
-          editor_pick: Избор уредника
-          editor_pick_sig: Потпис испод избора уредника
-          editor_pick_text: Текст испод избора уредника
-          forces: Снаге
-          keywords: Кључне речи
-          lang: Језик
-          lang_other: Језик (други)
-          location_map: Географска душина и ширина
-          location_placename: Лоцирајте где се одиграва ваша прича
-          location_zoom: Увеличајте локацију
-          notes: Напомене каталогизатора
-          summary: Резиме описа јединице
-          theatres: Позоришта
-          ticket: Број тикета
-          date: 
-        terms: Прихватам услове
-        title: Наслов приче
-      metadata_field:
-        contribution: Прилог
-      settings:
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
-    hints:
-      user:
-        contact:
-          new:
-            age: 
-            country: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          create:
-            age: 
-            country: 
-            gender: ID Бинг клијента за Azure DataMarket. Обавезан за превод API упита Еуропеаниног OpenSearch-а.
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        user:
-          new:
-            password_confirmation: 
-            terms: 
-          create:
-            password_confirmation: 
-            terms: 
-        current_password: Унесите вашу важећу лозинку уколико желите да промените податке у вашем налогу.
-        edit:
-          password: Унеси нову лозинку уколико желите да је промените, у супротном оставите празно. Минимално 6 карактера.
-        email: Можете се пријавити коришћењем ваше имејл адресе уместо корисничког имена. Ово је опционо, али вам препоручујемо да оставите и имејл адресу у случају да заборавите лозинку.
-        password: Минимум 6 карактера
-        update:
-          password: Унеси нову лозинку уколико желите да је промените, у супротном оставите празно. Минимално 6 карактера.
-        username: ! 'Минимум 3 карактера. Исправни карактери су: a-z A-Z 0-9 - _ . @'
-      attachment:
-        dropbox_path: Одаберите датотеку како бисте је копирали из вашег Дропбокс фолдера "Apps/Europeana 1914-1918". Датотеке које нису одговарајуће врсте или су превелике неће бити приказане.
-        edit:
-          file: ! 'Пошаљите нову датотеку ако желите да замените постојећи. Максимална величина датотеке: %{max}. Дозвољене врсте датотека: %{file_types}.'
-        file: Пошаљи ову датотеку
-        metadata:
-          attachment_description: Опишите физичке карактеристике јединице као и шта она вама представља/значи.
-          content: Каква је то јединица (нпр. песма, писмо, фотографија...); покушајте да будете што одређенији.
-          cover_image: Насловна слика представља вашу причу у колекцији; слично као корица књиге. То може бити фотографија оного о коме је прича, насловна страна дневника или слика одликовања.
-          creator_family_name: 
-          creator_given_name: Име особе која је сачинила оригинални објекат, нпр. аутор писма или дневника или име фотографа.
-          date_from: ! 'Кажите нам када је јединица настала, нпр. када је писмо написано или када је објекат започет, нпр. када је започето писање дневника. Уколико не знате тачан датум, молимо наведите годину или годину и месец. '
-          date_to: Завршни датум, нпр. последњи дан дневника.
-          forces: Молимо вас да не кликнете уколико није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu
-          format: Материјал дигитализоване јединице (нпр. папир, картица, трака)
-          keywords: Доделите само кључне речи које описују главни предмет или шири концепт ваше јединице. Сврха ових кључних речи је да се помогне у осветљавању ваше приче у нашој колекцији. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu
-          lang: Наведите језик коришћен у јединици, нпр. језик(е) коришћене у дневнику.
-          lang_other: 
-          location_map: 
-          location_placename: Унесите назив места где је јединица креирана (где је писмо написано или начињена фотографија), нпр. Лонодн или Париз
-          location_zoom: 
-          object_side: За јединице са две стране, нпр. разгледнице, означите страну
-          page_number: За јединице са више страница, означите сваку појединачну страну
-          source: Извор са кога је јединица дигитализована (нпр. лист, табак, бележница, ролна филма)
-          subject: Особа или место или предмет о којем је јединица.
-          theatres: Молимо вас да не кликнете уколико није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu
-          file_type: 
-          license: 
-          notes: 
-          page_total: 
-        new:
-          file: ! 'Можете послати колико год датотека је потребно; једну по једну. Знајте да у случају када шаљете више датотека биће дата могућност да се једна означи као "насловна слика" за вашу причу. Макисмална величина датотеке: %{max}. Дозвољена врста датотеке: %{file_types}.'
-        title: Кратак описни наслов или одговарајући назив објекта, нпр. "Медаља за храброст мог чукундеде Отоа Шмита"
-      contact:
-        full_name: Ово ће бити јавно објављено као признање уз одобрене доприносе.
-      contribution:
-        contribution:
-          new:
-            catalogued_by: 
-          edit:
-            catalogued_by: 
-        metadata:
-          alternative: 
-          character1_dob: 
-          character1_dod: 
-          character1_family_name: 
-          character1_given_name: 
-          character1_pob: 
-          character1_pod: 
-          character2_dob: 
-          character2_dod: 
-          character2_family_name: ''
-          character2_given_name: 
-          character2_pob: 
-          character2_pod: 
-          collection_day: 
-          contributor_behalf: Оставите непопуњено осим уколико ви помажете некоме да пошаље свој прилог.
-          date_from: Реците нам где се одиграла прича. Уколико не знате тачно место, молимо вас да унесете само годину. нпр. мој прадеда је учествовао 1915, итд.
-          date_to: Реците када се прича завршава. Уколико не знате тачно када, молимо вас да унесете само годину. нпр. мој прадеда је рањен 1916, итд.
-          description: Запишите причу уз ваш прилог.
-          editor_pick: 
-          editor_pick_sig: 
-          editor_pick_text: 
-          forces: Молимо вас да не кликнете ако ово није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu
-          keywords: Доделите само кључне речи које описују главни предмет или шири концепт ваше јединице. Сврха ових кључних речи је да се помогне у осветљавању ваше приче у нашој колекцији. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu
-          lang: Наведите језик на коме је ова прича испричана.
-          lang_other: 
-          location_map: 
-          location_placename: Унесите назив места или граде где се прича одиграва, нпр. Лондон или Париз.
-          location_zoom: 
-          notes: 
-          summary: 
-          theatres: Молимо вас да не кликнете одве ако није релевантно. Ако релевантна кључна реч не постоји овде, молимо вас да нам пошаљете имејл на:1914-1918 [@] europeana [.] eu
-          ticket: 
-        title: Наслов за овај прилог у целини.
-      metadata_field:
-        attachment: Прецизирајте да ли се ово поље односи на додатке.
-        cataloguing: ! 'Да: прикажи ово поље само у админ окружењу, за потребе каталогизације. Не: такође прикажи и донаторима.'
-        contribution: Прецизирајте да ли се ово поље односи на прилоге.
-        field_type: Не може бити промењено након што се поље сачува.
-        hint: Текст за приказ уз поље уноса као водич донаторима/каталогизаторима.
-        multi: Омогућити одабир више термина по доприносту/додатку.
-        name: ! 'Назив базе за поље. Мора бити јединствено. Дозвољени карактери су: a-z, 0-9, _'
-        required: ! 'Да: донатор мора унети нешто у ово поље. Не: ово поље је необавезно. Поља каталогизације морају бити необавезна.'
-        searchable: ! 'Да: претрага за доприносима на овом пољу метаподатака. Не: ово поље није претражено. Напомена: Након промене вредности овог поља потребно је да реиндексирате машину за претрагу.'
-        searchable_no_sphinx: ! 'Напомена: Поља метаподатака су једино претражива уколико је машина за претраживање Sphinx покренута — тренутно није.'
-        show_in_listing: Прикажи ово поље у исписима као што је нпр. резултат претраге.
-        title: Описни наслов за ово поље, као што је приказано донаторима. Остави празно како би се попунило из назива.
-      metadata_record:
-        date: ! 'Формат: YYYY-MM-DD, YYYY-MM или YYYY, тј. 1998-04-20, 1998-04 или 1998'
-        geo: ! 'Формат: LAT,LNG, тј. 51.500,-0.126 (за Лондон)'
-      password:
-        new:
-          email: Унесите вашу имејл адресу под којом сте се регистровали и послаћемо вам упутство за промену ваше лозинке.
-      settings:
-        allowed_upload_extensions: Дозвољене екстензије датотека за слање, одвојене зарезима, нпр. "pdf,doc,jpg,gif". Оставите празно да се дозволе све врсте датотека.
-        banner_active: Уколико је укључена опција, порука о одржавању ће бити видљива на свим страницама сајта, користећи текст унет испод.
-        banner_text: Текст за приказ поруке о одржавању, уколико је укључена горе.
-        bing_client_id: ID Бинг клијента за Azure DataMarket. Обавезан за превод API упита Еуропеаниног OpenSearch-а.
-        bing_client_secret: Тајни Бинг клијент за Azure DataMarket. Обавезан за превод API упита Еуропеаниног OpenSearch-а.
-        bing_translate_key: Кључ за Бинг транслејт. Ако се остави непоуњено Мајкрософт Бинг транслејт опција неће радити.
-        contribution_approval_required: Уколико је ова опција укључена, доприноси ће бити објављени искључиво након одобрења. У супротном, биће одмах објављени након слања. Нема утицаја ако опција "Објави допринос" није укључена.
-        gmap_api_key: Кључ за Гугл мапс. Без овог кључа, Гугл мапс не може бити искоришћен за унос података о географској локацији. Пријавите се за кључ на <http://code.google.com/apis/maps/signup.html>.
-        google_analytics_key: Кључ за Гугл аналитикс. Уколико се остави празно, користиће се кључ UA-XXXXXXXX-1. Побрините се да тестно и стварно окружење користе одговарајуће кључеве.
-        google_api_email: Унесите имејл адресу за Гугл API налог како бисте користили претрагу статистике коришћења преко сервиса Гугл аналитикс.
-        max_upload_size: Максимална величина датотека за слање у бајтовима.
-        publish_contributions: Омогућите јавни приказ доприноса. Уколико ова опција није укључена, доприноси и даље могу да се шаљу, али нису јавно приказани.
-        registration_required: Уколико је укључена ова опција, корисници се морају регистровати и отворити налог како би послали прилог. Уколико је искључена, корисници могу бити гости остављајући само своје податке за контакт.
-        relative_url_root: Корена URL веб сајта, без пратећих косих црта. Оставите празно за URL на највишем нивоу.
-        sharethis_id: ИД ShareThis Publisher-а. Ако се остави празно ShareThis елеменити неће бити испраћени у оквиру налога ShareThis. ShareThis скрипт ће покушати да меморише записе елемената у оквиру налога Гугл аналитикс ако постоји на страници; скрипт ће потражити вредност UA- и користити је ако постоји.
-        site_name: Назив овог веб сајта. По основном подешавању, биће приказано као наслов странице и заглавље.
-        site_url: Пуна URL адреса на којој се налази почетна страница овог сајта, без locale и без пратећих косих црта.
-        ui_locales: Линк Locales за повезивање у заглављу странице.
-        uploadify: Користите Uploadify за управљање слањем додатака, омогућите вишеструко слање докумената. За више информација и демо погледајте <http://www.uploadify.com/>
-        run_co_co/configuration:
-          edit:
-            search_engine: 
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
-      taxonomy_term:
-        import: Унесите терминине таксономије за додавање у ово поље метаподатака, један по линији.
-        term: Мора бити једениствено у оквиру свог поља метаподатака
-      options:
-        admin/contributions_controller/options:
-          index:
-            fields: 
-      collection_day:
-        collection_day:
-          edit:
-            description: 
-            end_date: 
-            image: 
-            map_latlng: 
-            map_zoom: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-          update:
-            taxonomy_term_id: 
-            name: 
-            description: 
-            end_date: 
-            image: 
-            map_latlng: 
-            map_zoom: 
-            start_date: 
-            url: 
-        contact:
-          edit:
-            country: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          update:
-            country: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-    placeholders:
-      user:
-        contact:
-          new:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-          create:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-        user:
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-      attachment:
-        attachment:
-          edit:
-            title: 
-          new:
-            title: 
-          update:
-            title: 
-        metadata_record:
-          edit:
-            field_creator_family_name: 
-            field_creator_given_name: 
-            field_lang_other: 
-            field_location_placename: 
-            field_page_number: 
-            field_subject: 
-            field_page_total: 
-          new:
-            field_creator_family_name: 
-            field_creator_given_name: 
-            field_lang_other: 
-            field_location_placename: 
-            field_page_number: 
-            field_subject: 
-            field_page_total: 
-          update:
-            field_creator_family_name: 
-            field_creator_given_name: 
-            field_lang_other: 
-            field_location_placename: 
-            field_page_number: 
-            field_page_total: 
-            field_subject: 
-      contribution:
-        contribution:
-          new:
-            title: 
-          edit:
-            title: 
-        metadata_record:
-          new:
-            field_alternative: 
-            field_character1_family_name: 
-            field_character1_given_name: 
-            field_character1_pob: 
-            field_character1_pod: 
-            field_character2_family_name: 
-            field_character2_given_name: 
-            field_character2_pob: 
-            field_character2_pod: 
-            field_contributor_behalf: 
-            field_editor_pick_sig: 
-            field_lang_other: 
-            field_location_placename: 
-            field_ticket: 
-          edit:
-            field_alternative: 
-            field_character1_family_name: 
-            field_character1_given_name: 
-            field_character1_pob: 
-            field_character1_pod: 
-            field_character2_family_name: 
-            field_character2_given_name: 
-            field_character2_pob: 
-            field_character2_pod: 
-            field_contributor_behalf: 
-            field_editor_pick_sig: 
-            field_lang_other: 
-            field_location_placename: 
-            field_ticket: 
-      taxonomy_term:
+        object_side:
+          Back: "Назад"
+          Front: "Фронт"
+        source:
+          Artifact: "Предмет"
+          Book: "Књига"
+          Film: 
+          Folio: "Табак"
+          Journal: "Часопис"
+          Leaf: "Лист"
+          Multiple: "Вишеструко"
+          Newspaper: "Новина"
+          Notebook: "Свеска"
+          Other: "Друго"
+          Photograph: "Фотографија"
+          Postcard: "Разгледница"
+          Tape: "Трака"
+          Unknown: "Непознато"
+          Vinyl record: 
         taxonomy_term:
+          create:
+            term: 
+          edit:
+            term: 
           new:
             term: 
+        theatres:
+          Aerial Warfare: "Рат у ваздуху"
+          African Wars: "Африка"
+          Balkans: "Балкан"
+          Eastern Front: "Источни фронт"
+          Gallipoli Front: "Фронт на Галипољу"
+          Italian Front: "Италијански фронт"
+          Middle East: "Блиски исток"
+          Naval Warfare: "Рат на мору"
+          Western Front: "Западни фронт"
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          edit:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+            tel: 
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        delete_picture: "Обришите слику"
+        terms: "Прихватам услове"
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          edit:
+            email: 
+            institution: 
+            password: 
+            password_confirmation: 
+            role_name: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    'no': "Не"
+    placeholders:
+      attachment:
+        attachment:
+          edit:
+            title: 
+          new:
+            title: 
+          update:
+            title: 
+        metadata_record:
+          edit:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_page_total: 
+            field_subject: 
+          new:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_page_total: 
+            field_subject: 
+          update:
+            field_creator_family_name: 
+            field_creator_given_name: 
+            field_lang_other: 
+            field_location_placename: 
+            field_page_number: 
+            field_page_total: 
+            field_subject: 
       collection_day:
         collection_day:
           edit:
@@ -772,9 +1453,9 @@ sr:
             name: 
             url: 
           update:
-            name: 
             map_latlng: 
             map_zoom: 
+            name: 
             url: 
         contact:
           edit:
@@ -787,7 +1468,47 @@ sr:
             locality: 
             postal_code: 
             region: 
+      contribution:
+        contribution:
+          edit:
+            title: 
+          new:
+            title: 
+        metadata_record:
+          edit:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
+          new:
+            field_alternative: 
+            field_character1_family_name: 
+            field_character1_given_name: 
+            field_character1_pob: 
+            field_character1_pod: 
+            field_character2_family_name: 
+            field_character2_given_name: 
+            field_character2_pob: 
+            field_character2_pod: 
+            field_contributor_behalf: 
+            field_editor_pick_sig: 
+            field_lang_other: 
+            field_location_placename: 
+            field_ticket: 
       settings:
+        admin/contributions_controller/export_settings:
+          export:
+            exclude: 
         run_co_co/configuration:
           edit:
             allowed_upload_extensions: 
@@ -801,42 +1522,66 @@ sr:
             sharethis_id: 
             site_name: 
             site_url: 
-        admin/contributions_controller/export_settings:
-          export:
-            exclude: 
-    titles:
-      user:
-        new:
-          accept_terms: 
-          user_session: 
-        create:
-          accept_terms: 
-          user_session: 
-      cataloguing_metadata: Метаподаци каталогизације
-      contact_address: Адреса
-      contact_name: Име
-      contact_other: Подаци за контакт
-      contribution_attachments: Јединице
-      contribution_terms: Услови
-      dropbox: Дропбокс
-      fields: Поља
-      metadata: Каталошке информације
-      metadata_field_options: Опције специфичне за врсту
-      optional_details: Други необавезни лични подаци
-      personal_details: Лични подаци
-      story_basics: Испричајте вашу причу...
-      story_character1: Особа 1
-      story_character2: Особа 2
-      story_characters: Кажите нам о коме је ваша прича
-      story_dates: Када се одиграла
-      story_forces: Да ли је овај предмет у вези
-      story_front: На ком фронту је ова прича
-      story_keywords: Помозите другима да пронађу вашу причу тако што ћете одабрати једну или више од понуђених кључних речи.
-      story_location: Где се прича догађа
-      submit: Пошаљите вашу причу
       taxonomy_term:
-        new:
-          taxonomy_term: 
+        taxonomy_term:
+          create:
+            term: 
+          edit:
+            term: 
+          new:
+            term: 
+      user:
+        contact:
+          create:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          edit:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+            tel: 
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          edit:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    required: "обавезно"
+    titles:
+      account_details: "Детаљи логовања"
+      admin/contributions_controller/export_settings:
+        export:
+          settings: 
+      admin_user: "Детаљи логовања"
+      annotation:
+        edit:
+          annotation: 
+      attachment_dates: "Када је објекат креиран"
+      attachment_details: "Опишите објекат"
+      attachment_front: "Фронт о којем говори овај објекат"
+      attachment_keywords: "Помозите да други открију ваш објекат тиме што ћете га обележити једном или више кључним речима."
+      attachment_location: "Где је настао овај објекат?"
+      attachment_replace: "Замените прилог"
+      attachment_upload: "Додајте прилог"
+      cataloguing_metadata: "Метаподаци каталогизације"
       collection_day:
         edit:
           admin_collection_day: 
@@ -844,159 +1589,53 @@ sr:
         update:
           admin_collection_day: 
           admin_collection_day_address: 
+      contact:
+        edit:
+          user_picture: 
+      contact_address: "Адреса"
+      contact_name: "Име"
+      contact_other: "Подаци за контакт"
+      contribution_attachments: "Јединице"
+      contribution_terms: "Услови"
+      dropbox: "Дропбокс"
+      fields: "Поља"
+      metadata: "Каталошке информације"
+      metadata_field_options: "Опције специфичне за врсту"
+      optional_details: "Други необавезни лични подаци"
+      personal_details: "Лични подаци"
       run_co_co/configuration:
         edit:
           settings: 
-      admin/contributions_controller/export_settings:
-        export:
-          settings: 
-    actions:
-      attachment:
-        add_edit: Додај/уреди јединицу
-        create: Пошаљи
-        delete: Обриши јединицу
-        update: Сачувај
-      contribution:
-        create: Настави
-        delete: Обриши причу
-        save_draft: Сачувај нацрт приче
-        submit: Пошаљи причу
-        update: Ажурирај допринос
-        withdraw: Повуци
-      contributor:
-        create: Региструјте се
-      filter:
-        submit: Ажурирај
-      metadata_field:
-        delete: Обришите поље метаподатака
-        reindex: Реиндексирајте машину за претрагу
-      password:
-        create: Пошаљи
-        update: Промени моју лозинку
-      search:
-        submit: Претрага
-      tag:
-        flag: Означи као неодговарајуће
+      story_basics: "Испричајте вашу причу..."
+      story_character1: "Особа 1"
+      story_character2: "Особа 2"
+      story_characters: "Кажите нам о коме је ваша прича"
+      story_dates: "Када се одиграла"
+      story_forces: "Да ли је овај предмет у вези"
+      story_front: "На ком фронту је ова прича"
+      story_keywords: "Помозите другима да пронађу вашу причу тако што ћете одабрати једну или више од понуђених кључних речи."
+      story_location: "Где се прича догађа"
+      submit: "Пошаљите вашу причу"
       taxonomy_term:
-        import: Увези
+        new:
+          taxonomy_term: 
       user:
-        create: Региструј
-        delete: Обришите налог
-        update: Ажурирај
-  layout:
-    navigation:
-      about: О нама
-      admin: Администратор
-      browse: Прегледајte
-      contact: Контактирајте нас
-      contribute: Допринесите
-      help: Помоћ
-      home: Главна страна
-    software_engine: Powered by RunCoCo
-  locale: енглески
-  mail:
-    contributions:
-      published:
-        greeting: Драги Еуропеана 1914-1918 корисниче,
-        signature: ! 'Срдачан поздрав,
-
-          Тим Еуропеане 1914-1918 '
-        subject: Ваш допринос Еуропеани 1914-1918 је објављен
-        thanks: ! 'Хвала вам што сте поделили ваше приче и успомене са нама! Ваш допринос је сада објављен на нашој страници. Можете га видети ако кликнете на линк: '
-    exports:
-      complete:
-        notice: ! 'Експорт колекције који сте започели је готов, и може се преузети са:'
-        subject: Експорт колекције завршен
-  media_types:
-    all: све
-    binary: бинарни фајл
-    pdf: PDF
-    sound: звучни фајл
-    spreadsheet: табела
-    unknown: непознати тип документа
-    video: видео фајл
-    wordprocessing: документ за процесуирање речи
-  number:
-    currency:
-      format:
-        unit: RSD
-    human:
-      decimal_units:
-        units:
-          billion: Милијарда
-          million: Милион
-          quadrillion: Квадрилион
-          thousand: Хиљада
-          trillion: Трилион
-          unit: ''
-      format:
-        delimiter: ''
-      storage_units:
-        units:
-          byte:
-            one: Бит
-            other: Бајт
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
-    percentage:
-      format:
-        delimiter: ''
-    precision:
-      format:
-        delimiter: ''
-  blacklight:
-    search:
-      fields:
-        facet:
-          country_sm: Држава
-          data_provider_sm: Провајдер података
-          metadata_collection_day_ids_im: Дан прикупљања
-          metadata_content_ids_im: Врста грађе
-          metadata_file_type_ids_im: Врста медија
-          metadata_keywords_ids_im: Кључне речи
-          metadata_lang_ids_im: Језик
-          metadata_theatres_ids_im: Позоришта
-          place_name_s: Назив места
-          provider_sm: Провајдер
-          rights_sm: Права
-          type_s: Врста
-          uri_sm: Предмет
-          year_sm: Година
+        create:
+          accept_terms: 
+          user_session: 
+        edit:
+          accept_terms: 
+        new:
+          accept_terms: 
+          user_session: 
+    update: "Ажурирај %{model}"
+    'yes': "Да"
   helpers:
     label:
-      user:
-        contact:
-          new:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          create:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        user:
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
+      annotation:
+        annotation:
+          edit:
+            text: 
       attachment:
         attachment:
           edit:
@@ -1005,10 +1644,6 @@ sr:
             title: 
           update:
             title: 
-      taxonomy_term:
-        taxonomy_term:
-          new:
-            term: 
       collection_day:
         collection_day:
           edit:
@@ -1020,12 +1655,12 @@ sr:
             taxonomy_term_id: 
             url: 
           update:
-            name: 
-            taxonomy_term_id: 
             description: 
             end_date: 
             image: 
+            name: 
             start_date: 
+            taxonomy_term_id: 
             url: 
         contact:
           edit:
@@ -1047,605 +1682,948 @@ sr:
             institution_id: 
             set: 
             start_date: 
+      taxonomy_term:
+        taxonomy_term:
+          create:
+            term: 
+          edit:
+            term: 
+          new:
+            term: 
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          edit:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+            tel: 
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          edit:
+            email: 
+            institution: 
+            password: 
+            password_confirmation: 
+            role_name: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    select:
+      prompt: "Молимо изаберите"
+    submit:
+      create: "Направи %{model}"
+      submit: "Сачувај %{model}"
+      update: "Ажурирај %{model}"
+  javascripts:
+    admin:
+      metadata_fields:
+        order: Превуците поља и поређајте их жељеним редом. Притисните "Сачувај" када завршите.
+    annotorious:
+      clear-flag: "Обриши ознаку"
+      flag: "Означи"
+    attachments:
+      uploading: "Неки од ваших фајлова се још увек преносе. Када се све заврши моћи ћете да приложите вашу причу."
+    collection-days:
+      close-directions: "Затворите упутства"
+      find-more: "Сазнајте више"
+      get-directions: "Тражите упутства"
+      legend: "легенда"
+      next-collection-day: "Следећи Дани прикупљања породичних успомена на Велики рат су у:  <b>%{name}, %{city}, %{country}</b> on <b>%{start-date}"
+      no-upcoming: 
+      past-entered: "Претходни Дани прикупљања породичних успомена на Велики рат"
+      past-not-entered: "Претходни Дани прикупљања породичних успомена на Велики рат (још увек не објављене приче)"
+      show-past: "Прикажи претходне Дане прикупљања породичних успомена на Велики рат"
+      upcoming: "Претходни Дани прикупљања породичних успомена на Велики рат који следе"
+      what-is-it: "Шта су Претходни Дани прикупљања породичних успомена на Велики рат?"
+    contribute:
+      errors_shown: "Зашто не? Видите обавештење изнад."
+      hide_errors: "Сакри обавештења грешака."
+      show_errors: "Зашто не?"
+    datepicker:
+      button_text: "Прикажи календар"
+    digital_object:
+      hints:
+        copy_from_story: "Кликом на дугме испод копираће се слични метаподаци из приче за ову јединицу."
+      labels:
+        copy_from_story: "Подаци о примерку"
+      links:
+        copy_from_story: "Копирајте из приче"
+    gmap:
+      canvas:
+        hide: "Затворите Google мапе"
+        hint: Померите маркер до локације којз желите за "{{field}}".
+        label: Google мапе
+        show: "Користите Google мапе"
+      errors:
+        empty: "Унесите адресу коју тражите."
+        present: "Већ постоји отворена мапа на екрану; молимо да је прво затворите."
+        unknown: "Адреса није пронађена."
+      search:
+        button: "Крени"
+        hint: "Унесите адресу како би је тражили на мапи изнад."
+        label: "Тражите адресу"
+      static:
+        hide: "Затворите мапу"
+        show: "Прикажи на Google мапама"
+    leaflet:
+      label:
+        map_view: "Мапа"
+        satellite_view: "Сателит"
+    loading: "учитавање..."
+    next: "следећи →"
+    previous: "← претходни"
+    search:
+      10seconds: "Још увек претражујемо. Молимо за стрпљење!"
+      30seconds: "Ово траје дуже од очекиваног. Пробајте да потражите нешто друго или наставите са чекањем!"
+      60seconds: "Дошло је до проблема с претрагом. Молимо покушајте поновно."
+    story:
+      took-place: "Ова прича се догодила у:"
+    thumbnails:
+      item: "јединица"
+      of: "од"
+    translate:
+      return-to-language: "Вратите се на оригинални језик"
+      service-not-available: 
+      translate-to: "Преведи на..."
+    truncate:
+      show-less: "Прикажи мање ..."
+      show-more: "Прикажи више ..."
+    uploadify:
+      basic_ui: Да ли имате проблем са преношењем датотека? Покушатје <a href="{{href}}">основнo отпремaње</a> уместо.
+      button_text: "Одаберите датотеке"
+      finished: "Вратите се на допринос"
+      hint: "Пожете отпремити више датотека од једном. Свака датотека ће аутомаски постати одвојена јединица коју можете индивидуално уређивети. Напомена: Морати имати инсталиран Flash у свом прегледачу како бисте моглу да оптремите више датотека."
+      label: "Више датотека"
+      saved: "Сачувано"
+  languages:
+    da: "дански"
+    de: "немачки"
+    en: "енглески"
+    fr: "француски"
+    ga: "ирски"
+    hu: "мађарски"
+    nl: "холандски"
+    pt: 
+    sk: "словачки"
+    sl: "словеначки"
+  layout:
+    navigation:
+      about: "О нама"
+      admin: "Администратор"
+      browse: "Прегледајte"
+      contact: "Контактирајте нас"
+      contribute: "Допринесите"
+      help: "Помоћ"
+      home: "Главна страна"
+    software_engine: "Израдио RunCoCo"
+  locale: "српски"
+  mail:
+    contributions:
+      published:
+        greeting: "Драги Еуропеана 1914-1918 корисниче,"
+        signature: "Срдачан поздрав,\nТим Еуропеане 1914-1918 "
+        subject: "Ваш допринос Еуропеани 1914-1918 је објављен"
+        thanks: "Хвала вам што сте поделили ваше приче и успомене са нама! Ваш допринос је сада објављен на нашој страници. Можете га видети ако кликнете на линк: "
+    exports:
+      complete:
+        notice: "Експорт колекције који сте започели је готов, и може се преузети са:"
+        subject: "Експорт колекције завршен"
+  media_types:
+    all: "све"
+    binary: "бинарни фајл"
+    pdf: PDF
+    sound: "звучна датотека"
+    spreadsheet: "табела"
+    txt: "текстуална датотека"
+    unknown: "непознати тип документа"
+    video: "видео фајл"
+    wordprocessing: "документ за процесуирање речи"
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%n %u"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: RSD
+    format:
+      delimiter: "."
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: "Милијарда"
+          million: "Милион"
+          quadrillion: "Квадрилион"
+          thousand: "Хиљада"
+          trillion: "Трилион"
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: "Бит"
+            other: "Бајт"
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  settings:
+    allowed_upload_extensions: "Дозвољене врсте преноса"
+    banner_active: "Омогућен банер за одржавање"
+    banner_text: "Текст банера за одржавање"
+    bing_client_id: Bing client ID
+    bing_client_secret: Bing client secret
+    bing_translate_key: Bing Translate Key
+    contribution_approval_required: "Објави само одобрене доприносе"
+    gmap_api_key: Google мапе API кључ
+    google_analytics_key: Google Analytics кључ
+    google_api_email: Google API имејл
+    max_upload_size: "Максимална величина преноса"
+    publish_contributions: "Објави доприносе"
+    registration_required: "Обавезна регистрација"
+    relative_url_root: URL root
+    search_engine: "Претраживач"
+    sharethis_id: ShareThis Publisher ID
+    site_name: "Наслов странице"
+    site_url: URL странице
+    ui_locales: "Доступни локалитети"
+    uploadify: "Омогући Uploadify"
+  support:
+    array:
+      last_word_connector: "и"
+      two_words_connector: "и"
+      words_connector: ","
+    select:
+      prompt: "Молимо изаберите"
+  time:
+    am: "АМ"
+    formats:
+      default: "%a %b %d %H:%M:%S %Z %Y"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+      timestamp: "%Y-%m-%d %H:%M"
+    pm: PМ
   views:
-    ! "abou\tt":
+    "abou\tt":
       terms:
         user_contributions:
           p3: 
     about:
+      background:
+        heading: Europeana 1914-1918
+        p1: "<b>Europeana 1914-1918</b> обједињује изворе прикупљене кроз три велика европска пројекта, кроз које су прикупљњнњ различите врсте материјала из Првог светског рата. Резултат тога је архива која је сјединила збирке националних библиотека и важних филмских архива са личним причама и предметима грађана. Заједно стварају јединствену перспективу Првог светског рата, приказујући све стране борбених линија као и увиде из свих перспектива. С временом ће се све више материјала додавати у ову архиву, с тога Вас молимо да ​​се враћате се на ову адресу!"
+        p2: "<b>Личне приче: </b> У сарадњи са Универзитетом у Оксфорду, Facts & Files и многим другим партнерима широм Европе, Europeana 1914-1918 прикупља претходно необјављена писма, фотографије и успомене из рата,  које се дигитализују и деле на интернету. Од краја 2013, више од десет земаља је учествовало, када је дигитализовано више од 60.000 јединица."
+      collection_days:
+        heading: "Дани прикупљања породичних успомена"
+        p1: "На догађајима поводом  Дана прикупљања породичних успомена, позивају се појединци из народа да донесу своја документа, предмете и приче из Првог светског рата, које ће запослени на пројекту забележити. Приче и скениране или фотографисане слике објеката се затим додају у архиву."
+        p2: "Дани прикупљања породичних успомена су претходно одржавани широм Европе"
+      online_collection:
+        heading: Online колекција прича
+        p1: Online колекција прича је отворена у марту 2011. На сајту, свако може обогатити ову колекцију додајући своје предмете заједно са њихиовим причама. Више информација о томе како да додате нешто у колекцију могу се наћи на “%{add_your_story}” страници. Објекти који су поднети су проверени од стране пројектног тима, а затим су доступни преко Еуропеане.
+      privacy_policy:
+        p1: "Јавно ћемо приказати ваше име поред вашег доприноса, уколико се одобре."
+        p2: "Друге контактне податке, укљућујући вашу имејл адресу, користићемо само како би вас контактирали о вашим доприносима овој колекцији."
+        p3: "Никада нећемо делити ваше контактне податке са другим организацијама."
+        p4: Сазнајте више о нашим Правилима о приватности на страници <a http://www.europeana.eu/portal/privacy.html target="_blank">Europeana</a>.
+      project_partners:
+        heading: "Пројектни партнери"
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Универзитет у Оксфорду</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Немачка национална библиотека – die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Луксембуршка национална библиотека – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Ирска национална библиотека</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Словеначка национална библиотека – Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Краљевска библиоткеа: Данска национална библиотека и Универзитетска библиотека у Копенхагену - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Еуропеана</a>
       takedown:
-        item1: Ваши подаци за контакт
-        item2: Пуни подаци о грађи
-        item3: ! 'Тачна URL на којој ћете наћи грађу (нпр.: http://www.europeana1914-1918.eu/en/contributions/96)'
-        item4: Докажите да сте носилац права или овлашћени представник носиоца права
-        item5: ! 'Пошаљите нам имејл на: 1914-1918 [@] europeana [.] eu'
-        p1: ! 'Ако сте носилац ауторских права и забринути сте јер сте пронашли грађу на нашем веб сајту за коју није дато одобрење, ми ћемо је наравно уклонити. Молимо вас да нас контактирате имејлом тако што ћете навесте следеће:'
+        item1: "Ваши подаци за контакт"
+        item2: "Пуни подаци о грађи"
+        item3: "Тачна URL на којој ћете наћи грађу (нпр.: http://www.europeana1914-1918.eu/en/contributions/96)"
+        item4: "Докажите да сте носилац права или овлашћени представник носиоца права"
+        item5: "Пошаљите нам имејл на: 1914-1918 [@] europeana [.] eu"
+        p1: "Ако сте носилац ауторских права и забринути сте јер сте пронашли грађу на нашем веб сајту за коју није дато одобрење, ми ћемо је наравно уклонити. Молимо вас да нас контактирате имејлом тако што ћете навесте следеће:"
       terms:
         full_details:
-          heading: ! 'Еуропеанини услови коришћења: пуни правни детаљи - доступни су само на енглеском језику'
-        heading: Услови
+          heading: "Еуропеанини услови коришћења: пуни правни детаљи - доступни су само на енглеском језику"
+        heading: "Услови"
         summary:
-          heading: ! 'Еуропеанини услови коришћења: резиме'
-          item1: дигитална грађа коју шаљете није заштићена ауторским правима; или
-          item2: ви поседујете ауторска права за ову дигиталну грађу; или
-          item3: власник ових ауторских права вас је овластио да пошаљете дигиталну грађу под следећим условима.
-          item4: За садржај који шаљете (као што је видео материјал, фотографије, дневници, слике или аудио грађа) дајете дозволу свима да га користе на начин на који желе. Ипак, приликом употребе они су у обавези да повежу садржај са носиоцем права. Уколико направе измене на садржају онда они морају дозволити другима да користе измењени садржај под истим условима.
-          item5: За описне податке које шаљете (опис или тагови) на основу којих је могуће проналажење садржаја путем машина за претраживање, ви дајете дозволу свима да користе ове описне податке на начин на који желе, без додатног условљавања.
-          p1: ! 'Пре него што пошаљете дигитални садржај Еуропеани, морате да се сложоте са  Условима пословања Еуропеане - Види одељак изнад. Између осталог, најважнији аспекти прихватања ових услова су следећи:'
-          p2: <b>Ви гарантујете да:</b>
-          p3: <b>Уколико не желите да прихватите ове услове, молимо вас да не шаљете садржај и опсине податке Еуропеани</b>.
+          heading: "Еуропеанини услови коришћења: резиме"
+          item1: "дигитална грађа коју шаљете није заштићена ауторским правима; или"
+          item2: "ви поседујете ауторска права за ову дигиталну грађу; или"
+          item3: "власник ових ауторских права вас је овластио да пошаљете дигиталну грађу под следећим условима."
+          item4: "За садржај који шаљете (као што је видео материјал, фотографије, дневници, слике или аудио грађа) дајете дозволу свима да га користе на начин на који желе. Ипак, приликом употребе они су у обавези да повежу садржај са носиоцем права. Уколико направе измене на садржају онда они морају дозволити другима да користе измењени садржај под истим условима."
+          item5: "За описне податке које шаљете (опис или тагови) на основу којих је могуће проналажење садржаја путем машина за претраживање, ви дајете дозволу свима да користе ове описне податке на начин на који желе, без додатног условљавања."
+          p1: "Пре него што пошаљете дигитални садржај Еуропеани, морате да се сложоте са  Условима пословања Еуропеане - Види одељак изнад. Између осталог, најважнији аспекти прихватања ових услова су следећи:"
+          p2: "<b>Ви гарантујете да:</b>"
+          p3: "<b>Уколико не желите да прихватите ове услове, молимо вас да не шаљете садржај и опсине податке Еуропеани</b>."
         user_contributions:
-          heading: Еуропеанини услови за донаторе прилога
-          item1: Лозинке и пријављивање у (Члан 3)
-          item2: Одговорност за рад платформе (Члан 4)
-          item3: Право интелектуалне својине над садржајем (Члан 5)
-          item4: Право интелектуалне својине над метаподацима (Члан 6)
-          item5: Противправно коришћење (Члан 7)
-          item6: Приватни подаци корисника (приватност) (Члан 8)
-          item7: Одговорност страна у случају оштећења или губитка (Члан 9)
-          p1: Овај документ садржи услове који се примењују на кориснике који доприносе садржајем и метаподацима сајту Europeana.eu Фондације Еуропеана.Корисник мора да буде свестан да Фондација Еуропеана настоји да сав садржај и метаподаци буду доступни за поновну употребу са минимумом ограничења.
+          heading: "Еуропеанини услови за донаторе прилога"
+          item1: "Лозинке и пријављивање у (Члан 3)"
+          item2: "Одговорност за рад платформе (Члан 4)"
+          item3: "Право интелектуалне својине над садржајем (Члан 5)"
+          item4: "Право интелектуалне својине над метаподацима (Члан 6)"
+          item5: "Противправно коришћење (Члан 7)"
+          item6: "Приватни подаци корисника (приватност) (Члан 8)"
+          item7: "Одговорност страна у случају оштећења или губитка (Члан 9)"
+          p1: "Овај документ садржи услове који се примењују на кориснике који доприносе садржајем и метаподацима сајту Europeana.eu Фондације Еуропеана.Корисник мора да буде свестан да Фондација Еуропеана настоји да сав садржај и метаподаци буду доступни за поновну употребу са минимумом ограничења."
           p2: Као део ове политике, <b> Еуропеанини услови за доприносе корисника </b> утврђује се да ће сав садржај који су корисници доприли Еуропеани бити доступан на Europeana.eu у складу са условима <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank"> Creative Commons Attribution ShareAlike license</a>. То значи да, када корисник објави неки садржаја на сајту Europeana.eu, он је неопозиво даје трећим лицима право да слободно користе тај садржај, све док они тај рад приписују аутору и деле своје измене тог садржаја под истим условима.
           p3: Додатно, сви метаподаци које су корисници допринели Еуропеани биће доступни прекоа Europeana.eu у складу са одредбама <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>. То значи да, када корисник објави неки садржаја на сајту Europeana.eu, он је неопозиво даје трећим лицима право да слободно користе тај садржај без даљих ограничења.
-          p4: <b>Уколико се не слажете са овим политикама молимо вас да ваш садржај и/или метаподатке не донирате Еуропеани.</b>
-          p5: ! 'Ови Услови за доприносе корисника утврђују, између осталог, следеће аспекте односа између корисника који доприносе садржај Еуропеани и Europeana.eu:'
+          p4: "<b>Уколико се не слажете са овим политикама молимо вас да ваш садржај и/или метаподатке не донирате Еуропеани.</b>"
+          p5: "Ови Услови за доприносе корисника утврђују, између осталог, следеће аспекте односа између корисника који доприносе садржај Еуропеани и Europeana.eu:"
           p6: Отварањем налога на Europeana.eu, корисник пристаје на ове услове. Након креирања налога ови услови се могу прочитати на <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html" target="_blank">www.europeana.eu</a>.
-          p7: ! 'Одвојене странице које држе овај пројекат:'
+          p7: "Одвојене странице које држе овај пројекат:"
+      what_we_do:
+        heading: "Националне колекције:"
+        item1: "Путем Europeana 1914-1918 web странице додајте фотографију предмета или упишите причу."
+        item2: "За време Дана прикупљања породичних успомена донесите предмет(е), а запослени на пројекту ће их фотографисати и забиљежити пратеће приче."
+        p1: "Кроз пројекат Еуропеана колекције 1914-1918, створена је велика дигитална колекција са више од 400.000 јединица из националних библиотека из осам земаља (укључујући Народну библиотеку Србије), које су се нашле на различитим странама историјског конфликта."
     about_us:
       blog:
-        heading: Блог
+        heading: "Блог"
       europeana:
-        heading: Еуропеана 1914-1918
-        p1: Еуроепана 1914-1918 обједињује изворе три велика европска пројекта при чему се сваки од њих бави различитом врстом грађе о Првом светском рату. Резултат је архива која омогућава колекцијма националних библиотека да се нађу раме уз раме са личним причама и предметима као и важним филмским архивама. Заједно, све ово чини јединиствену перспективу Првог светског рата која приказује све зараћене стране и свако гледиште. Временом, све више грађе ће се овде налазити, зато, молимо вас да нам се стално враћате!
+        heading: "Еуропеана 1914-1918"
+        p1: "Еуроепана 1914-1918 обједињује изворе три велика европска пројекта при чему се сваки од њих бави различитом врстом грађе о Првом светском рату. Резултат је архива која омогућава колекцијма националних библиотека да се нађу раме уз раме са личним причама и предметима као и важним филмским архивама. Заједно, све ово чини јединиствену перспективу Првог светског рата која приказује све зараћене стране и свако гледиште. Временом, све више грађе ће се овде налазити, зато, молимо вас да нам се стално враћате!"
         p2: <b>Приче публике:</b> у сарадњи са Универзитетом Оксфор (University of Oxford), фирмом Facts & Files и многим другим партнерима широм Европе, Еуропеана 1914-1918 прикупља претхоно у јавности необјављена писма, фотографије и успомене из Првог светског рата да би их дигитализовала и омогућила онлајн доступност. До краја 2013, више држава је учествовало и прикупило више од 60,000 јединица.  <a href="http://pro.europeana.eu/web/europeana-1914-1918">Сазнајте више о пројекту</a>
-        p3: <b>Националне колекције:</b> Пројекат Еуропена колекције 1914-1918 (The Europeana Collections 1914-1918) је као резултат произвео колекцију од више од 400,000 јединица грађе из збирки националних библиотека у осам држава које су се налазиле на различитим странама историјског конфилкта.
-        p4: <b>Филмски архиви:</b> Пројекат Европска филмска капија 1914 (The European Film Gateway 1914) нам доноси 650 часова филског и сродног материјала о Првом светксом рату укључујући журнале, документарце, игране филмоце, пропагандни материјал и анти-ратне филмове. Ова грађа је нарочито битна имајући у виду да је само 20&#37; од укупне продукције немог филма преживело.
-        p5: <b>И више:</b> Можете такође пронаћи грађу из других европских колекција и пројеката, као и информације ван Европе - из Дигиталне јавне библиотеке Америке, Тров (Аустралија) и Дигиталног Новог Зеланда.
+        p3: "<b>Националне колекције:</b> Пројекат Еуропена колекције 1914-1918 (The Europeana Collections 1914-1918) је као резултат произвео колекцију од више од 400,000 јединица грађе из збирки националних библиотека у осам држава које су се налазиле на различитим странама историјског конфилкта."
+        p4: "<b>Филмски архиви:</b> Пројекат Европска филмска капија 1914 (The European Film Gateway 1914) нам доноси 650 часова филског и сродног материјала о Првом светксом рату укључујући журнале, документарце, игране филмоце, пропагандни материјал и анти-ратне филмове. Ова грађа је нарочито битна имајући у виду да је само 20&#37; од укупне продукције немог филма преживело."
+        p5: "<b>И више:</b> Можете такође пронаћи грађу из других европских колекција и пројеката, као и информације ван Европе - из Дигиталне јавне библиотеке Америке, Тров (Аустралија) и Дигиталног Новог Зеланда."
       events:
-        heading: Дани прикупљања успомена
+        heading: "Дани прикупљања успомена"
         p4: Уколико сте заинтересовани да организујете сопствени догађај, да дигитализујете и додате грађу Еуропеани 1914-1918 можемо вам понудити помоћ и саветовати вас <a href="http://pro.europeana.eu/web/europeana-1914-1918">here</a>
       get_involved:
         contribute_online:
-          heading: Онлајн допринос
+          heading: "Онлајн допринос"
           p1: Ако и не можете да се појавите на специфичном догађају, ви и даље можете да поделите ваше приче и грађу тако што ћете их послати директно на веб сајт. Идите на <a href="http://europeana1914-1918.eu/en/contributor">'Contribute' page </a> и пратите инструкције.
         education:
-          heading: Образовање
+          heading: "Образовање"
           p1: Наши партнери из Британске библиотеке су развили <a href="http://bl.uk/world-war-one">веб сајт</a> на енглеском језику посвећен наставном особљу који се баве Првим светским ратом.
         events:
           p1: На <a href="http://www.europeana1914-1918.eu">Почетној</a> страници овог веб сајта можете видети где ће се одржати следећи путујући догађај. Молимо вас да понесете са собом документе, предмете и приче из Првог светског рата како би биле скениране, фотографисане и додате у базу.
           p2: Уколико сте заинтересовани да покренете сопствени догађај како бисте дигитализовали и додали грађу Еуропени 1914-1918, можемо вам понудити <a href="http://pro.europeana.eu/web/europeana-1914-1918">помоћ и савет како да то урадите</a>.
-        heading: Укључите се
+        heading: "Укључите се"
         reuse:
-          heading: Коришћење грађе
+          heading: "Коришћење грађе"
           p1: Сва грађа из Еуропеане 1914-1918 је доступна за поновно коришћење. Програмери се позивају да је користе за сопствене пројекте преко <a href="http://europeana.eu/portal/api-introduction.html">Europeana API</a>. Уколико желите да поново користите грађу из Дигиталне јавне библиотеке Америке, Трове или Дигиталне библиотеке Новог Зеланда посетите њихове вебсајтове за информације.
       help:
-        heading: Помоћ
+        heading: "Помоћ"
     admin:
       annotations:
         index:
-          title: Анотације у с сликом корисника
+          title: "Анотације у с сликом корисника"
         table:
           header:
-            text: Текст анотације
-            type: Врста анотације
+            text: "Текст анотације"
+            type: "Врста анотације"
       collection_days:
         delete:
-          question: Да ли сте сигурни да желите да избришете додатне информације о дану прикупљања сећања %{code}?
-          title: Обришите дан прикупљања
+          question: "Да ли сте сигурни да желите да избришете додатне информације о дану прикупљања сећања %{code}?"
+          title: "Обришите дан прикупљања"
         edit:
-          title: Уредите дан прикупљања
+          title: "Уредите дан прикупљања"
         index:
-          title: Дани прикупљања успомена
+          title: "Дани прикупљања успомена"
       config:
         edit:
-          title: Уредите подешавање
+          title: "Уредите подешавање"
         index:
           links:
-            edit: Уредите подешавања
+            edit: "Уредите подешавања"
           table:
-            caption: Подешавања
+            caption: "Подешавања"
             headings:
-              name: Назив
-              value: Вредност
-          title: Подешавање
+              name: "Назив"
+              value: "Вредност"
+          title: "Подешавање"
       contributions:
         export:
-          title: Извезите колекцију
+          title: "Извезите колекцију"
         index:
           captions:
-            approved: Одобрени доприноси (%{total} total)
-            draft: Нацрти доприноса (%{total} total)
-            rejected: Одбачени доприноси (%{total} total)
-            revised: Ревидирани доприноси који чекају одобрење (%{total} total)
-            submitted: Послати доприноси који чекају одобрење (%{total} total)
-            withdrawn: Повуците доприносе који чекају одобрење (%{total} total)
+            approved: "Одобрени доприноси (%{total} total)"
+            draft: "Нацрти доприноса (%{total} total)"
+            rejected: "Одбачени доприноси (%{total} total)"
+            revised: "Ревидирани доприноси који чекају одобрење (%{total} total)"
+            submitted: "Послати доприноси који чекају одобрење (%{total} total)"
+            withdrawn: "Повуците доприносе који чекају одобрење (%{total} total)"
           empty:
             all:
-              approved: Још увек нема одобрених прилога.
-              draft: Још увек нема нацрта прилога.
-              rejected: Још увек нема одбијених прилога.
-              revised: Тренутно нема прегледаних прилога који чекају одобрење.
-              submitted: Тренутно нема послатих прилога који чекају одобрење.
-              withdrawn: Тренутно нема повучених прилога који чекају одобрење.
+              approved: "Још увек нема одобрених прилога."
+              draft: "Још увек нема нацрта прилога."
+              rejected: "Још увек нема одбијених прилога."
+              revised: "Тренутно нема прегледаних прилога који чекају одобрење."
+              submitted: "Тренутно нема послатих прилога који чекају одобрење."
+              withdrawn: "Тренутно нема повучених прилога који чекају одобрење."
             search:
-              approved: Нема одобрених прилога који се поклапају са вашом претрагом.
-              draft: Нема нацрта прилога који се поклапају са вашом претрагом.
-              rejected: Нема одбачених прилога који се поклапају са вашом претрагом.
-              revised: Нема прегледаних прилога који се поклапају са вашом претрагом.
-              submitted: Нема послатих доприноса који се подударају са вашом претрагом.
-              withdrawn: Нема повучених прилога који се поклапају са вашом претрагом.
-          title: Прилози
-        p1: ! 'Испод се налазе три табеле које садрже грађу која: није предата на одобрење, чека одобрење или је одобрена. Кликните на наслов да видите детаље о грађи. Када се детаљи прикажу имате опцију да уредите метаподатке, избришете грађу, или (за грађу која чека одобрење) је одобрите.'
+              approved: "Нема одобрених прилога који се поклапају са вашом претрагом."
+              draft: "Нема нацрта прилога који се поклапају са вашом претрагом."
+              rejected: "Нема одбачених прилога који се поклапају са вашом претрагом."
+              revised: "Нема прегледаних прилога који се поклапају са вашом претрагом."
+              submitted: "Нема послатих доприноса који се подударају са вашом претрагом."
+              withdrawn: "Нема повучених прилога који се поклапају са вашом претрагом."
+          title: "Прилози"
+        p1: "Испод се налазе три табеле које садрже грађу која: није предата на одобрење, чека одобрење или је одобрена. Кликните на наслов да видите детаље о грађи. Када се детаљи прикажу имате опцију да уредите метаподатке, избришете грађу, или (за грађу која чека одобрење) је одобрите."
       europeana:
         index:
-          instructions: Кликом на дугме Пошаљи испод ће започети поступак преузимања садржаја у вези са Првим светским ратом са преко API портала Еуропеана у базу 1914-1918.
-          introduction: Тренутно постоји %{count} грађе у вези с Првим светским ратом из Еуропеане у бази 1914-1918 .
-          title: Преузми садржај портала Еуропеана
+          instructions: "Кликом на дугме Пошаљи испод ће започети поступак преузимања садржаја у вези са Првим светским ратом са преко API портала Еуропеана у базу 1914-1918."
+          introduction: "Тренутно постоји %{count} грађе у вези с Првим светским ратом из Еуропеане у бази 1914-1918 ."
+          title: "Преузми садржај портала Еуропеана"
       index:
         headings:
-          export: Пошаљи
+          export: "Пошаљи"
         links:
           annotations:
-            description: Прегледајте и уредите анотације корисника у вези с сликама.
+            description: "Прегледајте и уредите анотације корисника у вези с сликама."
           collection_days:
-            description: Обезбедите додатне информације о данима прикупљања.
+            description: "Обезбедите додатне информације о данима прикупљања."
           config:
-            description: Конфигуришите подешавања веб сајта.
-            text: Подешавање
+            description: "Конфигуришите подешавања веб сајта."
+            text: "Подешавање"
           contributions:
-            description: Прегледајте и одобрите или одбаците прилоге.
-            text: Прилози
-          export_csv:
-            description: Извезите прилоге колекције у CSV.
-            text: Извезу као CSV
+            description: "Прегледајте и одобрите или одбаците прилоге."
+            text: "Прилози"
           export:
-            description: Извези колекцију као XML или CSV.
-            text: Извези
+            description: "Извези колекцију као XML или CSV."
+            text: "Извези"
+          export_csv:
+            description: "Извезите прилоге колекције у CSV."
+            text: "Извезу као CSV"
           export_users:
-            description: Извези у CSV податке о корисницима за све оне који имају макар један допринос.
-            text: Извези донаторе
+            description: "Извези у CSV податке о корисницима за све оне који имају макар један допринос."
+            text: "Извези донаторе"
           export_xml:
-            description: Извези колекцију доприноса и додатака у XML.
-            text: Извези у XML
+            description: "Извези колекцију доприноса и додатака у XML."
+            text: "Извези у XML"
           export_xml_nozip:
-            description: Извези колекцију доприноса и додатака у XML, осим додатака у .zip.
-            text: Извези у XML (осим додатака у .zip)
+            description: "Извези колекцију доприноса и додатака у XML, осим додатака у .zip."
+            text: "Извези у XML (осим додатака у .zip)"
           harvest_europeana:
-            description: Преузим записе преко API у вези с Првим светским ратом са протала Еуропеана.
-            text: Преузми садржај портала Еуропеана
+            description: "Преузим записе преко API у вези с Првим светским ратом са протала Еуропеана."
+            text: "Преузми садржај портала Еуропеана"
           institutions:
-            description: Подесите да институционални провајдери опционо буду повезани са корисничким налозима.
+            description: "Подесите да институционални провајдери опционо буду повезани са корисничким налозима."
           logs:
-            description: Прегледајте лог фајлове апликације.
-            text: Лог фајлови
+            description: "Прегледајте лог фајлове апликације."
+            text: "Лог фајлови"
           metadata_fields:
-            description: Уредите поља прикупљена током доприноса
-            text: Поља метаподатака
+            description: "Уредите поља прикупљена током доприноса"
+            text: "Поља метаподатака"
           reindex:
-            description: Ажурирајте индекс машине за претрагу
-            text: Реиндексирајте машину за претрагу
+            description: "Ажурирајте индекс машине за претрагу"
+            text: "Реиндексирајте машину за претрагу"
           statistics:
-            description: Погледајте статистику прича по годинама
-            text: Статистика
+            description: "Погледајте статистику прича по годинама"
+            text: "Статистика"
           taggings:
-            description: Прегледајте и уредите тагове корисника у вези с причама.
+            description: "Прегледајте и уредите тагове корисника у вези с причама."
           users:
-            description: ! 'Управљајте налозима корисника: админитратора, каталогизатора и донатора. '
-            text: Кориснички налози
-        title: Админ
+            description: "Управљајте налозима корисника: админитратора, каталогизатора и донатора. "
+            text: "Кориснички налози"
+        title: "Админ"
       institutions:
         delete:
-          question: Да ли сте сигурни да желите да избришете провајдера институцију %{name}?
-          title: Обришите институционалног провајдера
-          warning: Брисање институционалног провајдера ће проузроковати да сви за ту институцију везани налози корисника не буду више везани ни за једну.
+          question: "Да ли сте сигурни да желите да избришете провајдера институцију %{name}?"
+          title: "Обришите институционалног провајдера"
+          warning: "Брисање институционалног провајдера ће проузроковати да сви за ту институцију везани налози корисника не буду више везани ни за једну."
         edit:
-          title: Уреди институционалног провајдера
+          title: "Уреди институционалног провајдера"
         index:
-          title: Институционални провајдери
+          title: "Институционални провајдери"
         new:
-          title: Нови институционални провајдер
+          title: "Нови институционални провајдер"
       metadata_fields:
         confirm_reindex:
-          info: Након промене статуса претраживости једног или више поља метаподатака или уклањања претходно претраживих поља, требало би да реиндексирате машину за претрагу кликом на дугме испод.
-          note: Напомињемо да није потребно реиндексирање машине за претрагу када су доприности ажурирани; тада се оно одвија аутоматски.
-          title: Реиндексирајте машину за претраживање
+          info: "Након промене статуса претраживости једног или више поља метаподатака или уклањања претходно претраживих поља, требало би да реиндексирате машину за претрагу кликом на дугме испод."
+          note: "Напомињемо да није потребно реиндексирање машине за претрагу када су доприности ажурирани; тада се оно одвија аутоматски."
+          title: "Реиндексирајте машину за претраживање"
         delete:
-          button_confirm: Да ли заиста желите да обришете ово поље?
-          question: Да ли сте сигурни да желите да обришете поље метаподатака %{field_name}?
-          title: Обришите поље метаподатака
-          warning: <strong>Упозорење:</strong> Ово ће проузроковати брисање свх података у овом пољу ваше колкције који су до сада прикупљени.
+          button_confirm: "Да ли заиста желите да обришете ово поље?"
+          question: "Да ли сте сигурни да желите да обришете поље метаподатака %{field_name}?"
+          title: "Обришите поље метаподатака"
+          warning: "<strong>Упозорење:</strong> Ово ће проузроковати брисање свх података у овом пољу ваше колкције који су до сада прикупљени."
         edit:
-          empty: Још увек нема поља метаподатака.
-          instructions: Унесите број за позицију сваког поља.
-          title: Уредите поље метаподатака
+          empty: "Још увек нема поља метаподатака."
+          instructions: "Унесите број за позицију сваког поља."
+          title: "Уредите поље метаподатака"
         index:
-          caption: Поља метаподатака
-          empty: Још увек нема поља метаподатака.
+          caption: "Поља метаподатака"
+          empty: "Још увек нема поља метаподатака."
           links:
-            new: Ново поље
-            order: Промените редослед поља
-            terms: Термини
-          title: Поља метаподатака
+            new: "Ново поље"
+            order: "Промените редослед поља"
+            terms: "Термини"
+          title: "Поља метаподатака"
         new:
-          title: Ново поље метаподатака
+          title: "Ново поље метаподатака"
         order:
-          title: Редослед поља метаподатака
+          title: "Редослед поља метаподатака"
       statistics:
         index:
-          introduction: Табела испод показује број објављених прича и јединица за дату годину, и опционо за дати дан прикупљања.
-          title: Статистика
+          introduction: "Табела испод показује број објављених прича и јединица за дату годину, и опционо за дати дан прикупљања."
+          title: "Статистика"
       taggings:
         index:
-          title: Тагови корисника уз причу
+          title: "Тагови корисника уз причу"
+        table:
+          header:
+            text: 
       taxonomy_terms:
         delete:
           question: Да ли сте сигурни да желите да избришете термин таксономије "%{term}"?
-          title: Избришите термин таксономије
-          warning: <strong>Упозорење:</strong> Овај потез ће се одразити на све доприносе у вези са овим термином и изгубиће дату категоризацију.
+          title: "Избришите термин таксономије"
+          warning: "<strong>Упозорење:</strong> Овај потез ће се одразити на све доприносе у вези са овим термином и изгубиће дату категоризацију."
         edit:
-          title: Уредите термин таксономије
+          title: "Уредите термин таксономије"
         import:
-          title: Увезите термине таксономије
+          title: "Увезите термине таксономије"
         index:
-          caption: Термини таксономије
-          empty: Још увек не постоји термин таксономије за ово поље.
+          caption: "Термини таксономије"
+          empty: "Још увек не постоји термин таксономије за ово поље."
           links:
-            back: Листа поља метаподатака
-            import: Увезите термине са листе
-            new: Нови термин
-          title: Термини таксономије
+            back: "Листа поља метаподатака"
+            import: "Увезите термине са листе"
+            new: "Нови термин"
+          title: "Термини таксономије"
         new:
-          title: Нови термин таксономије
+          title: "Нови термин таксономије"
       users:
         delete:
-          button_confirm: Заиста желите да обришете овај кориснички налог?
-          question: Да ли сте сигурни да заиста желите да обришете овај кориснички налог %{email}?
-          title: Обришите кориснички налог
-          warning: <strong>Упозорење:</strong> Овим ће бити обрисани и сви доприности датог корисника.
+          button_confirm: "Заиста желите да обришете овај кориснички налог?"
+          question: "Да ли сте сигурни да заиста желите да обришете овај кориснички налог %{email}?"
+          title: "Обришите кориснички налог"
+          warning: "<strong>Упозорење:</strong> Овим ће бити обрисани и сви доприности датог корисника."
         edit:
-          title: Уредите кориснички налог
+          title: "Уредите кориснички налог"
         index:
-          caption: Кориснички налози
-          empty: Нема корисничких налога за приказ.
+          caption: "Кориснички налози"
+          empty: "Нема корисничких налога за приказ."
           links:
-            new: Нови кориник
+            new: "Нови кориник"
             show:
-              title: Видите пуне детаље о кориснику
-          title: Налози корисника
+              title: "Видите пуне детаље о кориснику"
+          title: "Налози корисника"
         new:
-          title: Нови налог корисника
+          title: "Нови налог корисника"
         show:
-          caption: Лични подаци
+          caption: "Лични подаци"
           links:
-            back: Листа корисничких налога
-            contributions: Доприноси
-            edit: Уредите кориснички налог
-          title: Кориснички налог
+            back: "Листа корисничких налога"
+            contributions: "Доприноси"
+            edit: "Уредите кориснички налог"
+          title: "Кориснички налог"
     annotations:
       depublish:
-        question: Да ли сте сигурни да желите повучете објаву анотације ове јединице?
-        title: Повлачење објаве анотације
+        question: "Да ли сте сигурни да желите повучете објаву анотације ове јединице?"
+        title: "Повлачење објаве анотације"
       edit:
-        title: Уређивање анотације
+        title: "Уређивање анотације"
       flag:
-        question: Да ли сте сигурни да желите да означите ову анотацију као неодговарајућу?
-        title: Означавите анотацију као неодговарајућу
+        question: "Да ли сте сигурни да желите да означите ову анотацију као неодговарајућу?"
+        title: "Означавите анотацију као неодговарајућу"
       unflag:
-        question: Да ли сте сигурни да желите да уклоните ознаку да је ова анотација неодговарајућа?
-        title: Уклоните ознаку да је анотаца неодговарајућа
+        question: "Да ли сте сигурни да желите да уклоните ознаку да је ова анотација неодговарајућа?"
+        title: "Уклоните ознаку да је анотаца неодговарајућа"
     attachments:
-      attachment_help:
-        flickr:
-          description: Увезите фотографије и њихове описе са вашег Фликр налога.
-          link: Додајте јединице са Фликра
-        item1: Додајте појединачну јединицу и документ
-        item1-subitem1: Опишите једницу
-        item1-subitem2: Отпремите додатак са документом
-        item2: Додајте више јединица и докумената
-        item2-subitem1: Отпремите више додатака који представљају више јединица
-        item2-subitem2: Можете описати јединице појединачно
-        one-of-the-following: ! 'Можете одабрати да урадите нешто од слдећег:'
-      copy:
-        instructions: Одаберите једну или више других јединица прикључених овој причи да их замените са метаподацима ове јединице (приказаним испод).
-        title: Копирајте метаподатке јединице
-      delete:
-        question: Да ли сте сигурни да желите да обришете јединицу "%{filename}"?
-        title: Обришите јединицу
-      edit:
-        caption:
-          current: Тренутна датотека
-          uploaded: Послата датотека
-        title: Уредите додатак
       _form:
         dropbox:
-          connected_html: Повезани сте са Дропбоксом као <strong>%{user}</strong>
           connect_html: Уколико имате Дропбокс налог можете нам документе послати деректно из вашег Дропбокс фолдера. Уколико желите да користите ову могућност молимо вас да се <a href="%{href}">повежете са вашим Дропбокс налогом</a>.
-          disconnect: Одјавите се са вашег Дропбокс налога
+          connected_html: "Повезани сте са Дропбоксом као <strong>%{user}</strong>"
+          disconnect: "Одјавите се са вашег Дропбокс налога"
           empty: Копирајте нека документа са вашег Дропбокс налога у фолдер под називом "/Apps/Europeana 1914-1918" и они ће се поавити овде након што кликнете на "Ажурирајте листу докумената".
-          refresh: Ажурирајте листу докумената
-      index:
-        empty: Нема јединица доадтих уз ову причу.
-        links:
-          new: Нови додатак
-        title: Јединице
-      new:
-        caption: Отпремљен документ
-        title: Нови додатак
-      show:
-        title: Додатак
+          refresh: "Ажурирајте листу докумената"
       _summary:
-        caption: Подаци о додатку
+        caption: "Подаци о додатку"
       _table:
-        caption: Јединице
+        caption: "Јединице"
         links:
           preview:
-            title: Прегледајте све детаље у вези с додатком
-        no_thumbnail: Генерисање минијатурног приказа
+            title: "Прегледајте све детаље у вези с додатком"
+        no_thumbnail: "Генерисање минијатурног приказа"
+      attachment_help:
+        flickr:
+          description: "Увезите фотографије и њихове описе са вашег Фликр налога."
+          link: "Додајте јединице са Фликра"
+        item1: "Додајте појединачну јединицу и документ"
+        item1-subitem1: "Опишите једницу"
+        item1-subitem2: "Отпремите додатак са документом"
+        item2: "Додајте више јединица и докумената"
+        item2-subitem1: "Отпремите више додатака који представљају више јединица"
+        item2-subitem2: "Можете описати јединице појединачно"
+        one-of-the-following: "Можете одабрати да урадите нешто од слдећег:"
+      copy:
+        instructions: "Одаберите једну или више других јединица прикључених овој причи да их замените са метаподацима ове јединице (приказаним испод)."
+        title: "Копирајте метаподатке јединице"
+      delete:
+        question: Да ли сте сигурни да желите да обришете јединицу "%{filename}"?
+        title: "Обришите јединицу"
+      edit:
+        caption:
+          current: "Тренутна датотека"
+          uploaded: "Послата датотека"
+        title: "Уредите додатак"
+      index:
+        empty: "Нема јединица доадтих уз ову причу."
+        links:
+          new: "Нови додатак"
+        title: "Јединице"
+      new:
+        caption: "Отпремљен документ"
+        title: "Нови додатак"
+      show:
+        title: "Додатак"
+    blog_posts:
+      read_more: "Прочитајте више"
     browse:
       collection-days:
-        heading: Дани прикупљања успомена
+        heading: "Дани прикупљања успомена"
       fronts:
-        heading: Фронтови
+        heading: "Фронтови"
       subjects:
-        heading: Предмет(и)
+        heading: "Предмет(и)"
       types:
-        heading: Врсте
+        heading: "Врсте"
     collection_days:
-      index:
-        title: Дани прикупљања успомена
-      what-do-you-get-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
-      what-is-it-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
-      who-is-it-for-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio."
+      cant-find-collection-day: "Није могуће пронаћи Дан прикупљања породичних успомена који тражите на мапи."
       different-collection-day: 
+      in-the-meantime: "У међувремену, погледајте претходне Дане прикупљања породичних успомена са којих су објављене приче."
+      index:
+        title: "Дани прикупљања успомена"
+      join-us: "Овај Дан прикупљања породичних успомена се још није завршио. Молимо вас да се вратите на ову страну када се заврши овај догађај."
+      no-stories: "Извињавамо се, али садржај овог Дан прикупљања породичних успомена још није објављен. Наши каталогизатори још увек прегледају прикупљени материјал и требало би да га ускоро и објаве."
+      open-collection: "Отвори Дан прикупљања породичних успомена"
+      select-collection-day: "Изабери Дан прикупљања породичних успомена"
+      stories: "Приче:"
+      view-stories: "Погледај приче"
+      visiting-information: "Информације за кориснике"
+      website: Web страница
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+      what-do-you-get-heading: "Шта добијате?"
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+      what-is-it-heading: "Шта је то?"
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio."
+      who-is-it-for-heading: "Чему служи?"
+    common:
+      loading: "учитавање..."
+      more-like-this: "Друге јединице које вам могу бити од интереса:"
+      permanent: "Ова радња се не може поништити."
     contact:
-      heading: Контактирајте нас
-      p1: За контакт са тимом пројекта Еуропеана 1914-1918 молимо вас да користите имејл адресу 1914-1918 [@] europeana [.] eu
+      heading: "Контактирајте нас"
+      p1: "За контакт са тимом пројекта Еуропеана 1914-1918 молимо вас да користите имејл адресу 1914-1918 [@] europeana [.] eu"
     contacts:
-      anonymous: Анониман
+      anonymous: "Анониман"
       edit:
-        title: Уреди личне податке
-      no_name: нема имена за контакт
+        title: "Уреди личне податке"
+      no_name: "нема имена за контакт"
       show:
-        title: Подаци за контакт
+        title: "Подаци за контакт"
     contributions:
+      _progress:
+        step_x_of_y: "Корак %{x} од %{y}"
+      _summary:
+        caption: "Резиме"
       complete:
-        p1: Ваш допринос је отпремљен. Хвала вам! Прегледаће га особље пројекта и након одобрења ће се појавити на веб сајту. У време највеће гужве ово може да потрај еи неколико недеља. Молимо вас за разумевање и стрпљење.
-        title: Допринос комплетиран
+        p1: "Ваш допринос је отпремљен. Хвала вам! Прегледаће га особље пројекта и након одобрења ће се појавити на веб сајту. У време највеће гужве ово може да потрај еи неколико недеља. Молимо вас за разумевање и стрпљење."
+        title: "Допринос комплетиран"
       delete:
-        question: Да ли сте сигурни да желите да комплетно уклоните причу “<strong>%{title}</strong>” са свим њеним јединицама?
-        title: Одбаците причу
+        question: "Да ли сте сигурни да желите да комплетно уклоните причу “<strong>%{title}</strong>” са свим њеним јединицама?"
+        title: "Одбаците причу"
       digital_object:
-        heading: Јединице придодате вашој причи
+        heading: "Јединице придодате вашој причи"
         help_text:
-          add_attachment: Не заборавите да додате најмање по једну јединицу уз вашу причу.
-          attachment_count: Тренутно <strong>%{nr_digital_objects}</strong> јединица додато уз ову причу.
-          language: Наведите језик коришћен у јединици, нпр, језик(ци) коришћени у дневнику.
-          object_type: Шта је јединица (нпр. песма, писмо, фотографија); покушајте да будете што је могуће одређенији.
+          add_attachment: "Не заборавите да додате најмање по једну јединицу уз вашу причу."
+          attachment_count: "Тренутно <strong>%{nr_digital_objects}</strong> јединица додато уз ову причу."
+          language: "Наведите језик коришћен у јединици, нпр, језик(ци) коришћени у дневнику."
+          object_type: "Шта је јединица (нпр. песма, писмо, фотографија); покушајте да будете што је могуће одређенији."
           save_digital: Кликом на "Сачувајте јединицу" сачуваћете ови јединицу и морати да је промените како бисте додали више јединица или послали ваш допринос у целини.
-          subject: Особа или место или објекат о коме је ова јединица.
+          subject: "Особа или место или објекат о коме је ова јединица."
           submit_contribution1: Уколико сте завршили са вашим доприносом, <a href="#continue-to-submission">пређите на корак слање</a>.
-          submit_contribution2: Кликом на “Пошаљите причу”, завршићете поступак слања ваше приче. После слања прегледаће је стручњаци и након чега ће бити доступна свима.
-          submit_story_button: Пошаљи причу
-          summary: Испод се налази резиме јединица које су до сада прикључене уз причу; у почетку нема ни једне, али их можете додати онолико колико пожелите. Такође, можете уређивати текуће јединице кликом на линк за уређивање текста који се налази уз њих на листи испод.
-          when: Када је овај објекат креиран
-          where: Где је овај објекат креиран
+          submit_contribution2: "Кликом на “Пошаљите причу”, завршићете поступак слања ваше приче. После слања прегледаће је стручњаци и након чега ће бити доступна свима."
+          submit_story_button: "Пошаљи причу"
+          summary: "Испод се налази резиме јединица које су до сада прикључене уз причу; у почетку нема ни једне, али их можете додати онолико колико пожелите. Такође, можете уређивати текуће јединице кликом на линк за уређивање текста који се налази уз њих на листи испод."
+          when: "Када је овај објекат креиран"
+          where: "Где је овај објекат креиран"
         labels:
-          keywords: Помозите другима да пронађу вашу јединицу тако што ћете додати једну или више од наведених кључних речи.
-          location_map: Локација (мапа)
-          location_place_name: Локација (назив места)
-          save_digital: Сачувајте дигитални објекат
-          save_item_draft: Сачувајте јединицу као нацрт
-          submit_contribution: Пошаљите допринос
+          keywords: "Помозите другима да пронађу вашу јединицу тако што ћете додати једну или више од наведених кључних речи."
+          location_map: "Локација (мапа)"
+          location_place_name: "Локација (назив места)"
+          save_digital: "Сачувајте дигитални објекат"
+          save_item_draft: "Сачувајте јединицу као нацрт"
+          submit_contribution: "Пошаљите допринос"
         links:
-          add_another: Додајте следећу јединицу
-          add_item: Додајте јединицу
-          edit: уредите или додајте још података
-          edit_story: Уредите причу
+          add_another: "Додајте следећу јединицу"
+          add_item: "Додајте јединицу"
+          edit: "уредите или додајте још података"
+          edit_story: "Уредите причу"
         options:
           3d: 3D
-          artifact: Артефакт
-          audio: Аудио
-          back: Назад
-          book: Књига
-          canvas: Платно
-          card: Картица
+          artifact: "Артефакт"
+          audio: "Аудио"
+          back: "Назад"
+          book: "Књига"
+          canvas: "Платно"
+          card: "Картица"
           cc_by_sa: cc-by-sa
-          ceramic: Керамика/порцелан
-          diary: Дневник
-          digital: Дигитално
-          film: Филм
-          folio: Табак
-          front: Фронт
-          image: Слика
-          journal: Часопис
-          leaf: Лист
-          leather: Кожа
-          letter: Кожа
-          medal: Одликовање
-          metal: Метал
-          mixed: Мешано
-          multiple: Вишеструко
-          newspaper: Новине
-          notebook: Свеска
-          other_option: Друго
-          paper: Папир
-          photograph: Фотографија
-          photographic_paper: Фото папир
-          poem: Песма
-          postcard: Разгледница
-          public_domain: јавно власништво
-          tape: Трака
-          text: Текст
-          text_memoir: ! 'Текст: сећање'
-          text_transcript: ! 'Текст: препис'
-          unknown: Непознато
-          video: Видео
-          vinyl: Винил
-          vinyl_record: Винилска плоча
-          wood: Дрво
-        step2: Корак 2- Додајте ваше јединице и документа
+          ceramic: "Керамика/порцелан"
+          diary: "Дневник"
+          digital: "Дигитално"
+          film: "Филм"
+          folio: "Табак"
+          front: "Фронт"
+          image: "Слика"
+          journal: "Часопис"
+          leaf: "Лист"
+          leather: "Кожа"
+          letter: "Кожа"
+          medal: "Одликовање"
+          metal: "Метал"
+          mixed: "Мешано"
+          multiple: "Вишеструко"
+          newspaper: "Новине"
+          notebook: "Свеска"
+          other_option: "Друго"
+          paper: "Папир"
+          photograph: "Фотографија"
+          photographic_paper: "Фото папир"
+          poem: "Песма"
+          postcard: "Разгледница"
+          public_domain: "јавно власништво"
+          tape: "Трака"
+          text: "Текст"
+          text_memoir: "Текст: сећање"
+          text_transcript: "Текст: препис"
+          unknown: "Непознато"
+          video: "Видео"
+          vinyl: "Винил"
+          vinyl_record: "Винилска плоча"
+          wood: "Дрво"
+        step2: "Корак 2- Додајте ваше јединице и документа"
       edit:
-        title: Допринос
+        title: "Допринос"
       feed:
         entries:
           annotation:
-            item: ! '%{user} је коментарисао слику јединице %{title}'
-            story: ! '%{user} је коментарисао слику приче %{title}'
-          contribution: ! '%{user} је објавио причу %{title}'
+            item: "%{user} је коментарисао слику јединице %{title}"
+            story: "%{user} је коментарисао слику приче %{title}"
+          contribution: "%{user} је објавио причу %{title}"
           tagging:
-            item: ! '%{user} је таговао јединицу %{title}'
-            story: ! '%{user} је таговао причу %{title}'
-        title: Активности Еуропеане 1914-1918
+            item: "%{user} је таговао јединицу %{title}"
+            story: "%{user} је таговао причу %{title}"
+        title: "Активности Еуропеане 1914-1918"
       index:
-        empty: Још увек нема доприноса за јавно приказивање.
-        title: Доприноси
+        empty: "Још увек нема доприноса за јавно приказивање."
+        title: "Доприноси"
       new:
-        title: Допринос
-      no_title: нема наслова
-      _progress:
-        step_x_of_y: Корак %{x} од %{y}
+        title: "Допринос"
+      no_title: "нема наслова"
       search:
         captions:
-          all: Сви доприноси
+          all: "Сви доприноси"
           matching: Доприноси који се подударају са "%{query}"
-        heading: Резултати претраге
+        heading: "Резултати претраге"
         links:
           titles:
-            show_contribution: Прегледај допринос
-        matches-for: ! 'Одговара за:'
-        no_matches: Нема одговарајућих јединица. Молимо пробајте поново.
-        related-europeana: Јединице са сличним садржајем на порталу Еуропеана
-        result_count_label: резултати
+            show_contribution: "Прегледај допринос"
+        matches-for: "Одговара за:"
+        no_matches: "Нема одговарајућих јединица. Молимо пробајте поново."
+        related-europeana: "Јединице са сличним садржајем на порталу Еуропеана"
+        result_count_label: "резултати"
       show:
-        button_confirm: Да ли сте сигурни да сте спремни да сместите допринос у збирку?
+        button_confirm: "Да ли сте сигурни да сте спремни да сместите допринос у збирку?"
         comments:
-          leave: Оставите коментар
-          no_comments: Нема коментара, зашто не додате ви један испод...
-          submit: Пошаљите коментар
-          title: Коментари
-        empty_attachments: Прича нема јединица.
+          leave: "Оставите коментар"
+          no_comments: "Нема коментара, зашто не додате ви један испод..."
+          submit: "Пошаљите коментар"
+          title: "Коментари"
+        empty_attachments: "Прича нема јединица."
         headings:
-          share: Поделите
-          submit: Пошаљите допринос
-          tags: Додајте тагове
+          share: "Поделите"
+          submit: "Пошаљите допринос"
+          tags: "Додајте тагове"
         invalid: Допринос још није спреман за слање. Кликните на "Зашто не?" за објашњење. Кликните на УРЕДИ испод за додавање више података.
         links:
-          new_attachment: Додајте јединицу
+          new_attachment: "Додајте јединицу"
         related:
-          title: Повезан садржај
-        shared-this-story: поделите ову причу о
-        title: Прича
+          title: "Повезан садржај"
+        shared-this-story: "поделите ову причу о"
+        title: "Прича"
       status:
-        approved: Одобрено
-        approved_by: Одобрио %{name}
-        draft: Нацрт &mdash; још није послато
-        label: Статус
-        rejected: Одбијено
-        rejected_by: Одбио %{name}
-        revised: Ревидирано
-        submitted: Послато &mdash; чека одобрење
-        title: Дневник статуса
-        unknown: Непознато
-        withdrawn: Повучено
+        approved: "Одобрено"
+        approved_by: "Одобрио %{name}"
+        draft: "Нацрт &mdash; још није послато"
+        label: "Статус"
+        rejected: "Одбијено"
+        rejected_by: "Одбио %{name}"
+        revised: "Ревидирано"
+        submitted: "Послато &mdash; чека одобрење"
+        title: "Дневник статуса"
+        unknown: "Непознато"
+        withdrawn: "Повучено"
       story:
         complete:
-          heading: Прича завршена
-          p1: Ваша прича је послата. Хвала вам! Прегледаће је особље пројекта и биће објављена на веб сајту пројекта наког одобрења. У време великих гужви, то може потрајати неколико недеља. Молимо вас за разумевање и стрпљење.
+          heading: "Прича завршена"
+          p1: "Ваша прича је послата. Хвала вам! Прегледаће је особље пројекта и биће објављена на веб сајту пројекта наког одобрења. У време великих гужви, то може потрајати неколико недеља. Молимо вас за разумевање и стрпљење."
         help_text:
-          add_another_person: Можете додати више од једне особе.
-          behalf_of: Оставите празно уколико помажете некоме да сачини овај допринос
+          add_another_person: "Можете додати више од једне особе."
+          behalf_of: "Оставите празно уколико помажете некоме да сачини овај допринос"
           save_story: Кликом на "Сачувај нацрт приче" прелазире на следећи корак доприноса
-          sections: Кликните на део са насловима испод да бисте отворили или затворили јединицу; сваки део садржи додатне информације које можете додати вашој причи.
-          use_google_maps: Користите Гугл мапе
+          sections: "Кликните на део са насловима испод да бисте отворили или затворили јединицу; сваки део садржи додатне информације које можете додати вашој причи."
+          use_google_maps: "Користите Гугл мапе"
         labels:
-          people: Додајте имена људи на које се односи ова прича.
-        step1: Корак 1 - Испричајте вашу причу
-      _summary:
-        caption: Резиме
+          people: "Додајте имена људи на које се односи ова прича."
+        step1: "Корак 1 - Испричајте вашу причу"
       withdraw:
-        question: Да ли сте сигурни да желите да повучете причу “<strong>%{title}</strong>” из ове колекције?
-        title: Повлачење приче
+        question: "Да ли сте сигурни да желите да повучете причу “<strong>%{title}</strong>” из ове колекције?"
+        title: "Повлачење приче"
     contributor:
       dashboard_contributor:
         captions:
-          submitted: Послато
+          draft: "Нацрти"
+          submitted: "Послато"
         empty:
-          all: Још увек немате започетих прича.
-          approved: Још увек немате одобрених прича.
-          draft: У овом тренутку немате нацрте прича.
-          submitted: Још увек немате послатих прича.
+          all: "Још увек немате започетих прича."
+          approved: "Још увек немате одобрених прича."
+          draft: "У овом тренутку немате нацрте прича."
+          submitted: "Још увек немате послатих прича."
         headings:
-          contributions: Ваше приче
+          contributions: "Ваше приче"
         links:
-          new: Додајте нову причу
+          new: "Додајте нову причу"
+        p1: "Испод су већ додате приче. Према потреби их уредите или избришите."
+        title: "Додајте своју причу"
       dashboard_guest:
+        button_text: "Допринос завршен"
         headings:
-          finished: Завршен допринос?
+          finished: "Завршен допринос?"
+        identity: (Ако нисте %{name}, кликните на "Допринос завршен" испод)
         links:
-          edit_contact: Уредите податке за контакт
-          new: Нови доприност
+          edit_contact: "Уредите податке за контакт"
+          new: "Нови доприност"
+        notice: "%{name}, допринесите као гост."
+        privacy: "Када завршите са доприносима притисните на тастер испод, какоби избрисали своје контактне податке. Ово вам помаже у заштити приватности укоико делите рачунар."
+        title: "Контролна плоча за госта"
       guests:
         edit:
-          title: Уредите податке за контакт госта
+          title: "Уредите податке за контакт госта"
         new:
-          contact_details: ! 'У супротном, молимо вас да нам прво дате ваше податке за контакт:'
-          guest: Шаљете допринос као гост.
+          contact_details: "У супротном, молимо вас да нам прво дате ваше податке за контакт:"
+          guest: "Шаљете допринос као гост."
           links:
-            register: региструјте се
-            sign_in: пријавите се
-          notice: Уколико желите да сачувате ваше податке за контакт и пратите доприносе које сте послали %{sign_in} или %{register} пре него што наставите.
-          title: Подаци за контакт госта
+            register: "региструјте се"
+            sign_in: "пријавите се"
+          notice: "Уколико желите да сачувате ваше податке за контакт и пратите доприносе које сте послали %{sign_in} или %{register} пре него што наставите."
+          title: "Подаци за контакт госта"
       help:
         adding_your_story:
-          heading: Додавање ваше приче Еуропеани 1914-1918
-          p1: Можете додати своју причу Еуропеани 1914-1918 користећи онлајн форму на овом сајту. Једноставно укуцајте неке информације о вашем доприносу, наведите о чему се ради (разгледница, дневник, итд) и додајте причу коју желите да делите (на пример о особи на фотографији, како дошли до ње, шта ви знате о објекту). Онда можете да приложите дигиталну верзију објекта, на пример, скениран или фотографисану копију слике, дневник, униформу или шта год желите да поделите са свима. Када пошаљете ваш допринос прегледаће га стручњаци и након тога постати доступан другима.
+          heading: "Додавање ваше приче Еуропеани 1914-1918"
+          p1: "Можете додати своју причу Еуропеани 1914-1918 користећи онлајн форму на овом сајту. Једноставно укуцајте неке информације о вашем доприносу, наведите о чему се ради (разгледница, дневник, итд) и додајте причу коју желите да делите (на пример о особи на фотографији, како дошли до ње, шта ви знате о објекту). Онда можете да приложите дигиталну верзију објекта, на пример, скениран или фотографисану копију слике, дневник, униформу или шта год желите да поделите са свима. Када пошаљете ваш допринос прегледаће га стручњаци и након тога постати доступан другима."
         how_to_use:
-          heading: Како се користи окружење за онлајн додавање приче
-          item1: ! '%{register} како бисте добили налог (ово је потребно да учините само једном) или %{sign_in} уколико сте се већ регистровали.'
-          item2: Додајте податке о вашем прилогу
-          item3: (необавезно) Додајте дигиталну верзију вашег објекта (фотографија, скенирани текст, видео, аудио и др.)
-          item4: Пошаљите допринос онлајн колекцији прича
-          item5: Ваш допринос ће прегледати каталогизатор Еуропеане. Када буде прегледан и одобрен биће видљив свима.
-          p1: Уколико желите да додате нешто нашој онлајн колекцији прича, прво морате да се %{sign_in} или %{register}. Тада ћете бити у могућности да додајете објекте и приче Еуропеани 1914-1918.
-          p2: Тамо ће од вас бити затражено да прођете пет корака. Не морате да комплетирате читав процес од једном него можете да сачувате ваш допринос и да га допуните касније.
+          heading: "Како се користи окружење за онлајн додавање приче"
+          item1: "%{register} како бисте добили налог (ово је потребно да учините само једном) или %{sign_in} уколико сте се већ регистровали."
+          item2: "Додајте податке о вашем прилогу"
+          item3: "(необавезно) Додајте дигиталну верзију вашег објекта (фотографија, скенирани текст, видео, аудио и др.)"
+          item4: "Пошаљите допринос онлајн колекцији прича"
+          item5: "Ваш допринос ће прегледати каталогизатор Еуропеане. Када буде прегледан и одобрен биће видљив свима."
+          p1: "Уколико желите да додате нешто нашој онлајн колекцији прича, прво морате да се %{sign_in} или %{register}. Тада ћете бити у могућности да додајете објекте и приче Еуропеани 1914-1918."
+          p2: "Тамо ће од вас бити затражено да прођете пет корака. Не морате да комплетирате читав процес од једном него можете да сачувате ваш допринос и да га допуните касније."
+        item1: "Додајте своју причу Еуропеани 1914-1918 – Погледајте испод"
+        item2: "%{privacy_policy} - Одвојена страница"
+        item3: "%{takedown_policy} - Одвојена страница"
+        item4: "%{contribution_terms} - Одвојена страница"
+        item5: "%{about_the_project} - Одвојена страница"
+        p1: Циљ пројекта "Еуропеана 1914-1918" је да се прикупи материјал у вези са Првим светским ратом (1914-1918) и особама које су учествовале у њему или биле погођене њиме. У овом фази пројекта прикупљамо материјал и приче из Велике Британије, Немачке, Словеније, Луксембурга, Ирске итд. Више информација о пројекту и врсти материјала који прикупљмо може се пронаћи на %{about} страни.
+      index:
+        item1: "Унесите информације о својој причи."
+        item2: "Сачувајте своју причу као нацрт."
+        item3: "Додајте једну или више јединица (фотоградија, текстова, звучних снимака, видео снимака итд)"
+        item4: "Потврдите да прихватате услове и предајте јединицу на разматрање."
+        p1: 'Хвала вам што сте понудили да допринесете пројекту Еуропеана 1914-1918. Једноставно је направити допринос. Кликните на "Додај нову причу" испод како би почели. Након тога, следе кораци:'
+      registration_required:
+        p1: "Потребна је %{sign_in} или %{register} како бисте могли да додате предмете и приче Еуропеани 1914-1918."
     devise:
       passwords:
         edit:
-          title: Промените своју лозинку
+          title: "Промените своју лозинку"
         new:
-          title: Да ли сте заборавили своју лозинку?
+          title: "Да ли сте заборавили своју лозинку?"
       registrations:
         edit:
-          title: Измените корисничке податке
+          title: "Измените корисничке податке"
         new:
-          title: Регистрација
+          title: "Регистрација"
       sessions:
         new:
-          instructions: Молимо да се пријавите са подацима вашег налога.
-          title: Пријавите се
+          instructions: "Молимо да се пријавите са подацима вашег налога."
+          title: "Пријавите се"
     errors:
       api_error:
-        message: Ови подаци тренутно нису доступни.
-        title: АPI грешка
+        message: "Ови подаци тренутно нису доступни."
+        title: "АPI грешка"
       bad_request:
-        message: Дошло је до проблема за предатим захтевом због којих се он не може процесуирати.
-        title: Неисправан захтав
+        message: "Дошло је до проблема за предатим захтевом због којих се он не може процесуирати."
+        title: "Неисправан захтав"
       federated_search_error:
-        message: Подаци из овг провајдера обједињене претраге нису тренутно доступни.
-        title: Грешка код обједињене претраге
+        message: "Подаци из овг провајдера обједињене претраге нису тренутно доступни."
+        title: "Грешка код обједињене претраге"
       forbidden:
-        message: Немате дозволу за приступ траженом извору.
-        title: Забрањено
+        message: "Немате дозволу за приступ траженом извору."
+        title: "Забрањено"
       internal_server_error:
-        message: Дошло је до проблемо због којег не можемо да обрадимо ваш упит.
-        title: Интерна грешка
+        message: "Дошло је до проблемо због којег не можемо да обрадимо ваш упит."
+        title: "Интерна грешка"
       not_found:
-        message: Тражени извор није пронађен.
-        title: Није пронађено
+        message: "Тражени извор није пронађен."
+        title: "Није пронађено"
       search_offline:
-        message: Претрага тренутно није доступна. Молимо покушајте поново.
-        title: Тражите offline
+        message: "Претрага тренутно није доступна. Молимо покушајте поново."
+        title: "Тражите offline"
     explore:
-      heading: Истражите приче
+      heading: "Истражите приче"
       links:
         diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="Search for ‘Diary’">дневник</a>
         eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Search for ‘Eastern front’">Источни форнт</a>
@@ -1668,229 +2646,201 @@ sr:
           regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objects from the Regensburg collection day">Регенсбург 20. Јул 2011</a>
           stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objects from the Stuttgart collection day">Штудгарт 12. Април 2011</a>
         trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Search for ‘Trenches’">ровови</a>
-      p1: Овде можете видети шта је се додато у нашу колекцију прича до сада.
+      p1: "Овде можете видети шта је се додато у нашу колекцију прича до сада."
       p2: Користите претрагу како бисте нашли објекте који <b>одговарају одређеној речи или изразу</b>. Како бисте <b>прегледали све</b> што се налази у колекцији прича, притисните "тражи" без уноса речи.
-      p3: Можете такође <b>прегледати колекцију прича</b>. Кликните на пример термина за претрагу испод како бисте покренули претрагу за одговарајући термин. Број резултата ће се повећавати како се увећава број јединица у бази.
-      p5: <b>Материјал прикупљен током Дана прикупљања породичних успомена:</b>
-      search_for: <b>Тражите:</b>
+      p3: "Можете такође <b>прегледати колекцију прича</b>. Кликните на пример термина за претрагу испод како бисте покренули претрагу за одговарајући термин. Број резултата ће се повећавати како се увећава број јединица у бази."
+      p5: "<b>Материјал прикупљен током Дана прикупљања породичних успомена:</b>"
+      search_for: "<b>Тражите:</b>"
     flickr:
       select:
-        instruction: Означите фотографије које желите да преузмете. Наслови и описи ће бити преузети аутоматски.
+        instruction: "Означите фотографије које желите да преузмете. Наслови и описи ће бити преузети аутоматски."
         licenses:
-          heading: Одаберите слике са вашег Фликр налога
-          incompatible: Лиценца није компатибилна
-          instruction: ! 'Само слике у складу са компатибилним лиценцама могу бити увезене у Еуропеану 1914-1918:'
-        title: Одаберите фотографије са вашег Flickr налога
+          heading: "Одаберите слике са вашег Фликр налога"
+          incompatible: "Лиценца није компатибилна"
+          instruction: "Само слике у складу са компатибилним лиценцама могу бити увезене у Еуропеану 1914-1918:"
+        title: "Одаберите фотографије са вашег Flickr налога"
       show:
         action:
-          link: Повежите са Фликр налогом
-          unlink: Уклоните повезивање са Фликр налогом
+          link: "Повежите са Фликр налогом"
+          unlink: "Уклоните повезивање са Фликр налогом"
         status:
-          linked: Повезани сте са Фликром као %{username}
-          unlinked: Нисте повезани са Фликром
+          linked: "Повезани сте са Фликром као %{username}"
+          unlinked: "Нисте повезани са Фликром"
     home:
-      heading: неиспричане приче и званична историја Првог светског рата
+      heading: "неиспричане приче и званична историја Првог светског рата"
       links:
-        across_europe: широм Европе
-        video_guide: корак по корак видео водич
+        across_europe: "широм Европе"
+        video_guide: "корак по корак видео водич"
       otto:
         heading: Otto &amp; Bernard
-        p1: Уколико имате више информација о Ото Арнду, молимо %{add_your_story} у онлајн колекцију прича и поделите је са свима.
-      p1: <em>Еуропеана 1914-1918</em> прикупља материјал из извора %{across_europe}.
-      p2: <b>Да ли поседујете фотографије, писма, разгледнице, сувенире или друге предмете из периода Првог светског рата или у вези с њим? Да ли знате неку причу или анегдоту? Молимо Вас да је додате у онлајн колекцију прича како би је и остатак света чуо.</b>
+        p1: "Уколико имате више информација о Ото Арнду, молимо %{add_your_story} у онлајн колекцију прича и поделите је са свима."
+      p1: "<em>Еуропеана 1914-1918</em> прикупља материјал из извора %{across_europe}."
+      p2: "<b>Да ли поседујете фотографије, писма, разгледнице, сувенире или друге предмете из периода Првог светског рата или у вези с њим? Да ли знате неку причу или анегдоту? Молимо Вас да је додате у онлајн колекцију прича како би је и остатак света чуо.</b>"
     links:
-      back: Назад на %{link}
-      back-to-search: Повратак на резултате претраге
-      previous_step: Претходна страница
-      privacy_policy: Политика приватности
+      back: "Назад на %{link}"
+      back-to-search: "Повратак на резултате претраге"
+      previous_step: "Претходна страница"
+      privacy_policy: "Политика приватности"
     register:
       help_text:
-        email: Пријавићете се коришћењем ове имејл адресе и лозинке коју одаберете.
-        password: Лозинка мора имати 6 карактера
-        profile_image: ! 'Ова слика ће бити приказана уз ваш допринос<br/>
-
-          максимална величина датотеке = 128kb'
-        profile_photo: Уколико желите, можете поставити вашу слику (GIF or JPEG). Слика ће бити приказана уз ваше приче.
-        user_name: Ово ће бити приказано јавно као признање уз одобрене доприносе.
+        email: "Пријавићете се коришћењем ове имејл адресе и лозинке коју одаберете."
+        password: "Лозинка мора имати 6 карактера"
+        profile_image: |-
+          Ова слика ће бити приказана уз ваш допринос<br/>
+          максимална величина датотеке = 128kb
+        profile_photo: "Уколико желите, можете поставити вашу слику (GIF or JPEG). Слика ће бити приказана уз ваше приче."
+        user_name: "Ово ће бити приказано јавно као признање уз одобрене доприносе."
       labels:
-        age_range: Ваше године у распону
-        email: Имејл
-        gender: Пол
-        password: Лозинка
-        password_repeat: Поновите лозинку
-        profile_image: Слика профила
-        profile_photo: Фотографија профила
+        age_range: "Ваше године у распону"
+        email: "Имејл"
+        gender: "Пол"
+        password: "Лозинка"
+        password_repeat: "Поновите лозинку"
+        profile_image: "Слика профила"
+        profile_photo: "Фотографија профила"
         residence:
-          country: Одаберите државу вашег пребивања
-          post_code: Поштански број
-        user_name: Корисничко име
+          country: "Одаберите државу вашег пребивања"
+          post_code: "Поштански број"
+        user_name: "Корисничко име"
       terms:
-        accept: Прихватам %{terms}
-        heading: Услови коришћења
-        item1: дигитална грађа коју шаљете није заштићена ауторским правима; или
-        item2: ви поседујете ауторска права за ову дигиталну грађу; или
-        item3: власник ових ауторских права вас је овластио да пошаљете дигиталну грађу под следећим условима.
-        item4: За садржај који шаљете (као што је видео материјал, фотографије, дневници, слике или аудио грађа) дајете дозволу свима да га користе на начин на који желе. Ипак, приликом употребе они су у обавези да повежу садржај са носиоцем права. Уколико направе измене на садржају онда они морају дозволити другима да користе измењени садржај под истим условима.
-        item5: За описне податке које шаљете (опис или тагови) на основу којих је могуће проналажење садржаја путем машина за претраживање, ви дајете дозволу свима да користе ове описне податке на начин на који желе, без додатног условљавања.
-        p1: ! 'Пре него што пошаљете дигитални садржај Еуропеани, морате да се сложоте са  %{contribution_terms}. Између осталог, најважнији аспекти прихватања ових услова су следећи:'
-        p2: <b>Ви гарантујете да:</b>
-        p3: Уколико не желите да прихватите ове услове, молимо вас да не шаљете садржај и опсине податке Еуропеани.
-        terms: услови
+        accept: "Прихватам %{terms}"
+        heading: "Услови коришћења"
+        item1: "дигитална грађа коју шаљете није заштићена ауторским правима; или"
+        item2: "ви поседујете ауторска права за ову дигиталну грађу; или"
+        item3: "власник ових ауторских права вас је овластио да пошаљете дигиталну грађу под следећим условима."
+        item4: "За садржај који шаљете (као што је видео материјал, фотографије, дневници, слике или аудио грађа) дајете дозволу свима да га користе на начин на који желе. Ипак, приликом употребе они су у обавези да повежу садржај са носиоцем права. Уколико направе измене на садржају онда они морају дозволити другима да користе измењени садржај под истим условима."
+        item5: "За описне податке које шаљете (опис или тагови) на основу којих је могуће проналажење садржаја путем машина за претраживање, ви дајете дозволу свима да користе ове описне податке на начин на који желе, без додатног условљавања."
+        p1: "Пре него што пошаљете дигитални садржај Еуропеани, морате да се сложоте са  %{contribution_terms}. Између осталог, најважнији аспекти прихватања ових услова су следећи:"
+        p2: "<b>Ви гарантујете да:</b>"
+        p3: "Уколико не желите да прихватите ове услове, молимо вас да не шаљете садржај и опсине податке Еуропеани."
+        terms: "услови"
     search:
       facets:
         common:
-          country: Држава
-          rights: Права
-          subject: Предмет
-          type: Врста
-          year: Година
+          category: "Категорија"
+          collection: "Колекција"
+          contributor: "Дародавац"
+          country: "Држава"
+          creator: "Држава"
+          format: "Формат"
+          language: "Језик"
+          location: "Локација"
+          media: "Врста медија"
+          provider: "Провајдер"
+          rights: "Права"
+          subject: "Предмет"
+          type: "Врста"
+          year: "Година"
         contributions:
-          collection_day: Дан прикупљања
-          content: Врста грађе
-          file_type: Врста медија
-          keywords: Кључне речи
-          lang: Језик
-          license: Дозвола
-          place_name: Место
-          protagonist_names: Име актера
-          provider: Обезбедио
-          theatres: Позоришта
+          collection_day: "Дан прикупљања"
+          content: "Врста грађе"
+          file_type: "Врста медија"
+          keywords: "Кључне речи"
+          lang: "Језик"
+          license: "Дозвола"
+          place_name: "Место"
+          protagonist_names: "Име актера"
+          provider: "Обезбедио"
+          theatres: "Позоришта"
         digitalnz:
-          content_partner: Партнер садржаја
+          content_partner: "Партнер садржаја"
         europeana:
-          data_provider: Провајдер података
-          reusability: Могућност поновног коришћења
-          source_all: Сви резултати Еуропеане
-          source_info: Доступно је више могућности за филтрирање уколико одаберете да видите приче из јавних колекција библиотека/музеја.
-          source_institution: Искључиво колекције библиотека/музеја
-          source_label: Извор
-          source_ugc: Приче јавности
-          ugc: Допринос корисника
-          uri: Предмет
+          data_provider: "Провајдер података"
+          reusability: "Могућност поновног коришћења"
+          source_all: "Сви резултати Еуропеане"
+          source_info: "Доступно је више могућности за филтрирање уколико одаберете да видите приче из јавних колекција библиотека/музеја."
+          source_institution: "Искључиво колекције библиотека/музеја"
+          source_label: "Извор"
+          source_ugc: "Приче јавности"
+          ugc: "Допринос корисника"
+          uri: "Предмет"
+        matches_for: "Одговара"
+        refine_results: "Филтрирајте ваше резултате"
         trove:
-          availability: Доступност
-          discipline: Дисциплина
+          availability: "Доступност"
+          discipline: "Дисциплина"
+      providers:
+        canadiana: "Извори из Канаде"
+        collection: "Еуропеана"
+        contributions: 1914-1918
+        digitalnz: "Извори са Новог Зеланда"
+        dpla: "Извори из Америке"
+        europeana: "Портал Еуропеана"
+        trove: "Извори из Аустралије"
     statistics:
       index:
+        contributions:
+          heading: "Доприноси"
+          institutional: "Институционални предмети"
+          ugc: "Од наших корисника"
+        intervals:
+          last_month: "Прошлог месеца"
+          last_quarter: "Прошлог тромесечја"
+          last_week: "Прошле недеље"
+          last_year: "Прошле године"
+          this_month: "Овог месеца"
+          this_week: "Ове недеље"
         metrics:
-          avgtimeonsite: Тема на лицу места
-    test-key: 
-  activerecord:
-    attributes:
-      user:
-        institution: 
-        terms: Термини
-      contribution:
-        metadata: метаподаци
-      metadata_record:
-        field_alternative: 
-        field_file_type_terms: 
-        field_collection_day_terms: 
-      attachment:
-        metadata: метаподаци
-      collection_day:
-        description: опис
-        end_date: крајњи датум
-        image: слика
-        name: име
-        start_date: почетни датум
-        taxonomy_term_id: 
-    options:
-      user:
-        role_name:
-          institutional_provider: 
-  common:
-    links:
-      annotorious: Јединица нема прикључених белешки. Отворите јединицу да бисте је прочитали.
-      contact_us: Контактирајте нас
-      contact_us_email: Можете нас контактирати и путем имејла <span class="addr">1914-1918 [@] europeana [.] eu</span>
-      contribution_terms: Еуропеанини услови под којима је могућ допринос корисника
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en" target="_blank">Еуропеанини услови под којима је могућ допринос корисника</a>
-      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Сазнајте више о прикупљању филмског материјала</a>.
-      explore_stories: Прегледајте приче
-      explore-the-stories: Прегледајте приче!
-      explore-the-stories-brief: Прегледајте!
-      help: Помоћ
-      my_account: Мој налог
-      my_stories: Моје приче
-      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Сазнајте више о обједињавању националних колекција</a>.
-      play-audio: Пустите аудио
-      play-video: Пустите видео
-      privacy_policy: Политика приватности
-      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">За више информација молимо вас посетите наш веб сајт</a>
-      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Сазнајте више о прикупљању породичних прича</a>.
-      register: Региструјте се
-      sign_in: Пријавите се
-      statistics: Статистика
-      takedown_policy: Takedown политика
-      titles:
-        contribution_terms: Погледајте Еуропеанине услове под којима је могућ допринос корисника
-        great_war: Архива Великог рата на Универзитету Оксфорд
-        takedown: На стреницу Takedown политике
-      view-image: Погледајте целу јединицу
-      view-pdf: Отворите документ
-  flash:
-    contributors:
-      create:
-        alert: Ваш налог не може бити креиран
-      update:
-        alert: Ваш налог не може бити ажуриран
-    flickr:
-      import:
-        alert:
-          empty: Нема одабраних слика
-          invalid_license: ! 'Слдеће фотографије немају одговарајуће дозволе и неће бити увезене:'
-        notice: Пренос фотографија са Фликера у позадини.
-    guest_contact:
-      create:
-        alert: Постоји проблем у вези са подацима које сте навели. Молимо вас да их исправите и покушате поново.
-        notice: Примљени подаци за контакт.
-      forget:
-        notice: Подаци за контакт обрисани.
-      update:
-        alert: Постоји проблем у вези са подацима које сте навели. Молимо вас да их исправите и покушате поново.
-        notice: Подаци за контакт ажурирани.
-    metadata_fields:
-      update_order:
-        notice: Редослед поља метаподатака ажуриран.
+          avgtimeonsite: "Тема на лицу места"
+          europeana_pageviews: "Преглед институционалних јединица"
+          object_pageviews: "Прегледи прича"
+          visits: "Посете"
+        no_results: "Статистички подаци нису доступни."
+        providers:
+          canadiana: Canadiana (Канада)
+          digitalnz: DigitalNZ (Нови Зеланд)
+          dpla: DPLA (САД)
+          europeana: "Еуропеана"
+          trove: Trove (Аустралија)
+        title: "Статистички подаци о коришћењу"
+    table:
+      header:
+        actions: "Радње"
     taggings:
       depublish:
-        alert: Неуспело укидање објаве ових тагова.
-        notice: Укинута објава тага!
+        question: "Да ли сте сигурни да желите да одјавите ознаку која је у контексту ове приче?"
+        title: "Одјави ознаку"
+      edit:
+        title: "Уреди ознаку"
+    tags:
+      add: "Додајте"
+      delete:
+        question: "Да ли сте сигурни да желите да уклоните ову ознаку?"
+        title: "Уклоните ознаку"
+      flag:
+        question: "Да ли сте сигурни да желите да означите ову ознаку као непримерну?"
+        title: "Означите као непримерно"
+      info: "Одвојите ознаке зарезом и притисните enter како би их сачували."
+    test-key: 
     users:
-      create:
-        alert: Кориснички налог не може бити креиран.
-        notice: Кориснички налог креиран.
-      destroy:
-        notice: Корисник избрисан
-      register:
-        alert: Регистрација неуспешна. Молимо вас да измените податке испод и да пробате поново.
-        notice: Регистрација успешна! Добродошли!
-      update:
-        alert: Кориснички налог не моеже бити ажуриран.
-        notice: Кориснички налог ажуриран.
-  javascripts:
-    digital_object:
-      hints:
-        copy_from_story: Кликом на дугме испод копираће се слични метаподаци из приче за ову јединицу.
-      labels:
-        copy_from_story: Подаци о примерку
-      links:
-        copy_from_story: Копирајте из приче
-    collection-days:
-      no-upcoming: 
-  Polish: 
+      _summary:
+        caption: "Детаљи за налог"
+      account:
+        caption: "Лични подаци"
+        links:
+          edit_contact: "Промени личне податке"
+          edit_user: "Промени податке о пријави"
+        title: "Ваш кориснички налог"
+      sign-in:
+        help: "За пријаву користите своје корисничко име или имејл адресу. Не морате користити оба."
   will_paginate:
+    entry_range_label: "Резултати %{first}–%{last} од %{total}"
+    first_title: "прва страница"
+    last_title: "последња страница"
+    next_label: ">"
+    next_title: "следећа страница"
     page_entries_info:
-      multi_page: Приказ %{model} %{from} - %{to} од %{count} укупно
-      multi_page_html: Приказ %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> од <b>%{count}</b> укупно
+      multi_page: "Приказ %{model} %{from} - %{to} од %{count} укупно"
+      multi_page_html: "Приказ %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> од <b>%{count}</b> укупно"
       single_page:
-        one: Приказ 1 %{model}
-        other: Приказ свих %{count} %{model}
+        one: "Приказ 1 %{model}"
+        other: "Приказ свих %{count} %{model}"
       single_page_html:
-        one: Приказ <b>1</b> %{model}
-        other: Приказ <b>all&nbsp;%{count}</b> %{model}
-  attributes:
-    username: 
-  languages:
-    pt: 
+        one: "Приказ <b>1</b> %{model}"
+        other: "Приказ <b>all&nbsp;%{count}</b> %{model}"
+    page_gap: "&hellip;"
+    page_total_label: "од %{total_pages}"
+    per_page_label: "резултата по страници:"
+    per_page_title: "број погодака приказан на страници"
+    previous_label: "<"
+    previous_title: "претходна страница"

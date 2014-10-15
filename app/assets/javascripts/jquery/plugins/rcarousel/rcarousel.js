@@ -201,12 +201,11 @@
 						self.orientation_count += 1;
 
 						if ( self.orientation_count >= 2 ) {
-							self.goToIndex( self.getCurrentItemIndex() );
 							self.orientation = window.orientation;
 							self.orientation_count = 0;
 
 							self.calculateDimensions( { data: { self: self } } );
-							self.toggleNavArrows();
+							self.move( self.getCurrentItemIndex() );
 						}
 					}
 				},
@@ -269,7 +268,7 @@
 			$( window ).smartresize(
 				function() {
 					self.calculateDimensions( { data: { self: self } } );
-					self.toggleNavArrows();
+					self.move( self.getCurrentItemIndex() );
 				}, 400
 			);
 		},
@@ -335,8 +334,7 @@
 			self.setCarouselHeight();
 			self.setCarouselWidth();
 
-			// when the width of the carousel is less than the widest item and
-			// the carousel is not set to item width is container width, the
+			// when the width of the carousel is < 410px a problem appears where the
 			// carousel wraps to a seocnd row. this fix takes care of this issue
 			if ( self.recalc === 0 ) {
 				if (
@@ -370,6 +368,7 @@
 
 			// handle next nav
 			if ( dir === 'next' ) {
+				this.new_nav.direction = dir;
 				this.new_nav.index = this.attributes.current_item_index + 1;
 
 				if ( this.options.item_width_is_container_width ) {
@@ -380,6 +379,7 @@
 
 			// handle prev nav
 			} else if ( dir === 'prev' ) {
+				this.new_nav.direction = dir;
 				this.new_nav.index = this.attributes.current_item_index - 1;
 
 				if ( this.options.item_width_is_container_width ) {
@@ -462,12 +462,22 @@
 			this.new_nav.width = 0;
 
 			$.each( this.$items, function( index ) {
-				item_width = $(this).outerWidth(true);
+				item_width = $( this ).outerWidth( true );
 
+				// only add widths when the each item index is > the current item index
 				if ( index > self.attributes.current_item_index ) {
 					new_additional_width += item_width;
+
+					// when the widest item is >= container width, assume that we still
+					// need to nav to the next index
+					if ( self.attributes.widest_item >= self.attributes.container_width ) {
+						self.new_nav.index = index;
+						return false;
+					}
 				}
 
+				// if the new width is > container width don’t add the last item width
+				// and exit the loop
 				if ( new_additional_width > self.attributes.container_width ) {
 					new_additional_width -= item_width;
 					return false;
@@ -501,10 +511,20 @@
 			for ( i = this.attributes.items_last_index; i >= 0; i -= 1 ) {
 				item_width = this.$items.eq(i).outerWidth(true);
 
+				// only add widths when the looped item index is <= the current item index -1
 				if ( i <= this.attributes.current_item_index - 1 ) {
 					new_lessening_width += item_width;
+
+					// when the widest item is >= container width, assume that we still
+					// need to nav to the next index
+					if ( this.attributes.widest_item >= this.attributes.container_width ) {
+						this.new_nav.index = i;
+						break;
+					}
 				}
 
+				// if the new width is > container width don’t lessen the width
+				// by the last anount and exit the loop
 				if ( new_lessening_width > this.attributes.container_width ) {
 					new_lessening_width -= item_width;
 					break;
@@ -810,7 +830,7 @@
 		 * toggle display of nav arrows
 		 */
 		toggleNavArrows : function() {
-			if ( this.$nav_prev.length === 1 ) {
+			if ( this.$nav_prev && this.$nav_prev.length === 1 ) {
 				// don’t display if on first item
 				if ( this.attributes.current_item_index === 0 ) {
 					this.$nav_prev.fadeOut();
@@ -824,7 +844,7 @@
 				}
 			}
 
-			if ( this.$nav_next.length === 1 ) {
+			if ( this.$nav_next && this.$nav_next.length === 1 ) {
 				// don’t display if on last item
 				if ( this.attributes.current_item_index >= this.attributes.item_total - 1 ) {
 					this.$nav_next.fadeOut();
