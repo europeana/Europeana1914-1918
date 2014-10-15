@@ -34,6 +34,15 @@ window.europeana = (function( europeana, $ ) {
 		$services,
 
 		/**
+		 * jQuery object that represent the DOM element that contains the
+		 * translation services not available message
+		 *
+		 * @name translator#$services_not_available
+		 * @type {object}
+		 */
+		$services_not_available,
+
+		/**
 		 * jQuery object that represent the DOM element that is the language
 		 * dropdown selector
 		 *
@@ -65,7 +74,7 @@ window.europeana = (function( europeana, $ ) {
 		 * @name translator#getting_new_access_token
 		 * @type {bool}
 		 */
-		geting_new_access_token = false,
+		getting_new_access_token = false,
 
 		/**
 		 * Language ISO codes matched with their corresponding localised language
@@ -126,18 +135,6 @@ window.europeana = (function( europeana, $ ) {
 		 */
 		translation_nodes_original = [],
 
-
-		/**
-		 * an html template displaying a translation services not available msg
-		 *
-		 * @name translator#translation_not_available_html
-		 * @type {string}
-		 */
-		translation_not_available_html =
-			'<span>' +
-				I18n.t( 'javascripts.translate.service-not-available' ) +
-			'</span>',
-
 		/**
 		 * an html template representing the translation services container
 		 *
@@ -164,6 +161,9 @@ window.europeana = (function( europeana, $ ) {
 				'id="translations-loading-icon" ' +
 				'class="loading-spinner" ' +
 				'title="' + I18n.t( 'javascripts.loading' ) + '">' +
+			'</div>' +
+			'<div id="translation-services-not-available">' +
+				I18n.t( 'javascripts.translate.service-not-available' ) +
 			'</div>';
 
 		/**
@@ -179,10 +179,13 @@ window.europeana = (function( europeana, $ ) {
 		 * @param {string} services_selector
 		 */
 		function displayServiceNotAvailable( services_selector ) {
+			// this happens if token is not available at init
 			if ( !$services && services_selector ) {
-				$( services_selector ).append( $( translation_not_available_html ) );
+				$( services_selector ).append( I18n.t( 'javascripts.translate.service-not-available' ) );
 			} else if ( $services ) {
-				$services.html( translation_not_available_html );
+				$services.fadeOut(function() {
+					$services_not_available.fadeIn();
+				});
 			}
 		}
 
@@ -216,11 +219,12 @@ window.europeana = (function( europeana, $ ) {
 		 * @param {function} callback
 		 */
 		function retrieveNewToken( callback ) {
-			if ( geting_new_access_token || parser_error ) {
+			if ( getting_new_access_token ) {
 				return;
 			}
 
-			geting_new_access_token = true;
+			debug( 'europeana.translator.retrieveNewToken' );
+			getting_new_access_token = true;
 
 			$.ajax({
 				beforeSend: addCsrfToken,
@@ -301,6 +305,8 @@ window.europeana = (function( europeana, $ ) {
 		function retrieveAccessTokenCallback( textStatus, data ) {
 			var okay = true;
 
+			getting_new_access_token = false;
+
 			if ( !$.isPlainObject( RunCoCo ) ) {
 				debug( 'europeana.translator.retrieveAccessTokenCallback RunCoCo is not defined' );
 				okay = false;
@@ -325,20 +331,18 @@ window.europeana = (function( europeana, $ ) {
 			$services_select.trigger( 'change' );
 		}
 
-		function clearGetingNewAccessToken() {
+		function displayTranslationServices() {
 			if ( callbacks_waiting > 0 ) {
 				return;
 			}
 
-			if ( !parser_error ) {
-				geting_new_access_token = false;
-			} else {
-				displayServiceNotAvailable();
-			}
-		}
+			if ( parser_error && !getting_new_access_token ) {
+				$services.fadeTo( 'fast', 1.0, function() {
+					$translations_loading_icon.fadeOut( function() {
+						displayServiceNotAvailable();
+					});
+				});
 
-		function displayTranslationServices() {
-			if ( callbacks_waiting > 0 ) {
 				return;
 			}
 
@@ -440,13 +444,15 @@ window.europeana = (function( europeana, $ ) {
 
 				// assume a new token is needed
 				if ( status.status === 'parsererror' ) {
+					if ( !parser_error ) {
+						getAccessToken( true, retrieveAccessTokenCallback );
+					}
+
 					parser_error = true;
-					getAccessToken( true, retrieveAccessTokenCallback );
 				}
 			}
 
 			callbacks_waiting -= 1;
-			clearGetingNewAccessToken();
 			displayTranslationServices();
 		}
 
@@ -669,6 +675,7 @@ window.europeana = (function( europeana, $ ) {
 			$services_select = $services.find( 'select' );
 			$return_to_original_text = $services.find( '#return-to-original-text' ).hide();
 			$translations_loading_icon = $( '#translations-loading-icon' ).hide();
+			$services_not_available = $( '#translation-services-not-available' ).hide();
 		}
 
 		/**
