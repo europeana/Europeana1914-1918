@@ -1,4 +1,5 @@
 en:
+  Polish: 
   actions:
     add: Add
     approve: Approve
@@ -21,6 +22,8 @@ en:
     update: Update
   activerecord:
     attributes:
+      annotation:
+        text: 
       attachment:
         dropbox_path: Dropbox file
         file: File
@@ -29,9 +32,16 @@ en:
         file_file_name: File name
         file_file_size: File size
         file_updated_at: Updated at
+        metadata: Metadata
         preview: Preview
         public: Public
-        metadata: Metadata
+      collection_day:
+        description: Description
+        end_date: End date
+        image: Image
+        name: Name
+        start_date: Start date
+        taxonomy_term_id: Taxonomy term
       contact:
         age: Age
         country: Country of residence
@@ -50,9 +60,9 @@ en:
         cataloguer: Cataloguer
         contributor: Contributor
         created_at: Started at
+        metadata: Metadata
         published_at: Published at
         submitted_at: Submitted at
-        metadata: Metadata
       contribution_status:
         created_at: Status changed at
       metadata_field:
@@ -65,6 +75,10 @@ en:
         required: Required
         searchable: Searchable
         show_in_listing: Show in listings
+      metadata_record:
+        field_alternative: Field alternative
+        field_collection_day_terms: Field collection day terms
+        field_file_type_terms: Field file type terms
       setting:
         name: Name
         value: Value
@@ -73,23 +87,12 @@ en:
         term: Term
       user:
         created_at: Registration date
+        institution: Institution
         password: Password
         password_confirmation: Repeat password
         role_name: Role
-        username: Username
-        institution: 
         terms: Terms
-      metadata_record:
-        field_alternative: Field alternative
-        field_file_type_terms: Field file type terms
-        field_collection_day_terms: Field collection day terms
-      collection_day:
-        description: Description
-        end_date: End date
-        image: Image
-        name: Name
-        start_date: Start date
-        taxonomy_term_id: Taxonomy term
+        username: Username
     errors:
       messages:
         accepted: You need to accept in order to proceed.
@@ -108,7 +111,7 @@ en:
         not_a_number: This value is not a number, but it should be.
         not_an_integer: must be an integer
         odd: must be odd
-        record_invalid: ! 'Validation failed: %{errors}'
+        record_invalid: 'Validation failed: %{errors}'
         taken: This field needs to be unique, but the value entered already exists on our system.
         too_long: is too long (maximum is %{count} characters)
         too_short: is too short (minimum is %{count} characters)
@@ -165,10 +168,10 @@ en:
             picture:
               content_type: Profile picture must be a GIF or JPEG.
       template:
-        body: ! 'There were problems with the following fields:'
+        body: 'There were problems with the following fields:'
         header:
           one: 1 error prohibited this %{model} from being saved
-          other: ! '%{count} errors prohibited this %{model} from being saved'
+          other: "%{count} errors prohibited this %{model} from being saved"
     models:
       annotation: Image annotation
       attachment: Item
@@ -212,6 +215,24 @@ en:
     updated_at: Updated at
     url: URL
     username: 
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Country
+          data_provider_sm: Data provider
+          metadata_collection_day_ids_im: Collection day
+          metadata_content_ids_im: Item type
+          metadata_file_type_ids_im: Media type
+          metadata_keywords_ids_im: Keywords
+          metadata_lang_ids_im: Language
+          metadata_theatres_ids_im: Theatres
+          place_name_s: Place name
+          provider_sm: Provider
+          rights_sm: Rights
+          type_s: Type
+          uri_sm: Subject
+          year_sm: Year
   common:
     additional-information: Additional information
     download-item: Download this item
@@ -219,17 +240,15 @@ en:
       more_stories: More stories in the <a href="http://thegreatwararchive.blogspot.com/search/label/en">Editor’s pick blog</a>
     editors_pick:
       heading: Editor’s picks
-      more_stories: <b>More stories on the %{explore_stories} page.</b>
+      more_stories: "<b>More stories on the %{explore_stories} page.</b>"
     featured-categories: Featured categories
     from-collection-days: From our Collection Days
     google_maps:
-      help_text: ! '<li><b>Auto-suggest</b> : Enter a country name, town or address, Google Maps will try to find a possible address.</li>
-
+      help_text: |-
+        <li><b>Auto-suggest</b> : Enter a country name, town or address, Google Maps will try to find a possible address.</li>
         <li><b>Specific address</b> :Enter a specific address or geo-coordinates and click on the "Go" button, ignore the automatic suggestions from Google Maps.</li>
-
         <li><b>Map marker</b> : When a map marker is present on the map, for example, after you have entered an address, you can move it to any location you wish.</li>
-
-        <li><b>Zoom</b> : Zoom in or out of the map using the + or - on the slider in the left section of the map.</li>'
+        <li><b>Zoom</b> : Zoom in or out of the map using the + or - on the slider in the left section of the map.</li>
       label: Use Google Maps (optional)
     help_text:
       mandatory: mandatory field
@@ -328,12 +347,12 @@ en:
     - Friday
     - Saturday
     formats:
-      default: ! '%Y-%m-%d'
-      long: ! '%B %d, %Y'
-      long_with_day: ! '%a, %d %B %Y'
-      month_and_year: ! '%B %Y'
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      long_with_day: "%a, %d %B %Y"
+      month_and_year: "%B %Y"
       quarter: Quarter %{number} %Y
-      short: ! '%b %d'
+      short: "%b %d"
     month_names:
     - 
     - January
@@ -378,16 +397,16 @@ en:
         other: over %{count} years
       x_days:
         one: 1 day
-        other: ! '%{count} days'
+        other: "%{count} days"
       x_minutes:
         one: 1 minute
-        other: ! '%{count} minutes'
+        other: "%{count} minutes"
       x_months:
         one: 1 month
-        other: ! '%{count} months'
+        other: "%{count} months"
       x_seconds:
         one: 1 second
-        other: ! '%{count} seconds'
+        other: "%{count} seconds"
     prompts:
       day: Day
       hour: Hour
@@ -420,7 +439,7 @@ en:
       signed_in: Signed in successfully.
       signed_out: Signed out successfully.
   errors:
-    format: ! '%{attribute} %{message}'
+    format: "%{attribute} %{message}"
     messages:
       accepted: must be accepted
       blank: can't be blank
@@ -438,7 +457,7 @@ en:
       not_a_number: is not a number
       not_an_integer: must be an integer
       odd: must be odd
-      record_invalid: ! 'Validation failed: %{errors}'
+      record_invalid: 'Validation failed: %{errors}'
       taken: has already been taken
       too_long:
         one: is too long (maximum is 1 character)
@@ -450,10 +469,10 @@ en:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
     template:
-      body: ! 'There were problems with the following fields:'
+      body: 'There were problems with the following fields:'
       header:
         one: 1 error prohibited this %{model} from being saved
-        other: ! '%{count} errors prohibited this %{model} from being saved'
+        other: "%{count} errors prohibited this %{model} from being saved"
   flash:
     actions:
       create:
@@ -461,7 +480,7 @@ en:
         notice: Created new %{resource_name}.
       destroy:
         alert: There was a problem deleting %{resource_name}.
-        notice: ! '%{resource_name} was successfully deleted.'
+        notice: "%{resource_name} was successfully deleted."
       taggings:
         notice: Tagging depublished.
       update:
@@ -544,7 +563,7 @@ en:
       import:
         alert:
           empty: No images selected
-          invalid_license: ! 'The following photos have an incompatible license and will not be imported:'
+          invalid_license: 'The following photos have an incompatible license and will not be imported:'
         notice: Transferring Flickr images in the background.
     guest_contact:
       create:
@@ -559,8 +578,8 @@ en:
       update_order:
         notice: Metadata field order updated.
     status:
-      alert: ! 'Alert: '
-      notice: ! 'Notice: '
+      alert: 'Alert: '
+      notice: 'Notice: '
     taggings:
       depublish:
         alert: Failed to depublish this tagging.
@@ -632,52 +651,87 @@ en:
         update: Update
     create: Create %{model}
     hints:
+      annotation:
+        annotation:
+          edit:
+            text: 
       attachment:
         dropbox_path: Select a file to copy from your Dropbox folder "Apps/Europeana 1914-1918". Files that are not of allowed types, or that are too large, will not be shown.
         edit:
-          file: ! 'Only upload a new file if you want to replace the existing one. Maximum file size: %{max}. Allowed file types: %{file_types}.'
+          file: 'Only upload a new file if you want to replace the existing one. Maximum file size: %{max}. Allowed file types: %{file_types}.'
         file: Upload the file
         metadata:
           attachment_description: Describe the item’s physical characteristics as well as what it represents and means to you.
           content: What the item is (for example poem, letter, photograph); try to be as specific as possible.
           cover_image: A cover image represents your story in our collection; it is similar to the cover of a book. it could be a photo of who this story is about, the front page of a diary or a picture of a medal.
+          creator_family_name: 
           creator_given_name: Name of the person who created the original object, for example the author of a letter or diary or a photographer's name.
           date_from: Tell us when the item was created, for example, when a letter was written or when the object was begun, for example when a diary was started. If you do not know the exact date, please provide a year only or a year and a month.
           date_to: The end date for an item, for example, the last date of a diary.
-          forces: ! 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          file_type: 
+          forces: 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
           format: The material of the item that has been digitised (for example paper, card, tape).
-          keywords: ! 'Only assign keywords that describe the main subject or broader concept that you want to contribute. The purpose of these keywords is to help us highlight your story in our story collection. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          keywords: 'Only assign keywords that describe the main subject or broader concept that you want to contribute. The purpose of these keywords is to help us highlight your story in our story collection. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
           lang: Indicate the language used in the item, for example, the language(s) used in a diary.
+          lang_other: 
+          license: 
+          location_map: 
           location_placename: Enter the name of a city where the item was created (where a letter was written from or a photograph taken), i.e., London or Paris.
+          location_zoom: 
+          notes: 
           object_side: For an item with two sides, for example a postcard, indicate the side
           page_number: For an item of many pages, write the individual page number
+          page_total: 
           source: The source that the item was digitised from (for example a leaf, a folio, a notebook, a reel of film).
           subject: The person or place or object the item is about.
-          theatres: ! 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
-          creator_family_name: 
-          lang_other: 
-          location_map: 
-          location_zoom: 
-          file_type: 
-          license: 
-          notes: 
-          page_total: 
+          theatres: 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
         new:
-          file: ! 'You can upload as many files as necessary; one at a time. Note that if you upload many files you will be given the opportunity to mark one of them as a “cover image” for your story; i.e., a postcard or diary. Maximum file size: %{max}. Allowed file types: %{file_types}.'
+          file: 'You can upload as many files as necessary; one at a time. Note that if you upload many files you will be given the opportunity to mark one of them as a “cover image” for your story; i.e., a postcard or diary. Maximum file size: %{max}. Allowed file types: %{file_types}.'
         title: Short descriptive title or proper name of the object, for example, “My great grandfather, Otto Schmidt’s, Medal of Honor”
+      collection_day:
+        collection_day:
+          edit:
+            description: 
+            end_date: 
+            image: 
+            map_latlng: 
+            map_zoom: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+          update:
+            description: 
+            end_date: 
+            image: 
+            map_latlng: 
+            map_zoom: 
+            name: 
+            start_date: 
+            taxonomy_term_id: 
+            url: 
+        contact:
+          edit:
+            country: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          update:
+            country: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
       contact:
         full_name: This will be displayed publicly as the credit alongside approved contributions.
       contribution:
+        contribution:
+          edit:
+            catalogued_by: 
+          new:
+            catalogued_by: 
         metadata:
-          contributor_behalf: Leave blank unless you are helping someone to make this contribution.
-          date_from: Tell us when the story took place. If you do not know when exactly, please provide the year field only. i.e. my grand-father was enrolled in 1915, etc.
-          date_to: Tell us when the story ended. If you do not know when exactly, please provide the year field only. i.e. my grand-father was injured in 1916, etc.
-          description: Write down the story behind your contribution.
-          forces: ! 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
-          keywords: ! 'Only assign keywords that describe the main subject or broader concept that you want to contribute. The purpose of these keywords is to help us highlight your story in our story collection. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
-          lang: Indicate the language that this story is written in.
-          location_placename: Enter the name of a city where the story took place, i.e., London or Paris.
-          theatres: ! 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
           alternative: 
           character1_dob: 
           character1_dod: 
@@ -692,41 +746,57 @@ en:
           character2_pob: 
           character2_pod: 
           collection_day: 
+          contributor_behalf: Leave blank unless you are helping someone to make this contribution.
+          date_from: Tell us when the story took place. If you do not know when exactly, please provide the year field only. i.e. my grand-father was enrolled in 1915, etc.
+          date_to: Tell us when the story ended. If you do not know when exactly, please provide the year field only. i.e. my grand-father was injured in 1916, etc.
+          description: Write down the story behind your contribution.
           editor_pick: 
           editor_pick_sig: 
           editor_pick_text: 
+          forces: 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          keywords: 'Only assign keywords that describe the main subject or broader concept that you want to contribute. The purpose of these keywords is to help us highlight your story in our story collection. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
+          lang: Indicate the language that this story is written in.
           lang_other: 
           location_map: 
+          location_placename: Enter the name of a city where the story took place, i.e., London or Paris.
           location_zoom: 
           notes: 
           summary: 
+          theatres: 'Please do not click if it is not relevant. If a relevant keyword is not available please email us at: 1914-1918 [@] europeana [.] eu'
           ticket: 
         title: A title for this contribution as a whole.
-        contribution:
-          edit:
-            catalogued_by: 
-          new:
-            catalogued_by: 
       metadata_field:
         attachment: Specify whether this field applies to attachments.
-        cataloguing: ! 'Yes: only show this field in the admin interface, for cataloguing purposes. No: also show to contributors.'
+        cataloguing: 'Yes: only show this field in the admin interface, for cataloguing purposes. No: also show to contributors.'
         contribution: Specify whether this field applies to contributions.
         field_type: Can not be changed once the field has been saved.
         hint: Text to display alongside the input field to guide contributors/cataloguers.
         multi: Allow selection of multiple terms per contribution/attachment.
-        name: ! 'Database name for the field. Must be unique. Valid characters: a-z, 0-9, _'
-        required: ! 'Yes: contributor must enter something for this field. No: this field is optional. Cataloguing fields must be optional.'
-        searchable: ! 'Yes: searching for contributions searches on this metadata field. No: this field is not searched. Note: After changing this value, you should re-index the search engine.'
-        searchable_no_sphinx: ! 'Note: Metadata fields are only searchable if the Sphinx search engine is running &mdash; currently it is not.'
+        name: 'Database name for the field. Must be unique. Valid characters: a-z, 0-9, _'
+        required: 'Yes: contributor must enter something for this field. No: this field is optional. Cataloguing fields must be optional.'
+        searchable: 'Yes: searching for contributions searches on this metadata field. No: this field is not searched. Note: After changing this value, you should re-index the search engine.'
+        searchable_no_sphinx: 'Note: Metadata fields are only searchable if the Sphinx search engine is running &mdash; currently it is not.'
         show_in_listing: Display this field in listings such as search results.
         title: Descriptive title for the field, as displayed to contributors. Leave blank to guess from the name.
       metadata_record:
-        date: ! 'Format: YYYY-MM-DD, YYYY-MM or YYYY, e.g. 1998-04-20, 1998-04 or 1998'
-        geo: ! 'Format: LAT,LNG, e.g. 51.500,-0.126 (for London)'
+        date: 'Format: YYYY-MM-DD, YYYY-MM or YYYY, e.g. 1998-04-20, 1998-04 or 1998'
+        geo: 'Format: LAT,LNG, e.g. 51.500,-0.126 (for London)'
+      options:
+        admin/contributions_controller/options:
+          index:
+            fields: 
       password:
         new:
           email: Enter your sign in email address and we will send you instructions for resetting your password.
       settings:
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
         allowed_upload_extensions: Allowed file extensions for uploaded files, separated by commas, e.g. "pdf,doc,jpg,gif". Leave blank to allow all extensions.
         banner_active: If enabled, a maintenance message will be shown across the site, using the text provided below.
         banner_text: Text to display in the maintenance message, if enabled above.
@@ -741,26 +811,44 @@ en:
         publish_contributions: Enable the public display of contributions. If not enabled, contributions can still be collected, but are not displayed publicly.
         registration_required: If enabled, people must register a user account in order to contribute. If disabled, people can contribute as guests by providing their contact details.
         relative_url_root: Root URL the website is accessed at, without a trailing slash. Leave blank for top-level URL.
+        run_co_co/configuration:
+          edit:
+            search_engine: 
         sharethis_id: The ShareThis Publisher id. If left blank, ShareThis shares will nto be tracked in the ShareThis account. The ShareThis script will attempt to record shares in the Google Analytics account if it's present on the page; the script will look for the UA- value and use it if present.
         site_name: The name of this website. By default, this will be displayed in page titles and header.
         site_url: Full URL at which the homepage of this site is accessed, without the locale and with no trailing slash.
         ui_locales: Locales to link to in the page header.
         uploadify: Use Uploadify to handle attachment uploads, enabling multiple file uploads. See <http://www.uploadify.com/> for more information and demos.
-        run_co_co/configuration:
-          edit:
-            search_engine: 
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
       taxonomy_term:
         import: Enter the taxonomy terms to add for this metadata field, one per line.
         term: Must be unique within the scope of its metadata field.
       user:
+        contact:
+          create:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          edit:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+            tel: 
+          new:
+            age: 
+            country: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
         current_password: Enter your current password if you want to change your account details.
         edit:
           password: Enter a new password if you want to change it, otherwise leave this blank. Minimum 6 characters.
@@ -768,101 +856,25 @@ en:
         password: Minimum 6 characters
         update:
           password: Enter a new password if you want to change it, otherwise leave this blank. Minimum 6 characters.
-        username: ! 'Minimum 3 characters. Valid characters: a-z A-Z 0-9 - _ . @'
-        contact:
-          new:
-            age: 
-            country: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          create:
-            age: 
-            country: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
         user:
-          new:
-            password_confirmation: 
-            terms: 
           create:
             password_confirmation: 
             terms: 
-      options:
-        admin/contributions_controller/options:
-          index:
-            fields: 
-      collection_day:
-        collection_day:
           edit:
-            description: 
-            end_date: 
-            image: 
-            map_latlng: 
-            map_zoom: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-          update:
-            taxonomy_term_id: 
-            name: 
-            description: 
-            end_date: 
-            image: 
-            map_latlng: 
-            map_zoom: 
-            start_date: 
-            url: 
-        contact:
-          edit:
-            country: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          update:
-            country: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
+            institution: 
+            password_confirmation: 
+            role_name: 
+            terms: 
+          new:
+            password_confirmation: 
+            terms: 
+        username: 'Minimum 3 characters. Valid characters: a-z A-Z 0-9 - _ . @'
     labels:
+      annotation:
+        annotation:
+          edit:
+            text: 
       attachment:
-        metadata:
-          attachment_description: Description
-          attachment_file: Single file
-          content: Type
-          cover_image: Cover image
-          creator_family_name: Creator’s surname
-          creator_given_name: Creator’s first name
-          date_from: Date created / Start date
-          date_to: End Date
-          file_type: Media type
-          format: Medium
-          lang: Language
-          lang_other: Language (other)
-          license: License
-          location_map: Latitude & longitude
-          location_placename: Locate where your item was created.
-          notes: Cataloguer’s notes
-          object_side: Side
-          page_number: Page number
-          page_total: Total number of pages
-          source: Source
-          subject: Subject
-          ticket: Ticket number
-          date: Date
-          creator: Creator
-          location_zoom: Location zoom
-          forces: Forces
-          keywords: Keywords
-          theatres: Theatres
         attachment:
           edit:
             title: 
@@ -870,21 +882,36 @@ en:
             title: 
           update:
             title: 
+        metadata:
+          attachment_description: Description
+          attachment_file: Single file
+          content: Type
+          cover_image: Cover image
+          creator: Creator
+          creator_family_name: Creator’s surname
+          creator_given_name: Creator’s first name
+          date: Date
+          date_from: Date created / Start date
+          date_to: End Date
+          file_type: Media type
+          forces: Forces
+          format: Medium
+          keywords: Keywords
+          lang: Language
+          lang_other: Language (other)
+          license: License
+          location_map: Latitude & longitude
+          location_placename: Locate where your item was created.
+          location_zoom: Location zoom
+          notes: Cataloguer’s notes
+          object_side: Side
+          page_number: Page number
+          page_total: Total number of pages
+          source: Source
+          subject: Subject
+          theatres: Theatres
+          ticket: Ticket number
       collection_day:
-        contact:
-          country: Country
-          full_name: Organisation
-          edit:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          update:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        delete_image: Delete image
         collection_day:
           edit:
             description: 
@@ -895,13 +922,27 @@ en:
             taxonomy_term_id: 
             url: 
           update:
-            name: 
-            taxonomy_term_id: 
             description: 
             end_date: 
             image: 
+            name: 
             start_date: 
+            taxonomy_term_id: 
             url: 
+        contact:
+          country: Country
+          edit:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          full_name: Organisation
+          update:
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        delete_image: Delete image
       content:
         metadata:
           dc:
@@ -925,10 +966,11 @@ en:
             title: Title
             type: Type
           dcterms:
-            spatial: Place
-            temporal: Date
             alternative: Alternative title
             extent: Extent
+            medium: 
+            spatial: Place
+            temporal: Date
           edm:
             country: Providing country
             data_provider: Data provider
@@ -955,6 +997,7 @@ en:
           character2_pod: Place of death
           collection_day: Collection day
           contributor_behalf: Contributed on behalf of
+          date: 
           date_from: The story begins ...
           date_to: The story ends ...
           description: Story
@@ -972,16 +1015,251 @@ en:
           summary: Summary description of items
           theatres: Theatres
           ticket: Ticket number
-          date: 
         terms: I accept the terms & conditions
         title: Story title
       metadata_field:
         contribution: Contribution
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            end_date: 
+            exclude: 
+            format: 
+            institution_id: 
+            set: 
+            start_date: 
       taxonomy_term:
+        collection_day:
+          AA22: AA22
+          AC15: AC15
+          AM15: AM15
+          AN21: AN21
+          BA15: BA15
+          BA23: BA23
+          BC18: BC18
+          BE08: BE08
+          BE30: BE30
+          BN12: BN12
+          BO/BC18: BO/BC18
+          BO02: BO02
+          BR10: BR10
+          BR19: BR19
+          BU01: BU01
+          BZ: BZ
+          CE22: CE22
+          CGW01: CGW01
+          CHA01: CHA01
+          CISA: CISA
+          CL01: CL01
+          CY01: CY01
+          DD12: DD12
+          DE18: DE18
+          DO28: DO28
+          DU: DU
+          DU18: DU18
+          DUP1: DUP1
+          DUP2: DUP2
+          EF11: EF11
+          EN10: EN10
+          FF22: FF22
+          FR07: FR07
+          FRAD001: FRAD001
+          FRAD004: FRAD004
+          FRAD006: FRAD006
+          FRAD007: FRAD007
+          FRAD008: FRAD008
+          FRAD010: FRAD010
+          FRAD012: FRAD012
+          FRAD013: FRAD013
+          FRAD014: FRAD014
+          FRAD017: FRAD017
+          FRAD018: FRAD018
+          FRAD021: FRAD021
+          FRAD022: FRAD022
+          FRAD02A: FRAD02A
+          FRAD033: FRAD033
+          FRAD034: FRAD034
+          FRAD036: FRAD036
+          FRAD037: FRAD037
+          FRAD038: FRAD038
+          FRAD041: FRAD041
+          FRAD043: FRAD043
+          FRAD044: FRAD044
+          FRAD048: FRAD048
+          FRAD049: FRAD049
+          FRAD050: FRAD050
+          FRAD052: FRAD052
+          FRAD053: FRAD053
+          FRAD055: FRAD055
+          FRAD057: FRAD057
+          FRAD059: FRAD059
+          FRAD061: FRAD061
+          FRAD062: FRAD062
+          FRAD063: FRAD063
+          FRAD066: FRAD066
+          FRAD067: FRAD067
+          FRAD068: FRAD068
+          FRAD071: FRAD071
+          FRAD073: FRAD073
+          FRAD076: FRAD076
+          FRAD077: FRAD077
+          FRAD078: FRAD078
+          FRAD080: FRAD080
+          FRAD082: FRAD082
+          FRAD083: FRAD083
+          FRAD085: FRAD085
+          FRAD087: FRAD087
+          FRAD088: FRAD088
+          FRAD094: FRAD094
+          FRAD22: FRAD22
+          FRADO071: FRADO071
+          FRADO077: FRADO077
+          FRADO078: FRADO078
+          FRADO080: FRADO080
+          FRADO083: FRADO083
+          FRADO085: FRADO085
+          FRADO087: FRADO087
+          FRADO088: FRADO088
+          FRADO59: FRADO59
+          FRADO87: FRADO87
+          FRAMBE: FRAMBE
+          FRAMCA: FRAMCA
+          FRAMLC: FRAMLC
+          FRAMLI: FRAMLI
+          FRAMLM: FRAMLM
+          FRAMLP: FRAMLP
+          FRAMMA: FRAMMA
+          FRAMMO: FRAMMO
+          FRAMPO: FRAMPO
+          FRAMSG: FRAMSG
+          FRAMSM: FRAMSM
+          FRAMSQ: FRAMSQ
+          FRAMTR: FRAMTR
+          FRAMVE: FRAMVE
+          FRAMVI: FRAMVI
+          FRANPA: FRANPA
+          FRANPR: FRANPR
+          FRBDIC: FRBDIC
+          FRBMAC: FRBMAC
+          FRBMAN: FRBMAN
+          FRBMBO: FRBMBO
+          FRBMCC: FRBMCC
+          FRBMLI: FRBMLI
+          FRBMLY: FRBMLY
+          FRBMMA: FRBMMA
+          FRBMSC: FRBMSC
+          FRBMTO: FRBMTO
+          FRBNBU: FRBNBU
+          FRBNFM: FRBNFM
+          FRBNSA: FRBNSA
+          FRBNUS: FRBNUS
+          FRCISA: FRCISA
+          FRCO: FRCO
+          FRHI80: FRHI80
+          FRLOLE: FRLOLE
+          FRME: FRME
+          FRSHDCH: FRSHDCH
+          Fr07: Fr07
+          GE08: GE08
+          HA21: HA21
+          HB22: HB22
+          HE14: HE14
+          INTERNET: INTERNET
+          KA23: KA23
+          KI13: KI13
+          LE10: LE10
+          LE21: LE21
+          LI05: LI05
+          LI12: LI12
+          LI17: LI17
+          LJ23: LJ23
+          LOG25: LOG25
+          LU16: LU16
+          MA19: MA19
+          MB007: MB007
+          MB011: MB011
+          MB20: MB20
+          MO08: MO08
+          MU09: MU09
+          NG19: NG19
+          NLG01: NLG01
+          PO21: PO21
+          PR17: PR17
+          RG14: RG14
+          RM15: RM15
+          RO24: RO24
+          SER01: SER01
+          SKBA1: SKBA1
+          SKKE1: SKKE1
+          SKMT1: SKMT1
+          SO14: SO14
+          ST10: ST10
+          THE01: THE01
+          TR16: TR16
+          TU07: TU07
+          UNKNOWN: UNKNOWN
+          UPC1: UPC1
+          UPC2: UPC2
+          UPC3: UPC3
+          UT1: UT1
+          VER01: VER01
+          VP18: VP18
+          YP01: YP01
+        content:
+          Autograph: Autograph
+          Book: Book
+          Collection: Collection
+          Diary: Diary
+          Drawing: Drawing
+          Footage: Footage
+          Interview: Interview
+          Letter: Letter
+          Map: Map
+          Medal: Medal
+          Memoir: Memoir
+          Memorabilia: Memorabilia
+          Multiple: Multiple
+          Music: Music
+          Official Document: Official Document
+          Official document: Official document
+          Other: Other
+          Painting: Painting
+          Photograph: Photograph
+          Poem: Poem
+          Postcard: Postcard
+          Publication: Publication
+          Weapon: Weapon
+        cover_image:
+          'yes': 'yes'
+        editor_pick:
+          'yes': 'yes'
+        file_type:
+          3D: 3D
+          IMAGE: IMAGE
+          SOUND: SOUND
+          TEXT: TEXT
+          VIDEO: VIDEO
         forces:
           Allied Forces: Allied Forces
           Central Powers: Central Powers
           Imperial Forces: Imperial Forces
+        format:
+          Canvas: Canvas
+          Card: Card
+          Ceramic/China: Ceramic/China
+          Digital: Digital
+          Leather: Leather
+          Metal: Metal
+          Mixed: Mixed
+          Other: Other
+          Paper: Paper
+          Photographic paper: Photographic paper
+          Tape: Tape
+          'Text: memoir': 'Text: memoir'
+          'Text: transcription': 'Text: transcription'
+          Unknown: Unknown
+          Vinyl: Vinyl
+          Wood: Wood
         keywords:
           Anti-War Movement: Anti-War Movement
           Artillery: Artillery
@@ -994,12 +1272,62 @@ en:
           Prisoners of War: Prisoners of War
           Propaganda: Propaganda
           Recruitment and Conscription: Recruitment and Conscription
+          Refugees: Refugees
           Remembrance: Remembrance
           Tanks and Armoured Fighting Vehicles: Tanks and Armoured Fighting Vehicles
           Transport: Transport
           Trench Life: Trench Life
           Women: Women
-          Refugees: Refugees
+        lang:
+          Dansk: Dansk
+          Deutsch: Deutsch
+          English: English
+          Français: Français
+          Gaeilge: Gaeilge
+          Italiano: Italiano
+          Magyar: Magyar
+          Nederlands: Nederlands
+          Other: Other
+          Română: Română
+          Slovenčina: Slovenčina
+          Slovenščina: Slovenščina
+          português: Portuguese
+          "Ελληνικά": "Ελληνικά"
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Back
+          Front: Front
+        source:
+          Artifact: Artifact
+          Book: Book
+          Film: Film
+          Folio: Folio
+          Journal: Journal
+          Leaf: Leaf
+          Multiple: Multiple
+          Newspaper: Newspaper
+          Notebook: Notebook
+          Other: Other
+          Photograph: Photograph
+          Postcard: Postcard
+          Tape: Tape
+          Unknown: Unknown
+          Vinyl record: Vinyl record
+        taxonomy_term:
+          create:
+            term: 
+          edit:
+            term: 
+          new:
+            term: 
         theatres:
           Aerial Warfare: Aerial Warfare
           African Wars: Africa
@@ -1010,255 +1338,58 @@ en:
           Middle East: Middle East
           Naval Warfare: Naval Warfare
           Western Front: Western Front
-        content:
-          Photograph: Photograph
-          Official Document: Official Document
-          Autograph: Autograph
-          Book: Book
-          Map: Map
-          Other: Other
-          Diary: Diary
-          Interview: Interview
-          Medal: Medal
-          Memorabilia: Memorabilia
-          Painting: Painting
-          Poem: Poem
-          Weapon: Weapon
-          Letter: Letter
-          Music: Music
-          Official document: Official document
-          Drawing: Drawing
-          Postcard: Postcard
-          Memoir: Memoir
-          Multiple: Multiple
-          Publication: Publication
-          Collection: Collection
-          Footage: Footage
-        format:
-          Digital: Digital
-          Card: Card
-          Mixed: Mixed
-          Paper: Paper
-          Canvas: Canvas
-          Metal: Metal
-          Wood: Wood
-          Leather: Leather
-          Photographic paper: Photographic paper
-          Other: Other
-          ! 'Text: memoir': ! 'Text: memoir'
-          Unknown: Unknown
-          Tape: Tape
-          ! 'Text: transcription': ! 'Text: transcription'
-          Ceramic/China: Ceramic/China
-          Vinyl: Vinyl
-        object_side:
-          Back: Back
-          Front: Front
-        lang:
-          Deutsch: Deutsch
-          Slovenščina: Slovenščina
-          English: English
-          Other: Other
-          Ελληνικά: Ελληνικά
-          Français: Français
-          Nederlands: Nederlands
-          Dansk: Dansk
-          Italiano: Italiano
-          Magyar: Magyar
-          Română: Română
-          Slovenčina: Slovenčina
-          Gaeilge: Gaeilge
-          português: Portuguese
-        source:
-          Book: Book
-          Artifact: Artifact
-          Other: Other
-          Photograph: Photograph
-          Journal: Journal
-          Notebook: Notebook
-          Unknown: Unknown
-          Newspaper: Newspaper
-          Folio: Folio
-          Leaf: Leaf
-          Postcard: Postcard
-          Tape: Tape
-          Film: Film
-          Multiple: Multiple
-          Vinyl record: Vinyl record
-        cover_image:
-          'yes': 'yes'
-        collection_day:
-          Fr07: Fr07
-          FR07: FR07
-          AM15: AM15
-          BE08: BE08
-          DD12: DD12
-          DU18: DU18
-          DUP1: DUP1
-          DUP2: DUP2
-          EF11: EF11
-          INTERNET: INTERNET
-          KI13: KI13
-          LU16: LU16
-          MB007: MB007
-          MB011: MB011
-          MB20: MB20
-          MU09: MU09
-          NG19: NG19
-          PR17: PR17
-          RG14: RG14
-          SO14: SO14
-          ST10: ST10
-          UNKNOWN: UNKNOWN
-          UPC1: UPC1
-          UT1: UT1
-          UPC2: UPC2
-          UPC3: UPC3
-        editor_pick:
-          'yes': 'yes'
-        file_type:
-          3D: 3D
-          IMAGE: IMAGE
-          SOUND: SOUND
-          TEXT: TEXT
-          VIDEO: VIDEO
-        license:
-          http://creativecommons:
-            org/licenses/by-sa/3:
-              0/: http://creativecommons.org/licenses/by-sa/3.0/
-            org/publicdomain/mark/1:
-              0/: http://creativecommons.org/publicdomain/mark/1.0/
-          https://creativecommons:
-            org/licenses/by-sa/2:
-              0/: https://creativecommons.org/licenses/by-sa/2.0/
-        taxonomy_term:
-          new:
-            term: 
       user:
+        contact:
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          edit:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+            tel: 
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
         delete_picture: Delete picture
-        terms: ! ' I accept the terms & conditions'
-        contact:
-          new:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          create:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
+        terms: " I accept the terms & conditions"
         user:
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
           create:
             email: 
             password: 
             password_confirmation: 
             username: 
-      settings:
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
+          edit:
+            email: 
+            institution: 
+            password: 
+            password_confirmation: 
+            role_name: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
     'no': 'No'
-    required: required
-    titles:
-      account_details: Sign in details
-      admin_user: Sign in details
-      attachment_dates: When was this item created
-      attachment_details: Describe your item
-      attachment_front: Which front is this item about
-      attachment_keywords: Help others find your item by adding one or several of the following keywords
-      attachment_location: Where was this item created
-      attachment_replace: Replace attachment
-      attachment_upload: Add an attachment
-      cataloguing_metadata: Cataloguing metadata
-      contact_address: Address
-      contact_name: Name
-      contact_other: Contact details
-      contribution_attachments: Items
-      contribution_terms: Terms & conditions
-      dropbox: Dropbox
-      fields: Fields
-      metadata: Catalogue information
-      metadata_field_options: Type-specific options
-      optional_details: Other optional personal information
-      personal_details: Personal details
-      story_basics: Tell your story…
-      story_character1: Person 1
-      story_character2: Person 2
-      story_characters: Tell us who this story is about
-      story_dates: When did this story take place
-      story_forces: Does this item involve the
-      story_front: Which front is this story about
-      story_keywords: Help others find your story by adding one or several of the following keywords.
-      story_location: Where did this story take place
-      submit: Submit your story
-      user:
-        new:
-          accept_terms: 
-          user_session: 
-        create:
-          accept_terms: 
-          user_session: 
-      collection_day:
-        edit:
-          admin_collection_day: 
-          admin_collection_day_address: 
-        update:
-          admin_collection_day: 
-          admin_collection_day_address: 
-      taxonomy_term:
-        new:
-          taxonomy_term: 
-      run_co_co/configuration:
-        edit:
-          settings: 
-      admin/contributions_controller/export_settings:
-        export:
-          settings: 
-    update: Update %{model}
-    'yes': 'Yes'
     placeholders:
-      user:
-        contact:
-          new:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-          create:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-        user:
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
       attachment:
         attachment:
           edit:
@@ -1274,16 +1405,16 @@ en:
             field_lang_other: 
             field_location_placename: 
             field_page_number: 
-            field_subject: 
             field_page_total: 
+            field_subject: 
           new:
             field_creator_family_name: 
             field_creator_given_name: 
             field_lang_other: 
             field_location_placename: 
             field_page_number: 
-            field_subject: 
             field_page_total: 
+            field_subject: 
           update:
             field_creator_family_name: 
             field_creator_given_name: 
@@ -1292,6 +1423,29 @@ en:
             field_page_number: 
             field_page_total: 
             field_subject: 
+      collection_day:
+        collection_day:
+          edit:
+            map_latlng: 
+            map_zoom: 
+            name: 
+            url: 
+          update:
+            map_latlng: 
+            map_zoom: 
+            name: 
+            url: 
+        contact:
+          edit:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+          update:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
       contribution:
         contribution:
           edit:
@@ -1329,34 +1483,10 @@ en:
             field_lang_other: 
             field_location_placename: 
             field_ticket: 
-      collection_day:
-        collection_day:
-          edit:
-            map_latlng: 
-            map_zoom: 
-            name: 
-            url: 
-          update:
-            name: 
-            map_latlng: 
-            map_zoom: 
-            url: 
-        contact:
-          edit:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-          update:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-      taxonomy_term:
-        taxonomy_term:
-          new:
-            term: 
       settings:
+        admin/contributions_controller/export_settings:
+          export:
+            exclude: 
         run_co_co/configuration:
           edit:
             allowed_upload_extensions: 
@@ -1370,48 +1500,120 @@ en:
             sharethis_id: 
             site_name: 
             site_url: 
-        admin/contributions_controller/export_settings:
-          export:
-            exclude: 
-  helpers:
-    select:
-      prompt: Please select
-    submit:
-      create: Create %{model}
-      submit: Save %{model}
-      update: Update %{model}
-    label:
+      taxonomy_term:
+        taxonomy_term:
+          create:
+            term: 
+          edit:
+            term: 
+          new:
+            term: 
       user:
         contact:
-          new:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
           create:
-            age: 
-            country: 
             full_name: 
-            gender: 
             locality: 
             postal_code: 
             region: 
-            street_address: 
+          edit:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
+            tel: 
+          new:
+            full_name: 
+            locality: 
+            postal_code: 
+            region: 
         user:
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
           create:
             email: 
             password: 
             password_confirmation: 
             username: 
+          edit:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    required: required
+    titles:
+      account_details: Sign in details
+      admin/contributions_controller/export_settings:
+        export:
+          settings: 
+      admin_user: Sign in details
+      annotation:
+        edit:
+          annotation: 
+      attachment_dates: When was this item created
+      attachment_details: Describe your item
+      attachment_front: Which front is this item about
+      attachment_keywords: Help others find your item by adding one or several of the following keywords
+      attachment_location: Where was this item created
+      attachment_replace: Replace attachment
+      attachment_upload: Add an attachment
+      cataloguing_metadata: Cataloguing metadata
+      collection_day:
+        edit:
+          admin_collection_day: 
+          admin_collection_day_address: 
+        update:
+          admin_collection_day: 
+          admin_collection_day_address: 
+      contact:
+        edit:
+          user_picture: 
+      contact_address: Address
+      contact_name: Name
+      contact_other: Contact details
+      contribution_attachments: Items
+      contribution_terms: Terms & conditions
+      dropbox: Dropbox
+      fields: Fields
+      metadata: Catalogue information
+      metadata_field_options: Type-specific options
+      optional_details: Other optional personal information
+      personal_details: Personal details
+      run_co_co/configuration:
+        edit:
+          settings: 
+      story_basics: Tell your story…
+      story_character1: Person 1
+      story_character2: Person 2
+      story_characters: Tell us who this story is about
+      story_dates: When did this story take place
+      story_forces: Does this item involve the
+      story_front: Which front is this story about
+      story_keywords: Help others find your story by adding one or several of the following keywords.
+      story_location: Where did this story take place
+      submit: Submit your story
+      taxonomy_term:
+        new:
+          taxonomy_term: 
+      user:
+        create:
+          accept_terms: 
+          user_session: 
+        edit:
+          accept_terms: 
+        new:
+          accept_terms: 
+          user_session: 
+    update: Update %{model}
+    'yes': 'Yes'
+  helpers:
+    label:
+      annotation:
+        annotation:
+          edit:
+            text: 
       attachment:
         attachment:
           edit:
@@ -1431,12 +1633,12 @@ en:
             taxonomy_term_id: 
             url: 
           update:
-            name: 
-            taxonomy_term_id: 
             description: 
             end_date: 
             image: 
+            name: 
             start_date: 
+            taxonomy_term_id: 
             url: 
         contact:
           edit:
@@ -1449,10 +1651,6 @@ en:
             postal_code: 
             region: 
             street_address: 
-      taxonomy_term:
-        taxonomy_term:
-          new:
-            term: 
       settings:
         admin/contributions_controller/export_settings:
           export:
@@ -1462,6 +1660,68 @@ en:
             institution_id: 
             set: 
             start_date: 
+      taxonomy_term:
+        taxonomy_term:
+          create:
+            term: 
+          edit:
+            term: 
+          new:
+            term: 
+      user:
+        contact:
+          create:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+          edit:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+            tel: 
+          new:
+            age: 
+            country: 
+            full_name: 
+            gender: 
+            locality: 
+            postal_code: 
+            region: 
+            street_address: 
+        user:
+          create:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+          edit:
+            email: 
+            institution: 
+            password: 
+            password_confirmation: 
+            role_name: 
+            username: 
+          new:
+            email: 
+            password: 
+            password_confirmation: 
+            username: 
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1477,14 +1737,14 @@ en:
       get-directions: Get directions
       legend: Legend
       next-collection-day: The next collection day is at <b>%{name}, %{city}, %{country}</b> on <b>%{start-date}
+      no-upcoming: There are no upcoming collection days at present.
       past-entered: Past collection days
       past-not-entered: Past collection days (stories not yet published)
       show-past: Show past collection days
       upcoming: Upcoming collection days
       what-is-it: What is a Collection Day?
-      no-upcoming: There are no upcoming collection days at present.
     contribute:
-      errors_shown: ! 'Why not? See the notices above. '
+      errors_shown: 'Why not? See the notices above. '
       hide_errors: Hide error notices.
       show_errors: Why not?
     datepicker:
@@ -1517,21 +1777,22 @@ en:
       label:
         map_view: Map
         satellite_view: Satellite
+    loading: loading ...
     next: next →
-    previous: ← previous
+    previous: "← previous"
     search:
       10seconds: We are still searching. Please bear with us!
       30seconds: This is taking longer than expected. Try another search, or continue waiting!
       60seconds: There are currently problems with the search. Please try again later.
     story:
-      took-place: ! 'This story took place in:'
+      took-place: 'This story took place in:'
     thumbnails:
       item: Item
       of: of
     translate:
       return-to-language: Return to original language
-      translate-to: Translate to ...
       service-not-available: Translation services are currently not available.
+      translate-to: Translate to ...
     truncate:
       show-less: Show less ...
       show-more: Show more ...
@@ -1539,7 +1800,7 @@ en:
       basic_ui: Having trouble uploading files? Try the <a href="{{href}}">basic upload</a> instead.
       button_text: Select files
       finished: Back to contribution
-      hint: ! 'You can upload multiple files as a batch. Each file will automatically become a separate item that you can then edit individually. Note: For the multiple file upload to work you need to have Flash installed in your browser. Maximum file size: {{size}}. Allowed file types: {{types}}.'
+      hint: 'You can upload multiple files as a batch. Each file will automatically become a separate item that you can then edit individually. Note: For the multiple file upload to work you need to have Flash installed in your browser. Maximum file size: {{size}}. Allowed file types: {{types}}.'
       label: Multiple files
       saved: Saved
   languages:
@@ -1550,9 +1811,9 @@ en:
     ga: Irish
     hu: Hungarian
     nl: Dutch
+    pt: Portuguese
     sk: Slovakian
     sl: Slovenian
-    pt: Portuguese
   layout:
     navigation:
       about: About
@@ -1568,14 +1829,14 @@ en:
     contributions:
       published:
         greeting: Dear Europeana 1914-1918 contributor,
-        signature: ! 'Best regards,
-
-          The Europeana 1914-1918 team'
+        signature: |-
+          Best regards,
+          The Europeana 1914-1918 team
         subject: Your Europeana 1914-1918 contribution has been published
-        thanks: ! 'Thank you for sharing your stories and memorabilia with us! Your contribution has now been published on our site. You can view it by clicking this link:'
+        thanks: 'Thank you for sharing your stories and memorabilia with us! Your contribution has now been published on our site. You can view it by clicking this link:'
     exports:
       complete:
-        notice: ! 'The collection export you initiated has completed, and can be downloaded from:'
+        notice: 'The collection export you initiated has completed, and can be downloaded from:'
         subject: Collection export complete
   media_types:
     all: All
@@ -1590,22 +1851,22 @@ en:
   number:
     currency:
       format:
-        delimiter: ! ','
-        format: ! '%u%n'
+        delimiter: ","
+        format: "%u%n"
         precision: 2
-        separator: .
+        separator: "."
         significant: false
         strip_insignificant_zeros: false
-        unit: £
+        unit: "£"
     format:
-      delimiter: ! ','
+      delimiter: ","
       precision: '2'
-      separator: .
+      separator: "."
       significant: false
       strip_insignificant_zeros: false
     human:
       decimal_units:
-        format: ! '%n %u'
+        format: "%n %u"
         units:
           billion: Billion
           million: Million
@@ -1619,7 +1880,7 @@ en:
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: ! '%n %u'
+        format: "%n %u"
         units:
           byte:
             one: Byte
@@ -1657,27 +1918,30 @@ en:
     uploadify: Enable Uploadify
   support:
     array:
-      last_word_connector: ! ', and '
-      two_words_connector: ! ' and '
-      words_connector: ! ', '
+      last_word_connector: ", and "
+      two_words_connector: " and "
+      words_connector: ", "
     select:
       prompt: Please select
   time:
     am: am
     formats:
-      default: ! '%a, %d %b %Y %H:%M:%S %z'
-      long: ! '%B %d, %Y %H:%M'
-      short: ! '%d %b %H:%M'
-      timestamp: ! '%Y-%m-%d %H:%M'
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+      timestamp: "%Y-%m-%d %H:%M"
     pm: pm
   views:
+    "abou\tt":
+      terms:
+        user_contributions:
+          p3: 
     about:
       background:
         heading: Europeana 1914-1918
-        p1: <b>Europeana 1914-1918</b> brings together resources from three major European projects each dealing with different types of First World War material. The result is an archive that allows the national collections of libraries to sit beside personal stories and treasures and important film archives. Together, this creates a unique perspective of the First World War, showing it from every side of the battle lines and with insights from every point of view. Over time, even more material will be added to this archive so please keep coming back!
-        p2: ! '<b>Stories from the public:</b>In collaboration with the University of Oxford, Facts & Files and many other partners across Europe, Europeana 1914-1918 is collecting the public''s previously unpublished letters, photographs and keepsakes from the war to be digitised and shared online. As of the end of 2013, a dozen countries have taken part, digitising over 60,000 items.
-
-'
+        p1: "<b>Europeana 1914-1918</b> brings together resources from three major European projects each dealing with different types of First World War material. The result is an archive that allows the national collections of libraries to sit beside personal stories and treasures and important film archives. Together, this creates a unique perspective of the First World War, showing it from every side of the battle lines and with insights from every point of view. Over time, even more material will be added to this archive so please keep coming back!"
+        p2: |
+          <b>Stories from the public:</b>In collaboration with the University of Oxford, Facts & Files and many other partners across Europe, Europeana 1914-1918 is collecting the public's previously unpublished letters, photographs and keepsakes from the war to be digitised and shared online. As of the end of 2013, a dozen countries have taken part, digitising over 60,000 items.
       collection_days:
         heading: Collection days
         p1: At the collection days’ events, members of the public are invited to bring their documents, artefacts and stories from the First World War to be recorded by the project staff. The stories and scanned or photographed images of the objects are then added to the archive.
@@ -1697,29 +1961,29 @@ en:
         item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">National Library of Luxembourg – Bibliothèque nationale du Luxembourg</a>
         item4: <a href="http://www.nli.ie" target="_blank">National Library of Ireland</a>
         item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">National Library of Slovenia – Narodna in univerzitetna knjižnica</a>
-        item6: ! '<a href="http://www.kb.dk/en/nb/" target="_blank">The Royal Library: The National Library of Denmark and Copenhagen University Library - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">The Royal Library: The National Library of Denmark and Copenhagen University Library - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
         item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
       takedown:
         item1: Your contact details
         item2: The full details of the material
-        item3: ! 'The exact url where you found the material (i.e.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item3: 'The exact url where you found the material (i.e.: http://www.europeana1914-1918.eu/en/contributions/96)'
         item4: Proof that you are the rights holder or an authorised representative of the rights holder
-        item5: ! 'Email us at: 1914-1918 [@] europeana [.] eu'
-        p1: ! 'If you are a rights holder and are concerned that you have found material on our website for which you have not given permission, we will of course remove it. Please contact us by email stating the following:'
+        item5: 'Email us at: 1914-1918 [@] europeana [.] eu'
+        p1: 'If you are a rights holder and are concerned that you have found material on our website for which you have not given permission, we will of course remove it. Please contact us by email stating the following:'
       terms:
         full_details:
-          heading: ! 'Europeana terms of use: full legal details – Only available in English'
+          heading: 'Europeana terms of use: full legal details – Only available in English'
         heading: Terms and conditions
         summary:
-          heading: ! 'Europeana terms of use: summary'
+          heading: 'Europeana terms of use: summary'
           item1: the digital material that you submit is not copyright protected; or
           item2: you own the rights to this digital material; or
           item3: the owner of these rights has authorized you to submit the digital material under the following conditions.
           item4: For the content you contribute (such as a video, a photo, a diary, a picture or audio material), you are allowing everybody to use this content in almost any way they wish. However, they must attribute the content to the rights owner. And if they make alterations to the content, they have to allow others to use the altered content under the same conditions.
           item5: For the descriptive data you submit (such as descriptions or tags) so your content can be found by search engines, you are allowing everybody to use these descriptive data in almost any way they like, without further conditions.
-          p1: ! 'Before you can submit digital material to Europeana, you must agree to the Europeana Terms for User Contributions – See above paragraph. Among the most important consequences of accepting these terms, are the following:'
-          p2: <b>You guarantee that:</b>
-          p3: <b>If you do not want to accept these terms, then please do not contribute content or descriptive data to Europeana</b>.
+          p1: 'Before you can submit digital material to Europeana, you must agree to the Europeana Terms for User Contributions – See above paragraph. Among the most important consequences of accepting these terms, are the following:'
+          p2: "<b>You guarantee that:</b>"
+          p3: "<b>If you do not want to accept these terms, then please do not contribute content or descriptive data to Europeana</b>."
         user_contributions:
           heading: Europeana terms for user contributions
           item1: Passwords and logging in (Article 3)
@@ -1732,15 +1996,15 @@ en:
           p1: This document contains the terms applicable to users who contribute content and metadata to the Europeana.eu website of the Europeana Foundation. The user must be aware that the Europeana Foundation strives to make all content and metadata available for reuse with a minimum of restrictions.
           p2: As part of this policy, the <b>Europeana Terms for User Contributions</b> establish that all content that is contributed to Europeana by its users will be made available on Europeana.eu under the terms of a <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution ShareAlike license</a>. This means that, when a user posts content on the Europeana.eu website, he irrevocably grants third parties the right to freely use that content, as long as they attribute the work to the author and share alterations of that content under the same conditions.
           p3: In addition, all metadata contributed by users to Europeana will be made available on Europeana.eu under the terms of the <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>. This means that the user irrevocably grants third parties the right to freely use those metadata without any restrictions.
-          p4: <b>If you do not agree with these policies please do not contribute content and/or metadata to Europeana.</b>
-          p5: ! 'These Terms for User Contributions determines inter alia the following aspects of the relationship between users contributing content to Europeana.eu and Europeana:'
+          p4: "<b>If you do not agree with these policies please do not contribute content and/or metadata to Europeana.</b>"
+          p5: 'These Terms for User Contributions determines inter alia the following aspects of the relationship between users contributing content to Europeana.eu and Europeana:'
           p6: By creating an account on Europeana.eu, the user indicates acceptance of these terms and conditions. Once a user account is created, the conditions can be accessed on <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html" target="_blank">www.europeana.eu</a>.
-          p7: ! 'Separate pages hold this project’s:'
+          p7: 'Separate pages hold this project’s:'
       what_we_do:
-        heading: ! 'National collections:  '
+        heading: 'National collections:  '
         item1: Via Europeana 1914-1918 website - add a picture of the item or type in the story online.
         item2: At the collection days events - bring the item(s) to the event where project staff will photograph the items and record the stories that go with them
-        p1: ! 'The Europeana Collections 1914-1918 project has produced a substantial digital collection of over 400,000 pieces of material from national library collections in eight countries that found themselves on different sides of the historic conflict. '
+        p1: 'The Europeana Collections 1914-1918 project has produced a substantial digital collection of over 400,000 pieces of material from national library collections in eight countries that found themselves on different sides of the historic conflict. '
     about_us:
       blog:
         heading: Blog
@@ -1748,9 +2012,9 @@ en:
         heading: Europeana 1914-1918
         p1: Europeana 1914-1918 brings together resources from three major European projects each dealing with different types of First World War material. The result is an archive that allows the national collections of libraries to sit beside personal stories and treasures and important film archives. Together, this creates a unique perspective of the First World War, showing it from every side of the battle lines and with insights from every point of view. Over time, even more material will be added to this archive so please keep coming back!
         p2: <b>Stories from the public:</b> In collaboration with the University of Oxford, Facts & Files and many other partners across Europe, Europeana 1914-1918 is collecting the public's previously unpublished letters, photographs and keepsakes from the war to be digitised and shared online. As of the end of 2013, a dozen countries have taken part, digitising over 60,000 items.  <a href="http://pro.europeana.eu/web/europeana-1914-1918">Find out more about the project here</a>
-        p3: <b>National collections:</b> The Europeana Collections 1914-1918 project has produced a substantial digital collection of over 400,000 pieces of material from national library collections in eight countries that found themselves on different sides of the historic conflict.
-        p4: <b>Film archives:</b> The European Film Gateway 1914 project gives us 650 hours of films and related material on the First World War including newsreels, documentaries, fiction films, propaganda and anti-war films. This material is especially important since only around 20&#37; of the complete silent film production of the era has survived.
-        p5: <b>And even more:</b> You can also find material on this site from other European collections and projects, as well as information from outside Europe - from the Digital Public Library of America, Trove (Australia), and Digital New Zealand.
+        p3: "<b>National collections:</b> The Europeana Collections 1914-1918 project has produced a substantial digital collection of over 400,000 pieces of material from national library collections in eight countries that found themselves on different sides of the historic conflict."
+        p4: "<b>Film archives:</b> The European Film Gateway 1914 project gives us 650 hours of films and related material on the First World War including newsreels, documentaries, fiction films, propaganda and anti-war films. This material is especially important since only around 20&#37; of the complete silent film production of the era has survived."
+        p5: "<b>And even more:</b> You can also find material on this site from other European collections and projects, as well as information from outside Europe - from the Digital Public Library of America, Trove (Australia), and Digital New Zealand."
       events:
         heading: Collection Days
         p4: If you are interested in running your own event to digitise and add material to Europeana 1914-1918, we can offer help and advice on how to do that <a href="http://pro.europeana.eu/web/europeana-1914-1918">here</a>
@@ -1760,9 +2024,9 @@ en:
           p1: If you can't make it to a roadshow, you can still share your stories and material by uploading your items directly to the website. Go to our <a href="http://europeana1914-1918.eu/en/contributor">'Contribute' page </a> and follow the instructions there.
         education:
           heading: Education
-          p1: ! 'Our partners at the British Library have developed an English-language <a href="http://bl.uk/world-war-one">website </a>
-
-            dedicated to teachers planning First World War educational programmes.'
+          p1: |-
+            Our partners at the British Library have developed an English-language <a href="http://bl.uk/world-war-one">website </a>
+            dedicated to teachers planning First World War educational programmes.
         events:
           p1: On the <a href="http://www.europeana1914-1918.eu">Home</a> page of this site you can see where our next family history roadshows will be. Please bring along your documents, artefacts and stories from the First World War so they can be scanned or photographed and added to the archive.
           p2: If you are interested in running your own event to digitise and add material to Europeana 1914-1918, we can offer <a href="http://pro.europeana.eu/web/europeana-1914-1918">help and advice on how to do that</a>.
@@ -1827,7 +2091,7 @@ en:
               submitted: No submitted contributions matching your search.
               withdrawn: No withdrawn contributions matching your search.
           title: Contributions
-        p1: ! 'Below are three tables containing contributions that have: not been submitted for approval, are pending approval or have been approved. Click on a title to see details about a contribution. Once the details are displayed, you can opt to edit the metadata, delete the contribution, or (for contributions pending approval) approve the contribution.'
+        p1: 'Below are three tables containing contributions that have: not been submitted for approval, are pending approval or have been approved. Click on a title to see details about a contribution. Once the details are displayed, you can opt to edit the metadata, delete the contribution, or (for contributions pending approval) approve the contribution.'
       europeana:
         index:
           instructions: Pressing the Submit button below will start the harvesting of WWI related content from the Europeana portal API, into the 1914-1918 database.
@@ -1882,7 +2146,7 @@ en:
           taggings:
             description: Review and moderate user taggings of stories.
           users:
-            description: ! 'Manage user accounts: administrators, cataloguers & contributors.'
+            description: 'Manage user accounts: administrators, cataloguers & contributors.'
             text: User accounts
         title: Admin
       institutions:
@@ -1905,7 +2169,7 @@ en:
           button_confirm: Really delete this field?
           question: Are you sure you want to delete the metadata field %{field_name}?
           title: Delete metadata field
-          warning: <strong>Warning:</strong> This will result in the deletion of any data in your collection already gathered for this field.
+          warning: "<strong>Warning:</strong> This will result in the deletion of any data in your collection already gathered for this field."
         edit:
           empty: There are no metadata fields yet.
           instructions: Enter a number for the position of each field.
@@ -1929,11 +2193,14 @@ en:
       taggings:
         index:
           title: User story tags
+        table:
+          header:
+            text: 
       taxonomy_terms:
         delete:
           question: Are you sure you want to delete the taxonomy term "%{term}"?
           title: Delete taxonomy term
-          warning: <strong>Warning:</strong> This action will result in any contributions associated with this term losing that categorisation.
+          warning: "<strong>Warning:</strong> This action will result in any contributions associated with this term losing that categorisation."
         edit:
           title: Edit taxonomy term
         import:
@@ -1953,7 +2220,7 @@ en:
           button_confirm: Really delete this user account?
           question: Are you sure you want to delete the user account %{email}?
           title: Delete user account
-          warning: <strong>Warning:</strong> This will also delete all the user's contributions.
+          warning: "<strong>Warning:</strong> This will also delete all the user's contributions."
         edit:
           title: Edit user account
         index:
@@ -2011,7 +2278,7 @@ en:
         item2: Add multiple items and files
         item2-subitem1: Upload several file attachments representing multiple items
         item2-subitem2: You can the describe the items individually
-        one-of-the-following: ! 'You can choose to do one of the following:'
+        one-of-the-following: 'You can choose to do one of the following:'
       copy:
         instructions: Select one or more of the other items attached to this story to overwrite with this item's metadata (shown below).
         title: Copy item metadata
@@ -2046,6 +2313,7 @@ en:
         heading: Types
     collection_days:
       cant-find-collection-day: Can’t find the collection day, you’re looking for on the map?
+      different-collection-day: Want to view a different collection day instead?
       in-the-meantime: In the meantime, feel free to take a look at previous collection days that already have published stories.
       index:
         title: Collection days
@@ -2053,20 +2321,19 @@ en:
       no-stories: We’re sorry, but the content from this collection day is not yet online. Our cataloguers are busy reviewing the stories collected during the collection day and should start to publish them soon.
       open-collection: Open collection day
       select-collection-day: Select a Collection Day
-      stories: ! 'Stories:'
+      stories: 'Stories:'
       view-stories: View stories
       visiting-information: Visiting information
-      website: ! 'Website:'
-      what-do-you-get-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+      website: 'Website:'
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
       what-do-you-get-heading: What do you get?
-      what-is-it-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo."
       what-is-it-heading: What is it?
-      who-is-it-for-content: ! "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio."
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio."
       who-is-it-for-heading: Who is it for?
-      different-collection-day: Want to view a different collection day instead?
     common:
       loading: loading …
-      more-like-this: ! 'Other items you may be interested in:'
+      more-like-this: 'Other items you may be interested in:'
       permanent: This action can not be undone.
     contact:
       heading: Contact us
@@ -2105,7 +2372,7 @@ en:
           when: When was this item created
           where: Where was this item created
         labels:
-          keywords: ! 'Help others find your item by adding one or several of the following keywords. '
+          keywords: 'Help others find your item by adding one or several of the following keywords. '
           location_map: Location (map)
           location_place_name: Location (place name)
           save_digital: Save digital object
@@ -2151,8 +2418,8 @@ en:
           public_domain: public domain
           tape: Tape
           text: Text
-          text_memoir: ! 'Text: memoir'
-          text_transcript: ! 'Text: transcription'
+          text_memoir: 'Text: memoir'
+          text_transcript: 'Text: transcription'
           unknown: Unknown
           video: Video
           vinyl: Vinyl
@@ -2164,12 +2431,12 @@ en:
       feed:
         entries:
           annotation:
-            item: ! '%{user} has commented on an image of the item %{title}'
-            story: ! '%{user} has commented on an image of the story %{title}'
-          contribution: ! '%{user} has published the story %{title}'
+            item: "%{user} has commented on an image of the item %{title}"
+            story: "%{user} has commented on an image of the story %{title}"
+          contribution: "%{user} has published the story %{title}"
           tagging:
-            item: ! '%{user} has tagged the item %{title}'
-            story: ! '%{user} has tagged the story %{title}'
+            item: "%{user} has tagged the item %{title}"
+            story: "%{user} has tagged the story %{title}"
         title: Europeana 1914-1918 activity
       index:
         empty: There are no contributions to show publicly, yet.
@@ -2185,14 +2452,14 @@ en:
         links:
           titles:
             show_contribution: View contribution
-        matches-for: ! 'Matches for:'
+        matches-for: 'Matches for:'
         no_matches: No matches. Please try again.
         related-europeana: Related content from the Europeana portal
         result_count_label: results
       show:
-        button_confirm: ! 'Are you sure that you are ready to
-
-          submit this contribution to the collection?'
+        button_confirm: |-
+          Are you sure that you are ready to
+          submit this contribution to the collection?
         comments:
           leave: Leave a Comment
           no_comments: There are no comments, why not add one below....
@@ -2262,14 +2529,14 @@ en:
         links:
           edit_contact: Edit contact details
           new: New contribution
-        notice: ! '%{name}, you are contributing as a guest.'
+        notice: "%{name}, you are contributing as a guest."
         privacy: When you have finished contributing, use the button below to clear your contact details. This helps protect your privacy on a shared computer.
         title: Guest dashboard
       guests:
         edit:
           title: Edit guest contact details
         new:
-          contact_details: ! 'Otherwise, please give us your contact details first:'
+          contact_details: 'Otherwise, please give us your contact details first:'
           guest: You are contributing as a guest.
           links:
             register: register
@@ -2282,25 +2549,25 @@ en:
           p1: You can add your story to Europeana 1914-1918 by using the online collection form on this website. You simply type in some information about your contribution, saying what it is (a postcard sent from XX, a diary, etc) and add any story that you want to share (for example about the person in the photograph, how you got it, what you know about the object). You can then attach a digital version of the object, for example a scanned or photographed copy of the picture, diary, uniform or whatever it is you are sharing. Once your contribution has been submitted it will be reviewed by an expert and become available for others.
         how_to_use:
           heading: How to use the online story collection interface
-          item1: ! '%{register} to get an account (you only need to do this once) or %{sign_in} if you have already registered.'
+          item1: "%{register} to get an account (you only need to do this once) or %{sign_in} if you have already registered."
           item2: Add information about your contribution
-          item3: (optional) Attach a digital version of your object (photograph, scanned text, video, audio etc).
+          item3: "(optional) Attach a digital version of your object (photograph, scanned text, video, audio etc)."
           item4: Submit the contribution to the online story collection
           item5: Your contribution will be reviewed by a Europeana cataloguer. When your contribution has been reviewed and accepted it will become visible for others.
           p1: To add something to our online story collection, you first need to %{sign_in} or %{register}. You will then be able to add your objects and stories to Europeana 1914-1918.
-          p2: ! 'There you will be asked to complete the following five steps. You do not have to complete the whole process all at once but you can save your contribution and finish it later. '
+          p2: 'There you will be asked to complete the following five steps. You do not have to complete the whole process all at once but you can save your contribution and finish it later. '
         item1: Adding your story to Europeana 1914-1918 – See below
-        item2: ! '%{privacy_policy} - Separate page'
-        item3: ! '%{takedown_policy} - Separate page'
-        item4: ! '%{contribution_terms} - Separate page'
-        item5: ! '%{about_the_project} - Separate page'
+        item2: "%{privacy_policy} - Separate page"
+        item3: "%{takedown_policy} - Separate page"
+        item4: "%{contribution_terms} - Separate page"
+        item5: "%{about_the_project} - Separate page"
         p1: The ‘Europeana 1914-1918’ project aims to collect material that relates to the Great War (1914-1918) and those involved in or affected by it. In the current phase we are collecting material and stories from Britain, Germany, Slovenia, Luxembourg, Ireland, etc. More information about the project and the kind of material we are collecting can be found on the %{about} page.
       index:
         item1: Enter information about your story.
         item2: Save your story as a draft.
         item3: Add one or more items (images, text documents, audio, video etc).
         item4: Confirm your agreement to the terms and conditions and submit for review.
-        p1: ! 'Thank you for offering to contribute to Europeana 1914-1918. Making a contribution is a simple process. Click on ‘Add a new story’ below to begin. You will then be taken through the following steps:'
+        p1: 'Thank you for offering to contribute to Europeana 1914-1918. Making a contribution is a simple process. Click on ‘Add a new story’ below to begin. You will then be taken through the following steps:'
       registration_required:
         p1: Please %{sign_in} or %{register} to be able to add your objects and stories to Europeana 1914-1918.
     devise:
@@ -2316,7 +2583,7 @@ en:
           title: Register
       sessions:
         new:
-          instructions: ! 'Please sign in with your account details:'
+          instructions: 'Please sign in with your account details:'
           title: Sign in
     errors:
       api_error:
@@ -2367,15 +2634,15 @@ en:
       p1: Here you can see what has been added to our story collection so far.
       p2: Use the search box to find objects that <b>match a particular word or phrase</b>. To <b>see everything</b> that has been added to the story collection so far, click ‘search’ (leave the box empty).
       p3: You can also <b>browse the story collection</b>. Click on a sample search term below to run the search for the corresponding word. The number of results will increase as more material is being added to the archive.
-      p5: <b>Material collected at the public collection days:</b>
-      search_for: <b>Search for:</b>
+      p5: "<b>Material collected at the public collection days:</b>"
+      search_for: "<b>Search for:</b>"
     flickr:
       select:
         instruction: Tick the photos you want to import. Titles and descriptions will be imported automatically.
         licenses:
           heading: Select photos from your Flickr account
           incompatible: Incompatible license
-          instruction: ! 'Only photos with the following compatible licenses may be imported into Europeana 1914-1918:'
+          instruction: 'Only photos with the following compatible licenses may be imported into Europeana 1914-1918:'
         title: Select photos from your Flickr account
       show:
         action:
@@ -2392,8 +2659,8 @@ en:
       otto:
         heading: Otto &amp; Bernard
         p1: If you have more information about Otto Arndt, please %{add_your_story} to the online story collection and share it with everyone.
-      p1: <em>Europeana 1914-1918</em> is collecting material from %{across_europe}.
-      p2: <b>Do you have pictures, letters, postcards, souvenirs or other items from 1914-1918 relating to World War One? Do you have a story or anecdote to tell about those involved or affected? Please add it to the online story collection so the world can know about it.</b>
+      p1: "<em>Europeana 1914-1918</em> is collecting material from %{across_europe}."
+      p2: "<b>Do you have pictures, letters, postcards, souvenirs or other items from 1914-1918 relating to World War One? Do you have a story or anecdote to tell about those involved or affected? Please add it to the online story collection so the world can know about it.</b>"
     links:
       back: Back to %{link}
       back-to-search: Back to search results
@@ -2403,9 +2670,9 @@ en:
       help_text:
         email: You will sign in using this email address and the password you specify.
         password: Password must contain six characters
-        profile_image: ! 'This image will be displayed alongside your contributions<br/>
-
-          max file size = 128kb'
+        profile_image: |-
+          This image will be displayed alongside your contributions<br/>
+          max file size = 128kb
         profile_photo: If you wish, upload a picture of yourself (GIF or JPEG). The picture will be displayed next to your stories.
         user_name: This will be displayed publicly as the credit alongside approved contributions.
       labels:
@@ -2428,8 +2695,8 @@ en:
         item3: the owner of these rights has authorized you to submit the digital material under the following conditions.
         item4: For the content you contribute (such as a video, a photo, a diary, a picture or audio material), you are allowing everybody to use this content in almost any way they wish. However, they must attribute the content to the rights owner. And if they make alterations to the content, they have to allow others to use the altered content under the same conditions.
         item5: For the descriptive data you submit (such as descriptions or tags) so your content can be found by search engines, you are allowing everybody to use these descriptive data in almost any way they like, without further conditions.
-        p1: ! 'Before you can submit digital material to Europeana, you must agree to the %{contribution_terms}. Among the most important consequences of accepting these terms, are the following:'
-        p2: <b>You guarantee that:</b>
+        p1: 'Before you can submit digital material to Europeana, you must agree to the %{contribution_terms}. Among the most important consequences of accepting these terms, are the following:'
+        p2: "<b>You guarantee that:</b>"
         p3: If you do not want to accept these terms, then please do not contribute content or descriptive data to Europeana.
         terms: terms & conditions
     search:
@@ -2529,6 +2796,7 @@ en:
         question: Are you sure you want to flag this tag as inappropriate?
         title: Flag as inappropriate
       info: separate each tag with a comma and press enter to add.
+    test-key: 
     users:
       _summary:
         caption: Sign in details
@@ -2540,15 +2808,11 @@ en:
         title: Your account
       sign-in:
         help: To sign in use either your username or your email address. You don’t need to use both.
-    ! "abou\tt":
-      terms:
-        user_contributions:
-          p3: 
   will_paginate:
     entry_range_label: Results %{first}–%{last} of %{total}
     first_title: First page
     last_title: Last page
-    next_label: ! '>'
+    next_label: ">"
     next_title: Next page
     page_entries_info:
       multi_page: Displaying %{model} %{from} - %{to} of %{count} in total
@@ -2561,28 +2825,9 @@ en:
         one: Displaying <b>1</b> %{model}
         other: Displaying <b>all&nbsp;%{count}</b> %{model}
         zero: No %{model} found
-    page_gap: ! '&hellip;'
+    page_gap: "&hellip;"
     page_total_label: of %{total_pages}
-    per_page_label: ! 'Results per page:'
+    per_page_label: 'Results per page:'
     per_page_title: Number of results shown on the page
-    previous_label: <
+    previous_label: "<"
     previous_title: Previous page
-  blacklight:
-    search:
-      fields:
-        facet:
-          country_sm: Country
-          data_provider_sm: Data provider
-          metadata_collection_day_ids_im: Collection day
-          metadata_content_ids_im: Item type
-          metadata_file_type_ids_im: Media type
-          metadata_keywords_ids_im: Keywords
-          metadata_lang_ids_im: Language
-          metadata_theatres_ids_im: Theatres
-          place_name_s: Place name
-          provider_sm: Provider
-          rights_sm: Rights
-          type_s: Type
-          uri_sm: Subject
-          year_sm: Year
-  Polish: 
