@@ -1,5 +1,5 @@
-/*global console, jQuery, microsoft */
-/*jslint browser: true, white: true */
+/*global com, console, I18n, jQuery, js, microsoft, RunCoCo */
+/*jslint browser: true, todo: true, white: true */
 /**
  * @class europeana
  */
@@ -60,6 +60,14 @@ window.europeana = (function( europeana, $ ) {
 		callbacks_waiting = 0,
 
 		/**
+		 * whether or not a request for a new access token was made
+		 *
+		 * @name translator#getting_new_access_token
+		 * @type {bool}
+		 */
+		geting_new_access_token = false,
+
+		/**
 		 * Language ISO codes matched with their corresponding localised language
 		 * names based on the locale passed to
 		 * microsoft.translator.getLanguageCodesAndNames()
@@ -87,6 +95,14 @@ window.europeana = (function( europeana, $ ) {
 		languages_for_translate = [],
 
 		/**
+		 * whether or not the tranlsate request had a parser error
+		 *
+		 * @name translator#parser_error
+		 * @type {bool}
+		 */
+		parser_error = false,
+
+		/**
 		 * a cache container for previous translations request during this page visit
 		 *
 		 * @name translator#translation_cache
@@ -109,6 +125,18 @@ window.europeana = (function( europeana, $ ) {
 		 * @type {array}
 		 */
 		translation_nodes_original = [],
+
+
+		/**
+		 * an html template displaying a translation services not available msg
+		 *
+		 * @name translator#translation_not_available_html
+		 * @type {string}
+		 */
+		translation_not_available_html =
+			'<span>' +
+				I18n.t( 'javascripts.translate.service-not-available' ) +
+			'</span>',
 
 		/**
 		 * an html template representing the translation services container
@@ -148,15 +176,85 @@ window.europeana = (function( europeana, $ ) {
 		}
 
 		/**
+		 * @param {string} services_selector
+		 */
+		function displayServiceNotAvailable( services_selector ) {
+			if ( !$services && services_selector ) {
+				$( services_selector ).append( $( translation_not_available_html ) );
+			} else if ( $services ) {
+				$services.html( translation_not_available_html );
+			}
+		}
+
+		/**
+		 * @param {string} data
+		 * @param {function} callback
+		 */
+		function handleRetrieveNewTokenDone( data, textStatus, callback ) {
+			callback.call( translator, textStatus, data );
+		}
+
+		/**
+		 * @param {string} textStatus
+		 * @param {function} callback
+		 */
+		function handleRetrieveNewTokenFail( textStatus, callback ) {
+			callback.call( translator, textStatus );
+		}
+
+		/**
+		 * @param {object} jqXHR
+		 * a superset of the browser's native XMLHttpRequest object
+		 *
+		 * @see http://api.jquery.com/jquery.ajax/#jqXHR
+		 */
+		function addCsrfToken( jqXHR ) {
+			jqXHR.setRequestHeader( "X-CSRF-Token", $( 'meta[name="csrf-token"]' ).attr( 'content' ) );
+		}
+
+		/**
+		 * @param {function} callback
+		 */
+		function retrieveNewToken( callback ) {
+			if ( geting_new_access_token || parser_error ) {
+				return;
+			}
+
+			geting_new_access_token = true;
+
+			$.ajax({
+				beforeSend: addCsrfToken,
+				dataType: 'json',
+				type: 'POST',
+				url: '/translate/access_tokens.json'
+			})
+
+			.done(function( data, textStatus ) {
+				handleRetrieveNewTokenDone( data, textStatus, callback );
+			})
+
+			.fail(function( jqXHR, textStatus ) {
+				debug( jqXHR );
+				handleRetrieveNewTokenFail( textStatus, callback );
+			});
+		}
+
+		/**
+		 * @param {bool} retrieve_new_token
+		 * optional
+		 *
+		 * @param {function} callback
+		 * optional
+		 *
 		 * @returns {object}
 		 */
-		function getAccessToken() {
+		function getAccessToken( retrieve_new_token, callback ) {
 			var
 			result = {};
 
-			//if ( retrieve_new_token ) {
-			//	return retrieveNewToken();
-			//}
+			if ( retrieve_new_token ) {
+				retrieveNewToken( callback );
+			}
 
 			if (
 				RunCoCo &&
@@ -166,7 +264,7 @@ window.europeana = (function( europeana, $ ) {
 				result = RunCoCo.bing_access_token.access_token;
 			}
 
-			if ( !result ) {
+			if ( $.isEmptyObject( result ) ) {
 				debug(
 					'europeana.translator.getAccessToken: no microsoft translator ' +
 					'access token was available'
@@ -188,6 +286,55 @@ window.europeana = (function( europeana, $ ) {
 				// update. store the html as sometimes the content is surrounded in html
 				translation_nodes_original.push( $( this ).html() );
 			});
+		}
+
+		/**
+		 * handle a request for a new access token
+		 *
+		 * if a new token was received re-initiate the translation request. if a
+		 * new access token wasn’t received, display a message that translation
+		 * services are not available.
+		 *
+		 * @param {string} textStatus
+		 * @param {string} data
+		 */
+		function retrieveAccessTokenCallback( textStatus, data ) {
+			var okay = true;
+
+			if ( !$.isPlainObject( RunCoCo ) ) {
+				debug( 'europeana.translator.retrieveAccessTokenCallback RunCoCo is not defined' );
+				okay = false;
+			}
+
+			if ( !$services_select && $services_select.length !== 1 ) {
+				debug( 'europeana.translator.retrieveAccessTokenCallback $services_select is not defined' );
+				okay = false;
+			}
+
+			if ( textStatus !== 'success' ) {
+				debug( 'europeana.translator.retrieveAccessTokenCallback textStatus !== success' );
+				okay = false;
+			}
+
+			if ( !okay ) {
+				displayServiceNotAvailable();
+				return;
+			}
+
+			RunCoCo.bing_access_token = data;
+			$services_select.trigger( 'change' );
+		}
+
+		function clearGetingNewAccessToken() {
+			if ( callbacks_waiting > 0 ) {
+				return;
+			}
+
+			if ( !parser_error ) {
+				geting_new_access_token = false;
+			} else {
+				displayServiceNotAvailable();
+			}
 		}
 
 		function displayTranslationServices() {
@@ -284,29 +431,26 @@ window.europeana = (function( europeana, $ ) {
 			} else if ( status.status === 'success' ) {
 				addContentWithFlashHighlight( translation.$elm, translation.response );
 				addTranslationToCache( translation );
+				parser_error = false;
 			} else {
 				debug(
 					'europena.translator.handleTranslateRequest: ' +
 					'callback status - ' + status.status
 				);
 
+				// assume a new token is needed
 				if ( status.status === 'parsererror' ) {
-					// assume a new token is needed
-					// make sure all callbacks have been received?
-					// attempt only once to get a new token
-					// call the translate method again with the same info
+					parser_error = true;
+					getAccessToken( true, retrieveAccessTokenCallback );
 				}
 			}
 
 			callbacks_waiting -= 1;
+			clearGetingNewAccessToken();
 			displayTranslationServices();
 		}
 
-		/**
-		 * @param {Event} evt
-		 * jQuery Event object
-		 */
-		function handleTranslateRequest( evt ) {
+		function handleTranslateRequest() {
 			var
 			locale_requested = $(this).val();
 
@@ -382,7 +526,7 @@ window.europeana = (function( europeana, $ ) {
 					};
 
 					translateCallback.call( translator, status, translation );
-				}
+				};
 
 				microsoft.translator.translate( options );
 				callbacks_waiting += 1;
@@ -393,7 +537,7 @@ window.europeana = (function( europeana, $ ) {
 
 		function addReturnToOriginalClickHandler() {
 			$return_to_original_text.on( 'click', handleReturnToOriginal );
-		};
+		}
 
 		function addLanguageSelectorChangeHandler() {
 			$services_select.on( 'change', handleTranslateRequest );
@@ -542,7 +686,9 @@ window.europeana = (function( europeana, $ ) {
 				return;
 			}
 
-			if ( !getAccessToken() ) {
+			// make sure an access token exists on page load
+			if ( $.isEmptyObject( getAccessToken() ) ) {
+				displayServiceNotAvailable( services_selector );
 				return;
 			}
 
@@ -550,7 +696,6 @@ window.europeana = (function( europeana, $ ) {
 			prepLanguagesForTranslate();
 			addLanguageSelectorChangeHandler();
 			addReturnToOriginalClickHandler();
-
 			captureOriginalNodes( translate_elm_selector );
 		};
 
