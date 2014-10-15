@@ -48,7 +48,6 @@ gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem 'will_paginate', '~> 3.0.0'
 
 group :development do
-  gem 'localeapp', '~> 0.8.0'
   gem 'sunspot_solr', '~> 2.1.0'
   gem 'thin'
 end
