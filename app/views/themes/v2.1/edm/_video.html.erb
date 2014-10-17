@@ -22,10 +22,10 @@
 			# and rely on mediaelementplayer to handle it, which it may not be able
 			# to do, however, it’s leniency allows for other video mime types.
 			#
-			# another way to approach this might be to create a method that only allows
+			# another approach would be to create a method that only allows
 			# specific mime types and pass a hash containing the mime type detected
 			# and whether or not it should be diplayed by mediaelementplayer
-			if video_type != 'text/html'
+			if !( /text\/html/.match( video_type ) )
 				mediaplayer = true
 
 				html = video_tag(
