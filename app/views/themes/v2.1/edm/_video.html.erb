@@ -15,7 +15,17 @@
 
 
 		if edmIsShownBy
-			if video_type = remote_video_mime_type( edmIsShownBy )
+			# remote_video_mime_type will return any mime type
+			video_type = remote_video_mime_type( edmIsShownBy )
+
+			# this test is still fragile as it will allow any other mime type thru
+			# and rely on mediaelementplayer to handle it, which it may not be able
+			# to do, however, it’s leniency allows for other video mime types.
+			#
+			# another way to approach this might be to create a method that only allows
+			# specific mime types and pass a hash containing the mime type detected
+			# and whether or not it should be diplayed by mediaelementplayer
+			if video_type != 'text/html'
 				mediaplayer = true
 
 				html = video_tag(
