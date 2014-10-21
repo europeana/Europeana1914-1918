@@ -49,7 +49,7 @@ protected
   def save_photo(file, file_name)
     attachment = Attachment.find_by_id!(@attachment_id)
     attachment.file = file
-    attachment.file_content_type = file.content_type
+    attachment.file_content_type = MIME::Types.of(file_name).first.to_s
     attachment.file_file_name = file_name
     attachment.save!
   end
