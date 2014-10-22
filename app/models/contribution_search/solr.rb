@@ -22,10 +22,7 @@ module ContributionSearch
           # Set up the Solr index
           includes = [ { :contributor => :contact }, { :metadata => :searchable_taxonomy_terms }, :tags, { :attachments => :annotations } ]
           searchable(:include => includes) do
-            text    :title
-            text    :title_mlt, :more_like_this => true do
-              title
-            end
+            text    :title, :more_like_this => true
             text    :contributor do
               contributor.contact.full_name
             end
@@ -48,10 +45,7 @@ module ContributionSearch
             integer :tag_ids, :multiple => true do 
               visible_tags.collect(&:id)
             end
-            text :tags do
-              visible_tags.collect(&:name)
-            end
-            text :tags_mlt, :more_like_this => true do
+            text :tags, :more_like_this => true do
               visible_tags.collect(&:name)
             end
             
@@ -62,10 +56,7 @@ module ContributionSearch
             end
             
             # Index all searchable taxonomy terms at once
-            text    :taxonomy_terms do
-              metadata.searchable_taxonomy_terms.collect(&:term)
-            end
-            text    :taxonomy_terms_mlt, :more_like_this => true do
+            text    :taxonomy_terms, :more_like_this => true do
               metadata.searchable_taxonomy_terms.collect(&:term)
             end
             integer :taxonomy_term_ids, :multiple => true do
@@ -76,10 +67,7 @@ module ContributionSearch
             fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
             unless fields.count == 0
               fields.each do |field|
-                text "metadata_#{field.name}" do
-                  metadata.send(MetadataRecord.column_name(field.name))
-                end
-                text "metadata_#{field.name}_mlt", :more_like_this => true do
+                text "metadata_#{field.name}", :more_like_this => true do
                   metadata.send(MetadataRecord.column_name(field.name))
                 end
               end
