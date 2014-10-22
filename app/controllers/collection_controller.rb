@@ -2,6 +2,8 @@ class CollectionController < SearchController
   include SearchHelper
   include CollectionDaysHelper
   
+  SKOS_WWI_CONCEPT_URI = "http://data.europeana.eu/concept/loc/sh85148236"
+  
   before_filter :require_solr!
   
   # GET /collection/search
@@ -87,10 +89,14 @@ class CollectionController < SearchController
       end
       
       @facets = [ index_facet ] + search.facets.collect { |facet|
+        facet_rows = facet.rows.dup
+        if facet.name.to_s == 'uri'
+          facet_rows.reject! { |row| row.value == SKOS_WWI_CONCEPT_URI }
+        end
         {
           "name" => facet.name.to_s,
           "label" => facet_label(facet.name),
-          "fields" => facet.rows.collect { |row|
+          "fields" => facet_rows.collect { |row|
             {
               "label" => facet_row_label(facet.name, row.value),
               "search" => row.value.to_s,
@@ -201,9 +207,8 @@ private
       end
     elsif facet_name.to_s == 'uri'
       row_label = openskos_concept_label(row_value)
-      wwi_uri = "http://data.europeana.eu/concept/loc/sh85148236"
-      unless wwi_uri == row_value
-        wwi_prefix = openskos_concept_label(wwi_uri)
+      unless SKOS_WWI_CONCEPT_URI == row_value
+        wwi_prefix = openskos_concept_label(SKOS_WWI_CONCEPT_URI)
         row_label.sub!(/^#{wwi_prefix} -- /i, '')
       end
     end
