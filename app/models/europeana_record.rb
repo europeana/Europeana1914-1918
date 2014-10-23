@@ -34,10 +34,14 @@ class EuropeanaRecord < ActiveRecord::Base
         'edmCountry'
       ]
     }
-      
+    
+    more_like_this_fields = [ 
+      'dcCreator', 'dcType', 'dcSubject', 'dcCoverage', 'dcTitle'
+    ]
+    
     fulltext_fields.each_pair do |key, fields|
       fields.each do |field|
-        text field.to_sym, :more_like_this => true do
+        text field.to_sym, :more_like_this => more_like_this_fields.include?(field) do
           fulltext_value = nil
           if object[key].present?
             fulltext_value = [ object[key] ].flatten.collect do |edm_object|
@@ -51,7 +55,7 @@ class EuropeanaRecord < ActiveRecord::Base
       end
     end
     
-    text :taxonomy_terms, :more_like_this => true do
+    text :taxonomy_terms do
       if object.has_key?('concepts')
         object['concepts'].collect do |concept|
           concept.has_key?('prefLabel') ? concept['prefLabel'].collect { |code, labels| labels } : []
@@ -108,7 +112,7 @@ class EuropeanaRecord < ActiveRecord::Base
     integer :tag_ids, :multiple => true do 
       visible_tags.collect(&:id)
     end
-    text :tags, :more_like_this => true do
+    text :tags do
       visible_tags.collect(&:name)
     end
     
