@@ -23,7 +23,7 @@ module ContributionSearch
           includes = [ { :contributor => :contact }, { :metadata => :searchable_taxonomy_terms }, :tags, { :attachments => :annotations } ]
           searchable(:include => includes) do
             text    :title, :more_like_this => true
-            text    :contributor do
+            text    :contributor, :more_like_this => true do
               contributor.contact.full_name
             end
             
@@ -45,7 +45,7 @@ module ContributionSearch
             integer :tag_ids, :multiple => true do 
               visible_tags.collect(&:id)
             end
-            text :tags, :more_like_this => true do
+            text :tags do
               visible_tags.collect(&:name)
             end
             
@@ -65,9 +65,10 @@ module ContributionSearch
             
             # Index other searchable fields individually
             fields = MetadataField.where('(searchable = ? OR facet = ?) AND field_type <> ?', true, true, 'taxonomy')
+            more_like_this_fields = [ 'alternative', 'contributor_behalf' ]
             unless fields.count == 0
               fields.each do |field|
-                text "metadata_#{field.name}", :more_like_this => true do
+                text "metadata_#{field.name}", :more_like_this => more_like_this_fields.include?(field.name) do
                   metadata.send(MetadataRecord.column_name(field.name))
                 end
               end
@@ -80,7 +81,7 @@ module ContributionSearch
               end
             end
             
-            string "protagonist_names", :multiple => true do
+            text "protagonist_names", :more_like_this => true do
               [ '1', '2' ].collect do |cnum|
                 [ metadata.send("field_character#{cnum}_given_name"), metadata.send("field_character#{cnum}_family_name") ].join(' ')
               end.reject { |cname| cname.blank? || cname == '' }
