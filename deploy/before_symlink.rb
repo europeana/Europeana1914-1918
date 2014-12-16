@@ -13,4 +13,4 @@ run "cp -r #{config.release_path}/config/solr/conf #{config.release_path}/solr"
 run "cp #{config.release_path}/solr/conf/solrconfig.49.xml #{config.release_path}/solr/conf/solrconfig.xml"
 
 # SSMTP
-sudo "ln -nfs #{config.shared_path}/config/ssmtp /etc/ssmtp"
+sudo "ln -nfs #{config.shared_path}/config/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf"
