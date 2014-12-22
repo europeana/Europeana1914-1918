@@ -263,7 +263,9 @@ private
   #   of terms.
   # @return [String] Query string formatted to send to Solr, disjunct syntax
   def solr_single_query(query_text)
-    translations = query_text.is_a?(String) ? bing_translate(query_text) : query_text
+    # Hack to prevent queries being translated
+    translations = [ query_text ].flatten
+#    translations = query_text.is_a?(String) ? bing_translate(query_text) : query_text
     
     search_terms = case translations
     when Hash
