@@ -4,7 +4,7 @@
  * microsoft.translator
  * @see https://github.com/dan-nl/microsoft.translator
  *
- * @version 0.0.4
+ * @version 0.0.5
  * @author dan entous
  *
  * released under the MIT license
@@ -108,8 +108,6 @@ window.microsoft = (function( microsoft, $ ) {
 		 */
 		function handleApiFail( textStatus, callback ) {
 			debug( 'there was an error interpreting the microsoft translator api response' );
-			debug( 'you can see the api response in the developer network console' );
-
 			callback.call( translator, { status: textStatus } );
 		}
 
@@ -651,17 +649,11 @@ window.microsoft = (function( microsoft, $ ) {
 		 * @return {object}
 		 */
 		translator.getLanguageCodesAndNames = function( locale ) {
-			var
-			result = {};
-
-			if (
-				$.inArray( locale, languageCodes ) !== -1 &&
-				languageCodesAndNames[locale]
-			) {
-				result = languageCodesAndNames[locale];
+			if ( !this.localeSupported( locale ) || languageCodesAndNames[locale] === undefined ) {
+				return {};
 			}
 
-			return result;
+			return languageCodesAndNames[locale];
 		};
 
 		/**
@@ -1130,6 +1122,17 @@ window.microsoft = (function( microsoft, $ ) {
 			var result = [];
 			debug( 'microsoft.translator.getTranslationsArray not yet implemented' );
 			return result;
+		};
+
+		/**
+		 * @param {string} locale
+		 */
+		translator.localeSupported = function( locale ) {
+			if ( $.inArray( locale, languageCodes ) !== -1 ) {
+				return true;
+			}
+
+			return false;
 		};
 
 		/**
