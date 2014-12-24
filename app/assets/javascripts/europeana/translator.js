@@ -189,7 +189,8 @@ window.europeana = (function( europeana, $ ) {
 					'">' +
 						I18n.t( 'javascripts.translate.return-to-language' ) +
 					'</a>' +
-					'<span>Powered by <span class="bold">Microsoft®</span> Translator</span>' +
+					'<span>Powered by <span class="bold">Microsoft®</span> Translator</span><br />' +
+					'<span id="translation-services-parser-error">Could not translate some of this text; most likely the original language is not handled by Microsoft Translate.</span>' +
 				'</div>' +
 			'</div>' +
 			'<div ' +
@@ -197,7 +198,6 @@ window.europeana = (function( europeana, $ ) {
 				'class="loading-spinner" ' +
 				'title="' + I18n.t( 'javascripts.loading' ) + '">' +
 			'</div>' +
-			'<div id="translation-services-parser-error">Could not translate some of this text; most likely the original language is not handled by Microsoft Translate.</div>' +
 			'<div id="translation-services-not-available">' +
 				I18n.t( 'javascripts.translate.service-not-available' ) +
 			'</div>';
