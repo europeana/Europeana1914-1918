@@ -190,7 +190,7 @@ window.europeana = (function( europeana, $ ) {
 						I18n.t( 'javascripts.translate.return-to-language' ) +
 					'</a>' +
 					'<span>Powered by <span class="bold">Microsoft®</span> Translator</span><br />' +
-					'<span id="translation-services-parser-error" class="error">Could not translate some of this text; most likely the original language is not handled by Microsoft Translator.</span>' +
+					'<span id="translation-services-parser-error" class="error">Could not translate some of this text. Most likely the original language is not handled by Microsoft Translator; e.g. Serbian, however you can also try re-freshing the page and submitting the translation request again.</span>' +
 				'</div>' +
 			'</div>' +
 			'<div ' +
