@@ -287,10 +287,9 @@ nano config/initializers/thinking_sphinx.rb
 
 database
 --------
-the credentials from the config/database.yml will be used to carry out the
-rake commands mentioned below.
-
-the following commands assume that you are at the root path of the project.
+the credentials from the config/database.yml will be used to carry out the rake
+commands mentioned below. the following commands assume that you are at the root
+path of the project.
 
 ### schema
 
@@ -314,7 +313,7 @@ if you want, you can import a production db dump instead of creating a clean dat
 
 ```
 mysql -u user_name -p db_name < db_dump.sql
-
+```
 
 ### create a clean version of the database
 
