@@ -16,12 +16,11 @@ table of contents
 1. [start the server](start-the-server)
 1. [secure the admin account](#secure-the-admin-account)
 1. [ruby help](#ruby-help)
-1. google usage statistics
-1. import a production db dump
-1. upgrading pdf.js viewer
+1. [google usage statistics](#google-usage-statistics)
+1. [upgrading pdf.js viewer](#upgrading-pdf.js-viewer)
 1. [upgrading mediaelement](#upgrading-mediaelement)
-1. reset password on localhost
-1. update thumbnails and dimmensions
+1. [reset password on localhost](#reset-password-on-localhost)
+1. [update thumbnails and dimmensions](#update-thumbnails-and-dimmensions)
 
 
 introduction
@@ -452,7 +451,7 @@ add the appropriate google analytics key
 add the google api email address @developer.gserviceaccount.com
 
 stats are cached for one week
-# to clear the cache
+### to clear the cache
 ```
 bundle exec rake cache:google_analytics:clear
 ```
@@ -510,207 +509,3 @@ add --trace at the end of the command to see potential issues as the command iss
 ```
 bundle exec rake paperclip:refresh:thumbnails CLASS=Attachment
 ```
-
-
-# On a Mac, a 1-line file in /etc/paths.d will be added to the path.  Imagemagick lives in /opt/local/bin, therefore:
-
-cd /etc/paths.d
-
-sudo nano opt
-  /opt/local/bin
-
-
-
-#_____________________________
-#
-#  Project Theme Setup
-#_____________________________
-#
-
-(1)	copy everything under:
-		public/themes/v2
-	to:
-		public/themes/v_new_theme
-
-
-(2)	copy everything under:
-  		themes/v2
-	to:
-  		themes/v_new_theme
-
-
-(3) Text replace "v2" with "v_new_theme" in the following files:
-
-	themes/v3/views/contributions/_search-results.html.erb
-	themes/v3/views/layouts/_footer.html.erb
-	themes/v3/views/layouts/_header.html.erb
-	themes/v3/views/layouts/_links.html.erb
-	themes/v3/views/layouts/_scripts.html.erb
-
-
-(4) NOTE: if you base your theme on v3 rather than v2 then step 3 is not needed.
-
-
-
-
-
-
-
-#_____________________________
-#
-#  Ruby Use
-#_____________________________
-#
-
-# use a GemSet
-
-rvm use 1.9.3@andy --create --default
-
-# freeze versions and create a gem configuration file see here:
-# http://ruby.railstutorial.org/ruby-on-rails-tutorial-book#top
-
-
-#_____________________________
-#
-#  Git Use
-#_____________________________
-#
-
-# One-off, per machine
-
-git config --global user.name "andyjmaclean"
-git config --global user.email andyjmaclean@gmail.com
-git config --global alias.co checkout
-
-# cd to root of project and run
-
-git init
-
-# (configure .gitignore ???)
-
-# add and commit (locally)
-
-git add .
-git commit -m "Initial commit"
-
-# commit (remote) is done with
-
-git push
-
-# check status
-
-git status
-
-# revert (-f) or checkout
-
-git checkout -f
-
-
-
-#_____________________________
-#
-#  Heroku Use
-#_____________________________
-#
-
-# login
-
-heroku login
-
-
-# run from project root
-
-heroku create
-
-
-# send src
-
-git push heroku master
-
-# Messgae if you forget to call "heroku create"
-#   fatal: 'heroku' does not appear to be a git repository
-#   fatal: The remote end hung up unexpectedly
-
-
-# Migrate data
-
-heroku run rake db:migrate
-
-# open browser to view
-
-heroku open
-
-
-
-
-#_____________________________
-#
-#  Terminal Configuration
-#_____________________________
-#
-
-# Bash shells read a different profile depending if run locally or ssh-ed into remotely.
-#
-#
-# (menu) Edit | Profile Preferences
-# then
-# (tab) Title and Command
-# check "Run command as a login temrinal"
-
-
-#_____________________________
-#
-#  Sphinx Installation
-#_____________________________
-#
-
-# install
-
-sudo apt-get install sphinxsearch
-
-# configure
-
-# see Dan
-
-# activate (change "START=no" to "START=yes" here)
-
-nano /etc/default/sphinxsearch
-
-
-
-#_____________________________
-#
-#  Eclipse Setup
-#_____________________________
-#
-
-# (menu) Help | Install New Software...
-#
-# (select) work with:
-#
-#   Indigo - http://download.eclipse.org/releases/indigo
-#   Indigo - http://download.eclipse.org/releases/juno
-#   etc.
-#
-# Check this:
-#   Programming Languages ->     Dynamic Languages Toolkit - Ruby Development Tools
-#
-# (restart)
-#
-# (toolbar) Run Configurations...
-# (select) Ruby Script
-# (button) New Launch Configuration...
-# (tab) Interpreter
-# (button) Installed Interpreters
-# (button) Add
-# Add a line like the following, give a name, save and delete redundant configuration
-
-~/.rvm/rubies/ruby-1.9.3-p392/bin/ruby
-
-
-
-#_____________________________
-#
-#  Database Setup
-#_____________________________
-#
