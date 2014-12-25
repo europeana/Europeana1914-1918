@@ -4,7 +4,7 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
-#   
+#
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
@@ -18,17 +18,19 @@ puts
 
 puts 'Initialising settings:'
 {
-  :site_url => 'http://www.example.com',
-  :registration_required => true,
-  :uploadify => true,
-  :publish_contributions => true,
-  :ui_locales => [ 'en', 'da', 'de', 'el', 'fr', 'it', 'nl', 'sl' ],
-  :contribution_approval_required => true,
-  :max_upload_size => 80214400,
   :allowed_upload_extensions => 'doc,docx,pdf,txt,jpg,jpeg,jp2,jpx,gif,png,tiff,mp3,ogg,ogv,webm,mp4,avi,mpg,zip,mp3',
-  :site_name => 'Europeana 1914-1918',
   :banner_active => false,
-  :search_engine => :solr
+  :contribution_approval_required => true,
+  :google_analytics_key => 'UA-12345678-9',
+  :max_upload_size => 80214400,
+  :publish_contributions => true,
+  :registration_required => true,
+  :search_engine => :solr,
+  :sharethis_id => 'abcdefgh-abcd-abcd-abcd-abcdefghijkl',
+  :site_name => 'Europeana 1914-1918',
+  :site_url => 'http://localhost:3000',
+  :ui_locales => [ 'en', 'da', 'de', 'el', 'fr', 'it', 'nl', 'sl' ],
+  :uploadify => true
 }.each_pair do |setting, value|
   puts "  #{setting.to_s} => #{value.to_s}"
   RunCoCo.configuration.send("#{setting.to_s}=", value)
