@@ -7,17 +7,37 @@ window.europeana = (function( europeana, $ ) {
 
 	'use strict';
 
-	if ( window.js === undefined || !js.console || !js.console.log ) {
-		js.console.log( 'europeana.translator: js.console.log is not defined' );
+	if ( window.js === undefined ) {
+		console.log( 'europeana.translator: js is not defined' );
 		return undefined;
 	}
 
-	if ( window.js === undefined || !js.utils || !js.utils.flashHighlight ) {
+	if ( js.console === undefined ) {
+		console.log( 'europeana.translator: js.console is not defined' );
+		return undefined;
+	}
+
+	if ( js.console.log === undefined ) {
+		console.log( 'europeana.translator: js.console.log is not defined' );
+		return undefined;
+	}
+
+	if ( js.utils === undefined ) {
+		js.console.log( 'europeana.translator: js.utils is not defined' );
+		return undefined;
+	}
+
+	if ( js.utils.flashHighlight === undefined ) {
 		js.console.log( 'europeana.translator: js.utils.flashHighlight is not defined' );
 		return undefined;
 	}
 
-	if ( window.microsoft === undefined || !microsoft.translator ) {
+	if ( window.microsoft === undefined ) {
+		js.console.log( 'europeana.translator: microsoft is not defined' );
+		return undefined;
+	}
+
+	if ( microsoft.translator === undefined ) {
 		js.console.log( 'europeana.translator: microsoft.translator is not defined' );
 		return undefined;
 	}
@@ -27,17 +47,47 @@ window.europeana = (function( europeana, $ ) {
 		return undefined;
 	}
 
-	if ( window.RunCoCo === undefined || !RunCoCo.locale ) {
+	if ( RunCoCo.locale === undefined ) {
 		js.console.log( 'europeana.translator RunCoCo.locale is not defined' );
 		return undefined;
 	}
 
-	if ( window.I18n === undefined || !I18n.t ) {
+	if ( RunCoCo.bing_access_token === undefined ) {
+		js.console.log( 'europeana.translator RunCoCo.bing_access_token is not defined' );
+		return undefined;
+	}
+
+	if ( RunCoCo.bing_translate_locale_supported === undefined ) {
+		js.console.log( 'europeana.translator RunCoCo.bing_translate_locale_supported is not defined' );
+		return undefined;
+	}
+
+	if ( window.I18n === undefined ) {
+		js.console.log( 'europeana.translator I18n is not defined' );
+		return undefined;
+	}
+
+	if ( I18n.t === undefined ) {
 		js.console.log( 'europeana.translator I18n.t is not defined' );
 		return undefined;
 	}
 
-	if ( window.com === undefined || !com.google || !com.google.analytics || !com.google.analytics.trackEvent ) {
+	if ( window.com === undefined ) {
+		js.console.log( 'europeana.translator com is not defined' );
+		return undefined;
+	}
+
+	if ( com.google === undefined ) {
+		js.console.log( 'europeana.translator com.google is not defined' );
+		return undefined;
+	}
+
+	if ( com.google.analytics === undefined ) {
+		js.console.log( 'europeana.translator com.google.analytics is not defined' );
+		return undefined;
+	}
+
+	if ( com.google.analytics.trackEvent === undefined ) {
 		js.console.log( 'europeana.translator com.google.analytics.trackEvent is not defined' );
 		return undefined;
 	}
@@ -280,21 +330,11 @@ window.europeana = (function( europeana, $ ) {
 		 * @returns {object}
 		 */
 		function getAccessToken( retrieve_new_token, callback ) {
-			var
-			result = {};
-
 			if ( retrieve_new_token ) {
 				retrieveNewToken( callback );
 			}
 
-			if (
-				RunCoCo.bing_access_token !== undefined &&
-				RunCoCo.bing_access_token.access_token !== undefined
-			) {
-				result = RunCoCo.bing_access_token.access_token;
-			}
-
-			return result;
+			return RunCoCo.bing_access_token.access_token;
 		}
 
 		/**
@@ -641,6 +681,12 @@ window.europeana = (function( europeana, $ ) {
 					'access token was available'
 				);
 
+				return;
+			}
+
+			if ( !RunCoCo.bing_translate_locale_supported ) {
+				displayServiceNotAvailable( services_selector );
+				js.console.log( 'europeana.translator: locale not supported' );
 				return;
 			}
 

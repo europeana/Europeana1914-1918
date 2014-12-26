@@ -83,6 +83,19 @@ class FederatedSearchController < SearchController
     @record   = edm_record_from_response(response)
     @bing_access_token = RunCoCo::BingTranslator.get_access_token()
 
+    # expects 2 letter language code
+    # defaults to true if no language code is available
+    #
+    # @richard,
+    # couldn't get access to the EuropeanaHelper method edm_proxy_field()
+    if @record['proxies'].blank?
+      @bing_translate_locale_supported = true
+    else
+      #locale = edm_proxy_field( @record['proxies'], 'dcLanguage', :concepts => @record['concepts'] )
+      #@bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
+      @bing_translate_locale_supported = true
+    end
+
     respond_to do |format|
       format.html { render :template => 'search/record' }
       format.json { render :json => response.to_json }
