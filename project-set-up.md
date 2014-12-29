@@ -335,6 +335,14 @@ bundle exec rake db:migrate
 ```
 
 
+### additional table info
+
+the following table data needs to be imported into the database. need to add a link to source files:
+* metadata fields
+* taxonomy terms
+* europeana records
+
+
 update localization
 -------------------
 update the js localization files
