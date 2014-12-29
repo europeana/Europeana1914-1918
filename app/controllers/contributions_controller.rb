@@ -127,6 +127,18 @@ class ContributionsController < ApplicationController
     @tags = @contribution.visible_tags
     @bing_access_token = RunCoCo::BingTranslator.get_access_token()
 
+    # expects 2 letter language code
+    # defaults to true if no language code is available
+    #
+    # @richard,
+    # is this testing the field incorrectly? @contribution.metadata['field_lang'] seems to always be blank
+    if @contribution.metadata['field_lang'].blank?
+      @bing_translate_locale_supported = true
+    else
+      #@bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( @contribution.metadata['lang'] )
+      @bing_translate_locale_supported = true
+    end
+
     respond_to do |format|
       format.html
       format.json { render :json => cached(@contribution, :json) }

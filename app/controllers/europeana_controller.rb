@@ -73,6 +73,19 @@ class EuropeanaController < ApplicationController
     @object = cached_record(record_id_from_params)
     @bing_access_token = RunCoCo::BingTranslator.get_access_token()
 
+    # expects 2 letter language code
+    # defaults to true if no language code is available
+    #
+    # @richard,
+    # couldn't get access to the EuropeanaHelper method edm_proxy_field()
+    if @object['proxies'].blank?
+      @bing_translate_locale_supported = true
+    else
+      #locale = EuropeanaHelper::edm_proxy_field( @object['proxies'], 'dcLanguage', :concepts => @object['concepts'] )
+      #@bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
+      @bing_translate_locale_supported = true
+    end
+
     respond_to do |format|
       format.html do
         if params[:edmpdf] == 'true'

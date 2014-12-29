@@ -7,6 +7,91 @@ window.europeana = (function( europeana, $ ) {
 
 	'use strict';
 
+	if ( window.js === undefined ) {
+		console.log( 'europeana.translator: js is not defined' );
+		return undefined;
+	}
+
+	if ( js.console === undefined ) {
+		console.log( 'europeana.translator: js.console is not defined' );
+		return undefined;
+	}
+
+	if ( js.console.log === undefined ) {
+		console.log( 'europeana.translator: js.console.log is not defined' );
+		return undefined;
+	}
+
+	if ( js.utils === undefined ) {
+		js.console.log( 'europeana.translator: js.utils is not defined' );
+		return undefined;
+	}
+
+	if ( js.utils.flashHighlight === undefined ) {
+		js.console.log( 'europeana.translator: js.utils.flashHighlight is not defined' );
+		return undefined;
+	}
+
+	if ( window.microsoft === undefined ) {
+		js.console.log( 'europeana.translator: microsoft is not defined' );
+		return undefined;
+	}
+
+	if ( microsoft.translator === undefined ) {
+		js.console.log( 'europeana.translator: microsoft.translator is not defined' );
+		return undefined;
+	}
+
+	if ( window.RunCoCo === undefined ) {
+		js.console.log( 'europeana.translator RunCoCo is not defined' );
+		return undefined;
+	}
+
+	if ( RunCoCo.locale === undefined ) {
+		js.console.log( 'europeana.translator RunCoCo.locale is not defined' );
+		return undefined;
+	}
+
+	if ( RunCoCo.bing_access_token === undefined ) {
+		js.console.log( 'europeana.translator RunCoCo.bing_access_token is not defined' );
+		return undefined;
+	}
+
+	if ( RunCoCo.bing_translate_locale_supported === undefined ) {
+		js.console.log( 'europeana.translator RunCoCo.bing_translate_locale_supported is not defined' );
+		return undefined;
+	}
+
+	if ( window.I18n === undefined ) {
+		js.console.log( 'europeana.translator I18n is not defined' );
+		return undefined;
+	}
+
+	if ( I18n.t === undefined ) {
+		js.console.log( 'europeana.translator I18n.t is not defined' );
+		return undefined;
+	}
+
+	if ( window.com === undefined ) {
+		js.console.log( 'europeana.translator com is not defined' );
+		return undefined;
+	}
+
+	if ( com.google === undefined ) {
+		js.console.log( 'europeana.translator com.google is not defined' );
+		return undefined;
+	}
+
+	if ( com.google.analytics === undefined ) {
+		js.console.log( 'europeana.translator com.google.analytics is not defined' );
+		return undefined;
+	}
+
+	if ( com.google.analytics.trackEvent === undefined ) {
+		js.console.log( 'europeana.translator com.google.analytics.trackEvent is not defined' );
+		return undefined;
+	}
+
 	/**
 	 * manages the translator service using the azure marketplace
 	 * microsoft translator
@@ -41,6 +126,15 @@ window.europeana = (function( europeana, $ ) {
 		 * @type {object}
 		 */
 		$services_not_available,
+
+		/**
+		 * jQuery object that represent the DOM element that contains the
+		 * translation services parser error message
+		 *
+		 * @name translator#$services_parser_error
+		 * @type {object}
+		 */
+		$services_parser_error,
 
 		/**
 		 * jQuery object that represent the DOM element that is the language
@@ -85,15 +179,6 @@ window.europeana = (function( europeana, $ ) {
 		 * @type {object}
 		 */
 		language_codes_and_names = {},
-
-		/**
-		 * Language names that correspond with the translator#languages_for_translate
-		 * based on the locale passed to microsoft.translator.getLanguageNames()
-		 *
-		 * @name translator#language_names
-		 * @type {array}
-		 */
-		language_names = [],
 
 		/**
 		 * ISO language codes
@@ -154,7 +239,8 @@ window.europeana = (function( europeana, $ ) {
 					'">' +
 						I18n.t( 'javascripts.translate.return-to-language' ) +
 					'</a>' +
-					'<span>Powered by <span class="bold">Microsoft®</span> Translator</span>' +
+					'<span>Powered by <span class="bold">Microsoft®</span> Translator</span><br />' +
+					'<span id="translation-services-parser-error" class="error">Some of the text could not be translated.</span>' +
 				'</div>' +
 			'</div>' +
 			'<div ' +
@@ -167,12 +253,13 @@ window.europeana = (function( europeana, $ ) {
 			'</div>';
 
 		/**
-		 * @param {string} msg
+		 * @param {object} jqXHR
+		 * a superset of the browser's native XMLHttpRequest object
+		 *
+		 * @see http://api.jquery.com/jquery.ajax/#jqXHR
 		 */
-		function debug( msg ) {
-			if ( window.console && console.log ) {
-				console.log( msg );
-			}
+		function addCsrfToken( jqXHR ) {
+			jqXHR.setRequestHeader( "X-CSRF-Token", $( 'meta[name="csrf-token"]' ).attr( 'content' ) );
 		}
 
 		/**
@@ -206,16 +293,6 @@ window.europeana = (function( europeana, $ ) {
 		}
 
 		/**
-		 * @param {object} jqXHR
-		 * a superset of the browser's native XMLHttpRequest object
-		 *
-		 * @see http://api.jquery.com/jquery.ajax/#jqXHR
-		 */
-		function addCsrfToken( jqXHR ) {
-			jqXHR.setRequestHeader( "X-CSRF-Token", $( 'meta[name="csrf-token"]' ).attr( 'content' ) );
-		}
-
-		/**
 		 * @param {function} callback
 		 */
 		function retrieveNewToken( callback ) {
@@ -223,7 +300,7 @@ window.europeana = (function( europeana, $ ) {
 				return;
 			}
 
-			debug( 'europeana.translator.retrieveNewToken' );
+			js.console.log( 'europeana.translator.retrieveNewToken' );
 			getting_new_access_token = true;
 
 			$.ajax({
@@ -238,7 +315,7 @@ window.europeana = (function( europeana, $ ) {
 			})
 
 			.fail(function( jqXHR, textStatus ) {
-				debug( jqXHR );
+				js.console.log( jqXHR );
 				handleRetrieveNewTokenFail( textStatus, callback );
 			});
 		}
@@ -253,29 +330,11 @@ window.europeana = (function( europeana, $ ) {
 		 * @returns {object}
 		 */
 		function getAccessToken( retrieve_new_token, callback ) {
-			var
-			result = {};
-
 			if ( retrieve_new_token ) {
 				retrieveNewToken( callback );
 			}
 
-			if (
-				RunCoCo &&
-				RunCoCo.bing_access_token &&
-				RunCoCo.bing_access_token.access_token
-			) {
-				result = RunCoCo.bing_access_token.access_token;
-			}
-
-			if ( $.isEmptyObject( result ) ) {
-				debug(
-					'europeana.translator.getAccessToken: no microsoft translator ' +
-					'access token was available'
-				);
-			}
-
-			return result;
+			return RunCoCo.bing_access_token.access_token;
 		}
 
 		/**
@@ -302,34 +361,29 @@ window.europeana = (function( europeana, $ ) {
 		 * @param {string} textStatus
 		 * @param {string} data
 		 */
-		function retrieveAccessTokenCallback( textStatus, data ) {
-			var okay = true;
-
-			getting_new_access_token = false;
-
-			if ( !$.isPlainObject( RunCoCo ) ) {
-				debug( 'europeana.translator.retrieveAccessTokenCallback RunCoCo is not defined' );
-				okay = false;
-			}
-
-			if ( !$services_select && $services_select.length !== 1 ) {
-				debug( 'europeana.translator.retrieveAccessTokenCallback $services_select is not defined' );
-				okay = false;
-			}
-
-			if ( textStatus !== 'success' ) {
-				debug( 'europeana.translator.retrieveAccessTokenCallback textStatus !== success' );
-				okay = false;
-			}
-
-			if ( !okay ) {
-				displayServiceNotAvailable();
-				return;
-			}
-
-			RunCoCo.bing_access_token = data;
-			$services_select.trigger( 'change' );
-		}
+		//function retrieveAccessTokenCallback( textStatus, data ) {
+		//	var okay = true;
+		//
+		//	getting_new_access_token = false;
+		//
+		//	if ( !$services_select && $services_select.length !== 1 ) {
+		//		js.console.log( 'europeana.translator.retrieveAccessTokenCallback $services_select is not defined' );
+		//		okay = false;
+		//	}
+		//
+		//	if ( textStatus !== 'success' ) {
+		//		js.console.log( 'europeana.translator.retrieveAccessTokenCallback textStatus !== success' );
+		//		okay = false;
+		//	}
+		//
+		//	if ( !okay ) {
+		//		displayServiceNotAvailable();
+		//		return;
+		//	}
+		//
+		//	RunCoCo.bing_access_token = data;
+		//	$services_select.trigger( 'change' );
+		//}
 
 		function displayTranslationServices() {
 			if ( callbacks_waiting > 0 ) {
@@ -428,7 +482,7 @@ window.europeana = (function( europeana, $ ) {
 		 */
 		function translateCallback( status, translation ) {
 			if ( $.isEmptyObject( translation.$elm ) ) {
-				debug(
+				js.console.log(
 					'europena.translator.handleTranslateRequest: ' +
 					'$elm is not an object'
 				);
@@ -437,18 +491,21 @@ window.europeana = (function( europeana, $ ) {
 				addTranslationToCache( translation );
 				parser_error = false;
 			} else {
-				debug(
+				js.console.log(
 					'europena.translator.handleTranslateRequest: ' +
 					'callback status - ' + status.status
 				);
 
 				// assume a new token is needed
+				// assuming that a new token is needed creates an endsless loop
+				// for languages not handled such as serbian
+				// need to sort out a better way to deal with parse errors
 				if ( status.status === 'parsererror' ) {
 					if ( !parser_error ) {
-						getAccessToken( true, retrieveAccessTokenCallback );
+						//getAccessToken( true, retrieveAccessTokenCallback );
+						$services_parser_error.fadeIn();
+						parser_error = true;
 					}
-
-					parser_error = true;
 				}
 			}
 
@@ -462,7 +519,7 @@ window.europeana = (function( europeana, $ ) {
 
 			// no translation requested
 			if ( locale_requested.length < 1 ) {
-				debug(
+				js.console.log(
 					'europena.translator.handleTranslateRequest: locale requested ' +
 					'[' + locale_requested + '] is empty'
 				);
@@ -472,7 +529,7 @@ window.europeana = (function( europeana, $ ) {
 
 			// validate locale requested
 			if ( $.inArray( locale_requested, languages_for_translate ) === -1 ) {
-				debug(
+				js.console.log(
 					'europeana.translator.handleTranslateRequest: locale requested ' +
 					'[' + locale_requested + '] is not valid'
 				);
@@ -550,15 +607,6 @@ window.europeana = (function( europeana, $ ) {
 		}
 
 		function addLanguagesToLanguageSelector() {
-			if ( languages_for_translate.length !== language_names.length ) {
-				debug(
-					'europeana.translator.addLanguagesToLanguageSelector: ' +
-					'language array lengths do not match'
-				);
-
-				return;
-			}
-
 			var
 			html = '';
 
@@ -567,100 +615,35 @@ window.europeana = (function( europeana, $ ) {
 					languages_for_translate.push( index );
 					html += '<option value="' + index + '">' + value + '</option>';
 				});
-			} else {
-				$.each( languages_for_translate, function( index ) {
-					html +=
-						'<option value="' + languages_for_translate[ index ] + '">' +
-							language_names[ index ] +
-						'</option>';
-				});
 			}
 
 			$services_select.append( html );
 		}
 
 		/**
-		 * callback for the microsoft.translator.getLanguageNames method
+		 * fallback to locale ‘en’ if locale provided is not available
 		 *
-		 * @param {object} status
-		 * @param {array} response
+		 * @param {string} locale
 		 */
-		function languageNamesCallback( status, response ) {
-			if ( status.status !== 'success' ) {
-				debug( 'europeana.translator.languageNamesCallback: status !== success' );
-				return;
-			}
+		function setLanguageCodesAndNames( locale ) {
+			language_codes_and_names = microsoft.translator.getLanguageCodesAndNames( locale );
 
-			language_names = response;
+			if ( $.isEmptyObject( language_codes_and_names ) ) {
+				language_codes_and_names = microsoft.translator.getLanguageCodesAndNames( 'en' );
+
+				js.console.log(
+					'europeana.translator setLanguageCodesAndNames: locale [' + locale + '] has no cached language codes and names; fell back to [en]'
+				);
+			}
+		}
+
+		/**
+		 * choose not to make any api calls and rely on the cached
+		 * array in microsoft.translator
+		 */
+		function createTranslateDropDown() {
+			setLanguageCodesAndNames( RunCoCo.locale );
 			addLanguagesToLanguageSelector();
-		}
-
-		/**
-		 * initiates an api call to microsoft.translator.getLanguageNames
-		 */
-		function prepLanguageNames() {
-			var
-			options = {
-				appId: getAccessToken()
-			};
-
-			if ( language_names.length < 1 ) {
-				if ( RunCoCo && RunCoCo.locale ) {
-					options.locale = RunCoCo.locale;
-				}
-
-				options.callback = languageNamesCallback;
-				microsoft.translator.getLanguageNames( options );
-			} else {
-				addLanguagesToLanguageSelector();
-			}
-		}
-
-		/**
-		 * callback for the microsoft.translator.getLanguagesForTranslate method
-		 *
-		 * @param {object} status
-		 * @param {array} response
-		 */
-		function languagesForTranslateCallback( status, response ) {
-			if ( status.status !== 'success' ) {
-				debug( 'europeana.translator.languagesForTranslateCallback: status !== success' );
-				return;
-			}
-
-			languages_for_translate = response;
-			prepLanguageNames();
-		}
-
-		/**
-		 * begin the process of preparing the language dropdown selector options.
-		 *
-		 * attempt to get a static code/name object from microsoft.translator for
-		 * the current RunCoCo.locale. if it doesn’t exist, make the api calls
-		 * starting with microsoft.translator.getLanguagesForTranslate
-		 */
-		function prepLanguagesForTranslate() {
-			var
-			options = {
-				appId: getAccessToken()
-			};
-
-			if ( RunCoCo && RunCoCo.locale ) {
-				language_codes_and_names =
-					microsoft.translator.getLanguageCodesAndNames( RunCoCo.locale );
-
-				if ( !$.isEmptyObject( language_codes_and_names ) ) {
-					addLanguagesToLanguageSelector();
-					return;
-				}
-			}
-
-			if ( languages_for_translate.length < 1 ) {
-				options.callback = languagesForTranslateCallback;
-				microsoft.translator.getLanguagesForTranslate( options );
-			} else {
-				prepLanguageNames();
-			}
 		}
 
 		/**
@@ -676,6 +659,7 @@ window.europeana = (function( europeana, $ ) {
 			$return_to_original_text = $services.find( '#return-to-original-text' ).hide();
 			$translations_loading_icon = $( '#translations-loading-icon' ).hide();
 			$services_not_available = $( '#translation-services-not-available' ).hide();
+			$services_parser_error = $( '#translation-services-parser-error' ).hide();
 		}
 
 		/**
@@ -688,19 +672,26 @@ window.europeana = (function( europeana, $ ) {
 		 * css selector that indicates which DOM elements should be translated
 		 */
 		translator.init = function( services_selector, translate_elm_selector ) {
-			if ( !microsoft && !microsoft.translator ) {
-				debug( 'europeana.translator.init: microsoft.translator has not loaded' );
-				return;
-			}
-
 			// make sure an access token exists on page load
 			if ( $.isEmptyObject( getAccessToken() ) ) {
 				displayServiceNotAvailable( services_selector );
+
+				js.console.log(
+					'europeana.translator.getAccessToken: no microsoft translator ' +
+					'access token was available'
+				);
+
+				return;
+			}
+
+			if ( !RunCoCo.bing_translate_locale_supported ) {
+				displayServiceNotAvailable( services_selector );
+				js.console.log( 'europeana.translator: locale not supported' );
 				return;
 			}
 
 			addTranslationServices( services_selector );
-			prepLanguagesForTranslate();
+			createTranslateDropDown();
 			addLanguageSelectorChangeHandler();
 			addReturnToOriginalClickHandler();
 			captureOriginalNodes( translate_elm_selector );

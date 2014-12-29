@@ -1,12 +1,10 @@
 /*global js */
 /*jslint browser: true, white: true */
-(function( js ) {
+(function() {
 
 	'use strict';
+	if ( !window.js ) { window.js = {}; }
 
-	if ( js === undefined ) {
-		window.js = {};
-	}
 
 	var empty_console	= {
 		error : function() {
@@ -37,4 +35,4 @@
 			: empty_console;
 	}
 
-}( js ));
+}());
