@@ -13,17 +13,17 @@
 ---
 nl:
   actions:
-    add: Voeg toe
+    add: Toevoegen
     approve: Goedkeuren
     cancel: Annuleren
     copy: Kopiëren
     delete: Verwijderen
-    depublish: Trek publicatie in
+    depublish: Intrekken
     download: Downloaden
     edit: Bewerken
     edit_story: Verhaal bewerken
-    filter: Filter
-    flag: Markeer
+    filter: Filteren
+    flag: Markeren
     import: Importeren
     new: Nieuw
     reject: Afwijzen
@@ -35,54 +35,54 @@ nl:
   activerecord:
     attributes:
       attachment:
-        dropbox_path: Dropbox bestand
+        dropbox_path: Dropboxbestand
         file: Bestand
         file_content_type: Soort
-        file_created_at: Gemaakt
-        file_file_name: Bestand naam
-        file_file_size: Bestand grootte
+        file_created_at: Gemaakt op
+        file_file_name: Bestandsnaam
+        file_file_size: Bestandsgrootte
         file_updated_at: Bijgewerkt op
-        metadata: Metada
+        metadata: Metadata
         preview: Voorbeeld
-        public: Publiek
+        public: Openbaar
       collection_day:
         description: Beschrijving
         end_date: Einddatum
-        image: Beeld
+        image: Afbeelding
         name: Naam
         start_date: Begindatum
-        taxonomy_term_id: Taxonomische voorwaarde
+        taxonomy_term_id: Taxonomieterm
       contact:
         age: Leeftijd
         country: Land
         full_name: Volledige naam
         gender: Geslacht
-        locality: Plaats/stad
+        locality: Plaats
         postal_code: Postcode
-        region: Streek
+        region: Departement
         street_address: Straat
         tel: Telefoonnummer
       contribution:
         approved_by: Goedgekeurd door
         approver: Goedgekeurd door
         attachments: Items
-        catalogued_by: Cataloguer
-        cataloguer: Cataloguer
-        contributor: Bijdrage gedaan door
-        created_at: Begin
+        catalogued_by: Catalogiseerder
+        cataloguer: Catalogiseerder
+        contributor: Bijgedragen door
+        created_at: Begonnen op
         metadata: Metadata
         published_at: Gepubliceerd op
-        submitted_at: Verzonden op
+        submitted_at: Ingediend op
       contribution_status:
         created_at: Status gewijzigd op
       metadata_field:
         cataloguing: Alleen gecatalogiseerd
         field_type: Type
         hint: Hint
-        multi: Meerdere opties mogelijk
+        multi: Meervoudige selectie
         name: ID
         position: Positie
-        required: Verplicht
+        required: Vereist
         searchable: Vindbaar
         show_in_listing: In lijsten weergeven
       metadata_record:
@@ -96,16 +96,16 @@ nl:
         metadata_field: Veld
         term: Term
       user:
-        created_at: Registratie datum
+        created_at: Registratiedatum
         institution: Instelling
         password: Wachtwoord
-        password_confirmation: Herhaal wachtwoord
-        role_name: Role
+        password_confirmation: Wachtwoord bevestigen
+        role_name: Rol
         terms: Voorwaarden
         username: Gebruikersnaam
     errors:
       messages:
-        accepted: moet worden geaccepteerd
+        accepted: U moet akkoord gaan om door te kunnen gaan.
         blank: moet opgegeven zijn
         confirmation: komt niet met de bevestiging overeen
         empty: moet opgegeven zijn
@@ -805,6 +805,7 @@ nl:
           en header als de systeemgekozen waarde.
         site_url: Volledige URL zoals die toegang geeft tot de homepage van deze site,
           zonder localisering en zonder trailing slash.
+        ui_locales: Boven aan de pagina weer te geven talen
       taxonomy_term:
         import: Voer hier de taxonomische waarden voor dit veld in, één per regel.
         term: Moet uniek zijn binnen het bereik van het metadataveld.
@@ -881,6 +882,7 @@ nl:
             type: Type
           dcterms:
             alternative: Alternatieve titel
+            extent: Bereik
             spatial: Plaats
             temporal: Datum
           edm:
@@ -962,11 +964,13 @@ nl:
         format:
           Canvas: Canvas
           Card: Kaart
+          Ceramic/China: Keramiek/China
           Digital: Digitaal
           Leather: Leer
           Mixed: Gemengd
           Other: Overige
-          'Text: memoir': 'Tekst: memoir'
+          Tape: Band
+          'Text: memoir': 'Tekst: memoires'
           'Text: transcription': 'Tekst: transcriptie'
           Unknown: Onbekend
           Vinyl: Vinyl
@@ -991,7 +995,7 @@ nl:
           Women: Vrouwen
         lang:
           português: Portugees
-          Ελληνικά: Ελληνικά
+          Ελληνικά: Grieks
         license:
           http://creativecommons:
             org/licenses/by-sa/3:
@@ -1005,6 +1009,7 @@ nl:
           Book: Boek
           Film: Film
           Folio: Folio
+          Journal: Dagboek
           Leaf: Vel
           Notebook: Notitieboek
           Unknown: Onbekend
@@ -1023,7 +1028,7 @@ nl:
         delete_picture: Verwijder foto
         terms: Ik ga akkoord met de voorwaarden
     "no": nee
-    required: verplicht
+    required: vereist
     titles:
       account_details: Log in details
       admin_user: Log in details
@@ -1072,7 +1077,7 @@ nl:
           Druk op "Opslaan" als u klaar bent.
     annotorious:
       clear-flag: Markering wissen
-      flag: Markering
+      flag: Markeren
     collection-days:
       close-directions: Routebeschrijving sluiten
       find-more: Meer informatie.
@@ -1123,7 +1128,7 @@ nl:
       label:
         map_view: Kaart
         satellite_view: Satelliet
-    loading: Bezig met laden ...
+    loading: bezig met laden ...
     next: volgende →
     previous: ← vorige
     search:
@@ -1622,6 +1627,7 @@ nl:
           question: Wilt u dit metadataveld %{field_name} echt verwijderen?
           title: Metadataveld verwijderen
         edit:
+          empty: Er zijn nog geen metadatavelden.
           instructions: Voer een getal in voor de positie ven elk veld.
           title: Metadataveld bewerken
         index:
@@ -1642,6 +1648,9 @@ nl:
             en bijbehorende items voor een bepaald jaar en optioneel voor een bepaalde
             collectiedag.
           title: Statistieken
+      taggings:
+        index:
+          title: Gebruikersverhalenlabels
       taxonomy_terms:
         delete:
           question: Weet u zeker dat u de taxonomische term "%{term}" wilt verwijderen?
@@ -1690,8 +1699,17 @@ nl:
             edit: Gebruiker bewerken
           title: Gebruiker
     annotations:
+      depublish:
+        question: Wilt u deze itemannotatie terugtrekken?
+        title: Annotatie intrekken
       edit:
         title: Annotatie bewerken
+      flag:
+        question: Wilt u deze annotatie als onwenselijk kenmerken?
+        title: Annotatie als onwenselijk markeren
+      unflag:
+        question: Wilt u deze annotatie niet langer als onwenselijk markeren?
+        title: Niet langer als onwenselijk markeren
     attachments:
       _form:
         dropbox:
@@ -1713,6 +1731,9 @@ nl:
             title: Bekijk alle bestand details
         no_thumbnail: Thumbnail aanmaken
       attachment_help:
+        flickr:
+          description: Foto's en beschrijvingen importeren vanuit uw Flickrgebruiker
+          link: Items toevoegen vanuit Flickr
         item1: Voeg een enkel item of bestand toe
         item1-subitem1: Beschrijf uw object
         item1-subitem2: Voeg een bestand toe
@@ -1763,6 +1784,7 @@ nl:
         accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
         sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
         mus."
+      what-do-you-get-heading: Wat krijgt u?
       what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
         \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
         et viverra justo commodo."
@@ -1775,7 +1797,8 @@ nl:
         nunc eget odio."
       who-is-it-for-heading: Voor wie is het?
     common:
-      loading: Bezig met laden ...
+      loading: bezig met laden ...
+      more-like-this: 'Andere items waarin u wellicht interesse hebt:'
       permanent: Deze actie kan niet ongedaan gemaakt worden
     contact:
       heading: Neem contact met ons op
@@ -1889,6 +1912,14 @@ nl:
       edit:
         title: Bijdrage
       feed:
+        entries:
+          annotation:
+            item: '%{user} heeft gereageerd of een afbeelding bij het item %{title}'
+            story: '%{user} heeft gereageerd of een afbeelding bij het verhaal %{title}'
+          contribution: '%{user} heeft het verhaal %{title} gepubliceerd'
+          tagging:
+            item: '%{user} heeft het item %{title} gelabeld'
+            story: '%{user} heeft het verhaal %{title} gelabeld'
         title: Europeana 1914-1918 activiteit
       index:
         empty: Er zijn nog geen verhalen gepubliceerd.
@@ -2146,6 +2177,20 @@ nl:
         op een collectiedag om alle verhalen die op die dag werden toegevoegd te vinden.
       p5: <b> Verzameld materiaal van de collectie dagen:</b>
       search_for: <b>Zoek naar:</b>
+    flickr:
+      select:
+        licenses:
+          incompatible: Incompatibele licentie
+          instruction: 'Alleen foto''s met de volgende compatibele licenties kunnen
+            geïmporteerd worden in Europeana 1914-1918:'
+        title: Selecteer foto's van uw Flickrgebruiker
+      show:
+        action:
+          link: Flickrgebruiker koppelen
+          unlink: Flickrgebruiker ontkoppelen
+        status:
+          linked: U bent aan Flickr gekoppeld %{username}
+          unlinked: U bent niet aan Flickr gekoppeld
     home:
       heading: Onbekende verhalen & officiële geschiedenissen van WW1
       links:
@@ -2178,7 +2223,7 @@ nl:
         email: Email
         gender: Geslacht
         password: Wachtwoord
-        password_repeat: Bevestig uw wachtwoord
+        password_repeat: Wachtwoord bevestigen
         profile_image: Profiel afbeelding
         profile_photo: Profiel foto
         residence:
@@ -2291,6 +2336,10 @@ nl:
       header:
         actions: Actie
     taggings:
+      depublish:
+        question: Weet u zeker dat u dit label in de context van dit verhaalt wilt
+          intrekken?
+        title: Label terugtrekken
       edit:
         title: Trefwoorden bewerken
     tags:

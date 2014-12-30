@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Fitoschido
+# Author: Pjcaldeira
 ---
 pt:
   actions:
@@ -10,30 +11,30 @@ pt:
     cancel: Cancelar
     copy: Copiar
     delete: Apagar
-    depublish: Retirar de publicação
-    download: Download
+    depublish: Despublicar
+    download: Transferir
     edit: Editar
     edit_story: Editar história
     filter: Filtrar
-    flag: Marcar
+    flag: Assinalar
     import: Importar
     new: Novo
     reject: Rejeitar
     remove: Remover
-    save: Gravar
+    save: Guardar
     submit: Submeter
-    unflag: Desmarcar
+    unflag: Desinalizar
     update: Atualizar
   activerecord:
     attributes:
       attachment:
-        dropbox_path: Ficheiro dropbox
+        dropbox_path: Ficheiro da Dropbox
         file: Ficheiro
         file_content_type: Tipo de conteúdo
-        file_created_at: Criado a
+        file_created_at: 'Criado em:'
         file_file_name: Nome do ficheiro
         file_file_size: Tamanho do ficheiro
-        file_updated_at: Atualizado a
+        file_updated_at: Atualizado em
         metadata: Metadados
         preview: Pré-vizualização
         public: Público
@@ -41,16 +42,17 @@ pt:
         description: Descrição
         end_date: Data de fim
         image: Imagem
-        name: Designação
+        name: Nome
         start_date: Data de início
         taxonomy_term_id: Termo taxonómico
       contact:
         age: Idade
-        country: País onde reside
+        country: País de residência
         full_name: Nome completo
         gender: Género
         locality: Cidade
         postal_code: Código postal
+        region: Município
         street_address: Morada
         tel: Telefone
       contribution:
@@ -62,23 +64,24 @@ pt:
         contributor: Contribuidor
         created_at: Iniciado em
         metadata: Metadados
-        published_at: Publicado a
-        submitted_at: Submetido a
+        published_at: Publicado em
+        submitted_at: Submetido em
       contribution_status:
-        created_at: estado modificado em
+        created_at: Estado alterado em
       metadata_field:
-        cataloguing: Catalogação
+        cataloguing: Apenas para catalogar
         field_type: Tipo
-        hint: Conselho
+        hint: Sugestão
         multi: Seleção múltipla
         name: ID
         position: Cargo
-        required: Requisitos
+        required: Obrigatório
         searchable: Pesquisável
         show_in_listing: Mostrar em listas
       metadata_record:
         field_alternative: Campo alternativo
-        field_collection_day_terms: Termos do campo dias de recolha
+        field_collection_day_terms: Campo de termos do dia da colecção
+        field_file_type_terms: Campo tipo de arquivo de termos
       setting:
         name: Nome
         value: Valor
@@ -88,29 +91,29 @@ pt:
       user:
         created_at: Data de registo
         institution: Instituição
-        password: Password
-        password_confirmation: Repetir password
+        password: Palavra-passe
+        password_confirmation: Repetir palavra-passe
         role_name: Função
         terms: Termos
-        username: Utilizador
+        username: Nome de Utilizador
     errors:
       messages:
         accepted: Tem de aceitar para poder continuar.
-        blank: Campo obrigatório; não pode estar em branco
+        blank: Campo obrigatório; não pode ficar em branco
         confirmation: Não coincide com a confirmação.
-        empty: não pode estar vazio
+        empty: não pode ficar em branco
         equal_to: tem de ser igual a %{count}
-        even: tem de ser par
+        even: tem de ser igual
         exclusion: é reservado
         greater_than: tem de ser maior que %{count}
         greater_than_or_equal_to: tem de ser maior ou igual a %{count}
         inclusion: Escolha um valor da lista.
-        invalid: é inválido
+        invalid: Entrada inválida; verifique o formato do valor introduzido.
         less_than: tem de ser menor que %{count}
         less_than_or_equal_to: tem de ser menor ou igual a %{count}
-        not_a_number: valor não é um número
-        not_an_integer: tem de ser um inteiro
-        odd: tem de ser ímpar
+        not_a_number: Este valor não é um número, mas deve ser.
+        not_an_integer: deve ser um número inteiro
+        odd: deve ser ímpar
         record_invalid: 'A validação falhou: %{errors}'
         taken: Este campo deve ser único, mas o valor introduzido já existe no nosso
           sistema.
@@ -122,15 +125,15 @@ pt:
           attributes:
             file:
               content_type: Tipo de ficheiro não permitido.
-              presence: Escolha um ficheiro para upload.
+              presence: Selecione um ficheiro para carregar.
               size: O ficheiro é demasiado pesado.
         collection_day:
           attributes:
             image:
-              content_type: Apenas permitidas imagens JPEG e GIF.
+              content_type: Apenas são permitidas imagens JPEG e GIF.
           end_date_follows_start_date: A data de fim tem de ser posterior à data de
             início.
-          taxonomy_term_metadata_field: Não é um dia de recolha válido.
+          taxonomy_term_metadata_field: Não é um dia de colecção válido.
         contribution:
           attachments:
             uploaded: Alguns ficheiros ainda estão a ser transferidos.
@@ -145,11 +148,11 @@ pt:
             cataloguing:
               optional: Facultativo
             contribution:
-              or_attachment: Um campo deve aplicar-se a contribuições e/ou anexos.
+              or_attachment: Deve ser atribuído um campo a contribuições e/ou anexos.
             field_type:
-              constancy: Tipo do ficheiro não pode ser alterado.
+              constancy: O tipo de campo não pode ser alterado.
             searchable:
-              field_type: Campos de taxonomia não são pesquisáveis.
+              field_type: Os campos de taxonomia não são pesquisáveis.
         metadata_record:
           date_field_civil: Data de calendário inválida.
           one_cover_image: Selecionar apenas um item para imagem de capa da sua história.
@@ -161,16 +164,16 @@ pt:
         taxonomy_term:
           attributes:
             metadata_field:
-              type: Termos taxonómicos devem estar associados a um campo de metadados
+              type: Os termos taxonómicos devem estar associados a um campo de metadados
                 taxonómicos.
         user:
           attributes:
             current_password:
-              invalid: password incorreta
+              invalid: Palavra-passe incorreta
             email:
               taken: Já existe uma conta de utilizador com este endereço de email.
             picture:
-              content_type: Imagem de perfil tem de ser GIF ou JPEG.
+              content_type: A imagem de perfil tem de ser GIF ou JPEG.
       template:
         body: 'Por favor, verifique os seguintes campos:'
         header:
@@ -179,14 +182,14 @@ pt:
     models:
       annotation: Legenda de imagem
       attachment: Item
-      collection_day: Dias da Memória
+      collection_day: Dia da colecção
       contact: Contacto
       contribution: História
-      institution: Fornecedor institucional
+      institution: Provedor de conteúdos institucional
       metadata_field: Campo de metadados
       metadata_record: Registo de metadados
-      tag: Tag
-      tagging: Tagging
+      tag: Etiqueta
+      tagging: Etiquetar
       taxonomy_term: Termo taxonómico
       user: Utilizador
     options:
@@ -215,7 +218,7 @@ pt:
     metadata_record: Metadados
     status: Estado
     title: Título
-    updated_at: Atualizado a
+    updated_at: Atualizado em
     url: URL
   blacklight:
     search:
@@ -223,29 +226,29 @@ pt:
         facet:
           country_sm: País
           data_provider_sm: Fornecedor de conteúdos
-          metadata_collection_day_ids_im: Dias da Memória
+          metadata_collection_day_ids_im: Dia da colecção
           metadata_content_ids_im: Tipo de item
-          metadata_file_type_ids_im: Tipo de meio
+          metadata_file_type_ids_im: Tipo de multimédia
           metadata_keywords_ids_im: Palavras-chave
-          metadata_lang_ids_im: Língua
-          metadata_theatres_ids_im: Teatro de guerra
-          place_name_s: Local
-          provider_sm: Agregador
+          metadata_lang_ids_im: Idioma
+          metadata_theatres_ids_im: Teatros de guerra
+          place_name_s: Nome do lugar
+          provider_sm: Fornecedor
           rights_sm: Direitos
           type_s: Tipo
           uri_sm: Assunto
           year_sm: Ano
   common:
     additional-information: Informação adicional
-    download-item: Fazer download do item
+    download-item: Transferir item
     editors_blog:
       more_stories: Mais histórias em <a href="http://thegreatwararchive.blogspot.com/search/label/en">Blogue
         de escolhas do editor</a>
     editors_pick:
       heading: Escolhas do editor
       more_stories: <b>Mais histórias na página %{explore_stories}.</b>
-    featured-categories: Categorias de assuntos
-    from-collection-days: Dos nossos Dias de recolha (collection days)
+    featured-categories: Categorias em destaque
+    from-collection-days: Dos nossos Dias da Coleção
     google_maps:
       help_text: |-
         <li><b>Sugestão automática</b> : Preencha com um país, cidade ou endereço; Google Maps tentará encontrar um possível endereço.</li>
@@ -274,8 +277,8 @@ pt:
       explore-the-stories-brief: Explorar!
       explore_stories: Explorar as histórias
       help: Ajuda
-      my_account: Minha conta
-      my_stories: Minhas histórias
+      my_account: A minha conta
+      my_stories: As minhas histórias
       national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
         target="_blank">Saiba mais sobre as coleções nacionais</a>.
       play-audio: Ouvir áudio
@@ -285,8 +288,8 @@ pt:
         mais informação aceda ao sítio web do projecto</a>
       project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
         target="_blank">Descobrir mais sobre a recolha de histórias familiares</a>.
-      register: Registar-se
-      sign_in: Iniciar sessão
+      register: Registe-se
+      sign_in: Entrar
       statistics: Estatísticas
       takedown_policy: Política de retirada
       titles:
@@ -300,18 +303,18 @@ pt:
       main:
         about: Sobre
         add: Adicionar história
-        collection-days: Dias da Memória
+        collection-days: Dias da Colecção
         explore: Explorar
         home: Início
         remix: Uma Amizade Improvável
-        select_language: Escolher língua
-        sign_in: Iniciar sessão
-        sign_out: Fechar sessão
-      menu: Menu
+        select_language: Selecionar idioma
+        sign_in: Entrar
+        sign_out: Sair
+      menu: Menú
     more-at: Mais em
-    news: Novidades
+    news: Notícias
     news_item:
-      heading: Novos dias de recolha
+      heading: Novos Family History Roadshows
     "no": Não
     options:
       close: Fechar
@@ -423,23 +426,22 @@ pt:
   devise:
     failure:
       admin:
-        unauthenticated: Tem de iniciar sessão antes de continuar.
-      invalid: Nome de utilizador/email ou password inválidos.
-      invalid_token: Token de identificação inválido.
-      timeout: A sessão expirou, para continuar inicie novamente sessão.
-      unauthenticated: Antes de continuar tem de iniciar sessão ou registar-se.
+        unauthenticated: Tem de entrar ou registar-se para prosseguir.
+      invalid: Nome de utilizador/email ou palavra-passe inválidos.
+      invalid_token: Token de autenticação inválido.
+      timeout: A sessão expirou, para continuar entre novamente.
+      unauthenticated: Tem de iniciar a sessão ou registar-se para prosseguir.
     mailer:
       reset_password_instructions:
-        subject: Instruções para reinicializar a password.
+        subject: Instruções para alterar a palavra-passe.
     passwords:
-      link: Esqueceu a password?
-      send_instructions: Foi-lhe enviado um mail com instruções para reinicializar
-        a sua password.
-      updated: A password foi alterada com sucesso. Agora tem sessão activa.
+      link: Esqueceu-se da palavra-passe?
+      send_instructions: Foi-lhe enviado um email com instruções para alterar a palavra-passe.
+      updated: A palavra-passe foi alterada com sucesso. Agora tem sessão activa.
     registrations:
       destroyed: A sua conta foi cancelada com sucesso. Esperamos voltar a encontrá-lo
         em breve.
-      link: Registar-se
+      link: Registar
       signed_up: Sessão iniciada com sucesso.
       updated: A sua conta foi atualizada com sucesso.
     sessions:
@@ -488,6 +490,10 @@ pt:
       update:
         alert: Ocorreu um erro ao atualizar %{resource_name}. ver as mensagens abaixo.
         notice: '%{resource_name} atualizado.'
+    admin:
+      europeana:
+        harvest:
+          notice: O conteúdo do portal Europeana está ser reunido em plano de fundo.
     annotations:
       depublish:
         alert: Ocorreu um erro ao retirar anotação.
@@ -785,6 +791,8 @@ pt:
         google_analytics_key: Chave do Google Analytics. Se deixado em branco será
           usada a chave UA-XXXXXXXX-1. Certifique-se que os ambientes de teste e produção
           utilizam as chaves apropriadas.
+        google_api_email: Insira o API do serviço de email da conta Google a utilizar
+          para obter as estatísticas de utilização pública do Google Analytics.
         max_upload_size: Tamanho máximo para upload em bytes.
         publish_contributions: Ativar a visualização ao público das contribuições.
           Se não estiver ativa, as contribuições podem ser recolhidas, mas não serão
@@ -794,8 +802,14 @@ pt:
           como visitantes, dando os seus dados de contacto.
         relative_url_root: Root do URL do site consultado, sem o slsh final. Deixa
           em ranco para URLs de nível superior.
+        sharethis_id: ShareThis Publisher id. Se deixado em branco, as ações da conta
+          ShareThis não serão rastreadas no ShareThis conta. O ShareThis script tentará
+          gravar ações na conta do Google Analytics, caso ele exista na página; o
+          script irá procurar por valor UA e usá-lo se estiver disponível.
         site_name: Nome deste sítio web. Por defeito, este será mostrado em páginas
           de títulos e cabeçalhos.
+        site_url: URL completa a partir da qual a página principal deste site é acedida,
+          sem a localização e sem qualquer rastreio.
         ui_locales: Locais para ligar ao cabeçalho da página
         uploadify: Utilize o Uploadify para gerir uploads de anenos, permitindo o
           upload de múltiplos ficheiros. Ver <http://www.uploadify.com/> para mais
@@ -882,6 +896,7 @@ pt:
             spatial: Lugar
             temporal: Data
           edm:
+            country: A fornecer país
             data_provider: Fornecedor de conteúdos
             external_partner_site: Ver no site do parceiro
             language: Língua
@@ -1133,6 +1148,7 @@ pt:
           Anti-War Movement: Movimento anti-guerra
           Artillery: Artilharia
           Conscientious Objection: Objeção de consciência
+          Gas Warfare: Guerra do Gás
           Home Front: Frente doméstica
           Manufacture: Indústria
           Medical: Médico
@@ -1147,14 +1163,20 @@ pt:
           Trench Life: Vida nas Trincheiras
           Women: Mulheres
         lang:
+          Dansk: Holandês
           Deutsch: Alemão
           English: Inglês
           Français: Francês
           Gaeilge: Gaélico
           Italiano: Italiano
           Magyar: Magiar
+          Nederlands: Holanda
           Other: Outro
+          Română: Romeno
+          Slovenčina: Eslovaco
+          Slovenščina: Esloveno
           português: Português
+          Ελληνικά: Grego
         license:
           http://creativecommons:
             org/licenses/by-sa/3:
@@ -1166,6 +1188,7 @@ pt:
               0/: https://creativecommons.org/licenses/by-sa/2.0/
         object_side:
           Back: Parte de trás
+          Front: Frente
         source:
           Artifact: Artefacto
           Book: Livro
@@ -1252,6 +1275,7 @@ pt:
       uploading: Alguns ficheiros ainda estão a ser transferidos. Quando todos estiverem
         completos, poderá submeter a sua história.
     collection-days:
+      close-directions: Fechar direções
       find-more: Descobrir mais.
       get-directions: Obter direções
       legend: Legenda
@@ -1314,6 +1338,7 @@ pt:
       of: de
     translate:
       return-to-language: Regressar à língua original
+      service-not-available: Os serviços de tradução não ainda disponíveis.
       translate-to: Traduzir para ...
     truncate:
       show-less: Mostrar menos ...
@@ -1338,6 +1363,7 @@ pt:
     hu: Húngaro
     nl: Holandês
     pt: português
+    sk: Eslovaco
     sl: Esloveno
   layout:
     navigation:
@@ -1348,6 +1374,7 @@ pt:
       contribute: Contribuir
       help: Ajuda
       home: Início
+    software_engine: Powered by RunCoCo
   locale: Português
   mail:
     contributions:
@@ -1432,6 +1459,7 @@ pt:
     max_upload_size: Dimensão máxima para upload
     publish_contributions: Publicar contribuições
     registration_required: É necessário registo
+    relative_url_root: URL root
     search_engine: Motor de pesquisa
     sharethis_id: ID ShareThis Publisher
     site_name: Nome do site
@@ -1620,6 +1648,10 @@ pt:
           e filmes contra a guerra. Este material é especialmente importante, já que
           apenas cerca de 20% da produção da época de filmes mudos sobreviveu até
           aos nossos dias.
+        p5: <b>E ainda mais:</b> Também pode encontrar material sobre este site a
+          partir de outras colecções Europeias e projetos, bem como informações de
+          fora da Europa - a partir da Digital Public Library of America, Trove (Austrália)
+          e Digital New Zealand.
       events:
         heading: Dias de recolha
         p4: Se estiver interessado em realizar o seu próprio evento para digitalizar
@@ -1694,6 +1726,7 @@ pt:
             draft: Projetos de contribuição (%{total} total)
             rejected: Contribuições rejeitadas (%{total} total)
             revised: Contribuições revistas a aguardar aprovação (%{total} total)
+            submitted: Contribuições submetidas a aguardar aprovação (%{total} total)
             withdrawn: Contribuições retiradas a aguardar aprovação (%{total} total)
           empty:
             all:
@@ -1977,6 +2010,7 @@ pt:
       select-collection-day: Escolher um Dia de recolha
       stories: 'Histórias:'
       view-stories: Ver histórias
+      visiting-information: Informação sobre visitas
       website: 'Sítio web:'
       what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
         elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
@@ -2056,6 +2090,7 @@ pt:
           location_map: Localização (mapa)
           location_place_name: Localização (nome do lugar)
           save_digital: Guardar objeto digital
+          save_item_draft: Guardar o item de rascunho
           submit_contribution: Submeter contribuição
         links:
           add_another: Adicionar outro item

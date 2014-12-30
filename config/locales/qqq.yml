@@ -158,6 +158,8 @@ qqq:
       total: '{{Identical|Total}}'
     "yes": '{{Identical|Yes}}'
   date:
+    abbr_month_names:
+    - '{{notranslate}}'
     day_names:
     - |-
       Name of the day of the week.
@@ -763,6 +765,25 @@ qqq:
             field_lang_other: '{{notranslate}}'
             field_location_placename: '{{notranslate}}'
             field_ticket: '{{notranslate}}'
+          new:
+            field_character1_pob: '{{notranslate}}'
+            field_character1_pod: '{{notranslate}}'
+            field_character2_family_name: '{{notranslate}}'
+            field_character2_given_name: '{{notranslate}}'
+            field_character2_pob: '{{notranslate}}'
+            field_character2_pod: '{{notranslate}}'
+            field_contributor_behalf: '{{notranslate}}'
+            field_editor_pick_sig: '{{notranslate}}'
+            field_lang_other: '{{notranslate}}'
+            field_location_placename: '{{notranslate}}'
+            field_ticket: '{{notranslate}}'
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            exclude: '{{notranslate}}'
+        run_co_co/configuration:
+          edit:
+            allowed_upload_extensions: '{{notranslate}}'
       user:
         contact:
           create:
@@ -790,14 +811,32 @@ qqq:
     titles:
       account_details: '{{Identical|Sign in details}}'
       admin_user: '{{Identical|Sign in details}}'
+      collection_day:
+        edit:
+          admin_collection_day: '{{notranslate}}'
+          admin_collection_day_address: '{{notranslate}}'
+        update:
+          admin_collection_day: '{{notranslate}}'
+          admin_collection_day_address: '{{notranslate}}'
+      contact:
+        edit:
+          user_picture: '{{notranslate}}'
       contact_address: '{{Identical|Address}}'
       contact_name: '{{Identical|Name}}'
       contribution_attachments: '{{Identical|Item}}'
       personal_details: '{{Identical|Personal details}}'
+      run_co_co/configuration:
+        edit:
+          settings: '{{notranslate}}'
+      taxonomy_term:
+        new:
+          taxonomy_term: '{{notranslate}}'
       user:
         create:
           accept_terms: '{{notranslate}}'
           user_session: '{{notranslate}}'
+        edit:
+          accept_terms: '{{notranslate}}'
         new:
           accept_terms: '{{notranslate}}'
           user_session: '{{notranslate}}'
@@ -812,6 +851,19 @@ qqq:
             title: '{{notranslate}}'
           update:
             title: '{{notranslate}}'
+      settings:
+        admin/contributions_controller/export_settings:
+          export:
+            set: '{{notranslate}}'
+            start_date: '{{notranslate}}'
+      taxonomy_term:
+        taxonomy_term:
+          create:
+            term: '{{notranslate}}'
+          edit:
+            term: '{{notranslate}}'
+          new:
+            term: '{{notranslate}}'
       user:
         contact:
           create:
@@ -912,7 +964,7 @@ qqq:
       short: '{{Related|Date.formats}}'
       timestamp: '{{Related|Date.formats}}'
   views:
-    "about":
+    about:
       terms:
         user_contributions:
           p3: '{{notranslate}}'
@@ -946,6 +998,10 @@ qqq:
       statistics:
         index:
           title: '{{Identical|Statistics}}'
+      taggings:
+        table:
+          header:
+            text: '{{notranslate}}'
       users:
         index:
           caption: '{{Identical|User account}}'

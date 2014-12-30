@@ -1,0 +1,1994 @@
+# Messages for Luxembourgish (Lëtzebuergesch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Robby
+---
+lb:
+  actions:
+    add: Derbäisetzen
+    approve: Zoustëmmen
+    cancel: Ofbriechen
+    copy: Kopéieren
+    delete: Läschen
+    depublish: Verëffentlechung zréckzéien
+    download: Eroflueden
+    edit: Änneren
+    edit_story: Geschicht änneren
+    filter: Filter
+    flag: Markéieren
+    import: Importéieren
+    new: Nei
+    reject: Refuséieren
+    remove: Ewechhuelen
+    save: Späicheren
+    submit: Schécken
+    unflag: Markéierung ewechhuelen
+    update: Aktualiséieren
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Dropbox-Fichier
+        file: Fichier
+        file_content_type: Typ vun Inhalt
+        file_created_at: Ugeluecht den
+        file_file_name: Numm vum Fichier
+        file_file_size: Gréisst vum Fichier
+        file_updated_at: Aktualiséiert den
+        metadata: Metadaten
+        preview: Kucken ouni ze späicheren
+        public: Ëffentlech
+      collection_day:
+        description: Beschreiwung
+        image: Bild
+        name: Numm
+        start_date: Ufanksdatum
+      contact:
+        age: Alter
+        country: Land
+        full_name: Ganzen Numm
+        gender: Geschlecht
+        locality: Duerf/Stad
+        postal_code: Postcode
+        region: Regioun
+        street_address: Adress mat Strooss
+        tel: Telefonsnummer
+      contribution:
+        approved_by: Akzeptéiert vum
+        approver: Akzeptéiert vum
+        attachments: Elementer
+        catalogued_by: Katalogiséiert vum
+        created_at: Ugefaang de(n)
+        metadata: Metadaten
+        published_at: Publizéiert de(n)
+      contribution_status:
+        created_at: Status geännert de(n)
+      metadata_field:
+        cataloguing: nëmme katalogiséieren
+        field_type: Typ
+        hint: Tipp
+        name: Nummer (ID)
+        position: Positioun
+        required: Obligatoresch
+        searchable: Ka gesicht ginn
+        show_in_listing: Op Lëschte weisen
+      metadata_record:
+        field_alternative: alternatiivt Feld
+      setting:
+        name: Numm
+        value: Wäert
+      taxonomy_term:
+        metadata_field: Feld
+        term: Begrëff
+      user:
+        created_at: Datum vun der Umeldung
+        institution: Institutioun
+        password: Passwuert
+        password_confirmation: Passwuert widderhuelen
+        role_name: Roll
+        terms: Begrëffer
+        username: Benotzernumm
+    errors:
+      messages:
+        accepted: Dir musst akzeptéiere fir kënne virunzefueren.
+        blank: Dëst Feld ass obligatoresch; et däerf net eidel sinn.
+        confirmation: Net datselwecht wéi d'Confirmatioun.
+        empty: däerf net eidel sinn
+        equal_to: muss d'selwecht si wéi %{count}
+        even: muss gerued sinn
+        exclusion: ass reservéiert
+        greater_than: muss méi grouss wéi %{count} sinn
+        greater_than_or_equal_to: muss méi grouss oder gläich si wéi %{count}
+        inclusion: Sicht e Wäert aus der Lëscht eraus.
+        invalid: Net valabele Wäert; kuckt d'Format vum Wäert no deen Dir aginn hutt.
+        less_than: muss méi kleng wéi %{count} sinn
+        less_than_or_equal_to: muss méi kleng oder gläich si wéi %{count}
+        not_a_number: Dëse Wäert ass keng Zuel awer et misst eng sinn.
+        not_an_integer: muss eng ganz Zuel sinn
+        odd: muss ongerued sinn
+        record_invalid: 'Validatioun feelgeschlo: %{errors}'
+        taken: De Wäert fir dëst Feld däerf et nëmmen eemol ginn, awer de Wäert deen
+          agi gouf gëtt et schonn an eisem System.
+        too_long: ass ze laang (Maximum si(nn) %{count} Zeechen)
+        too_short: ass ze kuerz (Minimum si(nn) %{count} Zeechen)
+        wrong_length: huet déi falsch Längt (muss %{count} Zeechen hunn)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Dësen Typ vu Fichier ass net erlaabt.
+              presence: Sicht e Fichier eraus fir eropzelueden.
+              size: De Fichier deen Dir eropgelueden hutt ass ze grouss.
+        collection_day:
+          attributes:
+            image:
+              content_type: Nëmme JPEG a GIF-Biller sinn erlaabt.
+          end_date_follows_start_date: De Schlussdatum muss nom Ufanksdatum sinn.
+          taxonomy_term_metadata_field: Dëst ass kee valabelen Aktiounsdag.
+        contribution:
+          attachments:
+            uploaded: E puer Fichiere ginn nach iwwerdro.
+          attributes:
+            guest_id:
+              present: Kontaktdate sinn obligatoresch fir Kontributioune vu Visiteuren.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Katalogieséierungsfelder kënnen net obligatoresch sinn.
+            field_type:
+              constancy: De Feldtyp kann net geännert ginn.
+            searchable:
+              field_type: A Felder mat Schlësselewierder kann net gesicht ginn.
+        metadata_record:
+          date_field_civil: Kee valabele Kalennerdatum.
+          one_cover_image: Dir kënnt nëmmen een Element als Titelbild fir Är Geschicht
+            eraussichen.
+          taxonomy_field_single: Et kann nëmmen ee Begrëff erausgesicht ginn.
+        setting:
+          attributes:
+            name:
+              inclusion: ass keng registréiert Astellung vun den Astellungen
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Schlësselwierder musse mat engem Schlësselwuert Metadatefeld associéiert
+                sinn.
+        user:
+          attributes:
+            current_password:
+              invalid: Falscht Passwuert
+            email:
+              taken: Et gëtt schonn e Benotzerkont mat dëser E-Mail-Adress.
+            picture:
+              content_type: D'Profilbild muss e GIF oder e JPEG sinn.
+      template:
+        body: 'Et gouf Problemer mat dëse Felder:'
+        header:
+          one: 1 Feeler verhënnert d'Späichere vu(n) %{model}
+          other: '%{count} Feeler verhënneren d''Späichere vu(n) %{model}'
+    models:
+      annotation: Bildnotiz
+      attachment: Element
+      collection_day: Aktiounsdag
+      contact: Kontakt
+      contribution: Geschicht
+      institution: Institutioun
+      metadata_field: Metadatefeld
+      tag: Markéierung (Tag)
+      taxonomy_term: Schlësselwuert
+      user: Benotzer
+    options:
+      contact:
+        gender:
+          female: Weiblech
+          male: Männlech
+      metadata_field:
+        field_type:
+          date: Datum
+          geo: Geographesch Plaz
+          string: Eenzeilegen Text
+          taxonomy: Taxonomie
+          text: Méizeilegen Text
+      user:
+        role_name:
+          administrator: Administrateur
+          blank: All Rollen
+          contributor: Auteur
+  attributes:
+    contact: Kontakt
+    created_at: Ugeluecht den
+    email: E-Mail
+    id: Nummer (ID)
+    metadata_record: Metadaten
+    status: Status
+    title: Titel
+    updated_at: Aktualiséiert den
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Land
+          data_provider_sm: Dateprovider
+          metadata_collection_day_ids_im: Aktiounsdag
+          metadata_content_ids_im: Typ vun Element
+          metadata_file_type_ids_im: Medientyp
+          metadata_keywords_ids_im: Schlësselwierder
+          metadata_lang_ids_im: Sprooch
+          metadata_theatres_ids_im: Theateren
+          place_name_s: Numm vun der Plaz
+          provider_sm: Fournisseur
+          rights_sm: Rechter
+          type_s: Typ
+          uri_sm: Sujet
+          year_sm: Joer
+  common:
+    additional-information: Zousätzlech Informatioun
+    download-item: Dëst Element eroflueden
+    editors_blog:
+      more_stories: Méi Geschichten am a href="http://thegreatwararchive.blogspot.com/search/label/en">Blog
+        vum Editeur</a>
+    editors_pick:
+      heading: De Choix vum Editeur
+      more_stories: <b>Méi Geschichten op der %{explore_stories} Säit.</b>
+    featured-categories: Besonnesch Kategorien
+    from-collection-days: Vun eisen Aktiounsdeeg
+    google_maps:
+      label: Benotzt Google Maps (fakultativ)
+    help_text:
+      mandatory: obligatorescht Feld
+    labels:
+      add-keywords: Setzt Är Schlësselwierder derbäi
+      co_funded: cofinanzéiert vun der Europäescher Unioun
+    links:
+      about_the_project: Iwwer de Projet Europeana 1914-1918
+      add-your-story: Setzt Är Geschicht derbäi!
+      add-your-story-brief: Derbäisetzen!
+      annotorious: Et sinn Notizen un d'Element drugehaang. Maacht d'Element op fir
+        ze liesen.
+      contact_us: Kontaktéiert eis
+      contact_us_email: Dir kënnt eis och iwwer d'E-Mail-Adress <span class="addr">1914-1918
+        [@] europeana [.] eu</span> kontaktéieren.
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
+        target="_blank">Konditioune fir Kontributioune vu Benotzer op Europeana</a>
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Fannt
+        méi eraus iwwer d'Sammele vu Filmmaterial</a>.
+      explore-the-stories: Entdeckt d'Geschichten!
+      explore-the-stories-brief: Entdeckt!
+      explore_stories: Geschichten entdecken
+      help: Hëllef
+      my_account: Mäi Kont
+      my_stories: Meng Geschichten
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Fannt méi eraus iwwer d'Zesummebrénge vun nationale Sammlungen</a>.
+      play-audio: Tounfichier spillen
+      play-video: Video ofspillen
+      privacy_policy: Dateschutz
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Méi
+        Informatioune fannt dir op der Internetsäit vun eisem Projet</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">Fannt méi eraus iwwer d'Sammele vu Familljegeschichten</a>.
+      register: Registréieren
+      sign_in: Umellen
+      statistics: Statistiken
+      titles:
+        great_war: '''Great War Archive'' vun der Universitéit vun Oxford'
+      view-image: Dat komplett Element weisen
+      view-pdf: Dokument opmaachen
+    map_contribution_heading: Plaz wou dës Geschicht geschitt ass
+    menus:
+      main:
+        about: Iwwer
+        add: Setzt Är Geschicht derbäi
+        collection-days: Aktiounsdeeg
+        explore: Duerchsichen
+        home: Haaptsäit
+        remix: Eng ongewéinlech Frëndschaft
+        select_language: Sicht eng Sprooch eraus
+        sign_in: Umellen
+        sign_out: Ofmellen
+      menu: Menü
+    more-at: Méi op
+    news: Neiegkeeten
+    "no": Neen
+    options:
+      close: Zoumaachen
+      open: Opmaachen
+      other_option: Anerer
+    other:
+      contributor: Auteur
+      preview: Kucken ouni ze späicheren
+      title: Titel
+      total: Total
+    "yes": Jo
+  date:
+    abbr_day_names:
+    - Son
+    - Méi
+    - Dën
+    - Mët
+    - Don
+    - Fre
+    - Sam
+    abbr_month_names:
+      1: Jan
+      2: Feb
+      3: Mäe
+      4: Abr
+      5: Mee
+      6: Jun
+      7: Jul
+      8: Aug
+      9: Sep
+      10: Okt
+      11: Nov
+      12: Dez
+    day_names:
+    - Sonndeg
+    - Méindeg
+    - Dënschdeg
+    - Mëttwoch
+    - Donneschdeg
+    - Freideg
+    - Samschdeg
+    formats:
+      default: '%d.%m.%Y'
+      long: '%e. %B %Y'
+      long_with_day: '%A, %e. %B %Y'
+      month_and_year: '%B %Y'
+      quarter: Trimester %{number} %Y
+      short: '%e %b'
+    month_names:
+      1: Januar
+      2: Februar
+      3: Mäerz
+      4: Abrëll
+      5: Mee
+      6: Juni
+      7: Juli
+      8: August
+      9: September
+      10: Oktober
+      11: November
+      12: Dezember
+    order:
+    - :Joer
+    - :Mount
+    - :Dag
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: ongeféier eng Stonn
+        other: ongeféier %{count} Stonnen
+      about_x_months:
+        one: ongeféier ee Mount
+        other: ongeféier %{count} Méint
+      about_x_years:
+        one: ongeféier ee Joer
+        other: ongeféier %{count} Joer
+      almost_x_years:
+        one: bal ee Joer
+        other: bal %{count} Joer
+      half_a_minute: eng hallef Minutt
+      less_than_x_minutes:
+        one: manner wéi eng Minutt
+        other: manner wéi %{count} Minutten
+      less_than_x_seconds:
+        one: manner wéi eng Sekonn
+        other: manner wéi %{count} Sekonnen
+      over_x_years:
+        one: méi wéi ee Joer
+        other: méi wéi %{count} Joer
+      x_days:
+        one: 1 Dag
+        other: '%{count} Deeg'
+      x_minutes:
+        one: 1 Minutt
+        other: '%{count} Minutten'
+      x_months:
+        one: 1 Mount
+        other: '%{count} Méint'
+      x_seconds:
+        one: 1 Sekonn
+        other: '%{count} Sekonnen'
+    prompts:
+      day: Dag
+      hour: Stonn
+      minute: Minutt
+      month: Mount
+      second: Sekonnen
+      year: Joer
+  devise:
+    failure:
+      admin:
+        unauthenticated: Dir musst Iech aloggen, ier Dir virufuere kënnt.
+      invalid: Benotzernumm/E-Mail oder Passwuert si falsch.
+      timeout: Är Sessioun ass ofgelaf, mellt Iech w.e.g. nach eng Kéier u fir virunzefueren.
+      unauthenticated: Dir musst Iech aloggen oder umellen ier Dir virufuere kënnt.
+    mailer:
+      reset_password_instructions:
+        subject: Instruktioune fir d'Passwuert zréckzesetzen
+    passwords:
+      link: Passwuert vergiess?
+      send_instructions: Dir krut eng E-Mail geschéckt mat Instruktioune fir Äert
+        Passwuert zréckzesetzen.
+      updated: Äert Passwuert gouf geännert. Dir sidd elo ugemellt.
+    registrations:
+      destroyed: Äddi! Äre Benotzerkont gouf geläscht. Mir hoffen Iech geschwënn nees
+        ze gesinn.
+      link: Registréieren
+      signed_up: Dir hutt Iech elo ugemellt.
+      updated: Dir hutt Äre Benotzerkont aktualiséiert.
+    sessions:
+      link: Aloggen
+      signed_in: Ageloggt.
+      signed_out: Ausgeloggt.
+  errors:
+    format: '%{attribute} %{message}'
+    messages:
+      accepted: muss akzeptéiert ginn
+      blank: däerf net eidel sinn
+      confirmation: ass net d'selwecht wéi d'Confirmatioun
+      empty: däerf net eidel sinn
+      equal_to: muss d'selwecht si wéi %{count}
+      even: muss gerued sinn
+      exclusion: ass reservéiert
+      greater_than: muss méi grouss wéi %{count} sinn
+      greater_than_or_equal_to: muss méi grouss oder gläich si wéi %{count}
+      inclusion: ass net an der Lëscht dran
+      invalid: ass net valabel
+      less_than: muss méi kleng wéi %{count} sinn
+      less_than_or_equal_to: muss méi kleng oder gläich si wéi %{count}
+      not_a_number: ass keng Zuel
+      not_an_integer: muss eng ganz Zuel sinn
+      odd: muss ongerued sinn
+      record_invalid: 'Validatioun feelgeschlo: %{errors}'
+      taken: gouf scho geholl
+      too_long:
+        one: ass ze laang (Maximal 1 Zeechen)
+        other: ass ze laang (net méi wéi %{count} Zeechen)
+      too_short:
+        one: ass ze kuerz (Mniimal 1 Zeechen)
+        other: ass ze kuerz (mindestens %{count} Zeechen)
+      wrong_length:
+        one: huet déi falsch Längt (muss genee een Zeeche sinn)
+        other: huet déi falsch Längt (musse genee %{count} Zeeche sinn)
+    template:
+      body: 'Et gouf Problemer mat dëse Felder:'
+      header:
+        one: 1 Feeler verhënnert d'Späichere vu(n) %{model}
+        other: '%{count} Feeler verhënneren d''Späichere vu(n) %{model}'
+  flash:
+    actions:
+      create:
+        alert: Et gouf e Problem beim uleeë vu(n) %{resource_name}. Kuckt d'Messagen
+          hei drënner.
+        notice: '%{resource_name} gouf nei ugeluecht.'
+      destroy:
+        alert: Et gouf e Problem beim Läsche vu(n) %{resource_name}.
+        notice: '%{resource_name} gouf geläscht.'
+      update:
+        alert: Et gouf e Problem beim aktualiséiere vu(n) %{resource_name}. Kuckt
+          d'Messagen hei drënner.
+        notice: '%{resource_name} gouf aktualiséiert.'
+    attachments:
+      create:
+        alert: Et gouf e Problem beim Späichere vum Fichier deen Dir drugehaang hutt.
+        invalid_files: E puer Fichiere konnten net gespäichert ginn.
+        notice: Element gespäichert.
+      destroy:
+        alert: Et gouf e Problem beim Läsche vum Fichier deen Dir drugehaang hutt.
+      links:
+        view-attachments_html: <a href="#attachments">Klickt fir se ze gesinn an se
+          z'änneren</a>.
+      update:
+        alert: Et gouf e Problem beim Späichere vum Fichier deen Dir drugehaang hutt.
+        notice: Element gespäichert.
+    configuration:
+      update:
+        alert: D'Astellung konnt net gespäichert ginn.
+        notice: Astellung gouf aktualiséiert.
+    contacts:
+      create:
+        alert: De Kontakt konnt net ugeluecht ginn.
+        notice: Kontakt ugeluecht.
+      update:
+        alert: De Kontakt konnt net aktualiséiert ginn.
+        notice: Kontakt aktualiséiert.
+    contributions:
+      approve:
+        alert: Kontributioun konnt net akzeptéiert ginn.
+        notice: Kontributioun gouf akzeptéiert.
+      destroy:
+        alert: D'Geschicht konnt net geläscht ginn.
+        notice: Geschicht geläscht
+      draft:
+        create:
+          alert: Et gouf e Problem beim Ufänke vun enger neier Kontributioun.
+          notice: Nei Preparatioun vun enger Kontributioun ugefaang.
+        submit:
+          alert: Et gëtt e Problem mat Ärer Kontributioun. Kuckt w.e.g. d'Messagen
+            hei drënner.
+        update:
+          alert: Et gouf e Problem beim Späichere vun Ärer Kontributioun.
+          notice: Astellung gespäichert
+      reject:
+        alert: Kontributioun konnt net refuséiert ginn.
+        notice: Kontributioun gouf refuséiert.
+      submitted:
+        edit:
+          alert: Dës Kontributioun gouf schonn erageschéckt.
+      withdraw:
+        alert: Är Geschicht konnt net markéiert gi fir aus der Sammlung zréckgezunn
+          ze ginn.
+        notice: Är Geschicht gouf markéiert fir aus der Sammlung erausgeholl ze ginn.
+    contributors:
+      create:
+        alert: Äre Benotzerkont konnt net ugeluecht ginn.
+      update:
+        alert: Äre Kont konnt net aktualiséiert ginn.
+    flickr:
+      import:
+        alert:
+          empty: Keng Biller erausgesicht
+          invalid_license: 'Dës Fotoen hunn eng net kompatibel Lizenz a ginn net importéiert:'
+        notice: Flickr-Biller am Hannergrond iwwerdroen.
+    guest_contact:
+      create:
+        alert: Et gëtt e Problem mat den Detailer déi Dir uginn hutt. Verbessert se
+          a probéiert nach eng Kéier.
+        notice: Kontaktdate sinn ukomm.
+      forget:
+        notice: D'Kontaktdate goufen ewechgeholl.
+      update:
+        alert: Et gëtt e Problem mat den Detailer déi Dir uginn hutt. Verbessert se
+          a probéiert nach eng Kéier.
+        notice: D'Kontaktdate goufen aktualiséiert.
+    metadata_fields:
+      update_order:
+        notice: Reiefolleg vun de Metadatafelder aktualiséiert.
+    status:
+      alert: 'Alarm:'
+      notice: 'Notiz:'
+    tags:
+      contribution:
+        create:
+          success: Är Tagge goufe bei dës Geschicht derbäigesat.
+      destroy:
+        success: Tag ewechgeholl.
+      europeana_record:
+        create:
+          success: Är Tagge goufe bei dëst Element bäigesat.
+    taxonomy:
+      imported: Nei Schlësselwierder goufen importéiert.
+    users:
+      create:
+        alert: Benotzerkont konnt net ugeluecht ginn.
+        notice: Benotzerkont gouf ugeluecht.
+      destroy:
+        notice: Benotzer geläscht.
+      register:
+        alert: Umeldung huet net funktionéiert. Verbessert w.e.g. d'Detailer hei drënner
+          a probéiert nach eng Kéier.
+        notice: Dir sidd elo ugemellt. Wëllkomm!
+      update:
+        alert: Benotzerkont konnt net aktualiséiert ginn.
+        notice: Benotzerkont aktualiséiert.
+  formtastic:
+    actions:
+      attachment:
+        add_edit: Elementer derbäisetzen/änneren
+        create: Eroplueden
+        delete: Element läschen
+        update: Späicheren
+      contribution:
+        create: Viru fueren
+        delete: Geschicht läschen
+        save_draft: Virbereedung vun der Geschicht späicheren
+        submit: Geschicht späicheren
+        update: Kontributioun aktualiséieren
+        withdraw: Zréckzéien
+      contributor:
+        create: Registréieren
+      create: Schécken
+      delete: Läschen
+      filter:
+        submit: Aktualiséieren
+      metadata_field:
+        delete: Metadatefeld läschen
+        reindex: Sichmaschinn nei indexéieren
+      password:
+        create: Späicheren
+        update: Mäi Passwuert änneren
+      search:
+        submit: Sichen
+      sign_in: Aloggen
+      submit: Späicheren
+      tag:
+        flag: Als onpassend markéieren
+      taxonomy_term:
+        import: Importéieren
+      update: Ännerunge späicheren
+      upload: Eroplueden
+      user:
+        create: Registréieren
+        delete: Kont läschen
+        update: Aktualiséieren
+    create: '%{model} uleeën'
+    hints:
+      attachment:
+        edit:
+          file: 'Lued nëmmen en neie Fichier erop wann Dir deen deen et gëtt ersetze
+            wëllt. Maximal Gréisst: %{max}. Erlaabt Typen: %{file_types}.'
+        file: De Fichier eroplueden
+        metadata:
+          attachment_description: Beschreift dem Element seng physesch Charakteristiken
+            genee esou wéi dat wat et duerstellt a fir Iech bedeit.
+          content: Wourëm handelt et sech beim Element (z.B. Gedicht, Bréif, Foto)?
+            Probéiert esou genee wéi méiglech ze sinn.
+          cover_image: En Titelbild representéiert Är Geschicht an eiser Sammlung;
+            ähnlech wéi d'Deckelsäit vun engem Buch. Et kënnt eng Foto si vun där
+            Persoun, ëm déi et an dëser Geschicht geet, oder d'Deckelsäit vun engem
+            Tagebuch oder d'Bild vun enger Medail.
+          creator_given_name: Numm vun der Persoun déi den original Objet gemaach
+            huet, zum Beispill den Auteur vun engem Bréif oder engem Tagebuch oder
+            en Numm vun engem Fotograf.
+          date_from: Sot eis wéini d'Element gemaach gouf, zum Beispill, wéini de
+            Bréif geschriwwe gouf oder wéini den Objet ugefaang gouf, zum Beispill
+            wéini d'Tagebuch ugefaang gouf. Wann Dir de geneeën Datum net wësst, da
+            gitt w.e.g. just e Joer oder e Joer an e Mount un.
+          date_to: De Schlussdatum fir en Element, zum Beispill, de leschten Dag vun
+            engem Tagebuch.
+          forces: 'Klickt w.e.g. net wann et net relevant ass. Wa kee relevant Schlësselwuert
+            disponibel ass da schéckt eis w.e.g. eng E-Mail op: 1914-1918 [@] europeana
+            [.] eu'
+          format: D'Material vum Element dat digitaliséiert gouf (z.Bsp. Pabeier,
+            Kaart, Tounband).
+          lang: Gitt d'Sprooch un déi am Element benotzt gëtt, zum Beispill d'Sprooch(e)
+            vun engem Journal.
+          location_placename: Gitt den Numm vun der PLaz an, wou d'Element entstan
+            ass (wou e Bréif geschriwwe gouf oder eng Foto gemaach gouf), z. Bsp.
+            Esch-Uelzecht oder Ëlwen
+          object_side: Fir en Element mat zwou Säiten, eng Postkaart zum Beispill,
+            gitt d'Säit un
+          page_number: Fir en Element mat ville Säite, schreift déi individuell Säitennummer
+          source: D'Quell, vun där d'Element  digitaliséiert gouf (z.B. e Blat, en
+            Notizbuch, eng Filmspull).
+          subject: D'Persoun oder d'Plaz oder den Objet ëm deen et geet.
+          theatres: 'Klickt w.e.g. net wann et net relevant ass. Wa kee relevant Schlësselwuert
+            disponibel ass da schéckt eis w.e.g. eng E-Mail op: 1914-1918 [@] europeana
+            [.] eu'
+        new:
+          file: 'Dir kënnt esouvill Fichiere wéi néideg eroplueden; een nom aneren.
+            Wann Dir vill Fichieren eroplued da kënnt Dir een dovun als "Titelbild"
+            fir Är Geschicht markéieren; z.Bsp. eng Postkaart oder en Tagebuch. maximal
+            Gréisst vum Fichier: %{max}. Erlaabt Fichierstypen: %{file_types}.'
+        title: Kuerzen Titel (mat enger Ausso) oder spezifeschen Numm vum Objet, zum
+          Beispill, "Mäin Urgrousspapp, Jengi Schmit, Ordre de la couronne de chêne".
+      contribution:
+        metadata:
+          contributor_behalf: Eidel loossen et sief Dir hëlleft engem fir dës Kontributioun
+            ze maachen.
+          date_from: Sot eis wéini d'Geschicht geschitt ass. Wann Dir net genee wësst
+            wéini, da gitt just d'Joer un, z. Bsp. mäi Grousspapp gouf 1915 agezunn,
+            a.s.w.
+          date_to: Sot eis wéini d'Geschicht opgehal huet. Wann Dir net genee wësst
+            wéini, da gitt just d'Joer un, z. Bsp. mäi Grousspapp gouf 1916 blesséiert,
+            a.s.w.
+          description: Schreift d'Geschicht, déi hannert Ärer Kontributioun steet.
+          forces: 'Klickt w.e.g. net wann et net relevant ass. Wa kee relevant Schlësselwuert
+            disponibel ass da schéckt eis w.e.g. eng E-Mail op: 1914-1918 [@] europeana
+            [.] eu'
+          lang: Gitt d'Sprooch un an där dës Geschicht geschriwwen ass.
+          location_placename: Gitt den Numm vun enger Stad a wou d'Geschicht geschitt
+            ass, z. B. Lëtzebuerg oder Esch-Uelzecht.
+          theatres: 'Klickt w.e.g. net wann et net relevant ass. Wa kee relevant Schlësselwuert
+            disponibel ass da schéckt eis w.e.g. eng E-Mail op: 1914-1918 [@] europeana
+            [.] eu'
+        title: En Titel fir dës komplett Kontributioun.
+      metadata_field:
+        contribution: Gitt un ob dëst Feld sech op Kontributioune bezitt.
+        field_type: Kann net geännert gi wann d'Feld bis gespäichert ass.
+        name: 'Datebanknumm fir d''Feld. Däerf et nëmmen eemol ginn. Valabel Zeechen:
+          a-z, 0-9, _'
+        required: 'Jo: dëst Feld ass obligatoresch. Neen: dëst Feld ass fakultativ.
+          Katalogiséierungsfelder mussen optional sinn.'
+        show_in_listing: Dëst Feld a Lëschte weisen, wéi zum Beispill a Resultater
+          vum Sichen
+        title: Titel fir d'Feld, esou wéi et fir d'Kontributeuren gewise gëtt. Eidelloosse
+          wann en aus dem Numm vum Feld gerode ka ginn.
+      metadata_record:
+        date: 'Format: JJJJ-MM-DD, JJJJJ-MM oder JJJJ, z. B. 1998-04-20, 1998-04 oder
+          1998'
+      password:
+        new:
+          email: Gitt d'E-Mail-Adress u mat där Dir Iech ugemellt hutt a mir schécken
+            Iech Instruktioune fir Äert Passwuert zréckzesetzen.
+      settings:
+        allowed_upload_extensions: Erlaabt Erweiderungen fir eropgeluede Fichieren,
+          getrennt duerch Kommaen, z. Bsp. "pdf,doc,jpg,gif". Eidelloosse fir all
+          Erweiderungen z'erlaben.
+        banner_active: Wann ageschalt da gëtt eng Noriicht, mam Text deen hei drënner
+          steet, op dem Site gewise, fir dorop hinzeweisen datt grad um Site geschafft
+          gëtt.
+        banner_text: Den Text dee gewise gëtt fir drop hinzeweisen datt um Site geschafft
+          gëtt, wann dat hei driwwer ageschalt ass.
+        bing_translate_key: Bing Translate key. Wann dëst eidel gelooss gëtt da funktionéiert
+          d'Microsoft, Bing Translate Funktionalitéit net.
+        contribution_approval_required: Wann aktivéiert, da gi Kontributiounen eréischt
+          publizéiert wa se akzeptéiert goufen. Soss gi se direkt nom eraschécke publizéiert.
+          Huet keen Effekt wa "Kontributioune publizéieren" net aktivéiert ass.
+        max_upload_size: Maximal Upload-Gréisst a Byten.
+        registration_required: Wann aktivéiert, da mussen d'Leit sech umellen an e
+          Benotzerkont uleeën fir eng Kontributioun maachen ze kënnen. Wann net aktivéiert,
+          da kënnen d'Leit als Visiteur eng Kontributioun maachen, wa si hir Kontaktdaten
+          uginn.
+        site_name: Den Numm vun dësem Internetsite. Normalerweis gëtt deen an den
+          Titele vun de Säiten an an den Iwwerschrëfte gewisen.
+        site_url: Komplett URL iwwer déi d'Haaptsäit vun dësem Site erreecht ka ginn,
+          ouni Sproochversioun an ouni schife Stréch um Schluss
+        ui_locales: Sproochversiounen, op déi am Säiten-Header verlinkt ka ginn.
+      taxonomy_term:
+        import: Gitt d'Schlësselwierder fir dëst Metadatefeld an, eent pro Linn.
+      user:
+        current_password: Gitt Äert aktuellt Passwuert an, wann Dir Är Donnéeë vum
+          Benotzerkont ännere wëllt.
+        edit:
+          password: Gitt en neit Passwuert an, wann Dir et ännere wëllt, soss loosst
+            et eidel. Mindestens 6 Zeechen.
+        email: Dir kënnt Iech mat dëser E-Mail-Adress aloggen aplaz vun Ärem Benotzernumm.
+          Dat ass fakultativ, awer mir roden Iech eng E-Mail-Adress unzegi fir de
+          Fall wou Dir Äert Passwuert vergiesst.
+        password: Minimum 6 Zeechen
+        update:
+          password: Gitt en neit Passwuert an, wann Dir et ännere wëllt, soss loosst
+            et eidel. Mindestens 6 Zeechen.
+        username: 'Mindestens 3 Zeechen. Gëlteg Zeechen: a-z A-Z 0-9 - _ . @'
+    labels:
+      attachment:
+        metadata:
+          attachment_description: Beschreiwung
+          attachment_file: Eenzelne Fichier
+          content: Typ
+          cover_image: Titelbild
+          creator: Createur
+          date: Datum
+          date_from: Datum vun der Creatioun / Ufanksdatum
+          date_to: Schlussdatum
+          file_type: Medientyp
+          forces: Arméien
+          format: Medium
+          keywords: Schlësselwierder
+          lang: Sprooch
+          lang_other: Sprooch (anerer)
+          license: Lizenz
+          location_map: Längt & Breet
+          location_placename: Gitt u wou d'Element entstan ass.
+          object_side: Säit
+          page_number: Säitennummer
+          page_total: Gesamtzuel vun de Säiten
+          source: Quell
+          subject: Sujet
+          theatres: Theateren
+          ticket: Nummer vum Ticket
+      collection_day:
+        contact:
+          country: Land
+          full_name: Organisatioun
+        delete_image: Bild läschen
+      content:
+        metadata:
+          dc:
+            country: Land
+            coverage: Ofdeckung
+            date: Datum
+            description: Beschreiwung
+            format: Format
+            language: Sprooch
+            relation: Relatioun
+            rights: Rechter
+            source: Quell
+            subject: Sujet
+            terms_alternative: Alternativen Titel
+            terms_extent: Ëmfang
+            terms_medium: Medium
+            title: Titel
+            type: Typ
+          dcterms:
+            alternative: Alternativen Titel
+            extent: Ëmfang
+            spatial: Plaz
+            temporal: Datum
+          edm:
+            external_partner_site: Op der Internetsäit vum Partner weisen
+            language: Sprooch
+            partner_site: Element weisen op
+            provider: Fournisseur
+            rights: Copyright
+      contribution:
+        metadata:
+          alternative: Alternativen Titel
+          character1_dob: Gebuertsdatum
+          character1_dod: Datum vum Doud
+          character1_family_name: Familljennumm
+          character1_given_name: Virnumm
+          character1_pob: Plaz vun der Gebuert
+          character1_pod: Plaz vum Doud
+          character2_dob: Gebuertsdatum
+          character2_dod: Datum vum Doud
+          character2_family_name: Familljennumm
+          character2_given_name: Virnumm
+          character2_pob: Plaz vun der Gebuert
+          character2_pod: Plaz vum Doud
+          collection_day: Aktiounsdag
+          contributor_behalf: Kontributioun am Numm vum
+          date_from: D'Geschicht fänkt un ...
+          date_to: D'Geschicht hält op ...
+          description: Geschicht
+          editor_pick: Choix vum Editeur
+          editor_pick_sig: Ënnerschrëft 'Choix vum Editeur'
+          editor_pick_text: Text 'Choix vum Editeur'
+          forces: Arméien
+          keywords: Stéchwierder
+          lang: Sprooch
+          lang_other: Sprooch (anerer)
+          location_map: Längt & Breet
+          location_placename: Gitt u wou Är Geschicht geschitt ass
+          summary: Kuerz Beschreiwung vun den Elementer
+          theatres: Theateren
+          ticket: Nummer vum Ticket
+        title: Titel vun der Geschicht
+      metadata_field:
+        contribution: Kontributioun
+      taxonomy_term:
+        collection_day:
+          AM15: AM15
+          BE08: BE08
+          DD12: DD12
+          DU18: DU18
+          DUP1: DUP1
+          DUP2: DUP2
+          EF11: EF11
+          FF22: FF22
+          FR07: FR07
+          FRAD037: FRAD037
+          FRAMSQ: FRAMSQ
+          FRBDIC: FRBDIC
+          FRBNBU: FRBNBU
+          Fr07: Fr07
+          HB22: HB22
+          INTERNET: INTERNET
+          KI13: KI13
+          LE10: LE10
+          LU16: LU16
+          MA19: MA19
+          MB007: MB007
+          MB011: MB011
+          MB20: MB20
+          MU09: MU09
+          NG19: NG19
+          PR17: PR17
+          RG14: RG14
+          SO14: SO14
+          ST10: ST10
+          UNKNOWN: ONBEKANNT
+          UPC1: UPC1
+          UPC2: UPC2
+          UPC3: UPC3
+          UT1: UT1
+        content:
+          Autograph: Autogramm
+          Book: Buch
+          Collection: Sammlung
+          Diary: Tagebuch
+          Drawing: Zeechnung
+          Interview: Interview
+          Letter: Bréif
+          Map: Kaart
+          Medal: Medail
+          Multiple: Méi
+          Music: Musek
+          Official Document: Offiziellt Dokument
+          Official document: Offiziellt Dokument
+          Painting: Bild
+          Photograph: Foto
+          Poem: Gedicht
+          Postcard: Postkaart
+          Publication: Publikatioun
+          Weapon: Waff
+        cover_image:
+          "yes": jo
+        editor_pick:
+          "yes": jo
+        file_type:
+          3D: 3D
+          IMAGE: BILD
+          SOUND: TOUN
+          TEXT: TEXT
+          VIDEO: VIDEO
+        forces:
+          Allied Forces: Alliéiert Arméien
+          Central Powers: Mëttelmächten
+        format:
+          Card: Kaart
+          Ceramic/China: Keramik/Parzeläin
+          Digital: Digital
+          Leather: Lieder
+          Metal: Metall
+          Mixed: Gemëscht
+          Other: Anerer
+          Paper: Pabeier
+          Photographic paper: Fotopabeier
+          Tape: Band
+          'Text: transcription': 'Text: Transkriptioun'
+          Unknown: Onbekannt
+          Vinyl: Plack
+          Wood: Holz
+        keywords:
+          Anti-War Movement: Anti-Krichs-Bewegung
+          Artillery: Artillerie
+          Conscientious Objection: Verweigerung aus Gewëssensbëss
+          Gas Warfare: Gaskrich
+          Home Front: Front doheem
+          Medical: Medezinesch
+          Military Punishment: Militärstrof
+          Prisoners of War: Krichsgefaangener
+          Propaganda: Propaganda
+          Refugees: Flüchtlingen
+          Remembrance: Erënnerung
+          Tanks and Armoured Fighting Vehicles: Panzer a gepanzert Gefierer fir de
+            Kampf
+          Transport: Transport
+          Trench Life: Liewen am Gruef
+          Women: Fraen
+        lang:
+          Dansk: Dänesch
+          Deutsch: Däitsch
+          English: Englesch
+          Français: Franséisch
+          Gaeilge: Gälesch
+          Italiano: Italienesch
+          Magyar: Ungaresch
+          Nederlands: Hollänesch
+          Română: Rumänesch
+          Slovenčina: Slowakesch
+          Slovenščina: Slowenesch
+          português: Portugisesch
+          Ελληνικά: Griichesch
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Hannen
+          Front: Vir
+        source:
+          Book: Buch
+          Film: Film
+          Folio: Folio
+          Journal: Zäitschrëft
+          Leaf: Blat
+          Multiple: Méi
+          Newspaper: Zeitung
+          Notebook: Notizblock
+          Photograph: Fotograf
+          Postcard: Postkaart
+          Tape: Band
+          Unknown: Onbekannt
+          Vinyl record: Schallplack
+        theatres:
+          Aerial Warfare: Loftkrich
+          African Wars: Afrika
+          Balkans: Balkan
+          Eastern Front: Ostfront
+          Gallipoli Front: Gallipoli-Front
+          Italian Front: Italienesch Front
+          Middle East: Mëttleren Osten
+          Naval Warfare: Séikrich
+          Western Front: Westfront
+      user:
+        delete_picture: Bild läschen
+    "no": Neen
+    required: obligatoresch
+    titles:
+      account_details: Detailer vum Umellen
+      attachment_dates: Wéini gouf dëst Element ugeluecht
+      attachment_details: Beschreift Äert Element
+      attachment_front: Op wat fir eng Front bezitt dëst Element sech
+      attachment_keywords: Hëlleft aneren Äert Element ze fannen an deem Dir eent
+        oder e puer vun dëse Schlësselwierder derbäisetzt
+      attachment_location: Wou gouf dëst Element ugeluecht
+      attachment_replace: Fichier ersetzen
+      attachment_upload: E Fichier drunhänken
+      contact_address: Adress
+      contact_name: Numm
+      contact_other: Kontaktdaten
+      contribution_attachments: Elementer
+      dropbox: Dropbox
+      fields: Felder
+      metadata: Informatioun iwwer de Katalog
+      metadata_field_options: Type-spezifesch Optiounen
+      optional_details: Aner optional perséinlech Informatiounen
+      personal_details: Perséinlech Detailer
+      story_basics: Erzielt Är Geschicht ...
+      story_character1: Persoun 1
+      story_character2: Persoun 2
+      story_characters: Sot eis ëm wien et bei dëser Geschicht geet
+      story_dates: Wéini ass dës Geschicht geschitt?
+      story_front: Op wat fir eng Front bezitt dës Geschicht sech
+      story_keywords: Hëlleft aneren Är Geschicht ze fannen an deem Dir eent oder
+        e puer vun dëse Schlësselwierder derbäisetzt.
+      story_location: Wou ass dës Geschicht geschitt?
+      submit: Proposéiert Är Geschicht
+    update: '%{model} aktualiséieren'
+    "yes": Jo
+  helpers:
+    select:
+      prompt: Sicht w.e.g. eraus
+    submit:
+      create: '%{model} uleeën'
+      submit: '%{model} späicheren'
+      update: '%{model} aktualiséieren'
+  javascripts:
+    annotorious:
+      flag: Markéierung
+    attachments:
+      uploading: E puer vun Äre Fichiere ginn nach iwwerdro. Wann se all fäerdeg sinn,
+        kënnt Dir Är Geschicht schécken.
+    collection-days:
+      find-more: Méi erausfannen.
+      legend: Erklärung
+      next-collection-day: Den nächsten Aktiounsdag ass zu <b>%{name}, %{city}, %{country}</b>
+        de(n) <b>%{start-date}
+      past-entered: Vireg Aktiounsdeeg
+      past-not-entered: Vireg Aktiounsdeeg (Geschichte sinn nach net verëffentlecht)
+      show-past: Vireg Aktiounsdeeg weisen
+      upcoming: Nächst Aktiounsdeeg
+      what-is-it: Wat ass een Aktiounsdag?
+    contribute:
+      errors_shown: Firwat net? Kuckt d'Notizen hei driwwer.
+      hide_errors: Feelermeldunge verstoppen.
+      show_errors: Firwat net?
+    datepicker:
+      button_text: Kalenner weisen
+    digital_object:
+      labels:
+        copy_from_story: Informatioun kopéieren
+      links:
+        copy_from_story: Aus der Geschicht kopéieren
+    gmap:
+      canvas:
+        hide: Google Maps zoumaachen
+        label: Google Maps
+        show: Benotzt Google Maps
+      errors:
+        empty: Gitt eng Adress an, no där gesicht soll ginn.
+        present: Et ass schonn eng Kaart um Ecran; maacht se w.e.g. fir d'éischt zou.
+        unknown: Adress net fonnt.
+      search:
+        button: Lass
+        hint: Gitt eng Adress a fir op der Kaart hei driwwer ze sichen.
+        label: No enger Adress sichen
+      static:
+        hide: Kaart zoumaachen
+        show: Op Google Maps weisen
+    leaflet:
+      label:
+        map_view: Kaart
+        satellite_view: Satellit
+    next: virun →
+    previous: ← vireg
+    search:
+      10seconds: Mir sichen nach. Hutt w.e.g. e bësse Gedold!
+      30seconds: Dëst dauert méi laang wéi virgesinn. Probéiert et mat enger anerer
+        Sich oder waart nach!
+      60seconds: Et gëtt elo Problemer beim Sichen. Probéiert w.e.g. méi spéit nach
+        en Kéier.
+    story:
+      took-place: 'Plaz wou dës Geschicht geschitt ass:'
+    thumbnails:
+      item: Element
+      of: vu(n)
+    translate:
+      return-to-language: Zréck op déi original Sprooch
+      translate-to: Iwwersetzen op ...
+    truncate:
+      show-less: Manner weisen ...
+      show-more: Méi weisen ...
+    uploadify:
+      basic_ui: Bei Problemer mam Eropluede vu Fichieren, probéiert et mat der<a href="{{href}}">Basis-Eroplued-Funktioun</a>.
+      button_text: Fichieren eraussichen
+      finished: Zréck op d'Kontributioun
+      label: Méi Fichieren
+      saved: Gespäichert
+  languages:
+    da: Dänesch
+    de: Däitsch
+    en: Englesch
+    fr: Franséisch
+    ga: Iresch
+    hu: Ungaresch
+    nl: Hollännesch
+    pt: Portugisesch
+    sk: Slowakesch
+    sl: Slowenesch
+  layout:
+    navigation:
+      about: Iwwer
+      admin: Admin
+      browse: Duerchsichen
+      contact: Kontaktéiert eis
+      contribute: Matmaachen
+      help: Hëllef
+      home: Haaptsäit
+    software_engine: Geréiert vu RunCoCo
+  locale: Lëtzebuergesch
+  mail:
+    contributions:
+      published:
+        signature: |-
+          Bescht Gréiss,
+          D'Equipe vun Europeana 1914-1918
+        subject: Är Europeana 1914-1918 Kontributioun gouf publizéiert
+        thanks: Merci datt Dir Är Geschichten an Erënnerungsstécker mat eis deelt!
+          Är Kontributioun gouf elo op eisem Internetsite publizéiert. Dir kënnt se
+          gesi wann Dir op dëse Link klickt.
+    exports:
+      complete:
+        notice: 'Den Export vun der Sammlung deen Dir initiéiert hutt ass fäerdeg
+          a kann erofgeluede gi vun:'
+        subject: Export vun der Sammlung ass fäerdeg
+  media_types:
+    all: All
+    binary: Binäre Fichier
+    pdf: PDF
+    sound: Tounfichier
+    spreadsheet: Tabell
+    txt: Textfichier
+    unknown: Onbekannten Typ vun Dokument
+    video: Videofichier
+    wordprocessing: Word-Dokument
+  number:
+    currency:
+      format:
+        delimiter: ','
+        format: '%n %u'
+        precision: "2"
+        separator: .
+        unit: €
+    format:
+      delimiter: ','
+      precision: "2"
+      separator: .
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          billion: Milliard
+          million: Millioun
+          quadrillion:
+            one: Billiard
+            other: Billiarden
+          thousand: Dausend
+          trillion: Billioun
+      format:
+        precision: "3"
+        significant: "1"
+        strip_insignificant_zeros: "1"
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            other: ee=Byte
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+  settings:
+    allowed_upload_extensions: Erlaabt Type fir Eropzelueden
+    bing_client_id: Bing-Clientsnummer (ID)
+    bing_client_secret: Bing-Clientsnummer ass geheim
+    bing_translate_key: Bing Translate Key
+    contribution_approval_required: Nëmmen autoriséiert Kontributioune verëffentlechen
+    gmap_api_key: Google Maps API-Schlëssel
+    google_analytics_key: Google Analytics Schlëssel
+    google_api_email: Google API E-Mail
+    max_upload_size: Maximal Gréisst fir eropzelueden
+    publish_contributions: Kontributioune publizéieren
+    registration_required: Umeldung obligatoresch
+    search_engine: Sichmaschinn
+    site_name: Numm vum Site
+    site_url: URL vum Site
+    ui_locales: Disponibel Sproochversiounen
+    uploadify: Uploadify aktivéieren
+  support:
+    array:
+      last_word_connector: ', an'
+      two_words_connector: an
+      words_connector: ','
+    select:
+      prompt: Sicht w.e.g. eraus
+  time:
+    am: moies
+    formats:
+      default: '%A, %d. %B %Y, %H:%M Auer'
+      long: '%A, %d. %B %Y, %H:%M Auer'
+      short: '%d. %b %H:%M'
+      timestamp: '%Y-%m-%d %H:%M'
+    pm: mëttes
+  views:
+    about:
+      background:
+        heading: Europeana 1914-1918
+      collection_days:
+        heading: Aktiounsdeeg
+        p2: Aktiounsdeeg goufe scho queesch duerch Europa organiséiert.
+      online_collection:
+        heading: Online-Sammlung vu Geschichten
+      privacy_policy:
+        p1: Mir wäerten Ären Numm zesumme mat Äre Kontributiounen ëffentlech weisen
+          esoubal wéi se akzeptéiert goufen.
+        p3: Mir wäerten Är Kontaktdaten ni un eng aner Organisatioun weiderginn.
+        p4: Fir méi ze wëssen iwwer den <a http://www.europeana.eu/portal/privacy.html
+          target="_blank">Dateschutz bei Europeana</a>.
+      project_partners:
+        heading: Partner vum Projet
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Universitéit vun Oxford</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Däitsch Nationalbibliotéik</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Lëtzebuergesch
+          Nationalbibliothéik</a>
+        item4: <a href="http://www.nli.ie" target="_blank">D'Nationalbibliothéik vun
+          Irland - National Library of Ireland</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">D'Nationalbibliothéik
+          vu Slowenien – Narodna in univerzitetna knjižnica</a>
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: Är Kontaktdaten
+        item2: Déi komplett Detailer vum Material
+        item3: 'Déi genee URL op där Dir d''Material fonnt hutt (z.Bsp.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item4: De Beweis datt Dir d'Rechter hutt oder en autoriséierte Vertrieder
+          vun deem sidd deen d'Rechter huet
+        item5: 'Schéckt eis en E-Mail op: 1914-1918 [@] europeana [.] eu'
+      terms:
+        summary:
+          item1: dat digitaalt Material dat Dir eroplued ass net duerch Copyright
+            geschützt; oder
+          item2: Iech gehéieren d'Rechter vun dësem digitale Material; oder
+          p2: <b>Dir garantéiert, datt:</b>
+          p3: <b>Wann Dir dës Konditiounen net  akzeptéiere wëllt, da setzt w.e.g.
+            keen Inhalt oder Beschreiwunge vun Donnéeën op Europeana derbäi</b>.
+        user_contributions:
+          item1: Passwuert an Umellen (Artikel 3)
+          item5: Illegal Notzung vum Service (Artikel 7)
+          item6: Perséinlech Donnéeë vun de Benotzer (Dateschutz) (Artikel 8)
+          p4: <b>Wann Dir net mat dëse Richtlinnen averstan sidd, da stellt w.e.g.
+            keen Inhalt a keng Metadate fir Europeana zur Verfügung.</b>
+          p7: 'Op separate Säite fannt Dir dës Informatiounen iwwer dëse Projet:'
+      what_we_do:
+        heading: 'National Collectiounen:'
+        item1: Iwwer den Internetsite Europeana 1914-1918 - setzt e Bild vum Element
+          derbäi oder tippt d'Geschicht online an.
+        p1: D'Sammlunge vum Projet Europeana 1914-1918 huet eng substantiell digital
+          Sammlung vun iwwer 400 000 Stécker vu Material vun de Sammlunge vun Nationalbibliothéiken
+          aus aacht Länner, déi op verschiddene Säite vun deem historesche Konflikt
+          stongen.
+    about_us:
+      blog:
+        heading: Blog
+      europeana:
+        heading: Europeana 1914-1918
+        p3: <b>National Kollektiounen:</b> De Projet vun der Europeana 1914-1918 Sammlung
+          huet eng substantiell digital Kollektioun vun iwwer 400 000 Objete vun nationale
+          Bibliothéikssammlungen aus aacht Länner déi op verschiddene Säite vum historesche
+          Konflikt stongen.
+        p4: <b>Filmarchiver:</b> De Projet "European Film Gateway 1914" huet eis iwwer
+          660 Stonne Filmmaterial iwwer den Éischte Weltkrich ginn. An där Sammlung
+          sinn ë.a. Wocheschauen, Dokumentatiounen, Spill-,  Propaganda- an Antikrichsfilmer.
+          Well nëmmen ongeféier 20% vun de Filmer déi an der Stommfilmzäit produzéiert
+          goufe bis haut erhal sinn, stellen déi am Kader vum Projet EFG1914 digitaliséiert
+          Filmer eng wichteg Iwwerliwwerung aus där Zäit duer.
+        p5: <b>An nach méi:</b> Dir kënnt op Europeana 1914-1918 aner europäesch Kollektiounen
+          a Projeten, genee esou wéi Informatioune vun ausserhalb vun Europa, z.Bsp.
+          aus der 'Digital Public Library of America', Trove (Australien) an 'Digital
+          New Zealand'.
+      events:
+        heading: Aktiounsdeeg
+      get_involved:
+        contribute_online:
+          heading: Maacht Är Kontributioun online
+        education:
+          heading: Formatioun
+        heading: Maacht mat
+        reuse:
+          heading: Benotzt d'Material
+          p1: All Material vun Europeana 1914-1918 ass disponibel fir virubenotzt
+            ze ginn. Entwéckler sinn invitéiert fir hir eege Projeten dovu Gebrauch
+            ze maachen iwwer d'<a href="http://europeana.eu/portal/api-introduction.html">Europeana
+            API</a>. Wann Dir d'Material vun der  Digital Library of America, Trove
+            oder DigitalNZ virubenotze wëllt, da besicht w.e.g. deenen hir Internetsäite
+            fir méi Informatiounen.
+      help:
+        heading: Hëllef
+    admin:
+      annotations:
+        index:
+          title: Notizen zum Bild vu Benotzer
+      collection_days:
+        delete:
+          question: Sidd Dir sécher datt Dir déi zousätzlech Informatioun iwwer den
+            Aktiounsdag %{code} läsche wëllt?
+          title: Aktiounsdag läschen
+        edit:
+          title: Aktiounsdag änneren
+        index:
+          title: Aktiounsdeeg
+      config:
+        edit:
+          title: Astellunge vun der Konfiguratioun änneren
+        index:
+          links:
+            edit: Astellungen änneren
+          table:
+            caption: Astellungen
+            headings:
+              name: Numm
+              value: Wäert
+          title: Astellung
+      contributions:
+        export:
+          title: Sammlung exportéieren
+        index:
+          captions:
+            approved: Akzeptéiert Kontributiounen (%{total} total)
+            draft: Preparéiert Kontributiounen  (%{total} total)
+            rejected: Refuséiert Kontributiounen (%{total} total)
+            revised: Iwwerschafft Kontributiounen déi nach mussen akzeptéiert ginn
+              (%{total} total)
+            withdrawn: Zréckgezu Kontributiounen déi nach mussen akzeptéiert ginn
+              (%{total} total)
+          empty:
+            all:
+              approved: Nach keng akzeptéiert Kontributiounen.
+              draft: Nach keng preparéiert Kontributiounen.
+              rejected: Nach keng refuséiert Kontributiounen.
+              revised: Aktuell keng iwwerschafft Kontributiounen déi nach mussen akzeptéiert
+                ginn.
+            search:
+              approved: Keng approuvéiert Kontributiounen déi op Är Sichufro passen.
+              draft: Keng preparéiert Kontributiounen déi op Är Sichufro passen.
+              rejected: Keng refuséiert Kontributiounen déi op Är Sichufro passen.
+              revised: Keng iwwerschafft Kontributiounen déi op Är Sichufro passen.
+              submitted: Keng erageschéckt Kontributiounen déi op Är Sichufro passen.
+              withdrawn: Keng zréckgezu Kontributiounen déi op Är Sichufro passen.
+          title: Kontributiounen
+      europeana:
+        index:
+          introduction: Et sinn elo %{count} Europeana Donnéeën a Relatioun zum Éischte
+            Weltkrich an der Datebank 1914-1918.
+      index:
+        headings:
+          export: Exportéieren
+        links:
+          collection_days:
+            description: Zousätzlech Informatiounen iwwer d'Aktiounsdeeg
+          config:
+            description: Stellt d'Parameter vum Site an.
+            text: Astellung
+          contributions:
+            description: Kontributiounen nokucken an akzeptéieren oder refuséieren.
+            text: Kontributiounen
+          export:
+            description: D'Kollektioun als XML oder CSV exportéieren.
+            text: Exportéieren
+          export_csv:
+            text: Als CSV exportéieren
+          export_xml:
+            text: Als XML exportéieren
+          export_xml_nozip:
+            text: Als XML exportéieren (ausser .zip-Fichieren)
+          logs:
+            text: Lobuch-Fichieren
+          metadata_fields:
+            text: Metadatefelder
+          statistics:
+            description: Statistike vun de Geschichte pro Joer weisen.
+            text: Statistiken
+          users:
+            text: Benotzerkonten
+        title: Admin
+      institutions:
+        delete:
+          question: Sidd Dir sécher datt Dir d'Institutioun %{name} läsche wëllt?
+          title: Institutioun läschen
+        edit:
+          title: Institutioun änneren
+        index:
+          title: Institutiounen
+        new:
+          title: Nei Institutioun
+      metadata_fields:
+        confirm_reindex:
+          title: Sichmaschinn nei indexéieren
+        delete:
+          button_confirm: Dëst Feld wierklech läschen?
+          question: Sidd Dir sécher datt Dir d'Metadatefeld %{field_name} läsche wëllt?
+          title: Metadatefeld läschen
+          warning: <strong>Opgepasst:</strong> Dat féiert dozou datt all Donnéeën
+            aus Ärer Sammlung déi Dir scho fir dëst Feld gesammelt hutt geläscht ginn.
+        edit:
+          empty: Et gëtt nach keng Metadatefelder.
+          instructions: Gitt eng Zuel a fir d'Positioun vun all Feld an.
+          title: Metadatefeld änneren
+        index:
+          caption: Metadatefelder
+          empty: Et gëtt nach keng Metadatefelder.
+          links:
+            new: Neit Feld
+            order: D'Reiefolleg vun de Felder änneren
+            terms: Begrëffer
+          title: Metadatefelder
+        new:
+          title: Neit Metadatefeld
+        order:
+          title: Reiefolleg vun de Metadatefelder
+      statistics:
+        index:
+          title: Statistiken
+      taxonomy_terms:
+        delete:
+          question: Sidd Dir sécher datt Dir d'Schlësselwuert "%{term}" läsche wëllt?
+          title: Schlësselwuert läschen
+        edit:
+          title: Schlësselwuert änneren
+        import:
+          title: Schlësselwierder importéieren
+        index:
+          caption: Schlësselwierder
+          empty: Et gëtt nach keng Schlësselwierder fir dëst Feld.
+          links:
+            back: Lëscht vun de Metadatefelder
+            import: Begrëffer aus der Lëscht importéieren
+            new: Neie Begrëff
+          title: Schlësselwierder
+        new:
+          title: Neit Schlësselwuert
+      users:
+        delete:
+          button_confirm: Dëse Benotzerkont wierklech läschen?
+          question: Sidd Dir sécher datt Dir de Benotzerkont %{email} läsche wëllt?
+          title: Benotzerkont läschen
+          warning: <strong>OPgepasst:</strong> domat läScht dir och all KOntributioune
+            vun deem Benotzer.
+        edit:
+          title: Benotzerkont änneren
+        index:
+          caption: Benotzerkonten
+          empty: Keng Benotzerkonte fir ze weisen.
+          links:
+            new: Neie Benotzer
+            show:
+              title: All Donnéeë vum Benotzer weisen
+          title: Benotzerkonten
+        new:
+          title: Neie Benotzerkont
+        show:
+          caption: Perséinlech Detailer
+          links:
+            back: Lëscht vun de Benotzerkonten
+            contributions: Kontributiounen
+            edit: Benotzerkont änneren
+          title: Benotzerkont
+    annotations:
+      edit:
+        title: Notiz änneren
+    attachments:
+      _form:
+        dropbox:
+          connected_html: Dir sidd mat Dropbox als <strong>%{user}</strong> verbonn
+          disconnect: Verbindung mat Ärem Dropbox-Benotzerkont ewechhuelen
+          refresh: Lëscht vun de Fichieren aktualiséieren
+      _table:
+        caption: Elementer
+        no_thumbnail: Minitaturbild gëtt generéiert
+      attachment_help:
+        flickr:
+          description: Fotoen an hier Beschreiwunge vun Ärem Flickr-Benotzerkont importéieren
+          link: Elementer vu Flickr derbäisetzen
+        item1: Setzt en eenzelt Element an e Fichier derbäi
+        item1-subitem1: Dat Element beschreiwen
+        item2-subitem2: Dir kënnt d'Elementer individuell beschreiwen
+        one-of-the-following: 'Dir kënnt eng vun dësen Optiounen eraussichen:'
+      delete:
+        question: Sidd Dir sécher datt Dir d'Element "%{filename}" läsche wëllt?
+        title: Element läschen
+      edit:
+        caption:
+          current: Aktuelle Fichier
+          uploaded: Eropgeluedene Fichier
+        title: Fichier änneren
+      index:
+        empty: Keng Elementer goufe fir dës Geschicht eropgelueden.
+        links:
+          new: Neie Fichier
+        title: Elementer
+      new:
+        caption: Eropgeluedene Fichier
+        title: Neie Fichier
+      show:
+        title: Fichier
+    blog_posts:
+      read_more: Liest méi
+    browse:
+      collection-days:
+        heading: Aktiounsdeeg
+      fronts:
+        heading: Fronten
+      subjects:
+        heading: Sujeten
+      types:
+        heading: Typen
+    collection_days:
+      cant-find-collection-day: Den Aktiounsdag den Dir sicht konnt op der Kaart net
+        fonnt ginn.
+      in-the-meantime: An der Tëschenzäit kënnt Dir e Bléck op eis vireg Aktiounsdeeg
+        geheien an déi scho publizéiert Geschichte liesen.
+      index:
+        title: Aktiounsdeeg
+      open-collection: Aktiounsdag opmaachen
+      select-collection-day: Sicht een Aktiounsdag eraus
+      stories: 'Geschichten:'
+      view-stories: Geschichte weisen
+      visiting-information: Informatiounen iwwer d'Visiten
+      website: 'Internetsite:'
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+        accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus."
+      what-do-you-get-heading: Wat kritt Dir?
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
+      what-is-it-heading: Wat ass et?
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
+      who-is-it-for-heading: Fir wien ass et?
+    common:
+      loading: lueden …
+      more-like-this: 'Aner Elementer un deenen Dir eventuell interesséiert sidd:'
+      permanent: Dës Aktioun kann net zréckgesat ginn.
+    contact:
+      heading: Kontaktéiert eis
+      p1: Fir d'Equipe vum Projet Europeana 1914-1918 ze kontaktéiere benotzt w.e.g.
+        d'E-Mail-Adress 1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: Anonym
+      edit:
+        title: Perséinlech Detailer änneren
+      no_name: Kee Kontaktnumm
+      show:
+        title: Kontaktdaten
+    contributions:
+      _progress:
+        step_x_of_y: Schrëtt %{x} vu(n) %{y}
+      _summary:
+        caption: Resumé
+      complete:
+        title: Kontributioun ofgeschloss
+      delete:
+        title: Geschicht verwerfen
+      digital_object:
+        heading: Elementer déi un Ärer Geschicht drunhänken
+        help_text:
+          add_attachment: Denkt dru fir mindestens een Element un Är Geschicht drunzehänken.
+          attachment_count: Et sinn elo  <strong>%{nr_digital_objects}</strong> Elementer
+            mat dëser Geschicht verbonn.
+          language: Gitt d'Sprooch un déi am Element benotzt gëtt, zum Beispill d'Sprooch(e)
+            vun engem Journal.
+          object_type: Wourëm handelt et sech beim Element (z.B. Gedicht, Bréif, Foto)?
+            Probéiert esou genee wéi méiglech ze sinn.
+          save_digital: Duerch klicken op "Element späicheren" späichert Dir dat Element
+            an Dir kënnt da méi Elementer späicheren oder Är Kontributiounen als ee
+            Ganzt ze schécken.
+          subject: D'Persoun oder d'Plaz oder den Objet ëm deen et geet.
+          when: Wéini gouf dëst Element ugeluecht
+          where: Wou gouf dëst Element ugeluecht
+        labels:
+          keywords: Hëlleft aneren Äert Element ze fannen an deem Dir eent oder e
+            puer vun dëse Schlësselwierder derbäisetzt.
+          location_map: Plaz (Kaart)
+          location_place_name: Plaz (Numm vun der Plaz)
+          save_digital: Digitalen Objet späicheren
+          save_item_draft: Virbereedung vum Element späicheren
+        links:
+          add_another: Setzt een anert Element derbäi
+          add_item: En Element drunhänken
+          edit: änneren oder méi Informatiounen derbäisetzen
+          edit_story: D'Geschicht änneren
+        options:
+          3d: 3D
+          audio: Audio
+          back: Zréck
+          book: Buch
+          canvas: Leinwand
+          card: Kaart
+          cc_by_sa: CC-BY-SA
+          ceramic: Keramik/Parzeläin
+          diary: Tagebuch
+          digital: Digital
+          film: Film
+          folio: Folio
+          front: Front
+          image: Bild
+          journal: Zeitung
+          leaf: Blat
+          leather: Lieder
+          letter: Bréif
+          medal: Medaille
+          metal: Metall
+          mixed: Gemëscht
+          multiple: Méi
+          newspaper: Zeitung
+          notebook: Notizblock
+          other_option: Anerer
+          paper: Pabeier
+          photograph: Fotograf
+          photographic_paper: Fotopabeier
+          poem: Gedicht
+          postcard: Postkaart
+          tape: Band
+          text: Text
+          text_transcript: 'Text: Transkriptioun'
+          unknown: Onbekannt
+          video: Video
+          vinyl: Plack
+          vinyl_record: Schallplack
+          wood: Holz
+        step2: Schrëtt 2 - Setzt Är Elementer a Fichieren dobäi
+      edit:
+        title: Kontributioun
+      feed:
+        entries:
+          annotation:
+            item: '%{user} huet eng Bemierkung zu engem Bild vum Element %{title}
+              gemaach'
+            story: '%{user} huet eng Bemierkung zu engem Bild vun der Geschicht %{title}
+              gemaach'
+          contribution: '%{user} huet d''Geschicht %{title} verëffentlecht'
+          tagging:
+            item: '%{user} huet d''Element %{title} markéiert'
+            story: '%{user} huet d''Geschicht %{title} markéiert'
+        title: Aktivitéit op Europeana 1914-1918
+      index:
+        empty: Et gëtt nach keng Kontributioune fir ëffentlech ze weisen.
+        title: Kontributiounen
+      new:
+        title: Kontributioun
+      no_title: keen Titel
+      search:
+        captions:
+          all: All Kontributiounen
+        heading: Resultater vum Sichen
+        links:
+          titles:
+            show_contribution: Kontributioun weisen
+        no_matches: Näischt fonnt. Probéiert w.e.g nach eng Kéier.
+        result_count_label: Resultater
+      show:
+        comments:
+          leave: Eng Bemierkung maachen
+          no_comments: Et gëtt keng Bemierkungen, firwat setzt Dir keng ënnen derbäi...
+          submit: Bemierkung eraschécken
+          title: Bemierkungen
+        empty_attachments: Dës Geschicht huet keng Elementer.
+        headings:
+          share: Recommandéieren op
+          submit: Kontributioun eraschécken
+        links:
+          new_attachment: En Element derbäisetzen
+        shared-this-story: huet dës Geschicht recommandéiert
+        title: Geschicht
+      status:
+        approved: Akzeptéiert
+        approved_by: Akzeptéiert vum %{name}
+        draft: Preparéiert &mdash; nach net erageschéckt
+        rejected: Refuséiert
+        rejected_by: Refuséiert vum %{name}
+        revised: Iwwerschafft
+        unknown: Onbekannt
+        withdrawn: Zréckgezunn
+      story:
+        complete:
+          heading: Geschicht ass fäerdeg
+        help_text:
+          add_another_person: Dir kënnt net méi wéi eng Persoun derbäisetzen.
+          behalf_of: Eidel loossen et sief Dir hëlleft engem fir dës Kontributioun
+            ze maachen
+          use_google_maps: Benotzt Google Maps
+        labels:
+          people: Setzt d'Nimm vun de Leit derbäi ëm déi et an dëser Geschicht geet.
+        step1: Schrëtt 1 - Är Geschicht erzielen
+      withdraw:
+        question: Sidd Dir sécher datt Dir d'Geschicht “<strong>%{title}</strong>”
+          aus der Sammlung eraushuele wëllt?
+        title: Geschicht zréckzéien
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Virbereedungen
+          submitted: Erageschéckt
+        empty:
+          all: Dir hutt nach keng Geschichten ugefaang.
+          approved: Dir hutt nach keng akzeptéiert Geschichten.
+          draft: Dir hutt den Ament keng preparéiert Geschichten.
+          submitted: Dir hutt nach keng Geschichten erageschéckt.
+        headings:
+          contributions: Är Geschichten
+        links:
+          new: Eng nei Geschicht deräisetzen
+        p1: Hei drënner sinn d'Geschichten déi Dir schonn derbäigesat hutt. Ännert
+          se oder läscht se, wann néideg.
+        title: Setzt Är Geschicht derbäi
+      dashboard_guest:
+        identity: (Wann Dir net %{name} sidd, da klickt de Knäppchen "Kontributioun
+          fäerdeg" hei drënner.)
+        links:
+          edit_contact: Kontaktdaten änneren
+          new: Nei Kontributioun
+      guests:
+        new:
+          contact_details: 'Soss, gitt eis w.e.g. d''éischt Är Kontaktdonnéeën:'
+          guest: Dir bedeelegt Iech als Gaascht.
+          links:
+            register: registréieren
+            sign_in: aloggen
+      help:
+        adding_your_story:
+          heading: Är Geschicht op Europeana 1914-1918 derbäisetzen
+        how_to_use:
+          item2: Setzt Informatioun iwwer Är Kontributioun derbäi
+        item1: Är Geschicht op Europeana 1914-1918 derbäisetzen - Kuckt ënnen
+        item2: '%{privacy_policy} - Separat Säit'
+        item3: '%{takedown_policy} - Separat Säit'
+        item4: '%{contribution_terms} - Separat Säit'
+        item5: '%{about_the_project} - Separat Säit'
+      index:
+        item1: Gitt Informatiounen iwwer Är Geschicht an.
+        item2: Späichert Är Geschicht als Virbereedung.
+        item3: Setzt een oder méi Elementer (Biller, Texdokumenter, Audio, Video asw.)
+          derbäi.
+    devise:
+      passwords:
+        edit:
+          title: Ännert Äert Passwuert
+        new:
+          title: Hutt Dir Äert Passwuert vergiess?
+      registrations:
+        edit:
+          title: Detailer vum Kont änneren
+        new:
+          title: Registréieren
+      sessions:
+        new:
+          title: Aloggen
+    errors:
+      api_error:
+        title: API Feeler
+      bad_request:
+        title: Falsch Ufro
+      federated_search_error:
+        title: Feeler beim Sichen
+      forbidden:
+        message: Dir hutt net d'Recht fir op déi ugefrot Ressource zouzegräifen.
+        title: Verbueden
+      internal_server_error:
+        message: Et ass e Feeler geschitt an dofir kann Är Ufro net verschafft ginn.
+        title: Interne Feeler um Server
+      not_found:
+        title: Net fonnt
+      search_offline:
+        message: D'Sichfunktioun ass temporär net disponibel. Probéiert w.e.g. méi
+          spéit nach eng Kéier.
+        title: Sichen ass offline
+    explore:
+      heading: Geschichten entdecken
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="‘Tagebuch’
+          sichen">Tagebuch</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="‘Ostfront’
+          sichen">Ostfront</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="'Famill' sichen">Famill</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="Search
+          ‘Flanders’">Flandern</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="Search
+          for ‘Infantry’">Infanterie</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="'Uerden' sichen"
+          >Uerden</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="'Militärpass' sichen">Militärpass</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="Search
+          for ‘Postcard’">Postkaart</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&q=AM15" title="Ojete
+            vum Aktiounsdag Amberg">Amberg 26. Januar 2012</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="Objete
+            vum Aktiounsdag Berlin">Berlin 2. Abrëll 2011</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&amp;q=DD12" title="Objete
+            vum Aktiounstag Dresden">Dresden 22. Juni 2011</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objete
+            vum Aktiounsdag Erfurt">Erfurt 14. Juni 2011</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Objete
+            vum Aktiounsdag Frankfurt">Frankfurt 31. Mäerz 2011</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Objete
+            vum Aktiounsdag Kiel">Kiel 29. Juni 2011</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Objete
+            vum Aktiounsdag vu Lëtzebuerg">Lëtzebuerg 6. Mäerz 2012</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="Objete
+            vum Aktiounsdag München">München 6. Abrëll 2011</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Objete
+            vum Aktiounsdag Preston">Preston 10 Mäerz 2012</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objete
+            vum Aktiounsdag Regensburg">Regensburg 20. Juli 2011</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objete
+            vum Aktiounsdag Stuttgart">Stuttgart 12 Abrëll 2011</a>
+      p1: Hei kënnt Dir gesi wat bei eis Sammlung vu Geschichte bis elo derbäi gesat
+        gouf.
+      p5: <b>Material dat bei Aktiounsdeeg gesammelt gouf:</b>
+      search_for: <b>Sichen no:</b>
+    flickr:
+      select:
+        licenses:
+          heading: Sicht Fotoe vun Ärem Flickr Benotzerkont eraus
+          incompatible: Net kompatibel Lizenz
+          instruction: 'Op Europeana 1914-1918 däerfen nëmme Fotoe mat dëse kompatibele
+            Lizenzen eropgeluede ginn:'
+        title: Sicht Fotoe vun Ärem Flickr Benotzerkont eraus
+      show:
+        action:
+          link: Flickr-Benotzerkont verbannen
+          unlink: Link op de Flickr-Benotzerkont ewechhuelen
+        status:
+          linked: Dir sidd mat Flickr als %{username} verbonn
+          unlinked: Dir sidd net mat Flickr verbonn
+    home:
+      links:
+        across_europe: queesch duerch Europa
+        video_guide: Schrëtt-fir-Schrëtt Video-Guide
+      otto:
+        heading: Otto &amp; Bernard
+    links:
+      back: Zréck op %{link}
+      back-to-search: Zréck op d'Resultater vum Sichen
+      previous_step: Vireg Säit
+      privacy_policy: Dateschutz
+    register:
+      help_text:
+        email: Dir mellt Iech u mat dëser E-Mail-Adress an dem Passwuert dat Dir spezifizéiert.
+        password: D'Passwuert muss sechs Zeechen hunn
+        profile_image: |-
+          Dës Bild gëtt nieft Äre Kontributioune gewisen<br/>
+          maximal Gréisst vum Fichier = 128kb
+        profile_photo: Wann Dir wëllt, kënnt Dir e Bild vun Iech eroplueden (GIF oder
+          JPEG). D'Bild gëtt nieft Äre Geschichte gewisen.
+      labels:
+        age_range: Är Altersgrupp
+        email: E-Mail
+        gender: Geschlecht
+        password: Passwuert
+        password_repeat: Passwuert widderhuelen
+        profile_image: Profilbild
+        profile_photo: Foto fir de Benotzerprofil
+        residence:
+          country: Sicht d'Land eraus wou Dir wunnt
+          post_code: Postcode
+        user_name: Benotzernumm
+      terms:
+        accept: Ech akzeptéieren d'%{terms}
+        heading: Benotzungs-Bedingungen
+        p2: <b>Dir garantéiert, datt:</b>
+        terms: Begrëffer & Konditiounen
+    search:
+      facets:
+        common:
+          category: Kategorie
+          collection: Sammlung
+          country: Land
+          format: Format
+          language: Sprooch
+          location: Plaz
+          rights: Rechter
+          subject: Sujet
+          type: Typ
+          year: Joer
+        contributions:
+          collection_day: Aktiounsdag
+          file_type: Medientyp
+          keywords: Stéchwierder
+          lang: Sprooch
+          license: Lizenz
+          place_name: Numm vun der Plaz
+          protagonist_names: Numm vum Protagonist
+          theatres: Theateren
+        europeana:
+          source_all: All d'Resultater vun Europeana
+          source_label: Quell
+          source_ugc: Geschichte vu Privatpersounen
+          ugc: Inhalt dee vu Benotzer generéiert gouf
+          uri: Sujet
+        refine_results: Preziséiert Är Sich
+        trove:
+          availability: Disponibilitéit
+          discipline: Disziplin
+      providers:
+        canadiana: Kanadesch Quellen
+        collection: Europeana
+        contributions: 1914-1918
+        digitalnz: Quellen aus Neiséiland
+        dpla: Amerikanesch Quellen
+        europeana: Europeana Portal
+        trove: Australesch Quellen
+    statistics:
+      index:
+        contributions:
+          heading: Kontributiounen
+          institutional: Elementer vun Institutiounen
+          ugc: Vun eise Benotzer
+        intervals:
+          last_month: Leschte Mount
+          last_quarter: Lescht Trimester
+          last_week: Lescht Woch
+          last_year: Lescht Joer
+          this_month: Dëse Mount
+          this_week: Dës Woch
+        metrics:
+          avgtimeonsite: Zäit um Site
+          visits: Visiten
+        no_results: Keng Statistiken disponibel.
+        providers:
+          canadiana: Canadiana (Kanada)
+          digitalnz: DigitalNZ (Neiséiland)
+          dpla: DPLA (USA)
+          europeana: Europeana
+          trove: Trove (Australien)
+        title: Benotzungs-Statistiken
+    table:
+      header:
+        actions: Aktiounen
+    tags:
+      add: Derbäisetzen
+      flag:
+        title: Als onpassend markéieren
+      info: trennt all Tag mat engem Komma an dréckt 'Enter' fir derbäizesetzen.
+    users:
+      _summary:
+        caption: Detailer vum Umellen
+      account:
+        caption: Perséinlech Detailer
+        links:
+          edit_contact: Perséinlech Detailer änneren
+          edit_user: Detailer vum Umellen änneren
+        title: Äre Benotzerkont
+      sign-in:
+        help: Fir Iech unzemelle benotzt entweder Äre Benotzernumm oder Är E-Mail-Adress.
+          Dir braucht net béid ze benotzen.
+  will_paginate:
+    entry_range_label: Resultater %{first}–%{last} vu(n) %{total}
+    first_title: Éischt Säit
+    last_title: Lescht Säit
+    next_label: '>'
+    next_title: Nächst Säit
+    page_gap: '&hellip;'
+    page_total_label: vu(n) %{total_pages}
+    per_page_label: 'Resultater pro Säit:'
+    per_page_title: Zuel vun de Resultater déi op der Säit gewise ginn
+    previous_label: <
+    previous_title: Vireg Säit
+...
