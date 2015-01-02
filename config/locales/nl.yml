@@ -38,7 +38,7 @@ nl:
         dropbox_path: Dropboxbestand
         file: Bestand
         file_content_type: Soort
-        file_created_at: Gemaakt op
+        file_created_at: Aangemaakt op
         file_file_name: Bestandsnaam
         file_file_size: Bestandsgrootte
         file_updated_at: Bijgewerkt op
@@ -87,8 +87,8 @@ nl:
         show_in_listing: In lijsten weergeven
       metadata_record:
         field_alternative: Alternatief veld
-        field_collection_day_terms: Veld collectiedag voorwaarden
-        field_file_type_terms: Veld bestandstype voorwaarden
+        field_collection_day_terms: Voorwaarden collectiedagveld
+        field_file_type_terms: Voorwaarden bestandstypeveld
       setting:
         name: Naam
         value: Waarde
@@ -106,23 +106,24 @@ nl:
     errors:
       messages:
         accepted: U moet akkoord gaan om door te kunnen gaan.
-        blank: moet opgegeven zijn
-        confirmation: komt niet met de bevestiging overeen
+        blank: Dit veld is verplicht. Het mag niet leeg blijven.
+        confirmation: Is niet hetzelfde als de bevestiging.
         empty: moet opgegeven zijn
         equal_to: moet gelijk zijn aan %{count}
         even: moet even zijn
         exclusion: is niet beschikbaar
         greater_than: moet groter zijn dan %{count}
         greater_than_or_equal_to: moet groter dan of gelijk zijn aan %{count}
-        inclusion: is niet in de lijst opgenomen
-        invalid: is ongeldig
-        less_than: moet minder zijn dan %{count}
-        less_than_or_equal_to: moet minder dan of gelijk zijn aan %{count}
-        not_a_number: is geen getal
+        inclusion: Selecteer een waarde uit de lijst.
+        invalid: Ongeldige invoer. Controleer of de waarde op de juist wijze is ingevoerd.
+        less_than: moet kleiner zijn dan %{count}
+        less_than_or_equal_to: moet kleiner dan of gelijk zijn aan %{count}
+        not_a_number: De waarde moet een getal zijn.
         not_an_integer: moet een geheel getal zijn
         odd: moet oneven zijn
         record_invalid: 'Validatie mislukt: %{errors}'
-        taken: is al in gebruik
+        taken: De waarde van dit veld moet uniek zijn, maar de ingevoerde waarde bestaat
+          al in ons systeem.
         too_long: is te lang (maximaal %{count} tekens)
         too_short: is te kort (minimaal %{count} tekens)
         wrong_length: heeft onjuiste lengte (moet %{count} tekens lang zijn)
@@ -130,13 +131,13 @@ nl:
         attachment:
           attributes:
             file:
-              content_type: Dit bestandstype wordt niet ondersteund
-              presence: Selecteer een toe te voegen bestand
-              size: Het bestand is te groot om toe te voegen
+              content_type: Dit bestandstype is niet toegestaan.
+              presence: Selecteer een toe te voegen bestand.
+              size: Het bestand is te groot om toe te voegen.
         collection_day:
           attributes:
             image:
-              content_type: Uitsluitend JPEG en GIF zijn toegestaan.
+              content_type: Uitsluitend JPEG- en GIF-afbeeldingen zijn toegestaan.
           end_date_follows_start_date: De einddatum moet na de begindatum liggen.
           taxonomy_term_metadata_field: Dit is geen geldige collectiedag.
         contribution:
@@ -144,41 +145,43 @@ nl:
             uploaded: Enkele bestanden worden nog verplaatst.
           attributes:
             catalogued_by:
-              role_name: Degene die catalogeerd moet de rol van "admin" of "cataloguer"
-                toegewezen hebben gekregen
+              role_name: De catalogiseerder moet de rol van "admin" of "catalogiseerder"
+                hebben
             guest_id:
-              present: Contactgegevens zijn verplicht voor gast bijdragen
+              present: Contactgegevens zijn verplicht voor gastbijdragen.
         metadata_field:
           attributes:
             cataloguing:
-              optional: Cataloguing fields can not be required.
+              optional: Catalogiseringsvelden kunnen niet verplicht gesteld worden.
             contribution:
               or_attachment: Een veld moet betrekking hebben op bijdragen en/of de
                 bijlagen
             field_type:
-              constancy: Bestandstype kan niet gewijzigd worden
+              constancy: Het veldtype kan niet gewijzigd worden.
             searchable:
-              field_type: Taxonomy fields can not be searchable.
+              field_type: Taxonomievelden kunnen niet doorzoekbaar gemaakt worden.
         metadata_record:
-          date_field_civil: Geen geldige datum
-          one_cover_image: U kunt slechts een foto selecteren als omslag voor uw verhaal.
-          taxonomy_field_single: U kunt slechts een term selecteren.
+          date_field_civil: Dit is geen geldige datum.
+          one_cover_image: U kunt slechts één foto selecteren als omslagfoto voor
+            uw verhaal.
+          taxonomy_field_single: U kunt slechts één term selecteren.
         setting:
           attributes:
             name:
-              inclusion: is geen geregistreerde configuratie instelling
+              inclusion: is geen geregistreerde configuratie-instelling
         taxonomy_term:
           attributes:
             metadata_field:
-              type: Taxonomy terms must be associated with a taxonomy metadata field.
+              type: Taxonomietermen moeten gekoppeld zijn met een metadataveld uit
+                de taxonomie.
         user:
           attributes:
             current_password:
               invalid: Dit wachtwoord is incorrect
             email:
-              taken: Aan dit email adres is reeds een profiel gekoppeld.
+              taken: Aan dit e-mailadres is al een profiel gekoppeld.
             picture:
-              content_type: Uw profiel afbeelding moet een GIF of JPEG bestand zijn.
+              content_type: Uw profielafbeelding moet een GIF- of JPEG-bestand zijn.
       template:
         body: 'Controleer de volgende velden:'
         header:
@@ -186,16 +189,16 @@ nl:
           other: '%{model} niet opgeslagen: %{count} fouten gevonden'
     models:
       annotation: Afbeeldingsannotatie
-      attachment: Object
+      attachment: Item
       collection_day: Collectiedag
       contact: Contact
       contribution: Verhaal
       institution: Institutionele provider
-      metadata_field: Metadata veld
-      metadata_record: Metadata vermelding
-      tag: Trefwoord
-      tagging: Trefwoord toevoegen
-      taxonomy_term: Taxonomie term
+      metadata_field: Metadataveld
+      metadata_record: Metadatavermelding
+      tag: Label
+      tagging: Labelen
+      taxonomy_term: Taxonomieterm
       user: Gebruiker
     options:
       contact:
@@ -206,19 +209,19 @@ nl:
         field_type:
           date: Datum
           geo: Geografische locatie
-          string: Een zin
+          string: Eén regel tekst
           taxonomy: Taxonomie
-          text: Meerdere zinnen
+          text: Meerdere regels tekst
       user:
         role_name:
-          administrator: Administrator
+          administrator: Beheerder
           blank: Elke rol
-          cataloguer: Cataloguer
-          contributor: Gebruiker
+          cataloguer: Catalogiseerder
+          contributor: Bijdrager
   attributes:
     contact: Contact
-    created_at: Gecreëerd op
-    email: Email
+    created_at: Aangemaakt op
+    email: E-mailadres
     id: ID
     metadata_record: Metadata
     status: Status
@@ -245,7 +248,7 @@ nl:
           year_sm: Jaar
   common:
     additional-information: Extra informatie
-    download-item: Download dit object
+    download-item: Item downloaden
     editors_blog:
       more_stories: Voor meer verhalen refereren wij u graag naar de <a href="http://thegreatwararchive.blogspot.com/search/label/en">Editor’s
         pick blog</a>
@@ -262,12 +265,12 @@ nl:
         <li><b>Zoom</b> : Zoom in of uit op de kaart door de + of - op de linkerkant van de kaart te gebruiken.</li>
       label: Gebruik Google Maps (niet verplicht)
     help_text:
-      mandatory: Verplicht veld
+      mandatory: verplicht veld
     labels:
-      add-keywords: Voeg uw trefwoord toe
-      co_funded: Mede gesubsidieerd door de Europese Unie
+      add-keywords: Voeg uw trefwoorden toe
+      co_funded: mede gesubsidieerd door de Europese Unie
     links:
-      about_the_project: Meer over het Europeana 1914-1918 project
+      about_the_project: Meer over het project Europeana 1914-1918
       add-your-story: Voeg uw verhaal toe!
       add-your-story-brief: Voeg toe!
       annotorious: Item heeft notities. Open het item om deze te zien.
@@ -1700,7 +1703,7 @@ nl:
           title: Gebruiker
     annotations:
       depublish:
-        question: Wilt u deze itemannotatie terugtrekken?
+        question: Wilt u deze itemannotatie intrekken?
         title: Annotatie intrekken
       edit:
         title: Annotatie bewerken
@@ -1993,8 +1996,9 @@ nl:
           people: Vertel ons de namen van de personen waar dit verhaal over gaat.
         step1: Stap 1 - Vertel uw verhaal
       withdraw:
-        question: Weet u zeker dat u  “<strong>%{title}</strong>” wilt terugtrekken?
-        title: Terugtrekken
+        question: Weet u zeker dat u het verhaal "<strong>%{title}</strong>" wilt
+          intrekken?
+        title: Verhaal intrekken
     contributor:
       dashboard_contributor:
         captions:
@@ -2339,7 +2343,7 @@ nl:
       depublish:
         question: Weet u zeker dat u dit label in de context van dit verhaalt wilt
           intrekken?
-        title: Label terugtrekken
+        title: Label intrekken
       edit:
         title: Trefwoorden bewerken
     tags:
