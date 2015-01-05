@@ -94,6 +94,9 @@ class FederatedSearchController < SearchController
 
       if locale.blank?
         @bing_translate_locale_supported = true
+      elsif I18n.translate('languages', :locale => :en).values.include?(locale)
+        code = I18n.translate('languages', :locale => :en).key(locale)
+        @bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( code )
       else
         @bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
       end
