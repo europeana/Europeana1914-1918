@@ -3,7 +3,7 @@ module Admin::ConfigHelper
   # to be passed to Formtastic input via :collection option.
   def ui_locales_collection
     I18n.available_locales.map do |locale|
-      [ I18n.t('locale', :locale => locale), locale.to_s ]
+      [ RunCoCo::Application::LANG_LABELS[locale.to_s], locale.to_s ]
     end
   end
   
@@ -11,7 +11,7 @@ module Admin::ConfigHelper
     locales = RunCoCo.configuration.ui_locales
     if locales.is_a? Array
       locales.map do |locale|
-        I18n.t('locale', :locale => locale)
+        RunCoCo::Application::LANG_LABELS[locale.to_s]
       end.to_sentence
     else
       locales

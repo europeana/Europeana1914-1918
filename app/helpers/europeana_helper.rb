@@ -298,9 +298,9 @@ module EuropeanaHelper
   
   def languageLabel(key, as_js = false)
     if as_js
-      RunCoCo::I18n::LANG_LABELS.to_json
+      RunCoCo::Application::LANG_LABELS.to_json
     else
-      RunCoCo::I18n::LANG_LABELS[key] || key
+      RunCoCo::Application::LANG_LABELS[key] || key
     end
   end
   

@@ -27,13 +27,13 @@ module RunCoCo
       #   If the translator library is not configured, returns the original query.
       #   A returned hash will be keyed by locale, with the translations as values.
       #
-      def translate(text, from_locale = ::I18n.locale)
+      def translate(text, from_locale = I18n.locale)
         return text unless text.present? && configured?
 
         Rails.logger.debug("Using Bing Translate API to translate \"#{text}\" from #{from_locale}...")
         translations = { from_locale => text }
 
-        other_locales = ::I18n.available_locales.reject { |locale| locale == from_locale }
+        other_locales = I18n.available_locales.reject { |locale| locale == from_locale }
         other_locales.select! { |locale| supported_language_codes.include?(locale.to_s) }
         other_locales.each do |to_locale|
           Rails.logger.debug("... to #{to_locale}")
