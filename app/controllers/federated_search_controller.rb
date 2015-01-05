@@ -2,6 +2,8 @@
 # Abstract controller for federated searches.
 #
 class FederatedSearchController < SearchController
+  include EuropeanaHelper
+  
   before_filter :load_api_key
   before_filter :configured?
 
@@ -91,9 +93,8 @@ class FederatedSearchController < SearchController
     if @record['proxies'].blank?
       @bing_translate_locale_supported = true
     else
-      #locale = edm_proxy_field( @record['proxies'], 'dcLanguage', :concepts => @record['concepts'] )
-      #@bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
-      @bing_translate_locale_supported = true
+      locale = edm_proxy_field( @record['proxies'], 'dcLanguage', :concepts => @record['concepts'] )
+      @bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
     end
 
     respond_to do |format|
