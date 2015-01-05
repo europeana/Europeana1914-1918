@@ -77,9 +77,6 @@ class EuropeanaController < ApplicationController
 
     # expects 2 letter language code
     # defaults to true if no language code is available
-    #
-    # @richard,
-    # couldn't get access to the EuropeanaHelper method edm_proxy_field()
     if @object['proxies'].blank?
       @bing_translate_locale_supported = true
     else
