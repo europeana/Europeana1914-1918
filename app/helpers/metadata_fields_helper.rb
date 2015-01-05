@@ -147,7 +147,7 @@ module MetadataFieldsHelper
   
   def metadata_field_language_code(label)
     language_labels = {}
-    configuration(:ui_locales).each do |locale|
+    RunCoCo.configuration.ui_locales.each do |locale|
       localised_label = t('locale', :locale => locale)
       language_labels[localised_label] = locale
     end
