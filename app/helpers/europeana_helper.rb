@@ -296,48 +296,12 @@ module EuropeanaHelper
      res
   end
   
-  
-  def languageLabel(key, asJS=false)
-    languageLabels = {    
-      "en" => "English",
-      "eu" => "Basque",
-      "bg" => "Български",
-      "ca" => "Català",
-      "cs" => "Čeština",
-      "da" => "Dansk",
-      "de" => "Deutsch",
-      "el" => "Ελληνικά",
-      "es" => "Español",
-      "et" => "Eesti",
-      "fr" => "Français",
-      "ga" => "Gaeilge",
-      "hr" => "Hrvatski",
-      "is" => "Íslenska",
-      "it" => "Italiano",
-      "lt" => "Lietuvių",
-      "lv" => "Latviešu",
-      "hu" => "Magyar",
-      "mt" => "Malti",
-      "nl" => "Nederlands",
-      "no" => "Norsk",
-      "pl" => "Polski",
-      "pt" => "Português",
-      "ro" => "Română",
-      "ru" => "Русский",
-      "sl" => "Slovenščina",
-      "sk" => "Slovenský",
-      "fi" => "Suomi",
-      "sv" => "Svenska",
-      "uk" => "Українська"
-    }
-    
-    if(asJS)
-      require 'json'
-      return languageLabels.to_json
+  def languageLabel(key, as_js = false)
+    if as_js
+      RunCoCo::I18n::LANG_LABELS.to_json
+    else
+      RunCoCo::I18n::LANG_LABELS[key] || key
     end
-
-    languageLabels[key] || key
-    
   end
   
   def remote_video_mime_type(url, max_redirects = 5)

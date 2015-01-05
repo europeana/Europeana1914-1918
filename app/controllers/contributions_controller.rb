@@ -137,7 +137,7 @@ class ContributionsController < ApplicationController
     if @contribution.metadata.fields['lang'].blank?
       @bing_translate_locale_supported = true
     else
-      contribution_language_codes = @contribution.metadata.fields['lang'].collect { |label| metadata_field_language_code(label) }
+      contribution_language_codes = @contribution.metadata.fields['lang'].collect { |label| RunCoCo::I18n::LANG_LABELS.key(label) }
       @bing_translate_locale_supported = (RunCoCo::BingTranslator.supported_language_codes & contribution_language_codes).present?
     end
 

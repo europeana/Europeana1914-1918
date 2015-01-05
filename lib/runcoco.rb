@@ -11,6 +11,7 @@ module RunCoCo
   autoload :Configuration,                'runcoco/configuration'
   autoload :Dropbox,                      'runcoco/dropbox'
   autoload :FlashSessionCookieMiddleware, 'runcoco/flash_session_cookie_middleware'
+  autoload :I18n,                         'runcoco/i18n'
   autoload :HasRecordStatuses,            'runcoco/has_record_statuses'
   autoload :Logger,                       'runcoco/logger'
   autoload :OEmbed,                       'runcoco/oembed'
