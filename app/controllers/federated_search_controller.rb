@@ -3,7 +3,7 @@
 #
 class FederatedSearchController < SearchController
   include EuropeanaHelper
-  
+
   before_filter :load_api_key
   before_filter :configured?
 
@@ -94,7 +94,12 @@ class FederatedSearchController < SearchController
       @bing_translate_locale_supported = true
     else
       locale = edm_proxy_field( @record['proxies'], 'dcLanguage', :concepts => @record['concepts'] )
-      @bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
+
+      if locale.blank?
+        @bing_translate_locale_supported = true
+      else
+        @bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
+      end
     end
 
     respond_to do |format|
