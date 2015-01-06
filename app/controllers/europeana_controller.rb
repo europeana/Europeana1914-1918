@@ -5,6 +5,8 @@ require 'will_paginate/collection'
 # Interface to Europeana API.
 #
 class EuropeanaController < ApplicationController
+  include EuropeanaHelper
+
   before_filter :europeana_api_configured?
   before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
   before_filter :rewrite_qf_array_param_as_hash, :only => [ :search, :explore ]
@@ -75,15 +77,16 @@ class EuropeanaController < ApplicationController
 
     # expects 2 letter language code
     # defaults to true if no language code is available
-    #
-    # @richard,
-    # couldn't get access to the EuropeanaHelper method edm_proxy_field()
     if @object['proxies'].blank?
       @bing_translate_locale_supported = true
     else
-      #locale = EuropeanaHelper::edm_proxy_field( @object['proxies'], 'dcLanguage', :concepts => @object['concepts'] )
-      #@bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
-      @bing_translate_locale_supported = true
+      locale = edm_proxy_field( @object['proxies'], 'dcLanguage', :concepts => @object['concepts'] )
+
+      if locale.blank?
+        @bing_translate_locale_supported = true
+      else
+        @bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( locale )
+      end
     end
 
     respond_to do |format|

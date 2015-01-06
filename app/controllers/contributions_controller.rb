@@ -1,5 +1,7 @@
 # set search result defaults in the #search method
 class ContributionsController < ApplicationController
+  include MetadataFieldsHelper
+
   before_filter :find_contribution,
     :except => [ :index, :new, :create, :search, :explore, :complete, :feed ]
   before_filter :redirect_to_collection_controller, :only => [ :search, :explore ]
@@ -129,14 +131,11 @@ class ContributionsController < ApplicationController
 
     # expects 2 letter language code
     # defaults to true if no language code is available
-    #
-    # @richard,
-    # is this testing the field incorrectly? @contribution.metadata['field_lang'] seems to always be blank
-    if @contribution.metadata['field_lang'].blank?
+    if @contribution.metadata.fields['lang'].blank?
       @bing_translate_locale_supported = true
     else
-      #@bing_translate_locale_supported = RunCoCo::BingTranslator.supported_language_codes.include?( @contribution.metadata['lang'] )
-      @bing_translate_locale_supported = true
+      contribution_language_codes = @contribution.metadata.fields['lang'].collect { |label| RunCoCo::Application::LANG_LABELS.key(label) }
+      @bing_translate_locale_supported = (RunCoCo::BingTranslator.supported_language_codes & contribution_language_codes).present?
     end
 
     respond_to do |format|

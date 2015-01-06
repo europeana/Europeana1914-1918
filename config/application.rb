@@ -11,6 +11,8 @@ end
 
 module RunCoCo
   class Application < Rails::Application
+    LANG_LABELS = YAML::load_file(File.expand_path('../languages.yml', __FILE__))
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -34,9 +36,7 @@ module RunCoCo
     config.i18n.enforce_available_locales = true
     config.i18n.load_path = Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
-    config.i18n.available_locales = Dir[Rails.root.join('config', 'locales', '*.yml').to_s].map { |yml| File.basename(yml, '.yml') }
-    
-    # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+    config.i18n.available_locales = Dir[Rails.root.join('config', 'locales', '*.yml').to_s].map { |yml| File.basename(yml, '.yml') } & LANG_LABELS.keys.collect(&:to_s)
     # the I18n.default_locale when a translation can not be found)
     config.i18n.fallbacks = true
 
