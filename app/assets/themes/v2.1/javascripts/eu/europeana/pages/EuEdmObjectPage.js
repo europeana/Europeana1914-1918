@@ -112,12 +112,12 @@
 					$elm: $('#institution-featured'),
 					edm_page: true
 				});
+
 				mimetype.revealCarousel();
-			} else if ( mimetype.itemsHandled === 1 ) {
-				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
-			} else {
-				mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
+				return;
 			}
+
+			mimetype.ajax.get( mimetype.$items.eq( mimetype.itemsHandled ) );
 		},
 
 		init: function() {
