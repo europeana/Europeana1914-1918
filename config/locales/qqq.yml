@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Dan-nl
 # Author: Liuxinyu970226
+# Author: Pjcaldeira
 # Author: Robby
 # Author: Shirayuki
 # Author: Trockya
@@ -64,6 +65,8 @@ qqq:
         required: |-
           Appears when a form field is required.
           {{Identical|Required}}
+      metadata_record:
+        field_file_type_terms: The translation was completly wrong!
       setting:
         name: '{{Identical|Name}}'
         value: '{{Identical|Value}}'
@@ -170,7 +173,12 @@ qqq:
     - Name of the day of the week.
     - Name of the day of the week.
     formats:
-      default: '{{Related|Date.formats}}'
+      default: |-
+        *%Y - Year with century (can be negative, 4 digits at least)
+        *%m - Month of the year, zero-padded (01 to 12)
+        *%d - Day of the month, zero-padded (01 to 31)
+
+        {{Related|Date.formats}}
       long: |-
         Dateformat in this language. See documentation about [http://ruby-doc.org/core-2.0/Time.html#method-i-strftime strftime() at ruby-doc.org] for the syntax.
         {{Related|Date.formats}}
@@ -181,7 +189,11 @@ qqq:
       long_with_day: '{{Related|Date.formats}}'
       month_and_year: '{{Related|Date.formats}}'
       quarter: '{{Related|Date.formats}}'
-      short: '{{Related|Date.formats}}'
+      short: |-
+        * %b - The abbreviated month name (''Jan'')
+        * %d - Day of the month, zero-padded (01 to 31)
+
+        {{Related|Date.formats}}
     month_names:
       1: |-
         The first month of the Gregorian calendar
@@ -1088,6 +1100,7 @@ qqq:
           digital: '{{Identical|Digital}}'
           front: '{{Identical|Front}}'
           image: '{{Identical|Image}}'
+          journal: '{{Identical|Journal}}'
           leather: '{{Identical|Leather}}'
           metal: '{{Identical|Metal}}'
           mixed: '{{Identical|Mixed}}'

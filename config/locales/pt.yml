@@ -3,6 +3,8 @@
 # Export driver: phpyaml
 # Author: Fitoschido
 # Author: Pjcaldeira
+# Author: Ti4goc
+# Author: Vitorvicentevalente
 ---
 pt:
   actions:
@@ -31,10 +33,10 @@ pt:
         dropbox_path: Ficheiro da Dropbox
         file: Ficheiro
         file_content_type: Tipo de conteúdo
-        file_created_at: 'Criado em:'
+        file_created_at: Criado a
         file_file_name: Nome do ficheiro
         file_file_size: Tamanho do ficheiro
-        file_updated_at: Atualizado em
+        file_updated_at: Atualizado a
         metadata: Metadados
         preview: Pré-vizualização
         public: Público
@@ -64,10 +66,10 @@ pt:
         contributor: Contribuidor
         created_at: Iniciado em
         metadata: Metadados
-        published_at: Publicado em
-        submitted_at: Submetido em
+        published_at: Publicado a
+        submitted_at: Submetido a
       contribution_status:
-        created_at: Estado alterado em
+        created_at: Estado alterado a
       metadata_field:
         cataloguing: Apenas para catalogar
         field_type: Tipo
@@ -81,7 +83,7 @@ pt:
       metadata_record:
         field_alternative: Campo alternativo
         field_collection_day_terms: Campo de termos do dia da colecção
-        field_file_type_terms: Campo tipo de arquivo de termos
+        field_file_type_terms: Termos do campo do tipo de ficheiro
       setting:
         name: Nome
         value: Valor
@@ -95,7 +97,7 @@ pt:
         password_confirmation: Repetir palavra-passe
         role_name: Função
         terms: Termos
-        username: Nome de Utilizador
+        username: Nome de utilizador
     errors:
       messages:
         accepted: Tem de aceitar para poder continuar.
@@ -218,7 +220,7 @@ pt:
     metadata_record: Metadados
     status: Estado
     title: Título
-    updated_at: Atualizado em
+    updated_at: Atualizado a
     url: URL
   blacklight:
     search:
@@ -269,10 +271,11 @@ pt:
       contact_us: Contacte-nos
       contact_us_email: Pode também contactar-nos pelo endereço de email <span class="addr">1914-1918
         [@] europeana [.] eu</span>
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html
-        ?lang=nl" target="_blank">Condições  da Europeana para as contribuições</a>
-      contribution_terms: Condições da Europeana para as contribuições
-      efg: <a href="http://www.europeanfilmgateway.eu/1914">http://www.europeanfilmgateway.eu/</a>.
+      contribution-terms-pdf: <a href="http://www.a europeana.ue/portal/direitos/termos-de-utilizador-contribuições.html?lang=pt"
+        target="_blank">Europeana Termos para Contribuições do Utilizador</a>
+      contribution_terms: Termos de Contribuições de utilizadores da Europeana
+      efg: <a href="http://www.europeanfilmgateway.ue/1914" target="_blank">Saiba
+        mais sobre recolha de material em filme</a>.
       explore-the-stories: Explorar as histórias!
       explore-the-stories-brief: Explorar!
       explore_stories: Explorar as histórias
@@ -288,7 +291,7 @@ pt:
         mais informação aceda ao sítio web do projecto</a>
       project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
         target="_blank">Descobrir mais sobre a recolha de histórias familiares</a>.
-      register: Registe-se
+      register: Registar
       sign_in: Entrar
       statistics: Estatísticas
       takedown_policy: Política de retirada
@@ -310,7 +313,7 @@ pt:
         select_language: Selecionar idioma
         sign_in: Entrar
         sign_out: Sair
-      menu: Menú
+      menu: Menu
     more-at: Mais em
     news: Notícias
     news_item:
@@ -426,11 +429,11 @@ pt:
   devise:
     failure:
       admin:
-        unauthenticated: Tem de entrar ou registar-se para prosseguir.
+        unauthenticated: Tem de entrar ou inscrever-se para prosseguir.
       invalid: Nome de utilizador/email ou palavra-passe inválidos.
       invalid_token: Token de autenticação inválido.
       timeout: A sessão expirou, para continuar entre novamente.
-      unauthenticated: Tem de iniciar a sessão ou registar-se para prosseguir.
+      unauthenticated: Tem de entrar ou inscrever-se para prosseguir.
     mailer:
       reset_password_instructions:
         subject: Instruções para alterar a palavra-passe.
@@ -442,21 +445,21 @@ pt:
       destroyed: A sua conta foi cancelada com sucesso. Esperamos voltar a encontrá-lo
         em breve.
       link: Registar
-      signed_up: Sessão iniciada com sucesso.
-      updated: A sua conta foi atualizada com sucesso.
+      signed_up: Acesso bem sucedido.
+      updated: A atualização da sua conta foi bem sucedida.
     sessions:
-      link: Iniciar sessão
-      signed_in: Sessão iniciada com sucesso.
-      signed_out: Sessão terminada com sucesso.
+      link: Entrar
+      signed_in: Acesso bem sucedido.
+      signed_out: Saída bem sucedida.
   errors:
-    format: '%{attribute} %{message}'
+    format: '%{atributo},%{mensagem}'
     messages:
       accepted: tem de ser aceite
       blank: não pode estar em branco
       confirmation: não coincide com a confirmação
       empty: não pode estar vazio
       equal_to: tem de ser igual a %{count}
-      even: tem de ser par
+      even: deve ser o mesmo
       exclusion: é reservado
       greater_than: tem de ser maior que %{count}
       greater_than_or_equal_to: tem de ser maior ou igual a %{count}
@@ -465,15 +468,20 @@ pt:
       less_than: tem de ser menor que %{count}
       less_than_or_equal_to: tem de ser menor ou igual a %{count}
       not_a_number: não é um número
-      not_an_integer: tem de ser um inteiro
-      odd: tem de ser ímpar
+      not_an_integer: deve ser um número inteiro
+      odd: deve ser ímpar
       record_invalid: 'A validação falhou: %{errors}'
-      taken: não está disponível
-      too_long: é demasiado grande (o máximo é de %{count} caracteres)
-      too_short: é demasiado pequeno (o mínimo é de %{count} caracteres)
-      wrong_length: comprimento errado (deve ter %{count} caracteres)
+      taken: já não está disponível.
+      too_long:
+        one: 'é muito longo (o máximo é %{count} caracter) '
+        other: é muito longo (o máximo são %{count} caracteres)
+      too_short:
+        one: 'é muito curto (mínimo é %{count} caracter) '
+        other: é muito curto (mínimo são %{count} caracteres)
+      wrong_length:
+        other: =é o comprimento errado (deve ser 1 caracter)
     template:
-      body: 'Por favor, verifique os seguintes campos:'
+      body: 'Houve problemas com os seguintes campos:'
       header:
         one: 'Não foi possível guardar %{model}: 1 erro'
         other: 'Não foi possível guardar %{model}: %{count} erros'
@@ -483,12 +491,13 @@ pt:
         alert: Ocorreu um erro ao criar %{resource_name}. Veja as mensagens abaixo.
         notice: Foi criado um novo %{resource_name}.
       destroy:
-        alert: Ocorreu um erro ao apagar %{resource_name}.
-        notice: '%{resource_name} foi apagado com sucesso.'
+        alert: Ocorreu um erro ao eliminar %{resource_name}.
+        notice: '%{resource_name} foi eliminado com sucesso.'
       taggings:
-        notice: Etiquetas retiradas
+        notice: Etiquetas despublicadas
       update:
-        alert: Ocorreu um erro ao atualizar %{resource_name}. ver as mensagens abaixo.
+        alert: Houve um problema ao atualizar %{resource_name}. Veja as mensagens
+          abaixo.
         notice: '%{resource_name} atualizado.'
     admin:
       europeana:
@@ -496,10 +505,10 @@ pt:
           notice: O conteúdo do portal Europeana está ser reunido em plano de fundo.
     annotations:
       depublish:
-        alert: Ocorreu um erro ao retirar anotação.
-        notice: Anotação retirada.
+        alert: A despublicação da anotação falhou.
+        notice: Anotação despublicada.
       flag:
-        alert: Erro ao marcar anotação como inapropriada.
+        alert: A marcação da anotação como inapropriada falhou.
         notice: Anotação marcada como inapropriada.
       unflag:
         alert: Erro ao desmarcar anotação como inapropriada.
@@ -791,7 +800,7 @@ pt:
         google_analytics_key: Chave do Google Analytics. Se deixado em branco será
           usada a chave UA-XXXXXXXX-1. Certifique-se que os ambientes de teste e produção
           utilizam as chaves apropriadas.
-        google_api_email: Insira o API do serviço de email da conta Google a utilizar
+        google_api_email: Introduza o API do serviço de email da conta Google a utilizar
           para obter as estatísticas de utilização pública do Google Analytics.
         max_upload_size: Tamanho máximo para upload em bytes.
         publish_contributions: Ativar a visualização ao público das contribuições.

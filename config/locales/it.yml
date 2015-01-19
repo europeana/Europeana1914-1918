@@ -4,6 +4,7 @@
 # Author: Aquatech
 # Author: Baffo
 # Author: Beta16
+# Author: Gianfranco
 # Author: Gloria sah
 # Author: Mario
 # Author: Peg60
@@ -238,11 +239,19 @@ it:
     search:
       fields:
         facet:
+          country_sm: Stato
+          data_provider_sm: Fornitore di dati
+          metadata_collection_day_ids_im: Giorno di raccolta
+          metadata_content_ids_im: Tipo di elemento
           metadata_file_type_ids_im: Tipo di supporto
           metadata_keywords_ids_im: Parole chiave
           metadata_lang_ids_im: Lingua
           metadata_theatres_ids_im: Teatri
+          place_name_s: Nome del luogo
+          provider_sm: Fornitore
+          rights_sm: Diritti
           type_s: Tipo
+          uri_sm: Oggetto
           year_sm: Anno
   common:
     additional-information: informazioni aggiuntive
@@ -876,6 +885,7 @@ it:
           license: autorizzazione
           location_map: latitudine e longitudine
           location_placename: Indica dove è stato creato l’oggetto
+          location_zoom: Zoom sulla località
           notes: note del catalogatore
           object_side: Lato
           page_number: Numero di pagina
@@ -906,11 +916,13 @@ it:
             source: fonte
             subject: soggetto
             terms_alternative: Titolo alternativo
+            terms_extent: Misura
             terms_medium: mezzo
             title: titolo
             type: tipo
           dcterms:
             alternative: Titolo alternativo
+            extent: Misura
             spatial: Luogo
             temporal: Data
           edm:
@@ -973,6 +985,7 @@ it:
           Poem: Poesia
           Weapon: Arma
         file_type:
+          3D: 3D
           IMAGE: IMMAGINE
           SOUND: SUONO
           TEXT: TESTO
@@ -982,13 +995,19 @@ it:
           Central Powers: poteri centrali
           Imperial Forces: forze imperiali
         format:
+          Canvas: Tela
+          Card: Cartolina
           Ceramic/China: Ceramica/porcellana
           Digital: Digitale
+          Leather: Cuoio
           Mixed: Misto
           Other: Altro
+          Tape: Nastro
+          'Text: memoir': 'Testo: memorie'
           'Text: transcription': 'Testo: trascrizione'
           Unknown: Sconosciuto
           Vinyl: Vinile
+          Wood: Legno
         keywords:
           Anti-War Movement: Movimento pacifista
           Artillery: Artiglieria
@@ -1007,6 +1026,20 @@ it:
           Transport: Trasporti
           Trench Life: Vita di trincea
           Women: Donne
+        lang:
+          Dansk: Danese
+          Deutsch: Tedesco
+          English: Inglese
+          Français: Francese
+          Gaeilge: Gaelico
+          Italiano: Italiano
+          Magyar: Ungherese
+          Nederlands: Olandese
+          Română: Romeno
+          Slovenčina: Slovacco
+          Slovenščina: Sloveno
+          português: Portoghese
+          Ελληνικά: Greco
         license:
           http://creativecommons:
             org/licenses/by-sa/3:
@@ -1016,8 +1049,19 @@ it:
           https://creativecommons:
             org/licenses/by-sa/2:
               0/: https://creativecommons.org/licenses/by-sa/2.0/deed.it
+        object_side:
+          Back: Retro
+          Front: Fronte
         source:
+          Artifact: Artefatto
           Book: Libro
+          Film: Film
+          Folio: Folio
+          Journal: Pubblicazione
+          Leaf: Foglia
+          Multiple: Multiplo
+          Notebook: Notebook
+          Tape: Nastro
           Unknown: Sconosciuto
           Vinyl record: Disco in vinile
         theatres:
@@ -1055,6 +1099,7 @@ it:
       dropbox: Dropbox
       fields: campi
       metadata: Informazioni sul catalogo
+      metadata_field_options: Opzioni per tipo
       optional_details: altre informazioni personali facoltative
       personal_details: informazioni personali
       story_basics: Raccontaci la tua storia
@@ -1062,6 +1107,7 @@ it:
       story_character2: persona n. 2
       story_characters: Raccontaci chi è il protagonista della storia
       story_dates: Quando ha avuto luogo la storia
+      story_forces: Questo elemento coinvolge il
       story_front: Su quale fronte ha luogo la storia
       story_keywords: Aiuta gli utenti a trovare la tua storia con l'introduzione
         di una o più delle seguenti parole chiave.
@@ -1080,8 +1126,15 @@ it:
     admin:
       metadata_fields:
         order: trascina i campi nell'ordine che preferisci, quindi clicca su "salva"
+    annotorious:
+      clear-flag: Cancella contrassegno
+      flag: Flag
+    attachments:
+      uploading: Alcuni dei tuoi file sono ancora in fase di trasferimento. Quando
+        tutti saranno trasferiti, potrai inviare il tuo racconto.
     collection-days:
       find-more: Per saperne di più.
+      get-directions: Ottieni indicazioni
       legend: Legenda
     contribute:
       errors_shown: perché no? Leggi l'avviso sottostante
@@ -1115,6 +1168,7 @@ it:
       label:
         map_view: mappa
         satellite_view: satellite
+    loading: Caricamento in corso...
     next: successivo →
     previous: ← precedente
     search:
@@ -1130,6 +1184,7 @@ it:
       of: di
     translate:
       return-to-language: ritorna alla lingua originale
+      service-not-available: I servizi di traduzione al momento non sono disponibili.
       translate-to: traduci in...
     truncate:
       show-less: mostra meno
@@ -1149,6 +1204,7 @@ it:
     ga: irlandese
     hu: ungherese
     nl: olandese
+    pt: Portoghese
     sk: slovacco
     sl: sloveno
   layout:
@@ -1227,16 +1283,22 @@ it:
     allowed_upload_extensions: Tipi di caricamenti permessi
     banner_active: Banner di manutenzione attivato
     banner_text: Testo del banner di manutenzione
+    bing_client_id: ID del client Bing
+    bing_client_secret: Segreto del client Bing
     bing_translate_key: chiave di traduzione Bing
+    contribution_approval_required: Pubblicare solo contributi approvati
     gmap_api_key: chiave API di Google Maps
     google_analytics_key: chiave di Google Analytics
     google_api_email: Google API email
     max_upload_size: dimensione massima per l'upload
     publish_contributions: pubblica i contributi
     registration_required: necessaria registrazione
+    relative_url_root: radice dell'URL
     search_engine: motore di ricerca
+    sharethis_id: Condividi questo ID di Publisher
     site_name: nome del sito
     site_url: URL del sito
+    ui_locales: Locali disponibili
     uploadify: attiva Uploadify
   support:
     array:
@@ -1463,6 +1525,22 @@ it:
       help:
         heading: aiuto
     admin:
+      annotations:
+        index:
+          title: Annotazioni su immagini utente
+        table:
+          header:
+            text: Testo annotazioni
+            type: Tipo di annotazione
+      collection_days:
+        delete:
+          question: Sei sicuro di voler eliminare le informazioni aggiuntive relative
+            al giorno di raccolta %{code}?
+          title: Eliminare giorno di raccolta
+        edit:
+          title: Modifica giorno di raccolta
+        index:
+          title: Giorni di raccolta
       config:
         edit:
           title: modifica le impostazioni di configurazione
@@ -1512,26 +1590,53 @@ it:
           essi. Una volta che saranno comparse tali informazioni potrai: modificare
           i metadati, eliminare il contributo o, per quelli in attesa di approvazione,
           approvare il contributo.'
+      europeana:
+        index:
+          instructions: Premendo il pulsante di invio qui sotto, inizierà la raccolta
+            dei contenuti relativi alla Prima Guerra Mondiale dal portale Europeana
+            API, nel database 1914-1918.
+          introduction: Ci sono attualmente %{count} risultanze di Europeana relative
+            alla prima guerra mondiale nel database 1914-1918.
+          title: Raccolta di contenuto del portale Europeana
       index:
         headings:
           export: esporta
         links:
+          annotations:
+            description: Revisione e moderazione annotazioni utente su elementi di
+              immagine.
+          collection_days:
+            description: Fornire ulteriori informazioni circa i giorni di raccolta.
           config:
+            description: Configurare le impostazioni del sito web.
             text: configurazione
           contributions:
             description: controlla ed approva i contributi oppure rifiutali
             text: contributi
           export:
+            description: Esportare la raccolta in formato XML o CSV.
             text: esporta
+          export_csv:
+            description: Esportare i contributi alla raccolta in CSV.
+            text: Esportazione in formato CSV
+          export_users:
+            text: Esportazione collaboratori
           export_xml:
+            description: Esportare la raccolta di contributi e allegati al formato
+              XML.
             text: esporta come XML
           export_xml_nozip:
+            description: Esportare la raccolta di contributi e allegati al formato
+              XML, esclusi file .zip allegati.
             text: esporta come XML (inclusi file .zip)
           logs:
+            description: Visualizza file di registro dell'applicazione.
             text: file LOG
           metadata_fields:
+            description: Configurare i campi aggregati durante la contribuzione.
             text: campi per i metadati
           reindex:
+            description: Aggiornamento indice del motore di ricerca.
             text: re-indicizza il motore di ricerca
           statistics:
             description: visualizza le statistiche annuali sulle storie
@@ -1552,6 +1657,8 @@ it:
         new:
           title: nuovo fornitore istituzionale
       metadata_fields:
+        confirm_reindex:
+          title: Re-indicizzare il motore di ricerca
         delete:
           button_confirm: sei sicuro di voler eliminare questo campo?
           question: sei sicuro di voler cancellare il campo metadati %{field_name}?
@@ -1622,6 +1729,12 @@ it:
             contributions: contributi
             edit: modifica l'account
           title: account dell'utente
+    annotations:
+      edit:
+        title: Modifica annotazione
+      flag:
+        question: Sei sicuro di voler contrassegnare questa annotazione come impropria?
+        title: Segnala annotazione come impropria
     attachments:
       _form:
         dropbox:
@@ -1644,6 +1757,8 @@ it:
             title: visualizza tutti i dettagli dell'allegato
         no_thumbnail: creazione dell'anteprima
       attachment_help:
+        flickr:
+          link: Aggiungere elementi da Flickr
         item1: allega un singolo oggetto e file
         item1-subitem1: descrivi l’oggetto
         item1-subitem2: carica il file da allegare
@@ -1653,6 +1768,8 @@ it:
         one-of-the-following: 'Ricordati di allegarne almeno uno alla storia. Puoi
           scegliere una delle seguenti opzioni:'
       copy:
+        instructions: Seleziona uno o più altri elementi collegati a questa storia
+          per sovrascrivere con questo i metadati dell'elemento (mostrati di seguito).
         title: copia i metadati dell'oggetto
       delete:
         question: sei sicuro di voler eliminare l'oggetto %{filename}"?
@@ -1683,7 +1800,36 @@ it:
         heading: argomenti
       types:
         heading: tipi
+    collection_days:
+      cant-find-collection-day: Non riesci a trovare il giorno di raccolta, che stai
+        cercando sulla mappa?
+      different-collection-day: Desideri visualizzare un diverso giorno di raccolta,
+        invece?
+      index:
+        title: Giorni di raccolta
+      stories: 'Storie:'
+      view-stories: Vedi storie
+      website: 'Sito web:'
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+        accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus."
+      what-do-you-get-heading: Che cosa si ottiene?
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
+      what-is-it-heading: Che cos'è questo?
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
+      who-is-it-for-heading: Per chi è?
     common:
+      loading: caricamento in corso…
+      more-like-this: 'Altri articoli che possono interessarti:'
       permanent: questa azione non può essere annullata
     contact:
       heading: Contattaci
@@ -1755,10 +1901,12 @@ it:
           book: libro
           canvas: dipinto
           card: cartolina
+          cc_by_sa: cc-by-sa
           ceramic: ceramica/porcellana
           diary: diario
           digital: Digitale
           film: filmato
+          folio: Folio
           front: fronte
           image: fotografia
           journal: rivista
@@ -1843,6 +1991,7 @@ it:
         rejected_by: respinto da %{name}
         revised: revisionato
         submitted: presentato &mdash; in attesa di approvazione
+        title: Registro di stato
         unknown: sconosciuto
         withdrawn: ritirato
       story:
@@ -1900,6 +2049,7 @@ it:
           bottone sottostante per rimuovere le tue informazioni di contatto. Ciò consentirà
           di proteggere la tua privacy in caso tu condivida il computer con qualcun
           altro.
+        title: Pannello ospite
       guests:
         edit:
           title: modifica le informazioni di dettaglio dell'ospite
@@ -1988,6 +2138,8 @@ it:
         message: Si è verificato un problema nella richiesta presentata che ne impedisce
           l'elaborazione.
         title: richiesta non valida
+      federated_search_error:
+        title: Errore di ricerca aggregata
       forbidden:
         message: non sei autorizzato ad accedere alla risorsa richiesta.
         title: vietato
@@ -2049,6 +2201,16 @@ it:
         all'archivio.
       p5: <b>materiale raccolto in occasione dei collection day</b>
       search_for: <b>cerca:</b>
+    flickr:
+      select:
+        licenses:
+          incompatible: Licenza incompatibile
+      show:
+        action:
+          link: Link account Flickr
+          unlink: Scollegare account Flickr
+        status:
+          linked: Sei collegati a Flickr come %{username}
     home:
       heading: storie inedite e storie ufficiali della Prima Guerra Mondiale
       links:
@@ -2113,11 +2275,13 @@ it:
         common:
           category: categoria
           collection: raccolta
+          contributor: Contributore
           country: paese
           creator: autore
           format: formato
           language: lingua
           location: località
+          media: Tipo di supporto
           provider: fornitore
           rights: diritti
           subject: soggetto
@@ -2134,6 +2298,8 @@ it:
           protagonist_names: nome del protagonista
           provider: fornitore
           theatres: Teatri
+        digitalnz:
+          content_partner: Partner di contenuti
         europeana:
           data_provider: fornitore dei dati
           reusability: riutilizzabilità
@@ -2144,10 +2310,12 @@ it:
           source_label: fonte
           source_ugc: storie del pubblico
           ugc: contenuto generato dall'utente
+          uri: Oggetto
         matches_for: 'corrispondenze per:'
         refine_results: perfeziona i risultati della ricerca
         trove:
           availability: disponibilità
+          discipline: Disciplina
       providers:
         canadiana: Fonti canadesi
         collection: Europeana
@@ -2171,12 +2339,15 @@ it:
           this_week: questa settimana
         metrics:
           avgtimeonsite: tempo medio di permanenza sul sito
+          object_pageviews: Vista storie
           visits: visite
         no_results: non sono disponibili statistiche
         providers:
+          canadiana: Canadiana (Canada)
           digitalnz: DigitalNZ (New Zealand)
           dpla: DPLA (USA)
           europeana: Europeana
+          trove: Trove (Australia)
         title: statistiche d'utilizzo
     table:
       header:
