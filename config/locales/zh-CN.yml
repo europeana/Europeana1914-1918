@@ -1,0 +1,1825 @@
+# Messages for Simplified Chinese (中文（简体）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Gaoxuewei
+# Author: Impersonator 1
+# Author: Liuxinyu970226
+# Author: Stieizc
+---
+zh-CN:
+  actions:
+    add: 添加
+    approve: 批准
+    cancel: 取消
+    copy: 复制
+    delete: 删除
+    depublish: 反出版
+    download: 下载
+    edit: 编辑
+    edit_story: 编辑历史
+    filter: 过滤
+    flag: 标记
+    import: 导入
+    new: 新
+    reject: 拒绝
+    remove: 移除
+    save: 保存
+    submit: 提交
+    unflag: 取消标记
+    update: 更新
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Dropbox文件
+        file: 文件
+        file_content_type: 内容类型
+        file_created_at: 创建于
+        file_file_name: 文件名
+        file_file_size: 文件大小
+        file_updated_at: 更新于
+        metadata: 元数据
+        preview: 预览
+        public: 公开
+      collection_day:
+        description: 说明
+        end_date: 结束日期
+        image: 图片
+        name: 名称
+        start_date: 开始日期
+        taxonomy_term_id: 分类术语
+      contact:
+        age: 年龄
+        country: 居住国
+        full_name: 全名
+        gender: 性别
+        locality: 城市/镇
+        postal_code: 邮政编码
+        region: 国家
+        street_address: 街道地址
+        tel: 电话号码
+      contribution:
+        approved_by: 批准自
+        approver: 批准自
+        attachments: 项
+        catalogued_by: 编目员
+        cataloguer: 编目员
+        contributor: 贡献者
+        created_at: 开始于
+        metadata: 元数据
+        published_at: 出版于
+        submitted_at: 提交于
+      contribution_status:
+        created_at: 状态更改于
+      metadata_field:
+        cataloguing: 仅编目
+        field_type: 类型
+        hint: 暗示
+        multi: 多选
+        name: ID
+        position: 位置
+        required: 必填
+        searchable: 可搜索
+        show_in_listing: 列表中显示
+      metadata_record:
+        field_alternative: 字段替代
+        field_collection_day_terms: 刊登收藏日条款
+        field_file_type_terms: 字段文件类型术语
+      setting:
+        name: 名称
+        value: 值
+      taxonomy_term:
+        metadata_field: 字段
+        term: 条款
+      user:
+        created_at: 注册日期
+        institution: 学院
+        password: 密码
+        password_confirmation: 重复密码
+        role_name: 角色
+        terms: 条款
+        username: 用户名
+    errors:
+      messages:
+        accepted: 你需要接受才能继续。
+        blank: 此字段是必填项；它不能为空。
+        confirmation: 与确认不同。
+        empty: 不能为空
+        equal_to: 必须等于%{count}
+        even: 必须是偶数
+        exclusion: 被保留
+        greater_than: 必须大于%{count}
+        greater_than_or_equal_to: 必须大于等于%{count}
+        inclusion: 从列表中选择值。
+        invalid: 输入无效；请检查输入格式。
+        less_than: 必须小于%{count}
+        less_than_or_equal_to: 必须小于等于%{count}
+        not_a_number: 此值非数字，但它应该如此。
+        not_an_integer: 必须是整数
+        odd: 必须是奇数
+        record_invalid: 验证失败：%{errors}
+        taken: 此字段需要独一无二，但输入的值已经存在于我们的系统中。
+        too_long: 太长了（最多%{count}个字符）
+        too_short: 太短了（最少%{count}个字符）
+        wrong_length: 长度错误（应为%{count}个字符）
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: 这种文件类型不允许。
+              presence: 选择文件上传。
+              size: 上传文件太大了。
+        collection_day:
+          attributes:
+            image:
+              content_type: 只允许JPEG和GIF图片。
+          end_date_follows_start_date: 输入的日期必须晚于起始日期。
+          taxonomy_term_metadata_field: 这不是有效的收藏日期。
+        contribution:
+          attachments:
+            uploaded: 一些文件仍在转移。
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: 编目字段可以不需要。
+            contribution:
+              or_attachment: 字段必须应用于贡献者和/或附件
+            field_type:
+              constancy: 字段类型不能更改。
+            searchable:
+              field_type: 分类字段不可被搜索。
+        metadata_record:
+          date_field_civil: 不是有效的日历日期。
+          one_cover_image: 您只能为您的故事选择一项作为封面图片。
+          taxonomy_field_single: 只能选择一个条款。
+        setting:
+          attributes:
+            name:
+              inclusion: 不是已注册的配置设置
+        user:
+          attributes:
+            current_password:
+              invalid: 密码错误
+            email:
+              taken: 使用此电子邮件地址的用户账户已存在。
+            picture:
+              content_type: 资料图片必须是GIF或JPEG格式。
+      template:
+        body: 以下字段存在问题：
+        header: 从保存到现在发生的%{count}个错误禁止了此%{model}
+    models:
+      annotation: 图片注释
+      attachment: 项
+      collection_day: 收藏日
+      contact: 联系
+      contribution: 故事
+      institution: 制度提供
+      metadata_field: 元数据字段
+      metadata_record: 元数据关键词
+      tag: 标签
+      tagging: 添加标签
+      taxonomy_term: 分类术语
+      user: 用户
+    options:
+      contact:
+        gender:
+          female: 女
+          male: 男
+      metadata_field:
+        field_type:
+          date: 日期
+          geo: 地理位置
+          string: 单行文本
+          taxonomy: 分类学
+          text: 多行文本
+      user:
+        role_name:
+          administrator: 管理员
+          blank: 任何角色
+          cataloguer: 编目员
+          contributor: 贡献者
+  attributes:
+    contact: 联系
+    created_at: 创建于
+    email: 电子邮件
+    id: ID
+    metadata_record: 元数据
+    status: 状态
+    title: 标题
+    updated_at: 更新于
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 国家
+          data_provider_sm: 数据提供方
+          metadata_collection_day_ids_im: 收藏日
+          metadata_content_ids_im: 项目类型
+          metadata_file_type_ids_im: 媒体类型
+          metadata_keywords_ids_im: 关键词
+          metadata_lang_ids_im: 语言
+          metadata_theatres_ids_im: 剧院
+          place_name_s: 地名
+          provider_sm: 提供者
+          rights_sm: 权限
+          type_s: 类型
+          uri_sm: 主题
+          year_sm: 年
+  common:
+    additional-information: 其它信息
+    download-item: 下载此项
+    editors_blog:
+      more_stories: <a href="http://thegreatwararchive.blogspot.com/search/label/en">编者精选博客</a>的更多故事
+    editors_pick:
+      heading: 编辑者精选
+      more_stories: <b>%{explore_stories}页上的更多故事。</b>
+    featured-categories: 热门分类
+    from-collection-days: 来自我们的收藏日
+    google_maps:
+      help_text: |-
+        <li><b>自动建议</b>：输入国家名，城镇或地址，Google地图会尝试找到可能的地址。</li>
+        <li><b>具体地址</b>：输入具体地址或地理坐标并点击“前往”按钮，忽略Google地图提供的自动建议。</li>
+        <li><b>地图制作器</b>：当地图制作器出现在地图时，例如在您输入地址后，您可以将其移动至您想要的任何位置。</li>
+        <li><b>Zoom</b> : Zoom in or out of the map using the + or - on the slider in the left section of the map.</li>
+      label: 使用Google地图（可选）
+    help_text:
+      mandatory: 必填字段
+    labels:
+      add-keywords: 加入您的关键词
+      co_funded: 由欧盟共同资助
+    links:
+      about_the_project: 关于Europeana 1914~1918项目
+      add-your-story: 加入您的故事！
+      add-your-story-brief: 加入！
+      annotorious: 项目有附加的注释。打开项目阅读。
+      contact_us: 联系我们
+      contact_us_email: 您也可以通过电子邮件联系我们<span class="addr">1914-1918 [@] europeana [.]
+        eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
+        target="_blank">Europeana用户贡献条款</a>
+      contribution_terms: Europeana用户贡献条款
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">了解更多关于收集电影材料</a>。
+      explore-the-stories: 探索故事！
+      explore-the-stories-brief: 探索！
+      explore_stories: 探索故事
+      help: 帮助
+      my_account: 我的账户
+      my_stories: 我的故事
+      play-audio: 播放音频
+      play-video: 播放视频
+      privacy_policy: 隐私权政策
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">请参考我们项目网站以获取更多信息</a>
+      register: 注册
+      sign_in: 登录
+      statistics: 统计
+      takedown_policy: 拆解方针
+      titles:
+        contribution_terms: 参见Europeana用户贡献条款
+        great_war: 牛津大学的伟大战争档案
+        takedown: 前往拆分方针页
+      view-image: 查看全部项
+      view-pdf: 开放文档
+    map_contribution_heading: 这个故事发生在
+    menus:
+      main:
+        about: 关于
+        add: 添加您的故事
+        collection-days: 收藏日
+        explore: 浏览
+        home: 首页
+        remix: 不太可能的友谊
+        select_language: 选择语言
+        sign_in: 登录
+        sign_out: 注销
+      menu: 菜单
+    more-at: 更多在
+    news: 新闻
+    news_item:
+      heading: 新家族历史巡回展览
+    "no": 否
+    options:
+      close: 关闭
+      open: 打开
+      other_option: 其他
+    other:
+      contributor: 贡献者
+      preview: 预览
+      title: 标题
+      total: 总计
+    "yes": 是
+  date:
+    abbr_day_names:
+    - 日
+    - 一
+    - 二
+    - 三
+    - 四
+    - 五
+    - 六
+    abbr_month_names:
+      1: 1月
+      2: 2月
+      3: 3月
+      4: 4月
+      5: 5月
+      6: 6月
+      7: 7月
+      8: 8月
+      9: 9月
+      10: 10月
+      11: 11月
+      12: 12月
+    day_names:
+    - 星期日
+    - 星期一
+    - 星期二
+    - 星期三
+    - 星期四
+    - 星期五
+    - 星期六
+    formats:
+      default: '%Y年%m月%d日'
+      long: '%Y年%B%d日'
+      long_with_day: '%Y年%B%d日 %a'
+      month_and_year: '%Y年%B'
+      quarter: '%Y年第%{number}季度'
+      short: '%b%d日'
+    month_names:
+      1: 一月
+      2: 二月
+      3: 三月
+      4: 四月
+      5: 五月
+      6: 六月
+      7: 七月
+      8: 八月
+      9: 九月
+      10: 十月
+      11: 十一月
+      12: 十二月
+    order:
+    - :年
+    - :月
+    - :日
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        other: 大约%{count}小时
+      about_x_months:
+        other: o大约%{count}个月
+      about_x_years:
+        other: 大约%{count}年
+      almost_x_years:
+        other: 几乎%{count}年
+      half_a_minute: 半分钟
+      less_than_x_minutes:
+        other: 比%{count}分钟更少
+      less_than_x_seconds:
+        other: 比%{count}秒钟更少
+      over_x_years:
+        other: 超过%{count}年
+      x_days:
+        other: '%{count}天'
+      x_minutes:
+        other: '%{count}分钟'
+      x_months:
+        other: '%{count}月'
+      x_seconds:
+        other: '%{count}秒'
+    prompts:
+      day: 日
+      hour: 小时
+      minute: 分钟
+      month: 月
+      second: 秒
+      year: 年
+  devise:
+    failure:
+      admin:
+        unauthenticated: 您需要登录才能继续。
+      invalid: 用户名/电子邮件或密码无效。
+      invalid_token: 身份认证令牌无效。
+      timeout: 您的会话已过期，请再次登录以继续。
+      unauthenticated: 您需要登录或注册以继续。
+    mailer:
+      reset_password_instructions:
+        subject: 重置密码说明
+    passwords:
+      link: 忘记密码？
+      send_instructions: 您已经发送一封包含重置您的密码说明的邮件。
+      updated: 您的密码已成功更改。您现在已登录。
+    registrations:
+      destroyed: 再见！您的账户已成功取消。我们希望很快再见到您。
+      link: 注册
+      signed_up: 您已成功注册。
+      updated: 您成功更新了您的账户。
+    sessions:
+      link: 登录
+      signed_in: 成功登录。
+      signed_out: 成功注销。
+  errors:
+    format: '%{attribute} %{message}'
+    messages:
+      accepted: 必须接受
+      blank: 不能为空
+      confirmation: 不能匹配确认
+      empty: 不能为空
+      equal_to: 必须等于%{count}
+      even: 必须是偶数
+      exclusion: 被保留
+      greater_than: 必须大于%{count}
+      greater_than_or_equal_to: 必须大于等于%{count}
+      inclusion: 未包括在列表中
+      invalid: 无效
+      less_than: 必须小于%{count}
+      less_than_or_equal_to: 必须小于等于%{count}
+      not_a_number: 不是数字
+      not_an_integer: 必须是整数
+      odd: 必须是奇数
+      record_invalid: 验证失败：%{errors}
+      taken: 已被使用
+      too_long:
+        other: 太长了（最大值%{count}个字符）
+      too_short:
+        other: 太短了（最小值%{count}个字符）
+      wrong_length:
+        other: 长度不正确（应为%{count}个字符）
+    template:
+      body: 以下字段有问题：
+      header:
+        other: '%{count}个错误禁止了%{model}的保存行为'
+  flash:
+    actions:
+      create:
+        alert: 创建%{resource_name}时遇到问题。参见下面的信息。
+        notice: 创建新的%{resource_name}。
+      destroy:
+        alert: 删除%{resource_name}时出现问题。
+        notice: '%{resource_name}已成功删除。'
+      taggings:
+        notice: 标记不发布。
+      update:
+        alert: 更新%{resource_name}时遇到问题。参见下面的信息。
+        notice: '%{resource_name}已更新。'
+    annotations:
+      depublish:
+        alert: 取消发布注解失败。
+        notice: 取消发布注释。
+      flag:
+        alert: 标记注释不适当失败。
+        notice: 注释已标记不适当。
+      unflag:
+        alert: 取消标记注释不适当失败。
+        notice: 注释已取消标记不适当。
+    attachments:
+      create:
+        alert: 保存您的附件时出现问题。
+        invalid_files: 部分文件不能保存。
+        notice: 项已保存。
+      destroy:
+        alert: 删除您的附件时出现问题。
+        notice: 附件已删除。
+      duplicate:
+        notice: 已复制项目元数据至其他选定项目。
+      links:
+        view-attachments_html: <a href="#attachments">点此查看和编辑</a>。
+      update:
+        alert: 保存您的附件时出现问题。
+        notice: 项已保存。
+    configuration:
+      update:
+        alert: 保存配置失败。
+        notice: 配置已更新。
+    contacts:
+      create:
+        alert: 创建联络失败。
+        notice: 已创建联络。
+      update:
+        alert: 联络更新失败。
+        notice: 联络已更新。
+    contributions:
+      approve:
+        alert: 批准贡献失败。
+        notice: 贡献成功批准。
+      destroy:
+        alert: 删除故事失败。
+        notice: 故事已删除。
+      draft:
+        create:
+          alert: 开始新的贡献时出现问题。
+          notice: 开始新的投稿草稿。
+        submit:
+          alert: 您的投稿存在问题。请检查下面的消息。
+          notice: 您的贡献已经提交。感谢您！它将由项目工作人员检查并在通过时出现在网站上。在繁忙的时候，这可能会花费数周。我们希望您能够理解和耐心等待。
+        update:
+          alert: 保存您的投稿时出现问题。
+          notice: 贡献已保存。
+      reject:
+        alert: 拒绝贡献失败。
+        notice: 拒绝贡献成功。
+      submitted:
+        edit:
+          alert: 此投稿已提交。
+      withdraw:
+        notice: 您的故事已被标记为从收藏中撤回。
+    contributors:
+      create:
+        alert: 您的账户不能创建。
+      update:
+        alert: 您的账户不能更新。
+    fields:
+      reindexing: 在后台重新索引搜索引擎。
+    flickr:
+      import:
+        alert:
+          empty: 未选择图片
+          invalid_license: 以下照片有不接受的许可协议并不会被导入：
+        notice: 在背景中转移Flickr图片。
+    guest_contact:
+      create:
+        alert: 您提供的详细信息有问题。请修正它们并重试。
+        notice: 联络信息已收到。
+      forget:
+        notice: 联络信息已清空。
+      update:
+        alert: 您提供的详细信息有问题。请修正它们并重试。
+        notice: 联系信息已更新。
+    metadata_fields:
+      update_order:
+        notice: 元数据字段顺序已更新。
+    status:
+      alert: 警报：
+      notice: 通告：
+    taggings:
+      depublish:
+        alert: 无法取消发布此标记。
+        notice: 标记不发布！
+    tags:
+      contribution:
+        create:
+          success: 您的标签已经添加到这个故事。
+      destroy:
+        success: 标签已移除。
+      europeana_record:
+        create:
+          success: 您的标签已经添加到此项目。
+      flag:
+        success: 标签已被标记为不当内容。
+    taxonomy:
+      imported: 已导入新分类术语。
+    users:
+      create:
+        alert: 用户账户不能创建。
+        notice: 账户已创建。
+      destroy:
+        notice: 用户已删除。
+      register:
+        alert: 注册失败。请更正下面的信息并重试。
+        notice: 注册成功。欢迎您！
+      update:
+        alert: 用户账户不能更新。
+        notice: 账户已更新。
+  formtastic:
+    actions:
+      attachment:
+        add_edit: 加入/编辑项
+        create: 上传
+        delete: 删除项
+        update: 保存
+      contribution:
+        create: 继续
+        delete: 删除故事
+        save_draft: 保存故事草稿
+        submit: 提交故事
+        update: 更新贡献
+        withdraw: 撤回
+      contributor:
+        create: 注册
+      create: 提交
+      delete: 删除
+      filter:
+        submit: 更新
+      metadata_field:
+        delete: 删除元数据字段
+        reindex: 重新索引搜索引擎
+      password:
+        create: 提交
+        update: 更新我的密码
+      search:
+        submit: 搜索
+      sign_in: 登录
+      submit: 保存
+      tag:
+        flag: 标记不当内容
+      taxonomy_term:
+        import: 导入
+      update: 保存更改
+      upload: 上传
+      user:
+        create: 注册
+        delete: 删除账户
+        update: 更新
+    create: 创建%{model}
+    hints:
+      attachment:
+        file: 上传文件
+        metadata:
+          cover_image: 在我们的收藏中代表您的故事的封面图片；它就像书的封面。它可以是与您的故事相关的老照片，日记开头或者勋章图片。
+          forces: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
+          location_placename: 输入项目被创建的城市名（写信的那座或拍摄照片的那座），也就是说伦敦或巴黎。
+          theatres: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
+        new:
+          file: 您可以上传多个必要文件；每次一个。注意如果您上传多个文件您将有机会标记其中一个作为您故事的“封面图片”，就是明信片或日记。大小最大%{max}。允许格式：%{file_types}。
+      contact:
+        full_name: 这将在工作人员对贡献审批通过后公开显示。
+      contribution:
+        metadata:
+          contributor_behalf: 留空除非您正在帮助某人做出此贡献。
+          description: 写下您的贡献背后的故事。
+          forces: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
+          lang: 指出此故事书写的语言。
+          location_placename: 输入此故事发生的城市名，例如伦敦或巴黎。
+          theatres: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
+        title: 总体上用于此贡献的标题。
+      metadata_field:
+        name: 字段数据库名称，必须唯一。有效字符：a-z, 0-9, _
+      metadata_record:
+        date: 格式：年-月-日（YYYY-MM-DD）、年-月（YYYY-MM）或年（YYYY），例如：1998-04-20、1998-04或1998
+        geo: 格式：“LAT,LNG”。例如：“51.500,-0.126”（伦敦）
+      settings:
+        bing_client_id: 来自Azure DataMarket的Bing客户端ID。需要Europeana OpenSearch API查询的翻译。
+        bing_translate_key: 必应翻译关键词。如果保留空白，微软必应翻译功能将不能工作。
+        gmap_api_key: Google地图API密钥。没有此密钥，Google地图不能被用于输入地理位置数据。在<http://code.google.com/apis/maps/signup.html>请求密钥。
+        google_analytics_key: Google分析代码。如果留空将使用默认代码UA-XXXXXXXX-1。
+        max_upload_size: 上传的最小字节数。
+      user:
+        current_password: 如果您希望更改您的账户详细信息的话，请输入您当前的密码。
+        edit:
+          password: 输入一个新密码，如果您希望更改它，否则请留空。至少 6 个字符。
+        email: 您可以通过此电子邮件地址而不是您的用户名登录。这是可选的，但我们建议您提供一个电子邮件地址以便于日后忘记密码时使用。
+        password: 至少6个字符
+        update:
+          password: 输入一个新密码，如果您希望更改它，否则请留空。至少 6 个字符。
+        username: 至少3个字符。有效字符：a-z A-Z 0-9 - _ . @
+    labels:
+      attachment:
+        metadata:
+          attachment_description: 说明
+          attachment_file: 单个文件
+          content: 类型
+          cover_image: 封面图片
+          creator: 创作者
+          creator_family_name: 创建者姓
+          creator_given_name: 创建者名
+          date: 日期
+          date_from: 创建日期/开始日期
+          date_to: 结束日期
+          file_type: 媒体文件类型
+          forces: 军队
+          format: 中
+          keywords: 关键词
+          lang: 语言
+          lang_other: 语言（其他）
+          license: 授权协议
+          location_map: 纬度 & 经度
+          location_placename: 您项目创建的位置。
+          location_zoom: 位置缩放
+          notes: 编目员注解
+          object_side: 侧
+          page_number: 页码
+          page_total: 页面总数
+          source: 来源
+          subject: 主题
+          theatres: 剧院
+          ticket: 票据编号
+      collection_day:
+        contact:
+          country: 国家
+          full_name: 组织
+        delete_image: 删除图像
+      content:
+        metadata:
+          dc:
+            contributor: 贡献者
+            country: 国家
+            coverage: 平均
+            creator: 创建者
+            date: 日期
+            description: 说明
+            format: 格式
+            identifier: 标识符
+            language: 语言
+            publisher: 发布者
+            relation: 关系
+            rights: 权限
+            source: 来源
+            subject: 主题
+            terms_alternative: 又名
+            terms_extent: 程度
+            terms_medium: 中
+            title: 标题
+            type: 类型
+          dcterms:
+            alternative: 其他标题
+            extent: 程度
+            spatial: 地方
+            temporal: 日期
+          edm:
+            country: 提供国家
+            data_provider: 数据提供者
+            external_partner_site: 在合作伙伴网站查看
+            language: 语言
+            partner_site: 查看项目在
+            provider: 提供者
+            rights: 版权
+      contribution:
+        metadata:
+          alternative: 又名
+          cataloguer: 编目员
+          character1_dob: 出生日期
+          character1_dod: 逝世日期
+          character1_family_name: 姓
+          character1_given_name: 名
+          character1_pob: 出生地
+          character1_pod: 逝世地
+          character2_dob: 出生日期
+          character2_dod: 逝世日期
+          character2_family_name: 姓
+          character2_given_name: 名
+          character2_pob: 出生地
+          character2_pod: 逝世地
+          collection_day: 收藏日
+          contributor_behalf: 贡献代表
+          date_from: 故事开始于
+          date_to: 故事结束于
+          description: 故事
+          editor_pick: 编者精选
+          editor_pick_sig: 编者精选签名
+          editor_pick_text: 编者精选正文
+          forces: 军队
+          keywords: 关键词
+          lang: 语言
+          lang_other: 语言（其他）
+          location_map: 纬度 & 经度
+          location_zoom: 位置缩放
+          notes: 编目员注解
+          summary: 项目的简短说明
+          theatres: 剧院
+          ticket: 门票编号
+        terms: 我接受使用条款和条件
+        title: 故事标题
+      metadata_field:
+        contribution: 贡献
+      taxonomy_term:
+        collection_day:
+          AA22: AA22
+          AM15: AM15
+          BA23: BA23
+          BC18: BC18
+          BE08: BE08
+          BE30: BE30
+          BO02: BO02
+          BR19: BR19
+          CY01: CY01
+          DD12: DD12
+          DO28: DO28
+          DU18: DU18
+          DUP1: DUP1
+          DUP2: DUP2
+          EF11: EF11
+          FF22: FF22
+          FR07: Fr07
+          FRAD004: FRAD004
+          FRAD010: FRAD010
+          FRAD014: FRAD014
+          FRAD037: FRAD037
+          FRAD048: FRAD048
+          FRAD057: FRAD057
+          FRAD066: FRAD066
+          FRAD068: FRAD068
+          FRAD076: FRAD076
+          FRAD077: FRAD077
+          FRAD088: FRAD088
+          FRADO071: FRADO071
+          FRADO078: FRADO078
+          FRADO083: FRADO083
+          FRADO087: FRADO087
+          FRADO088: FRADO088
+          FRADO87: FRADO87
+          FRAMLC: FRAMLC
+          FRAMMA: FRAMMA
+          FRAMMO: FRAMMO
+          FRAMPO: FRAMPO
+          FRAMSG: FRAMSG
+          FRAMSQ: FRAMSQ
+          FRAMTR: FRAMTR
+          FRANPR: FRANPR
+          FRBDIC: FRBDIC
+          FRBMAC: FRBMAC
+          FRBMAN: FRBMAN
+          FRBMBO: FRBMBO
+          FRBMCC: FRBMCC
+          FRBMLI: FRBMLI
+          FRBMLY: FRBMLY
+          FRBMSC: FRBMSC
+          FRBMTO: FRBMTO
+          FRBNBU: FRBNBU
+          FRBNUS: FRBNUS
+          FRCISA: FRCISA
+          FRCO: FRCO
+          FRLOLE: FRLOLE
+          FRME: FRME
+          Fr07: Fr07
+          GE08: GE08
+          HB22: HB22
+          HE14: HE14
+          INTERNET: 互联网
+          KA23: KA23
+          KI13: KI13
+          LE10: LE10
+          LI17: LI17
+          LJ23: LJ23
+          LU16: LU16
+          MA19: MA19
+          MB007: MB007
+          MB011: MB011
+          MB20: MB20
+          MO08: MO08
+          MU09: MU09
+          NG19: NG19
+          NLG01: NLG01
+          PO21: PO21
+          PR17: PR17
+          RG14: RG14
+          RM15: RM15
+          RO24: RO24
+          SER01: SER01
+          SKBA1: SKBA1
+          SKKE1: SKKE1
+          SKMT1: SKMT1
+          SO14: SO14
+          ST10: ST10
+          TR16: TR16
+          UNKNOWN: 未知
+          UPC1: UPC1
+          UPC2: UPC2
+          UPC3: UPC3
+          UT1: UT1
+          VER01: VER01
+          VP18: VP18
+          YP01: YP01
+        content:
+          Autograph: 亲笔
+          Book: 书籍
+          Collection: 收藏
+          Diary: 日记
+          Drawing: 绘画
+          Footage: 镜头
+          Interview: 采访
+          Letter: 信
+          Map: 地图
+          Medal: 勋章
+          Memoir: 回忆录
+          Memorabilia: 大事记
+          Multiple: 多重
+          Music: 音乐
+          Official Document: 官方文档
+          Official document: 官方文档
+          Other: 其他
+          Painting: 绘画
+          Photograph: 照片
+          Poem: 诗
+          Postcard: 明信片
+          Publication: 出版物
+          Weapon: 武器
+        cover_image:
+          "yes": 是
+        editor_pick:
+          "yes": 是
+        file_type:
+          3D: 3D
+          IMAGE: 图像
+          SOUND: 声音
+          TEXT: 文本
+          VIDEO: 视频
+        forces:
+          Allied Forces: 盟军部队
+          Central Powers: 同盟国
+          Imperial Forces: 帝国武装
+        format:
+          Canvas: 画布
+          Card: 卡
+          Ceramic/China: 陶瓷/中国
+          Digital: 数字化
+          Leather: 皮革
+          Metal: 金属
+          Mixed: 混合
+          Other: 其他
+          Paper: 纸张
+          Photographic paper: 相片用纸
+          Tape: 磁带
+          'Text: memoir': 文本：回忆录
+          'Text: transcription': 文本：转录
+          Unknown: 未知
+          Vinyl: 乙烯基
+          Wood: 树木
+        keywords:
+          Anti-War Movement: 反战运动
+          Artillery: 火炮
+          Conscientious Objection: 服兵役
+          Gas Warfare: 毒气战
+          Home Front: 国内防线
+          Manufacture: 制造
+          Medical: 医疗
+          Military Punishment: 军事惩罚
+          Prisoners of War: 战俘
+          Propaganda: 宣传
+          Recruitment and Conscription: 补充征兵
+          Refugees: 难民
+          Remembrance: 回忆
+          Tanks and Armoured Fighting Vehicles: 坦克和装甲战斗车
+          Transport: 运输
+          Trench Life: 战壕
+          Women: 女人
+        lang:
+          Dansk: 丹麦语
+          Deutsch: 德语
+          English: 英语
+          Français: 法语
+          Gaeilge: 爱尔兰语
+          Italiano: 意大利语
+          Magyar: 匈牙利语
+          Nederlands: 荷兰语
+          Other: 其他
+          Română: 罗马尼亚语
+          Slovenčina: 斯洛伐克语
+          Slovenščina: 斯洛文尼亚语
+          português: 葡萄牙语
+          Ελληνικά: 希腊语
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/deed.zh
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/deed.zh
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/deed.zh
+        object_side:
+          Back: 返回
+          Front: 前线
+        source:
+          Artifact: 遗物
+          Book: 书籍
+          Film: 电影
+          Folio: 对开本
+          Journal: 期刊
+          Leaf: 叶
+          Multiple: 多重
+          Newspaper: 报纸
+          Notebook: 笔记本
+          Other: 其他
+          Photograph: 照片
+          Postcard: 明信片
+          Tape: 磁带
+          Unknown: 未知
+          Vinyl record: 黑胶片
+        theatres:
+          Aerial Warfare: 空战
+          African Wars: 非洲
+          Balkans: 巴尔干半岛
+          Eastern Front: 东部前线
+          Gallipoli Front: 加里波底前线
+          Italian Front: 意大利前线
+          Middle East: 中东
+          Naval Warfare: 海战
+          Western Front: 西部前线
+      user:
+        delete_picture: 删除图片
+        terms: 我接受使用条款和条件
+    "no": 否
+    required: 必填
+    titles:
+      account_details: 登录详细信息
+      admin_user: 登录详细信息
+      attachment_dates: 此项目何时创建的
+      attachment_details: 描述您的项
+      attachment_front: 这个项目有关哪个前线
+      attachment_location: 此项目在哪里创建的
+      attachment_replace: 更改附件
+      attachment_upload: 添加附件
+      cataloguing_metadata: 编目元数据
+      contact_address: 地址
+      contact_name: 名称
+      contact_other: 联络信息
+      contribution_attachments: 项目
+      contribution_terms: 条款与条件
+      dropbox: Dropbox
+      fields: 字段
+      metadata: 目录信息
+      metadata_field_options: 类别清晰选项
+      optional_details: 其他可选个人信息
+      personal_details: 个人详细资料
+      story_basics: 讲述您的故事...
+      story_character1: 人物1
+      story_character2: 人物2
+      story_characters: 告诉我们这个故事讲述了谁
+      story_dates: 这个故事发生在哪里
+      story_forces: 此项目是否牵涉
+      story_front: 这个故事有关哪个前线
+      story_location: 这个故事发生在哪里
+      submit: 提交您的故事
+    update: 更新%{model}
+    "yes": 是
+  helpers:
+    select:
+      prompt: 请选择
+    submit:
+      create: 创建%{model}
+      submit: 保存%{model}
+      update: 更新%{model}
+  javascripts:
+    annotorious:
+      clear-flag: 清空标记
+      flag: 标记
+    collection-days:
+      close-directions: 关闭方向
+      find-more: 了解更多。
+      get-directions: 获取方向
+      legend: 图例
+      next-collection-day: 下次收藏日在<b>%{name}, %{city}, %{country}</b>于<b>%{start-date}
+      past-entered: 过去的收藏日
+      show-past: 显示过去的收藏日
+      upcoming: 即将到来的收藏日
+      what-is-it: 什么是收藏日？
+    contribute:
+      errors_shown: 为何不可以？见上方通知。
+      hide_errors: 隐藏错误通知。
+      show_errors: 为何不可以？
+    datepicker:
+      button_text: 显示日历
+    digital_object:
+      labels:
+        copy_from_story: 版权信息
+      links:
+        copy_from_story: 从故事复制
+    gmap:
+      canvas:
+        hide: 关闭Google地图
+        hint: 移动标记至您希望“{{field}}”的位置。
+        label: Google地图
+        show: 使用Google地图
+      errors:
+        empty: 输入地址搜索。
+        unknown: 地址未找到。
+      search:
+        button: 前往
+        label: 搜索地址
+      static:
+        hide: 关闭地图
+        show: 在Google地图上显示
+    leaflet:
+      label:
+        map_view: 地图
+        satellite_view: 卫星
+    loading: 载入中……
+    next: 下一步 →
+    previous: ← 上一步
+    search:
+      10seconds: 我们仍在搜索。请耐心等待我们！
+    story:
+      took-place: 这个故事发生在：
+    thumbnails:
+      item: 项目
+      of: 的
+    translate:
+      return-to-language: 回到原始语言
+      translate-to: 翻译为…
+    truncate:
+      show-less: 显示更少…
+      show-more: 显示更多…
+    uploadify:
+      basic_ui: 上传文件存在问题？尝试改用<a href="{{href}}">基本上传</a>。
+      button_text: 选择文件
+      finished: 回到贡献
+      label: 多个文件
+      saved: 已保存
+  languages:
+    da: 丹麦语
+    de: 德语
+    en: 英语
+    fr: 法语
+    ga: 爱尔兰语
+    hu: 匈牙利语
+    nl: 荷兰语
+    pt: 葡萄牙语
+    sk: 斯洛伐克语
+    sl: 斯洛文尼亚语
+  layout:
+    navigation:
+      about: 关于
+      admin: 管理员
+      browse: 浏览
+      contact: 联系我们
+      contribute: 贡献
+      help: 帮助
+      home: 首页
+    software_engine: 由RunCoCo提供服务
+  locale: 简体中文
+  mail:
+    contributions:
+      published:
+        greeting: 亲爱的Europeana 1914~1918参与者，
+        signature: |-
+          诚挚问候，
+          Europeana 1914~1918团队
+        subject: 您对Europeana 1914~1918的贡献已发布
+  media_types:
+    all: 全部
+    binary: 二进制文件
+    pdf: PDF
+    sound: 音频文件
+    spreadsheet: 电子表格
+    txt: 文本文件
+    unknown: 未知文档类型
+    video: 视频文件
+    wordprocessing: Word处理文档
+  number:
+    currency:
+      format:
+        delimiter: ，
+        format: '%u%n'
+        precision: "2"
+        separator: 。
+        unit: 英镑
+    format:
+      delimiter: ，
+      precision: "2"
+      separator: 。
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          billion: 十亿
+          million: 百万
+          quadrillion: 千的五次方
+          thousand: 千
+          trillion: 兆
+      format:
+        precision: "3"
+        significant: "1"
+        strip_insignificant_zeros: "1"
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            other: 字节
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+  settings:
+    allowed_upload_extensions: 允许上传类型
+    banner_active: 管理横幅启用
+    banner_text: 管理横幅文字
+    bing_client_id: 必应客户端ID
+    bing_client_secret: 必应客户端密钥
+    bing_translate_key: 必应翻译关键词
+    contribution_approval_required: 只发布通过的贡献
+    gmap_api_key: Google地图API密钥
+    google_analytics_key: Google分析密钥
+    google_api_email: Google API电子邮件
+    max_upload_size: 最大上传大小
+    publish_contributions: 发布贡献
+    registration_required: 需要注册
+    relative_url_root: URL根
+    search_engine: 搜索引擎
+    sharethis_id: ShareThis发布者ID
+    site_name: 网站名称
+    site_url: 网站URL
+    ui_locales: 可用区域
+    uploadify: 启用Uploadify
+  support:
+    array:
+      last_word_connector: 和
+      two_words_connector: 和
+      words_connector: 、
+    select:
+      prompt: 请选择
+  time:
+    am: 上午
+    formats:
+      default: '%Y年%b%d日 %a %H:%M:%S %z'
+      long: '%Y年%B%d日 %H:%M'
+      short: '%b%d日 %H:%M'
+      timestamp: '%Y-%m-%d %H:%M'
+    pm: 下午
+  views:
+    about:
+      background:
+        heading: Europeana 1914~1918
+      collection_days:
+        heading: 收藏日
+      online_collection:
+        heading: 在线故事收藏
+      privacy_policy:
+        p1: 一旦它们获得批准，我们将在您的贡献旁边公开显示您的姓名。
+        p4: 在<a http://www.europeana.eu/portal/privacy.html target="_blank">Europeana</a>网站了解更多关于我们的隐私政策。
+      project_partners:
+        heading: 项目合作伙伴
+        item1: <a href="http://www.ox.ac.uk" target="_blank">牛津大学</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">德国国家图书馆——die Deutsche
+          Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">卢森堡国家图书馆——Bibliothèque
+          nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">爱尔兰国家图书馆</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">斯洛文尼亚国家图书馆
+          – Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">皇家图书馆：丹麦国家图书馆和哥本哈根大学图书馆——Det
+          Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: 您的详细联系方式
+        item5: 邮件联系我们：1914-1918 [@] europeana [.] eu
+      terms:
+        full_details:
+          heading: Europeana使用条款：完整法律细节——只有英语版
+        heading: 条款和条件
+        summary:
+          heading: Europeana使用条款：摘要
+          p2: <b>您保证：</b>
+          p3: <b>如果您不希望接受这些条款，请不要贡献内容或描述数据至Europeana</b>。
+        user_contributions:
+          heading: Europeana用户贡献条款
+          item1: 密码和登录（第三条）
+          item5: 非法使用服务（第一条）
+          item6: 用户的个人数据（隐私）（第8条）
+      what_we_do:
+        heading: 国家收藏：
+    about_us:
+      blog:
+        heading: 博客
+      europeana:
+        heading: Europeana 1914~1918
+      events:
+        heading: 收藏日
+      get_involved:
+        contribute_online:
+          heading: 在线贡献
+        education:
+          heading: 教育
+        heading: 介入
+        reuse:
+          heading: 使用材料
+      help:
+        heading: 帮助
+    admin:
+      annotations:
+        index:
+          title: 用户图片注释
+        table:
+          header:
+            text: 注释文本
+            type: 注释类型
+      collection_days:
+        delete:
+          title: 删除收藏日
+        edit:
+          title: 编辑收藏日
+        index:
+          title: 收藏日
+      config:
+        edit:
+          title: 编辑配置设置
+        index:
+          links:
+            edit: 编辑设置
+          table:
+            caption: 设置
+            headings:
+              name: 名字
+              value: 值
+          title: 配置
+      contributions:
+        export:
+          title: 导出收藏
+        index:
+          captions:
+            approved: 通过的贡献（总计%{total}个）
+            draft: 草拟的贡献（总计%{total}个）
+            rejected: 拒绝的贡献（总计%{total}个）
+          empty:
+            all:
+              approved: 目前没有通过的贡献。
+              draft: 目前没有草案中的贡献。
+              rejected: 目前没有被拒绝的贡献。
+          title: 贡献
+      index:
+        headings:
+          export: 导出
+        links:
+          config:
+            description: 配置网站设置。
+            text: 配置
+          contributions:
+            text: 贡献
+          export:
+            description: 导出收藏为XML或CSV。
+            text: 导出
+          export_csv:
+            description: 导出收藏贡献至CSV。
+            text: 导出为CSV
+          export_users:
+            text: 导出贡献
+          export_xml:
+            text: 导出为XML
+          export_xml_nozip:
+            text: 导出为XML（不包括 .zip 文件）
+          logs:
+            text: 日志文件
+          metadata_fields:
+            text: 元数据字段
+          reindex:
+            text: 重新索引搜索引擎
+          statistics:
+            text: 统计
+          users:
+            text: 用户账户
+        title: 管理员
+      metadata_fields:
+        delete:
+          button_confirm: 确信删除此字段么？
+          question: 您确信要删除元数据字段%{field_name}？
+          title: 删除元数据字段
+        edit:
+          empty: 这里还没有元数据字段。
+          title: 编辑元数据字段
+        index:
+          caption: 元数据字段
+          empty: 这里还没有元数据字段。
+          links:
+            new: 新字段
+            order: 更改字段顺序
+            terms: 条款
+          title: 元数据字段
+        new:
+          title: 新的元数据字段
+        order:
+          title: 元数据字段顺序
+      statistics:
+        index:
+          title: 统计
+      taggings:
+        index:
+          title: 用户故事标签
+      taxonomy_terms:
+        edit:
+          title: 编辑分类术语
+        import:
+          title: 导入分类术语
+        index:
+          caption: 分类术语
+          links:
+            back: 元数据字段列表
+            new: 新术语
+          title: 分类术语
+      users:
+        delete:
+          question: 您确信要删除用户账户%{email}？
+          title: 删除用户账户
+          warning: <strong>警告：</strong>这也将删除所有用户贡献。
+        edit:
+          title: 编辑用户帐户
+        index:
+          caption: 用户账户
+          empty: 没有用户帐户可显示。
+          links:
+            new: 新用户
+            show:
+              title: 查看完整的用户资料
+          title: 用户账户
+        new:
+          title: 新用户账户
+        show:
+          caption: 个人详细资料
+          links:
+            back: 用户账户列表
+            contributions: 贡献
+            edit: 编辑用户帐户
+          title: 用户账户
+    annotations:
+      depublish:
+        title: 取消发布注释
+      edit:
+        title: 编辑注释
+    attachments:
+      _form:
+        dropbox:
+          refresh: 刷新文件列表
+      _summary:
+        caption: 附件信息
+      _table:
+        caption: 项目
+        no_thumbnail: 缩略图生成中
+      attachment_help:
+        flickr:
+          link: 从Flickr添加项
+        item1: 添加单一项和文件
+        item1-subitem1: 描述那个项
+        item1-subitem2: 上传文件附件
+        item2: 添加多个项和文件
+      copy:
+        title: 复制项元数据
+      delete:
+        question: 你确定要删除项“%{filename}”？
+        title: 删除项
+      edit:
+        caption:
+          current: 当前文件
+          uploaded: 上传的文件
+        title: 编辑附件
+      index:
+        links:
+          new: 新附件
+        title: 项
+      new:
+        caption: 上传的文件
+        title: 新附件
+      show:
+        title: 附件
+    blog_posts:
+      read_more: 了解更多
+    browse:
+      collection-days:
+        heading: 收藏日
+      fronts:
+        heading: 前面
+      subjects:
+        heading: 主题
+      types:
+        heading: 类型
+    collection_days:
+      index:
+        title: 收藏日
+      open-collection: 开放收藏日
+      select-collection-day: 选择收藏日
+      stories: 故事：
+      view-stories: 查看故事
+      visiting-information: 访问信息
+      website: 网站：
+      what-do-you-get-heading: 你要得到什么？
+      what-is-it-heading: 那是什么？
+      who-is-it-for-heading: 为了谁？
+    common:
+      loading: 载入中…
+    contact:
+      heading: 联系我们
+      p1: 要联系Europeana 1914~1918项目组，请电邮联络1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: 匿名
+      edit:
+        title: 编辑个人资料
+      no_name: 没有联系人姓名
+      show:
+        title: 联系人资料
+    contributions:
+      _progress:
+        step_x_of_y: 第%{x}步，共%{y}步
+      _summary:
+        caption: 摘要
+      complete:
+        title: 贡献已完成
+      delete:
+        title: 放弃故事
+      digital_object:
+        help_text:
+          submit_story_button: 提交故事
+        labels:
+          keywords: 帮助其他用户查找您的项目，通过输入一个或多个下面的关键词。
+          location_map: 位置（地图）
+          location_place_name: 位置（地名）
+          save_item_draft: 保存项目草稿
+          submit_contribution: 提交贡献
+        links:
+          add_another: 加入另一个项目
+          add_item: 附加项目
+          edit: 编辑或加入更多信息
+          edit_story: 编辑故事
+        options:
+          3d: 3D
+          artifact: 手工品
+          audio: 声音
+          back: 返回
+          book: 图书
+          canvas: 画布
+          card: 卡
+          cc_by_sa: cc-by-sa
+          ceramic: 陶瓷/中国
+          diary: 日记
+          digital: 数字
+          film: 电影
+          folio: 账本
+          front: 正面
+          image: 图像
+          journal: 杂志
+          leaf: 叶
+          leather: 皮革
+          letter: 信
+          medal: 奖牌
+          metal: 金属
+          mixed: 混合
+          multiple: 多重
+          newspaper: 报纸
+          notebook: 笔记本
+          other_option: 其他
+          paper: 纸
+          photograph: 照片
+          poem: 诗
+          postcard: 明信片
+          public_domain: 公有领域
+          tape: 类型
+          text: 文本
+          text_memoir: 文本：回忆录
+          text_transcript: 文本：转录
+          unknown: 未知
+          video: 视频
+          vinyl: 黑胶
+          vinyl_record: 黑胶片
+          wood: 树木
+        step2: 第二步：加入您的项和文件
+      edit:
+        title: 贡献
+      feed:
+        entries:
+          annotation:
+            item: '%{user} 在项目 %{title} 的一张图片上做出了评论'
+            story: '%{user} 在故事 %{title} 的一张图片上做出了评论'
+          contribution: '%{user} 发布了故事 %{title}'
+          tagging:
+            item: '%{user} 标记了项目 %{title}'
+            story: '%{user} 标记了故事 %{title}'
+        title: Europeana 1914~1918活动
+      index:
+        title: 贡献
+      new:
+        title: 贡献
+      no_title: 没有标题
+      search:
+        captions:
+          all: 所有贡献
+          matching: 匹配“%{query}”的贡献
+        heading: 搜索结果
+        links:
+          titles:
+            show_contribution: 查看贡献
+        matches-for: 匹配：
+        no_matches: 没有匹配项。请重试。
+        result_count_label: 结果
+      show:
+        comments:
+          leave: 留下评论
+          submit: 提交评论
+          title: 评论
+        empty_attachments: 此故事没有项目。
+        headings:
+          share: 分享
+          submit: 提交贡献
+          tags: 添加标签
+        links:
+          new_attachment: 加入项
+        related:
+          title: 相关内容
+        shared-this-story: 分享此故事关于
+        title: 故事
+      status:
+        approved: 已批准
+        approved_by: 由%{name}批准
+        draft: 草稿&mdash;尚未发布
+        label: 状态
+        rejected: 已拒绝
+        rejected_by: 由%{name}拒绝
+        revised: 订正
+        submitted: 已提交&mdash;等待批准
+        title: 状态日志
+        unknown: 未知
+        withdrawn: 撤回
+      story:
+        complete:
+          heading: 故事完成
+        help_text:
+          use_google_maps: 使用Google地图
+        step1: 第一步——讲述您的故事
+      withdraw:
+        title: 放弃故事
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: 草稿
+          submitted: 提交的
+        headings:
+          contributions: 你的故事
+        links:
+          new: 加入一个新故事
+        title: 加入您的故事
+      dashboard_guest:
+        button_text: 完成贡献
+        headings:
+          finished: 完成贡献？
+        links:
+          edit_contact: 编辑联系方式
+          new: 新贡献
+        notice: '%{name}，您正在作为匿名访客贡献。'
+        title: 访客面板
+      guests:
+        edit:
+          title: 编辑访客联系方式
+        new:
+          guest: 您正在作为匿名访客贡献。
+          links:
+            register: 注册
+            sign_in: 登录
+      help:
+        item2: '%{privacy_policy}——另一页面'
+        item3: '%{takedown_policy}——另一页面'
+        item4: '%{contribution_terms}——另一页面'
+        item5: '%{about_the_project}——另一页面'
+      index:
+        item2: 将您的故事保存为草稿。
+    devise:
+      passwords:
+        edit:
+          title: 更改您的密码
+        new:
+          title: 忘记密码？
+      registrations:
+        new:
+          title: 注册
+      sessions:
+        new:
+          title: 登录
+    errors:
+      api_error:
+        title: API 错误
+      bad_request:
+        title: 错误请求
+      forbidden:
+        title: 禁止的
+      not_found:
+        title: 未找到
+      search_offline:
+        title: 离线搜索
+    explore:
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="搜索“日记”">日记</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="搜索“家庭”">家庭</a>
+      search_for: <b>搜索：</b>
+    flickr:
+      select:
+        licenses:
+          incompatible: 无效许可协议
+          instruction: 只有以下接受的许可协议的照片可以上传至Europeana 1914~1918：
+        title: 从您的Flickr选择的图片
+      show:
+        action:
+          link: 连接Flickr账户
+          unlink: 取消连接Flickr账户
+        status:
+          linked: 您已连接Flickr作为%{username}
+          unlinked: 您没有连接Flickr
+    home:
+      heading: 未讲述的故事和第一次世界大战官方历史
+      links:
+        across_europe: 泛欧洲
+      otto:
+        heading: Otto &amp; 伯纳德
+        p1: 如果您有更多关于Otto Arndt的信息，请%{add_your_story}至在线故事集并向大家分享。
+    links:
+      back: 返回%{link}
+      back-to-search: 返回搜索结果
+      previous_step: 上一页
+      privacy_policy: 隐私政策
+    register:
+      help_text:
+        password: 密码必须包含六个字符
+      labels:
+        age_range: 您的年龄段
+        email: 电子邮件
+        gender: 性别
+        password: 密码
+        password_repeat: 重复密码
+        profile_image: 信息图片
+        profile_photo: 信息照片
+        residence:
+          post_code: 邮政编码
+        user_name: 用户名
+      terms:
+        accept: 我接受%{terms}
+        heading: 使用条款
+        p2: <b>您保证：</b>
+    search:
+      facets:
+        common:
+          category: 分类
+          collection: 收藏
+          contributor: 贡献者
+          country: 国家
+          creator: 创建者
+          format: 格式
+          language: 语言
+          location: 位置
+          media: 媒体类型
+          provider: 提供者
+          rights: 权限
+          subject: 主题
+          type: 类型
+          year: 年
+        contributions:
+          collection_day: 收藏日
+          content: 项目类型
+          file_type: 媒体类型
+          keywords: 关键词
+          lang: 语言
+          license: 许可协议
+          place_name: 地名
+          provider: 提供者
+          theatres: 剧院
+        europeana:
+          reusability: 再使用性
+          source_all: 所有 Europeana 结果
+          source_label: 来源
+          uri: 主题
+        trove:
+          availability: 可用性
+          discipline: 学科
+      providers:
+        canadiana: 加拿大来源
+        collection: Europeana
+        contributions: 1914~1918
+        digitalnz: 新西兰来源
+        dpla: 美国来源
+        europeana: Europeana 门户
+        trove: 澳大利亚来源
+    statistics:
+      index:
+        contributions:
+          heading: 贡献
+          ugc: 来自我们用户
+        intervals:
+          last_month: 上个月
+          last_quarter: 上季度
+          last_week: 上周
+          last_year: 去年
+          this_month: 本月
+          this_week: 本周
+        metrics:
+          avgtimeonsite: 网站时间
+          object_pageviews: 故事查看
+          visits: 访问
+        no_results: 统计信息不可用。
+        providers:
+          canadiana: Canadiana（加拿大）
+          digitalnz: DigitalNZ（新西兰）
+          dpla: DPLA（美国）
+          europeana: Europeana
+          trove: Trove（澳大利亚）
+        title: 使用统计
+    table:
+      header:
+        actions: 操作
+    tags:
+      add: 添加
+      delete:
+        title: 移除标签
+      flag:
+        title: 标记不当内容
+    users:
+      _summary:
+        caption: 登录详细信息
+      account:
+        caption: 个人详细资料
+        links:
+          edit_contact: 编辑个人资料
+          edit_user: 编辑登录信息
+        title: 您的帐户
+  will_paginate:
+    entry_range_label: 结果：%{first}~%{last}/%{total}
+    first_title: 首页
+    last_title: 末页
+    next_label: '>'
+    next_title: 下一页
+    page_entries_info:
+      multi_page: 显示%{count}的最多%{model}个%{from}~%{to}
+      multi_page_html: 显示<b>%{count}</b>的最多%{model}个<b>%{from}&nbsp;~&nbsp;%{to}</b>
+      single_page:
+        zero: 找不到%{model}
+        other: 显示所有%{count}个%{model}
+      single_page_html:
+        zero: 找不到%{model}
+        other: 显示<b>所有&nbsp;%{count}个</b>%{model}
+    page_gap: '&hellip;'
+    page_total_label: '%{total_pages}的'
+    per_page_label: 每页结果：
+    per_page_title: 页面上显示的结果数量
+    previous_label: <
+    previous_title: 上一页
+...

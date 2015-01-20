@@ -1,5 +1,11 @@
+# Messages for German (Deutsch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kghbln
+# Author: Metalhead64
+# Author: Robby
+---
 de:
-  Polish: 
   actions:
     add: Hinzufügen
     approve: Akzeptieren
@@ -22,8 +28,6 @@ de:
     update: Speichern
   activerecord:
     attributes:
-      annotation:
-        text: 
       attachment:
         dropbox_path: Dropbox-Datei
         file: Datei
@@ -34,7 +38,7 @@ de:
         file_updated_at: Aktualisiert am
         metadata: Metadaten
         preview: Vorschau
-        public: "Öffentlich"
+        public: Öffentlich
       collection_day:
         description: Beschreibung
         end_date: Datum bis
@@ -58,24 +62,23 @@ de:
         attachments: Objekte
         catalogued_by: Katalogisiert von
         cataloguer: Bearbeiter
-        contributor: Beiträger
+        contributor: Beitragender
         created_at: Begonnen am
         metadata: Metadaten
         published_at: Veröffentlicht am
         submitted_at: Eingereicht am
       contribution_status:
-        created_at: |
-          Aktualisiert am
+        created_at: Aktualisiert am
       metadata_field:
         cataloguing: nur Katalogisieren
         field_type: Kategorie
         hint: Tipp
-        multi: Mehrfach-Auswahl
-        name: ID
+        multi: Mehrfachauswahl
+        name: Kennung
         position: Position
-        required: Pflicht
+        required: Erforderlich
         searchable: Durchsuchbar
-        show_in_listing: In Liste anzeigen
+        show_in_listing: In Listen anzeigen
       metadata_record:
         field_alternative: Titel in englischer Sprache
         field_collection_day_terms: Feld Aktionstag Regeln
@@ -93,11 +96,11 @@ de:
         password_confirmation: Passwort wiederholen
         role_name: Rolle
         terms: Benutzungsbedingungen
-        username: Benutzername
+        username: Nutzername
     errors:
       messages:
         accepted: Sie müssen akzeptieren, um fortzufahren.
-        blank: Dies ist ein Pflichtfeld, es darf nicht leer bleiben.
+        blank: Dies ist ein Pflichtfeld und darf nicht leer bleiben.
         confirmation: Entspricht nicht der Bestätigung.
         empty: darf nicht leer bleiben
         equal_to: muss gleich %{count} sein
@@ -109,11 +112,12 @@ de:
         invalid: Ungültige Eingabe. Bitte überprüfen Sie den eingegebenen Wert.
         less_than: muss kleiner als %{count} sein
         less_than_or_equal_to: muss kleiner gleich %{count} sein
-        not_a_number: Dies ist keine Zahl, es sollte aber eine sein.
+        not_a_number: Dies ist keine Zahl, sollte es aber sein.
         not_an_integer: muss eine ganze Zahl sein
         odd: muss eine ungerade Zahl sein
-        record_invalid: "! 'Die Gültigkeitsprüfung ist fehlgeschlagen: %{errors}"
-        taken: Dieses Feld muss einmalig sein, aber der eingetragene Wert existiert bereits in unserem System.
+        record_invalid: '! ''Die Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
+        taken: Der Wert dieses Felds muss einmalig sein, ist aber bereits im System
+          vorhanden.
         too_long: ist zu lang (maximal %{count} Zeichen)
         too_short: ist zu kurz (mindestens %{count} Zeichen)
         wrong_length: hat die falsche Länge (sollte %{count} Zeichen haben)
@@ -122,7 +126,7 @@ de:
           attributes:
             file:
               content_type: Dieses Dateiformat ist nicht zulässig.
-              presence: Wählen Sie eine Datei, die Sie hochladen möchten
+              presence: Wählen Sie eine Datei, die Sie hochladen möchten.
               size: Die hochgeladene Datei ist zu groß.
         collection_day:
           attributes:
@@ -132,30 +136,31 @@ de:
           taxonomy_term_metadata_field: Das ist kein gültiger Aktionstag.
         contribution:
           attachments:
-            uploaded: 'Einige Daten sind noch nicht veröffentlicht. '
+            uploaded: Einige Daten sind noch nicht veröffentlicht.
           attributes:
             catalogued_by:
               role_name: Bearbeiter muss ein Administrator sein
             guest_id:
-              present: Für Beiträge von Gästen sind Kontaktdaten notwendig.
+              present: Für Beiträge von Gästen sind Kontaktdaten erforderlich.
         metadata_field:
           attributes:
             cataloguing:
-              optional: Katalogisierungsfelder können nicht angefordert werden.
+              optional: Katalogisierungsfelder können keine Pflichtfelder sein.
             contribution:
               or_attachment: Ein Feld muss sich auf Beiträge und/oder Anhänge beziehen.
             field_type:
               constancy: Der Feldtyp kann nicht geändert werden.
             searchable:
-              field_type: Taxonomiefelder können nicht durchsuchbar gemacht werden.
+              field_type: Taxonomiefelder können nicht durchsuchbar sein.
         metadata_record:
           date_field_civil: Kein gültiges Kalenderdatum.
-          one_cover_image: Sie können nur ein Objekt als Cover-Bild für Ihren Beitrag auswählen.
+          one_cover_image: Sie können nur ein Objekt als Titelbild für Ihren Beitrag
+            auswählen.
           taxonomy_field_single: Es kann nur ein Begriff ausgewählt werden.
         setting:
           attributes:
             name:
-              inclusion: ist keine registrierte Konfigurationseinstellung
+              inclusion: ist keine vorhandene Konfigurationseinstellung
         taxonomy_term:
           attributes:
             metadata_field:
@@ -163,22 +168,22 @@ de:
         user:
           attributes:
             current_password:
-              invalid: Passwort falsch
+              invalid: Falsches Passwort
             email:
-              taken: Es existiert bereits ein Nutzerkonto mit dieser E-Mail-Adresse.
+              taken: Es ist bereits ein Nutzerkonto mit dieser E-Mail-Adresse vorhanden.
             picture:
               content_type: Das Profilbild muss eine GIF- oder JPEG-Datei sein.
       template:
         body: 'Bitte überprüfen Sie die folgenden Felder:'
         header:
-          one: "'Konnte %{model} nicht speichern: Fehler.'"
-          other: 'Konnte %{model} nicht speichern: %{count}  ein Fehler.'
+          one: 1 Fehler verhinderte das Speichern von %{model}
+          other: '%{count} Fehler verhinderten das Speichern von %{model}'
     models:
       annotation: Anmerkung
       attachment: Objekt
-      collection_day: Aktionstag
+      collection_day: Erfassungstag
       contact: Kontakt
-      contribution: 'Beitrag '
+      contribution: Beitrag
       institution: Institution
       metadata_field: Metadatenfeld
       metadata_record: Metadatensatz
@@ -203,19 +208,17 @@ de:
           administrator: Administrator
           blank: Alle Rollen
           cataloguer: Bearbeiter
-          contributor: Beiträger
-          institutional_provider: 
+          contributor: Beitragender
   attributes:
     contact: Kontakt
     created_at: Erstellt am
     email: E-Mail
-    id: ID
-    metadata_record: Metadatensatz
+    id: Kennung
+    metadata_record: Metadaten
     status: Status
     title: Titel
     updated_at: Aktualisiert am
     url: URL
-    username: 
   blacklight:
     search:
       fields:
@@ -232,20 +235,21 @@ de:
           provider_sm: Lieferant
           rights_sm: Rechte
           type_s: Typ
-          uri_sm: 
+          uri_sm: Betreff
           year_sm: Jahr
   common:
     additional-information: Zusätzliche Informationen
     download-item: Dieses Objekt herunterladen
     editors_blog:
-      more_stories: Weitere Beiträge im <a href="http://thegreatwararchive.blogspot.com/search/label/en">Blog mit den Empfehlungen der Redaktion</a>
+      more_stories: Weitere Beiträge im <a href="http://thegreatwararchive.blogspot.com/search/label/en">Blog
+        mit den Empfehlungen der Redaktion</a>
     editors_pick:
       heading: Empfehlungen der Redaktion
-      more_stories: "<b>Weitere Beiträge auf der Seite %{explore_stories}.</b>"
+      more_stories: <b>Weitere Beiträge auf der Seite %{explore_stories}.</b>
     featured-categories: Ausgewählte Themen
-    from-collection-days: Von unseren Aktionstagen
+    from-collection-days: Von unseren Erfassungstagen
     google_maps:
-      help_text: |
+      help_text: |-
         ! '<li><b>Automatische Vorschläge</b> : Geben Sie einen Ländernamen, eine Stadt oder Adresse ein. Google Maps wird versuchen, die Adresse zu finden. Wählen Sie einen der vorgeschlagenen Orte aus, wenn er mit dem Ort übereinstimmt, den Sie meinen.</li>
 
                 <li><b>Genaue Adresse</b> : Geben Sie eine Adresse oder Geokoordinate ein und klicken Sie auf den “Suchen” Button; ignorieren Sie die automatischen Vorschläge von Google Maps.</li>
@@ -260,43 +264,49 @@ de:
       add-keywords: Schlagwörter hinzufügen
       co_funded: mitfinanziert von der Europäischen Union
     links:
-      about_the_project: "Über das Projekt Europeana 1914-1918"
+      about_the_project: Über das Projekt Europeana 1914-1918
       add-your-story: Fügen Sie Ihren Beitrag hinzu!
       add-your-story-brief: Hinzufügen!
       annotorious: Objekt hat Anmerkungen. Objekt öffnen zum Lesen.
       contact_us: Kontakt
-      contact_us_email: Sie können uns über die Emailadresse <span class="addr">1914-1918 [@] europeana [.] eu</span> erreichen.
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de" target="_blank">Bedingungen für Nutzerbeiträge auf Europeana</a>
+      contact_us_email: Sie können uns über die E-Mail-Adresse <span class="addr">1914-1918
+        [@] europeana [.] eu</span> erreichen.
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=de"
+        target="_blank">Bedingungen für Nutzerbeiträge auf Europeana</a>
       contribution_terms: Bedingungen für Nutzerbeiträge auf Europeana
-      efg: <a href="http://www.europeanfilmgateway.eu/de/content/efg1914-projekt">Erfahren Sie mehr über die Hintergründe zum Projekt und die einzelnen Filmsammlungen</a>.
+      efg: <a href="http://www.europeanfilmgateway.eu/de/content/efg1914-projekt">Erfahren
+        Sie mehr über die Hintergründe zum Projekt und die einzelnen Filmsammlungen</a>.
       explore-the-stories: Beiträge erkunden
-      explore-the-stories-brief: Erkunden
+      explore-the-stories-brief: Erkunden!
       explore_stories: Beiträge erkunden
       help: Hilfe
       my_account: Mein Konto
       my_stories: Meine Beiträge
-      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918">Erfahren Sie mehr darüber über Europeana Collections 1914-1918.</a>
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918">Erfahren
+        Sie mehr über die Zusammenführung nationaler Sammlungen.</a>
       play-audio: Audiodatei starten
       play-video: Video starten
       privacy_policy: Datenschutz
-      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Weitere Informationen entnehmen Sie bitte unserer Projekt-Website.</a>
-      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Erfahren Sie mehr über das Sammeln privater Erinnerungsstücke (Infromation auf Englisch).</a>.
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Weitere
+        Informationen finden Sie auf unserer Projektwebsite.</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">Erfahren Sie mehr über das Sammeln privater Erinnerungsstücke</a>.
       register: Registrieren
       sign_in: Anmelden
       statistics: Statistik
-      takedown_policy: Löschungsregelungen
+      takedown_policy: Löschrichtlinien
       titles:
-        contribution_terms: 'Siehe die Bedingungen für Nutzerbeiträge zur Europeana '
-        great_war: Great War Archive der Universität Oxford
-        takedown: Zur Seite mit der Löschungsregelungen
+        contribution_terms: Siehe die Bedingungen für Nutzerbeiträge zur Europeana
+        great_war: „Great War Archive“ der Universität Oxford
+        takedown: Zur Seite mit der Löschrichtlinien
       view-image: Vollansicht
       view-pdf: Dokument öffnen
-    map_contribution_heading: 'Ort: '
+    map_contribution_heading: 'Ort:'
     menus:
       main:
         about: Info
-        add: Hinzufügen
-        collection-days: Aktionstage
+        add: Beitrag hinzufügen
+        collection-days: Erfassungstag
         explore: Erkunden
         home: Start
         remix: Eine ungewöhnliche Freundschaft
@@ -308,17 +318,17 @@ de:
     news: Aktuelles
     news_item:
       heading: Neue Aktionstage
-    'no': Nein
+    "no": Nein
     options:
       close: Schließen
-      open: "Öffnen"
+      open: Öffnen
       other_option: Sonstige
     other:
-      contributor: Beiträger
+      contributor: Beitragender
       preview: Vorschau
       title: Titel
       total: Gesamt
-    'yes': Ja
+    "yes": Ja
   date:
     abbr_day_names:
     - So
@@ -329,19 +339,18 @@ de:
     - Fr
     - Sa
     abbr_month_names:
-    - 
-    - Jan
-    - Feb
-    - Mär
-    - Apr
-    - Mai
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Okt
-    - Nov
-    - Dez
+      1: Jan
+      2: Feb
+      3: Mär
+      4: Apr
+      5: Mai
+      6: Jun
+      7: Jul
+      8: Aug
+      9: Sep
+      10: Okt
+      11: Nov
+      12: Dez
     day_names:
     - Sonntag
     - Montag
@@ -351,26 +360,25 @@ de:
     - Freitag
     - Samstag
     formats:
-      default: "%d.%m.%Y"
-      long: "%e. %B %Y"
-      long_with_day: "%a. %d. %B %Y"
-      month_and_year: "%B %Y"
-      quarter: "%{number}. Quartal  %Y"
-      short: "%e. %b"
+      default: '%d.%m.%Y'
+      long: '%e. %B %Y'
+      long_with_day: '%a. %d. %B %Y'
+      month_and_year: '%B %Y'
+      quarter: '%{number}. Quartal  %Y'
+      short: '%e. %b'
     month_names:
-    - 
-    - Januar
-    - Februar
-    - März
-    - April
-    - Mai
-    - Juni
-    - Juli
-    - August
-    - September
-    - Oktober
-    - November
-    - Dezember
+      1: Januar
+      2: Februar
+      3: März
+      4: April
+      5: Mai
+      6: Juni
+      7: Juli
+      8: August
+      9: September
+      10: Oktober
+      11: November
+      12: Dezember
     order:
     - :day
     - :month
@@ -401,16 +409,16 @@ de:
         other: mehr als %{count} Jahre
       x_days:
         one: einen Tag
-        other: "%{count} Tage"
+        other: '%{count} Tage'
       x_minutes:
         one: eine Minute
-        other: "%{count} Minuten"
+        other: '%{count} Minuten'
       x_months:
         one: einen Monat
-        other: "%{count} Monate"
+        other: '%{count} Monate'
       x_seconds:
         one: eine Sekunde
-        other: "%{count} Sekunden"
+        other: '%{count} Sekunden'
     prompts:
       day: Tag
       hour: Stunde
@@ -422,16 +430,18 @@ de:
     failure:
       admin:
         unauthenticated: Sie müssen sich einloggen um fortzufahren.
-      invalid: Ungültiger Benutzername/ungültige E-Mail-Adresse oder ungültiges Passwort.
+      invalid: Ungültiger Nutzername, ungültige E-Mail-Adresse oder ungültiges Passwort.
       invalid_token: Ungültiges Authentifizierungszeichen.
-      timeout: Ihre Sitzung wurde beendet, bitte melden Sie sich erneut an, um fortzufahren.
-      unauthenticated: Sie müssen sich registrieren oder einloggen, bevor Sie fortfahren können.
+      timeout: Ihre Sitzung wurde beendet. Bitte melden Sie sich erneut an, um fortzufahren.
+      unauthenticated: Sie müssen sich registrieren oder anmelden, bevor Sie fortfahren
+        können.
     mailer:
       reset_password_instructions:
         subject: Anleitung zum Zurücksetzen des Passworts
     passwords:
       link: Passwort vergessen?
-      send_instructions: Ihnen wurde eine E-Mail mit der Anleitung zum Zurücksetzen des Passworts zugesendet.
+      send_instructions: Ihnen wurde eine E-Mail mit der Anleitung zum Zurücksetzen
+        des Passworts zugesendet.
       updated: Ihr Passwort wurde erfolgreich geändert. Sie sind nun angemeldet.
     registrations:
       destroyed: Auf Wiedersehen! Ihr Konto wurde erfolgreich gelöscht.
@@ -439,11 +449,11 @@ de:
       signed_up: Sie haben sich erfolgreich registriert.
       updated: Sie haben Ihr Konto erfolgreich aktualisiert.
     sessions:
-      link: Einloggen
+      link: Anmelden
       signed_in: Sie haben sich erfolgreich angemeldet.
       signed_out: Sie haben sich erfolgreich abgemeldet.
   errors:
-    format: "%{attribute} %{message}"
+    format: '%{attribute} %{message}'
     messages:
       accepted: muss akzeptiert werden
       blank: muss ausgefüllt werden
@@ -451,7 +461,7 @@ de:
       empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
-      exclusion: ist nicht verfügbar
+      exclusion: ist reserviert
       greater_than: muss größer als %{count} sein
       greater_than_or_equal_to: muss größer oder gleich %{count} sein
       inclusion: ist kein gültiger Wert
@@ -459,9 +469,9 @@ de:
       less_than: muss kleiner als %{count} sein
       less_than_or_equal_to: muss kleiner oder gleich %{count} sein
       not_a_number: ist keine Zahl
-      not_an_integer: muss ganzzahlig sein
+      not_an_integer: muss eine Ganzzahl sein
       odd: muss ungerade sein
-      record_invalid: "! 'Die Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'"
+      record_invalid: 'Gültigkeitsprüfung fehlgeschlagen: %{errors}'
       taken: ist bereits vergeben
       too_long: ist zu lang (nicht mehr als %{count} Zeichen)
       too_short: ist zu kurz (nicht weniger als %{count} Zeichen)
@@ -469,25 +479,27 @@ de:
     template:
       body: 'Bitte überprüfen Sie die folgenden Felder:'
       header:
-        one: 'Konnte %{model} nicht speichern: Fehlerr.'
-        other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
+        one: 1 Fehler verhinderte das Speichern von %{model}
+        other: '%{count} Fehler verhinderten das Speichern von %{model}'
   flash:
     actions:
       create:
-        alert: Bei der Erstellung von %{resource_name} ist ein Problem aufgetreten. Bitte beachten Sie die untenstehenden Hinweise.
-        notice: "%{resource_name} wurde neu erstellt."
+        alert: Bei der Erstellung von %{resource_name} ist ein Problem aufgetreten.
+          Bitte beachten Sie die untenstehenden Hinweise.
+        notice: '%{resource_name} wurde neu erstellt.'
       destroy:
         alert: Bei der Löschung von %{resource_name} ist ein Problem aufgetreten.
-        notice: "%{resource_name} wurde erfolgreich gelöscht."
+        notice: '%{resource_name} wurde erfolgreich gelöscht.'
       taggings:
         notice: Schlagwörter verborgen.
       update:
-        alert: Bei der Aktualisierung von %{resource_name} ist ein Problem aufgetreten. Bitte beachten Sie die untenstehenden Hinweise.
-        notice: "%{resource_name} wurde aktualisiert."
+        alert: Bei der Aktualisierung von %{resource_name} ist ein Problem aufgetreten.
+          Bitte beachten Sie die untenstehenden Hinweise.
+        notice: '%{resource_name} wurde aktualisiert.'
     admin:
       europeana:
         harvest:
-          notice: Die Inhalte des Europeana Portals werden im Hintergrund abgefragt.
+          notice: Die Inhalte des Portals Europeana werden im Hintergrund abgefragt.
     annotations:
       depublish:
         alert: Verbergen der Anmerkung gescheitert.
@@ -497,87 +509,96 @@ de:
         notice: Anmerkung markiert als unpassend.
       unflag:
         alert: Löschung der Markierung der Anmerkung als unpassend gescheitert.
-        notice: 
+        notice: Die Markierung der Anmerkung als unangemessen wurde zurückgezogen.
     attachments:
       create:
         alert: Beim Speichern des Objekts ist ein Problem aufgetreten.
-        invalid_files: Einige Dateien konnten nicht gesichert werden.
-        notice: Objekt Gespeichert.
+        invalid_files: Einige Dateien konnten nicht gespeichert werden.
+        notice: Das Objekt wurde gespeichert.
       destroy:
-        alert: Beim Löschen Ihres Objekts ist ein Problem aufgetreten.
-        notice: Objekt gelöscht
+        alert: Beim Löschen Ihres Anhangs ist ein Problem aufgetreten.
+        notice: Der Anhang wurde gelöscht.
       duplicate:
-        notice: 'Objekts existiert bereits. '
+        notice: Die Metadaten des Objekts wurde zu den anderen Objekten kopiert.
       links:
-        view-attachments_html: <a href="#attachments">Klicken Sie hier um das Objekt anzuzeigen und zu bearbeiten</a>.
+        view-attachments_html: <a href="#attachments">Klicken Sie hier um das Objekt
+          anzuzeigen und zu bearbeiten</a>.
       update:
         alert: Beim Speichern Ihres Anhangs ist ein Problem aufgetreten.
-        notice: Objekt gespeichert.
+        notice: Das Objekt wurde gespeichert.
     configuration:
       update:
-        alert: Konfiguration konnte nicht gespeichert werden.
-        notice: Konfiguration wurde aktualisiert.
+        alert: Die Konfiguration konnte nicht gespeichert werden.
+        notice: Die Konfiguration wurde aktualisiert.
     contacts:
       create:
-        alert: Erstellen des Kontakts fehlgeschlagen.
-        notice: Kontakt erstellt.
+        alert: Das Erstellen des Kontakts ist fehlgeschlagen.
+        notice: Der Kontakt wurde erstellt.
       update:
-        alert: Aktualisierung des Kontakts fehlgeschlagen.
-        notice: Kontakt aktualisiert.
+        alert: Die Aktualisierung des Kontakts ist fehlgeschlagen.
+        notice: Der Kontakt wurde aktualisiert.
     contributions:
       approve:
         alert: Der Beitrag wurde nicht akzeptiert.
         notice: Der Beitrag wurde akzeptiert.
       destroy:
         alert: Der Beitrag wurde nicht gelöscht.
-        notice: Beitrag gelöscht.
+        notice: Der Beitrag wurde gelöscht.
       draft:
         create:
           alert: Beim Erstellen eines neuen Beitrags ist ein Problem aufgetreten.
           notice: Sie haben einen neuen Beitragsentwurf begonnen.
         submit:
-          alert: Bei Ihrem Beitrag ist ein Problem aufgetreten. Bitte beachten Sie die untenstehenden Hinweise.
-          notice: Ihr Beitrag wurde eingereicht. Vielen Dank! Er wird nun von unseren Redakteuren geprüft und auf der Website erscheinen, sobald er akzeptiert wurde. Wenn zeitgleich sehr viele Beiträge eingereicht werden, kann die Bearbeitung einige Wochen in Anspruch nehmen. Wir bitten in diesem Fall um etwas Geduld. Herzlichen Dank.
+          alert: Bei Ihrem Beitrag ist ein Problem aufgetreten. Bitte beachten Sie
+            die untenstehenden Hinweise.
+          notice: Ihr Beitrag wurde eingereicht. Vielen Dank! Er wird nun von unseren
+            Redakteuren geprüft und auf der Website erscheinen, sobald er akzeptiert
+            wurde. Wenn zeitgleich sehr viele Beiträge eingereicht werden, kann die
+            Bearbeitung einige Wochen in Anspruch nehmen. Wir bitten in diesem Fall
+            um etwas Geduld. Herzlichen Dank.
         update:
           alert: Beim Speichern Ihres Beitrags ist ein Problem aufgetreten.
-          notice: Beitrag gespeichert.
+          notice: Der Beitrag wurde gespeichert.
       reject:
-        alert: Bei der Ablehnung dieses Beitrags ist ein Fehler aufgetreten.
+        alert: Beim Ablehnen dieses Beitrags ist ein Fehler aufgetreten.
         notice: Dieser Beitrag wurde abgelehnt.
       submitted:
         edit:
           alert: Dieser Beitrag wurde bereits eingereicht.
       withdraw:
         alert: Ihr Beitrag konnte nicht zurückgezogen werden.
-        notice: Der Beitrag wurde zurückgezogen
+        notice: Der Beitrag wurde zurückgezogen.
     contributors:
       create:
         alert: Ihr Konto konnte nicht erstellt werden.
       update:
         alert: Ihr Konto konnte nicht aktualisiert werden.
     fields:
-      reindexing: Suchmaschine wird im Hintergrund reindexiert.
+      reindexing: Die Suchmaschine wird im Hintergrund reindexiert.
     flickr:
       import:
         alert:
           empty: Keine Bilder ausgewählt
-          invalid_license: 'Die folgenden Fotos haben eine inkompatible Lizenz und werden nicht importiert:'
+          invalid_license: 'Die folgenden Fotos haben eine inkompatible Lizenz und
+            werden nicht importiert:'
         notice: Flickr Bilder im Hintergrund übertragen.
     guest_contact:
       create:
-        alert: Bei den von Ihnen übermittelten Daten ist ein Fehler aufgetreten. Bitte korrigieren Sie sie und versuchen Sie es noch einmal.
-        notice: Kontaktdaten erhalten.
+        alert: Bei den von Ihnen übermittelten Daten ist ein Fehler aufgetreten. Bitte
+          korrigieren Sie sie und versuchen Sie es noch einmal.
+        notice: Die Kontaktdaten wurden empfangen.
       forget:
-        notice: Kontaktdaten entfernt.
+        notice: Die Kontaktdaten wurden entfernt.
       update:
-        alert: Bei den von Ihnen übermittelten Daten ist ein Fehler aufgetreten. Bitte korrigieren Sie sie und versuchen Sie es noch einmal.
-        notice: Kontaktdaten aktualisiert.
+        alert: Bei den von Ihnen übermittelten Daten ist ein Fehler aufgetreten. Bitte
+          korrigieren Sie sie und versuchen Sie es noch einmal.
+        notice: Die Kontaktdaten wurden aktualisiert.
     metadata_fields:
       update_order:
         notice: Reihenfolge der Metadatenfelder aktualisiert.
     status:
-      alert: 'Warnung: '
-      notice: 'Hinweis: '
+      alert: 'Warnung:'
+      notice: 'Hinweis:'
     taggings:
       depublish:
         alert: Schlagwörter verbergen gescheitert.
@@ -585,16 +606,16 @@ de:
     tags:
       contribution:
         create:
-          success: " Ihre Schlagwörter wurden zu diesem Beitrag hinzugefügt."
+          success: Ihre Tags wurden dieser Geschichte hinzugefügt.
       destroy:
-        success: Schlagwort entfernt.
+        success: Das Schlagwort wurde entfernt.
       europeana_record:
         create:
           success: Ihre Schlagwörter wurden zum Objekt hinzugefügt.
       flag:
-        success: Dieses Schlagwort wurde als unpassend markiert.
+        success: Das Schlagwort wurde als unpassend markiert.
     taxonomy:
-      imported: Neue Schlagworte importiert.
+      imported: Neue Schlagworte wurden importiert.
     users:
       create:
         alert: Nutzerkonto konnte nicht erstellt werden.
@@ -602,7 +623,8 @@ de:
       destroy:
         notice: Nutzer entfernt.
       register:
-        alert: Registrierung fehlgeschlagen. Bitte korrigieren Sie die untenstehenden Daten und versuchen Sie es noch einmal!
+        alert: Registrierung fehlgeschlagen. Bitte korrigieren Sie die untenstehenden
+          Daten und versuchen Sie es noch einmal!
         notice: Registrierung erfolgreich. Willkommen!
       update:
         alert: Nutzerkonto konnte nicht aktualisiert werden.
@@ -613,20 +635,20 @@ de:
         add_edit: Objekte hinzufügen/bearbeiten
         create: Hochladen
         delete: Objekt löschen
-        update: 'Aktualisieren '
+        update: Aktualisieren
       contribution:
         create: Weiter
         delete: Beitrag löschen
         save_draft: Entwurf speichern
         submit: Beitrag senden
-        update: 'Beitrag aktualisieren '
+        update: Beitrag aktualisieren
         withdraw: Zurückgezogen
       contributor:
         create: Registrieren
       create: Abschicken
       delete: Löschen
       filter:
-        submit: 'Aktualisieren '
+        submit: Aktualisieren
       metadata_field:
         delete: Metadatenfeld löschen
         reindex: Suchmaschine re-indexieren
@@ -641,255 +663,204 @@ de:
         flag: Als unpassend markieren
       taxonomy_term:
         import: Importieren
-      update: "Änderungen speichern"
+      update: Änderungen speichern
       upload: Hochladen
       user:
         create: Registrieren
         delete: Konto löschen
         update: Speichern
-    create: "%{model} erstellen"
+    create: '%{model} erstellen'
     hints:
-      annotation:
-        annotation:
-          edit:
-            text: 
       attachment:
-        dropbox_path: Wählen Sie eine Datei aus Ihrem Dropbox-Ordner "Apps/Europeana 1914-1918". Dateien, die kein zulässiges Format besitzen oder zu groß sind, werden nicht angezeigt.
+        dropbox_path: Wählen Sie eine Datei aus Ihrem Dropbox-Ordner "Apps/Europeana
+          1914-1918". Dateien, die kein zulässiges Format besitzen oder zu groß sind,
+          werden nicht angezeigt.
         edit:
-          file: 'Laden Sie nur dann eine neue Datei hoch, wenn Sie die bereits existierende ersetzen möchten. Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
+          file: 'Laden Sie nur dann eine neue Datei hoch, wenn Sie die bereits existierende
+            ersetzen möchten. Maximale Dateigröße: %{max}. Zulässige Dateiformate:
+            %{file_types}.'
         file: Datei hochladen
         metadata:
-          attachment_description: Beschreiben Sie die physischen Merkmale des Gegenstands, seine Funktion und welche Bedeutung er für Sie hat.
-          content: Worum handelt es sich bei dem Objekt (z.B. Gedicht, Brief, Foto)? Machen Sie möglichst konkrete Angaben.
-          cover_image: Ein Titelbild repräsentiert Ihren Beitrag in unserer Sammlung. Es ähnelt dem Deckblatt eines Buchs. Dabei kann es sich um ein Foto von der Person, um die es in diesem Beitrag geht, oder um das Deckblatt eines Tagebuchs oder das Bild einer Medaille handeln.
-          creator_family_name: 
-          creator_given_name: Nennen Sie den Namen der Person, die das Objekt geschaffen hat, etwa den Verfasser eines Briefs oder Tagebuchs oder den Namen des Fotografen.
-          date_from: Lassen Sie uns wissen, wann dieses Objekt entstanden ist, z.B. wann ein Brief verfasst oder wann mit einem Objekt begonnen wurde, z.B. wann ein Tagebuch angefangen wurde. Wenn Sie das genaue Datum nicht wissen, geben Sie bitte nur Jahr oder Jahr und Monat ein.
-          date_to: Das Enddatum eines Objekts, wie etwa das letzte Datum in einem Tagebuch.
-          file_type: 
-          forces: Bitte nicht anklicken, wenn kein relevantes Schlagwort vorhanden ist. Bitte senden Sie uns in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
+          attachment_description: Beschreiben Sie die physischen Merkmale des Gegenstands,
+            seine Funktion und welche Bedeutung er für Sie hat.
+          content: Worum handelt es sich bei dem Objekt (z.B. Gedicht, Brief, Foto)?
+            Machen Sie möglichst konkrete Angaben.
+          cover_image: Ein Titelbild repräsentiert Ihren Beitrag in unserer Sammlung.
+            Es ähnelt dem Deckblatt eines Buchs. Dabei kann es sich um ein Foto von
+            der Person, um die es in diesem Beitrag geht, oder um das Deckblatt eines
+            Tagebuchs oder das Bild einer Medaille handeln.
+          creator_given_name: Nennen Sie den Namen der Person, die das Objekt geschaffen
+            hat, etwa den Verfasser eines Briefs oder Tagebuchs oder den Namen des
+            Fotografen.
+          date_from: Lassen Sie uns wissen, wann dieses Objekt entstanden ist, z.B.
+            wann ein Brief verfasst oder wann mit einem Objekt begonnen wurde, z.B.
+            wann ein Tagebuch angefangen wurde. Wenn Sie das genaue Datum nicht wissen,
+            geben Sie bitte nur Jahr oder Jahr und Monat ein.
+          date_to: Das Enddatum eines Objekts, wie etwa das letzte Datum in einem
+            Tagebuch.
+          forces: Bitte nicht anklicken, wenn kein relevantes Schlagwort vorhanden
+            ist. Bitte senden Sie uns in diesem Fall eine E-Mail an 1914-1918 [@]
+            europeana [.] eu.
           format: Das Material des digitalisierten Objekts (z.B. Papier, Karte, Band).
-          keywords: |
-            Weisen Sie nur Schlagwörter zu, die den Hauptgegenstand oder das Thema Ihres Beitrags erfassen. Anhand der Schlagwörter können wir Ihren Beitrag in unserer Sammlung entsprechend hervorheben. Falls kein passendes Schlagwort verfügbar ist, senden Sie bitte eine E-Mail an 1914-1918 [@] europeana [.] eu.
-          lang: Geben Sie die Sprache an, die bei diesem Objekt verwendet wurde, z.B. die Sprache(n) des Tagebuchs.
-          lang_other: 
-          license: 
-          location_map: 
-          location_placename: Geben Sie den Namen des Ortes ein, in dem das Objekt erstellt wurde (in der ein Brief geschrieben oder ein Foto aufgenommen wurde), z.B. Elberfeld, Bonn, Aachen oder Maastricht.
-          location_zoom: 
-          notes: 
-          object_side: Geben Sie bei Objekten mit Vorder- und Rückseite, wie etwa bei einer Postkarte, bitte an, um welche Seite es sich handelt.
-          page_number: Geben Sie bei Objekten mit vielen Seiten die genaue Seitennummer an.
-          page_total: 
-          source: 'Die Quelle, von der das Objekt digitalisiert wurde (z.B. eine Seite, ein Notizbuch, eine Filmspule). '
-          subject: Die Person, der Ort oder das Objekt, um die bzw. den oder das es geht.
-          theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist. Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
+          keywords: Weisen Sie nur Schlagwörter zu, die den Hauptgegenstand oder das
+            Thema Ihres Beitrags erfassen. Anhand der Schlagwörter können wir Ihren
+            Beitrag in unserer Sammlung entsprechend hervorheben. Falls kein passendes
+            Schlagwort verfügbar ist, senden Sie bitte eine E-Mail an 1914-1918 [@]
+            europeana [.] eu.
+          lang: Geben Sie die Sprache an, die bei diesem Objekt verwendet wurde, z.B.
+            die Sprache(n) des Tagebuchs.
+          location_placename: Geben Sie den Namen des Ortes ein, in dem das Objekt
+            erstellt wurde (in der ein Brief geschrieben oder ein Foto aufgenommen
+            wurde), z.B. Elberfeld, Bonn, Aachen oder Maastricht.
+          object_side: Geben Sie bei Objekten mit Vorder- und Rückseite, wie etwa
+            bei einer Postkarte, bitte an, um welche Seite es sich handelt.
+          page_number: Geben Sie bei Objekten mit vielen Seiten die genaue Seitennummer
+            an.
+          source: Die Quelle, von der das Objekt digitalisiert wurde (z.B. eine Seite,
+            ein Notizbuch, eine Filmspule).
+          subject: Die Person, der Ort oder das Objekt, um die bzw. den oder das es
+            geht.
+          theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist.
+            Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
         new:
-          file: 'Sie können mehrere Dateien gleichzeitig hochladen. Jede Datei wird automatisch ein separates Objekt, das Sie individuell bearbeiten können. Hinweis: Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert sein. Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
-        title: Kurzer, aussagekräftiger Titel oder Eigenname des Objekts, z.B. "Mein Urgroßvater, Otto Schmidt, Tapferkeitsmedaille".
-      collection_day:
-        collection_day:
-          edit:
-            description: 
-            end_date: 
-            image: 
-            map_latlng: 
-            map_zoom: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-          update:
-            description: 
-            end_date: 
-            image: 
-            map_latlng: 
-            map_zoom: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-        contact:
-          edit:
-            country: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          update:
-            country: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
+          file: 'Sie können mehrere Dateien gleichzeitig hochladen. Jede Datei wird
+            automatisch ein separates Objekt, das Sie individuell bearbeiten können.
+            Hinweis: Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert
+            sein. Maximale Dateigröße: %{max}. Zulässige Dateiformate: %{file_types}.'
+        title: Kurzer, aussagekräftiger Titel oder Eigenname des Objekts, z.B. "Mein
+          Urgroßvater, Otto Schmidt, Tapferkeitsmedaille".
       contact:
-        full_name: Dieser Name wird öffentlich als Quelle Ihrer Beiträge angezeigt.
+        full_name: Dieser Name wird öffentlich als Herkunft des Beitrags angezeigt.
       contribution:
-        contribution:
-          edit:
-            catalogued_by: 
-          new:
-            catalogued_by: 
         metadata:
-          alternative: 
-          character1_dob: 
-          character1_dod: 
-          character1_family_name: 
-          character1_given_name: 
-          character1_pob: 
-          character1_pod: 
-          character2_dob: 
-          character2_dod: 
-          character2_family_name: 
-          character2_given_name: 
-          character2_pob: 
-          character2_pod: 
-          collection_day: 
-          contributor_behalf: Bitte lassen Sie dieses Feld leer, außer Sie helfen jemandem bei der Erstellung dieses Beitrags.
-          date_from: Sagen Sie uns, wann das Ereignis begonnen hat. Wenn Sie es nicht genau wissen, geben Sie lediglich das Jahr an, z.B. mein Großvater wurde 1915 eingezogen.
-          date_to: Sagen Sie uns, wann das Ereignis endete. Wenn Sie es nicht genau wissen, geben Sie lediglich das Jahr an, z.B. mein Großvater wurde 1916 verwundet.
+          contributor_behalf: Bitte lassen Sie dieses Feld leer, außer Sie helfen
+            jemandem bei der Erstellung dieses Beitrags.
+          date_from: Sagen Sie uns, wann das Ereignis begonnen hat. Wenn Sie es nicht
+            genau wissen, geben Sie lediglich das Jahr an, z.B. mein Großvater wurde
+            1915 eingezogen.
+          date_to: Sagen Sie uns, wann das Ereignis endete. Wenn Sie es nicht genau
+            wissen, geben Sie lediglich das Jahr an, z.B. mein Großvater wurde 1916
+            verwundet.
           description: Erzählen Sie die Geschichte, die hinter Ihrem Beitrag steht.
-          editor_pick: 
-          editor_pick_sig: 
-          editor_pick_text: 
-          forces: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist. Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
-          keywords: |
-            Weisen Sie nur Schlagwörter zu, die den Hauptgegenstand oder das Thema Ihres Beitrags erfassen. Anhand der Schlagwörter können wir Ihren Beitrag in unserer Sammlung entsprechend hervorheben. Falls kein passendes Schlagwort verfügbar ist, senden Sie bitte eine E-Mail an 1914-1918 [@] europeana [.] eu.
+          forces: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist.
+            Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
+          keywords: Weisen Sie nur Schlagwörter zu, die den Hauptgegenstand oder das
+            Thema Ihres Beitrags erfassen. Anhand der Schlagwörter können wir Ihren
+            Beitrag in unserer Sammlung entsprechend hervorheben. Falls kein passendes
+            Schlagwort verfügbar ist, senden Sie bitte eine E-Mail an 1914-1918 [@]
+            europeana [.] eu.
           lang: Geben Sie die Sprache an, in der dieser Beitrag verfasst ist.
-          lang_other: 
-          location_map: 
-          location_placename: Geben Sie den Namen der Stadt ein, in der das Ereignis stattgefunden hat, z.B. Bielefeld oder Bochum.
-          location_zoom: 
-          notes: 
-          summary: 
-          theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist. Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
-          ticket: 
+          location_placename: Geben Sie den Namen der Stadt ein, in der das Ereignis
+            stattgefunden hat, z.B. Bielefeld oder Bochum.
+          theatres: Bitte klicken Sie kein Schlagwort an, wenn keines relevant ist.
+            Senden Sie in diesem Fall eine E-Mail an 1914-1918 [@] europeana [.] eu.
         title: Titel für den gesamten Beitrag. Dies ist ein Pflichtfeld.
       metadata_field:
-        attachment: |
-          Geben Sie an, ob sich dieses Feld auf Beiträge bezieht.
-        cataloguing: 'Ja: dieses Feld nur in der Admin-Ansicht für Katalogisierungszwecke anzeigen. Nein: auch den Beiträgern anzeigen.'
-        contribution: |
-          Geben Sie an, ob sich dieses Feld auf Beiträge bezieht.
+        attachment: Geben Sie an, ob sich dieses Feld auf Beiträge bezieht.
+        cataloguing: 'Ja: dieses Feld nur in der Admin-Ansicht für Katalogisierungszwecke
+          anzeigen. Nein: auch den Beiträgern anzeigen.'
+        contribution: Geben Sie an, ob sich dieses Feld auf Beiträge bezieht.
         field_type: Kann nicht mehr geändert werden, sobald das Feld gespeichert wurde.
         hint: Text zur Anzeige neben dem Eingabefeld, zur Anleitung der Beiträger/Bearbeiter.
         multi: Die Auswahl mehrerer Schlagwörter pro Beitrag/Anhang zulassen.
-        name: 'Bezeichnung für dieses Feld. Muss einmalig sein. Zulässige Zeichen: a-z, 0-9, _'
-        required: 'Ja: Beiträger muss in dieses Feld etwas eintragen. Nein: dieses Feld ist optional. Katalogisierungsfelder müssen optional sein.'
-        searchable: 'Ja: Suche nach Beiträgen sucht über dieses Metadatenfeld. Nein: dieses Feld wird nicht in die Suche einbezogen. Anmerkung: Wenn Sie diesen Wert verändert haben, sollten Sie die Suchmaschine re-indexieren.'
-        searchable_no_sphinx: 'Anmerkung: Metadatenfelder sind nur dann durchsuchbar, wenn die Sphinx-Suchmaschine läuft &mdash; zurzeit läuft sie nicht.'
+        name: 'Bezeichnung für dieses Feld. Muss einmalig sein. Zulässige Zeichen:
+          a-z, 0-9, _'
+        required: 'Ja: Beiträger muss in dieses Feld etwas eintragen. Nein: dieses
+          Feld ist optional. Katalogisierungsfelder müssen optional sein.'
+        searchable: 'Ja: Suche nach Beiträgen sucht über dieses Metadatenfeld. Nein:
+          dieses Feld wird nicht in die Suche einbezogen. Anmerkung: Wenn Sie diesen
+          Wert verändert haben, sollten Sie die Suchmaschine re-indexieren.'
+        searchable_no_sphinx: 'Anmerkung: Metadatenfelder sind nur dann durchsuchbar,
+          wenn die Sphinx-Suchmaschine läuft &mdash; zurzeit läuft sie nicht.'
         show_in_listing: Zeigt dieses Feld in Listen, wie etwa Suchergebnissen an.
-        title: Beschreibender Titel für das Feld, wie er den Beiträgern angezeigt wird. Wird aus dem Namen generiert, falls es frei bleibt.
+        title: Beschreibender Titel für das Feld, wie er den Beiträgern angezeigt
+          wird. Wird aus dem Namen generiert, falls es frei bleibt.
       metadata_record:
-        date: 'Format: JJJJ-MM-TT, JJJJJ-MM or JJJJ, z. B. 1998-04-20, 1998-04 oder 1998'
+        date: 'Format: JJJJ-MM-TT, JJJJJ-MM oder JJJJ, z. B. 1998-04-20, 1998-04 oder
+          1998'
         geo: 'Format: LAT,LON, z. B. 51.500,-0.126 (für London)'
-      options:
-        admin/contributions_controller/options:
-          index:
-            fields: 
       password:
         new:
-          email: Geben Sie Ihre E-Mail-Adresse ein, die Sie bei der Anmeldung eingegeben haben, und wir schicken Ihnen die Anleitung zum Zurücksetzen Ihres Passworts.
+          email: Geben Sie Ihre E-Mail-Adresse ein, die Sie bei der Anmeldung eingegeben
+            haben, und wir schicken Ihnen die Anleitung zum Zurücksetzen Ihres Passworts.
       settings:
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
-        allowed_upload_extensions: Erlaubte Dateierweiterungen für hochgeladene Dateien, getrennt durch Kommas, z.B. "pdf,doc,jpg,gif". Lassen Sie diese Angabe weg, um alle Erweiterungen zu gestatten.
-        banner_active: Wenn dies eingeschaltet wird, zeigt die Website eine Wartungsnachricht, die den unten angegebenen Text beinhaltet.
-        banner_text: Der angezeigte Text der Wartungsnachricht, wenn diese eingeschaltet wurde.
-        bing_client_id: Bing client ID von Azure DataMarket. Benötigt für die Übersetzung von Europeana OpenSearch API Anfragen.
-        bing_client_secret: Bing client secret von Azure DataMarket. Benötigt für die Übersetzung von Europeana OpenSearch API Anfragen.
-        bing_translate_key: Bing Translate key. Wenn dies leer gelassen wird, wird Microsoft, Bing Translate nicht funktionieren.
-        contribution_approval_required: Bei Aktivierung werden die Beiträge erst nach der Genehmigung veröffentlicht. Andernfalls erfolgt die Veröffentlichung unmittelbar nach dem Absenden. Dies hat keine Auswirkung, wenn "Beiträge veröffentlichen" nicht aktiviert ist.
-        gmap_api_key: Google Maps API-Schlüssel. Ohne diesen Schlüssel kann Google Maps nicht für die Eingabe geografischer Daten verwendet werden. Melden Sie sich unter <http://code.google.com/apis/maps/signup.html> für einen Schlüssel an.
-        google_analytics_key: Google Analytics key. Wenn dies leer gelassen wird, wird der fallback key, UA-XXXXXXXX-1, genutzt werden. Sorgen Sie dafür, dass die Test- und Produktionsumgebung geeignete Schlüssel nutzen.
-        google_api_email: Geben Sie die Google API service account E-Mail-Adresse ein, um Zugang zu öffentlichen Nutzungsstatistiken von Google Analytics zu erhalten.
+        allowed_upload_extensions: Erlaubte Dateierweiterungen für hochgeladene Dateien,
+          getrennt durch Kommas, z.B. "pdf,doc,jpg,gif". Lassen Sie diese Angabe weg,
+          um alle Erweiterungen zu gestatten.
+        banner_active: Wenn dies eingeschaltet wird, zeigt die Website eine Wartungsnachricht,
+          die den unten angegebenen Text beinhaltet.
+        banner_text: Der angezeigte Text der Wartungsnachricht, wenn diese eingeschaltet
+          wurde.
+        bing_client_id: Bing client ID von Azure DataMarket. Benötigt für die Übersetzung
+          von Europeana OpenSearch API Anfragen.
+        bing_client_secret: Bing client secret von Azure DataMarket. Benötigt für
+          die Übersetzung von Europeana OpenSearch API Anfragen.
+        bing_translate_key: Bing Translate key. Wenn dies leer gelassen wird, wird
+          Microsoft, Bing Translate nicht funktionieren.
+        contribution_approval_required: Bei Aktivierung werden die Beiträge erst nach
+          der Genehmigung veröffentlicht. Andernfalls erfolgt die Veröffentlichung
+          unmittelbar nach dem Absenden. Dies hat keine Auswirkung, wenn "Beiträge
+          veröffentlichen" nicht aktiviert ist.
+        gmap_api_key: Google Maps API-Schlüssel. Ohne diesen Schlüssel kann Google
+          Maps nicht für die Eingabe geografischer Daten verwendet werden. Melden
+          Sie sich unter <http://code.google.com/apis/maps/signup.html> für einen
+          Schlüssel an.
+        google_analytics_key: Google Analytics key. Wenn dies leer gelassen wird,
+          wird der fallback key, UA-XXXXXXXX-1, genutzt werden. Sorgen Sie dafür,
+          dass die Test- und Produktionsumgebung geeignete Schlüssel nutzen.
+        google_api_email: Geben Sie die Google API service account E-Mail-Adresse
+          ein, um Zugang zu öffentlichen Nutzungsstatistiken von Google Analytics
+          zu erhalten.
         max_upload_size: Maximale Upload-Größe in Bytes.
-        publish_contributions: Aktivieren Sie die öffentliche Anzeige von Beiträgen. Ist dies nicht aktiviert, können Beiträge gesammelt werden, sie werden allerdings nicht öffentlich angezeigt.
-        registration_required: Bei Aktivierung müssen die Personen ein Benutzerkonto anlegen, um Beiträge erfassen zu können. Ist dies nicht aktiviert, können die Interessenten Gastbeiträge erstellen, indem sie ihre Kontaktdaten angeben.
-        relative_url_root: Die Root-URL, mit der die Website aufgerufen wird (ohne anschließenden Schrägstrich). Lassen Sie diese Angabe für die URL auf oberster Ebene weg.
-        run_co_co/configuration:
-          edit:
-            search_engine: 
-        sharethis_id: The ShareThis Publisher id. Wenn dies leer gelassen wird, wird ShareThis nicht im ShareThis Account verfolgt werden. Das ShareThis Script wird Datentransfers zum Google Analytics Account aufnehmen, wenn dieser auf der Seite präsent ist; das Script wird nach dem UA-Wert suchen und ihn benutzen, wenn er vor Ort ist.
-        site_name: Der Name der Website. Standardmäßig wird dieser auf Seitentiteln und in der Überschrift angezeigt.
-        site_url: Die vollständige URL, über die die Homepage erreicht werden kann, ohne Sprachversion and ohne trailing slash.
+        publish_contributions: Aktivieren Sie die öffentliche Anzeige von Beiträgen.
+          Ist dies nicht aktiviert, können Beiträge gesammelt werden, sie werden allerdings
+          nicht öffentlich angezeigt.
+        registration_required: Bei Aktivierung müssen die Personen ein Benutzerkonto
+          anlegen, um Beiträge erfassen zu können. Ist dies nicht aktiviert, können
+          die Interessenten Gastbeiträge erstellen, indem sie ihre Kontaktdaten angeben.
+        relative_url_root: Die Root-URL, mit der die Website aufgerufen wird (ohne
+          anschließenden Schrägstrich). Lassen Sie diese Angabe für die URL auf oberster
+          Ebene weg.
+        sharethis_id: The ShareThis Publisher id. Wenn dies leer gelassen wird, wird
+          ShareThis nicht im ShareThis Account verfolgt werden. Das ShareThis Script
+          wird Datentransfers zum Google Analytics Account aufnehmen, wenn dieser
+          auf der Seite präsent ist; das Script wird nach dem UA-Wert suchen und ihn
+          benutzen, wenn er vor Ort ist.
+        site_name: Der Name der Website. Standardmäßig wird dieser auf Seitentiteln
+          und in der Überschrift angezeigt.
+        site_url: Die vollständige URL, über die die Homepage erreicht werden kann,
+          ohne Sprachversion and ohne trailing slash.
         ui_locales: Sprachversionen, auf die im Seiten-Header verlinkt werden können.
-        uploadify: Verwenden Sie Uplodify, um Uploads mit Anhängen zu bearbeiten und mehrere Dateien gleichzeitig hochzuladen. Weitere Informationen und Demos finden Sie unter <http://www.uploadify.com/>,
+        uploadify: Verwenden Sie Uplodify, um Uploads mit Anhängen zu bearbeiten und
+          mehrere Dateien gleichzeitig hochzuladen. Weitere Informationen und Demos
+          finden Sie unter <http://www.uploadify.com/>,
       taxonomy_term:
-        import: Geben Sie die Schlagwörter für dieses Metadatenfeld ein, je eines pro Zeile.
+        import: Geben Sie die Schlagwörter für dieses Metadatenfeld ein, je eines
+          pro Zeile.
         term: Muss innerhalb des Metadatenfeldes eindeutig sein.
       user:
-        contact:
-          create:
-            age: 
-            country: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          edit:
-            age: 
-            country: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-            tel: 
-          new:
-            age: 
-            country: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        current_password: Geben Sie Ihr aktuelles Passwort ein, wenn Sie Ihre Kontodaten ändern möchten.
+        current_password: Geben Sie Ihr aktuelles Passwort ein, wenn Sie Ihre Kontodaten
+          ändern möchten.
         edit:
-          password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
-        email: Sie können sich anstatt mit Ihrem Benutzernamen auch mit dieser E-Mail-Adresse anmelden. Dies ist optional, doch wir empfehlen die Angabe einer E-Mail-Adresse für den Fall, dass Sie Ihr Passwort einmal vergessen sollten.
+          password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern
+            möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
+        email: Sie können sich anstatt mit Ihrem Benutzernamen auch mit dieser E-Mail-Adresse
+          anmelden. Dies ist optional, doch wir empfehlen die Angabe einer E-Mail-Adresse
+          für den Fall, dass Sie Ihr Passwort einmal vergessen sollten.
         password: Mindestens 6 Zeichen
         update:
-          password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
-        user:
-          create:
-            password_confirmation: 
-            terms: 
-          edit:
-            institution: 
-            password_confirmation: 
-            role_name: 
-            terms: 
-          new:
-            password_confirmation: 
-            terms: 
-        username: 'Mindestens 3 Zeichen erforderlich. Gültige Eingabe: a-z A-Z 0-9 - _ . @'
+          password: Geben Sie ein neues Passwort ein, wenn Sie Ihr Passwort ändern
+            möchten, ansonsten lassen Sie dieses Feld frei. Mindestens 6 Zeichen.
+        username: 'Mindestens 3 Zeichen erforderlich. Gültige Eingabe: a-z A-Z 0-9
+          - _ . @'
     labels:
-      annotation:
-        annotation:
-          edit:
-            text: 
       attachment:
-        attachment:
-          edit:
-            title: 
-          new:
-            title: 
-          update:
-            title: 
         metadata:
           attachment_description: Beschreibung
           attachment_file: Einzelne Datei
-          content: 'Inhalt '
+          content: Inhalt
           cover_image: Titelbild
-          creator: 
+          creator: Autor
           creator_family_name: Nachname des Erstellers
           creator_given_name: Vorname des Erstellers
           date: Datum
@@ -911,39 +882,11 @@ de:
           page_total: Anzahl Seiten insgesamt
           source: Quelle
           subject: Thema
-          theatres: 
           ticket: Ticketnummer
       collection_day:
-        collection_day:
-          edit:
-            description: 
-            end_date: 
-            image: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-          update:
-            description: 
-            end_date: 
-            image: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
         contact:
           country: Land
-          edit:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
           full_name: Organisation
-          update:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
         delete_image: Bild löschen
       content:
         metadata:
@@ -970,7 +913,6 @@ de:
           dcterms:
             alternative: Titel in englischer Sprache
             extent: Maße
-            medium: 
             spatial: Ort
             temporal: Datum
           edm:
@@ -978,12 +920,12 @@ de:
             data_provider: Datenprovider
             external_partner_site: Auf der Website des Partners
             language: Sprache
-            partner_site: 'Objekt ansehen bei: '
+            partner_site: 'Objekt ansehen bei:'
             provider: Beiträger
             rights: Urheberrecht
       contribution:
         metadata:
-          alternative: " Titel in englischer Sprache"
+          alternative: ' Titel in englischer Sprache'
           cataloguer: Bearbeiter
           character1_dob: Geburtsdatum
           character1_dod: Todesdatum
@@ -999,10 +941,9 @@ de:
           character2_pod: Sterbeort
           collection_day: Aktionstag
           contributor_behalf: Beitrag im Namen von
-          date: 
           date_from: Zeitangabe
           date_to: Das Ereignis endet...
-          description: 'Ereignis '
+          description: Ereignis
           editor_pick: Empfehlungen der Redaktion
           editor_pick_sig: Redaktionssignatur
           editor_pick_text: Redaktionstext
@@ -1011,25 +952,18 @@ de:
           lang: Sprache
           lang_other: Sprache (sonstige)
           location_map: Länge & Breite
-          location_placename: Legen Sie fest, an welchem Ort die Ereignisse stattgefunden haben.
+          location_placename: Legen Sie fest, an welchem Ort die Ereignisse stattgefunden
+            haben.
           location_zoom: Vergrößerungsstufe
           notes: Notizen des Bearbeiters
           summary: Zusammenfassende Beschreibung der Objekte
           theatres: Kriegsschauplätze
           ticket: Ticketnummer
-        terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen von Europeana für Benutzerbeiträge.
+        terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen von Europeana für
+          Benutzerbeiträge.
         title: Titel des Beitrags
       metadata_field:
         contribution: Beitrag
-      settings:
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
       taxonomy_term:
         collection_day:
           AA22: AA22
@@ -1042,28 +976,28 @@ de:
           BE08: BE08
           BE30: BE30
           BN12: BN12
-          BO/BC18: 
+          BO/BC18: BO/BC18
           BO02: BO02
           BR10: BR10
           BR19: BR19
           BU01: BU01
-          BZ: 
+          BZ: BZ
           CE22: CE22
           CGW01: CGW01
-          CHA01: 
-          CISA: 
+          CHA01: CHA01
+          CISA: CISA
           CL01: CL01
           CY01: CY01
           DD12: DD12
-          DE18: 
-          DO28: 
+          DE18: DE18
+          DO28: DO28
           DU: DU
           DU18: DU18
           DUP1: DUP1
           DUP2: DUP2
           EF11: EF11
           EN10: EN10
-          FF22: 
+          FF22: FF22
           FR07: FR07
           FRAD001: FRAD001
           FRAD004: FRAD004
@@ -1113,17 +1047,17 @@ de:
           FRAD087: FRAD087
           FRAD088: FRAD088
           FRAD094: FRAD094
-          FRAD22: 
-          FRADO071: 
-          FRADO077: 
-          FRADO078: 
-          FRADO080: 
-          FRADO083: 
-          FRADO085: 
-          FRADO087: 
-          FRADO088: 
-          FRADO59: 
-          FRADO87: 
+          FRAD22: FRAD22
+          FRADO071: FRADO071
+          FRADO077: FRADO077
+          FRADO078: FRADO078
+          FRADO080: FRADO080
+          FRADO083: FRADO083
+          FRADO085: FRADO085
+          FRADO087: FRADO087
+          FRADO088: FRADO088
+          FRADO59: FRADO59
+          FRADO87: FRADO87
           FRAMBE: FRAMBE
           FRAMCA: FRAMCA
           FRAMLC: FRAMLC
@@ -1148,7 +1082,7 @@ de:
           FRBMCC: FRBMCC
           FRBMLI: FRBMLI
           FRBMLY: FRBMLY
-          FRBMMA: 
+          FRBMMA: FRBMMA
           FRBMSC: FRBMSC
           FRBMTO: FRBMTO
           FRBNBU: FRBNBU
@@ -1162,41 +1096,41 @@ de:
           FRME: FRME
           FRSHDCH: FRSHDCH
           Fr07: Fr07
-          GE08: 
+          GE08: GE08
           HA21: HA21
           HB22: HB22
           HE14: HE14
           INTERNET: INTERNET
           KA23: KA23
           KI13: KI13
-          LE10: 
+          LE10: LE10
           LE21: LE21
           LI05: LI05
           LI12: LI12
-          LI17: 
+          LI17: LI17
           LJ23: LJ23
           LOG25: LOG25
           LU16: LU16
-          MA19: 
+          MA19: MA19
           MB007: MB007
           MB011: MB011
           MB20: MB20
-          MO08: 
+          MO08: MO08
           MU09: MU09
           NG19: NG19
-          NLG01: 
+          NLG01: NLG01
           PO21: PO21
           PR17: PR17
           RG14: RG14
           RM15: RM15
-          RO24: 
-          SER01: 
+          RO24: RO24
+          SER01: SER01
           SKBA1: SKBA1
           SKKE1: SKKE1
           SKMT1: SKMT1
           SO14: SO14
           ST10: ST10
-          THE01: 
+          THE01: THE01
           TR16: TR16
           TU07: TU07
           UNKNOWN: Unbekannt
@@ -1204,7 +1138,7 @@ de:
           UPC2: UPC2
           UPC3: UPC3
           UT1: UT1
-          VER01: 
+          VER01: VER01
           VP18: VP18
           YP01: YP01
         content:
@@ -1216,7 +1150,7 @@ de:
           Footage: Filmmaterial
           Interview: Interview
           Letter: Brief
-          Map: "(Land)karte"
+          Map: (Land)karte
           Medal: Medaille
           Memoir: Memoiren
           Memorabilia: persönliche Erinnerungsstücke
@@ -1229,12 +1163,12 @@ de:
           Photograph: Fotografie
           Poem: Gedicht
           Postcard: Postkarte
-          Publication: 'Veröffentlichung '
+          Publication: Veröffentlichung
           Weapon: Waffe
         cover_image:
-          'yes': ja
+          "yes": ja
         editor_pick:
-          'yes': ja
+          "yes": ja
         file_type:
           3D: 3D
           IMAGE: Bild
@@ -1258,7 +1192,7 @@ de:
           Photographic paper: Fotopapier
           Tape: Kassette
           'Text: memoir': 'Text: Memoiren'
-          'Text: transcription': 'Text: Transkription '
+          'Text: transcription': 'Text: Transkription'
           Unknown: Unbekannt
           Vinyl: Vinylschallplatte
           Wood: Holz
@@ -1274,7 +1208,7 @@ de:
           Prisoners of War: Kriegsgefangene
           Propaganda: Propaganda
           Recruitment and Conscription: Einziehung und Anwerbung
-          Refugees: 'Flüchtlinge '
+          Refugees: Flüchtlinge
           Remembrance: Gedenken
           Tanks and Armoured Fighting Vehicles: Panzer und gepanzerte Kampffahrzeuge
           Transport: Verkehr
@@ -1286,16 +1220,15 @@ de:
           English: Englisch
           Français: Französisch
           Gaeilge: Irisch
-          Italiano: |
-            Italienisch
+          Italiano: Italienisch
           Magyar: Ungarisch
           Nederlands: Niederländisch
           Other: Andere
           Română: Rumänisch
           Slovenčina: Slowenisch
           Slovenščina: Slowenisch
-          português: 
-          "Ελληνικά": Griechisch
+          português: Portugiesisch
+          Ελληνικά: Griechisch
         license:
           http://creativecommons:
             org/licenses/by-sa/3:
@@ -1324,13 +1257,6 @@ de:
           Tape: Kassette
           Unknown: Unbekannt
           Vinyl record: Vinylschallplatte
-        taxonomy_term:
-          create:
-            term: 
-          edit:
-            term: 
-          new:
-            term: 
         theatres:
           Aerial Warfare: Luftkrieg
           African Wars: Afrika
@@ -1342,237 +1268,22 @@ de:
           Naval Warfare: Seekrieg
           Western Front: Westfront
       user:
-        contact:
-          create:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          edit:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-            tel: 
-          new:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
         delete_picture: Bild löschen
         terms: Ich akzeptiere die Allgemeinen Geschäftsbedingungen.
-        user:
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          edit:
-            email: 
-            institution: 
-            password: 
-            password_confirmation: 
-            role_name: 
-            username: 
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-    'no': Nein
-    placeholders:
-      attachment:
-        attachment:
-          edit:
-            title: 
-          new:
-            title: 
-          update:
-            title: 
-        metadata_record:
-          edit:
-            field_creator_family_name: 
-            field_creator_given_name: 
-            field_lang_other: 
-            field_location_placename: 
-            field_page_number: 
-            field_page_total: 
-            field_subject: 
-          new:
-            field_creator_family_name: 
-            field_creator_given_name: 
-            field_lang_other: 
-            field_location_placename: 
-            field_page_number: 
-            field_page_total: 
-            field_subject: 
-          update:
-            field_creator_family_name: 
-            field_creator_given_name: 
-            field_lang_other: 
-            field_location_placename: 
-            field_page_number: 
-            field_page_total: 
-            field_subject: 
-      collection_day:
-        collection_day:
-          edit:
-            map_latlng: 
-            map_zoom: 
-            name: 
-            url: 
-          update:
-            map_latlng: 
-            map_zoom: 
-            name: 
-            url: 
-        contact:
-          edit:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-          update:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-      contribution:
-        contribution:
-          edit:
-            title: 
-          new:
-            title: 
-        metadata_record:
-          edit:
-            field_alternative: 
-            field_character1_family_name: 
-            field_character1_given_name: 
-            field_character1_pob: 
-            field_character1_pod: 
-            field_character2_family_name: 
-            field_character2_given_name: 
-            field_character2_pob: 
-            field_character2_pod: 
-            field_contributor_behalf: 
-            field_editor_pick_sig: 
-            field_lang_other: 
-            field_location_placename: 
-            field_ticket: 
-          new:
-            field_alternative: 
-            field_character1_family_name: 
-            field_character1_given_name: 
-            field_character1_pob: 
-            field_character1_pod: 
-            field_character2_family_name: 
-            field_character2_given_name: 
-            field_character2_pob: 
-            field_character2_pod: 
-            field_contributor_behalf: 
-            field_editor_pick_sig: 
-            field_lang_other: 
-            field_location_placename: 
-            field_ticket: 
-      settings:
-        admin/contributions_controller/export_settings:
-          export:
-            exclude: 
-        run_co_co/configuration:
-          edit:
-            allowed_upload_extensions: 
-            bing_client_id: 
-            bing_client_secret: 
-            bing_translate_key: 
-            gmap_api_key: 
-            google_analytics_key: 
-            google_api_email: 
-            max_upload_size: 
-            sharethis_id: 
-            site_name: 
-            site_url: 
-      taxonomy_term:
-        taxonomy_term:
-          create:
-            term: 
-          edit:
-            term: 
-          new:
-            term: 
-      user:
-        contact:
-          create:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-          edit:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-            tel: 
-          new:
-            full_name: 
-            locality: 
-            postal_code: 
-            region: 
-        user:
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          edit:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
+    "no": Nein
     required: erforderlich
     titles:
       account_details: Anmeldedaten
-      admin/contributions_controller/export_settings:
-        export:
-          settings: 
       admin_user: Anmeldedaten
-      annotation:
-        edit:
-          annotation: 
       attachment_dates: Wann wurde dieses Objekt erstellt?
       attachment_details: Beschreiben Sie Ihr Objekt!
       attachment_front: Auf welche Kriegsfront bezieht sich dieses Objekt?
-      attachment_keywords: Erleichtern Sie anderen Personen die Suche nach Ihrem Objekt, indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
+      attachment_keywords: Erleichtern Sie anderen Personen die Suche nach Ihrem Objekt,
+        indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
       attachment_location: Wo wurde dieses Objekt erstellt?
       attachment_replace: Objekt ersetzen
       attachment_upload: Datei hochladen
       cataloguing_metadata: Metadaten katalogisieren
-      collection_day:
-        edit:
-          admin_collection_day: 
-          admin_collection_day_address: 
-        update:
-          admin_collection_day: 
-          admin_collection_day_address: 
-      contact:
-        edit:
-          user_picture: 
       contact_address: Adresse
       contact_name: Name
       contact_other: Kontaktdaten
@@ -1583,165 +1294,45 @@ de:
       metadata: Kataloginformation
       metadata_field_options: Optionen nach Materialart
       optional_details: Weitere optionale personenbezogene Daten
-      personal_details: |
-        Persönliche Daten
-      run_co_co/configuration:
-        edit:
-          settings: 
+      personal_details: Persönliche Daten
       story_basics: Erzählen Sie Ihren Beitrag hinzu...
       story_character1: Person 1
       story_character2: Person 2
-      story_characters: 'Um wen geht es in diesem Beitrag? '
+      story_characters: Um wen geht es in diesem Beitrag?
       story_dates: Wann trug sich diese Geschichte zu?
-      story_forces: 'Bezieht sich dieses Objekt auf die '
+      story_forces: Bezieht sich dieses Objekt auf die
       story_front: Auf welche Front bezieht sich dieser Beitrag?
-      story_keywords: |
-        Erleichtern Sie anderen Personen die Suche nach Ihrem Beitrag, indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
+      story_keywords: Erleichtern Sie anderen Personen die Suche nach Ihrem Beitrag,
+        indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
       story_location: Wo trug sich dieses Ereignis zu?
       submit: Beitrag senden
-      taxonomy_term:
-        new:
-          taxonomy_term: 
-      user:
-        create:
-          accept_terms: 
-          user_session: 
-        edit:
-          accept_terms: 
-        new:
-          accept_terms: 
-          user_session: 
-    update: "%{model} aktualisieren"
-    'yes': Ja
+    update: '%{model} aktualisieren'
+    "yes": Ja
   helpers:
-    label:
-      annotation:
-        annotation:
-          edit:
-            text: 
-      attachment:
-        attachment:
-          edit:
-            title: 
-          new:
-            title: 
-          update:
-            title: 
-      collection_day:
-        collection_day:
-          edit:
-            description: 
-            end_date: 
-            image: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-          update:
-            description: 
-            end_date: 
-            image: 
-            name: 
-            start_date: 
-            taxonomy_term_id: 
-            url: 
-        contact:
-          edit:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          update:
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-      settings:
-        admin/contributions_controller/export_settings:
-          export:
-            end_date: 
-            exclude: 
-            format: 
-            institution_id: 
-            set: 
-            start_date: 
-      taxonomy_term:
-        taxonomy_term:
-          create:
-            term: 
-          edit:
-            term: 
-          new:
-            term: 
-      user:
-        contact:
-          create:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-          edit:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-            tel: 
-          new:
-            age: 
-            country: 
-            full_name: 
-            gender: 
-            locality: 
-            postal_code: 
-            region: 
-            street_address: 
-        user:
-          create:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
-          edit:
-            email: 
-            institution: 
-            password: 
-            password_confirmation: 
-            role_name: 
-            username: 
-          new:
-            email: 
-            password: 
-            password_confirmation: 
-            username: 
     select:
       prompt: Bitte wählen
     submit:
-      create: "%{model} erstellen"
-      submit: "%{model} speichern"
-      update: "'%{model} aktualisieren' "
+      create: '%{model} erstellen'
+      submit: '%{model} speichern'
+      update: '''%{model} aktualisieren'''
   javascripts:
     admin:
       metadata_fields:
-        order: Ziehen Sie die Felder in die gewünschte Reihenfolge. Klicken Sie "Speichern" um die gewählte Reihenfolge zu sichern.
+        order: Ziehen Sie die Felder in die gewünschte Reihenfolge. Klicken Sie "Speichern"
+          um die gewählte Reihenfolge zu sichern.
     annotorious:
       clear-flag: Markierung aufheben
       flag: Markierung
     attachments:
-      uploading: Einige Ihrer Daten werden noch übertragen. Wenn alles vollständig ist, können Sie Ihren Beitrag senden.
+      uploading: Einige Ihrer Daten werden noch übertragen. Wenn alles vollständig
+        ist, können Sie Ihren Beitrag senden.
     collection-days:
       close-directions: Wegbeschreibung schließen
       find-more: Erfahren Sie mehr
       get-directions: Wegbeschreibung
       legend: Aktionstage
-      next-collection-day: Der nächste Aktionstag ist in <b>%{name}, %{city}, %{country}</b> am <b>%{start-date}
+      next-collection-day: Der nächste Aktionstag ist in <b>%{name}, %{city}, %{country}</b>
+        am <b>%{start-date}
       no-upcoming: Gegenwärtig gibt es keine Termine für weitere Aktionstage.
       past-entered: Zurückliegende Aktionstage
       past-not-entered: Zurückliegende Aktionstage (Beiträge noch nicht veröffentlicht)
@@ -1749,14 +1340,15 @@ de:
       upcoming: Bevorstehende Aktionstage
       what-is-it: Was ist ein Aktionstag?
     contribute:
-      errors_shown: 'Warum nicht? Siehe obige Hinweise. '
+      errors_shown: Warum nicht? Siehe obige Hinweise.
       hide_errors: Fehlermeldungen verbergen.
       show_errors: Warum nicht?
     datepicker:
       button_text: Kalender anzeigen
     digital_object:
       hints:
-        copy_from_story: Wenn Sie auf die Schaltfläche oben klicken, werden ähnliche Metadaten aus dem Beitrag zu diesem Objekt hinzugefügt.
+        copy_from_story: Wenn Sie auf die Schaltfläche oben klicken, werden ähnliche
+          Metadaten aus dem Beitrag zu diesem Objekt hinzugefügt.
       labels:
         copy_from_story: Informationen kopieren
       links:
@@ -1769,7 +1361,8 @@ de:
         show: Google Maps nutzen
       errors:
         empty: Adresse für die Suche eingeben.
-        present: Es wird bereits eine Karte angezeigt; bitte zuerst die geöffnete Karte schließen.
+        present: Es wird bereits eine Karte angezeigt; bitte zuerst die geöffnete
+          Karte schließen.
         unknown: Adresse unbekannt.
       search:
         button: Suchen
@@ -1784,13 +1377,15 @@ de:
         satellite_view: Satellit
     loading: wird geladen ...
     next: Weiter →
-    previous: "← Vorige"
+    previous: ← Vorige
     search:
       10seconds: |-
         Einige Ihrer Dateien sind noch in Bearbeitung. Wenn alles vollständig vorliegt, können Sie Ihren Beitrag hochladen.
         Bitte haben Sie noch etwas Geduld.
-      30seconds: Leider dauert dies länger als erwartet. Suchen Sie erneut oder warten Sie
-      60seconds: Momentan gibt es Probleme bei der Suche. Bitte versuchen Sie es wieder zu einem späteren Zeitpunkt.
+      30seconds: Leider dauert dies länger als erwartet. Suchen Sie erneut oder warten
+        Sie
+      60seconds: Momentan gibt es Probleme bei der Suche. Bitte versuchen Sie es wieder
+        zu einem späteren Zeitpunkt.
     story:
       took-place: Das Ereignis fand statt in
     thumbnails:
@@ -1798,16 +1393,20 @@ de:
       of: von
     translate:
       return-to-language: Zurück zur Originalsprache
-      service-not-available: 
-      translate-to: "Übersetzen in"
+      service-not-available: Übersetzungsdienste sind derzeit nicht verfügbar.
+      translate-to: Übersetzen in
     truncate:
       show-less: Zeige weniger...
       show-more: Zeige mehr...
     uploadify:
-      basic_ui: Bei Problemen mit dem Hochladen, <a href="{{href}}">bitte hier</a> versuchen.
+      basic_ui: Bei Problemen mit dem Hochladen, <a href="{{href}}">bitte hier</a>
+        versuchen.
       button_text: Dateien auswählen
       finished: Zurück zu Ihrem Beitrag
-      hint: 'Sie können mehrere Dateien gleichzeitig hochladen. Jede Datei wird automatisch ein separates Objekt, das Sie dann individuell bearbeiten können. Hinweis: Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert sein. Maximale Dateigröße: {{size}}. Zulässige Dateiformate: {{types}}.'
+      hint: 'Sie können mehrere Dateien gleichzeitig hochladen. Jede Datei wird automatisch
+        ein separates Objekt, das Sie dann individuell bearbeiten können. Hinweis:
+        Für das Mehrfach-Upload muss Flash in Ihrem Browser installiert sein. Maximale
+        Dateigröße: {{size}}. Zulässige Dateiformate: {{types}}.'
       label: Mehrere Dateien
       saved: Gespeichert
   languages:
@@ -1818,12 +1417,12 @@ de:
     ga: Irisch
     hu: Ungarisch
     nl: Holländisch
-    pt: 
+    pt: Portugiesisch
     sk: Slowakisch
     sl: Slowenisch
   layout:
     navigation:
-      about: "Über uns"
+      about: Über uns
       admin: Admin
       browse: Durchsuchen
       contact: Kontakt
@@ -1840,10 +1439,13 @@ de:
           Mit freundlichen Grüßen
           Das Team von Europeana 1914-1918
         subject: Ihr Beitrag auf Europeana 1914-1918 wurde veröffentlicht.
-        thanks: 'Danke, dass Sie Ihre Geschichten und Erinnerungsstücke mit uns teilen! Ihr Beitrag wurde jetzt auf unserer Website veröffentlicht. Sie können ihn ansehen, wenn Sie auf den folgenden Link klicken:'
+        thanks: 'Danke, dass Sie Ihre Geschichten und Erinnerungsstücke mit uns teilen!
+          Ihr Beitrag wurde jetzt auf unserer Website veröffentlicht. Sie können ihn
+          ansehen, wenn Sie auf den folgenden Link klicken:'
     exports:
       complete:
-        notice: 'Der Sammlungsexport ist abgeschlossen und kann hier heruntergeladen werden:'
+        notice: 'Der Sammlungsexport ist abgeschlossen und kann hier heruntergeladen
+          werden:'
         subject: Der Sammlungsexport ist abgeschlossen.
   media_types:
     all: Alle
@@ -1858,22 +1460,18 @@ de:
   number:
     currency:
       format:
-        delimiter: "."
-        format: "%u%n"
-        precision: 2
-        separator: "."
-        significant: false
-        strip_insignificant_zeros: false
-        unit: "€"
+        delimiter: .
+        format: '%u%n'
+        precision: "2"
+        separator: .
+        unit: €
     format:
-      delimiter: "."
-      precision: 2
-      separator: "."
-      significant: false
-      strip_insignificant_zeros: false
+      delimiter: .
+      precision: "2"
+      separator: .
     human:
       decimal_units:
-        format: "%n %u"
+        format: '%n %u'
         units:
           billion:
             one: Milliarde
@@ -1884,14 +1482,12 @@ de:
             other: Billiarden
           thousand: Tausend
           trillion: Billionen
-          unit: ''
       format:
-        delimiter: ''
-        precision: '3'
-        significant: true
-        strip_insignificant_zeros: true
+        precision: "3"
+        significant: "1"
+        strip_insignificant_zeros: "1"
       storage_units:
-        format: "%n %u"
+        format: '%n %u'
         units:
           byte:
             one: Byte
@@ -1900,17 +1496,11 @@ de:
           kb: KB
           mb: MB
           tb: TB
-    percentage:
-      format:
-        delimiter: ''
-    precision:
-      format:
-        delimiter: ''
   settings:
     allowed_upload_extensions: Erlaubte Upload-Typen
     banner_active: Wartungsnachricht aktiviert
     banner_text: Text der Wartungsnachricht
-    bing_client_id: 'Bing client ID '
+    bing_client_id: Bing client ID
     bing_client_secret: Bing client secret
     bing_translate_key: Bing Translate Key
     contribution_approval_required: Nur genehmigte Beiträge veröffentlichen
@@ -1923,78 +1513,126 @@ de:
     relative_url_root: URL-Rootverzeichnis
     search_engine: Suchmaschine
     sharethis_id: Teilen Sie diese Publisher ID
-    site_name: Seite-Name
+    site_name: Site-Name
     site_url: URL
-    ui_locales: 'Verfügbare Sprachversionen '
-    uploadify: 'Uploadify aktivieren '
+    ui_locales: Verfügbare Sprachversionen
+    uploadify: Uploadify aktivieren
   support:
     array:
-      last_word_connector: " und "
-      two_words_connector: " und "
-      words_connector: ", "
+      last_word_connector: ' und'
+      two_words_connector: ' und'
+      words_connector: ','
     select:
       prompt: 'Bitte wählen:'
   time:
     am: vormittags
     formats:
-      default: "%A, %d. %B %Y, %H:%M Uhr"
-      long: "%A, %d. %B %Y, %H:%M Uhr"
-      short: "%d. %b %H:%M"
-      timestamp: "%Y-%m-%d %H:%M"
+      default: '%A, %d. %B %Y, %H:%M Uhr'
+      long: '%A, %d. %B %Y, %H:%M Uhr'
+      short: '%d. %b %H:%M'
+      timestamp: '%Y-%m-%d %H:%M'
     pm: nachmittags
   views:
-    "abou\tt":
-      terms:
-        user_contributions:
-          p3: 
     about:
       background:
         heading: Europeana 1914-1918
-        p1: "<b>Europeana 1914-1918</b> basiert auf einer Initiative der Universität Oxford, zu der Menschen in ganz Großbritannien eingeladen wurden, Briefe, Fotos und Erinnerungsstücke ihrer Familie aus dem Ersten Weltkrieg digitalisieren zu lassen. Der Erfolg dieser Idee, aus der sich das Great War Archive entwickelte, ermutigte Europeana, das europäische digitale Archiv, Bibliothek und Museum,eine Zusammenarbeit auch anderer nationaler oder lokaler Einrichtungen in ganz Europa mit der Universität Oxford anzururegen. Diese Kooperation umfasst  bislang Beiträge aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland, Italien, Belgien, Zypern und Dänemark die eine einzigartige  Online-Sammlung von Geschichten zum Ersten Weltkrieg bilden. 2014 werden weitere Länder mit ihren Beiträgen folgen.u lassen.eine Zusammenarbeit auch anderer nationaler oder lokaler Einrichtungen in ganz Europa mit der Universität Oxford anzururegen."
-        p2: '<b>Europeana Collections<b>1914-1918</b> ist ein anderes Projekt als Europeana 1914-1918: Die ‘Europeana Collection 1914-1918’ ist ein Bibliotheksprojekt. Es wird bis 2014 – dem hundertsten Jahrestag des Ausbruchs des Ersten Weltkriegs - eine digitale Sammlung von Material aus Nationalbibliotheken in acht Ländern hervorbringen, die in diesem historischen Konflikt auf unterschiedlichen Seiten standen. <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918" target="_blank">Weitere Informationen finden Sie auf der Projekt-Website ‘Europeana Collections 1914-1918’</a>.'
+        p1: <b>Europeana 1914-1918</b> basiert auf einer Initiative der Universität
+          Oxford, zu der Menschen in ganz Großbritannien eingeladen wurden, Briefe,
+          Fotos und Erinnerungsstücke ihrer Familie aus dem Ersten Weltkrieg digitalisieren
+          zu lassen. Der Erfolg dieser Idee, aus der sich das Great War Archive entwickelte,
+          ermutigte Europeana, das europäische digitale Archiv, Bibliothek und Museum,
+          eine Zusammenarbeit auch anderer nationaler oder lokaler Einrichtungen in
+          ganz Europa mit der Universität Oxford anzuregen. Diese Kooperation umfasst  bislang
+          Beiträge aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland,
+          Italien, Belgien, Zypern und Dänemark die eine einzigartige  Online-Sammlung
+          von Geschichten zum Ersten Weltkrieg bilden. 2014 werden weitere Länder
+          mit ihren Beiträgen folgen.
+        p2: '<b>Europeana Collections<b>1914-1918</b> ist ein anderes Projekt als
+          Europeana 1914-1918: Die ‘Europeana Collection 1914-1918’ ist ein Bibliotheksprojekt.
+          Es wird bis 2014 – dem hundertsten Jahrestag des Ausbruchs des Ersten Weltkriegs
+          - eine digitale Sammlung von Material aus Nationalbibliotheken in acht Ländern
+          hervorbringen, die in diesem historischen Konflikt auf unterschiedlichen
+          Seiten standen. <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+          target="_blank">Weitere Informationen finden Sie auf der Projekt-Website
+          ‘Europeana Collections 1914-1918’</a>.'
       collection_days:
         heading: Aktionstage
-        p1: Zu den Aktionstagen können alle Menschen kommen, die Dokumente, Artefakte und Geschichten aus dem Ersten Weltkrieg besitzen. Diese werden auf den Aktionstagen von den Projektmitarbeitern digitalisiert und erfasst. Die Beiträge mit den digitalisierten Objekten werden dann auf der <b>Europeana 1914-1918</b>-website veröffentlicht.
+        p1: Zu den Aktionstagen können alle Menschen kommen, die Dokumente, Artefakte
+          und Geschichten aus dem Ersten Weltkrieg besitzen. Diese werden auf den
+          Aktionstagen von den Projektmitarbeitern digitalisiert und erfasst. Die
+          Beiträge mit den digitalisierten Objekten werden dann auf der <b>Europeana
+          1914-1918</b>-website veröffentlicht.
         p2: Die Aktionstage finden in ganz Europa statt.
       online_collection:
         heading: Online-Erfassung der Beiträge
-        p1: |
-          Die Online-Erfassung der Beiträge begann im März 2011. Auf der Website kann jeder seine Objekte zusammen mit seinen Beiträgen zur Sammlung hinzufügen. Weitere Informationen, wie Sie die Sammlung ergänzen können, finden Sie auf der Seite “%{add_your_story}”.  Die eingereichten Objekte werden vom Projektteam geprüft und dann auf <b>Europeana 1914-1918</b> veröffentlicht.
+        p1: Die Online-Erfassung der Beiträge begann im März 2011. Auf der Website
+          kann jeder seine Objekte zusammen mit seinen Beiträgen zur Sammlung hinzufügen.
+          Weitere Informationen, wie Sie die Sammlung ergänzen können, finden Sie
+          auf der Seite “%{add_your_story}”.  Die eingereichten Objekte werden vom
+          Projektteam geprüft und dann auf <b>Europeana 1914-1918</b> veröffentlicht.
       privacy_policy:
-        p1: Ihr Name wird neben Ihren Beiträgen veröffentlicht, sobald diese freigegeben wurden.
-        p2: Alle weiteren Kontaktdaten, die Sie angegeben haben, inklusive Ihrer E-Mail-Adresse, werden wir nur nutzen, um mit Ihnen bezüglich Ihrer Beiträge in Kontakt zu treten. Sie werden nicht veröffentlicht.
+        p1: Ihr Name wird neben Ihren Beiträgen veröffentlicht, sobald diese freigegeben
+          wurden.
+        p2: Alle weiteren Kontaktdaten, die Sie angegeben haben, inklusive Ihrer E-Mail-Adresse,
+          werden wir nur nutzen, um mit Ihnen bezüglich Ihrer Beiträge in Kontakt
+          zu treten. Sie werden nicht veröffentlicht.
         p3: In keinem Fall werden wir Ihre Kontaktdaten an Dritte weitergeben.
-        p4: Weitere Informationen zu unseren Datenschutzbestimmungen finden Sie auf der Website <a http://www.europeana.eu/portal/privacy.html target="_blank">Europeana</a>.
+        p4: Weitere Informationen zu unseren Datenschutzbestimmungen finden Sie auf
+          der Website <a http://www.europeana.eu/portal/privacy.html target="_blank">Europeana</a>.
       project_partners:
         heading: Projektpartner
         item1: <a href="http://www.ox.ac.uk" target="_blank">Universität Oxford</a>
         item2: <a href="http://www.d-nb.de" target="_blank">Die Deutsche Nationalbibliothek</a>
-        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Die Nationalbibliothek von Luxemburg – Bibliothèque nationale du Luxembourg</a>
-        item4: <a href="http://www.nli.ie" target="_blank">Die Nationalbibliothek von Irland - National Library of Ireland</a>
-        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Die Nationalbibliothek von Slowenien – Narodna in univerzitetna knjižnica</a>
-        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Die königliche Bibliothek: Die Nationalbibliothek von Dänemark und die Bibliothek der Universität Kopenhagen - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Die
+          Nationalbibliothek von Luxemburg – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Die Nationalbibliothek
+          von Irland - National Library of Ireland</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Die Nationalbibliothek
+          von Slowenien – Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Die königliche Bibliothek:
+          Die Nationalbibliothek von Dänemark und die Bibliothek der Universität Kopenhagen
+          - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
         item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
       takedown:
         item1: Ihre Kontaktdaten
         item2: die genauen Daten Ihres Objekts, an welchem Sie die Rechte haben
-        item3: 'die exakte URL, unter welcher Sie das Material gefunden haben (z. B.: http://www.europeana1914-1918.eu/en/contributions/96'
-        item4: 'den Nachweis, dass Sie der Rechteinhaber oder eine vom Rechteinhaber autorisierte Person sind '
+        item3: 'Die genaue URL, unter welcher Sie das Material gefunden haben (z.
+          B.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item4: Der Nachweis, dass Sie der Rechteinhaber oder eine vom Rechteinhaber
+          autorisierte Person sind
         item5: 'Bitte schicken Sie die E-Mail an: 1914-1918 [@] europeana [.] eu'
-        p1: 'Wenn Sie der Ansicht sind, dass Sie auf unserer Website Materialien gefunden haben, an welchen Sie die Urheberrechte, aber die Verwendung in Europeana nicht gestattet haben, werden wir diese Materialien selbstverständlich entfernen. Bitte kontaktieren Sie uns per E-Mail und informieren uns über:'
+        p1: 'Wenn Sie der Ansicht sind, dass Sie auf unserer Website Materialien gefunden
+          haben, an welchen Sie die Urheberrechte, aber die Verwendung in Europeana
+          nicht gestattet haben, werden wir diese Materialien selbstverständlich entfernen.
+          Bitte kontaktieren Sie uns per E-Mail und informieren uns über:'
       terms:
         full_details:
-          heading: 'Europeana Benutzungsbedingungen: Detaillierte rechtliche Einzelheiten sind nur auf Englisch verfügbar'
+          heading: 'Europeana Benutzungsbedingungen: Detaillierte rechtliche Einzelheiten
+            sind nur auf Englisch verfügbar'
         heading: Benutzungsbedingungen
         summary:
           heading: 'Europeana Benutzungsbedingungen: Zusammenfassung'
-          item1: die von Ihnen hinzugefügten digitalen Materialien nicht urheberrechtlich geschützt sind; oder
+          item1: die von Ihnen hinzugefügten digitalen Materialien nicht urheberrechtlich
+            geschützt sind; oder
           item2: Sie über die Rechte dieser digitalen Materialien verfügen; oder
-          item3: Sie der Rechteinhaber dazu ermächtigt hat, diese digitalen Materialien unter folgenden Bedingungen einzustellen.
-          item4: Wenn Sie Inhalte (wie zum Beispiel Videos, Bilder oder audiovisuelle Medien) beitragen, erlauben Sie jedem, diese Inhalte in fast jeder Art und Weise zu nutzen. Jeder Benutzer ist jedoch verpflichtet, die Inhalte mit der Nennung des Urhebers zu versehen. Werden Inhalte verändert, sind die Benutzer verpflichtet, anderen zu erlauben, die veränderten Inhalte unter denselben Bedingungen zu nutzen.
-          item5: Wenn Sie beschreibende Daten (wie zum Beispiel Beschreibungen oder Tags) beitragen, erlauben Sie jedem, diese in fast jeder Art und Weise ohne weitere Bedingungen zu nutzen.
-          p1: Bevor Sie etwas beitragen können, müssen Sie den Europeana Bedingungen für Benutzerbeiträge zustimmen. Die ausführlichen Bedingungen finden Sie hier. Nachdem Sie zur Bestätigung das Kontrollfeld aktiviert und den WEITER-Button geklickt haben, öffnet sich das Anmeldeformular.
-          p2: "<b>Sie stimmen folgenden Bedingungen zu:</b>"
-          p3: "<b>Wenn Sie diese Nutzungsbedingungen nicht akzeptieren möchten, fügen Sie zu Europeana keine Inhalte oder beschreibenden Daten hinzu.</b>."
+          item3: Sie der Rechteinhaber dazu ermächtigt hat, diese digitalen Materialien
+            unter folgenden Bedingungen einzustellen.
+          item4: Wenn Sie Inhalte (wie zum Beispiel Videos, Bilder oder audiovisuelle
+            Medien) beitragen, erlauben Sie jedem, diese Inhalte in fast jeder Art
+            und Weise zu nutzen. Jeder Benutzer ist jedoch verpflichtet, die Inhalte
+            mit der Nennung des Urhebers zu versehen. Werden Inhalte verändert, sind
+            die Benutzer verpflichtet, anderen zu erlauben, die veränderten Inhalte
+            unter denselben Bedingungen zu nutzen.
+          item5: Wenn Sie beschreibende Daten (wie zum Beispiel Beschreibungen oder
+            Tags) beitragen, erlauben Sie jedem, diese in fast jeder Art und Weise
+            ohne weitere Bedingungen zu nutzen.
+          p1: Bevor Sie etwas beitragen können, müssen Sie den Europeana Bedingungen
+            für Benutzerbeiträge zustimmen. Die ausführlichen Bedingungen finden Sie
+            hier. Nachdem Sie zur Bestätigung das Kontrollfeld aktiviert und den WEITER-Button
+            geklickt haben, öffnet sich das Anmeldeformular.
+          p2: <b>Sie stimmen folgenden Bedingungen zu:</b>
+          p3: <b>Wenn Sie diese Nutzungsbedingungen nicht akzeptieren möchten, fügen
+            Sie zu Europeana keine Inhalte oder beschreibenden Daten hinzu.</b>.
         user_contributions:
           heading: Die Europeana-Bestimmungen für Benutzerbeiträge
           item1: Passwörter und Anmeldung (Artikel 3)
@@ -2004,46 +1642,124 @@ de:
           item5: Unrechtmäßige Verwendung des Service (Artikel 7)
           item6: Personenbezogene Daten der Benutzer (Datenschutz) (Artikel 8)
           item7: Haftung der Parteien im Fall von Schaden oder Verlust (Artikel 9)
-          p1: 'Das vorliegende Dokument enthält die Bestimmungen für Benutzer, die Inhalte und Metadaten für die Website Europeana.eu der Europeana Foundation bereitstellen. Der Benutzer muss sich darüber im Klaren sein, dass die Europeana Foundation bemüht ist, alle Inhalte und Metadaten mit einem Minimum an Einschränkungen für die Wiederverwendung verfügbar zu machen. '
-          p2: Im Rahmen dieser Politik regeln die <b>Europeana-Bestimmungen für Nutzerbeiträge</b>, dass alle Inhalte, die durch die Benutzer zur Europeana hinzugefügt werden, auf Europeana.eu entsprechend den Bestimmungen einer <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution ShareAlike-Lizenz</a> zur Verfügung gestellt werden. Das bedeutet, dass, wenn ein Benutzer Inhalte auf der Website Europeana.eu veröffentlicht, er damit Dritten das unwiderrufliche Recht zur freien Nutzung dieser Inhalte gewährt, solange diese die Arbeit dem jeweiligen Autor zuschreiben und Änderungen dieser Inhalte unter denselben Bedingungen durchführen.
-          p3: Zudem werden alle Metadaten, die die Benutzer für Europeana bereitgestellt haben, auf Europeana.eu gemäß den Bestimmungen der <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a> zur Verfügung gestellt. Das bedeutet, dass der Benutzer Dritten das unwiderrufliche Recht gewährt, diese Metadaten ohne Einschränkung nach Belieben zu nutzen.
-          p4: "<b>Wenn Sie mit diesen Bestimmungen nicht einverstanden sind, stellen Sie bitte keine Inhalte und/oder Metadaten für Europeana zur Verfügung.</b>"
-          p5: 'Diese Bestimmungen für Nutzerbeiträge definieren unter anderem die folgenden Aspekte der Beziehung zwischen Benutzern, die Inhalte für Europeana.eu bereitstellen, und Europeana:'
-          p6: Mit der Erstellung eines Kontos auf Europeana.eu erklärt sich der Benutzer mit den vorliegenden Allgemeinen Geschäftsbedingungen einverstanden. Sobald ein Benutzerkonto erstellt wurde, können die Bestimmungen auf <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html" target="_blank">www.europeana.eu</a> aufgerufen werden.
+          p1: Das vorliegende Dokument enthält die Bestimmungen für Benutzer, die
+            Inhalte und Metadaten für die Website Europeana.eu der Europeana Foundation
+            bereitstellen. Der Benutzer muss sich darüber im Klaren sein, dass die
+            Europeana Foundation bemüht ist, alle Inhalte und Metadaten mit einem
+            Minimum an Einschränkungen für die Wiederverwendung verfügbar zu machen.
+          p2: Im Rahmen dieser Politik regeln die <b>Europeana-Bestimmungen für Nutzerbeiträge</b>,
+            dass alle Inhalte, die durch die Benutzer zur Europeana hinzugefügt werden,
+            auf Europeana.eu entsprechend den Bestimmungen einer <a href="http://creativecommons.org/licenses/by-sa/3.0/"
+            target="_blank">Creative Commons Attribution ShareAlike-Lizenz</a> zur
+            Verfügung gestellt werden. Das bedeutet, dass, wenn ein Benutzer Inhalte
+            auf der Website Europeana.eu veröffentlicht, er damit Dritten das unwiderrufliche
+            Recht zur freien Nutzung dieser Inhalte gewährt, solange diese die Arbeit
+            dem jeweiligen Autor zuschreiben und Änderungen dieser Inhalte unter denselben
+            Bedingungen durchführen.
+          p3: Zudem werden alle Metadaten, die die Benutzer für Europeana bereitgestellt
+            haben, auf Europeana.eu gemäß den Bestimmungen der <a href="http://creativecommons.org/publicdomain/zero/1.0/"
+            target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>
+            zur Verfügung gestellt. Das bedeutet, dass der Benutzer Dritten das unwiderrufliche
+            Recht gewährt, diese Metadaten ohne Einschränkung nach Belieben zu nutzen.
+          p4: <b>Wenn Sie mit diesen Bestimmungen nicht einverstanden sind, stellen
+            Sie bitte keine Inhalte und/oder Metadaten für Europeana zur Verfügung.</b>
+          p5: 'Diese Bestimmungen für Nutzerbeiträge definieren unter anderem die
+            folgenden Aspekte der Beziehung zwischen Benutzern, die Inhalte für Europeana.eu
+            bereitstellen, und Europeana:'
+          p6: Mit der Erstellung eines Kontos auf Europeana.eu erklärt sich der Benutzer
+            mit den vorliegenden Allgemeinen Geschäftsbedingungen einverstanden. Sobald
+            ein Benutzerkonto erstellt wurde, können die Bestimmungen auf <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html"
+            target="_blank">www.europeana.eu</a> aufgerufen werden.
           p7: 'Auf separaten Seiten finden Sie folgende Informationen zum Projekt:'
       what_we_do:
         heading: Was wir tun
-        item1: "Über die Europeana 1914-1918-Website - Fügen Sie ein Bild vom Objekt hinzu oder geben Sie Ihre Geschichte online ein."
-        item2: Bei den Aktionstagen - Bringen Sie die Objekte zur Veranstaltung mit; Projektmitarbeiter fotografieren die Gegenstände und notieren die dazu gehörenden Geschichten.
-        p1: 'Bei dem Projekt geht es um die Sammlung von Erinnerungsstücken und Geschichten aus der Zeit des Ersten Weltkriegs (1914-1918). Die aktuelle Phase des Projekts befasst sich mit Objekten aus Europa: Briefen, Postkarten, Fotos und Geschichten aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland, Italien, Belgien, Zypern und Dänemark. Beiträge können auf zwei Arten bereitgestellt werden:'
+        item1: Über die Europeana 1914-1918-Website - Fügen Sie ein Bild vom Objekt
+          hinzu oder geben Sie Ihre Geschichte online ein.
+        item2: Bei den Aktionstagen - Bringen Sie die Objekte zur Veranstaltung mit;
+          Projektmitarbeiter fotografieren die Gegenstände und notieren die dazu gehörenden
+          Geschichten.
+        p1: 'Bei dem Projekt geht es um die Sammlung von Erinnerungsstücken und Geschichten
+          aus der Zeit des Ersten Weltkriegs (1914-1918). Die aktuelle Phase des Projekts
+          befasst sich mit Objekten aus Europa: Briefen, Postkarten, Fotos und Geschichten
+          aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland, Italien,
+          Belgien, Zypern und Dänemark. Beiträge können auf zwei Arten bereitgestellt
+          werden:'
     about_us:
       blog:
         heading: Blog
       europeana:
         heading: Europeana 1914-1918
-        p1: Auf Europeana 1914-1918 finden Sie unterschiedlichste Arten von Dokumenten zum Ersten Weltkrieg, die im Rahmen dreier großer europäischer Projekte zusammengetragen wurden. Das Ergebnis dieser Projekte ist eine umfangreiche Online-Sammlung, in der Material aus den Sammlungen von Nationalbibliotheken neben Erinnerungsstücken von Privatpersonen sowie Bewegtbild aus europäischen Filmarchiven steht. Zusammen ergeben diese Dokumente einzigartige Perspektiven auf den Ersten Weltkrieg und beleuchten ihn aus unterschiedlichen historischen Blickwinkeln. Die derzeit verfügbare Sammlung wächst stetig um weitere Materialien, es lohnt sich, regelmäßig bei uns vorbeizuschauen!
-        p2: <b>Geschichten von Privatpersonen:</b> In Zusammenarbeit mit der Universität Oxford, Facts & Files und vielen anderen europäischen Partnern, sammelt das Projekt Europeana 1914-1918 bislang unveröffentlichte private Briefe, Fotografien und andere Erinnerungsstücke aus dem Krieg, digitalisiert sie und macht sie online verfügbar. Bis Ende 2013 haben sich Menschen aus 12 Ländern beteiligt und ca. 90.000 Objekte digitalisiert und recherchierbar gemacht.  <a href="http://pro.europeana.eu/web/europeana-1914-1918">Erfahren Sie mehr über das Projekt und die gesammelten Familiengeschichten.</a>
-        p3: "<b>Nationalbibliotheken:</b> Im Rahmen des Projekts Europeana Collections 1914-1918 wurden über 400.000 Dokumente aus Nationalbibliotheken aus acht Ländern, die sich auf verschiedenen Seiten des historischen Konflikts befanden, digitalisiert und verfügbar gemacht. Das breite Spektrum der ausgewählten Objekte dokumentiert umfassend die Lebenswirklichkeit der Zeit zwischen 1914 und 1918 an der Front wie in der Heimat. Digitalisiert wurden Kinder- und Schulbücher, Kriegskochbücher, Erbauungsschriften, persönliche Briefe und Kriegspostkarten, Tagebücher und Fotos ebenso wie Flugblätter und Pamphlete, Karten und Musikalien, Schützengrabenzeitungen, Unterhaltungsliteratur für Gefangene und überlebenspraktische Anleitungen für Frontsoldaten."
-        p4: "<b>Filmarchive:</b> Das Projekt “European Film Gateway 1914” trägt über 660 Stunden Filmmaterial zum Ersten Weltkrieg bei. Die Sammlung enthält u.a. Wochenschauen, Dokumentationen, Spiel-,  Propaganda- und Antikriegsfilme. Da nur geschätzte 20% der in der Stummfilmzeit produzierten Filme bis heute erhalten sind, stellen die im Rahmen des EFG1914 Projekts digitalisierten Filme eine wichtige Überlieferung aus dieser Zeit dar."
-        p5: "<b>Und noch mehr:</b> Auf Europeana1914-1918 finden Sie außerdem Dokumente aus weiteren europäischen Projekten und Sammlungen, sowie Materialien von außerhalb Europas, z.B. aus der Digitalen Bibliothek Amerika (Digital Public Library of America), Trove (Australien) und der Plattform Digital New Zealand. "
+        p1: Auf Europeana 1914-1918 finden Sie unterschiedlichste Arten von Dokumenten
+          zum Ersten Weltkrieg, die im Rahmen dreier großer europäischer Projekte
+          zusammengetragen wurden. Das Ergebnis dieser Projekte ist eine umfangreiche
+          Online-Sammlung, in der Material aus den Sammlungen von Nationalbibliotheken
+          neben Erinnerungsstücken von Privatpersonen sowie Bewegtbild aus europäischen
+          Filmarchiven steht. Zusammen ergeben diese Dokumente einzigartige Perspektiven
+          auf den Ersten Weltkrieg und beleuchten ihn aus unterschiedlichen historischen
+          Blickwinkeln. Die derzeit verfügbare Sammlung wächst stetig um weitere Materialien,
+          es lohnt sich, regelmäßig bei uns vorbeizuschauen!
+        p2: <b>Geschichten von Privatpersonen:</b> In Zusammenarbeit mit der Universität
+          Oxford, Facts & Files und vielen anderen europäischen Partnern, sammelt
+          das Projekt Europeana 1914-1918 bislang unveröffentlichte private Briefe,
+          Fotografien und andere Erinnerungsstücke aus dem Krieg, digitalisiert sie
+          und macht sie online verfügbar. Bis Ende 2013 haben sich Menschen aus 12
+          Ländern beteiligt und ca. 90.000 Objekte digitalisiert und recherchierbar
+          gemacht.  <a href="http://pro.europeana.eu/web/europeana-1914-1918">Erfahren
+          Sie mehr über das Projekt und die gesammelten Familiengeschichten.</a>
+        p3: <b>Nationalbibliotheken:</b> Im Rahmen des Projekts Europeana Collections
+          1914-1918 wurden über 400.000 Dokumente aus Nationalbibliotheken aus acht
+          Ländern, die sich auf verschiedenen Seiten des historischen Konflikts befanden,
+          digitalisiert und verfügbar gemacht. Das breite Spektrum der ausgewählten
+          Objekte dokumentiert umfassend die Lebenswirklichkeit der Zeit zwischen
+          1914 und 1918 an der Front wie in der Heimat. Digitalisiert wurden Kinder-
+          und Schulbücher, Kriegskochbücher, Erbauungsschriften, persönliche Briefe
+          und Kriegspostkarten, Tagebücher und Fotos ebenso wie Flugblätter und Pamphlete,
+          Karten und Musikalien, Schützengrabenzeitungen, Unterhaltungsliteratur für
+          Gefangene und überlebenspraktische Anleitungen für Frontsoldaten.
+        p4: <b>Filmarchive:</b> Das Projekt “European Film Gateway 1914” trägt über
+          660 Stunden Filmmaterial zum Ersten Weltkrieg bei. Die Sammlung enthält
+          u.a. Wochenschauen, Dokumentationen, Spiel-,  Propaganda- und Antikriegsfilme.
+          Da nur geschätzte 20% der in der Stummfilmzeit produzierten Filme bis heute
+          erhalten sind, stellen die im Rahmen des EFG1914 Projekts digitalisierten
+          Filme eine wichtige Überlieferung aus dieser Zeit dar.
+        p5: <b>Und noch mehr:</b> Auf Europeana1914-1918 finden Sie außerdem Dokumente
+          aus weiteren europäischen Projekten und Sammlungen, sowie Materialien von
+          außerhalb Europas, z.B. aus der Digitalen Bibliothek Amerika (Digital Public
+          Library of America), Trove (Australien) und der Plattform Digital New Zealand.
       events:
         heading: Aktionstage
-        p4: Wenn Sie Interesse haben, einen Aktionstag auszurichten, um Materialien zu digitalisieren und zu Europeana1914-1918 beizutragen, helfen wir Ihnen gerne weiter. Erfahren Sie mehr hier <a href="http://pro.europeana.eu/web/europeana-1914-1918">Europeana 1914-1918</a> oder kontaktieren Sie uns per E-Mail unter 1914-1918@europeana.eu.
+        p4: Wenn Sie Interesse haben, einen Aktionstag auszurichten, um Materialien
+          zu digitalisieren und zu Europeana1914-1918 beizutragen, helfen wir Ihnen
+          gerne weiter. Erfahren Sie mehr hier <a href="http://pro.europeana.eu/web/europeana-1914-1918">Europeana
+          1914-1918</a> oder kontaktieren Sie uns per E-Mail unter 1914-1918@europeana.eu.
       get_involved:
         contribute_online:
           heading: Online beitragen
-          p1: "Wenn Sie keine Zeit oder Gelegenheit haben unsere Aktionstage zu besuchen, laden wir Sie ein, Ihre Geschichten und Dokumente mit uns zu teilen, in dem Sie sie direkt auf unsere Website hochladen. Besuchen Sie \nunsere ‚Beitragen’ Seite [link] und folgen dort der Anleitung.\n"
+          p1: "Wenn Sie keine Zeit oder Gelegenheit haben unsere Aktionstage zu besuchen,
+            laden wir Sie ein, Ihre Geschichten und Dokumente mit uns zu teilen, in
+            dem Sie sie direkt auf unsere Website hochladen. Besuchen Sie \nunsere
+            ‚Beitragen’ Seite [link] und folgen dort der Anleitung."
         education:
-          heading: |
-            Bildung
-          p1: 'Unsere Partner von der British Library haben eine englisch-sprachige Website [Link] mit Lehrmaterial für Lehrer und Lehrerinnen entwickelt, die Unterrichtseinheiten zum Ersten Weltkrieg planen.  '
+          heading: Bildung
+          p1: Unsere Partner von der British Library haben eine englisch-sprachige
+            Website [Link] mit Lehrmaterial für Lehrer und Lehrerinnen entwickelt,
+            die Unterrichtseinheiten zum Ersten Weltkrieg planen.
         events:
-          p1: "Besuchen Sie unsere Veranstaltungsseite [link], um zu erfahren wo die nächsten Aktionstage stattfinden, zu denen Ihre mitgebrachten \nDokumente, Objekte und Geschichten aus der Zeit des Ersten Weltkriegs erfasst, digitalisiert und zu Europeana1914-1918 beigetragen werden können."
-          p2: "Wenn Sie Interesse haben, einen Aktionstag auszurichten, um Materialien zu digitalisieren und zu Europeana1914-1918 beizutragen, helfen wir \nIhnen gerne weiter. Erfahren Sie mehr hier [link to E1418 on Pro] oder kontaktieren Sie uns per E-Mail unter 1914-1918@europeana.eu.\n"
+          p1: "Besuchen Sie unsere Veranstaltungsseite [link], um zu erfahren wo die
+            nächsten Aktionstage stattfinden, zu denen Ihre mitgebrachten \nDokumente,
+            Objekte und Geschichten aus der Zeit des Ersten Weltkriegs erfasst, digitalisiert
+            und zu Europeana1914-1918 beigetragen werden können."
+          p2: "Wenn Sie Interesse haben, einen Aktionstag auszurichten, um Materialien
+            zu digitalisieren und zu Europeana1914-1918 beizutragen, helfen wir \nIhnen
+            gerne weiter. Erfahren Sie mehr hier [link to E1418 on Pro] oder kontaktieren
+            Sie uns per E-Mail unter 1914-1918@europeana.eu."
         heading: Beteiligen Sie sich
         reuse:
           heading: Nachnutzung des Materials
-          p1: "Alle Materialien auf Europeana 1914-1918 können nachgenutzt werden. Entwickler sind eingeladen, über eine API für eigene Projekte von den \nBeständen Gebrauch zu machen. Besuchen Sie für mehr Informationen ‚Europeana Labs’, unsere Seite für Entwickler und die Kreativindustrie. "
+          p1: "Alle Materialien auf Europeana 1914-1918 können nachgenutzt werden.
+            Entwickler sind eingeladen, über eine API für eigene Projekte von den
+            \nBeständen Gebrauch zu machen. Besuchen Sie für mehr Informationen ‚Europeana
+            Labs’, unsere Seite für Entwickler und die Kreativindustrie."
       help:
         heading: Hilfe
     admin:
@@ -2056,7 +1772,8 @@ de:
             type: Art der Anmerkung
       collection_days:
         delete:
-          question: Sind sie sicher, dass Sie die zusätzlichen Informationen über den Aktionstag %{code} löschen wollen?
+          question: Sind sie sicher, dass Sie die zusätzlichen Informationen über
+            den Aktionstag %{code} löschen wollen?
           title: Aktionstag löschen
         edit:
           title: Aktionstag bearbeiten
@@ -2082,7 +1799,7 @@ de:
             approved: Akzeptierte Beiträge (%{total})
             draft: Beitragsentwürfe (%{total})
             rejected: Zurückgewiesene Beiträge (%{total})
-            revised: "Überarbeitete Beiträge, die noch bestätigt werden müssen (%{total})"
+            revised: Überarbeitete Beiträge, die noch bestätigt werden müssen (%{total})
             submitted: Beiträge, die noch bestätigt werden müssen(%{total} total)
             withdrawn: Zurückgezogene Beiträge, die noch bestätigt werden müssen (%{total})
           empty:
@@ -2091,57 +1808,71 @@ de:
               draft: Noch keine Beitragsentwürfe vorhanden.
               rejected: Noch keine zurückgewiesenen Beiträge vorhanden.
               revised: Keine überarbeiteten Beiträge, die noch bestätigt werden müssen.
-              submitted: Zurzeit keine eingereichten Beiträge, die bestätigt werden müssen.
+              submitted: Zurzeit keine eingereichten Beiträge, die bestätigt werden
+                müssen.
               withdrawn: Keine zurückgezogenen Beiträge, die Ihrer Suchanfrage entsprechen.
             search:
               approved: Keine bestätigten Beiträge, die Ihrer Suchanfrage entsprechen.
               draft: Es gibt keine Beitragsentwürfe, die Ihren Suchkriterien entsprechen.
-              rejected: Es gibt keine zurückgewiesenen Beiträge, die Ihrer Suchanfrage entsprechen.
-              revised: Es gibt keine überarbeiteten Beiträge, die Ihren Suchkriterien entsprechen.
+              rejected: Es gibt keine zurückgewiesenen Beiträge, die Ihrer Suchanfrage
+                entsprechen.
+              revised: Es gibt keine überarbeiteten Beiträge, die Ihren Suchkriterien
+                entsprechen.
               submitted: Keine eingereichten Beiträge, die Ihrer Suchanfrage entsprechen.
               withdrawn: Keine zurückgezogenen Beiträge, die Ihrer Suchanfrage entsprechen.
           title: Beiträge
-        p1: Nachfolgend finden Sie drei Tabellen mit Beiträgen, die noch nicht zur Genehmigung eingereicht wurden, auf Genehmigung warten bzw. bereits genehmigt wurden. Klicken Sie auf einen Titel, um Daten zu einem Beitrag anzuzeigen. Sobald die Daten angezeigt werden, können Sie die Metadaten kopieren, den Beitrag löschen oder (für Beiträge, die auf Genehmigung warten) den Beitrag genehmigen.
+        p1: Nachfolgend finden Sie drei Tabellen mit Beiträgen, die noch nicht zur
+          Genehmigung eingereicht wurden, auf Genehmigung warten bzw. bereits genehmigt
+          wurden. Klicken Sie auf einen Titel, um Daten zu einem Beitrag anzuzeigen.
+          Sobald die Daten angezeigt werden, können Sie die Metadaten kopieren, den
+          Beitrag löschen oder (für Beiträge, die auf Genehmigung warten) den Beitrag
+          genehmigen.
       europeana:
         index:
-          instructions: Nach dem Drücken des Startknopfes beginnt der Einspielvorgang von Ersten Weltkriegsinhalten aus der Europeana Portal API, in die 1914-1918
-          introduction: Momentan sind %{count} Europeana Datensätze mit Bezug zum Ersten Weltkrieg in der 1914-1918 Datenbank.
+          instructions: Nach dem Drücken des Startknopfes beginnt der Einspielvorgang
+            von Ersten Weltkriegsinhalten aus der Europeana Portal API, in die 1914-1918
+            Datenbank.
+          introduction: Momentan sind %{count} Europeana Datensätze mit Bezug zum
+            Ersten Weltkrieg in der 1914-1918 Datenbank.
           title: Europeana Portal Inhalte einspielen
       index:
         headings:
           export: Exportieren
         links:
           annotations:
-            description: "Überprüfen Sie die Anmerkungen zu den Objekten."
+            description: Überprüfen Sie die Anmerkungen zu den Objekten.
           collection_days:
             description: Geben Sie zusätzliche Informationen zu den Aktionstagen.
           config:
             description: Konfigurieren Sie die Website-Einstellungen.
             text: Konfiguration
           contributions:
-            description: "Überprüfen und bestätigen oder verwerfen Sie die Beiträge."
+            description: Überprüfen und bestätigen oder verwerfen Sie die Beiträge.
             text: Beiträge
           export:
-            description: |
-              Exportieren Sie die Sammlungsbeiträge als XML oder CVS.
+            description: Exportieren Sie die Sammlungsbeiträge als XML oder CVS.
             text: Exportieren
           export_csv:
             description: Exportieren Sie die Sammlungsbeiträge in eine CSV-Datei.
             text: Als CSV exportieren
           export_users:
-            description: 'Export aller Nutzerdaten mit mit mindestens einem Beitrag in eine CSV-Datei '
+            description: Export aller Nutzerdaten mit mit mindestens einem Beitrag
+              in eine CSV-Datei
             text: Export Nutzerdaten
           export_xml:
             description: Exportieren Sie die Sammlungsbeiträge und -anhänge als XML.
             text: Als XML exportieren
           export_xml_nozip:
-            description: Exportieren Sie die Sammlungsbeiträge und -anhänge als XML, ausgenommen .zip-Dateianhänge.
+            description: Exportieren Sie die Sammlungsbeiträge und -anhänge als XML,
+              ausgenommen .zip-Dateianhänge.
             text: Als XML exportieren (ausgenommen .zip-Dateien)
           harvest_europeana:
-            description: Einspielen von Ersten Weltkriegsinhalten aus der Europeana Portal API
+            description: Einspielen von Ersten Weltkriegsinhalten aus der Europeana
+              Portal API
             text: Europeana Portal Inhalte einspielen
           institutions:
-            description: Konfigurieren Sie Institutionen als optional assoziiert mit Nutzerkonten.
+            description: Konfigurieren Sie Institutionen als optional assoziiert mit
+              Nutzerkonten.
           logs:
             description: Anwendungs-Log-Dateien ansehen.
             text: Log Dateien
@@ -2149,7 +1880,7 @@ de:
             description: Felder, die für die Beiträge erfasst wurden, konfigurieren.
             text: Metadaten-Felder
           reindex:
-            description: 'Aktualisieren Sie den Suchmaschinenindex. '
+            description: Aktualisieren Sie den Suchmaschinenindex.
             text: Suchmaschine reindexieren
           statistics:
             description: Jährliche Statistik der Beiträge ansehen.
@@ -2164,7 +1895,8 @@ de:
         delete:
           question: Sind Sie sicher, dass Sie die Institution %{name} löschen wollen?
           title: Institution löschen
-          warning: Das Löschen einer Institution wird alle Assoziierungen mit Nutzerkonten auf "nicht mit einer Institution verbunden" zurücksetzen.
+          warning: Das Löschen einer Institution wird alle Assoziierungen mit Nutzerkonten
+            auf "nicht mit einer Institution verbunden" zurücksetzen.
         edit:
           title: Institution bearbeiten
         index:
@@ -2173,14 +1905,19 @@ de:
           title: Neue Institution
       metadata_fields:
         confirm_reindex:
-          info: Nachdem der Status der Durchsuchbarkeit eines oder mehrerer Metadatenfelder geändert wurde, oder nach der Entfernung zuvor durchsuchbarer Felder sollten Sie die Suchmaschine mit dem Button unten re-indexieren.
-          note: Bitte beachten Sie, dass Sie die Suchmaschine nicht re-indexieren müssen, wenn Beiträge aktualisiert wurden; dies geschieht automatisch.
+          info: Nachdem der Status der Durchsuchbarkeit eines oder mehrerer Metadatenfelder
+            geändert wurde, oder nach der Entfernung zuvor durchsuchbarer Felder sollten
+            Sie die Suchmaschine mit dem Button unten re-indexieren.
+          note: Bitte beachten Sie, dass Sie die Suchmaschine nicht re-indexieren
+            müssen, wenn Beiträge aktualisiert wurden; dies geschieht automatisch.
           title: Suchmaschine re-indexieren
         delete:
           button_confirm: Möchten Sie dieses Feld wirklich löschen?
-          question: Sind Sie sicher, dass Sie das Metadatenfeld %{field_name} löschen möchten?
+          question: Sind Sie sicher, dass Sie das Metadatenfeld %{field_name} löschen
+            möchten?
           title: Metadatenfeld löschen
-          warning: "<strong>Achtung:</strong> Dies führt zur Löschung aller Daten, die Sie in diesem Feld bereits für Ihre Sammlung erfasst haben."
+          warning: <strong>Achtung:</strong> Dies führt zur Löschung aller Daten,
+            die Sie in diesem Feld bereits für Ihre Sammlung erfasst haben.
         edit:
           empty: Zurzeit gibt es noch keine Metadatenfelder.
           instructions: Geben Sie eine Zahl zur Positionierung jedes Feldes ein.
@@ -2199,19 +1936,18 @@ de:
           title: Reihenfolge der Metadatenfelder
       statistics:
         index:
-          introduction: Die untere Tabelle zeigt die Zahl der veröffentlichten Beiträge und Objekte nach Jahr und optional nach Aktionstag.
+          introduction: Die untere Tabelle zeigt die Zahl der veröffentlichten Beiträge
+            und Objekte nach Jahr und optional nach Aktionstag.
           title: Statistik
       taggings:
         index:
           title: Schlagwörter
-        table:
-          header:
-            text: 
       taxonomy_terms:
         delete:
           question: Sind Sie sicher, dass Sie das Schlagwort "%{term}" löschen möchten?
           title: Schlagwort löschen
-          warning: "<strong>Achtung:</strong> Durch das Löschen verlieren alle Beiträge, die mit diesem Schlagwort verknüpft sind, diese Kategorisierung."
+          warning: <strong>Achtung:</strong> Durch das Löschen verlieren alle Beiträge,
+            die mit diesem Schlagwort verknüpft sind, diese Kategorisierung.
         edit:
           title: Schlagwort bearbeiten
         import:
@@ -2231,7 +1967,8 @@ de:
           button_confirm: Dieses Nutzerkonto wirklich löschen?
           question: Sind Sie sicher, dass Sie das Nutzerkonto %{email} löschen möchten?
           title: Nutzerkonto löschen
-          warning: "<strong>Achtung:</strong> Dies führt zur Löschung aller Beiträge dieses Nutzers."
+          warning: <strong>Achtung:</strong> Dies führt zur Löschung aller Beiträge
+            dieses Nutzers.
         edit:
           title: Nutzerkonto bearbeiten
         index:
@@ -2258,18 +1995,24 @@ de:
       edit:
         title: Anmerkung bearbeiten
       flag:
-        question: Sind Sie sicher, dass diese Annotation als unpassend markiert werden soll?
+        question: Sind Sie sicher, dass diese Annotation als unpassend markiert werden
+          soll?
         title: Anmerkung als unpassend markieren
       unflag:
-        question: 'Sind Sie sicher, dass Sie die Markierung dieser Anmerkung als unpassend entfernen wollen? '
-        title: 
+        question: Sind Sie sicher, dass Sie die Markierung dieser Anmerkung als unpassend
+          entfernen wollen?
+        title: Die Markierung einer Anmerkung als unangemessen zurückziehen
     attachments:
       _form:
         dropbox:
-          connect_html: Wenn Sie einen Dropbox-Account besitzen, können Sie uns Dateien direkt aus Ihrem Dropbox-Ordner schicken. Wenn Sie diese Möglichkeit nutzen möchten, bitte < href="%{href}">verbinden Sie sich mit Ihrem Dropbox-Account.
+          connect_html: Wenn Sie einen Dropbox-Account besitzen, können Sie uns Dateien
+            direkt aus Ihrem Dropbox-Ordner schicken. Wenn Sie diese Möglichkeit nutzen
+            möchten, bitte < href="%{href}">verbinden Sie sich mit Ihrem Dropbox-Account.
           connected_html: Sie sind mit Dropbox als <strong>%{user}</strong> verbunden.
           disconnect: Verknüpfung mit Dropbox-Account aufheben
-          empty: Kopieren Sie einige Dateien in den Ordner namens "/Apps/Europeana 1914-1918" in Ihrem Dropbox-Account. Sie werden hier auftauchen, nachdem sie auf "Refresh file list" geklickt haben.
+          empty: Kopieren Sie einige Dateien in den Ordner namens "/Apps/Europeana
+            1914-1918" in Ihrem Dropbox-Account. Sie werden hier auftauchen, nachdem
+            sie auf "Refresh file list" geklickt haben.
           refresh: Dateiliste neu laden
       _summary:
         caption: Objektinformation
@@ -2281,8 +2024,9 @@ de:
         no_thumbnail: Vorschaubild wird erstellt
       attachment_help:
         flickr:
-          description: 
-          link: 
+          description: Fotos und ihre Beschreibungen von Ihrem Flickr-Benutzerkonto
+            importieren
+          link: Objekte von Flickr hinzufügen
         item1: Einzelnes Objekt bzw. einzelne Datei hinzufügen
         item1-subitem1: Dieses Objekt beschreiben
         item1-subitem2: Dateianhang hochladen
@@ -2291,7 +2035,9 @@ de:
         item2-subitem2: Sie können die Objekte individuell beschreiben.
         one-of-the-following: 'Sie können unter folgenden Optionen wählen:'
       copy:
-        instructions: Wählen Sie eine oder mehrere Objekte, die mit diesem Beitrag verknüpft sind, um sie mit den Metadaten dieses Objektes (unten angezeigt) zu überschreiben.
+        instructions: Wählen Sie eine oder mehrere Objekte, die mit diesem Beitrag
+          verknüpft sind, um sie mit den Metadaten dieses Objektes (unten angezeigt)
+          zu überschreiben.
         title: Metadaten dieses Objekts kopieren
       delete:
         question: Sind Sie sicher, dass Sie das Objekt "%{filename}" löschen möchten?
@@ -2305,12 +2051,12 @@ de:
         empty: Für diesen Beitrag wurden keine Objekte hochgeladen.
         links:
           new: Neues Objekt
-        title: 'Objekte '
+        title: Objekte
       new:
         caption: Hochgeladene Datei
         title: Neues Objekt
       show:
-        title: 'Objekt '
+        title: Objekt
     blog_posts:
       read_more: Erfahren Sie mehr
     browse:
@@ -2325,30 +2071,48 @@ de:
     collection_days:
       cant-find-collection-day: Wählen Sie einen Aktionstag.
       different-collection-day: Wählen Sie einen anderen Aktionstag.
-      in-the-meantime: Schauen Sie doch bitte in der Zwischenzeit nach früheren Aktionstagen, bei denen schon Beiträge veröffentlicht wurden.
+      in-the-meantime: Schauen Sie doch bitte in der Zwischenzeit nach früheren Aktionstagen,
+        bei denen schon Beiträge veröffentlicht wurden.
       index:
         title: Aktionstage
-      join-us: Der Aktionstag ist noch nicht beendet. Sie können noch Beiträge hochladen oder Sie schauen später nach den Beiträgen, wenn der Aktionstag beendet ist.
-      no-stories: Wir bitten um Nachsicht, aber leider sind die Beiträge von diesem Aktionstag nicht nicht online zu sehen. Unsere Mitarbeiterinnen und Mitarbeiter sind dabei, die an diesem Aktionstag gesammelten Beiträge zu bearbeiten und werden diese in Kürze veröffentlichen. Schauen Sie doch in der Zwischenzeit nach Beiträgen, die bei früheren Aktionstagen gesammelt wurden.
+      join-us: Der Aktionstag ist noch nicht beendet. Sie können noch Beiträge hochladen
+        oder Sie schauen später nach den Beiträgen, wenn der Aktionstag beendet ist.
+      no-stories: Wir bitten um Nachsicht, aber leider sind die Beiträge von diesem
+        Aktionstag nicht nicht online zu sehen. Unsere Mitarbeiterinnen und Mitarbeiter
+        sind dabei, die an diesem Aktionstag gesammelten Beiträge zu bearbeiten und
+        werden diese in Kürze veröffentlichen. Schauen Sie doch in der Zwischenzeit
+        nach Beiträgen, die bei früheren Aktionstagen gesammelt wurden.
       open-collection: Aktionstag öffnen
       select-collection-day: Auswahlliste Aktionstage
       stories: 'Beiträge:'
       view-stories: Beiträge ansehen
       visiting-information: Besucherinformation
       website: 'Webseite:'
-      what-do-you-get-content: 
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+        accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus."
       what-do-you-get-heading: Wie funktioniert es?
-      what-is-it-content: 
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
       what-is-it-heading: Was ist ein Aktionstag?
-      who-is-it-for-content: 
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
       who-is-it-for-heading: Wer kann teilnehmen?
     common:
       loading: wird geladen
-      more-like-this: 
+      more-like-this: 'Andere Objekte, an denen Sie interessiert sein könnten:'
       permanent: Diese Aktion kann nicht rückgängig gemacht werden.
     contact:
       heading: Kontakt
-      p1: Um das Projektteam von Europeana 1914-1918 zu kontaktieren, senden Sie bitte eine E-Mail an 1914-1918 [@] europeana [.] eu.
+      p1: Um das Projektteam von Europeana 1914-1918 zu kontaktieren, senden Sie bitte
+        eine E-Mail an 1914-1918 [@] europeana [.] eu.
     contacts:
       anonymous: Anonym
       edit:
@@ -2362,28 +2126,45 @@ de:
       _summary:
         caption: Zusammenfassung
       complete:
-        p1: Vielen Dank für das Einreichen Ihres Beitrags. Ihr Beitrag wird von Mitarbeitern des Projektes gesichtet und nach der Prüfung auf der Website erscheinen. Dies kann unter Umständen einige Wochen dauern. Wir bitten um Ihr Verständnis und Ihre Geduld.
+        p1: Vielen Dank für das Einreichen Ihres Beitrags. Ihr Beitrag wird von Mitarbeitern
+          des Projektes gesichtet und nach der Prüfung auf der Website erscheinen.
+          Dies kann unter Umständen einige Wochen dauern. Wir bitten um Ihr Verständnis
+          und Ihre Geduld.
         title: Beitrag abgeschlossen
       delete:
-        question: Sind Sie sicher, dass Sie den Beitrag "<strong>%{title}</strong>" komplett verwerfen möchten?
+        question: Sind Sie sicher, dass Sie den Beitrag "<strong>%{title}</strong>"
+          komplett verwerfen möchten?
         title: Beitrag verwerfen
       digital_object:
         heading: Objekte, die mit Ihrem Beitrag in Verbindung stehen
         help_text:
           add_attachment: Fügen Sie mindestens ein Objekt zu Ihrem Beitrag hinzu.
-          attachment_count: Derzeit sind <strong>%{nr_digital_objects}</strong> Objekte mit Ihrem Beitrag verbunden.
-          language: Geben Sie die im Objekt verwendete Sprache an, z.B. die in einem Tagebuch verwendete Sprache.
-          object_type: Worum handelt es sich bei dem Objekt (z.B. Gedicht, Brief, Foto)? Machen Sie möglichst konkrete Angaben.
-          save_digital: Durch Klicken auf "Objekt speichern" wird dieses Objekt gespeichert. Sie können weitere Objekte hinzufügen oder Ihren Beitrag als Ganzes senden.
-          subject: Die Person, der Ort oder der Gegenstand, auf die bzw. den oder das sich das Objekt bezieht.
-          submit_contribution1: Wenn Sie Ihren Beitrag fertiggestellt haben, <a href="#continue-to-submission">fahren Sie mit dem Senden fort</a>.
-          submit_contribution2: Durch Klicken auf "Beitrag senden" schließen Sie Ihren Beitrag ab. Sobald dieser gesendet wurde, wird er von einem Experten geprüft und für andere Personen sichtbar gemacht.
+          attachment_count: Derzeit sind <strong>%{nr_digital_objects}</strong> Objekte
+            mit Ihrem Beitrag verbunden.
+          language: Geben Sie die im Objekt verwendete Sprache an, z.B. die in einem
+            Tagebuch verwendete Sprache.
+          object_type: Worum handelt es sich bei dem Objekt (z.B. Gedicht, Brief,
+            Foto)? Machen Sie möglichst konkrete Angaben.
+          save_digital: Durch Klicken auf "Objekt speichern" wird dieses Objekt gespeichert.
+            Sie können weitere Objekte hinzufügen oder Ihren Beitrag als Ganzes senden.
+          subject: Die Person, der Ort oder der Gegenstand, auf die bzw. den oder
+            das sich das Objekt bezieht.
+          submit_contribution1: Wenn Sie Ihren Beitrag fertiggestellt haben, <a href="#continue-to-submission">fahren
+            Sie mit dem Senden fort</a>.
+          submit_contribution2: Durch Klicken auf "Beitrag senden" schließen Sie Ihren
+            Beitrag ab. Sobald dieser gesendet wurde, wird er von einem Experten geprüft
+            und für andere Personen sichtbar gemacht.
           submit_story_button: Beitrag senden
-          summary: Nachfolgend finden Sie eine Zusammenfassung der Objekte, die bereits mit diesem Beitrag verknüpft sind. Anfänglich sind keine Objekte verknüpft, Sie können aber beliebig viele hinzufügen. Sie können auch die aktuellen Objekte bearbeiten, indem Sie in der nachstehenden Liste auf den Link daneben klicken.
+          summary: Nachfolgend finden Sie eine Zusammenfassung der Objekte, die bereits
+            mit diesem Beitrag verknüpft sind. Anfänglich sind keine Objekte verknüpft,
+            Sie können aber beliebig viele hinzufügen. Sie können auch die aktuellen
+            Objekte bearbeiten, indem Sie in der nachstehenden Liste auf den Link
+            daneben klicken.
           when: Wann wurde dieses Objekt erstellt?
-          where: 'Wo wurde dieses Objekt erstellt? '
+          where: Wo wurde dieses Objekt erstellt?
         labels:
-          keywords: Erleichtern Sie anderen Personen die Suche nach Ihrem Objekt, indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
+          keywords: Erleichtern Sie anderen Personen die Suche nach Ihrem Objekt,
+            indem Sie eines oder mehrere der folgenden Schlagwörter hinzufügen.
           location_map: Ort (Karte)
           location_place_name: Ort (Name des Orts)
           save_digital: Digitales Objekt speichern
@@ -2442,12 +2223,12 @@ de:
       feed:
         entries:
           annotation:
-            item: "%{user} hat ein Bild des Objektes kommentiert %{title}"
-            story: "%{user} hat ein Bild des Beitrags kommentiert %{title}"
-          contribution: "%{user} hat den Beitrag veröffentlicht %{title}"
+            item: '%{user} hat ein Bild des Objektes kommentiert %{title}'
+            story: '%{user} hat ein Bild des Beitrags kommentiert %{title}'
+          contribution: '%{user} hat den Beitrag veröffentlicht %{title}'
           tagging:
-            item: "%{user} hat das Objekt verschlagwortet  %{title}"
-            story: "%{user} hat den Beitrag verschlagwortet %{title}"
+            item: '%{user} hat das Objekt verschlagwortet  %{title}'
+            story: '%{user} hat den Beitrag verschlagwortet %{title}'
         title: Europeana 1914-1918 Aktivität
       index:
         empty: Es gibt noch keine Beiträge, die öffentlich gezeigt werden könnten.
@@ -2465,10 +2246,11 @@ de:
             show_contribution: Beitrag ansehen
         matches-for: Ergebnis Ihrer Suche nach
         no_matches: Keine Treffer. Bitte versuchen Sie es noch einmal.
-        related-europeana: "Ähnliche Beiträge bei Europeana"
+        related-europeana: Ähnliche Beiträge bei Europeana
         result_count_label: Treffer
       show:
-        button_confirm: Sind Sie sicher, dass Sie diesen Beitrag zur Sammlung einreichen möchten?
+        button_confirm: Sind Sie sicher, dass Sie diesen Beitrag zur Sammlung einreichen
+          möchten?
         comments:
           leave: Kommentar hinterlassen
           no_comments: Noch kein Kommentar vorhanden, seien Sie der Erste ...
@@ -2476,14 +2258,16 @@ de:
           title: Kommentare
         empty_attachments: Dieser Beitrag hat keine Anhänge.
         headings:
-          share: 'Empfehlen auf '
+          share: Empfehlen auf
           submit: Beitrag einreichen
           tags: Schlagwörter
-        invalid: Dieser Beitrag kann noch nicht abgeschickt werden. Um eine Erklärung zu lesen, klicken Sie auf 'Warum nicht?'. Klicken Sie auf 'Bearbeiten', um Informationen zu ergänzen.
+        invalid: Dieser Beitrag kann noch nicht abgeschickt werden. Um eine Erklärung
+          zu lesen, klicken Sie auf 'Warum nicht?'. Klicken Sie auf 'Bearbeiten',
+          um Informationen zu ergänzen.
         links:
           new_attachment: Objekt hinzufügen
         related:
-          title: "Ähnliche Inhalte"
+          title: Ähnliche Inhalte
         shared-this-story: 'hat diese Geschichte geteilt:'
         title: Beitrag
       status:
@@ -2493,7 +2277,7 @@ de:
         label: Status
         rejected: Zurückgewiesen
         rejected_by: Zurückgewiesen durch %{name}
-        revised: "Überarbeitet"
+        revised: Überarbeitet
         submitted: Eingereicht &mdash; muss noch bestätigt werden
         title: Status log
         unknown: Unbekannt
@@ -2501,19 +2285,26 @@ de:
       story:
         complete:
           heading: Beitrag fertig gestellt
-          p1: Ihr Beitrag wurde gesendet. Vielen Dank! Er wird vom Projektteam geprüft und auf der Website veröffentlicht. Das kann je nach Anzahl der Einsendungen mehrere Wochen dauern. Vielen Dank für Ihr Verständnis und Ihre Geduld.
+          p1: Ihr Beitrag wurde gesendet. Vielen Dank! Er wird vom Projektteam geprüft
+            und auf der Website veröffentlicht. Das kann je nach Anzahl der Einsendungen
+            mehrere Wochen dauern. Vielen Dank für Ihr Verständnis und Ihre Geduld.
         help_text:
           add_another_person: Sie können mehr als eine Person hinzufügen.
-          behalf_of: Lassen Sie dieses Feld leer, außer Sie helfen jemandem bei der Erstellung dieses Beitrags.
-          save_story: Durch Klicken auf "Entwurf speichern" gelangen Sie zum folgenden Schritt.
-          sections: Klicken Sie auf die nachstehenden Bereichstitel um diese zu öffnen und zu schließen. Jeder Bereich enthält Zusatzinformationen, um die Sie Ihren Beitrag ergänzen können.
+          behalf_of: Lassen Sie dieses Feld leer, außer Sie helfen jemandem bei der
+            Erstellung dieses Beitrags.
+          save_story: Durch Klicken auf "Entwurf speichern" gelangen Sie zum folgenden
+            Schritt.
+          sections: Klicken Sie auf die nachstehenden Bereichstitel um diese zu öffnen
+            und zu schließen. Jeder Bereich enthält Zusatzinformationen, um die Sie
+            Ihren Beitrag ergänzen können.
           use_google_maps: Google Maps verwenden
         labels:
-          people: Fügen Sie die Namen der Personen hinzu, auf die sich dieser Beitrag bezieht.
+          people: Fügen Sie die Namen der Personen hinzu, auf die sich dieser Beitrag
+            bezieht.
         step1: Schritt 1 - Fügen Sie Ihren Beitrag hinzu!
       withdraw:
-        question: |
-          Möchten Sie Ihren Beitrag  “<strong>%{title}</strong>” wirklich zurückziehen?
+        question: Möchten Sie Ihren Beitrag  “<strong>%{title}</strong>” wirklich
+          zurückziehen?
         title: Beitrag zurückziehen
     contributor:
       dashboard_contributor:
@@ -2529,19 +2320,23 @@ de:
           contributions: Meine Beiträge
         links:
           new: Neuer Beitrag
-        p1: Nachfolgend finden Sie die Beiträge, die Sie bereits hinzugefügt haben. Sie können diese bei Bedarf bearbeiten oder löschen.
+        p1: Nachfolgend finden Sie die Beiträge, die Sie bereits hinzugefügt haben.
+          Sie können diese bei Bedarf bearbeiten oder löschen.
         title: Beitrag hinzufügen
       dashboard_guest:
         button_text: Beitrag beendet
         headings:
           finished: Beitrag beendet?
-        identity: (Falls Sie nicht %{name} sind, klicken Sie auf den "Beitrag beendet" Button unten.)
+        identity: (Falls Sie nicht %{name} sind, klicken Sie auf den "Beitrag beendet"
+          Button unten.)
         links:
           edit_contact: Kontaktdaten bearbeiten
           new: Neuer Beitrag
-        notice: "%{name}, Sie tragen etwas als Gast bei."
-        privacy: Wenn Sie Ihren Beitrag beendet haben, klicken Sie auf den Button unten, um Ihre Kontaktdaten zu löschen. Dies schützt Ihre Privatsphäre auf einem gemeinsam genutzten Computer.
-        title: "Übersicht für Gäste"
+        notice: '%{name}, Sie tragen etwas als Gast bei.'
+        privacy: Wenn Sie Ihren Beitrag beendet haben, klicken Sie auf den Button
+          unten, um Ihre Kontaktdaten zu löschen. Dies schützt Ihre Privatsphäre auf
+          einem gemeinsam genutzten Computer.
+        title: Übersicht für Gäste
       guests:
         edit:
           title: Gast-Kontaktdaten bearbeiten
@@ -2551,35 +2346,69 @@ de:
           links:
             register: Registrieren
             sign_in: Einloggen
-          notice: Falls Sie Ihre Kontaktdaten speichern und Ihre Beiträge nachverfolgen möchten, nachdem Sie sie abgeschickt haben, %{sign_in} oder %{register} bevor Sie fortfahren.
+          notice: Falls Sie Ihre Kontaktdaten speichern und Ihre Beiträge nachverfolgen
+            möchten, nachdem Sie sie abgeschickt haben, %{sign_in} oder %{register}
+            bevor Sie fortfahren.
           title: Gast-Kontaktdaten
       help:
         adding_your_story:
           heading: Ihren Beitrag zu Europeana 1914-1918 hinzufügen
-          p1: Sie können Ihren Beitrag zu Europeana 1914-1918 hinzufügen, indem Sie das entsprechende Online-Formular auf dieser Website verwenden. Geben Sie einfach einige Informationen zu dem Objekt ein. Geben Sie an, worum es sich dabei handelt (Postkarte aus XX, ein Tagebuch, etc.) und erzählen Sie die Geschichte dazu (z.B. um wen es sich auf dem Foto handelt, wie Sie zu dem Foto gekommen sind, was Sie über das Objekt wissen). Dann können Sie eine digitale Version des Objekts hinzufügen, z.B. einen Scan oder ein Foto von dem Bild, dem Tagebuch, der Uniform etc. Sobald Sie Ihren Beitrag eingereicht haben, wird dieser von Experten geprüft und für andere zur Verfügung gestellt.
+          p1: Sie können Ihren Beitrag zu Europeana 1914-1918 hinzufügen, indem Sie
+            das entsprechende Online-Formular auf dieser Website verwenden. Geben
+            Sie einfach einige Informationen zu dem Objekt ein. Geben Sie an, worum
+            es sich dabei handelt (Postkarte aus XX, ein Tagebuch, etc.) und erzählen
+            Sie die Geschichte dazu (z.B. um wen es sich auf dem Foto handelt, wie
+            Sie zu dem Foto gekommen sind, was Sie über das Objekt wissen). Dann können
+            Sie eine digitale Version des Objekts hinzufügen, z.B. einen Scan oder
+            ein Foto von dem Bild, dem Tagebuch, der Uniform etc. Sobald Sie Ihren
+            Beitrag eingereicht haben, wird dieser von Experten geprüft und für andere
+            zur Verfügung gestellt.
         how_to_use:
-          heading: So verwenden Sie die Benutzeroberfläche für die Online-Erfassung eines Beitrags
-          item1: "%{register}, um ein Konto zu erhalten (das ist nur einmal notwendig) oder %{sign_in}, wenn Sie sich bereits registriert haben."
+          heading: So verwenden Sie die Benutzeroberfläche für die Online-Erfassung
+            eines Beitrags
+          item1: '%{register}, um ein Konto zu erhalten (das ist nur einmal notwendig)
+            oder %{sign_in}, wenn Sie sich bereits registriert haben.'
           item2: Fügen Sie Informationen über Ihren Beitrag hinzu.
-          item3: "(optional) Hängen Sie eine digitale Version Ihres Objekts (Foto, gescannter Text, Video, Audio etc.) an."
+          item3: (optional) Hängen Sie eine digitale Version Ihres Objekts (Foto,
+            gescannter Text, Video, Audio etc.) an.
           item4: Senden Sie Ihren Beitrag zur Online-Sammlung.
-          item5: Ihr Beitrag wird von einem Bearbeiter der Europeana geprüft. Sobald Ihr Beitrag geprüft und akzeptiert wurde, wird er für andere sichtbar angezeigt.
-          p1: Um etwas zu unserer Online-Sammlung von Beiträgen hinzuzufügen, müssen Sie sich zunächst %{sign_in} oder %{register}. Danach können Sie Ihre Objekte und Beiträge zu Europeana 1914-1918 hinzufügen.
-          p2: Sie werden dabei aufgefordert, die folgenden fünf Schritte auszuführen. Sie müssen nicht den gesamten Ablauf auf einmal durchführen, sondern können Ihren Beitrag zwischenspeichern und zu einem späteren Zeitpunkt daran weiterarbeiten.
+          item5: Ihr Beitrag wird von einem Bearbeiter der Europeana geprüft. Sobald
+            Ihr Beitrag geprüft und akzeptiert wurde, wird er für andere sichtbar
+            angezeigt.
+          p1: Um etwas zu unserer Online-Sammlung von Beiträgen hinzuzufügen, müssen
+            Sie sich zunächst %{sign_in} oder %{register}. Danach können Sie Ihre
+            Objekte und Beiträge zu Europeana 1914-1918 hinzufügen.
+          p2: Sie werden dabei aufgefordert, die folgenden fünf Schritte auszuführen.
+            Sie müssen nicht den gesamten Ablauf auf einmal durchführen, sondern können
+            Ihren Beitrag zwischenspeichern und zu einem späteren Zeitpunkt daran
+            weiterarbeiten.
         item1: Ihren Beitrag zu Europeana 1914-1918 hinzufügen – Siehe unten
-        item2: "%{privacy_policy} - Separate Seite"
-        item3: "%{takedown_policy} - Separate Seite"
-        item4: "%{contribution_terms} - Separate Seite"
-        item5: "%{about_the_project} - Separate Seite"
-        p1: Das Projekt ‘Europeana 1914-1918’ sammelt online von Privatpersonen Objekte und Geschichten zum Ersten Weltkrieg (1914-1918). In der derzeitigen Phase sammeln wir Material und Beiträge aus Großbritannien, Deutschland, Slowenien, Luxemburg, Irland, Italien, Belgien, Zypern und Dänemark. Weitere Informationen zu diesem Projekt und zur Art des gesuchten Materials finden Sie auf der Seite %{about}.
+        item2: '%{privacy_policy} - Separate Seite'
+        item3: '%{takedown_policy} - Separate Seite'
+        item4: '%{contribution_terms} - Separate Seite'
+        item5: '%{about_the_project} - Separate Seite'
+        p1: Das Projekt ‘Europeana 1914-1918’ sammelt online von Privatpersonen Objekte
+          und Geschichten zum Ersten Weltkrieg (1914-1918). In der derzeitigen Phase
+          sammeln wir Material und Beiträge aus Großbritannien, Deutschland, Slowenien,
+          Luxemburg, Irland, Italien, Belgien, Zypern und Dänemark. Weitere Informationen
+          zu diesem Projekt und zur Art des gesuchten Materials finden Sie auf der
+          Seite %{about}.
       index:
-        item1: Lesen Sie die Bedingungen für Benutzerbeiträge und stimmen Sie ihnen zu.
+        item1: Lesen Sie die Bedingungen für Benutzerbeiträge und stimmen Sie ihnen
+          zu.
         item2: Fügen Sie Informationen zu Ihrem Beitrag hinzu.
-        item3: Prüfen Sie noch einmal Ihren Eintrag und laden Sie ggf. eine oder mehrere Dateien hoch (z. B. digitalisierte Bilder, Word-Dokumente, PDFs, Audiodateien, Videodateien).
-        item4: Speichern Sie Ihre Eingaben als Entwurf oder geben Sie sie sofort für die Datenbank frei.
-        p1: 'Vielen Dank, dass Sie am Projekt Europeana 1914-1918 teilnehmen möchten. Ein Objekt oder eine Geschichte beizusteuern ist ganz einfach. Klicken Sie auf „Neuer Beitrag“, um das Dialogfenster zu öffnen, das Sie in wenigen Schritten durch das Anmeldeformular führen wird:'
+        item3: Prüfen Sie noch einmal Ihren Eintrag und laden Sie ggf. eine oder mehrere
+          Dateien hoch (z. B. digitalisierte Bilder, Word-Dokumente, PDFs, Audiodateien,
+          Videodateien).
+        item4: Speichern Sie Ihre Eingaben als Entwurf oder geben Sie sie sofort für
+          die Datenbank frei.
+        p1: 'Vielen Dank, dass Sie am Projekt Europeana 1914-1918 teilnehmen möchten.
+          Ein Objekt oder eine Geschichte beizusteuern ist ganz einfach. Klicken Sie
+          auf „Neuer Beitrag“, um das Dialogfenster zu öffnen, das Sie in wenigen
+          Schritten durch das Anmeldeformular führen wird:'
       registration_required:
-        p1: Bitte %{sign_in} oder %{register} Sie sich, um Ihre Beiträge zur Europeana 1914-1918 hinzufügen zu können.
+        p1: Bitte %{sign_in} oder %{register} Sie sich, um Ihre Beiträge zur Europeana
+          1914-1918 hinzufügen zu können.
     devise:
       passwords:
         edit:
@@ -2600,7 +2429,8 @@ de:
         message: Diese externen Daten sind momentan nicht verfügbar.
         title: API Fehler
       bad_request:
-        message: Bei Ihrer Anfrage ist ein Fehler aufgetreten, sodass sie nicht bearbeitet werden konnte.
+        message: Bei Ihrer Anfrage ist ein Fehler aufgetreten, sodass sie nicht bearbeitet
+          werden konnte.
         title: Anfrage fehlgeschlagen
       federated_search_error:
         message: Daten sind momentan nicht verfügbar.
@@ -2609,52 +2439,80 @@ de:
         message: Sie haben keine Zugangsberechtigung zu den angeforderten Seiten.
         title: Zugriff verweigert
       internal_server_error:
-        message: Es ist ein Fehler aufgetreten, sodass wir Ihre Anfrage nicht bearbeiten können.
+        message: Es ist ein Fehler aufgetreten, sodass wir Ihre Anfrage nicht bearbeiten
+          können.
         title: Interner Serverfehler
       not_found:
         message: Die von Ihnen angefragte Seite wurde nicht gefunden.
         title: Nicht gefunden
       search_offline:
-        message: Die Suchfunktion ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später noch einmal.
+        message: Die Suchfunktion ist vorübergehend nicht verfügbar. Bitte versuchen
+          Sie es später noch einmal.
         title: Die Suchfunktion ist offline.
     explore:
       heading: Beiträge erkunden
       links:
-        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="‘Tagebuch’ suchen">Tagebuch</a>
-        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Ostfront Suchen>Ostfront</a>
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="‘Tagebuch’
+          suchen">Tagebuch</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="‘Ostfront’
+          suchen">Ostfront</a>
         family: <a href="contributions/search?utf8=✓&q=Familie" title="‘Familie’ suchen">Familie</a>
-        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="‘Flandern’ suchen">Flandern</a>
-        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="‘Infanterie’ suchen">Infanterie</a>
-        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="‘Orden' suchen" >Orden</a>
-        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass" title="‘Militärpass' suchen">Militärpass</a>
-        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="‘Postkarte' suchen’">Postkarte</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="‘Flandern’
+          suchen">Flandern</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="‘Infanterie’
+          suchen">Infanterie</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="‘Orden' suchen"
+          >Orden</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="‘Militärpass' suchen">Militärpass</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="‘Postkarte'
+          suchen’">Postkarte</a>
         roadshows:
-          amberg_2012_01: <a href="contributions/search?utf8=✓&q=AM15" title="Objekte vom Aktionstag Amberg">Amberg 26. Januar 2012</a>
-          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="Objekte vom Aktionstag Berlin">Berlin 2. April 2011</a>
-          dresden_2011_06: <a href="contributions/search?utf8=✓&amp;q=DD12" title="Objekte vom Aktionstag Dresden">Dresden 22. Juni 2011</a>
-          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objekte vom Aktionstag Erfurt">Erfurt 14. Juni 2011</a>
-          frankfurt_2011_03: <a href="contributions/search?utf8=✓&q=FR07" title="Objekte vom Aktionstag  Frankfurt">Frankfurt 31. März 2011</a>
-          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Objekte vom Aktionstag Kiel">Kiel 29. Juni 2011</a>
-          luxembourg_2012_03: |2
-             <a href="contributions/search?utf8=✓&q=LU16" title="Objekte vom Aktionstag Luxemburg">Luxemburg 6. März 2012</a>
-          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="Objekte vom Aktionstag München">München 6. April 2011</a>
-          preston_2012_03: <a href="contributions/search?utf8=✓&q=PR17" title="Objekte vom Aktionstag Preston">Preston 10. März 2012</a>
-          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objekte vom Aktionstag Regensburg">Regensburg 20. Juli 2011</a>
-          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objekte vom Aktionstag Stuttgart">Stuttgart 12. April 2011</a>
-        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Schützengraben' suchen">Schützengraben</a>
+          amberg_2012_01: <a href="contributions/search?utf8=✓&q=AM15" title="Objekte
+            vom Aktionstag Amberg">Amberg 26. Januar 2012</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="Objekte
+            vom Aktionstag Berlin">Berlin 2. April 2011</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&amp;q=DD12" title="Objekte
+            vom Aktionstag Dresden">Dresden 22. Juni 2011</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objekte
+            vom Aktionstag Erfurt">Erfurt 14. Juni 2011</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&q=FR07" title="Objekte
+            vom Aktionstag  Frankfurt">Frankfurt 31. März 2011</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Objekte
+            vom Aktionstag Kiel">Kiel 29. Juni 2011</a>
+          luxembourg_2012_03: ' <a href="contributions/search?utf8=✓&q=LU16" title="Objekte
+            vom Aktionstag Luxemburg">Luxemburg 6. März 2012</a>'
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="Objekte
+            vom Aktionstag München">München 6. April 2011</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&q=PR17" title="Objekte
+            vom Aktionstag Preston">Preston 10. März 2012</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objekte
+            vom Aktionstag Regensburg">Regensburg 20. Juli 2011</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objekte
+            vom Aktionstag Stuttgart">Stuttgart 12. April 2011</a>
+        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Schützengraben'
+          suchen">Schützengraben</a>
       p1: Hier sehen Sie, was bisher zu unserer Sammlung hinzugefügt wurde.
-      p2: Verwenden Sie das Suchfeld, um Objekte zu finden, die <b>einem bestimmten Wort oder einer bestimmten Phrase entsprechen</b>. Um <b>alles anzuzeigen</b>, was bislang zur Sammlung hinzugefügt wurde, klicken Sie auf ‘Suchen’ und lassen Sie das Feld leer.
-      p3: Sie können auch <b>durch die Sammlung der Beiträge blättern</b>. Klicken Sie nachstehend auf ein Beispiel für einen Suchbegriff, um eine Suche für den jeweiligen Begriff durchzuführen. Die Anzahl der Suchergebnisse wird größer, je mehr Beiträge zum Archiv hinzukommen.
-      p5: "<b>Material, das bei öffentlichen Aktionstagen gesammelt wurde:</b>"
-      search_for: "<b>Suchen nach:</b>"
+      p2: Verwenden Sie das Suchfeld, um Objekte zu finden, die <b>einem bestimmten
+        Wort oder einer bestimmten Phrase entsprechen</b>. Um <b>alles anzuzeigen</b>,
+        was bislang zur Sammlung hinzugefügt wurde, klicken Sie auf ‘Suchen’ und lassen
+        Sie das Feld leer.
+      p3: Sie können auch <b>durch die Sammlung der Beiträge blättern</b>. Klicken
+        Sie nachstehend auf ein Beispiel für einen Suchbegriff, um eine Suche für
+        den jeweiligen Begriff durchzuführen. Die Anzahl der Suchergebnisse wird größer,
+        je mehr Beiträge zum Archiv hinzukommen.
+      p5: <b>Material, das bei öffentlichen Aktionstagen gesammelt wurde:</b>
+      search_for: <b>Suchen nach:</b>
     flickr:
       select:
-        instruction: Markieren Sie die Fotos, die Sie importieren wollen. Die Titel und Beschreibungen werden automatisch importiert.
+        instruction: Markieren Sie die Fotos, die Sie importieren wollen. Die Titel
+          und Beschreibungen werden automatisch importiert.
         licenses:
-          heading: 'Fotos vom Flickr Account auswählen '
+          heading: Fotos vom Flickr Account auswählen
           incompatible: inkompatible Lizenz
-          instruction: 'Nur Fotos mit den folgenden kompatiblen Lizenzen dürfen in Europeana 1914-1918 importiert werden:'
-        title: 'Fotos vom Flickr Account auswählen '
+          instruction: 'Nur Fotos mit den folgenden kompatiblen Lizenzen dürfen in
+            Europeana 1914-1918 importiert werden:'
+        title: Fotos vom Flickr Account auswählen
       show:
         action:
           link: Link mit Flickr Account herstellen
@@ -2663,15 +2521,20 @@ de:
           linked: Sie sind bei Flickr eingeloggt als %{username}
           unlinked: Sie sind bei Flickr nicht eingeloggt
     home:
-      heading: 'Ihre Familiengeschichte zum Ersten Weltkrieg '
+      heading: Ihre Familiengeschichte zum Ersten Weltkrieg
       links:
         across_europe: ganz Europa
         video_guide: Schritt-für-Schritt-Videoanleitung
       otto:
-        heading: 'Otto & Bernard '
-        p1: Falls Sie Informationen über Otto Arndt haben, %{add_your_story} zur Online-Sammlung hinzu und lassen Sie andere daran teilhaben.
-      p1: "<em>Europeana 1914-1918</em> sammelt Material aus %{across_europe}."
-      p2: "<b>Haben Sie Bilder, Briefe, Postkarten, Erinnerungsstücke oder andere Objekte aus der Zeit von 1914 bis 1918 mit Bezug zum Ersten Weltkrieg? Möchten Sie eine Geschichte oder Anekdote über Personen erzählen, die vom Ersten Weltkrieg betroffen waren? Dann fügen Sie diese zur  Online-Sammlung hinzu, um alle daran teilhaben zu lassen.</b>"
+        heading: Otto & Bernard
+        p1: Falls Sie Informationen über Otto Arndt haben, %{add_your_story} zur Online-Sammlung
+          hinzu und lassen Sie andere daran teilhaben.
+      p1: <em>Europeana 1914-1918</em> sammelt Material aus %{across_europe}.
+      p2: <b>Haben Sie Bilder, Briefe, Postkarten, Erinnerungsstücke oder andere Objekte
+        aus der Zeit von 1914 bis 1918 mit Bezug zum Ersten Weltkrieg? Möchten Sie
+        eine Geschichte oder Anekdote über Personen erzählen, die vom Ersten Weltkrieg
+        betroffen waren? Dann fügen Sie diese zur  Online-Sammlung hinzu, um alle
+        daran teilhaben zu lassen.</b>
     links:
       back: Zurück zu %{link}
       back-to-search: Zurück zu den Suchergebnissen
@@ -2679,13 +2542,16 @@ de:
       privacy_policy: Datenschutzbestimmungen
     register:
       help_text:
-        email: Sie melden sich mit dieser E-Mail-Adresse und dem von Ihnen festgelegten Passwort an.
+        email: Sie melden sich mit dieser E-Mail-Adresse und dem von Ihnen festgelegten
+          Passwort an.
         password: Das Passwort muss sechs Zeichen enthalten.
         profile_image: |-
           Dieses Bild wird neben Ihren Beiträgen angezeigt<br/>
           max. Dateigröße = 128kb
-        profile_photo: Wenn Sie möchten, können Sie ein Bild von sich hochladen (GIF oder JPEG). Das Bild wird neben Ihren Beiträgen angezeigt.
-        user_name: Dieses wird öffentlich als Nachweis neben den genehmigten Beiträgen angezeigt.
+        profile_photo: Wenn Sie möchten, können Sie ein Bild von sich hochladen (GIF
+          oder JPEG). Das Bild wird neben Ihren Beiträgen angezeigt.
+        user_name: Dieses wird öffentlich als Nachweis neben den genehmigten Beiträgen
+          angezeigt.
       labels:
         age_range: Ihre Altersgruppe
         email: E-Mail
@@ -2701,14 +2567,29 @@ de:
       terms:
         accept: Ich akzeptiere die %{terms}
         heading: Europeana Bedingungen für Benutzerbeiträge
-        item1: das von Ihnen eingereichte digitale Material ist nicht urheberrechtlich geschützt; oder
+        item1: das von Ihnen eingereichte digitale Material ist nicht urheberrechtlich
+          geschützt; oder
         item2: Sie haben die Rechte an diesem digitalen Material; oder
-        item3: der Eigentümer dieser Rechte hat Sie befugt, das digitale Material unter den folgenden Bedingungen einzureichen.
-        item4: Für die Inhalte, die Sie bereitstellen (wie etwa Videos, Fotos, Tagebücher, Bilder oder Audiomaterial), gestatten Sie jedermann die Verwendung dieser Inhalte in nahezu beliebiger Form. Diese Personen müssen die Inhalte jedoch den entsprechenden Rechteinhabern zuschreiben. Wenn diese Personen Änderungen an den Inhalten vornehmen, müssen sie anderen die Verwendung der geänderten Inhalte unter denselben Bedingungen gestatten.
-        item5: Für die beschreibenden Daten (wie Beschreibungen oder Schlagwörter), die Sie bereitstellen, damit Ihre Inhalte von Suchmaschinen gefunden werden, erlauben Sie jedermann die Verwendung dieser beschreibenden Daten in nahezu beliebiger Form ohne weitere Einschränkungen.
-        p1: 'Bevor Sie digitales Material für Europeana zur Verfügung stellen können, müssen Sie sich mit den %{contribution_terms} einverstanden erklären. Zu den wichtigsten Konsequenzen einer Einverständniserklärung mit den vorliegenden Bestimmungen zählen:'
-        p2: "<b>Sie garantieren, dass:</b>"
-        p3: Wenn Sie mit diesen Allgemeinen Geschäftsbedingungen nicht einverstanden sind, stellen Sie bitte keine Inhalte oder beschreibenden Daten für Europeana zur Verfügung.
+        item3: der Eigentümer dieser Rechte hat Sie befugt, das digitale Material
+          unter den folgenden Bedingungen einzureichen.
+        item4: Für die Inhalte, die Sie bereitstellen (wie etwa Videos, Fotos, Tagebücher,
+          Bilder oder Audiomaterial), gestatten Sie jedermann die Verwendung dieser
+          Inhalte in nahezu beliebiger Form. Diese Personen müssen die Inhalte jedoch
+          den entsprechenden Rechteinhabern zuschreiben. Wenn diese Personen Änderungen
+          an den Inhalten vornehmen, müssen sie anderen die Verwendung der geänderten
+          Inhalte unter denselben Bedingungen gestatten.
+        item5: Für die beschreibenden Daten (wie Beschreibungen oder Schlagwörter),
+          die Sie bereitstellen, damit Ihre Inhalte von Suchmaschinen gefunden werden,
+          erlauben Sie jedermann die Verwendung dieser beschreibenden Daten in nahezu
+          beliebiger Form ohne weitere Einschränkungen.
+        p1: 'Bevor Sie digitales Material für Europeana zur Verfügung stellen können,
+          müssen Sie sich mit den %{contribution_terms} einverstanden erklären. Zu
+          den wichtigsten Konsequenzen einer Einverständniserklärung mit den vorliegenden
+          Bestimmungen zählen:'
+        p2: <b>Sie garantieren, dass:</b>
+        p3: Wenn Sie mit diesen Allgemeinen Geschäftsbedingungen nicht einverstanden
+          sind, stellen Sie bitte keine Inhalte oder beschreibenden Daten für Europeana
+          zur Verfügung.
         terms: Geschäftsbedingungen
     search:
       facets:
@@ -2744,25 +2625,25 @@ de:
           data_provider: Institution
           reusability: Nachnutzbarkeit
           source_all: Alle Dokumente
-          source_info: Sie erhalten weitere Filtermöglichkeiten, nachdem Sie eine der beiden Quellenoptionen gewählt haben.
+          source_info: Sie erhalten weitere Filtermöglichkeiten, nachdem Sie eine
+            der beiden Quellenoptionen gewählt haben.
           source_institution: aus Archiven, Bibliotheken und Museen
           source_label: Quelle
           source_ugc: von Privatpersonen
           ugc: User Generated Content
-          uri: 
         matches_for: Treffer für Ihre Suche
         refine_results: Verfeinern Sie Ihre Suche
         trove:
           availability: Verfügbarkeit
           discipline: Kunstdisziplin
       providers:
-        canadiana: aus Canadiana
+        canadiana: Kanadische Quellen
         collection: aus Europeana
         contributions: 1914-1918
         digitalnz: aus Neuseeland (DigitalNZ)
         dpla: aus den USA (DPLA)
         europeana: Europeana Portal
-        trove: 'aus Australien (Trove) '
+        trove: aus Australien (Trove)
     statistics:
       index:
         contributions:
@@ -2794,7 +2675,8 @@ de:
         actions: Aktionen
     taggings:
       depublish:
-        question: Sind Sie sicher, dass Sie dieses Schlagwort in diesem Beitrag verbergen wollen?
+        question: Sind Sie sicher, dass Sie dieses Schlagwort in diesem Beitrag verbergen
+          wollen?
         title: Schlagwort verbergen
       edit:
         title: Schlagwörter bearbeiten
@@ -2807,7 +2689,6 @@ de:
         question: Wollen Sie dieses Schlagwort wirklich zum Löschen vorschlagen?
         title: Löschungsvorschlag
       info: Schlagwörter mit Komma trennen
-    test-key: 
     users:
       _summary:
         caption: Anmeldedaten
@@ -2818,7 +2699,8 @@ de:
           edit_user: Anmeldedaten bearbeiten
         title: Ihr Konto
       sign-in:
-        help: Melden Sie sich entweder mit Ihrem Benutzernamen oder Ihrer E-Mail-Adresse an. Sie brauchen nicht beide zu verwenden.
+        help: Melden Sie sich entweder mit Ihrem Benutzernamen oder Ihrer E-Mail-Adresse
+          an. Sie brauchen nicht beide zu verwenden.
   will_paginate:
     entry_range_label: Ergebnisse %{first}-%{last} von %{total}
     first_title: Erste Seite
@@ -2827,18 +2709,20 @@ de:
     next_title: Nächste Seite
     page_entries_info:
       multi_page: Zeige %{model} %{from} - %{to} von %{count} insgesamt
-      multi_page_html: Zeige %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> von <b>%{count}</b> insgesamt
+      multi_page_html: Zeige %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> von <b>%{count}</b>
+        insgesamt
       single_page:
         one: Zeige 1 %{model}
-        other: Zeige alle %{count} %{model}
         zero: Kein(e) %{model} gefunden
+        other: Zeige alle %{count} %{model}
       single_page_html:
         one: Zeige <b>1</b> %{model}
-        other: Zeige <b>alle&nbsp;%{count}</b> %{model}
         zero: Kein(e) %{model} gefunden
-    page_gap: "&hellip;"
+        other: Zeige <b>alle&nbsp;%{count}</b> %{model}
+    page_gap: '&hellip;'
     page_total_label: von %{total_pages}
     per_page_label: 'Ergebnisse pro Seite:'
     per_page_title: Zahl der Ergebnisse, die auf der Seite gezeigt werden
-    previous_label: "← Vorige"
+    previous_label: ← Vorige
     previous_title: Vorige Seite
+...

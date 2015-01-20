@@ -1,6 +1,5 @@
 #encoding: UTF-8
 { :en => {
-
     :countries => {
 			:AC => "Ascension Island",
 			:AD => "Andorra",
@@ -272,7 +271,6 @@
 			:ZM => "Zambia",
 			:ZW => "Zimbabwe",
 			:ZZ => "Unknown Region",
-    } 
-
+    }
   }
 }
