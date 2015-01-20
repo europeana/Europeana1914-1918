@@ -1,4 +1,4 @@
-/*global anno, europeana, I18n, jQuery, L, RunCoCo */
+/*global anno, console, europeana, I18n, jQuery, L, RunCoCo */
 /*jslint browser: true, white: true */
 (function( $ ) {
 
@@ -50,9 +50,6 @@
 	 * take the user to the pdf viewer page
 	 */
 	mimetype = {
-		carousel_reveal_count: 0,
-		carousel_reveal_max_count: 100,
-		carousel_reveal_wait: 100,
 		$items: $('#institution-featured a'),
 		itemsHandled: 0,
 		itemsTotal: 0,
@@ -146,22 +143,7 @@
 		},
 
 		revealCarousel: function() {
-			if ( carousel.$featured_carousel !== null ) {
-				carousel.$featured_carousel.hideOverlay();
-			} else {
-				mimetype.carousel_reveal_count += 1;
-
-				if ( mimetype.carousel_reveal_count >= mimetype.carousel_reveal_max_count ) {
-					return;
-				}
-
-				setTimeout(
-					function() {
-						mimetype.revealCarousel();
-					},
-					mimetype.carousel_reveal_wait
-				);
-			}
+			carousel.$featured_carousel.hideOverlay();
 		}
 	},
 
@@ -238,12 +220,37 @@
 		},
 
 		init: function() {
+			photoGallery.checkHash();
+		}
+	},
+
+
+	/**
+	 * the carousel.$featured_carousel is sometimes not properly initialized
+	 *
+	 * @link https://www.assembla.com/spaces/europeana-1914-1918/tickets/501
+	 */
+	featuredCarouselHelper = {
+		reinit_count: 0,
+		reinit_max_count: 10,
+		reinit_wait: 100,
+
+		init: function() {
 			if ( carousel.$featured_carousel !== null ) {
-				photoGallery.checkHash();
+				mimetype.init(); // lightbox is now initialized within this object
+				photoGallery.init();
 			} else {
+				europeana.carousel.init( $('#institution-featured') );
+				this.reinit_count += 1;
+
+				if ( this.reinit_count >= this.reinit_max_count ) {
+					console.log( 'featuredCarouselHelper::init(), reached reinit max count' );
+					return;
+				}
+
 				setTimeout(
-					photoGallery.init,
-					100
+					featuredCarouselHelper.init,
+					featuredCarouselHelper.reinit_wait
 				);
 			}
 		}
@@ -279,8 +286,7 @@
 	europeana.translator.init( '.translate-area', '#story-metadata > .translate' );
 	europeana.embedly.init();
 	europeana.carousel.init( $('#institution-featured') );
-	mimetype.init(); // lightbox is now initialized within this object
-	photoGallery.init();
+	featuredCarouselHelper.init();
 	leaflet.init();
 	more_like_this.init( 'more-like-this' );
 
