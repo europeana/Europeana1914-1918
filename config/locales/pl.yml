@@ -331,113 +331,10 @@ pl:
       total: Razem
     "yes": Tak
   date:
-    abbr_day_names:
-    - nd
-    - pn
-    - wt
-    - śr
-    - czw
-    - pt
-    - sob
-    abbr_month_names:
-      1: sty
-      2: lut
-      3: mar
-      4: kwi
-      5: maj
-      6: cze
-      7: lip
-      8: sie
-      9: wrz
-      10: paź
-      11: lis
-      12: gru
-    day_names:
-    - niedziela
-    - poniedziałek
-    - wtorek
-    - środa
-    - czwartek
-    - piątek
-    - sobota
     formats:
-      default: '%d-%m-%Y'
-      long: '%B %d, %Y'
       long_with_day: '%a. %d %B %Y'
       month_and_year: '%B %Y'
       quarter: '%{number}. kwartał  %Y'
-      short: '%d %b'
-    month_names:
-      1: styczeń
-      2: luty
-      3: marzec
-      4: kwiecień
-      5: maj
-      6: czerwiec
-      7: lipiec
-      8: sierpień
-      9: wrzesień
-      10: październik
-      11: listopad
-      12: grudzień
-    order:
-    - :day
-    - :month
-    - :year
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        few: około %{count} godziny
-        one: około godziny
-        other: około %{count} godzin
-      about_x_months:
-        few: około %{count} miesiące
-        one: około miesiąca
-        other: około %{count} miesięcy
-      about_x_years:
-        few: około %{count} lata
-        one: około rok
-        other: około %{count} lat
-      almost_x_years:
-        few: prawie %{count} lata
-        one: prawie rok
-        other: prawie %{count} lat
-      half_a_minute: pół minuty
-      less_than_x_minutes:
-        few: mniej niż %{count} minuty
-        one: mniej niż minutę
-        other: mniej niż %{count} minut
-      less_than_x_seconds:
-        few: mniej niż %{count} sekundy
-        one: mniej niż sekundę
-        other: mniej niż %{count} sekund
-      over_x_years:
-        few: ponad %{count} lata
-        one: ponad rok
-        other: ponad %{count} lat
-      x_days:
-        few: '%{count} dni'
-        one: 1 dzień
-        other: '%{count} dni'
-      x_minutes:
-        few: '%{count} minuty'
-        one: 1 minuta
-        other: '%{count} minut'
-      x_months:
-        few: '%{count} miesiące'
-        one: 1 miesiąc
-        other: '%{count} miesięcy'
-      x_seconds:
-        few: '%{count} sekundy'
-        one: 1 sekunda
-        other: '%{count} sekund'
-    prompts:
-      day: Dzień
-      hour: Godzina
-      minute: Minuta
-      month: Miesiąc
-      second: Sekundy
-      year: Rok
   devise:
     failure:
       admin:
@@ -463,37 +360,6 @@ pl:
       link: Zaloguj
       signed_in: Udało Ci się pomyślnie zalogować
       signed_out: Zostałeś pomyślnie wylogowany
-  errors:
-    format: '%{attribute} %{message}'
-    messages:
-      accepted: musi zostać zaakceptowane
-      blank: nie może być puste
-      confirmation: niezgodne z potwierdzeniem
-      empty: nie może być puste
-      equal_to: musi być równe %{count}
-      even: musi być parzyste
-      exclusion: jest niedostępne
-      greater_than: musi być większe od %{count}
-      greater_than_or_equal_to: musi być większe lub równe %{count}
-      inclusion: nie jest dopuszczalną wartością
-      invalid: jest nieprawidłowe
-      less_than: musi być mniejsze od %{count}
-      less_than_or_equal_to: musi być mniejsze lub równe %{count}
-      not_a_number: nie jest liczbą
-      not_an_integer: musi być liczbą całkowitą
-      odd: musi być nieparzyste
-      record_invalid: 'Sprawdzanie poprawności nie powiodło się: %{errors}'
-      taken: jest już zajęty
-      too_long: jest za długie (maksymalnie %{count} znaków)
-      too_short: jest za krótkie (przynajmniej %{count} znaków)
-      wrong_length:
-        one: ma nieprawidłową długość (powinna wynosić %{count} znaków)
-        other: ma nieprawidłową długość (powinna wynosić %{count} znaków)
-    template:
-      body: 'Błędy dotyczą następujących pól:'
-      header:
-        one: '%{model} nie został zachowany z powodu jednego błędu'
-        other: '%{model} nie został zachowany z powodu %{count} błędów'
   flash:
     actions:
       create:
@@ -1271,13 +1137,6 @@ pl:
       submit: Wyślij historię
     update: Aktualizuj %{model}
     "yes": Tak
-  helpers:
-    select:
-      prompt: Proszę wybrać
-    submit:
-      create: Utwórz %{model}
-      submit: Zapisz %{model}
-      update: Aktualizuj %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1414,52 +1273,6 @@ pl:
     unknown: Nieznany typ dokumentu
     video: Plik video
     wordprocessing: Opracowany dokument tekstowy
-  number:
-    currency:
-      format:
-        delimiter: .
-        format: '%u %n'
-        precision: "2"
-        separator: .
-        strip_insignificant_zeros: "1"
-        unit: PLN
-    format:
-      delimiter: ' .'
-      precision: "2"
-      separator: .
-    human:
-      decimal_units:
-        format: '%n %u'
-        units:
-          billion: Miliard
-          million:
-            few: Milionów
-            one: Milion
-            other: Milion
-          quadrillion:
-            few: Biliardów
-            one: Biliard
-            other: Biliard
-          thousand: Tysiąc
-          trillion:
-            few: Bilionów
-            one: Bilion
-            other: Bilion
-      format:
-        precision: "3"
-        significant: "1"
-        strip_insignificant_zeros: "1"
-      storage_units:
-        format: '%n %u'
-        units:
-          byte:
-            few: bajtów
-            one: bajt
-            other: bajt
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
   settings:
     allowed_upload_extensions: Dopuszczalne typy plików do załadowania
     banner_active: Aktywowano komunikat o  przeprowadzeniu konserwacji
@@ -1482,20 +1295,11 @@ pl:
     ui_locales: Dostępne wersje językowe
     uploadify: Aktywuj Uploadify
   support:
-    array:
-      last_word_connector: ' oraz'
-      two_words_connector: ' i'
-      words_connector: ','
     select:
       prompt: Proszę wybrać
   time:
-    am: przed południem
     formats:
-      default: '%a, %d %b %Y %H:%M:%S %z'
-      long: '%B %d, %Y %H:%M'
-      short: '%d %b %H:%M'
       timestamp: '%Y-%m-%d %H:%M'
-    pm: po południu
   views:
     about:
       background:

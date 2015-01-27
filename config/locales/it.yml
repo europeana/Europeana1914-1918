@@ -344,102 +344,10 @@ it:
       total: totale
     "yes": sì
   date:
-    abbr_day_names:
-    - Dom
-    - Lun
-    - Mar
-    - Mer
-    - Gio
-    - Ven
-    - Sab
-    abbr_month_names:
-      1: gen
-      2: feb
-      3: mar
-      4: apr
-      5: mag
-      6: giu
-      7: lug
-      8: ago
-      9: set
-      10: ott
-      11: nov
-      12: dic
-    day_names:
-    - Domenica
-    - Lunedì
-    - Martedì
-    - Mercoledì
-    - Giovedì
-    - Venerdì
-    - Sabato
     formats:
-      default: '%d-%m-%Y'
-      long: '%d %B %Y'
       long_with_day: '%a, %d %B %Y'
       month_and_year: '%B %Y'
       quarter: Quarter %{number} %Y
-      short: '%d %b'
-    month_names:
-      1: Gennaio
-      2: Febbraio
-      3: Marzo
-      4: Aprile
-      5: Maggio
-      6: Giugno
-      7: Luglio
-      8: Agosto
-      9: Settembre
-      10: Ottobre
-      11: Novembre
-      12: Dicembre
-    order:
-    - :day
-    - :month
-    - :year
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: circa un'ora
-        other: circa %{count} ore
-      about_x_months:
-        one: circa un mese
-        other: circa %{count} mesi
-      about_x_years:
-        one: circa un anno
-        other: circa %{count} anni
-      almost_x_years:
-        one: circa 1 anno
-        other: circa %{count} anni
-      half_a_minute: mezzo minuto
-      less_than_x_minutes:
-        one: meno di un minuto
-        other: meno di %{count} minuti
-      less_than_x_seconds:
-        one: meno di un secondo
-        other: meno di %{count} secondi
-      over_x_years:
-        one: oltre un anno
-        other: oltre %{count} anni
-      x_days:
-        one: 1 giorno
-        other: '%{count} giorni'
-      x_minutes:
-        one: 1 minuto
-        other: '%{count} minuti'
-      x_months:
-        one: 1 mese
-        other: '%{count} mesi'
-      x_seconds:
-        one: 1 secondo
-        other: '%{count} secondi'
-    prompts:
-      day: Giorno
-      hour: Ora
-      minute: Minuto
-      month: Mese
-      second: Secondi
-      year: Anno
   devise:
     failure:
       admin:
@@ -468,41 +376,6 @@ it:
       link: entra
       signed_in: entrato con successo
       signed_out: uscito con successo
-  errors:
-    format: '%{attribute} %{message}'
-    messages:
-      accepted: deve essere accettato
-      blank: non può essere lasciato in bianco
-      confirmation: non coincide con la conferma
-      empty: non può essere vuoto
-      equal_to: deve essere uguale a %{count}
-      even: deve essere pari
-      exclusion: è riservato
-      greater_than: deve essere superiore a %{count}
-      greater_than_or_equal_to: deve essere superiore o uguale a %{count}
-      inclusion: non è incluso nella lista
-      invalid: non è valido
-      less_than: deve essere meno di %{count}
-      less_than_or_equal_to: deve essere meno o uguale a %{count}
-      not_a_number: non è un numero
-      not_an_integer: deve essere un numero intero
-      odd: deve essere dispari
-      record_invalid: 'Validazione fallita: %{errors}'
-      taken: è già in uso
-      too_long:
-        one: è troppo lungo (il massimo è 1 carattere)
-        other: è troppo lungo (il massimo è %{count} caratteri)
-      too_short:
-        one: è troppo corto (il minimo è 1 carattere)
-        other: è troppo corto (il minimo è %{count} caratteri)
-      wrong_length:
-        one: è della lunghezza sbagliata (deve essere di 1 carattere)
-        other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
-    template:
-      body: 'Per favore ricontrolla i seguenti campi:'
-      header:
-        one: 'Non posso salvare questo %{model}: 1 errore'
-        other: 'Non posso salvare questo %{model}: %{count} errore 1.'
   flash:
     actions:
       create:
@@ -1115,13 +988,6 @@ it:
       submit: presenta la tua storia
     update: aggiorna %{model}
     "yes": sì
-  helpers:
-    select:
-      prompt: Per favore, seleziona
-    submit:
-      create: Crea %{model}
-      submit: salva %{model}
-      update: Aggiorna %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1244,41 +1110,6 @@ it:
     unknown: tipologia di documento sconosciuta
     video: file video
     wordprocessing: documento Word
-  number:
-    currency:
-      format:
-        delimiter: ','
-        format: '%n %u'
-        precision: "2"
-        separator: .
-        unit: €
-    format:
-      delimiter: ','
-      precision: "2"
-      separator: .
-    human:
-      decimal_units:
-        format: '%n %u'
-        units:
-          billion: Miliardi
-          million: Milioni
-          quadrillion: Biliardi
-          thousand: Mila
-          trillion: Bilioni
-      format:
-        precision: "1"
-        significant: "1"
-        strip_insignificant_zeros: "1"
-      storage_units:
-        format: '%n %u'
-        units:
-          byte:
-            one: Byte
-            other: Byte
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
   settings:
     allowed_upload_extensions: Tipi di caricamenti permessi
     banner_active: Banner di manutenzione attivato
@@ -1301,20 +1132,11 @@ it:
     ui_locales: Locali disponibili
     uploadify: attiva Uploadify
   support:
-    array:
-      last_word_connector: ' e'
-      two_words_connector: ' e'
-      words_connector: ','
     select:
       prompt: Per favore, seleziona
   time:
-    am: am
     formats:
-      default: '%a %d %b %Y, %H:%M:%S %z'
-      long: '%d %B %Y %H:%M'
-      short: '%d %b %H:%M'
       timestamp: '%anno-%mese-%giorno %ora:%minuti'
-    pm: pm
   views:
     about:
       background:

@@ -347,104 +347,10 @@ fr:
       total: Total
     "yes": Oui
   date:
-    abbr_day_names:
-    - dim
-    - lun
-    - mar
-    - mer
-    - jeu
-    - ven
-    - sam
-    abbr_month_names:
-      1: jan.
-      2: fév.
-      3: mar.
-      4: avr.
-      5: mai
-      6: juin
-      7: juil.
-      8: août
-      9: sept.
-      10: oct.
-      11: nov.
-      12: déc.
-    day_names:
-    - dimanche
-    - lundi
-    - mardi
-    - mercredi
-    - jeudi
-    - vendredi
-    - samedi
     formats:
-      default: '%Y-%m-%d'
-      long: '%e %B %Y'
       long_with_day: '%a, %d %B %Y'
       month_and_year: '%B %Y'
       quarter: Trimestre %{number} %Y
-      short: '%e %b'
-    month_names:
-      1: janvier
-      2: février
-      3: mars
-      4: avril
-      5: mai
-      6: juin
-      7: juillet
-      8: août
-      9: septembre
-      10: octobre
-      11: novembre
-      12: décembre
-    order:
-    - :year
-    - :month
-    - :day
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: environ une heure
-        other: environ %{count} Â heures
-      about_x_months:
-        one: environ un mois
-        other: environ %{count} Â mois
-      about_x_years:
-        one: environ un an
-        other: environ %{count} Â ans
-      almost_x_years:
-        one: presqu'un an
-        other: presque %{count} ans
-      half_a_minute: une demi-minute
-      less_than_x_minutes:
-        one: moins d'une Â minute
-        zero: moins d'une Â  minute
-        other: moins de %{count} Â minutes
-      less_than_x_seconds:
-        one: moins d'une Â seconde
-        zero: moins d'une seconde
-        other: moins de %{count} Â secondes
-      over_x_years:
-        one: plus d'un an
-        other: plus de %{count} ans
-      x_days:
-        one: 1 jour
-        other: '%{count} jours'
-      x_minutes:
-        one: 1 minute
-        other: '%{count} minutes'
-      x_months:
-        one: 1 mois
-        other: '%{count} mois'
-      x_seconds:
-        one: 1 seconde
-        other: '%{count} secondes'
-    prompts:
-      day: Jour
-      hour: Heure
-      minute: Minute
-      month: Mois
-      second: Seconde
-      year: Année
   devise:
     failure:
       admin:
@@ -471,41 +377,6 @@ fr:
       link: Identifiez-vous
       signed_in: Connexion réussie.
       signed_out: Déconnexion réussie.
-  errors:
-    format: Le %{attribute} %{message}
-    messages:
-      accepted: doit être accepté(e)
-      blank: ne peut être vierge
-      confirmation: ne concorde pas avec la confirmation
-      empty: doit être rempli(e)
-      equal_to: doit être égal à %{count}
-      even: doit être pair
-      exclusion: n'est pas disponible
-      greater_than: doit être supérieur à %{count}
-      greater_than_or_equal_to: doit être supérieur ou égal à %{count}
-      inclusion: n'est pas inclus(e) dans la liste
-      invalid: n'est pas valide
-      less_than: doit être inférieur à %{count}
-      less_than_or_equal_to: doit être inférieur ou égal à %{count}
-      not_a_number: n'est pas un nombre
-      not_an_integer: doit être un nombre entier
-      odd: doit être impair
-      record_invalid: 'Échec de la validation : %{errors}'
-      taken: n'est pas disponible
-      too_long:
-        one: est trop long (pas plus d'un caractère)
-        other: est trop long (pas plus de %{count} caractères)
-      too_short:
-        one: est trop court (au moins un caractère)
-        other: est trop court (au moins %{count} caractères)
-      wrong_length:
-        one: ne fait pas la bonne longueur (doit comporter un seul caractère)
-        other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
-    template:
-      body: 'Des problèmes sont survenus pour les champs suivants :'
-      header:
-        one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
-        other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
   flash:
     actions:
       create:
@@ -1125,13 +996,6 @@ fr:
       submit: Proposez votre histoire
     update: Actualisez %{model}
     "yes": Oui
-  helpers:
-    select:
-      prompt: Veuillez sélectionner
-    submit:
-      create: Créer un(e) %{model}
-      submit: Enregistrez ce(tte) %{model}
-      update: Modifier ce(tte) %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1272,57 +1136,6 @@ fr:
     unknown: Type de document inconnu
     video: Fichier vidéo
     wordprocessing: Document Word
-  number:
-    currency:
-      format:
-        delimiter: ','
-        format: '%n %u'
-        precision: "2"
-        separator: ','
-        significant: |-
-          --- faux
-          ...
-        strip_insignificant_zeros: |-
-          --- faux
-          ...
-        unit: £
-    format:
-      delimiter: ','
-      precision: "2"
-      separator: ','
-      significant: |-
-        --- faux
-        ...
-      strip_insignificant_zeros: |-
-        --- faux
-        ...
-    human:
-      decimal_units:
-        format: '%n %u'
-        units:
-          billion: milliard
-          million: million
-          quadrillion: million de milliards
-          thousand: millier
-          trillion: billion
-          unit: .
-      format:
-        delimiter: .
-        precision: "3"
-        significant: |-
-          --- vrai
-          ...
-        strip_insignificant_zeros: "1"
-      storage_units:
-        format: '%n %u'
-        units:
-          byte:
-            one: octet
-            other: octets
-          gb: Go
-          kb: ko
-          mb: Mo
-          tb: To
   settings:
     allowed_upload_extensions: Types de téléchargements autorisés
     banner_active: Bandeau de maintenance activé
@@ -1345,20 +1158,11 @@ fr:
     ui_locales: Locales disponibles
     uploadify: Autoriser Uploadify
   support:
-    array:
-      last_word_connector: ' , et'
-      two_words_connector: ' et'
-      words_connector: ','
     select:
       prompt: Veuillez sélectionner
   time:
-    am: am
     formats:
-      default: '%d %B %Y %H:%M:%S'
-      long: '%A %d %B %Y %H:%M'
-      short: '%d %b %H:%M'
       timestamp: '%Y-%m-%d %H:%M'
-    pm: pm
   views:
     about:
       background:
