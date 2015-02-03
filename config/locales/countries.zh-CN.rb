@@ -1,5 +1,5 @@
 #encoding: UTF-8
-{ :zh-CN => {
+{ :"zh-CN" => {
 
     :countries => {
 			:AC => "阿森松岛阿森松島",
