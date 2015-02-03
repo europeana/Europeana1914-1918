@@ -327,104 +327,10 @@ mk:
       total: Вкупно
     "yes": Да
   date:
-    abbr_day_names:
-    - нед
-    - пон
-    - вто
-    - сре
-    - чет
-    - пет
-    - саб
-    abbr_month_names:
-    -
-    - јан
-    - фев
-    - мар
-    - апр
-    - мај
-    - јун
-    - јул
-    - авг
-    - сеп
-    - окт
-    - ное
-    - дек
-    day_names:
-    - недела
-    - понеделник
-    - вторник
-    - среда
-    - четврток
-    - петок
-    - сабота
     formats:
-      default: '%d %m %Y г.'
-      long: '%e %B %Y г.'
       long_with_day: '%a, %d %B %Y г.'
       month_and_year: '%B %Y г.'
       quarter: Тримесечје %{number} %Y г.
-      short: '%e %b'
-    month_names:
-    -
-    - јануари
-    - февруари
-    - март
-    - април
-    - мај
-    - јуни
-    - јули
-    - август
-    - септември
-    - октомври
-    - ноември
-    - декември
-    order:
-    - :day
-    - :month
-    - :year
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        one: околу еден час
-        other: околу %{count} часа
-      about_x_months:
-        one: околу еден месец
-        other: околу %{count} месеци
-      about_x_years:
-        one: околу една година
-        other: околу %{count} години
-      almost_x_years:
-        one: речиси една година
-        other: речиси %{count} години
-      half_a_minute: половина минута
-      less_than_x_minutes:
-        one: помалку од една минута
-        other: помалку од %{count} минути
-      less_than_x_seconds:
-        one: помалку од една секунда
-        other: помалку од %{count} секунди
-      over_x_years:
-        one: повеќе од една година
-        other: повеќе од %{count} години
-      x_days:
-        one: еден ден
-        other: '%{count} дена'
-      x_minutes:
-        one: една минута
-        other: '%{count} минути'
-      x_months:
-        one: еден месец
-        other: '%{count} месеци'
-      x_seconds:
-        one: една секунда
-        other: '%{count} секунди'
-    prompts:
-      day: Ден
-      hour: Час
-      minute: Минута
-      month: Месец
-      second: Секунди
-      year: Година
   devise:
     failure:
       admin:
@@ -451,41 +357,6 @@ mk:
       link: Најава
       signed_in: Успешно сте најавени.
       signed_out: Успешно сте одјавени
-  errors:
-    format: '%{attribute} %{message}'
-    messages:
-      accepted: мора да се прифати
-      blank: не може да стои празно
-      confirmation: не се совпаѓа со потврдата
-      empty: не може да стои празно
-      equal_to: мора да е рамно на %{count}
-      even: мора да биде парен број
-      exclusion: е зафатена
-      greater_than: мора да е поголемо од %{count}
-      greater_than_or_equal_to: мора да е поголемо или еднакво на %{count}
-      inclusion: не фигурира на списокот
-      invalid: е неважечка
-      less_than: мора да е помало од %{count}
-      less_than_or_equal_to: мора да е помало или еднакво на %{count}
-      not_a_number: не е број
-      not_an_integer: мора да биде цел број
-      odd: мора да биде непарен број
-      record_invalid: 'Заверката не успеа: %{errors}'
-      taken: е веќе зафатена
-      too_long:
-        one: е предолго (највеќе %{count} знак)
-        other: е предолго (највеќе %{count} знаци)
-      too_short:
-        one: е прекратко (барем еден знак)
-        other: е прекратко (барем %{count} знаци)
-      wrong_length:
-        one: има погрешна должина (треба да има еден знак)
-        other: има погрешна должина (треба да има %{count} знаци)
-    template:
-      body: 'Следниве полиња се проблематични:'
-      header:
-        one: Една грешка му попречи на зачувувањето на овој %{model}
-        other: '%{count} грешки му попречија на зачувувањето на овој %{model}'
   flash:
     actions:
       create:
@@ -1292,13 +1163,6 @@ mk:
       submit: Поднесете ја приказната
     update: Поднови %{model}
     "yes": Да
-  helpers:
-    select:
-      prompt: Одберете
-    submit:
-      create: Создај %{model}
-      submit: Зачувај %{model}
-      update: Поднови %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1435,51 +1299,6 @@ mk:
     unknown: Непознат тип на документ
     video: Видеоподатотека
     wordprocessing: Документ од текстообработувач
-  number:
-    currency:
-      format:
-        delimiter: ','
-        format: '%u%n'
-        precision: "2"
-        separator: .
-        unit: £
-    format:
-      delimiter: ','
-      precision: "2"
-      separator: .
-    human:
-      decimal_units:
-        format: '%n %u'
-        units:
-          billion:
-            one: милијарда
-            other: милијарди
-          million:
-            one: милион
-            other: милиони
-          quadrillion:
-            one: квадрилион
-            other: квадрилиони
-          thousand:
-            one: илјада
-            other: илјади
-          trillion:
-            one: билион
-            other: билиони
-      format:
-        precision: "3"
-        significant: "1"
-        strip_insignificant_zeros: "1"
-      storage_units:
-        format: '%n %u'
-        units:
-          byte:
-            one: бајт
-            other: бајти
-          gb: ГБ
-          kb: КБ
-          mb: МБ
-          tb: ТБ
   settings:
     allowed_upload_extensions: Допуштени типови на подигање
     banner_active: Известување за одржување
@@ -1502,20 +1321,11 @@ mk:
     ui_locales: Расположиви јазични верзии
     uploadify: Вклучи го Uploadify
   support:
-    array:
-      last_word_connector: ' и'
-      two_words_connector: и
-      words_connector: ','
     select:
       prompt: Одберете
   time:
-    am: претпладне
     formats:
-      default: '%A, %d %b %Y г., %H:%M ч. (%z)'
-      long: '%e %B, %Y г., %H:%M ч.'
-      short: '%e %b, %H:%M ч.'
       timestamp: '%e %m %Y г., %H:%M ч.'
-    pm: попладне
   views:
     about:
       background:

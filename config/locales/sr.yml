@@ -328,128 +328,10 @@ sr:
       total: укупно
     "yes": да
   date:
-    abbr_day_names:
-    - Нед
-    - Пон
-    - Уто
-    - Сре
-    - Чет
-    - Пет
-    - Суб
-    abbr_month_names:
-    -
-    - јан
-    - феб
-    - мар
-    - апр
-    - мај
-    - јун
-    - јул
-    - авг
-    - сеп
-    - окт
-    - нов
-    - дец
-    day_names:
-    - недеља
-    - понедељак
-    - уторак
-    - среда
-    - четвртак
-    - петак
-    - субота
     formats:
-      default: '%d/. %m /%Y.'
-      long: ' %d. %B %Y.'
       long_with_day: '%a, %d. %B %Y.'
       month_and_year: '%B %Y.'
       quarter: '%{number} тромесечје %Y'
-      short: '%d %b'
-    month_names:
-    -
-    - јануар
-    - фебруар
-    - март
-    - април
-    - мај
-    - јун
-    - јул
-    - август
-    - септембар
-    - октобар
-    - новембар
-    - децембар
-    order:
-    - :day
-    - :month
-    - :year
-  datetime:
-    distance_in_words:
-      about_x_hours:
-        few: око %{count} сата
-        many: отприлике много сати
-        one: око 1 сат
-        other: око %{count} сати
-      about_x_months:
-        few: око %{count} месеца
-        many: отприлике много месеци
-        one: око 1 месец
-        other: око %{count} месеци
-      about_x_years:
-        few: отприлике неколико година
-        many: отприлике много година
-        one: отприлике 1 годинa
-        other: отприлике %{count} године
-      almost_x_years:
-        few: скоро неколико година
-        many: много година
-        one: скоро 1 година.
-        other: скоро %{count} година
-      half_a_minute: пола минуте
-      less_than_x_minutes:
-        few: мање од неколико минута
-        many: много минута
-        one: мање од 1 минуте
-        zero: мање од минута
-        other: мање од %{count} минута
-      less_than_x_seconds:
-        few: мање од %{count} секунде
-        many: много минута
-        one: мање од 1 секунде
-        zero: мање од 1 секунде
-        other: мање од %{count} секунди
-      over_x_years:
-        few: више од неколико година
-        many: много година
-        one: више од 1 године
-        other: преко %{count} године
-      x_days:
-        few: неколико дана
-        many: много дана
-        one: 1 дан
-        other: '%{count} дана'
-      x_minutes:
-        few: неколико минута
-        many: много минута
-        one: 1 минут
-        other: '%{count} минута'
-      x_months:
-        few: '%{count} месеца'
-        many: много месеци
-        one: 1 месец
-        other: '%{count} месеци'
-      x_seconds:
-        few: '%{count} секунде'
-        many: много секунди
-        one: 1 секунда
-        other: '%{count} секунди'
-    prompts:
-      day: дан
-      hour: сат
-      minute: минут
-      month: месец
-      second: секунда
-      year: година
   devise:
     failure:
       admin:
@@ -475,38 +357,6 @@ sr:
       link: Пријавите се
       signed_in: Успешно сте пријављени
       signed_out: Успешно сте одјављени.
-  errors:
-    format: '%{attribute} %{message}'
-    messages:
-      accepted: мора бити прихваћено
-      blank: не може остати празно
-      confirmation: се не слаже са потврдом
-      empty: не може бити празно
-      equal_to: мора бити једнако %{count}
-      even: мора бити парно
-      exclusion: није доступно
-      greater_than: мора бити веће од %{count}
-      greater_than_or_equal_to: мора бити веће или једнако %{count}
-      inclusion: није у листи
-      invalid: није исправно
-      less_than: мора бити мање од %{count}
-      less_than_or_equal_to: мора бити мање или једнако %{count}
-      not_a_number: није број
-      not_an_integer: мора бити број
-      odd: мора бити непарно
-      record_invalid: 'Валидација неуспешна : %{errors}'
-      taken: је заузето
-      too_long:
-        one: предугачко је (максимум 1 карактер)
-        other: предугачако је (не више од %{count} карактера)
-      too_short: је прекратак (не мање од %{count} карактера)
-      wrong_length: није одговарајуће дужине (мора имати %{count} карактера)
-    template:
-      body: 'Молим Вас да проверите следећа поља:'
-      header:
-        few: 'Нисам успео сачувати %{model}: %{count} грешке.'
-        one: 'Нисам успео сачувати %{model}: 1 грешка.'
-        other: 'Нисам успео сачувати %{model}: %{count} грешки.'
   flash:
     actions:
       create:
@@ -1308,13 +1158,6 @@ sr:
       submit: Пошаљите вашу причу
     update: Ажурирај %{model}
     "yes": Да
-  helpers:
-    select:
-      prompt: Молимо изаберите
-    submit:
-      create: Направи %{model}
-      submit: Сачувај %{model}
-      update: Ажурирај %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1453,41 +1296,6 @@ sr:
     unknown: непознати тип документа
     video: видео фајл
     wordprocessing: документ за процесуирање речи
-  number:
-    currency:
-      format:
-        delimiter: ','
-        format: '%n %u'
-        precision: "2"
-        separator: .
-        unit: RSD
-    format:
-      delimiter: .
-      precision: "3"
-      separator: ','
-    human:
-      decimal_units:
-        format: '%n %u'
-        units:
-          billion: Милијарда
-          million: Милион
-          quadrillion: Квадрилион
-          thousand: Хиљада
-          trillion: Трилион
-      format:
-        precision: "3"
-        significant: "1"
-        strip_insignificant_zeros: "1"
-      storage_units:
-        format: '%n %u'
-        units:
-          byte:
-            one: Бит
-            other: Бајт
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
   settings:
     allowed_upload_extensions: Дозвољене врсте преноса
     banner_active: Омогућен банер за одржавање
@@ -1510,20 +1318,11 @@ sr:
     ui_locales: Доступни локалитети
     uploadify: Омогући Uploadify
   support:
-    array:
-      last_word_connector: и
-      two_words_connector: и
-      words_connector: ','
     select:
       prompt: Молимо изаберите
   time:
-    am: АМ
     formats:
-      default: '%a %b %d %H:%M:%S %Z %Y'
-      long: '%B %d, %Y %H:%M'
-      short: '%d %b %H:%M'
       timestamp: '%Y-%m-%d %H:%M'
-    pm: PМ
   views:
     about:
       background:

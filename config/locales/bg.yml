@@ -1,0 +1,1615 @@
+# Messages for Bulgarian (български)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Vodnokon4e
+---
+bg:
+  actions:
+    add: Добави
+    approve: Одобри
+    cancel: Отказ
+    copy: Копиране
+    delete: Изтриване
+    depublish: Отмяна на публикуване
+    download: Изтегляне
+    edit: Редактиране
+    edit_story: Редактиране на история
+    filter: Филтър
+    flag: Флаг
+    import: Внасяне
+    new: Ново
+    reject: Отказване
+    remove: Премахване
+    save: Съхраняване
+    submit: Потвърждение
+    unflag: Размаркиране
+    update: Обновяване
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Файл в Dropbox
+        file: Файл
+        file_content_type: Тип на съдържанието
+        file_created_at: Създадено на
+        file_file_name: Име на файл
+        file_file_size: Размер на файла
+        file_updated_at: Обновено на
+        metadata: Метаданни
+        preview: Предварителен преглед
+        public: Публичен
+      collection_day:
+        description: Описание
+        end_date: Крайна дата
+        image: Изображение
+        name: Име
+        start_date: Начална дата
+        taxonomy_term_id: Таксономичен термин
+      contact:
+        age: Възраст
+        country: Държава на пребиваване
+        full_name: Пълно име
+        gender: Пол
+        locality: Град
+        postal_code: Пощенски код
+        region: Област
+        street_address: Адрес
+        tel: Телефонен номер
+      contribution:
+        approved_by: Одобрено от
+        approver: Одобрено от
+        attachments: Елементи
+        catalogued_by: Каталогизатор
+        cataloguer: Каталогизатор
+        contributor: Приносител
+        created_at: Започнато на
+        metadata: Метаданни
+        published_at: Публикувано на
+        submitted_at: Публикувано на
+      contribution_status:
+        created_at: Статусът е променен на
+      metadata_field:
+        cataloguing: Само каталогизиране
+        field_type: Тип
+        hint: Съвет
+        multi: Множествен избор
+        name: Номер
+        position: Позиция
+        required: Задължително
+        searchable: Търсене
+        show_in_listing: Покажи в предложения
+      metadata_record:
+        field_alternative: Алтернативно поле
+      setting:
+        name: Име
+        value: Стойност
+      taxonomy_term:
+        metadata_field: Поле
+        term: Термин
+      user:
+        created_at: Дата на регистрация
+        institution: Институция
+        password: Парола
+        password_confirmation: Повторете паролата
+        role_name: Роля
+        terms: Условия
+        username: Потребителско име
+    errors:
+      messages:
+        accepted: За да продължите, трябва да приемете условията.
+        blank: Това поле е задължително и не може да бъде празно.
+        confirmation: Не съвпада с потвърждението.
+        empty: не може да е празно
+        equal_to: трябва да бъде равно на %{count}
+        even: трябва да е четно
+        exclusion: запазено
+        greater_than: трябва да е повече от %{count}
+        greater_than_or_equal_to: трябва да бъде по-голямо или равно на %{count}
+        inclusion: Изберете стойност от списъка.
+        invalid: Неправилно въвеждане; проверете формата на въведената стойност.
+        less_than: трябва да е по-малко от %{count}
+        less_than_or_equal_to: трябва да е по-малко или равно на %{count}
+        not_a_number: Тази стойност не е число, както е необходимо.
+        not_an_integer: трябва да е цяло число
+        odd: трябва да е нечетно
+        record_invalid: 'Неуспешна проверка: %{errors}'
+        taken: Това поле трябва да е уникално, но въведената стойност вече съществува
+          в нашата система.
+        too_long: е твърде дълго (не повече от %{count} символа)
+        too_short: е твърде кратко (не по-малко от %{count} символа)
+        wrong_length: е с грешна дължина (трябва да е %{count} символа)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Този файлов тип не е позволен.
+              presence: Изберете файл за качване.
+              size: Размерът на качения файл е твърде голям.
+        collection_day:
+          attributes:
+            image:
+              content_type: Разрешени са само JPEG и GIF изображения.
+          end_date_follows_start_date: Крайната дата трябва да бъде по-късно от началната
+            дата.
+          taxonomy_term_metadata_field: Този ден за колекциониране е невалиден.
+        contribution:
+          attachments:
+            uploaded: Някои файлове са все още в процес на прехвърляне.
+          attributes:
+            catalogued_by:
+              role_name: Каталогизаторът трябва да бъде потребител с роля на администратор
+                или каталогизатор
+            guest_id:
+              present: Данните за контакт са задължителни за приносите на посетители.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Полетата за каталогизация не могат да бъдат задължителни.
+            contribution:
+              or_attachment: Полето трябва да съответства на приносите и/ или прикачените
+                файлове
+            field_type:
+              constancy: Това поле не може да бъде променяно.
+            searchable:
+              field_type: Таксономичните полета не могат да се ползват за търсене.
+        metadata_record:
+          date_field_civil: Невалидна дата.
+          one_cover_image: Можете да изберете само един елемент като начално изображение
+            за своята история.
+          taxonomy_field_single: Може да изберете само един елемент.
+        setting:
+          attributes:
+            name:
+              inclusion: не е регистрирана настройка на конфигурация
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Таксономичните термини трябва да се асоциират с таксономично поле
+                с метаданни.
+        user:
+          attributes:
+            current_password:
+              invalid: Неправилна парола
+            email:
+              taken: Вече съществува потребителска сметка с този имейл адрес.
+            picture:
+              content_type: Изображението на профила трябва да бъде във формат GIF
+                или JPEG.
+      template:
+        body: 'Има проблеми със следните полета:'
+        header:
+          one: Една грешка попречи на съхраняването на %{model}
+          other: '%{count} грешки попречиха на съхраняването на %{model}'
+    models:
+      annotation: Анотация на изображението
+      attachment: Елемент
+      collection_day: Ден за колекциониране
+      contact: Контакти
+      contribution: История
+      institution: Институция-доставчик
+      metadata_field: Поле с метаданни
+      metadata_record: Запис на метаданни
+      tag: Етикет
+      tagging: Маркиране
+      taxonomy_term: Таксономичен термин
+      user: Потребител
+    options:
+      contact:
+        gender:
+          female: Жена
+          male: Мъж
+      metadata_field:
+        field_type:
+          date: Дата
+          geo: Географско положение
+          string: Едноредов текст
+          taxonomy: Таксономия
+          text: Многоредов текст
+      user:
+        role_name:
+          administrator: Администратор
+          blank: Всяка роля
+          cataloguer: Каталогизатор
+          contributor: Приносител
+  attributes:
+    contact: Контакти
+    created_at: Създадено на
+    email: Електронна поща
+    id: Номер
+    metadata_record: Метаданни
+    status: Статут
+    title: Заглавие
+    updated_at: Обновено на
+    url: URL адрес
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Държава
+          data_provider_sm: Доставчик на данни
+          metadata_collection_day_ids_im: Ден за колекциониране
+          metadata_content_ids_im: Тип елемент
+          metadata_file_type_ids_im: Файлов тип
+          metadata_keywords_ids_im: Ключови думи
+          metadata_lang_ids_im: Език
+          metadata_theatres_ids_im: Военен театър
+          place_name_s: Име на мястото
+          provider_sm: Доставчик
+          rights_sm: Права
+          type_s: Тип
+          uri_sm: Тема
+          year_sm: Година
+  common:
+    additional-information: Допълнителна информация
+    download-item: Изтегляне на този елемент
+    editors_blog:
+      more_stories: Още истории на <a href="http://thegreatwararchive.blogspot.com/search/label/en">блога
+        на редактора</a>
+    editors_pick:
+      heading: Избор на редактора
+      more_stories: <b> Още истории на страницата %{explore_stories}.</b>
+    featured-categories: Избрани категории
+    from-collection-days: От нашите колекционерски дни
+    google_maps:
+      help_text: "<li><b>Автоматично предложение</b>: Въведете име на държава, град
+        или адрес, и Google Maps ще опита да намери възможно съвпадение.</li> \n<li><b>Точен
+        адрес</b>:Въведете точен адрес или географски координати и натисни бутона
+        \"Търси\", игнорирайки автоматичните предложения на Google Maps.</li> \n<li><b>Маркер
+        на картата</b>: Когато на картата има маркер, например след като сте въвели
+        адрес, може да го преместите на мястото, което искате.</li> \n<li><b>Увеличаване</b>:
+        Увеличете или намалете картата, използвайки бутоните + или - от плъзгача в
+        лявата част на картата.</li>"
+      label: Използване на Google Maps (по избор)
+    help_text:
+      mandatory: задължително поле
+    labels:
+      add-keywords: Въведете Вашите ключови думи
+      co_funded: съфинансирано от ЕС
+    links:
+      about_the_project: За проекта Европеана 1914-1918
+      add-your-story: Добавете Вашата история!
+      add-your-story-brief: Добави!
+      annotorious: Елементът съдържа прикачени документи. Отворете елемента, за да
+        ги прочетете.
+      contact_us: Свържете се с нас
+      contact_us_email: Можете да се свържете с нас и чрез имейл адреса <span class="addr">1914-1918
+        [@] europeana [.] eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
+        target="_blank">Условия за ползване на Европеана</a>
+      contribution_terms: Условия на Европеана за потребителски приноси
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Научете
+        повече за събиране на филмов материал</a>.
+      explore-the-stories: Разгледайте историите!
+      explore-the-stories-brief: Разгледайте!
+      explore_stories: Разгледайте историите
+      help: Помощ
+      my_account: Моят профил
+      my_stories: Моите истории
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Научете повече за обединяването на националните колекции</a>.
+      play-audio: Възпроизвеждане на аудио
+      play-video: Възпроизвеждане на видео
+      privacy_policy: Защита на личните данни
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Моля,
+        обърнете се към уебсайта на проекта ни за повече информация</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">Научете повече за историите за събирания на семейства</a>.
+      register: Регистриране
+      sign_in: Влизане
+      statistics: Статистики
+      takedown_policy: Политика за премахване на материали
+      titles:
+        contribution_terms: Вижте условията на Европеана за потребителски приноси
+        great_war: Архив на Оксфордския универститет за Първата световна война
+        takedown: Към страницата на политиката за премахване на материали
+      view-image: Вижте целият елемент
+      view-pdf: Отворете документа
+    map_contribution_heading: Тази история се случи в
+    menus:
+      main:
+        about: Относно
+        add: Добавете Вашата история
+        collection-days: Колекционерски дни
+        explore: Преглеждане
+        home: Начало
+        remix: Неочаквано приятелство
+        select_language: Изберете език
+        sign_in: Влизане
+        sign_out: Излизане
+      menu: Меню
+    more-at: Повече
+    news: Новини
+    "no": Не
+    options:
+      close: Затваряне
+      open: Отваряне
+      other_option: Други
+    other:
+      contributor: Приносител
+      preview: Предварителен преглед
+      title: Заглавие
+      total: Общо
+    "yes": Да
+  date:
+    formats:
+      long_with_day: '%a, %d %B %Y'
+      month_and_year: '%B %Y'
+      quarter: Тримесечие %{number} %Y
+  devise:
+    failure:
+      admin:
+        unauthenticated: Трябва да влезете, преди да продължите.
+      invalid: Невалидно потребителско име/парола или адрес на електронна поща.
+      invalid_token: Неправилно удостоверяване
+      timeout: Вашата сесия е изтекла, влезте отново, за да продължите.
+      unauthenticated: Трябва да се регистрирате или влезете, преди да продължите.
+    mailer:
+      reset_password_instructions:
+        subject: Инструкции за смяна на паролата
+    passwords:
+      link: Забравена парола?
+      send_instructions: Изпратен Ви е имейл с инструкции за смяна на паролата.
+      updated: Паролата Ви е сменена успешно. Вече сте в системата.
+    registrations:
+      destroyed: Довиждане Вашият профил бе премахнат успешно. Надяваме се скоро да
+        Ви видим отново.
+      link: Регистриране
+      signed_up: Регистрихте се успешно.
+      updated: Профилът Ви бе актуализиран успешно.
+    sessions:
+      link: Влизане
+      signed_in: Успешен вход.
+      signed_out: Успешен изход.
+  flash:
+    actions:
+      create:
+        alert: Възникна проблем при създаването на %{resource_name}. Вижте съобщението
+          по-долу.
+        notice: Създаден е нов %{resource_name}.
+      destroy:
+        alert: Възникна проблем при изтриването на %{resource_name}.
+        notice: '%{resource_name} бе успешно изтрито.'
+      update:
+        alert: Възникна проблем при обновяване на %{resource_name}. Вижте съобщенията
+          по-долу.
+        notice: Обновен %{resource_name}.
+    annotations:
+      flag:
+        alert: Неуспешен опит за определяне на анотацията като неприемлива.
+        notice: Анотацията е обозначена като неприемлива.
+      unflag:
+        alert: Неуспешен опит за премахване на анотацията като неприемлива.
+        notice: Премахване на анотацията като неприемлива.
+    attachments:
+      create:
+        alert: Възникна проблем при записването на прикачения файл.
+        invalid_files: Някои файлове не могат да бъдат съхранени.
+        notice: Елементът е съхранен.
+      destroy:
+        alert: Възникна проблем при изтриването на прикачения файл.
+        notice: Прикаченият файл е изтрит.
+      links:
+        view-attachments_html: <a href="#attachments">Щракнете тук за преглед и редактиране
+          на елемент</a>.
+      update:
+        alert: Възникна проблем при записването на прикачения файл.
+        notice: Елементът е съхранен.
+    configuration:
+      update:
+        alert: Опитът за съхраняване на конфигурацията бе неуспешен.
+        notice: Конфигурацията е обновена.
+    contacts:
+      create:
+        alert: Опитът за създаване на данни за контакти бе неуспешен.
+        notice: Контактите са създадени.
+      update:
+        alert: Опитът да се обновят данните за контакти не сполучи.
+        notice: Данните за контакт са обновени.
+    contributions:
+      approve:
+        alert: Опитът за одобряване на приноса бе неуспешен.
+        notice: Приносът е успешно одобрен.
+      destroy:
+        alert: Неуспешно изтриване на историята.
+        notice: Историята е изтрита.
+      draft:
+        create:
+          alert: Възникна проблем при започването на нов принос.
+          notice: Стартирана е нова чернова.
+        submit:
+          alert: Възникнал проблем с Вашият принос. Моля, проверете съобщението по-долу.
+          notice: Вашият принос е изпратен. Благодарим Ви! Той ще бъде проверен от
+            служители на проекта и ще се появи на уебсайта, след като е одобрен. В
+            по-натоварени периоди, това може да отнеме няколко седмици. Молим за Вашето
+            разбиране и търпение.
+        update:
+          alert: Възникна проблем при съхраняването на Вашия принос.
+          notice: Приносът е съхранен.
+      reject:
+        alert: Опитът за отхвърляне на приноса бе неуспешен.
+        notice: Приносът е успешно отхвърлен.
+      submitted:
+        edit:
+          alert: Този принос вече е изпратен.
+      withdraw:
+        alert: Опитът за маркиране на Вашата история за отстраняване от колекцията
+          бе неуспешен.
+        notice: Вашата история е отбелязана за отстраняване от колекцията.
+    contributors:
+      create:
+        alert: Потребителската Ви сметка не може да бъде създадена.
+      update:
+        alert: Потребителската Ви сметка не може да бъде обновена.
+    flickr:
+      import:
+        alert:
+          empty: Не са избрани изображения
+          invalid_license: 'Следните снимки са с несъвместими лиценз и няма да бъдат
+            импортирани:'
+    guest_contact:
+      create:
+        alert: Въдникна проблем с предоставени от Вас детайли. Моля, поправете ги
+          и опитайте отново.
+        notice: Детайлите за контакт са получени.
+      forget:
+        notice: Данните за контакт са изчистени.
+      update:
+        alert: Въдникна проблем с предоставени от Вас детайли. Моля, поправете ги
+          и опитайте отново.
+        notice: Детайлите за контакт са обновени.
+    metadata_fields:
+      update_order:
+        notice: Редът на полетата за метаданни е обновен.
+    status:
+      alert: 'Внимание:'
+      notice: 'Бележка:'
+    tags:
+      contribution:
+        create:
+          success: Вашите етикети бяха добавени към историята.
+      destroy:
+        success: Етикетът бе премахнат.
+      europeana_record:
+        create:
+          success: Вашите етикети бяха добавени към елемента.
+      flag:
+        success: Етикетът бе отбелязан като неподходящ.
+    taxonomy:
+      imported: Внесени нови таксономични термини.
+    users:
+      create:
+        alert: Потребителската сметка не може да бъде създадена.
+        notice: Потребителската сметка е създадена.
+      destroy:
+        notice: Потребителят бе изтрит.
+      register:
+        alert: Регистрацията е неуспешна. Моля, коригирайте детайлите по-долу и опитайте
+          отново.
+        notice: Регистрацията е успешна. Добре дошли!
+      update:
+        alert: Потребителската сметка не може да бъде обновена.
+        notice: Потребителската сметка е обновена.
+  formtastic:
+    actions:
+      attachment:
+        add_edit: Добавяне/Редактиране на елементи
+        create: Качване
+        delete: Изтриване на елемент
+        update: Съхраняване
+      contribution:
+        create: Продължаване
+        delete: Изтриване на историята
+        save_draft: Запазване на чернова на историята
+        submit: Изпрати история
+        update: Обновете приносите
+        withdraw: Оттеглено
+      contributor:
+        create: Регистриране
+      create: Изпращане
+      delete: Изтриване
+      filter:
+        submit: Обновяване
+      metadata_field:
+        delete: Премахнете полето за метаданни
+      password:
+        create: Изпращане
+        update: Промяна на паролата
+      search:
+        submit: Търсене
+      sign_in: Влизане
+      submit: Съхраняване
+      tag:
+        flag: Маркирай като неподходящо
+      taxonomy_term:
+        import: Внасяне
+      update: Съхраняване на промените
+      upload: Качване
+      user:
+        create: Регистриране
+        delete: Изтриване на сметка
+        update: Обновяване
+    create: Създаване на %{model}
+    hints:
+      attachment:
+        edit:
+          file: 'Качете нов файл, само ако искате да замените съществуващ. Максимален
+            размер на файл: %{max}. Позволени типове файлове: %{file_types}.'
+        file: Качване на файла
+        metadata:
+          attachment_description: Описание на физическите характеристики на елемента,
+            както и какво представлява и какво означава за Вас.
+          content: Какъв е елемента (например стихотворение, писмо, снимка); опитайте
+            се да бъдете максимално точни.
+          cover_image: Водещото изображение представя Вашата история в нашата колекция,
+            то е подобно на това на корицата на книгата. Това може да бъде снимка
+            на този, за когото е историята, първата страница на дневник или изображение
+            на медал.
+          creator_given_name: Името на лицето, което е създало оригиналния обект,
+            например на автора на писмо или на дневник, или името на фотограф.
+          date_from: Кажете ни кога е създаден елемента, например кога е написано
+            писмото или кога е започнат дадения обект (например кога е започнато воденето
+            на дневник). Ако не знаете точната дата, моля попълнете само годината
+            или годината и месеца.
+          date_to: Крайната дата на елемента, например датата на последния запис в
+            дневника.
+          forces: 'Моля, не избирайте, ако няма подходяща. Ако съответната ключова
+            дума не е налична, моля изпратете ни имейл на адрес: 1914-1918 [@] europeana
+            [.] eu'
+          keywords: 'Добавяйте само ключови думи, които описват основната тема или
+            по-широкото понятие, за което искате да направите своя принос. Целта на
+            тези ключови думи е да ни помогне да подчертаем Вашата история в нашата
+            колекция. Ако съответната ключова дума не е налична, моля изпратете ни
+            имейл на адрес: 1914-1918 [@] europeana [.] eu'
+          lang: Посочете езика, който е използван в елемента, например езика(езиците),
+            използвани в дневник.
+          location_placename: Въведете името на града, където е създаден елемента
+            (откъде е изпратено писмо или къде е направена снимката), например Лондон
+            или Париж.
+          object_side: За елементи с две страни, например пощенски картички, посочете
+            страна
+          page_number: За елементи с много страници, посочете номера на всяка страница.
+          subject: Човекът или мястото, за когото/което се отнася елемента.
+          theatres: 'Моля, не избирайте, ако няма подходяща. Ако съответната ключова
+            дума не е налична, моля изпратете ни имейл на адрес: 1914-1918 [@] europeana
+            [.] eu'
+        new:
+          file: 'Можете да качите толкова файлове, колкото е необходимо; един след
+            друг. Обърнете внимание, че ако качвате много файлове, ще имате възможност
+            да маркирате един от тях като "изображение на корицата" за историята си;
+            например пощенска картичка или дневник. Максимално допустимият размер
+            на файл е %{max}. Позволени типове файлове: %{file_types}.'
+        title: Кратко описателно заглавие или подходящо име на обекта, например "Медал
+          за заслуги на моя прадядо Ото Шмит"
+      contribution:
+        metadata:
+          date_from: 'Кажете ни кога се е случила историята. Ако не знаете кога точно,
+            моля попълнете само годината, например: дядо ми е записан през 1915 г.
+            и т.н.'
+          date_to: 'Кажете ни кога е приключила историята. Ако не знаете кога точно,
+            моля попълнете само годината, например: дядо ми е ранен през 1916 г. и
+            т.н.'
+          description: Напишете историята към Вашия принос.
+          forces: 'Моля, не избирайте, ако няма подходяща. Ако съответната ключова
+            дума не е налична, моля изпратете ни имейл на адрес: 1914-1918 [@] europeana
+            [.] eu'
+          keywords: 'Добавяйте само ключови думи, които описват основната тема или
+            по-широкото понятие, за което искате да направите своя принос. Целта на
+            тези ключови думи е да ни помогне да подчертаем Вашата история в нашата
+            колекция. Ако съответната ключова дума не е налична, моля изпратете ни
+            имейл на адрес: 1914-1918 [@] europeana [.] eu'
+          lang: Посочете езика, на който е написана тази история.
+          location_placename: Въведете името на града, в който се е състояла историята,
+            например Лондон или Париж.
+          theatres: 'Моля, не избирайте, ако няма подходяща. Ако съответната ключова
+            дума не е налична, моля изпратете ни имейл на адрес: 1914-1918 [@] europeana
+            [.] eu'
+        title: Заглавие на приноса като цяло.
+      metadata_field:
+        attachment: Посочете дали това поле да се отнася за прикачените файлове.
+        contribution: Посочете дали това поле да се отнася за приносите.
+        show_in_listing: Покажи тава поле в предложения като резултати от търсенето.
+      settings:
+        max_upload_size: Максимален размер на качване в байтове.
+      taxonomy_term:
+        import: Въведете таксономичните термини за добавяне към това поле за метаданни,
+          по един на ред.
+      user:
+        current_password: Въведете текущата си парола, ако искате да промените данните
+          на потребителската си сметка.
+        edit:
+          password: Въведете нова парола, ако искате да я промените, в противен случай
+            оставете полето празно. Минимум 6 символа.
+        password: Минимум 6 символа
+        update:
+          password: Въведете нова парола, ако искате да я промените, в противен случай
+            оставете полето празно. Минимум 6 символа.
+        username: 'Минимум 3 символа. Валидни символи: a-z A-Z 0-9 - _ . @'
+    labels:
+      attachment:
+        metadata:
+          attachment_description: Описание
+          attachment_file: Единичен файл
+          content: Тип
+          cover_image: Снимка на корицата
+          creator: Автор
+          creator_family_name: Фамилия на автора
+          creator_given_name: Име на автора
+          date: Дата
+          date_from: Дата на създаване / начална дата
+          date_to: Крайна дата
+          file_type: Файлов тип
+          forces: Сили
+          keywords: Ключови думи
+          lang: Език
+          lang_other: Език (друг)
+          license: Лиценз
+          location_map: географска дължина и ширина
+          location_placename: Намерете къде е създаден Вашият предмет.
+          location_zoom: Увеличение на мащаба
+          notes: Бележки на каталогизатора
+          object_side: Страна
+          page_number: Номер на страница
+          page_total: Общ брой страници
+          source: Източник
+          subject: Тема
+          theatres: Военни театри
+      collection_day:
+        contact:
+          country: Държава
+          full_name: Организация
+        delete_image: Изтрийте изображението
+      content:
+        metadata:
+          dc:
+            contributor: Приносител
+            country: Държава
+            creator: Автор
+            date: Дата
+            description: Описание
+            format: Формат
+            identifier: Идентификатор
+            language: Език
+            publisher: Издател
+            relation: Релация
+            rights: Права
+            source: Източник
+            subject: Тема
+            terms_alternative: Алтернативно заглавие
+            terms_extent: Описание и размери
+            title: Заглавие
+            type: Тип
+          dcterms:
+            alternative: Алтернативно заглавие
+            extent: Описание и размери
+            spatial: Място
+            temporal: Дата
+          edm:
+            country: Предоставено от държава
+            data_provider: Доставчик на данни
+            external_partner_site: Разгледай на партньорския уебсайт
+            language: Език
+            partner_site: Разгледай обекта на
+            provider: Доставчик
+            rights: Авторско право
+      contribution:
+        metadata:
+          alternative: Алтернативно заглавие
+          cataloguer: Каталогизатор
+          character1_dob: Дата на раждане
+          character1_dod: Дата на смъртта
+          character1_family_name: Фамилия
+          character1_given_name: Име
+          character1_pob: Място на раждане
+          character1_pod: Място на смърт
+          character2_dob: Дата на раждане
+          character2_dod: Дата на смъртта
+          character2_family_name: Фамилия
+          character2_given_name: Име
+          character2_pob: Място на раждане
+          character2_pod: Място на смъртта
+          collection_day: Ден за колекциониране
+          date_from: Историята започва ...
+          date_to: Историята завършва ...
+          description: История
+          forces: Сили
+          keywords: Ключови думи
+          lang: Език
+          lang_other: Език (друг)
+          location_map: Географска дължина и ширина
+          location_placename: Поставете мястото, където се е състояла Вашата история
+          location_zoom: Увеличение на мащаба
+          notes: Бележки на каталогизатора
+          summary: Кратко описание на предметите
+          theatres: Военни театри
+        terms: Приемам условията за ползване
+        title: Заглавие на историята
+      metadata_field:
+        contribution: Принос
+      taxonomy_term:
+        content:
+          Autograph: Автограф
+          Book: Книга
+          Collection: Колекция
+          Diary: Дневник
+          Interview: Интервю
+          Letter: Писмо
+          Map: Карта
+          Medal: Медал
+          Music: Музика
+          Official Document: Официален документ
+          Official document: Официален документ
+          Other: Друго
+          Painting: Картина
+          Photograph: Фотография
+          Poem: Стихотворение
+          Postcard: Пощенска картичка
+          Publication: Публикация
+          Weapon: Оръжие
+        cover_image:
+          "yes": да
+        editor_pick:
+          "yes": да
+        file_type:
+          3D: 3D
+          SOUND: ЗВУК
+          TEXT: ТЕКСТ
+          VIDEO: ВИДЕО
+        forces:
+          Allied Forces: Съюзници
+          Central Powers: Централни сили
+          Imperial Forces: Имперски войски
+        format:
+          Ceramic/China: Керамика/ Порцелан
+          Metal: Метал
+          Other: Друго
+          Paper: Хартия
+          Unknown: Неизвестно
+          Wood: Дърво
+        keywords:
+          Anti-War Movement: Антивоенно движение
+          Artillery: Артилерия
+          Gas Warfare: Газова война
+          Home Front: Домашен фронт
+          Medical: Медицина
+          Military Punishment: Военни наказания
+          Prisoners of War: Военнопленници
+          Propaganda: Пропаганда
+          Recruitment and Conscription: Набиране и задължителна военна служба
+          Refugees: Бежанци
+          Remembrance: Памет
+          Tanks and Armoured Fighting Vehicles: Танкове и бронирани бойни машини
+          Transport: Транспорт
+          Trench Life: Живот в окопите
+          Women: Жени
+        lang:
+          Dansk: Датски
+          Deutsch: Немски
+          English: Английски
+          Français: Френски
+          Gaeilge: Ирландски
+          Italiano: Италиански
+          Magyar: Унгарски
+          Nederlands: Нидерлански
+          Other: Друг
+          Română: Румънски
+          Slovenčina: Словашки
+          Slovenščina: Словенски
+          português: Португалски
+          Ελληνικά: Гръцки
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Гръб
+          Front: Лице
+        source:
+          Book: Книга
+          Film: Филм
+          Journal: Списание
+          Newspaper: Вестник
+          Other: Друго
+          Photograph: Фотография
+          Postcard: Пощенска картичка
+          Unknown: Неизвестно
+        theatres:
+          Aerial Warfare: Въздушна война
+          African Wars: Африка
+          Balkans: Балканите
+          Eastern Front: Източен фронт
+          Gallipoli Front: Галиполи
+          Italian Front: Италиански фронт
+          Middle East: Близкият изток
+          Naval Warfare: Военноморски действия
+          Western Front: Западен фронт
+      user:
+        delete_picture: Изтрийте снимката
+        terms: Приемам условията за ползване
+    "no": Не
+    required: задължително
+    titles:
+      account_details: Данни за вход
+      admin_user: Данни за вход
+      attachment_dates: Кога е създаден елемента
+      attachment_details: Опишете Вашият елемент
+      attachment_front: За кой фронт се отнася елемента
+      attachment_keywords: Помогнете на другите да намерят Вашият елемент чрез добавяне
+        на една или няколко от следните ключови думи
+      attachment_location: Къде е създаден елемента
+      attachment_replace: Замени прикаченият файл
+      attachment_upload: Прикачване на файл
+      cataloguing_metadata: Каталогизиране на метаданни
+      contact_address: Адрес
+      contact_name: Име
+      contact_other: Данни за контакт
+      contribution_attachments: Елементи
+      contribution_terms: Условия на ползване
+      dropbox: Dropbox
+      fields: Полета
+      metadata: Каталожна информация
+      optional_details: Друга лична информация (по избор)
+      personal_details: Лични данни
+      story_basics: Разкажете своята история...
+      story_character1: Личност
+      story_character2: Личност 2
+      story_characters: Кажете ни за кого е тази история
+      story_dates: Кога се е случила тази история
+      story_front: За кой фронт се отнася историята
+      story_keywords: Помогнете на другите да намерят Вашата история чрез добавяне
+        на една или няколко от следните ключови думи.
+      story_location: Къде се е случила тази история
+    update: Обновяване на %{model}
+    "yes": Да
+  javascripts:
+    annotorious:
+      clear-flag: Отменете маркирането
+      flag: Маркирайте
+    attachments:
+      uploading: Някои от Вашите файлове все още се прехвърлят. Когато прехвърлянето
+        на всички е завършено, ще можете да изпратите историята си.
+    collection-days:
+      find-more: Научете повече.
+      legend: Легенда
+      no-upcoming: В момента все още няма предстоящи колекционерски дни.
+      past-entered: Предишни колекционерски дни
+      past-not-entered: Предни колекционерски дни (истории, които все още не са публикувани)
+      show-past: Покажи предишните колекционерски дни
+      upcoming: Предстоящи колекционерски дни
+      what-is-it: Какво означава Ден за колекциониране?
+    contribute:
+      hide_errors: Не показвай съобщенията за грешка.
+      show_errors: Защо не?
+    datepicker:
+      button_text: Покажи календар
+    digital_object:
+      labels:
+        copy_from_story: Копиране на информацията
+      links:
+        copy_from_story: Копиране от история
+    gmap:
+      canvas:
+        hide: Затваряне на Google Maps
+        hint: Преместете маркера на мястото, което искате за "{{field}}".
+        label: Google Maps
+        show: Използване на Google Maps
+      errors:
+        empty: Въведете търсеният адрес.
+        present: Вече има отворена карта на екрана; моля първо я затворете.
+        unknown: Адресът не е намерен.
+      search:
+        button: Търси
+        hint: Въведете адреса, който търсите, на картата по-горе.
+        label: Търсене на адрес
+      static:
+        hide: Затваряне на картата
+        show: Покажи в Google Maps
+    leaflet:
+      label:
+        map_view: Карта
+        satellite_view: Сателит
+    loading: зареждане...
+    next: следващ →
+    previous: ← предишен
+    search:
+      10seconds: Все още търсим. Моля, останете с нас!
+      30seconds: Това отнема повече време от очакваното. Опитайте друго търсене или
+        изчакайте още!
+      60seconds: В момента има проблеми с търсенето. Моля, опитайте отново по-късно.
+    story:
+      took-place: 'Тази история се случи в:'
+    thumbnails:
+      item: Елемент
+      of: от
+    translate:
+      return-to-language: Върни се на оригиналния език
+      service-not-available: Преводаческите услуги в момента не са възможни.
+      translate-to: Преведи на ...
+    truncate:
+      show-less: Покажи по-малко...
+      show-more: Покажи повече...
+    uploadify:
+      button_text: Избиране на файлове
+      finished: Обратно към приноси
+      saved: Съхранено
+  languages:
+    da: Датски
+    de: Немски
+    en: Английски
+    fr: Френски
+    ga: Ирландски
+    hu: Унгарски
+    nl: Нидерландски
+    pt: Португалски
+    sk: Словашки
+    sl: Словенски
+  layout:
+    navigation:
+      about: Относно
+      admin: Админ
+      browse: Преглед
+      contact: Свържете се с нас
+      contribute: Добавете своя принос
+      help: Помощ
+      home: Начало
+    software_engine: Powered by RunCoCo
+  locale: Английски
+  mail:
+    contributions:
+      published:
+        signature: "Най-добри пожелания, \nЕкипът на Европеана 1914-1918"
+        subject: Вашият принос в Европеана 1914-1918 бе публикуван
+        thanks: 'Благодарим Ви за споделянето на историите и спомените Ви с нас! Вашият
+          принос вече е публикуван на сайта ни. Можете да го видите, като кликнете
+          върху този линк:'
+  media_types:
+    all: Всички
+    binary: Двоичен файл
+    pdf: PDF
+    sound: Звуков файл
+    txt: Текстов файл
+    unknown: Неизвестен тип документ
+    video: Видеофайл
+  settings:
+    max_upload_size: Максимален размер за качване
+    registration_required: Изисква се регистрация
+    search_engine: Търсачка
+    site_name: Име на сайта
+    site_url: URL на сайта
+  support:
+    select:
+      prompt: Избиране
+  views:
+    about:
+      background:
+        heading: Европеана 1914-1918
+      collection_days:
+        heading: Колекционерски дни
+        p2: Предишни колекционерски дни, проведени в Европа.
+      privacy_policy:
+        p3: Ние никога няма да споделим вашите данни за контакт с други организации.
+        p4: Научете повече за нашата Политика за поверителност на уебсайта <a http://www.europeana.eu/portal/privacy.html
+          target="_blank">Европеана</a>.
+      project_partners:
+        heading: Партньори на проекта
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Оксфордски универститет</a>
+        item2: <a href="http://www.d-nb.de" target="_blank"><a href="http://www.d-nb.de"
+          target="_blank">Германска национална библиотека – die Deutsche Nationalbibliothek</a>
+          – die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Национална
+          библиотека на Люксембург – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Национална библиотека на
+          Ирландия</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Национална
+          библиотека на Словения – Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Кралската библиотека:
+          Националната библиотека на Дания и Копенхагенската Университетска библиотека
+          - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Европеана</a>
+      takedown:
+        item1: Вашите детайли за контакт
+        item3: 'Точният URL-адрес, на който сте намерили материала (т.е.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item4: Доказателство, че вие сте притежателят на правата или негов упълномощен
+          представител
+        item5: Изпратете ни имейл на:1914-1918 [@] europeana [.] eu
+        p1: 'Ако сте притежател на правате и сте загрижен, че сте попаднали на материали
+          на нашия сайт, за които не сте дали разрешение, ние разбира се, ще ги премахнем.
+          Моля, свържете се с нас по и-мейл, като посочите следното:'
+      terms:
+        full_details:
+          heading: 'Условия за ползване на Европеана: пълни правни детайли – Само
+            на английски език'
+        heading: Условия на ползване
+        summary:
+          heading: 'Условия на ползване на Европеана: резюме'
+          item1: цифровият материал, който Вие предоставяте, не е защитен с авторско
+            право; или
+          item2: Вие притежавате правата върху този цифров материал; или
+          item3: собственикът на тези права Ви е дал разрешение да предоставяте цифровия
+            материал при следните условия.
+          p1: 'Преди да можете да предоставите цифрови материали в Европеана, трябва
+            да се съгласите с Условията за потребителски приноси на Европеана - Вижте
+            по-горния параграф. Сред най-важните последици от приемането на тези условия,
+            са следните:'
+          p2: <b>Вие гарантирате, че:</b>
+          p3: <b>Ако не желаете да приемете тези условия, моля не допринасяйте съдържание
+            или описателни данни в Европеана</b>.
+        user_contributions:
+          heading: Условия на Европеана за потребителски приноси
+          item1: Пароли и влизане в системата (Член 3)
+          item2: Отговорност за функционирането на платформата (Член 4)
+          item3: Права на интелектуална собственост върху съдържанието (Член 5)
+          item4: Права на интелектуална собственост върху метаданни (Член 6)
+          item5: Неправомерно ползване на услугите (Член 7)
+          item6: Лични данни на потребителите (поверителност) (Член 8)
+          item7: Отговорност на страните в случай на щети или загуби (Член 9)
+          p1: Този документ съдържа условията, приложими към потребители, които предоставят
+            съдържание и метаданни в сайта Europeana.eu на фондация Europeana. Потребителят
+            трябва да е наясно, че фондацията Europeana се стреми да направи съдържанието
+            и метаданните достъпни за повторна употреба с минимални ограничения.
+          p4: <b>Ако не сте съгласни с тези политики, моля не допринасяйте със съдържание
+            и/ или метаданни в Европеана.</b>
+      what_we_do:
+        heading: 'Национални колекции:'
+    about_us:
+      blog:
+        heading: Блог
+      europeana:
+        heading: Европеана 1914-1918
+      events:
+        heading: Колекционерски дни
+      get_involved:
+        education:
+          heading: Образование
+          p1: Нашите партньори от Британската библиотека разработиха англоезичен <a
+            href="http://bl.uk/world-war-one">уебсайт</a>, насочен към преподавателите,
+            които планират образователни програми за Първата световна война.
+        events:
+          p1: На <a href="http://www.europeana1914-1918.eu">началната</a> на този
+            сайт може да видите къде ще бъдат нашите следващи пътуващи изложения със
+            семейни истории. Моля, вземете със себе си документи, предмети и истории
+            за Първата световна война, така че да могат да бъдат сканирани или заснети,
+            и добавени към архива.
+          p2: Ако се интересувате от провеждането на ваше собствено събитие за дигитализиране
+            и добавяне на материал към Европеана 1914-1918, можем да предложим <a
+            href="http://pro.europeana.eu/web/europeana-1914-1918">помощ и съвет за
+            това как да направите това</a>.
+        heading: Включете се
+        reuse:
+          heading: Използвайте материала
+          p1: Всичките материали на Европеана 1914-1918 са достъпни за повторна употреба.
+            Разработчиците са поканени да се възползват от това за собствените си
+            проекти, използвайки <a href="http://europeana.eu/portal/api-introduction.html">Европеана
+            API</a>. Ако желаете повторно да използвате материали от Дигиталната американска
+            библиотека, Trove или DigitalNZ, моля посетете техните уебсайтове за допълнителна
+            информация.
+      help:
+        heading: Помощ
+    admin:
+      collection_days:
+        delete:
+          question: Сигурни ли сте, че желаете да изтриете допълнителната информация
+            за колекционерския ден %{code}?
+          title: Изтриване на колекционерския ден
+        edit:
+          title: Редактиране на колекционерския ден
+        index:
+          title: Колекционерски дни
+      config:
+        edit:
+          title: Редактирайте настройките на конфигурацията
+        index:
+          links:
+            edit: Редактирайте настройките
+          table:
+            caption: Настройки
+            headings:
+              name: Име
+              value: Стойност
+          title: Конфигурация
+      contributions:
+        index:
+          captions:
+            approved: Одобрени приноси (%{total} total)
+            draft: Чернови (%{total} total)
+            rejected: Отхвърлени приноси (%{total} total)
+          empty:
+            all:
+              approved: Все още няма одобрени приноси.
+              rejected: Все още няма отхвърлени приноси.
+              submitted: В момента няма съхранени приноси, очакващи одобрение.
+              withdrawn: В момента няма оттеглени приноси, очакващи одобрение.
+            search:
+              approved: Няма одобрени приноси, съответстващи на търсенето Ви.
+              rejected: Няма отхвърлени приноси, съответстващи на търсенето Ви.
+              revised: Няма прегледани приноси, съответстващи на търсенето Ви.
+              submitted: Няма представени приноси, съответстващи на търсенето Ви.
+              withdrawn: Няма оттеглени приноси, съответстващи на търсенето Ви.
+          title: Приноси
+        p1: 'По-долу са показани три таблици, съдържащи приноси, които: не са представени
+          за одобрение, чакат одобрение или са одобрени. Натиснете върху заглавието,
+          за да видите по-подробна информация за приноса. След като се покажат подробностите,
+          можете да изберете: да откажете да редактирате метаданните, да изтриете
+          приноса или (за приноси,  очакващи одобрение) да одобрите приноса.'
+      index:
+        headings:
+          export: Изнасяне
+        links:
+          config:
+            description: Конфигуриране на настройките на уебсайта.
+            text: Конфигурация
+          contributions:
+            description: Разглеждане и одобряване или отхвърляне на приноси.
+            text: Приноси
+          export:
+            text: Изнасяне
+          export_csv:
+            text: Изнасяне като CSV
+          export_xml:
+            text: Изнасяне като XML
+          logs:
+            text: Дневници
+          metadata_fields:
+            text: Полета за метаданни
+          statistics:
+            text: Статистики
+          users:
+            text: Потребителски сметки
+        title: Админ
+      metadata_fields:
+        delete:
+          button_confirm: Наистина ли искате да премахнете това поле?
+          question: Наистина ли искате да премахнете полето за метаданни %{field_name}?
+          title: Премахнете полето за метаданни
+          warning: <strong>Предупреждение:</strong> Това ще доведе до премахването
+            на всички данни, които вече са събрани за това поле, от Вашата колекция.
+        edit:
+          title: Редактирайте полето за метаданни
+        index:
+          caption: Полета за метаданни
+          links:
+            new: Ново поле
+            order: Променете реда на полетата
+          title: Полета за метаданни
+        new:
+          title: Ново поле за метаданни
+        order:
+          title: Ред на полетата за метаданни
+      statistics:
+        index:
+          title: Статистики
+      taxonomy_terms:
+        delete:
+          question: Наистина ли искате да изтриете таксономичния термин "%{term}"?
+          title: Премахнете таксономичния термин
+        edit:
+          title: Редактирайте таксономичния термин
+        import:
+          title: Въведете нови таксономични термини
+        index:
+          caption: Таксономични термини
+          empty: Все още няма таксономични термини за това поле.
+          links:
+            back: Списък с полета за метаданни
+            new: Нов термин
+          title: Таксономични термини
+        new:
+          title: Нов таксономичен термин
+      users:
+        delete:
+          button_confirm: Ноистина ли искате да премахнете тази потребителска сметка?
+          question: Наистина ли искате да премахнете потребителската сметка %{email}?
+          title: Изтриване на потребителска сметка
+          warning: <strong>Предупреждение:</strong> Това ще изтрие всички приноси
+            на потребителя.
+        edit:
+          title: Редактиране на потребителска сметка
+        index:
+          caption: Потребителски сметки
+          links:
+            new: Нов потребител
+            show:
+              title: Вижте пълните потребителски данни
+          title: Потребителски сметки
+        new:
+          title: Нова потребителска сметка
+        show:
+          caption: Лични данни
+          links:
+            back: списък на потребителските сметки
+            contributions: Приноси
+            edit: Редактиране на потребителска сметка
+          title: Потребителска сметка
+    annotations:
+      edit:
+        title: Редактиране на анотацията
+      flag:
+        question: Наистина ли искате да маркирате тази анотация като неподходяща?
+        title: Маркиране на анотацията като неприемлива.
+      unflag:
+        question: Наистина ли искате да премахнете маркирането на тази анотация като
+          неподходяща?
+        title: Премахване на маркирането като неподходяща
+    attachments:
+      attachment_help:
+        item1-subitem1: Опишете елемента
+        item2-subitem2: Може да опишете елементите поотделно
+      edit:
+        caption:
+          current: Текущ файл
+      index:
+        title: Елементи
+      new:
+        caption: Качен файл
+        title: Нов прикачен файл
+      show:
+        title: Прикачен файл
+    blog_posts:
+      read_more: Прочетете повече
+    browse:
+      collection-days:
+        heading: Колекционерски дни
+    collection_days:
+      index:
+        title: Колекционерски дни
+      select-collection-day: Изберете ден за колекциониране
+      stories: 'Истории:'
+      view-stories: Разгледайте историите
+      website: 'Уебсайт:'
+      what-is-it-heading: Какво е това?
+    common:
+      loading: зареждане...
+      more-like-this: 'Други неща, които може да са Ви интересни:'
+      permanent: Това действие не може да бъде отменено.
+    contact:
+      heading: Свържете се с нас
+    contacts:
+      edit:
+        title: Редактирайте личните данни
+      show:
+        title: Данни за контакт
+    contributions:
+      _progress:
+        step_x_of_y: Стъпка %{x} от %{y}
+      _summary:
+        caption: Резюме
+      complete:
+        p1: Вашият принос е изпратен. Благодарим Ви! Той ще бъде проверен от служители
+          на проекта и ще се появи на уебсайта, след като е одобрен. В по-натоварени
+          периоди, това може да отнеме няколко седмици. Молим за Вашето разбиране
+          и търпение.
+      digital_object:
+        help_text:
+          when: Кога е създаден елемента
+          where: Къде е създаден елемента
+        labels:
+          keywords: Помогнете на другите да намерят Вашият елемент чрез добавяне на
+            една или няколко от следните ключови думи.
+          location_map: Местоположение (карта)
+          location_place_name: Местоположение (име на мястото)
+          save_item_draft: Запазване на чернова на елемента
+        links:
+          add_another: Добавяне на друг елемент
+        options:
+          3d: 3D
+          audio: Аудио
+          book: Книга
+          cc_by_sa: cc-by-sa
+          diary: Дневник
+          image: Изображение
+          letter: Писмо
+          medal: Медал
+          metal: Метал
+          newspaper: Вестник
+          other_option: Друго
+          paper: Хартия
+          photograph: Фотография
+          poem: Стихотворение
+          postcard: Пощенска картичка
+          public_domain: обществено достояние
+          text: Текст
+          unknown: Неизвестно
+          video: Видео
+          wood: Дърво
+        step2: Стъпка 2 - Добавете Вашите елементи и файлове
+      edit:
+        title: Принос
+      feed:
+        entries:
+          annotation:
+            item: '%{user} коментира изображението на елемента %{title}'
+            story: '%{user} коментира изображението на историята %{title}'
+          contribution: '%{user} публикува историята %{title}'
+          tagging:
+            item: '%{user} маркира елемента %{title}'
+            story: '%{user} маркира историята %{title}'
+      index:
+        title: Приноси
+      new:
+        title: Принос
+      no_title: липсва заглавие
+      search:
+        captions:
+          all: Всички приноси
+          matching: Приноси, съвпадащи с "%{query}"
+        heading: Резултати от търсенето
+        links:
+          titles:
+            show_contribution: Виж приноса
+        matches-for: 'Съвпадение за:'
+        no_matches: Не са открити съвпадения. Моля, опитайте отново.
+        result_count_label: резултати
+      show:
+        comments:
+          leave: Оставете коментар
+          title: Коментари
+        headings:
+          share: Споделете в
+          tags: Добавяне на етикети
+        links:
+          new_attachment: Добавете предмет
+        title: История
+      status:
+        approved: Одобрено
+        approved_by: Одобрено от %{name}
+        label: Статут
+        rejected: Отхвърлено
+        rejected_by: Отхвърлено от %{name}
+        unknown: Неизвестно
+        withdrawn: Оттеглено
+      story:
+        help_text:
+          add_another_person: Можете да добавите повече от една личност.
+          use_google_maps: Използвайте Google Maps
+        labels:
+          people: Добавете имената на хората, за които е тази история.
+        step1: Стъпка 1 - Разкажете ни Вашата история
+      withdraw:
+        title: Оттегли историята
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Чернови
+        empty:
+          all: Все още не сте започнали някаква история.
+          approved: Все още нямате одобрена история.
+          draft: В момента нямате чернови на истории.
+        headings:
+          contributions: Вашите истории
+        links:
+          new: Добавете нова история
+        title: Добавете Вашата история
+      dashboard_guest:
+        links:
+          edit_contact: Редактирайте данните за контакт
+          new: Нов принос
+        notice: '%{name}, Вие допринасяте като гост.'
+      guests:
+        new:
+          guest: Вие допринасяте като гост.
+          links:
+            register: регистриране
+            sign_in: влизане
+      help:
+        how_to_use:
+          item2: Добавете информация за Вашия принос
+        item2: '%{privacy_policy} - Отделна страница'
+        item3: '%{takedown_policy} - Отделна страница'
+        item4: '%{contribution_terms} - Отделна страница'
+        item5: '%{about_the_project} - Отделна страница'
+      index:
+        item1: Въведете информация за Вашата история.
+        item2: Запазете Вашата история като чернова.
+        item3: Добавете един или повече елемента (снимки, текстови документи, аудио,
+          видео и т.н.).
+      registration_required:
+        p1: Моля %{sign_in} или %{register}, за да можете да добавяте Вашите обекти
+          и истории в Европеана 1914-1918.
+    devise:
+      passwords:
+        edit:
+          title: Промяна на паролата
+        new:
+          title: Забравена парола?
+      registrations:
+        new:
+          title: Регистриране
+      sessions:
+        new:
+          title: Влизане
+    errors:
+      api_error:
+        title: API грешка
+      bad_request:
+        title: Невалидна заявка
+      internal_server_error:
+        title: Вътрешна грешка на сървъра
+      not_found:
+        message: Вашата заявка не беше открита.
+        title: Не е намерено
+      search_offline:
+        message: Възможностите за търсене са временно недостъпни. Моля, опитайте отново
+          по-късно.
+        title: Търсене офлайн
+    explore:
+      heading: Разгледайте историите
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="Search for
+          ‘Diary’">дневник</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Search
+          for ‘Eastern front’">Източен фронт</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="Search for
+          ‘Family’">семейство</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="Search
+          ‘Flanders’">Фландрия</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="Search
+          for ‘Infantry’">пехота</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="Search for
+          ‘Medal’">медал</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="Search for ‘Military passport’">военна книжка</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="Search
+          for ‘Postcard’">пощенска картичка</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&amp;q=AM15" title="Objects
+            from the Amberg collection day">Амберг 26 януари 2012 г.</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="Objects
+            from the Berlin collection day">Берлин 2 април 2011 г.</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Objects
+            from the Dresden collection day">Дрезден 22 юни 2011 г.</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objects
+            from the Erfurt collection day">Ерфурт 14 юни 2011 г.</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Objects
+            from the Frankfurt collection day">Франкфурт 31 март 2011 г.</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Objects
+            from the Kiel collection day">Кил 29 юни 2011 г.</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Objects
+            from the Luxembourg collection day">Люксембург 6 март 2012 г.</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="Objects
+            from the Munich collection day">Мюнхен 6 април 2011 г.</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Objects
+            from the Preston collection day">Престън 10 март 2012 г.</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objects
+            from the Regensburg collection day">Регенсбург 20 юли 2011</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objects
+            from the Stuttgart collection day">Щутгарт 12 април 2011 г.</a>
+        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Search
+          for ‘Trenches’">окопи</a>
+      search_for: <b>Търсене на:</b>
+    flickr:
+      select:
+        instruction: Отбележете снимките, които искате да внесете. Заглавията и описанията
+          ще бъдат внесени автоматично.
+        licenses:
+          heading: Изберете снимки от профила си във Flickr
+          incompatible: Несъвместим лиценз
+          instruction: 'Само снимки със следните съвместими лицензи могат да бъдат
+            внасяни в Европеана 1914-1918:'
+        title: Изберете снимки от профила си във Flickr
+    home:
+      heading: неразказани истории и официалната история на Първата световна война
+      links:
+        across_europe: в цяла Европа
+      otto:
+        heading: Ото & Бернард
+      p1: <em>Европеана 1914-1918</em> събира материали от %{across_europe}.
+      p2: <b> Имате ли снимки, писма, пощенски картички, сувенири или други материали
+        от периода 1914-1918 г., свързани с Първата световна война? Знаете ли история
+        или анекдот за тези, които са участвали или са били засегнати? Моля, добавете
+        ги към онлайн колекцията от  истории, така че светът да има възможност да
+        узнае за тях.</b>
+    links:
+      back: Обратно към %{link}
+      back-to-search: Обратно към Търсене
+      previous_step: Предишна страница
+      privacy_policy: Защита на личните данни
+    register:
+      help_text:
+        password: Паролата трябва да съдържа шест символа
+      labels:
+        age_range: Приблизителна възраст
+        email: Е-поща
+        gender: Пол
+        password: Парола
+        password_repeat: Повторете паролата
+        profile_image: Изображение на профила
+        profile_photo: Снимка на профила
+        residence:
+          country: Изберете вашата държава на пребиваване
+          post_code: Пощенски код
+        user_name: Потребителско име
+      terms:
+        accept: Приемам %{terms}
+        heading: Условия за ползване
+        item2: Вие притежавате правата върху този цифров материал; или
+        item3: собственикът на тези права Ви е дал разрешение да предоставяте цифровия
+          материал при следните условия.
+        p2: <b>Вие гарантирате, че:</b>
+        terms: Условия на ползване
+    search:
+      facets:
+        common:
+          category: Категория
+          collection: Колекция
+          contributor: Приносител
+          country: Държава
+          creator: Автор
+          format: Формат
+          language: Език
+          location: Местоположение
+          media: Файлов тип
+          provider: Приносител
+          rights: Права
+          type: Тип
+          year: Година
+        contributions:
+          collection_day: Ден за колекциониране
+          keywords: Ключови думи
+          lang: Език
+          license: Лиценз
+          place_name: Име на мястото
+          theatres: Военни театри
+        europeana:
+          reusability: Повторна употреба
+          source_all: Всички резултати в Европеана
+          source_institution: Само библиотечни/ музейни колекции
+          source_label: Източник
+          source_ugc: Истории от обществото
+        refine_results: Прецизирайте резултатите си
+        trove:
+          availability: Наличност
+      providers:
+        canadiana: Канадски източници
+        collection: Европеана
+        contributions: 1914-1918
+        digitalnz: Новозеландски източници
+        dpla: Американски източници
+        europeana: Портал Европеана
+        trove: Австралийски източници
+    statistics:
+      index:
+        contributions:
+          heading: Приноси
+          ugc: От потребителите ни
+        intervals:
+          last_month: Последният месец
+          last_quarter: Последното тримесечие
+          last_week: Последната седмица
+          last_year: Последната година
+          this_month: Този месец
+          this_week: Тази седмица
+        no_results: Няма налични статистически данни.
+        providers:
+          canadiana: Канадиана (Канада)
+          digitalnz: DigitalNZ (Нова Зеландия)
+          dpla: DPLA (САЩ)
+          europeana: Европеана
+          trove: Trove (Австралия)
+    table:
+      header:
+        actions: Действия
+    tags:
+      add: Добавяне
+      delete:
+        question: Сигурни ли сте, че искате да премахнете този етикет?
+        title: Премахване на етикета
+      flag:
+        question: Наистина ли искате да маркирате този етикет като неподходящ?
+        title: Маркирай като неподходящо
+    users:
+      account:
+        caption: Лични данни
+        title: Вашата потребителска сметка
+  will_paginate:
+    first_title: Първа страница
+    last_title: Последна страница
+    next_label: '>'
+    next_title: Следваща страница
+    page_total_label: от %{total_pages}
+    per_page_label: 'Резултати на страница:'
+    previous_label: <
+    previous_title: Предишна страница
+...
