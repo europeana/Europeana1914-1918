@@ -351,9 +351,9 @@ update the js localization files
 bundle exec rake i18n:js:export
 ```
 
-### create countries.lc.rb
+### create countries.lc.rb files
 ```
-bundle exec rake import:country_select LOCALE=zh
+bundle exec rake import:country_select LOCALE=lc
 ```
 
 
