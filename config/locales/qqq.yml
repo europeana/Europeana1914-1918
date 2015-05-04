@@ -7,6 +7,7 @@
 # Author: Robby
 # Author: Shirayuki
 # Author: Trockya
+# Author: 아라
 ---
 qqq:
   Polish: '{{notranslate}}'
@@ -162,90 +163,14 @@ qqq:
       total: '{{Identical|Total}}'
     "yes": '{{Identical|Yes}}'
   date:
-    abbr_month_names:
-    - '{{notranslate}}'
-    day_names:
-    - |-
-      Name of the day of the week.
-      {{Identical|Sunday}}
-    - Name of the day of the week.
-    - Name of the day of the week.
-    - Name of the day of the week.
-    - Name of the day of the week.
-    - Name of the day of the week.
     formats:
-      default: |-
-        *%Y - Year with century (can be negative, 4 digits at least)
-        *%m - Month of the year, zero-padded (01 to 12)
-        *%d - Day of the month, zero-padded (01 to 31)
-
+      long_with_day: |-
+        {{DataFormatRuby/en}}
         {{Related|Date.formats}}
-      long: |-
-        Dateformat in this language. See documentation about [http://ruby-doc.org/core-2.0/Time.html#method-i-strftime strftime() at ruby-doc.org] for the syntax.
+      month_and_year: |-
+        {{DataFormatRuby/en}}
         {{Related|Date.formats}}
-
-        %d - Day of the month, zero-padded (01..31)
-        %B - The full month name (January)
-        %Y - Year with century (can be negative, 4 digits at least)
-      long_with_day: '{{Related|Date.formats}}'
-      month_and_year: '{{Related|Date.formats}}'
       quarter: '{{Related|Date.formats}}'
-      short: |-
-        * %b - The abbreviated month name (''Jan'')
-        * %d - Day of the month, zero-padded (01 to 31)
-
-        {{Related|Date.formats}}
-    month_names:
-      1: |-
-        The first month of the Gregorian calendar
-        {{Identical|January}}
-      2: |-
-        The second month of the Gregorian calendar
-        {{Identical|February}}
-
-        used when specifying the month february in phrases such as:
-
-        * February 2, 2002
-        * Upcoming roadshows in February:
-      3: |-
-        The third month of the Gregorian calendar
-        {{Identical|March}}
-      4: |-
-        The fourth month of the Gregorian calendar
-        {{Identical|April}}
-      5: '{{Identical|May}}'
-      6: |-
-        The sixth month of the Gregorian calendar
-        {{Identical|June}}
-      7: |-
-        The seventh month of the Gregorian calendar
-        {{Identical|July}}
-      8: |-
-        The eighth month of the Gregorian calendar
-        {{Identical|August}}
-      9: |-
-        The ninth month of the Gregorian calendar
-        {{Identical|September}}
-      10: |-
-        The tenth month of the Gregorian calendar
-        {{Identical|October}}
-      11: |-
-        The eleventh month of the Gregorian calendar
-        {{Identical|November}}
-      12: |-
-        The twelfth month of the Gregorian calendar
-        {{Identical|December}}
-    order:
-    - '{{Identical|Year}}'
-    - '{{Identical|Month}}'
-    - '{{Identical|Day}}'
-  datetime:
-    prompts:
-      day: '{{Identical|Day}}'
-      hour: '{{Identical|Hour}}'
-      month: '{{Identical|Month}}'
-      second: '{{Identical|Second}}'
-      year: '{{Identical|Year}}'
   devise:
     failure:
       invalid: Used as error message on signing up.
@@ -255,9 +180,6 @@ qqq:
       link: '{{Identical|Register}}'
     sessions:
       link: '{{Identical|Sign in}}'
-  errors:
-    messages:
-      blank: '{{Identical|Cannot be blank}}'
   flash:
     flickr:
       import:
@@ -497,6 +419,7 @@ qqq:
             date: '{{Identical|Date}}'
             description: '{{Identical|Description}}'
             format: '{{Identical|Format}}'
+            identifier: '{{Identical|Identifier}}'
             language: '{{Identical|Language}}'
             relation: '{{Identical|Relation}}'
             source: '{{Identical|Source}}'
@@ -908,8 +831,6 @@ qqq:
             password: '{{notranslate}}'
             password_confirmation: '{{notranslate}}'
             username: '{{notranslate}}'
-    select:
-      prompt: '{{Identical|Please select}}'
   javascripts:
     annotorious:
       flag: '{{Identical|Flag}}'
@@ -959,23 +880,17 @@ qqq:
       admin: '{{Identical|Admin}}'
       browse: '{{Identical|Browse}}'
       contact: '{{Identical|Contact us}}'
+      contribute: '{{Identical|Contribute}}'
       help: '{{Identical|Help}}'
       home: '{{Identical|Home}}'
   locale: '{{Identical|English}}'
   settings:
     site_name: '{{Identical|Sitename}}'
-  support:
-    array:
-      last_word_connector: '{{Identical|And}}'
-      two_words_connector: '{{Identical|And}}'
   time:
     formats:
-      default: |-
-        Dateformat in this language. See documentation about [http://ruby-doc.org/core-2.0/Time.html#method-i-strftime strftime() at ruby-doc.org] for the syntax.
+      timestamp: |-
+        {{DataFormatRuby/en}}
         {{Related|Date.formats}}
-      long: '{{Related|Date.formats}}'
-      short: '{{Related|Date.formats}}'
-      timestamp: '{{Related|Date.formats}}'
   views:
     about:
       terms:
@@ -1064,7 +979,8 @@ qqq:
     collection_days:
       cant-find-collection-day: Followed by the select box.
       stories: '{{Identical|Story}}'
-      visiting-information: The text of a link that brings you to a page with more information on attending/visiting a collection day
+      visiting-information: The text of a link that brings you to a page with more
+        information on attending/visiting a collection day
       website: |-
         Used as label for the link.
         {{Identical|Website}}
@@ -1230,7 +1146,8 @@ qqq:
       heading-p1: Opening text on the home page displayed just above the search box.
       links:
         see_english: The link text for {{msg-europeana|Views.home.upcoming_overview}}.
-      upcoming_overview: Text to be placed in the Upcoming Events section of the home page when the page is not viewed in English.
+      upcoming_overview: Text to be placed in the Upcoming Events section of the home
+        page when the page is not viewed in English.
     links:
       previous_step: '{{Identical|Previous page}}'
       privacy_policy: '{{Identical|Privacy policy}}'

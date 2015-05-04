@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Gaoxuewei
 # Author: Impersonator 1
+# Author: Jiang123aa
 # Author: Liuxinyu970226
 # Author: Stieizc
 ---
@@ -137,6 +138,11 @@ zh-CN:
         contribution:
           attachments:
             uploaded: 一些文件仍在转移。
+          attributes:
+            catalogued_by:
+              role_name: 编目员必须是管理员或编目员角色的用户
+            guest_id:
+              present: 了解细节需要访客的贡献。
         metadata_field:
           attributes:
             cataloguing:
@@ -155,6 +161,10 @@ zh-CN:
           attributes:
             name:
               inclusion: 不是已注册的配置设置
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: 分类学术语一定与分类元数据区域相关。
         user:
           attributes:
             current_password:
@@ -265,10 +275,14 @@ zh-CN:
       help: 帮助
       my_account: 我的账户
       my_stories: 我的故事
+      national_collections: a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">一起探寻更多关于国家收藏的结果</a>。
       play-audio: 播放音频
       play-video: 播放视频
       privacy_policy: 隐私政策
       project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">请参考我们项目网站以获取更多信息</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">查找更多有关聚合家族故事的内容</a>。
       register: 注册
       sign_in: 登录
       statistics: 统计
@@ -515,6 +529,7 @@ zh-CN:
           cover_image: 在我们的收藏中代表您的故事的封面图片；它就像书的封面。它可以是与您的故事相关的老照片，日记开头或者勋章图片。
           forces: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
           location_placename: 输入项目被创建的城市名（写信的那座或拍摄照片的那座），也就是说伦敦或巴黎。
+          subject: 此项目相关的人或位置或事物。
           theatres: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
         new:
           file: 您可以上传多个必要文件；每次一个。注意如果您上传多个文件您将有机会标记其中一个作为您故事的“封面图片”，就是明信片或日记。大小最大%{max}。允许格式：%{file_types}。
@@ -530,16 +545,19 @@ zh-CN:
           theatres: 如果不相关请不要点击。如果相关关键词不可用请电邮联系我们：1914-1918 [@] europeana [.] eu
         title: 总体上用于此贡献的标题。
       metadata_field:
+        field_type: 当字段保存后便不能再次更改。
         name: 字段数据库名称，必须唯一。有效字符：a-z, 0-9, _
       metadata_record:
         date: 格式：年-月-日（YYYY-MM-DD）、年-月（YYYY-MM）或年（YYYY），例如：1998-04-20、1998-04或1998
         geo: 格式：“LAT,LNG”。例如：“51.500,-0.126”（伦敦）
       settings:
+        allowed_upload_extensions: 允许的上传文件的扩展名，以逗号分隔，例如“pdf,doc,jpg,gif”。留空以允许所有扩展名。
         bing_client_id: 来自Azure DataMarket的Bing客户端ID。需要Europeana OpenSearch API查询的翻译。
         bing_translate_key: 必应翻译关键词。如果保留空白，微软必应翻译功能将不能工作。
         gmap_api_key: Google地图API密钥。没有此密钥，Google地图不能被用于输入地理位置数据。在<http://code.google.com/apis/maps/signup.html>请求密钥。
-        google_analytics_key: Google分析代码。如果留空将使用默认代码UA-XXXXXXXX-1。
+        google_analytics_key: Google分析代码。如果留空将使用默认代码UA-XXXXXXXX-1。请确保测试和生产环境利用的是适当密钥。
         max_upload_size: 上传的最小字节数。
+        ui_locales: 在页首链接区域
       user:
         current_password: 如果您希望更改您的账户详细信息的话，请输入您当前的密码。
         edit:
@@ -797,7 +815,7 @@ zh-CN:
         format:
           Canvas: 画布
           Card: 卡
-          Ceramic/China: 陶瓷/中国
+          Ceramic/China: 陶瓷/瓷器
           Digital: 数字化
           Leather: 皮革
           Metal: 金属
@@ -955,6 +973,7 @@ zh-CN:
         unknown: 地址未找到。
       search:
         button: 前往
+        hint: 键入一个地址以在上面的地图上搜寻。
         label: 搜索地址
       static:
         hide: 关闭地图
@@ -968,6 +987,8 @@ zh-CN:
     previous: ← 上一步
     search:
       10seconds: 我们仍在搜索。请耐心等待我们！
+      30seconds: 这比预期花了更长的时间。请尝试其他搜索，或继续等待。
+      60seconds: 搜索出现了问题。请待会重试。
     story:
       took-place: 这个故事发生在：
     thumbnails:
@@ -975,6 +996,7 @@ zh-CN:
       of: 的
     translate:
       return-to-language: 回到原始语言
+      service-not-available: 翻译服务目前不可用。
       translate-to: 翻译为…
     truncate:
       show-less: 显示更少…
@@ -1056,6 +1078,13 @@ zh-CN:
     about:
       background:
         heading: Europeana 1914~1918
+        p1: <b>Europeana 1914~1918</b>汇集了来自三大欧洲项目的资源，每个都在处理不同类型的第一次世界大战材料。The result
+          is an archive that allows the national collections of libraries to sit beside
+          personal stories and treasures and important film archives. Together, this
+          creates a unique perspective of the First World War, showing it from every
+          side of the battle lines and with insights from every point of view. Over
+          time, even more material will be added to this archive so please keep coming
+          back!
       collection_days:
         heading: 收藏日
       online_collection:
@@ -1081,6 +1110,7 @@ zh-CN:
         item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
       takedown:
         item1: 您的详细联系方式
+        item3: 您找到材料的准确网址（也就是：http://www.europeana1914-1918.eu/en/contributions/96）
         item5: 邮件联系我们：1914-1918 [@] europeana [.] eu
       terms:
         full_details:
@@ -1093,8 +1123,12 @@ zh-CN:
         user_contributions:
           heading: Europeana用户贡献条款
           item1: 密码和登录（第三条）
-          item5: 非法使用服务（第一条）
-          item6: 用户的个人数据（隐私）（第8条）
+          item2: 平台操作责任（第四条）
+          item3: 对内容的知识产权（第五条）
+          item4: 对元数据的知识产权（第三条）
+          item5: 非法使用服务（第七条）
+          item6: 用户的个人数据（隐私）（第八条）
+          item7: 当事人在损坏或丢失财产事件中的责任（第九条）
       what_we_do:
         heading: 国家收藏：
     about_us:
@@ -1102,6 +1136,14 @@ zh-CN:
         heading: 博客
       europeana:
         heading: Europeana 1914~1918
+        p1: Europeana 1914~1918汇集了来自三大欧洲项目的资源，每个都在处理不同类型的第一次世界大战材料。The result is an
+          archive that allows the national collections of libraries to sit beside
+          personal stories and treasures and important film archives. Together, this
+          creates a unique perspective of the First World War, showing it from every
+          side of the battle lines and with insights from every point of view. Over
+          time, even more material will be added to this archive so please keep coming
+          back!
+        p4: <b>电影档案：</b>European Film Gateway 1914项目带给我们650小时电影并叙述了在第一次世界大战的材料，包含新闻短片、纪录片、剧情片、宣传片和反战电影。这个材料非常重要，因为只有大约20&#37;完整的无声电影时代生产的电影留存至今。
       events:
         heading: 收藏日
       get_involved:
@@ -1109,6 +1151,8 @@ zh-CN:
           heading: 在线贡献
         education:
           heading: 教育
+        events:
+          p1: 在此网站的<a href="http://www.europeana1914-1918.eu">首页</a>您可以看见我们下一个家庭故事巡回演讲会在哪里举办。请带来您的来自第一次世界大战的文档、文物和故事，这样它们可被扫描或被摄影，并添加至档案中。
         heading: 介入
         reuse:
           heading: 使用材料
@@ -1317,6 +1361,7 @@ zh-CN:
       who-is-it-for-heading: 为了谁？
     common:
       loading: 载入中…
+      more-like-this: 您可能感兴趣的其他项目：
     contact:
       heading: 联系我们
       p1: 要联系Europeana 1914~1918项目组，请电邮联络1914-1918 [@] europeana [.] eu
@@ -1333,6 +1378,7 @@ zh-CN:
       _summary:
         caption: 摘要
       complete:
+        p1: 您的贡献已经提交。感谢您！它将由项目工作人员检查并在通过时出现在网站上。在繁忙的时候，这可能会花费数周。我们希望您能够理解和耐心等待。
         title: 贡献已完成
       delete:
         title: 放弃故事
@@ -1451,6 +1497,7 @@ zh-CN:
       story:
         complete:
           heading: 故事完成
+          p1: 您的故事已经提交。感谢您！它将由项目工作人员检查并在通过时出现在网站上。在繁忙的时候，这可能会花费数周。我们希望您能够理解和耐心等待。
         help_text:
           use_google_maps: 使用Google地图
         step1: 第一步——讲述您的故事
@@ -1521,22 +1568,32 @@ zh-CN:
         roadshows:
           amberg_2012_01: <a href="contributions/search?utf8=✓&amp;q=AM15" title="来自安贝格收藏日的对象">安贝格
             2012年1月26日</a>
-          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=PR17" title="来自柏林收藏日的对象">柏林
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="来自柏林收藏日的对象">柏林
             2011年4月2日</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&amp;q=DD12" title="来自德累斯顿收藏日的对象">德累斯顿
+            2011年6月22日</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="来自爱尔福特收藏日的对象">爱尔福特
+            2011年6月14日</a>
           frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="来自法兰克福收藏日的对象">法兰克福
             2011年3月31日</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="来自基尔收藏日的对象">基尔
+            2011年6月29日</a>
           luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="来自卢森堡收藏日的对象">卢森堡
             2012年3月6日</a>
           munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="来自慕尼黑收藏日的对象">慕尼黑
             2011年4月6日</a>
           preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="来自普雷斯顿收藏日的对象">普雷斯顿
             2012年3月10日</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="来自雷根斯堡收藏日的对象">雷根斯堡
+            2011年7月20日</a>
           stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="来自斯图加特收藏日的对象">斯图加特
             2011年4月12日</a>
+      p3: 您也可以<b>浏览故事收藏册</b>。点击下方的一个示例搜索关键词以运行相应词的搜索。结果数将随着更多材料加入存档而变多。
       search_for: <b>搜索：</b>
     flickr:
       select:
         licenses:
+          heading: 从您的Flickr账户选择照片
           incompatible: 无效许可协议
           instruction: 只有以下接受的许可协议的照片可以上传至Europeana 1914~1918：
         title: 从您的Flickr选择的图片
@@ -1549,11 +1606,14 @@ zh-CN:
           unlinked: 您没有连接Flickr
     home:
       heading: 未讲述的故事和第一次世界大战官方历史
+      heading-p1: 浏览有关第一次世界大战的故事、电影和历史材料，并贡献您自己的家庭历史。Europeana 1914~1918汇集来自全球范围内与记忆中图书馆和档案馆的资源，以及来自泛欧洲家庭的大事记。发现、学习、研究、使用、共享。
       links:
         across_europe: 泛欧洲
+        see_english: 查看英语首页
       otto:
         heading: Otto &amp; 伯纳德
         p1: 如果您有更多关于Otto Arndt的信息，请%{add_your_story}至在线故事集并向大家分享。
+      upcoming_overview: 请%{see_english}以查看我们最新新闻和活动的概览。
     links:
       back: 返回%{link}
       back-to-search: 返回搜索结果
