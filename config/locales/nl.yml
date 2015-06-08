@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Esketti
 # Author: Krinkle
 # Author: Mathonius
 # Author: McDutchie
@@ -567,10 +568,10 @@ nl:
             van het object en de emotionele waarde dat het heeft.
           content: Wat voor object is het? Is het bijvoorbeeld een gedicht? Of een
             brief of foto? Probeer zo specifiek mogelijk te zijn.
-          cover_image: Een omslagfoto werkt als de omslag van een boek. Houd er dan
-            ook rekening mee dat het directe invloed kan hebben op hoe interessant
-            uw verhaal overkomt. De omslag kan bijvoorbeeld de eerste pagina van een
-            dagboek zijn, of een foto van een medaille.
+          cover_image: Een cover afbeelding staat uw verhaal in onze collectie; het
+            is vergelijkbaar met de omslag van een boek. Het kan een foto van wie
+            dit verhaal gaat over de voorpagina van een dagboek of een afbeelding
+            van een medaille.
           creator_given_name: Geef hier de naam op van de persoon die het object gemaakt
             heeft. (Denk hierbij aan de schrijver van de brief, of de naam van de
             fotograaf.)
@@ -667,6 +668,12 @@ nl:
         banner_active: Indien ingeschakeld zal een onderhoudsbericht met onderstaande
           tekst te zien zijn op de site.
         banner_text: Tekst voor onderhoudsbericht, indien ingeschakeld.
+        bing_client_id: Bing cliënt-ID van Azure DataMarket. Nodig zijn voor de vertaling
+          van Europeana OpenSearch API-query ' s.
+        bing_client_secret: Bing opdrachtgever geheim van Azure DataMarket. Nodig
+          zijn voor de vertaling van Europeana OpenSearch API-query ' s.
+        bing_translate_key: Bing Vertalen toets. Indien leeg, Microsoft, Bing Vertalen
+          functionaliteit zal niet werken.
         contribution_approval_required: Indien ingeschakeld worden bijdragen alleen
           gpubliceerd na te zijn goedgekeurd. Indien niet ingeschakeld worden bijdragen
           direct na toevoeging gepubliceerd. Dit heeft geen effect indien "Bijdragen
@@ -677,6 +684,8 @@ nl:
         google_analytics_key: Google Analytics sleutel. Indien deze niet wordt ingevuld
           zal de terugvalsleutel, UA-XXXXXXXX-1 worden gebruikt. Verzeker u ervan
           dat de test- en productie-omgeving de juiste sleutels gebruiken.
+        google_api_email: Voer de Google API service-account e-mail adres te gebruiken
+          voor het ophalen van openbare statistieken van het gebruik van Google Analytics.
         max_upload_size: Maximale bestand grootte in bytes.
         publish_contributions: De publicatie van bijdragen inschakelen. Indien deze
           niet is ingeschakeld kunnen bijdragen nog steeds worden aangemaakt, maar
@@ -684,11 +693,21 @@ nl:
         registration_required: Indien ingeschakeld moeten gebruikers zich registreren
           om een bijdrage te kunnen doen. Indien niet ingeschakeld kunnen gebruikers
           bijdragen als gast door hun contactgegevens te geven.
+        relative_url_root: Basis-URL van de website is toegankelijk, zonder een slash.
+          Laat leeg voor top-level URL.
+        sharethis_id: De ShareThis-Uitgever-id. Indien leeg, ShareThis aandelen zullen
+          niet worden bijgehouden in de ShareThis-account. De ShareThis-script probeert
+          op te nemen aandelen in de Google Analytics-account, als het aanwezig is
+          op de pagina; het script zoekt voor de UA - waarde en het te gebruiken als
+          deze aanwezig is.
         site_name: De naam van deze website.  Dit zal te zien zijn in pagina titels
           en header als de systeemgekozen waarde.
         site_url: Volledige URL zoals die toegang geeft tot de homepage van deze site,
           zonder localisering en zonder trailing slash.
         ui_locales: Boven aan de pagina weer te geven talen
+        uploadify: 'Gebruik Uploadify te hanteren bijlage uploads, waardoor meerdere
+          bestanden worden geüpload. Zie <http: www.uploadify.com="" /> voor meer
+          informatie en demo '' s.'
       taxonomy_term:
         import: Voer hier de taxonomische waarden voor dit veld in, één per regel.
         term: Moet uniek zijn binnen het bereik van het metadataveld.
@@ -1219,6 +1238,15 @@ nl:
             de Stichting Europeana. De gebruiker dient kennis te nemen van het feit
             dat de Stichting Europeana er naar streeft alle objecten en metadata beschikbaar
             te stellen voor hergebruik met zo min mogelijk restricties.
+          p2: Als onderdeel van dit beleid, de <b>Europeana Voorwaarden voor Bijdragen
+            van Gebruikers</b> vast te leggen dat alle inhoud die is bijgedragen aan
+            Europeana door haar gebruikers beschikbaar worden gesteld op Europeana.de
+            eu onder de voorwaarden van een <a href="http://creativecommons.org/licenses/by-sa/3.0/"
+            target="_blank">Creative Commons Attribution ShareAlike licentie</a>.
+            Dit betekent dat, wanneer een gebruiker inhoud op de Europeana.eu-website,
+            hij onherroepelijk derde partijen het recht om u kosteloos gebruik maken
+            van die content, zolang ze kenmerk van het werk aan de auteur en delen
+            van wijzigingen van de inhoud, onder dezelfde voorwaarden.
           p3: Daarnaast geldt dat alle metada die wordt bijgedragen door gebruikers
             aan Europeana zullen beschikbaar worden gesteld op Europeana.eu onder
             de voorwaarden van <a href="http://creativecommons.org/publicdomain/zero/1.0/"
@@ -1326,6 +1354,8 @@ nl:
             type: Annotatie type
       collection_days:
         delete:
+          question: Weet u zeker dat u wenst te verwijderen van de aanvullende informatie
+            over de collectie dag - %{code}?
           title: Verwijder collectiedag
         edit:
           title: Bewerk collectiedag
@@ -1390,11 +1420,18 @@ nl:
           instructions: Door onderstaande Voeg toe knop te activeren zal het binnenhalen
             van WO1 gerelateerde inhoud via de Europeana API naar de 1914-19118 database
             worden gestart.
+          introduction: Er zijn momenteel %{count} de eerste wereldoorlog gerelateerde
+            records in Europeana het 1914-1918 database.
           title: Europeana portal content binnenhalen
       index:
         headings:
           export: Exporteer
         links:
+          annotations:
+            description: Review en matige gebruiker aantekeningen op de afbeelding
+              items.
+          collection_days:
+            description: Aanvullende informatie over de verzameling dagen.
           config:
             description: Configureer website settings
             text: Configuratie
@@ -1437,6 +1474,8 @@ nl:
           statistics:
             description: Jaarlijkse verhaalstatistieken bekijken.
             text: Statistieken
+          taggings:
+            description: Review en matige gebruiker taggings van verhalen.
           users:
             description: 'Gebruikersaccounts beheren: beheerders, catalogiseerders,'
             text: Gebruikersaccounts
@@ -1455,6 +1494,9 @@ nl:
           title: Nieuwe institutionele gegevensverstrekker
       metadata_fields:
         confirm_reindex:
+          info: Na het wijzigen van de doorzoekbaar status van een of meer velden
+            met metagegevens, of het verwijderen van eerder doorzoekbare velden, moet
+            u opnieuw de index van de zoekmachine via de knop hieronder.
           note: 'NB: het is niet nodig om de zoekmachine te herindexeren wanneer bijdragen
             worden toegevoegd, dit gebeurt automatisch.'
           title: Zoekmachine herinidexeren
@@ -1462,6 +1504,8 @@ nl:
           button_confirm: Wilt u dit veld echt verwijderen?
           question: Wilt u dit metadataveld %{field_name} echt verwijderen?
           title: Metadataveld verwijderen
+          warning: <strong>Waarschuwing:</strong> Dit zal resulteren in het verwijderen
+            van alle gegevens in uw collectie al verzameld voor dit veld.
         edit:
           empty: Er zijn nog geen metadatavelden.
           instructions: Voer een getal in voor de positie ven elk veld.
@@ -1611,6 +1655,11 @@ nl:
       types:
         heading: Typen
     collection_days:
+      cant-find-collection-day: Kan het niet vinden in de collectie van de dag, zoekt
+        u op de kaart?
+      different-collection-day: Wilt u een andere collectie dag plaats?
+      in-the-meantime: In de tussentijd, voel je vrij om een kijkje te nemen bij de
+        vorige collectie dagen die reeds gepubliceerde verhalen.
       index:
         title: Collectiedagen
       join-us: De collectiedag is nog niet voorbij. Kom svp terug als de collectiedag
@@ -1956,6 +2005,10 @@ nl:
       bad_request:
         message: Er is een fout opgetreden waardoor uw verzoek niet voldaan is.
         title: Bad request
+      federated_search_error:
+        message: De gegevens van deze federatieve zoekmachine is op dit moment niet
+          beschikbaar.
+        title: Federated search fout
       forbidden:
         message: U heeft geen toegang tot dit deel van de website
         title: Forbidden
@@ -2025,6 +2078,8 @@ nl:
       search_for: <b>Zoek naar:</b>
     flickr:
       select:
+        instruction: Vink de foto ' s die u wilt importeren. Titels en omschrijvingen
+          worden automatisch geïmporteerd.
         licenses:
           heading: Selecteer foto's van uw Flickr-account
           incompatible: Incompatibele licentie
@@ -2040,8 +2095,14 @@ nl:
           unlinked: U bent niet aan Flickr gekoppeld
     home:
       heading: Onbekende verhalen & officiële geschiedenissen van WW1
+      heading-p1: Ontdek de verhalen, films en historisch materiaal over de Eerste
+        Wereld Oorlog en deel uw eigen familiegeschiedenis. Europeana 1914-1918 mixen
+        bronnen van bibliotheken en archieven over de hele wereld met herinneringen
+        en memorabilia van gezinnen in heel Europa. Ontdekken. Leren. Onderzoek. Gebruik.
+        Delen.
       links:
         across_europe: door heel Europa
+        see_english: zie de engelse home pagina
         video_guide: Stap-voor-stap instructie video
       otto:
         heading: Otto &amp; Bernard
@@ -2053,6 +2114,8 @@ nl:
         over mensen aan het front of mensen die direct getroffen zijn door de oorlog?
         Laat de wereld weten wat zich heeft afgespeeld en voeg uw verhaal toe aan
         ons online archief.</b>
+      upcoming_overview: Neem dan %{see_english} voor een volledig overzicht van ons
+        laatste nieuws en evenementen.
     links:
       back: Terug naar %{link}
       back-to-search: Terug naar zoekresultaten
