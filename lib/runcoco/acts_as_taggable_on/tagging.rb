@@ -4,6 +4,7 @@ module ActsAsTaggableOn
     has_record_statuses :published, :flagged, :depublished, :revised
     
     after_update :index_taggable!, :if => :tag_id_changed?
+    after_destroy :index_taggable!
     
     alias_method :hrs_change_status_to, :change_status_to
     def change_status_to(status, user_id)
