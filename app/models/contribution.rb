@@ -290,12 +290,8 @@ class Contribution < ActiveRecord::Base
       end
     end
     
-    includes = [ 
-      { :contributor => :contact },
-      { :metadata => :taxonomy_terms },
-      { :attachments => { :metadata => :taxonomy_terms } }
-    ]
-    
+    includes = [:contributor] # do not add lots of includes; they use too much memory
+
     query.includes(includes).find_in_batches(
       :batch_size => options[:batch_size]
     ) do |batch|
