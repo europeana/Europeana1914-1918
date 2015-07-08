@@ -1,6 +1,7 @@
 # Messages for Croatian (hrvatski)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Teoo3
 ---
 hr:
   actions:
@@ -19,8 +20,8 @@ hr:
     new: Novo
     reject: Odbaci
     remove: Ukloni
-    save: Pohrani
-    submit: Predaj
+    save: Spremi
+    submit: Pošalji
     unflag: Ukloni oznaku
     update: Ažuriraj
   activerecord:
@@ -33,32 +34,41 @@ hr:
         file_file_name: Ime datoteke
         file_file_size: Veličina datoteke
         file_updated_at: Ažurirano
+        metadata: Metapodatci
         preview: Pregled
         public: Javno
+      collection_day:
+        description: Opis
+        end_date: Završni datum
+        image: Slika
+        name: Naziv
+        start_date: Početni datum
+        taxonomy_term_id: Taksonomski izraz
       contact:
         age: Starost
         country: Država prebivališta
-        full_name: Ime i prezime
+        full_name: Puno ime
         gender: Spol
         locality: Mjesto/grad
         postal_code: Poštanski broj
-        region: Županija
-        street_address: Ime ulice
+        region: Županija/okrug/općina
+        street_address: Adresa
         tel: Telefonski broj
       contribution:
         approved_by: Potvrdio
         approver: Potvrdio
         attachments: Predmeti
-        catalogued_by: Katalogitzator
-        cataloguer: Katalogitzator
-        contributor: Dopridonositelj
+        catalogued_by: Kataloger
+        cataloguer: Kataloger
+        contributor: Doprinositelj
         created_at: Započeto
+        metadata: Metapodatci
         published_at: Objavljeno
         submitted_at: Predano
       contribution_status:
         created_at: Status promijenjen
       metadata_field:
-        cataloguing: Samo katalogiziranje
+        cataloguing: Samo katalogiranje
         field_type: Vrsta
         hint: Savjet
         multi: Višestruki izbor
@@ -66,7 +76,9 @@ hr:
         position: Položaj
         required: Obavezno
         searchable: Pretraživo
-        show_in_listing: Prikaži popis
+        show_in_listing: Prikaži u popisu
+      metadata_record:
+        field_alternative: Alternativa polja
       setting:
         name: Ime
         value: Vrijednost
@@ -75,9 +87,11 @@ hr:
         term: Izraz
       user:
         created_at: Datum registracije
+        institution: Institucija
         password: Lozinka
         password_confirmation: Ponovite lozinku
         role_name: Uloga
+        terms: Izrazi
         username: Korisničko ime
     errors:
       messages:
@@ -165,7 +179,7 @@ hr:
           one: 'Nisam uspio spremiti %{model}: 1 greška'
           other: 'Nisam uspio spremiti %{model}: %{count} greški.'
     models:
-      annotation: Anotacija
+      annotation: Sažetak slike
       attachment: Predmet
       collection_day: Dan prikupljanja memorabilija
       contact: Kontakt
@@ -205,6 +219,13 @@ hr:
     title: Naslov
     updated_at: Ažurirano
     url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Država
+          data_provider_sm: Pružatelj podataka
+          metadata_collection_day_ids_im: Dan prikupljanja
   common:
     additional-information: Dodatne informacije
     download-item: Preuzmi sliku
@@ -527,9 +548,9 @@ hr:
             vam predstavlja i što vam znači.
           content: 'Što je predmet (na primjer: pjesma, pismo, fotografija); pokušajte
             biti što precizniji.'
-          cover_image: Naslovna slika predstavlja vašu priču u našoj kolekciji; slična
-            je naslovnici knjige. To može biti fotografija osobe o kojoj se priča
-            radi, naslovna stranici dnevniki ili fotografija medalje.
+          cover_image: Naslovna slika predstavlja Vašu priču u našoj kolekciji; slična
+            je naslovnici knjige. To može biti fotografija osobe o kojoj je priča,
+            naslovnica dnevnika ili fotografija medalje.
           creator_given_name: Ime osobe koja je stvorila originalni predmet, npr.
             autor pisma ili dnevnika ili ime fotografa.
           date_from: Recite nam kad je predmet stvoren, npr. kad je pismo napisano
@@ -1044,7 +1065,7 @@ hr:
           “%{add_your_story}”. Predane predmete pregledava projektni tim, a zatim
           su dostupni na Europeani.
       privacy_policy:
-        p1: Javno ćemo prikazati vaše ime uz vaše doprinose ako se odobre.
+        p1: Javno ćemo prikazati Vaše ime uz Vaše doprinose nakon što su odobreni.
         p2: Druge kontaktne podatke, ukljućujući vašu e-mail adresu, koristit ćemo
           samo kako bi vas kontaktirali o vašim doprinosima ovoj kolekciji.
         p3: Nikad nećemo dijeliti vaše kontaktne podatke s bilo kojim drugim organizacijama.
@@ -2025,7 +2046,7 @@ hr:
           availability: Raspoloživost
           discipline: Discipline
       providers:
-        canadiana: Kanadiana
+        canadiana: Kanadski izvori
         collection: Europeana
         contributions: 1914-1918
         digitalnz: Novozelandski izvori

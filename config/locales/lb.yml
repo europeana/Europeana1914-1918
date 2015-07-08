@@ -361,6 +361,10 @@ lb:
         alert: Et gouf e Problem beim aktualiséiere vu(n) %{resource_name}. Kuckt
           d'Messagen hei drënner.
         notice: '%{resource_name} gouf aktualiséiert.'
+    admin:
+      europeana:
+        harvest:
+          notice: Den Inhalt vum Portal Europeana gëtt am Hannergrond zesummegestallt.
     annotations:
       depublish:
         alert: Publikatioun vun der Notiz konnt net zréckgezu ginn.
@@ -1140,6 +1144,10 @@ lb:
           item1: dat digitaalt Material dat Dir eroplued ass net duerch Copyright
             geschützt; oder
           item2: Iech gehéieren d'Rechter vun dësem digitale Material; oder
+          item5: Fir Date vun der Beschreiwung déi Dir eraschéckt (esou wéi Beschreiwungen
+            oder Markéierungen) fir datt den Inhalt vu Sichmaschinne ka fonnt ginn,
+            erlaabt Dir jidderengem dës Beschreiwungen op bal all Manéier ze benotzen
+            esou wéi déi dat wëllen, ouni weider Konditiounen.
           p2: <b>Dir garantéiert, datt:</b>
           p3: <b>Wann Dir dës Konditiounen net  akzeptéiere wëllt, da setzt w.e.g.
             keen Inhalt oder Beschreiwunge vun Donnéeën op Europeana derbäi</b>.
@@ -1189,6 +1197,9 @@ lb:
           heading: Maacht Är Kontributioun online
         education:
           heading: Formatioun
+          p1: Eis Partner vun der British Library hunn e <a href="http://bl.uk/world-war-one">Website</a>
+            entwéckelt fir Léierpersounen déi Léiermaterial iwwer den 1. Weltkrich
+            plangen.
         events:
           p1: Op der <a href="http://www.europeana1914-1918.eu">Haaptsäit</a> vun
             dësem Site kënnt Dir gesinn wou di nächst Aktiounsdeeg organiséiert ginn.
@@ -1254,6 +1265,8 @@ lb:
               rejected: Nach keng refuséiert Kontributiounen.
               revised: Aktuell keng iwwerschafft Kontributiounen déi nach mussen akzeptéiert
                 ginn.
+              submitted: Keng proposéiert Kontributiounen am Suspens fir den Ament.
+              withdrawn: Keng zréckgezu Kontributiounen déi elo nach am Suspens sinn.
             search:
               approved: Keng approuvéiert Kontributiounen déi op Är Sichufro passen.
               draft: Keng preparéiert Kontributiounen déi op Är Sichufro passen.
@@ -1266,10 +1279,13 @@ lb:
         index:
           introduction: Et sinn elo %{count} Europeana Donnéeën a Relatioun zum Éischte
             Weltkrich an der Datebank 1914-1918.
+          title: Inhalt vum Europeana Portal zesummestellen
       index:
         headings:
           export: Exportéieren
         links:
+          annotations:
+            description: Nokucken a moderéiere vu Bemierkunge vu Benotzer iwwer Biller.
           collection_days:
             description: Zousätzlech Informatiounen iwwer d'Aktiounsdeeg
           config:
@@ -1289,6 +1305,8 @@ lb:
             text: Als XML exportéieren
           export_xml_nozip:
             text: Als XML exportéieren (ausser .zip-Fichieren)
+          harvest_europeana:
+            text: Inhalt vum Europeana Portal zesummestellen
           logs:
             text: Lobuch-Fichieren
           metadata_fields:
@@ -1516,6 +1534,7 @@ lb:
           location_place_name: Plaz (Numm vun der Plaz)
           save_digital: Digitalen Objet späicheren
           save_item_draft: Virbereedung vum Element späicheren
+          submit_contribution: Kontributioun eraschécken
         links:
           add_another: Setzt een anert Element derbäi
           add_item: En Element drunhänken
@@ -1665,6 +1684,7 @@ lb:
           links:
             register: registréieren
             sign_in: aloggen
+          title: Gaascht-Kontaktdaten
       help:
         adding_your_story:
           heading: Är Geschicht op Europeana 1914-1918 derbäisetzen
@@ -1701,8 +1721,11 @@ lb:
       api_error:
         title: API Feeler
       bad_request:
+        message: Et gouf e Problem mat Ärer Ufro esou datt si net konnt verschafft
+          ginn.
         title: Falsch Ufro
       federated_search_error:
+        message: Date vun dësem Provider sinn den Ament net disponibel.
         title: Feeler beim Sichen
       forbidden:
         message: Dir hutt net d'Recht fir op déi ugefrot Ressource zouzegräifen.
