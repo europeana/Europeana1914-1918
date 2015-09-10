@@ -592,6 +592,7 @@ lb:
             [.] eu'
         title: En Titel fir dës komplett Kontributioun.
       metadata_field:
+        attachment: Spezifizéiert ob dëst Feld sech op eropgeluede Fichiere bezitt.
         contribution: Gitt un ob dëst Feld sech op Kontributioune bezitt.
         field_type: Kann net geännert gi wann d'Feld bis gespäichert ass.
         name: 'Datebanknumm fir d''Feld. Däerf et nëmmen eemol ginn. Valabel Zeechen:
@@ -624,6 +625,10 @@ lb:
         contribution_approval_required: Wann aktivéiert, da gi Kontributiounen eréischt
           publizéiert wa se akzeptéiert goufen. Soss gi se direkt nom eraschécke publizéiert.
           Huet keen Effekt wa "Kontributioune publizéieren" net aktivéiert ass.
+        google_analytics_key: Google Analytics Schlëssel. Wann en eidel gelooss gëtt
+          da gëtt de Standard-Schlëssel UA-XXXXXXXX-1 benotzt.  Vergewëssert Iech
+          datt den Test an de Produktiouns-Environnement déi respektiv Schlëssele
+          benotzen.
         max_upload_size: Maximal Upload-Gréisst a Byten.
         registration_required: Wann aktivéiert, da mussen d'Leit sech umellen an e
           Benotzerkont uleeën fir eng Kontributioun maachen ze kënnen. Wann net aktivéiert,
@@ -953,11 +958,15 @@ lb:
     update: '%{model} aktualiséieren'
     "yes": Jo
   javascripts:
+    admin:
+      metadata_fields:
+        order: Zitt d'Felder an déi Reiefolleg wéi Dir et wëllt. Klickt op "Späicheren"
+          wann Dir fäerdeg sidd.
     annotorious:
       clear-flag: Markéieren läschen
       flag: Markéierung
     attachments:
-      uploading: E puer vun Äre Fichiere ginn nach iwwerdro. Wann se all fäerdeg sinn,
+      uploading: E puer vun Äre Fichiere ginn nach iwwerdro. Wa se all fäerdeg sinn,
         kënnt Dir Är Geschicht schécken.
     collection-days:
       find-more: Méi erausfannen.
@@ -1082,6 +1091,8 @@ lb:
     wordprocessing: Word-Dokument
   settings:
     allowed_upload_extensions: Erlaabt Type fir Eropzelueden
+    banner_active: Banner vu Maintenance-Aarbechten aktivéiert
+    banner_text: Text vum Banner vu Maintenance-Aarbechten
     bing_client_id: Bing-Clientsnummer (ID)
     bing_client_secret: Bing-Clientsnummer ass geheim
     bing_translate_key: Bing Translate Key
@@ -1464,10 +1475,14 @@ lb:
     collection_days:
       cant-find-collection-day: Den Aktiounsdag den Dir sicht konnt op der Kaart net
         fonnt ginn.
+      different-collection-day: Wëllt Dir léiwer en aneren Aktiounsdag kucken?
       in-the-meantime: An der Tëschenzäit kënnt Dir e Bléck op eis vireg Aktiounsdeeg
         geheien an déi scho publizéiert Geschichte liesen.
       index:
         title: Aktiounsdeeg
+      no-stories: Et deet eis leed awer den Inhalt vun dësem Aktiounsdag ass nach
+        net online. Eis Experte sinn domat beschäftegt déi während deem Aktiounsdag
+        gesammelt Geschichten nozekucken a wäerte geschwë mat der Publikatioun ufänken.
       open-collection: Aktiounsdag opmaachen
       select-collection-day: Sicht een Aktiounsdag eraus
       stories: 'Geschichten:'
@@ -1613,6 +1628,7 @@ lb:
           titles:
             show_contribution: Kontributioun weisen
         no_matches: Näischt fonnt. Probéiert w.e.g nach eng Kéier.
+        related-europeana: Ähnlechen Inhalt um Europeana Portal
         result_count_label: Resultater
       show:
         comments:
@@ -1624,6 +1640,7 @@ lb:
         headings:
           share: Recommandéieren op
           submit: Kontributioun eraschécken
+          tags: Markéierungen derbäisetzen
         links:
           new_attachment: En Element derbäisetzen
         shared-this-story: huet dës Geschicht recommandéiert

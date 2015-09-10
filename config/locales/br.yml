@@ -1196,6 +1196,7 @@ br:
       legend: Alc'hwez
       next-collection-day: E(n)<b>%{name}, %{city}, %{country}</b> le <b>%{start-date}
         e vo an deiz dastum a zeu.
+      no-upcoming: N'eus bet rakwelet deiz dastum ebet evit ar mare.
       past-entered: Deizioù dastum paseet
       past-not-entered: Deizioù dastum paseet (n'eo bet embannet an istorioù c'hoazh)
       show-past: Diskwel an deizioù dastum paseet
@@ -1453,11 +1454,24 @@ br:
         heading: 'Dastumadoù broadel :'
         item1: Ouzhpennañ ul luc'hskeudenn eus an elfenn pe eus ar seurt istor enlinenn
           dre al lec'hienn Europeana 1014-1018
+        item2: Pa vez abadennoù dastum, kasit an elfennoù ganeoc'h d'an abadenn. Luc'hskeudennet
+          e vint gant tud ar raktres ha skrivet e vo o istor.
+        p1: 'Gant ar raktres-se e vez bodet eñvorennoù hag istorioù diwar-benn ar
+          Brezel Bras (1914-1918). Er mare-mañ e labourer war an traezoù a sell ouzh
+          Europa dreist-holl : lizheroù, kartennoù-post, luc''hskeudennoù hag istorioù
+          eus Alamagn, Luksembourg, Iwerzhon, Slovenia hag eus ar Rouantelezh-Unanet.
+          Gallout a reer degas traezoù e daou zoare :'
     about_us:
       blog:
         heading: Blog
       europeana:
         heading: Europeana 1914-1918
+        p2: <b>Istorioù an holl dud.<b> E kenlabour gant Skol-Veur Oxford, Facts &
+          Files ha kalz a gevelerien all en Europa. Gant Europeana e vez dastumet
+          lizheroù, luc'hskeudennoù hag eñvorennoù brezel diembann c'hoazh e-touez
+          an holl dud. Ar pal eo niverelaat ha rannañ anezho enlinenn. Betek fin 2013
+          o doa un dousennad bro kemeret perzh er raktres-mañ ha gallet e oa bet niverelaat
+          ouzhpenn 60 000 pezh.
         p3: Gant <b>Dastumadoù broadel</b> Ar raktres Europeana Collections 1014-1018
           ez eus bet dastumet un dastumad niverel bras-kenañ, ennañ ouzhpenn 400 000
           teul a zeu eus dastumadoù levraouegoù broadel eizh bro hag a oa e tuioù
@@ -1577,6 +1591,9 @@ br:
           pe aprouiñ an degasadenn.
       europeana:
         index:
+          instructions: Pouezit war ar bouton "Kas" ha loc'hañ a raio dastumad an
+            endalc'had a denn d'an Brezel-bed kentañ adalek API ar porched Europeana,
+            en diaz roadennoù 1914-1918.
           introduction: Bez' ez eus %{count} enrolladenn bremañ en Europeana a denn
             d'ar Brezel-bed kentañ e-barzh an diaz roadennoù 1914-1918.
           title: Dastum endalc'had ar porched Europeana
@@ -1632,6 +1649,8 @@ br:
           statistics:
             description: Diskwel ar stadegoù istor bloaziek
             text: Stadegoù
+          taggings:
+            description: Adlenn ha habaskaat merkoù implijer an istorioù.
           users:
             description: Merañ ar c'hontoù implijerien ; merourien, katalogerien ha
               degaserien.
@@ -1739,14 +1758,23 @@ br:
           title: Kont implijer
     annotations:
       depublish:
+        question: Sur eo ho peus c'hoant da nullañ embannadur an notenn elfenn-se
+          ?
         title: Nullañ embann an notenn
       edit:
         title: Aozañ an notenn
       flag:
         question: Sur eo ho peus c'hoant da verkañ an notenn-mañ evel diazas ?
+        title: Merkañ an notenn evel diazas
+      unflag:
+        question: Sur eo ho peus c'hoant da ziverkañ an notenn-mañ evel diazas ?
+        title: Tennañ merk un notenn evel diazas
     attachments:
       _form:
         dropbox:
+          connect_html: M'ho peus ur gont Dropbox e c'hallit kas dimp restroù war-eeun
+            adalek ho kavlec'h Dropbox. M'ho peus c'hoant da implijout an aezamant-se,
+            kevreit, mar plij <a href="%{href}", ouzh ho kont Dropbox</a>.
           connected_html: Kevreet oc'h ouzh ho Dropbox evel strong>%{user}</strong>
           disconnect: Digevreañ eus ho kont Dropbox
           empty: Eilañ restroù zo er c'havlec'h anvet « /Apps/Europeana 1914-1918 »
@@ -1773,6 +1801,8 @@ br:
         item2-subitem2: Gallout a rit deskrivañ an elfennoù a-unanoù
         one-of-the-following: 'Gallout a rit choaz ober unan eus an traoù-mañ :'
       copy:
+        instructions: Dibabit unan eus an elfennoù all stag ouzh an istor-mañ da nebeutañ
+          evit flastrañ anezhi gant metaroadennoù an elfenn-mañ (diskwelet amañ dindan).
         title: Eilañ metaroadennoù eus an elfenn
       delete:
         question: Ha sur oc'h e fell deoc'h dilemel an elfenn "%{filename}" ?
@@ -1806,16 +1836,39 @@ br:
     collection_days:
       cant-find-collection-day: N'haller ket kavout an deiz dastum emaoc'h o klask
         war ar gartenn-mañ ?
+      different-collection-day: C'hoant ho peus da welet un deiz dastum all en e lec'h
+        ?
+      in-the-meantime: Da c'hortoz, sellit eta ouzh an deizioù dastum tremenet o deus
+        embannet istorioù dija.
       index:
         title: Deizioù dastum
+      join-us: N'eo ket echuet an deiz dastum c'hoazh. En em gavit ganeomp eta ma
+        c'hallit pe distroit diwezhatoc'h pa vo echutet an deiz dastum.
+      no-stories: Hon digarez, met n'emañ ket endalc'had an deiz dastum enlinenn c'hoazh.
+        Emañ hor c'hatalogerien oc'h ensellet an istorioù dastumet en deiz-mañ ha
+        kregiñ a raint da embann anezho a-benn nebeut.
       open-collection: Digeriñ an deiziad dastum
       select-collection-day: Dibab un deiziad dastum
       stories: 'Istorioù :'
       view-stories: Gwelet an istorioù
       visiting-information: Titouroù war ar weladenn
       website: 'Lec''hienn web :'
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+        accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus."
       what-do-you-get-heading: Petra ho peus bet ?
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
       what-is-it-heading: Petra eo ?
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
       who-is-it-for-heading: Evit piv eo ?
     common:
       loading: o kargañ...
@@ -1823,6 +1876,8 @@ br:
       permanent: Ne c'hall ket an ober-mañ bezañ disc'hraet.
     contact:
       heading: Mont e darempred ganeomp
+      p1: Evit mont e darempred gant skipailh ar raktres Europeana 1914-1918, implijit
+        ar chomlec'h postel 1914-1918[@]europeana[.]eu
     contacts:
       anonymous: Dizanv
       edit:
@@ -1840,13 +1895,24 @@ br:
           raktres ha lakaet e vo war wel el lec'hienn pa vo bet aprouet. Gallout a
           ra kemer meur a sizhunvezh. Trugarez vras, emaomp oc'h ober hor seizh gwellañ
           evit lakaat ho tegasadenn enlinenn.
+        title: Degasadenn echuet
       delete:
+        question: Sur eo ho peus c'hoant da lemel an istor <strong>%{title}</strong>”
+          hag e holl elfennoù ?
         title: Disteurel an istor
       digital_object:
         heading: Elfennoù stag ouzh hoc'h istor
         help_text:
           add_attachment: Ho pet soñj da ouzhpennañ un elfenn da nebeutañ d'hoc'h
             istor.
+          attachment_count: Bez' ez eus <strong>%{nr_digital_objects}</strong> teul
+            bremañ e darempred gant hoc'h istor;
+          language: Dibabit yezh pe yezhoù an teul-mañ.
+          object_type: Deskrivit an teul (da skouer, barzhoneg, lizher, luc'hskeudenn)
+            ; klaskit bezañ ar resisañ ar gwellañ.
+          save_digital: Dre glikañ war "Saveteit" e saveteot ar restr-mañ ha gallout
+            a reot ouzhpennañ restroù all pe kas ho tegasadenn en he fezh.
+          subject: An den pe al lec'h a zo an elfenn diwar e benn.
           submit_story_button: Kas an istor
           when: Pegoulz e oa bet krouet an elfenn-mañ
           where: Pelec'h e oa bet krouet an elfenn-mañ
@@ -1980,6 +2046,11 @@ br:
             oc'h ober hor seizh gwellañ evit lakaat ho tegasadenn enlinenn.
         help_text:
           add_another_person: Gallout a rit ouzhpennañ ouzhpenn un den.
+          behalf_of: Lezit goullo ar vaezienn-mañ m'ho peus c'hoant da sikour un den
+            da gas an degasadenn-mañ.
+          save_story: Dre glikañ war "Saveteit an degasadenn" e c'hallot kenderc'hel.
+          sections: Klikit war titloù ar rann amañ dindan evit digeriñ pe serriñ anezho.
+            E pep rann ez eus titouroù klokaat hag a c'hallit ouzhpennañ d'an istor-mañ.
           use_google_maps: Implijout Google Maps
         labels:
           people: Ouzhpennañ anvioù an dud a zo anv anezho en istor-mañ.
@@ -2014,23 +2085,56 @@ br:
         links:
           edit_contact: Diskwel an daveennoù
           new: Degasadenn nevez
+        notice: '%{name}, degas a rit o lod evel den pedet.'
+        privacy: Ur wech echuet ho tegasadenn, klikit war ar bouton amañ dindan evit
+          diverkañ ho roadennoù darempred abalamour da wareziñ ho puhez prevez war
+          un urzhiataer rannet.
         title: Talbenn kouviad
       guests:
+        edit:
+          title: Diskwel roadennoù pep den pedet
         new:
+          contact_details: 'Anez, skrivit ho roadennoù darempred da gentañ, mar plij
+            :'
+          guest: Degas a rit ho lod evel den pedet.
           links:
             register: en em enskrivañ
             sign_in: Kevreañ
+          title: Roadennoù pep den pedet
       help:
         adding_your_story:
           heading: Ouzhpennañ hoc'h istor da Europeana 1914-1918
+        how_to_use:
+          heading: Penaos implijout an etrefas dastum istorioù enlinenn
+          item1: '%{register} evit kaout ur gont (ne rankit en ober ur wech hekpen)
+            pe %{sign_in} ma''z oc''h enrollet dija.'
+          item2: Ouzhpennit titouroù war ho tegasadenn
+          item3: (war zibab) Stagit un doare niverel eus ho traezenn (luc'hskeudenn,
+            testenn skannet, gwelet, klevet ha kement zo).
+          item4: Kasit ho tegasadenn d'an dastumad istor enlinenn
+          item5: Ensellet e vo ho tegasadenn gant ur c'hataloger eus Europeana. Gallout
+            a raio an holl dud diraez anezhi ur wech ma vo bet ensellet ha degemeret.
+          p1: Evit ouzhpennañ un dra bennak d'ho tastumad istorioù enlinenn e rankit
+            %{sign_in} pe %{register} da gentañ. Gallout a reot neuze ouzhpennañ ho
+            traezoù hag hoc'h istorioù da Europeana 1914-1918.
+          p2: Goulennet e vo diganeoc'h heuliañ ar pemp pazenn da-heul. N'oc'h ket
+            rediet da gas an argerzh da benn en un taol, gallout a rit saveteiñ ho
+            tegasadenn ha distreiñ dezhi goude se.
         item1: Ouzhpennañ hoc'h istor da Europeana 1914-1918 – Gwelet amañ dindan
         item2: '%{privacy_policy} - Pajenn diforc''h'
         item3: '%{takedown_policy} - Pajenn diforc''h'
         item4: '%{contribution_terms} - Pajenn diforc''h'
         item5: '%{about_the_project} - Pajenn diforc''h'
+        p1: Pal ar raktres "Europeana 1914-1918" eo dastum teulioù ha traezoù hag
+          a denn d'ar Brezel Bras (1914-1918) ha diwar-benn an dud a selle ar brezel-se
+          war-eeun outo hag a oa bet lakaet diaes gantañ. Evit gouzout hiroc'h war
+          ar raktres-se ha war ar seurtoù teulioù ha traezoù niverelaet, lennit ar
+          bajenn %{about}
       index:
         item1: Ebarzhit titouroù diwar-benn hoc'h istor.
         item2: Enrollañ hoc'h istor evel ur brouilhed.
+        item3: Ouzhpennañ ur restr pe meur a hini (luc'hskeudennoù, klevet, gwelet
+          ha kement zo).
       registration_required:
         p1: '%{sign_in} pe %{register}, mar plij, evit gallout ouzhpennañ ho traezoù
           hag hoc''h istorioù da Europeana 1914-1918.'
@@ -2108,21 +2212,52 @@ br:
       p1: Gallout a rit gwelet ar pezh zo bet ouzhpennet d'hon dastumad istorioù betek-henn.
       search_for: <b>Klask :</b>
     flickr:
+      select:
+        licenses:
+          heading: Dibabit al luc'hskeudennoù eus ho kont Flickr
+          incompatible: Aotre-implijout  digenglotus
+          instruction: Nemet luc'hskeudennoù gant an aotreoù-implijout kenglotus da-heul
+            a c'hall bezañ enporzhiet en Europeana 1914-1918.
+        title: Dibab al luc'hskeudennoù eus ho kont Flickr
       show:
         action:
           link: Liammañ ar gont Flickr
           unlink: Diliammañ ar gont Flickr
+        status:
+          linked: Liammet hoc'h war Filckr evel %{username}
+          unlinked: N'oc'h ket liammet war Filck
     home:
+      heading: Istorioù diembann hag istorioù ofisiel eus ar Brezel-bed kentañ
+      heading-p1: Ergerzhit istorioù, filmoù ha dafar istorel war ar Brezel-bed kentañ
+        ha degasit ho lod en istor ho famih. Meskañ a ra Europeana 1914-1918 tarzhioù
+        levraouegoù ha dielloù er bed a-bezh gant eñvorennoù hag eñvorennoù familh
+        en Europa. Diskoachit. Deskit. Klaskit. Implijit. Rannit.
       links:
         across_europe: eus Europa a-bezh
+        see_english: sellit ouzh ar bajenn degemer e saozneg
+        video_guide: pazenn-ha-pazenn e video
       otto:
         heading: Otto &amp; Bernard
+      p1: Gant <em>Europeana 1914-1918</em> e vez dastumet teulioù ha traezoù %{across_europe}.
+      upcoming_overview: '%{see_english}, mar plij, evit kaout un alberz hollek eus
+        ar c''heleier hag an darvoudoù nevesañ.'
     links:
       back: Distreiñ da %{link}
       back-to-search: Distreiñ da zisoc'hoù an enklask
       previous_step: Pajenn gent
+      privacy_policy: Politikerezh prevezded
     register:
+      help_text:
+        email: Kevreañ a reot gant skoazell ar chomlec'h postel hag ar ger-tremen
+          spisaet.
+        password: Ar ger-tremen a rank bezañ 6 arouezenn ennañ da nebeutañ
+        profile_image: |-
+          Diskwelet e vo ar skeudenn-mañ e-kichen ho tegasadennoù<brl>
+          Ment uc'hek ar restr = 128Kb
+        profile_photo: M'ho peus c'hoant e c'hallit pellgargañ ur luc'hskeudenn ac'hanoc'h
+          (GIF pe JPEG). Diskwelet e vo e-kichen hoc'h istorioù.
       labels:
+        age_range: Ho rumm oad
         email: Postel
         gender: Jener
         password: Ger-tremen
@@ -2136,9 +2271,13 @@ br:
       terms:
         accept: Asantiñ a ran d'an %{terms}
         heading: Termenoù implijout
+        item1: N'eo ket gwarezet an dafar niverel a gasit gant gwirioù oberour, pe
         item2: Gwirioù ho peus war an dafar niverel-mañ, pe
         item3: dalc'her ar gwirioù-se en deus aotreet ac'hanoc'h da gas an dafar niverel
           diouzh an divizoù-mañ.
+        p2: <b>Gwarantiñ a reot e :</b>
+        p3: Ma ne zegemerit ket an divizoù-mañ, na bourchasit endalc'h ebet da Europeana.
+        terms: Termenoù ha divizoù
     search:
       facets:
         common:
