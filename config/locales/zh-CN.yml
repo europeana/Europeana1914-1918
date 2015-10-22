@@ -560,6 +560,7 @@ zh-CN:
         google_analytics_key: Google分析代码。如果留空将使用默认代码UA-XXXXXXXX-1。请确保测试和生产环境利用的是适当密钥。
         max_upload_size: 上传的最小字节数。
         registration_required: 有能力的人们应该注册一个用户帐号来贡献您的资源。没有能力的人们可以作为浏览者通过留下他们的联系方式来做出贡献。
+        sharethis_id: ShareThis发布者ID。如果留空，ShareThis分享将不会在ShareThis账户中被追踪。ShareThis脚本将尝试在Google分析账户中记录分享，如果页面提供的话；脚本将寻找UA-值，并且如果有将使用它。
         ui_locales: 在页首链接区域
       user:
         current_password: 如果您希望更改您的账户详细信息的话，请输入您当前的密码。
@@ -1311,6 +1312,8 @@ zh-CN:
     attachments:
       _form:
         dropbox:
+          connected_html: 您已作为<strong>%{user}</strong>连接至Dropbox
+          disconnect: 取消连接您的Dropbox账户
           refresh: 刷新文件列表
       _summary:
         caption: 附件信息
@@ -1369,6 +1372,7 @@ zh-CN:
     common:
       loading: 载入中…
       more-like-this: 您可能感兴趣的其他项目：
+      permanent: 此操作不可撤销。
     contact:
       heading: 联系我们
       p1: 要联系Europeana 1914~1918项目组，请电邮联络1914-1918 [@] europeana [.] eu
@@ -1539,12 +1543,16 @@ zh-CN:
             register: 注册
             sign_in: 登录
       help:
+        how_to_use:
+          item2: 添加有关您的贡献的信息
+          item3: （可选）附加您的对象的数字版（摄影、扫描文本、视频、音频等）。
         item2: '%{privacy_policy}——另一页面'
         item3: '%{takedown_policy}——另一页面'
         item4: '%{contribution_terms}——另一页面'
         item5: '%{about_the_project}——另一页面'
       index:
         item2: 将您的故事保存为草稿。
+        item3: 添加一个或更多项目（图片、文本文档、音频、视频等）。
     devise:
       passwords:
         edit:
@@ -1717,9 +1725,13 @@ zh-CN:
     table:
       header:
         actions: 操作
+    taggings:
+      edit:
+        title: 编辑标记
     tags:
       add: 添加
       delete:
+        question: 您确定要移除此标记么？
         title: 移除标签
       flag:
         title: 标记不当内容
