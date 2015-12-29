@@ -364,6 +364,10 @@ zh-CN:
       update:
         alert: 更新%{resource_name}时遇到问题。参见下面的信息。
         notice: '%{resource_name}已更新。'
+    admin:
+      europeana:
+        harvest:
+          notice: Europeana门户内容正在后台获得。
     annotations:
       depublish:
         alert: 取消发布注解失败。
@@ -526,6 +530,8 @@ zh-CN:
     create: 创建%{model}
     hints:
       attachment:
+        edit:
+          file: 只当您希望替换现有文件时上传新文件。最大文件大小：%{max}。允许的文件类型：%{file_types}。
         file: 上传文件
         metadata:
           cover_image: 在我们的收藏中代表您的故事的封面图片；它就像书的封面。它可以是与您的故事相关的老照片，日记开头或者勋章图片。
@@ -1282,6 +1288,7 @@ zh-CN:
           title: 分类术语
       users:
         delete:
+          button_confirm: 真的要删除这个用户账户么？
           question: 您确信要删除用户账户%{email}？
           title: 删除用户账户
           warning: <strong>警告：</strong>这也将删除所有用户贡献。
@@ -1347,7 +1354,7 @@ zh-CN:
       show:
         title: 附件
     blog_posts:
-      read_more: 了解更多
+      read_more: 阅读更多
     browse:
       collection-days:
         heading: 收藏日
@@ -1395,7 +1402,10 @@ zh-CN:
         title: 放弃故事
       digital_object:
         help_text:
+          attachment_count: 目前有<strong>%{nr_digital_objects}</strong>个项目附属于此故事。
           submit_story_button: 提交故事
+          when: 此项目何时创建的
+          where: 此项目在哪里创建的
         labels:
           keywords: 帮助其他用户查找您的项目，通过输入一个或多个下面的关键词。
           location_map: 位置（地图）
@@ -1513,6 +1523,7 @@ zh-CN:
           use_google_maps: 使用Google地图
         step1: 第一步——讲述您的故事
       withdraw:
+        question: 您确定要从收藏中放弃故事“<strong>%{title}</strong>”么？
         title: 放弃故事
     contributor:
       dashboard_contributor:
@@ -1546,6 +1557,7 @@ zh-CN:
         how_to_use:
           item2: 添加有关您的贡献的信息
           item3: （可选）附加您的对象的数字版（摄影、扫描文本、视频、音频等）。
+        item1: 添加您的故事至Europeana 1914~1918 – 参见下方
         item2: '%{privacy_policy}——另一页面'
         item3: '%{takedown_policy}——另一页面'
         item4: '%{contribution_terms}——另一页面'
@@ -1579,6 +1591,7 @@ zh-CN:
       search_offline:
         title: 离线搜索
     explore:
+      heading: 探索故事
       links:
         diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="搜索“日记”">日记</a>
         family: <a href="contributions/search?utf8=✓&q=Familie" title="搜索“家庭”">家庭</a>
@@ -1654,6 +1667,7 @@ zh-CN:
         accept: 我接受%{terms}
         heading: 使用条款
         p2: <b>您保证：</b>
+        terms: 条款与条件
     search:
       facets:
         common:
