@@ -262,8 +262,8 @@ nl:
     from-collection-days: Verhalen van onze collectiedagen
     google_maps:
       help_text: |-
-        <li><b>Autosuggestie</b>: typ een landnaam, plaats of adres. Google Maps zal proberen een adres te selecteren;</li>
-        <li><b>Specifiek adres</b>: voer een specifiek adres of geografische coördinaten in en click op "OK". Negeer vervolgens de automatische suggesties van Google Maps;</li>
+        <li><b>Autosuggestie</b>: typ een landnaam, plaats of adres. Google Maps probeert een adres te selecteren;</li>
+        <li><b>Specifiek adres</b>: voer een specifiek adres of geografische coördinaten in en klik op "OK". Negeer vervolgens de automatische suggesties van Google Maps;</li>
         <li><b>Kaartmarker</b>: wanneer de kaartmarker op het scherm verschijnt als u een adres heeft opgegeven, kunt u deze naar iedere locatie verplaatsen die u wenst;</li>
         <li><b>Zoom</b>: zoom in of uit op de kaart door de "+" of "-" aan de linkerkant van de kaart te gebruiken.</li>
       label: Google Maps gebruiken (optioneel)
@@ -688,8 +688,8 @@ nl:
           Maps niet gebruikt worden om geografische localiseringsdata in te voeren.
           Vraag een sleutel aan via <http://code.google.com/apis/maps/signup.html>.
         google_analytics_key: Sleutel voor Google Analytics. Indien deze niet wordt
-          ingevuld zal de terugvalsleutel, UA-XXXXXXXX-1 worden gebruikt. Verzeker
-          u ervan dat de test- en productie-omgeving de juiste sleutels gebruiken.
+          ingevuld wordt de terugvalsleutel, UA-XXXXXXXX-1 gebruikt. Verzeker u ervan
+          dat de test- en productie-omgeving de juiste sleutels gebruiken.
         google_api_email: Voer het e-mailadres voor de serviceaccount van de Google
           API in voor het ophalen van openbare statistieken van het gebruik van Google
           Analytics.
@@ -887,7 +887,7 @@ nl:
         forces:
           Allied Forces: Geallieerde troepen
           Central Powers: Centrale mogendheden
-          Imperial Forces: Keizerlijke troepen
+          Imperial Forces: Imperial Forces
         format:
           Canvas: Canvas
           Card: Kaart
@@ -1025,7 +1025,7 @@ nl:
       clear-flag: Markering wissen
       flag: Markeren
     attachments:
-      uploading: Een aantal van uw bestanden worden momenteel verzonden. Als alles
+      uploading: Een aantal van uw bestanden wordt momenteel verzonden. Als alles
         compleet is kunt u uw verhaal indienen.
     collection-days:
       close-directions: Routebeschrijving sluiten
@@ -1034,7 +1034,7 @@ nl:
       legend: Legenda
       next-collection-day: De volgende collectiedag vindt plaats bij <b>%{name}, %{city},
         %{country}</b> op <b>%{start-date}</b>
-      no-upcoming: Er zijn geen aanstaande collectiedagen gevonden.
+      no-upcoming: Er zijn geen geplande collectiedagen gevonden.
       past-entered: Eerdere collectiedagen
       past-not-entered: Eerdere collectiedagen (verhalen nog niet gepubliceerd)
       show-past: Eerdere collectiedagen weergeven
@@ -1069,7 +1069,7 @@ nl:
       search:
         button: OK
         hint: Vul het adres in dat u op de kaart wilt vinden.
-        label: Zoek naar een adres
+        label: Adres zoeken
       static:
         hide: Kaart sluiten
         show: In Google Maps weergeven
@@ -1083,7 +1083,7 @@ nl:
     search:
       10seconds: We zijn nog aan het zoeken. Een moment geduld.
       30seconds: Het duurt langer dan verwacht. Probeer een andere zoekopdracht of
-        blijf nog even wachten!
+        wacht nog even.
       60seconds: Er zijn momenteel problemen met het zoeken. Probeer het later nog
         eens.
     story:
@@ -1092,15 +1092,15 @@ nl:
       item: Item
       of: van
     translate:
-      return-to-language: Keer terug naar de taal van oorsprong
+      return-to-language: Terugkeren naar de oorspronkelijke taal
       service-not-available: De vertaaldiensten zijn momenteel niet beschikbaar.
       translate-to: Vertalen naar ...
     truncate:
       show-less: Minder weergeven...
       show-more: Meer weergeven...
     uploadify:
-      basic_ui: Lukt het niet om bijlagen bij te voegen? Misschien werkt de <a href="{{href}}">basic
-        upload</a>
+      basic_ui: Lukt het niet om bijlagen toe te voegen? Misschien werkt <a href="{{href}}">eenvoudig
+        uploaden</a>.
       button_text: Selecteer bestanden
       finished: Terug naar de bijdrage
       hint: 'Het is mogelijk om meerdere documenten tegelijk toe te voegen. Ieder
@@ -1135,47 +1135,50 @@ nl:
   mail:
     contributions:
       published:
-        greeting: Geachte Europeana 1914-1918 gebruiker,
-        signature: Met vriendelijke groet, Het Europeana 1914-1918 team
+        greeting: Beste bijdrager aan Europeana 1914-1918,
+        signature: |-
+          Met vriendelijke groet,
+
+          Het team van Europeana 1914-1918
         subject: Uw bijdrage voor 1914-1918 is gepubliceerd
         thanks: 'Hartelijk bedankt voor het delen van uw verhaal en objecten! Uw bijdrage
           is nu zichtbaar op onze website. U kunt uw bijdrage vinden via deze koppeling:'
     exports:
       complete:
-        notice: 'De door u verzochte collectie is compleet en kan gedownload worden
+        notice: 'De door u begonnen collectie is compleet en kan gedownload worden
           via:'
-        subject: Collectie export is compleet
+        subject: Collectie-export is compleet
   media_types:
     all: Alles
-    binary: Tweetalig bestand
+    binary: Binair bestand
     pdf: PDF
     sound: Geluidsbestand
     spreadsheet: Spreadsheet
     txt: Tekstbestand
-    unknown: Onbekend document type
+    unknown: Onbekend documenttype
     video: Videobestand
-    wordprocessing: Word bestand
+    wordprocessing: Wordbestand
   settings:
     allowed_upload_extensions: Toegestane documenttypen
     banner_active: Onderhoudsbericht actief
     banner_text: Tekst voor onderhoudsbanner
-    bing_client_id: Bing client ID
-    bing_client_secret: Bing client secret
-    bing_translate_key: Bing Vertaal Sleutel
+    bing_client_id: Bing client-ID
+    bing_client_secret: Bing clientgeheim
+    bing_translate_key: Bing vertaalsleutel
     contribution_approval_required: Alleen goedgekeurde bijdragen publiceren
-    gmap_api_key: Google Maps API sleutel
-    google_analytics_key: Google Analytics Sleutel
+    gmap_api_key: Google Maps API-sleutel
+    google_analytics_key: Google Analyticssleutel
     google_api_email: Google API e-mailadres
     max_upload_size: Maximale bestandsgrootte
     publish_contributions: Bijdragen publiceren
     registration_required: Registratie vereist
-    relative_url_root: URL root
+    relative_url_root: URL-root
     search_engine: Zoekmachine
-    sharethis_id: ShareThis Publisher id
+    sharethis_id: ShareThis Publisher-ID
     site_name: Naam van de website
-    site_url: Site URL
+    site_url: Site-URL
     ui_locales: Beschikbare locales
-    uploadify: Enable Uploadify
+    uploadify: Uploadify inschakelen
   support:
     select:
       prompt: Selecteer
@@ -1219,10 +1222,10 @@ nl:
           Alle bijdragen worden gecheckt door het projectteam en daarna beschikbaar
           gesteld via Europeana.
       privacy_policy:
-        p1: Als uw verhaal wordt goedgekeurd zal ook uw naam hierbij verschijnen.
-        p2: We zullen uw contactgegevens alleen gebruiken om contact met u op te nemen
-          over uw bijdrage aan ons archief.
-        p3: Wij zullen uw contactgevens nooit met derden delen.
+        p1: Als uw verhaal wordt goedgekeurd verschijnt hierbij ook uw naam.
+        p2: We gebruiken uw contactgegevens alleen om contact met u op te nemen over
+          uw bijdrage aan ons archief.
+        p3: Wij delen uw contactgevens nooit met derden.
         p4: Meer lezen over ons privacybeleid op <a http://www.europeana.eu/portal/privacy.html
           target="_blank">Europeana</a>.
       project_partners:
@@ -1242,23 +1245,23 @@ nl:
       takedown:
         item1: Uw contactgegevens
         item2: Details over het materiaal
-        item3: 'Waar heeft u het materiaal gevonden? (i.e.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item3: 'Waar heeft u het materiaal gevonden? (bijvoorbeeld: http://www.europeana1914-1918.eu/en/contributions/96)'
         item4: Bewijs van eigendom of autorisatie om het materiaal te publiceren
         item5: E-mail ons via 1914-1918 [@] europeana [.] eu
         p1: 'Als u de rechten tot dit materiaal bezit en u van mening bent dat dit
-          materiaal zonder uw toestemming gepubliceerd is, zullen wij het uiteraard
-          verwijderen. Stuur ons dan een e-mail met het volgende onderwerp:'
+          materiaal zonder uw toestemming gepubliceerd is, verwijderen wij het uiteraard.
+          Stuur ons dan een e-mail met het daarin het volgende:'
       terms:
         full_details:
           heading: 'Europeana voorwaarden: alleen in het Engels beschikbaar'
         heading: Algemene voorwaarden
         summary:
           heading: 'Europeana gebruiksvoorwaarden: samenvatting'
-          item1: het digitale materiaal wat u heeft bijgedragen is vrij van copyright;
+          item1: het digitale materiaal wat u heeft bijgedragen is vrij van auteursrechten;
             of
           item2: u heeft het recht om dit materiaal te delen; of
-          item3: de eigenaar van dit materaal heeft u geautoriseerd om het materiaal
-            onder deze omstandigheden te delen.
+          item3: de eigenaar van dit materiaal heeft u geautoriseerd om het materiaal
+            onder de volgende voorwaarden te delen.
           item4: Het materiaal dat u met ons deelt (video, foto's, dagboeken, plaatjes,
             of audio materiaal) mag door anderen gebruikt worden mits zij erkennen
             dat u de rechten op dit materiaal beheert. Wanneer zij het materiaal aanpassen,
@@ -1268,19 +1271,20 @@ nl:
             en dergelijke, geeft u uw materiaal beschrijvingen mee. De beschrijvingen
             die u meegeeft aan uw materiaal (zoals labels en trefwoorden) zijn vrij
             om door anderen gebruikt te worden, zonder verdere consequenties.
-          p1: 'Voordat u uw verhalen en objecten kan delen op Europeana, moet u akkoord
-            gaan met de voorwaarden (zie bovenstaande paragraaf). De belangrijkste
-            voorwaarden, en gevolgen van het akkoord gaan, zijn:'
+          p1: 'Voordat u digitale materialen aan Europeana kunt verzenden, u moet
+            akkoord gaan met de EEuropeana Terms for User Contributions. Die de paragraaf
+            hierboven. Belangrijke gevolgen van het aanvaarden van deze voorwaarden
+            zijn de volgende:'
           p2: <b>U garandeert dat:</b>
-          p3: Als u het niet eens bent met deze voorwaarden, verzoeken wij u om uw
-            materiaal en beschrijvingen niet met ons te delen.
+          p3: <b>Als u deze voorwaarden niet wilt accepteren, draag dan geen inhoud
+            of beschrijvende gegevens bij aan Europeana</b>.
         user_contributions:
-          heading: Europeana voorwaarden voor gebruikers bijdragen
+          heading: Voorwaarden voor gebruikersbijdragen aan Europeana
           item1: Wachtwoorden en aanmelden (Artikel 3)
           item2: Verantwoordelijkheid voor het platorm (Artikel 4)
           item3: Intellectueel eigendom op deze inhoud (Artikel 5)
-          item4: Intellectuele eigendom op de metadata (Artikel 6)
-          item5: Onterecht gebruik van de service (Artikel 7)
+          item4: Intellectueel eigendom op de metadata (Artikel 6)
+          item5: Onterecht gebruik van de dienst (Artikel 7)
           item6: Persoonlijke gegevens (privacy) (Artikel 8)
           item7: Aansprakelijkheid in geval van schade of verlies (Artikel 9)
           p1: Dit document bevat de voorwaarden die van toepassing zijn op gebruikers
@@ -1297,12 +1301,12 @@ nl:
             Europeana.eu, deze gebruiker derde partijen het onherroepelijke recht
             verleent om die inhoud vrij te gebruiken, mits ze de naam van de maker
             vermelden en wijzigingen onder dezelfde condities delen.
-          p3: Daarnaast geldt dat alle metada die wordt bijgedragen door gebruikers
-            aan Europeana zullen beschikbaar worden gesteld op Europeana.eu onder
-            de voorwaarden van <a href="http://creativecommons.org/publicdomain/zero/1.0/"
-            target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>.
-            Dit wil zeggen dat de gebruiker onheroepelijk toestemming geeft aan derden
-            om deze metadata te hergebruiken zonder enige restricties.
+          p3: Daarnaast geldt dat alle metadata die wordt bijgedragen door gebruikers
+            aan Europeana beschikbaar wordt gesteld op Europeana.eu onder de voorwaarden
+            van <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">Creative
+            Commons CC0 1.0 Universal Public Domain Dedication</a>. Dit wil zeggen
+            dat de gebruiker onherroepelijk toestemming geeft aan derden om deze metadata
+            zonder enige beperkingen te hergebruiken.
           p4: <b>Indien u niet akkoord bent met deze voorwaarden wordt u verzocht
             geen bijdrage te leveren aan Europeana.<b>
           p5: 'Deze Gebruikersvoorwaarden bepalen <i>inter alia<i> de volgende aspecten
@@ -1330,14 +1334,14 @@ nl:
         heading: Blog
       europeana:
         heading: Europeana 1914-1918
-        p1: "Op Europeana 1914-1918 vindt u uiteenlopende/verschillende/diverse documenten
+        p1: Op Europeana 1914-1918 vindt u uiteenlopende/verschillende/diverse documenten
           over de Eerste Wereldoorlog die in het kader van drie grote Europese projecten
-          werden verzameld . Het resultaat is een uniek online \narchief van nationale
+          werden verzameld . Het resultaat is een uniek online archief van nationale
           collecties van bibliotheken, persoonlijke verhalen en indrukwekkende filmbeelden
           . Al deze documenten samen bieden vanuit verschillende invalshoeken van
           beiden zijden van het front een uitzonderlijk perspectief op de Eerste Wereldoorlog.
-          De verzameling zal geregeld aangevuld worden met nieuwe aanwinsten, het
-          loont dus de moeite om deze site regelmatig te bezoeken."
+          De verzameling wordt geregeld aangevuld met nieuwe aanwinsten. Het loont
+          dus de moeite om deze site regelmatig te bezoeken.
         p2: <b>Persoonlijke verhalen:</b> In samenwerking met de Universiteit van
           Oxford , Facts & Files en vele andere partners in Europa verzamelt Europeana
           1914-1918 niet eerder gepubliceerde brieven van het publiek , foto's en
@@ -1377,9 +1381,11 @@ nl:
             voor onderwijsinstellingen ontwikkeld met educatieve programma’s rondom
             de Eerste Wereldoorlog
         events:
-          p1: |-
-            Bezoek onze Evenementen pagina [link] om te zien waar onze volgende collectiedagen zullen plaatsvinden. Breng uw documenten , voorwerpen en
-            verhalen uit de Eerste Wereldoorlog , zodat deze kunnen worden gescand of gefotografeerd en toegevoegd aan het archief .
+          p1: Op de <a href="http://www.europeana1914-1918.eu">Startpagina</a> kunt
+            u zien waar onze volgende familiegeschiedenisroadshow plaatsvindt. Breng
+            alstublieft al uw documenten, voorwerpen en verhalen meer uit de Eerste
+            Wereldoorlog, zodat deze kunnen worden gescand of gefotografeerd en toegevoegd
+            aan het archief.
           p2: "Als u geïnteresseerd bent in het runnen van uw eigen collectiedagen
             of soortgelijke evenementen om materiaal aan Europeana 1914-1918 toe te
             \nvoegen kunnen we hulp en advies over hoe om te bieden dat [link naar
@@ -1465,9 +1471,9 @@ nl:
           "in afwachting van goedkeuring" is) de bijdrage goedkeuren.'
       europeana:
         index:
-          instructions: Door onderstaande Voeg toe knop te activeren zal het binnenhalen
-            van WO1 gerelateerde inhoud via de Europeana API naar de 1914-19118 database
-            worden gestart.
+          instructions: Door op de onderstaande knop "Opslaan" te klikken wordt het
+            binnenhalen van WO1-gerelateerde inhoud via de Europeana-API naar de 1914-19118-database
+            gestart.
           introduction: Er zijn op het moment %{count} aan WWI gerelateerde Europeanarecords
             in de 1914-1918-database.
           title: Europeana portal content binnenhalen
@@ -1584,9 +1590,8 @@ nl:
         delete:
           question: Weet u zeker dat u de taxonomische term "%{term}" wilt verwijderen?
           title: Taxonomische term verwijderen
-          warning: <strong>Waarschuwing:<strong> Deze actie zal tot gevolg hebben
-            dat alle met deze waarde geassocieerde bijdragen deze categorisatie zullen
-            verliezen.
+          warning: <strong>Waarschuwing:<strong> deze handeling heeft tot gevolg dat
+            alle met deze waarde geassocieerde bijdragen deze categorisatie verliezen.
         edit:
           title: Taxonomische voorwaarde bewerken
         import:
@@ -1606,8 +1611,8 @@ nl:
           button_confirm: Deze account echt verwijderen?
           question: Weet u zeker dat u de gebruiker "%{email}" wilt verwijderen?
           title: Gebruikersaccount verwijderen
-          warning: <strong>Waarsachuwing:<strong> Hierdoor zullen alle bijdragen van
-            deze gebruiker worden verwijderd.
+          warning: <strong>Waarsachuwing:<strong> hierdoor worden alle bijdragen van
+            deze gebruiker verwijderd.
         edit:
           title: Account verwijderen
         index:
@@ -1750,10 +1755,10 @@ nl:
     contacts:
       anonymous: Anoniem
       edit:
-        title: Wijzig persoonlijke gegevens
-      no_name: Geen naam bekend
+        title: Persoonlijke gegevens bewerken
+      no_name: geen naam bekend
       show:
-        title: Contact informatie
+        title: Contactgegevens
     contributions:
       _progress:
         step_x_of_y: Stap %{x} van %{y}
@@ -1765,14 +1770,14 @@ nl:
           weken in beslag nemen. Alvast bedankt voor uw begrip en geduld.
         title: Voltooid
       delete:
-        question: Weet u zeker dat u “<strong>%{title}</strong>” en alle bijbehorende
-          bijlagen wilt verwijderen?
+        question: Weet u zeker dat u het verhaal "<strong>%{title}</strong>" en alle
+          bijbehorende bijlagen wilt verwijderen?
         title: Verhaal negeren
       digital_object:
-        heading: Bijlages bij uw verhaal
+        heading: Bijlagen bij uw verhaal
         help_text:
           add_attachment: Vergeet niet om in ieder geval een item bij uw verhaal te
-            voegen
+            voegen.
           attachment_count: Er zijn op dit moment <strong>%{nr_digital_objects}</strong>
             bijlagen aan dit verhaal toegevoegd.
           language: Geef de taal op die gebruikt worden in het item. Wanneer u bijvoorbeeld
@@ -1780,16 +1785,15 @@ nl:
             als "Engels" aanvinken.
           object_type: Om wat voor item gaat het? Een gedicht? Een brief? Een foto?
             Probeer zo specifiek mogelijk te zijn.
-          save_digital: Wanneer u op "Bewaar" clickt, word uw item bewaard en krijgt
-            u de kans of meerdere objecten toe te voegen. Tevens kunt u na deze stap
-            uw bijdrage naar ons team verzenden.
+          save_digital: Wanneer u op "Opslaan" klikt, word uw item bewaard en kunt
+            meer items toevoegen of uw bijdrage inzenden.
           subject: De persoon of de plaats waar dit item betrekking op heeft.
-          submit_contribution1: Wanneer u klaar bent, kunt u overgaan tot <a href="#continue-to-submission">het
-            verzenden van uw bijdrage</a>.
-          submit_contribution2: Door op "Verzenden" te clicken, word uw bijdrage naar
-            ons team verzonden. Zij zullen uw bijdrage dan bekijken en het vervolgens
-            publiceren.
-          submit_story_button: Verzenden
+          submit_contribution1: Wanneer u klaar bent, kunt u <a href="#continue-to-submission">uw
+            bijdrage verzenden</a>.
+          submit_contribution2: Door op "Verhaal opslaan" te klikken, word uw verhaal
+            opgeslagen. Uw bijdrage wordt door een expert gecontroleerd en komt daarna
+            beschikbaar voor anderen.
+          submit_story_button: Verhaal verzenden
           summary: Hier beneden kunt u een overzicht vinden van alle items die bij
             dit verhaal horen. In de eerste instantie zijn er geen, maar u kunt er
             zoveel bijlagen aan toevoegen als u wilt. U kunt ook de huidige items
@@ -1802,22 +1806,22 @@ nl:
           location_map: Locatie (kaart)
           location_place_name: Locatie (plaatsnaam)
           save_digital: Digitaal object opslaan
-          save_item_draft: Bewaar tijdelijke opzet
-          submit_contribution: Verzend
+          save_item_draft: Concept opslaan
+          submit_contribution: Bijdrage inzenden
         links:
           add_another: Nog een item toevoegen
           add_item: Bijlage toevoegen
-          edit: Wijzig of voeg meer informatie toe
+          edit: Meer informatie bewerken of toevoegen
           edit_story: Verhaal bewerken
         options:
           3d: 3D
-          artifact: Artifact
+          artifact: Artefact
           audio: Audio
           back: Terug
           book: Boek
           canvas: Canvas
           card: Kaart
-          cc_by_sa: cc-by-sa
+          cc_by_sa: CC BY-SA
           ceramic: Keramiek/China
           diary: Dagboek
           digital: Digitaal
@@ -1831,7 +1835,7 @@ nl:
           letter: Brief
           medal: Medaille
           metal: Metaal
-          mixed: Gemixt
+          mixed: Gemengd
           multiple: Meerdere
           newspaper: Krant
           notebook: Notitieboek
@@ -1841,10 +1845,10 @@ nl:
           photographic_paper: Fotopapier
           poem: Gedicht
           postcard: Ansichtkaart
-          public_domain: Publiek Domein
+          public_domain: publiek domein
           tape: Band
           text: Tekst
-          text_memoir: 'Tekst: memoir'
+          text_memoir: 'Tekst: memoire'
           text_transcript: 'Tekst: transcript'
           unknown: Onbekend
           video: Video
@@ -1868,38 +1872,38 @@ nl:
         empty: Er zijn nog geen verhalen gepubliceerd.
         title: Bijdrage
       new:
-        title: Artikelen
-      no_title: Geen titel
+        title: Bijdrage
+      no_title: geen titel
       search:
         captions:
-          all: Alle verhalen en objecten
+          all: Alle bijdragen
           matching: Verhalen of objecten die met "%{query}" overeenkomen
-        heading: Zoek resultaten
+        heading: Zoekresultaten
         links:
           titles:
             show_contribution: Bijdrage bekijken
         matches-for: 'Gevonden voor:'
-        no_matches: Er is niets gevonden. Probeert u het alstublieft nog een keer.
-        related-europeana: Gelijke objecten uit onze Europeana portal
-        result_count_label: Resutaten
+        no_matches: Er is niets gevonden. Probeert u het nog een keer.
+        related-europeana: Gerelateerde inhoud uit ons Europeanaportal
+        result_count_label: resultaten
       show:
         button_confirm: Weet u zeker dat uw verhaal zo compleet is?
         comments:
-          leave: Geef commentaar
+          leave: Reageren
           no_comments: Er is nog geen commentaar toegevoegd. U kunt uw commentaar
             hieronder toevoegen...
-          submit: Commentaar toevoegen
-          title: Commentaar
-        empty_attachments: Dit verhaal heeft geen bijlagen
+          submit: Reactie toevoegen
+          title: Reacties
+        empty_attachments: Dit verhaal heeft geen bijlagen.
         headings:
-          share: Delen
-          submit: Verzend
+          share: Delen op
+          submit: Bijdrage inzenden
           tags: Labels toevoegen
         invalid: Deze bijdrage is nog niet klaar om ingediend te worden. Klik op "Waarom
           niet?" voor meer uitleg hierover. Klik op "Bewerken" om meer informatie
           toe te voegen.
         links:
-          new_attachment: Voeg een item toe
+          new_attachment: Item toevoegen
         related:
           title: Gerelateerde inhoud
         shared-this-story: heeft dit verhaal gedeeld over
@@ -1915,16 +1919,16 @@ nl:
         submitted: Verzonden en wachtend op goedkeuring
         title: Statuslogboek
         unknown: Onbekend
-        withdrawn: Teruggetrokken
+        withdrawn: Ingetrokken
       story:
         complete:
-          heading: Klaar
-          p1: Uw verhaal is verzonden. Dank u wel! Uw verhaal zal door ons team eerst
-            nagekeken en vervolgens gepubliceerd worden. Afhangende van de drukte,
+          heading: Verhaal compleet
+          p1: Uw verhaal is verzonden. Dank u wel! Uw verhaal wordt door ons team
+            eerst nagekeken en vervolgens gepubliceerd. Afhankelijk van de drukte,
             kan dit soms enkele weken in beslag nemen. Alvast bedankt voor uw geduld
             en begrip!
         help_text:
-          add_another_person: U kunt meer dan een persoon opgeven.
+          add_another_person: U kunt meer dan één persoon opgeven.
           behalf_of: Laat dit gedeelte leeg, tenzij u iemand helpt om het verhaal
             te vertellen
           save_story: Door op "Bewaar deze versie" te klikken word u naar de volgende
@@ -1942,49 +1946,48 @@ nl:
     contributor:
       dashboard_contributor:
         captions:
-          draft: Tijdelijke versies
+          draft: Concepten
           submitted: Verzonden
         empty:
-          all: U heeft nog geen verhalen geschreven.
-          approved: U heeft nog geen goedgekeurde verhalen.
-          draft: U heeft geen opgeslagen verhalen op het moment.
-          submitted: U heeft nog geen verhalen toegevoegd.
+          all: U hebt nog geen verhalen geschreven.
+          approved: U hebt nog geen goedgekeurde verhalen.
+          draft: U hebt nog geen opgeslagen verhalen.
+          submitted: U hebt nog geen verhalen toegevoegd.
         headings:
           contributions: Uw verhalen
         links:
-          new: Voeg een nieuw verhaal toe
+          new: Nieuw verhaal toevoegen
         p1: Hier beneden staan de verhalen die u al heeft bijgedragen. U kunt ze bewerken
           of verwijderen.
         title: Uw verhaal toevoegen
       dashboard_guest:
-        button_text: Ik ben klaar
+        button_text: Klaar met bijdragen
         headings:
-          finished: Bent u klaar?
+          finished: Bent u klaar met bijdragen?
         identity: (Als u niet %{name} bent, gebruik dan de knop "Ik ben klaar".)
         links:
-          edit_contact: Pas contact gegevens aan
+          edit_contact: Contactgegevens bewerken
           new: Nieuwe bijdrage
         notice: '%{name}, u draagt bij als gast.'
         privacy: Als u klaar bent met uw bijdrage, kunt u de knop beneden gebruiken
           om uw contactgegevens te wissen. Dit helpt u uw privacy te beschermen als
           u gebruik maakt van een gedeelde computer.
-        title: Gast dashboard
+        title: Gastdashboard
       guests:
         edit:
-          title: Wijzig gast gegevens
+          title: Contactgegevens gast bewerken
         new:
-          contact_details: 'Anders zouden wij u willen verzoeken ons eerst uw contactgevens
-            te geven:'
-          guest: U draagt iets bij in een gastrol.
+          contact_details: 'Geef ons anders alstublieft eerst uw contactgegevens:'
+          guest: U draagt iets bij als gast.
           links:
             register: registreren
             sign_in: Aanmelden
           notice: Als u uw gegevens wilt opslaan en de progressie van uw verhaal wilt
             bijhouden, %{sign_in} of %{register} u dan eerst voordat u verder gaat.
-          title: Gast contact informatie
+          title: Contactgegevens gast
       help:
         adding_your_story:
-          heading: Hoe voegt u uw verhaal toe aan Europeana 1914-1918?
+          heading: Uw verhaal toevoegen aan Europeana 1914-1918
           p1: U kunt uw verhaal aan onze collectie toevoegen door gebruik te maken
             van het formulier hier op de website. Het enige wat u hiervoor hoeft te
             doen is uw object te omschrijven en hierbij uw verhaal toe te voegen.
@@ -2050,7 +2053,7 @@ nl:
     errors:
       api_error:
         message: Deze gegevens van een externe bron kunnen momenteel niet worden weergegeven.
-        title: API error
+        title: API-fout
       bad_request:
         message: Er is een fout opgetreden waardoor uw verzoek niet voldaan is.
         title: Bad request
@@ -2060,7 +2063,7 @@ nl:
         title: Gefedereerde zoekfout
       forbidden:
         message: U heeft geen toegang tot dit deel van de website
-        title: Forbidden
+        title: Verboden
       internal_server_error:
         message: Er is een probleem opgetreden waardoor wij niet aan uw verzoek kunnen
           voldoen.
@@ -2176,7 +2179,8 @@ nl:
         password: Uw wachtwoord moet uit minimaal zes letters/cijfers bestaan
         profile_image: Kies een afbeelding<br/> max 128kb
         profile_photo: U kunt ook een foto uploaden (GIF of JPEG).
-        user_name: Deze zal publiekelijk te zien zijn als uw profiel afbeelding.
+        user_name: Dit wordt openbaar zichtbaar als de naamsvermelding naar goedgekeurde
+          bijdragen.
       labels:
         age_range: Uw leefijd
         email: E-mail
