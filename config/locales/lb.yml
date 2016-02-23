@@ -58,9 +58,12 @@ lb:
         approver: Akzeptéiert vum
         attachments: Elementer
         catalogued_by: Katalogiséiert vum
+        cataloguer: Expert
+        contributor: Auteur
         created_at: Ugefaang de(n)
         metadata: Metadaten
         published_at: Publizéiert de(n)
+        submitted_at: Erageschéckt de(n)
       contribution_status:
         created_at: Status geännert de(n)
       metadata_field:
@@ -74,6 +77,8 @@ lb:
         show_in_listing: Op Lëschte weisen
       metadata_record:
         field_alternative: alternatiivt Feld
+        field_collection_day_terms: Regele fir Feldaktiounsdeeg
+        field_file_type_terms: Regele fir Type vu Feld-Fichieren
       setting:
         name: Numm
         value: Wäert
@@ -129,6 +134,9 @@ lb:
           attachments:
             uploaded: E puer Fichiere ginn nach iwwerdro.
           attributes:
+            catalogued_by:
+              role_name: Expert muss e Benotzer sinn mat de Rechter vun engem Administrateur
+                oder engem Expert
             guest_id:
               present: Kontaktdate sinn obligatoresch fir Kontributioune vu Visiteuren.
         metadata_field:
@@ -175,6 +183,7 @@ lb:
       institution: Institutioun
       metadata_field: Metadatefeld
       tag: Markéierung (Tag)
+      tagging: Markéieren
       taxonomy_term: Schlësselwuert
       user: Benotzer
     options:
@@ -193,6 +202,7 @@ lb:
         role_name:
           administrator: Administrateur
           blank: All Rollen
+          cataloguer: Expert
           contributor: Auteur
   attributes:
     contact: Kontakt
@@ -251,6 +261,7 @@ lb:
         [@] europeana [.] eu</span> kontaktéieren.
       contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
         target="_blank">Konditioune fir Kontributioune vu Benotzer op Europeana</a>
+      contribution_terms: Bedingunge fir Kontributioune vu Benotzer op Europeana
       efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Fannt
         méi eraus iwwer d'Sammele vu Filmmaterial</a>.
       explore-the-stories: Entdeckt d'Geschichten!
@@ -271,9 +282,11 @@ lb:
       register: Registréieren
       sign_in: Umellen
       statistics: Statistiken
+      takedown_policy: Läsch-Richtlinnen
       titles:
         contribution_terms: Kuckt d'Konditioune vun Europeana fir Benotzerkontributiounen
         great_war: '''Great War Archive'' vun der Universitéit vun Oxford'
+        takedown: Op d'Säit fir d'Läsch-Richtlinnen
       view-image: Dat komplett Element weisen
       view-pdf: Dokument opmaachen
     map_contribution_heading: Plaz wou dës Geschicht geschitt ass
@@ -291,6 +304,8 @@ lb:
       menu: Menü
     more-at: Méi op
     news: Neiegkeeten
+    news_item:
+      heading: Nei Aktiounsdeeg
     "no": Neen
     options:
       close: Zoumaachen
@@ -346,6 +361,14 @@ lb:
         alert: Et gouf e Problem beim aktualiséiere vu(n) %{resource_name}. Kuckt
           d'Messagen hei drënner.
         notice: '%{resource_name} gouf aktualiséiert.'
+    admin:
+      europeana:
+        harvest:
+          notice: Den Inhalt vum Portal Europeana gëtt am Hannergrond zesummegestallt.
+    annotations:
+      depublish:
+        alert: Publikatioun vun der Notiz konnt net zréckgezu ginn.
+        notice: Publikatioun vun der Notiz zréckgezunn.
     attachments:
       create:
         alert: Et gouf e Problem beim Späichere vum Fichier deen Dir drugehaang hutt.
@@ -439,6 +462,8 @@ lb:
       europeana_record:
         create:
           success: Är Tagge goufe bei dëst Element bäigesat.
+      flag:
+        success: D'Markéierung gouf als net passend markéiert.
     taxonomy:
       imported: Nei Schlësselwierder goufen importéiert.
     users:
@@ -567,6 +592,7 @@ lb:
             [.] eu'
         title: En Titel fir dës komplett Kontributioun.
       metadata_field:
+        attachment: Spezifizéiert ob dëst Feld sech op eropgeluede Fichiere bezitt.
         contribution: Gitt un ob dëst Feld sech op Kontributioune bezitt.
         field_type: Kann net geännert gi wann d'Feld bis gespäichert ass.
         name: 'Datebanknumm fir d''Feld. Däerf et nëmmen eemol ginn. Valabel Zeechen:
@@ -599,6 +625,10 @@ lb:
         contribution_approval_required: Wann aktivéiert, da gi Kontributiounen eréischt
           publizéiert wa se akzeptéiert goufen. Soss gi se direkt nom eraschécke publizéiert.
           Huet keen Effekt wa "Kontributioune publizéieren" net aktivéiert ass.
+        google_analytics_key: Google Analytics Schlëssel. Wann en eidel gelooss gëtt
+          da gëtt de Standard-Schlëssel UA-XXXXXXXX-1 benotzt.  Vergewëssert Iech
+          datt den Test an de Produktiouns-Environnement déi respektiv Schlëssele
+          benotzen.
         max_upload_size: Maximal Upload-Gréisst a Byten.
         registration_required: Wann aktivéiert, da mussen d'Leit sech umellen an e
           Benotzerkont uleeën fir eng Kontributioun maachen ze kënnen. Wann net aktivéiert,
@@ -645,6 +675,8 @@ lb:
           license: Lizenz
           location_map: Längt & Breet
           location_placename: Gitt u wou d'Element entstan ass.
+          location_zoom: Zoom op d'Plaz
+          notes: Notize vum Expert
           object_side: Säit
           page_number: Säitennummer
           page_total: Gesamtzuel vun de Säiten
@@ -665,7 +697,9 @@ lb:
             date: Datum
             description: Beschreiwung
             format: Format
+            identifier: Identifikatioun
             language: Sprooch
+            publisher: Editeur
             relation: Relatioun
             rights: Rechter
             source: Quell
@@ -681,6 +715,8 @@ lb:
             spatial: Plaz
             temporal: Datum
           edm:
+            country: Land
+            data_provider: Dateprovider
             external_partner_site: Op der Internetsäit vum Partner weisen
             language: Sprooch
             partner_site: Element weisen op
@@ -689,6 +725,7 @@ lb:
       contribution:
         metadata:
           alternative: Alternativen Titel
+          cataloguer: Expert
           character1_dob: Gebuertsdatum
           character1_dod: Datum vum Doud
           character1_family_name: Familljennumm
@@ -715,9 +752,12 @@ lb:
           lang_other: Sprooch (anerer)
           location_map: Längt & Breet
           location_placename: Gitt u wou Är Geschicht geschitt ass
+          location_zoom: Zoom op d'Plaz
+          notes: Notize vum Expert
           summary: Kuerz Beschreiwung vun den Elementer
           theatres: Theateren
           ticket: Nummer vum Ticket
+        terms: Ech si mat den Allgemenge Konditiounen d'accord
         title: Titel vun der Geschicht
       metadata_field:
         contribution: Kontributioun
@@ -767,10 +807,13 @@ lb:
           Letter: Bréif
           Map: Kaart
           Medal: Medail
+          Memoir: Memoiren
+          Memorabilia: Erënnerungsstécker
           Multiple: Méi
           Music: Musek
           Official Document: Offiziellt Dokument
           Official document: Offiziellt Dokument
+          Other: Anerer
           Painting: Bild
           Photograph: Foto
           Poem: Gedicht
@@ -811,10 +854,12 @@ lb:
           Conscientious Objection: Verweigerung aus Gewëssensbëss
           Gas Warfare: Gaskrich
           Home Front: Front doheem
+          Manufacture: Produktioun
           Medical: Medezinesch
           Military Punishment: Militärstrof
           Prisoners of War: Krichsgefaangener
           Propaganda: Propaganda
+          Recruitment and Conscription: Rekrutement an Aschreiwung
           Refugees: Flüchtlingen
           Remembrance: Erënnerung
           Tanks and Armoured Fighting Vehicles: Panzer a gepanzert Gefierer fir de
@@ -831,6 +876,7 @@ lb:
           Italiano: Italienesch
           Magyar: Ungaresch
           Nederlands: Hollänesch
+          Other: Anerer
           Română: Rumänesch
           Slovenčina: Slowakesch
           Slovenščina: Slowenesch
@@ -849,6 +895,7 @@ lb:
           Back: Hannen
           Front: Vir
         source:
+          Artifact: Objet
           Book: Buch
           Film: Film
           Folio: Folio
@@ -857,6 +904,7 @@ lb:
           Multiple: Méi
           Newspaper: Zeitung
           Notebook: Notizblock
+          Other: Anerer
           Photograph: Fotograf
           Postcard: Postkaart
           Tape: Band
@@ -874,6 +922,7 @@ lb:
           Western Front: Westfront
       user:
         delete_picture: Bild läschen
+        terms: Ech si mat den Allgemenge Konditiounen d'accord
     "no": Neen
     required: obligatoresch
     titles:
@@ -887,10 +936,12 @@ lb:
       attachment_location: Wou gouf dëst Element ugeluecht
       attachment_replace: Fichier ersetzen
       attachment_upload: E Fichier drunhänken
+      cataloguing_metadata: Metadate katalogiséieren
       contact_address: Adress
       contact_name: Numm
       contact_other: Kontaktdaten
       contribution_attachments: Elementer
+      contribution_terms: Allgemeng Konditiounen
       dropbox: Dropbox
       fields: Felder
       metadata: Informatioun iwwer de Katalog
@@ -910,10 +961,15 @@ lb:
     update: '%{model} aktualiséieren'
     "yes": Jo
   javascripts:
+    admin:
+      metadata_fields:
+        order: Zitt d'Felder an déi Reiefolleg wéi Dir et wëllt. Klickt op "Späicheren"
+          wann Dir fäerdeg sidd.
     annotorious:
+      clear-flag: Markéieren läschen
       flag: Markéierung
     attachments:
-      uploading: E puer vun Äre Fichiere ginn nach iwwerdro. Wann se all fäerdeg sinn,
+      uploading: E puer vun Äre Fichiere ginn nach iwwerdro. Wa se all fäerdeg sinn,
         kënnt Dir Är Geschicht schécken.
     collection-days:
       find-more: Méi erausfannen.
@@ -982,6 +1038,10 @@ lb:
       basic_ui: Bei Problemer mam Eropluede vu Fichieren, probéiert et mat der<a href="{{href}}">Basis-Eroplued-Funktioun</a>.
       button_text: Fichieren eraussichen
       finished: Zréck op d'Kontributioun
+      hint: 'Dir kënnt méi Fichieren zesummen eroplueden. All Fichier gëtt automatesch
+        e separaten Objetdeen Dir manuell ännere kënnt. Notiz: Fir méi Fichieren zesummen
+        eropzeluede muss Flash an Ärem Browser installéiert sinn. Maximal Gréisst
+        vun engem Fichier: {{siz}}. Erlaabt Type vu Fichier: {{types}}.'
       label: Méi Fichieren
       saved: Gespäichert
   languages:
@@ -1009,6 +1069,7 @@ lb:
   mail:
     contributions:
       published:
+        greeting: Léiwe Contributeur vun Europeana 1914-1918,
         signature: |-
           Bescht Gréiss,
           D'Equipe vun Europeana 1914-1918
@@ -1033,6 +1094,8 @@ lb:
     wordprocessing: Word-Dokument
   settings:
     allowed_upload_extensions: Erlaabt Type fir Eropzelueden
+    banner_active: Banner vu Maintenance-Aarbechten aktivéiert
+    banner_text: Text vum Banner vu Maintenance-Aarbechten
     bing_client_id: Bing-Clientsnummer (ID)
     bing_client_secret: Bing-Clientsnummer ass geheim
     bing_translate_key: Bing Translate Key
@@ -1088,15 +1151,29 @@ lb:
           vun deem sidd deen d'Rechter huet
         item5: 'Schéckt eis en E-Mail op: 1914-1918 [@] europeana [.] eu'
       terms:
+        full_details:
+          heading: 'Europeana Allgemeng Bedingungen: komplett legal Detailer - Nëmmen
+            op Englesch disponibel'
+        heading: Benotzungsbedingungen
         summary:
+          heading: 'Allgemeng Bedingunge fir Europeana ze benotzen: Resumé'
           item1: dat digitaalt Material dat Dir eroplued ass net duerch Copyright
             geschützt; oder
           item2: Iech gehéieren d'Rechter vun dësem digitale Material; oder
+          item5: Fir Date vun der Beschreiwung déi Dir eraschéckt (esou wéi Beschreiwungen
+            oder Markéierungen) fir datt den Inhalt vu Sichmaschinne ka fonnt ginn,
+            erlaabt Dir jidderengem dës Beschreiwungen op bal all Manéier ze benotzen
+            esou wéi déi dat wëllen, ouni weider Konditiounen.
           p2: <b>Dir garantéiert, datt:</b>
           p3: <b>Wann Dir dës Konditiounen net  akzeptéiere wëllt, da setzt w.e.g.
             keen Inhalt oder Beschreiwunge vun Donnéeën op Europeana derbäi</b>.
         user_contributions:
+          heading: Allgemeng Konditioune vun Europeana fir Benotzerkontributiounen
           item1: Passwuert an Umellen (Artikel 3)
+          item2: Responsabilitéit fir d'Bedreiwe vun der Plattform (Artikel 4)
+          item3: Rechter vun der 'Propriété intellectuelle' vum Inhalt (Artikel 5)
+          item4: Rechter vun der 'Propriété intellectuelle' vu Metadaten (Artikel
+            5)
           item5: Illegal Notzung vum Service (Artikel 7)
           item6: Perséinlech Donnéeë vun de Benotzer (Dateschutz) (Artikel 8)
           p4: <b>Wann Dir net mat dëse Richtlinnen averstan sidd, da stellt w.e.g.
@@ -1136,6 +1213,15 @@ lb:
           heading: Maacht Är Kontributioun online
         education:
           heading: Formatioun
+          p1: Eis Partner vun der British Library hunn e <a href="http://bl.uk/world-war-one">Website</a>
+            entwéckelt fir Léierpersounen déi Léiermaterial iwwer den 1. Weltkrich
+            plangen.
+        events:
+          p1: Op der <a href="http://www.europeana1914-1918.eu">Haaptsäit</a> vun
+            dësem Site kënnt Dir gesinn wou di nächst Aktiounsdeeg organiséiert ginn.
+            Bréngt w.e.g. Är Dokumenter, Objeten a Geschichten aus dem Éischte Weltkrich
+            fir datt mir se digitaliséieren a fotograféiere kënnen an se an d'Archiver
+            dobäisetze kënnen.
         heading: Maacht mat
         reuse:
           heading: Benotzt d'Material
@@ -1151,6 +1237,10 @@ lb:
       annotations:
         index:
           title: Notizen zum Bild vu Benotzer
+        table:
+          header:
+            text: Text vun der Annotatioun
+            type: Typ vun der Annotatioun
       collection_days:
         delete:
           question: Sidd Dir sécher datt Dir déi zousätzlech Informatioun iwwer den
@@ -1182,6 +1272,8 @@ lb:
             rejected: Refuséiert Kontributiounen (%{total} total)
             revised: Iwwerschafft Kontributiounen déi nach mussen akzeptéiert ginn
               (%{total} total)
+            submitted: ERageschéckt Kontributiounen déi nach mussen akzeptéiert ginn
+              (%{total} total)
             withdrawn: Zréckgezu Kontributiounen déi nach mussen akzeptéiert ginn
               (%{total} total)
           empty:
@@ -1191,6 +1283,8 @@ lb:
               rejected: Nach keng refuséiert Kontributiounen.
               revised: Aktuell keng iwwerschafft Kontributiounen déi nach mussen akzeptéiert
                 ginn.
+              submitted: Keng proposéiert Kontributiounen am Suspens fir den Ament.
+              withdrawn: Keng zréckgezu Kontributiounen déi elo nach am Suspens sinn.
             search:
               approved: Keng approuvéiert Kontributiounen déi op Är Sichufro passen.
               draft: Keng preparéiert Kontributiounen déi op Är Sichufro passen.
@@ -1203,10 +1297,13 @@ lb:
         index:
           introduction: Et sinn elo %{count} Europeana Donnéeën a Relatioun zum Éischte
             Weltkrich an der Datebank 1914-1918.
+          title: Inhalt vum Europeana Portal zesummestellen
       index:
         headings:
           export: Exportéieren
         links:
+          annotations:
+            description: Nokucken a moderéiere vu Bemierkunge vu Benotzer iwwer Biller.
           collection_days:
             description: Zousätzlech Informatiounen iwwer d'Aktiounsdeeg
           config:
@@ -1220,18 +1317,25 @@ lb:
             text: Exportéieren
           export_csv:
             text: Als CSV exportéieren
+          export_users:
+            text: Contributeuren exportéieren
           export_xml:
             text: Als XML exportéieren
           export_xml_nozip:
             text: Als XML exportéieren (ausser .zip-Fichieren)
+          harvest_europeana:
+            text: Inhalt vum Europeana Portal zesummestellen
           logs:
             text: Lobuch-Fichieren
           metadata_fields:
             text: Metadatefelder
+          reindex:
+            text: Sichmaschinn nei indexéieren
           statistics:
             description: Statistike vun de Geschichte pro Joer weisen.
             text: Statistiken
           users:
+            description: 'Benotzerkonte geréieren: Administrateuren, Experten & Kontributeuren'
             text: Benotzerkonten
         title: Admin
       institutions:
@@ -1317,8 +1421,16 @@ lb:
             edit: Benotzerkont änneren
           title: Benotzerkont
     annotations:
+      depublish:
+        title: Publikatioun vun der Annotatioun zréckzéien
       edit:
         title: Notiz änneren
+      flag:
+        question: Sidd Dir séchert datt Dir dës Notiz als net passend markéiere wëllt?
+        title: Notiz als net passend markéieren
+      unflag:
+        question: Sidd Dir séchert datt Dir d'Markéierung vun dëser Notiz als net
+          passend ewechuele wëllt?
     attachments:
       _form:
         dropbox:
@@ -1334,6 +1446,8 @@ lb:
           link: Elementer vu Flickr derbäisetzen
         item1: Setzt en eenzelt Element an e Fichier derbäi
         item1-subitem1: Dat Element beschreiwen
+        item1-subitem2: De respektive Fichier eroplueden
+        item2: Méi Objeten a Fichieren derbäisetzen
         item2-subitem2: Dir kënnt d'Elementer individuell beschreiwen
         one-of-the-following: 'Dir kënnt eng vun dësen Optiounen eraussichen:'
       delete:
@@ -1368,10 +1482,14 @@ lb:
     collection_days:
       cant-find-collection-day: Den Aktiounsdag den Dir sicht konnt op der Kaart net
         fonnt ginn.
+      different-collection-day: Wëllt Dir léiwer en aneren Aktiounsdag kucken?
       in-the-meantime: An der Tëschenzäit kënnt Dir e Bléck op eis vireg Aktiounsdeeg
         geheien an déi scho publizéiert Geschichte liesen.
       index:
         title: Aktiounsdeeg
+      no-stories: Et deet eis leed awer den Inhalt vun dësem Aktiounsdag ass nach
+        net online. Eis Experte sinn domat beschäftegt déi während deem Aktiounsdag
+        gesammelt Geschichten nozekucken a wäerte geschwë mat der Publikatioun ufänken.
       open-collection: Aktiounsdag opmaachen
       select-collection-day: Sicht een Aktiounsdag eraus
       stories: 'Geschichten:'
@@ -1433,6 +1551,7 @@ lb:
             an Dir kënnt da méi Elementer späicheren oder Är Kontributiounen als ee
             Ganzt ze schécken.
           subject: D'Persoun oder d'Plaz oder den Objet ëm deen et geet.
+          submit_story_button: Geschicht späicheren
           when: Wéini gouf dëst Element ugeluecht
           where: Wou gouf dëst Element ugeluecht
         labels:
@@ -1442,6 +1561,7 @@ lb:
           location_place_name: Plaz (Numm vun der Plaz)
           save_digital: Digitalen Objet späicheren
           save_item_draft: Virbereedung vum Element späicheren
+          submit_contribution: Kontributioun eraschécken
         links:
           add_another: Setzt een anert Element derbäi
           add_item: En Element drunhänken
@@ -1449,6 +1569,7 @@ lb:
           edit_story: D'Geschicht änneren
         options:
           3d: 3D
+          artifact: Artefakt
           audio: Audio
           back: Zréck
           book: Buch
@@ -1478,8 +1599,10 @@ lb:
           photographic_paper: Fotopabeier
           poem: Gedicht
           postcard: Postkaart
+          public_domain: ëffentlechen Domaine
           tape: Band
           text: Text
+          text_memoir: 'Text: Memoiren'
           text_transcript: 'Text: Transkriptioun'
           unknown: Onbekannt
           video: Video
@@ -1515,6 +1638,7 @@ lb:
           titles:
             show_contribution: Kontributioun weisen
         no_matches: Näischt fonnt. Probéiert w.e.g nach eng Kéier.
+        related-europeana: Ähnlechen Inhalt um Europeana Portal
         result_count_label: Resultater
       show:
         comments:
@@ -1526,8 +1650,11 @@ lb:
         headings:
           share: Recommandéieren op
           submit: Kontributioun eraschécken
+          tags: Markéierungen derbäisetzen
         links:
           new_attachment: En Element derbäisetzen
+        related:
+          title: Ähnlech Inhalter
         shared-this-story: huet dës Geschicht recommandéiert
         title: Geschicht
       status:
@@ -1578,11 +1705,15 @@ lb:
           se oder läscht se, wann néideg.
         title: Setzt Är Geschicht derbäi
       dashboard_guest:
+        button_text: Kontributioun ofgeschloss
+        headings:
+          finished: Kontributioun ofgeschloss?
         identity: (Wann Dir net %{name} sidd, da klickt de Knäppchen "Kontributioun
           fäerdeg" hei drënner.)
         links:
           edit_contact: Kontaktdaten änneren
           new: Nei Kontributioun
+        title: Iwwersiicht fir Gäscht
       guests:
         new:
           contact_details: 'Soss, gitt eis w.e.g. d''éischt Är Kontaktdonnéeën:'
@@ -1590,11 +1721,14 @@ lb:
           links:
             register: registréieren
             sign_in: aloggen
+          title: Gaascht-Kontaktdaten
       help:
         adding_your_story:
           heading: Är Geschicht op Europeana 1914-1918 derbäisetzen
         how_to_use:
           item2: Setzt Informatioun iwwer Är Kontributioun derbäi
+          item3: (fakultativ) Hänkt eng digital Versioun vun Ärem Objet (Foto, gescannten
+            Text, Video, Audio, asw).
         item1: Är Geschicht op Europeana 1914-1918 derbäisetzen - Kuckt ënnen
         item2: '%{privacy_policy} - Separat Säit'
         item3: '%{takedown_policy} - Separat Säit'
@@ -1618,13 +1752,18 @@ lb:
           title: Registréieren
       sessions:
         new:
+          instructions: 'Mellt Iech w.e.g. mat Ärem Benotzerkont un:'
           title: Aloggen
     errors:
       api_error:
+        message: Dës extern Date sinn elo net disponibel.
         title: API Feeler
       bad_request:
+        message: Et gouf e Problem mat Ärer Ufro esou datt si net konnt verschafft
+          ginn.
         title: Falsch Ufro
       federated_search_error:
+        message: Date vun dësem Provider sinn den Ament net disponibel.
         title: Feeler beim Sichen
       forbidden:
         message: Dir hutt net d'Recht fir op déi ugefrot Ressource zouzegräifen.
@@ -1633,6 +1772,7 @@ lb:
         message: Et ass e Feeler geschitt an dofir kann Är Ufro net verschafft ginn.
         title: Interne Feeler um Server
       not_found:
+        message: Dat wat Dir ugefrot hutt gouf net fonnt.
         title: Net fonnt
       search_offline:
         message: D'Sichfunktioun ass temporär net disponibel. Probéiert w.e.g. méi
@@ -1685,6 +1825,8 @@ lb:
       search_for: <b>Sichen no:</b>
     flickr:
       select:
+        instruction: Markéiert d'Fotoen déi Dir importéiere wëllt. D'Titelen an d'Beschreiwunge
+          ginn automatesch importéiert.
         licenses:
           heading: Sicht Fotoe vun Ärem Flickr Benotzerkont eraus
           incompatible: Net kompatibel Lizenz
@@ -1699,11 +1841,14 @@ lb:
           linked: Dir sidd mat Flickr als %{username} verbonn
           unlinked: Dir sidd net mat Flickr verbonn
     home:
+      heading: net erzielt Erliefnesser & offiziell Geschichten aus dem Éischte Weltkrich
       links:
         across_europe: queesch duerch Europa
+        see_english: kuckt déi englesch Homepage
         video_guide: Schrëtt-fir-Schrëtt Video-Guide
       otto:
         heading: Otto &amp; Bernard
+      p1: <em>Europeana 1914-1918</em> sammelt Material %{across_europe}.
     links:
       back: Zréck op %{link}
       back-to-search: Zréck op d'Resultater vum Sichen
@@ -1733,6 +1878,7 @@ lb:
       terms:
         accept: Ech akzeptéieren d'%{terms}
         heading: Benotzungs-Bedingungen
+        item2: Iech gehéieren d'Rechter vun dësem digitale Material; oder
         p2: <b>Dir garantéiert, datt:</b>
         terms: Begrëffer & Konditiounen
     search:
@@ -1744,21 +1890,26 @@ lb:
           format: Format
           language: Sprooch
           location: Plaz
+          media: Medientyp
+          provider: Fournisseur
           rights: Rechter
           subject: Sujet
           type: Typ
           year: Joer
         contributions:
           collection_day: Aktiounsdag
+          content: Typ vun Element
           file_type: Medientyp
           keywords: Stéchwierder
           lang: Sprooch
           license: Lizenz
           place_name: Numm vun der Plaz
           protagonist_names: Numm vum Protagonist
+          provider: Fournisseur
           theatres: Theateren
         europeana:
           source_all: All d'Resultater vun Europeana
+          source_institution: nëmme Sammlungen aus Bibliothéiken a Muséeën
           source_label: Quell
           source_ugc: Geschichte vu Privatpersounen
           ugc: Inhalt dee vu Benotzer generéiert gouf
@@ -1825,6 +1976,10 @@ lb:
     last_title: Lescht Säit
     next_label: '>'
     next_title: Nächst Säit
+    page_entries_info:
+      multi_page: Weist %{model} %{from} - %{to} vu(n) %{count} am Ganzen
+      multi_page_html: Weist %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> vu(n) <b>%{count}</b>
+        am Ganzen
     page_gap: '&hellip;'
     page_total_label: vu(n) %{total_pages}
     per_page_label: 'Resultater pro Säit:'

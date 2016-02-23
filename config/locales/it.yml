@@ -7,7 +7,9 @@
 # Author: Gianfranco
 # Author: Gloria sah
 # Author: Mario
+# Author: Marsitown
 # Author: Peg60
+# Author: Simonetta
 ---
 it:
   actions:
@@ -538,7 +540,7 @@ it:
         withdraw: ritira
       contributor:
         create: Registrati
-      create: presenta
+      create: Invia
       delete: Cancella
       filter:
         submit: aggiorna
@@ -546,7 +548,7 @@ it:
         delete: cancellare i campo metadati
         reindex: re-indicizzare il motore di ricerca
       password:
-        create: presenta
+        create: Invia
         update: cambia la mia password
       search:
         submit: Cerca
@@ -577,8 +579,8 @@ it:
             e ciò che esso rappresenta/significa per te
           content: Che tipo di oggetto è (ad esempio, una poesia, lettera, foto),
             cerca di essere il più specifico possibile
-          cover_image: L’immagine di copertina rappresenta la vostra storia nella
-            collezione. È simile alla copertina di un libro. Può essere una foto del
+          cover_image: L'immagine di copertina rappresenta la vostra storia nella
+            collezione; è simile alla copertina di un libro. Può essere una foto del
             protagonista della storia, la copertina di un diario o la foto di una
             medaglia.
           creator_given_name: Il nome della persona che ha creato l'oggetto originale,
@@ -999,9 +1001,18 @@ it:
       uploading: Alcuni dei tuoi file sono ancora in fase di trasferimento. Quando
         tutti saranno trasferiti, potrai inviare il tuo racconto.
     collection-days:
+      close-directions: Indicazioni simili
       find-more: Per saperne di più.
       get-directions: Ottieni indicazioni
       legend: Legenda
+      next-collection-day: La prossima giornata di raccolta è a <B>%{name}, %{city},
+        %{country}<b> il <b>%{start-date}
+      no-upcoming: Attualmente non ci sono imminenti giorni di raccolta.
+      past-entered: Giorni di raccolta precedenti
+      past-not-entered: Giorni di raccolta precedenti (storie non ancora pubblicate)
+      show-past: Mostra giorni di raccolta precedenti
+      upcoming: Giorni di raccolta imminenti
+      what-is-it: Cos'è un Collection Day?
     contribute:
       errors_shown: perché no? Leggi l'avviso sottostante
       hide_errors: nascondi gli avvisi d'errore
@@ -1009,6 +1020,9 @@ it:
     datepicker:
       button_text: mostra il calendario
     digital_object:
+      hints:
+        copy_from_story: Cliccare sul pulsante sopra copierà meta-data simili dalla
+          storia a questo elemento.
       labels:
         copy_from_story: copia le informazioni
       links:
@@ -1060,6 +1074,10 @@ it:
         upload</a>
       button_text: seleziona i file
       finished: torna al contributo
+      hint: 'Puoi caricare vari file come un lotto. Ogni file diventerà automaticamente
+        un elemento separato che puoi modificare individualmente. Nota: per far funzionare
+        il caricamento di file multipli devi avere Flash installato nel tuo Browser.
+        Dimensione massima del file: {{size}}. Tipi di file consentiti: {{types}}'
       label: file multipli
       saved: salvato
   languages:
@@ -1082,7 +1100,7 @@ it:
       contribute: contributo
       help: aiuto
       home: Home
-    software_engine: Powered by RunCoCo
+    software_engine: Realizzato con RunCoCo
   locale: Italiano
   mail:
     contributions:
@@ -1370,7 +1388,7 @@ it:
           links:
             edit: modifica le impostazioni
           table:
-            caption: impostazioni
+            caption: Impostazioni
             headings:
               name: nome
               value: valore
@@ -1422,7 +1440,7 @@ it:
           title: Raccolta di contenuto del portale Europeana
       index:
         headings:
-          export: esporta
+          export: Esporta
         links:
           annotations:
             description: Revisione e moderazione annotazioni utente su elementi di
@@ -1437,11 +1455,13 @@ it:
             text: contributi
           export:
             description: Esportare la raccolta in formato XML o CSV.
-            text: esporta
+            text: Esporta
           export_csv:
             description: Esportare i contributi alla raccolta in CSV.
             text: Esportazione in formato CSV
           export_users:
+            description: Esporta i dati utente come CSV per tutti i contributori che
+              hanno effettuato almeno un contributo.
             text: Esportazione collaboratori
           export_xml:
             description: Esportare la raccolta di contributi e allegati al formato
@@ -1451,6 +1471,10 @@ it:
             description: Esportare la raccolta di contributi e allegati al formato
               XML, esclusi file .zip allegati.
             text: esporta come XML (inclusi file .zip)
+          harvest_europeana:
+            description: Raccogli le testimonianze riguardanti la prima guerra mondiale
+              dal portale API Europeana.
+            text: Raccolta di contenuto del portale Europeana
           logs:
             description: Visualizza file di registro dell'applicazione.
             text: file LOG
@@ -1463,6 +1487,8 @@ it:
           statistics:
             description: visualizza le statistiche annuali sulle storie
             text: statistiche
+          taggings:
+            description: Revisiona e modera l'etichettatura dell'utente delle storie.
           users:
             description: 'gestisci gli account utenti: amministratori, catalogatori
               e contributori'
@@ -1472,6 +1498,8 @@ it:
         delete:
           question: sei sicuro di voler eliminare il provider istituzionale %{name}?
           title: elimina il provider istituzionale
+          warning: Cancellato un fornitore istituzionale resetterà tutte le utenze
+            collegate come non appartenenti a nessuna istituzione.
         edit:
           title: modifica il fornitore istituzionale
         index:
@@ -1480,11 +1508,18 @@ it:
           title: nuovo fornitore istituzionale
       metadata_fields:
         confirm_reindex:
+          info: Dopo aver modificato lo stato di ricerca di uno o più campi di metadati,
+            o rimosso i campi di ricerca prededenti, dovresti reindicizzare il motore
+            di ricerca usando il bottone sottostante.
+          note: Nota che non c'è bisogno di re-indicizzare il motore di ricerca una
+            volta che i contributi sono stati aggiornati; questo accade automaticamente.
           title: Re-indicizzare il motore di ricerca
         delete:
           button_confirm: sei sicuro di voler eliminare questo campo?
           question: sei sicuro di voler cancellare il campo metadati %{field_name}?
           title: cancella il campo metadati
+          warning: <strong>Attenzione:<strong>Questo comporterà la cancellazione nella
+            tua collezione di tutti i dati già raccolti per questo campo.
         edit:
           empty: Non risultano ancora campi per i metadati
           instructions: inserisci un numero per la posizione di ciascun campo
@@ -1507,10 +1542,15 @@ it:
             ed i relativi oggetti in un certo anno e, facoltativamente, in un determinato
             collection day
           title: statistiche
+      taggings:
+        index:
+          title: Etichette delle storie dell'utente
       taxonomy_terms:
         delete:
           question: sei sicuro di voler eliminare il termine tassonomico %{term}"?
           title: cancella il termine tassonomico
+          warning: <strong>Attenzione:</strong> questa azione risulterà in ogni contributo
+            associato con questo termine, perdendo quella categorizzazione.
         edit:
           title: modifica i termini classificatori
         import:
@@ -1552,11 +1592,18 @@ it:
             edit: modifica l'account
           title: account dell'utente
     annotations:
+      depublish:
+        question: Sei sicuro di voler eliminare questa nota?
+        title: Elimina nota
       edit:
         title: Modifica annotazione
       flag:
         question: Sei sicuro di voler contrassegnare questa annotazione come impropria?
         title: Segnala annotazione come impropria
+      unflag:
+        question: Sei sicuro di voler togliere il contrassegno a questa annotazione
+          di inappropriata?
+        title: Togli segnalazione di annotazione non appropriata
     attachments:
       _form:
         dropbox:
@@ -1580,6 +1627,7 @@ it:
         no_thumbnail: creazione dell'anteprima
       attachment_help:
         flickr:
+          description: Importa foto e descrizioni dal tuo account Flickr
           link: Aggiungere elementi da Flickr
         item1: allega un singolo oggetto e file
         item1-subitem1: descrivi l’oggetto
@@ -1627,8 +1675,15 @@ it:
         cercando sulla mappa?
       different-collection-day: Desideri visualizzare un diverso giorno di raccolta,
         invece?
+      in-the-meantime: Nel frattempo, sentiti libero di dare un'occhiata alle collezioni
+        dei giorni precedenti di cui sono stati già pubblicate storie.
       index:
         title: Giorni di raccolta
+      join-us: Il giorno di raccolta non è ancora terminato. Per favore sentiti libero
+        di unirti a noi se possibile o di controllare più tardi una volta che il giorno
+        di raccolta sarà terminato.
+      open-collection: Open collection day
+      select-collection-day: Seleziona un Collection Day
       stories: 'Storie:'
       view-stories: Vedi storie
       website: 'Sito web:'
