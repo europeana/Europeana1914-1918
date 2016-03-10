@@ -1,0 +1,2264 @@
+# Messages for Czech (čeština)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aktron
+# Author: Chmee2
+# Author: Juandev
+# Author: Korytaacheck
+# Author: Maggyeu
+# Author: Mirek2
+# Author: Mormegil
+---
+cs:
+  actions:
+    add: Přidat
+    approve: Schválit
+    cancel: Zrušit
+    copy: Kopírovat
+    delete: Smazat
+    depublish: Depublikovat
+    download: Stáhnout
+    edit: Upravit
+    edit_story: Upravit příběh
+    filter: Filtrovat
+    flag: Označit
+    import: Importovat
+    new: Nový
+    reject: Zamítnout
+    remove: Odstranit
+    save: Uložit
+    submit: Odevzdat
+    unflag: Odznačit
+    update: Aktualizovat
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Soubor Dropbox
+        file: Soubor
+        file_content_type: Typ obsahu
+        file_created_at: Vytvořeno
+        file_file_name: Název souboru
+        file_file_size: Velikost souboru
+        file_updated_at: Aktualizováno
+        metadata: Metadata
+        preview: Ukázka
+        public: Veřejné
+      collection_day:
+        description: Popis
+        end_date: Datum ukončení
+        image: Obrázek
+        name: Jméno
+        start_date: Datum začátku
+        taxonomy_term_id: Taxonomický termín
+      contact:
+        age: Věk
+        country: Země pobytu
+        full_name: Celé jméno
+        gender: Pohlaví
+        locality: Město
+        postal_code: PSČ
+        region: Země
+        street_address: Ulice
+        tel: Telefonní číslo
+      contribution:
+        approved_by: Scháleno
+        approver: Scháleno
+        attachments: Objekty
+        catalogued_by: Katalogizátor
+        cataloguer: Katalogizátor
+        contributor: Přispěvatel
+        created_at: Začaté
+        metadata: Metadata
+        published_at: Zveřejněné
+        submitted_at: Odevzdáno
+      contribution_status:
+        created_at: Stav změnený
+      metadata_field:
+        cataloguing: Pouze katalogizace
+        field_type: Typ
+        hint: Pomůcka
+        multi: Výběr
+        name: ID
+        position: Pozice
+        required: Povinné
+        searchable: Prohledávatelný
+        show_in_listing: Zobrazit v seznamech
+      metadata_record:
+        field_alternative: Alternativní pole
+        field_collection_day_terms: Pole pro podmínky sběrového dne
+        field_file_type_terms: Pole pro soubor podmínky typu
+      setting:
+        name: Jméno
+        value: Hodnota
+      taxonomy_term:
+        metadata_field: Pole
+        term: Termín
+      user:
+        created_at: Datum registrace
+        institution: Instituce
+        password: Heslo
+        password_confirmation: Zopakovat heslo
+        role_name: Role
+        terms: Podmínky
+        username: Uživatelské jméno
+    errors:
+      messages:
+        accepted: Musí být potvrzeno.
+        blank: Je povinná položka.
+        confirmation: Nebylo potvrzeno.
+        empty: nesmí být prázdný/á/é
+        equal_to: musí být rovno %{count}
+        even: musí být sudé číslo
+        exclusion: je vyhrazeno pro jiný účel
+        greater_than: musí být větší než %{count}
+        greater_than_or_equal_to: musí být větší nebo rovno %{count}
+        inclusion: Není v seznamu povolených hodnot.
+        invalid: není platná hodnota
+        less_than: musí být méně než %{count}
+        less_than_or_equal_to: musí být méně nebo rovno %{count}
+        not_a_number: není číslo
+        not_an_integer: musí být celé číslo
+        odd: musí být liché číslo
+        record_invalid: 'Validace je neúspešná: %{errors}'
+        taken: již databáze obsahuje
+        too_long: je příliš dlouhý/á/é (max. %{count} znaků)
+        too_short: je příliš krátký/á/é (min. %{count} znaků)
+        wrong_length: nemá správnou délku (doporučeno %{count} znaků)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Tento typ souboru neznám, pardon.
+              presence: Zvolte si soubor, který chcete nahrát.
+              size: Nahráli jste příliš velký soubor, nezvládnu to, promiňte.
+        collection_day:
+          attributes:
+            image:
+              content_type: Kamarádím pouze s JPEGy a GIFy.
+          end_date_follows_start_date: Konečné datum musí být pozdější nežli počáteční
+            datum, cestování časem zatím nevedeme.
+          taxonomy_term_metadata_field: Promiňte, ale v tento den se neodehrála žádná
+            sběrová akce.
+        contribution:
+          attachments:
+            uploaded: Některé soubory pořád nahráváme, jde to dnes pomalu.
+          attributes:
+            catalogued_by:
+              role_name: Prosím, jako katalogizátor si musíte zvolit roli katalogizátora
+                nebo administrátora.
+            guest_id:
+              present: Prosím, jako host mi dejte na sebe kontakt.t.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Pardon, ale katalogizační pole vám nesdělím.
+            contribution:
+              or_attachment: Na příspěvky a/nebo přílohy se musí vztahovat pole, prosím.
+            field_type:
+              constancy: Typ pole nemůžete změnit.
+            searchable:
+              field_type: Taxonomické pole nemůžu vyhledávat, pardon.
+        metadata_record:
+          date_field_civil: Jste si jistí, že to je správné datum?
+          one_cover_image: Promiňte, ale jako úvodní obrázek Vašeho příběhu je povolena
+            pouze jediná položka.
+          taxonomy_field_single: Prosím, zvolte jen jedno datum.
+        setting:
+          attributes:
+            name:
+              inclusion: není registrované konfigurační nastavení
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Taxonomické termíny spojte s poli taxonomických metadat, prosím.
+        user:
+          attributes:
+            current_password:
+              invalid: To nebylo Vaše heslo.
+            email:
+              taken: Tuto adresu znám, nemáte náhodou již jeden účet?
+            picture:
+              content_type: Profilový obrázek má být ve formátu GIF nebo JPEG.
+      template:
+        body: 'Následující pole obsahují chybně vyplněné údaje:'
+        header:
+          one: Při ukládání objektu %{model} došlo k chybám a nebylo jej možné uložit
+          other: Při ukládání objektu %{model} došlo k %{count} chybám a nebylo možné
+            jej uložit
+    models:
+      annotation: Anotace
+      attachment: Položka
+      collection_day: Sběrový den
+      contact: Kontakt
+      contribution: Příběh
+      institution: Poskytující instituce
+      metadata_field: Metadatové pole
+      metadata_record: Metadatové pole
+      tag: Tag
+      tagging: Tagování
+      taxonomy_term: Taxonomický termín
+      user: Uživatel
+    options:
+      contact:
+        gender:
+          female: Žena
+          male: Muž
+      metadata_field:
+        field_type:
+          date: Datum
+          geo: Geografická lokace
+          string: Text na jeden řádek
+          taxonomy: Taxonomie
+          text: Text na více řádků
+      user:
+        role_name:
+          administrator: Administrátor
+          blank: Jakákoliv role
+          cataloguer: Katalogizátor
+          contributor: Přispěvatel
+  attributes:
+    contact: Kontakt
+    created_at: Vytvořeno
+    email: Email
+    id: ID
+    metadata_record: Metadata
+    status: Status
+    title: Název
+    updated_at: Aktualizováno
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Země
+          data_provider_sm: Poskytovatel dat
+          metadata_collection_day_ids_im: Sběrový den
+          metadata_content_ids_im: Typ položky
+          metadata_file_type_ids_im: Typ média
+          metadata_keywords_ids_im: Klíčová slova
+          metadata_lang_ids_im: Jazyk
+          metadata_theatres_ids_im: Divadla
+          place_name_s: Název místa
+          provider_sm: Poskytovatel
+          rights_sm: Práva
+          type_s: Typ
+          uri_sm: Subjekt
+          year_sm: Rok
+  common:
+    additional-information: Dodatečné informace
+    download-item: Stáhnout položku
+    editors_blog:
+      more_stories: Více příběhů na <a href="http://thegreatwararchive.blogspot.com/search/label/en">Redakční
+        výběr blog</a>
+    editors_pick:
+      heading: Redakční výběr
+      more_stories: <b>Více příběhů na %{explore_stories} page.</b>
+    featured-categories: Hlavní kategorie
+    from-collection-days: Z našich sběrových dnů
+    google_maps:
+      help_text: |-
+        <li><b>Auto-suggest</b> : Zadejte název krajiny, města nebo adresu, mapy Google se pokusí toto místo vyhledat.</li>
+        <li><b>Specific address</b> :Zadejte specifickou adresu nebo souřadnice a klikněte na "Jít", ignorujte automatické návrhy z map Google..</li>
+        <li><b>Map marker</b> : Když se na mapě objeví značka, například po zadání adresy, můžete ji protáhnout na libovolnou pozici.</li>
+        <li><b>Zoom</b> :Přibližujte nebo vzdalujte užitím + nebo - na ukazovateli v levé části mapy.</li>
+      label: Použít mapy Google (volitelné)
+    help_text:
+      mandatory: povinné pole
+    labels:
+      add-keywords: Přidat klíčová pole
+      co_funded: spolufinancováno Evropskou unií
+    links:
+      about_the_project: O projektu Europeana 1914 - 1918
+      add-your-story: Přidejte svůj příběh!
+      add-your-story-brief: Přidejte!
+      annotorious: K předmětu jsou přiloženy i nějaké poznámky. Otevřete soubor a
+        podívejte se.
+      contact_us: Kontaktujte nás
+      contact_us_email: Můžete nás kontaktovat i přes emailovou adresu <span class="addr">1914-1918
+        [@] europeana [.] eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=cz"
+        target=_"blank">Podmínky Europeany pro uživatelské příspěvky</a>
+      contribution_terms: Podmínky Europeany pro uživatelské příspěvky
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Zjistěte
+        více o sběru filmového materiálu</a>.
+      explore-the-stories: Objevujte příběhy!
+      explore-the-stories-brief: Zkoumejte!
+      explore_stories: Objevujte příběhy
+      help: Pomoc
+      my_account: Můj účet
+      my_stories: Moje příběhy
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Zjistěte více o sběrových akcích</a>.
+      play-audio: Přehraj audio
+      play-video: Přehraj video
+      privacy_policy: Zásady ochrany osobních údajů
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Pro
+        více informací se podívejte na stránky projektu</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">Zjistěte více o shromažďování rodinných příběhů</a>.
+      register: Registrovat
+      sign_in: Přihlásit se
+      statistics: Statistiky
+      takedown_policy: Zásady depublikace sporného obsahu
+      titles:
+        contribution_terms: Podívejte se na podmínky Europeany ohledně uživatelských
+          příspěvků
+        great_war: Archiv Velké války na Oxfordské univerzitě
+        takedown: Na stránku se zásadami depublikace sporného obsahu
+      view-image: Prohlédnout si celou položku
+      view-pdf: Otevřít dokument
+    map_contribution_heading: Příběh se odehrál v
+    menus:
+      main:
+        about: O nás
+        add: Přidat příběh
+        collection-days: Sběrové dny
+        explore: Prohlížet
+        home: Domů
+        remix: Neočekávané přátelství
+        select_language: Vyberte jazyk
+        sign_in: Přihlásit se
+        sign_out: Odhlásit se
+      menu: Menu
+    more-at: Více na
+    news: Novinky
+    news_item:
+      heading: Nové roadshow rodinné historie
+    "no": Ne
+    options:
+      close: Zavřít
+      open: Otevřít
+      other_option: Jiné
+    other:
+      contributor: Přispěvatel
+      preview: Ukázka
+      title: Název
+      total: Dohromady
+    "yes": Ano
+  date:
+    formats:
+      long_with_day: '%a, %d %B %Y'
+      month_and_year: '%B %Y'
+      quarter: Čtvrtletí %{number} %Y
+  devise:
+    failure:
+      admin:
+        unauthenticated: Než budete pokračovat, je třeba se přihlásit.
+      invalid: Toto uživatelské jméno nebo heslo je bohužel neplatné.
+      invalid_token: Nesprávný autentifikační znak.
+      timeout: Vaše relace vypršela, pro pokračování se prosím znovu přihlašte.
+      unauthenticated: Před pokračováním je třeba se přihlásit nebo zaregistrovat.
+    mailer:
+      reset_password_instructions:
+        subject: Jak obnovit heslo?
+    passwords:
+      link: Zapomněli jste heslo?
+      send_instructions: Byl Vám zaslán email s instrukcemi pro obnovení hesla.
+      updated: Vaše heslo bylo úspěšně změněno. Vítejte zpět!
+    registrations:
+      destroyed: Na shledanou! Váš účet byl úspěšně zrušen. Doufám, že se brzy znovu
+        setkáme.
+      link: Registrovat
+      signed_up: Vítejte! Vaše registrace proběhla v pořádku.
+      updated: Úspěšně jste aktualizovali svůj účet.
+    sessions:
+      link: Přihlásit
+      signed_in: Přihlášení proběhlo v pořádku.
+      signed_out: Byli jste úspěšně odhlášeni.
+  flash:
+    actions:
+      create:
+        alert: Nepodařilo se vytvořit %{resource_name}. Podívejte se na zprávy níže.
+        notice: Vytvořený nový %{resource_name}.
+      destroy:
+        alert: Nepodařilo se vymazat %{resource_name}.
+        notice: '%{resource_name} byl úspěšně vymazán.'
+      taggings:
+        notice: Tagy znepřístupněny.
+      update:
+        alert: Nepodařilo se aktualizovat %{resource_name}. Podívejte se na zprávy
+          níže.
+        notice: '%{resource_name} aktualizovaný.'
+    admin:
+      europeana:
+        harvest:
+          notice: Obsah portálu Europeana se právě harvestuje.
+    annotations:
+      depublish:
+        alert: Nepodařilo se publikovat anotaci.
+        notice: Anotace depublikována.
+      flag:
+        alert: Neúspěšné označení anotace jako nevhodné.
+        notice: Anotace označena jako nevhodná.
+      unflag:
+        alert: Neúspěšné odznačení anotace jako nevhodné.
+        notice: Odznačena anotace jako nevhodná.
+    attachments:
+      create:
+        alert: Bohužel se nezdařilo přiložit přílohu.
+        invalid_files: Některé ze souborů nebyly uloženy.
+        notice: Objekt uložen.
+      destroy:
+        alert: Nepodařilo se smazat přílohu.
+        notice: Příloha byla vymazána.
+      duplicate:
+        notice: Zkopírovaná metadata do jiných vybraných souborů.
+      links:
+        view-attachments_html: <a href="#attachments">Klikněte pro jejich prohlížení
+          a editaci</a>.
+      update:
+        alert: Nezdařilo se přiložit přílohu.
+        notice: Objekt uložen.
+    configuration:
+      update:
+        alert: Nezdařilo se uložit konfiguraci.
+        notice: Konfigurace aktualizována.
+    contacts:
+      create:
+        alert: Nepodařilo se vytvořit kontakt.
+        notice: Kontakt vytvořený.
+      update:
+        alert: Nepodařilo se aktualizovat kontakt.
+        notice: Kontakt aktualizován.
+    contributions:
+      approve:
+        alert: Nepodařilo se schválit příspěvek.
+        notice: Příspěvek byl úspěšně schválen.
+      destroy:
+        alert: Nepodařilo se smazat příběh.
+        notice: Příběh vymazán.
+      draft:
+        create:
+          alert: Nepodařilo se začít nový příspěvek.
+          notice: Nový koncept příspěvku se začal klubat.
+        submit:
+          alert: Vyskytl se problém s Vaším příspěvkem. Podívejte se na zprávy níže.
+          notice: Váš příspěvek byl odevzdaný. Děkujeme! Nyní bude zkontrolován naším
+            týmem a po schválení i publikovaný na stránce. Prosíme o trpělivost, pokud
+            to nebude hned zítra. Jsme poněkud vytíženi.
+        update:
+          alert: Nezdařilo se uložit Váš příspěvek.
+          notice: Příspěvek byl uložen.
+      reject:
+        alert: Nezdařilo se zamítnout příspěvek.
+        notice: Příspěvek byl zamítnut.
+      submitted:
+        edit:
+          alert: Příspěvek byl už odevzdán.
+      withdraw:
+        alert: Nepodařilo se označit Váš příběh na vyřazení ze sbírky.
+        notice: Váš příběh byl označen na vyřazení ze sbírky.
+    contributors:
+      create:
+        alert: Váš účet nemohl být vytvořen.
+      update:
+        alert: Váš účet nemohl být aktualizován.
+    fields:
+      reindexing: V pozadí probíhá reindexace vyhledávače.
+    flickr:
+      import:
+        alert:
+          empty: Žádné vybrané obrázky.
+          invalid_license: 'Následující fotografie mají nekompatibilní licenci a nemohou
+            být importovány:'
+        notice: V pozadí probíhá přenos Flickr obrázků.
+    guest_contact:
+      create:
+        alert: Vyskytl se problém s údaji, které jste zadali. Prosím opravte je a
+          zkuste znovu.
+        notice: Kontaktní údaje byly přijaty.
+      forget:
+        notice: Kontaktní údaje byly smazány.
+      update:
+        alert: Vyskytl se problém s údaji, které jste zadali. Prosím opravte je a
+          zkuste zadat znovu.
+        notice: Kontaktní údaje byly aktualizovány.
+    metadata_fields:
+      update_order:
+        notice: Pořadí metadatových polí aktualizováno.
+    status:
+      alert: 'Pozor:'
+      notice: 'Poznámka:'
+    taggings:
+      depublish:
+        alert: Nezdařilo se znepřístupnit tagy.
+        notice: Tag depublikován!
+    tags:
+      contribution:
+        create:
+          success: Vaše tagy byly přidané k příběhu.
+      destroy:
+        success: Tagy odstraněny.
+      europeana_record:
+        create:
+          success: Vaše tagy byly přidány k tomuto objektu.
+      flag:
+        success: Tento tag byl označen jako nevhodný.
+    taxonomy:
+      imported: Nové taxonomické termíny byly importovány.
+    users:
+      create:
+        alert: Uživatelský účet nemohl být vytvořen.
+        notice: Uživatelský účet vytvořen.
+      destroy:
+        notice: Uživatel vymazán.
+      register:
+        alert: Registrace se nezdařila. Prosím opravte chybné údaje a zkuste to znovu.
+        notice: Registrace úspěšná. Vítejte!
+      update:
+        alert: Uživatelský účet nemohl být aktualizovaný.
+        notice: Uživatelský účet byl aktualizován.
+  formtastic:
+    actions:
+      attachment:
+        add_edit: Přidat/Upravit Objekty
+        create: Nahrát
+        delete: Smazat objekt
+        update: Uložit
+      contribution:
+        create: Pokračovat
+        delete: Vymazat příběh
+        save_draft: Uložit koncept příběhu
+        submit: Odeslat příběh
+        update: Aktualizovat příspěvek
+        withdraw: Odstranit
+      contributor:
+        create: Registrace
+      create: Odeslat
+      delete: Vymazat
+      filter:
+        submit: Aktualizovat
+      metadata_field:
+        delete: Vymazat metadatové pole
+        reindex: Reindexovat vyhledávač
+      password:
+        create: Odeslat
+        update: Změnit heslo
+      search:
+        submit: Vyhledat
+      sign_in: Přihlásit se
+      submit: Uložit
+      tag:
+        flag: Označit jako nevhodné
+      taxonomy_term:
+        import: Importovat
+      update: Uložit změny
+      upload: Nahrát
+      user:
+        create: Registrovat
+        delete: Smazat účet
+        update: Aktualizovat
+    create: Vytvořit %{model}
+    hints:
+      attachment:
+        dropbox_path: Vybrat soubor na kopírování z adresáře Dropboxu "Apps/Europeana
+          1914-1918". Soubory nevyhovující typem či velikostí nebudou zobrazeny.
+        edit:
+          file: 'Nahrajte nový soubor jen v případě, že chcete nahradit existující
+            soubor. Maximální velikost souboru: %{max}. Povolené typy souborů: %{file_types}.'
+        file: Nahrát soubor
+        metadata:
+          attachment_description: Popište fyzickou charakteristiku předmětu a také
+            co pro Vás daný předmět znamená.
+          content: O jaký předmět se jedná? (Např. báseň, dopis, fotografie); snažte
+            se být co nejkonkrétnější.
+          cover_image: Úvodní obrázek reprezentuje Váš příběh v této kolekci; podobně
+            jako obálka knihy. Může jím být např. fotografie osobnosti, o níž příběh
+            vypovídá, první stránka deníku nebo obraz medaile.
+          creator_given_name: Jméno osoby, která vytvořila původní objekt, např. autor
+            dopisu, deníku nebo jméno fotografa.
+          date_from: Prozraďte, kdy byl předmět vytvořený, např. kdy byl napsán dopis,
+            nebo kdy autor začal se psaním deníku. Pokud si nejste jistí, prosíme
+            napište alespoň rok, případně rok a měsíc.
+          date_to: Datum ukončení předmětu - např. datum ukončení deníku.
+          forces: 'Prosím neklikejte, pokud to není relevantní. Pokud relevantní klíčové
+            slovo není dostupné, napište nám prosím email na: 1914-1918 [@] europeana
+            [.] eu'
+          format: Materiál, ze kterého je vytvořen originální objekt (např. papír,
+            karton, páska).
+          keywords: 'Přiřaďte jen klíčová slova, která popisují hlavní téma nebo širší
+            myšlenku Vašeho příspěvku. Smyslem těchto klíčových slov je efektivnější
+            zviditelnění Vašeho příspěvku v naší sbírce příběhů. Pokud relevantní
+            klíčové slovo není dostupné, napište nám prosím email na: 1914-1918 [@]
+            europeana [.] eu'
+          lang: Označte jazyk použitý v rámci objektu, (např řeč, ve které je napsaný
+            deník).
+          location_placename: Napište jméno města, kde předmět vznikl (např. kde byla
+            pořízena fotografie).
+          object_side: U oboustranných objektů (např. pohlednice), označte stranu.
+          page_number: U předmětů s více stranami napište individuální číslo stránky.
+          source: Zdroj, ze kterého byl objekt digitalizovaný (např. dopis, zápisník,
+            film apod.).
+          subject: Osoba, místo nebo věc, ke které se předmět váže.
+          theatres: 'Prosím neklikejte, pokud to není relevantní. Pokud relevantní
+            klíčové slovo není dostupné, napište nám prosím email na: 1914-1918 [@]
+            europeana [.] eu'
+        new:
+          file: 'Můžete nahrát tolik souborů, kolik je třeba, jeden za druhým. Pamatujte
+            na to, že pokud nahráváte více souborů, budete mít možnost označit jeden
+            z nich jako "obálku" pro Váš příběh. Maximální velikost souboru je %{max}.
+            Povolené typy souborů: %{file_types}.'
+        title: Krátký popisný název objektu nebo skutečný název objektu.
+      contact:
+        full_name: Zobrazí se veřejně u schváleného příspěvku.
+      contribution:
+        metadata:
+          contributor_behalf: Vyplňujte pouze v případě, že pomáháte s příspěvkem
+            někomu jinému.
+          date_from: Popište nám, kdy se příběh odehrál. Pokud nevíte přesně, prosím
+            napište alespoň rok (např. "Můj otec narukoval v roce 1915" apod.)
+          date_to: Popište nám, kdy příběh skončil. Pokud nevíte přesně, prosím napište
+            alespoň rok (např. "Můj otec byl zraněný v roce 1915" apod.)
+          description: Napište příběh k Vašemu příspěvku.
+          forces: 'Prosím neklikejte, pokud to není relevantní. Pokud relevantní klíčové
+            slovo není dostupné, napište nám prosím email na: 1914-1918 [@] europeana
+            [.] eu'
+          keywords: 'Přiřaďte jen klíčová slova, která popisují hlavní téma nebo širší
+            myšlenku Vašeho příspěvku. Smyslem těchto klíčových slov je efektivnější
+            zviditelnění Vašeho příspěvku v naší sbírce příběhů. Pokud relevantní
+            klíčové slovo není dostupné, napište nám prosím email na: 1914-1918 [@]
+            europeana [.] eu'
+          lang: Označte jazyk, ve kterém je příběh napsaný.
+          location_placename: Napište jméno města, kde se Váš příběh odehrál, např.
+            Londýn, Paříž.
+          theatres: 'Prosím neklikejte, pokud to není relevantní. Pokud relevantní
+            klíčové slovo není dostupné, napište nám prosím email na: 1914-1918 [@]
+            europeana [.] eu'
+        title: Název celého příspěvku.
+      metadata_field:
+        attachment: Uveďte, zda se toto pole vztahuje k přílohám.
+        cataloguing: 'Ano: Zobrazit toto pole pouze v administrátorském rozhraní pro
+          účely katalogizace. Ne: Ukázat také přispěvatelům.'
+        contribution: Uveďte, zda se toto pole vztahuje na příspěvky.
+        field_type: Toto pole nebude možné měnit po jeho uložení.
+        hint: Text na zobrazení u pole na vkládání jako pomůcka pro přispěvatele/katalogizátora.
+        multi: Povolit výběr více termínů pro příspěvek/přílohu.
+        name: 'Databázový unikátní název pro pole. Platné znaky: a-z, 0-9, _'
+        required: 'Ano: přispěvatel musí do tohoto pole něco vložit. Ne: toto pole
+          je volitelné. Katalogizační pole musí být volitelná.'
+        searchable: 'Ano: vyhledávání v příspěvcích zahrne i vyhledávání v tomto metadatovém
+          poli. Ne: toto pole nebude prohledáváno. Pozn.: Po změně hodnoty je třeba
+          reindexovat vyhledávač.'
+        searchable_no_sphinx: 'Pozn.: V metadatových polích lze prohledávat pouze
+          pokud je spuštěn vyhledávač Sphinx &mdash; momentálně není spuštěný.'
+        show_in_listing: Zobrazit toto pole v seznamech jako výsledek.
+        title: Popisný název tohoto pole ve tvaru, jaký se zobrazí přispěvatelům.
+          Netřeba vyplňovat, pokud je možno určit z názvu.
+      metadata_record:
+        date: 'Formát: RRRR-MM-DD, RRRR-MM nebo RRRR, např. 1998-04-20, 1998-04 nebo
+          1998'
+        geo: 'Formát: zeměpisná šířka, zeměpisná délka, např. 51.500,-0.126 (pro Londýn)'
+      password:
+        new:
+          email: Vložte svou přihlašovací emailovou adresu, pošleme Vám instrukce
+            pro změnu hesla.
+      settings:
+        allowed_upload_extensions: Povolené přípony souborů pro nahrání, oddělené
+          čárkou, např. "pdf, doc, jpg, gif". Nevyplňujte, pokud mají být povoleny
+          všechny přípony.
+        banner_active: Pokud je povoleno, zpráva o údržbě s níže uvedeným textem bude
+          zobrazena na celou stránku.
+        banner_text: Text, který se bude zobrazovat ve zprávě o údržbě, pokud je povoleno
+          výše.
+        bing_client_id: ID klienta Bing z Azure DataMarket. Vyžadováno při dotazech
+          na překlad Europeana OpenSearch API.
+        bing_client_secret: ID klienta Bing z Azure DataMarket. Vyžadováno při dotazech
+          na překlad Europeana OpenSearch API.
+        bing_translate_key: Klíč Bing Translate. Pokud nebude vyplněno, funkcionalita
+          Microsoft Bing Translate nebude fungovat.
+        contribution_approval_required: Pokud je povoleno, příspěvky se zveřejní až
+          po jejich schválení. V opačném případě se zveřejní hned po odevzdání. Nestane
+          se nic, pokud není povoleno "Zveřejnit příspěvky".
+        gmap_api_key: Klíč pro mapy Google API. Bez tohoto klíče nemohou být mapy
+          Google použity pro vložení zeměpisných údajů. Potřebujete získat klíč? Zaregistrujte
+          se na <http://code.google.com/apis/maps/signup.html>.
+        google_analytics_key: Klíč pro Google Analitics statistiky. Pokud nebude vyplněno,
+          bude použit klíč UA-XXXXXXXX-1. Ujistěte se, že testovací a produkční prostředí
+          používá správné klíče.
+        google_api_email: Zadejte emailovou adresu k účtu služby Google API pro použití
+          veřejných statistik a používání Google Analytics.
+        max_upload_size: Maximální velikost souboru pro nahrání v bitech.
+        publish_contributions: Povolit veřejné zobrazení příspěvků. Pokud není povoleno,
+          příspěvky lze sbírat. Nebudou ale veřejně publikovány.
+        registration_required: Pokud je povoleno, pro vložení příspěvku je třeba nejprve
+          zaregistrovat uživatelský účet. Pokud není povoleno, příspěvky lze vkládat
+          jako host na základě poskytnutých kontaktních údajů.
+        relative_url_root: Hlavní URL adresa stránky, z níž se přistupuje, bez lomítka.
+          Nevyplňujte pro URL nejvyšší úrovně.
+        sharethis_id: ID zadavatele ShareThis. Pokud zůstane nevyplněno, sdílení skrze
+          ShareThis nebude sledováno v ShareThis účtu. ShareThis účet se pokusí zaznamenat
+          sdílení v Google Analytics účtu, pokud je na stránce aktivní; skript vyhledá
+          hodnoty UA a použije je, pokud jsou dostupné.
+        site_name: Název této webové stránky. Předvolené se zobrazí jako název stránky
+          a hlavička.
+        site_url: Celá URL adresa domovské stránky, ze které se přistupuje, bez údaje
+          o jazykové verzi a bez lomítka.
+        ui_locales: Údaje o jazykové verzi, která je linkována do záhlaví stránky.
+        uploadify: Použít Uploadify na ovládání nahrávání příloh, umožňuje nahrání
+          více souborů naráz. Bližší informace a demo na <http://www.uploadify.com/>.
+      taxonomy_term:
+        import: Vložit taxonomické termíny na přidání k tomuto metadatovému poli,
+          jeden na řádek.
+        term: Musí být unikátní v rámci svého pole metadat.
+      user:
+        current_password: Zadejte své aktuální heslo, pokud chcete změnit údaje svého
+          účtu.
+        edit:
+          password: Zadejte nové heslo pouze v případě, že jej chcete změnit. Minimálně
+            6 znaků.
+        email: Můžete se přihlásit skrze tuto emailovou adresu namísto uživatelského
+          jména. Je to libovolné, doporučujeme však poskytnout emailovou adresu pro
+          případ, že zapomenete své heslo.
+        password: Minimálně 6 znaků
+        update:
+          password: Zadejte nové heslo pouze v případě, že jej chcete změnit. Minimálně
+            6 znaků.
+        username: 'Minimálně 3 znaky. Platné znaky: a-z A-Z 0-9 - _ . @'
+    labels:
+      attachment:
+        metadata:
+          attachment_description: Popis
+          attachment_file: Jeden soubor
+          content: Typ
+          cover_image: Titulní obrázek
+          creator: Tvůrce
+          creator_family_name: Příjmení tvůrce
+          creator_given_name: Křestní jméno tvůrce
+          date: Datum
+          date_from: Datum vytvoření / Datum začátku
+          date_to: Datum ukončení
+          file_type: Typ média
+          forces: Jednotky
+          format: Médium
+          keywords: Klíčová slova
+          lang: Jazyk
+          lang_other: Jazyk (ostatní)
+          license: Licence
+          location_map: Zeměpisná šířka a délka
+          location_placename: Zadejte lokalitu, kde byl objekt vytvořen.
+          location_zoom: Přiblížení lokality
+          notes: Poznámky katalogizátora
+          object_side: Strana
+          page_number: Číslo strany
+          page_total: Celkový počet stran
+          source: Zdroj
+          subject: Předmět
+          theatres: Bojiště
+          ticket: Číslo lístku
+      collection_day:
+        contact:
+          country: Země
+          full_name: Organizace
+        delete_image: Smazat obrázek
+      content:
+        metadata:
+          dc:
+            contributor: Přispěvatel
+            country: Země
+            coverage: Pokrytí
+            creator: Tvůrce
+            date: Datum
+            description: Popis
+            format: Formát
+            identifier: Identifikátor
+            language: Jazyk
+            publisher: Vydavatel
+            relation: Vztah
+            rights: Práva
+            source: Zdroj
+            subject: Předmět
+            terms_alternative: Alternativní název
+            terms_extent: Rozsah
+            terms_medium: Médium
+            title: Název
+            type: Typ
+          dcterms:
+            alternative: Alternativní název
+            extent: Rozsah
+            spatial: Místo
+            temporal: Datum
+          edm:
+            country: Poskytující země
+            data_provider: Poskytovatel údajů
+            external_partner_site: Zhlédnout na stránkách partnera
+            language: Jazyk
+            partner_site: Prohlédnout si objekt na
+            provider: Poskytovatel
+            rights: Autorská práva
+      contribution:
+        metadata:
+          alternative: Alternativní název
+          cataloguer: Katalogizátor
+          character1_dob: Datum narození
+          character1_dod: Datum úmrtí
+          character1_family_name: Příjmení
+          character1_given_name: Křestní jméno
+          character1_pob: Místo narození
+          character1_pod: Místo úmrtí
+          character2_dob: Datum narození
+          character2_dod: Datum úmrtí
+          character2_family_name: Příjmení
+          character2_given_name: Rodné jméno
+          character2_pob: Místo narození
+          character2_pod: Místo úmrtí
+          collection_day: Sběrový den
+          contributor_behalf: Přispět jménem
+          date_from: Příběh začíná ...
+          date_to: Příběh končí ...
+          description: Příběh
+          editor_pick: Výběr redakce
+          editor_pick_sig: Výběr redakce podpis
+          editor_pick_text: Vybraný text redakce
+          forces: Jednotky
+          keywords: Klíčová slova
+          lang: Jazyk
+          lang_other: Jazyk (ostatní)
+          location_map: Zeměpisná šířka a délka
+          location_placename: Zadejte, kde se Váš příběh odehrál
+          location_zoom: Přiblížit lokaci
+          notes: Poznámky katalogizátora
+          summary: Shrnutí popisu objektů
+          theatres: Dějiště
+          ticket: Číslo lístku
+        terms: Souhlasím s podmínkami
+        title: Název příběhu
+      metadata_field:
+        contribution: Příspěvek
+      taxonomy_term:
+        content:
+          Autograph: Autogram
+          Book: Kniha
+          Collection: Sbírka
+          Diary: Deník
+          Drawing: Kresba
+          Footage: Stopáž
+          Interview: Rozhovor
+          Letter: Dopis
+          Map: Mapa
+          Medal: Medaile
+          Memoir: Monografie
+          Memorabilia: Memorabilia
+          Multiple: Vícero
+          Music: Hudba
+          Official Document: Oficiální Dokument
+          Official document: Oficiální dokument
+          Other: Další
+          Painting: Malba
+          Photograph: Fotografie
+          Poem: Báseň
+          Postcard: Pohlednice
+          Publication: Publikace
+          Weapon: Zbraň
+        cover_image:
+          "yes": ano
+        editor_pick:
+          "yes": ano
+        file_type:
+          3D: 3D
+          IMAGE: OBRÁZEK
+          SOUND: ZVUK
+          TEXT: TEXT
+          VIDEO: VIDEO
+        forces:
+          Allied Forces: Spojenci
+          Central Powers: Centrální mocnosti
+          Imperial Forces: Imperiální jednotky
+        format:
+          Canvas: Plátno
+          Card: Karton
+          Ceramic/China: Keramika/Porcelán
+          Digital: Digitální
+          Leather: Kůže
+          Metal: Kov
+          Mixed: Kombinované
+          Other: Další
+          Paper: Papír
+          Photographic paper: Fotopapír
+          Tape: Páska
+          'Text: memoir': 'Text: monografie'
+          'Text: transcription': 'Text: přepis'
+          Unknown: Neznámý
+          Vinyl: Vinyl
+          Wood: Dřevo
+        keywords:
+          Anti-War Movement: Protiválečné hnutí
+          Artillery: Dělostřelectvo
+          Conscientious Objection: Odpírání vojenské služby
+          Gas Warfare: Plynová válka
+          Home Front: Domácí fronta
+          Manufacture: Výroba
+          Medical: Zdravotnictví
+          Military Punishment: Vojenské tresty
+          Prisoners of War: Váleční zajatci
+          Propaganda: Propaganda
+          Recruitment and Conscription: Nábor a odvody
+          Refugees: Uprchlíci
+          Remembrance: Vzpomínky
+          Tanks and Armoured Fighting Vehicles: Tanky a obrněná bojová vozidla
+          Transport: Přeprava
+          Trench Life: Život v zákopu
+          Women: Ženy
+        lang:
+          Dansk: Dánsky
+          Deutsch: Německy
+          English: Anglicky
+          Français: Francouzsky
+          Gaeilge: Gaelsky
+          Italiano: Italsky
+          Magyar: Maďarsky
+          Nederlands: Holandsky
+          Other: Jiné
+          Română: Rumunsky
+          Slovenčina: Slovenština
+          Slovenščina: Slovenščina
+          português: Portugalsky
+          Ελληνικά: Řečtina
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Zpět
+          Front: Přední
+        source:
+          Artifact: Artefakt
+          Book: Kniha
+          Film: Film
+          Folio: List
+          Journal: Časopis
+          Leaf: List
+          Multiple: Vícero
+          Newspaper: Noviny
+          Notebook: Zápisník
+          Other: Jiné
+          Photograph: Fotografie
+          Postcard: Pohlednice
+          Tape: Páska
+          Unknown: Neznámý
+          Vinyl record: Vinylová deska
+        theatres:
+          Aerial Warfare: Válka ve vzduchu
+          African Wars: Afrika
+          Balkans: Balkán
+          Eastern Front: Východní fronta
+          Gallipoli Front: Fronta v Gallipoli
+          Italian Front: Italská fronta
+          Middle East: Blízký východ
+          Naval Warfare: Válka na moři
+          Western Front: Západní fronta
+      user:
+        delete_picture: Smazat obrázek
+        terms: Souhlasím s podmínkami
+    "no": Ne
+    required: Povinné
+    titles:
+      account_details: Přihlašovací údaje
+      admin_user: Přihlašovací údaje
+      attachment_dates: Kdy byl objekt vytvořen
+      attachment_details: Popište Váš objekt
+      attachment_front: Ke které frontě se tento předmět vztahuje?
+      attachment_keywords: Pomozte ostatním najít tento objekt tím, že k němu přidáte
+        více z těchto klíčových slov
+      attachment_location: Kde byl objekt vytvořen
+      attachment_replace: Nahradit přílohu
+      attachment_upload: Přidat přílohu
+      cataloguing_metadata: Katalogizační metadata
+      contact_address: Adresa
+      contact_name: Jméno
+      contact_other: Kontaktní údaje
+      contribution_attachments: Objekty
+      contribution_terms: Termíny & podmínky
+      dropbox: Dropbox
+      fields: Pole
+      metadata: Informace z katalogu
+      metadata_field_options: Specifické volby pro typ
+      optional_details: Další nepovinné osobní údaje
+      personal_details: Osobní údaje
+      story_basics: Povězte Váš příběh
+      story_character1: Osoba 1
+      story_character2: Osoba 2
+      story_characters: Povězte nám, o kom je tento příběh
+      story_dates: Kdy se tento příběh odehrál
+      story_forces: Zahrnuje tento objekt
+      story_front: Ze které fronty je Váš příběh
+      story_keywords: Pomozte ostatním najít Váš příběh tím, že k němu přidáte jedno
+        nebo více klíčových slov.
+      story_location: Kde se Váš příběh odehrál
+      submit: Přidejte Váš příběh
+    update: Aktualizovat %{model}
+    "yes": Ano
+  javascripts:
+    admin:
+      metadata_fields:
+        order: Přetáhnutím uspořádejte pole tak, jak si je přejete mít. Poté stiskněte
+          "Uložit".
+    annotorious:
+      clear-flag: Čisté pole
+      flag: Označit
+    attachments:
+      uploading: Některé ze souborů jsou stále přemisťovány. Až bude vše kompletní,
+        budete moci přidat Váš příběh.
+    collection-days:
+      close-directions: Uzavřít změny
+      find-more: Zjistit více
+      get-directions: Získat pokyny
+      legend: Legenda
+      next-collection-day: Další sběrový den je v <b>%{name}, %{city}, %{country}</b>
+        on <b>%{start-date}
+      no-upcoming: V dohledné době nejsou žádné sběrové dny.
+      past-entered: Uplynulé sběrové dny
+      past-not-entered: Uplynulé sběrové dny (příběhy zatím ještě nesou publikovány)
+      show-past: Ukaž uplynulé sběrové dny
+      upcoming: Následující sběrové dny
+      what-is-it: Co to je sběrový den?
+    contribute:
+      errors_shown: Proč ne? Podívejte se na oznámení výše.
+      hide_errors: Skrýt oznámení o chybách.
+      show_errors: Proč ne?
+    datepicker:
+      button_text: Ukázat kalendář
+    digital_object:
+      hints:
+        copy_from_story: Kliknutím na tlačítko výše lze překopírovat podobná metadata
+          z příběhu k tomuto objektu.
+      labels:
+        copy_from_story: Kopírovat informace
+      links:
+        copy_from_story: Kopírovat z příběhu
+    gmap:
+      canvas:
+        hide: Zavřít Google mapy
+        hint: Přesuňte značku na lokaci, kterou požadujete pro "{{field}}"
+        label: Mapy Google
+        show: Použít Google Maps
+      errors:
+        empty: Zadejte adresu na vyhledání.
+        present: Na obrazovce už mapa je, zavřete ji nejdřív, prosím.
+        unknown: Adresa nenalezena
+      search:
+        button: Jít
+        hint: Zadejte adresu na vyhledání výše.
+        label: Vyhledat adresu
+      static:
+        hide: Zavřít mapu
+        show: Ukázat na Google mapách
+    leaflet:
+      label:
+        map_view: Mapa
+        satellite_view: Satellit
+    loading: Načítá se…
+    next: Další →
+    previous: ← předcházející
+    search:
+      10seconds: Stále vyhledáváme. Prosíme o trpělivost!
+      30seconds: Vyhledávání trvá déle, než se čekalo. Zkuste nové vyhledávání nebo
+        ještě vyčkejte.
+      60seconds: Momentálně jsou problémy s vyhledáváním. Zkuste to prosím znovu později.
+    story:
+      took-place: 'Tento příběh se odehrál v:'
+    thumbnails:
+      item: Objekt
+      of: z
+    translate:
+      return-to-language: Zpět na původní jazyk
+      service-not-available: Překlad momentálně není k dispozici.
+      translate-to: Přeložit do ...
+    truncate:
+      show-less: Ukázat méně ...
+      show-more: Ukázat více ...
+    uploadify:
+      basic_ui: Problémy s nahráváním souborů? Zkuste místo toho <a href="{{href}}">basic
+        upload</a>
+      button_text: Vybrat soubory
+      finished: Zpět na příspěvek
+      hint: 'Můžete nahrát více souborů jako dávku. Každý soubor se nahraje samostatně
+        a lze jej upravovat individuálně. Pozn.: Pro nahrávání více souborů naráz
+        je třeba mít ve vašem prohlížeči nainstalovaný Flash. Maximální velikost souboru:
+        {{size}}. Povolené typy souborů: {{types}}.'
+      label: Vícero souborů
+      saved: Uloženo
+  languages:
+    da: Dánsky
+    de: Německy
+    en: Anglicky
+    fr: Francouzsky
+    ga: Irsky
+    hu: Maďarské
+    nl: Holandsky
+    pt: Portugalsky
+    sk: Slovenský
+    sl: Slovinské
+  layout:
+    navigation:
+      about: O nás
+      admin: Správce
+      browse: Prohlížet
+      contact: Kontaktujte nás
+      contribute: Přispět
+      help: Nápověda
+      home: Domů
+    software_engine: Powered by RunCoCo
+  locale: Anglicky
+  mail:
+    contributions:
+      published:
+        greeting: Milý přispěvateli do Europeana 1914-1918
+        signature: |-
+          S pozdravem
+          Tým Europeana 1914-1918
+        subject: Váš příspěvek do Europeana 1914-1918 byl zveřejněn
+        thanks: 'Děkujeme za sdílení Vašich příběhů a vzpomínkových předmětů! Váš
+          příspěvek byl zveřejněn na naší stránce. Můžete si jej prohlédnout zde:'
+    exports:
+      complete:
+        notice: 'Export sbírky, který jste spustili, je ukončen. Můžete si jej stáhnout
+          z:'
+        subject: Export sbírky ukončen.
+  media_types:
+    all: Vše
+    binary: Binární soubor
+    pdf: PDF
+    sound: Zvukový soubor
+    spreadsheet: List tabulky
+    txt: Textový soubor
+    unknown: Neznámý typ dokumentu
+    video: Video soubor
+    wordprocessing: Zpracovaný textový dokument
+  settings:
+    allowed_upload_extensions: Povolené typy souborů na nahrání
+    banner_active: Banner údržby povolen
+    banner_text: Text banneru údržby
+    bing_client_id: ID klienta Bing
+    bing_client_secret: Heslo klienta Bing
+    bing_translate_key: Bing Translate Klíč
+    contribution_approval_required: Zveřejnit jen schválené příspěvky
+    gmap_api_key: Google Maps API key
+    google_analytics_key: Google Analytics Klíč
+    google_api_email: Google API e-mail
+    max_upload_size: Maximální velikost souboru na nahrání
+    publish_contributions: Zveřejnit příspěvky
+    registration_required: Požadována registrace
+    relative_url_root: Hlavní URL
+    search_engine: Vyhledávač
+    sharethis_id: ID zadavatele ShareThis
+    site_name: Název stránky
+    site_url: URL stránky
+    ui_locales: Dostupné jazyky
+    uploadify: Povolit Uploadify
+  support:
+    select:
+      prompt: Prosím vyberte si
+  time:
+    formats:
+      timestamp: '%Y-%m-%d %H:%M'
+  views:
+    about:
+      background:
+        heading: Europeana 1914-1918
+        p1: <b>Europeana 1914-1918</b> propojuje zdroje ze tří velkých evropských
+          projektů, z nichž se každý zabývá jinými druhy materiálů z první světové
+          války. Výsledkem je archiv, který umožňuje, aby vedle sebe stály sbírky
+          knihoven, osobní příběhy a cennosti, stejně jako významné materiály z filmových
+          archivů. Společně poskytují unikátní pohled na první světovou válku a představuje
+          ji z perspektiv všech zapojených stran a ze všech úhlů. Do archivu jsou
+          stále přidávány další materiály, zase se k nám někdy určitě podívejte!
+        p2: <b>Příběhy od veřejnosti:</b>Ve spolupráci s univerzitou v Oxfordu, Facts
+          & Files a mnoha dalšími partnery v celé Evropě Europeana 1914-1918 sbírá
+          od veřejnosti dosud nezveřejněné dopisy, fotografie a památky z války, aby
+          byly zdigitalizovány a zpřístupněny online.
+      collection_days:
+        heading: Sběrové dny
+        p1: Na sběrové dny lidé přinášejí své dokumenty, artefakty a příběhy z první
+          světové války, aby je projektový personál mohl zaznamenat. Příběhy a naskenované
+          či nafocené předměty se následně přidávají do archivu.
+        p2: Sběrové dny se v minulosti konaly v Evropě.
+      online_collection:
+        heading: Online sbírky příběhů
+        p1: Sbírky online příběhů začaly v březnu 2011. Přes webovou stránku může
+          každý přidat své objekty do sbírky spolu s příběhy. Více informací, jak
+          lze přidat objekty do sbírky naleznete zde "%{add_your_story}". Přidané
+          příběhy jsou zkontrolované projektovým týmem a následně zpřístupněné na
+          Europeaně.
+      privacy_policy:
+        p1: Vaše jméno bude zobrazeno u vašich příspěvků, pokud budou schválené.
+        p2: Použijeme jen vaše kontaktní údaje, které poskytnete (včetně emailové
+          adresy), abyste mohli být kontaktováni ohledně příspěvků do sbírky.
+        p3: Vaše kontaktní údaje nikdy neposkytneme žádným dalším osobám.
+        p4: 'Více o pravidlech ochrany osobních údajů najdete na: <a http://www.europeana.eu/portal/privacy.html
+          target="_blank">Europeana</a>'
+      project_partners:
+        heading: Partneři projektu
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Univerzita v Oxforde</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Německá národní knihovna</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Národní
+          knihovna Lucemburska - Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Národní knihovna Irska-
+          National Library of Ireland</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Národní
+          knihovna Slovinska - Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Kráľovská knižnica
+          – Národní knihovna Dánska a Univerzitní knihovna Kodaň - Det Kongelige Bibliotek:
+          Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: Vaše kontaktní údaje
+        item2: Úplné údaje o materiálu
+        item3: Přesná url adresa, kde jste materiál objevili (např. http://www.europeana1914-1918.eu/en/contributions/96)
+        item4: Prokažte, že jste držitelem práv nebo zplnomocněným zástupcem držitele
+          práv
+        item5: 'Kontaktujte nás emailem: 1914-1918[@]europeana[.]eu'
+        p1: 'Pokud jste držitelem práv a obáváte se, že na jste na našich stránkách
+          objevili materiál, na jehož využití jste nedali souhlas, samozřejmě jej
+          odstraníme. Kontaktujte nás prosím emailem, kde bude uvedeno:'
+      terms:
+        full_details:
+          heading: 'Europeana - podmínky využití: úplné právní údaje - dostupné jen
+            v anglickém jazyce'
+        heading: Termíny & podmínky
+        summary:
+          heading: 'Europeana - podmínky využití: shrnutí'
+          item1: digitální materiál, který jste odevzdali, není chráněn autorským
+            právem; nebo
+          item2: patří vám práva k digitálnímu objektu; nebo
+          item3: držitel těchto práv vám povolil odevzdat digitální materiál za následujících
+            podmínek.
+          item4: Povolujete každému, aby obsah, kterým jste přispěli (video, fotografie,
+            deníky, obrázky, audio materiály), použil téměř jakýmkoli způsobem, podle
+            přání. Musí však uvést, kdo je držitelem práv k tomuto obsahu. Pokud obsah
+            změní, musí umožnit jiným osobám využívat takto změněný obsah za stejných
+            podmínek.
+          item5: Povolujete každému, aby popisná data, která odevzdáte (např. popisy
+            či tagy) v zájmu toho, aby byl váš obsah viditelný pro vyhledávač, použil
+            téměř jakýmkoli způsobem, a to bez dalších podmínek.
+          p1: 'Před odevzdáním digitálního materiálu na Europeanu musíte souhlasit
+            s podmínkami Europeany pro příspěvky uživatelů - viz. výše. Mezi nejdůležitější
+            důsledky akceptování těchto podmínek patří:'
+          p2: <b>Zaručujete, že:</b>
+          p3: <b>Pokud nechcete akceptovat tyto podmínky, neodevzdávejte prosím obsah
+            nebo popisná data na Europeanu</b>.
+        user_contributions:
+          heading: Europeana - podmínky pro příspěvky uživatelů
+          item1: Hesla a přihlašování (Článek 3)
+          item2: Zodpovědnost za provoz platformy (Článek 4)
+          item3: Práva duševního vlastnictví k obsahu (Článek 5)
+          item4: Práva duševního vlastnictví k metadatům (Článek 6)
+          item5: Nezákonné použití služby (Článek 7)
+          item6: Osobní údaj uživatele (ochrana soukromí) (Článek 8)
+          item7: Zodpovědnost stran v případě vzniku škody nebo újmy (Článek 9)
+          p1: Tento dokument obsahuje podmínky, které se vztahují na uživatele, kteří
+            přispívají obsahem a metadaty na stránku Europeana.eu nadace Europeana.
+            Uživatel si je vědom skutečnosti, že nadace Europeana usiluje o v maximální
+            možné míře umožnit další využití obsahu a metadat, a to jen s minimálními
+            omezeními.
+          p2: V souvislosti s <b>Europeana - podmínky pro příspěvky uživatelů</b>
+            stanovují, že všechen obsah, kterým uživatelé přispějí do Europeany bude
+            zpřístupněný na Europeana.eu za podmínek definovaných <a href="http://creativecommons.org/licenses/by-sa/3.0/"
+            target="_blank">Creative Commons Attribution ShareAlike license</a>. To
+            znamená, že pokud uživatel umístí svůj obsah na Europeana.eu, dává tím
+            svůj neodvolatelný souhlas třetím stranám, aby tento obsah volně používali,
+            pokud uvedou autorství k obsahu a změněný obsah budou šířit za stejných
+            podmínek.
+          p3: Kromě toho, všechna metadata vytvořená a vložená na Europeanu uživatelem
+            budou zpřístupněná za podmínek <a href="http://creativecommons.org/publicdomain/zero/1.0/"
+            target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>.
+            To znamená, že uživatel dává třetím stranám neodvolatelný souhlas k volnému
+            využívání těchto metadat bez jakýchkoli omezení.
+          p4: <b>Pokud s těmito podmínkami nesouhlasíte, nepřispívejte prosím svým
+            obsahem a/nebo metadaty do Europeany.</b>
+          p5: 'Tyto podmínky pro příspěvky uživatelů (mimo jiné) stanovují následující
+            aspekty vztahu mezi uživateli, kteří přispívají na Europeanu a Europeana.eu:'
+          p6: Vytvořením účtu na Europeana.eu uživatel přijímá tyto podmínky. Po vytvoření
+            účtu jsou tyto podmínky dostupné na <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html"
+            target="_blank">www.europeana.eu</a>.
+          p7: 'Dílčí stránky tohoto projektu:'
+      what_we_do:
+        heading: 'Národní sbírky:'
+        item1: Prostřednictvím Europeana 1914-1918 webové stránky - přidání obrázku
+          na položku nebo typ v příběhu on-line.
+        item2: Na sběrných dnů akcí - uvést položku(y) na akci, kde pracovníci projektu
+          budou fotografie předmětů a zaznamenávat příběhy, které jdou s nimi
+        p1: Europeana Collections 1914-1918 projekt přinesl zásadní digitální kolekci
+          více než 400.000 kusů materiálu ze sbírek národní knihovny v osmi zemích,
+          že se ocitli na různých stranách historické konfliktu.
+    about_us:
+      blog:
+        heading: Blog
+      europeana:
+        heading: Europeana 1914-1918
+        p1: Europeana 1914-1918 propojuje zdroje tří velkých evropských projektů,
+          z nichž se každý zaobírá jinými druhy materiálu z první světové války. Výsledkem
+          je archiv, který umožňuje, aby vedle sebe stály sbírky knihoven, osobní
+          příběhy a cennosti, stejně jako významné materiály z filmových archivů.
+          Společně poskytují unikátní pohled na první světovou válku a ukazuje ji
+          z perspektivy všech bojujících stran a ze všech úhlů. Do archivu se neustále
+          přidávají další materiály, navštěvujte nás proto pravidelně!
+        p2: <b>Příběhy od veřejnosti:</b>Ve spolupráci s univerzitou v Oxfordu, Facts
+          & Files a mnoha dalšími partnery v celé Evropě Europeana 1914-1918 sbírá
+          od veřejnosti doposud nezveřejněné dopisy, fotografie a památky z války,
+          aby byly digitalizovány a zpřístupněny online. <a href="http://pro.europeana.eu/web/europeana-1914-1918">Více
+          zjistíte o projektu zde.</a>
+        p3: <b>Národní sbírky:</b> Projekt Europeana Collections 1914-1918 vytvořil
+          významnou digitální sbírku s více než 400 tisíci objekty ze sbírek národních
+          knihoven osmi zemí, které se v době tohoto historického konfliktu nacházeli
+          na jeho rozdílných stranách.
+        p4: <b>Filmové archivy:</b> Projekt European Film Gateway 1914 nám poskytl
+          650 hodin filmového a audiovizuálního materiálu spojeného s první světovou
+          válkou včetně filmových žurnálů, dokumentárních filmů, hraných filmů, filmové
+          propagandy, stejně jako protiválečných filmů. Tento materiál je o to vzácnější,
+          že z původní filmové produkce němých filmů z tohoto období se zachovalo
+          jen asi 20% materiálu.
+        p5: <b>A o hodně více:</b> Na této stránce můžete najít materiál z ostatních
+          evropských sbírek a projektů, stejně tak i informace nepocházející z Evropy
+          - Americká digitální veřejná knihovna, Trove (Austrália), a Digitální Nový
+          Zéland.
+      events:
+        heading: Sběrové dny
+        p4: Pokud máte zájem o zorganizování vlastní akce, v rámci níž by byl digitalizován
+          materiál určený k publikace na Europeaně, můžeme vám poradit, jak na to
+          <a href="http://pro.europeana.eu/web/europeana-1914-1918">Europeana 1914-1918</a>.
+      get_involved:
+        contribute_online:
+          heading: Přispějte online
+          p1: Pokud víte, že se nedostanete na sběrné dny, můžete váš digitalizovaný
+            materiál přidat na stránku projektu sami. Klikněte na podstránku <a href="http://europeana1914-1918.eu/en/contributor">'Contribute'
+            page </a> a řiďte se pokyny, které zde najdete.
+        education:
+          heading: Vzdělávání
+          p1: Naši partneři v Britské knihovně vyvinuli internetovou stránku v anglickém
+            jazyce <a href="http://bl.uk/world-war-one">website </a> pro učitele,
+            věnovanou vzdělávacím programům o první světové válce.
+        events:
+          p1: Podívejte se na naši podstránku <a href="http://www.europeana1914-1918.eu">Home</a>
+            a zjistíte, kdy se budou konat další sběrové dny. Přineste s sebou dokumenty,
+            předměty nebo příběhy z období první světové války, aby mohly být naskenovány,
+            vyfotografovány a přidány do archivu.
+          p2: Pokud máte zájem o zorganizování vlastní akce, v rámci níž by byl digitalizován
+            materiál určený k publikace na Europeaně, můžeme vám poradit, jak na to
+            <a href="http://pro.europeana.eu/web/europeana-1914-1918">Europeana 1914-1918</a>.
+        heading: Zapojte se
+        reuse:
+          heading: Využijte materiál
+          p1: Všechen materiál na stránce Europeana 1914- 1918 je dostupný pro další
+            využití. Vývojáři jej mohou použít při přípravě vlastních projektů přes
+            <a href="http://europeana.eu/portal/api-introduction.html">Europeana API</a>.
+            Pokud máte zájem o další využití materiálů z Americké veřejné digitální
+            knihovny, Trove nebo DigitalNZ, bližší informace najdete na jejich stránkách.
+      help:
+        heading: Pomoc
+    admin:
+      annotations:
+        index:
+          title: Image anotace
+        table:
+          header:
+            text: Anotace textu
+            type: Anotace typu
+      collection_days:
+        delete:
+          question: Jste si jisti, že chcete smazat dodatečné informace o sběrovém
+            dni %{code}?
+          title: Smazat sběrový den
+        edit:
+          title: Upravit sběrový den
+        index:
+          title: Sběrové dny
+      config:
+        edit:
+          title: Upravit konfigurační nastavení
+        index:
+          links:
+            edit: Upravit nastavení
+          table:
+            caption: Nastavení
+            headings:
+              name: Jméno
+              value: Hodnota
+          title: Konfigurace
+      contributions:
+        export:
+          title: Exportovat sbírku
+        index:
+          captions:
+            approved: Schválené příspěvky (%{total} celkem)
+            draft: Koncepty příspěvků (%{total} celkem)
+            rejected: Zamítnuté příspěvky (%{total} celkem)
+            revised: Zrevidované příspěvky, předložené ke schválení (%{total} celkem)
+            submitted: Odevzdané příspěvky, předložené ke schválení (%{total} celkem)
+            withdrawn: Stáhnuté příspěvky, předložené ke schválení (%{total} celkem)
+          empty:
+            all:
+              approved: Žádné schválené příspěvky.
+              draft: Žádné koncepty příspěvků.
+              rejected: Žádné zamítnuté příspěvky.
+              revised: No revised contributions pending approval at present.
+              submitted: Žádné odevzdané příspěvky, čekající na schválení.
+              withdrawn: Žádné stáhnuté příspěvky, čekající na schválení.
+            search:
+              approved: Žádné schválené příspěvky nesplňují vaše kritéria.
+              draft: Žádné koncepty příspěvků nesplňují vaše kritéria.
+              rejected: Žádné odmítnuté příspěvky nesplňují vaše kritéria.
+              revised: Žádné revidované příspěvky nesplňují vaše kritéria.
+              submitted: Žádné odevzdané příspěvky nesplňují vaše kritéria.
+              withdrawn: Žádné stáhnuté příspěvky nesplňují vaše kritéria.
+          title: Příspěvky
+        p1: 'Níže najdete tři tabulky, které obsahují příspěvky, které: nebyli odevzdané
+          na schválení, čekají na schválení nebo byli schválené. Klikněte na název
+          pro zobrazení podrobností k příspěvku. Po zobrazení detailů můžete upravit
+          metadata, smazat příspěvek nebo (u příspěvků, které čekají na schválení)
+          schválit příspěvek.'
+      europeana:
+        index:
+          instructions: Kliknutím na Odeslat níže nastartujete harvestování obsahu
+            souvisejícího s první světovou válkou z API portálu Europeana do databáze
+            1914- 19148.
+          introduction: There are presently %{count} WWI related Europeana records
+            in the 1914-1918 database.
+          title: Sklidit obsah portálu Europeana
+      index:
+        headings:
+          export: Exportovat
+        links:
+          annotations:
+            description: Zkontrolovat a upravit anotace uživatelů k obrazovému materiálu.
+          collection_days:
+            description: Doplnit dodatečné informace ke sběrovým dnům
+          config:
+            description: Konfigurovat nastavení stránky.
+            text: Konfigurace
+          contributions:
+            description: Zkontrolovat a schválit nebo zamítnout příspěvky.
+            text: Příspěvky
+          export:
+            description: Exportovat kolekci příspěvků do CSV.
+            text: Exportovat
+          export_csv:
+            description: Export sběr příspěvků do CSV.
+            text: Exportovat jako CSV
+          export_users:
+            description: Exportovat do CSV uživatelské údaje všech přispěvatelů, kteří
+              přispěli alespoň jedním příspěvkem.
+            text: Exportovat přispěvatele
+          export_xml:
+            description: Exportovat příspěvky sbírky a přílohy do XML.
+            text: Exportovat jako CSV
+          export_xml_nozip:
+            description: Exportovat příspěvky sbírky a přílohy do XML, s výjimkou
+              příloh ve formátu .zip.
+            text: Exportovat jako XML (s výjimkou souborů .zip)
+          harvest_europeana:
+            description: Harvestovat záznamy související s první světovou válkou z
+              API portálu Europeana.
+            text: Harvestovat obsah portálu Europeana
+          institutions:
+            description: Konfigurovat institucionální poskytovatele, aby mohli být
+              volitelně propojováni s uživatelskými účty
+          logs:
+            description: Zobrazit aplikaci log souborů.
+            text: Log soubory
+          metadata_fields:
+            description: Konfigurovat pole shromážděná během příspěvků.
+            text: Pole metadat
+          reindex:
+            description: Aktualizovat index vyhledavače.
+            text: Reindexovat vyhledavač
+          statistics:
+            description: Zobrazit roční statistiky příběhů.
+            text: Statistiky
+          taggings:
+            description: Zkontrolovat a upravit tagy uživatelů u příběhů.
+          users:
+            description: 'Spravovat uživatelské účty: administrátoři, katalogizátoři
+              a přispěvatelé.'
+            text: Uživatelské účty
+        title: Administrátor
+      institutions:
+        delete:
+          question: Jste si jistý, že chcete smazat institucionálního poskytovatele
+            %{name}?
+          title: Vymazat institucionálního poskytovatele
+          warning: Vymazání institucionálního poskytovatele způsobí, že všechny asociované
+            uživatelské účty přestanou patřit jakékoli instituci.
+        edit:
+          title: Upravit institucionálního poskytovatele.
+        index:
+          title: Institucionální poskytovatelé
+        new:
+          title: Nový institucionální poskytovatel
+      metadata_fields:
+        confirm_reindex:
+          info: Po změne statusu vyhledávatelnosti jednoho nebo více polí metadat,
+            nebo po odstranění polí, které byly vyhledávatelné, je třeba reindexovat
+            vyhledavač kliknutím na tlačítko níže.
+          note: 'Poznámka: po aktualizování příspěvků není třeba reindexovat vyhledavač,
+            reindexuje se automaticky.'
+          title: Reindexovat vyhledavač
+        delete:
+          button_confirm: Opravdu chcete smazat toto pole?
+          question: Jste si jisti, že chcete smazat pole metadat %{field_name}?
+          title: Vymazat pole metadat
+          warning: <strong>Varování:</strong> Způsobí vymazání všech údajů ve vaší
+            sbírce, které byly v tomto poli už nashromářděny.
+        edit:
+          empty: Zatím neexistují žádná pole metadat.
+          instructions: Zadejte číslo pro pozici každého pole.
+          title: Upravit pole metadat
+        index:
+          caption: Pole metadat
+          empty: Zatím neexistují žádná pole metadat.
+          links:
+            new: Nové pole
+            order: Změnit pořadí polí
+            terms: Podmínky
+          title: Pole metadat
+        new:
+          title: Nové pole metadat
+        order:
+          title: Pořadí polí metadat
+      statistics:
+        index:
+          introduction: Tabulka níže obsahuje počet zveřejněných příběhů a k nim náležících
+            předmětů za daný rok, příp. volitelně za daný sběrový den.
+          title: Statistiky
+      taggings:
+        index:
+          title: Uživatelské tagy
+      taxonomy_terms:
+        delete:
+          question: Jste si jisti, že chcete vymazat taxonomický termín "%{term}"?
+          title: Vymazat taxonomický termín
+          warning: <strong>Varování:</strong> Tato akce způsobí, že jakékoli příspěvky
+            asociované s tímto termínem ztratí tuto kategorizaci.
+        edit:
+          title: Upravit taxonomický termín
+        import:
+          title: Importovat taxonomické termíny
+        index:
+          caption: Taxonomické termíny
+          empty: Zatím neexisují taxonomické termíny pro toto pole.
+          links:
+            back: seznam polí metadat
+            import: Importovat termíny ze seznamu
+            new: Nový termín
+          title: Taxonomické termíny
+        new:
+          title: Nový taxonomický termín
+      users:
+        delete:
+          button_confirm: Opravdu chcete smazat tento uživatelský účet?
+          question: Jste si jistý, že chcete vymazat uživatelský účet %{email}?
+          title: Vymazat uživatelský účet
+          warning: <strong>Varování:</strong> Tato akce vymaže také všechny příspěvky
+            od uživatele.
+        edit:
+          title: Upravit uživatelský účet
+        index:
+          caption: Uživatelské účty
+          empty: Neexistují žádné uživatelské účty pro zobrazení.
+          links:
+            new: Nový uživatel
+            show:
+              title: Prohlédnout si detailní údaje uživatele
+          title: Uživatelské účty
+        new:
+          title: Nový uživatelský účet
+        show:
+          caption: Osobní údaje
+          links:
+            back: seznam uživatelských účtů
+            contributions: Příspěvky
+            edit: Upravit uživatelský účet
+          title: Uživatelský účet
+    annotations:
+      depublish:
+        question: Jste si jisti, že chcete depublikovat tuto anotaci předmětu?
+        title: Depublikovat anotaci
+      edit:
+        title: Upravit anotaci
+      flag:
+        question: Jste si jisti, že chcete tuto anotaci označit jako nežádoucí?
+        title: Označit tuto anotaci jako nevhodnou
+      unflag:
+        question: Jste si jisti, že chcete tuto anotaci nechat označenou jako nevodnou?
+        title: Odznačit anotaci jako nevhodnou
+    attachments:
+      _form:
+        dropbox:
+          connect_html: Pokud máte Dropbox účet, můžete nám poslat soubory přímo ze
+            složky Dropbox. Pokud byste chtěli použít toto zařízení, prosím, <a href="%{href}">připojit
+            k vašemu účtu Dropbox</a>.
+          connected_html: Jste připojeni k Dropbox jako <strong>%{user}</strong>
+          disconnect: Odpojit z vašeho účtu Dropbox
+          empty: Zkopírovat některé soubory do složky s názvem "/Apps/Europeana 1914-1918"
+            ve vašem účtu Dropbox, a budou se zobrazovat zde po klepnutí na tlačítko
+            "Obnovit seznam souborů".
+          refresh: Obnovit seznam souborů
+      _summary:
+        caption: Připevnění informace
+      _table:
+        caption: Objekty
+        links:
+          preview:
+            title: Zobrazit plnou přílohu podrobnosti
+        no_thumbnail: Generování náhledů
+      attachment_help:
+        flickr:
+          description: Importovat fotografie a jejich popisy z vašeho Flickr účtu
+          link: Přidat předměty z Flickru
+        item1: Přidat jeden objekt a soubor
+        item1-subitem1: Popište objekt
+        item1-subitem2: Nahrajte soubor s přílohou
+        item2: Nahrajte vícero objektů a souborů
+        item2-subitem1: Nahrajte vícero souborů, které reprezentují více objektů
+        item2-subitem2: Předměty můžete popsat individuálně
+        one-of-the-following: 'Vyberte jedno z následujících:'
+      copy:
+        instructions: Vyberte jeden nebo více objektů připojených k tomuto příběhu,
+          které budou použity s metadaty tohoto objektu (viz. níže).
+        title: Kopírovat metadat objektu
+      delete:
+        question: Jste si jisti, že chcete vymazat objekt "%{filename}"?
+        title: Vymazat objekt
+      edit:
+        caption:
+          current: Aktuální soubor
+          uploaded: Nahraný soubor
+        title: Upravit přílohu
+      index:
+        empty: Nebyly přidány žádné objekty k tomuto příběhu.
+        links:
+          new: Nová příloha
+        title: Objekty
+      new:
+        caption: Nahraný soubor
+        title: Nová příloha
+      show:
+        title: Příloha
+    blog_posts:
+      read_more: Více
+    browse:
+      collection-days:
+        heading: Sběrové dny
+      fronts:
+        heading: Fronty
+      subjects:
+        heading: Subjekty
+      types:
+        heading: Typy
+    collection_days:
+      cant-find-collection-day: Nemůžete najít sběrový den, který hledáte na mapě?
+      different-collection-day: Chcete najít místo něj jiný sběrový den?
+      in-the-meantime: Podívejte se mezitím na některé sběrové dny, které již proběhly.
+      index:
+        title: Sběrové dny
+      join-us: Sběrový den zatím není kompletní. Připojte se později, až bude hotovo.
+      no-stories: Omlouváme se, ale materiál ze sběrového dne ještě není online. Naši
+        katalogizátoři nyní kontrolují nashromážděné příběhy, v brzké době je publikují.
+      open-collection: Jeden sběrový den
+      select-collection-day: Vybrat sběrový den
+      stories: Příběhy
+      view-stories: Prohlédnout si příběhy
+      visiting-information: Informace
+      website: |2-
+
+        Webová stránka:
+      what-do-you-get-heading: Co získáte?
+      what-is-it-heading: Co to je?
+      who-is-it-for-heading: Pro koho slouží?
+    common:
+      loading: načítání...
+      more-like-this: 'Další objekty, které by vás mohly zajímat:'
+      permanent: Tato akce se nedá vrátit.
+    contact:
+      heading: Kontaktujte nás
+      p1: Projektový tým Europeana 1914-1918 můžete kontaktovat prostřednictvím emailu
+        1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: Anonymní
+      edit:
+        title: Upravit osobní údaje
+      no_name: Bez kontaktního jména
+      show:
+        title: Kontaktní údaje
+    contributions:
+      _progress:
+        step_x_of_y: Krok %{x} %{y}
+      _summary:
+        caption: Shrnutí
+      complete:
+        p1: Váš příspěvek byl odevzdán. Děkujeme! Náš projektový tým jej zkontroluje
+          a po schválení publikuje na stránkách. V době zvýšeného množství práce to
+          může trvat i několik týdnů. Prosíme vás o trpělivost a porozumění.
+        title: Příspěvek dokončen
+      delete:
+        question: Jste si jisti, že chcete úplně zahodit příběh “<strong>%{title}</strong>”
+          a všechny související objekty?
+        title: Zahodit příběh
+      digital_object:
+        heading: Objekty přidané k vašemu příběhu
+        help_text:
+          add_attachment: Nezapomeňte k vašemu příběhu přidat aspoň jeden objekt.
+          attachment_count: Právě máte <strong>%{nr_digital_objects}</strong> objektů
+            přidaných k tomuto příběhu.
+          language: Označte jazyk použitý v objektu, např. jazyk použitý v deníku.
+          object_type: O jaký objekt jde (např. báseň, dopis, fotografie); buďte prosím
+            co nejkonkrétnější.
+          save_digital: Kliknutím na "Uložit objekt" objekt uložíte. Můžete přidat
+            další, nebo odvzdat příspěvek jako celek.
+          subject: Osoba, místo nebo věc, které se předmět týká.
+          submit_contribution1: Pokud jste s příspěvkem hotovi, <a href="#continue-to-submission">pokračujte
+            k jeho odevzdání</a>.
+          submit_contribution2: Kliknutím na "Odevzdat příběh" ukončíte odevzdávání
+            vašeho příběhu. Po odevzdání příspěvku ho zkontroluje náš expert a poté
+            bude zpřístupněn veřejnosti.
+          submit_story_button: Odevzdat příběh
+          summary: Níže je seznam objektů přidaných k příběhu; na začátku nejsou žádné,
+            ale můžete jich přidat tolik, kolik si přejete. Můžete i upravovat současné
+            objekty kliknutím na linku upravit vedle seznamu níže.
+          when: Kdy byl objekt vytvořen
+          where: Kde byl objekt vytvořen
+        labels:
+          keywords: Pomozte ostatním najít váš příběh přidáním jednoho nebo více klíčových
+            slov.
+          location_map: Geografické umístění (mapa)
+          location_place_name: Geografické umístění (název města)
+          save_digital: Uložit digitální objekt
+          save_item_draft: Uložit koncept objektu
+          submit_contribution: Odevzdat příspěvek
+        links:
+          add_another: Přidat další objekt
+          add_item: Připojit objekt
+          edit: Upravit nebo přidat více informací
+          edit_story: Upravit příběh
+        options:
+          3d: 3D
+          artifact: Artefakt
+          audio: Audio
+          back: Rub
+          book: Kliha
+          canvas: Plátno
+          card: Karta
+          cc_by_sa: cc-by-sa
+          ceramic: Keramika/Porcelán
+          diary: Deník
+          digital: Digitální
+          film: Film
+          folio: Fólie
+          front: Přední
+          image: Obrázek
+          journal: Časopis
+          leaf: List
+          leather: Kůže
+          letter: Dopis
+          medal: Medaile
+          metal: Kov
+          mixed: Kombinované
+          multiple: Vícero
+          newspaper: Noviny
+          notebook: Zápisník
+          other_option: Jiné
+          paper: Papír
+          photograph: Fotografie
+          photographic_paper: Fotografický papír
+          poem: Báseň
+          postcard: Pohlednice
+          public_domain: Volné dílo
+          tape: Páska
+          text: Text
+          text_memoir: 'Text: zápisky'
+          text_transcript: 'Text: přepis'
+          unknown: Neznámé
+          video: Video
+          vinyl: Vinyl
+          vinyl_record: Vinylová deska
+          wood: Dřevo
+        step2: Krok 2 – Přidejte vaše soubory a objekty
+      edit:
+        title: Příspěvek
+      feed:
+        entries:
+          annotation:
+            item: '%{user} okomentoval obrázek u předmětu %{title}'
+            story: '%{user} okomentoval obrázek příběhu %{title}'
+          contribution: '%{user} has published the story %{title}'
+          tagging:
+            item: '%{user} otagoval předmět %{title}'
+            story: '%{user} označil příběh %{title}'
+        title: Europeana 1914-1918 činnosti
+      index:
+        empty: Zatím neexistují příspěvky pro zveřejnění.
+        title: Příspěvky
+      new:
+        title: Příspěvek
+      no_title: bez názvu
+      search:
+        captions:
+          all: Všechny příspěvky
+          matching: Nalezené příspěvky obsahující "%{query}"
+        heading: Výsledky vyhledávání
+        links:
+          titles:
+            show_contribution: Prohlédnout si příspěvek
+        matches-for: 'Nalezené shody pro:'
+        no_matches: Žádné shody. Zkuste to znovu, prosím.
+        related-europeana: Související obsah z portálu Europeana
+        result_count_label: Související obsah z portálu Europeana
+      show:
+        button_confirm: Jste si jisti, že chcete tento příspěvek odevzdat do sbírky?
+        comments:
+          leave: Zanechat komentář
+          no_comments: Zatím neexistují žádné komentáře, přidejte ten svůj níže...
+          submit: Odevzdat komentář
+          title: Komentáře
+        empty_attachments: Tento příběh neobsahuje žádné objekty.
+        headings:
+          share: Sdílení
+          submit: Odevzdat příspěvek
+          tags: Přidat tag
+        invalid: Tento příspěvek ještě nelze odevzdat. Klikněte na "Proč ne?" pro
+          vysvětlení. Klikněte na UPRAVIT níže pro přidání dalších informací.
+        links:
+          new_attachment: Přidat objekt
+        related:
+          title: Související obsah
+        shared-this-story: Sdílet tento příběh
+        title: Příběh
+      status:
+        approved: Schváleno
+        approved_by: Schválil %{name}
+        draft: Koncept &mdash; zatím neodevzdané
+        label: Status
+        rejected: Zamítnuto
+        rejected_by: Zamítl %{name}
+        revised: Revidováno
+        submitted: Odevzdáno — čeká na schválení
+        title: Status log
+        unknown: Neznámé
+        withdrawn: Stáhnuté
+      story:
+        complete:
+          heading: Příběh hotov
+          p1: Váš příběh byl odevzdán. Děkujeme! Náš projektový tým ho nyní zkontroluje
+            a po schválení publikuje na stránkách. V době zvýšeného množství nového
+            materiálu to může trvat několik týdnů. Prosíme vás o trpělivost a porozumění.
+        help_text:
+          add_another_person: Můžete přidat více než jednu osobu.
+          behalf_of: Nevyplňujte, pokud nepomáháte s příspěvkem někomu jinému.
+          save_story: Kliknutím na "Uložit koncept příběhu" budete přesměrováni k
+            dalšímu kroku.
+          sections: Klikněte na názvy sekcí pro jejich otevření a zavření; každá sekce
+            obsahuje dodatečné informace, které můžete přidat k vašemu příběhu.
+          use_google_maps: Použít Google Maps
+        labels:
+          people: Přidat jména lidí, o nichž příběh vypráví.
+        step1: Krok 1 - Převyprávějte svůj příběh
+      withdraw:
+        question: Shrnutí
+        title: Stáhnout příběh
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Koncepty
+          submitted: Odevzdáno
+        empty:
+          all: Zatím jste nezačali žádný příběh.
+          approved: Nemáte zatím žádné schválené příběhy.
+          draft: Momentálně nemáte žádné koncepty příběhů.
+          submitted: Zatím jste neodevzdali žádný příběh.
+        headings:
+          contributions: Vaše příběhy
+        links:
+          new: Přidat nový příběh
+        p1: Níže naleznete příběhy, které jste již přidali. Upravte je podle potřeby.
+        title: Přidejte svůj příběh
+      dashboard_guest:
+        button_text: Ukončit příspěvek
+        headings:
+          finished: Ukončit příspěvek?
+        identity: (Pokud nejste %{name}, klikněte na "Ukončit příspěvek" níže.)
+        links:
+          edit_contact: Upravit kontaktní údaje
+          new: Nový příspěvek
+        notice: '%{name}, přispíváte jako host.'
+        privacy: Až ukončíte příspěvek, klikněte na tlačítko níže a vyčistěte vaše
+          kontaktní údaje. Ochrání se tím vaše soukromí na sdíleném počítači.
+        title: Ovládací panel pro hosty
+      guests:
+        edit:
+          title: Upravit kontaktní údaje pro hosta
+        new:
+          contact_details: 'V opačném případě nejprve uveďte své kontaktní údaje:'
+          guest: Přispíváte jako host.
+          links:
+            register: Registrujte se
+            sign_in: Přihlašte se
+          notice: Pokud chcete uložit své kontaktní údaje a sledovat stav příspěvků
+            po odevzdání, %{sign_in} nebo %{register} před tím, než budete pokračovat.
+          title: Kontaktní údaje hosta
+      help:
+        adding_your_story:
+          heading: Přidejte svůj příběh na Europeana 1914 – 1918
+          p1: Svůj příběh na Europeana 1914 – 1918 můžete přidat pomocí online sbírkového
+            formuláře na této webové stránce. Stačí zde vyplnit pár informací o vašem
+            příspěvku, napsat o co se jedná (pohlednice poslaná od XX, deník, atd.)
+            a přidat příběh, který byste chtěli sdílet (např. o osobě, která je na
+            fotografii, jak jste ji obdrželi, co vše víte o daném předmětu). Potom
+            můžete přidat digitální verzi objektu, např. naskenovaný nebo vyfotografovaný
+            obrázek, deník, uniformu, zkrátka čehokoli, co sdílíte. Po odevzdání bude
+            váš příspěvek zpracovaný odborníkem a bude zpřístupněn pro veřejnost.
+        how_to_use:
+          heading: Jak používat rozhraní pro online sběr příběhů
+          item1: '%{register} pre získání účtu (stačí jen jednou) nebo %{sign_in},
+            pokud jste se už zaregistrovali.'
+          item2: Přidejte informace o vašem příspěvku
+          item3: (Volitelné) Přidejte digitální verzi vašeho objektu (fotografie,
+            naskenovaný text, video nahrávka, zvuková nahrávka apod.)
+          item4: Odevzdejte svůj příběh do online sbírky předmětů.
+          item5: Váš příspěvek bude zpracován katalogizátorem portálu Europeana. Po
+            zpracování a posouzení bude váš příspěvek zpřístupněn veřejnosti.
+          p1: Abyste mohli přispívat do naší online sbírky příběhů, nejprve se musíte
+            %{sign_in} nebo %{register}. Potom můžete přidávat vaše objekty a příběhy
+            do Europeana 1914-1918.
+          p2: Budete vyzváni k dokončení následujících pěti kroků. Nemusíte dokončit
+            celý proces naráz, můžete si jej uložit a později se k němu vrátit.
+        item1: Budete vyzváni k dokončení následujících pěti kroků. Nemusíte dokončit
+          celý proces naráz, můžete si jej uložit a později se k němu vrátit.
+        item2: '%{privacy_policy} – Samostatná stránka'
+        item3: '%{takedown_policy} - Samostatná stránka'
+        item4: '%{contribution_terms} – Samostatná stránka'
+        item5: '%{about_the_project}  – Samostatná stránka'
+        p1: Cílem projektu Europeana 1914-1918 je sběr materiálu, který se týka Velké
+          války (1914- 1918) a těch, kteří se jí účastnili nebo se jich jakkoli dotkla.
+          Již jsme získali značné množství materiálu z Velké Británie, Německa, Slovinska,
+          Lucemburska, Irska ...Více informací o projektu a o typech materiálu, který
+          sbíráme, můžete najít na %{about} stránce.
+      index:
+        item1: Zadejte informace o vašem příběhu.
+        item2: Uložte váš příběh jako koncept.
+        item3: Přidejte jeden nebo více objektů (obrázky, textové dokumenty, zvukové
+          nahrávky, video nahrávky, atd.)
+        item4: Potvrďte váš souhlas s podmínkami a odešlete ke schválení.
+        p1: 'Děkujeme vám za nabídku přispět na Europeana 1914-1918. Přispívání je
+          jednoduché. Pro začátek klikněte na "Přidat nový příběh" níže. následně
+          vás převedeme přes následující kroky:'
+      registration_required:
+        p1: |2-
+
+          Prosím  %{sign_in} nebo %{register}, abyste mohli přidávat vaše objekty nebo příběhy na Europeana 1914 – 1918.
+    devise:
+      passwords:
+        edit:
+          title: Změnit heslo
+        new:
+          title: Zapomněli jste heslo?
+      registrations:
+        edit:
+          title: Upravit detaily účtu
+        new:
+          title: Registrovat
+      sessions:
+        new:
+          instructions: Prosím přihlašte se s detaily vašeho účtu.
+          title: Přihlásit se
+    errors:
+      api_error:
+        message: Tyto údaje z externích zdrojů nejsou momentálně k dispozici.
+        title: Chyba API
+      bad_request:
+        message: Váš požadavek obsahoval chybu, která brání zpracování.
+        title: Nesprávný požadavek
+      federated_search_error:
+        message: Údaje od tohoto poskytovatele federativního vyhledávání nejsou momentálně
+          k dispozici.
+        title: Chyba federativního vyhledávání
+      forbidden:
+        message: Nemáte oprávnění pro přístup k požadovanému zdroji.
+        title: Zakázáno
+      internal_server_error:
+        message: Vyskytl se problém, který zabraňuje zpracování vašeho požadavku.
+        title: Interní chyba serveru
+      not_found:
+        message: Zdroj, který požadujete, nebyl nalezen.
+        title: Nenalezeno
+      search_offline:
+        message: Vyhledávání je dočasně nedostupné. Omlouváme se, zkuste to prosím
+          později.
+        title: Vyhledávat offline
+    explore:
+      heading: Prozkoumat příběhy
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Ostfront" title="Search for
+          ‘Eastern front’">Východní fronta</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Search
+          for ‘Eastern front’">Východní fronta</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="Search for
+          ‘Family’">rodina</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="Search
+          ‘Flanders’">Vlámsko</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="Search
+          for ‘Infantry’">pěchota</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="Search for
+          ‘Medal’">medaile</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="Search for ‘Military passport’">vojenský pas</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="Search
+          for ‘Postcard’">pohlednice</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&amp;q=AM15" title="Objects
+            from the Amberg collection day">Amberg 26. leden 2012</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&q=BE08" title="Objects
+            from the Berlin collection day">Berlín 2. duben 2011</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Objects
+            from the Dresden collection day">Drážďany 22. června 2011</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objects
+            from the Erfurt collection day">Erfurt 14. června 2011</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Objects
+            from the Frankfurt collection day">Frankfurt 31. března 2011</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Objects
+            from the Kiel collection day">Kiel 29. června 2011</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Objects
+            from the Luxembourg collection day">Lucembursko 6. března 2012</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="Objects
+            from the Munich collection day">Mnichov 6. dubna 2011</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Objects
+            from the Preston collection day">Preston 10. března 2012</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objects
+            from the Regensburg collection day">Regensburg 20. června 2011</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objects
+            from the Stuttgart collection day">Stuttgart 12. dubna 2011</a>
+        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="Search
+          for ‘Trenches’">zákopy</a>
+      p1: Zde si můžete prohlédnout, co bylo zatím přidáno do naší sbírky příběhů.
+      p2: Pro vyhledání příběhů, které <b>obsahují konkrétní slovo nebo frázi</b>,
+        použijte vyhledávací okno. Abyste mohli <b>najít vše</b> co se doposud přidalo
+        do naší sbírky příběhů, klikněte na "vyhledat" (nevyplňujte okno).
+      p3: Můžete také <b>procházet sbírku příběhů</b>. Klikněte na vzorový termín
+        na vyhledání níže pro vyhledání příslušného slova. Počet výsledků se bude
+        zvyšovat s rostoucím počtem materiálů, které se přidávají do archivu.
+      p5: <b>Materiál shromážděný na sběrových dnech pro veřejnost:</b>
+      search_for: <b>Hledat:</b>
+    flickr:
+      select:
+        instruction: Zaškrtněte fotografie, které si přejete importovat. Názvy a popisy
+          budou importovány automaticky.
+        licenses:
+          heading: Vyberte fotografie z vašeho Flickr účtu
+          incompatible: Nekompatibilní licence
+          instruction: 'Na Europeana 1914–1918 se mohou importovat pouze fotografie
+            s kompatibilními licencemi:'
+        title: Vyberte fotografie z vašeho Flickr účtu
+      show:
+        action:
+          link: Odkaz na Flickr účet
+          unlink: Odpojení Flickr účtu
+        status:
+          linked: Jste přesměrováni na Flickr jako %{username}
+          unlinked: Nejste odkázán na Flickr účet.
+    home:
+      heading: Nevyřčené příběhy & oficiální dějiny první světové války
+      heading-p1: Prozkoumat příběhů, filmů a historických materiálů o První Světové
+        Válce a přispívat své vlastní rodině. Europeana 1914-1918 mísí zdrojů z knihoven
+        a archivů po celém světě s pamětí a memorabilia z rodin po celé Evropě. Objevit.
+        Učit se. Výzkum. Použití. Podíl.
+      links:
+        across_europe: napříč Evropou
+        video_guide: video návod - krok za krokem
+      otto:
+        heading: Otto &amp; Bernard
+        p1: Pokud máte více informací o Otto Arndtovi, %{add_your_story} do online
+          sbírky příběhů a sdílejte jej s ostatními.
+      p1: <em>Europeana  1914-1918</em> sbírá materiály z %{across_europe}.
+      p2: <b>Máte obrázky, dopisy, pohlednice, suvenýry nebo jiné předměty z let 1914-1918,
+        které se vztahují k první světové válce? Znáte příběh někoho, kdo se jí zúčastnil
+        nebo koho zasáhla? Přidejte ho prosím do sbírky online příběhů, aby se o něm
+        mohl dovědět celý svět.</b>
+      upcoming_overview: Prosím, %{see_english} pro kompletní přehled o našich novinkách
+        a akcích.
+    links:
+      back: Zpět na %{link}
+      back-to-search: Zpět na výsledky vyhledávání
+      previous_step: Předchozí stránka
+      privacy_policy: Zásady ochrany osobních údajů
+    register:
+      help_text:
+        email: Přihlašte se použitím této emailové adresy a hesla, které zadáte.
+        password: Heslo musí obsahovat 6 znaků
+        profile_image: |-
+          Tento obrázek se bude zobrazovat u vašich příspěvků<br/>
+          max. velikost souboru = 128kB
+        profile_photo: Pokud si přejete, nahrajte vaši fotografii (GIF nebo JPEG).
+          Fotografie se zobrazí u vašich příspěvků.
+        user_name: Bude se zobrazovat veřejně u schválených příspěvků.
+      labels:
+        age_range: Váš věk
+        email: Email
+        gender: Pohlaví
+        password: Heslo
+        password_repeat: Zopakovat heslo
+        profile_image: Profilový obrázek
+        profile_photo: Profilová fotografie
+        residence:
+          country: Vyberte zemi vašeho bydliště
+          post_code: PSČ
+        user_name: 'Uživatelské jméno:'
+      terms:
+        accept: Souhlasím s %{terms}
+        heading: Podmínky užití
+        item1: Digitální materiál, který odevzdáváte, není chráněn autorskými právy;
+          nebo
+        item2: vlastníte práva k tomuto digitálnímu materiálu; nebo
+        item3: 'vlastník těchto práv vám povolil odevzdat materiál za následujících
+          podmínek:'
+        item4: Povolujete každému, aby obsah, kterým jste přispěli (video, fotografie,
+          deníky, obrázky nebo audio materiály), použil téměř jakýmkoli způsobem.
+          Musí však uvést, kdo je držitelem práv k tomuto obsahu. Pokud obsah změní,
+          musí umožnit jiným osobám užívat takto změněný obsah za stejných podmínek.
+        item5: Povolujete každému, aby popisná data, která odevzdáváte (jako jsou
+          např. popisy nebo tagy) v zájmu toho, aby byl váš obsah viditelný pro vyhledavače,
+          použil téměř jakýmkoli způsobem, a to bez dalších podmínek.
+        p1: 'Před odevzdáním digitálního materiálu na Europeanu musíte souhlasit s  %{contribution_terms}.
+          Mezi nejdůležitější důsledky akceptování těchto podmínek patří následující:'
+        p2: <b>Zaručujete, že:</b>
+        p3: Pokud nechcete akceptovat tyto podmínky, neodevzdávejte prosím obsah nebo
+          popisná data na Europeanu.
+        terms: Termíny & podmínky
+    search:
+      facets:
+        common:
+          category: Kategorie
+          collection: Sbírka
+          contributor: Přispěvatel
+          country: Země
+          creator: Autor
+          format: Formát
+          language: Jazyk
+          location: Umístění
+          media: Typ média
+          provider: Poskytovatel
+          rights: Práva
+          subject: Předmět
+          type: Typ
+          year: Rok
+        contributions:
+          collection_day: Sběrový den
+          content: Typ objektu
+          file_type: Typ média
+          keywords: Klíčová slova
+          lang: Jazyk
+          license: Licence
+          place_name: Název místa
+          protagonist_names: Protagonista jméno
+          provider: Poskytovatel
+          theatres: Bojiště
+        digitalnz:
+          content_partner: Partner pro obsah
+        europeana:
+          data_provider: Poskytovatel údajů
+          reusability: Možnost dalšího využití
+          source_all: Všechny výsledky z Europeany
+          source_info: Více možností filtrování je dostupných tehdy, pokud si vyberete
+            prohlížení příběhů z veřejných nebo knihovnických/muzejních sbírek.
+          source_institution: Jen knihovnické/muzejní sbírky
+          source_label: Jen knihovnické/muzejní sbírky
+          source_ugc: Příběhy od veřejnosti
+          ugc: Obsah vytvořený uživateli
+          uri: Předmět
+        matches_for: Shody pro
+        refine_results: Zúžit vyhledávání
+        trove:
+          availability: Dostupnost
+          discipline: Disciplína
+      providers:
+        canadiana: Z Kanady
+        collection: Z Europeana
+        contributions: 1914-1918
+        digitalnz: Zdroje z Nového Zélandu
+        dpla: Z Ameriky
+        europeana: Portál Europeana
+        trove: Australský zdrojů
+    statistics:
+      index:
+        contributions:
+          heading: Příspěvky
+          institutional: Institucionální objekty
+          ugc: Od našich uživatelů
+        intervals:
+          last_month: Poslední měsíc
+          last_quarter: Poslední čtvrtrok
+          last_week: Poslední týden
+          last_year: Poslední rok
+          this_month: Tento měsíc
+          this_week: Tento týden
+        metrics:
+          avgtimeonsite: Čas strávený na stránce
+          europeana_pageviews: Zhlédnutí institucionálních objektů
+          object_pageviews: Zhlédnutí příběhů
+          visits: Návštěvy
+        no_results: Statistiky nejsou dostupné.
+        providers:
+          canadiana: Canadiana (Kanada)
+          digitalnz: DigitalNZ (Nový Zéland)
+          dpla: DPLA (USA)
+          europeana: Europeana
+          trove: Trove (Austrálie)
+        title: Statistiky používání
+    table:
+      header:
+        actions: Akce
+    taggings:
+      depublish:
+        question: Jste si jisti, že chcete znepřístupnit tento tag v kontextu tohoto
+          příběhu?
+        title: Znepřístupnit tag
+      edit:
+        title: Upravit tagy
+    tags:
+      add: Přidat
+      delete:
+        question: Jste si jisti, že chcete přemístit tento tag?
+        title: Odstranit tag
+      flag:
+        question: Jste si jisti, že chcete označit tento tag jako nevhodný?
+        title: Označit jako nevhodný
+      info: oddělte každý tag čárkou a stiskněte enter pro přidání.
+    users:
+      _summary:
+        caption: |2-
+
+          Přihlašovací údaje
+      account:
+        caption: Osobní údaje
+        links:
+          edit_contact: Upravit osobní údaje
+          edit_user: Upravit přihlašovací údaje
+        title: Váš účet
+      sign-in:
+        help: Pro přihlášení použijte uživatelské jméno nebo vaši emailovou adresu.
+          Nemusíte použít obojí.
+  will_paginate:
+    entry_range_label: Výsledky %{first}–%{last} z %{total}
+    first_title: První strana
+    last_title: Poslední strana
+    next_label: '>'
+    next_title: Další strana
+    page_entries_info:
+      multi_page: Zobrazuje se %{model} %{from} - %{to} z celkem %{count}
+      multi_page_html: Zobrazuje se %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> z celkem
+        <b>%{count}</b>
+      single_page:
+        one: Zobrazuji 1 %{model}
+        zero: No %{model} našel
+        other: Zobrazení všech %{count} %{model}
+      single_page_html:
+        one: Zobrazuji <b>1</b> %{model}
+        zero: No %{model} našel
+        other: Zobrazení <b>všech %{count}</b> %{model}
+    per_page_label: Výsledků na straně
+    per_page_title: Počet výsledků zobrazených na této straně
+    previous_label: <
+    previous_title: Předcházející stránka
+...
