@@ -8,6 +8,7 @@ if [ "app", "util" ].include?(config.current_role)
     "#{config.shared_path}/config/initializers/europeana.rb",
     "#{config.shared_path}/config/initializers/paperclip.rb",
     "#{config.shared_path}/config/initializers/secret_token.rb",
+    "#{config.shared_path}/config/initializers/recaptcha.rb",
     "#{config.shared_path}/config/federated_search.yml",
     "#{config.shared_path}/config/google_api_key.p12",
     "#{config.shared_path}/config/s3.yml",
