@@ -50,7 +50,10 @@
     <%= render :partial => 'terms' %>
     
     <%= form.inputs :accept_terms do %>
-      <li class="input"><%= recaptcha_tags %></li>
+      <li class="input<% if form.object.errors[:captcha] %> error<% end %>">
+        <%= recaptcha_tags %>
+        <%= form.semantic_errors :captcha %>
+      </li>
       <%= form.input :terms, :as => :boolean %>
     <% end %>
     
