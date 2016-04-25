@@ -80,7 +80,8 @@ RunCoCo::Application.routes.draw do
     
     # Users
     devise_for :users,
-      :path_names => { :sign_in => 'sign-in', :sign_out => 'sign-out', :sign_up => 'register' }
+      :path_names => { :sign_in => 'sign-in', :sign_out => 'sign-out', :sign_up => 'register' },
+      :controllers => { :registrations => 'registrations' }
     match 'users/account' => 'users#account', :as => :user_account
 
     # Contacts
