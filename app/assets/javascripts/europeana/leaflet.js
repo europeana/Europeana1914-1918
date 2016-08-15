@@ -298,7 +298,7 @@
 			}
 
 			this.miniMapLayer = new L.TileLayer(
-				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				{
 					minZoom: 0,
 					maxZoom: 13,
