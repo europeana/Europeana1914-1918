@@ -182,7 +182,7 @@
             			//var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
             			new L.Control.MiniMap(
             				new L.TileLayer(
-            					'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
+            					'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             					{
             						minZoom: 0,
             						maxZoom: 13,
