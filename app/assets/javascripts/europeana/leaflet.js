@@ -87,8 +87,6 @@
 		 * @returns {europeana.leaflet}
 		 */
 		addGoogleLayer: function() {
-			// DISABLED GOOGLE
-			return;
 			this.googleLayer = new L.Google();
 			this.map.addLayer( this.googleLayer );
 			return this;
@@ -102,8 +100,6 @@
 			if ( !add_layer_toggle_ctrl ) {
 				return this;
 			}
-			// DISABLE TOGGLE CONTROL
-			return this;
 
 			this.addGoogleLayer();
 
