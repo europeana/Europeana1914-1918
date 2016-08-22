@@ -46,10 +46,10 @@
 		icon_purple: {},
 		icon_red: {},
 		map: {},
-		mapQuestAttribution:
-			'Tiles © ' +
-			'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
-			'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
+		mapQuestAttribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+			//'Tiles © ' +
+			//'<a href="http://www.mapquest.com/" target="_blank">MapQuest</a> ' +
+			//'<img src="http://developer.mapquest.com/content/osm/mq_logo.png" />',
 		mapQuestLayer: {},
 		miniMap: {},
 		miniMapLayer: {},
@@ -87,6 +87,8 @@
 		 * @returns {europeana.leaflet}
 		 */
 		addGoogleLayer: function() {
+			// DISABLED GOOGLE
+			return;
 			this.googleLayer = new L.Google();
 			this.map.addLayer( this.googleLayer );
 			return this;
@@ -100,6 +102,8 @@
 			if ( !add_layer_toggle_ctrl ) {
 				return this;
 			}
+			// DISABLE TOGGLE CONTROL
+			return this;
 
 			this.addGoogleLayer();
 
@@ -157,12 +161,15 @@
 		 */
 		addMapQuestLayer: function() {
 			this.mapQuestLayer = new L.TileLayer(
-				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
+				// CHANGE - use osm url
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				//'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
 				{
 					minZoom: 4,
 					maxZoom: 18,
 					attribution: this.mapQuestAttribution,
-					subdomains: '1234',
+					// CHANGE - do not use subdomains
+					// subdomains: '1234',
 					type: 'osm'
 				}
 			);
@@ -298,12 +305,15 @@
 			}
 
 			this.miniMapLayer = new L.TileLayer(
-				'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
+				// CHANGE - use osm url
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				//'http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.png',
 				{
 					minZoom: 0,
 					maxZoom: 13,
 					attribution: this.mqTilesAttr,
-					subdomains: '1234',
+					// CHANGE - do not use subdomains
+					// subdomains: '1234',
 					type: 'osm'
 				}
 			);
@@ -502,6 +512,8 @@
 				user_options
 			);
 
+			// CHANGE - empty the container before initialising
+			$('#' + this.getMapId( user_options.map_options.id )).empty();
 			this
 				.createMap(
 					this.getMapId( user_options.map_options.id ),
