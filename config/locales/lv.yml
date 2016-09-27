@@ -1,0 +1,2283 @@
+# Messages for Latvian (latviešu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bbot22
+# Author: Maggyeu
+# Author: Silraks
+---
+lv:
+  actions:
+    add: Pievienot
+    approve: Apstiprināt
+    cancel: Atcelt
+    copy: Kopēt
+    delete: Dzēst
+    depublish: Atsaukt
+    download: Lejupielādēt
+    edit: Rediģēt
+    edit_story: Rediģēt stāstu
+    filter: Filtrs
+    flag: Atzīmēt
+    import: Importēt
+    new: Jauns
+    reject: Noraidīt
+    remove: Noņemt
+    save: Saglabāt
+    submit: Iesniegt
+    unflag: Noņemt atzīmi
+    update: Atjaunināt
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Dropbox datne
+        file: Datne
+        file_content_type: Satura tips
+        file_created_at: Izveidots
+        file_file_name: Datnes nosaukums
+        file_file_size: Datnes izmērs
+        file_updated_at: Atjaunināts
+        metadata: Metadati
+        preview: Priekšskatījums
+        public: Publisks
+      collection_day:
+        description: Apraksts
+        end_date: Gala datums
+        image: Attēls
+        name: Vārds
+        start_date: Sākuma datums
+        taxonomy_term_id: Taksonomijas termins
+      contact:
+        age: Vecums
+        country: Dzīvesvietas valsts
+        full_name: Pilns vārds
+        gender: Dzimums
+        locality: Pilsēta
+        postal_code: Pasta indekss
+        region: Novads
+        street_address: Iela
+        tel: Tālruņa numurs
+      contribution:
+        approved_by: Apstiprinājis
+        approver: Apstiprinājis
+        attachments: Vienības
+        catalogued_by: Kataloģizētājs
+        cataloguer: Kataloģizētājs
+        contributor: Iesniedzējs
+        created_at: Uzsākts
+        metadata: Metadati
+        published_at: Publicēts
+        submitted_at: Iesniegts
+      contribution_status:
+        created_at: Statuss mainīts
+      metadata_field:
+        cataloguing: Tikai kataloģizācijai
+        field_type: Tips
+        hint: Ieteikums
+        multi: Vairāku atlase
+        name: ID
+        position: Pozīcija
+        required: Nepieciešams
+        searchable: Meklējams
+        show_in_listing: Rādīt sarakstos
+      metadata_record:
+        field_alternative: Lauka alternatīva
+        field_collection_day_terms: Kolekcijas dienas lauka termini
+        field_file_type_terms: Datnes veida lauka termini
+      setting:
+        name: Vārds
+        value: Vērtība
+      taxonomy_term:
+        metadata_field: Lauks
+        term: Termins
+      user:
+        created_at: Reģistrācijas datums
+        institution: Institūcija
+        password: Parole
+        password_confirmation: Atkārto paroli
+        role_name: Loma
+        terms: Noteikumi
+        username: Lietotājvārds
+    errors:
+      messages:
+        accepted: Tev ir jāapstiprina, lai turpinātu.
+        blank: Šis ir obligātais lauks; to nedrīkst atstāt neaizpildītu.
+        confirmation: Nesakrīt ar apstiprinājumu.
+        empty: ir jābūt aizpildītam
+        equal_to: ir jābūt vienādam ar %{count}
+        even: ir jābūt pāra skaitlim
+        exclusion: ir rezervēts
+        greater_than: ir jābūt lielākam par %{count}
+        greater_than_or_equal_to: ir jābūt lielākam vai vienādam ar %{count}
+        inclusion: Izvēlies vērtību no saraksta.
+        invalid: Nepareiza ievade; pārbaudi ievadītās vērtības formātu.
+        less_than: ir jābūt mazākam par %{count}
+        less_than_or_equal_to: ir jābūt mazākam vai vienādam ar %{count}
+        not_a_number: Nav skaitlis. Ir jābūt skaitlis.
+        not_an_integer: ir jābūt veselam skaitlim
+        odd: ir jābūt nepāra skaitlim
+        record_invalid: 'Pārbaude neizdevās: %{errors}'
+        taken: Šim laukam ir jābūt unikālam, ievadītā vērtība jau eksistē mūsu sistēmā.
+        too_long: ir par garu (maksimums ir %{count} rakstzīmes)
+        too_short: ir par īsu (minimums ir %{count} rakstzīmes)
+        wrong_length: ir nepareizs garums (jābūt %{count} rakstzīmēm)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Šis datnes veids nav atļauts.
+              presence: Izvēlies augšupielādējamo datni.
+              size: Augšupielādētās datnes izmērs ir par lielu.
+        collection_day:
+          attributes:
+            image:
+              content_type: Ir atļauti tikai JPEG un GIF attēli.
+          end_date_follows_start_date: Beigu datums nedrīkst būt pirms sākuma datuma.
+          taxonomy_term_metadata_field: Nederīga kolekcijas diena.
+        contribution:
+          attachments:
+            uploaded: Dažas datnes joprojām tiek kopētas.
+          attributes:
+            catalogued_by:
+              role_name: Kataloģizētājam ir jābūt ar administratora vai kataloģizētāja
+                tiesībām
+            guest_id:
+              present: Lai iesniegtu iesniegumu kā viesis, ir jāaizpilda kontaktinformācija.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Kataloģizācijas lauki var nebūt obligāti.
+            contribution:
+              or_attachment: Lauks attiecas uz iesniegumiem un/vai pielikumiem.
+            field_type:
+              constancy: Lauka tipu nevar mainīt.
+            searchable:
+              field_type: Taksonomijas lauki var nebūt meklējami.
+        metadata_record:
+          date_field_civil: Nederīgs kalendāra datums.
+          one_cover_image: Kā stāsta "vāka attēlu" ir iespējams izvēlēties tikai vienu
+            vienību.
+          taxonomy_field_single: Var izvēlēties tikai vienu terminu.
+        setting:
+          attributes:
+            name:
+              inclusion: ir neriģistrēts konfigurācijas uzstādījums
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: Taksonomijas terminam ir jābūt saistītiem ar taksonomijas metadatu
+                lauku.
+        user:
+          attributes:
+            current_password:
+              invalid: Nepareiza parole
+            email:
+              taken: Lietotāja konts ar šādu e-pastu jau ir reģistrēts.
+            picture:
+              content_type: Profila attēlam ir jābūt GIF vai JPEG formātā.
+      template:
+        body: 'Problēmas bija ar sekojošiem laukiem:'
+        header:
+          one: Dēļ 1 kļūdas šis %{model} netika saglabāts
+          other: Dēļ %{count} kļūdām šis %{model} netika saglabāts
+    models:
+      annotation: Attēla anotācija
+      attachment: Vienība
+      collection_day: Kolekcijas diena
+      contact: Kontaktinformācija
+      contribution: Stāsts
+      institution: Institucionālais piegādātājs
+      metadata_field: Metadatu lauks
+      metadata_record: Metadatu ieraksts
+      tag: Tags
+      tagging: Tagošana
+      taxonomy_term: Taksonomijas termins
+      user: Lietotājs
+    options:
+      contact:
+        gender:
+          female: Sieviete
+          male: Vīrietis
+      metadata_field:
+        field_type:
+          date: Datums
+          geo: Ģeogrāfiskā atrašanās vieta
+          string: Vienas rindas teksts
+          taxonomy: Taksonomija
+          text: Vairāku rindu teksts
+      user:
+        role_name:
+          administrator: Administrators
+          blank: Jebkura loma
+          cataloguer: Kataloģizētājs
+          contributor: Iesniedzējs
+  attributes:
+    contact: Kontaktinformācija
+    created_at: Izveidots
+    email: E-pasts
+    id: ID
+    metadata_record: Metadati
+    status: Statuss
+    title: Nosaukums
+    updated_at: Atjaunināts
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Valsts
+          data_provider_sm: Datu piegādātājs
+          metadata_collection_day_ids_im: Kolekcijas diena
+          metadata_content_ids_im: Vienības tips
+          metadata_file_type_ids_im: Resursa tips
+          metadata_keywords_ids_im: Atslēgvārdi
+          metadata_lang_ids_im: Valoda
+          metadata_theatres_ids_im: Darbības vieta
+          place_name_s: Vietas nosaukums
+          provider_sm: Piegādātājs
+          rights_sm: Tiesības
+          type_s: Tips
+          uri_sm: Priekšmets
+          year_sm: Gads
+  common:
+    additional-information: Papildu informācija
+    download-item: Lejupielādēt šo vienību
+    editors_blog:
+      more_stories: Vairāk stāstu <a href="http://thegreatwararchive.blogspot.com/search/label/en">Redaktora
+        blogā</a>
+    editors_pick:
+      heading: Redaktora izvēle
+      more_stories: <b>Vairāk stāstu pieejami %{explore_stories} lapā.</b>
+    featured-categories: Ieteiktās kategorijas
+    from-collection-days: No mūsu kolekcijas dienām
+    google_maps:
+      help_text: |-
+        <li><b>Automātiskie ieteikumi</b> : Ievadiet valsts nosaukumu, pilsētu vai adresi. Google Maps mēģinās sameklēt iespējamās adreses.</li>
+        <li><b>Konkrēta adrese</b> : Ievadiet konkrētu adresi vai ģeogrāfiskās koordinātas, ignorējot Google Maps automātiskos ieteikumus, un nospiediet pogu "Meklēt".</li>
+        <li><b>Vieta kartē</b> : Kad uz kartes ir norādīta atrašanās vietas atzīme, piemēram, pēc adreses ievadīšanas, atzīmi ir iespējams pārvietot uz jebkuru citu vēlamo vietu.</li>
+        <li><b>Tālummaiņa</b> : Karti var tuvināt un tālināt, izmantojot + vai - zīmes vai tālummaiņas pogu kartes kreisajā pusē.</li>
+      label: Izmanto Google Maps (pēc izvēles)
+    help_text:
+      mandatory: obligāts lauks
+    labels:
+      add-keywords: Pievienot savus atslēgvārdus
+      co_funded: Eiropas Savienības līdzfinansēts
+    links:
+      about_the_project: Par Europeana 1914-1918 projektu
+      add-your-story: Pievieno savu stāstu!
+      add-your-story-brief: Pievieno!
+      annotorious: Vienībai ir pievienotas piezīmes. Atveriet vienību, lai izlasītu.
+      contact_us: Sazināties ar mums
+      contact_us_email: Ar mums ir iespējams sazināties arī pa e-pastu <span class="addr">1914-1918
+        [@] europeana [.] eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/en/rights/contributions.html"
+        target="_blank">Europeana noteikumi lietotāju satura iesniegšanai</a>
+      contribution_terms: Europeana noteikumi lietotāju satura iesniegšanai
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Uzzini
+        vairāk par filmu materiālu apkopošanu.</a>
+      explore-the-stories: Pārlūko stāstus!
+      explore-the-stories-brief: Pārlūko!
+      explore_stories: Pārlūkot stāstus
+      help: Palīdzība
+      my_account: Mans konts
+      my_stories: Mani stāsti
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Uzzini vairāk par nacionālo kolekciju apkopošanu.</a>.
+      play-audio: Ieslēgt audio
+      play-video: Ieslēgt video
+      privacy_policy: Privātuma poltika
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Papildinformācijai,
+        lūdzu, skatiet mūsu projekta tīmekļa vietni</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">Uzzini vairāk par ģimeņu stāstu vākšanu</a>.
+      register: Reģistrēties
+      sign_in: Pieslēgties
+      statistics: Statistika
+      takedown_policy: Satura izņemšanas politika
+      titles:
+        contribution_terms: Skat Europeana noteikumus lietotāju satura iesniegšanai
+        great_war: Oksfordas Universitātes Lielā kara arhīvs (Great War Archive at
+          the University of Oxford)
+        takedown: Uz satura izņemšanas politikas lapu
+      view-image: Skatīt visu vienību
+      view-pdf: Atvērt dokumentu
+    map_contribution_heading: Šis stāsts norisinājās
+    menus:
+      main:
+        about: Par
+        add: Pievieno savu stāstu
+        collection-days: Kolekcijas dienas
+        explore: Pārlūkot
+        home: Sākumlapa
+        remix: Neticama draudzība
+        select_language: Izvēlēties valodu
+        sign_in: Pieslēgties
+        sign_out: Atslēgties
+      menu: Izvēlne
+    more-at: Vairāk
+    news: Jaunumi
+    news_item:
+      heading: Jauni ģimenes vēstures pasākumi
+    "no": Nē
+    options:
+      close: Aizvērt
+      open: Atvērt
+      other_option: Citi
+    other:
+      contributor: Iesniedzējs
+      preview: Priekšskatījums
+      title: Nosaukums
+      total: Kopā
+    "yes": Jā
+  date:
+    formats:
+      long_with_day: '%a, %d %B %Y'
+      month_and_year: '%B %Y'
+      quarter: '%Y %{number} ceturksnis'
+  devise:
+    failure:
+      admin:
+        unauthenticated: Lai turpinātu, tev ir jāpieslēdzas.
+      invalid: Nepareizs lietotājvārds/e-pasts vai parole.
+      invalid_token: Nederīga autentifikācija.
+      timeout: Sesijas termiņš beidzies, pieslēdzieties atkārtoti, lai turpinātu.
+      unauthenticated: Lai turpinātu, ir nepieciešams pieslēgties.
+    mailer:
+      reset_password_instructions:
+        subject: Atiestatīt paroles instrukciju
+    passwords:
+      link: Aizmirsi savu paroli?
+      send_instructions: Tev tika nosūtīts e-pasts ar instrukciju, kā atiestatīt paroli.
+      updated: Paroles maiņa veiksmīga. Tu esi pieslēdzies.
+    registrations:
+      destroyed: Tavs konts tika atcelts. Ceram tevi drīzumā redzēt atkal.
+      link: Reģistrēties
+      signed_up: Pierakstīšanās veiksmīga.
+      updated: Konts veiksmīgi atjaunināts.
+    sessions:
+      link: Pieslēgties
+      signed_in: Pieslēgšanās noritēja veiksmīgi.
+      signed_out: Atslēgšanās noritēja veiksmīgi.
+  flash:
+    actions:
+      create:
+        alert: Veidojot %{resource_name}, radās problēma. Skat ziņas zemāk.
+        notice: Izveidots jauns %{resource_name}.
+      destroy:
+        alert: Dzēšot %{resource_name}, radās problēma.
+        notice: '%{resource_name} tika veiksmīgi izdzēsts.'
+      taggings:
+        notice: Tagojums atsaukts.
+      update:
+        alert: Atjauninot %{resource_name}, radās problēma. Skat. informāciju zemāk.
+        notice: '%{resource_name} atjaunināts.'
+    admin:
+      europeana:
+        harvest:
+          notice: Fonā notiek Europeana portāla satura rasmošana.
+    annotations:
+      depublish:
+        alert: Neizdevās atsaukt šo anotāciju.
+        notice: Anotācija atsaukta.
+      flag:
+        alert: Neizdevās atzīmēt anotāciju kā neatbilstošu.
+        notice: Anotācija atzīmēta kā neatbilstoša.
+      unflag:
+        alert: Neizdevās noņemt atzīmi par neatbilstošu anotāciju.
+        notice: Atzīme par neatbilstošu anotāciju noņemta.
+    attachments:
+      create:
+        alert: Saglabājot pielikumu, radās problēma.
+        invalid_files: Dažas datnes nevar saglabāt.
+        notice: Vienība saglabāta.
+      destroy:
+        alert: Dzēšot tavu pielikumu, radās problēma.
+        notice: Pielikums dzēsts.
+      duplicate:
+        notice: Vienības metadati pārkopēti uz izvēlētajām vienībām.
+      links:
+        view-attachments_html: <a href="#attachments">Klikšķini, lai tos skatītu un
+          rediģētu</a>.
+      update:
+        alert: Saglabājot pielikumu, radās problēma.
+        notice: Vienība saglabāta.
+    configuration:
+      update:
+        alert: Neizdevās saglabāt konfigurāciju.
+        notice: Konfigurācija atjaunināta.
+    contacts:
+      create:
+        alert: Kontaktinformāciju izveidot neizdevās.
+        notice: Kontaktinformācija izveidota.
+      update:
+        alert: Kontaktinformāciju neizdevās atjaunināt.
+        notice: Kontaktinformācija atjaunināta.
+    contributions:
+      approve:
+        alert: Neizdevās apstiprināt iesniegumu.
+        notice: Iesniegums veiksmīgi apstiprināts.
+      destroy:
+        alert: Neizdevās izdzēst stāstu
+        notice: Stāsts izdzēsts
+      draft:
+        create:
+          alert: Uzsākot jaunu iesniegumu, radās problēma.
+          notice: Iesākts jauna iesnieguma melnraksts.
+        submit:
+          alert: Ar šo iesniegumu radās problēma. Lūdzu skat. informāciju zemāk.
+          notice: Iesniegums iesniegts. Paldies! Projekta darbinieki to pārbaudīs,
+            un tīmekļa vietnē tas parādīsies, kad tas tiks apstiprināts. Ja iesniegumu
+            ir daudz, tas var prasīt līdz pat vairākām nedēļām. Paldies par sapratni
+            un pacietību!
+        update:
+          alert: Saglabājot iesniegumu, radās problēma.
+          notice: Iesniegums saglabāts.
+      reject:
+        alert: Neizdevās noraidīt iesniegumu.
+        notice: Iesniegums veiksmīgi noraidīts.
+      submitted:
+        edit:
+          alert: Šis iesniegums jau ir iesniegts.
+      withdraw:
+        alert: Neizdevās atzīmēt stāstu izņemšanai no kolekcijas.
+        notice: Šis stāsts ir atzīmēts izņemšanai no kolekcijas.
+    contributors:
+      create:
+        alert: Kontu nevar izveidot.
+      update:
+        alert: Kontu nevar atjaunināt.
+    fields:
+      reindexing: Notiek meklētājprogrammas reindeksēšana.
+    flickr:
+      import:
+        alert:
+          empty: Nav atzīmēts neviens attēls
+          invalid_license: 'Sekojošām fotogrāfijām ir nesaderīga licence un tās netiks
+            importētas:'
+        notice: Notiek Flickr attēlu kopēšana.
+    guest_contact:
+      create:
+        alert: Radās problēma ar iesniegto informāciju. Lūdzu veic labojumus un mēģini
+          vēlreiz.
+        notice: Kontaktinformācija saņemta.
+      forget:
+        notice: Kontaktinformācija notīrīta.
+      update:
+        alert: Radās problēma ar iesniegto informāciju. Lūdzu veic labojumus un mēģini
+          vēlreiz.
+        notice: Kontakta informācija atjaunināta.
+    metadata_fields:
+      update_order:
+        notice: Metadatu lauku kārtība atjaunināta.
+    status:
+      alert: 'Brīdinājums:'
+      notice: 'Paziņojums:'
+    taggings:
+      depublish:
+        alert: Neizdevās atsaukt šo tagojumu.
+        notice: Tags atsaukts!
+    tags:
+      contribution:
+        create:
+          success: Tavi tagi ir pievienoti šim stāstam.
+      destroy:
+        success: Tags noņemts.
+      europeana_record:
+        create:
+          success: Tavi tagi ir pievienoti šai vienībai.
+      flag:
+        success: Tags ir atzīmēts kā nepiemērots.
+    taxonomy:
+      imported: Importēts jauns taksonomijas termins
+    users:
+      create:
+        alert: Lietotāja kontu nevar izveidot.
+        notice: Lietotāja konts izveidots.
+      destroy:
+        notice: Lietotājs dzēsts.
+      register:
+        alert: Reģistrācija neizdevās. Lūdzu izlabo zemāk esošo informāciju un mēģini
+          vēlreiz.
+        notice: Reģistrācija veiksmīga. Esi sveicināts!
+      update:
+        alert: Lietotāja kontu nevar atjaunināt.
+        notice: Lietotāja konts atjaunināts.
+  formtastic:
+    actions:
+      attachment:
+        add_edit: Pievienot/rediģēt vienību
+        create: Augšupielādēt
+        delete: Dzēst vienību
+        update: Saglabāt
+      contribution:
+        create: Turpināt
+        delete: Dzēst stāstu
+        save_draft: Saglabāt stāsta melnrakstu
+        submit: Iesniegt stāstu
+        update: Atjaunināt iesniegumu
+        withdraw: Atsaukt
+      contributor:
+        create: Reģistrēties
+      create: Iesniegt
+      delete: Dzēst
+      filter:
+        submit: Atjaunināt
+      metadata_field:
+        delete: Dzēst metadatu lauku
+        reindex: Reindeksēt meklētājprogrammu
+      password:
+        create: Iesniegt
+        update: Mainīt manu paroli
+      search:
+        submit: Meklēt
+      sign_in: Pieslēgties
+      submit: Saglabāt
+      tag:
+        flag: Atzīmēt kā nepiemērotu
+      taxonomy_term:
+        import: Importēt
+      update: Saglabāt izmaiņas
+      upload: Augšupielādēt
+      user:
+        create: Reģistrēties
+        delete: Dzēst kontu
+        update: Atjaunināt
+    create: Izveidot %{model}
+    hints:
+      attachment:
+        dropbox_path: Izvēlies datni, ko vēlies kopēt no Dropbox mapes "Apps/Europeana
+          1914-1918". Datnes, kuru tipi nav atļauti vai kas ir par lielu, netiks rādītas.
+        edit:
+          file: 'Augšupielādē jaunu datni tikai tad, ja vēlies aizstāt esošo. Maksimālais
+            datnes izmērs: %{max}. Atļautie datņu tipi: %{file_types}.'
+        file: Augšupielādēt datni
+        metadata:
+          attachment_description: Apraksti vienības fizisko raksturojumu, kā arī ko
+            tā pārstāv un nozīmē tev.
+          content: Kas vienība ir (piemēram, dzejolis, vēstule, fotogrāfija); mēģini
+            būt pēc iespējas konkrētāks
+          cover_image: Vāka attēls reprezentē tavu stāstu mūsu kolekcijā; tam ir līdzīgs
+            uzdevums kā grāmatas vāka attēlam. Vāka attēls var būt stāsta galvenā
+            varoņa fotogrāfija, dienagrāmatas pirmā lapa vai medaļas attēls.
+          creator_given_name: Personas, kura izveidoja oriģinālo objektu, vārds, piemēram,
+            vēstules vai dienasgrāmatas autors vai fotogrāfa vārds.
+          date_from: Pastāsti, kad vienība tika izveidota, piemēram, kad tika uzrakstīta
+            vēstule vai kad tika sākta dienasgrāmata. Ja nezini precīzu datumu, lūdzu,
+            norādi tikai gadu, vai gadu un mēnesi.
+          date_to: Vienības beigu datums, piemēram, dienasgrāmatas pēdējā ieraksta
+            datums.
+          forces: 'Lūdzam neatzīmēt, ja nepieciešamais nav atrodams. Ja nepieciešamais
+            atslēgvārds nav pieejams, lūdzu, atraksti par to mums uz: 1914-1918 [@]
+            europeana [.] eu'
+          format: Digitalizētās vienības materiāls (piemēram, papīrs, lente).
+          keywords: 'Piešķir tikai atslēgvārdus, kas apraksta galveno tēmu vai plašākus
+            jēdzienus, ko nepieciešams izcelt. Atslēgvārdu mērķis ir palīdzēt izcelt
+            šo stāstu mūsu kolekcijā. Ja nepieciešamais atslēgvārds nav pieejams,
+            lūdzu, atraksti par to mums uz: 1914-1918 [@] europeana [.] eu'
+          lang: Norāda vienībā izmantoto valodu, piemēram, dienasgrāmatā izmantotā(ās)
+            valoda(as).
+          location_placename: Ievada pilsētas nosaukumu, kurā vienība ir izveidota
+            (kurā ir uzrakstīta vēstule vai uzņemta fotogrāfija), piemēram, Londona
+            vai Parīze.
+          object_side: Vienībām, kurām ir divas puses, piemēram, pastkartēm, norāda
+            pusi
+          page_number: Vienībām, kas sastāv no vairākām lappusēm, norāda lappuses
+            numuru
+          source: Avots, no kura vienība ir digitalizēta (piemēram, lapa, foliants,
+            piezīmju grāmatiņa, filmas spole).
+          subject: Persona, vieta vai objekts, par kuru ir vienība.
+          theatres: 'Lūdzam neatzīmēt, ja nepieciešamais nav atrodams. Ja nepieciešamais
+            atslēgvārds nav pieejams, lūdzu, atraksti par to mums uz: 1914-1918 [@]
+            europeana [.] eu'
+        new:
+          file: 'Augšupielādējamo datņu daudzums nav ierobežots, bet datnes jāaugšupielādē
+            pa vienai. Pievienojot vairākas datnes, tiks piedāvāta iespēja vienu no
+            tām atzīmēt kā stāsta, piemēram, pastkartes vai dienasgrāmatas, "vāka
+            attēlu". Maksimālais datnes izmērs: %{max}. Atļautie datņu tipi: %{file_types}.'
+        title: Objekta nosaukums vai īss aprakstošs nosaukums, piemēram, "Mans vecvectētiņš,
+          Goda medaļas ieguvējs Otto Šmits"
+      contact:
+        full_name: Tas būs redzams publiski kā piezīme līdzās apstiprinātajiem iesniegumiem.
+      contribution:
+        metadata:
+          contributor_behalf: Jāatstāj neaizpildīts, ja vien informācija netiek iesniegta
+            kāda cita vietā.
+          date_from: Pastāsti, kad stāsts norisinājās. Ja nezini precīzu datumu, lūdzu,
+            norādi tikai gadu. Piemēram, Mans vectēvs tika iesaukts 1915. gadā.
+          date_to: Pastāsti, kad stāsts beidzās. Ja nezini precīzu datumu, lūdzu,
+            norādi tikai gadu. Piemēram, Mans vectēvs tika ievainots 1916. gadā.
+          description: Uzraksti stāstu, kas ir par iemeslu šim iesniegumam.
+          forces: 'Lūdzu neatzīmē, ja nepieciešamais nav atrodams. Ja nepieciešamais
+            atslēgvārds nav pieejams, lūdzu, atraksti par to mums uz: 1914-1918 [@]
+            europeana [.] eu'
+          keywords: 'Piešķir tikai atslēgvārdus, kas apraksta galveno tēmu vai plašākus
+            jēdzienus. Šo atslēgvārdu mērķis ir palīdzēt izcelt šo stāstu mūsu kolekcijā.
+            Ja nepieciešamais atslēgvārds nav pieejams, lūdzu, atraksti par to mums
+            uz: 1914-1918 [@] europeana [.] eu'
+          lang: Norāda valodu, kādā šis stāsts ir pierakstīts.
+          location_placename: Norāda pilsētu, kurā stāsts notika, piemēram, Londona,
+            Parīze.
+          theatres: 'Lūdzu neatzīmē, ja nepieciešamais nav atrodams. Ja nepieciešamais
+            atslēgvārds nav pieejams, lūdzu, atraksti par to mums uz: 1914-1918 [@]
+            europeana [.] eu'
+        title: Šī iesnieguma vispārīgais nosaukums.
+      metadata_field:
+        attachment: Norāda, vai šis lauks attiecas uz pielikumiem.
+        cataloguing: 'Jā: rādīt šo lauku tikai administratora saskarnē kataloģizācijas
+          nolūkiem. Nē: rādīt arī iesniedzējiem.'
+        contribution: Norāda, vai šis lauks attiecas uz iesniegumiem.
+        field_type: Lauku pēc saglabāšanas nevar mainīt.
+        hint: Blakus laukam atrādāmais teksts iesniedzējiem/kataloģizētājiem.
+        multi: Atļauj izvēlēties vairākus terminus iesniegumam/pielikumam.
+        name: 'Lauka datubāzes nosaukums. Tam jābūt unikālam. Izmantojamās rakstzīmes:
+          a-z, 0-9, _'
+        required: 'Jā: iesniedzējam šis lauks ir jāaizpilda. Nē: šis lauks ir neobligāts.
+          Kataloģizācijas laukiem ir jābūt neobligātiem.'
+        searchable: 'Jā: meklējot iesniegumus, tiek meklēts šajā metadatu laukā. Nē:
+          šis lauks nav meklējams. Piezīme: Mainot šo vērtību, ir jāpārindeksē meklētājprogramma.'
+        searchable_no_sphinx: 'Piezīme: Metadatu lauki ir meklējami tikai tad, ja
+          Sphinx meklētājprogramma darbojas &mdash; pašlaik tas tā nav.'
+        show_in_listing: Atrādīt šo lauku sarakstos, piemēram, meklēšanas rezultātos.
+        title: Lauka aprakstošais nosaukums, ar kādu lauks tiek atrādīts iesniedzējam.
+          Atstājot tukšu, tiek atrādīts oriģinālais lauka nosaukums.
+      metadata_record:
+        date: 'Formāts: GGGG-MM-DD, GGGG-MM vai GGGG, piemēram, 1998-04-20, 1998-04
+          vai 1998'
+        geo: 'Formāts: platums,garums, piemēram, 51.500,-0.126 (Londonai)'
+      password:
+        new:
+          email: Ievadi reģistrācijas e-pastu un mēs nosūtīsim instrukciju paroles
+            nomaiņai.
+      settings:
+        allowed_upload_extensions: Augšupielādējamo datņu atļautie datņu paplašinājumi,
+          atdalīti ar komatiem, piemēram, "pdf,doc,jpg,gif". Atstājot tukšu, tiek
+          atļauti visi paplašinājumi.
+        banner_active: Ja ieslēgts, vietnē tiks atrādīts zemāk sniegtais uzturēšanas
+          paziņojums.
+        banner_text: Uzturēšanas paziņojuma teksts, ja ir ieslēgta uzturēšanas paziņojuma
+          atrādīšana.
+        bing_client_id: Bing klienta ID no Azure DataMarket. Nepieciešams, lai tulkotu
+          Europeana OpenSearch API pieprasījumus.
+        bing_client_secret: Bing client secret no Azure DataMarket. Nepieciešams,
+          lai tulkotu Europeana OpenSearch API pieprasījumus.
+        bing_translate_key: Bing Translate atslēga. Atstājot tukšu, Microsoft, Bing
+          Translate funkcionalitāte nestrādās.
+        contribution_approval_required: Ja ieslēgts, iesniegumi tiks publicēti tikai
+          pēc to apstiprināšanas. Citādi iesniegumi tiek publicēti uzreiz pēc iesniegšanas.
+          Nestrādā, ja nav ieslēgts "Publicēt ieniegumus".
+        gmap_api_key: Google Maps API atslēga. Bez šīs atslēgas nav pieejas Google
+          Maps, lai varētu ievadīt ģeogrāfiskās atrašanās vietas datus. Pierakstīties
+          <http://code.google.com/apis/maps/signup.html>, lai saņemtu atslēgu.
+        google_analytics_key: Google Analytics atslēga. Ja to atstāj neaizpildītu,
+          tiks izmantota noklusējuma atslēga, UA-XXXXXXXX-1. Pārliecinies, ka testa
+          un produkcijas vides izmanto pareizās atslēgas.
+        google_api_email: Ievadiet Google API pakalpojumu konta e-pasta adresi, lai
+          no Google Analytics varētu saņemt izmantojuma statistiku.
+        max_upload_size: Maksimālais augšupielādes izmērs baitos.
+        publish_contributions: Ieslēdz iesniegumu publisku atrādīšanu. Ja nav ieslēgts,
+          Iesniegumi joprojām tiek pieņemti, bet netiek publiski atrādīti.
+        registration_required: Ja ieslēgts, cilvēkiem ir jāreģistrē lietotāja konts,
+          lai iesniegtu saturu. Ja izslēgts, cilvēki var iesniegt saturu kā viesi,
+          norādot savu kontaktinformāciju.
+        relative_url_root: Tīmekļa vietnes Root URL bez sekojošām slīpsvītrām. Atstāj
+          tukšu augstāka līmeņa URL.
+        sharethis_id: ShareThis izdevēja ID. Ja neaizpildīts, ShareThis lietojums
+          netiks saistīts ar ShareThis kontu. ShareThis skripts mēģinās uzkrāt izmantojuma
+          statistiku Google Analytics kontā, ja tas būs pieslēgts lapai; skripts meklēs
+          UA- vērtību un, ja tā būs, izmantos to.
+        site_name: Šīs tīmekļa vietnes nosaukums. Pēc noklusējuma tas tiks atrādīts
+          lapu nosaukumos un galvenēs.
+        site_url: Pilnais URL, ar kuru ir pieejama šīs vietnes sākumlapa, bez sekojošām
+          slīpsvītrām.
+        ui_locales: Lokalizācijas saitei lapas galvenē.
+        uploadify: Izmanto Uploadify pielikumu augšupielādei, ieslēdzot vairāku datņu
+          augšupielādi. Skat. <http://www.uploadify.com> papildinformāciju un demonstrāciju.
+      taxonomy_term:
+        import: Ievadi taksonomijas terminus, lai pievienotu šim metadatu laukam (katrā
+          rindā vienu).
+        term: Tam jābūt unikālam metadatu lauka darbības ietvaros.
+      user:
+        current_password: Ievadi savu pašreizējo paroli, ja vēlies mainīt konta uzstādījumus.
+        edit:
+          password: Ievadi jaunu paroli (vismaz 6 rakstzīmju garu), ja vēlies to mainīt.
+            Ja nevēlies, atstāj lauku tukšu.
+        email: Tu vari pieslēgties lietotājvārda vietā izmantojot e-pasta adresi.
+          Tas nav obligāti, bet mēs rekomendējam piereģistrēt e-pasta adresi gadījumam,
+          ja iznāk aizmirst paroli.
+        password: Vismaz 6 rakstzīmes.
+        update:
+          password: Ievadi jaunu paroli (vismaz 6 rakstzīmju garu), ja vēlies to mainīt.
+            Ja nevēlies, atstāj lauku tukšu.
+        username: 'Vismaz 3 rakstzīmes. Atļautās rakstzīmes: a-z A-Z 0-9 - _ . @'
+    labels:
+      attachment:
+        metadata:
+          attachment_description: Apraksts
+          attachment_file: Atsevišķa datne
+          content: Tips
+          cover_image: Vāka attēls
+          creator: Autors
+          creator_family_name: Autora uzvārds
+          creator_given_name: Autora vārds
+          date: Datums
+          date_from: Izveidošanas datums / Sākuma datums
+          date_to: Beigu datums
+          file_type: Resursa tips
+          forces: Karaspēki
+          format: Fiziskais datu nesējs
+          keywords: Atslēgvārdi
+          lang: Valoda
+          lang_other: Valoda (cita)
+          license: Licence
+          location_map: Platums un garums
+          location_placename: Norāda, kur vienība tika izveidota.
+          location_zoom: Atrašanās vietas tālummaiņa
+          notes: Kataloģizētāja piezīmes
+          object_side: Puse
+          page_number: Lappuses numurs
+          page_total: Kopējais lappušu skaits
+          source: Avots
+          subject: Priekšmets
+          theatres: Darbības vieta
+          ticket: Biļetes numurs
+      collection_day:
+        contact:
+          country: Valsts
+          full_name: Organizācija
+        delete_image: Dzēst attēlu
+      content:
+        metadata:
+          dc:
+            contributor: Iesniedzējs
+            country: Valsts
+            coverage: Aptvērums
+            creator: Autors
+            date: Datums
+            description: Apraksts
+            format: Formāts
+            identifier: Identifikators
+            language: Valoda
+            publisher: Izdevējs
+            relation: Saistība
+            rights: Tiesības
+            source: Avots
+            subject: Priekšmets
+            terms_alternative: Alternatīvais nosaukums
+            terms_extent: Alternatīvais nosaukums
+            terms_medium: Apjoms
+            title: Nosaukums
+            type: Tips
+          dcterms:
+            alternative: Alternatīvais nosaukums
+            extent: Apjoms
+            spatial: Vieta
+            temporal: Datums
+          edm:
+            country: Piegādātājvalsts
+            data_provider: Datu piegādātājs
+            external_partner_site: Skatīt partnera tīmekļa vietnē
+            language: Valoda
+            partner_site: Skatīt vienību
+            provider: Piegādātājs
+            rights: Autortiesības
+      contribution:
+        metadata:
+          alternative: Alternatīvais nosaukums
+          cataloguer: Kataloģizētājs
+          character1_dob: Dzimšanas datums
+          character1_dod: Miršanas datums
+          character1_family_name: Uzvārds
+          character1_given_name: Vārds
+          character1_pob: Dzimšanas vieta
+          character1_pod: Miršanas vieta
+          character2_dob: Dzimšanas datums
+          character2_dod: Miršanas datums
+          character2_family_name: Uzvārds
+          character2_given_name: Vārds
+          character2_pob: Dzimšanas vieta
+          character2_pod: Miršanas vieta
+          collection_day: Kolekcijas diena
+          contributor_behalf: Iesniegts kopā ar
+          date_from: Šis stāsts sākas ...
+          date_to: Šis stāsts beidzas ...
+          description: Stāsts
+          editor_pick: Redaktora izvēle
+          editor_pick_sig: Redaktora izvēles paraksts
+          editor_pick_text: Redaktora izvēles teksts
+          forces: Spēki
+          keywords: Atslēgvārdi
+          lang: Valoda
+          lang_other: Valoda (cita)
+          location_map: Platums un garums
+          location_placename: Norāda, kur stāsts norisinājās
+          location_zoom: Atrašanās vietas tālummaiņa
+          notes: Kataloģizētāja piezīmes
+          summary: Vienību apraksta kopsavilkums
+          theatres: Darbības vieta
+          ticket: Biļetes numurs
+        terms: Es piekrītu noteikumiem un nosacījumiem
+        title: Stāsta nosaukums
+      metadata_field:
+        contribution: Iesniegums
+      taxonomy_term:
+        content:
+          Autograph: Autogrāfs
+          Book: Grāmata
+          Collection: Kolekcija
+          Diary: Dienasgrāmata
+          Drawing: Zīmējums
+          Footage: Filma
+          Interview: Intervija
+          Letter: Vēstule
+          Map: Karte
+          Medal: Medaļa
+          Memoir: Memuāri
+          Memorabilia: Piemiņas lieta
+          Multiple: Vairāki
+          Music: Mūzika
+          Official Document: Oficiāls dokuments
+          Official document: Oficiāls dokuments
+          Other: Cits
+          Painting: Glezna
+          Photograph: Fotogrāfija
+          Poem: Dzeja
+          Postcard: Pastkarte
+          Publication: Publikācija
+          Weapon: Ierocis
+        cover_image:
+          "yes": jā
+        editor_pick:
+          "yes": jā
+        file_type:
+          3D: 3D
+          IMAGE: ATTĒLS
+          SOUND: SKAŅA
+          TEXT: TEKSTS
+          VIDEO: VIDEO
+        forces:
+          Allied Forces: Sabiedroto bruņotie spēki
+          Central Powers: Centrālie spēki
+          Imperial Forces: Impēriju karaspēki
+        format:
+          Canvas: Glezna
+          Card: Kartiņa
+          Ceramic/China: Keramika/porcelāns
+          Digital: Digitāls
+          Leather: Āda
+          Metal: Metāls
+          Mixed: Jaukts
+          Other: Cits
+          Paper: Papīrs
+          Photographic paper: Fotopapīrs
+          Tape: Lente
+          'Text: memoir': 'Teksts: memuāri'
+          'Text: transcription': 'Teksts: transkripcija'
+          Unknown: Nezināms
+          Vinyl: Vinila
+          Wood: Koka
+        keywords:
+          Anti-War Movement: Pretkara kustība
+          Artillery: Artilērija
+          Conscientious Objection: Atteikšanās dienēt idejiskas pārliecības dēļ
+          Gas Warfare: Ķīmiskais karš
+          Home Front: Mājas fronte
+          Manufacture: Ražošana
+          Medical: Medicīna
+          Military Punishment: Militārie sodi
+          Prisoners of War: Kara gūstekņi
+          Propaganda: Propaganda
+          Recruitment and Conscription: Rekrutēšana un iesaukšana
+          Refugees: Bēgļi
+          Remembrance: Atcere
+          Tanks and Armoured Fighting Vehicles: Tanki un bruņotie kaujas transportlīdzekļi
+          Transport: Transports
+          Trench Life: Dzīve tranšejās
+          Women: Sievietes
+        lang:
+          Dansk: Dansk
+          Deutsch: Deutsch
+          English: English
+          Français: Français
+          Gaeilge: Gaeilge
+          Italiano: Italiano
+          Magyar: Magyar
+          Nederlands: Nederlands
+          Other: Cita
+          Română: Portuguese
+          Slovenčina: Română
+          Slovenščina: Slovenčina
+          português: Slovenščina
+          Ελληνικά: Ελληνικά
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Mugurpuse
+          Front: Priekšpuse
+        source:
+          Artifact: Artefakts
+          Book: Grāmata
+          Film: Filma
+          Folio: Foliants
+          Journal: Žurnāls
+          Leaf: Lapa
+          Multiple: Vairāki
+          Newspaper: Laikraksts
+          Notebook: Piezīmju grāmatiņa
+          Other: Cits
+          Photograph: Fotogrāfija
+          Postcard: Pastkarte
+          Tape: Lente
+          Unknown: Nezināms
+          Vinyl record: Vinila ieraksts
+        theatres:
+          Aerial Warfare: Gaisa karš
+          African Wars: Āfrika
+          Balkans: Balkāni
+          Eastern Front: Austrumu fronte
+          Gallipoli Front: Galipoli fronte
+          Italian Front: Itālijas fronte
+          Middle East: Tuvie Austrumi
+          Naval Warfare: Jūras karš
+          Western Front: Rietumu fronte
+      user:
+        delete_picture: Dzēst attēlu
+        terms: Es piekrītu noteikumiem un nosacījumiem
+    "no": Nē
+    required: nepieciešams
+    titles:
+      account_details: Pieslēgšanās informācija
+      admin_user: Pieslēgšanās informācija
+      attachment_dates: Kad šī vienība tika izveidota
+      attachment_details: Apraksti vienību
+      attachment_front: Par kuru fronti ir šajā vienībā
+      attachment_keywords: Palīdzi citiem atrast šo vienību, pievienojot tai vienu
+        vai vairākus sekojošos atslēgvārdus.
+      attachment_location: Kur šī vienība tika izveidota
+      attachment_replace: Aizstāt pielikumu
+      attachment_upload: Pievienot pielikumu
+      cataloguing_metadata: Kataloģizācijas metadati
+      contact_address: Adrese
+      contact_name: Vārds
+      contact_other: Kontaktinformācija
+      contribution_attachments: Vienības
+      contribution_terms: Noteikumi un nosacījumi
+      dropbox: Dropbox
+      fields: Lauki
+      metadata: Kataloga informācija
+      metadata_field_options: Tipa opcijas
+      optional_details: Cita papildinformācija par personu
+      personal_details: Personas informācija
+      story_basics: Izstāsti savu stāstu...
+      story_character1: Persona 1
+      story_character2: Persona 2
+      story_characters: Pastāsti mums, par ko ir šis stāsts
+      story_dates: Kad šis stāsts notika
+      story_forces: Vai šī vienība ietver
+      story_front: Par kuru no frontēm ir šis stāsts
+      story_keywords: Palīdzi citiem atrast šo stāstu, pievienojot vienu vai vairākus
+        no sekojošajiem atslēgvārdiem.
+      story_location: Kur šis stāsts notika
+      submit: Iesniedz savu stāstu
+    update: Atjaunināt %{model}
+    "yes": Jā
+  javascripts:
+    admin:
+      metadata_fields:
+        order: Pārvieto laukus vēlamajā kārtībā. Kad esi pabeidzis, spied "Saglabāt".
+    annotorious:
+      clear-flag: Noņemt atzīmi
+      flag: Atzīmēt
+    attachments:
+      uploading: Dažas no tavām datnēm joprojām tiek kopētas. Tu varēsi iesniegt stāstu,
+        kad viss būs pabeigts.
+    collection-days:
+      close-directions: Aizvērt norādes
+      find-more: Uzzināt vairāk.
+      get-directions: Saņemt norādes
+      legend: Leģenda
+      next-collection-day: Nākamā kolekcijas diena būs <b>%{name}, %{city}, %{country}</b>
+        <b>%{start-date}
+      no-upcoming: Pašlaik nav zināmas nākamās kolekcjas dienas.
+      past-entered: Notikušās kolekcijas dienas
+      past-not-entered: Notikušās kolekcijas dienas (stāsti vēl nav publicēti)
+      show-past: Rādīt notikušās kolekcijas dienas
+      upcoming: Nākamās kolekcijas dienas
+      what-is-it: Kas ir kolekcijas diena?
+    contribute:
+      errors_shown: Kāpēc nē? Skat. piezīmes augstāk.
+      hide_errors: Nerādīt kļūdu paziņojumus.
+      show_errors: Kāpēc nē?
+    datepicker:
+      button_text: Rādīt kalendāru
+    digital_object:
+      hints:
+        copy_from_story: Klikšķinot uz augstāk esošās pogas, līdzīgie metadati no
+          stāsta tiks pārkopēti uz šo vienību.
+      labels:
+        copy_from_story: Kopēt informāciju
+      links:
+        copy_from_story: Kopēt no stāsta
+    gmap:
+      canvas:
+        hide: Aizvērt Google Maps
+        hint: Pārvieto atzīmi uz vēlamo "{{field}}" novietojuma vietu.
+        label: Google Maps
+        show: Izmantot Google Maps
+      errors:
+        empty: Ievadi meklējamo adresi.
+        present: Uz ekrāna jau ir atvērta karte. Tā vispirms ir jāaizver.
+        unknown: Adrese netika atrasta.
+      search:
+        button: Meklēt
+        hint: Ievadi adresi, lai meklētu augstāk esošajā kartē.
+        label: Meklēt adresi
+      static:
+        hide: Aizvērt karti
+        show: Rādīt Google Maps
+    leaflet:
+      label:
+        map_view: Karte
+        satellite_view: Satelīts
+    loading: ielāde ...
+    next: nākamā →
+    previous: ← iepriekšējā
+    search:
+      10seconds: Joprojām tiek meklēts. Lūdzu uzgaidiet!
+      30seconds: Tas prasa vairāk laika, nekā bija plānots. Mēģini citu meklēšanas
+        pieprasījumu vai turpini gaidīt!
+      60seconds: Pašlaik ir problēmas ar meklēšanu. Lūdzu mēģini vēlreiz vēlāk.
+    story:
+      took-place: 'Šis stāsts norisinājās:'
+    thumbnails:
+      item: Vienība
+      of: "no"
+    translate:
+      return-to-language: Atgriezties uz oriģinālo valodu
+      service-not-available: Tulkošanas pakalpojums pašlaik nav pieejams.
+      translate-to: Tulkot uz ...
+    truncate:
+      show-less: Rādīt mazāk ...
+      show-more: Rādīt vairāk ...
+    uploadify:
+      basic_ui: Ir problēma augšupielādēt datnes? Pamēģini <a href="{{href}}">pamata
+        augšupielādi</a>.
+      button_text: Izvēlēties datnes
+      finished: Atpakaļ pie iesniegšanas
+      hint: 'Tu vari augšupielādēt vienlaicīgi vairākas datnes. Katra datne automātiski
+        būs atsevišķa vienība, kuru vēlāk varēs individuāli labot. Piezīme: Lai vairāku
+        datņu augšupielāde strādātu, ir jābūt instalētam Flash pleijerim. Maksimālais
+        datnes izmērs: {{size}}. Atļautie datņu tipi: {{types}}.'
+      label: Vairākas datnes
+      saved: Saglabāts
+  languages:
+    da: Dāņu
+    de: Vācu
+    en: Angļu
+    fr: Franču
+    ga: Īru
+    hu: Ungāru
+    nl: Holandiešu
+    pt: Portugāļu
+    sk: Slovāku
+    sl: Slovēņu
+  layout:
+    navigation:
+      about: Par
+      admin: Administrēšana
+      browse: Pārlūkot
+      contact: Sazinies ar mums
+      contribute: Iesniegt
+      help: Palīdzība
+      home: Sākumlapa
+    software_engine: Nodrošina RunCoCo
+  locale: Angļu
+  mail:
+    contributions:
+      published:
+        greeting: Cienījamais Europeana 1914-1918 satura iesniedzēj,
+        signature: |-
+          Ar laba vēlējumiem,
+          Europeana 1914-1918 komanda
+        subject: Tavs iesniegums Europeana 1914-1918 satura papildināšanai ir publicēts
+        thanks: 'Paldies, ka dalījies ar saviem stāstiem un piemiņas lietām! Tavs
+          satura iesniegums tagad ir publicēts mūsu vietnē. Vari to apskatīt, klikšķinot
+          uz saites:'
+    exports:
+      complete:
+        notice: 'Kolekcijas eksports ir pabeigts. To var lejupielādēt:'
+        subject: Kolekcijas eksports pabeigts
+  media_types:
+    all: Visi
+    binary: Bināra datne
+    pdf: PDF
+    sound: Skaņu datne
+    spreadsheet: Izklājlapa
+    txt: Teksta datne
+    unknown: Nezināms dokumenta tips
+    video: Video datne
+    wordprocessing: Teksta dokuments
+  settings:
+    allowed_upload_extensions: Augšupielādei atļautie tipi
+    banner_active: Uzturēšanas paziņojums ieslēgts
+    banner_text: Uzturēšanas paziņojuma teksts
+    bing_client_id: Bing klienta ID
+    bing_client_secret: Bing client secret
+    bing_translate_key: Bing Translate atslēga
+    contribution_approval_required: Publicēt tikai apstiprinātos iesniegumus
+    gmap_api_key: Google Maps API atslēga
+    google_analytics_key: Google Analytics atslēga
+    google_api_email: Google API e-pasts
+    max_upload_size: Maksimālais augšupielādes izmērs
+    publish_contributions: Publicēt iesniegumus
+    registration_required: Nepieciešama reģistrācija
+    relative_url_root: URL root
+    search_engine: Meklētājprogramma
+    sharethis_id: ShareThis izdevēja ID
+    site_name: Vietnes nosaukums
+    site_url: Vietnes URL
+    ui_locales: Pieejamās lokalizācijas
+    uploadify: Ieslēgt Uploadify
+  support:
+    select:
+      prompt: Lūdzu izvēlies
+  time:
+    formats:
+      timestamp: '%Y-%m-%d %H:%M'
+  views:
+    about:
+      background:
+        heading: Europeana 1914-1918
+        p1: <b>Europeana 1914-1918</b> apvieno resursus no trīs lieliem Europeana
+          projektiem, no kuriem katrs ir veltīts noteiktam materiālu veidam par Pirmo
+          Pasaules karu. Rezultātā ir radīts arhīvs, kurā apkopotas nacionālās bibliotēku
+          kolekcijas, personīgi cilvēku stāsti un piemiņas lietas, kā arī filmu arhīvi.
+          Kopumā tas veido unikālu perspektīvu uz Pirmo Pasaules karu, parādot to
+          no kaujas līniju dažādajām pusēm un sniedzot ieskatu atšķirīgajos skatu
+          punktos. Arhīva materiāli tiek papildināti, tāpēc aicinām iegriezties te
+          atkārtoti!
+        p2: <b>Cilvēku stāsti:</b> Sadarbojoties Oksfordas Universitātei, Facts &
+          Files un daudziem citiem partneriem no visas Eiropas, Europeana 1914-1918
+          ir apkopotas, digitalizētas un padarītas pieejamas tiešsaistē iepriekš nepublicētas
+          vēstules, fotogrāfijas un kara piemiņas lietas. Sākot no 2013. gada beigām
+          projektā ir piedalījušās daudzas valstis, kopumā digitalizējot vairāk nekā
+          60 000 vienības.
+      collection_days:
+        heading: Kolekcijas dienas
+        p1: Kolekcijas dienu pasākumos ikviens tiek aicināts ierasties ar dokumentiem,
+          artefaktiem un stāstiem par Pirmo Pasaules karu, kurus projekta darbinieki
+          palīdzēs digitalizēt. Stāsti un digitalizēto objektu attēli tiks iekļauti
+          arhīvā.
+        p2: Kolekcijas dienas iepriekš ir notikušas daudzviet Eiropā.
+      online_collection:
+        heading: Tiešsaistes stāstu kolekcija
+        p1: Tiešsaistes stāstu kolekcija tika atklāta 2011. gadā. Tīmekļa vietnē ikviens
+          var pievienot kolekcijai savus objektus un stāstus. Papildinformāciju, par
+          to kā kolekcijai var pievienot saturu, var atrast lapā “%{add_your_story}”.
+          Iesniegtos objektus pārbauda projekta komanda un publicē tos Europeana.
+      privacy_policy:
+        p1: Tavs vārds parādīsies publiski pie tava iesniegtā satura, kad tas būs
+          apstiprināts.
+        p2: Sniegto kontaktinformāciju, ieskaitot e-pasta adresi, mēs izmantosim tikai
+          lai sazinātos ar tevi par saturu, kuru tu pievienoji kolekcijai.
+        p3: Mēs nekad nesniegsim tavu kontaktinformāciju citām organizācijām.
+        p4: Uzzini vairāk par privātuma politiku <a http://www.europeana.eu/portal/privacy.html
+          target="_blank">Europeana</a> tīmekļa vietnē.
+      project_partners:
+        heading: Projekta partneri
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Oksfordas Universitāte
+          (University of Oxford)</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Vācijas Nacionālā bibliotēka
+          (die Deutsche Nationalbibliothek)</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Luksemburgas
+          Nacionālā bibliotēka (Bibliothèque nationale du Luxembourg)</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Īrijas Nacionālā bibliotēka
+          (National Library of Ireland)</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Slovēnijas
+          Nacionālā bibliotēka (Narodna in univerzitetna knjižnica)</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">Karaliskā bibliotēka:
+          Dānijas Nacionālā bibliotēka un Kopenhāgenas Universitātes bibliotēka (Det
+          Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek)</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: Tava kontaktinformācija
+        item2: Pilna informācija par materiālu
+        item3: 'Precīza URL adrese, kur materiāls tika atrasts (piemēram: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item4: Pierādījums, kas esi tiesību turētājs vai tiesību turētāja pilnvarots
+          pārstāvis
+        item5: 'Atsūti mums e-pastu uz: 1914-1918 [@] europeana [.] eu'
+        p1: 'Ja esi tiesību turētājs un tevi neapmierina, ka esi mūsu tīmekļa vietnē
+          atradis materiālu, kura publiskošanu neesi atļāvis, mēs protams šo materiālu
+          izņemsim. Lūdzu sazinies ar mums pa sekojošo e-pastu:'
+      terms:
+        full_details:
+          heading: 'Europeana lietošanas noteikumi: pilns apraksts - Pieejami tikai
+            angļu valodā'
+        heading: Noteikumi un nosacījumi
+        summary:
+          heading: 'Europeana lietošanas noteikumi: kopsavilkums'
+          item1: tavs iesniegtais materiāls nav aizsargāts ar autortiesībām; vai
+          item2: tev pieder tiesības uz šo materiālu; vai
+          item3: šo tiesību īpašnieks ir pilnvarojis tevi iesniegt digitālo materiālu
+            ar sekojošiem nosacījumiem.
+          item4: Iesniedzamo saturu (tādu kā video, foto, dienasgrāmatu, attēlu vai
+            audio materiālu) tu atļauj izmantot gandrīz visos iespējamos veidos. Tomēr
+            izmantotājam ir jāsniedz atsauce uz satura tiesību īpašnieku. Un, ja tiek
+            radīti satura atvasinājumi, viņiem ir jāļauj šos radītos satura atvasinājumus
+            izmantot ar tiem pašiem nosacījumiem, kādi ir oriģinālajam saturam.
+          item5: Iesniedzot aprakstošos datus (piemēram, aprakstus vai tagus), kurus
+            tava iesniegtā satura sameklēšanai izmantos meklētājprogrammas, tu atļauj
+            ikvienam izmantot šos aprakstošos datus gandrīz visos iespējamos veidos
+            bez papildu nosacījumiem.
+          p1: 'Pirms tu iesniedz digitālo materiālu, tev jāpiekrīt Europeana lietotāja
+            satura iesniegšanas noteikumiem - Skat. iepriekš. Šo noteikumu svarīgākie
+            punti ir šādi:'
+          p2: <b>Tu garantē, ka:</b>
+          p3: <b>Ja nepiekrīti šiem noteikumiem, tad, lūdzu, neiesniedz saturu un
+            aprakstošos datus Europeana</b>.
+        user_contributions:
+          heading: Europeana noteikumi lietotāju satura iesniegšanai
+          item1: Paroles un pieslēgšanās (3. pants)
+          item2: Atbildība par platformas darbību (4. pants)
+          item3: Satura intelektuālā īpašuma tiesības (5. pants)
+          item4: Metadatu intelektuālā īpašuma tiesības (6. pants)
+          item5: Pakalpojuma nelikumīga izmantošana (7. pants)
+          item6: Lietotāju personas dati (privātums) (8. pants)
+          item7: Pušu atbildība kaitējuma vai zaudējuma gadījumā (9. pants)
+          p1: Šis dokuments satur noteikumus, kas attiecas uz lietotājiem, kuri iesniedz
+            saturu un metadatus Europeana fonda (Europeana Foundation) tīmekļa vietnē
+            Europeana.eu. Lietotājam jāņem vērā, ka Europeana fonda mērķis ir, lai
+            viss saturs un metadati ir pieejami atkārtotai izmantošanai ar minimāliem
+            ierobežojumiem.
+          p2: Šīs politikas ietvaros <b>Europeana lietotāju satura iesniegšanas noteikumi</b>
+            nosaka, kas viss saturs, ko lietotāji iesniedz Europeana, Europeana.eu
+            portālā ir pieejams ar <a href="http://creativecommons.org/licenses/by-sa/3.0/"
+            target="_blank">Creative Commons Attribution ShareAlike license</a> noteikumiem.
+            Tas nozīmē, ka brīdī, kad lietotājs publicē saturu Europeana.eu tīmekļa
+            vietnē, viņš neatgriezeniski piešķir tiesības trešajām pusēm brīvi izmantot
+            iesniegto saturu. Tomēr izmantotājam ir jāsniedz atsauce uz darba autoru.
+            Un, ja tiek radīti satura atvasinājumi, viņiem ir jāļauj šos radītos satura
+            atvasinājumus izmantot ar tiem pašiem nosacījumiem, kādi ir oriģinālajam
+            saturam.
+          p3: Turklāt visi Europeana lietotāju iesniegtie metadati Europeana.eu ir
+            pieejami ar <a href="http://creativecommons.org/publicdomain/zero/1.0/"
+            target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>
+            noteikumiem. Tas nozīmē, ka lietotājs neatgriezeniski piešķir tiesības
+            trešajām pusēm brīvi izmantot šos metadatus bez jebkādiem ierobežojumiem.
+          p4: <b>Ja nepiekrīti šiem noteikumiem, lūdzu, neiesniedz Europeana saturu
+            un/vai metadatus.</b>
+          p5: 'Šie lietotāja satura iesniegšanas noteikumi cita starpā regulē sekojošus
+            sadarbības aspektus starp lietotājiem, kas iesniedz Europeana.eu saturu,
+            un Europeana:'
+          p6: Veidojot Europeana.eu kontu, lietotājs norāda, ka apstiprina šos noteikumus
+            un nosacījumus. Kad lietotāja konts ir izveidots, nosacījumiem var piekļūt
+            <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html"
+            target="_blank">www.europeana.eu</a>.
+          p7: 'Šis projekts ir atrodams atsevišķās lapās:'
+      what_we_do:
+        heading: 'Nacionālās kolekcijas:'
+        item1: No Europeana 1914-1918 tīmekļa vietnes - pievieno tiešsaistē vienībai
+          attēlu vai pieraksti stāstu.
+        item2: Kolekcijas dienas - atnes uz pasākumu vienības, kuras projekta darbinieki
+          palīdzēs digitalizēt un pierakstīt ar tām saistītos stāstus
+        p1: Europeana 1914-1918 projekts ir izveidojis iespaidīgu digitālo kolekciju
+          no vairāk nekā 400 000 materiālu vienībām no astoņu valstu nacionālo bibliotēku
+          kolekcijām, kuras pārstāv valstis, kas Pirmā Pasaules kara laikā atradās
+          dažādās karojošajās pusēs.
+    about_us:
+      blog:
+        heading: Blogs
+      europeana:
+        heading: Europeana 1914-1918
+        p1: Europeana 1914-1918 apvieno resursus no trīs lieliem Europeana projektiem,
+          no kuriem katrs ir veltīts noteiktam materiālu veidam par Pirmo Pasaules
+          karu. Rezultātā ir radīts arhīvs, kurā apkopotas nacionālās bibliotēku kolekcijas,
+          personīgi cilvēku stāsti un piemiņas lietas, kā arī filmu arhīvi. Kopumā
+          tas veido unikālu perspektīvu uz Pirmo Pasaules karu, parādot to no kaujas
+          līniju dažādajām pusēm un sniedzot ieskatu atšķirīgajos skatu punktos. Arhīva
+          materiāli tiek papildināti, tāpēc aicinām iegriezties te atkārtoti!
+        p2: <b>Cilvēku stāsti:</b> Sadarbojoties Oksfordas Universitātei, Facts &
+          Files un daudziem citiem partneriem no visas Eiropas, Europeana 1914-1918
+          ir apkopotas, digitalizētas un padarītas pieejamas tiešsaistē iepriekš nepublicētas
+          vēstules, fotogrāfijas un kara piemiņas lietas. Sākot no 2013. gada beigām
+          projektā ir piedalījušās daudzas valstis, kopumā digitalizējot vairāk nekā
+          60 000 vienības. <a href="http://pro.europeana.eu/web/europeana-1914-1918">Uzzini
+          vairāk par projektu šeit.</a>
+        p3: <b>Nacionālās kolekcijas:</b> Europeana 1914-1918 projekts ir izveidojis
+          iespaidīgu digitālu kolekciju no vairāk nekā 400 000 materiālu vienībām
+          no astoņu valstu nacionālo bibliotēku kolekcijām, kuras pārstāv valstis,
+          kas Pirmā Pasaules kara laikā atradās dažādās karojošajās pusēs.
+        p4: <b>Filmu arhīvi:</b> European Film Gateway 1914 projekts piedāvā filmas
+          un saistītos materiālus par Pirmo Pasaules karu 650 stundu garumā, to skaitā
+          kinohronikas, dokumentālās filmas, mākslas filmas, propagandas un pretkara
+          filmas. Šis materiāls ir īpaši svarīgs, ja ņem vērā, ka līdz mūsdienām ir
+          saglabājušies tikai aptuveni 20% no šīs ēras mēmajām filmām.
+        p5: <b>Un pat vēl vairāk:</b> Šajā vietnē vari atrast materiālus no citām
+          Europeana kolekcijām, kā arī informāciju, kas glabājas ārpus Eiropas - Amerikas
+          Digitālās publiskās bibliotēkas, Trove (Austrālija) un DigitalNZ (Jaunzēlande).
+      events:
+        heading: Kolekcijas dienas
+        p4: Ja vēlies noorganizēt savu atsevišķu pasākumu, lai digitalizētu materiālus
+          un pievienotu tos Europeana 1914-1918, mēs varam piedāvāt palīdzību un padomus,
+          kā to izdarīt. Uzzini par to vairāk <a href="http://pro.europeana.eu/web/europeana-1914-1918">šeit</a>.
+      get_involved:
+        contribute_online:
+          heading: Iesniedz saturu tiešsaistē
+          p1: Ja nevari piedalīties informācijas dienās, dalies ar saviem atmiņu stāstiem
+            un materiāliem augšupielādējot tos pa tiešo projekta tīmekļa vietnē. Dodies
+            uz lapu <a href="http://europeana1914-1918.eu/en/contributor">Pievienot
+            savu stāstu</a> un seko tur esošajām instrukcijām.
+        education:
+          heading: Izglītība
+          p1: Mūsu partneri Britu bibliotēkā ir izveidojuši <a href="http://bl.uk/world-war-one">tīmekļa
+            vietni</a> angļu valodā, ko skolotāji var izmantot plānojot izglītības
+            programmas par Pirmo Pasaules karu.
+        events:
+          p1: Šīs vietnes <a href="http://www.europeana1914-1918.eu">Sākumlapā</a>
+            var uzzināt, kur notiks nākamās informācijas dienas. Nāc uz informācijas
+            dienām un ņem līdzi Pirmā Pasaules kara dokumentus, artefaktus un atmiņu
+            stāstus, lai varam tos digitalizēt un pievienot arhīvam.
+          p2: Ja vēlies noorganizēt savu atsevišķu pasākumu, lai digitalizētu materiālus
+            un pievienotu tos Europeana 1914-1918, mēs varam piedāvāt <a href="http://pro.europeana.eu/web/europeana-1914-1918">palīdzību
+            un padomus, kā to izdarīt</a>.
+        heading: Iesaisties
+        reuse:
+          heading: Materiāla izmantošana
+          p1: Visi Europeana 1914-1918 materiāli ir pieejami atkārtotai izmantošanai.
+            Projektu attīstītāji tiek aicināti to darīt izmantojot <a href="http://europeana.eu/portal/api-introduction.html">Europeana
+            API</a>. Ja ir vēlme atkārtoti izmantot Amerikas Digitālās bibliotēkas,
+            Trove vai DigitalNZ materiālus, lūdzam apmeklēt šo projektu tīmekļa vietnes,
+            lai iegūtu papildinformāciju.
+      help:
+        heading: Palīdzība
+    admin:
+      annotations:
+        index:
+          title: Lietotāja attēla anotācija
+        table:
+          header:
+            text: Anotācijas teksts
+            type: Anotācijas veids
+      collection_days:
+        delete:
+          question: Vai tiešām dzēst papildinformāciju par kolekcijas dienu %{code}?
+          title: Dzēst kolekcijas dienu
+        edit:
+          title: Labot kolekcijas dienu
+        index:
+          title: Kolekcijas dienas
+      config:
+        edit:
+          title: Labot konfigurācijas uzstādījumus
+        index:
+          links:
+            edit: Labot uzstādījumus
+          table:
+            caption: Uzstādījumi
+            headings:
+              name: Nosaukums
+              value: Vērtība
+          title: Konfigurācija
+      contributions:
+        export:
+          title: Eksportēt kolekciju
+        index:
+          captions:
+            approved: Apstiprinātie iesniegumi (%{total} total)
+            draft: Iesniegumu melnraksti (%{total} total)
+            rejected: Noraidītie iesniegumi (%{total} total)
+            revised: Pārskatītie iesniegumi, kas gaida apstiprināšanu (%{total} total)
+            submitted: Iesniegtie iesniegumi, kas gaida apstiprināšanu (%{total} total)
+            withdrawn: Izņemtie iesniegumi, kas gaida apstiprināšanu (%{total} total)
+          empty:
+            all:
+              approved: Nav apstiprinātu iesniegumu.
+              draft: Nav iesniegumu melnrakstu.
+              rejected: Nav noraidīto iesniegumu.
+              revised: Pašlaik nav pārskatīto iesniegumu, kas gaida apstiprināšanu.
+              submitted: Pašlaik nav iesniegto iesniegumu, kas gaida apstiprināšanu.
+              withdrawn: Pašlaik nav izņemto iesniegumu, kas gaida apstiprināšanu.
+            search:
+              approved: Nav apstiprinātu iesniegumu, kas atbilstu meklēšanas pieprasījumam.
+              draft: Neviens no iesniegumu melnrakstiem neatbilst meklēšanas pieprasījumam.
+              rejected: Neviens no noraidītajiem iesniegumiem neatbilst meklēšanas
+                pieprasījumam.
+              revised: Neviens no pārskatītajiem iesniegumiem neatbilst meklēšanas
+                pieprasījumam.
+              submitted: Neviens no iesniegtajiem iesniegumiem neatbilst meklēšanas
+                pieprasījumam.
+              withdrawn: Neviens no izņemtajiem iesniegumiem neatbilst meklēšanas
+                pieprasījumam.
+          title: Iesniegumi
+        p1: 'Zemāk ir trīs tabulas ar iesniegumiem, kas: nav iesniegti apstiprināšanai,
+          gaida apstiprināšanu vai ir apstiprināti. Klikšķini uz nosaukuma, lai apskatītu
+          papildinformāciju par šo iesniegumu. Atverot iesniegumu, var labot tā metadatus,
+          dzēst iesniegumu vai (iesniegumiem, kas gaida apstiprināšanu) apstiprināt
+          iesniegumu.'
+      europeana:
+        index:
+          instructions: Nospiežot zemāk esošo "Iesniegt" pogu, no Europeana portāla
+            API tiks uzsākta ar Pirmo pasaules karu saistītā satura rasmošana uz Europeana
+            1914-1981 datubāzi.
+          introduction: Europeana 1914-1918 datubāzē pašlaik ir %{count} ar Pirmo
+            pasaules karu saistīti ieraksti.
+          title: Rasmot Europeana portāla saturu
+      index:
+        headings:
+          export: Eksportēt
+        links:
+          annotations:
+            description: Pārskatīt un moderēt attēlu vienību lietotāju anotācijas.
+          collection_days:
+            description: Iesniegt papildinformāciju par kolekcijas dienām.
+          config:
+            description: Konfigurēt tīmekļa vietnes uzstādījumus.
+            text: Konfigurācija
+          contributions:
+            description: Pārskatīt un apstiprināt vai noraidīt iesniegumus.
+            text: Iesniegumi
+          export:
+            description: Eksportēt kolekcijas iesniegumus uz CSV.
+            text: Eksportēt kā CSV
+          export_csv:
+            description: Eksportēt kolekciju kā XML vai CSV
+            text: Eksportēt
+          export_users:
+            description: Eksportēt uz CSV visu iesniedzēju lietotāju datus, kuri ir
+              iesnieguši vismaz vienu iesniegumu.
+            text: Eksportēt iesniedzējus
+          export_xml:
+            description: Eksportēt uz XML kolekcijas iesniegumus un pielikumus.
+            text: Eksportēt kā XML
+          export_xml_nozip:
+            description: Eksportēt uz XML kolekcijas iesniegumus un pielikumus, izņemot
+              .zip datnes.
+            text: Eksportēt kā XML (tai skaitā .zip datnes)
+          harvest_europeana:
+            description: Rasmot ar Pirmo Pasaules karu saistītos ierakstus no Europeana
+              portāla API.
+            text: Rasmot Europeana portāla saturu
+          institutions:
+            description: Konfigurēt institucionālos piegādātājus, lai, ja nepieciešams,
+              sasaistītu tos ar lietotāju kontiem.
+          logs:
+            description: Skatīt aplikācijas žurnāla datnes
+            text: Žurnāla datnes
+          metadata_fields:
+            description: Konfigurēt laukus, kas tiek aizpildīti iesniegšanas laikā.
+            text: Metadatu lauki
+          reindex:
+            description: Atjaunināt meklētājprogrammas indeksu.
+            text: Reindeksēt meklētājprogrammu
+          statistics:
+            description: Skatīt iepriekšējo stāstu statistiku.
+            text: Statistika
+          taggings:
+            description: Pārskatīt un moderēt lietotāju pievienotos tagus stāstiem.
+          users:
+            description: 'Pārvaldīt lietotāju kontus: administratori, kataloģizētāji,
+              iesniedzēji'
+            text: Lietotāju konti
+        title: Adminstrēšana
+      institutions:
+        delete:
+          question: Vai tiešām vēlaties dzēst institucionālo piegādātāju %{name}?
+          title: Dzēst institucionālo piegādātāju
+          warning: Dzēšot institucionālo piegādātāju, ar to saistītie lietotāju konti
+            vairs nebūs piesaistīti nevienai institūcijai.
+        edit:
+          title: Labot institucionālo piegādātāju.
+        index:
+          title: Institucionālie piegādātāji
+        new:
+          title: Jauns institucionālais piegādātājs
+      metadata_fields:
+        confirm_reindex:
+          info: Mainot viena vai vairāku metadatu lauku meklēšanas uzstādījumus, vai
+            noņemot iepriekš meklējamus laukus, pēc tam ir jārerindeksē meklētājprogramma,
+            izmantojot zemāk esošo pogu.
+          note: Ņem vērā, ka meklētājprogramma nav jārerindeksē, kad tiek atjaunināti
+            iesniegumi; tas noteik automātiski.
+          title: Reindeksēt meklētājprogrammu
+        delete:
+          button_confirm: Vai tiešām dzēst šo lauku?
+          question: Vai tiešām dzēst metadatu lauku %{field_name}?
+          title: Dzēst metadatu lauku
+          warning: <strong>Brīdinājums:</strong> Tas var izraisīt kolekcijas datu,
+            kas tiek glabāti šajā laukā, izdzēšanu.
+        edit:
+          empty: Šeit vēl nav metadatu lauku.
+          instructions: Ievadiet katra lauka atrašanās vietas numuru.
+          title: Labot metadatu lauku
+        index:
+          caption: Metadatu lauki
+          empty: Šeit vēl nav metadatu lauku.
+          links:
+            new: Jauns lauks
+            order: Mainīt lauku secību
+            terms: Termini
+          title: Metadatu lauki
+        new:
+          title: Jauns metadatu lauks
+        order:
+          title: Metadatu lauka secība
+      statistics:
+        index:
+          introduction: Zemāk esošajā tabulā redzams publicēto stāstu skaits, to daudzums
+            konkrētajā gadā un arī konkrētajā kolekcijas dienā.
+          title: Statistika
+      taggings:
+        index:
+          title: Lietotāju stāstu tagi
+      taxonomy_terms:
+        delete:
+          question: Vai tiešām dzēst taksonomijas terminu "%{term}"?
+          title: Dzēst taksonomijas terminu
+          warning: <strong>Brīdinājums:</strong> Šīs darbības rezultātā visi iesniegumi,
+            kas saistīti ar šo terminu, zaudēs to kategorizāciju.
+        edit:
+          title: Rediģēt taksonomijas terminu
+        import:
+          title: Importēt taksonomijas terminus
+        index:
+          caption: Taksonomijas termini
+          empty: Šim laukam vēl nav taksonomijas terminu.
+          links:
+            back: metadatu lauku saraksts
+            import: Importēt terminus no saraksta
+            new: Jauns termins
+          title: Taksonomijas termins
+        new:
+          title: Jauns taksonomijas termins
+      users:
+        delete:
+          button_confirm: Vai tiešām dzēst šo lietotāja kontu?
+          question: Vai tiešām dzēst lietotāja kontu %{email}?
+          title: Dzēst lietotāja kontu
+          warning: <strong>Brīdinājums:</strong> Tas dzēsīs arī visus lietotāja iesniegumus.
+        edit:
+          title: Labot lietotāja kontu
+        index:
+          caption: Lietotāju konti
+          empty: Nav neviena atrādāma lietotāju konta.
+          links:
+            new: Jauns lietotājs
+            show:
+              title: Skatīt visu lietotāja informāciju
+          title: Lietotāju konti
+        new:
+          title: Jauns lietotāja konts
+        show:
+          caption: Personas informācija
+          links:
+            back: lietotāju kontu saraksts
+            contributions: Iesniegumi
+            edit: Labot lietotāja kontu
+          title: Lietotāja konts
+    annotations:
+      depublish:
+        question: Vai tiešām vēlies atsaukt šīs vienības anotāciju?
+        title: Atsaukt anotāciju
+      edit:
+        title: Labot anotāciju
+      flag:
+        question: Vai tiešām vēlies atzīmēt anotāciju kā neatbilstošu?
+        title: Atzīmēt anotāciju kā neatbilstošu
+      unflag:
+        question: Vai tiešām vēlies anotācijai noņemt atzīmi, ka tā ir neatbilstoša?
+        title: Noņemt anotācijai atzīmi, ka tā ir neatbilstoša
+    attachments:
+      _form:
+        dropbox:
+          connect_html: Datnes ir iespējams nosūtīt pa tiešo no Dropbox mapes. Ja
+            vēlies izmantot šo iespēju, lūdzu, <a href="%{href}">pieslēdzies Dropbox
+            kontam</a>.
+          connected_html: Esi pieslēdzies Dropbox kā <strong>%{user}</strong>
+          disconnect: Atslēgties no Dropbox konta
+          empty: Iekopējot datnes Dropbox kontā zem mapes nosaukuma "/Apps/Europeana
+            1914-1918", tās šeit būs redzamas, noklikšķinot uz "Atjaunināt datņu sarakstu".
+          refresh: Atjaunināt datņu sarakstu
+      _summary:
+        caption: Pielikuma informācija
+      _table:
+        caption: Vienības
+        links:
+          preview:
+            title: Skatīt visu pielikuma informāciju
+        no_thumbnail: Sīktēla ģenerēšana
+      attachment_help:
+        flickr:
+          description: Importēt fotogrāfijas un to aprakstus no Flickr konta
+          link: Pievienot vienības no Flickr
+        item1: Pievienot atsevišķu vienību un datni
+        item1-subitem1: Raksturot šo vienību
+        item1-subitem2: Augšupielādēt datni
+        item2: Pievienot vairākas vienības un datnes
+        item2-subitem1: Augšupielādēt vairākus datņu pielikumus, kas pārstāv vairākas
+          vienības
+        item2-subitem2: Tu vari aprakstīt vienības individuāli
+        one-of-the-following: 'Tu vari izvēlēties darīt kaut ko no sekojošā:'
+      copy:
+        instructions: Izvēlies vienu vai vairākas citas šim stāstam pievienotās vienības,
+          lai pārrakstītu tās ar šīs vienības metadatiem (parādīts zemāk).
+        title: Kopēt vienības metadatus
+      delete:
+        question: Vai tiešām vēlies dzēst vienību "%{filename}"?
+        title: Dzēst vienību
+      edit:
+        caption:
+          current: Pašreizējā datne
+          uploaded: Augšupielādētā datni
+        title: Labot pielikumu
+      index:
+        empty: Šim stāstam nav augšupielādēta neviena vienība.
+        links:
+          new: Jauns pielikums
+        title: Vienības
+      new:
+        caption: Augšupielādētā datne
+        title: Jauns pielikums
+      show:
+        title: Pielikums
+    blog_posts:
+      read_more: Lasīt vairāk
+    browse:
+      collection-days:
+        heading: Kolekcijas dienas
+      fronts:
+        heading: Frontes
+      subjects:
+        heading: Priekšmeti
+      types:
+        heading: Tipi
+    collection_days:
+      cant-find-collection-day: Nevari atrast mapē kādas konkrētas kolekcijas dienas?
+      different-collection-day: Tā vietā vēlies apskatīt citas kolekcijas dienas?
+      in-the-meantime: Tikmēr aicinām ieskatīties iepriekšējās kolekcijas dienās,
+        kurās savāktie stāsti jau ir publicēti.
+      index:
+        title: Kolekcijas dienas
+      join-us: Kolekcijas diena vēl nav pabeigta. Pievienojies mums vai iegriezies
+        vēlāk, kad kolekcijas diena būs pabeigta.
+      no-stories: Atvaino, bet šajā kolekcijas dienā savāktais saturs vēl nav pieejams
+        tiešsaistē. Mūsu kataloģizētāji nodarbojas ar kolekcijas dienā savāktā satura
+        pārskatīšanu un tas drīzumā tiks publicēts.
+      open-collection: Atvērt kolekcijas dienu
+      select-collection-day: Izvēlēties kolekcijas dienu
+      stories: 'Stāsti:'
+      view-stories: Skatīt stāstus
+      visiting-information: Apmeklējuma informācija
+      website: 'Tīmekļa vietne:'
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+        accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus."
+      what-do-you-get-heading: Ko tu iegūsi?
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
+      what-is-it-heading: Kas tas ir?
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
+      who-is-it-for-heading: Par ko tas ir?
+    common:
+      loading: ielāde ...
+      more-like-this: 'Citas vienības, kas varētu tevi interesēt:'
+      permanent: Šo darbību nevar atsaukt.
+    contact:
+      heading: Sazinies ar mums
+      p1: Lai sazinātos ar Europeana 1914-1918 projekta komandu, lūdzu, izmanto e-pasta
+        adresi 1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: Anonīms
+      edit:
+        title: Rediģēt personas informāciju
+      no_name: nav norādīts kontaktpersonas vārds
+      show:
+        title: Kontaktinformācija
+    contributions:
+      _progress:
+        step_x_of_y: Solis %{x} no %{y}
+      _summary:
+        caption: Kopsavilkums
+      complete:
+        p1: Iesniegums iesniegts. Paldies! Projekta darbinieki to pārbaudīs, un tīmekļa
+          vietnē tas parādīsies, kad tas tiks apstiprināts. Ja iesniegumu ir daudz,
+          tas var prasīt līdz pat vairākām nedēļām. Paldies par sapratni un pacietību!
+        title: Iesniegums pabeigts
+      delete:
+        question: Vai tiešām vēlies izmest stāstu “<strong>%{title}</strong>” un visas
+          tā vienības?
+        title: Izmest stāstu
+      digital_object:
+        heading: Stāstam pievienotās vienības
+        help_text:
+          add_attachment: Atceries pievienot stāstam vismaz vienu vienību.
+          attachment_count: Pašlaik stāstam ir pievienotas <strong>%{nr_digital_objects}</strong>
+            vienības.
+          language: Norādi vienībā izmantoto valodu, piemēram, dienasgāmatā izmantotā(ās)
+            valoda(as).
+          object_type: Kas vienība ir (piemēram, dzejolis, vēstule, fotogrāfija);
+            mēģini norādīt pēc iespējas konkrētāk.
+          save_digital: Klikšķinot uz "Saglabāt vienību", šī vienība un izmaiņas tiks
+            saglabātas. Pēc tam var pievienot vēl citas vienības vai pabeigt iesnieguma
+            iesniegšanu.
+          subject: Persona, vieta vai objekts, par ko ir vienība.
+          submit_contribution1: Ja esi pabeidzis darbu pie iesnieguma, <a href="#continue-to-submission">iesniedz
+            to</a>.
+          submit_contribution2: Klikšķinot uz "Iesniegt stāstu", tu pabeigsi stāsta
+            iesniegšanu. Kad iesniegums būs iesniegts, eksperts to pārskatīs un tas
+            kļūs pieejams citiem.
+          submit_story_button: Iesniegt stāstu
+          summary: Zemāk ir stāstam jau pievienoto vienību kopsavilkums. Ja vienības
+            nav pievienotas, tur ir tukšums. Stāstam ir iespējams pievienot neierobežotu
+            vienību skaitu. Tāpat konkrētās vienības var rediģēt, klikšķinot uz to
+            rediģēšanas saitēm.
+          when: Kad šī vienība izveidota
+          where: Kur šī vienība izveidota
+        labels:
+          keywords: Palīdzi citiem vienību sameklēt, pievienojot vienu vai vairākus
+            no sekojošiem atslēgvārdiem.
+          location_map: Atrašanās vieta (karte)
+          location_place_name: Atrašanās vieta (vietas nosaukums)
+          save_digital: Saglabāt digitālo objektu
+          save_item_draft: Saglabāt vienības melnrakstu
+          submit_contribution: Iesniegt iesniegumu
+        links:
+          add_another: Pievienot citu vienību
+          add_item: Pievienot vienību
+          edit: rediģēt vai papildināt informāciju
+          edit_story: Labot stāstu
+        options:
+          3d: 3D
+          artifact: Artifakts
+          audio: Audio
+          back: Atpakaļ
+          book: Grāmata
+          canvas: Glezna
+          card: Kartīte
+          cc_by_sa: cc-by-sa
+          ceramic: Keramika/porcelāns
+          diary: Dienasgrāmata
+          digital: Digitāli radīts
+          film: Filma
+          folio: Foliants
+          front: Fronte
+          image: Attēls
+          journal: Žurnāls
+          leaf: Lapa
+          leather: Āda
+          letter: Vēstule
+          medal: Medaļa
+          metal: Metāls
+          mixed: Jaukts
+          multiple: Vairāki
+          newspaper: Laikraksts
+          notebook: Piezīmju grāmatiņa
+          other_option: Cits
+          paper: Papīrs
+          photograph: Fotogrāfija
+          photographic_paper: Fotopapīrs
+          poem: Dzejolis
+          postcard: Pastkarte
+          public_domain: public domain
+          tape: Lente
+          text: Teksts
+          text_memoir: 'Teksts: memuāri'
+          text_transcript: 'Teksts: transkripcija'
+          unknown: Nezināms
+          video: Video
+          vinyl: Vinila
+          vinyl_record: Vinila ieraksts
+          wood: Koks
+        step2: 2. solis - Pievieno savas vienības un datnes
+      edit:
+        title: Iesniegums
+      feed:
+        entries:
+          annotation:
+            item: '%{user} komentēja pie vienības %{title} attēla'
+            story: '%{user} komentēja pie stāsta %{title} attēla'
+          contribution: '%{user} publicēja stāstu %{title}'
+          tagging:
+            item: '%{user} ietagoja vienību %{title}'
+            story: '%{user} ietagoja stāstu %{title}'
+        title: Europeana 1914-1918 aktivitāte
+      index:
+        empty: Te pagaidām nav publiski redzamu iesniegumu.
+        title: Iesniegumi
+      new:
+        title: Iesniegums
+      no_title: bez nosaukuma
+      search:
+        captions:
+          all: Visi iesniegumi
+          matching: '"%{query}" atbilstoši iesniegumi'
+        heading: Meklēšanas rezultāti
+        links:
+          titles:
+            show_contribution: Skatīt iesniegumu
+        matches-for: 'Atbilst:'
+        no_matches: Nav atbilstības. Lūdzu mēģini vēlreiz.
+        related-europeana: Saistīts saturs no Europeana portāla
+        result_count_label: rezultāti
+      show:
+        button_confirm: |-
+          Vai tiešām vēlies iesniegt šo iesniegumu
+          kolekcijas papildināšanai?
+        comments:
+          leave: Pievieno komentāru
+          no_comments: Te nav komentāru, kāpēc vienu nepievienot....
+          submit: Iesniegt komentāru
+          title: Komentāri
+        empty_attachments: Šim stāstam nav pievienota neviena vienība.
+        headings:
+          share: Kopīgot
+          submit: Iesniegt iesniegumu
+          tags: Pievienot tagus
+        invalid: Šis iesniegums nav gatavs iesniegšanai. Klikšķini uz "Kāpēc nē?",
+          lai saņemtu skaidrojumu. Klikšķini zemāk uz REDIĢĒT, lai pievienotu papildinformāciju.
+        links:
+          new_attachment: Pievienot vienību
+        related:
+          title: Saistīts saturs
+        shared-this-story: kopīgoja šo stāstu par
+        title: Stāsts
+      status:
+        approved: Apstiprināts
+        approved_by: Apstiprinājis %{name}
+        draft: Melnraksts &mdash; vēl nav iesniegts
+        label: Statuss
+        rejected: Noraidīts
+        rejected_by: Noraidījis %{name}
+        revised: Pārskatīts
+        submitted: Iesniegts &mdash; gaida apstiprinājumu
+        title: Statusa žurnāls
+        unknown: Nezināms
+        withdrawn: Izņemts
+      story:
+        complete:
+          heading: Stāsts pabeigts
+          p1: Stāsts ir iesniegts. Paldies! Projekta darbinieki to pārbaudīs, un tīmekļa
+            vietnē tas parādīsies, kad tas tiks apstiprināts. Ja iesniegto stāstu
+            ir daudz, tas var prasīt līdz pat vairākām nedēļām. Paldies par sapratni
+            un pacietību!
+        help_text:
+          add_another_person: Ir iespējams pievienot arī vairākas personas.
+          behalf_of: Atstāj tukšu, ja vien tu nepalīdzi kādam citam iesniegt šo iesniegumu
+          save_story: Klikšķinot uz "Saglabāt stāsta melnrakstu", tu nonāksi nākamajā
+            iesniegšanas solī
+          sections: Klikšķini uz sadaļu nosaukumiem zemāk, lai tās atvērtu un aizvērtu;
+            katra sadaļa satur papildinformāciju, ko var pievienot stāstam.
+          use_google_maps: Izmantot Google Maps
+        labels:
+          people: Pievieno cilvēku vārdus, par kuriem ir šis stāsts.
+        step1: 1. solis - Stāsta izstāstīšana
+      withdraw:
+        question: Vai tiešām vēlies izņemt stāstu “<strong>%{title}</strong>” no kolekcijas?
+        title: Izņemt stāstu
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Melnraksti
+          submitted: Iesniegts
+        empty:
+          all: Tu vēl neesi sācis nevienu stāstu.
+          approved: Tev vēl nav apstiprinātu stāstu.
+          draft: Tev pašlaik nav stāstu melnrakstu.
+          submitted: Tu neesi vēl iesniedzis nevienu stāstu.
+        headings:
+          contributions: Tavi stāsti
+        links:
+          new: Pievienot jaunu stāstu
+        p1: Zemāk redzami jau pievienotie stāsti. Rediģē vai dzēs tos pēc nepieciešamības.
+        title: Pievienot stāstu
+      dashboard_guest:
+        button_text: Iesniegšana pabeigta
+        headings:
+          finished: Vai pabeidzi iesniegšanu?
+        identity: (Ja tu neesi %{name}, spied zemāk esošos pogu "Iesniegšana pabeigta".)
+        links:
+          edit_contact: Rediģēt kontaktinformāciju
+          new: Jauns iesniegums
+        notice: '%{name}, tu iesniedz saturu kā viesis.'
+        privacy: Kad esi pabeidzis iesniegt savu iesniegumu, izmanto zemāk esošo pogu,
+          lai notīrītu savu kontaktinformāciju. Tas ļaus saglabāt tavu privātumu koplietošanas
+          datoros.
+        title: Viesa vadības panelis
+      guests:
+        edit:
+          title: Labot viesa kontaktinformāciju
+        new:
+          contact_details: 'Savādāk, lūdzu, norādi vispirms savu kontaktinformāciju:'
+          guest: Tu iesniedz saturu kā viesis.
+          links:
+            register: reģistrēties
+            sign_in: pieslēgties
+          notice: Ja vēlies saglabāt savu kontaktinformāciju un apskatīt iesniegumus
+            pēc to iesniegšanas, lūdzu, vispirms %{sign_in} vai %{register}.
+          title: Viesa kontaktinformācija
+      help:
+        adding_your_story:
+          heading: Tava stāsta pievienošana Europeana 1914-1918
+          p1: Tu vari pievienot savu stāstu Europeana 1914-1918 kolekcijai, izmantojot
+            šajā tīmekļa vietnē pieejamo iesnieguma formu. Apraksti savu iesniegumu,
+            norādot, kas tas ir (piemēram, kāda nosūtīta pastkarte, dienasgrāmata
+            u.tml.), un pievieno stāstu, ko vēlies pastāstīt (piemēram, par personu
+            fotogrāfijā, kā fotogrāfija nokļuva pie tevis, ko vēl tu zini par objektu).
+            Pēc tam pievieno objekta digitālo versiju, piemēram, ieskenēto vai nofotografēto
+            attēlu, dienasgrāmatu, uniformu vai citu objektu, ko esi izvēlējies iesniegt.
+            Kad tavs iesniegums būs iesniegts, to pārskatīs eksperts un tas kļūs pieejams
+            citiem.
+        how_to_use:
+          heading: Kā izmantot tiešsaistes stāstu iesniegšanas saskarni
+          item1: '%{register}, lai saņemtu kontu (tas jāizdara tikai vienreiz), vai
+            %{sign_in}, ja esi jau reģistrējies.'
+          item2: Pievieno informāciju par savu iesniegumu
+          item3: (Pēc izvēles) Pievieno objekta (fotogrāfija, skenēts teksts, video,
+            audio u.c.) digitālo versiju.
+          item4: Iesniegt iesniegumu tiešsaistes stāstu kolekcijai
+          item5: Tavu iesniegumu pārskatīs Europeana kataloģizētājs. Kad tavs iesniegums
+            būs pārskatīts un apstiprināts, tas kļūs pieejams citiem.
+          p1: Lai kaut ko pievienotu tiešsaistes stāstu kolekcijai, tev vispirms vajag
+            %{sign_in} vai %{register}. Tikai tad tu varēsi pievienot savus objektus
+            un stāstus Europeana 1914-1918 kolekcijai.
+          p2: Tev būs jāizpilda sekojoši pieci soļi. Tev nav tie visi jāizpilda uzreiz
+            vienā reizē, tu vari savu iesniegumu saglabāt un pabeigt to vēlāk.
+        item1: Tava stāsta pievienošana Europeana 1914-1918 - Skat. zemāk
+        item2: '%{privacy_policy} - Atsevišķa lapa'
+        item3: '%{takedown_policy} - Atsevišķa lapa'
+        item4: '%{contribution_terms} - Atsevišķa lapa'
+        item5: '%{about_the_project} - Atsevišķa lapa'
+        p1: Projekta "Europeana 1914-1918" mērķis ir vākt materiālus par Pirmo pasaules
+          karu (1914-1918) un cilvēkiem, kurus šis karš ietekmēja. Pašreizējā projekta
+          fāzē mēs vācam materiālus un stāstus no Lielbritānijas, Vācijas, Slovēnijas,
+          Luksemburgas, Īrijas u.c. Papildinformāciju par projektu un projekta ietvaros
+          vācamajiem materiāliem var atrast %{about} lapā.
+      index:
+        item1: Ievadi informāciju par stāstu.
+        item2: Saglabā sava stāsta melnrakstu.
+        item3: Pievieno vienu vai vairākas vienības (attēlus, teksta dokumentus, audio,
+          video u.c.).
+        item4: Apstiprini, ka piekrīti noteikumiem un nosacījumiem, un iesniedz izskatīšanai.
+        p1: 'Paldies, ka piedalies Europeana 1914-1918 satura papildināšanā. Informācijas
+          iesniegšanas process nav sarežģīts. Klikšķini zemāk uz "Pievienot jaunu
+          stāstu", lai sāktu. Informācijas iesniegšanai ir sekojoši soļi:'
+      registration_required:
+        p1: Lūdzu %{sign_in} vai %{register}, lai varētu pievienot Europeana 1914-1918
+          savus objektus un stāstus.
+    devise:
+      passwords:
+        edit:
+          title: Nomainīt paroli
+        new:
+          title: Aizmirsi paroli?
+      registrations:
+        edit:
+          title: Labot konta informāciju
+        new:
+          title: Reģistrēties
+      sessions:
+        new:
+          instructions: 'Lūdzu pieslēdzies ar sava konta informāciju:'
+          title: Pieslēgties
+    errors:
+      api_error:
+        message: Šie ārējas izcelsmes dati pašlaik nav pieejami.
+        title: API kļūda
+      bad_request:
+        message: Iesniedzot pieprasījumu, radās problēma, kas neļāva pieprasījumu
+          apstrādāt.
+        title: Slikts pieprasījums
+      federated_search_error:
+        message: Dati no federatīvās meklēšanas piegādātāja pašlaik nav pieejami.
+        title: Federatīvās meklēšanas kļūda
+      forbidden:
+        message: Tev nav atļauts piekļūt pieprasītajam resursam.
+        title: Aizliegts
+      internal_server_error:
+        message: Radās problēma, kas neļauj mums apstrādāt pieprasījumu.
+        title: Iekšējā servera kļūda
+      not_found:
+        message: Pieprasītais resurss nav atrodams.
+        title: Nav atrasts
+      search_offline:
+        message: Meklēšana īslaicīgi nav pieejama. Lūdzu mēģini vēlreiz vēlāk.
+        title: Meklēt bezsaistē
+    explore:
+      heading: Pārlūkot stāstus
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="Search for
+          ‘Diary’">dienasgrāmata</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Search
+          for ‘Eastern front’">Austrumu fronte</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="Search for
+          ‘Family’">ģimene</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="Search
+          ‘Flanders’">Flandrija</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="Search
+          for ‘Infantry’">kājnieki</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="Search for
+          ‘Medal’">medaļa</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="Search for ‘Military passport’">militārā pase</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="Search
+          for ‘Postcard’">pastkarte</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&q=AM15" title="Objekti
+            no kolekcijas dienas Amberg">Amberg, 2012. gada 26. janvāris</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&q=BE08" title="Objekti
+            no kolekcijas dienas Berlīnē">Berlīne, 2011. gada 2. aprīlis</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Objekti
+            no kolekcijas dienas Drēzdenē">Drēzdene, 2011. gada 22. jūnijs</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&q=EF11" title="Objekti
+            no kolekcijas dienas Erfurtē">Erfurte, 2011. gada 14. jūnijs</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&q=FR07" title="Objekti
+            no kolekcijas dienas Frankfurtē">Frankfurte, 2011. gada 31. marts</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&q=KI13" title="Objekti
+            no kolekcijas dienas Ķīlē">Ķīle, 2011. gada 29. jūnijs</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Objekti
+            no kolekcijas dienas Luksemburgā">Luksemburga, 2012. gada 6. marts</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&q=MU09" title="Objekti
+            no kolekcijas dienas Minhenē">Minhene, 2011. gada 6. aprīlis</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&q=PR17" title="Objekti
+            no kolekcijas dienas Prestonā">Prestona, 2012. gada 10. marts</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&q=RG14" title="Objekti
+            no kolekcijas dienas Rēgensburgā">Rēgensburga, 2011. gada 20. jūlijs</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&q=ST10" title="Objekti
+            no kolekcijas dienas Štutgartē">Štutgarte, 2011. gada 12. aprīlis</a>
+        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title=Search
+          for ‘Trenches’">tranšejas</a>
+      p1: Te var redzēt visu, kas līdz šim ir pievienots mūsu stāstu kolekcijai.
+      p2: Izmanto meklēšanas logu, lai sameklētu objektus, kas <b>atbilst konkrētam
+        vārdam vai frāzei</b>. Lai <b>skatītu visu</b>, kas līdz šim ir pievienots
+        kolekcijai, klikšķini "meklēt" (atstājot meklēšanas lauku neaizpildītu).
+      p3: Tu vari arī <b>pārlūkot stāstu kolekciju</b>. Klikšķini uz zemāk esošajiem
+        meklēšanas piemēriem, lai veiktu meklēšanu pēc attiecīgā vārda. Arhīvam pievienojot
+        jaunus materiālus, rezultātu skaits pieaugs.
+      p5: <b>Kolekciju dienās savāktie materiāli:</b>
+      search_for: <b>Meklēt:</b>
+    flickr:
+      select:
+        instruction: Atzīmē importējamās fotogrāfijas. Nosaukumi un apraksti tiks
+          importēti automātiski.
+        licenses:
+          heading: Izvēlies fotogrāfijas no sava Flickr konta
+          incompatible: Nesaderīga licence
+          instruction: 'Tikai fotogrāfijas ar sekojošām saderīgām licencēm var tikt
+            ieimportētas Europeana 1914-1918:'
+        title: Izvēlies fotogrāfijas no sava Flickr konta
+      show:
+        action:
+          link: Piesaistīt Flickr kontu
+          unlink: Atslēgt Flickr kontu
+        status:
+          linked: Esi pieslēdzies Flickr kā %{username}
+          unlinked: Neesi pieslēdzies Flickr
+    home:
+      heading: Pirmā Pasaules kara neizstāstītie stāsti un oficiālā vēsture
+      heading-p1: Iepazīsties ar stāstiem, filmām un vēsturiskajiem materiāliem par
+        Pirmo Pasaules karu un pievieno savas ģimenes vēsturi. Europeana 1914-1918
+        apvieno resursus no dažādām pasaules bibliotēkām un arhīviem ar ģimeņu piemiņas
+        lietām no visas Eiropas. Atklāj. Mācies. Pēti. Izmanto. Dalies.
+      links:
+        across_europe: visas Eiropas
+        video_guide: soli pa solim video gids
+      otto:
+        heading: Otto un Bernards
+        p1: Ja tev ir kāda informācija par Otto Arndt, lūdzu, %{add_your_story} tiešsaistes
+          kolekcijai un kopīgo to ar visiem.
+      p1: <em>Europeana 1914-1918</em> vāc materiālus no %{across_europe}.
+      p2: <b>Vai tev ir saglabājušies attēli, vēstules, pastkartes, suvenīri vai citas
+        piemiņas lietas, kas ir saistītas ar Pirmo pasaules karu (1914-1918)? Vai
+        tev ir zināms kāds ar tiem saistīts stāsts? Lūdzu pievieno to tiešsaistes
+        stāstu kolekcijai, lai par tiem uzzina arī pārējā pasaule.</b>
+    links:
+      back: Atpakaļ uz %{link}
+      back-to-search: Atpakaļ pie meklēšanas rezultātiem
+      previous_step: Iepriekšējā lapa
+      privacy_policy: Privātuma poltika
+    register:
+      help_text:
+        email: Tu pierakstīsies, izmantojot šo e-pasta adresi un norādīto paroli.
+        password: Parolei jābūt sešu rakstzīmju garai
+        profile_image: |-
+          Šis attēls tiks atrādīts līdzās taviem iesniegumiem<br/>
+          maksimālais datnes izmērs = 128kb
+        profile_photo: Ja vēlies, augšupielādē savu attēlu (GIF vai JPEG). Attēls
+          tiks atrādīts blakus taviem stāstiem.
+        user_name: Tas būs redzams publiski kā piezīme līdzās apstiprinātajiem iesniegumiem.
+      labels:
+        age_range: Vecums
+        email: E-pasts
+        gender: Dzimums
+        password: Parole
+        password_repeat: Atkārtota parole
+        profile_image: Profila attēls
+        profile_photo: Profila fotogrāfija
+        residence:
+          country: Izvēlies savu mītnes valsti
+          post_code: Pasta kods
+        user_name: Lietotājvārds
+      terms:
+        accept: Es piekrītu %{terms}
+        heading: Lietošanas noteikumi
+        item1: iesniedzamais digitālais materiāls nav aizsargāts ar autortiesībām;
+          vai
+        item2: tev pieder tiesības uz šo digitālo materiālu; vai
+        item3: šo tiesību īpašnieks ir pilnvarojis tevi iesniegt šo digitālo materiālu
+          ar sekojošiem nosacījumiem
+        item4: Iesniedzamo saturu (tādu kā video, foto, dienasgrāmatu, attēlu vai
+          audio materiālu) tu atļauj izmantot gandrīz visos iespējamos veidos. Tomēr
+          izmantotājam ir jāsniedz atsauce uz satura tiesību īpašnieku. Un, ja tiek
+          radīti satura atvasinājumi, viņiem ir jāļauj šos radītos satura atvasinājumus
+          izmantot ar tiem pašiem nosacījumiem, kādi ir oriģinālajam saturam.
+        item5: Iesniedzot aprakstošos datus (piemēram, aprakstus vai tagus), kurus
+          tava iesniegtā satura sameklēšanai izmantos meklētājprogrammas, tu atļauj
+          ikvienam izmantot šos aprakstošos datus gandrīz visos iespējamos veidos
+          bez papildu nosacījumiem.
+        p1: 'Pirms tu iesniedz digitālo materiālu Europeana, tev jāpstiprina %{contribution_terms}.
+          Šo noteikumu svarīgākie punti ir šādi:'
+        p2: <b>Tu garantē, ka:</b>
+        p3: Ja nepiekrīti šiem noteikumiem, tad, lūdzu, neiesniedz saturu un aprakstošos
+          datus Europeana.
+        terms: noteikumi un nosacījumi
+    search:
+      facets:
+        common:
+          category: Kategorija
+          collection: Kolekcija
+          contributor: Iesniedzējs
+          country: Valsts
+          creator: Autors
+          format: Formāts
+          language: Valoda
+          location: Atrašanās vieta
+          media: Resursa tips
+          provider: Piegādātājs
+          rights: Tiesības
+          subject: Priekšmets
+          type: Tips
+          year: Gads
+        contributions:
+          collection_day: Kolekcijas diena
+          content: Vienības tips
+          file_type: Resursa tips
+          keywords: Atslēgvārdi
+          lang: Valoda
+          license: Licence
+          place_name: Vietas nosaukums
+          protagonist_names: Galvenā varoņa vārds
+          provider: Piegādātājs
+          theatres: Darbības vieta
+        digitalnz:
+          content_partner: Satura partneris
+        europeana:
+          data_provider: Datu piegādātājs
+          reusability: Atkārtota izmantošana
+          source_all: Visi Europeana rezultāti
+          source_info: Ir pieejamas papildu filtrēšanas iespējas, ja izvēlas skatīt
+            stāstus publiskajās vai bibliotēku/muzeju kolekcijās.
+          source_institution: Tikai bibliotēku/muzeju kolekcijas
+          source_label: Avots
+          source_ugc: Cilvēku stāsti
+          ugc: Lietotāju radīts saturs
+          uri: Priekšmets
+        matches_for: Atbilst
+        refine_results: Precizēt rezultātus
+        trove:
+          availability: Pieejamība
+          discipline: Disciplīna
+      providers:
+        canadiana: Kanādas avoti
+        collection: Europeana
+        contributions: 1914-1918
+        digitalnz: Jaunzēlandes avoti
+        dpla: Amerikas avoti
+        europeana: Europeana portāls
+        trove: Austrālijas avoti
+    statistics:
+      index:
+        contributions:
+          heading: Iesniegumi
+          institutional: Institūciju vienības
+          ugc: No mūsu lietotājiem
+        intervals:
+          last_month: Pēdējā mēnesī
+          last_quarter: Pēdējā ceturksnī
+          last_week: Pēdējā nedēļā
+          last_year: Pagājušajā gadā
+          this_month: Šomēnes
+          this_week: Šonedēļ
+        metrics:
+          avgtimeonsite: Laiks vietnē
+          europeana_pageviews: Institūciju vienību skatījumi
+          object_pageviews: Stāstu skatījumi
+          visits: Apmeklējumi
+        no_results: Statistika nav pieejama.
+        providers:
+          canadiana: Canadiana (Kanāda)
+          digitalnz: DigitalNZ (Jaunzēlande)
+          dpla: DPLA (ASV)
+          europeana: Europeana
+          trove: Trove (Austrālija)
+        title: Lietojuma statistika
+    table:
+      header:
+        actions: Darbības
+    taggings:
+      depublish:
+        question: Vai tiešām vēlies atsaukt tagu šī stāsta kontekstā?
+        title: Atsaukt tagu
+      edit:
+        title: Labot tagojumu
+    tags:
+      add: Pievienot
+      delete:
+        question: Vai tiešām noņemt tagu?
+        title: Noņemt tagu
+      flag:
+        question: Vai tiešām vēlies atzīmēt šo tagu kā neatbilstošu?
+        title: Atzīmēt kā neatbilstošu
+      info: atdali katru tagu ar komatu un spied "enter", lai pievienotu
+    users:
+      _summary:
+        caption: Pieslēgšanās informācija
+      account:
+        caption: Personas informācija
+        links:
+          edit_contact: Rediģēt personas informāciju
+          edit_user: Rediģēt pieslēgšanās informāciju
+        title: Tavs konts
+      sign-in:
+        help: Lai pieslēgtos, izmanto savu lietotājvārdu vai e-pasta adresi. Nav nepieciešams
+          izmantot abus.
+  will_paginate:
+    entry_range_label: Rezultāti %{first}–%{last} no %{total}
+    first_title: Pirmā lapa
+    last_title: Pēdējā lapa
+    next_label: '>'
+    next_title: Nākamā lapa
+    page_entries_info:
+      multi_page: Parādīts %{model} %{from} - %{to} no pavisam %{count}
+      multi_page_html: Parādīts %{model} <b>%{from} - %{to}</b> no pavisam <b>%{count}</b>
+      single_page: Nav atrasts %{model}Parādīts 1 %{model}Parādīti visi %{count} %{model}
+      single_page_html: Parādīts <b>1</b> %{model}Nav atrasts %{model}Parādīti <b>visi
+        %{count}</b> %{model}
+    page_gap: '&hellip;'
+    page_total_label: no %{total_pages}
+    per_page_label: 'Rezultāti lapā:'
+    per_page_title: Lapā atrādāmo rezultātu skaits
+    previous_label: <
+    previous_title: Iepriekšējā lapa
+...
