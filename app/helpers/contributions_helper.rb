@@ -142,4 +142,9 @@ module ContributionsHelper
   def localeless_contribution_url(options)
     contribution_url(options).match(/(^\w+:\/\/[^\/]+)\/\w+(.*)$/)[1..2].join
   end
+
+  def contribution_transcribathon_url(contribution)
+    return if contribution.id.nil?
+    "http://transcribathon.com/en/documents/id-#{contribution.id}/"
+  end
 end

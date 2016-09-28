@@ -59,11 +59,15 @@
       <%= render :partial => 'attachments/carousel', :locals => { :contribution => @contribution, :attachments => @attachments } %>
     </div>
 
+    <div class="col-cell transcribathon-link">
+      <span class="icon-transcribe"><%= link_to(t('views.contributions.show.headings.transcribe'), contribution_transcribathon_url(@contribution)) %></span>
+    </div>
+
     <div class="col-cell share-on">
       <%= render :partial => 'layouts/navigation/share', :locals => { :title => contribution_title(@contribution) } %>
     </div>
 
-    <div class="col-cell translate-area" >
+    <div class="col-cell translate-area">
       <span class="icon-translate"></span>
     </div>
 
