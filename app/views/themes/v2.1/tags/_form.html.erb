@@ -11,7 +11,7 @@
 
   if current_user.may_tag_object?( taggable )
     html += form_tag send(:"#{taggable_type}_tags_path", taggable), :method => :post, :id => "add_tags_form" do
-        form += '<div class="h-flex-container">'
+        form = '<div class="h-flex-container">'
           form += '<div class="h-flex-fill">'
             # :size => 50 breaks layout
             #= text_field_tag "tags", "", :size => 50
