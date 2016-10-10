@@ -22,7 +22,7 @@
 				for facet in facets
 					if facet['fields'].present?
 						form += '<li class="facet-section">'
-							form += '<h3 class="icon-arrow-6">' + facet['label']
+							form += %Q(<h3 class="icon-arrow-6" data-filter-name="#{facet['label']}">) + facet['label']
 							form += '</h3>'
 
 							form += '<ul class="noscript">'
