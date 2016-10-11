@@ -27,7 +27,7 @@
   else
     html += '<p>'
     html += '<em>' + t('views.tags.login') + '</em> '
-    html += link_to(t('common.menus.main.sign_in'), page_path('users/sign-in'))
+    html += link_to(t('common.menus.main.sign_in'), page_url('users/sign-in', :redirect => request.fullpath))
     html += '</p>'
   end
 
