@@ -113,7 +113,11 @@
       var userLoggedIn = $('#navigation-user .username').length > 0;
       if(!userLoggedIn){
         $('.annotorious-annotationlayer').append(
-          '<span style="position: absolute; top:1em; left:1em; padding: 0.5em; background-color: rgba(0,0,0,0.45); color: white;">Log in to annotate</span>'
+          '<span style="position: absolute; top:1em; left:1em; padding: 0.5em; background-color: rgba(0,0,0,0.45); color: white;">'
+          + '<span class="annotorious-hint-icon" style="width: auto;">'
+          +   'Log in to annotate'
+          + '</span>'
+          + '</span>'
         );
       }
     },
