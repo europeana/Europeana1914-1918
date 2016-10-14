@@ -25,4 +25,3 @@
 //= require ./eu/europeana
 
 console.log('DEVELOP');
-alert('DEVELOP');

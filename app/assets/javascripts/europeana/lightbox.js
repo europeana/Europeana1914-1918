@@ -124,7 +124,9 @@
      */
     init : function( options ) {
       this.options = $.extend( true, {}, this.options, options );
-      alert('init lightbox');
+
+      var userLoggedIn = $('#navigation-user .username').length > 0;
+      alert('init lightbox - user logged in = ' + userLoggedIn);
 
       if ( this.options.add_lightbox ) {
         this.setupPrettyPhoto();
