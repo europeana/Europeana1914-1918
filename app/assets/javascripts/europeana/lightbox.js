@@ -109,7 +109,13 @@
       if ( self.options.add_embedly ) {
         europeana.embedly.manageEmbedly( $('#inline-' + self.current ), $lightbox_description, self.current );
       }
-      alert('show lightbox here');
+
+      var userLoggedIn = $('#navigation-user .username').length > 0;
+      if(!userLoggedIn){
+        $('.annotorious-annotationlayer').append(
+          '<span style="position: absolute; top:1em; left:1em; padding: 0.5em; background-color: rgba(0,0,0,0.45); color: white;">Log in to annotate</span>'
+        );
+      }
     },
 
     hideLightboxContent: function() {
@@ -125,9 +131,6 @@
      */
     init : function( options ) {
       this.options = $.extend( true, {}, this.options, options );
-
-      var userLoggedIn = $('#navigation-user .username').length > 0;
-      alert('init lightbox - user logged in = ' + userLoggedIn);
 
       if ( this.options.add_lightbox ) {
         this.setupPrettyPhoto();
@@ -172,7 +175,6 @@
       if ( this.annotorious_setup ) {
         return;
       }
-      alert('setupAnnotorious')
 
       if ( this.options.contribution_page ) {
         anno.addPlugin( 'RunCoCo_Attachment', {} );
@@ -202,8 +204,6 @@
               RunCoCo.locale + "/annotations"
         }
       );
-
-      alert('Annotorious setup: .annotorious-annotationlayer = ' + $('.annotorious-annotationlayer').length);
 
       this.annotorious_setup = true;
     },
