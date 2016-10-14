@@ -109,6 +109,7 @@
       if ( self.options.add_embedly ) {
         europeana.embedly.manageEmbedly( $('#inline-' + self.current ), $lightbox_description, self.current );
       }
+      alert('show lightbox here');
     },
 
     hideLightboxContent: function() {
@@ -201,6 +202,8 @@
               RunCoCo.locale + "/annotations"
         }
       );
+
+      alert('Annotorious setup: .annotorious-annotationlayer = ' + $('.annotorious-annotationlayer').length);
 
       this.annotorious_setup = true;
     },
