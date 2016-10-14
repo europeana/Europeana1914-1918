@@ -23,5 +23,3 @@
 //= require gmtplusone/readmore
 //= require gmtplusone/truncate
 //= require ./eu/europeana
-
-console.log('DEVELOP');

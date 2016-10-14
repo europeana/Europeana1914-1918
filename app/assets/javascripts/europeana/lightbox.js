@@ -124,7 +124,6 @@
       setTimeout(function(){
         anno.addHandler('onMouseOverItem', function(annotation){
           var userLoggedIn = $('#navigation-user .username').length > 0;
-          console.log('mouse over...');
           if(userLoggedIn){
             $('#login-to-annotate').remove();
           }
