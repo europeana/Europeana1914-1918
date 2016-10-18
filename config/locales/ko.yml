@@ -1,0 +1,1917 @@
+# Messages for Korean (한국어)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Hwangjy9
+# Author: Idh0854
+# Author: Revi
+# Author: Twotwo2019
+# Author: Ykhwong
+# Author: 고기랑
+# Author: 아라
+---
+ko:
+  actions:
+    add: 추가
+    approve: 승인
+    cancel: 취소
+    copy: 복사
+    delete: 삭제
+    depublish: 게시 취소
+    download: 다운로드
+    edit: 편집
+    edit_story: 이야기 편집
+    filter: 필터
+    flag: 플래그
+    import: 가져오기
+    new: 새로
+    reject: 거부
+    remove: 제거
+    save: 저장
+    submit: 제출
+    unflag: 플래그 해제
+    update: 업데이트
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Dropbox 파일
+        file: 파일
+        file_content_type: 내용 형식
+        file_created_at: 만든 날짜
+        file_file_name: 파일 이름
+        file_file_size: 파일 크기
+        file_updated_at: 업데이트 날짜
+        metadata: 메타데이터
+        preview: 미리 보기
+        public: 공개
+      collection_day:
+        description: 설명
+        end_date: 종료 날짜
+        image: 그림
+        name: 이름
+        start_date: 시작 날짜
+        taxonomy_term_id: 분류학 용어
+      contact:
+        age: 나이
+        country: 거주 국가
+        full_name: 실명
+        gender: 성별
+        locality: 시/구/군
+        postal_code: 우편 번호
+        region: 국가
+        street_address: 도로 주소
+        tel: 전화 번호
+      contribution:
+        approved_by: 승인자
+        approver: 승인자
+        attachments: 항목
+        catalogued_by: 카탈로그 작성자
+        cataloguer: 카탈로그 작성자
+        contributor: 기여자
+        created_at: 시작한 날짜
+        metadata: 메타데이터
+        published_at: 게시한 날짜
+        submitted_at: 제출한 날짜
+      contribution_status:
+        created_at: 상태가 바뀐 날짜
+      metadata_field:
+        cataloguing: 카탈로깅만
+        field_type: 형식
+        hint: 힌트
+        multi: 여러 선택
+        name: ID
+        position: 위치
+        required: 필수
+        searchable: 검색할 수 있음
+        show_in_listing: 목록에 보이기
+      metadata_record:
+        field_alternative: 대체 필드
+        field_collection_day_terms: 모음집 날 용어 필드
+        field_file_type_terms: 파일 형식 용어 필드
+      setting:
+        name: 이름
+        value: 값
+      taxonomy_term:
+        metadata_field: 필드
+        term: 약관
+      user:
+        created_at: 등록 날짜
+        institution: 기관
+        password: 비밀번호
+        password_confirmation: 비밀번호 다시 입력
+        role_name: 역할
+        terms: 약관
+        username: 사용자 이름
+    errors:
+      messages:
+        accepted: 진행하려면 동의해야 합니다.
+        blank: 이 필드는 필수입니다. 비워둘 수 없습니다.
+        confirmation: 확인과 같지 않습니다.
+        empty: 비워둘 수 없습니다
+        equal_to: '%{count}와(과) 같아야 합니다'
+        even: 짝수여야 합니다
+        exclusion: 소유합니다
+        greater_than: '%{count}보다 커야 합니다'
+        greater_than_or_equal_to: '%{count}보다 크거나 같아야 합니다'
+        inclusion: 목록에서 값을 선택하세요.
+        invalid: 잘못된 입력입니다; 입력한 값의 형식을 확인하세요.
+        less_than: '%{count}보다 작아야 합니다'
+        less_than_or_equal_to: '%{count}보다 작거나 같아야 합니다'
+        not_a_number: 이 값은 숫자가 아니지만, 있어야 합니다.
+        not_an_integer: 정수여야 합니다
+        odd: 홀수여야 합니다
+        record_invalid: '검증에 실패했습니다: %{errors}'
+        taken: 이 필드는 고유해야 하지만, 입력한 값은 우리 시스템에 이미 존재합니다.
+        too_long: 너무 깁니다 (최대는 %{count}글자입니다)
+        too_short: 너무 짧습니다 (최소는 %{count}글자입니다)
+        wrong_length: 잘못된 길이입니다 (%{count}글자여야 합니다)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: 이 파일의 형식은 허용되지 않습니다.
+              presence: 올릴 파일을 선택하세요.
+              size: 올린 파일 크기가 너무 큽니다.
+        collection_day:
+          attributes:
+            image:
+              content_type: JPEG 및 GIF 그림만 허용됩니다.
+          end_date_follows_start_date: 끝 날짜는 시작 날짜보다 늦어야 합니다.
+          taxonomy_term_metadata_field: 올바른 모음집 날이 아닙니다.
+        contribution:
+          attachments:
+            uploaded: 어떤 파일은 여전히 전송되고 있습니다.
+          attributes:
+            catalogued_by:
+              role_name: 카탈로그 작성자는 관리자 또는 카탈로그 작성자의 사용자여야 합니다
+            guest_id:
+              present: 연락 자세한 내용은 손님 기여를 위해 필요합니다.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: 카탈로깅 필드는 필요하지 않을 수 있습니다.
+            contribution:
+              or_attachment: 필드가 기여 및/또는 첨부에 적용해야 합니다
+            field_type:
+              constancy: 필드 형식은 바꿀 수 없습니다.
+            searchable:
+              field_type: 분류학 필드는 검색할 수 없습니다.
+        metadata_record:
+          date_field_civil: 올바른 캘린더 날짜가 아닙니다.
+          one_cover_image: 당신의 이야기의 커버 그림으로 항목 하나만을 선택할 수 있습니다.
+          taxonomy_field_single: 용어 하나만 선택할 수 있습니다.
+        setting:
+          attributes:
+            name:
+              inclusion: 등록된 환경 설정이 아닙니다
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: 분류학 용어는 분류학 메타데이터 필드와 연관되어야 합니다.
+        user:
+          attributes:
+            current_password:
+              invalid: 비밀번호가 잘못되었습니다
+            email:
+              taken: 이 이메일 주소로 된 사용자 계정이 이미 존재합니다.
+            picture:
+              content_type: 프로필 사진은 GIF나 JPEG여야 합니다.
+      template:
+        body: '다음 필드에 문제가 있었습니다:'
+        header:
+          one: 이 %{model}을(를) 저장하는 것이 금지된 오류 1개
+          other: 이 %{model}을(를) 저장하는 것이 금지된 오류 %{count}개
+    models:
+      annotation: 그림 어노테이션
+      attachment: 항목
+      collection_day: 모음집 날
+      contact: 연락하기
+      contribution: 이야기
+      institution: 기관 제공자
+      metadata_field: 메타데이터 필드
+      metadata_record: 메타데이터 기록
+      tag: 태그
+      tagging: 태그하기
+      taxonomy_term: 분류학 용어
+      user: 사용자
+    options:
+      contact:
+        gender:
+          female: 여자
+          male: 남자
+      metadata_field:
+        field_type:
+          date: 날짜
+          geo: 지리적 위치
+          string: 단일 줄 텍스트
+          taxonomy: 분류학
+          text: 다중 줄 텍스트
+      user:
+        role_name:
+          administrator: 관리자
+          blank: 어떠한 역할
+          cataloguer: 카탈로그 작성자
+          contributor: 기여자
+  attributes:
+    contact: 연락하기
+    created_at: 만든 날짜
+    email: 이메일
+    id: ID
+    metadata_record: 메타데이터
+    status: 상태
+    title: 제목
+    updated_at: 업데이트한 날짜
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 국가
+          data_provider_sm: 데이터 제공자
+          metadata_collection_day_ids_im: 모음집 날
+          metadata_content_ids_im: 항목 유형
+          metadata_file_type_ids_im: 미디어 유형
+          metadata_keywords_ids_im: 핵심 단어
+          metadata_lang_ids_im: 언어
+          metadata_theatres_ids_im: 극장
+          place_name_s: 지역 이름
+          provider_sm: 제공자
+          rights_sm: 권리
+          type_s: 유형
+          uri_sm: 제목
+          year_sm: 년
+  common:
+    additional-information: 추가 정보
+    download-item: 이 항목 다운로드
+    editors_blog:
+      more_stories: <a href="http://thegreatwararchive.blogspot.com/search/label/en">에디터의
+        픽 블로그</a>에서 더 많은 이야기
+    editors_pick:
+      heading: 에디터의 픽
+      more_stories: <b>%{explore_stories} 문서에 더 많은 이야기가 있습니다.</b>
+    featured-categories: 알찬 분류
+    from-collection-days: 모음집 날들로부터
+    google_maps:
+      help_text: |-
+        <li><b>자동 제안</b> : 국가 이름, 마을 또는 주소를 입력하면, Google 지도가 가능한 주소를 찾아줍니다.</li>
+        <li><b>특정 주소</b> :특정 주소 또는 지리 좌표를 입력하고 나서 "가기" 버튼을 클릭하여, Google 지도에서의 자동 제안을 무시합니다.</li>
+        <li><b>지도 마커</b> : 지도 마커가 지도에 주어질 때, 예를 들어 주소를 입력했었을 때, 원하는 지역으로 그것을 이동할 수 있습니다.</li>
+        <li><b>확대</b> : 지도의 왼쪽 사이드바에서 + 또는 -를 사용하여 지도를 확도 또는 축소합니다.</li>
+      label: Google 지도 사용 (선택 사항)
+    help_text:
+      mandatory: 필수 필드
+    labels:
+      add-keywords: 키워드 추가
+      co_funded: 유럽 연합이 공동 투자함
+    links:
+      about_the_project: 유로피아나 1914-1918 프로젝트에 대해
+      add-your-story: 이야기를 추가하세요!
+      add-your-story-brief: 추가!
+      annotorious: 항목에 첨부된 메모가 있습니다. 읽으려면 항목을 여세요.
+      contact_us: 문의하기
+      contact_us_email: 또한 이메일 주소 <span class="addr">1914-1918 [@] europeana [.] eu</span>를
+        통해 우리에게 연락할 수 있습니다.
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=ko"
+        target="_blank">유로피아나 사용자 기여 약관</a>
+      contribution_terms: 유로피아나 사용자 기여 약관
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">영화 자료를
+        모으는 것에 대해 자세히 알아보세요</a>.
+      explore-the-stories: 이야기를 탐험하세요!
+      explore-the-stories-brief: 탐험!
+      explore_stories: 이야기 탐험
+      help: 도움말
+      my_account: 내 계정
+      my_stories: 내 이야기
+      national_collections: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">함께
+        국가 모음집을 가져오는 것에 대해 자세히 알아보세요</a>.
+      play-audio: 소리 재생
+      play-video: 동영상 재생
+      privacy_policy: 개인정보 정책
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">자세한
+        정보는 우리 프로젝트 웹사이트를 참조하시기 바랍니다</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">가족 이야기를 모으는 것에 대해 자세히 알아보세요</a>.
+      register: 등록
+      sign_in: 로그인
+      statistics: 통계
+      takedown_policy: 게시 중단 정책
+      titles:
+        contribution_terms: 유로피아나 사용자 기여 약관 보기
+        great_war: 옥스퍼드 대학교에서의 위대한 전쟁 보관소
+        takedown: 게시 중단 정책 페이지로
+      view-image: 전체 항목 보기
+      view-pdf: 문서 열기
+    map_contribution_heading: '이 이야기는 다음 장소에서 생겼습니다:'
+    menus:
+      main:
+        about: 소개
+        add: 이야기 추가
+        collection-days: 모음집 날들
+        explore: 찾아보기
+        home: 홈
+        select_language: 언어 선택
+        sign_in: 로그인
+        sign_out: 로그아웃
+      menu: 메뉴
+    more-at: '다음에서 더 보기:'
+    news: 뉴스
+    news_item:
+      heading: 새로운 가족 역사 로드쇼
+    "no": 아니오
+    options:
+      close: 닫기
+      open: 열기
+      other_option: 기타
+    other:
+      contributor: 기여자
+      preview: 미리 보기
+      title: 제목
+      total: 총계
+    "yes": 예
+  date:
+    formats:
+      long_with_day: '%Y년 %B %d일, %a'
+      month_and_year: '%Y년 %B'
+      quarter: '%Y년 %{number}사분기'
+  devise:
+    failure:
+      admin:
+        unauthenticated: 계속하기 전에 로그인해야 합니다.
+      invalid: 잘못된 사용자 이름/이메일이나 비밀번호입니다.
+      invalid_token: 잘못된 인증 토큰입니다.
+      timeout: 세션이 만료되었습니다, 다시 로그인하고 나서 계속하세요.
+      unauthenticated: 계속하기 전에 로그인하거나 가입해야 합니다.
+    mailer:
+      reset_password_instructions:
+        subject: 비밀번호 재설정 지침
+    passwords:
+      link: 비밀번호를 잊으셨나요?
+      send_instructions: 비밀번호를 재설정하기 위한 지침이 있는 이메일을 보냈습니다.
+      updated: 비밀번호가 성공적으로 바뀌었습니다. 이제 로그인하세요.
+    registrations:
+      destroyed: 안녕히 가세요! 계정이 성공적으로 취소되었습니다. 우리는 당신을 곧 다시 보고 싶습니다.
+      link: 등록
+      signed_up: 성공적으로 가입했습니다.
+      updated: 계정을 성공적으로 바꿨습니다.
+    sessions:
+      link: 로그인
+      signed_in: 성공적으로 로그인했습니다.
+      signed_out: 성공적으로 로그아웃했습니다.
+  flash:
+    actions:
+      create:
+        alert: '%{resource_name}을(를) 만드는 데 문제가 있었습니다. 아래 메시지를 보세요.'
+        notice: 새 %{resource_name}을(를) 만들었습니다.
+      destroy:
+        alert: '%{resource_name}을(를) 삭제하는 데 문제가 있었습니다.'
+        notice: '%{resource_name}을(를) 성공적으로 삭제했습니다.'
+      taggings:
+        notice: 태깅이 게시 취소되었습니다.
+      update:
+        alert: '%{resource_name}을(를) 업데이트하는 데 문제가 있었습니다. 아래 메시지를 보세요.'
+        notice: '%{resource_name}을(를) 업데이트했습니다.'
+    admin:
+      europeana:
+        harvest:
+          notice: 유로피아나 포털 내용은 배경에서 수확되고 있습니다.
+    annotations:
+      depublish:
+        alert: 주석을 게시 취소하는 데 실패했습니다.
+        notice: 주석을 게시 취소했습니다.
+      flag:
+        alert: 어노테이션을 부적절한 것으로 플래그하는 데 실패했습니다.
+        notice: 어노테이션을 부적절한 것으로 플래그했습니다.
+      unflag:
+        alert: 부적절한 것으로 플래그 취소하는 데 실패했습니다.
+        notice: 어노테이션을 부적절한 것으로 플래그 취소했습니다.
+    attachments:
+      create:
+        alert: 여기에 첨부를 저장하는 데 문제가 있었습니다.
+        invalid_files: 일부 파일을 저장할 수 없습니다.
+        notice: 항목이 저장되었습니다.
+      destroy:
+        alert: 여기에 첨부를 삭제하는 데 문제가 있었습니다.
+        notice: 첨부가 삭제되었습니다.
+      duplicate:
+        notice: 항목 메타데이터를 다른 선택한 항목으로 복사했습니다.
+      links:
+        view-attachments_html: <a href="#attachments">첨부를 보고 편집하려면 클릭하세요</a>.
+      update:
+        alert: 여기에 첨부를 저장하는 데 문제가 있었습니다.
+        notice: 항목이 저장되었습니다.
+    configuration:
+      update:
+        alert: 구성을 저장하는 데 실패했습니다.
+        notice: 구성을 바꾸었습니다.
+    contacts:
+      create:
+        alert: 연락을 만드는 데 실패했습니다.
+        notice: 연락처를 만들었습니다.
+      update:
+        alert: 연락처를 만드는 데 실패했습니다.
+        notice: 연락처를 업데이트했습니다.
+    contributions:
+      approve:
+        alert: 연락처를 업데이트하는 데 실패했습니다.
+        notice: 기여가 성공적으로 승인되었습니다.
+      destroy:
+        alert: 이야기를 삭제하는 데 실패했습니다.
+        notice: 이야기가 삭제되었습니다.
+      draft:
+        create:
+          alert: 새 기여를 시작하는 데 문제가 있었습니다.
+          notice: 새 초안 기여가 시작되었습니다.
+        submit:
+          alert: 기여에 문제가 있습니다. 아래 메시지를 확인해주세요.
+          notice: 기여가 제출되었습니다. 감사합니다! 기여는 프로젝트 직원이 확인하여 승인될 때 웹사이트에 나타날 것입니다. 바쁜 시간에는,
+            이것이 여러 주가 걸릴 것입니다. 우리는 당신의 이해와 인내를 부탁드립니다.
+        update:
+          alert: 여기에 기여를 저장하는 데 문제가 있었습니다.
+          notice: 기여가 저장되었습니다.
+      reject:
+        alert: 기여를 거부하는 데 실패했습니다.
+        notice: 기여가 성공적으로 거부되었습니다.
+      submitted:
+        edit:
+          alert: 이 기여는 이미 제출되어 있습니다.
+      withdraw:
+        alert: 모음집에서 이야기를 빼내는 것으로 표시하는 데 실패했습니다.
+        notice: 이야기가 모음집에서 빼냄으로 표시했습니다.
+    contributors:
+      create:
+        alert: 당신의 계정을 만들 수 없었습니다.
+      update:
+        alert: 당신의 계정을 갱신할 수 없었습니다.
+    fields:
+      reindexing: 백그라운드에서 검색 엔진을 다시 색인합니다.
+    flickr:
+      import:
+        alert:
+          empty: 선택된 그림 없음
+          invalid_license: '다음 사진들은 호환되지 않는 라이선스로 되어 있어서 가져오지 않습니다:'
+        notice: 백그라운드에서 Flickr 그림을 전송하는 중입니다.
+    guest_contact:
+      create:
+        alert: 제공해 주신 상세 내용에 문제가 있습니다. 수정한 다음 다시 시도해 주십시오.
+        notice: 연락 세부 사항을 받았습니다
+      forget:
+        notice: 연락 자세한 내용을 지웠습니다.
+      update:
+        alert: 제공해 주신 상세 내용에 문제가 있습니다. 수정한 다음 다시 시도해 주십시오.
+        notice: 연락 세부 사항을 업데이트했습니다.
+    metadata_fields:
+      update_order:
+        notice: 메타데이터 필드 순서를 업데이트했습니다.
+    status:
+      alert: '경보:'
+      notice: '알림:'
+    taggings:
+      depublish:
+        alert: 이 태그를 게시 취소하는 데 실패했습니다.
+        notice: 태그를 게시 취소했습니다!
+    tags:
+      contribution:
+        create:
+          success: 태그가 이 이야기에 추가되었습니다.
+      destroy:
+        success: 태그를 제거했습니다.
+      europeana_record:
+        create:
+          success: 태그가 이 항목에 추가되었습니다.
+      flag:
+        success: 태그가 부적절한 것으로 플래그되었습니다.
+    taxonomy:
+      imported: 새 분류학 용어를 가져왔습니다.
+    users:
+      create:
+        alert: 사용자 계정을 만들 수 없었습니다.
+        notice: 사용자 계정이 만들어졌습니다.
+      destroy:
+        notice: 사용자가 삭제되었습니다.
+      register:
+        alert: 등록에 실패했습니다. 아래에 입력한 정보를 수정하고 다시 시도하세요.
+        notice: 등록에 성공했습니다. 환영합니다!
+      update:
+        alert: 사용자 계정을 바꿀 수 없었습니다.
+        notice: 사용자 계정을 바꿨습니다.
+  formtastic:
+    actions:
+      attachment:
+        add_edit: 항목 추가/편집
+        create: 올리기
+        delete: 항목 삭제
+        update: 저장
+      contribution:
+        create: 계속
+        delete: 이야기 삭제
+        save_draft: 이야기 초안 저장
+        submit: 이야기 제출
+        update: 기여 바꾸기
+        withdraw: 빼냄
+      contributor:
+        create: 등록
+      create: 제출
+      delete: 삭제
+      filter:
+        submit: 업데이트
+      metadata_field:
+        delete: 메타데이터 필드 삭제
+        reindex: 검색 엔진 다시 색인
+      password:
+        create: 제출
+        update: 내 비밀번호 바꾸기
+      search:
+        submit: 검색
+      sign_in: 로그인
+      submit: 저장
+      tag:
+        flag: 부적절한 것으로 플래그
+      taxonomy_term:
+        import: 가져오기
+      update: 바뀜 저장
+      upload: 올리기
+      user:
+        create: 등록
+        delete: 계정 삭제
+        update: 업데이트
+    create: '%{model} 만들기'
+    hints:
+      attachment:
+        dropbox_path: Dropbox 폴더 "Apps/Europeana 1914-1918"에 복사할 파일을 선택하세요. 허용된 형식이
+          아니거나, 너무 큰 파일은 보이지 않을 것입니다.
+        edit:
+          file: '기존 파일과 바꾸고 싶은 새 것만 올려주세요. 최대 파일 크기: %{max}. 허용된 파일 형식: %{file_types}.'
+        file: 파일 올리기
+        metadata:
+          attachment_description: 항목이 나타내고 뜻하는 것뿐만 아니라 물리적 특성을 설명하세요.
+          content: 항목이 무엇입니까 (예를 들어 시, 편지, 사진); 가능하면 구체적으로 적어주세요.
+          cover_image: 표지 그림은 우리의 모음집에서 이야기를 나타냅니다; 책의 표지와 비슷합니다. 이 이야기에 대한 사진으로,
+            일기의 첫 페이지이거나 메달의 그림일 수 있습니다.
+          creator_given_name: 원래 개체를 만든 사람의 이름, 예를 들어 엽서나 일기의 저자나 사진 작가의 이름.
+          date_to: 항목의 끝 날짜, 예를 들어, 일기의 마지막 날짜.
+          forces: '관련이 없으면 클릭하지 마십시오. 관련 있는 키워드를 사용할 수 없다면 우리에게 이메일을 보내주세요: 1914-1918
+            [@] europeana [.] eu'
+          format: 전산화된 항목의 재료 (예를 들어 종이, 카드, 테이프).
+          lang: 항목에 사용될 언어를 나타내세요. 예를 들어, 일기에 사용되는 언어.
+          location_placename: 항목이 만들어진 도시 이름을 입력하세요 (편지가 쓰여진 곳 또는 사진이 찍힌 곳), 예를 들어,
+            런던 또는 파리.
+          object_side: 양쪽이 있는 항목에 대해, 예를 들어 엽서로, 쪽을 나타내기
+          page_number: 많은 폐이지의 항목에 대해서는, 개별 페이지 번호를 쓰십시오
+          source: 항목이 디지털화된 자료 (예를 들어 종잇장, 폴리오, 공책, 필름 릴).
+          subject: 사람 또는 장소 또는 개체 항목에 관한 것입니다.
+          theatres: '관련이 없으면 클릭하지 마십시오. 관련 있는 키워드를 사용할 수 없다면 우리에게 이메일을 보내주세요: 1914-1918
+            [@] europeana [.] eu'
+      contribution:
+        metadata:
+          contributor_behalf: 이 기여를 할 무언가를 돕는 경우가 아니라면 비워 두세요.
+          description: 기여 뒤의 이야기를 쓰세요.
+          forces: '관련이 없으면 클릭하지 마십시오. 관련 있는 키워드를 사용할 수 없다면 우리에게 이메일을 보내주세요: 1914-1918
+            [@] europeana [.] eu'
+          lang: 이 이야기에 쓰인 언어를 지정해 주십시오.
+          location_placename: '이야기가 시작된 도시의 이름을 입력하십시오. (예: 런던, 파리)'
+          theatres: '관련이 없으면 클릭하지 마십시오. 관련 있는 키워드를 사용할 수 없다면 우리에게 이메일을 보내주세요: 1914-1918
+            [@] europeana [.] eu'
+        title: 전체적으로 이 기여에 대한 제목입니다.
+      metadata_field:
+        attachment: 이 필드에 첨부로 적용할 것을 지정하세요.
+        cataloguing: '예: 카탈로깅 목적에 관리 인터페이스에서 이 필드만이 보여줘야 합니다. 아니오: 기여자에게도 보여줍니다.'
+        contribution: 이 필드에 기여로 적용할 것을 지정하세요.
+        field_type: 필드가 저장되면 바꿀 수 없습니다.
+        hint: 기여자/카탈로거를 가이드하기 위해 입력 필드 옆에 나란히 보여줄 텍스트.
+        multi: 기여/첨부마다 여러 용어을 선택할 수 있습니다.
+        name: '필드의 데이터베이스 이름. 고유해야 합니다. 올바른 문자: a-z, 0-9, _'
+        required: '예: 기여자는 이 필드에 무언가를 입력해야 합니다. 아니오: 이 필드는 선택적입니다. 카탈로깅 필드는 선택적임에
+          틀림없습니다.'
+        searchable: '예: 이 메타데이터 필드에서 기여 검색을 위한 검색. 아니오: 이 필드는 검색되지 않습니다. 참고: 이 값을
+          바꾸고 나서, 검색 엔진을 다시 색인해야 합니다.'
+        searchable_no_sphinx: '알림: 스핑크스 검색 엔진이 실행 중인 경우에만 메타데이터 필드를 검색할 수 있습니다. &mdash;
+          현재 실행 중이 아닙니다.'
+        show_in_listing: 검색 결과와 같은 목록에서 이 필드를 보여줍니다.
+        title: 기여자에 보여줄, 필드의 제목을 설명하세요. 이름으로 추측하려면 비워 두세요.
+      metadata_record:
+        date: '형식: YYYY-MM-DD, YYYY-MM 또는 YYYY, 예 1998-04-20, 1998-04 또는 1998'
+        geo: '형식: 위도,경도, 예를 들어 51.500,-0.126 (런던에는)'
+      password:
+        new:
+          email: 로그인 이메일 주소를 입력하여 비밀번호를 재설정하기 위한 지침을 보냅니다.
+      settings:
+        allowed_upload_extensions: 업로드되는 파일을 위한 허용된 파일 확장자, 쉼표로 구분, 즉 "pdf,doc,jpg,gif".
+          모든 확장자를 허용하려면 비워 두세요.
+        banner_active: 활성화하면 아래에 제공된 텍스트를 사용하여 정비 메시지가 사이트에 표시됩니다.
+        banner_text: 위의 기능을 활성화할 경우 정비 메시지 안에 표시할 텍스트.
+        bing_client_id: Azure DataMarket에서의 Bing 클라이언트 ID입니다. 유로피아나 OpenSearch API
+          쿼리의 번역에 필요합니다.
+        bing_client_secret: Azure DataMarket에서의 Bing 클라이언트 보안입니다. 유로피아나 OpenSearch
+          API 쿼리의 번역에 필요합니다.
+        bing_translate_key: Bing 번역 키. 비어있다면, Microsoft Bing 번역 기능이 작동하지 않습니다.
+        contribution_approval_required: 활성화하면, 승인된 기여만 게시됩니다. 활성화하지 않으면, 기여는 제출된 직후
+          게시됩니다. "기여 게시"가 활성화되어 있지 않으면 효력이 없습니다.
+        gmap_api_key: Google 지도 API 키. 이 키 없이는, Google 지도를 지리적 위치 데이터를 입력하는데 사용할 수
+          없습니다. <http://code.google.com/apis/maps/signup.html>에서 키를 얻으러 가입하십시오.
+        google_analytics_key: Google 웹로그 분석 키. 비어 있다면 폴백 키로 UA-XXXXXXXX-1이 사용됩니다.
+          테스트 및 제작 환경에 적절한 키를 활용해야 합니다.
+        google_api_email: Google 웹로그 분석에서 공공 사용 통계를 얻기 위해 사용할 Google API 서비스 계정 이메일
+          주소를 입력하세요.
+        max_upload_size: 바이트로 최대 업로드 크기.
+        publish_contributions: 기여의 공개 표시를 활성화합니다. 활성화하지 않아도 기여는 여전히 수집이 가능하지만 공개 표시되지는
+          않습니다.
+        registration_required: 활성화하면, 사람들은 사용자 계정을 등록해야 기여를 할 수 있습니다. 비활성화하면, 자세한
+          연락처 정보를 제공함으로써 손님으로 기여할 수 있습니다.
+        relative_url_root: 뒤에 슬래시가 없는, 접근할 수 있는 웹사이트 루트 URL. 최상위 URL에 대해서는 비워 두세요.
+        sharethis_id: ShareThis 게시자 id. ShareThis 공유는 ShareThis 계정으로 추적되지 않을 것입니다.
+          ShareThis 스크립트는 페이지에 존재하면 Google 웹로그 분석 계정에서 공유 기록을 시도할 것입니다. 스크립트는 UA-
+          값을 검색한 다음 존재하면 사용할 것입니다.
+        site_name: 이 웹사이트의 이름입니다. 기본적으로 이것은 페이지 제목과 머릿글에 나타납니다.
+        site_url: 로케일이 없고 뒤에 슬래시가 없는, 접근할 수 있는 이 사이트의 홈페이지가 있는 전체 URL.
+        ui_locales: 페이지 머릿글에 링크할 로캘.
+        uploadify: 첨부 파일 업로드를 관리하고 다중 파일 업로드를 사용하려면 Uploadify를 사용하세요. 더 자세한 정보와 시연에
+          대해서는 <http://www.uploadify.com/>을 확인하십시오.
+      taxonomy_term:
+        import: 이 메타데이터 필드에 추가할 분류학 용어를 한 줄마다 하나씩 입력하세요.
+        term: 이 메타데이터 필드의 범위 안에서 고유해야 합니다.
+      user:
+        current_password: 계정 자세한 사항을 바꾸려면 현재 비밀번호를 입력하세요.
+        edit:
+          password: 비밀번호를 바꾸기를 원한다면 새 것을 입력하시고, 그렇지 않으면 이것을 비워 두세요. 최소 6문자.
+        email: 사용자 이름 대신 이 이메일 주소를 사용해 로그인할 수 있습니다. 이것은 선택 사항이지만, 우리는 비밀번호를 잊은 경우
+          이메일 주소를 제공하는 것을 권장합니다.
+        password: 최대 6 문자
+        update:
+          password: 비밀번호를 바꾸기를 원한다면 새 것을 입력하시고, 그렇지 않으면 이것을 비워 두세요. 최소 6문자.
+        username: '최소 3 문자. 올바른 문자: a-z A-Z 0-9 - _ . @'
+    labels:
+      attachment:
+        metadata:
+          attachment_description: 설명
+          attachment_file: 하나 파일
+          content: 유형
+          cover_image: 표지 그림
+          creator: 만든이
+          creator_family_name: 만든이의 성
+          creator_given_name: 만든이의 이름
+          date: 날짜
+          date_from: 만들어진 날짜 / 시작 날짜
+          date_to: 끝난 날짜
+          file_type: 미디어 유형
+          forces: 군대
+          format: 중간
+          keywords: 핵심 단어
+          lang: 언어
+          lang_other: 언어 (다른)
+          license: 라이선스
+          location_map: 위도 및 경도
+          location_placename: 만든 항목이 있는 곳을 찾습니다.
+          location_zoom: 위치 확대
+          notes: 카탈로그 작성자의 참고
+          object_side: 사이드
+          page_number: 페이지 번호
+          page_total: 총 페이지 수
+          source: 출처
+          subject: 제목
+          theatres: 극장
+          ticket: 티켓 번호
+      collection_day:
+        contact:
+          country: 국가
+          full_name: 조직
+        delete_image: 그림 삭제
+      content:
+        metadata:
+          dc:
+            contributor: 기여자
+            country: 국가
+            coverage: 적용 범위
+            creator: 만든이
+            date: 날짜
+            description: 설명
+            format: 형식
+            identifier: 식별자
+            language: 언어
+            publisher: 게시자
+            relation: 관계
+            rights: 권한
+            source: 출처
+            subject: 제목
+            terms_alternative: 대체 제목
+            terms_extent: 정도
+            terms_medium: 중간
+            title: 제목
+            type: 유형
+          dcterms:
+            alternative: 대체 제목
+            extent: 정도
+            spatial: 장소
+            temporal: 날짜
+          edm:
+            country: 제공 국가
+            data_provider: 데이터 제공자
+            external_partner_site: 파트너의 웹사이트에서 보기
+            language: 언어
+            partner_site: '다음에서 항목 보기:'
+            provider: 제공자
+            rights: 저작권
+      contribution:
+        metadata:
+          alternative: 대체 제목
+          cataloguer: 카탈로그 작성자
+          character1_dob: 생년월일
+          character1_dod: 사망일
+          character1_family_name: 성
+          character1_given_name: 이름
+          character1_pob: 출생 장소
+          character1_pod: 사망 장소
+          character2_dob: 출생일
+          character2_dod: 사망일
+          character2_family_name: 성
+          character2_given_name: 이름
+          character2_pob: 출생 장소
+          character2_pod: 사망 장소
+          collection_day: 모음집 날
+          contributor_behalf: 다음을 대신하여 기여함
+          date_from: 이야기가 시작하는 날짜 ...
+          date_to: 이야기가 끝나는 날짜 ...
+          description: 이야기
+          editor_pick: 에디터의 픽
+          editor_pick_sig: 에디터의 픽 서명
+          editor_pick_text: 에디터의 픽 텍스트
+          forces: 군대
+          keywords: 핵심 단어
+          lang: 언어
+          lang_other: 언어 (다른)
+          location_map: 위도 및 경도
+          location_placename: 이야기를 놓은 장소를 찾기
+          location_zoom: 위치 확대
+          notes: 카탈로그 작성자의 참고
+          summary: 항목의 요약 설명
+          theatres: 극장
+          ticket: 티켓 번호
+        terms: 나는 이용 약관에 동의합니다
+        title: 이야기 제목
+      metadata_field:
+        contribution: 기여
+      taxonomy_term:
+        collection_day:
+          INTERNET: 인터넷
+          UNKNOWN: 알 수 없음
+        content:
+          Autograph: 자동그래프
+          Book: 책
+          Collection: 모음집
+          Diary: 일기
+          Drawing: 그리기
+          Footage: 피트 길이
+          Interview: 면접
+          Letter: 편지
+          Map: 지도
+          Medal: 메달
+          Memoir: 회상록
+          Memorabilia: 기념품
+          Multiple: 여러
+          Music: 음악
+          Official Document: 공식 문서
+          Official document: 공식 문서
+          Other: 기타
+          Painting: 회화
+          Photograph: 사진
+          Poem: 시
+          Postcard: 엽서
+          Publication: 출판
+          Weapon: 무기
+        cover_image:
+          "yes": 예
+        editor_pick:
+          "yes": 예
+        file_type:
+          3D: 3D
+          IMAGE: 그림
+          SOUND: 소리
+          TEXT: 텍스트
+          VIDEO: 동영상
+        forces:
+          Allied Forces: 연합군
+          Central Powers: 동맹국
+          Imperial Forces: 제국군
+        format:
+          Canvas: 캔버스
+          Card: 카드
+          Ceramic/China: 세라믹/도자기
+          Digital: 디지털
+          Leather: 가죽
+          Metal: 금속
+          Mixed: 섞임
+          Other: 기타
+          Paper: 종이
+          Photographic paper: 사진 용지
+          Tape: 테이프
+          'Text: memoir': '텍스트: 회상록'
+          'Text: transcription': '텍스트: 녹취록'
+          Unknown: 알 수 없음
+          Vinyl: 바이닐
+          Wood: 나무
+        keywords:
+          Anti-War Movement: 반전 운동
+          Artillery: 포
+          Conscientious Objection: 병역 거부
+          Gas Warfare: 가스전
+          Home Front: 집 전선
+          Manufacture: 제조소
+          Medical: 의학
+          Military Punishment: 군사 처벌
+          Prisoners of War: 전쟁 포로
+          Propaganda: 선전
+          Recruitment and Conscription: 모병 및 징병
+          Refugees: 피난민
+          Tanks and Armoured Fighting Vehicles: 탱크와 기갑 전투차
+          Transport: 수송
+          Women: 여성
+        lang:
+          Dansk: Dansk
+          Deutsch: 독일어
+          English: 영어
+          Français: 프랑스어
+          Gaeilge: Gaeilge
+          Italiano: Italiano
+          Magyar: Magyar
+          Nederlands: Nederlands
+          Other: 기타
+          Română: Română
+          Slovenčina: Slovenčina
+          Slovenščina: Slovenščina
+          português: 포루투갈어
+          Ελληνικά: Ελληνικά
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/deed.ko
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/deed.ko
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/deed.ko
+        object_side:
+          Back: 뒤로
+          Front: 전선
+        source:
+          Artifact: 인공물
+          Book: 책
+          Film: 필름
+          Folio: 폴리오
+          Journal: 일지
+          Leaf: 종잇장
+          Multiple: 여러
+          Newspaper: 신문
+          Notebook: 공책
+          Other: 기타
+          Photograph: 사진
+          Postcard: 엽서
+          Tape: 테이프
+          Unknown: 알 수 없음
+          Vinyl record: 바이닐 레코드
+        theatres:
+          Aerial Warfare: 공중전
+          African Wars: 아프리카
+          Balkans: 발칸
+          Eastern Front: 동부 전선
+          Gallipoli Front: 갈리폴리 전선
+          Italian Front: 이탈리아 전선
+          Middle East: 중동
+          Naval Warfare: 해전
+          Western Front: 서부 전선
+      user:
+        delete_picture: 사진 삭제
+        terms: 나는 이용 약관에 동의합니다
+    "no": 아니오
+    required: 필수
+    titles:
+      account_details: 로그인 자세한 사항
+      admin_user: 로그인 자세한 사항
+      attachment_dates: 이 항목이 만들어진 때
+      attachment_details: 당신의 항목을 설명하세요
+      attachment_front: 이 항목은 어느 전선입니까
+      attachment_keywords: 하나 또는 여러 다음 키워드를 추가하여 다른 이들에게 항목을 찾는 것을 도와주세요
+      attachment_location: 이 항목을 만들었던 곳
+      attachment_replace: 첨부 교체
+      attachment_upload: 첨부 추가
+      cataloguing_metadata: 카탈로깅 메타데이터
+      contact_address: 주소
+      contact_name: 이름
+      contact_other: 연락 세부 사항
+      contribution_attachments: 항목
+      contribution_terms: 이용 약관
+      dropbox: Dropbox
+      fields: 필드
+      metadata: 카탈로그 정보
+      metadata_field_options: 종류별 선택 사항
+      optional_details: 다른 선택적인 개인 정보
+      personal_details: 개인 세부 사항
+      story_basics: 이야기를 말하세요…
+      story_character1: 사람 1
+      story_character2: 사람 2
+      story_characters: 이 이야기에 대해서 누구인지를 우리에게 알려주세요
+      story_dates: 이 이야기가 생긴 때
+      story_forces: 이 항목은 포함함
+      story_front: 이 이야기는 어느 전선입니까
+      story_keywords: 하나 또는 여러 다음 키워드를 추가하여 다른 이들에게 이야기를 찾는 것을 도와주세요.
+      story_location: 이 이야기가 생긴 곳
+      submit: 이야기 제출
+    update: '%{model} 업데이트'
+    "yes": 예
+  javascripts:
+    admin:
+      metadata_fields:
+        order: 원하는 순서대로 필드를 드래그하세요. 완료할 때 "저장"을 누르세요.
+    annotorious:
+      clear-flag: 플래그 지우기
+      flag: 플래그
+    collection-days:
+      close-directions: 경로 닫기
+      find-more: 더 찾아보십시오.
+      get-directions: 경로 얻기
+      legend: 범례
+      next-collection-day: 다음 모음집 날은 <b>%{country}, %{city}, %{name}</b>에서의 <b>%{start-date}</b>입니다
+      no-upcoming: 현재 향후 모음집 날들이 없습니다.
+      past-entered: 지난 모음집 날들
+      past-not-entered: 지난 모음집 날들 (이야기는 아직 게시되지 않습니다)
+      show-past: 지난 모음집 날들 보기
+      upcoming: 향후 모음집 날들
+      what-is-it: 모음집 날은 무엇입니까?
+    contribute:
+      errors_shown: 왜 안 돼요? 위의 공지를 보세요.
+      hide_errors: 오류 공지를 숨깁니다.
+      show_errors: 왜 안됩니까?
+    datepicker:
+      button_text: 캘린더 보이기
+    digital_object:
+      hints:
+        copy_from_story: 위의 버튼을 클릭하면 이 항목으로 이야기에서 비슷한 메타 데이터를 복사할 것입니다.
+      labels:
+        copy_from_story: 정보 복사
+      links:
+        copy_from_story: 이야기에서 복사
+    gmap:
+      canvas:
+        hide: Google 지도 닫기
+        hint: '"{{field}}"에 대해 원하는 위치에 마커를 움직이세요.'
+        label: Google 지도
+        show: Google 지도 사용
+      errors:
+        empty: 찾을 주소를 입력하세요.
+        present: 화면에 이미 지도가 있습니다; 먼저 그것을 닫으세요.
+        unknown: 주소를 찾을 수 없습니다.
+      search:
+        button: 가기
+        hint: 위의 지도에 검색할 주소를 입력하세요.
+        label: 주소에 대해 검색
+      static:
+        hide: 지도 닫기
+        show: Google 지도 보이기
+    leaflet:
+      label:
+        map_view: 지도
+        satellite_view: 인공위성
+    loading: 불러오는 중 ...
+    next: 다음 →
+    previous: ← 이전
+    search:
+      10seconds: 우리는 아직 검색하고 있습니다. 양해 부탁드립니다!
+      30seconds: 예상보다 오래 걸립니다. 다른 검색어를 입력하거나, 계속 기다려주세요!
+      60seconds: 현재 검색에 문제가 있습니다. 나중에 다시 시도하세요.
+    story:
+      took-place: '이 이야기는 다음 장소에서 생겼습니다:'
+    thumbnails:
+      item: 항목
+      of: 의
+    translate:
+      return-to-language: 원래 언어로 돌아가기
+      service-not-available: 번역 서비스를 현재 사용할 수 없습니다.
+      translate-to: 번역할 언어 ...
+    truncate:
+      show-less: 덜 보기 ...
+      show-more: 더 보기 ...
+    uploadify:
+      basic_ui: 파일을 업로드하는 데 문제가 있습니까? <a href="{{href}}">기본 업로드</a>를 대신 시도하세요.
+      button_text: 파일 선택
+      finished: 기여로 돌아가기
+      hint: '당신은 일괄로 여러 파일을 업로드할 수 있습니다. 각 파일은 자동으로 개별로 편집할 수 있는 분리된 항목이 될 것입니다. 참고:
+        여러 파일 업로드를 작동하기 위해서는 당신의 브라우저에 Flash가 설치되어 있어야 합니다. 최대 파일 크기: {{size}}. 허용된
+        파일 형식: {{types}}.'
+      label: 여러 파일
+      saved: 저장됨
+  languages:
+    da: 덴마크어
+    de: 독일어
+    en: 영어
+    fr: 프랑스어
+    ga: 아일랜드어
+    hu: 헝가리어
+    nl: 네덜란드어
+    pt: 포루투갈어
+    sk: 슬로바키아어
+    sl: 슬로바니아어
+  layout:
+    navigation:
+      about: 소개
+      admin: 관리
+      browse: 찾아보기
+      contact: 문의하기
+      contribute: 기여
+      help: 도움말
+      home: 홈
+    software_engine: RunCoCo에 의해 공급
+  locale: 한국어
+  mail:
+    contributions:
+      published:
+        greeting: 유로피아나 1914-1918 기여자에게,
+        signature: |-
+          감사합니다,
+          유로피아나 1914-1918 팀
+        subject: 유로피아나 1914-1918 기여가 발행되었습니다
+        thanks: '우리에게 당신의 이야기와 기념품을 공유해 주셔서 감사합니다! 당신의 기여는 이제 우리 사이트에 게시됩니다. 이 링크를
+          클릭해 볼 수 있습니다:'
+    exports:
+      complete:
+        notice: '초기 작업한 모음집 내보내기가 완료되엇으며, 다음에서 다운로드할 수 있습니다:'
+        subject: 모음집 내보내기 완료
+  media_types:
+    all: 모두
+    binary: 바이너리 파일
+    pdf: PDF
+    sound: 소리 파일
+    spreadsheet: 스프레드시트
+    txt: 텍스트 파일
+    unknown: 알 수 없는 문서 유형
+    video: 비디오 파일
+    wordprocessing: 워트 프로세서 문서
+  settings:
+    allowed_upload_extensions: 허용된 업로드 형식
+    banner_active: 유지 관리 배너 활성화됨
+    banner_text: 유지 관리 배너 텍스트
+    bing_client_id: Bing 클라이언트 ID
+    bing_client_secret: Bing 클라이언트 비밀
+    bing_translate_key: Bing 번역 키
+    contribution_approval_required: 승인된 기여만 게시
+    gmap_api_key: Google 지도 API 키
+    google_analytics_key: Google 웹로그 분석 키
+    google_api_email: Google API 이메일
+    max_upload_size: 최대 업로드 크기
+    publish_contributions: 기여 게시
+    registration_required: 등록 필요
+    relative_url_root: URL 루트
+    search_engine: 검색 엔진
+    sharethis_id: ShareThis 게시자 id
+    site_name: 사이트 이름
+    site_url: 사이트 URL
+    ui_locales: 사용할 수 있는 로캘
+    uploadify: Uploadify 활성화
+  support:
+    select:
+      prompt: 선택하세요
+  time:
+    formats:
+      timestamp: '%Y-%m-%d %H:%M'
+  views:
+    about:
+      background:
+        heading: 유로피아나 1914-1918
+      collection_days:
+        heading: 모음집 날들
+        p2: 모음집 날들은 이전에 유럽을 건너 개최되었습니다.
+      online_collection:
+        heading: 온라인 이야기 모음집
+      privacy_policy:
+        p1: 승인이 되면 사용자의 기여와 나란히 사용자의 이름을 공개적으로 표시합니다.
+        p3: 다른 어떤 단체와도 사용자의 자세한 연락처 정보는 공유하지 않습니다.
+        p4: <a http://www.europeana.eu/portal/privacy.html target="_blank">유로피아나</a>
+          웹사이트에서 우리의 개인 정보 정책에 대해 자세히 알아보세요.
+      project_partners:
+        heading: 프로젝트 파트너
+        item1: <a href="http://www.ox.ac.uk" target="_blank">옥스퍼드 대학교</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">독일 국립도서관 – die Deutsche
+          Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">룩셈부르크
+          국립도서관 – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">아일랜드 국립도서관</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">슬로베니아
+          국립도서관 – Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">왕립도서관: 덴마크 국립도서관
+          및 코펜하겐 대학교 도서관 - Det Kongelige Bibliotek: Nationalbibliotek og Københavns
+          Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">유로피아나</a>
+      takedown:
+        item1: 연락 자세한 사항
+        item2: 자료의 전체 자세한 사항
+        item5: '우리에게 이메일을 보내주세요: 1914-1918 [@] europeana [.] eu'
+      terms:
+        full_details:
+          heading: '유로피아나 이용 약관: 전체 법적 정보 – 영어로만 읽을 수 있습니다'
+        heading: 이용 약관
+        summary:
+          heading: '유로피아나 이용 약관: 요약'
+          item1: 제출하려는 디지털 자료는 저작권의 보호를 받지 않습니다; 또는
+          item2: 자신이 이 디지털 자료에 권리가 있습니다; 또는
+          p2: <b>다음 내용에 보증합니다:</b>
+          p3: <b>이러한 약관에 동의하지 않는다면, 유로피아나에 데이터에 대한 내용이나 설명을 기여하지 말아 주십시오</b>.
+        user_contributions:
+          heading: 사용자 기여를 위한 유로피아나 용어
+          item1: 비밀번호 및 로그인 (문서 3)
+          item6: 사용자들의 개인 데이터 (정보 보호) (문서 8)
+          p4: <b>이러한 정책에 동의하지 않는다면 유로피아나에 내용 및/또는 메타데이터를 기여하지 말아 주십시오.</b>
+          p6: Europeana.eu에 계정을 만들면, 사용자는 이용 약관에 동의함을 나타냅니다. 사용자 계정이 만들어지면, <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html"
+            target="_blank">www.europeana.eu</a>에서 약관을 접근할 수 있습니다.
+          p7: '이 프로젝트의 구분하는 페이지를 개최:'
+      what_we_do:
+        heading: '국가 모음집:'
+        item1: 유로피아나 1914-1918 웹사이트를 통해 온라인으로 이야기에서 항목이나 종류의 그림을 추가하세요.
+    about_us:
+      blog:
+        heading: 블로그
+      europeana:
+        heading: 유로피아나 1914-1918
+        p4: <b>영화 기록 보관:</b> 유럽 영화 게이트웨이 1914 프로젝트는 우리에게 뉴스 영화, 다큐멘터리, 극영화, 선전과 반전
+          영화를 포함해 제1차 세계 대전과 관련된 필름과 자료의 650시간을 줍니다. 이 자료는 그 시대의 완전한 무성 영화 생산의 20&#37;만
+          살아 있기 때문에 특히 중요합니다.
+      events:
+        heading: 모음집 날들
+      get_involved:
+        contribute_online:
+          heading: 기여 온라인
+        education:
+          heading: 교육
+        heading: 참여하기
+        reuse:
+          heading: 자료 사용
+          p1: 모든 유로피아나 1914-1918 자료는 재사용할 수 있습니다. 개발자에게 <a href="http://europeana.eu/portal/api-introduction.html">유로피아나
+            API</a>를 통해 자신의 프로젝트에 사용하도록 초대합니다. 아메리카의 디지털 도서관, Trove나 DigitalNZ의 자료를
+            다시 쓰고 싶다면, 그들의 웹사이트를 방문하시기 바랍니다.
+      help:
+        heading: 도움말
+    admin:
+      annotations:
+        index:
+          title: 사용자 그림 어노테이션
+        table:
+          header:
+            text: 주석 텍스트
+            type: 주석 형식
+      collection_days:
+        delete:
+          question: 모음집 날 %{code}에 대한 추가적인 정보를 삭제하겠습니까?
+          title: 모음집 날 제거
+        edit:
+          title: 모음집 날 편집
+        index:
+          title: 모음집 날들
+      config:
+        edit:
+          title: 환경 설정 편집
+        index:
+          links:
+            edit: 설정 편집
+          table:
+            caption: 설정
+            headings:
+              name: 이름
+              value: 값
+          title: 환경 설정
+      contributions:
+        export:
+          title: 모음집 내보내기
+        index:
+          captions:
+            approved: 승인된 기여 (총 %{total}개)
+            draft: 초안 기여 (총 %{total}개)
+            rejected: 거부된 기여 (총 %{total}개)
+            revised: 승인을 보류 중인 개정된 기여 (총 %{total}개)
+            submitted: 승인을 보류 중인 제출된 기여 (총 %{total}개)
+            withdrawn: 승인을 보류 중인 빼낸 기여 (총 %{total}개)
+          empty:
+            all:
+              approved: 아직 승인된 기여가 없습니다.
+              draft: 아직 초안 기여가 없습니다.
+              rejected: 아직 거부된 기여가 없습니다.
+              revised: 현재 승인을 보류 중인 개정된 기여가 없습니다.
+              submitted: 현재 승인을 보류 중인 제출된 기여가 없습니다.
+              withdrawn: 현재 승인을 보류 중인 빼낸 기여가 없습니다.
+            search:
+              approved: 검색과 일치하는 승인된 기여가 없습니다.
+              draft: 검색과 일치하는 초안 기여가 없습니다.
+              rejected: 검색과 일치하는 거부된 기여가 없습니다.
+              revised: 검색과 일치하는 개정된 기여가 없습니다.
+              submitted: 검색과 일치하는 제출된 기여가 없습니다.
+              withdrawn: 검색과 일치하는 빼낸 기여가 없습니다.
+          title: 기여
+      europeana:
+        index:
+          instructions: 아래 제출 버튼을 누르면 1914-1918 데이터베이스로, 유로피아나 포털 API에서 1차 세계 대전과
+            관련된 자료를 수확하는 것을 시작합니다.
+          introduction: 현재 1914-1918 데이터베이스에 %{count}개의 1차 세계 대전 관련 유로피아나 기록이 있습니다.
+          title: 유로피아나 포털 내용 수확
+      index:
+        headings:
+          export: 내보내기
+        links:
+          annotations:
+            description: 그림 항목에 사용자 어노테이션을 검토하고 중재합니다.
+          collection_days:
+            description: 모음집 날들에 대한 추가적인 정보를 공급합니다.
+          config:
+            description: 웹사이트 설정을 구성합니다.
+            text: 환경 설정
+          contributions:
+            description: 기여를 검토하고 승인하거나 거부합니다.
+            text: 기여
+          export:
+            description: 모음집을 XML나 CSV로 내보냅니다.
+            text: 내보내기
+          export_csv:
+            description: 모음집 기여를 CSV로 내보냅니다.
+            text: CSV로 내보내기
+          export_users:
+            description: 최소한 한 번 기여한 모든 기여자에 대한 사용자 데이터를 CSV로 내보냅니다.
+            text: 기여 내보내기
+          export_xml:
+            description: 모음집 기여 및 첨부를 XML로 내보냅니다.
+            text: XML로 내보내기
+          export_xml_nozip:
+            description: 모음집 기여 및 .zip 파일 첨부를 제외한 첨부를 XML로 내보냅니다.
+            text: XML로 내보내기 (.zip 파일 제외)
+          harvest_europeana:
+            description: 유로피아나 포털 API에서 1차 세계 대전과 관련된 기록을 수확합니다.
+            text: 유로피아나 포털 내용 수확
+          institutions:
+            description: 선택적으로 사용자 계정에 연결된 기관 제공자를 구성합니다.
+          logs:
+            description: 애플리케이션 로그 파일을 봅니다.
+            text: 기록 파일
+          metadata_fields:
+            description: 기여를 모으는 동안 필드를 구성합니다.
+            text: 메타데이터 필드
+          reindex:
+            description: 검색 엔진 색인을 업데이트합니다.
+            text: 검색 엔진 다시 색인
+          statistics:
+            description: 연도별 이야기 통계를 봅니다.
+            text: 통계
+          taggings:
+            description: 이야기를 태그한 사용자를 검토하고 중재합니다.
+          users:
+            description: '사용자 계정 관리: 관리자, 카탈로그 작성자 및 기여자.'
+            text: 사용자 계정
+        title: 관리
+      institutions:
+        delete:
+          question: '%{name} 기관 제공자를 삭제하겠습니까?'
+          title: 기관 제공자 삭제
+          warning: 기관 제공자를 삭제하는 것은 사용자 계정에 연결된 어떠한 것도 어떠한 기관에도 속하지 않도록 재설정될 것입니다.
+        edit:
+          title: 기관 제공자 편집
+        index:
+          title: 기관 제공자
+        new:
+          title: 새 기관 제공자
+      metadata_fields:
+        confirm_reindex:
+          info: 하나 이상의 메타데이터 필드의 검색할 수 있는 상태를 바꾸거나, 이전에 검색할 수 있는 필드를 제거하고 나서, 아래 버튼을
+            사용해 검색 엔진의 검색을 다시 색인해야 합니다.
+          note: 기여가 업데이트될 때 검색 엔진을 다시 색인할 필요가 없음을 참고하세요; 이것은 자동으로 일어납니다.
+          title: 검색 엔진 다시 색인
+        delete:
+          button_confirm: 이 필드를 지우시겠습니까?
+          question: '%{field_name} 메타데이터 필드를 삭제하겠습니까?'
+          title: 메타데이터 필드 삭제
+          warning: <strong>경고:</strong> 이것은 이 필드에 이미 모은 당신의 모음집에 있는 어떠한 데이터도 삭제게 될
+            것입니다.
+        edit:
+          empty: 여기에 아직 메타데이터 필드가 없습니다.
+          instructions: 각 필드의 위치에 대한 번호를 입력하세요.
+          title: 메타데이터 필드 편집
+        index:
+          caption: 메타데이터 필드
+          empty: 여기에 아직 메타데이터 필드가 없습니다.
+          links:
+            new: 새 필드
+            order: 필드 순서 바꾸기
+            terms: 용어
+          title: 메타데이터 필드
+        new:
+          title: 새 메타데이터 필드
+        order:
+          title: 메타데이터 필드 순서
+      statistics:
+        index:
+          introduction: 아래 표는 주어진 연도와 선택적으로 주어진 모음집 날에 대한 게시된 이야기 수와 그들의 항목을 보여줍니다.
+          title: 통계
+      taggings:
+        index:
+          title: 이야기 태그 사용
+      taxonomy_terms:
+        delete:
+          question: '"%{term}" 분류학 용어를 삭제하겠습니까?'
+          title: 분류학 용어 삭제
+          warning: <strong>경고:</strong> 이 동작은 분류 작업한 이 용어에 연결된 어떠한 기여도 잃게 됩니다.
+        edit:
+          title: 분류학 용어 편집
+        import:
+          title: 분류학 용어 가져오기
+        index:
+          caption: 분류학 용어
+          empty: 여기에 아직 이 필드에 대한 분류학 용어가 없습니다.
+          links:
+            back: 메타데이터 필드의 목록
+            import: 목록에서 용어 가져오기
+            new: 새 용어
+          title: 분류학 용어
+        new:
+          title: 새 분류학 용어
+      users:
+        delete:
+          button_confirm: 이 사용자 계정을 삭제하겠습니까?
+          question: 정말 %{email} 사용자 계정을 삭제하겠습니까?
+          title: 사용자 계정 삭제
+          warning: <strong>경고:</strong> 이것은 또한 사용자의 모든 기여를 삭제할 것입니다.
+        edit:
+          title: 사용자 계정 편집
+        index:
+          caption: 사용자 계정
+          empty: 보여줄 사용자 계정이 없습니다.
+          links:
+            new: 새 사용자
+            show:
+              title: 전체 사용자 세부 사항 보기
+          title: 사용자 계정
+        new:
+          title: 새 사용자 계정
+        show:
+          caption: 개인 세부 사항
+          links:
+            back: 사용자 계정 목록
+            contributions: 기여
+            edit: 사용자 계정 편집
+          title: 사용자 계정
+    annotations:
+      depublish:
+        question: 이 항목 어노테이션을 게시 취소하겠습니까?
+        title: 주석 게시 취소
+      edit:
+        title: 어노테이션 편집
+      flag:
+        question: 이 어노테이션을 부적절한 것으로 플래그하겠습니까?
+        title: 어노테이션을 부적절한 것으로 플래그
+      unflag:
+        question: 이 어노테이션을 부적절한 것으로 플래그 취소하겠습니까?
+        title: 어노테이션을 부적절한 것으로 플래그 취소
+    attachments:
+      _form:
+        dropbox:
+          connect_html: Dropbox 계정이 있다면, Dropbox 폴더에서 직접 우리에게 파일을 보낼 수 있습니다. 이 기능을
+            사용하려면, please <a href="%{href}">Dropbox 계정을 연결하세요</a>.
+          connected_html: Dropbox에 <strong>%{user}</strong>(으)로 연결되어 있습니다
+          disconnect: Dropbox 계정에서 연결 해제
+          empty: Dropbox 계정에 "/Apps/Europeana 1914-1918" 이름으로 된 폴더 안에 어떤 파일을 복사하고,
+            "파일 목록 새로 고침"을 클릭하고 나면 이곳에 표시될 것입니다".
+          refresh: 파일 목록 새로 고침
+      _summary:
+        caption: 첨부 정보
+      _table:
+        caption: 항목
+        links:
+          preview:
+            title: 전체 첨부 세부 사항 보기
+        no_thumbnail: 섬네일 생성 중
+      attachment_help:
+        flickr:
+          description: Flickr 계정에서 사진과 설명을 가져옵니다
+          link: Flickr에서 항목 추가
+        item1: 하나의 항목과 파일 추가
+        item1-subitem1: 해당 항목 설명
+        item1-subitem2: 파일 첨부 업로드
+        item2: 여러 항목과 파일 추가
+        item2-subitem1: 여러 항목을 나타내는 여러 파일 첨부를 업로드합니다
+        item2-subitem2: 항목을 개별적으로 설명할 수 있습니다
+        one-of-the-following: '다음 중 하나를 선택할 수 있습니다:'
+      copy:
+        instructions: (아래에 보이는) 이 항목의 메타데이터를 덮어쓸 이 이야기에 첨부된 하나 이상의 다른 항목을 선택하세요.
+        title: 항목 메타데이터 복사
+      delete:
+        question: '"%{filename}" 항목을 삭제하겠습니까?'
+        title: 항목 삭제
+      edit:
+        caption:
+          current: 현재 파일
+          uploaded: 업로드한 파일
+        title: 첨부 편집
+      index:
+        empty: 이 이야기에 대한 업로드한 항목이 없습니다.
+        links:
+          new: 새 첨부
+        title: 항목
+      new:
+        caption: 업로드한 파일
+        title: 새 첨부
+      show:
+        title: 첨부
+    blog_posts:
+      read_more: 더 읽어보기
+    browse:
+      collection-days:
+        heading: 모음집 날들
+      fronts:
+        heading: 전선
+      subjects:
+        heading: 주제
+      types:
+        heading: 형식
+    collection_days:
+      cant-find-collection-day: 모음집 날을 찾을 수 없습니다, 지도에서 찾아보고 있습니까?
+      different-collection-day: 대신 다른 모음집 날을 보고 싶나요?
+      in-the-meantime: 그 동안, 이미 이야기가 게시된 이전 모음집 날들을 자유롭게 살펴보세요.
+      index:
+        title: 모음집 날들
+      join-us: 아직 모음집 날들이 완료되지 않았습니다. 가능하면 가입해주시거나 모음집 날이 완료되면 나중에 다시 확인해주시기 바랍니다.
+      no-stories: 죄송하지만, 이 모음집 날에서의 내용은 아직 없습니다. 우리 카탈로그 작성자는 모음집 날 동안의 이야기를 검토하고
+        곧 그것들을 게시하기 시작해야 하느라 바쁩니다.
+      open-collection: 모음집 날 열기
+      select-collection-day: 모음집 날 선택
+      stories: '이야기:'
+      view-stories: 이야기 보기
+      visiting-information: 방문 정보
+      website: '웹사이트:'
+      what-do-you-get-heading: 무엇을 얻을 수 있습니까?
+      what-is-it-heading: 이게 뭐죠?
+      who-is-it-for-heading: 누구를 위한 것입니까?
+    common:
+      loading: 불러오는 중 …
+      more-like-this: '관심이 있을 만한 다른 항목:'
+      permanent: 이 동작은 취소할 수 없습니다.
+    contact:
+      heading: 문의하기
+      p1: 유로피아나 1914-1918 프로젝트 팀에 연락하려면, 1914-1918 [@] europeana [.] eu 이메일 주소를 사용하세요
+    contacts:
+      anonymous: 익명
+      edit:
+        title: 개인 세부 사항 편집
+      no_name: 연락할 이름 없음
+      show:
+        title: 연락 세부 사항
+    contributions:
+      _progress:
+        step_x_of_y: '%{y}단계 중 %{x}단계'
+      _summary:
+        caption: 요약
+      complete:
+        p1: 기여가 제출되었습니다. 감사합니다! 기여는 프로젝트 직원이 확인하여 승인될 때 웹사이트에 나타날 것입니다. 바쁜 시간에는, 이것이
+          여러 주가 걸릴 것입니다. 우리는 당신의 이해와 인내를 부탁드립니다.
+        title: 기여 완료됨
+      delete:
+        question: “<strong>%{title}</strong>” 이야기와 그것의 모든 항목을 완전히 버리겠습니까?
+        title: 이야기 버리기
+      digital_object:
+        heading: 이야기에 첨부된 항목
+        help_text:
+          add_attachment: 이야기에 최소한 항목 한 개를 추가하는 것을 기억해두세요.
+          attachment_count: 현재 항목 <strong>%{nr_digital_objects}</strong>개가 이 이아기에
+            첨부되어 있습니다.
+          language: 항목에 사용될 언어를 나타내세요. 예를 들어, 일기에 사용되는 언어.
+          object_type: 항목이 무엇입니까 (예를 들어 시, 편지, 사진); 가능하면 구체적으로 적어주세요.
+          save_digital: “항목 저장”을 클릭하면, 이 항목을 저장하고 더 많은 항목을 추가하여 바꾸거나 전체적으로 당신의 기여를
+            제출합니다.
+          subject: 사람 또는 장소 또는 개체 항목에 관한 것입니다.
+          submit_contribution1: 기여를 마친다면, <a href="#continue-to-submission">제출 단계로
+            계속하세요</a>.
+          submit_contribution2: “이야기 제출”을 클릭하면, 이야기 제출이 마무리될 것입니다. 당신의 기여를 전문가가 검토하고
+            다른 이들을 위해 사용할 수 있게 될 것입니다.
+          submit_story_button: 이야기 제출
+          when: 이 항목이 만들어진 때
+          where: 이 항목을 만들었던 곳
+        labels:
+          keywords: 하나 또는 여러 다음 키워드를 추가하여 다른 이들에게 항목을 찾는 것을 도와주세요.
+          location_map: 위치 (지도)
+          location_place_name: 위치 (지역 이름)
+          save_digital: 디지털 개체 저장
+          save_item_draft: 항목 초안 저장
+          submit_contribution: 기여 제출
+        links:
+          add_another: 다른 항목 추가
+          add_item: 항목 첨부
+          edit: 기타 정보 편집 및 추가
+          edit_story: 이야기 편집
+        options:
+          3d: 3D
+          artifact: 인공물
+          audio: 소리
+          back: 뒤로
+          book: 책
+          canvas: 캔버스
+          card: 카드
+          cc_by_sa: cc-by-sa
+          ceramic: 세라믹/도자기
+          diary: 일기
+          digital: 디지털
+          film: 필름
+          folio: 폴리오
+          front: 전선
+          image: 그림
+          journal: 일지
+          leaf: 종잇장
+          leather: 가죽
+          letter: 편지
+          medal: 메달
+          metal: 금속
+          mixed: 섞임
+          multiple: 여러
+          newspaper: 신문
+          notebook: 공책
+          other_option: 기타
+          paper: 종이
+          photograph: 사진
+          photographic_paper: 사진 용지
+          poem: 시
+          postcard: 엽서
+          public_domain: 퍼블릭 도메인
+          tape: 테이프
+          text: 텍스트
+          text_memoir: '텍스트: 회상록'
+          text_transcript: '텍스트: 녹취록'
+          unknown: 알 수 없음
+          video: 동영상
+          vinyl: 바이닐
+          vinyl_record: 바이닐 레코드
+          wood: 나무
+        step2: 2단계 - 항목과 파일을 추가하기
+      edit:
+        title: 기여
+      feed:
+        entries:
+          annotation:
+            item: '%{user}님이 %{title} 항목의 그림에 댓글을 남겼습니다'
+            story: '%{user}님이 %{title} 이야기의 그림에 댓글을 남겼습니다'
+          contribution: '%{user}님이 %{title} 이야기를 게시했습니다'
+          tagging:
+            item: '%{user}님이 %{title} 항목을 태그했습니다'
+            story: '%{user}님이 %{title} 이야기를 태그했습니다'
+        title: 유로피아나 1914-1918 활동
+      index:
+        empty: 아직 공개적으로 보이는 기여가 없습니다.
+        title: 기여
+      new:
+        title: 기여
+      no_title: 제목 없음
+      search:
+        captions:
+          all: 모든 기여
+          matching: '"%{query}"와(과) 일치하는 기여'
+        heading: 검색 결과
+        links:
+          titles:
+            show_contribution: 기여 보기
+        matches-for: '다음과 일치:'
+        no_matches: 일치하는 것이 없습니다. 다시 시도하세요.
+        related-europeana: 유로피아나 포털에서 관련된 내용
+        result_count_label: 결과
+      show:
+        button_confirm: 모음집에 이 기여를 제출할 준비가 되었습니까?
+        comments:
+          leave: 댓글 남기기
+          no_comments: 댓글이 없습니다, 아래에 댓글을 추가하는 것이 어떤가요....
+          submit: 댓글 제출
+          title: 댓글
+        empty_attachments: 이 이야기에 항목이 없습니다.
+        headings:
+          share: '공유:'
+          submit: 기여 제출
+          tags: 태그 추가
+        links:
+          new_attachment: 항목 추가
+        related:
+          title: 관련 내용
+        shared-this-story: 다음에 대해 이 이야기가 공유됨
+        title: 이야기
+      status:
+        approved: 승인됨
+        approved_by: '%{name}에 의해 승인됨'
+        draft: 초안 &mdash; 아직 제출하지 않음
+        label: 상태
+        rejected: 거부됨
+        rejected_by: '%{name}에 의해 거부됨'
+        revised: 개정됨
+        submitted: 제출됨 &mdash; 승인을 기다리는 중
+        title: 상태 기록
+        unknown: 알 수 없음
+        withdrawn: 빼냄
+      story:
+        complete:
+          heading: 이야기 완료됨
+        help_text:
+          add_another_person: 한 명 이상을 추가할 수 있습니다.
+          save_story: “이야기 초안 저장”을 클릭하면, 다음 기여 단계로 안내할 것입니다
+          use_google_maps: Google 지도 사용
+        labels:
+          people: 이 이야기에 대한 사람들의 이름을 추가합니다.
+        step1: 1단계  - 이야기를 말하세요
+      withdraw:
+        question: 모음집에서 “<strong>%{title}</strong>” 이야기를 빼내겠습니까?
+        title: 이야기 꺼내기
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: 초안
+          submitted: 제출됨
+        empty:
+          all: 아직 어떠한 이야기도 시작하지 않았습니다.
+          approved: 아직 이야기를 승인받지 않았습니다.
+          draft: 순간에 초안 이야기가 없습니다.
+          submitted: 아직 어떠한 이야기도 제출하지 않았습니다.
+        headings:
+          contributions: 당신의 이야기
+        links:
+          new: 새 이야기 추가
+        p1: 아래에 당신이 이미 추가한 이야기가 있습니다. 필요하면 편집하거나 삭제하세요.
+        title: 이야기 추가
+      dashboard_guest:
+        button_text: 기여 마침
+        headings:
+          finished: 기여를 마치셨습니까?
+        links:
+          edit_contact: 연락 자세한 사항 편집
+          new: 새 기여
+        notice: '%{name}님, 손님으로 기여하고 있습니다.'
+        title: 손님 대시보드
+      guests:
+        edit:
+          title: 손님 연락 자세한 사항 편집
+        new:
+          contact_details: '그렇지 않으면, 우리에게 먼저 연락 자세한 사항을 주세요:'
+          guest: 손님으로 기여하고 있습니다.
+          links:
+            register: 등록
+            sign_in: 로그인
+          title: 손님 연락 자세한 사항
+      help:
+        adding_your_story:
+          heading: 유로피아나 1914-1918에 여러분의 이야기 추가
+        how_to_use:
+          item2: 기여에 대한 정보 추가
+          item5: 당신의 기여가 유로피아나 카탈로그 작성자에 의해 검토될 것입니다. 당신의 기여가 검토되고 수락할 때 다른 이들에게 표시될
+            것입니다.
+        item1: 유로피아나 1914-1918에 여러분의 이야기 추가 – 아래 참조
+        item2: '%{privacy_policy} - 별도 페이지'
+        item3: '%{takedown_policy} - 별도 페이지'
+        item4: '%{contribution_terms} - 별도 페이지'
+        item5: '%{about_the_project} - 별도 페이지'
+      index:
+        item1: 이야기에 대한 정보를 입력합니다.
+        item2: 이야기를 초안으로 저장합니다.
+    devise:
+      passwords:
+        edit:
+          title: 비밀번호 바꾸기
+        new:
+          title: 비밀번호를 잊으셨나요?
+      registrations:
+        edit:
+          title: 계정 자세한 사항 수정
+        new:
+          title: 등록
+      sessions:
+        new:
+          instructions: '계정 자세한 사항을 위해 로그인해주세요:'
+          title: 로그인
+    errors:
+      api_error:
+        title: API 오류
+      bad_request:
+        title: 잘못된 요청
+      forbidden:
+        message: 요청한 리소스에 접근할 권한이 없습니다.
+        title: 접근 거부
+      internal_server_error:
+        title: 내부 서버 오류
+      not_found:
+        message: 요청한 리소스를 찾을 수 없습니다.
+        title: 찾을 수 없음
+      search_offline:
+        title: 오프라인으로 검색
+    explore:
+      heading: 이야기 탐험
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="‘일기’에 대해 검색">일기</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="‘동부
+          전선’에 대해 검색">동부 전선</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="‘가족’에 대해 검색">가족</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="‘플랜더스’에
+          대해 검색">플랜더스</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="‘보병’에
+          대해 검색">보병</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="‘메달’에 대해 검색">메달</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="‘엽서’에
+          대해 검색">엽서</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&amp;q=AM15" title="암베르크
+            모음집 날에서의 개체들">암베르크 2012년 1월 26일</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="베를린
+            모음집 날에서의 개체들">베를린 2011년 4월 2일</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="드레스덴
+            모음집 날에서의 개체들">드레스덴 2011년 6월 22일</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="에르푸르트
+            모음집 날에서의 개체들">에르푸르트 2011년 6월 14일</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="프랑크푸르트
+            모음집 날에서의 개체들">프랑크푸르트 2011년 5월 31일</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="킬
+            모음집 날에서의 개체들">킬 2011년 6월 29일</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="룩셈브루크
+            모음집 날에서의 개체들">룩셈브루크 2012년 5월 6일</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="뮌헨
+            모음집 날에서의 개체들">뮌헨 2011년 4월 6일</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="프레스턴
+            모음집 날에서의 개체들">프레스턴 2012년 5월 10일</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="레겐스부르크
+            모음집 날에서의 개체들">레겐스부르크 2011년 7월 20일</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="슈투트가르트
+            모음집 날에서의 개체들">슈투트가르트 2011년 4월 12일</a>
+        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="‘도량’에
+          대해 검색">도량</a>
+      p5: <b>공개 모음집 날들에서 모은 자료:</b>
+      search_for: <b>검색 대상:</b>
+    flickr:
+      select:
+        licenses:
+          heading: Flickr 계정에서 사진 선택
+          incompatible: 호환되지 않는 라이선스
+        title: Flickr 계정에서 사진 선택
+      show:
+        action:
+          link: Flickr 계정 연결
+          unlink: Flickr 계정 연결 해제
+        status:
+          linked: Flickr가 %{username}님 안으로 연결되어 있습니다
+          unlinked: Flickr 안으로 연결되어 있지 않습니다
+    home:
+      heading: 제1차 세계 대전의 말할 수 없을 이야기와 공식 역사들
+      links:
+        across_europe: 유럽을 건너
+        see_english: 영어 홈페이지를 보세요
+        video_guide: 단계별 동영상 안내서
+      p1: <em>유로피아나 1914-1918</em>은 %{across_europe}에서 자료를 모읍니다.
+      upcoming_overview: 우리의 최신 뉴스와 사건의 전체 둘러보기에 대해서는 %{see_english}.
+    links:
+      back: '%{link}(으)로 돌아가기'
+      back-to-search: 검색 결과로 돌아가기
+      previous_step: 이전 페이지
+      privacy_policy: 개인정보 정책
+    register:
+      help_text:
+        email: 이 이메일 주소와 당신이 지정한 비밀번호를 사용하여 로그인하게 됩니다.
+        password: 비밀번호는 6 문자 이상을 포함해야 합니다
+        profile_image: |-
+          이 그림은 사용자의 기여와 나란히 표시됩니다<br />
+          최대 파일 크기 = 128kb
+        profile_photo: 원한다면, 자신의 사진을 올리세요 (GIF 또는 JPEG). 사진이 이야기 옆에 표시될 것입니다.
+      labels:
+        age_range: 연령대
+        email: 이메일
+        gender: 성별
+        password: 비밀번호
+        password_repeat: 비밀번호 다시 입력
+        profile_image: 프로필 그림
+        profile_photo: 프로필 사진
+        residence:
+          country: 거주 국가를 선택하십시오
+          post_code: 우편 번호
+        user_name: 사용자 이름
+      terms:
+        accept: '%{terms}에 동의합니다'
+        heading: 이용 약관
+        item1: 제출하려는 디지털 자료는 저작권의 보호를 받지 않습니다; 또는
+        item2: 자신이 이 디지털 자료에 권리가 있습니다; 또는
+        p2: <b>다음 내용에 보증합니다:</b>
+        p3: 이러한 약관에 동의하지 않는다면, 유로피아나에 데이터에 대한 내용이나 설명을 기여하지 말아 주십시오.
+        terms: 이용 약관
+    search:
+      facets:
+        common:
+          category: 분류
+          collection: 모음집
+          contributor: 기여자
+          country: 국가
+          creator: 만든이
+          format: 형식
+          language: 언어
+          location: 위치
+          media: 미디어 유형
+          provider: 제공자
+          rights: 권리
+          subject: 제목
+          type: 유형
+          year: 년
+        contributions:
+          collection_day: 모음집 날
+          content: 항목 유형
+          file_type: 미디어 유형
+          keywords: 핵심 단어
+          lang: 언어
+          license: 라이선스
+          place_name: 지역 이름
+          protagonist_names: 주인공 이름
+          provider: 제공자
+          theatres: 극장
+        digitalnz:
+          content_partner: 콘텐츠 파트너
+        europeana:
+          data_provider: 데이터 제공자
+          reusability: 재사용 가능 여부
+          source_all: 모든 유로피아나 결과
+          source_info: 공개 또는 도서관/박물관 모음집에서의 이야기를 보도록 선택한 경우 더 많은 필터 옵션을 사용할 수 있습니다.
+          source_institution: 도서관/박물관 모음집만
+          source_label: 출처
+          source_ugc: 공개에서의 이야기
+          ugc: 사용자가 생성한 내용
+          uri: 제목
+        matches_for: 다음과 일치
+      providers:
+        canadiana: 캐나다 자료
+        collection: 유로피아나
+        contributions: 1914-1918
+        digitalnz: 뉴질랜드 자료
+        dpla: 미국 자료
+        europeana: 유로피아나 포털
+        trove: 호주 자료
+    statistics:
+      index:
+        contributions:
+          heading: 기여
+          institutional: 기관 항목
+          ugc: 우리의 사용자로부터
+        intervals:
+          last_month: 지난 달
+          last_quarter: 지난 분기
+          last_week: 지난 주
+          last_year: 지난 해
+          this_month: 이번 달
+          this_week: 이번 주
+        metrics:
+          avgtimeonsite: 사이트의 시간
+          europeana_pageviews: 기관 항목 보기
+          object_pageviews: 이야기 보기
+          visits: 방문
+        no_results: 사용할 수 있는 통계가 없습니다.
+        providers:
+          canadiana: Canadiana (캐나다)
+          digitalnz: DigitalNZ (뉴질랜드)
+          dpla: DPLA (미국)
+          europeana: 유로피아나
+          trove: Trove (오스트레일리아)
+        title: 사용 통계
+    table:
+      header:
+        actions: 동작
+    taggings:
+      depublish:
+        question: 이 이야기의 맥락에서 이 태그를 게시 취소하겠습니까?
+        title: 태그 게시 취소
+      edit:
+        title: 태그 편집
+    tags:
+      add: 추가
+      delete:
+        question: 이 태그를 제거하시겠습니까?
+        title: 태그 제거
+      flag:
+        question: 이 태그를 부적절한 것으로 플래그하겠습니까?
+        title: 부적절한 것으로 플래그
+      info: 쉼표로 각 태그를 구분하고 추가하려면 enter를 누르세요.
+    users:
+      _summary:
+        caption: 로그인 자세한 사항
+      account:
+        caption: 개인 자세한 사항
+        links:
+          edit_contact: 개인 자세한 사항 편집
+          edit_user: 로그인 자세한 사항 편집
+        title: 사용자 계정
+      sign-in:
+        help: 로그인하려면 사용자 이름이나 이메일 주소를 사용하세요. 둘 다 사용할 필요는 없습니다.
+  will_paginate:
+    entry_range_label: 결과 %{total}개 중 %{first}–%{last}
+    first_title: 처음 문서
+    last_title: 마지막 문서
+    next_label: '>'
+    next_title: 다음 문서
+    page_entries_info:
+      multi_page: '%{model} 총 %{count}개 중 %{from} - %{to} 보여주는 중'
+      multi_page_html: '%{model} 총 <b>%{count}</b>개 중 <b>%{from}&nbsp;-&nbsp;%{to}</b>
+        보여주는 중'
+      single_page:
+        one: '%{model} 1개 보여주는 중'
+        zero: 찾은 %{model} 없음
+        other: 모든 %{model} %{count}개 보여주는 중
+      single_page_html:
+        one: '%{model} <b>1</b>개 보여주는 중'
+        zero: 찾은 %{model} 없음
+        other: <b>모든</b> %{model} <b>%{count}</b>개 보여주는 중
+    page_gap: '&hellip;'
+    page_total_label: '%{total_pages} 중'
+    per_page_label: '문서당 결과:'
+    per_page_title: 페이지에 표시되는 결과 수
+    previous_label: <
+    previous_title: 이전 문서
+...

@@ -70,6 +70,7 @@ lb:
         cataloguing: nëmme katalogiséieren
         field_type: Typ
         hint: Tipp
+        multi: Multi-Selektioun
         name: Nummer (ID)
         position: Positioun
         required: Obligatoresch
@@ -369,6 +370,12 @@ lb:
       depublish:
         alert: Publikatioun vun der Notiz konnt net zréckgezu ginn.
         notice: Publikatioun vun der Notiz zréckgezunn.
+      flag:
+        notice: Bemierkung markéiert als net appropriéiert.
+      unflag:
+        alert: Läsche vun der Markéierung vun enger Bemierkung als net appropriéiert
+          huet net funktionéiert.
+        notice: Eng Notiz net méi als net passend markéiert.
     attachments:
       create:
         alert: Et gouf e Problem beim Späichere vum Fichier deen Dir drugehaang hutt.
@@ -376,6 +383,7 @@ lb:
         notice: Element gespäichert.
       destroy:
         alert: Et gouf e Problem beim Läsche vum Fichier deen Dir drugehaang hutt.
+        notice: Fichier geläscht.
       links:
         view-attachments_html: <a href="#attachments">Klickt fir se ze gesinn an se
           z'änneren</a>.
@@ -430,6 +438,8 @@ lb:
         alert: Äre Benotzerkont konnt net ugeluecht ginn.
       update:
         alert: Äre Kont konnt net aktualiséiert ginn.
+    fields:
+      reindexing: D'Sichmschinn gëtt am Hannergrond re-indexéiert.
     flickr:
       import:
         alert:
@@ -453,6 +463,9 @@ lb:
     status:
       alert: 'Alarm:'
       notice: 'Notiz:'
+    taggings:
+      depublish:
+        notice: Markéierung net méi publizéiert!
     tags:
       contribution:
         create:
@@ -522,6 +535,9 @@ lb:
     create: '%{model} uleeën'
     hints:
       attachment:
+        dropbox_path: Sicht e Fichier aus Ärem Dropbox-Folder "Apps/Europeana 1914-1918"
+          eraus. Fichiere, vun engem Typ deen net erlaabt ass, oder déi ze grouss
+          sinn, ginn net gewisen.
         edit:
           file: 'Lued nëmmen en neie Fichier erop wann Dir deen deen et gëtt ersetze
             wëllt. Maximal Gréisst: %{max}. Erlaabt Typen: %{file_types}.'
@@ -1129,6 +1145,8 @@ lb:
       privacy_policy:
         p1: Mir wäerten Ären Numm zesumme mat Äre Kontributiounen ëffentlech weisen
           esoubal wéi se akzeptéiert goufen.
+        p2: Mir benotzen all Är Kontaktdaten, déi Dir uginn hutt, inklusiv Är E-Mailadress
+          nëmme fir Iech a Relatioun mat Äre Kontributiounen ze kontaktéieren.
         p3: Mir wäerten Är Kontaktdaten ni un eng aner Organisatioun weiderginn.
         p4: Fir méi ze wëssen iwwer den <a http://www.europeana.eu/portal/privacy.html
           target="_blank">Dateschutz bei Europeana</a>.
@@ -1208,6 +1226,9 @@ lb:
           New Zealand'.
       events:
         heading: Aktiounsdeeg
+        p4: Wann Dir interesséiert sidd fir selwer en Aktiounsdag z'organiséiere fir
+          Material ze digitaliséieren an op Europeana 1914-18 dobäizesetzen, dann
+          hëllef mir Iech gären <a href="http://pro.europeana.eu/web/europeana-1914-1918">dobäi</a>
       get_involved:
         contribute_online:
           heading: Maacht Är Kontributioun online
@@ -1330,6 +1351,7 @@ lb:
           metadata_fields:
             text: Metadatefelder
           reindex:
+            description: Den Index vun der Sichmaschinn aktualiséieren.
             text: Sichmaschinn nei indexéieren
           statistics:
             description: Statistike vun de Geschichte pro Joer weisen.
@@ -1431,9 +1453,13 @@ lb:
       unflag:
         question: Sidd Dir séchert datt Dir d'Markéierung vun dëser Notiz als net
           passend ewechuele wëllt?
+        title: Eng Notiz net méi als net passend markéieren
     attachments:
       _form:
         dropbox:
+          connect_html: Wann Dir en Dropbox-Benotzerkont hutt, da kënnt Dir eis Fichieren
+            direkt vun Ärer Dropbox schécken. Wann dir déi Méiglechkeet benotze wëllt
+            da <a href="%{href}">connectéiert Iech mat Ärem Dropbox-Benotzerkont</a>
           connected_html: Dir sidd mat Dropbox als <strong>%{user}</strong> verbonn
           disconnect: Verbindung mat Ärem Dropbox-Benotzerkont ewechhuelen
           refresh: Lëscht vun de Fichieren aktualiséieren
@@ -1637,6 +1663,7 @@ lb:
         links:
           titles:
             show_contribution: Kontributioun weisen
+        matches-for: 'Resultater fir:'
         no_matches: Näischt fonnt. Probéiert w.e.g nach eng Kéier.
         related-europeana: Ähnlechen Inhalt um Europeana Portal
         result_count_label: Resultater
@@ -1713,14 +1740,23 @@ lb:
         links:
           edit_contact: Kontaktdaten änneren
           new: Nei Kontributioun
+        notice: '%{name}, Dir bedeelegt Iech als Gaascht.'
+        privacy: Wann Dir mat Ärer Contributioun fäerdeg sidd, da benotzt de Knäppchen
+          hei drënner fir Är Kontaktinformatiounen ewechzehuelen. Dat hëlleft eis
+          Är Privatsphär op engem gedeelte Computer ze schützen.
         title: Iwwersiicht fir Gäscht
       guests:
+        edit:
+          title: Gaascht-Kontaktdaten änneren
         new:
           contact_details: 'Soss, gitt eis w.e.g. d''éischt Är Kontaktdonnéeën:'
           guest: Dir bedeelegt Iech als Gaascht.
           links:
             register: registréieren
             sign_in: aloggen
+          notice: Wann Dir Är Kontaktdate späichere wëllt an Är Kontributioune verfollege
+            wëllt nodeem se gespäichert sinn, da %{sign_in} oder %{register} ier Dir
+            virufuert.
           title: Gaascht-Kontaktdaten
       help:
         adding_your_story:
@@ -1886,6 +1922,7 @@ lb:
         common:
           category: Kategorie
           collection: Sammlung
+          contributor: Contributeur
           country: Land
           format: Format
           language: Sprooch
@@ -1955,7 +1992,11 @@ lb:
         actions: Aktiounen
     tags:
       add: Derbäisetzen
+      delete:
+        title: Markéierung ewechhuelen
       flag:
+        question: Sidd Dir séchert datt Dir dës Markéierung als net passend markéiere
+          wëllt?
         title: Als onpassend markéieren
       info: trennt all Tag mat engem Komma an dréckt 'Enter' fir derbäizesetzen.
     users:
