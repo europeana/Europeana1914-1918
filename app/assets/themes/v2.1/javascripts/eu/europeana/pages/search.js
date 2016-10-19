@@ -247,13 +247,11 @@
 
       console.log('facetAction = ' + facetAction);
 
-      ga('send', {
-        hitType: 'event',
-        eventCategory: 'Facets',
-        eventAction: facetAction,
-        eventLabel: 'Facet selection'
-      });
-
+      com.google.analytics.trackEvent(
+        'Facets',
+        facetAction,
+        'Facet selection'
+      );
 
       e.preventDefault();
       e.stopPropagation();
