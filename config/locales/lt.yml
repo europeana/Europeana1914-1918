@@ -1,0 +1,2062 @@
+# Messages for Lithuanian (lietuvių)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Eitvys200
+# Author: Macofe
+# Author: Zygimantus
+---
+lt:
+  actions:
+    add: Pridėti
+    approve: Patvirtinti
+    cancel: Atšaukti
+    copy: Kopijuoti
+    delete: Ištrinti
+    depublish: Nebepublikuoti
+    download: Atsisiųsti
+    edit: Redaguoti
+    edit_story: Keisti istoriją
+    filter: Filtras
+    flag: Žymėti
+    import: Importuoti
+    new: Naujas
+    reject: Atmesti
+    remove: Pašalinti
+    save: Išsaugoti
+    submit: Pateikti
+    unflag: Atžymėti
+    update: Atnaujinti
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Dropbox failas
+        file: Failas
+        file_content_type: Turinio tipas
+        file_created_at: Sukurta
+        file_file_name: Failo vardas
+        file_file_size: Failo dydis
+        file_updated_at: Atnaujinta
+        metadata: Metaduomenys
+        preview: Peržiūra
+        public: Viešas
+      collection_day:
+        description: Aprašymas
+        end_date: Pabaigos data
+        image: Paveikslėlis
+        name: Pavadinimas
+        start_date: Pradžios data
+        taxonomy_term_id: Taksonominis terminas
+      contact:
+        age: Amžius
+        country: Gyvenamoji šalis
+        full_name: Pilnas vardas
+        gender: Lytis
+        locality: Miestas
+        postal_code: Pašto kodas
+        region: Apskritis
+        street_address: Gatvės adresas
+        tel: Telefono numeris
+      contribution:
+        approved_by: Patvirtino
+        approver: Patvirtino
+        attachments: Elementai
+        catalogued_by: Katalogo sudarytojas
+        cataloguer: Katalogo sudarytojas
+        contributor: Autorius
+        created_at: Pradėta
+        metadata: Metaduomenys
+        published_at: Publikuota
+        submitted_at: Pateikta
+      contribution_status:
+        created_at: Būsena pakeista
+      metadata_field:
+        cataloguing: Tik katalogavimas
+        field_type: Tipas
+        hint: Patarimas
+        multi: Keli pasirinkimai
+        name: ID
+        position: Pozicija
+        required: Privaloma
+        searchable: Ieškomas
+        show_in_listing: Rodyti sąraše
+      metadata_record:
+        field_alternative: Lauko alternatyva
+      setting:
+        name: Pavadinimas
+        value: Vertė
+      taxonomy_term:
+        metadata_field: Laukas
+        term: Terminas
+      user:
+        created_at: Registracijos data
+        institution: Institucija
+        password: Slaptažodis
+        password_confirmation: Pakartokite slaptažodį
+        role_name: Vaidmuo
+        terms: Terminai
+        username: Vartotojo vardas
+    errors:
+      messages:
+        accepted: Turite sutikti, kad tęstumėte.
+        blank: Šis laukas yra privalomas; jis negali būti tuščias.
+        confirmation: Ne toks pat kaip patvirtinime.
+        empty: negali būti tuščias
+        equal_to: turi būti lygus %{count}
+        even: turi būti lygus
+        exclusion: rezervuotas
+        greater_than: turi būti didesnis už %{count}
+        greater_than_or_equal_to: turi būti didesnis arba lygus %{count}
+        inclusion: Pasirinkite reikšmę iš sąrašo.
+        invalid: Neleistina įvestis; patikrinkite, įvesties formatą.
+        less_than: turi būti mažiau nei %{count}
+        less_than_or_equal_to: turi būti mažesnis arba lygus %{count}
+        not_a_number: Ši reikšmė nėra skaičius, tačiau turėtų būti.
+        not_an_integer: turi būti sveikasis skaičius
+        odd: turi būti nelyginis
+        record_invalid: 'Patvirtinimas nepavyko: %{errors}'
+        taken: Šis laukas turi būti unikalus, bet įvesta reikšmė jau egzistuoja mūsų
+          sistemoje.
+        too_long: per ilgas (ilgiausias yra %{count} simboliai)
+        too_short: per trumpas (minimalus yra %{count} simboliai)
+        wrong_length: yra neteisingo ilgio (turėtų būti %{count} simbolių)
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: Šis failų tipas neleidžiamas.
+              presence: Pasirinkite failą įkėlimui.
+              size: Įkelto failo dydis yra per didelis.
+        collection_day:
+          attributes:
+            image:
+              content_type: Leidžiama tik JPEG ir GIF vaizdai.
+          end_date_follows_start_date: Pabaigos data turi būti vėlesnė už pradžios
+            datą.
+        contribution:
+          attachments:
+            uploaded: Kai kurie failai dar yra keliami.
+          attributes:
+            guest_id:
+              present: Kontaktiniai duomenys yra reikalingi svečių įnašams.
+        metadata_field:
+          attributes:
+            cataloguing:
+              optional: Katalogavimo laukai negali būti privalomi.
+            contribution:
+              or_attachment: Laukas turi būti skirtas įnašams ir/ar priedams
+            field_type:
+              constancy: Lauko tipas negali būti pakeistas.
+        metadata_record:
+          date_field_civil: Neteisinga kalendoriaus data.
+          one_cover_image: Galite pasirinkti tik vieną objektą kaip savo istorijos
+            pagrindinį paveikslėlį.
+          taxonomy_field_single: Gali būti pasirinktas tik vienas terminas.
+        setting:
+          attributes:
+            name:
+              inclusion: nėra registruotas konfigūracijos nustatymas
+        user:
+          attributes:
+            current_password:
+              invalid: Neteisingas slaptažodis
+            email:
+              taken: Vartotojo paskyra su šiuo el. pašto adresu jau egzistuoja.
+            picture:
+              content_type: Profilio nuotrauka turi būti GIF arba JPEG.
+      template:
+        body: 'Kilo problemų su šiais laukais:'
+        header:
+          one: 1 klaida neleidžia išsaugoti šio %{model}
+          other: '%{count} klaidos neleidžia išsaugoti šio  %{model}'
+    models:
+      annotation: Paveikslėlio anotacija
+      attachment: Elementas
+      collection_day: Kolekcijos diena
+      contact: Kontaktai
+      contribution: Istorija
+      institution: Institucinis teikėjas
+      metadata_field: Metaduomenų laukas
+      metadata_record: Metaduomenų įrašas
+      tag: Žyma
+      tagging: Žymėjimas
+      taxonomy_term: Taksonominis terminas
+      user: Vartotojas
+    options:
+      contact:
+        gender:
+          female: Moteris
+          male: Vyras
+      metadata_field:
+        field_type:
+          date: Data
+          geo: Geografinė vieta
+          string: Vienos eilutės tekstas
+          taxonomy: Taksonomija
+          text: Kelių eilučių tekstas
+      user:
+        role_name:
+          administrator: Administratorius
+          blank: Bet koks vaidmuo
+          cataloguer: Katalogo sudarytojas
+          contributor: Autorius
+  attributes:
+    contact: Kontaktas
+    created_at: Sukurta
+    email: El. paštas
+    id: ID
+    metadata_record: Metaduomenys
+    status: Būsena
+    title: Pavadinimas
+    updated_at: Atnaujinta
+    url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Šalis
+          data_provider_sm: Duomenų teikėjas
+          metadata_collection_day_ids_im: Surinkimo diena
+          metadata_content_ids_im: Elemento tipas
+          metadata_file_type_ids_im: Laikmenos tipas
+          metadata_keywords_ids_im: Raktiniai žodžiai
+          metadata_lang_ids_im: Kalba
+          metadata_theatres_ids_im: Teatrai
+          place_name_s: Vietovės pavadinimas
+          provider_sm: Teikėjas
+          rights_sm: Teisės
+          type_s: Tipas
+          uri_sm: Tema
+          year_sm: Metai
+  common:
+    additional-information: Papildoma informacija
+    download-item: Atsisiųsti šį elementą
+    editors_blog:
+      more_stories: Daugiau istorijų <a href="http://thegreatwararchive.blogspot.com/search/label/en">Redaktoriaus
+        pasirinkimų svetainėje</a>
+    editors_pick:
+      heading: Redaktorius pasirinkimas
+      more_stories: <b>Daugiau istorijų %{explore_stories} puslapyje.</b>
+    featured-categories: Rekomenduojamos kategorijos
+    google_maps:
+      help_text: |-
+        <li><b>Automatiniai pasiūlymai</b> : Įveskite šalies pavadinimą ar adresą, Google Žemėlapiai pabandys surasti galimą adresą.</li>
+        <li><b>Konkretus adresas</b> :Įveskite konkretų adresą ar geografines koordinates ir paspauskite „Pirmyn“ mygtuką, ignoruokite automatinius Google žemėlapių pasiūlymus.</li>
+        <li><b>Žemėlapio žymekliai</b> : Kai žemėlapio žymeklis yra žemėlapyje, pavyzdžiui po to kai įvedėte adresą, galite jį perkelti į bet kurią vietą.</li>
+        <li><b>Priartinimas</b> : Priartinkite ar atitolinkite žemėlapį naudodami  + ar - esančius slankiklyje kairėje žemėlapio pusėje.</li>
+      label: Naudoti Google Maps (pasirinktinai)
+    help_text:
+      mandatory: privalomas laukas
+    labels:
+      add-keywords: Pridėti savo raktinius žodžius
+      co_funded: bendrai finansuojama Europos Sąjungos
+    links:
+      about_the_project: Apie Europeana 1914-1918 projektą
+      add-your-story: Pridėkite savo istoriją!
+      add-your-story-brief: Pridėti!
+      annotorious: Objektas turi prisegtų pastabų. Atverkite objektą, kad perskaitytumėte.
+      contact_us: Susisiekite su mumis
+      contact_us_email: Taip pat galite su mumis susisiekti el. pašto adresu <span
+        class="addr">1914-1918 [@] europeana [.] eu</span>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
+        target="_blank">Europeana Sąlygos Vartotojų Įnašams</a>
+      contribution_terms: Europeana Sąlygos Vartotojų Įnašams
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Sužinokite
+        daugiau apie filmuotos medžiagos rinkimą</a>.
+      explore-the-stories: Tyrinėti istorijas!
+      explore-the-stories-brief: Naršyti!
+      explore_stories: Tyrinėti istorijas
+      help: Pagalba
+      my_account: Mano paskyra
+      my_stories: Mano istorijos
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">Sužinokite daugiau apie nacionalinių kolekcijų surinkimą vienoje
+        vietoje</a>.
+      play-audio: Groti garso įrašą
+      play-video: Groti video
+      privacy_policy: Privatumo politika
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">Daugiau
+        informacijos mūsų projekto svetainėje</a>
+      project_website_v2: <a href="http://pro.europeana.eu/web/europeana-1914-1918"
+        target="_blank">Sužinokite daugiau apie šeimų istorijų rinkimą</a>.
+      register: Registruotis
+      sign_in: Prisijungti
+      statistics: Statistika
+      takedown_policy: Pašalinimo Politika
+      titles:
+        contribution_terms: Žiūrėti Europeana Sąlygas Vartotojų Įnašams
+        great_war: Oksfordo Universiteto Great War Archive
+        takedown: Į Pašalinimo Politikos puslapį
+      view-image: Peržiūrėti pilną elementą
+      view-pdf: Atidaryti dokumentą
+    map_contribution_heading: Ši istorija įvyko
+    menus:
+      main:
+        about: Apie
+        add: Pridėti savo istoriją
+        collection-days: Kolekcijos dienos
+        explore: Naršyti
+        home: Pradžia
+        remix: Neįtikėtina Draugystė
+        select_language: Pasirinkite kalbą
+        sign_in: Prisijungti
+        sign_out: Atsijungti
+      menu: Meniu
+    more-at: Daugiau
+    news: Naujienos
+    "no": Ne
+    options:
+      close: Uždaryti
+      open: Atidaryti
+      other_option: Kita
+    other:
+      contributor: Autorius
+      preview: Peržiūra
+      title: Pavadinimas
+      total: Viso
+    "yes": Taip
+  date:
+    formats:
+      long_with_day: '%a, %d %B %Y'
+      month_and_year: '%B %Y'
+      quarter: '%{number} ketvirtis %Y'
+  devise:
+    failure:
+      admin:
+        unauthenticated: Turite prisijungti prieš tęsiant.
+      invalid: Neteisingas vartotojo vardas/el. paštas arba slaptažodis.
+      invalid_token: Neteisingas autentifikacijos žetonas
+      timeout: Jūsų sesijos galiojimo laikas pasibaigė, prašome prisijungti iš naujo,
+        kad tęstumėte.
+      unauthenticated: Turite prisijungti arba užsiregistruoti prieš tęsiant.
+    mailer:
+      reset_password_instructions:
+        subject: Slaptažodžio perstatymo instrukcijos
+    passwords:
+      link: Pamiršote slaptažodį?
+      send_instructions: Jums buvo išsiųstas el. laiškas su instrukcijomis, kaip iš
+        naujo nustatyti jūsų slaptažodį.
+      updated: Jūsų slaptažodis buvo sėkmingai pakeistas. Jūs dabar esate prisijungęs.
+    registrations:
+      destroyed: Iki! Jūsų paskyra buvo sėkmingai panaikinta. Mes tikimės jus vėl
+        pamatyti.
+      link: Registruotis
+      signed_up: Jūs sėkmingai užsiregistravote.
+      updated: Jūs sėkmingai atnaujinote savo paskyrą.
+    sessions:
+      link: Prisijungti
+      signed_in: Sėkmingai prisijungėte.
+      signed_out: Sėkmingai atsijungėte.
+  flash:
+    actions:
+      create:
+        alert: Iškilo problema kuriant %{resource_name}. Žiūrėkite žinutę žemiau.
+        notice: Sukurtas naujas %{resource_name}.
+      destroy:
+        alert: Kilo problema trinant %{resource_name}.
+        notice: '%{resource_name} buvo sėkmingai ištrintas.'
+      taggings:
+        notice: Žymėjimas nebeskelbiamas.
+      update:
+        alert: Kilo problema atnaujinant %{resource_name}. Žiūrėkite žinutę žemiau.
+        notice: '%{resource_name} atnaujintas.'
+    annotations:
+      depublish:
+        alert: Nepavyko atšaukti anotacijos publikavimo.
+        notice: Anotacija nebeskelbiama.
+      flag:
+        alert: Nepavyko pažymėti anotacijos kaip netinkamos.
+        notice: Anotacija pažymėta kaip netinkama.
+      unflag:
+        alert: Nepavyko atžymėti anotacijos kaip netinkamos.
+        notice: Anotacija atžymėta kaip netinkama.
+    attachments:
+      create:
+        alert: Iškilo problema bandant išsaugoti jūsų priedą.
+        invalid_files: Kai kurie failai nebuvo išsaugoti.
+        notice: Elementas išsaugotas.
+      destroy:
+        alert: Iškilo problema ištrinant jūsų priedą.
+        notice: Priedas ištrintas.
+      duplicate:
+        notice: Mateduomenys nukopijuoti į kitus pasirinktus objektus.
+      links:
+        view-attachments_html: <a href="#attachments">Spauskite, kad peržiūrėtumėte
+          ir redaguotumėte juos</a>.
+      update:
+        alert: Kilo problema išsaugant jūsų priedą.
+        notice: Elementas išsaugotas.
+    configuration:
+      update:
+        alert: Nepavyko išsaugoti konfigūracijos.
+        notice: Konfigūracija atnaujinta.
+    contacts:
+      create:
+        alert: Nepavyko sukurti kontakto.
+        notice: Kontaktas sukurtas.
+      update:
+        alert: Nepavyko atnaujinti kontakto.
+        notice: Kontaktas atnaujintas.
+    contributions:
+      approve:
+        alert: Nepavyko patvirtinti įnašo.
+        notice: Įnašas sėkmingai patvirtintas.
+      destroy:
+        alert: Nepavyko ištrinti istorijos.
+        notice: Istorija ištrinta.
+      draft:
+        create:
+          alert: Kilo problema pradedant naują įnašą.
+        submit:
+          alert: Yra problema su jūsų įnašu. Žiūrėkite žinutes žemiau.
+          notice: Jūsų įnašas buvo išsiųstas. Ačiū! Tai bus patikrinta projekto darbuotojų
+            ir bus rodoma svetainėje po patvirtinimo. Užimtais laikotarpiai tai gali
+            užtrukti kelias savaites. Prašome jūsų supratimo ir kantrybės.
+        update:
+          alert: Kilo problema išsaugant jūsų įnašą.
+          notice: Įnašas išsaugotas.
+      reject:
+        alert: Nepavyko atmesti įrašo.
+        notice: Įnašas sėkmingai atmestas.
+      submitted:
+        edit:
+          alert: Šis įnašas jau buvo išsiųstas.
+      withdraw:
+        alert: Nepavyko pažymėti jūsų istorijos pašalinimui iš kolekcijos.
+        notice: Jūsų istorija buvo pažymėta pašalinimui iš kolekcijos.
+    contributors:
+      create:
+        alert: Jūsų paskyra negali būti sukurta.
+      update:
+        alert: Jūsų paskyra negali būti atnaujinta.
+    fields:
+      reindexing: Fone iš naujo indeksuojamas paieškos variklis.
+    flickr:
+      import:
+        alert:
+          empty: Nėra pasirinktų paveikslėlių
+          invalid_license: 'Šios nuotraukos turi nesuderinamas licencijas ir nebus
+            importuotos:'
+        notice: Flickr paveikslėliai perkeliami fone.
+    guest_contact:
+      create:
+        alert: Yra problemų su jūsų pateikta informacija. Prašome pataisyti ir bandyti
+          dar kartą.
+        notice: Kontakto duomenis gauti.
+      forget:
+        notice: Kontakto detalės išvalytos.
+      update:
+        alert: Yra problemų su jūsų pateikta informacija. Prašome pataisyti ir bandyti
+          dar kartą.
+        notice: Kontakto detalės atnaujintos.
+    metadata_fields:
+      update_order:
+        notice: Metaduomenų lauko tvarka atnaujinta.
+    status:
+      alert: 'Perspėjimas:'
+      notice: 'Pastaba:'
+    taggings:
+      depublish:
+        alert: Nepavyko atšaukti šio žymėjimo skelbimo.
+        notice: Žymė nebeskelbiama!
+    tags:
+      contribution:
+        create:
+          success: Jūsų žymės buvo pridėtos prie šios istorijos.
+      destroy:
+        success: Žymė pašalinta.
+      europeana_record:
+        create:
+          success: Jūsų žymės buvo pridėtos prie šio elemento.
+      flag:
+        success: Ši žyma buvo pažymėta kaip netinkama.
+    users:
+      create:
+        alert: Vartotojo paskyra negali būti sukurta.
+        notice: Vartotojo paskyra sukurta.
+      destroy:
+        notice: Vartotojas ištrintas.
+      register:
+        alert: Registracija nepavyko. Prašome pataisyti informaciją žemiau ir bandyti
+          dar kartą.
+        notice: Registracija sėkminga. Sveiki atvykę!
+      update:
+        alert: Vartotojo paskyra negali būti atnaujinta.
+        notice: Vartotojo paskyra atnaujinta.
+  formtastic:
+    actions:
+      attachment:
+        add_edit: Pridėti/Redaguoti elementus
+        create: Įkelti
+        delete: Ištrinti elementą
+        update: Išsaugoti
+      contribution:
+        create: Tęsti
+        delete: Ištrinti istoriją
+        save_draft: Išsaugoti istorijos šabloną
+        submit: Siųsti istoriją
+        update: Atnaujinti įnašą
+        withdraw: Atsiimti
+      contributor:
+        create: Registruotis
+      create: Siųsti
+      delete: Ištrinti
+      filter:
+        submit: Atnaujinti
+      metadata_field:
+        delete: Ištrinti metaduomenų lauką
+        reindex: Indeksuoti paieškos variklį iš naujo
+      password:
+        create: Siųsti
+        update: Keisti mano slaptažodį
+      search:
+        submit: Ieškoti
+      sign_in: Prisijungti
+      submit: Išsaugoti
+      tag:
+        flag: Pažymėti kaip netinkamą
+      taxonomy_term:
+        import: Importuoti
+      update: Išsaugoti pakeitimus
+      upload: Įkelti
+      user:
+        create: Registruotis
+        delete: Ištrinti paskyrą
+        update: Atnaujinti
+    create: Sukurti %{model}
+    hints:
+      attachment:
+        dropbox_path: Pasirinkite failą kopijavimui iš savo Dropbox aplanko „Apps/Europeana
+          1914-1918“. Failai, kurie yra neleidžiamo tipo ar yra per dideli nebus rodomi.
+        edit:
+          file: 'Įkelkite naują failą tik tada jei norite pakeisti jau egzistuojantį.
+            Maksimalus failo dydis: %{max}. Leidžiami failo tipai: %{file_types}.'
+        file: Įkelti failą
+        metadata:
+          attachment_description: Apibūdinkite objekto fizines savybes ir ką jis jums
+            reiškia.
+          content: Koks tai objektas (pavyzdžiui poema, laiškas, nuotrauka); pasistenkite
+            būti kuo konkretesni.
+          cover_image: Viršelio nuotrauka atspindi jūsų istoriją mūsų kolekcijoje;
+            tai panašu į knygos viršelį. Tai gali būti nuotrauka to, apie ką yra ši
+            istorija, titulinis dienoraščio puslapis ar medalio nuotrauka.
+          creator_given_name: Žmogaus sukūrusio originalų objektą vardas, pavyzdžiui
+            laiško ar dienoraščio autorius ar fotografas.
+          date_from: Nusakykite kada objektas buvo sukurtas, pavyzdžiui, kada buvo
+            parašytas laiškas ar kada objektas prasidėjo, pavyzdžiui, kada buvo pradėtas
+            dienoraštis. Jei nežinote tikslios datos, prašome nusakyti tik metus arba
+            metus ir mėnesį.
+          date_to: Objekto pabaigos data, pavyzdžiui, paskutinio dienoraščio įrašo
+            data.
+          forces: 'Prašome nespausti, jei jis netinka. Jei tinkamas raktažodis nėra
+            prieinamas prašome atsiųsti mums el. laišką adresu: 1914-1918 [@] europeana
+            [.] eu'
+          format: Objekto, kuris buvo suskaitmenintas medžiaga (pavyzdžiui popierius,
+            kortelė, juostelė).
+          keywords: 'Priskirkite tik tuos raktažodžius, kurie apibūdina pagrindinį
+            objektą ar platesnę sąvoką. Šie raktažodžiai padeda mums paryškinti jūsų
+            istoriją mūsų istorijų kolekcijoje. Jei tinkamas raktažodis nėra prieinamas
+            prašome parašyti mums el. pašto adresu: 1914-1918 [@] europeana [.] eu'
+          lang: Nurodykite kalbą naudojama objekte, pavyzdžiui, kalba(-s) naudojamas
+            dienoraštyje.
+          location_placename: Įveskite miesto, kuriame objektas buvo sukurtas, pavadinimą
+            (kur buvo parašytas laiškas ar padaryta nuotrauka), pvz. Londonas ar Paryžius.
+          object_side: Objektui turinčiam dvi puses, pavyzdžiui atvirukui, nurodykite
+            pusę
+          page_number: Objektui su daug puslapių, įrašykite individualų puslapio numerį
+          subject: Žmogus ar vieta or objektai, apie ką yra šis daiktas.
+          theatres: 'Prašome nespausti, jei jis netinka. Jei tinkamas raktažodis nėra
+            prieinamas prašome atsiųsti mums el. laišką adresu: 1914-1918 [@] europeana
+            [.] eu'
+        new:
+          file: 'Galite įkelti tiek failų, kiek reikia; po vieną. Atkreipkite dėmesį,
+            jei įkelsite daug failų jums bus suteikta galimybė pažymėti vieną iš jų
+            kaip „viršelio paveikslėlį“ jūsų istorijai, pvz. atvirutei ar dienoraščiui.
+            Maksimalus failo dydis: %{max}. Leidžiami failo tipai: %{file_types}.'
+        title: Trumpas apibūdinantis pavadinimas ar atitinkamas objekto pavadinimas,
+          pavyzdžiui „Mano prosenelio Otto Schmidt garbės medalis“
+      contact:
+        full_name: Tai bus rodoma viešai kaip kreditas šalia patvirtintų įnašų.
+      contribution:
+        metadata:
+          contributor_behalf: Palikite tuščia, nebent jūs kažkam padedate atlikti
+            šį įnašą.
+          date_from: Nurodykite kada istorija įvyko. Jei nežinote kada tiksliai ji
+            įvyko, prašome pateikti tik metų lauką. Pvz. mano prosenelis buvo įtrauktas
+            1915 m. ir t.t.
+          date_to: Nurodykite kada istorija baigėsi. Jei nežinote kada tiksliai ji
+            įvyko, prašome pateikti tik metų lauką. Pvz. mano prosenelis buvo sužeistas
+            1916 m. ir t.t.
+          description: Parašykite savo įnašo istoriją.
+          forces: 'Prašome nespausti, jei jis netinka. Jei tinkamas raktažodis nėra
+            prieinamas prašome atsiųsti mums el. laišką adresu: 1914-1918 [@] europeana
+            [.] eu'
+          keywords: 'Priskirkite tik tuos raktažodžius, kurie apibūdina pagrindinį
+            objektą ar platesnę sąvoką. Šie raktažodžiai padeda mums paryškinti jūsų
+            istoriją mūsų istorijų kolekcijoje. Jei tinkamas raktažodis nėra prieinamas
+            prašome parašyti mums el. pašto adresu: 1914-1918 [@] europeana [.] eu'
+          lang: Nurodykite kokia kalba ši istorija yra parašyta.
+          location_placename: Nurodykite miesto, kuriame ši istorija įvyko, pavadinimą,
+            pvz. Londonas ar Paryžius.
+          theatres: 'Prašome nespausti, jei jis netinka. Jei tinkamas raktažodis nėra
+            prieinamas prašome atsiųsti mums el. laišką adresu: 1914-1918 [@] europeana
+            [.] eu'
+        title: Šio viso įrašo pavadinimas.
+      metadata_field:
+        attachment: Nurodykite ar šis laukas taikomas priedams.
+        cataloguing: 'Taip: šį lauką rodyti tik administratoriaus sąsajoje, katalogavimo
+          tikslais. Ne: rodyti ir pagalbininkams.'
+        contribution: Nurodykite ar šis laukas taikomas pagalbininkams.
+        field_type: Negali būti pakeista po to kai laukas yra išsaugojamas.
+        multi: Leisti kelių terminų pasirinkimą vienam įnašui/priedui.
+        name: 'Duomenų bazės pavadinimas laukui. Turi būti unikalus. Galimi simboliai:
+          a-z, 0-9, _'
+        required: 'Taip: pagalbininkai privalo kažką įvesti į lauką. Ne: laukas nėra
+          privalomas. Katalogavimo laukai turi būti neprivalomi.'
+        searchable: 'Taip: ieškant įnašų yra ieškomas šis metaduomenų laukas. Ne:
+          šis laukas nėra ieškomas. Pastaba: Pakeitus šią reikšmę turėtumėte iš naujo
+          indeksuoti paieškos variklį.'
+        searchable_no_sphinx: 'Pastaba: Metaduomenų laukų galima ieškoti tik tada
+          jei Sphinx paieškos variklis veikia &mdash; šiuo metu taip nėra.'
+        show_in_listing: Rodyti šį lauką sąrašuose, tokiuose kaip paieškos rezultatai.
+        title: Apibūdinantis lauko pavadinimas, kaip rodomas padėjėjams. Palikite
+          tuščią, kad būtų spėjama iš vardo.
+      metadata_record:
+        date: 'Formatas: MMMM-MM-DD, MMMM-MM ar MMMM, pvz. 1998-04-20, 1998-04 or
+          1998'
+        geo: 'Formatas: LAT,LNG, e.g. 51.500,-0.126 (Londonui)'
+      password:
+        new:
+          email: Įrašykite savo prisijungimo el. pašto adresą ir mes nusiųsime instrukcijas
+            slaptažodžio nustatymui iš naujo.
+      settings:
+        allowed_upload_extensions: Leidžiami įkeltų failų plėtiniai, atskirti kableliais,
+          pvz. „pdf,doc,jpg,gif“. Palikite tuščia, kad leistumėte visus plėtinius.
+        banner_active: Jei įjungta, techninės apžiūros pranešimas bus rodomas svetainėje,
+          naudojant žemiau pateiktą tekstą.
+        banner_text: Tekstas, kuris rodomas techninės apžiūros pranešime, jei įjungta
+          aukščiau.
+        bing_translate_key: Bing Translate raktas. Jei bus paliktas tuščias Microsoft
+          Bing Translate funkcijos neveiks.
+        contribution_approval_required: Jei įjungta, įnašai yra publikuojami tik po
+          patvirtinimo. Kitu atveju, publikuojami iškart išsiuntus. Negalioje jei
+          „Publikuoti įnašus“ yra išjungtas.
+        gmap_api_key: Google Maps API raktas. Be rakto, Google Maps negali būti naudojamas
+          geografinės vietos duomenų įvedimui. Registruotis rakto gavimui <http://code.google.com/apis/maps/signup.html>.
+        max_upload_size: Maksimalus įkėlimo dydis baitais.
+        publish_contributions: Įjungti viešą įnašų rodymą. Jei neįjungta, įnašai vistiek
+          gali būti surinkti, bet nėra rodomi viešai.
+        registration_required: Jei įjungta, žmonės turi užsiregistruoti, kad galėtų
+          padėti. Jei išjungta, žmonės gali padėti kaip svečiai pateikdami kontaktinius
+          duomenis.
+        site_name: Svetainės pavadinimas. Įprastai, tai bus rodoma puslapių pavadinimuose
+          ir antraštėje.
+        uploadify: Naudokite Uploadify priedų įkėlimų valdymui, įgalinami kelių failų
+          įkėlimai. Žiūrėkite <http://www.uploadify.com/> daugiau informacijos ir
+          pavyzdžių.
+      taxonomy_term:
+        term: Turi būti unikalus savo metaduomenų lauko srityje.
+      user:
+        current_password: Įveskite dabartinį slaptažodį jei norite pakeisti paskyros
+          informaciją.
+        edit:
+          password: Įveskite naują slaptažodį jei norite jį pakeisti, kitu atveju
+            palikite tai tuščią. Ne mažiau 6 simbolių.
+        email: Galite prisijungti naudojant šį el. pašto adresą vietoj savo vartotojo
+          vardo. Tai nėra būtina, tačiau rekomenduojame pateikti el. pašto adresą,
+          jei užmirštumėte savo slaptažodį.
+        password: Ne mažiau 6 simbolių
+        update:
+          password: Įveskite naują slaptažodį jei norite jį pakeisti, kitu atveju
+            palikite tai tuščią. Ne mažiau 6 simbolių.
+        username: 'Ne mažiau 3 simbolių. Galimi simboliai: a-z A-Z 0-9 - _ . @'
+    labels:
+      attachment:
+        metadata:
+          attachment_description: Aprašymas
+          attachment_file: Vienas failas
+          content: Tipas
+          cover_image: Viršelio paveikslėlis
+          creator: Autorius
+          creator_family_name: Kūrėjo pavardė
+          creator_given_name: Kūrėjo vardas
+          date: Data
+          date_from: Sukūrimo data / Pradžios data
+          date_to: Pabaigos Data
+          file_type: Laikmenos tipas
+          forces: Pajėgos
+          format: Technika
+          keywords: Raktiniai žodžiai
+          lang: Kalba
+          lang_other: Kalba (kita)
+          license: Licencija
+          location_map: Platuma ir ilguma
+          location_placename: Raskite, kur jūsų darbas buvo sukurtas.
+          location_zoom: Vietovės priartinimas
+          object_side: Pusė
+          page_number: Puslapio numeris
+          page_total: Iš viso puslapių
+          source: Šaltinis
+          subject: Tema
+          theatres: Teatrai
+          ticket: Bilieto numeris
+      collection_day:
+        contact:
+          country: Valstybė
+          full_name: Organizacija
+        delete_image: Ištrinti paveikslėlį
+      content:
+        metadata:
+          dc:
+            contributor: Autorius
+            country: Valstybė
+            coverage: Aprėptis
+            creator: Kūrėjas
+            date: Data
+            description: Aprašymas
+            format: Formatas
+            identifier: Identifikatorius
+            language: Kalba
+            publisher: Leidėjas
+            relation: Ryšys
+            rights: Teisės
+            source: Šaltinis
+            subject: Tema
+            terms_alternative: Alternatyvus pavadinimas
+            terms_extent: Apimtis
+            terms_medium: Technika
+            title: Pavadinimas
+            type: Tipas
+          dcterms:
+            alternative: Alternatyvus pavadinimas
+            extent: Apimtis
+            spatial: Vieta
+            temporal: Data
+          edm:
+            country: Teikianti šalis
+            data_provider: Duomenų teikėjas
+            external_partner_site: Peržiūrėti partnerio svetainėje
+            language: Kalba
+            partner_site: Peržiūrėti elementą
+            provider: Teikėjas
+            rights: Autorinės teisės
+      contribution:
+        metadata:
+          alternative: Alternatyvus pavadinimas
+          cataloguer: Katalogo sudarytojas
+          character1_dob: Gimimo data
+          character1_dod: Mirties data
+          character1_family_name: Pavardė
+          character1_given_name: Vardas
+          character1_pob: Gimimo vieta
+          character1_pod: Mirties vieta
+          character2_dob: Gimimo data
+          character2_dod: Mirties data
+          character2_family_name: Pavardė
+          character2_given_name: Vardas
+          character2_pob: Gimimo vieta
+          character2_pod: Mirties vieta
+          collection_day: Kolekcijos diena
+          contributor_behalf: Padėjo vardu
+          date_from: Istorija prasideda...
+          date_to: Istorija baigiasi...
+          description: Istorija
+          editor_pick: Redaktorius pasirinkimas
+          editor_pick_sig: Redaktorius pasirinkimo parašas
+          editor_pick_text: Redaktorius pasirinkimo tekstas
+          forces: Pajėgos
+          keywords: Raktiniai žodžiai
+          lang: Kalba
+          lang_other: Kalba (kita)
+          location_map: Platuma ir ilguma
+          location_placename: Raskite kur įvyko jūsų istorija
+          location_zoom: Vietovės priartinimas
+          summary: Objektų aprašymo santrauka
+          theatres: Teatrai
+          ticket: Bilieto numeris
+        terms: Aš sutinku su terminais ir sąlygomis
+        title: Istorijos pavadinimas
+      metadata_field:
+        contribution: Įnašas
+      taxonomy_term:
+        content:
+          Autograph: Autografas
+          Book: Knyga
+          Collection: Kolekcija
+          Diary: Dienoraštis
+          Drawing: Piešinys
+          Footage: Filmuota medžiaga
+          Interview: Interviu
+          Letter: Laiškas
+          Map: Žemėlapis
+          Medal: Medalis
+          Memoir: Memuaras
+          Memorabilia: Įžymybės
+          Multiple: Keli
+          Music: Muzika
+          Official Document: Oficialus dokumentas
+          Official document: Oficialus dokumentas
+          Other: Kita
+          Painting: Tapyba
+          Photograph: Nuotrauka
+          Poem: Eilėraštis
+          Postcard: Atvirukas
+          Publication: Publikacija
+          Weapon: Ginklas
+        cover_image:
+          "yes": taip
+        editor_pick:
+          "yes": taip
+        file_type:
+          3D: 3D
+          IMAGE: NUOTRAUKA
+          SOUND: GARSAS
+          TEXT: TEKSTAS
+          VIDEO: VIDEO
+        format:
+          Canvas: Drobė
+          Card: Kortelė
+          Ceramic/China: Keramika
+          Digital: Skaitmeninis
+          Leather: Oda
+          Metal: Metalas
+          Mixed: Mišrus
+          Other: Kita
+          Paper: Popierius
+          Photographic paper: Fotografinis popierius
+          Tape: Juosta
+          'Text: memoir': 'Tekstas: memuarai'
+          'Text: transcription': 'Tekstas: transkripcija'
+          Unknown: Nežinomas
+          Vinyl: Vinilas
+          Wood: Medis
+        keywords:
+          Artillery: Artilerija
+          Gas Warfare: Dujų Karas
+          Manufacture: Gamyba
+          Medical: Medicinos
+          Military Punishment: Karinė Bausmė
+          Prisoners of War: Karo belaisviai
+          Propaganda: Propaganda
+          Refugees: Pabėgėliai
+          Remembrance: Atmintis
+          Tanks and Armoured Fighting Vehicles: Tankai ir Šarvuočiai
+          Transport: Transportas
+          Women: Moteris
+        lang:
+          Dansk: Dansk
+          Deutsch: Deutsch
+          English: English
+          Français: Français
+          Gaeilge: Gaeilge
+          Italiano: Italiano
+          Magyar: Magyar
+          Nederlands: Nederlands
+          Other: Kita
+          Română: Română
+          Slovenčina: Slovenčina
+          Slovenščina: Slovenščina
+          português: Portuguese
+          Ελληνικά: Ελληνικά
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Atgal
+        source:
+          Artifact: Artefaktas
+          Book: Knyga
+          Film: Filmas
+          Journal: Žurnalas
+          Multiple: Keli
+          Newspaper: Laikraštis
+          Notebook: Užrašų knygelė
+          Other: Kita
+          Photograph: Nuotrauka
+          Postcard: Atvirukas
+          Tape: Juosta
+          Unknown: Nežinoma
+          Vinyl record: Vinilinė plokštelė
+        theatres:
+          African Wars: Afrika
+          Balkans: Balkanai
+          Eastern Front: Rytų Frontas
+          Italian Front: Italijos Frontas
+          Middle East: Artimieji Rytai
+          Naval Warfare: Jūrų Karas
+          Western Front: Vakarų Frontas
+      user:
+        delete_picture: Ištrinti paveikslėlį
+        terms: Aš priimu terminus ir sąlygas
+    "no": Ne
+    required: reikalingas
+    titles:
+      account_details: Prisijungimo informacija
+      admin_user: Prisijungimo informacija
+      attachment_dates: Kada buvo sukurtas šis elementas
+      attachment_details: Apibūdinkite savo elementą
+      attachment_front: Apie kurį frontą šis objektas
+      attachment_keywords: Padėkite kitiems surasti jūsų objektą pridėdami vieną ar
+        kelis šių raktažodžių.
+      attachment_location: Kus buvo sukurtas šis elementas
+      attachment_replace: Pakeisti priedą
+      attachment_upload: Pridėti priedą
+      contact_address: Adresas
+      contact_name: Pavadinimas
+      contact_other: Kontaktiniai duomenys
+      contribution_attachments: Elementai
+      contribution_terms: Terminai ir sąlygos
+      dropbox: Dropbox
+      fields: Laukai
+      metadata: Katalogo informacija
+      metadata_field_options: Specifinio tipo nustatymai
+      optional_details: Kita neprivaloma asmeninė informacija
+      personal_details: Asmeniniai duomenys
+      story_basics: Papasakok savo istoriją...
+      story_character1: Asmuo 1
+      story_character2: Asmuo 2
+      story_characters: Pasakykite mums apie ką šį istorija
+      story_dates: Kada ši istorija vyksta
+      story_forces: Ar šis elementas siejasi
+      story_front: Apie kurį frontą ši istorija
+      story_keywords: Padėkite kitiems surasti jūsų istoriją pridėdami vieną ar kelis
+        šių raktažodžių.
+      story_location: Kur įvyko ši istorija
+      submit: Siųsti savo istoriją
+    update: Atnaujinti %{model}
+    "yes": Taip
+  javascripts:
+    admin:
+      metadata_fields:
+        order: Tempkite laukus į vietas kurias jūs norite. Paspauskite "Išsaugoti"
+          kai baigsite.
+    annotorious:
+      clear-flag: Išvalyti žymę
+      flag: Žymė
+    attachments:
+      uploading: Kai kurie jūsų failai dar yra perkeliami. Kai jie visi bus baigti
+        jūs galėsite siųsti savo istoriją.
+    collection-days:
+      find-more: Sužinokite daugiau.
+      get-directions: Gauti nuorodas
+      legend: Legenda
+      next-collection-day: Kita kolekcijos diena yra <b>%{name}, %{city}, %{country}
+        %{start-date}
+      no-upcoming: Šiuo metu nėra artėjančių kolekcijos dienų.
+      past-entered: Ankstesnės kolekcijos dienos
+      past-not-entered: Ankstesnės kolekcijos dienos (istorijos dar nepublikuotas)
+      show-past: Rodyti ankstesnes kolekcijos dienas
+      upcoming: Artėjančios kolekcijos dienos
+      what-is-it: Kas yra Kolekcijos Diena?
+    contribute:
+      errors_shown: Kodėl gi ne? Žiūrėkite pranešimus aukščiau.
+      hide_errors: Slėpti klaidų pranešimus.
+      show_errors: Kodėl ne?
+    datepicker:
+      button_text: Rodyti kalendorių
+    digital_object:
+      hints:
+        copy_from_story: Paspaudus mygtuką aukščiai panašūs metaduomenys iš istorijos
+          bus nukopijuoti į šį objektą.
+      labels:
+        copy_from_story: Kopijuoti informacija
+      links:
+        copy_from_story: Kopijuoti iš istorijos
+    gmap:
+      canvas:
+        hide: Uždaryti Google Maps
+        hint: Perkelkite žymeklį į vietą "{{field}}".
+        label: Google Maps
+        show: Naudoti Google Maps
+      errors:
+        empty: Įveskite adresą ieškojimui.
+        present: Vienas žemėlapis jau atidarytas ekrane, prašome ji pirma uždaryti.
+        unknown: Adresas nerastas.
+      search:
+        button: Pirmyn
+        hint: Įveskite adresą paieškai žemėlapyje aukščiau.
+        label: Ieškoti adreso
+      static:
+        hide: Uždaryti žemėlapį
+        show: Rodyti Google Maps
+    leaflet:
+      label:
+        map_view: Žemėlapis
+        satellite_view: Palydovas
+    loading: kraunama ...
+    next: kitas →
+    previous: ← ankstesnis
+    search:
+      10seconds: Mes vis dar ieškome. Prašome palaukti!
+      30seconds: Tai užtruko ilgiau nei tikėtasi. Pabandykite kitą paiešką arba laukite
+        toliau!
+      60seconds: Šiuo metu yra problemų su paieška. Prašome pabandyti vėliau.
+    story:
+      took-place: 'Ši istorija įvyko:'
+    thumbnails:
+      item: Elementas
+      of: iš
+    translate:
+      return-to-language: Grįžti į originalo kalba
+      service-not-available: Vertimo paslaugos šiuo metu nepasiekiamos.
+      translate-to: Išversti į...
+    truncate:
+      show-less: Rodyti mažiau...
+      show-more: Rodyti daugiau...
+    uploadify:
+      basic_ui: Kyla problemų keliant failus? Pabandykite <a href="{{href}}">paprastą
+        įkėlimą</a>.
+      button_text: Pasirinkite failus
+      finished: Atgal į įnašus
+      hint: 'Galite įkelti kelis failus kaip grupę. Kiekvienas failas automatiškai
+        taps atskiru objektu, kuri galite redaguoti individualiai. Pastaba: Kad kelių
+        failų įkėlimas veiktu jums reikės turėti įdiegtą Flash savo naršyklėje. Maksimalus
+        failo dydis: {{size}}. Leidžiami failų tipai: {{types}}.'
+      label: Keli failai
+      saved: Išsaugota
+  languages:
+    da: Danų
+    de: Vokiečių
+    en: Anglų
+    fr: Prancūzų
+    ga: Airių
+    hu: Vengrų
+    nl: Olandų
+    pt: Portugalų
+    sk: Slovakų
+    sl: Slovėnų
+  layout:
+    navigation:
+      about: Apie
+      admin: Administratorius
+      browse: Naršyti
+      contact: Susisiekite su mumis
+      contribute: Prisidėti
+      help: Pagalba
+      home: Pradžia
+    software_engine: Veikia RunCoCo
+  locale: Lietuvių
+  mail:
+    contributions:
+      published:
+        greeting: Gerbiamas Europeana 1914-1918 pagalbininke,
+        signature: |-
+          Nuoširdžiausi linkėjimai,
+          Europeana 1914-1918 komanda
+        subject: Jūsų Europeana 1914-1918 įnašas buvo publikuotas
+    exports:
+      complete:
+        notice: 'Kolekcijos eksportavimas, kurį inicijavote yra baigtas ir gali būti
+          persisiųstas iš:'
+        subject: Kolekcijos eksportavimas baigtas
+  media_types:
+    all: Visi
+    binary: Dvejetainis failas
+    pdf: PDF
+    sound: Garso failas
+    spreadsheet: Skaičiuoklė
+    txt: Teksto failas
+    unknown: Nežinomas dokumento tipas
+    video: Vaizdo failas
+  settings:
+    allowed_upload_extensions: Leidžiami įkėlimų tipai
+    banner_active: Priežiūros baneris įgalintas
+    banner_text: Priežiūros banerio tekstas
+    bing_client_id: Bing kliento ID
+    bing_client_secret: Bing kliento paslaptis
+    bing_translate_key: Bing Vertėjo Raktas
+    contribution_approval_required: Publikuoti tik patvirtintus įnašus
+    gmap_api_key: Google Maps API raktas
+    google_analytics_key: Google Analytics Raktas
+    google_api_email: Google API el. paštas
+    max_upload_size: Maksimalus įkėlimo dydid
+    publish_contributions: Publikuoti įnašus
+    registration_required: Reikalinga registracija
+    relative_url_root: URL šaknis
+    search_engine: Paieškos sistema
+    sharethis_id: ShareThis Leidėjo id
+    site_name: Svetainės pavadinimas
+    site_url: Svetainės URL
+    uploadify: Įgalinti Uploadify
+  support:
+    select:
+      prompt: Prašome pasirinkti
+  time:
+    formats:
+      timestamp: '%Y-%m-%d %H:%M'
+  views:
+    about:
+      background:
+        heading: Europeana 1914-1918
+      collection_days:
+        heading: Kolekcijos dienos
+        p1: Kolekcijos dienų renginiuose visuomenės nariai yra kviečiami atnešti dokumentus,
+          artefaktus ir istorijas iš Pirmojo pasaulinio karo tam, kad jie būtų įrašyti
+          mūsų projekto darbuotojų. Istorijos yra nuskenuojamos arba objektų nuotraukos
+          yra pridedamos į archyvą.
+        p2: Kolekcijos dienos ankščiau buvo rengiamos visoje Europoje.
+      online_collection:
+        heading: Internetinė istorijų kolekcija
+        p1: Internetinė istorijų kolekcija atsidarė 2011 m. Kovą. Šiame puslapyje
+          bet kas gali pridėti savo objektus į kolekciją kartu su istorijomis. Daugiau
+          informacijos apie objektų pridėjimą į kolekciją gali būti rasta „%{add_your_story}“
+          puslapyje. Atsiųsti objektai yra patikrinami projekto komandos ir padaromi
+          prienami Europeana.
+      privacy_policy:
+        p1: Mes viešai rodysime jūsų vardą šalia įnašų, kai jei bus patvirtinti.
+        p2: Mes naudosime kitą kontaktinę informaciją, kurią pateikėte, įskaitant
+          jūsų el. pašto adresą, tik susisiekti su jumis apie jūsų įnašą mūsų kolekcijoje.
+        p3: Mes niekada nesidaliname jūsų kontaktine informacija su kitomis organizacijomis.
+        p4: Sužinokite daugiau apie Privatumo politiką <a http://www.europeana.eu/portal/privacy.html
+          target="_blank">Europeana</a> svetainėje.
+      project_partners:
+        heading: Projekto partneriai
+        item1: <a href="http://www.ox.ac.uk" target="_blank">Oksfordo universitetas</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">Vokietijos nacionalinė
+          biblioteka – die Deutsche Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">Nacionalinė
+          Liuksemburgo biblioteka – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">Nacionalinė Airijos Bibilioteka</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">Nacionalinė
+          Slovėnijos Biblioteka – Narodna in univerzitetna knjižnica</a>
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">Europeana</a>
+      takedown:
+        item1: Jūsų kontaktiniai duomenys
+        item2: Visą informacija apie medžiagą
+        item3: 'Tikslus rastos medžiagos url (pvz.: http://www.europeana1914-1918.eu/en/contributions/96)'
+        item4: Įrodymas, kad jūs esate teisių savininkas ar įgaliotas teisių savininko
+          atstovas
+        item5: 'Rašykite mums: 1914-1918 m. [@] europeana [...] ES'
+        p1: 'Jei esate teisių savininkas ir nerimaujate dėl rastos medžiagos mūsų
+          svetainėje, kuriai nedavėte leidimo, mes, žinoma, ją pašalinsime. Prašome
+          susisiekti su mumis el. paštu ir nurodyti:'
+      terms:
+        full_details:
+          heading: 'Europeana naudojimo sąlygos: visa teisinė informacija - Tik angliškai'
+        heading: Terminai ir sąlygos
+        summary:
+          heading: 'Europeana naudojimo sąlygos: santrauka'
+          item1: skaitmeninė medžiaga, kurią siunčiate, nėra apsaugota autorinėmis
+            teisėmis; ar
+          item2: jūs esate skaitmeninės medžiagos teisių savininkas; ar
+          item3: autorinių teisių turėtojas leido siųsti šią skaitmeninę medžiagą
+            su šiomis sąlygomis.
+          item5: Apibūdinantys duomenys, kuriuos jūs pateikiate (kaip aprašymai ar
+            žymės), kad jūsų turinys galėtu būti rastas per paiešką, tą darydami jūs
+            leidžiate visiems naudoti šiuos apibūdinančius duomenys beveik be apribojimų,
+            be papildomų sąlygų.
+          p1: 'Prieš siunčiat skaitmeninę medžiagą į Europeana privalote sutikti su
+            Europeana Naudojimo Sąlygomis - Žiūrėkite ankstesnę pastraipą. Svarbiausios
+            sutikimo su sąlygomis pasekmės:'
+          p2: <b>Jūs garantuojate, kad:</b>
+          p3: <b>Jei nenorite sutikti su šiomis sąlygomis, prašome nesiųsti turinio
+            ar apibūdinančių duomenų į Europeana</b>.
+        user_contributions:
+          heading: Europeana sąlygos vartotojų įnašams
+          item1: Slaptažodžiai ir prisijungimas (3 Straipsnis)
+          item2: Atsakomybė už platformos eksploatavimą (4 Straipsnis)
+          item3: Intelektinės nuosavybės teisės į turinį (5 Straipsnis)
+          item4: Intelektinės nuosavybės teisės į metaduomenis (6 Straipsnis)
+          item5: Neteisėtas paslaugos naudojimas (7 Straipsnis)
+          item6: Vartotojų asmeniniai duomenys (privatumas) (8 Straipsnis)
+          item7: Šalių atsakomybė žalos ar nuostolių atveju (9 Straipsnis)
+          p1: Šiame dokumente pateikiamos sąlygos, kurios yra taikomos vartotojams,
+            kurie pridėjo turinį ar metaduomenis į Europeana Fondo svetainę Europeana.eu.
+            Vartotojas turi žinoti, kad Europeana Fondas siekia padaryti turinį ir
+            metaduomenis prieinamus su minimaliais apribojimais.
+          p4: <b>Jei nesutinkate su šia politika prašome nekelti turinio ir/ar metaduomenų
+            į Europeana.</b>
+          p5: 'Šios Sąlygos Vartotojų Įnašams nustato šalių santykių aspektus tarp
+            Europeana ir vartotojų pridedančių turinį į Europeana.eu:'
+          p6: Vartotojas sukuriantis paskyrą Europeana.eu tuo parodo savo sutikimą
+            su vartojimo sąlygomis. Kai vartotojo paskyra bus sukurta sąlygos gali
+            būti peržiūrėtos <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html"
+            target="_blank">www.europeana.eu</a>.
+          p7: 'Šio projekto yra laikoma atskirose puslapiuose:'
+      what_we_do:
+        heading: 'Nacionalinės kolekcijos:'
+        item1: Europeana 1914-1918 svetainėje - pridėkite objekto nuotrauką ar parašykite
+          istoriją internete.
+        item2: Kolekcijos dienų renginiuose - atsineškite objektą(-us) į renginį,
+          čia projekto darbuotojai objektus nufotografuos ir įrašys jų istorijas
+    about_us:
+      blog:
+        heading: Dienoraštis
+      europeana:
+        heading: Europeana 1914-1918
+      events:
+        heading: Kolekcijos Dienos
+        p4: Jei norite organizuoti savo renginį skaitmenizavimui ir duomenų pridėjimui
+          į Europeana 1914-1918, mes galime pasiūlyti pagalbą ir patarimus kaip tai
+          padaryti <a href="http://pro.europeana.eu/web/europeana-1914-1918">čia</a>
+      get_involved:
+        contribute_online:
+          heading: Prisidėti internete
+        education:
+          heading: Švietimas
+        events:
+          p2: Jei norite organizuoti savo renginį skaitmenizavimui ir duomenų pridėjimui
+            į Europeana 1914-1918, mes galime <a href="http://pro.europeana.eu/web/europeana-1914-1918">pasiūlyti
+            pagalbą ir patarimus kaip tai padaryti</a>.
+        heading: Įsitraukite
+        reuse:
+          heading: Naudoti medžiagą
+      help:
+        heading: Pagalba
+    admin:
+      annotations:
+        index:
+          title: Vartotojo paveikslėlio anotacijos
+        table:
+          header:
+            text: Anotacijos tekstas
+            type: Anotacijos tipas
+      collection_days:
+        delete:
+          question: Ar tikrai norite ištrinti papildomą informaciją apie kolekcijos
+            dieną %{code}?
+          title: Ištrinti kolekcijos dieną
+        edit:
+          title: Redaguoti kolekcijos dieną
+        index:
+          title: Kolekcijos dienos
+      config:
+        edit:
+          title: Redaguoti konfigūracijos nustatymus
+        index:
+          links:
+            edit: Redaguoti nustatymus
+          table:
+            caption: Nustatymai
+            headings:
+              name: Pavadinimas
+              value: Reikšmė
+          title: Konfigūracija
+      contributions:
+        export:
+          title: Eksportuti kolekciją
+        index:
+          captions:
+            approved: Patvirtinti įnašai (viso %{total})
+            rejected: Atmesti įnašai (viso %{total})
+            revised: Peržiūrėti įnašai laukiantys patvirtinimo (viso %{total})
+            submitted: Atsiųsti įnašai laukiantys patvirtinimo (viso %{total})
+            withdrawn: Atsiimti įnašai laukiantys patvirtinimo (viso %{total})
+          empty:
+            all:
+              approved: Dar nėra patvirtintų įnašų.
+              rejected: Dar nėra atmestų įnašų.
+              revised: Šiuo metu nėra peržiūrėtų įnašų laukiančių patvirtinimo.
+              submitted: Šiuo metu nėra išsiųstų įnašų laukiančių patvirtinimo.
+              withdrawn: Šiuo metu nėra atsiimtų įnašų laukiančių patvirtinimo.
+            search:
+              approved: Nėra patvirtintų įnašų atitinkančių jūsų paiešką.
+              rejected: Nėra atmestų įnašų atitinkančių jūsų paiešką.
+              submitted: Nėra išsiųstų įnašų atitinkančių jūsų paiešką.
+              withdrawn: Nėra atsiimtų įnašų atitinkančių jūsų paiešką.
+          title: Įnašai
+        p1: 'Žemiau yra trys lentelės su įnašais, kurie: nebuvo išsiųsti patvirtinimui,
+          laukia patvirtinimo arba buvo patvirtinti. Paspauskite ant pavadinimo, kad
+          peržiūrėtumėte informaciją apie įnašą. Kai rodoma informacija, galite redaguoti
+          metaduomenis, ištrinti įnašą ar (įnašams, kurie laukia patvirtinimo) patvirtinti
+          įnašus.'
+      europeana:
+        index:
+          introduction: Šiuo metu yra %{count} Europeana įrašai 1914-1918 duomenų
+            bazėje susiję su Pirmuoju pasauliniu karu.
+      index:
+        headings:
+          export: Eksportuoti
+        links:
+          annotations:
+            description: Peržiūrėti ir moderuoti vartotojų anotacijas paveikslėliams.
+          collection_days:
+            description: Pateikite papildomą informaciją apie kolekcijos dienas.
+          config:
+            description: Konfigūruoti svetainės nustatymus.
+            text: Konfigūracija
+          contributions:
+            description: Peržiūrėti ir patvirtinti ar atmesti įnašus.
+            text: Įnašai
+          export:
+            description: Eksportuoti kolekciją kaip XML ar CSV.
+            text: Eksportuoti
+          export_csv:
+            description: Eksportuoti kolekcijos įnašus kaip CSV.
+            text: Eksportuoti kaip CSV
+          export_users:
+            description: Eksportuoti visų pagalbininkų, kurie atliko bent vieną įnašą,
+              vartotojo duomenys į CSV.
+            text: Eksportuoti pagalbininkus
+          export_xml:
+            description: Eksportuoti kolekcijos įnašus ir priedus į XML.
+            text: Eksportuoti kaip XML
+          export_xml_nozip:
+            description: Eksportuoti kolekcijos įnašus ir priedus į XML, išskyrus
+              .zip failų pridus.
+            text: Eksportuoti kaip XML (išskyrus .zip failus)
+          logs:
+            description: Peržiūrėti programos žurnalo failus.
+            text: Žurnalo failai
+          metadata_fields:
+            description: Konfigūruoti laukus, kurie yra renkami įnašo metu.
+            text: Metaduomenų laukai
+          reindex:
+            description: Atnaujinti paieškos variklio indeksą.
+            text: Indeksuoti paieškos variklį iš naujo
+          statistics:
+            description: Peržiūrėti kasmetinę istorijų statistiką.
+            text: Statistika
+          taggings:
+            description: Peržiūrėti ir moderuoti vartotojų istorijų žymėjimą.
+          users:
+            text: Vartotojo paskyros
+        title: Administratorius
+      metadata_fields:
+        confirm_reindex:
+          info: Pakeitus vieno ar daugiau metaduomenų laukų paieškos būseną ar pašalinus
+            ankščiau ieškotus laukus, turėtumėte indeksuoti paieškos variklį iš naujo
+            naudojant mygtuką esanti žemiau.
+          note: Atkreipkite dėmesį, kad nereikia iš naujo indeksuoti paieškos variklio,
+            kai įnašai yra atnaujinami; tai įvyksta automatiškai.
+          title: Indeksuoti paieškos variklį iš naujo
+        delete:
+          button_confirm: Tikrai ištrinti šį laukelį?
+          question: Ar tikrai norite ištrinti šį metaduomenų lauką %{field_name}?
+          title: Ištrinti metaduomenų lauką
+          warning: <strong>Perspėjimas:</strong> Tai ištrins visus duomenis jūsų kolekcijoje,
+            kurie buvo surinkti per šį laukelį.
+        edit:
+          empty: Dar nėra nei vieno metaduomenš laukelio.
+          instructions: Įveskite skaičių kiekvieno laukelio pozicijai nustatyti.
+          title: Redaguoti metaduomenų lauką
+        index:
+          caption: Metaduomenų laukai
+          empty: Dar nėra nei vieno metaduomenš laukelio.
+          links:
+            new: Naujas laukas
+            order: Keisti laukų tvarką
+            terms: Terminai
+          title: Metaduomenų laukai
+        new:
+          title: Naujas metaduomenų laukas
+        order:
+          title: Metaduomenų laukų tvarka
+      statistics:
+        index:
+          title: Statistika
+      taggings:
+        index:
+          title: Vartotojo istorijos žymės
+      taxonomy_terms:
+        delete:
+          warning: <strong>Įspėjimas:</strong> Šis veiksmas padarys taip, kad visi
+            įnašai susiję su šio terminu praras tą kategoriją.
+        index:
+          links:
+            back: metaduomenų laukų sąrašas
+            import: Importuoti terminus iš sąrašo
+            new: Naujas terminas
+      users:
+        delete:
+          button_confirm: Tikrai ištrinti šią vartotojo paskyrą?
+          question: Ar tikrai norite ištrinti vartotojo paskyrą %{email}?
+          title: Trinti vartotojo paskyrą
+          warning: <strong>Įspėjimas:</strong> Tai taip pat ištrins visus vartotojo
+            įnašus.
+        edit:
+          title: Redaguoti vartotojo paskyrą
+        index:
+          caption: Vartotojo paskyros
+          empty: Nėra rodytinų vartotojo paskyrų.
+          links:
+            new: Naujas vartotojas
+            show:
+              title: Žiūrėti visą informaciją apie vartotoją
+          title: Vartotojo paskyros
+        new:
+          title: Nauja vartotojo paskyra
+        show:
+          caption: Asmeniniai duomenys
+          links:
+            back: vartotojo paskyrų sąrašas
+            contributions: Įnašai
+            edit: Redaguoti vartotojo paskyrą
+          title: Vartotojo paskyra
+    annotations:
+      depublish:
+        question: Ar tikrai norite nebeskelti šios objekto anotacijos?
+        title: Nebeskelbti anotacijos
+      edit:
+        title: Redaguoti anotaciją
+      flag:
+        question: Ar tikrai norite pažymėti šią anotaciją kaip netinkamą?
+        title: Žymėti anotaciją kaip netinkamą
+      unflag:
+        question: Ar tikrai norite atžymėti šią anotaciją kaip netinkamą?
+        title: Atžymėti anotaciją kaip netinkamą
+    attachments:
+      _form:
+        dropbox:
+          connect_html: Jei turite Dropbox paskyrą, galite failus siųsti tiesiai iš
+            savo Dropbox aplanko. Jei norėtumėte naudoti šią funkciją, prašome <a
+            href="%{href}">prijungti savo Dropbox paskyrą</a>.
+          connected_html: Jūs esate prisijungę prie Dropbox kaip <strong>%{user}</strong>
+          disconnect: Atsijungti nuo Dropbox paskyros
+          empty: Nukopijuokite failus į aplanką pavadinta „/Apps/Europeana 1914-1918“
+            savo Dropbox paskyroje ir jie pasirodys čia po to kai paspausite „Atnaujinti
+            failų sąrašą“.
+          refresh: Atnaujinti failų sąrašą
+      _summary:
+        caption: Priedo informacija
+      _table:
+        caption: Objektai
+        links:
+          preview:
+            title: Peržiūrėti visą priedo informaciją
+        no_thumbnail: Miniatiūros generavimas
+      attachment_help:
+        flickr:
+          description: Importuoti nuotraukas ir jų aprašymus iš Flickr paskyros
+          link: Pridėti objektus iš Flickr
+        item1: Pridėti vieną objektą ir failą
+        item1-subitem1: Apibūdinkite tą objektą
+        item1-subitem2: Įkelti failo priedą
+        item2: Pridėti kelis objektus ir failus
+        item2-subitem1: Įkelti kelis failų priedus, keliems objektams
+        item2-subitem2: Galite apibūdinti daiktus atskirai
+        one-of-the-following: 'Galite pasirinkti atlikti vieną iš:'
+      copy:
+        instructions: Pasirinkite vieną ar daugiau objektų prisegtų prie šios istorijos,
+          kad pakeistumėte jo duomenis su šio objekto metaduomenimis (rodoma žemiau).
+        title: Kopijuoti objekto metaduomenis
+      delete:
+        question: Ar tikrai norite ištrinti objektą „%{filename}“?
+        title: Ištrinti objektą
+      edit:
+        caption:
+          current: Dabartinis failas
+          uploaded: Įkeltas failas
+        title: Redaguoti priedą
+      index:
+        empty: Nėra objektų įkeltų šiai istorijai.
+        links:
+          new: Naujas priedas
+        title: Objektai
+      new:
+        caption: Įkeltas failas
+        title: Naujas priedas
+      show:
+        title: Priedas
+    blog_posts:
+      read_more: Skaityti daugiau
+    browse:
+      collection-days:
+        heading: Kolekcijos dienos
+      fronts:
+        heading: Frontai
+      subjects:
+        heading: Temos
+      types:
+        heading: Tipai
+    collection_days:
+      cant-find-collection-day: Negalite rasti kolekcijos dienos žemėlapyje??
+      different-collection-day: Norite peržiūrėti kitą kolekcijos dieną?
+      in-the-meantime: Tuo tarpu, peržiūrėkite buvusias kolekcijos dienas, kurios
+        jau turi publikuotas istorijas.
+      index:
+        title: Kolekcijos dienos
+      join-us: Kolekcijos diena dar nesibaigė. Jei galite prašome prisijungti prie
+        mūsų arba patikrinkite vėliau, kai kolekcijos diena pasibaigs.
+      open-collection: Atidaryti kolekcijos dieną
+      select-collection-day: Pasirinkite Kolekcijos Dieną
+      stories: 'Istorijos:'
+      view-stories: Žiūrėti istorijas
+      visiting-information: Lankymosi informacija
+      website: 'Svetainė:'
+      what-do-you-get-heading: Ką jūs gaunate?
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
+      what-is-it-heading: Kas tai?
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
+      who-is-it-for-heading: Kam tai?
+    common:
+      loading: kraunama ...
+      more-like-this: 'Kiti objektai, kurie jums gali būti įdomūs:'
+      permanent: Šis veiksmas negali būti anuliuotas.
+    contact:
+      heading: Susisiekite su mumis
+      p1: Kad susisiektumėte su Europeana 1914-1918 projekto komanda, prašome naudoti
+        el. pašto adresą 1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: Anonimas
+      edit:
+        title: Redaguoti asmeninius duomenis
+      no_name: jokio kontaktinio vardo
+      show:
+        title: Kontaktiniai duomenys
+    contributions:
+      _progress:
+        step_x_of_y: '%{x} žingsnis iš %{y}'
+      _summary:
+        caption: Santrauka
+      complete:
+        p1: Jūsų įnašas buvo išsiųstas. Ačiū! Tai bus patikrinta projekto darbuotojų
+          ir bus rodoma svetainėje po patvirtinimo. Užimtais laikotarpiai tai gali
+          užtrukti kelias savaites. Prašome jūsų supratimo ir kantrybės.
+        title: Įnašas baigtas
+      delete:
+        question: Ar tikrai norite visiškai panaikinti istoriją „<strong>%{title}</strong>“
+          ir visus jos objektus?
+        title: Panaikinti istoriją
+      digital_object:
+        heading: Prie jūsų istorijos prisegti objektai
+        help_text:
+          add_attachment: Nepamirškite pridėti bent vieną objektą prie savo istorijos.
+          attachment_count: Šiuo metu yra <strong>%{nr_digital_objects}</strong> objektai
+            prisegti prie šios istorijos.
+          language: Nurodykite kalbą naudojama objekte, pavyzdžiui, kalba(-s) naudojamas
+            dienoraštyje.
+          object_type: Koks tai objektas (pavyzdžiui poema, laiškas, nuotrauka); pasistenkite
+            būti kuo konkretesni.
+          save_digital: Paspausdami „Išsaugoti objektą“ jūs išsaugosite šį objektą
+            ir galėsite pridėti daugiau objektų ar išsiųsti visą savo įnašą.
+          subject: Žmogus ar vieta ar objektai, apie ką yra šis daiktas.
+          submit_contribution1: Jei baigėte savo įnašą, <a href="#continue-to-submission">pereikite
+            prie siuntimo žingsnio</a>.
+          submit_contribution2: Paspausdami „Siųsti istoriją“ jūs baigsite savo istorijos
+            pateikimą. Kai jūsų įnašus bus išsiųstas, jis bus peržiūrėtas eksperto
+            ir taps prieinamas kitiems.
+          submit_story_button: Siųsti istoriją
+          summary: Žemiau yra pateikta objektų, kurie jau yra prisegti, santrauka;
+            iš pradžių santraukoje nieko nėra; tačiau galite pridėti tiek, kiek norite.
+            Jei norite taip pat galite redaguoti esamus objektus, paspausdami ant
+            redagavimo nuorodos sąraše, šalia jų.
+          when: Kada buvo sukurtas šis elementas
+          where: Kur buvo sukurtas šis elementas
+        labels:
+          keywords: Padėkite kitiems rasti jūsų objektą pridedami viena ar daugiau
+            šių raktažodžių.
+          location_map: Vieta (žemėlapis)
+          location_place_name: Vietovė (vietovės pavadinimas)
+          save_digital: Išsaugoti skaitmeninį objektą
+          save_item_draft: Išsaugoti objekto šabloną
+          submit_contribution: Siųsti įnašą
+        links:
+          add_another: Pridėti dar vieną objektą
+          add_item: Prisegti objektą
+          edit: redaguoti ar pridėti daugiau informacijos
+          edit_story: Redaguoti istoriją
+        options:
+          3d: 3D
+          artifact: Artefaktas
+          audio: Garsas
+          back: Atgal
+          book: Knyga
+          canvas: Drobė
+          card: Kortelė
+          cc_by_sa: cc-by-sa
+          ceramic: Keramika
+          diary: Dienoraštis
+          digital: Skaitmeninis
+          film: Filmas
+          front: Frontas
+          image: Paveikslėlis
+          journal: Žurnalas
+          leather: Oda
+          letter: Laiškas
+          medal: Medalis
+          metal: Metalas
+          mixed: Mišrus
+          multiple: Keli
+          newspaper: Laikraštis
+          notebook: Užrašų knygelė
+          other_option: Kita
+          paper: Popierius
+          photograph: Nuotrauka
+          photographic_paper: Fotografinis popierius
+          poem: Eilėraštis
+          postcard: Atvirukas
+          public_domain: viešas domenas
+          tape: Juosta
+          text: Tekstas
+          text_memoir: 'Tekstas: memuarai'
+          text_transcript: 'Tekstas: transkripcija'
+          unknown: Nežinoma
+          video: Vaizdo įrašas
+          vinyl: Vinilas
+          vinyl_record: Vinilinė plokštelė
+          wood: Medis
+        step2: 2 Žingsnis - Pridėkite savo objektus ir failus
+      edit:
+        title: Įnašas
+      feed:
+        entries:
+          annotation:
+            item: '%{user} pakomentavo objekto paveikslėlį %{title}'
+            story: '%{user} pakomentavo istorijos paveikslėlį %{title}'
+          contribution: '%{user} publikavo istoriją %{title}'
+          tagging:
+            item: '%{user} pažymėjo objektą %{title}'
+            story: '%{user} pažymėjo istoriją %{title}'
+        title: Europeana 1914-1918 veikla
+      index:
+        empty: Dar nėra viešai rodytinų įrašų.
+        title: Įnašai
+      new:
+        title: Įnašas
+      no_title: be pavadinimo
+      search:
+        captions:
+          all: Visi įnašai
+          matching: Įnašai atitinkantis „%{query}“
+        heading: Paieškos rezultatai
+        links:
+          titles:
+            show_contribution: Peržiūrėti įnašą
+        matches-for: 'Atitinka:'
+        no_matches: Jokių atitikmenų. Bandykite dar kartą.
+        related-europeana: Susijęs turinys iš Europeana portalo
+        result_count_label: rezultatai
+      show:
+        button_confirm: |-
+          Ar tikrai esate pasiruošę
+          siųsti šį įnašą į kolekciją?
+        comments:
+          leave: Palikti Komentarą
+          no_comments: Nėra jokių komentarų, kodėl gi vieno nepridėjus žemiau...
+          submit: Siųsti Komentarą
+          title: Komentarai
+        empty_attachments: Ši istorija neturi objektų.
+        headings:
+          share: Dalintis
+          submit: Siųsti įnašą
+          tags: Pridėti žymes
+        invalid: Šis įnašas dar nėra paruoštas siuntimui. Spauskite ant „Kodėl ne?“
+          paaiškinimui. Spauskite REDAGUOTI žemiau, kad pridėtumėte daugiau informacijos.
+        links:
+          new_attachment: Pridėti objektą
+        related:
+          title: Susijęs Turinys
+        shared-this-story: pasidalinta šia istorija apie
+        title: Istorija
+      status:
+        approved: Patvirtinta
+        approved_by: Patvirtino %{name}
+        draft: Šablonas &mdash; dar neišsiųstas
+        label: Būsena
+        rejected: Atmesta
+        rejected_by: Atmetė %{name}
+        revised: Peržiūrėtas
+        submitted: Išsiųstas &mdash; laukiama patvirtinimo
+        title: Būsenos žurnalas
+        unknown: Nežinoma
+        withdrawn: Atsiimta
+      story:
+        complete:
+          heading: Istorija baigta
+          p1: Jūsų istorija buvo išsiųsta. Ačiū! Ji bus patikrinta projekto darbuotojų
+            ir bus rodoma svetainėje po patvirtinimo. Užimtais laikotarpiai tai gali
+            užtrukti kelias savaites. Prašome jūsų supratimo ir kantrybės.
+        help_text:
+          add_another_person: Galite pridėti daugiau nei vieną žmogų.
+          behalf_of: Palikite tuščia, nebent jūs kažkam padedate atlikti šį įnašą.
+          save_story: Paspausdami ant „Išsaugoti istorijos juodraštį“, jūs busite
+            nukreiptas į šį įnašo žingsnį
+          sections: Paspauskite ant skyrių pavadinimų žemiau, kad juos atidarytumėte
+            ir uždarytumėte; kiekvienas skyrius turi papildomos informacijos, kurią
+            galite pridėti į savo istoriją.
+          use_google_maps: Naudoti Google Maps
+        labels:
+          people: Pridėti vardus žmonių, apie kuriuos ši istorija yra.
+        step1: 1 Žingsnis - Jūsų Istorijos Pasakojimas
+      withdraw:
+        question: Ar esate tikri, kad norite atsiimti istoriją „<strong>%{title}</strong>“
+          iš kolekcijos?
+        title: Atsiimti istoriją
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: Juodraščiai
+          submitted: Išsiųsta
+        empty:
+          all: Jūs dar nepradėjote jokių istorijų.
+          approved: Dar neturite patvirtintų istorijų.
+          draft: Šiuo metu neturite istorijų juodraščių.
+          submitted: Jūs dar nepateikėte jokių istorijų.
+        headings:
+          contributions: Jūsų istorijos
+        links:
+          new: Pridėti naują istoriją
+        p1: Žemiau yra istorijos, kurias jūs pridėjote. Redaguoti ar ištrinkite jas,
+          jei to reikia.
+        title: Pridėti savo istoriją
+      dashboard_guest:
+        button_text: Įnašas baigtas
+        headings:
+          finished: Baigėte įnašą?
+        identity: (jei neesate %{name}, paspauskite „Įnašas baigtas“ mygtuką žemiau.)
+        links:
+          edit_contact: Redaguoti kontaktinius duomenis
+          new: Naujas įnašas
+        notice: '%{name}, jūs padedate kaip svečias.'
+        privacy: Kai baigsite savo įnašą, paspauskite mygtuką esanti žemiau, kad išvalytumėte
+          savo kontaktinius duomenis. Tai padeda apsaugoti jūsų privatumą bendrame
+          kompiuteryje.
+        title: Svečio prietaisų skydelis
+      guests:
+        edit:
+          title: Redaguoti svečio kontaktinius duomenis
+        new:
+          contact_details: 'Priešingu atveju, pirma prašome mums pateikti savo kontaktinę
+            informaciją:'
+          guest: Jūs padedate kaip svečias.
+          links:
+            register: registruotis
+            sign_in: prisijungti
+          notice: Jei norite išsaugoti savo kontaktinę informaciją ir sekti savo įnašus
+            po išsiuntimo, %{sign_in} arba %{register} prieš tęsdami.
+          title: Svečio kontaktiniai duomenys
+      help:
+        adding_your_story:
+          heading: Jūsų istorija pridedama į Europeana 1914-1918
+          p1: Galite pridėti savo istoriją į Europeana 1914-1918 naudodami internetinę
+            formą, esančią šioje svetainėje. Tiesiog įraškite informaciją apie savo
+            įnašą, nurodydami kas tai yra (20 a. atvirukas, dienoraštis ir t.t.) ir
+            pridėdami istoriją, kuria norite pasidalinti (pavyzdžiui apie žmogų fotografijoje,
+            kaip objektą gavote, ką apie jį žinote). Galite prisegti skaitmeninę objekto
+            versiją, pavyzdžiui, nuskenuotą ar nufotografuotą nuotrauką, dienoraštį,
+            uniformą ir kitą. Kai jūsų įnašas bus išsiųstas jis bus peržiūrėtas ekspertų
+            ir taps prieinamas visiems.
+        how_to_use:
+          heading: Kaip naudotis internetine istorijų rinkimo sąsaja
+          item1: '%{register}, kad gautumėte paskyrą (reikia tai padaryti tik vieną
+            kartą) arba %{sign_in}, jei jau esate užsiregistravę.'
+          item2: Pridėkite informacijos apie savo įnašą
+          item3: (neprivaloma) Prisekite skaitmeninę objekto versiją (fotografija,
+            skenuotas tekstas, vaizdo ar garso įrašas ir t.t.).
+          item4: Siųsti įnašą į internetinę istorijų kolekciją
+          p1: Kad kažką pridėtumėte į mūsų internetinę istorijų kolekciją pirma turite
+            %{sign_in} ar %{register}. Tada galėsite pridėti savo objektus ir istorijas
+            į Europeana 1914-1918.
+          p2: Ten būsite paprašyti atlikti šiuos penkis žingsnius. Neprivalote proceso
+            baigti iš karto, bet galite išsaugoti savo įnašą ir baigti jį vėliau.
+        item1: Jūsų istorijos pridėjimas į Europeana 1914-1918 – Žiūrėkite žemiau
+        item2: '%{privacy_policy} - Atskiras puslapis'
+        item3: '%{takedown_policy} - Atskiras puslapis'
+        item4: '%{contribution_terms} - Atskiras puslapis'
+        item5: '%{about_the_project} - Atskiras puslapis'
+        p1: „Europeana 1914-1918“ projektas siekia surinkti medžiagą, kuri yra susijusiu
+          su Pirmuoju pasauliniu karu (1914-1918) ir medžiagą apie susijusius ar paveiktus
+          žmones. Šiuo metu mes renkame medžiagą ir istorijas iš Britanijos, Vokietijos,
+          Slovėnijos, Liuksemburgo, Airijos ir t.t. Daugiau informacijos apie projektą
+          ir kokią medžiagą med renkame gali būti rasta %{about} puslapyje.
+      index:
+        item1: Įveskite informaciją apie savo istoriją.
+        item2: Išsaugoti savo istoriją, kaip juodraštį.
+        item3: Pridėkite vieną ar daugiau objektų (paveikslėlių, teksto dokumentų,
+          gardo ar vaido įrašų ir t.t.).
+        item4: Patvirtinkite savo sutikimą su terminais ir sąlygomis apžvalgai.
+        p1: 'Ačiū už jūsų siūlomą įnašą į Europeana 1914-1918. Įnašai - paprastas
+          procesas. Paspauskite ant „Pridėti naują istoriją“ žemiau, kad pradėtumėte.
+          Būsite nukreiptas ir atliksite šiuos žingsnius:'
+      registration_required:
+        p1: Prašome %{sign_in} arba %{register}, kad galėtumėte pridėti objektus ir
+          istorijas į Europeana 1914-1918.
+    devise:
+      passwords:
+        edit:
+          title: Keisti slaptažodį
+        new:
+          title: Pamiršote savo slaptažodį?
+      registrations:
+        edit:
+          title: Keisti paskyros duomenis
+        new:
+          title: Registruotis
+      sessions:
+        new:
+          instructions: 'Prašome prisijungti su savo paskyros duomenimis:'
+          title: Prisijungti
+    errors:
+      api_error:
+        title: API klaida
+      bad_request:
+        message: Iškilo problema su prašymu, kurį pateikėte, tai neleido jo apdoroti.
+        title: Bloga užklausa
+      forbidden:
+        message: Jūs neturite teisės prieiti prie pageidaujamo ištekliaus.
+        title: Uždrausta
+      internal_server_error:
+        message: Kilo problema, kuri neleidžia mums apdoroti jūsų prašymo.
+        title: Vidinė serverio klaida
+      not_found:
+        message: Išteklis, kurio prašėte, nerastas.
+        title: Nerastas
+      search_offline:
+        message: Paieškos sistemos yra laikinai nepasiekiama. Prašome bandyti vėliau.
+        title: Ieškoti neprisijungus
+    explore:
+      heading: Tyrinėti istorijas
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="Ieškoti ‘Dienoraščio’">dienoraštis</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="Ieškoti
+          ‘Rytų fronto’">Rytų frontas</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="Ieškoti ‘Šeimos’">šeima</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="Ieškoti
+          ‘Pėstininkų’">pėstininkai</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="Ieškoti ‘Medalio’">medalis</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="Ieškoti ‘Karinio paso’">karinis pasas</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="Ieškoti
+          ‘Atviruko’">atvirukas</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&amp;q=AM15" title="Objektai
+            iš Ambergo kolekcijos dienos">Ambergas sausio 26 d., 2012</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="Objektai
+            iš Berlyno kolekcijos dienos">Berlynas balandžio 2 d., 2011</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="Objektai
+            iš Dresdeno kolekcijos dienos">Dresdenas birželio 22 d., 2011</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="Objektai
+            iš Erfurto kolekcijos dienos">Erfurtas birželio 14 d., 2011</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="Objektai
+            iš Frankfurto kolekcijos dienos">Frankfurtas kovo 31 d., 2011</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="Objektai
+            iš Kylio kolekcijos dienos">Kylis birželio 29 d., 2011</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title="Objektai
+            iš Liuksemburgo kolekcijos dienos">Liuksemburgas kovo 6 d., 2012</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="Objektai
+            iš Miuncheno kolekcijos dienos">Miunchenas balandžio 6 d., 2011</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="Objektai
+            iš Prestono kolekcijos dienos">Prestonas kovo 10 d., 2012</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="Objektai
+            iš Rėgensburgo kolekcijos dienos">Rėgensburgas liepos 20 d., 2011</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="Objektai
+            iš Štutgarto kolekcijos dienos">Štutgartas balandžio 12 d., 2011</a>
+      p1: Čia galite matyti tai, kad jau buvo pridėta į mūsų istorijų kolekciją.
+      p2: Naudokite paieškos laukelį, kad rastumėte objektus, kurie <b>atitinka tam
+        tikrą žodį ar frazę</b>. Kad <b>pamatytumėte viską</b>, kas buvo pridėtą į
+        istorijų kolekciją, spauskite „ieškoti“ (palikite laukelį tuščią).
+      p3: Taip pat galite <b>naršyti istorijų kolekciją<b>. Paspauskite ant pavyzdinio
+        paieškos termino žemiau, kad atliktumėte paiešką atitinkamam žodžiui. Rezultatų
+        skaičius padidės, kai daugiau medžiagos bus pridėta į archyvą.
+      p5: <b>Medžiaga surinkta per viešas kolekcijos dienas:</b>
+      search_for: <b>Ieškoti:</b>
+    flickr:
+      select:
+        instruction: Pažymėkite nuotraukas, kurias norite importuoti. Pavadinimai
+          ir aprašymai bus importuoti automatiškai.
+        licenses:
+          heading: Pasirinkite nuotraukas iš savo Flickr paskyros
+          incompatible: Nesuderinama licencija
+          instruction: 'Tik nuotraukos su šiomis suderinamomis licencijomis gali būti
+            importuotos į Europeana 1914-1918:'
+        title: Pasirinkite nuotraukas iš savo Flickr paskyros
+      show:
+        action:
+          link: Susieti Flickr paskyrą
+          unlink: Atsieti Flickr paskyrą
+        status:
+          linked: Esate prisijungęs prie Flickr kaip %{username}
+          unlinked: Esate neprisijungęs prie Flickr
+    home:
+      heading: nepasakotos Pirmojo pasaulionio karo istorijos ir oficialios karo istorijos
+      links:
+        across_europe: visoje Europoje
+        see_english: peržiūrėti Anglišką pagrindinį puslapį
+      p1: <em>Europeana 1914-1918</em> renka medžiagą iš %{across_europe}.
+      p2: <b>Ar turite nuotraukų, laiškų, atvirukų, suvenyrų ar kitų daiktų iš 1914-1918,
+        susijusiu su Pirmuoju pasauliniu karu? Turite istoriją ar anekdotą apie dalyvavusius
+        ar paveiktus? Prašome pridėti tai į internetinę istorijų kolekciją, kad apie
+        tai žinotų visas pasaulis.</b>
+      upcoming_overview: Prašome %{see_english}, kad pamatytumėte pilną mūsų naujienų
+        ir įvykių apžvalgą.
+    links:
+      back: Atgal į %{link}
+      back-to-search: Atgal į paieškos rezultatus
+      previous_step: Ankstesnis puslapis
+      privacy_policy: Privatumo politika
+    register:
+      help_text:
+        email: Prisijungsite naudodami el. pašto adresą ir slaptažodį, kurį nurodėte.
+        password: Slaptažodį turi sudaryti bent šeši ženklai
+        profile_image: |-
+          Šis paveikslėlis bus rodomas šalia jūsų įnašų<br/>
+          maksimalus failo dydis = 128kb
+        profile_photo: Jei norite, įkelkite savo nuotrauką (GIF ar JPEG). Nuotrauka
+          bus rodoma šalia jūsų istorijų.
+        user_name: Tai bus rodoma viešai kaip kreditas šalia patvirtintų įnašų.
+      labels:
+        age_range: Jūsų amžiaus tarpsnis
+        email: El. paštas
+        gender: Lytis
+        password: Slaptažodis
+        password_repeat: Pakartokite slaptažodį
+        profile_image: Profilio paveikslėlis
+        profile_photo: Profilio nuotrauka
+        residence:
+          country: Pasirinkite šalį, kurioje gyvenate.
+          post_code: Pašto kodas
+        user_name: Vartotojo vardas
+      terms:
+        accept: Sutinku su %{terms}
+        heading: Naudojimosi sąlygos
+        item1: skaitmeninė medžiaga, kurią siunčiate, nėra apsaugota autorinėmis teisėmis;
+          ar
+        item2: jūs esate skaitmeninės medžiagos teisių savininkas; ar
+        item3: autorinių teisių turėtojas leido siųsti šią skaitmeninę medžiagą su
+          šiomis sąlygomis.
+        item5: Apibūdinantys duomenys, kuriuos jūs pateikiate (kaip aprašymai ar žymės),
+          kad jūsų turinys galėtu būti rastas per paiešką, tą darydami jūs leidžiate
+          visiems naudoti šiuos apibūdinančius duomenys beveik be apribojimų, be papildomų
+          sąlygų.
+        p1: 'Prieš siunčiat skaitmeninę medžiagą į Europeana privalote sutikti su
+          %{contribution_terms}. Svarbiausios sutikimo su sąlygomis pasekmės:'
+        p2: <b>Jūs garantuojate, kad:</b>
+        p3: Jei nenorite sutikti su šiomis sąlygomis, prašome nesiųsti turinio ar
+          apibūdinančių duomenų į Europeana.
+        terms: terminai ir sąlygos
+    search:
+      facets:
+        common:
+          category: Kategorija
+          collection: Kolekcija
+          contributor: Autorius
+          country: Šalis
+          creator: Kūrėjas
+          format: Formatas
+          language: Kalba
+          location: Vietovė
+          media: Laikmenos tipas
+          provider: Teikėjas
+          rights: Teisės
+          subject: Tema
+          type: Tipas
+          year: Metai
+        contributions:
+          collection_day: Kolekcijos diena
+          content: Objekto tipas
+          file_type: Laikmenos tipas
+          keywords: Raktiniai žodžiai
+          lang: Kalba
+          license: Licencija
+          place_name: Vietovės pavadinimas
+          protagonist_names: Veikėjo vardas
+          provider: Teikėjas
+          theatres: Teatrai
+        digitalnz:
+          content_partner: Turinio partneris
+        europeana:
+          data_provider: Duomenų teikėjas
+          reusability: Pakartotinis naudojimas
+          source_all: Visi Europeana rezultatai
+          source_info: Yra prieinama daugiau filtravimo galimybių jei pasirinksite
+            peržiūrėti istorijas iš viešų ar bibliotekų/muziejų kolekcijų.
+          source_institution: Tik bibliotekų/muziejų kolekcijos
+          source_label: Šaltinis
+          source_ugc: Istorijos iš visuomenės
+          ugc: Vartotojo Sukurtas Turinys
+          uri: Tema
+        matches_for: Atitinka
+        refine_results: Patikslinti rezultatus
+        trove:
+          availability: Prieinamumas
+          discipline: Drausmė
+      providers:
+        canadiana: Kanados šaltinių
+        collection: Europeana
+        contributions: 1914-1918
+        digitalnz: Naujosios Zelandijos šaltiniai
+        dpla: Amerikos šaltiniai
+        europeana: Europeana portalas
+        trove: Australijos šaltiniai
+    statistics:
+      index:
+        contributions:
+          heading: Įnašai
+          institutional: Instituciniai objektai
+          ugc: Iš mūsų vartotojų
+        intervals:
+          last_month: Praeitą mėnesį
+          last_quarter: Praeitą ketvirtį
+          last_week: Praeitą savaitę
+          last_year: Praeitais metais
+          this_month: Šį mėnesį
+          this_week: Šią savaitę
+        metrics:
+          avgtimeonsite: Laikas svetainėje
+          object_pageviews: Istorijos peržiūros
+          visits: Apsilenkimai
+        no_results: Nėra prieinamos statistikos.
+        providers:
+          canadiana: Canadiana (Kanada)
+          digitalnz: DigitalNZ (Naujoji Zelandija)
+          dpla: DPLA (JAV)
+          europeana: Europeana
+          trove: Trove (Australija)
+        title: Naudojimo statistika
+    table:
+      header:
+        actions: Veiksmai
+    taggings:
+      depublish:
+        question: Ar esate tikri, kad norite nebeskelbti šios žymės šios istorijos
+          kontekste?
+        title: Nebeskelbti žymės
+      edit:
+        title: Redaguoti žymėjimą
+    tags:
+      add: Pridėti
+      delete:
+        question: Ar tikrai norite pašalinti šią žymę?
+        title: Pašalinti žymę
+      flag:
+        question: Ar tikrai norite pažymėti šią žymę kaip netinkamą?
+        title: Žymėti kaip netinkamą
+      info: atskirkite kiekvieną žymę kableliu ir spauskite enter, kad pridėtumėte.
+    users:
+      _summary:
+        caption: Prisijungimo informacija
+      account:
+        caption: Asmeniniai duomenys
+        links:
+          edit_contact: Redaguoti asmeninius duomenis
+          edit_user: Redaguoti prisijungimo informaciją
+        title: Jūsų paskyra
+      sign-in:
+        help: Kad prisijungtumėte naudokite savo vartotojo vardą arba el. pašto adresą.
+          Nereikia naudoti abiejų.
+  will_paginate:
+    entry_range_label: Rezultatai %{first}–%{last} iš %{total}
+    first_title: Pirmas puslapis
+    last_title: Paskutinis puslapis
+    next_label: '>'
+    next_title: Kitas puslapis
+    page_entries_info:
+      multi_page: Rodoma %{model} %{from} - %{to} iš viso %{count}
+      multi_page_html: Rodoma %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> iš viso <b>%{count}</b>
+      single_page:
+        one: Rodoma 1 %{model}
+        zero: Nerasta %{model}
+        other: Rodomi visi %{count} %{model}
+      single_page_html:
+        one: Rodoma <b>1</b> %{model}
+        zero: Nerasta %{model}
+        other: Rodoma <b>all&nbsp;%{count}</b> %{model}
+    page_total_label: '%{total_pages}'
+    per_page_label: 'Rezultatai viename puslapyje:'
+    per_page_title: Puslapyje rodomų rezultatų skaičius
+    previous_label: <
+    previous_title: Ankstesnis puslapis
+...

@@ -36,6 +36,8 @@ sk:
         file_updated_at: Aktualizované
         preview: Ukážka
         public: Verejné
+      collection_day:
+        description: Popis
       contact:
         age: Vek
         country: Krajina sídla
@@ -76,9 +78,11 @@ sk:
         term: Termín
       user:
         created_at: Dátum registrácie
+        institution: Inštitúcia
         password: Heslo
         password_confirmation: Znovu zadať heslo
         role_name: Úloha
+        terms: Podmienky
         username: Používateľské meno
     errors:
       messages:
@@ -226,6 +230,17 @@ sk:
     title: Názov
     updated_at: Aktualizované
     url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Krajina
+          metadata_keywords_ids_im: Kľúčové slová
+          metadata_lang_ids_im: Jazyk
+          metadata_theatres_ids_im: Divadlá
+          rights_sm: Práva
+          type_s: Typ
+          year_sm: Rok
   common:
     additional-information: Dodatočné informácie
     download-item: Stiahnuť tento predmet
@@ -682,10 +697,13 @@ sk:
           cover_image: Obálka
           creator_family_name: Priezvisko tvorcu
           creator_given_name: Krstné meno tvorcu
+          date: Dátum
           date_from: Dátum vytvorenia / Dátum začatia
           date_to: Dátum ukončenia
           file_type: Typ média
+          forces: Sily
           format: Médium
+          keywords: Kľúčové slová
           lang: Jazyk
           lang_other: Jazyk (ostatné)
           license: Licencia
@@ -697,6 +715,7 @@ sk:
           page_total: Celkový počet strán
           source: Zdroj
           subject: Predmet
+          theatres: Divadlá
           ticket: Číslo lístka
       collection_day:
         contact:
@@ -726,6 +745,8 @@ sk:
             title: Názov
             type: Typ
           dcterms:
+            alternative: Alternatívny názov
+            extent: Rozsah
             spatial: Miesto
             temporal: Dátum
           edm:
@@ -924,10 +945,42 @@ sk:
           YP01: YP01
         content:
           Autograph: Autogram
+          Book: Kniha
+          Collection: Zbierka
+          Diary: Denník
+          Drawing: Kresba
+          Footage: Zábery
+          Interview: Rozhovor
+          Letter: List
+          Map: Mapa
+          Medal: Medaila
+          Memoir: Memoáre
+          Music: Hudba
+          Official Document: Úradný dokument
+          Official document: Úradný dokument
+          Other: Iné
+          Painting: Maľba
+          Photograph: Fotografia
+          Poem: Báseň
+          Postcard: Pohľadnica
+          Publication: Publikácia
+          Weapon: Zbraň
+        cover_image:
+          "yes": áno
+        editor_pick:
+          "yes": áno
         forces:
           Allied Forces: Spojenci
           Central Powers: Centrálne mocnosti
           Imperial Forces: Imperiálne jednotky
+        format:
+          Leather: Koža
+          Metal: Kov
+          Other: Iné
+          Paper: Papier
+          Photographic paper: Fotografický papier
+          Vinyl: Vinyl
+          Wood: Drevo
         keywords:
           Anti-War Movement: Protivojnové hnutie
           Artillery: Delostrelectvo
@@ -940,11 +993,46 @@ sk:
           Prisoners of War: Vojnoví zajatci
           Propaganda: Propaganda
           Recruitment and Conscription: Nábor a odvody
+          Refugees: Utečenci
           Remembrance: Spomienky
           Tanks and Armoured Fighting Vehicles: Tanky a obrnené bojové vozidlá
           Transport: Preprava
           Trench Life: Zákopový život
           Women: Ženy
+        lang:
+          Dansk: Dánčina
+          Deutsch: Nemčina
+          English: Angličtina
+          Français: Francúzština
+          Italiano: Taliančina
+          Magyar: Maďarčina
+          Română: Rumunčina
+          Slovenčina: Slovenčina
+          Slovenščina: Slovinčina
+          português: Portugalčina
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Späť
+        source:
+          Artifact: Artefakt
+          Book: Kniha
+          Film: Film
+          Journal: Denník
+          Leaf: List
+          Newspaper: Noviny
+          Notebook: Zápisník
+          Other: Iné
+          Photograph: Fotografia
+          Postcard: Pohľadnica
+          Tape: Páska
         theatres:
           Aerial Warfare: Vojna vo vzduchu
           African Wars: Afrika
@@ -1001,7 +1089,10 @@ sk:
       metadata_fields:
         order: Potiahnutím usporiadajte polia tak, ako ich chcete mať. Stlačte "Uložiť",
           keď budete hotový.
+    annotorious:
+      flag: Vlajka
     collection-days:
+      find-more: Ďalšie informácie.
       legend: Legenda
       what-is-it: Čo je Zberný deň?
     contribute:
@@ -1039,6 +1130,7 @@ sk:
       label:
         map_view: Mapa
         satellite_view: Satelit
+    loading: načítavanie...
     next: ďalšia →
     previous: ← predchádzajúca
     search:
@@ -1075,6 +1167,7 @@ sk:
     ga: Írsky
     hu: Maďarsky
     nl: Holandsky
+    pt: Portugalsky
     sk: Slovensky
     sl: Slovinsky
   layout:
@@ -1613,6 +1706,7 @@ sk:
       website: 'Webstránka:'
       what-is-it-heading: Čo je to?
     common:
+      loading: načítavanie...
       permanent: Táto akcia sa nedá vrátiť.
     contact:
       heading: Kontaktujte nás
