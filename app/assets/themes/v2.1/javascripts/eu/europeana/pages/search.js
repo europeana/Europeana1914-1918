@@ -247,11 +247,7 @@
 
       console.log('facetAction = ' + facetAction);
 
-      com.google.analytics.trackEvent(
-        'Facets',
-        facetAction,
-        'Facet selection'
-      );
+      com.google.analytics.trackEvent('Facets', facetAction, 'Facet selection');
 
       e.preventDefault();
       e.stopPropagation();
