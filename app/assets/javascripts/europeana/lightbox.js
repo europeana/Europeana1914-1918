@@ -112,7 +112,7 @@
 
       var userLoggedIn = $('#navigation-user .username').length > 0;
       if(!userLoggedIn){
-        if($('#eu-login-to-annotate').length==0){}
+        if($('#eu-login-to-annotate').length==0){
           $('.annotorious-annotationlayer').append(
             '<span id="eu-login-to-annotate" style="position: absolute; top:0.25em; border-radius:0.25em; left:0.25em; padding: 0.25em 0.75em 1em 0; background-color: rgba(0,0,0,0.45); color: white;">'
             + '<span class="annotorious-hint-icon" style="width: auto; position: relative; padding-left: 1.25em; left: 3px;">'
