@@ -120,7 +120,7 @@
             + '</span>'
             + '</span>'
           );
-        )
+        }
       }
 
       setTimeout(function(){
