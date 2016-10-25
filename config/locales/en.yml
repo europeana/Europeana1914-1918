@@ -94,6 +94,8 @@ en:
         terms: Terms
         username: Username
     errors:
+      full_messages:
+        format: "%{attribute} %{message}"
       messages:
         accepted: You need to accept in order to proceed.
         blank: This field is required; it can not be blank.
@@ -167,6 +169,7 @@ en:
               taken: A user account with this email address already exists.
             picture:
               content_type: Profile picture must be a GIF or JPEG.
+          captcha: verification response is incorrect, please try again.
       template:
         body: 'There were problems with the following fields:'
         header:
@@ -233,6 +236,8 @@ en:
           type_s: Type
           uri_sm: Subject
           year_sm: Year
+  blogger:
+    marta-opera: 
   common:
     additional-information: Additional information
     download-item: Download this item
@@ -262,7 +267,7 @@ en:
       annotorious: Item has notes attached. Open item to read.
       contact_us: Contact us
       contact_us_email: You can also contact us via the email address <span class="addr">1914-1918 [@] europeana [.] eu</span>
-      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en" target="_blank">Europeana Terms for User Contributions</a>
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/en/rights/contributions.html" target="_blank">Europeana Terms for User Contributions</a>
       contribution_terms: Europeana Terms for User Contributions
       efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">Find out more about collecting film material</a>.
       explore-the-stories: Explore the stories!
@@ -316,10 +321,104 @@ en:
       total: Total
     'yes': 'Yes'
   date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    - 
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
     formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
       long_with_day: "%a, %d %B %Y"
       month_and_year: "%B %Y"
       quarter: Quarter %{number} %Y
+      short: "%b %d"
+    month_names:
+    - 
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count}  hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: "%{count} days"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_months:
+        one: 1 month
+        other: "%{count} months"
+      x_seconds:
+        one: 1 second
+        other: "%{count} seconds"
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
   devise:
     failure:
       admin:
@@ -344,6 +443,41 @@ en:
       link: Sign in
       signed_in: Signed in successfully.
       signed_out: Signed out successfully.
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      record_invalid: 'Validation failed: %{errors}'
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: "%{count} errors prohibited this %{model} from being saved"
   flash:
     actions:
       create:
@@ -449,8 +583,8 @@ en:
       update_order:
         notice: Metadata field order updated.
     status:
-      alert: 'Alert:'
-      notice: 'Notice:'
+      alert: 'Alert: '
+      notice: 'Notice: '
     taggings:
       depublish:
         alert: Failed to depublish this tagging.
@@ -534,7 +668,7 @@ en:
         metadata:
           attachment_description: Describe the item’s physical characteristics as well as what it represents and means to you.
           content: What the item is (for example poem, letter, photograph); try to be as specific as possible.
-          cover_image: A cover image represents your story in our collection; it is similar to the cover of a book. It could be a photo of who this story is about, the front page of a diary or a picture of a medal.
+          cover_image: A cover image represents your story in our collection; it is similar to the cover of a book. it could be a photo of who this story is about, the front page of a diary or a picture of a medal.
           creator_family_name: 
           creator_given_name: Name of the person who created the original object, for example the author of a letter or diary or a photographer's name.
           date_from: Tell us when the item was created, for example, when a letter was written or when the object was begun, for example when a diary was started. If you do not know the exact date, please provide a year only or a year and a month.
@@ -673,7 +807,7 @@ en:
         banner_text: Text to display in the maintenance message, if enabled above.
         bing_client_id: Bing client ID from Azure DataMarket. Required for translation of Europeana OpenSearch API queries.
         bing_client_secret: Bing client secret from Azure DataMarket. Required for translation of Europeana OpenSearch API queries.
-        bing_translate_key: Bing Translate key. If left blank, the Microsoft Bing Translate functionality will not work.
+        bing_translate_key: Bing Translate key. If left blank, the Microsoft, Bing Translate functionality will not work.
         contribution_approval_required: If enabled, contributions are only published after being approved. Otherwise, are published immediately after submission. Has no effect if "Publish contributions" is not enabled.
         gmap_api_key: Google Maps API key. Without this key, Google Maps can not be used to enter geographical location data. Sign up for a key at <http://code.google.com/apis/maps/signup.html>.
         google_analytics_key: Google Analytics key. If left blank, the fallback key, UA-XXXXXXXX-1, will be used. Make sure the test and production environments utilize the appropriate keys.
@@ -685,7 +819,7 @@ en:
         run_co_co/configuration:
           edit:
             search_engine: 
-        sharethis_id: The ShareThis Publisher id. If left blank, ShareThis shares will not be tracked in the ShareThis account. The ShareThis script will attempt to record shares in the Google Analytics account if it's present on the page; the script will look for the UA- value and use it if present.
+        sharethis_id: The ShareThis Publisher id. If left blank, ShareThis shares will nto be tracked in the ShareThis account. The ShareThis script will attempt to record shares in the Google Analytics account if it's present on the page; the script will look for the UA- value and use it if present.
         site_name: The name of this website. By default, this will be displayed in page titles and header.
         site_url: Full URL at which the homepage of this site is accessed, without the locale and with no trailing slash.
         ui_locales: Locales to link to in the page header.
@@ -1587,6 +1721,12 @@ en:
             password: 
             password_confirmation: 
             username: 
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
   javascripts:
     admin:
       metadata_fields:
@@ -1609,7 +1749,7 @@ en:
       upcoming: Upcoming collection days
       what-is-it: What is a Collection Day?
     contribute:
-      errors_shown: 'Why not? See the notices above.'
+      errors_shown: 'Why not? See the notices above. '
       hide_errors: Hide error notices.
       show_errors: Why not?
     datepicker:
@@ -1713,6 +1853,53 @@ en:
     unknown: Unknown document type
     video: Video file
     wordprocessing: Word processed document
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "£"
+    format:
+      delimiter: ","
+      precision: '2'
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
   settings:
     allowed_upload_extensions: Allowed upload types
     banner_active: Maintenance banner enabled
@@ -1735,16 +1922,21 @@ en:
     ui_locales: Available locales
     uploadify: Enable Uploadify
   support:
+    array:
+      last_word_connector: ", and "
+      two_words_connector: " and "
+      words_connector: ", "
     select:
       prompt: Please select
   time:
+    am: am
     formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
       timestamp: "%Y-%m-%d %H:%M"
+    pm: pm
   views:
-    "about":
-      terms:
-        user_contributions:
-          p3: 
     about:
       background:
         heading: Europeana 1914-1918
@@ -1804,16 +1996,16 @@ en:
           item7: Liability of the parties in the event of damage or loss (Article 9)
           p1: This document contains the terms applicable to users who contribute content and metadata to the Europeana.eu website of the Europeana Foundation. The user must be aware that the Europeana Foundation strives to make all content and metadata available for reuse with a minimum of restrictions.
           p2: As part of this policy, the <b>Europeana Terms for User Contributions</b> establish that all content that is contributed to Europeana by its users will be made available on Europeana.eu under the terms of a <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution ShareAlike license</a>. This means that, when a user posts content on the Europeana.eu website, he irrevocably grants third parties the right to freely use that content, as long as they attribute the work to the author and share alterations of that content under the same conditions.
-          p3: In addition, all metadata contributed by users to Europeana will be made available on Europeana.eu under the terms of the <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>. This means that the user irrevocably grants third parties the right to freely use those metadata without any restrictions.
+          p3: 
           p4: "<b>If you do not agree with these policies please do not contribute content and/or metadata to Europeana.</b>"
           p5: 'These Terms for User Contributions determines inter alia the following aspects of the relationship between users contributing content to Europeana.eu and Europeana:'
           p6: By creating an account on Europeana.eu, the user indicates acceptance of these terms and conditions. Once a user account is created, the conditions can be accessed on <a href="http://www.europeana.eu/portal/rights/terms-and-policies.html" target="_blank">www.europeana.eu</a>.
           p7: 'Separate pages hold this project’s:'
       what_we_do:
-        heading: 'National collections:'
+        heading: 'National collections:  '
         item1: Via Europeana 1914-1918 website - add a picture of the item or type in the story online.
         item2: At the collection days events - bring the item(s) to the event where project staff will photograph the items and record the stories that go with them
-        p1: 'The Europeana Collections 1914-1918 project has produced a substantial digital collection of over 400,000 pieces of material from national library collections in eight countries that found themselves on different sides of the historic conflict.'
+        p1: 'The Europeana Collections 1914-1918 project has produced a substantial digital collection of over 400,000 pieces of material from national library collections in eight countries that found themselves on different sides of the historic conflict. '
     about_us:
       blog:
         heading: Blog
@@ -2181,7 +2373,7 @@ en:
           when: When was this item created
           where: Where was this item created
         labels:
-          keywords: 'Help others find your item by adding one or several of the following keywords.'
+          keywords: 'Help others find your item by adding one or several of the following keywords. '
           location_map: Location (map)
           location_place_name: Location (place name)
           save_digital: Save digital object
@@ -2279,6 +2471,7 @@ en:
           share: Share on
           submit: Submit contribution
           tags: Add tags
+          transcriptions: Transcribe at transcribathon.eu
         invalid: This contribution is not ready for submission yet. Click on 'Why not?' for an explanation. Click on EDIT below to add more information.
         links:
           new_attachment: Add an item
@@ -2360,11 +2553,11 @@ en:
           heading: How to use the online story collection interface
           item1: "%{register} to get an account (you only need to do this once) or %{sign_in} if you have already registered."
           item2: Add information about your contribution
-          item3: "(optional) Attach a digital version of your object (photograph, scanned text, video, audio, etc)."
+          item3: "(optional) Attach a digital version of your object (photograph, scanned text, video, audio etc)."
           item4: Submit the contribution to the online story collection
           item5: Your contribution will be reviewed by a Europeana cataloguer. When your contribution has been reviewed and accepted it will become visible for others.
           p1: To add something to our online story collection, you first need to %{sign_in} or %{register}. You will then be able to add your objects and stories to Europeana 1914-1918.
-          p2: 'There you will be asked to complete the following five steps. You do not have to complete the whole process all at once but you can save your contribution and finish it later.'
+          p2: 'There you will be asked to complete the following five steps. You do not have to complete the whole process all at once but you can save your contribution and finish it later. '
         item1: Adding your story to Europeana 1914-1918 – See below
         item2: "%{privacy_policy} - Separate page"
         item3: "%{takedown_policy} - Separate page"
@@ -2374,7 +2567,7 @@ en:
       index:
         item1: Enter information about your story.
         item2: Save your story as a draft.
-        item3: Add one or more items (images, text documents, audio, video, etc).
+        item3: Add one or more items (images, text documents, audio, video etc).
         item4: Confirm your agreement to the terms and conditions and submit for review.
         p1: 'Thank you for offering to contribute to Europeana 1914-1918. Making a contribution is a simple process. Click on ‘Add a new story’ below to begin. You will then be taken through the following steps:'
       registration_required:
@@ -2462,17 +2655,14 @@ en:
           unlinked: You are not linked into Flickr
     home:
       heading: untold stories & official histories of WW1
-      heading-p1: Explore stories, films and historical material about the First World War and contribute your own family history. Europeana 1914-1918 mixes resources from libraries and archives across the globe with memories and memorabilia from families throughout Europe. Discover. Learn. Research. Use. Share.
       links:
         across_europe: across Europe
-        see_english: see the English home page
         video_guide: step-by-step video guide
       otto:
         heading: Otto &amp; Bernard
         p1: If you have more information about Otto Arndt, please %{add_your_story} to the online story collection and share it with everyone.
       p1: "<em>Europeana 1914-1918</em> is collecting material from %{across_europe}."
       p2: "<b>Do you have pictures, letters, postcards, souvenirs or other items from 1914-1918 relating to World War One? Do you have a story or anecdote to tell about those involved or affected? Please add it to the online story collection so the world can know about it.</b>"
-      upcoming_overview: Please %{see_english} for a full overview of our latest news and events.
     links:
       back: Back to %{link}
       back-to-search: Back to search results
@@ -2608,6 +2798,7 @@ en:
         question: Are you sure you want to flag this tag as inappropriate?
         title: Flag as inappropriate
       info: separate each tag with a comma and press enter to add.
+      login: To add tags, please sign in first.
     test-key: 
     users:
       _summary:
