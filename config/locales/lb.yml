@@ -43,6 +43,7 @@ lb:
         image: Bild
         name: Numm
         start_date: Ufanksdatum
+        taxonomy_term_id: Schlësselwuert
       contact:
         age: Alter
         country: Land
@@ -245,6 +246,14 @@ lb:
     featured-categories: Besonnesch Kategorien
     from-collection-days: Vun eisen Aktiounsdeeg
     google_maps:
+      help_text: |-
+        <li><b>Automatesch Virschléi</b>: Gitt e Land, eng Stad oder eng Adresse an. Google Maps probéiert dann eng méigech Adress ze fannen.</li>
+
+        <li><b>Spezifesch Adress</b>: Gitt eng spezifesch Adress oder Geokoordinaten an a klickt op de Knäppchen "Sichen"; ignoréiert déi automatesch Virschléi vu Google Maps.</li>
+
+        <li><b>Kaartemarkéierung</b>: Wenn eng Kaartemarkéierung op der Kaart ass, zum Beispill nodeem Dir eng Adress aginn hutt, da kënnt Dir déi op eng Plaz vun Ärer Wiel réckelen.</li>
+
+        <li><b>Vergréisserung</b>: Zoomt op der Kaart eran oder eraus, andeem Dir de + oder – op der lénkser Säit vun der Kaarte beniotzt.</li>'
       label: Benotzt Google Maps (fakultativ)
     help_text:
       mandatory: obligatorescht Feld
@@ -611,10 +620,18 @@ lb:
         attachment: Spezifizéiert ob dëst Feld sech op eropgeluede Fichiere bezitt.
         contribution: Gitt un ob dëst Feld sech op Kontributioune bezitt.
         field_type: Kann net geännert gi wann d'Feld bis gespäichert ass.
+        hint: Text deen nieft der Plaz gewise gëtt wou Donnéeën agetippt ginn, fir
+          d'Mataarbechter ze guidéieren.
         name: 'Datebanknumm fir d''Feld. Däerf et nëmmen eemol ginn. Valabel Zeechen:
           a-z, 0-9, _'
         required: 'Jo: dëst Feld ass obligatoresch. Neen: dëst Feld ass fakultativ.
           Katalogiséierungsfelder mussen optional sinn.'
+        searchable: 'Jo: d''Siche no Kontributioune sicht an dësem Metadatefeld. Neen:
+          et gëtt net an dësem Feld gesicht. Bemierkung: nom Änner vun dësem Wäert
+          sollt Dir d''Sichmaschinn nei indexéieren.'
+        searchable_no_sphinx: Bemierkung; Metadatefelder kënnen nëmmen duerchsicht
+          gi wann d'Sphinx-Sichmaschinn funktionnéiert &mdash; dat ass elo net de
+          Fall.
         show_in_listing: Dëst Feld a Lëschte weisen, wéi zum Beispill a Resultater
           vum Sichen
         title: Titel fir d'Feld, esou wéi et fir d'Kontributeuren gewise gëtt. Eidelloosse
@@ -819,6 +836,7 @@ lb:
           Collection: Sammlung
           Diary: Tagebuch
           Drawing: Zeechnung
+          Footage: Filmmaterial
           Interview: Interview
           Letter: Bréif
           Map: Kaart
@@ -860,6 +878,7 @@ lb:
           Paper: Pabeier
           Photographic paper: Fotopabeier
           Tape: Band
+          'Text: memoir': 'Text: Memoiren'
           'Text: transcription': 'Text: Transkriptioun'
           Unknown: Onbekannt
           Vinyl: Plack
@@ -1347,6 +1366,7 @@ lb:
           harvest_europeana:
             text: Inhalt vum Europeana Portal zesummestellen
           logs:
+            description: Log-Fichiere vun der Applikatioun weisen.
             text: Lobuch-Fichieren
           metadata_fields:
             text: Metadatefelder
@@ -1463,8 +1483,13 @@ lb:
           connected_html: Dir sidd mat Dropbox als <strong>%{user}</strong> verbonn
           disconnect: Verbindung mat Ärem Dropbox-Benotzerkont ewechhuelen
           refresh: Lëscht vun de Fichieren aktualiséieren
+      _summary:
+        caption: Informatiounen iwwer de Fichier
       _table:
         caption: Elementer
+        links:
+          preview:
+            title: Komplett Detailer vun den ugehaangene Fichiere weisen
         no_thumbnail: Minitaturbild gëtt generéiert
       attachment_help:
         flickr:
@@ -1474,6 +1499,7 @@ lb:
         item1-subitem1: Dat Element beschreiwen
         item1-subitem2: De respektive Fichier eroplueden
         item2: Méi Objeten a Fichieren derbäisetzen
+        item2-subitem1: Méi Fichieren eroplueden déi méi Objeten duerstellen
         item2-subitem2: Dir kënnt d'Elementer individuell beschreiwen
         one-of-the-following: 'Dir kënnt eng vun dësen Optiounen eraussichen:'
       delete:
@@ -1762,6 +1788,8 @@ lb:
         adding_your_story:
           heading: Är Geschicht op Europeana 1914-1918 derbäisetzen
         how_to_use:
+          item1: '%{register}, fir e Kont ze kréien (dat muss just eemol gemaach ginn)
+            oder %{sign_in}, wann Dir scho registréiert sidd.'
           item2: Setzt Informatioun iwwer Är Kontributioun derbäi
           item3: (fakultativ) Hänkt eng digital Versioun vun Ärem Objet (Foto, gescannten
             Text, Video, Audio, asw).
@@ -1775,6 +1803,9 @@ lb:
         item2: Späichert Är Geschicht als Virbereedung.
         item3: Setzt een oder méi Elementer (Biller, Texdokumenter, Audio, Video asw.)
           derbäi.
+      registration_required:
+        p1: '%{sign_in} oder %{register} Iech w.e.g. fir Är Objeten a Geschichten
+          op Europeana 1914-1918 derbäizesetzen.'
     devise:
       passwords:
         edit:
@@ -1945,12 +1976,14 @@ lb:
           provider: Fournisseur
           theatres: Theateren
         europeana:
+          data_provider: Dateprovider
           source_all: All d'Resultater vun Europeana
           source_institution: nëmme Sammlungen aus Bibliothéiken a Muséeën
           source_label: Quell
           source_ugc: Geschichte vu Privatpersounen
           ugc: Inhalt dee vu Benotzer generéiert gouf
           uri: Sujet
+        matches_for: Resultater fir
         refine_results: Preziséiert Är Sich
         trove:
           availability: Disponibilitéit
@@ -1993,6 +2026,7 @@ lb:
     tags:
       add: Derbäisetzen
       delete:
+        question: Sidd Dir sécher datt Dir dës Markéierung ewechhuele wëllt?
         title: Markéierung ewechhuelen
       flag:
         question: Sidd Dir séchert datt Dir dës Markéierung als net passend markéiere
