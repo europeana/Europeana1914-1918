@@ -45,6 +45,8 @@ module RunCoCo
       end
 
       def get_access_token
+        return { :status => 'Bing Translator is not configured' } unless configured?
+
         begin
           translator = ::BingTranslator.new(RunCoCo.configuration.bing_client_id, RunCoCo.configuration.bing_client_secret)
           token = translator.get_access_token
