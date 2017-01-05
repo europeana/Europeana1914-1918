@@ -1,0 +1,1617 @@
+# Messages for Traditional Chinese (中文（繁體）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Justincheng12345
+# Author: Kly
+# Author: Liuxinyu970226
+# Author: Wrightbus
+# Author: 아라
+---
+zh-TW:
+  actions:
+    add: 增加
+    approve: 核准
+    cancel: 取消
+    copy: 複製
+    delete: 刪除
+    depublish: 取消發佈
+    download: 下載
+    edit: 編輯
+    edit_story: 編輯故事
+    filter: 篩選
+    flag: 標記
+    import: 匯入
+    new: 新
+    reject: 否決
+    remove: 移除
+    save: 儲存
+    submit: 送出
+    unflag: 取消標記
+    update: 更新
+  activerecord:
+    attributes:
+      attachment:
+        dropbox_path: Dropbox檔案
+        file: 檔案
+        file_content_type: 內容類型
+        file_created_at: 創建於
+        file_file_name: 檔案名稱
+        file_file_size: 檔案大小
+        file_updated_at: 更新於
+        metadata: 後設資料
+        preview: 預覽
+        public: 公開
+      collection_day:
+        description: 描述
+        end_date: 結束日期
+        image: 圖片
+        name: 名稱
+        start_date: 起始日期
+        taxonomy_term_id: 分類術語
+      contact:
+        age: 年齡
+        country: 居住國家
+        full_name: 全名
+        gender: 性別
+        locality: 鎮/城市
+        postal_code: 郵遞區號
+        region: 郡
+        street_address: 街道地址
+        tel: 電話號碼
+      contribution:
+        approved_by: 批准由
+        approver: 批准由
+        attachments: 項目
+        catalogued_by: 編目者
+        cataloguer: 編目者
+        contributor: 貢獻者
+        created_at: 起始於
+        metadata: 後設資料
+        published_at: 發佈於
+        submitted_at: 提交於
+      contribution_status:
+        created_at: 狀態更改於
+      metadata_field:
+        cataloguing: 僅編目者
+        field_type: 類型
+        hint: 提示
+        multi: 多重選擇
+        name: ID
+        position: 位置
+        required: 必填
+        searchable: 可搜尋
+        show_in_listing: 在清單顯示
+      metadata_record:
+        field_alternative: 字段替代
+      setting:
+        name: 名稱
+        value: 值
+      user:
+        created_at: 註冊日期
+        password: 密碼
+        password_confirmation: 重複密碼
+        role_name: 身份
+        username: 使用者名稱
+    errors:
+      messages:
+        accepted: 您需要接受才能夠繼續。
+        blank: 此欄位為必須；不可為空白。
+        confirmation: 與確認不同。
+        empty: 不能為空
+        equal_to: 必須相同於%{count}
+        even: 必須是偶數
+        exclusion: 已被保留
+        greater_than: 必須大於%{count}
+        greater_than_or_equal_to: 必須大於或等於%{count}
+        inclusion: 從清單選擇一個值。
+        invalid: 無效輸入；請檢察輸入值的格式。
+        less_than: 必須少於%{count}
+        less_than_or_equal_to: 必須少於或等於%{count}
+        not_a_number: 內容應為數字；但實際上並沒有。
+        not_an_integer: 必須為整數
+        odd: 必須為奇數
+        record_invalid: 驗證失敗：%{errors}
+        too_long: 太長（最多為%{count}個字元）
+        too_short: 太短（最少要%{count}個字元）
+        wrong_length: 長度錯誤太長（應為%{count}個字元）
+      models:
+        attachment:
+          attributes:
+            file:
+              content_type: 此檔案類型不被允許
+              presence: 選擇要上載的檔案
+              size: 上載檔案太大
+        collection_day:
+          attributes:
+            image:
+              content_type: 僅允許JPEG和GIF格式圖片。
+          end_date_follows_start_date: 結束日期必須晚於起始日期
+          taxonomy_term_metadata_field: 這不是個有效的收藏日
+        contribution:
+          attachments:
+            uploaded: 一些檔案仍在轉移中
+          attributes:
+            catalogued_by:
+              role_name: 編目者必須是屬於管理者或編目者身份的用戶
+            guest_id:
+              present: 訪客貢獻需提供聯繫詳細內容
+        metadata_field:
+          attributes:
+            field_type:
+              constancy: 字段類型不可更改。
+            searchable:
+              field_type: 分類字段不可被搜尋。
+        metadata_record:
+          date_field_civil: 不是有效的日曆日期。
+          one_cover_image: 您僅能為您的故事選擇一個項目作為封面圖片。
+          taxonomy_field_single: 僅能選擇一個項目。
+        setting:
+          attributes:
+            name:
+              inclusion: 不是已註冊的設置設定
+        user:
+          attributes:
+            current_password:
+              invalid: 密碼錯誤
+            email:
+              taken: 已經存在使用此電郵地址的用戶。
+            picture:
+              content_type: 個人檔案圖像必須是GIF或JPEG格式。
+    models:
+      annotation: 圖片註解
+      attachment: 項目
+      collection_day: 收藏日
+      contact: 聯繫
+      contribution: 故事
+      metadata_field: 元數據字段
+      metadata_record: 元數據記錄
+      tag: 標籤
+      taxonomy_term: 分類術語
+      user: 使用者
+    options:
+      contact:
+        gender:
+          female: 女
+          male: 男
+      metadata_field:
+        field_type:
+          date: 日期
+          geo: 地理位置
+          string: 單行文字
+          taxonomy: 分類
+          text: 多行文字
+      user:
+        role_name:
+          administrator: 管理員
+          blank: 任何身份
+          cataloguer: 編目者
+          contributor: 貢獻者
+  attributes:
+    contact: 聯繫
+    created_at: 創建於
+    email: 電郵
+    id: ID
+    metadata_record: 後設資料
+    status: 狀態
+    title: 標題
+    updated_at: 更新於
+    url: 網址
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: 國家
+          data_provider_sm: 資料提供者
+          metadata_collection_day_ids_im: 收藏日
+          metadata_content_ids_im: 項目類型
+          metadata_file_type_ids_im: 媒體類型
+          metadata_keywords_ids_im: 關鍵字
+          metadata_lang_ids_im: 語言
+          metadata_theatres_ids_im: 劇院
+          place_name_s: 地名
+          provider_sm: 提供者
+          rights_sm: 版權
+          type_s: 類型
+          uri_sm: 標題
+          year_sm: 年
+  common:
+    additional-information: 額外訊息
+    download-item: 下載此物件
+    editors_pick:
+      heading: 編輯推介
+      more_stories: <b>更多的故事在%{explore_stories}頁面上。</b>
+    from-collection-days: 來自我們的收藏日
+    google_maps:
+      label: 使用Google地圖（選用）
+    help_text:
+      mandatory: 必填字段
+    labels:
+      add-keywords: 增加您的關鍵字
+      co_funded: 由歐盟共同資助
+    links:
+      about_the_project: 有關歐洲數位圖書館 1914-1918專案
+      add-your-story: 加入您的故事！
+      add-your-story-brief: 新增！
+      annotorious: 項目有附加註解。開啟項目來讀取。
+      contact_us: 聯絡我們
+      contact_us_email: 您可以透過電子郵件帳號<span class="addr">1914-1918 [@] europeana [.]
+        eu</span>來聯絡我們
+      contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
+        target="_blank">歐洲數位圖書館用戶貢獻條款</a>
+      contribution_terms: 歐洲數位圖書館用戶貢獻條款
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">找尋更多關於電影材料收藏</a>。
+      explore-the-stories: 探索故事！
+      explore-the-stories-brief: 探索！
+      explore_stories: 探索故事
+      help: 幫助
+      my_account: 我的帳戶
+      my_stories: 我的故事
+      national_collections: <a href="http://pro.europeana.eu/web/europeana-collections-1914-1918"
+        target="_blank">一起找出更多關於所帶來的國家收藏</a>。
+      play-audio: 播放音效
+      play-video: 播放影片
+      privacy_policy: 隱私政策
+      project_website: <a href="http://pro.europeana.eu/web/europeana-1914-1918" target="_blank">請參閱我們的專案網站來獲得更多訊息</a>
+      register: 註冊
+      sign_in: 登入
+      statistics: 統計
+      titles:
+        contribution_terms: 查看歐洲數位圖書館用戶貢獻條款
+        great_war: 在牛津大學的大戰保存檔案
+      view-image: 查看全部項目
+      view-pdf: 開啟文件
+    map_contribution_heading: 此故事發生於
+    menus:
+      main:
+        about: 關於
+        add: 添加您的故事
+        collection-days: 收藏日
+        explore: 瀏覽
+        remix: 一份難以想像的友情
+        select_language: 選擇一種語言
+        sign_in: 登入
+        sign_out: 登出
+      menu: 選單
+    more-at: 更多在
+    news: 新聞
+    news_item:
+      heading: 新的家庭歷史巡迴演出
+    "no": 否
+    options:
+      close: 關閉
+      open: 開啟
+      other_option: 其他
+    other:
+      contributor: 貢獻者
+      preview: 預覽
+      title: 標題
+      total: 總計
+    "yes": 是
+  date:
+    formats:
+      long_with_day: '%Y年%B%d日 %a'
+      month_and_year: '%Y年%B'
+      quarter: '%Y年第%{number}季'
+  devise:
+    failure:
+      admin:
+        unauthenticated: 再繼續前您必須先登入。
+      invalid: 無效的用戶名稱/電子郵件或密碼。
+      invalid_token: 無效的認證令牌。
+      timeout: 您瀏覽器上的session已逾期，請重新登入來繼續。
+      unauthenticated: 再繼續前您必須先登入或註冊。
+    mailer:
+      reset_password_instructions:
+        subject: 重新設定密碼說明
+    passwords:
+      link: 忘記密碼？
+      updated: 您的密碼已更改成功。您現在可以登入。
+    registrations:
+      destroyed: 再會！您的帳號已成功取消。我們期望很快能再次見到您。
+      link: 註冊
+      signed_up: 您已成功登入。
+      updated: 您已成功更新您的帳號。
+    sessions:
+      link: 登入
+      signed_in: 登入成功。
+      signed_out: 登出成功。
+  flash:
+    actions:
+      create:
+        notice: 已創建新的%{resource_name}
+      destroy:
+        notice: '%{resource_name}已成功刪除。'
+      taggings:
+        notice: 標記已取消發佈。
+      update:
+        notice: 已更新%{resource_name}。
+    annotations:
+      depublish:
+        alert: 取消發佈註解失敗。
+        notice: 註解已取消發佈。
+      flag:
+        alert: 標記註解為不當時失敗。
+        notice: 註解已被標記為不當。
+    attachments:
+      create:
+        alert: 儲存您的附件時出現問題。
+        invalid_files: 部份檔案無法儲存。
+        notice: 項目已儲存。
+      destroy:
+        alert: 刪除您的附件時出現問題。
+        notice: 附件已刪除。
+      links:
+        view-attachments_html: <a href="#attachments">點此查看和編輯它們</a>。
+      update:
+        alert: 在儲存您的附件時出現問題。
+        notice: 項目已儲存。
+    configuration:
+      update:
+        alert: 儲存設置失敗。
+        notice: 設置已更新。
+    contacts:
+      create:
+        alert: 建立聯繫失敗
+        notice: 已建立聯繫。
+      update:
+        alert: 更新聯繫失敗
+        notice: 連絡已更新。
+    contributions:
+      approve:
+        alert: 批准貢獻失敗。
+        notice: 貢獻已成功批准。
+      destroy:
+        alert: 刪除故事失敗
+        notice: 故事已刪除。
+      draft:
+        create:
+          alert: 在開始新的貢獻時出現問題。
+          notice: 開始新的草稿貢獻。
+        submit:
+          alert: 您的貢獻有出現問題，請檢查以下訊息。
+        update:
+          alert: 在儲存您的貢獻時出現問題。
+          notice: 貢獻以儲存。
+      reject:
+        alert: 否決貢獻失敗。
+        notice: 成功否決貢獻。
+      submitted:
+        edit:
+          alert: 此貢獻已提交過。
+    contributors:
+      create:
+        alert: 您的帳號無法創建。
+      update:
+        alert: 您的帳號無法更新。
+    fields:
+      reindexing: 以背景作業重新索引搜尋引擎。
+    flickr:
+      import:
+        alert:
+          empty: 未選擇圖片
+        notice: 以背景作業轉移Flickr圖片。
+    guest_contact:
+      create:
+        notice: 聯繫詳細內容已收取。
+      forget:
+        notice: 聯繫詳細內容已清除。
+      update:
+        notice: 聯絡詳細資料已更新。
+    status:
+      alert: 警告：
+      notice: 通知：
+    taggings:
+      depublish:
+        notice: 標記已取消發佈！
+    tags:
+      contribution:
+        create:
+          success: 您的標籤已添加至此故事。
+      destroy:
+        success: 標籤已移除。
+      europeana_record:
+        create:
+          success: 您的標籤已添加至此項目。
+    taxonomy:
+      imported: 匯入新的分類術語
+    users:
+      create:
+        alert: 用戶帳號無法建立。
+        notice: 用戶帳號已創建。
+      destroy:
+        notice: 用戶已刪除。
+      register:
+        notice: 註冊成功。歡迎！
+      update:
+        alert: 用戶帳號無法更新。
+        notice: 用戶帳號已更新。
+  formtastic:
+    actions:
+      attachment:
+        add_edit: 新增/編輯項目
+        create: 上傳
+        delete: 刪除物件
+        update: 儲存
+      contribution:
+        create: 繼續
+        delete: 删除故事
+        save_draft: 儲存故事草稿
+        submit: 提交故事
+        update: 更新貢獻
+        withdraw: 撤回
+      contributor:
+        create: 註冊
+      create: 送出
+      delete: 刪除
+      filter:
+        submit: 更新
+      metadata_field:
+        delete: 刪除元數據字段
+        reindex: 重新索引搜尋引擎
+      password:
+        create: 送出
+        update: 變更我的密碼
+      search:
+        submit: 搜尋
+      sign_in: 登入
+      submit: 儲存
+      tag:
+        flag: 標記為不當
+      taxonomy_term:
+        import: 匯入
+      update: 儲存變更
+      upload: 上傳
+      user:
+        create: 註冊
+        delete: 刪除帳號
+        update: 更新
+    create: 創建%{model}
+    hints:
+      attachment:
+        file: 上傳檔案
+        metadata:
+          creator_given_name: 原物件始作人的姓名，例如信件或日記作者，或攝影者的姓名。
+          date_to: 物品的結束日期，例如日記的最後日期。
+          location_placename: 輸入一個項目被創建時的所在城市名稱（信件撰寫地點或圖片拍攝地點），例如：倫敦或巴黎。
+          subject: 與此項目相關的人物、地點或事物。
+        title: 對象的簡短描述或正確名稱，例如：「我的祖母、奧托·施密特所有、榮譽勳章」
+      contribution:
+        metadata:
+          location_placename: 輸入故事發生地點的城市名稱，例如倫敦或巴黎。
+        title: 整體上用於此貢獻的標題。
+      metadata_record:
+        date: 格式：年-月-日（YYYY-MM-DD）、年-月（YYYY-MM）或年（YYYY），例如：1998-04-20、1998-04或1998
+        geo: 格式： 緯度,精度, 例如： 51.500,-0.126（倫敦）
+      password:
+        new:
+          email: 輸入您登入用的電子郵件地址而我們將會寄送給您重新設定密碼的說明。
+      settings:
+        max_upload_size: 上傳最大位元組大小
+        ui_locales: 連結至頁面標題的區域。
+      user:
+        current_password: 若您想要更動您帳號之詳細內容請輸入您目前使用的密碼。
+        edit:
+          password: 若您想要更換請輸入新密碼，否則請留空。內容至少需6個字元。
+        password: 最少 6 個字元
+        username: 最少3個字元。有效字元為：a-z A-Z 0-9 - _ . @
+    labels:
+      attachment:
+        metadata:
+          attachment_description: 描述
+          attachment_file: 單一檔案
+          content: 類型
+          cover_image: 封面圖片
+          creator: 創建人
+          creator_family_name: 創建人姓氏
+          creator_given_name: 創建人名字
+          date: 日期
+          date_to: 結束日期
+          file_type: 媒體類型
+          forces: 部隊
+          format: 中
+          keywords: 關鍵字
+          lang: 語言
+          lang_other: 語言（其它）
+          location_map: 緯度及經度
+          location_placename: 指出您項目創建的地方。
+          location_zoom: 位置縮放
+          notes: 編目者註解
+          page_number: 頁面號碼
+          page_total: 頁面總數
+          source: 來源
+          subject: 主題
+          theatres: 劇院
+          ticket: 票據號碼
+      collection_day:
+        contact:
+          country: 國家
+          full_name: 組織
+        delete_image: 刪除圖片
+      content:
+        metadata:
+          dc:
+            contributor: 貢獻者
+            country: 國家
+            creator: 創建者
+            date: 日期
+            description: 描述
+            format: 格式
+            identifier: 識別碼
+            language: 語言
+            publisher: 發佈者
+            relation: 關聯
+            rights: 版權
+            source: 來源
+            subject: 主題
+            terms_alternative: 替代標題
+            terms_extent: 程度
+            terms_medium: 中
+            title: 標題
+            type: 類型
+          dcterms:
+            alternative: 替代標題
+            extent: 程度
+            spatial: 地點
+            temporal: 日期
+          edm:
+            country: 提供國家
+            data_provider: 資料提供者
+            external_partner_site: 在合作夥伴的網站查看
+            language: 語言
+            partner_site: 查看項目於
+            provider: 提供者
+            rights: 著作權
+      contribution:
+        metadata:
+          alternative: 替代標題
+          cataloguer: 編目者
+          character1_dob: 出生日期
+          character1_dod: 逝世日期
+          character1_family_name: 姓氏
+          character1_given_name: 名字
+          character1_pob: 出生地點
+          character1_pod: 逝世地點
+          character2_dob: 出生日期
+          character2_dod: 逝世日期
+          character2_family_name: 姓氏
+          character2_given_name: 名字
+          character2_pob: 出生地點
+          character2_pod: 逝世地點
+          collection_day: 收藏日
+          date_from: 故事開始在...
+          date_to: 故事結束在...
+          description: 故事
+          forces: 部隊
+          keywords: 關鍵字
+          lang: 語言
+          lang_other: 語言（其它）
+          location_map: 經緯度
+          location_placename: 指出您故事發生的地點
+          location_zoom: 位置縮放
+          notes: 編目者註解
+          summary: 摘要項目描述
+          theatres: 劇院
+          ticket: 票據號碼
+        terms: 我接受使用條款及條件
+        title: 故事標題
+      metadata_field:
+        contribution: 貢獻
+      taxonomy_term:
+        collection_day:
+          INTERNET: 網際網路
+          UNKNOWN: 不明
+        content:
+          Autograph: 親筆簽名
+          Book: 書籍
+          Collection: 收藏
+          Diary: 日記
+          Drawing: 繪畫
+          Interview: 訪問
+          Letter: 信件
+          Map: 地圖
+          Medal: 勳章
+          Memoir: 回憶錄
+          Memorabilia: 重要記事
+          Multiple: 多種
+          Music: 音樂
+          Official Document: 官方文件
+          Official document: 官方文件
+          Other: 其他
+          Painting: 繪畫
+          Photograph: 照片
+          Poem: 詩
+          Postcard: 明信片
+          Publication: 出版物
+          Weapon: 武器
+        cover_image:
+          "yes": 是
+        editor_pick:
+          "yes": 是
+        file_type:
+          3D: 3D
+          IMAGE: 圖片
+          TEXT: 文字
+          VIDEO: 影片
+        forces:
+          Allied Forces: 協約國部隊
+          Central Powers: 同盟國
+          Imperial Forces: 帝國部隊
+        format:
+          Card: 卡片
+          Ceramic/China: 陶瓷/瓷器
+          Digital: 數位
+          Leather: 皮革
+          Metal: 金屬
+          Mixed: 混合
+          Other: 其他
+          Paper: 紙張
+          Photographic paper: 相片用紙
+          Tape: 錄音帶
+          'Text: memoir': 文字：回憶錄
+          'Text: transcription': 文字：抄寫
+          Unknown: 不明
+          Vinyl: 黑膠
+        keywords:
+          Anti-War Movement: 反戰運動
+          Artillery: 火砲
+          Gas Warfare: 毒氣戰
+          Manufacture: 製品
+          Medical: 醫療
+          Military Punishment: 軍事懲處
+          Prisoners of War: 戰俘
+          Propaganda: 宣傳品
+          Refugees: 難民
+          Remembrance: 回憶
+          Tanks and Armoured Fighting Vehicles: 坦克與裝甲戰鬥車
+          Trench Life: 戰壕生活
+          Women: 女性
+        lang:
+          Dansk: 丹麥語
+          Deutsch: 德語
+          English: 英語
+          Français: 法語
+          Gaeilge: 愛爾蘭語
+          Italiano: 義大利語
+          Magyar: 匈牙利語
+          Nederlands: 荷蘭語
+          Other: 其他
+          Română: 羅馬尼亞語
+          Slovenčina: 斯洛伐克語
+          Slovenščina: 斯洛文尼亞語
+          português: 葡萄牙語
+          Ελληνικά: 希臘語
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: https://creativecommons.org/licenses/by-sa/3.0/deed.zh_TW
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/deed.zh_TW
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/deed.zh_TW
+        object_side:
+          Back: 返回
+          Front: 前線
+        source:
+          Artifact: 手工製品
+          Book: 書籍
+          Film: 電影
+          Folio: 對開本
+          Journal: 期刊
+          Multiple: 多項
+          Newspaper: 報紙
+          Notebook: 筆記本
+          Other: 其它
+          Photograph: 照片
+          Postcard: 明信片
+          Tape: 錄音帶
+          Unknown: 不明
+          Vinyl record: 黑膠唱片
+        theatres:
+          Aerial Warfare: 空戰
+          African Wars: 非洲
+          Balkans: 巴爾幹半島
+          Eastern Front: 東部前線
+          Gallipoli Front: 加里波利前線
+          Italian Front: 義大利前線
+          Middle East: 中東
+          Naval Warfare: 海戰
+          Western Front: 西部前線
+      user:
+        delete_picture: 刪除圖片
+        terms: 我接受使用條款及條件
+    "no": 否
+    required: 必要
+    titles:
+      account_details: 登入詳細內容
+      admin_user: 登入詳細內容
+      attachment_dates: 此項目何時創建
+      attachment_details: 描述您的項目
+      attachment_front: 此項目有關於到哪個前線
+      attachment_location: 此項目於何處創建
+      attachment_replace: 替換附件
+      attachment_upload: 添加一個附件
+      cataloguing_metadata: 編目元數據
+      contact_address: 地址
+      contact_name: 名稱
+      contact_other: 聯繫詳細內容
+      contribution_attachments: 項目
+      contribution_terms: 條款和條件
+      dropbox: Dropbox
+      metadata: 編目資訊
+      optional_details: 其它非必要個人訊息
+      personal_details: 個人詳細資料
+      story_basics: 訴說您的故事...
+      story_character1: 人物1
+      story_character2: 人物2
+      story_characters: 告訴我們這個故事是關於誰
+      story_dates: 此故事發生於何時
+      story_forces: 是否此項目牽扯到
+      story_front: 此故事關於到哪個前線
+      story_location: 此故事發生於何處
+      submit: 提交您的故事
+    update: 更新%{model}
+    "yes": 是
+  javascripts:
+    annotorious:
+      clear-flag: 清除標記
+      flag: 標記
+    collection-days:
+      close-directions: 關閉指示
+      find-more: 找尋更多。
+      get-directions: 獲取指示
+      legend: 說明
+      next-collection-day: 下次的收藏日是在<b>%{name}，%{city}，%{country}</b>於<b>%{start-date}
+      no-upcoming: 現在沒有即將到來的收藏日
+      past-entered: 過去的收藏日
+      show-past: 顯示過去的收藏日
+      upcoming: 即將到來的收藏日
+      what-is-it: 什麼是收藏日？
+    contribute:
+      errors_shown: 為何不呢？見上方通知。
+      hide_errors: 隱藏錯誤通知。
+      show_errors: 為何不？
+    datepicker:
+      button_text: 顯示日曆
+    digital_object:
+      labels:
+        copy_from_story: 版權訊息
+    gmap:
+      canvas:
+        hide: 關閉Google地圖
+        hint: 為「{{field}}」移動記號至您想要的位置。
+        label: Google地圖
+        show: 使用Google地圖
+      errors:
+        empty: 輸入地址來搜尋。
+        present: 已經有地圖在螢幕上；請先將此關閉。
+        unknown: 查無地址。
+      search:
+        button: 前往
+        hint: 在地圖上方輸入地址來搜尋
+        label: 搜尋地址
+      static:
+        hide: 關閉地圖
+        show: 顯示在Google地圖上
+    leaflet:
+      label:
+        map_view: 地圖
+        satellite_view: 衛星
+    loading: 載入中…
+    next: 下一步 →
+    previous: ← 上一步
+    search:
+      10seconds: 我們仍在搜尋中，請耐心等候！
+    story:
+      took-place: 此故事發生在：
+    thumbnails:
+      item: 項目
+      of: 的
+    translate:
+      return-to-language: 返回到原先語言
+      service-not-available: 翻譯服務目前不可用。
+      translate-to: 翻譯為…
+    truncate:
+      show-less: 顯示更少...
+      show-more: 顯示更多...
+    uploadify:
+      basic_ui: 上傳檔案時出現遇到麻煩？請嘗試改用<a href="{{href}}">基本上傳</a>。
+      button_text: 選擇檔案
+      finished: 返回到貢獻
+      label: 多個檔案
+      saved: 已儲存
+  languages:
+    da: 丹麥語
+    de: 德語
+    en: 英語
+    fr: 法語
+    ga: 愛爾蘭語
+    hu: 匈牙利語
+    nl: 荷蘭語
+    pt: 葡萄牙語
+    sk: 斯洛伐克語
+    sl: 斯洛文尼亞語
+  layout:
+    navigation:
+      about: 關於
+      admin: 管理員
+      browse: 瀏覽
+      contact: 聯絡我們
+      contribute: 貢獻
+      help: 幫助
+    software_engine: 由RunCoCo提供支援
+  locale: 繁體中文
+  mail:
+    contributions:
+      published:
+        greeting: 敬愛的歐洲數位圖書館 1914-1918貢獻者，
+        signature: |-
+          獻上最誠摯的問候，
+          歐洲數位圖書館 1914-1918全體團隊
+        subject: 您的歐洲數位圖書館1914-1918貢獻已發佈
+    exports:
+      complete:
+        subject: 收藏匯出完成
+  media_types:
+    all: 所有
+    binary: 二位元檔案
+    pdf: PDF
+    sound: 音效檔案
+    txt: 文字檔案
+    unknown: 不明文件類型
+    video: 影片檔案
+    wordprocessing: Word處理文件
+  settings:
+    allowed_upload_extensions: 允許上傳類型
+    banner_active: 網頁橫幅管理啟用
+    banner_text: 網頁橫幅文字管理
+    bing_client_id: Bing客戶端ID
+    bing_client_secret: Bing客戶端密鑰
+    bing_translate_key: Bing翻譯密鑰
+    contribution_approval_required: 僅發佈被批准的貢獻
+    gmap_api_key: Google地圖應用程式介面密鑰
+    google_analytics_key: Google分析密鑰
+    google_api_email: Google API電子郵件
+    max_upload_size: 最大上傳大小
+    publish_contributions: 發佈貢獻
+    registration_required: 需要註冊
+    relative_url_root: URL根目錄
+    search_engine: 搜尋引擎
+    sharethis_id: 分享此發佈ID
+    site_name: 網站名稱
+    site_url: 網站URL
+    ui_locales: 可用區域
+    uploadify: 啟用Uploadify
+  support:
+    select:
+      prompt: 請選擇
+  time:
+    formats:
+      timestamp: '%Y-%m-%d %H:%M'
+  views:
+    about:
+      background:
+        heading: 歐洲數位圖書館 1914-1918
+      collection_days:
+        heading: 收藏日
+        p2: 過去歐洲各處有舉行著收藏日。
+      online_collection:
+        heading: 線上故事收藏
+      privacy_policy:
+        p3: 我們將不會與其它任何組織分享您的聯繫詳細資料。
+      project_partners:
+        heading: 專案合作夥伴
+        item1: <a href="http://www.ox.ac.uk" target="_blank">牛津大學</a>
+        item2: <a href="http://www.d-nb.de" target="_blank">德國國家圖書館 – die Deutsche
+          Nationalbibliothek</a>
+        item3: <a href="http://www.bnl.public.lu/fr/bibliotheque/" target="_blank">盧森堡國家圖書館
+          – Bibliothèque nationale du Luxembourg</a>
+        item4: <a href="http://www.nli.ie" target="_blank">愛爾蘭國家圖書館</a>
+        item5: <a href="http://www.nuk.uni-lj.si/nukeng.asp" target="_blank">斯洛維尼亞國家圖書館
+          – Narodna in univerzitetna knjižnica</a>
+        item6: '<a href="http://www.kb.dk/en/nb/" target="_blank">丹麥皇家圖書館：丹麥家圖書館語哥本哈根大學圖書館
+          - Det Kongelige Bibliotek: Nationalbibliotek og Københavns Universitetsbibliotek</a>'
+        item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">歐洲數位圖書館</a>
+      takedown:
+        item1: 您的詳細聯絡訊息
+        item2: 此材料的全部詳細資料
+        item5: 電郵給我們以：1914-1918 [@] europeana [.] eu
+      terms:
+        full_details:
+          heading: 歐洲數位圖書館使用條款：完整法律詳細內容──僅英語版
+        heading: 條款和條件
+        summary:
+          heading: 歐洲數位圖書館使用條款：摘要
+          item2: 您擁有此數位材料的版權；或
+          p2: <b>您保證：</b>
+        user_contributions:
+          heading: 歐洲數位圖書館用戶貢獻條款
+          item1: 密碼和登入（條款3）
+          item2: 平台作業責任（條款4）
+          item3: 對內容的智慧財產權（條款5）
+          item4: 對元數據的智慧財產權（條款6）
+          item5: 非法使用服務（條款7）
+          item6: 用戶個人資料（隱私）（條款8）
+          item7: 在毀壞或損失情況下當事人的責任（條款9）
+      what_we_do:
+        heading: 國家收藏：
+        item1: 經由歐洲數位圖書館 1914-1918網站 - 在線上添加圖片項目或類型在故事裡。
+    about_us:
+      blog:
+        heading: 部落格
+      europeana:
+        heading: 歐洲數位圖書館 1914-1918
+      events:
+        heading: 收藏日
+      get_involved:
+        contribute_online:
+          heading: 線上貢獻
+        education:
+          heading: 教育
+        reuse:
+          heading: 使用材料
+      help:
+        heading: 幫助
+    admin:
+      annotations:
+        index:
+          title: 用戶圖片註解
+        table:
+          header:
+            text: 註釋文字
+            type: 註釋類型
+      collection_days:
+        delete:
+          title: 刪除收藏日
+        edit:
+          title: 編輯收藏日
+        index:
+          title: 收藏日
+      config:
+        edit:
+          title: 編輯設置設定
+        index:
+          links:
+            edit: 編輯設定
+          table:
+            caption: 設定
+            headings:
+              name: 名稱
+              value: 值
+          title: 設置
+      contributions:
+        export:
+          title: 匯出收藏
+        index:
+          empty:
+            all:
+              approved: 目前沒有認可的貢獻
+              draft: 目前沒有草案貢獻
+              rejected: 目前沒有被回退的貢獻
+              revised: 目前沒有被修訂貢獻在等待批准。
+              submitted: 目前沒有被提交貢獻在等待批准。
+              withdrawn: 目前沒有被撤回貢獻在等待批准。
+            search:
+              approved: 沒有符合您所搜尋的已批准貢獻。
+              draft: 沒有符合您所搜尋的草稿貢獻。
+              rejected: 沒有符合您所搜尋被否決的貢獻。
+              revised: 沒有符合您所搜尋的已修正貢獻。
+              submitted: 沒有符合您所搜尋的已提交貢獻。
+              withdrawn: 沒有符合您所搜尋的撤回貢獻。
+          title: 貢獻
+      index:
+        headings:
+          export: 匯出
+        links:
+          config:
+            description: 設置網站設定
+            text: 設置
+          contributions:
+            description: 檢查並批准或否決貢獻。
+            text: 貢獻
+          export:
+            description: 匯出收藏為XML或CSV檔案。
+            text: 匯出
+          export_csv:
+            description: 匯出收藏貢獻者為CSV檔案。
+            text: 匯出成CSV檔
+          export_users:
+            text: 匯出貢獻者
+          export_xml:
+            text: 匯出成XML檔
+          export_xml_nozip:
+            text: 匯出成XML檔（不包含.zip檔案）
+          logs:
+            description: 查看應用日誌檔案
+            text: 日誌檔案
+          metadata_fields:
+            text: 元數據字段
+          reindex:
+            description: 更新搜尋引擎索引。
+            text: 重新索引搜尋引擎
+          statistics:
+            description: 查看各年份故事統計
+            text: 統計
+          users:
+            description: 管控用戶帳號：管理員、編目者和貢獻者
+            text: 用戶帳號
+        title: 管理者
+      metadata_fields:
+        confirm_reindex:
+          title: 重新索引搜尋引擎
+        delete:
+          button_confirm: 確定刪除此字段？
+          title: 刪除元數據字段
+        edit:
+          title: 編輯元數據字段
+        index:
+          caption: 元數據字段
+          empty: 尚未有元數據字段。
+          links:
+            new: 新字段
+            order: 更改字段順序
+          title: 元數據字段
+        new:
+          title: 新元數據字段
+        order:
+          title: 元數據字段順序
+      statistics:
+        index:
+          title: 統計
+      taggings:
+        index:
+          title: 用戶故事標籤
+      taxonomy_terms:
+        delete:
+          question: 您確定您要刪除分類術語「%{term}」嗎？
+          title: 刪除分類術語
+        edit:
+          title: 編輯分類術語
+        import:
+          title: 匯入分類術語
+        index:
+          caption: 分類術語
+          links:
+            back: 元數據字段清單
+            import: 從清單匯入術語
+          title: 分類術語
+        new:
+          title: 新分類術語
+      users:
+        delete:
+          button_confirm: 確定要刪除此用戶帳號？
+          question: 您確定您要刪除用戶帳號%{email}？
+          title: 刪除用戶帳號
+          warning: <strong>警告：</strong>這將會刪除所有用戶的貢獻。
+        edit:
+          title: 編輯用戶帳號
+        index:
+          caption: 用戶帳號
+          empty: 沒有用戶帳號可顯示。
+          links:
+            new: 新用戶
+            show:
+              title: 查看完整用戶細節資料
+          title: 用戶帳號
+        new:
+          title: 新的用戶帳號
+        show:
+          caption: 個人詳細資料
+          links:
+            back: 用戶帳號清單
+            contributions: 貢獻
+            edit: 編輯用戶帳號
+          title: 使用者帳號
+    annotations:
+      depublish:
+        question: 您確定您要取消發佈此項目註解？
+        title: 取消發佈註解
+      edit:
+        title: 編輯註解
+      flag:
+        question: 您確定您要將此項目標記為不當？
+        title: 標記註解為不當
+      unflag:
+        question: 您確定您要將此取消標記此註解為不當？
+        title: 標記一個註解為不當
+    attachments:
+      _form:
+        dropbox:
+          connected_html: 您已以<strong>%{user}</strong>連結至Dropbox
+          disconnect: 中斷連結您的Dropbox帳號
+          refresh: 重整檔案清單
+      _summary:
+        caption: 附件訊息
+      _table:
+        caption: 項目
+        links:
+          preview:
+            title: 查看完整附件詳細資料
+        no_thumbnail: 縮圖產生中
+      attachment_help:
+        flickr:
+          description: 從您的Flickr帳號匯入照片及相關相片描述
+          link: 從Flickr來添加項目
+        item1: 添加一個項目和檔案
+        item1-subitem1: 描述該項目
+        item1-subitem2: 上傳檔案附件
+        item2: 添加多個項目和檔案
+        item2-subitem2: 您可各一描述項目
+        one-of-the-following: 您可選擇以下之一來進行：
+      delete:
+        question: 您確定您要刪除項目「%{filename}」？
+        title: 刪除項目
+      edit:
+        caption:
+          current: 目前檔案
+          uploaded: 上傳檔案
+        title: 編輯附件
+      index:
+        empty: 未有上傳用於此故事的項目。
+        links:
+          new: 新附件
+        title: 項目
+      new:
+        caption: 已上傳檔案
+        title: 新附件
+      show:
+        title: 附件
+    blog_posts:
+      read_more: 閱讀更多
+    browse:
+      collection-days:
+        heading: 收藏日
+      fronts:
+        heading: 前線
+      subjects:
+        heading: 主題
+      types:
+        heading: 類型
+    collection_days:
+      cant-find-collection-day: 無法找出收藏日，您是在地圖上尋找嗎？
+      different-collection-day: 想要改查看不同收藏日？
+      index:
+        title: 收藏日
+      open-collection: 開啟收藏日
+      select-collection-day: 選擇一個收藏日
+      stories: 故事：
+      view-stories: 查看故事
+      visiting-information: 訪問資訊
+      website: 網站：
+      what-do-you-get-content: "Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
+        accumsan et viverra justo commodo. Proin sodales pulvinar tempor.\n \nCum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus."
+      what-do-you-get-heading: 您得到了什麼？
+      what-is-it-heading: 這是什麼？
+      who-is-it-for-heading: 為了誰？
+    common:
+      loading: 載入中⋯
+      more-like-this: 其它您可能有興趣的項目：
+      permanent: 此操作不能還原。
+    contact:
+      heading: 聯絡我們
+      p1: 要聯繫歐洲數位圖書館1914-1918專案團隊，請使用電郵地址： 1914-1918 [@] europeana [.] eu
+    contacts:
+      anonymous: 匿名
+      edit:
+        title: 編輯個人詳細資料
+      no_name: 沒有聯繫名稱
+      show:
+        title: 聯繫詳細內容
+    contributions:
+      _progress:
+        step_x_of_y: '%{y}項中的第%{x}步驟'
+      _summary:
+        caption: 摘要
+      complete:
+        title: 貢獻完成
+      delete:
+        title: 丟棄故事
+      digital_object:
+        heading: 附加至您故事的項目
+        help_text:
+          add_attachment: 記得至少添加一個項目至您的故事。
+          attachment_count: 目前有<strong>%{nr_digital_objects}</strong>個項目附加至此故事。
+          submit_story_button: 提交故事
+          when: 此項目何時創建
+          where: 此項目於何處創建
+        labels:
+          location_map: 位置（地圖）
+          location_place_name: 位置（地名）
+          save_digital: 儲存數位物件
+          save_item_draft: 儲存項目草稿
+          submit_contribution: 提交貢獻
+        links:
+          add_another: 添加其它項目
+          add_item: 附加一個項目
+          edit: 編輯或添加更多資訊
+          edit_story: 編輯故事
+        options:
+          3d: 3D
+          artifact: 手工製品
+          audio: 音訊
+          back: 返回
+          book: 書籍
+          card: 卡片
+          cc_by_sa: cc-by-sa
+          ceramic: 陶瓷/瓷器
+          diary: 日記
+          film: 電影
+          folio: 對開本
+          front: 前線
+          image: 圖片
+          journal: 雜誌
+          letter: 信件
+          medal: 勳章
+          metal: 金屬
+          mixed: 混合
+          multiple: 多種
+          newspaper: 報紙
+          notebook: 筆記本
+          other_option: 其他
+          paper: 紙張
+          photograph: 照片
+          photographic_paper: 相片用紙
+          poem: 詩
+          postcard: 明信片
+          public_domain: 公眾領域
+          tape: 錄音帶
+          text: 文字
+          text_memoir: 文字：回憶錄
+          text_transcript: 文字：抄寫
+          unknown: 不明
+          video: 影片
+          vinyl: 黑膠
+          vinyl_record: 黑膠唱片
+        step2: 步驟2-添加您的項目和檔案
+      edit:
+        title: 貢獻
+      feed:
+        entries:
+          annotation:
+            item: '%{user}已評論項目%{title}上的一個圖片'
+            story: '%{user}已評論故事%{title}上的一個圖片'
+          contribution: '%{user}已發佈故事%{title}'
+          tagging:
+            item: '%{user}已標記項目%{title}'
+            story: '%{user}已標記故事%{title}'
+        title: 歐洲數位圖書館1914-1918活動
+      index:
+        empty: 尚未有公開展示的貢獻。
+        title: 貢獻
+      new:
+        title: 貢獻
+      no_title: 沒有標題
+      search:
+        captions:
+          all: 所有貢獻
+          matching: 符合「%{query}」的貢獻
+        heading: 搜尋結果
+        links:
+          titles:
+            show_contribution: 查看貢獻
+        matches-for: 符合：
+        no_matches: 沒有符合項目，請再試一次。
+        result_count_label: 結果
+      show:
+        button_confirm: 您確定您準備要提交此貢獻至收藏裡？
+        comments:
+          leave: 留下評論
+          no_comments: 目前還沒有評論，何不在下方添加一個....
+          submit: 提交評論
+          title: 評論
+        empty_attachments: 此故事沒有項目。
+        headings:
+          share: 分享於
+          submit: 提交貢獻
+          tags: 新增標籤
+        links:
+          new_attachment: 增加一個項目
+        related:
+          title: 相關內容
+        shared-this-story: 分享此故事關於
+        title: 故事
+      status:
+        approved: 已核准
+        approved_by: 由%{name}批准
+        draft: 草稿&mdash;尚未提交
+        label: 狀態
+        rejected: 已否決
+        rejected_by: 由%{name}否決
+        revised: 已修訂
+        submitted: 已提交&mdash;等待批准
+        title: 狀態日誌
+        unknown: 不明
+        withdrawn: 撤回
+      story:
+        complete:
+          heading: 故事完成
+        help_text:
+          add_another_person: 您可添加一個以上人物。
+          save_story: 點擊「儲存故事草稿」後，您將會被帶入到以下貢獻步驟
+          use_google_maps: 使用Google地圖
+        labels:
+          people: 添加此故事有關的人物名稱。
+        step1: 步驟1-說出您的故事
+      withdraw:
+        question: 您確定您要從收藏中撤回故事「<strong>%{title}</strong>」？
+        title: 撤回故事
+    contributor:
+      dashboard_contributor:
+        captions:
+          draft: 草稿
+          submitted: 已送出
+        empty:
+          all: 您尚未開始任何故事。
+          approved: 您尚未批准任何故事。
+          draft: 您目前尚未有故事草稿。
+          submitted: 您尚未提交任何故事。
+        headings:
+          contributions: 您的故事
+        links:
+          new: 添加一個新故事
+        title: 添加您的故事
+      dashboard_guest:
+        button_text: 停止進行貢獻
+        headings:
+          finished: 完成貢獻？
+        identity: （如果您不是%{name}，請在下方按下「停止進行貢獻」。）
+        links:
+          edit_contact: 編輯聯繫詳細內容
+          new: 新貢獻
+        notice: '%{name}，您以訪客的身份做出貢獻。'
+        title: 訪客控制面板
+      guests:
+        edit:
+          title: 編輯訪客聯繫詳細內容
+        new:
+          contact_details: 否則，請先告訴我們您的聯繫詳細資料：
+          guest: 您正以訪客身份做出貢獻。
+          links:
+            register: 註冊
+            sign_in: 登入
+          title: 訪客聯繫詳細內容
+      help:
+        adding_your_story:
+          heading: 加入您的故事至歐洲數位圖書館 1914-1918
+        how_to_use:
+          heading: 如何使用線上故事收藏介面
+          item2: 添加有關您的貢獻之訊息
+          item4: 為線上故事收藏提交貢獻
+        item1: 加入您的故事至歐洲數位圖書館1914-1918 – 參見下方
+      index:
+        item1: 輸入您的故事相關訊息。
+        item2: 將您的故事儲存為草稿。
+        item3: 添加一個或更多項目（圖片、文字文件、音效、影片等等）。
+    devise:
+      passwords:
+        edit:
+          title: 變更您的密碼
+        new:
+          title: 忘記您的密碼？
+      registrations:
+        edit:
+          title: 修改帳號詳細內容
+        new:
+          title: 註冊
+      sessions:
+        new:
+          instructions: 請以您的帳號詳細內容登入：
+          title: 登入
+    errors:
+      api_error:
+        message: 此外部來源資料目前不可用。
+        title: 應用程式介面錯誤
+      bad_request:
+        title: 錯誤請求
+      forbidden:
+        message: 您沒有權限來訪問所請求資源。
+        title: 禁止
+      internal_server_error:
+        message: 在我們處理您的請求時出現問題狀況。
+        title: 內部伺服器錯誤
+      not_found:
+        message: 您所請求的資源沒有找到。
+        title: 沒有找到
+      search_offline:
+        message: 搜尋功能暫時無效，請稍後再試。
+        title: 離線搜尋
+    explore:
+      heading: 探索故事
+      links:
+        diary: <a href="contributions/search?utf8=✓&q=Tagebuch" title="搜尋「日記」">日記</a>
+        eastern_front: <a href="contributions/search?utf8=✓&q=Ostfront" title="搜尋「東部前線」">東部前線</a>
+        family: <a href="contributions/search?utf8=✓&q=Familie" title="搜尋「家庭」">家庭</a>
+        flanders: <a href="contributions/search?utf8=✓&amp;q=Flandern" title="搜尋「佛萊明」">佛萊明</a>
+        infantry: <a href="contributions/search?utf8=✓&amp;q=Infanterie" title="搜尋「步兵」">步兵</a>
+        medal: <a href="contributions/search?utf8=✓&amp;q=Orden" title="搜尋「勳章」">勳章</a>
+        military_passport: <a href="contributions/search?utf8=✓&amp;q=Militärpass"
+          title="搜尋「軍事護照」">軍事護照</a>
+        postcard: <a href="contributions/search?utf8=✓&amp;q=Postkarte" title="搜尋「明信片」">明信片</a>
+        roadshows:
+          amberg_2012_01: <a href="contributions/search?utf8=✓&amp;q=AM15" title="來自安貝格收藏日的物件">安貝格2012年1月26日</a>
+          berlin_2011_04: <a href="contributions/search?utf8=✓&amp;q=BE08" title="來自柏林收藏日的物件">柏林2011年4月2日</a>
+          dresden_2011_06: <a href="contributions/search?utf8=✓&q=DD12" title="來自德勒斯登收藏日的物件">德勒斯登2011年6月22日</a>
+          erfurt_2011_06: <a href="contributions/search?utf8=✓&amp;q=EF11" title="來自艾爾福特收藏日的物件">艾爾福特2011年6月14日</a>
+          frankfurt_2011_03: <a href="contributions/search?utf8=✓&amp;q=FR07" title="來自法蘭克福收藏日的物件">法蘭克福2011年3月31日</a>
+          kiel_2011_06: <a href="contributions/search?utf8=✓&amp;q=KI13" title="來自基爾收藏日的物件">基爾2011年6月29日</a>
+          luxembourg_2012_03: <a href="contributions/search?utf8=✓&q=LU16" title=來自盧森堡收藏日的物件">盧森堡2012年3月6日</a>
+          munich_2011_04: <a href="contributions/search?utf8=✓&amp;q=MU09" title="來自慕尼黑收藏日的物件">慕尼黑2011年3月6日</a>
+          preston_2012_03: <a href="contributions/search?utf8=✓&amp;q=PR17" title="來自普雷斯頓收藏日的物件">普雷斯頓2012年3月10日</a>
+          regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="來自雷根斯堡收藏日的物件">雷根斯堡2011年7月20日</a>
+          stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="來自斯圖加特收藏日的物件">斯圖加特2011年4月12日</a>
+        trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="搜尋「壕溝」">壕溝</a>
+      p5: <b>在公開收藏日的材料收藏：</b>
+      search_for: <b>搜尋：</b>
+    flickr:
+      select:
+        instruction: 勾選您想要匯入的照片。標題和描述內容會自動匯入。
+        licenses:
+          heading: 從您的Flickr帳號選擇照片
+          incompatible: 無效許可協議
+        title: 從您的Flickr帳號選擇照片
+      show:
+        action:
+          link: 連結到Flickr帳號
+          unlink: 取消連結到Flickr帳號
+        status:
+          linked: 您已被連結至Flickr為%{username}
+          unlinked: 您未被連結至Flickr
+    home:
+      heading: 未說出的故事和第一次世界大戰官方歷史
+      links:
+        across_europe: 橫跨歐洲
+        see_english: 查看英語首頁
+        video_guide: 逐步說明影片導覽
+      otto:
+        heading: 奧托&amp;伯納德
+      p1: <em>歐洲數位圖書館1914-1918</em>正在從%{across_europe}收集材料。
+    links:
+      back: 返回至%{link}
+      back-to-search: 返回至搜尋結果
+      previous_step: 上一頁
+      privacy_policy: 隱私政策
+    register:
+      help_text:
+        email: 您必須使用您所指定的電郵地址和密碼登入。
+        password: 密碼必須包含6個字元
+        profile_photo: 若您想要，上傳屬於您自己的圖片（GIF或JPEG格式）。該圖片將會顯示在您的故事旁。
+      labels:
+        age_range: 您的年齡範圍
+        email: 電子郵件
+        gender: 性別
+        password: 密碼
+        password_repeat: 重設密碼
+        profile_image: 個人檔案圖片
+        profile_photo: 個人檔案照片
+        residence:
+          country: 選擇您的居住國家
+          post_code: 郵遞區號
+        user_name: 使用者名稱
+      terms:
+        accept: 我接受%{terms}
+        heading: 使用條款
+        p2: <b>您保證：</b>
+        terms: 條款和條件
+    search:
+      facets:
+        common:
+          category: 分類
+          collection: 收藏
+          contributor: 貢獻者
+          country: 國家
+          creator: 創建者
+          format: 格式
+          language: 語言
+          location: 位置
+          media: 媒體類型
+          provider: 提供者
+          rights: 版權
+          subject: 主題
+          type: 類型
+          year: 年
+        contributions:
+          collection_day: 收藏日
+          content: 項目類型
+          file_type: 媒體類型
+          keywords: 關鍵字
+          lang: 語言
+          license: 許可協議
+          place_name: 地名
+          protagonist_names: 主要人物名稱
+          provider: 提供者
+          theatres: 劇院
+        digitalnz:
+          content_partner: 內容合作夥伴
+        europeana:
+          data_provider: 資料提供者
+          reusability: 重用性
+          source_all: 所有歐洲數位圖書館結果
+          source_institution: 僅圖書館/博物館收藏
+          source_label: 來源
+          source_ugc: 自公眾的故事
+          ugc: 用戶生成內容
+          uri: 主題
+        matches_for: 符合
+        trove:
+          availability: 可用性
+      providers:
+        canadiana: 加拿大來源
+        collection: 歐洲數位圖書館
+        contributions: 1914-1918
+        digitalnz: 紐西蘭來源
+        dpla: 美國來源
+        trove: 澳洲來源
+    statistics:
+      index:
+        contributions:
+          heading: 貢獻
+          ugc: 來自我們的用戶
+        intervals:
+          last_month: 上個月
+          last_quarter: 上一季
+          last_week: 上週
+          last_year: 去年
+          this_month: 本月
+          this_week: 本週
+        metrics:
+          avgtimeonsite: 網站時間
+          object_pageviews: 故事檢視數
+          visits: 訪問
+        no_results: 沒有統計可用。
+        providers:
+          canadiana: Canadiana（加拿大）
+          digitalnz: DigitalNZ（紐西蘭）
+          dpla: DPLA（美國）
+          europeana: 歐洲數位圖書館
+          trove: Trove (澳洲)
+        title: 使用統計
+    taggings:
+      depublish:
+        question: 您確定您要取消發佈在此故事上下文裡的標籤？
+        title: 取消發佈標籤
+      edit:
+        title: 編輯標記
+    tags:
+      add: 增加
+      delete:
+        question: 您確定要刪除此標籤?
+        title: 移除標籤
+      flag:
+        question: 您確定您要將此標籤標記為不當？
+        title: 標記為不當
+    users:
+      _summary:
+        caption: 登入詳細內容
+      account:
+        caption: 個人詳細資料
+        links:
+          edit_contact: 編輯個人詳細資料
+          edit_user: 編輯登入詳細內容
+        title: 您的帳號
+      sign-in:
+        help: 請使用您的用戶名稱或電子郵件地址其一來登入。您不需要兩項都使用。
+  will_paginate:
+    entry_range_label: 結果： %{total} 中的 %{first}–%{last}
+    first_title: 第一頁
+    last_title: 末頁
+    next_label: '>'
+    next_title: 下一頁
+    page_entries_info:
+      multi_page_html: 顯示%{model}在全部裡<b>%{count}</b>中的<b>%{from}&nbsp;-&nbsp;%{to}</b>
+      single_page:
+        one: 顯示一個%{model}
+        zero: 查無%{model}
+        other: 顯示所有%{count} %{model}
+      single_page_html:
+        one: 顯示<b>1</b>個%{model}
+        other: zerɒ=查無%{model}
+    page_gap: '&hellip;'
+    page_total_label: '%{total_pages} 的'
+    per_page_label: 各頁面結果：
+    per_page_title: 在頁面上顯示的結果數量
+    previous_label: <
+    previous_title: 上一頁
+...
