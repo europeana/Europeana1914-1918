@@ -60,6 +60,7 @@ module RunCoCo
       end
       
       def supported_language_codes
+        return [] unless configured?
         cache_key = "bing_translator/supported_language_codes"
         
         if Rails.cache.exist?(cache_key)
