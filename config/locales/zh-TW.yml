@@ -137,6 +137,10 @@ zh-TW:
               present: 訪客貢獻需提供聯繫詳細內容
         metadata_field:
           attributes:
+            cataloguing:
+              optional: 編目字段可不需要。
+            contribution:
+              or_attachment: 字段必須適用於貢獻和/或附件
             field_type:
               constancy: 字段類型不可更改。
             searchable:
@@ -157,6 +161,8 @@ zh-TW:
               taken: 已經存在使用此電郵地址的用戶。
             picture:
               content_type: 個人檔案圖像必須是GIF或JPEG格式。
+      template:
+        body: 在以下字段出現問題：
     models:
       annotation: 圖片註解
       attachment: 項目
@@ -318,12 +324,15 @@ zh-TW:
   flash:
     actions:
       create:
+        alert: 在創建%{resource_name}時出現問題。請查看以下訊息。
         notice: 已創建新的%{resource_name}
       destroy:
+        alert: 在刪除%{resource_name}時出現問題。
         notice: '%{resource_name}已成功刪除。'
       taggings:
         notice: 標記已取消發佈。
       update:
+        alert: 在更新%{resource_name}時出現問題。請查看以下訊息。
         notice: 已更新%{resource_name}。
     annotations:
       depublish:
@@ -332,6 +341,9 @@ zh-TW:
       flag:
         alert: 標記註解為不當時失敗。
         notice: 註解已被標記為不當。
+      unflag:
+        alert: 取消標記註解為不當時失敗。
+        notice: 取消標記註解為不當
     attachments:
       create:
         alert: 儲存您的附件時出現問題。
@@ -397,11 +409,15 @@ zh-TW:
         notice: 聯繫詳細內容已清除。
       update:
         notice: 聯絡詳細資料已更新。
+    metadata_fields:
+      update_order:
+        notice: 元數據字段順序已更新。
     status:
       alert: 警告：
       notice: 通知：
     taggings:
       depublish:
+        alert: 取消發佈此標記失敗
         notice: 標記已取消發佈！
     tags:
       contribution:
@@ -412,6 +428,8 @@ zh-TW:
       europeana_record:
         create:
           success: 您的標籤已添加至此項目。
+      flag:
+        success: 標籤已被標示為不當。
     taxonomy:
       imported: 匯入新的分類術語
     users:
@@ -421,6 +439,7 @@ zh-TW:
       destroy:
         notice: 用戶已刪除。
       register:
+        alert: 註冊失敗。清更正下面細節內容並再重試一次。
         notice: 註冊成功。歡迎！
       update:
         alert: 用戶帳號無法更新。
@@ -472,13 +491,26 @@ zh-TW:
         metadata:
           creator_given_name: 原物件始作人的姓名，例如信件或日記作者，或攝影者的姓名。
           date_to: 物品的結束日期，例如日記的最後日期。
+          forces: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
+            eu
           location_placename: 輸入一個項目被創建時的所在城市名稱（信件撰寫地點或圖片拍攝地點），例如：倫敦或巴黎。
           subject: 與此項目相關的人物、地點或事物。
+          theatres: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
+            eu
         title: 對象的簡短描述或正確名稱，例如：「我的祖母、奧托·施密特所有、榮譽勳章」
       contribution:
         metadata:
+          description: 寫下您的貢獻裡背後所發生的故事。
+          forces: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
+            eu
+          lang: 指示出此故事所編寫的語言。
           location_placename: 輸入故事發生地點的城市名稱，例如倫敦或巴黎。
         title: 整體上用於此貢獻的標題。
+      metadata_field:
+        attachment: 指出此字段是否適用於附件。
+        field_type: 字段在儲存後便不能更改。
+        name: 用於字段的資料庫名稱必須唯一。可用的字元為：a-z, 0-9, _
+        show_in_listing: 如同搜尋結果來顯示此字段於清單裡。
       metadata_record:
         date: 格式：年-月-日（YYYY-MM-DD）、年-月（YYYY-MM）或年（YYYY），例如：1998-04-20、1998-04或1998
         geo: 格式： 緯度,精度, 例如： 51.500,-0.126（倫敦）
@@ -487,7 +519,11 @@ zh-TW:
           email: 輸入您登入用的電子郵件地址而我們將會寄送給您重新設定密碼的說明。
       settings:
         max_upload_size: 上傳最大位元組大小
+        registration_required: 若啟用的話；必須以註冊一個用戶帳號來做出貢獻。若停用的話；能以提供詳細聯繫訊息的訪客身份來做出貢獻。
+        site_name: 網站的名稱。預設上是顯示在網頁頁面標題和文字段落標題。
         ui_locales: 連結至頁面標題的區域。
+      taxonomy_term:
+        import: 在每行輸入一個分類術語來添加至此元數據字段。
       user:
         current_password: 若您想要更動您帳號之詳細內容請輸入您目前使用的密碼。
         edit:
@@ -983,6 +1019,13 @@ zh-TW:
         export:
           title: 匯出收藏
         index:
+          captions:
+            approved: 批准貢獻（總計%{total}個）
+            draft: 草稿貢獻（總計%{total}個）
+            rejected: 否決貢獻（總計%{total}個）
+            revised: 等待批准的被修訂貢獻（總計%{total}個）
+            submitted: 等待批准的被提交貢獻（總計%{total}個）
+            withdrawn: 等待批准的被撤回貢獻（總計%{total}個）
           empty:
             all:
               approved: 目前沒有認可的貢獻
@@ -1016,10 +1059,13 @@ zh-TW:
             description: 匯出收藏貢獻者為CSV檔案。
             text: 匯出成CSV檔
           export_users:
+            description: 匯出所有至少有作出過一次貢獻的用戶資料為CSV檔。
             text: 匯出貢獻者
           export_xml:
+            description: 匯出收藏貢獻和附件為XML檔。
             text: 匯出成XML檔
           export_xml_nozip:
+            description: 匯出收藏貢獻和附件為XML檔；但不包含.zip格式檔案附件。
             text: 匯出成XML檔（不包含.zip檔案）
           logs:
             description: 查看應用日誌檔案
@@ -1041,8 +1087,12 @@ zh-TW:
           title: 重新索引搜尋引擎
         delete:
           button_confirm: 確定刪除此字段？
+          question: 您確定您要刪除元數據字段%{field_name}？
           title: 刪除元數據字段
+          warning: <strong>警告：</strong>這將會導致刪除掉匯集於此字段中您所收藏的任何資料。
         edit:
+          empty: 尚未有元數據字段。
+          instructions: 在各字段輸入位置的數字。
           title: 編輯元數據字段
         index:
           caption: 元數據字段
@@ -1071,9 +1121,11 @@ zh-TW:
           title: 匯入分類術語
         index:
           caption: 分類術語
+          empty: 尚未有此字段的分類術語。
           links:
             back: 元數據字段清單
             import: 從清單匯入術語
+            new: 新術語
           title: 分類術語
         new:
           title: 新分類術語
@@ -1600,6 +1652,7 @@ zh-TW:
     next_label: '>'
     next_title: 下一頁
     page_entries_info:
+      multi_page: 顯示總計%{count}中%{from} - %{to}個%{model}
       multi_page_html: 顯示%{model}在全部裡<b>%{count}</b>中的<b>%{from}&nbsp;-&nbsp;%{to}</b>
       single_page:
         one: 顯示一個%{model}
