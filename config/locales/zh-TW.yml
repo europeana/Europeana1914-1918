@@ -86,8 +86,11 @@ zh-TW:
       setting:
         name: 名稱
         value: 值
+      taxonomy_term:
+        metadata_field: 字段
       user:
         created_at: 註冊日期
+        institution: 機構
         password: 密碼
         password_confirmation: 重複密碼
         role_name: 身份
@@ -111,6 +114,7 @@ zh-TW:
         not_an_integer: 必須為整數
         odd: 必須為奇數
         record_invalid: 驗證失敗：%{errors}
+        taken: 此字段需唯一，但輸入的值已存在於我們的系統裡。
         too_long: 太長（最多為%{count}個字元）
         too_short: 太短（最少要%{count}個字元）
         wrong_length: 長度錯誤太長（應為%{count}個字元）
@@ -169,6 +173,7 @@ zh-TW:
       collection_day: 收藏日
       contact: 聯繫
       contribution: 故事
+      institution: 機構提供者
       metadata_field: 元數據字段
       metadata_record: 元數據記錄
       tag: 標籤
@@ -223,6 +228,8 @@ zh-TW:
   common:
     additional-information: 額外訊息
     download-item: 下載此物件
+    editors_blog:
+      more_stories: 更多故事在<a href="http://thegreatwararchive.blogspot.com/search/label/en">編者精選的部落格</a>
     editors_pick:
       heading: 編輯推介
       more_stories: <b>更多的故事在%{explore_stories}頁面上。</b>
@@ -311,6 +318,7 @@ zh-TW:
         subject: 重新設定密碼說明
     passwords:
       link: 忘記密碼？
+      send_instructions: 您已經寄送一封帶有重新設定您的密碼說明之電子郵件。
       updated: 您的密碼已更改成功。您現在可以登入。
     registrations:
       destroyed: 再會！您的帳號已成功取消。我們期望很快能再次見到您。
@@ -352,6 +360,8 @@ zh-TW:
       destroy:
         alert: 刪除您的附件時出現問題。
         notice: 附件已刪除。
+      duplicate:
+        notice: 已複製項目元數據至其它選擇項目。
       links:
         view-attachments_html: <a href="#attachments">點此查看和編輯它們</a>。
       update:
@@ -404,10 +414,12 @@ zh-TW:
         notice: 以背景作業轉移Flickr圖片。
     guest_contact:
       create:
+        alert: 您提供的詳細訊息出現問題。請更正它們並再重試一次。
         notice: 聯繫詳細內容已收取。
       forget:
         notice: 聯繫詳細內容已清除。
       update:
+        alert: 您提供的詳細訊息出現問題。請更正它們並再重試一次。
         notice: 聯絡詳細資料已更新。
     metadata_fields:
       update_order:
@@ -487,12 +499,16 @@ zh-TW:
     create: 創建%{model}
     hints:
       attachment:
+        edit:
+          file: 僅在您如果想要取代現有內容時上傳新檔案。最大檔案大小：%{max}。允許檔案類型：%{file_types}。
         file: 上傳檔案
         metadata:
+          content: 試著盡可能指明清楚項目是什麼（例如是首詩、信、或相片）。
           creator_given_name: 原物件始作人的姓名，例如信件或日記作者，或攝影者的姓名。
           date_to: 物品的結束日期，例如日記的最後日期。
           forces: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
             eu
+          lang: 指示出用於此項目的語言，例如用於一本日記的語言。
           location_placename: 輸入一個項目被創建時的所在城市名稱（信件撰寫地點或圖片拍攝地點），例如：倫敦或巴黎。
           subject: 與此項目相關的人物、地點或事物。
           theatres: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
@@ -500,15 +516,19 @@ zh-TW:
         title: 對象的簡短描述或正確名稱，例如：「我的祖母、奧托·施密特所有、榮譽勳章」
       contribution:
         metadata:
+          contributor_behalf: 留下空白除非您正協助某人來做出此貢獻。
           description: 寫下您的貢獻裡背後所發生的故事。
           forces: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
             eu
           lang: 指示出此故事所編寫的語言。
           location_placename: 輸入故事發生地點的城市名稱，例如倫敦或巴黎。
+          theatres: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918[@]europeana[.]eu
         title: 整體上用於此貢獻的標題。
       metadata_field:
         attachment: 指出此字段是否適用於附件。
+        contribution: 指明此字段是否適用於貢獻。
         field_type: 字段在儲存後便不能更改。
+        multi: 允許各貢獻/附件選擇多種項目。
         name: 用於字段的資料庫名稱必須唯一。可用的字元為：a-z, 0-9, _
         show_in_listing: 如同搜尋結果來顯示此字段於清單裡。
       metadata_record:
@@ -518,17 +538,21 @@ zh-TW:
         new:
           email: 輸入您登入用的電子郵件地址而我們將會寄送給您重新設定密碼的說明。
       settings:
+        banner_text: 若在上方啟用的話，顯示文字於管理訊息。
         max_upload_size: 上傳最大位元組大小
         registration_required: 若啟用的話；必須以註冊一個用戶帳號來做出貢獻。若停用的話；能以提供詳細聯繫訊息的訪客身份來做出貢獻。
         site_name: 網站的名稱。預設上是顯示在網頁頁面標題和文字段落標題。
         ui_locales: 連結至頁面標題的區域。
       taxonomy_term:
         import: 在每行輸入一個分類術語來添加至此元數據字段。
+        term: 在此元數據字段範圍內必須是唯一。
       user:
         current_password: 若您想要更動您帳號之詳細內容請輸入您目前使用的密碼。
         edit:
           password: 若您想要更換請輸入新密碼，否則請留空。內容至少需6個字元。
         password: 最少 6 個字元
+        update:
+          password: 若您想要更換請輸入新密碼，否則請留空。內容至少需6個字元。
         username: 最少3個字元。有效字元為：a-z A-Z 0-9 - _ . @
     labels:
       attachment:
@@ -541,6 +565,7 @@ zh-TW:
           creator_family_name: 創建人姓氏
           creator_given_name: 創建人名字
           date: 日期
+          date_from: 創建日期/起始日期
           date_to: 結束日期
           file_type: 媒體類型
           forces: 部隊
@@ -548,6 +573,7 @@ zh-TW:
           keywords: 關鍵字
           lang: 語言
           lang_other: 語言（其它）
+          license: 許可協議
           location_map: 緯度及經度
           location_placename: 指出您項目創建的地方。
           location_zoom: 位置縮放
@@ -614,9 +640,13 @@ zh-TW:
           character2_pob: 出生地點
           character2_pod: 逝世地點
           collection_day: 收藏日
+          contributor_behalf: 貢獻代表關於
           date_from: 故事開始在...
           date_to: 故事結束在...
           description: 故事
+          editor_pick: 編者精選
+          editor_pick_sig: 編者精選簽名
+          editor_pick_text: 編者精選文字
           forces: 部隊
           keywords: 關鍵字
           lang: 語言
@@ -673,6 +703,7 @@ zh-TW:
           Central Powers: 同盟國
           Imperial Forces: 帝國部隊
         format:
+          Canvas: 畫布
           Card: 卡片
           Ceramic/China: 陶瓷/瓷器
           Digital: 數位
@@ -699,6 +730,7 @@ zh-TW:
           Refugees: 難民
           Remembrance: 回憶
           Tanks and Armoured Fighting Vehicles: 坦克與裝甲戰鬥車
+          Transport: 運輸
           Trench Life: 戰壕生活
           Women: 女性
         lang:
@@ -734,6 +766,7 @@ zh-TW:
           Film: 電影
           Folio: 對開本
           Journal: 期刊
+          Leaf: 紙張
           Multiple: 多項
           Newspaper: 報紙
           Notebook: 筆記本
@@ -774,7 +807,9 @@ zh-TW:
       contribution_attachments: 項目
       contribution_terms: 條款和條件
       dropbox: Dropbox
+      fields: 字段
       metadata: 編目資訊
+      metadata_field_options: 類型特定項目
       optional_details: 其它非必要個人訊息
       personal_details: 個人詳細資料
       story_basics: 訴說您的故事...
@@ -800,6 +835,7 @@ zh-TW:
       next-collection-day: 下次的收藏日是在<b>%{name}，%{city}，%{country}</b>於<b>%{start-date}
       no-upcoming: 現在沒有即將到來的收藏日
       past-entered: 過去的收藏日
+      past-not-entered: 過去的收藏日（故事尚未發佈）
       show-past: 顯示過去的收藏日
       upcoming: 即將到來的收藏日
       what-is-it: 什麼是收藏日？
@@ -812,6 +848,8 @@ zh-TW:
     digital_object:
       labels:
         copy_from_story: 版權訊息
+      links:
+        copy_from_story: 從故事複製
     gmap:
       canvas:
         hide: 關閉Google地圖
@@ -838,6 +876,8 @@ zh-TW:
     previous: ← 上一步
     search:
       10seconds: 我們仍在搜尋中，請耐心等候！
+      30seconds: 這比預期花費了更多時間。請嘗試其它搜尋或繼續等待！
+      60seconds: 搜尋目前出現問題。請稍後重試。
     story:
       took-place: 此故事發生在：
     thumbnails:
@@ -951,6 +991,7 @@ zh-TW:
       takedown:
         item1: 您的詳細聯絡訊息
         item2: 此材料的全部詳細資料
+        item3: 您所找到材料的精準URL位置（例如：http://www.europeana1914-1918.eu/en/contributions/96）
         item5: 電郵給我們以：1914-1918 [@] europeana [.] eu
       terms:
         full_details:
@@ -1046,6 +1087,8 @@ zh-TW:
         headings:
           export: 匯出
         links:
+          collection_days:
+            description: 提供有關收藏日的額外訊息。
           config:
             description: 設置網站設定
             text: 設置
@@ -1082,6 +1125,17 @@ zh-TW:
             description: 管控用戶帳號：管理員、編目者和貢獻者
             text: 用戶帳號
         title: 管理者
+      institutions:
+        delete:
+          question: 您確定您要刪除機構提供者%{name}嗎？
+          title: 刪除機構提供者
+          warning: 刪除一個機構提供者將會重新設置任何已分配用戶帳號成為未隸屬任何機構。
+        edit:
+          title: 編輯機構提供者
+        index:
+          title: 機構提供者
+        new:
+          title: 新機構提供者
       metadata_fields:
         confirm_reindex:
           title: 重新索引搜尋引擎
@@ -1169,6 +1223,7 @@ zh-TW:
     attachments:
       _form:
         dropbox:
+          connect_html: 若您有Dropbox帳號，您可以直接從您的Dropbox資料夾寄給我們。如果您想要使用此功能，請連結至您的<a href="%{href}">Dropbox帳號</a>。
           connected_html: 您已以<strong>%{user}</strong>連結至Dropbox
           disconnect: 中斷連結您的Dropbox帳號
           refresh: 重整檔案清單
@@ -1188,8 +1243,11 @@ zh-TW:
         item1-subitem1: 描述該項目
         item1-subitem2: 上傳檔案附件
         item2: 添加多個項目和檔案
+        item2-subitem1: 上傳代表多種項目的多樣檔案附件
         item2-subitem2: 您可各一描述項目
         one-of-the-following: 您可選擇以下之一來進行：
+      copy:
+        title: 複製項目元數據
       delete:
         question: 您確定您要刪除項目「%{filename}」？
         title: 刪除項目
@@ -1260,12 +1318,14 @@ zh-TW:
       complete:
         title: 貢獻完成
       delete:
+        question: 您確定您要完全捨棄故事「<strong>%{title}</strong>」及該全部項目？
         title: 丟棄故事
       digital_object:
         heading: 附加至您故事的項目
         help_text:
           add_attachment: 記得至少添加一個項目至您的故事。
           attachment_count: 目前有<strong>%{nr_digital_objects}</strong>個項目附加至此故事。
+          subject: 與此項目相關的人物、地點或事物。
           submit_story_button: 提交故事
           when: 此項目何時創建
           where: 此項目於何處創建
@@ -1286,15 +1346,19 @@ zh-TW:
           audio: 音訊
           back: 返回
           book: 書籍
+          canvas: 畫布
           card: 卡片
           cc_by_sa: cc-by-sa
           ceramic: 陶瓷/瓷器
           diary: 日記
+          digital: 數位
           film: 電影
           folio: 對開本
           front: 前線
           image: 圖片
           journal: 雜誌
+          leaf: 紙張
+          leather: 皮革
           letter: 信件
           medal: 勳章
           metal: 金屬
@@ -1346,6 +1410,7 @@ zh-TW:
             show_contribution: 查看貢獻
         matches-for: 符合：
         no_matches: 沒有符合項目，請再試一次。
+        related-europeana: 來自歐洲數位圖書館入口的相關內容
         result_count_label: 結果
       show:
         button_confirm: 您確定您準備要提交此貢獻至收藏裡？
@@ -1382,6 +1447,7 @@ zh-TW:
           heading: 故事完成
         help_text:
           add_another_person: 您可添加一個以上人物。
+          behalf_of: 留下空白除非您正協助某人來做出此貢獻
           save_story: 點擊「儲存故事草稿」後，您將會被帶入到以下貢獻步驟
           use_google_maps: 使用Google地圖
         labels:
@@ -1404,6 +1470,7 @@ zh-TW:
           contributions: 您的故事
         links:
           new: 添加一個新故事
+        p1: 下方是您已添加過的故事。需要編輯或刪除它們
         title: 添加您的故事
       dashboard_guest:
         button_text: 停止進行貢獻
@@ -1503,6 +1570,7 @@ zh-TW:
         licenses:
           heading: 從您的Flickr帳號選擇照片
           incompatible: 無效許可協議
+          instruction: 僅有符合以下許可協議的照片可匯入至歐洲數位圖書館1914-1918：
         title: 從您的Flickr帳號選擇照片
       show:
         action:
@@ -1529,6 +1597,9 @@ zh-TW:
       help_text:
         email: 您必須使用您所指定的電郵地址和密碼登入。
         password: 密碼必須包含6個字元
+        profile_image: |-
+          此圖片將會顯示於您的貢獻旁<br/>
+          最大檔案大小=128kb
         profile_photo: 若您想要，上傳屬於您自己的圖片（GIF或JPEG格式）。該圖片將會顯示在您的故事旁。
       labels:
         age_range: 您的年齡範圍
@@ -1545,7 +1616,9 @@ zh-TW:
       terms:
         accept: 我接受%{terms}
         heading: 使用條款
+        item2: 您擁有此數位材料的版權；或
         p2: <b>您保證：</b>
+        p3: 若您不想接受這些條款，就請不要在歐洲數位圖書館上貢獻內容或描述性資料。
         terms: 條款和條件
     search:
       facets:
@@ -1587,6 +1660,7 @@ zh-TW:
           ugc: 用戶生成內容
           uri: 主題
         matches_for: 符合
+        refine_results: 將您的結果最佳化
         trove:
           availability: 可用性
       providers:
@@ -1595,11 +1669,13 @@ zh-TW:
         contributions: 1914-1918
         digitalnz: 紐西蘭來源
         dpla: 美國來源
+        europeana: 歐洲數位圖書館入口
         trove: 澳洲來源
     statistics:
       index:
         contributions:
           heading: 貢獻
+          institutional: 機構項目
           ugc: 來自我們的用戶
         intervals:
           last_month: 上個月
@@ -1610,6 +1686,7 @@ zh-TW:
           this_week: 本週
         metrics:
           avgtimeonsite: 網站時間
+          europeana_pageviews: 機構項目視圖
           object_pageviews: 故事檢視數
           visits: 訪問
         no_results: 沒有統計可用。
@@ -1634,6 +1711,7 @@ zh-TW:
       flag:
         question: 您確定您要將此標籤標記為不當？
         title: 標記為不當
+      info: 以逗號來分隔各標籤之後按下enter鍵來添加。
     users:
       _summary:
         caption: 登入詳細內容
