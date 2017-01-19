@@ -157,6 +157,10 @@ zh-TW:
           attributes:
             name:
               inclusion: 不是已註冊的設置設定
+        taxonomy_term:
+          attributes:
+            metadata_field:
+              type: 分類術語必須關聯於分類元數據字段。
         user:
           attributes:
             current_password:
@@ -517,6 +521,8 @@ zh-TW:
       contribution:
         metadata:
           contributor_behalf: 留下空白除非您正協助某人來做出此貢獻。
+          date_from: 告訴我們故事是何時發生。如果您不清楚精準時間，僅提供年份字段內容即可。例如：我祖父在1915年入伍、或其它。
+          date_to: 告訴我們故事是何時結束。如果您不清楚精準時間，僅提供年份字段內容即可。例如：我祖父在1916年受傷、或其它。
           description: 寫下您的貢獻裡背後所發生的故事。
           forces: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
             eu
@@ -526,10 +532,12 @@ zh-TW:
         title: 整體上用於此貢獻的標題。
       metadata_field:
         attachment: 指出此字段是否適用於附件。
+        cataloguing: 是：僅在管理界面顯示此字段來用於編目。否：一同顯示給貢獻者。
         contribution: 指明此字段是否適用於貢獻。
         field_type: 字段在儲存後便不能更改。
         multi: 允許各貢獻/附件選擇多種項目。
         name: 用於字段的資料庫名稱必須唯一。可用的字元為：a-z, 0-9, _
+        required: 是：貢獻者必須輸入用於此字段的內容。否：此字段為選用。編目字段必須為選用。
         show_in_listing: 如同搜尋結果來顯示此字段於清單裡。
       metadata_record:
         date: 格式：年-月-日（YYYY-MM-DD）、年-月（YYYY-MM）或年（YYYY），例如：1998-04-20、1998-04或1998
@@ -538,10 +546,13 @@ zh-TW:
         new:
           email: 輸入您登入用的電子郵件地址而我們將會寄送給您重新設定密碼的說明。
       settings:
+        allowed_upload_extensions: 以逗號作分隔來允許上傳檔案的副檔名，例如「pdf,doc,jpg,gif」。若留白則允許所有副檔名。
         banner_text: 若在上方啟用的話，顯示文字於管理訊息。
+        gmap_api_key: Google地圖應用程式介面密鑰。若無此密鑰Google地圖將不可被輸入地理位置資料。在<http://code.google.com/apis/maps/signup.html>註冊來獲得密鑰。
         max_upload_size: 上傳最大位元組大小
         registration_required: 若啟用的話；必須以註冊一個用戶帳號來做出貢獻。若停用的話；能以提供詳細聯繫訊息的訪客身份來做出貢獻。
         site_name: 網站的名稱。預設上是顯示在網頁頁面標題和文字段落標題。
+        site_url: 在此網站可訪問首頁的完整URL位址，不包含區域及斜線標記。
         ui_locales: 連結至頁面標題的區域。
       taxonomy_term:
         import: 在每行輸入一個分類術語來添加至此元數據字段。
@@ -797,6 +808,7 @@ zh-TW:
       attachment_dates: 此項目何時創建
       attachment_details: 描述您的項目
       attachment_front: 此項目有關於到哪個前線
+      attachment_keywords: 以添加一個或多個下列關鍵詞來幫助其他人找尋您的項目
       attachment_location: 此項目於何處創建
       attachment_replace: 替換附件
       attachment_upload: 添加一個附件
@@ -819,6 +831,7 @@ zh-TW:
       story_dates: 此故事發生於何時
       story_forces: 是否此項目牽扯到
       story_front: 此故事關於到哪個前線
+      story_keywords: 以添加一個或多個下列關鍵詞來幫助其他人找尋您的故事。
       story_location: 此故事發生於何處
       submit: 提交您的故事
     update: 更新%{model}
@@ -827,6 +840,8 @@ zh-TW:
     annotorious:
       clear-flag: 清除標記
       flag: 標記
+    attachments:
+      uploading: 您的一些檔案仍在傳輸。當全部完成之後您將可提交您的故事。
     collection-days:
       close-directions: 關閉指示
       find-more: 找尋更多。
@@ -925,14 +940,17 @@ zh-TW:
           獻上最誠摯的問候，
           歐洲數位圖書館 1914-1918全體團隊
         subject: 您的歐洲數位圖書館1914-1918貢獻已發佈
+        thanks: 感謝您與我們分享您的故事及紀念事物！您的貢獻現已被發佈在我們的網站上。您可點擊此連結來查看：
     exports:
       complete:
+        notice: 您發起的收藏匯出已完成，並可從此下載：
         subject: 收藏匯出完成
   media_types:
     all: 所有
     binary: 二位元檔案
     pdf: PDF
     sound: 音效檔案
+    spreadsheet: 試算表
     txt: 文字檔案
     unknown: 不明文件類型
     video: 影片檔案
@@ -999,6 +1017,7 @@ zh-TW:
         heading: 條款和條件
         summary:
           heading: 歐洲數位圖書館使用條款：摘要
+          item1: 您提交的數位材料未有版權保護；或
           item2: 您擁有此數位材料的版權；或
           p2: <b>您保證：</b>
         user_contributions:
@@ -1025,6 +1044,7 @@ zh-TW:
           heading: 線上貢獻
         education:
           heading: 教育
+        heading: 涉及
         reuse:
           heading: 使用材料
       help:
@@ -1039,6 +1059,7 @@ zh-TW:
             type: 註釋類型
       collection_days:
         delete:
+          question: 您確定您要刪除有關收藏日%{code}的額外訊息？
           title: 刪除收藏日
         edit:
           title: 編輯收藏日
@@ -1083,6 +1104,9 @@ zh-TW:
               submitted: 沒有符合您所搜尋的已提交貢獻。
               withdrawn: 沒有符合您所搜尋的撤回貢獻。
           title: 貢獻
+      europeana:
+        index:
+          introduction: 目前有%{count}條與第一次世界大戰相關的歐洲數位圖書館記錄於1914-1918資料庫裡。
       index:
         headings:
           export: 匯出
@@ -1138,6 +1162,7 @@ zh-TW:
           title: 新機構提供者
       metadata_fields:
         confirm_reindex:
+          note: 貢獻更新時將搜尋引擎給重新索引是自動發生的；可註明您不需要這麼做。
           title: 重新索引搜尋引擎
         delete:
           button_confirm: 確定刪除此字段？
@@ -1169,6 +1194,7 @@ zh-TW:
         delete:
           question: 您確定您要刪除分類術語「%{term}」嗎？
           title: 刪除分類術語
+          warning: <strong>警告：</strong>此操作將會導致任何相關此項的貢獻遺失分類。
         edit:
           title: 編輯分類術語
         import:
@@ -1282,6 +1308,7 @@ zh-TW:
       different-collection-day: 想要改查看不同收藏日？
       index:
         title: 收藏日
+      join-us: 收藏日尚未完成。請盡可能抽空加入我們或在收藏日完成時稍後返回檢查
       open-collection: 開啟收藏日
       select-collection-day: 選擇一個收藏日
       stories: 故事：
@@ -1325,11 +1352,15 @@ zh-TW:
         help_text:
           add_attachment: 記得至少添加一個項目至您的故事。
           attachment_count: 目前有<strong>%{nr_digital_objects}</strong>個項目附加至此故事。
+          language: 指示出用於此項目的語言，例如用於一本日記的語言。
+          object_type: 試著盡可能指明清楚項目是什麼（例如是首詩、信、或相片）。
           subject: 與此項目相關的人物、地點或事物。
+          submit_contribution1: 如果您完成了您的貢獻，<a href="#continue-to-submission">繼續提交步驟</a>。
           submit_story_button: 提交故事
           when: 此項目何時創建
           where: 此項目於何處創建
         labels:
+          keywords: 以添加一個或多個下列關鍵詞來幫助其他人找尋您的項目。
           location_map: 位置（地圖）
           location_place_name: 位置（地名）
           save_digital: 儲存數位物件
@@ -1424,6 +1455,7 @@ zh-TW:
           share: 分享於
           submit: 提交貢獻
           tags: 新增標籤
+        invalid: 此貢獻尚未被準備提交。在點擊「為何不？」後提出解釋。在點擊下方編輯後添加更多資訊※
         links:
           new_attachment: 增加一個項目
         related:
@@ -1445,6 +1477,7 @@ zh-TW:
       story:
         complete:
           heading: 故事完成
+          p1: 感謝您！您的故事已提交。內容將會由專案人員檢驗並在批准後顯示於網站上。在繁忙時期可能會花費數週，我們希望您能理解情況並耐心等候。
         help_text:
           add_another_person: 您可添加一個以上人物。
           behalf_of: 留下空白除非您正協助某人來做出此貢獻
@@ -1497,13 +1530,18 @@ zh-TW:
           heading: 加入您的故事至歐洲數位圖書館 1914-1918
         how_to_use:
           heading: 如何使用線上故事收藏介面
+          item1: '%{register}來獲得一個帳號（您僅需要進行一次）或著可%{sign_in}若您已註冊過。'
           item2: 添加有關您的貢獻之訊息
+          item3: （選用）附加一個您的物件之數位版本（照片、掃描文字、影片、音訊等）。
           item4: 為線上故事收藏提交貢獻
         item1: 加入您的故事至歐洲數位圖書館1914-1918 – 參見下方
       index:
         item1: 輸入您的故事相關訊息。
         item2: 將您的故事儲存為草稿。
         item3: 添加一個或更多項目（圖片、文字文件、音效、影片等等）。
+        item4: 確認您同意條款和條件並提交以檢閱。
+      registration_required:
+        p1: 請%{sign_in}或%{register}來添加您的事物和故事到歐洲數位圖書館1914-1918。
     devise:
       passwords:
         edit:
@@ -1524,7 +1562,11 @@ zh-TW:
         message: 此外部來源資料目前不可用。
         title: 應用程式介面錯誤
       bad_request:
+        message: 在您提交請求時出現問題，導致處理無法進行。
         title: 錯誤請求
+      federated_search_error:
+        message: 自此整合搜尋提供者的資料此時不可用。
+        title: 整合搜尋錯誤
       forbidden:
         message: 您沒有權限來訪問所請求資源。
         title: 禁止
@@ -1562,6 +1604,7 @@ zh-TW:
           regensburg_2011_07: <a href="contributions/search?utf8=✓&amp;q=RG14" title="來自雷根斯堡收藏日的物件">雷根斯堡2011年7月20日</a>
           stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="來自斯圖加特收藏日的物件">斯圖加特2011年4月12日</a>
         trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="搜尋「壕溝」">壕溝</a>
+      p1: 在此您可以查看至今被添加於我們的故事收藏內容。
       p5: <b>在公開收藏日的材料收藏：</b>
       search_for: <b>搜尋：</b>
     flickr:
@@ -1616,6 +1659,7 @@ zh-TW:
       terms:
         accept: 我接受%{terms}
         heading: 使用條款
+        item1: 您提交的數位材料未有版權保護；或
         item2: 您擁有此數位材料的版權；或
         p2: <b>您保證：</b>
         p3: 若您不想接受這些條款，就請不要在歐洲數位圖書館上貢獻內容或描述性資料。
@@ -1654,6 +1698,7 @@ zh-TW:
           data_provider: 資料提供者
           reusability: 重用性
           source_all: 所有歐洲數位圖書館結果
+          source_info: 若您選擇自公開或圖書館/博物館收藏來查看故事能有更多的篩選項目可用。
           source_institution: 僅圖書館/博物館收藏
           source_label: 來源
           source_ugc: 自公眾的故事
