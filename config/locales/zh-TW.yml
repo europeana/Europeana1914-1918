@@ -181,6 +181,7 @@ zh-TW:
       metadata_field: 元數據字段
       metadata_record: 元數據記錄
       tag: 標籤
+      tagging: 標記
       taxonomy_term: 分類術語
       user: 使用者
     options:
@@ -237,6 +238,7 @@ zh-TW:
     editors_pick:
       heading: 編輯推介
       more_stories: <b>更多的故事在%{explore_stories}頁面上。</b>
+    featured-categories: 精選分類
     from-collection-days: 來自我們的收藏日
     google_maps:
       label: 使用Google地圖（選用）
@@ -256,7 +258,7 @@ zh-TW:
       contribution-terms-pdf: <a href="http://www.europeana.eu/portal/rights/terms-for-user-contributions.html?lang=en"
         target="_blank">歐洲數位圖書館用戶貢獻條款</a>
       contribution_terms: 歐洲數位圖書館用戶貢獻條款
-      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">找尋更多關於電影材料收藏</a>。
+      efg: <a href="http://www.europeanfilmgateway.eu/1914" target="_blank">找尋更多關於電影資料收藏</a>。
       explore-the-stories: 探索故事！
       explore-the-stories-brief: 探索！
       explore_stories: 探索故事
@@ -272,9 +274,11 @@ zh-TW:
       register: 註冊
       sign_in: 登入
       statistics: 統計
+      takedown_policy: 移除方針
       titles:
         contribution_terms: 查看歐洲數位圖書館用戶貢獻條款
         great_war: 在牛津大學的大戰保存檔案
+        takedown: 至移除方針頁面
       view-image: 查看全部項目
       view-pdf: 開啟文件
     map_contribution_heading: 此故事發生於
@@ -346,6 +350,10 @@ zh-TW:
       update:
         alert: 在更新%{resource_name}時出現問題。請查看以下訊息。
         notice: 已更新%{resource_name}。
+    admin:
+      europeana:
+        harvest:
+          notice: 歐洲數位圖書館入口內容已在背景後台裡獲得。
     annotations:
       depublish:
         alert: 取消發佈註解失敗。
@@ -395,6 +403,7 @@ zh-TW:
           notice: 開始新的草稿貢獻。
         submit:
           alert: 您的貢獻有出現問題，請檢查以下訊息。
+          notice: 感謝您！您的貢獻已提交。內容將會由專案人員檢驗並在批准後顯示於網站上。在繁忙時期可能會花費數週，我們希望您能理解情況並耐心等候。
         update:
           alert: 在儲存您的貢獻時出現問題。
           notice: 貢獻以儲存。
@@ -404,6 +413,9 @@ zh-TW:
       submitted:
         edit:
           alert: 此貢獻已提交過。
+      withdraw:
+        alert: 標記您的故事為從收藏裡撤回失敗。
+        notice: 您的故事被標記為從收藏裡撤回。
     contributors:
       create:
         alert: 您的帳號無法創建。
@@ -415,6 +427,7 @@ zh-TW:
       import:
         alert:
           empty: 未選擇圖片
+          invalid_license: 以下照片有著不合適的許可協議而無法被匯入。
         notice: 以背景作業轉移Flickr圖片。
     guest_contact:
       create:
@@ -503,17 +516,23 @@ zh-TW:
     create: 創建%{model}
     hints:
       attachment:
+        dropbox_path: 從您的Dropbox資料夾「Apps/Europeana 1914-1918」選擇一個檔案來複製。檔案若非為允許格式、或太大將不會被顯示出。
         edit:
           file: 僅在您如果想要取代現有內容時上傳新檔案。最大檔案大小：%{max}。允許檔案類型：%{file_types}。
         file: 上傳檔案
         metadata:
+          attachment_description: 描述此項目對您所代表的含意及意義之實體特性。
           content: 試著盡可能指明清楚項目是什麼（例如是首詩、信、或相片）。
           creator_given_name: 原物件始作人的姓名，例如信件或日記作者，或攝影者的姓名。
           date_to: 物品的結束日期，例如日記的最後日期。
           forces: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
             eu
+          format: 項目資料已被數位化（例如報紙、卡片、磁帶）。
           lang: 指示出用於此項目的語言，例如用於一本日記的語言。
           location_placename: 輸入一個項目被創建時的所在城市名稱（信件撰寫地點或圖片拍攝地點），例如：倫敦或巴黎。
+          object_side: 對於像是明信片之類有兩面的項目，請指示側邊。
+          page_number: 對於有很多頁面的項目，請輸入個別頁碼
+          source: 項目數位化的來源（例如一張紙張報紙、對開本、電影膠捲）。
           subject: 與此項目相關的人物、地點或事物。
           theatres: 若不相關請不要點選。而如果有相關關鍵字為不可用請使用此電郵地址聯絡我們：1914-1918 [@] europeana [.]
             eu
@@ -535,9 +554,11 @@ zh-TW:
         cataloguing: 是：僅在管理界面顯示此字段來用於編目。否：一同顯示給貢獻者。
         contribution: 指明此字段是否適用於貢獻。
         field_type: 字段在儲存後便不能更改。
+        hint: 在輸入字段旁顯示的文字用於指引貢獻者/編目者。
         multi: 允許各貢獻/附件選擇多種項目。
         name: 用於字段的資料庫名稱必須唯一。可用的字元為：a-z, 0-9, _
         required: 是：貢獻者必須輸入用於此字段的內容。否：此字段為選用。編目字段必須為選用。
+        searchable_no_sphinx: 註：元數據字段僅可在Sphinx搜尋引擎運作下才可搜尋&mdash;而目前並沒運作。
         show_in_listing: 如同搜尋結果來顯示此字段於清單裡。
       metadata_record:
         date: 格式：年-月-日（YYYY-MM-DD）、年-月（YYYY-MM）或年（YYYY），例如：1998-04-20、1998-04或1998
@@ -548,12 +569,18 @@ zh-TW:
       settings:
         allowed_upload_extensions: 以逗號作分隔來允許上傳檔案的副檔名，例如「pdf,doc,jpg,gif」。若留白則允許所有副檔名。
         banner_text: 若在上方啟用的話，顯示文字於管理訊息。
+        bing_client_id: 來自Azure DataMarket的Bing客戶端ID。需要歐洲數位圖書館開放搜尋應用程式介面查詢的翻譯。
+        bing_client_secret: 來自Azure DataMarket的Bing客戶端密碼。需要歐洲數位圖書館開放搜尋應用程式介面查詢的翻譯。
+        bing_translate_key: Bing翻譯鍵。如果保留空白，微軟Bing翻譯功能將不會運作。
         gmap_api_key: Google地圖應用程式介面密鑰。若無此密鑰Google地圖將不可被輸入地理位置資料。在<http://code.google.com/apis/maps/signup.html>註冊來獲得密鑰。
+        google_analytics_key: Google分析鍵。如果保留空白，撤回鍵UA-XXXXXXXX-1將會被使用。請確認測試環境和生成環境使用合適的鍵。
         max_upload_size: 上傳最大位元組大小
         registration_required: 若啟用的話；必須以註冊一個用戶帳號來做出貢獻。若停用的話；能以提供詳細聯繫訊息的訪客身份來做出貢獻。
+        sharethis_id: ShareThis的發佈者ID。如果保留空白，ShareThis分享在ShareThis帳號裡將不會追蹤。如果提供在頁面的話，ShareThis腳本程式將會嘗試在Google分析帳號記錄分享；若UA-數值有提供的話腳本程式將會試著找出。
         site_name: 網站的名稱。預設上是顯示在網頁頁面標題和文字段落標題。
         site_url: 在此網站可訪問首頁的完整URL位址，不包含區域及斜線標記。
         ui_locales: 連結至頁面標題的區域。
+        uploadify: 使用Uploadify來處理附件上傳、啟用多項檔案上傳。查看<http://www.uploadify.com/>來取得更多訊息和示範內容。
       taxonomy_term:
         import: 在每行輸入一個分類術語來添加至此元數據字段。
         term: 在此元數據字段範圍內必須是唯一。
@@ -561,6 +588,7 @@ zh-TW:
         current_password: 若您想要更動您帳號之詳細內容請輸入您目前使用的密碼。
         edit:
           password: 若您想要更換請輸入新密碼，否則請留空。內容至少需6個字元。
+        email: 您可使用該電子郵件來取代您的用戶名稱做登入。此雖為選用；但我們建議您提供一個電子郵件地址，以便事後在您忘記密碼的情況下來利用。
         password: 最少 6 個字元
         update:
           password: 若您想要更換請輸入新密碼，否則請留空。內容至少需6個字元。
@@ -589,6 +617,7 @@ zh-TW:
           location_placename: 指出您項目創建的地方。
           location_zoom: 位置縮放
           notes: 編目者註解
+          object_side: 側邊
           page_number: 頁面號碼
           page_total: 頁面總數
           source: 來源
@@ -683,6 +712,7 @@ zh-TW:
           Collection: 收藏
           Diary: 日記
           Drawing: 繪畫
+          Footage: 錄像
           Interview: 訪問
           Letter: 信件
           Map: 地圖
@@ -707,6 +737,7 @@ zh-TW:
         file_type:
           3D: 3D
           IMAGE: 圖片
+          SOUND: 音效
           TEXT: 文字
           VIDEO: 影片
         forces:
@@ -724,7 +755,7 @@ zh-TW:
           Other: 其他
           Paper: 紙張
           Photographic paper: 相片用紙
-          Tape: 錄音帶
+          Tape: 磁帶
           'Text: memoir': 文字：回憶錄
           'Text: transcription': 文字：抄寫
           Unknown: 不明
@@ -733,6 +764,7 @@ zh-TW:
           Anti-War Movement: 反戰運動
           Artillery: 火砲
           Gas Warfare: 毒氣戰
+          Home Front: 國內戰線
           Manufacture: 製品
           Medical: 醫療
           Military Punishment: 軍事懲處
@@ -784,7 +816,7 @@ zh-TW:
           Other: 其它
           Photograph: 照片
           Postcard: 明信片
-          Tape: 錄音帶
+          Tape: 磁帶
           Unknown: 不明
           Vinyl record: 黑膠唱片
         theatres:
@@ -837,6 +869,9 @@ zh-TW:
     update: 更新%{model}
     "yes": 是
   javascripts:
+    admin:
+      metadata_fields:
+        order: 拖放字段至您想要的順序。在您完成後按下「儲存」。
     annotorious:
       clear-flag: 清除標記
       flag: 標記
@@ -861,6 +896,8 @@ zh-TW:
     datepicker:
       button_text: 顯示日曆
     digital_object:
+      hints:
+        copy_from_story: 點擊上方按鈕將會從故事複製相仿元數據至項目。
       labels:
         copy_from_story: 版權訊息
       links:
@@ -991,8 +1028,12 @@ zh-TW:
         p2: 過去歐洲各處有舉行著收藏日。
       online_collection:
         heading: 線上故事收藏
+        p1: 線上故事收藏於2011年3月開放。在網站裡，任何人都可添加他們的帶有故事項目至收藏裡。更多有關如何添加事物到收藏裡的訊息可在「%{add_your_story}」頁面找尋。當物件提交後，會先被專案團隊檢查再經由歐洲數位圖書館來發佈出。
       privacy_policy:
+        p1: 一旦批准後，我們將會在您的貢獻內容旁公開顯示您的名稱。
+        p2: 我們僅使用您所提供的任一聯絡詳情，包括使用您的電子郵件地址來向您聯絡有關您對於此收藏的貢獻。
         p3: 我們將不會與其它任何組織分享您的聯繫詳細資料。
+        p4: 在<a http://www.europeana.eu/portal/privacy.html target="_blank">歐洲數位圖書館</a>網站了解更多有關我們的隱私方針。
       project_partners:
         heading: 專案合作夥伴
         item1: <a href="http://www.ox.ac.uk" target="_blank">牛津大學</a>
@@ -1008,18 +1049,23 @@ zh-TW:
         item7: <a href="http://www.europeana.eu/portal/aboutus.html" taget="_blank">歐洲數位圖書館</a>
       takedown:
         item1: 您的詳細聯絡訊息
-        item2: 此材料的全部詳細資料
-        item3: 您所找到材料的精準URL位置（例如：http://www.europeana1914-1918.eu/en/contributions/96）
+        item2: 此資料的全部詳細內容
+        item3: 您所找到資料的精準URL位置（例如：http://www.europeana1914-1918.eu/en/contributions/96）
+        item4: 證明您是版權所有者或是版權所有者的授權代表
         item5: 電郵給我們以：1914-1918 [@] europeana [.] eu
+        p1: 若您是版權的擁有者；且在我們網站上發現到有著未由您授權的內容而感到不快。請透過以下電子郵件位址來聯絡我們，我們會將此給移除：
       terms:
         full_details:
           heading: 歐洲數位圖書館使用條款：完整法律詳細內容──僅英語版
         heading: 條款和條件
         summary:
           heading: 歐洲數位圖書館使用條款：摘要
-          item1: 您提交的數位材料未有版權保護；或
-          item2: 您擁有此數位材料的版權；或
+          item1: 您提交的數位資料未有版權保護；或
+          item2: 您擁有此數位資料的版權；或
+          item3: 版權持有者已授權您依照以下條件提交數位資料。
+          p1: 在您可提交數位資料至歐洲數位圖書館之前，您必須同意上段歐洲數位圖書館用戶貢獻條款。以下為在接受這些條款的重要後果：
           p2: <b>您保證：</b>
+          p3: <b>若您不想接受這些條款，就請不要在歐洲數位圖書館上貢獻內容或描述性資料</b>。
         user_contributions:
           heading: 歐洲數位圖書館用戶貢獻條款
           item1: 密碼和登入（條款3）
@@ -1029,24 +1075,37 @@ zh-TW:
           item5: 非法使用服務（條款7）
           item6: 用戶個人資料（隱私）（條款8）
           item7: 在毀壞或損失情況下當事人的責任（條款9）
+          p3: In addition, all metadata contributed by users to Europeana will be
+            made available on Europeana.eu under the terms of the <a href="http://creativecommons.org/publicdomain/zero/1.0/"
+            target="_blank">Creative Commons CC0 1.0 Universal Public Domain Dedication</a>.
+            This means that the user irrevocably grants third parties the right to
+            freely use those metadata without any restrictions.
+          p4: <b>如果您不同意這些方針請不要在歐洲數位圖書館上做出貢獻內容及/或元數據資料。</b>
+          p7: 保有此專案的各頁面：
       what_we_do:
         heading: 國家收藏：
         item1: 經由歐洲數位圖書館 1914-1918網站 - 在線上添加圖片項目或類型在故事裡。
+        p1: 歐洲數位圖書館1914-1918收藏專案已產生超過40萬件的豐富數位資料收藏；包含了來自8個國家各不同歷史角度的國家圖書館收藏。
     about_us:
       blog:
         heading: 部落格
       europeana:
         heading: 歐洲數位圖書館 1914-1918
+        p3: <b>國家收藏：</b>歐洲數位圖書館1914-1918收藏專案已產生超過40萬件的豐富數位資料收藏；包含了來自8個國家各不同歷史角度的國家圖書館收藏。
       events:
         heading: 收藏日
+        p4: 若您有興趣進行將您所擁有的事物給數位化和添加資料至歐洲數位圖書館1914-1918，我們可以<a href="http://pro.europeana.eu/web/europeana-1914-1918">在此</a>提供協助與建議來告訴您如何做出。
       get_involved:
         contribute_online:
           heading: 線上貢獻
         education:
           heading: 教育
+          p1: 我們在大英圖書館的夥伴已開發出一個英語<a href="http://bl.uk/world-war-one">網站</a>來獻給規劃著第一次世界大戰教育方案的導師。
+        events:
+          p2: 若您有興趣進行將您所擁有的事物給數位化和添加資料至歐洲數位圖書館1914-1918，我們可以提供<a href="http://pro.europeana.eu/web/europeana-1914-1918">協助與建議</a>來告訴您如何做出。
         heading: 涉及
         reuse:
-          heading: 使用材料
+          heading: 使用資料
       help:
         heading: 幫助
     admin:
@@ -1106,7 +1165,9 @@ zh-TW:
           title: 貢獻
       europeana:
         index:
+          instructions: 壓下下方提交按鈕將會開始獲得從歐洲數位圖書館應用程式介面的第一次世界大戰相關內容至1914-1918資料庫。
           introduction: 目前有%{count}條與第一次世界大戰相關的歐洲數位圖書館記錄於1914-1918資料庫裡。
+          title: 取得歐洲數位圖書館入口內容
       index:
         headings:
           export: 匯出
@@ -1134,6 +1195,9 @@ zh-TW:
           export_xml_nozip:
             description: 匯出收藏貢獻和附件為XML檔；但不包含.zip格式檔案附件。
             text: 匯出成XML檔（不包含.zip檔案）
+          harvest_europeana:
+            description: 從歐洲數位圖書館應用程式介面取得第一次世界大戰相關記錄。
+            text: 取得歐洲數位圖書館入口內容
           logs:
             description: 查看應用日誌檔案
             text: 日誌檔案
@@ -1186,6 +1250,7 @@ zh-TW:
           title: 元數據字段順序
       statistics:
         index:
+          introduction: 下方表格顯示出以指定年份、和選用指定收藏日裡已發佈故事的數量及項目。
           title: 統計
       taggings:
         index:
@@ -1252,6 +1317,7 @@ zh-TW:
           connect_html: 若您有Dropbox帳號，您可以直接從您的Dropbox資料夾寄給我們。如果您想要使用此功能，請連結至您的<a href="%{href}">Dropbox帳號</a>。
           connected_html: 您已以<strong>%{user}</strong>連結至Dropbox
           disconnect: 中斷連結您的Dropbox帳號
+          empty: 在您的Dropbox帳號來複製一些檔案至名為「/Apps/Europeana 1914-1918」資料夾，這些將會在您點擊「重整檔案清單」後在此顯示出。
           refresh: 重整檔案清單
       _summary:
         caption: 附件訊息
@@ -1273,6 +1339,7 @@ zh-TW:
         item2-subitem2: 您可各一描述項目
         one-of-the-following: 您可選擇以下之一來進行：
       copy:
+        instructions: 選擇一個或其它更多項目添加至此故事來覆寫該項目的元數據（如下方顯示）。
         title: 複製項目元數據
       delete:
         question: 您確定您要刪除項目「%{filename}」？
@@ -1306,9 +1373,11 @@ zh-TW:
     collection_days:
       cant-find-collection-day: 無法找出收藏日，您是在地圖上尋找嗎？
       different-collection-day: 想要改查看不同收藏日？
+      in-the-meantime: 在此期間，可隨時查看已發佈故事的先前收藏日。
       index:
         title: 收藏日
       join-us: 收藏日尚未完成。請盡可能抽空加入我們或在收藏日完成時稍後返回檢查
+      no-stories: 很抱歉，來自此收藏日的內容尚未上線。我們的編目者正忙於檢閱收藏日裡的故事收藏，並應可盡快發佈出。
       open-collection: 開啟收藏日
       select-collection-day: 選擇一個收藏日
       stories: 故事：
@@ -1321,7 +1390,16 @@ zh-TW:
         sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
         mus."
       what-do-you-get-heading: 您得到了什麼？
+      what-is-it-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n
+        \nAenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo."
       what-is-it-heading: 這是什麼？
+      who-is-it-for-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan
+        et viverra justo commodo.\n \nProin sodales pulvinar tempor. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum,
+        nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+        nunc eget odio."
       who-is-it-for-heading: 為了誰？
     common:
       loading: 載入中⋯
@@ -1343,6 +1421,7 @@ zh-TW:
       _summary:
         caption: 摘要
       complete:
+        p1: 感謝您！您的貢獻已提交。內容將會由專案人員檢驗並在批准後顯示於網站上。在繁忙時期可能會花費數週，我們希望您能理解情況並耐心等候。
         title: 貢獻完成
       delete:
         question: 您確定您要完全捨棄故事「<strong>%{title}</strong>」及該全部項目？
@@ -1404,7 +1483,7 @@ zh-TW:
           poem: 詩
           postcard: 明信片
           public_domain: 公眾領域
-          tape: 錄音帶
+          tape: 磁帶
           text: 文字
           text_memoir: 文字：回憶錄
           text_transcript: 文字：抄寫
@@ -1482,6 +1561,7 @@ zh-TW:
           add_another_person: 您可添加一個以上人物。
           behalf_of: 留下空白除非您正協助某人來做出此貢獻
           save_story: 點擊「儲存故事草稿」後，您將會被帶入到以下貢獻步驟
+          sections: 點擊下方部份標題來開啟並關閉它們；任一部份包含您可添加至您的故事的額外訊息。
           use_google_maps: 使用Google地圖
         labels:
           people: 添加此故事有關的人物名稱。
@@ -1514,6 +1594,7 @@ zh-TW:
           edit_contact: 編輯聯繫詳細內容
           new: 新貢獻
         notice: '%{name}，您以訪客的身份做出貢獻。'
+        privacy: 當您結束貢獻時，使用以下按鍵來清除您的聯絡詳情。此操作在使用一台公用電腦情況下有助保護您的隱私。
         title: 訪客控制面板
       guests:
         edit:
@@ -1524,6 +1605,7 @@ zh-TW:
           links:
             register: 註冊
             sign_in: 登入
+          notice: 若您想要儲存您的聯絡詳情及追蹤您提交後的貢獻，請先%{sign_in}或%{register}。
           title: 訪客聯繫詳細內容
       help:
         adding_your_story:
@@ -1534,12 +1616,15 @@ zh-TW:
           item2: 添加有關您的貢獻之訊息
           item3: （選用）附加一個您的物件之數位版本（照片、掃描文字、影片、音訊等）。
           item4: 為線上故事收藏提交貢獻
+          p1: 若要添加內容至我們的線上故事收藏，首先您需要%{sign_in}或%{register}。然後您將能夠添加您的事物與故事至歐洲數位圖書館1914-1918。
+          p2: 您將會被要求完成以下五個步驟。您可不必一次完成整個過程；且可先儲存您的貢獻再事後完成。
         item1: 加入您的故事至歐洲數位圖書館1914-1918 – 參見下方
       index:
         item1: 輸入您的故事相關訊息。
         item2: 將您的故事儲存為草稿。
         item3: 添加一個或更多項目（圖片、文字文件、音效、影片等等）。
         item4: 確認您同意條款和條件並提交以檢閱。
+        p1: 感謝您對於歐洲數位圖書館1914-1918的貢獻。做出貢獻是個簡單流程，在下方點擊「添加一個新故事」便可開始。之後請您依照下列步驟：
       registration_required:
         p1: 請%{sign_in}或%{register}來添加您的事物和故事到歐洲數位圖書館1914-1918。
     devise:
@@ -1605,7 +1690,8 @@ zh-TW:
           stuttgart_2011_04: <a href="contributions/search?utf8=✓&amp;q=ST10" title="來自斯圖加特收藏日的物件">斯圖加特2011年4月12日</a>
         trenches: <a href="contributions/search?utf8=✓&q=Schützengraben" title="搜尋「壕溝」">壕溝</a>
       p1: 在此您可以查看至今被添加於我們的故事收藏內容。
-      p5: <b>在公開收藏日的材料收藏：</b>
+      p3: 您也可以瀏覽<b>故事收藏</b>。點擊下方一個範例搜尋關鍵字詞來對進行相應字詞搜尋。數量結果將會隨著更多資料加入存檔而增加。
+      p5: <b>在公開收藏日的資料收藏：</b>
       search_for: <b>搜尋：</b>
     flickr:
       select:
@@ -1630,7 +1716,9 @@ zh-TW:
         video_guide: 逐步說明影片導覽
       otto:
         heading: 奧托&amp;伯納德
-      p1: <em>歐洲數位圖書館1914-1918</em>正在從%{across_europe}收集材料。
+        p1: 若您有關德國政治家奧托·阿恩德（Otto Arndt）的訊息，請%{add_your_story}至線上故事收藏來分享給大家。
+      p1: <em>歐洲數位圖書館1914-1918</em>正在從%{across_europe}收集資料。
+      upcoming_overview: 請以%{see_english}來全面查看我們的最新消息及活動。
     links:
       back: 返回至%{link}
       back-to-search: 返回至搜尋結果
@@ -1659,8 +1747,10 @@ zh-TW:
       terms:
         accept: 我接受%{terms}
         heading: 使用條款
-        item1: 您提交的數位材料未有版權保護；或
-        item2: 您擁有此數位材料的版權；或
+        item1: 您提交的數位資料未有版權保護；或
+        item2: 您擁有此數位資料的版權；或
+        item3: 版權持有者已授權您依照以下條件提交數位資料。
+        p1: 在您可提交數位資料至歐洲數位圖書館之前，您必須同意%{contribution_terms}。以下為在接受這些條款的重要後果：
         p2: <b>您保證：</b>
         p3: 若您不想接受這些條款，就請不要在歐洲數位圖書館上貢獻內容或描述性資料。
         terms: 條款和條件
