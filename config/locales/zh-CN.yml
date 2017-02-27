@@ -565,6 +565,7 @@ zh-CN:
         allowed_upload_extensions: 允许的上传文件的扩展名，以逗号分隔，例如“pdf,doc,jpg,gif”。留空以允许所有扩展名。
         bing_client_id: 来自Azure DataMarket的Bing客户端ID。需要Europeana OpenSearch API查询的翻译。
         bing_translate_key: 必应翻译关键词。如果保留空白，微软必应翻译功能将不能工作。
+        contribution_approval_required: 如果启用，贡献就只能在批准之后才会发布，否则一旦提交就会发布。而当“发布贡献”未启用时则不会有影响。
         gmap_api_key: Google地图API密钥。没有此密钥，Google地图不能被用于输入地理位置数据。在<http://code.google.com/apis/maps/signup.html>请求密钥。
         google_analytics_key: Google分析代码。如果留空将使用默认代码UA-XXXXXXXX-1。请确保测试和生产环境利用的是适当密钥。
         max_upload_size: 上传的最小字节数。
@@ -1234,6 +1235,7 @@ zh-CN:
               submitted: 没有匹配您搜索的已提交贡献。
               withdrawn: 没有匹配您搜索的已放弃贡献。
           title: 贡献
+        p1: 以下是包含贡献的三个表格：未提交批准、正在等待批准或已批准。点击标题以查看有关一次贡献的详情。一旦显示详情，您可以选择编辑元数据，删除贡献，或对于正在等待批准的贡献可以选择通过贡献。
       europeana:
         index:
           instructions: 点击下方的提交按钮将开始来自Europeana门户API的第一次世界大战相关内容的收获至1914~1918数据库。
@@ -1246,6 +1248,7 @@ zh-CN:
             description: 配置网站设置。
             text: 配置
           contributions:
+            description: 复核并批准或拒绝贡献。
             text: 贡献
           export:
             description: 导出收藏为XML或CSV。
@@ -1558,6 +1561,8 @@ zh-CN:
         captions:
           draft: 草稿
           submitted: 已提交
+        empty:
+          approved: 您尚无被批准的故事。
         headings:
           contributions: 您的故事
         links:
@@ -1686,6 +1691,7 @@ zh-CN:
     register:
       help_text:
         password: 密码必须包含六个字符
+        user_name: 这将作为被批准贡献的信用而公开显示。
       labels:
         age_range: 您的年龄段
         email: 电子邮件
