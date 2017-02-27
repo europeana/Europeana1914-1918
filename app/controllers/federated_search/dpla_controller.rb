@@ -93,7 +93,11 @@ protected
       }
       
       if item["sourceResource"].has_key?("date")
-        edm_result["year"] = [ item["sourceResource"]["date"]["begin"], item["sourceResource"]["date"]["end"] ].uniq
+        if item["sourceResource"]["date"].is_a?(Hash)
+          edm_result["year"] = [ item["sourceResource"]["date"]["begin"], item["sourceResource"]["date"]["end"] ].uniq
+        elsif item["sourceResource"]["date"].is_a?(String) && item["sourceResource"]["date"] =~ /\A\d+\Z/
+          edm_result["year"] = item["sourceResource"]["date"]
+        end
       end
       
       edm << edm_result
