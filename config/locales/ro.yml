@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Minisarm
+# Author: Strainu
 ---
 ro:
   actions:
@@ -34,6 +35,9 @@ ro:
         file_updated_at: Actualizat la
         preview: Vizualizare
         public: Public
+      collection_day:
+        name: Nume
+        start_date: Data de început
       contact:
         age: Vârsta
         country: Tara de reşedinţă
@@ -52,6 +56,7 @@ ro:
         cataloguer: Catalogator
         contributor: Contributor
         created_at: Inceput la
+        metadata: Metadate
         published_at: Publicat la
         submitted_at: Transmis la
       contribution_status:
@@ -74,9 +79,11 @@ ro:
         term: Termenul
       user:
         created_at: Data inregistrarii
+        institution: Instituție
         password: Parolă
         password_confirmation: Repetaţi parola
         role_name: Rol
+        terms: Termeni
         username: Numele utilizatorului
     errors:
       messages:
@@ -189,9 +196,23 @@ ro:
     email: Email
     id: ID
     metadata_record: Metadate
+    status: Stare
     title: Τitlul
     updated_at: Actualizat la
     url: URL
+  blacklight:
+    search:
+      fields:
+        facet:
+          country_sm: Țară
+          data_provider_sm: Furnizor de date
+          metadata_lang_ids_im: Limbă
+          metadata_theatres_ids_im: Teatre
+          provider_sm: Furnizor
+          rights_sm: Drepturi
+          type_s: Tip
+          uri_sm: Subiect
+          year_sm: An
   common:
     additional-information: Informaţii suplimentare
     download-item: Incărcaţi acest document
@@ -667,12 +688,16 @@ ro:
           attachment_file: Un singur fişier
           content: Tipul
           cover_image: Imaginea  emblemă
+          creator: Creator
           creator_family_name: Numele de familie  al autorului
           creator_given_name: Prenumele autorului
+          date: Dată
           date_from: Data creării  / Data ȋnceputului
           date_to: Data terminării povestirii
           file_type: Tip media
+          forces: Forțe
           format: mediu
+          keywords: Cuvinte cheie
           lang: Limba
           lang_other: Limba ( alta)
           license: Licenţa
@@ -684,6 +709,7 @@ ro:
           page_total: Numărul total de pagini
           source: Sursa
           subject: Subiectul
+          theatres: Teatre
           ticket: Numărul tichetului
       collection_day:
         contact:
@@ -765,10 +791,55 @@ ro:
       metadata_field:
         contribution: Contribuţia
       taxonomy_term:
+        content:
+          Autograph: Autograf
+          Book: Carte
+          Collection: Colecție
+          Diary: Jurnal
+          Drawing: Desen
+          Footage: Film
+          Interview: Interviu
+          Letter: Scrisoare
+          Map: Hartă
+          Medal: Medalie
+          Memoir: Memorii
+          Music: Muzică
+          Official Document: Document oficial
+          Official document: Document oficial
+          Other: Altele
+          Painting: Pictură
+          Photograph: Fotografie
+          Poem: Poem
+          Postcard: Carte poștală
+          Weapon: Armă
+        cover_image:
+          "yes": da
+        editor_pick:
+          "yes": da
+        file_type:
+          3D: 3D
+          IMAGE: IMAGINE
+          SOUND: SUNET
+          TEXT: TEXT
+          VIDEO: VIDEO
         forces:
           Allied Forces: Forţe aliate
           Central Powers: Puterile Centrale
           Imperial Forces: Forţele Imperiale
+        format:
+          Ceramic/China: Ceramică/Porțelan
+          Digital: Digital
+          Leather: Piele
+          Metal: Metal
+          Mixed: Combinat
+          Paper: Hârtie
+          Photographic paper: Hârtie fotografică
+          Tape: Bandă
+          'Text: memoir': 'Text: memorii'
+          'Text: transcription': 'Text : transcriere'
+          Unknown: Necunoscut
+          Vinyl: Vinil
+          Wood: Lemn
         keywords:
           Anti-War Movement: Mişcarea  antirăzboi
           Artillery: Artilerie
@@ -781,11 +852,28 @@ ro:
           Prisoners of War: Prizonieri de război
           Propaganda: Propaganda de război
           Recruitment and Conscription: Recrutare şi  ȋnrolare
+          Refugees: Refugiați
           Remembrance: Comemorare
           Tanks and Armoured Fighting Vehicles: Tancuri şi vehicule blindate de luptă
           Transport: Transport
           Trench Life: Viaţa ȋn tranşee
           Women: Femei
+        license:
+          http://creativecommons:
+            org/licenses/by-sa/3:
+              0/: http://creativecommons.org/licenses/by-sa/3.0/
+            org/publicdomain/mark/1:
+              0/: http://creativecommons.org/publicdomain/mark/1.0/
+          https://creativecommons:
+            org/licenses/by-sa/2:
+              0/: https://creativecommons.org/licenses/by-sa/2.0/
+        object_side:
+          Back: Înapoi
+        source:
+          Artifact: Artefact
+          Book: Carte
+          Film: Film
+          Journal: Jurnal
         theatres:
           Aerial Warfare: Război aviatic
           African Wars: Αfrica
