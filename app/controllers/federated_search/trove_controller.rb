@@ -68,7 +68,8 @@ protected
       :encoding => "json",
       :n => params_with_defaults[:count],
       :s => ((params_with_defaults[:page] - 1) * params_with_defaults[:count]),
-      :facet => "format,availability,year,discipline"
+      # :facet => "format,availability,year,discipline"
+      :facet => "format,availability,discipline"
     }.merge(authentication_params)
     
     facet_params.delete(:zone)
