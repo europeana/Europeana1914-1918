@@ -31,7 +31,7 @@ RunCoCo::Configuration::DEFAULTS.merge({
   :search_engine => :solr
 }).each_pair do |setting, value|
   puts "  #{setting.to_s} => #{value.to_s}"
-  RunCoCo.configuration.send("#{setting.to_s}=", value)
+  RunCoCo.configuration.send("#{setting.to_s}=", value.nil? ? '' : value)
 end
 RunCoCo.configuration.save
 
