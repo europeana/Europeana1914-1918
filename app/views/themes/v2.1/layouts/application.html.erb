@@ -15,8 +15,6 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 		<div id="maintenance-banner" class="portlet-msg-alert"><%= configuration(:banner_text) %></div>
 	<% end -%>
 
-	<%= render :partial => 'layouts/header' %>
-
 	<div id='content' class='section'>
 
 		<%= flash_message(:alert) unless flash[:alert].blank? %>
@@ -25,7 +23,6 @@ xmlns:fb="http://www.facebook.com/2008/fbml">
 
 	</div>
 
-	<%= render :partial => 'layouts/footer' %>
 	<%= render :partial => 'layouts/scripts' %>
 
 </body>
