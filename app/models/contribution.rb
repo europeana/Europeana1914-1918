@@ -372,7 +372,7 @@ class Contribution < ActiveRecord::Base
   # @see ActsAsTaggableOn
   #
   def visible_tags
-    taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag)
+    taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag).reject(&:nil?)
   end
   
 protected
