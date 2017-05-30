@@ -1,0 +1,36 @@
+version: "3"
+services:
+  web:
+    image: 1418-web
+    build:
+      context: ./web
+    depends_on:
+      - db
+      - search
+    ports:
+    - "3000"
+    links:
+      - db
+    volumes:
+      - ..:/app
+    environment:
+      DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+  db:
+    image: 1418-db
+    build:
+      context: ./db
+    ports:
+    - "3306"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes" # 
+      MYSQL_DATABASE: europeana_1418
+      MYSQL_USER: 1418
+      MYSQL_PASSWORD: 1418pass
+  search:
+    image: 1418-search
+    build:
+      context: ./search
+    ports:
+    - "8983"
+    volumes:
+      - ..:/app
