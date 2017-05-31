@@ -299,6 +299,23 @@ class Attachment < ActiveRecord::Base
     end
   end
   
+
+  # A "distinct" title is one where it:
+  # 1. is not blank when stripped
+  # 2. is not the same as the contribution's, when both are stripped
+  def has_distinct_title?
+    stripped_title = (title || '').strip
+    stripped_title.present? && stripped_title != (contribution.title || '').strip
+  end
+
+  # A "distinct" description is one where it:
+  # 1. is not blank when stripped
+  # 2. is not the same as the contribution's, when both are stripped
+  def has_distinct_description?
+    stripped_description = (metadata.fields['attachment_description'] || '').strip
+    stripped_description.present? && stripped_description != (contribution.metadata.fields['description'] || '').strip
+  end
+
 protected
 
   # Moves files between public/private paths when public attr changed

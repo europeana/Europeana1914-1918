@@ -374,7 +374,23 @@ class Contribution < ActiveRecord::Base
   def visible_tags
     taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag).reject(&:nil?)
   end
-  
+
+  def all_attachments_have_distinct_titles?
+    attachments.all?(&:has_distinct_title?)
+  end
+
+  def all_attachments_have_distinct_descriptions?
+    attachments.all(&:has_distinct_description?)
+  end
+
+  def attachments_have_scarce_metadata?
+    !attachments_have_rich_metadata?
+  end
+
+  def attachments_have_rich_metadata?
+    all_attachments_have_distinct_titles? && all_attachments_have_distinct_descriptions?
+  end
+
 protected
 
   def build_metadata_unless_present
