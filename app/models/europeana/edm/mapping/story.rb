@@ -266,6 +266,8 @@ module Europeana
           graph
         end
 
+
+
         ##
         # Constructs the ore:Aggregation for this story
         #
@@ -279,12 +281,12 @@ module Europeana
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
           graph << [ uri, RDF::EDM.isShownAt, web_resource_uri ]
-          graph << [ uri, RDF::EDM.isShownBy, @source.attachments.first.edm.web_resource_uri ] unless @source.attachments.first.blank?
-          if meta["license"].blank?
-            graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
-          else
-            graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] 
+          unless @source.cover_image.blank?
+            graph << [ uri, RDF::EDM.isShownBy, @source.cover_image.edm.web_resource_uri ]
+            graph << [ uri, RDF::EDM.object, @source.cover_image.edm.web_resource_uri ]
           end
+          license = meta["license"].blank? ? "http://creativecommons.org/publicdomain/zero/1.0/" : meta["license"].first
+          graph << [ uri, RDF::EDM.rights, RDF::URI.parse(license) ] 
           graph << [ uri, RDF::EDM.ugc, "TRUE" ]
           graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
           graph << [ uri, RDF::EDM.dataProvider, "Europeana 1914-1918" ]
