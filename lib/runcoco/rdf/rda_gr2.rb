@@ -3,7 +3,7 @@ module RDF
   # RDA Group 2 Elements.
   #
   # @see http://rdvocab.info/ElementsGr2
-  class RdaGr2 < Vocabulary("http://rdvocab.info/ElementsGr2/")
+  class RDAGr2 < Vocabulary("http://rdvocab.info/ElementsGr2/")
     property :addressOfTheCorporateBody
     property :addressOfThePerson
     property :affiliation
