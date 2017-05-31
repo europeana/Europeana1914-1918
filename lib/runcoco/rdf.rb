@@ -4,6 +4,7 @@ module RDF
   autoload :EDM,        'runcoco/rdf/edm'
   autoload :OA,         'runcoco/rdf/oa'
   autoload :ORE,        'runcoco/rdf/ore'
+  autoload :RdaGr2,     'runcoco/rdf/rda_gr2'
 end
 
 require 'runcoco/rdf/rdfxml/writer/haml_templates'
