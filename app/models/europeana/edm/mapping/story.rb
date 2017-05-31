@@ -6,7 +6,7 @@ module Europeana
       #
       class Story < Base
       
-        has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation
+        has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation, :child_item_aggregations
         
         ##
         # The edm:ProvidedCHO URI of this contribution
@@ -159,7 +159,7 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => meta["creator"]).append_to(graph, uri, RDF::DCElement.creator)
           end
           
-          [ "keywords", "theatres", "forces", "extended_subjects" ].each do |subject_field|
+          [ "keywords", "forces", "extended_subjects" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
                 EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
@@ -167,13 +167,19 @@ module Europeana
             end
           end
           
+          unless meta["theatres"].blank?
+            meta["theatres"].each do |spatial|
+              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(spatial, :language => :en)).append_to(graph, uri, RDF::DC.spatial)
+            end
+          end
+          
           [ '1', '2' ].each do |cn|
             character_full_name = Contact.full_name(meta["character#{cn}_given_name"], meta["character#{cn}_family_name"])
-            unless character_full_name.blank? && meta["character#{cn}_dob"].blank? && meta["character#{cn}_dod"].blank? && meta["character#{cn}_pob"].blank? && meta["character#{cn}_pod"].blank?
-              character = EDM::Resource::Concept.new({
+            unless [ character_full_name, meta["character#{cn}_dob"], meta["character#{cn}_dod"], meta["character#{cn}_pob"], meta["character#{cn}_pod"] ].all?(&:blank?)
+              character = EDM::Resource::Agent.new({
                 RDF::SKOS.prefLabel => character_full_name,
-                RDF::EDM.begin => meta["character#{cn}_dob"],
-                RDF::EDM.end => meta["character#{cn}_dod"]
+                RDF::RDAGr2.dateOfBirth => meta["character#{cn}_dob"],
+                RDF::RDAGr2.dateOfDeath => meta["character#{cn}_dod"]
               })
               character.append_to(graph, uri, RDF::DCElement.subject)
               
@@ -181,28 +187,28 @@ module Europeana
                 character_pob = EDM::Resource::Place.new({
                   RDF::SKOS.prefLabel => meta["character#{cn}_pob"]
                 })
-                character_pob.append_to(graph, character.id, RDF::EDM.hasMet)
+                character_pob.append_to(graph, character.id, RDAGr2.placeOfBirth)
               end
               
               unless meta["character#{cn}_pod"].blank?
                 character_pod = EDM::Resource::Place.new({
                   RDF::SKOS.prefLabel => meta["character#{cn}_pod"]
                 })
-                character_pod.append_to(graph, character.id, RDF::EDM::hasMet)
+                character_pod.append_to(graph, character.id, RDAGr2.placeOfDeath)
               end
             end
           end
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
-          unless lat.blank? && lng.blank? && meta['location_placename'].blank?
+          unless [ lat, lng, meta['location_placename'] ].all?(:blank?)
             EDM::Resource::Place.new({
-              RDF::GEO.lat => lat.to_f,
-              RDF::GEO.long => lng.to_f,
+              RDF::WGS84Pos.lat => lat.to_f,
+              RDF::WGS84Pos.long => lng.to_f,
               RDF::SKOS.prefLabel => meta['location_placename']
             }).append_to(graph, uri, RDF::DC.spatial)
           end
           
-          unless meta['date_from'].blank? && meta['date_to'].blank? && meta['date'].blank?
+          unless [ meta['date_from'], meta['date_to'], meta['date'].blank? ].all?(&:blank?)
             EDM::Resource::TimeSpan.new({
               RDF::EDM.begin => meta['date_from'],
               RDF::EDM.end => (meta['date_to'].present? ? meta['date_to'] : meta['date_from']),
@@ -210,28 +216,56 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.temporal)
           end
           
-          if @source.attachments.size > 1
-            @source.attachments[1..-1].each do |attachment|
-              graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
+          unless model_attachments_as_web_resources?
+            if @source.attachments.size > 1
+              @source.attachments[1..-1].each do |attachment|
+                graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
+              end
             end
           end
           
           graph
         end
         
+        def model_attachments_as_web_resources?
+          @source.attachments_have_scarce_metadata?
+        end
+        
         ##
-        # Constructs the edm:WebResource for this story
+        # Constructs the edm:WebResource(s) for this story
         #
         # @return [RDF::Graph] RDF graph of the edm:WebResource
         #
         def web_resource
-          if @source.attachments.first.present?
-            @source.attachments.first.edm.web_resource
-          else
-            RDF::Graph.new
+          graph = RDF::Graph.new
+
+          web_resource_items.each do |item|
+            item.edm.web_resource.each do |statement|
+              graph << statement
+            end
           end
+
+          graph
         end
-        
+
+        def web_resource_items
+          model_attachments_as_web_resources? ? @source.attachments : [@source.attachments.first]
+        end
+
+        def child_item_aggregations
+          graph = RDF::Graph.new
+
+          return graph if model_attachments_as_web_resources?
+
+          @source.attachments.each do |item|
+            item.edm.to_rdf_graph.each do |statement|
+              graph << statement
+            end
+          end
+
+          graph
+        end
+
         ##
         # Constructs the ore:Aggregation for this story
         #
@@ -254,6 +288,9 @@ module Europeana
           graph << [ uri, RDF::EDM.ugc, "TRUE" ]
           graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
           graph << [ uri, RDF::EDM.dataProvider, "Europeana 1914-1918" ]
+          web_resource_items.each do |item|
+            graph << [ uri, RDF::EDM.hasView, item.edm.web_resource_uri ]
+          end
           
           graph
         end
