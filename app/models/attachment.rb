@@ -316,6 +316,14 @@ class Attachment < ActiveRecord::Base
     stripped_description.present? && stripped_description != (contribution.metadata.fields['description'] || '').strip
   end
 
+  def has_rich_metadata?
+    has_distinct_title? && has_distinct_description?
+  end
+
+  def has_scarce_metadata?
+    !has_rich_metadata?
+  end
+
 protected
 
   # Moves files between public/private paths when public attr changed
