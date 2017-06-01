@@ -380,7 +380,7 @@ class Contribution < ActiveRecord::Base
   end
 
   def all_attachments_have_distinct_descriptions?
-    attachments.all(&:has_distinct_description?)
+    attachments.all?(&:has_distinct_description?)
   end
 
   def attachments_have_scarce_metadata?
