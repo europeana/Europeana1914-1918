@@ -8,7 +8,7 @@ services:
       - db
       - search
     ports:
-    - "3000"
+    - "30000:3000"
     links:
       - db
     volumes:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./db
     ports:
-    - "3306"
+    - "30001:3306"
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes" # 
       MYSQL_DATABASE: europeana_1418
@@ -31,6 +31,6 @@ services:
     build:
       context: ./search
     ports:
-    - "8983"
+    - "30002:8983"
     volumes:
       - ..:/app
