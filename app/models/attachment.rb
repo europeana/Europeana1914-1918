@@ -19,8 +19,6 @@
 # directly, for better performance. Files in private will need to be
 # served by a controller, allowing for access control.
 class Attachment < ActiveRecord::Base
-  has_edm_mapping Europeana::EDM::Mapping::Item
-
   belongs_to :contribution
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
   
@@ -298,30 +296,48 @@ class Attachment < ActiveRecord::Base
       contribution.index!
     end
   end
-  
+
+  def edm
+    @edm ||= edm_mapping_class.new(self)
+  end
+
+  def edm_mapping_class
+    contribution.attachments_have_rich_metadata? ? Europeana::EDM::Mapping::ItemAsCHO : Europeana::EDM::Mapping::ItemAsWebResource
+  end
 
   # A "distinct" title is one where it:
   # 1. is not blank when stripped
   # 2. is not the same as the contribution's, when both are stripped
   def has_distinct_title?
-    stripped_title = (title || '').strip
-    stripped_title.present? && stripped_title != (contribution.title || '').strip
+    stripped_title = (title || "").strip
+    stripped_title.present? && stripped_title != (contribution.title || "").strip
   end
 
-  # A "distinct" description is one where it:
-  # 1. is not blank when stripped
-  # 2. is not the same as the contribution's, when both are stripped
-  def has_distinct_description?
-    stripped_description = (metadata.fields['attachment_description'] || '').strip
-    stripped_description.present? && stripped_description != (contribution.metadata.fields['description'] || '').strip
+  # A "distinct" field is one where it:
+  # 1. is not blank when stripped (if a string)
+  # 2. is not the same as the contribution's, when both are stripped (if strings)
+  def has_distinct_metadata_field?(attachment_field, contribution_field = attachment_field)
+    attachment_value = metadata.fields[attachment_field].nil? ? nil : metadata.fields[attachment_field].dup
+    attachment_value.strip! if attachment_value.is_a?(String)
+    attachment_value.sort! if attachment_value.is_a?(Array)
+
+    contribution_value = contribution.metadata.fields[contribution_field].nil? ? nil : contribution.metadata.fields[contribution_field].dup
+    contribution_value.strip! if contribution_value.is_a?(String)
+    contribution_value.sort! if contribution_value.is_a?(Array)
+
+    attachment_value.present? && (attachment_value != contribution_value)
   end
 
   def has_rich_metadata?
-    has_distinct_title? && has_distinct_description?
+    has_distinct_title? && has_distinct_metadata_field?("attachment_description", "description")
   end
 
   def has_scarce_metadata?
     !has_rich_metadata?
+  end
+
+  def cover_image?
+    contribution.attachments.cover_image == self
   end
 
 protected

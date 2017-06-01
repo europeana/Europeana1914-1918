@@ -6,7 +6,7 @@ module Europeana
       #
       class Story < Base
       
-        has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation, :child_item_aggregations
+        has_rdf_graph_methods :provided_cho, :ore_aggregation, :child_items
         
         ##
         # The edm:ProvidedCHO URI of this contribution
@@ -187,20 +187,20 @@ module Europeana
                 character_pob = EDM::Resource::Place.new({
                   RDF::SKOS.prefLabel => meta["character#{cn}_pob"]
                 })
-                character_pob.append_to(graph, character.id, RDAGr2.placeOfBirth)
+                character_pob.append_to(graph, character.id, RDF::RDAGr2.placeOfBirth)
               end
               
               unless meta["character#{cn}_pod"].blank?
                 character_pod = EDM::Resource::Place.new({
                   RDF::SKOS.prefLabel => meta["character#{cn}_pod"]
                 })
-                character_pod.append_to(graph, character.id, RDAGr2.placeOfDeath)
+                character_pod.append_to(graph, character.id, RDF::RDAGr2.placeOfDeath)
               end
             end
           end
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
-          unless [ lat, lng, meta['location_placename'] ].all?(:blank?)
+          unless [ lat, lng, meta['location_placename'] ].all?(&:blank?)
             EDM::Resource::Place.new({
               RDF::WGS84Pos.lat => lat.to_f,
               RDF::WGS84Pos.long => lng.to_f,
@@ -216,58 +216,9 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.temporal)
           end
           
-          unless model_attachments_as_web_resources?
-            if @source.attachments.size > 1
-              @source.attachments[1..-1].each do |attachment|
-                graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
-              end
-            end
-          end
-          
           graph
         end
         
-        def model_attachments_as_web_resources?
-          @source.attachments_have_scarce_metadata?
-        end
-        
-        ##
-        # Constructs the edm:WebResource(s) for this story
-        #
-        # @return [RDF::Graph] RDF graph of the edm:WebResource
-        #
-        def web_resource
-          graph = RDF::Graph.new
-
-          web_resource_items.each do |item|
-            item.edm.web_resource.each do |statement|
-              graph << statement
-            end
-          end
-
-          graph
-        end
-
-        def web_resource_items
-          model_attachments_as_web_resources? ? @source.attachments : [@source.attachments.first]
-        end
-
-        def child_item_aggregations
-          graph = RDF::Graph.new
-
-          return graph if model_attachments_as_web_resources?
-
-          @source.attachments.each do |item|
-            item.edm.to_rdf_graph.each do |statement|
-              graph << statement
-            end
-          end
-
-          graph
-        end
-
-
-
         ##
         # Constructs the ore:Aggregation for this story
         #
@@ -281,22 +232,32 @@ module Europeana
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
           graph << [ uri, RDF::EDM.isShownAt, web_resource_uri ]
-          unless @source.cover_image.blank?
-            graph << [ uri, RDF::EDM.isShownBy, @source.cover_image.edm.web_resource_uri ]
-            graph << [ uri, RDF::EDM.object, @source.cover_image.edm.web_resource_uri ]
+          cover_image = @source.attachments.cover_image
+          unless cover_image.blank?
+            graph << [ uri, RDF::EDM.isShownBy, cover_image.edm.web_resource_uri ]
+            graph << [ uri, RDF::EDM.object, cover_image.edm.web_resource_uri ]
           end
           license = meta["license"].blank? ? "http://creativecommons.org/publicdomain/zero/1.0/" : meta["license"].first
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(license) ] 
           graph << [ uri, RDF::EDM.ugc, "TRUE" ]
           graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
           graph << [ uri, RDF::EDM.dataProvider, "Europeana 1914-1918" ]
-          web_resource_items.each do |item|
-            graph << [ uri, RDF::EDM.hasView, item.edm.web_resource_uri ]
-          end
-          
+
           graph
         end
         
+
+        def child_items
+          graph = RDF::Graph.new
+
+          @source.attachments.each do |item|
+            item.edm.to_rdf_graph.each do |statement|
+              graph << statement
+            end
+          end
+
+          graph
+        end
       end
     end
   end

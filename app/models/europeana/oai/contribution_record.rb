@@ -4,8 +4,6 @@ module Europeana
       include ContributionsHelper
       include Rails.application.routes.url_helpers
       
-      has_edm_mapping Europeana::EDM::Mapping::Story
-
       default_scope published
       
       ##

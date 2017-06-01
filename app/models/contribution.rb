@@ -2,8 +2,6 @@
 # Contribution consisiting of files and metadata.
 #
 class Contribution < ActiveRecord::Base
-  has_edm_mapping Europeana::EDM::Mapping::Story
-  
   # Contributions have ActsAsTaggableOn tags
   acts_as_taggable
 
@@ -373,6 +371,10 @@ class Contribution < ActiveRecord::Base
   #
   def visible_tags
     taggings.with_status(:published, :flagged, :revised).where(:context => 'tags').collect(&:tag).reject(&:nil?)
+  end
+
+  def edm
+    @edm ||= Europeana::EDM::Mapping::Story.new(self)
   end
 
   def attachments_have_scarce_metadata?
