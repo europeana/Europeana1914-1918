@@ -11,6 +11,10 @@
   script += "RunCoCo.gaId = '" + configuration(:google_analytics_key) + "';" + "\n"
   script += "RunCoCo.locale = '" + I18n.locale.to_s + "';" + "\n"
 
+  if @iframe_parent_domains.present?
+    script += "RunCoCo.iframeParentDomains = [" + @iframe_parent_domains.map { |domain| "'#{domain}'" }.join(',') + "];\n"
+  end
+
 	if @contribution && @contribution.ready_to_submit?
     script += "RunCoCo.ready_for_submit = true;" + "\n"
   end
