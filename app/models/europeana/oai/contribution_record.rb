@@ -120,7 +120,7 @@ module Europeana
       end
       
       def to_oai_edm
-        edm.to_rdfxml.sub(/<\?xml .*? ?>/, "")
+        to_rdfxml.sub(/<\?xml .*? ?>/, "")
       end
     end
   end

@@ -386,6 +386,11 @@ class Contribution < ActiveRecord::Base
     attachments.all?(&:has_rich_metadata?)
   end
 
+  def to_rdfxml
+    mapping = mappings.where(:format => 'edm_rdfxml').first
+    mapping.nil? ? edm.to_rdfxml : mapping.content
+  end
+
 protected
 
   def build_metadata_unless_present
