@@ -17,6 +17,7 @@ class Contribution < ActiveRecord::Base
   belongs_to :contributor, :class_name => 'User'
   belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
+  has_many :mappings, :class_name => 'MetadataMapping', :as => :mappable
   #--
   # @fixme: Destroy associated contact when contribution destroyed, 
   # *IF* this is a guest contribution, *AND* there are no other associated 

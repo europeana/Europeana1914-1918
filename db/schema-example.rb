@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140514120850) do
+ActiveRecord::Schema.define(:version => 20170606075207) do
 
   create_table "annotation_shapes", :force => true do |t|
     t.integer  "annotation_id"
@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(:version => 20140514120850) do
   add_index "annotation_shapes", ["annotation_id"], :name => "index_annotation_shapes_on_annotation_id"
 
   create_table "annotations", :force => true do |t|
-    t.integer  "attachment_id"
+    t.integer  "annotatable_id"
     t.integer  "user_id"
     t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "src"
+    t.text     "annotatable_type"
   end
 
-  add_index "annotations", ["attachment_id"], :name => "index_annotations_on_attachment_id"
+  add_index "annotations", ["annotatable_id"], :name => "index_annotations_on_attachment_id"
   add_index "annotations", ["user_id"], :name => "index_annotations_on_user_id"
 
   create_table "attachments", :force => true do |t|
@@ -66,6 +68,8 @@ ActiveRecord::Schema.define(:version => 20140514120850) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "map_latlng"
+    t.integer  "map_zoom"
   end
 
   add_index "collection_days", ["contact_id"], :name => "index_collection_days_on_contact_id"
@@ -102,6 +106,18 @@ ActiveRecord::Schema.define(:version => 20140514120850) do
   add_index "contributions", ["contributor_id"], :name => "index_contributions_on_contributor_id"
   add_index "contributions", ["guest_id"], :name => "index_contributions_on_guest_id"
   add_index "contributions", ["metadata_record_id"], :name => "index_contributions_on_metadata_record_id"
+
+  create_table "current_statuses", :force => true do |t|
+    t.integer  "record_id"
+    t.string   "record_type"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "current_statuses", ["name"], :name => "index_current_statuses_on_name"
+  add_index "current_statuses", ["record_id"], :name => "index_current_statuses_on_record_id"
+  add_index "current_statuses", ["record_type"], :name => "index_current_statuses_on_record_type"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0, :null => false
@@ -173,6 +189,17 @@ ActiveRecord::Schema.define(:version => 20140514120850) do
     t.boolean  "attachment",      :default => true,  :null => false
     t.boolean  "facet",           :default => false, :null => false
   end
+
+  create_table "metadata_mappings", :force => true do |t|
+    t.integer  "mappable_id"
+    t.string   "mappable_type"
+    t.string   "format"
+    t.text     "content",       :limit => 16777215
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "metadata_mappings", ["mappable_id", "mappable_type"], :name => "index_metadata_mappings_on_mappable_id_and_mappable_type"
 
   create_table "metadata_records", :force => true do |t|
     t.datetime "created_at"
