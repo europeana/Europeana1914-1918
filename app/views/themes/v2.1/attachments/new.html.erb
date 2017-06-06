@@ -52,23 +52,9 @@
   
   <h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
 
-  <% if @contribution.attachments.present? -%>
-    <%= raw t('flash.attachments.links.view-attachments_html') %>
-  <% end -%>
-
   <h2 id="attachments"><%= t('views.contributions.digital_object.heading') %></h2>
 
   <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
-
-  <ul>
-    <% if @contribution.attachments.present? -%>
-        <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
-    <% end -%>
-
-    <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
-        <li><a href="#submit-story" id="submit-your-story"><%= t('formtastic.titles.submit') %></a></li>
-    <% end -%>
-  </ul>
 
   <% if @contribution.attachments.present? -%>
       <%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
