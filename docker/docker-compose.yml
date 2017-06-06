@@ -15,6 +15,18 @@ services:
       - ..:/app
     environment:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+  worker:
+    image: 1418-worker
+    build:
+      context: ./worker
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+    - ..:/app
+    environment:
+      DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
   db:
     image: 1418-db
     build:
