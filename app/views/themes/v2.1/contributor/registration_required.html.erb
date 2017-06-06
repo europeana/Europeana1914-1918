@@ -8,14 +8,12 @@
 	
 	<h2><%= raw t('common.links.help') %></h2>
 	
-		<p><%= raw t('views.contributor.help.p1', :about => link_to( t('common.menus.main.about'), page_path('about') ) ) %></p>
+		<p><%= raw t('views.contributor.help.p1', :about => link_to( t('common.menus.main.about'), 'http://europeana.eu/portal/about', :target => '_blank') ) %></p>
 		
 		<ul>
 			<li><%= raw t('views.contributor.help.item1') %></li>
 			<li><%= raw t('views.contributor.help.item2', :privacy_policy => link_to( t('common.links.privacy_policy'), page_path('about/privacy') ) ) %></li>
-			<li><%= raw t('views.contributor.help.item3', :takedown_policy => link_to( t('common.links.takedown_policy'), page_path('about/takedown') ) ) %></li>
 			<li><%= raw t('views.contributor.help.item4', :contribution_terms => link_to( t('common.links.contribution_terms'), page_path('about/terms') ) ) %></li>
-			<li><%= raw t('views.contributor.help.item5', :about_the_project => link_to( t('common.links.about_the_project'), page_path('about') ) ) %></li>
 		</ul>
 	
 	
