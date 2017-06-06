@@ -417,7 +417,7 @@ class ContributionsController < ApplicationController
         when :nt
           contribution.edm.to_ntriples
         when :xml
-          contribution.edm.to_rdfxml
+          contribution.to_rdfxml
       end
       write_fragment(cache_key, data.to_yaml)
     end
