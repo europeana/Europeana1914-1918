@@ -230,6 +230,12 @@ protected
     #   <% @stylesheets[:index] = true -%>
     #
     @stylesheets = {}
+
+    @iframe_parent_domains = if RunCoCo::Application.config.respond_to?(:iframe_parent_domains)
+                               RunCoCo::Application.config.iframe_parent_domains
+                             else
+                               nil
+                             end
   end
 
   def init_configuration
