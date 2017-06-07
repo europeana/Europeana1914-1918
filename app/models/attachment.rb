@@ -337,7 +337,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def cover_image?
-    contribution.attachments.cover_image == self
+    contribution.cover_image == self
   end
 
 protected
