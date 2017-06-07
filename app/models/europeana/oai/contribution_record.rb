@@ -4,7 +4,7 @@ module Europeana
       include ContributionsHelper
       include Rails.application.routes.url_helpers
       
-      default_scope published
+      default_scope published.includes(:metadata => :taxonomy_terms)
       
       ##
       # Returns the OAI sets supported

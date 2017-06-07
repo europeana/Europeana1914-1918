@@ -39,7 +39,8 @@ class Contribution < ActiveRecord::Base
     end
     
     def cover_image
-      with_file.select { |attachment| attachment.metadata.field_cover_image.present? }.first || with_file.first
+      candidates = with_file
+      candidates.select { |attachment| attachment.metadata.field_cover_image.present? }.first || candidates.first
     end
     
     def with_books
@@ -383,16 +384,26 @@ class Contribution < ActiveRecord::Base
   end
 
   def attachments_have_scarce_metadata?
-    attachments.all?(&:has_scarce_metadata?)
+    attachments.all? do |attachment|
+      attachment.contribution = self
+      attachment.has_scarce_metadata?
+    end
   end
 
   def attachments_have_rich_metadata?
-    attachments.all?(&:has_rich_metadata?)
+    attachments.all? do |attachment|
+      attachment.contribution = self
+      attachment.has_rich_metadata?
+    end
   end
 
   def to_rdfxml
     mapping = mappings.where(:format => 'edm_rdfxml').first
     mapping.nil? ? edm.to_rdfxml : mapping.content
+  end
+
+  def cover_image
+    @cover_image ||= attachments.cover_image
   end
 
 protected

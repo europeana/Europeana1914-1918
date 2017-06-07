@@ -107,8 +107,8 @@ module Europeana
           graph.query(:predicate => RDF::DC.alternative) do |solution|
             result["dctermsAlternative"] = [ solution.object.to_s ]
           end
-          if cover_image.present?
-            result["edmPreview"] = [ cover_image.thumbnail_url(:preview) ]
+          if @source.cover_image.present?
+            result["edmPreview"] = [ @source.cover_image.thumbnail_url(:preview) ]
           else
             result["edmPreview"] = ""
           end
@@ -233,9 +233,9 @@ module Europeana
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
           graph << [ uri, RDF::EDM.isShownAt, web_resource_uri ]
 
-          unless cover_image.blank?
-            graph << [ uri, RDF::EDM.isShownBy, cover_image.edm.web_resource_uri ]
-            graph << [ uri, RDF::EDM.object, cover_image.edm.web_resource_uri ]
+          unless @source.cover_image.blank?
+            graph << [ uri, RDF::EDM.isShownBy, @source.cover_image.edm.web_resource_uri ]
+            graph << [ uri, RDF::EDM.object, @source.cover_image.edm.web_resource_uri ]
           end
           license = meta["license"].blank? ? "http://creativecommons.org/publicdomain/zero/1.0/" : meta["license"].first
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(license) ] 
@@ -246,16 +246,12 @@ module Europeana
           graph
         end
 
-        def cover_image
-          @cover_image ||= @source.attachments.cover_image
-        end
-
         def child_items
           graph = RDF::Graph.new
 
-          @source.attachments.includes(:metadata => :taxonomy_terms).find_each do |item|
-            item.contribution = @source
-            item.edm.to_rdf_graph.each do |statement|
+          @source.attachments.includes(:metadata => :taxonomy_terms).find_each do |attachment|
+            attachment.contribution = @source
+            attachment.edm.to_rdf_graph.each do |statement|
               graph << statement
             end
           end
