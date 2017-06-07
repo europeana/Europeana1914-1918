@@ -127,6 +127,7 @@ module Europeana
         #
         def provided_cho
           graph = RDF::Graph.new
+          
           meta = @source.metadata.fields
           uri = provided_cho_uri
           
@@ -172,7 +173,7 @@ module Europeana
               EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(spatial, :language => :en)).append_to(graph, uri, RDF::DC.spatial)
             end
           end
-          
+
           [ '1', '2' ].each do |cn|
             character_full_name = Contact.full_name(meta["character#{cn}_given_name"], meta["character#{cn}_family_name"])
             unless [ character_full_name, meta["character#{cn}_dob"], meta["character#{cn}_dod"], meta["character#{cn}_pob"], meta["character#{cn}_pod"] ].all?(&:blank?)

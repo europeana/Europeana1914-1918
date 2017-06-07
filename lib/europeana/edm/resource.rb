@@ -51,7 +51,12 @@ module Europeana
       protected
         
         def make_id(properties = {})
-          RDF::URI.parse("europeana19141918:" + resource_type.downcase + "/" + Digest::MD5.hexdigest(Hash[properties.sort].to_yaml))
+          properties_with_uri_keys = {}
+          properties.each_pair do |predicate, object|
+            properties_with_uri_keys[predicate.to_s] = object
+          end
+
+          RDF::URI.parse("europeana19141918:" + resource_type.downcase + "/" + Digest::MD5.hexdigest(Hash[properties_with_uri_keys.sort].to_yaml))
         end
         
         def resource_type
