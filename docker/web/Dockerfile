@@ -11,7 +11,7 @@ RUN apt-get update
 RUN apt-get install -y \
   libcurl4-gnutls-dev libmysqlclient-dev \
   curl git \
-  file ffmpeg ghostscript imagemagick
+  file ffmpeg ghostscript imagemagick sendmail
 RUN apt-get install -t wheezy-backports -y nodejs
 RUN rm -rf /var/lib/apt/lists/*
 
