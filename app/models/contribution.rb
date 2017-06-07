@@ -378,6 +378,10 @@ class Contribution < ActiveRecord::Base
     @edm ||= Europeana::EDM::Mapping::Story.new(self)
   end
 
+  def attachment_edm_mapping_class
+    @attachment_edm_mapping_class ||= attachments_have_rich_metadata? ? Europeana::EDM::Mapping::ItemAsCHO : Europeana::EDM::Mapping::ItemAsWebResource
+  end
+
   def attachments_have_scarce_metadata?
     attachments.all?(&:has_scarce_metadata?)
   end
