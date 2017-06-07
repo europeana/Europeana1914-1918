@@ -7,6 +7,8 @@ class MetadataMappingObserver < ActiveRecord::Observer
   def after_save(model)
     subject = contribution_from_observed_model(model)
 
+    return if subject.nil?
+
     if subject.respond_to?(:find_each)
       subject.find_each do |contribution|
         queue_job_for_contribution(contribution)
@@ -25,14 +27,20 @@ protected
     when Attachment
       model.contribution
     when MetadataRecord
-      model.contribution.present? ? model.contribution : model.attachment.contribution
+      if model.contribution.present?
+        model.contribution
+      elsif model.attachment.present?
+        model.attachment.contribution
+      else
+        nil
+      end
     when User
       model.contributions
     end
   end
 
   def queue_job_for_contribution(contribution)
-    return unless contribution.published?
+    return if contribution.current_status.nil? || !contribution.published?
     Delayed::Job.enqueue EDMMetadataMappingJob.new(contribution), :queue => 'mapping'
   end
 end
