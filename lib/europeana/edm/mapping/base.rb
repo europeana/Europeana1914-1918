@@ -66,7 +66,7 @@ module Europeana
             :rdaGr2 => "http://rdvocab.info/ElementsGr2/"
           }
           
-          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 1, :haml => RDF::RDFXML::Writer::ENCODED_HAML)) do |writer|
+          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 0)) do |writer|
             writer << to_rdf_graph
           end
         end
