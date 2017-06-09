@@ -13,6 +13,9 @@ run "ln -nfs #{config.shared_path}/config/initializers/recaptcha.rb #{config.rel
 # iframe domains
 run "ln -nfs #{config.shared_path}/config/initializers/iframe_parent_domains.rb #{config.release_path}/config/initializers/iframe_parent_domains.rb"
 
+# iframe embed .js source
+run "ln -nfs #{config.shared_path}/config/initializers/e7a_1418_iframe.rb #{config.release_path}/config/initializers/e7a_1418_iframe.rb"
+
 # Solr
 run "mkdir #{config.release_path}/solr"
 run "cp -r #{config.release_path}/config/solr/conf #{config.release_path}/solr"
