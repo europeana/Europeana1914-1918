@@ -1,0 +1,54 @@
+<%
+  if local_assigns[:url].nil?
+    url = search_contributions_path 
+  end
+  
+  if local_assigns[:count].nil?
+    count = false
+  end
+%>
+
+
+<div class="carousel-intro <%= mobile ? 'small' : 'big' %> ">
+
+
+
+	<div class='content'>
+
+		<h4><%= docTitle %></h4>
+	
+		<span>
+			<%#= raw((doc).to_html ) %>
+			<%= blurb  %>
+		</span>
+
+		
+		<%= form_tag( url, { :method => :get, :id => 'search', :class =>  current_page?(home_path) ? 'landing hide-on-phones' : 'hide-on-phones'  }) do %>
+			<div class="h-flex-container">
+
+			  <input id="q" name="q" placeholder="<%= t('formtastic.actions.search.submit') %>" type="text" class="h-flex-fill" autocomplete="off" role="textbox" aria-autocomplete="list">
+              
+              <span class="h-flex-fixed">
+                <input type="submit" value="<%= t('formtastic.actions.search.submit') %>"/>
+              </span>
+            </div>
+            
+		<% end %>
+		
+
+<%
+=begin %>
+		<div class='index-call-to-action'>
+			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button hide-below-x'><%= t('common.links.add-your-story') %></a>
+			<a href='<%= page_path('explore') %>' class='button hide-below-x'><%= t('common.links.explore-the-stories') %></a>
+			
+			<a href='<%= current_user.role.name == 'guest' ? contributor_dashboard_path : new_contribution_path %>' class='button show-below-x'><%= t('common.links.add-your-story-brief') %></a>
+			<a href='<%= page_path('explore') %>' class='button show-below-x'><%= t('common.links.explore-the-stories-brief') %></a>			
+		</div>
+<%
+=end %>
+
+		
+	</div>		
+	
+</div>

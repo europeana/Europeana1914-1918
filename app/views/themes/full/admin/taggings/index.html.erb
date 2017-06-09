@@ -1,0 +1,50 @@
+<%
+  provide :title, t('views.admin.taggings.index.title')
+%>
+<div class="section top">
+
+  <h2><%= yield :title %></h2>
+  
+  <%- if @taggings.present? -%>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col"><%= link_to_table_sort t('attributes.created_at'), 'created_at' %></th>
+          <th scope="col"><%= link_to_table_sort t('attributes.updated_at'), 'updated_at' %></th>
+          <th scope="col"><%= t('activerecord.models.user') %></th>
+          <th scope="col">Tagged item</th>
+          <th scope="col"><%= link_to_table_sort t('views.admin.taggings.table.header.text'), 'tags.name' %></th>
+          <th scope="col"><%= link_to_table_sort t('attributes.status'), 'current_statuses.name' %></th>
+          <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- for tagging in @taggings -%>
+          <tr>
+            <td><%= l tagging.created_at, :format => :short %></td>
+            <td><%= l tagging.updated_at, :format => :short %></td>
+            <td>
+              <%- if tagging.tagger.contact.full_name.present? -%>
+                <%= link_to tagging.tagger.contact.full_name, admin_user_path(tagging.tagger) %>
+              <%- else -%>
+                <%= link_to (t('activerecord.models.user') + ' ' + tagging.tagger.id.to_s), admin_user_path(tagging.tagger) %>
+              <%- end -%>
+            </td>
+            <td>
+              <%= link_to truncate(tagging.taggable.title, :length => 140, :separator => ' '), tagging.taggable, :target => '_blank' %>
+            </td>
+            <td><%= truncate tagging.tag.name, :length => 140, :separator => ' ' %></td>
+            <td><%= tagging.current_status.name %></td>
+            <td><%= link_to t('actions.edit'), edit_tagging_path(tagging, :redirect => admin_taggings_path), :class => 'edit-member' %></td>
+            <td><%= link_to t('actions.depublish'), depublish_tagging_path(tagging, :redirect => admin_taggings_path), :class => 'edit-member' %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+    
+    <%= will_paginate @taggings %>
+  <%- else -%>
+    
+  <%- end -%>
+
+</div>

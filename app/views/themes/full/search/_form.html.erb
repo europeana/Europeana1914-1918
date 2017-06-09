@@ -1,0 +1,42 @@
+<%
+  case controller.controller_name
+  when 'collection', 'europeana', 'digitalnz', 'dpla', 'trove'
+    url = send(:"search_#{controller.controller_name}_path")
+  else
+    url = search_contributions_path
+  end
+  
+  if local_assigns[:count].nil?
+    count = false
+  end
+%>
+
+
+<%-
+  
+  formClass = '' 
+  
+  if current_page?(home_path) 
+  
+    formClass = 'show-on-phones' 
+  
+  end
+  
+-%>
+
+	<%= form_tag( url, { :method => :get, :id => 'search', :class => formClass } ) do %>
+
+	  <%- if count -%>
+	    <input type="hidden" name="count" value="<%= count %>" />
+	  <%- end -%>
+	  
+	  <div class="h-flex-container">
+	    <%= text_field_tag 'q', query, { :type => 'text', :placeholder => t('formtastic.actions.search.submit') } %>
+	    
+	    <span class="h-flex-fixed">
+	      <input type="submit" class="button" value="<%= t('formtastic.actions.search.submit') %>"/>
+	    </span>
+	 </div>
+	  
+	  
+	<% end %>

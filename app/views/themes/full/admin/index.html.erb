@@ -1,0 +1,55 @@
+<% provide :title, t('views.admin.index.title') %>
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+
+    <dl class="action-menu">
+      
+      <%- if current_user.may_administer_contributions? -%>
+        <dt><%= link_to t('views.admin.index.links.contributions.text'), admin_contributions_path %></dt>
+        <dd><%= t('views.admin.index.links.contributions.description') %></dd>
+        <dt><%= link_to t('views.admin.annotations.index.title'), admin_annotations_path %></dt>
+        <dd><%= t('views.admin.index.links.annotations.description') %></dd>
+        <dt><%= link_to t('views.admin.taggings.index.title'), admin_taggings_path %></dt>
+        <dd><%= t('views.admin.index.links.taggings.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_administer_metadata_fields? -%>
+        <dt><%= link_to t('views.admin.index.links.metadata_fields.text'), admin_metadata_fields_path %></dt>
+        <dd><%= t('views.admin.index.links.metadata_fields.description') %></dd>
+        <dt><%= link_to t('views.admin.collection_days.index.title'), admin_collection_days_path %></dt>
+        <dd><%= t('views.admin.index.links.collection_days.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_administer_users? -%>
+        <dt><%= link_to t('views.admin.index.links.users.text'), admin_users_path %></dt>
+        <dd><%= t('views.admin.index.links.users.description') %></dd>
+        <dt><%= link_to t('views.admin.institutions.index.title'), admin_institutions_path %></dt>
+        <dd><%= t('views.admin.index.links.institutions.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_administer_settings? -%>
+        <dt><%= link_to t('views.admin.index.links.config.text'), admin_config_path %></dt>
+        <dd><%= t('views.admin.index.links.config.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_view_logs? -%>
+        <dt><%= link_to t('views.admin.index.links.logs.text'), admin_logs_path %></dt>
+        <dd><%= t('views.admin.index.links.logs.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_administer_contributions? -%>
+        <dt><%= link_to t('views.admin.index.links.export.text'), export_admin_contributions_path %></dt>
+        <dd><%= t('views.admin.index.links.export.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_administer_users? -%>
+        <dt><%= link_to t('views.admin.index.links.export_users.text'), export_admin_users_path(:format => 'csv') %></dt>
+        <dd><%= t('views.admin.index.links.export_users.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_access_admin_area? -%>
+        <dt><%= link_to t('views.admin.index.links.statistics.text'), admin_statistics_path %></dt>
+        <dd><%= t('views.admin.index.links.statistics.description') %></dd>
+      <%- end -%>
+      <%- if current_user.may_harvest_europeana? -%>
+        <dt><%= link_to t('views.admin.index.links.harvest_europeana.text'), admin_europeana_path %></dt>
+        <dd><%= t('views.admin.index.links.harvest_europeana.description') %></dd>
+      <%- end -%>
+      
+    </dl>
+
+</div>

@@ -1,0 +1,77 @@
+<%
+	record = @object
+
+	proxy          = record['proxies'][0]
+	aggregation    = record['aggregations'] ? record['aggregations'][0] : {}
+	edmIsShownBy   = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+	euAggregation  = record['europeanaAggregation']
+	edmPreview     = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : nil
+	edmProvider    = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
+
+	if edmProvider.blank? || (edmProvider != "Europeana 1914 - 1918")
+		mediaplayer    = false
+		title          = proxy ? edm_proxy_field( proxy, 'dcTitle' ) : 'unknown'
+		type           = record['type'] ? record['type'] : nil
+
+
+		if edmIsShownBy
+			# remote_video_mime_type will return any mime type
+			video_type = remote_video_mime_type( edmIsShownBy )
+
+			# this test is still fragile as it will allow any other mime type thru
+			# and rely on mediaelementplayer to handle it, which it may not be able
+			# to do, however, it’s leniency allows for other video mime types.
+			#
+			# another approach would be to create a method that only allows
+			# specific mime types and pass a hash containing the mime type detected
+			# and whether or not it should be diplayed by mediaelementplayer
+			if !( /text\/html/.match( video_type ) )
+				mediaplayer = true
+
+				html = video_tag(
+					edmIsShownBy,
+					:controls => true,
+					:id => 'player1',
+					:preload => 'none',
+					:poster => edmPreview,
+					:style => 'width:100%;height:100%;',
+					:type => video_type
+				)
+			elsif type == 'IMAGE'
+				html = '<img src="' + edmIsShownBy + '"/>'
+			else
+				html = '<iframe id="iframe" src="' + edmIsShownBy + '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+			end
+		end
+	end
+-%>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<% if mediaplayer -%>
+<%= stylesheet_link_tag 'mediaelementplayer' %>
+<% end -%>
+<title><%= title -%></title>
+<% if type == 'IMAGE' -%>
+<style>html{width:100%;height:100%;}body{background: url('<%= theme_image_path("icons/loading-animation.gif") %>') center center no-repeat;}img{display:block;margin:auto;}</style>
+<% else -%>
+<style>html{width:100%;height:100%;}body{width:100%;height:100%;margin:0;padding:0;overflow:hidden;}iframe{width:99%;height:99%;overflow:hidden;background-color:#fff;}.mejs-container{max-height:480px;margin:auto;}body{background: url('<%= theme_image_path("icons/loading-animation.gif") %>') center center no-repeat;}</style>
+<% end -%>
+</head>
+<body>
+<%= html.html_safe -%>
+<% if mediaplayer -%>
+<%= theme_javascript_include_tag 'eu/europeana/pages/edm-video' %>
+<script>
+$('audio,video').mediaelementplayer({
+	pluginPath:'/assets/mediaelement/',
+	success: function( player, node ) {
+		$( '#' + node.id + '-mode' ).html( 'mode: ' + player.pluginType );
+	}
+});
+</script>
+<% end -%>
+</body>
+</html>

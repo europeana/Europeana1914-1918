@@ -1,0 +1,105 @@
+<%
+	provide :title, t('views.home.heading')
+	provide :javascripts_page, 'index'
+	require 'hpricot'
+%>
+<div class='section top'>
+
+	<%#= render :partial => 'blog_posts/list', :locals => {:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false } %>
+
+    <%# read from http://europeana1914-1918.blogspot.com/feeds/posts/default  -%>
+    <%
+      blog_post_entry = blog_posts(:blog => 'europeana', :category => 'hero-image',  :limit => 1, :titles => false,  :deblogger => false)
+      heroImgImg   = ''
+      if blog_post_entry.present?
+        docTitle     = blog_post_entry[0].title.html_safe
+        heroImg      = Hpricot( raw blog_post_entry[0].content )
+	    heroImgImg   = (heroImg/'img').to_html.html_safe 
+	    heroImgBlurb = (heroImg/'p[@class="blurb"]').to_html.html_safe
+      else
+        docTitle     = ''
+        heroImg      = ''
+	    heroImgImg   = '' 
+	    heroImgBlurb = ''      
+      end  
+%>
+	<% doc = Hpricot( render :partial => 'blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-introduction', :titles => true, :deblogger => true } ) %>
+	<% (doc/'h3').remove %>
+
+
+<%
+=begin %>
+	<h2><%= (doc/'h3').inner_html %></h2>
+
+	<div id='index-featured' class='carousel two-thirds-right'>	
+		<ul>
+			<%= render :partial => 'blog_posts/list', :locals => { :blog => 'europeana', :category => 'index-featured', :tag => :li, :relocale => true, :deblogger => true } %>
+		</ul>
+		<div class='carousel-overlay'></div>	
+	</div>
+<%
+=end %>
+
+
+	<div id='index-featured'>
+		<%= render :partial => 'carousel_text_overlay',
+			:locals => { 
+				:doc => doc/'p:nth(1)',
+				:docTitle => docTitle,
+				:blurb => heroImgBlurb,
+				:mobile => false			
+			}
+		 %>	
+		 <%= heroImgImg  %>
+		 
+	</div>
+
+	<%= render :partial => 'carousel_text_overlay',
+		:locals => { 
+			:doc => doc,
+			:docTitle => docTitle,
+				:blurb => heroImgBlurb,
+			:mobile => true
+		}
+	 %>
+		
+</div>
+
+
+<div class='section'>
+	
+	<div id='news-articles'>
+	  
+		<h2><%= t('common.news') %></h2>
+		
+			<%# Add :limit => 1 to the locals for here image %>
+		
+			<div id='index-follow-us'>
+				<%= render :partial => 'blog_posts/list', :locals => { :category => 'index-follow-us', :titles => false, :deblogger => true } %>
+			</div>
+			
+			<%= render :partial => 'blog_posts/list', :locals => { 
+				:blogs => [
+					{
+						:blog => 'europeana', 
+						:category => 'news', 
+						:deblogger => true
+					}
+				],
+				:limit => 2,
+				:html_class => 'article',
+				:tag => 'div',
+				:titles => true,
+				:read_more => true
+			}
+			%>
+		
+	</div>
+
+	<div id='index-aside' class='box-gradient'>
+		
+		<%= render :partial => 'blog_posts/list', :locals => { :category => 'index-aside', :titles => true, :deblogger => true } %>
+		
+	</div>
+	
+</div>

@@ -1,0 +1,52 @@
+<% provide :title, t('views.admin.collection_days.index.title') %>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+  
+  <div class="action-links">
+    <ul>
+      <li><%= link_to t('activerecord.models.taxonomy_term').pluralize, admin_metadata_field_taxonomy_terms_path(@metadata_field) %></li>
+    </ul>
+  </div>
+  
+  <%- if @collection_days.present? -%>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Name</th>
+          <th scope="col">Date</th>
+          <th scope="col" colspan="2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- for collection_day in @collection_days -%>
+          <tr>
+            <td>
+              <%- if collection_day.new_record? -%>
+                <%= collection_day.code %>
+              <%- else -%>
+                <%= link_to collection_day.code, collection_day %>
+              <%- end -%>
+            </td>
+            <td><%= collection_day.name %></td>
+            <td>
+              <%- unless collection_day.start_date.blank? -%>
+                <%= l collection_day.start_date %>
+              <%- end -%>
+              <%- unless collection_day.end_date.blank? -%>
+                &ndash; <%= l collection_day.end_date %>
+              <%- end -%>
+            </td>
+            <td><%= link_to t('actions.edit'), edit_admin_collection_day_path(collection_day) %></td>
+            <td><%= link_to t('actions.delete'), delete_admin_collection_day_path(collection_day) unless collection_day.new_record? %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+    
+    <%= will_paginate @collection_days %>
+  <%- end -%>
+  
+</div>

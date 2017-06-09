@@ -1,0 +1,80 @@
+<%
+
+	developer_content = '<!--carousel images-->'
+	annotatable = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
+	html = ''
+
+	link_attrs.merge!({
+		:rel => 'prettyPhoto[gallery]'
+	})
+
+	# cycle over the carousel images available
+	carouselImages.each do |img_src|
+		this_link_text = link_text
+
+		link_attrs.merge!({
+			'data-attachment-id' => @item_count
+		})
+
+
+		# data-description
+		render :partial => 'lightbox/data-description'
+		link_attrs.merge!({ 'data-description' => @data_description })
+
+
+		# add annotations
+		if annotatable.present?
+			link_attrs.merge!({
+				'data-annotatable-type' => annotatable.class,
+				'data-annotatable-id' => annotatable.id
+			})
+
+			if annotatable.visible_annotations { |a| a.src == img_src }.present?
+				this_link_text = content_tag(
+					'p',
+					t( 'common.links.view-image' ).html_safe +
+					content_tag( 'span', '', :class => 'annotorious-carousel-icon' ),
+					:class => 'view-item-annotorious'
+				)
+			end
+		end
+
+		# get metadata
+		metadata_html = render :partial => 'metadata/edm',
+			:locals => {
+				:title => title,
+				:img_src => img_src,
+				:data_summary => data_summary
+			}
+
+		# add the first item with its preview image
+		if @item_count == 0
+			link_image = image_tag( img_src, :alt => title )
+			link_content = link_image + this_link_text
+
+			html += content_tag(
+				'li',
+				link_to( link_content, img_src, link_attrs ) + metadata_html
+			)
+
+			html += developer_content
+
+		# when not the first item, add a placeholder
+		else
+			link_content = unknown_image + this_link_text
+
+			html += content_tag(
+				'li',
+				link_to( link_content, img_src, link_attrs ) + metadata_html,
+				:class => 'item-placeholder'
+			)
+
+			html += developer_content
+		end
+
+		@item_count += 1
+
+	end
+
+%>
+<%= html.html_safe -%>

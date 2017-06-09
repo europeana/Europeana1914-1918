@@ -1,0 +1,257 @@
+<%
+
+  html        = ''
+  @item_count  = 0
+  thumbnails  = thumbnails ? thumbnails : false
+  prettyphoto = prettyphoto ? prettyphoto : false
+  carousel    = params['carousel'] ? params['carousel'] : false
+
+  # unknown image
+  # except for the first mediafile in a list of items, this is the default preview image
+  # used on the preview link in order to save on the weight of the initial page load.
+  unknown_image = image_tag(
+    '/assets/style/icons/mimetypes/unknown.png',
+    :alt => t( 'media_types.unknown' )
+  )
+
+  if attachments.present?
+
+    # builds a list of preview links for viewing mediafiles
+    # the main use of this list is within a carousel
+    for attachment in attachments
+
+      # open the list item
+      if @item_count == 0
+        html += '<li>'
+
+      # when not the first item, mark it as a placeholder
+      else
+
+        html += '<li class="item-placeholder">'
+      end
+
+      if attachment.file.present?
+        annotations_exist = true
+
+        # preview link url
+        # url to the main mediafile that is presented
+        # when the link on the preview image is clicked
+        link_url = attachment_url( attachment, 'large', :timestamp => false )
+
+        # preview link text
+        # default text that is presented with the link and the preview image
+        link_text = t( 'common.links.view-image' )
+
+        # preview link content
+        # the content of the <a> tag, made up of the preview image and link text
+        link_content = ''
+
+        # preview link attributes
+        # default attributes of the preview link
+        link_attrs = {
+          :target => '_blank',
+          :title => attachment.title,
+          'data-attachment-id' => attachment.id,
+          'data-contribution-id' => contribution.id
+        }
+
+        # pretty photo lightbox
+        # attributes added when the item will be displayable in a pretty photo lightbox
+        if ( prettyphoto && ( attachment.image? || attachment.video? || attachment.audio? ) )
+
+          # preview link rel
+          # which identifies the item as being part of a pretty photo lightbox
+          link_attrs.merge!({
+            :rel => 'prettyPhoto[gallery]'
+          })
+
+
+          # data-description
+          render :partial =>
+            'lightbox/data-description',
+            :locals => { :attachment => attachment }
+
+          link_attrs.merge!({ 'data-description' => @data_description })
+
+
+          # image
+          if ( attachment.image? )
+            # identifies the preview link as being for an image
+            link_attrs.merge!({
+              :class => 'image',
+              'data-annotatable-type' => 'Attachment'
+            })
+          end
+
+          # video
+          if ( attachment.video? )
+            # changes the preview link text
+            link_text = t( 'common.links.play-video' )
+
+            # changes the preivew link url
+            link_url =
+              contribution_attachment_url( contribution, attachment ) +
+              '?layout=0&iframe=true&width=100%&height=100%'
+
+            # identifies the preview link as being for a video
+            link_attrs.merge!({
+              :class => 'video'
+            })
+          end
+
+          # audio
+          if ( attachment.audio? )
+            # changes the preview link text
+            link_text = t( 'common.links.play-audio' )
+
+            # changes the preivew link url
+            link_url =
+              contribution_attachment_url( contribution, attachment ) +
+              '?layout=0&iframe=true&width=100%&height=100%'
+
+            # identifies the preview link as being for an audio clip
+            link_attrs.merge!({
+              :class => 'audio'
+            })
+          end
+        end
+
+        # pdf
+        if ( attachment.pdf? )
+          # changes the preview link text
+          link_text = t( 'common.links.view-pdf' )
+
+          # identifies the preview link as being for a pdf
+          link_attrs.merge!({
+            :class => 'pdf'
+          })
+        end
+
+        # distinguishes between a list of thumbnails and preview items
+        # preview items
+        if !thumbnails
+
+          # annotations
+          if attachment.visible_annotations.present?
+            # add annotorious feather icon as a hint to the user
+            link_text =
+              '<p class="view-item-annotorious" style="pointer-events:auto">' +
+                link_text +
+                '<span class="annotorious-carousel-icon"></span>' +
+              '</p>'
+
+            # change the preview link title
+            link_attrs.merge!({
+              :title => t( 'common.links.view-image' ) + ' - ' + t( 'common.links.annotorious' )
+            })
+          else
+            # change the link text
+            link_text = '<p class="view-item">' + link_text + '</p>'
+          end
+
+          # link content
+          if @item_count == 0
+            # when the first item in a list use its preview image
+            link_content = attachment_preview( attachment, size ) + link_text.html_safe
+          else
+            # otherwise use the unknown image to save on page weight
+            link_content = unknown_image + link_text.html_safe
+          end
+
+          # create the preview link
+          html += link_to( link_content, link_url, link_attrs )
+
+        # thumbnails
+        else
+          # create the thumbnail link
+          if @item_count == 0
+            # when the first item in a list use its thumbnail image
+            html += link_to( attachment_preview( attachment, size ), link_url, link_attrs )
+          else
+            # otherwise use the unknown image to save on page weight
+            html += link_to( unknown_image, link_url, link_attrs )
+          end
+        end
+
+      else
+        # fallback in case there is no attachment file present
+        html += unknown_image
+      end # if attachment.file.present?
+
+      # additional info
+      # metadata that is displayed when the additional info link is clicked
+      # when viewing an item in the pretty photo lightbox
+      if prettyphoto
+      		metadata_html =
+          render :partial => 'metadata/display',
+          :locals => {
+            :show_title => true,
+            :contribution => contribution,
+            :metadata => attachment.metadata,
+            :field_options => {
+              :name => [
+                'cover_image',
+                'page_number',
+                'object_side',
+                'creator_given_name',
+                'creator_family_name',
+                'attachment_description',
+                'lang',
+                'lang_other',
+                'content',
+                'subject',
+                'date',
+                'date_from',
+                'date_to',
+                'keywords',
+                'theatres',
+                'forces',
+                'source',
+                'format',
+                'page_total',
+                'notes',
+                'full_type',
+                'license',
+                'creator'
+              ],
+              :name_order => true
+            }
+          }
+
+        metadata_image = ''
+        preview_image = ''
+
+        if attachment.file.present?
+          metadata_image = attachment_thumbnail_url( attachment, 'large' )
+          if metadata_image[0] == '/'
+            metadata_image = configuration(:site_url) + metadata_image
+          end
+
+          preview_image = attachment_thumbnail_url( attachment, 'medium' )
+          if preview_image[0] == '/'
+            preview_image = configuration(:site_url) + preview_image
+          end
+        end
+
+        html += content_tag(
+          'dl',
+          metadata_html,
+          :class => 'lightbox-metadata',
+          :id => 'inline-' + @item_count.to_s,
+          'data-title' => attachment_title( attachment ),
+          'data-url' => url_for( :only_path => false ),
+          'data-image' => metadata_image,
+          'data-image-preview' => preview_image,
+          'data-summary' => attachment.metadata.fields['attachment_description']
+        )
+
+      end # additional info, if prettyphoto
+
+      @item_count += 1
+      html += '</li>'
+
+    end # for attachment in attachments
+
+  end # if attachments.present?
+-%>
+<%= html.html_safe -%>

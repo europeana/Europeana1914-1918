@@ -1,0 +1,188 @@
+<%
+
+  provide :title, collection_day_summary(@collection_day)
+  provide :javascripts_page, 'collection-days-show'
+  provide :javascripts_europeana_leaflet, true
+  provide :javascripts_chosen, true
+  provide :stylesheets_collection_days, true
+
+  if  ( @collection_day.end_date && @collection_day.end_date >= Date.today ) ||
+      ( @collection_day.start_date >= Date.today )
+    provide :collection_day_upcoming, true
+  end
+
+  html = '<div class="section top">'
+
+    # admin menu
+    if current_user.may_administer_metadata_fields?
+      html += '<ul class="action-links">'
+        html += content_tag(
+          'li',
+          link_to(
+            t('actions.edit'),
+            edit_admin_collection_day_path(
+              @collection_day,
+              :redirect => collection_day_path( @collection_day )
+            )
+          )
+        )
+      html += '</ul>'
+    end
+
+    # map & metadata
+    html += '<div class="section">'
+
+      # metadata
+      html += '<div id="collection-day-metadata">'
+
+        # title
+        html += '<h2>' + @collection_day.name + '</h2>'
+
+        # date
+        html += '<h3>' + localize( @collection_day.start_date ) + '</h3>'
+
+        # image
+        if @collection_day.image.present?
+          html += content_tag(
+            'div',
+            image_tag( @collection_day.image.url( :medium ) ),
+            :class => 'collection-day-image'
+          )
+        end
+
+        # description
+        unless @collection_day.description.blank?
+          html += content_tag(
+            'p',
+            @collection_day.description
+          )
+        end
+
+        html += '<dl>'
+
+        # where
+        html += '<dt>Where: </dt>'
+        html += '<dd>'
+          unless @collection_day.contact.street_address.blank?
+            html += @collection_day.contact.street_address + ', '
+          end
+
+          unless @collection_day.contact.locality.blank?
+          html += @collection_day.contact.locality + ', '
+          end
+
+          unless @collection_day.contact.region.blank?
+            html += @collection_day.contact.region + ', '
+          end
+
+          unless @collection_day.contact.country.blank?
+            html += t( "countries.#{@collection_day.contact.country}" )
+          end
+        html += '</dd>'
+
+        # website
+        unless @collection_day.url.blank?
+          html += '<dt>' + t( 'views.collection_days.website' ) + ' </dt>'
+          html += content_tag(
+            'dd',
+            link_to( @collection_day.url, @collection_day.url )
+          )
+        end
+
+        # stories
+        html += '<dt>' + t( 'views.collection_days.stories' ) + ' </dt>'
+        if @collection_day.has_contributions?
+					provide :collection_day_has_stories, 'true'
+
+          html += content_tag(
+          'dd',
+          link_to(
+            t( 'views.collection_days.view-stories' ).pluralize,
+              explore_collection_path(
+                'collection_day',
+                @collection_day.code,
+                :qf => { :index => 'c' }
+              )
+            )
+          )
+
+        # collection day hasn’t happend yet
+        elsif content_for?( :collection_day_upcoming )
+					provide :collection_day_has_stories, 'false'
+
+          html += '<dd>'
+            html += t( 'views.collection_days.join-us' )
+            html += ' '
+            html += link_to( t( 'views.collection_days.in-the-meantime' ),  '/' + I18n.locale.to_s + '/collection-days' )
+          html += '</dd>'
+
+        # no stories exist yet
+        else
+					provide :collection_day_has_stories, 'false'
+
+          html += '<dd>'
+            html += t( 'views.collection_days.no-stories' )
+            html += ' '
+            html += link_to( t( 'views.collection_days.in-the-meantime' ),  '/' + I18n.locale.to_s + '/collection-days' )
+          html += '</dd>'
+        end
+
+
+      html += '</div>' # end metadata
+
+      # map
+      if @collection_day.map_latlng.present?
+        if @collection_day.map_zoom.present?
+          provide :map_zoom, @collection_day.map_zoom.to_s
+        end
+
+        provide :map_latlng, @collection_day.map_latlng
+
+        html += '<div id="map-container" class="collection-day">'
+          html += '<div id="map"></div>'
+
+					# get directions
+          if content_for?( :collection_day_upcoming )
+						html += '<p>'
+							html += link_to(
+								t( 'javascripts.collection-days.get-directions' ),
+								'https://maps.google.com?daddr=' + @collection_day.map_latlng,
+								:id => 'get-directions'
+							)
+						html += '</p>'
+          end
+
+          # collection-day dropdown
+          html += render :partial => 'collection_days/as-select',
+					:locals => {
+						:collection_day_selector_label => t( 'views.collection_days.different-collection-day' )
+					}
+        html += '</div>'
+      end
+
+    # what is it
+    html += '<div class="section" style="clear:both;">'
+      html += '<div id="what-is-it" class="col-one-third">'
+        html += '<h2>' + t( 'views.collection_days.what-is-it-heading' ) + '</h2>'
+        html += simple_format( t( 'views.collection_days.what-is-it-content' ) )
+      html += '</div>'
+
+      html += '<div class="col-one-third">'
+        html += '<h2>' + t( 'views.collection_days.who-is-it-for-heading' ) + '</h2>'
+        html += simple_format( t( 'views.collection_days.who-is-it-for-content' ) )
+      html += '</div>'
+
+      html += '<div class="col-one-third">'
+        html += '<h2>' + t( 'views.collection_days.what-do-you-get-heading' ) + '</h2>'
+        html += simple_format( t( 'views.collection_days.what-do-you-get-content' ) )
+      html += '</div>'
+    html += '</div>'
+
+
+
+    html += '</div>' # end map & metadata
+
+  html += '</div>'
+
+%>
+<%= html.html_safe %>

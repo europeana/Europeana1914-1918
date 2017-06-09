@@ -1,0 +1,9 @@
+<% provide :title, t('views.taggings.edit.title') %>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+  
+  <%= render :partial => 'form', :locals => { :tag => @tagging.tag } %>
+  
+</div>
