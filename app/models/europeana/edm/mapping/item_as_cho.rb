@@ -36,7 +36,8 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           item_index = @source.contribution.attachment_ids.find_index(@source.id)
-          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments.find(@source.contribution.attachment_ids[item_index - 1]))
+          previous_in_sequence_id = @source.contribution.attachment_ids[item_index - 1]
+          previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments.detect { |a| a.id == previous_in_sequence_id })
           uri = provided_cho_uri
           
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]

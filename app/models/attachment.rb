@@ -302,7 +302,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def edm_mapping_class
-    contribution.attachments_have_rich_metadata? ? Europeana::EDM::Mapping::ItemAsCHO : Europeana::EDM::Mapping::ItemAsWebResource
+    contribution.attachment_edm_mapping_class
   end
 
   # A "distinct" title is one where it:
@@ -337,7 +337,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def cover_image?
-    contribution.attachments.cover_image == self
+    contribution.cover_image == self
   end
 
 protected
