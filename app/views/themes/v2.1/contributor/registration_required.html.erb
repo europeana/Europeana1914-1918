@@ -8,7 +8,7 @@
 	
 	<h2><%= raw t('common.links.help') %></h2>
 	
-		<p><%= raw t('views.contributor.help.p1', :about => link_to( t('common.menus.main.about'), 'http://europeana.eu/portal/collections/world-war-I', :target => '_parent') ) %></p>
+		<p><%= raw t('views.contributor.help.p1', :about => link_to( t('common.menus.main.about'), "#{RunCoCo::Application.config.iframe_parent_domains.first}/portal/collections/world-war-I", :target => '_parent') ) %></p>
 		
 		<ul>
 			<li><%= raw t('views.contributor.help.item2', :privacy_policy => link_to( t('common.links.privacy_policy'), page_path('about/privacy') ) ) %></li>
