@@ -107,11 +107,7 @@ class AttachmentsController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
-          if @contribution.submitted?
-            redirect_to @attachment.contribution
-          else
-            redirect_to new_contribution_attachment_path(@contribution)
-          end
+          redirect_to new_contribution_attachment_path(@contribution)
         end
         format.json  { render :json => { :result => 'success', :url => contribution_attachment_path(@contribution, @attachment) } }
       end
