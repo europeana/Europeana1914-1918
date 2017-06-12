@@ -183,11 +183,7 @@ class AttachmentsController < ApplicationController
         @attachment.contribution.change_status_to(:revised, current_user.id)
       end
       flash[:notice] = t('flash.attachments.update.notice')
-      if @contribution.status == :draft
-        redirect_to new_contribution_attachment_path(@contribution)
-      else
-        redirect_to @attachment.contribution
-      end
+      redirect_to new_contribution_attachment_path(@contribution)
     else
       flash.now[:alert] = t('flash.attachments.update.alert')
       render :action => 'edit'
