@@ -184,7 +184,7 @@ class ContributionsController < ApplicationController
         @contribution.change_status_to(:revised, current_user.id)
       end
       flash[:notice] = t('flash.contributions.draft.update.notice')
-      redirect_to (@contribution.draft? ? new_contribution_attachment_path(@contribution) : @contribution)
+      redirect_to (@contribution.draft? ? new_contribution_attachment_path(@contribution) : contributor_dashboard_path)
     else
       flash.now[:alert] = t('flash.contributions.draft.update.alert')
       render :action => 'edit'

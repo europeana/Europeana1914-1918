@@ -51,17 +51,18 @@
   </div>
   
   <h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
-  
-    <p>
-    <%= raw t('views.contributions.digital_object.help_text.attachment_count', :nr_digital_objects => @contribution.attachments.size ) %>
-    <% if !@contribution.attachments.present? -%>
-    <%= raw t('views.contributions.digital_object.help_text.add_attachment') %>
-  <% end -%>
+
+  <h2 id="attachments"><%= t('views.contributions.digital_object.heading') %></h2>
+
+  <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
+
   <% if @contribution.attachments.present? -%>
-    <%= raw t('flash.attachments.links.view-attachments_html') %>
+      <%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
+  <% else -%>
+      <p><%= t 'views.attachments.index.empty' %></p><p><%= raw t('views.contributions.digital_object.help_text.add_attachment') %></p>
   <% end -%>
-  <%= t('views.attachments.attachment_help.one-of-the-following') %>
-    </p>
+  <p><%= t('views.attachments.attachment_help.one-of-the-following') %></p>
+
   
     <ol id="attachment-help">
     
@@ -105,29 +106,6 @@
   
   <%= render :partial => 'form', :locals => { :attachment => @attachment } %>
 
-
-  <h2 id="attachments"><%= t('views.contributions.digital_object.heading') %></h2>
-  
-  <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
-  
-  <ul>
-    <% if @contribution.attachments.present? -%>
-    <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_another') %></a></li>
-    <% else %>
-    <li><a href="#single-item" id="add-another-attachment"><%= t('views.contributions.digital_object.links.add_item') %></a></li>
-    <% end -%>
-    
-    <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
-    <li><a href="#submit-story" id="submit-your-story"><%= t('formtastic.titles.submit') %></a></li>
-    <% end -%>
-  </ul>
-  
-  <% if @contribution.attachments.present? -%>
-    <%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
-  <% else -%>
-    <p><%= t 'views.attachments.index.empty' %></p>
-  <% end -%>
-  
   <% unless @contribution.submitted? -%>
     <%= render :partial => 'contributions/progress', :locals => { :step => 2 } %>
   <% end -%>
