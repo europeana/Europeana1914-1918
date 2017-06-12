@@ -1,0 +1,12 @@
+<% 
+  provide :title, t('views.admin.collection_days.edit.title') 
+  provide :javascripts_gmap, true
+%>
+
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+
+  <%= render :partial => 'form', :locals => { :collection_day => @collection_day } %>
+  
+</div>

@@ -1,0 +1,48 @@
+<%
+  provide :title, t('views.flickr.select.title')
+  provide :reveal, true
+%>
+
+<div class="section top">
+
+  <h2><%= yield :title %></h2>
+  
+  <p><%= t 'views.flickr.select.instruction' %></p>
+
+  <%= form_tag({ }, { :method => :get, :id => 'flickr_search' }) do |form| %>
+    <div><%= text_field_tag 'q', @flickr_query %> <%= submit_tag 'Search' %></div>
+  <% end %>
+
+  <div id="myModal" class="reveal-modal">
+    <h3><%= t 'views.flickr.select.licenses.heading' %></h3>
+    <p><%= t 'views.flickr.select.licenses.instruction' %></p>
+    <ul>
+      <!--<li>Attribution License</li>-->
+      <li>Attribution-ShareAlike License</li>
+      <li>No known copyright restrictions</li>
+    </ul>
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+
+  <% if @photos.present? %>
+    <%= form_tag({}, { :id => 'flickr_select' }) do |form| %>
+      <ul>
+        <% for photo in @photos %>
+          <li>
+            <%- if flickr_license_permitted?(photo) -%>
+              <label for="flickr_ids_<%= photo.id %>"><%= image_tag FlickRaw.url_q(photo) %></label>
+              <%= check_box_tag("flickr_ids[]", photo.id, false, :id => "flickr_ids_#{photo.id}") %>
+            <%- else -%>
+              <%= image_tag FlickRaw.url_q(photo) %>
+              <p class="flickr_license_invalid"><%= t 'views.flickr.select.licenses.incompatible' %> <a href="#" data-reveal-id="myModal">?</a></p>
+            <%- end -%>
+          </li>
+        <% end %>
+      </ul>
+      <div><%= submit_tag t('actions.import') %></div>
+    <% end %>
+
+    <%= will_paginate @photos %>
+  <% end %>
+
+</div>

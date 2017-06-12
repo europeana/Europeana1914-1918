@@ -1,0 +1,32 @@
+<%
+	html = ''
+
+  if @collection_days.present?
+		html += '<div id="collection-day-selector" tabindex="0">'
+			html += '<span id="collection-day-selector-label">' + collection_day_selector_label + '</span>'
+			html += ' '
+			html += '<select class="chosen-select" data-placeholder="' + t( 'views.collection_days.select-collection-day' ) + '">'
+				html += '<option></option>'
+
+				for collection_day in @collection_days
+					html += '<optgroup label="' + t( "countries.#{collection_day.contact.country}" ) + '">'
+
+						value = collection_day.code
+
+						if collection_day.has_contributions?
+							value = collection_day.code + '|searchable'
+						end
+
+						html += '<option value="' + value + '">'
+							html += collection_day.name + ', ' + collection_day.start_date.strftime('%d %B %Y')
+						html += '</option>'
+
+					html += '<optgroup>'
+				end
+
+			html += '</select>'
+    html += '</div>'
+  end
+
+%>
+<%= html.html_safe %>

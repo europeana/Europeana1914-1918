@@ -1,0 +1,48 @@
+<%= semantic_form_for [ 'admin', collection_day ], :url => admin_collection_day_path(collection_day), :method => :put do |form| -%>
+  <%= form.inputs :admin_collection_day do %>
+    <%= form.input :taxonomy_term_id, :as => :select, :collection => collection_days_without_records_for_select(collection_day.taxonomy_term_id) %>
+    <%= form.inputs :name %>
+    <%= form.input :description, :input_html => { :rows => 4 } %>
+    <%= form.input :url %>
+    <%= form.semantic_fields_for :contact do |contact| %>
+      <%= contact.input :full_name, :hint => '' %>
+    <% end %>
+    <%= form.input :start_date %>
+    <%= form.input :end_date %>
+    <%= form.input :image %>
+    <%- if form.object.image.present? && form.object.image.exists? -%>
+      <li class="input optional">
+        <p class="inline-hints"><%= image_tag(form.object.image.url(:thumb)) %></p>
+        <p class="inline-hints"><label for="delete_image"><%= check_box_tag 'delete_image' %> <%= t('formtastic.labels.collection_day.delete_image') %></label></p>
+      </li>
+    <%- end -%>
+  <% end %>
+  
+  <%= form.inputs :admin_collection_day_address do %>
+    <%= form.semantic_fields_for :contact do |contact| %>
+      <%= contact.input :street_address, :input_html => { :rows => 4 } %>
+      <%= contact.input :locality %>
+      <%= contact.input :region %>
+      <%= contact.input :postal_code %>
+      <%= contact.input :country %>
+    <% end %>
+    <div id="location-map-placholder"></div>
+      <li id="gmap-container">
+        <label><%= raw t('common.google_maps.label') %></label>
+        <input type="text" id="google-places" />
+        <input type="button" id="google-places-button" value="<%= I18n.t('javascripts.gmap.search.button') %>" />
+        <ul class="inline-hints google">
+          <%= raw t('common.google_maps.help_text') %>
+        </ul>
+        <div id="gmap-locate"></div>
+      </li>
+    <%= form.input :map_latlng, :label => t('formtastic.labels.contribution.metadata.location_map') %>
+    <%= form.input :map_zoom, :input_html => { :min => 0, :max => 19 }, :label => t('formtastic.labels.contribution.metadata.location_zoom') %>
+  <% end %>
+  
+  <%= form.buttons do %>
+    <%= redirect_field %>
+    <%= form.commit_button %>
+    <%= form_cancel_link admin_collection_days_path %>
+  <% end %>
+<% end -%>

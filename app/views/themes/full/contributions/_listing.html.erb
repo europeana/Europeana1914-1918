@@ -1,0 +1,17 @@
+<%= will_paginate contributions %>
+  
+  <ul id="stories">
+    
+    <%- for contribution in contributions.each -%>
+    
+      <%- if contribution.attachments.with_file.present? -%>
+        
+        <li class="story"><%= link_to attachment_preview(contribution.attachments.with_file.first, :preview), contribution, :title => t('views.contributions.search.links.titles.show_contribution') %></li>
+        
+      <%- end -%>
+      
+    <%- end -%>
+  
+  </ul>
+  
+<%= will_paginate contributions %>

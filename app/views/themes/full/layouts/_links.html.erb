@@ -1,0 +1,58 @@
+<%
+
+  link = ''
+
+  link += tag( 'link', :rel => 'icon', :href => image_path('favicon.ico'), :type => 'image/x-icon' ) + "\n"
+  link += tag( 'link', :rel => 'shortcut icon', :href => image_path('favicon.ico'), :type => 'image/x-icon' ) + "\n"
+  link += tag( 'link', :rel => 'author', :href => '/humans.txt' ) + "\n"
+  link += theme_stylesheet_link_tag 'application', :media => 'all' + "\n"
+  link += theme_stylesheet_link_tag 'application-screen', :media => 'screen, projection' + "\n"
+
+  if content_for?(:javascripts_lightbox)
+    link += theme_stylesheet_link_tag 'lightbox', :media => 'screen, projection' + "\n"
+  end
+
+  if content_for?(:javascripts_uploadify)
+    link += theme_stylesheet_link_tag 'uploadify', :media => 'screen, projection' + "\n"
+  end
+
+  if content_for?(:javascripts_annotorious)
+    link += stylesheet_link_tag 'annotorious', :media => 'screen, projection' + "\n"
+  end
+
+  if content_for?(:stylesheets_item)
+    link += theme_stylesheet_link_tag 'item', :media => 'all' + "\n"
+  end
+
+  if content_for?(:map_latlng)
+    link += theme_stylesheet_link_tag 'leaflet', :media => 'all' + "\n"
+
+    if content_for?( :collection_days )
+      link += theme_stylesheet_link_tag 'leaflet-marker-cluster', :media => 'all' + "\n"
+    end
+  end
+
+  if content_for?(:reveal)
+    link += theme_stylesheet_link_tag 'reveal', :media => 'all' + "\n"
+  end
+
+  if content_for?(:javascripts_chosen)
+    link += theme_stylesheet_link_tag 'chosen', :media => 'all' + "\n"
+  end
+
+  if content_for?(:stylesheets_collection_days)
+    link += theme_stylesheet_link_tag 'collection-days', :media => 'all' + "\n"
+  end
+
+  link += '<!--[if lt IE 9]>'
+    link += theme_stylesheet_link_tag "ie", :media => 'all'
+  link += '<![endif]-->' + "\n"
+
+  link += '<noscript>'
+    link += theme_stylesheet_link_tag "noscript", :media => 'all'
+  link += '</noscript>'
+
+  link += theme_javascript_include_tag 'respond'
+
+%>
+<%= link.html_safe %>

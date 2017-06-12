@@ -1,0 +1,127 @@
+<%
+
+	aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
+
+	if aggregation['hasView'].present?
+		carouselImages  = aggregation['hasView']
+		carouselImages.unshift(aggregation['edmIsShownBy']) unless aggregation['edmIsShownBy'].blank?
+	end
+
+	euAggregation   = record['europeanaAggregation'] || {}
+	edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
+	edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+	edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : asset_path('style/icons/mimetypes/unknown.png')
+	edmProvider     = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider') : nil
+	@item_count     = 0
+	type            = record['type'] ? record['type'] : nil
+	oembed          = oembed_fields( record )
+	places          = record['places'] ? record['places'] : {}
+	proxy           = record['proxies'][0]
+	title           = proxy ? edm_proxy_field( proxy, 'dcTitle' ) ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
+	unknown_image   = image_tag( '/assets/style/icons/mimetypes/unknown.png', :alt => t( 'media_types.unknown' ) )
+	annotatable     = local_assigns[:annotatable].present? ? local_assigns[:annotatable] : false
+
+	link_attrs      = {
+		'class' => 'image',
+		:title => title
+	}
+
+	link_image      = image_tag( edmPreview, :alt => title )
+	link_record     = record['about'] ? europeana_record_id_url( record['about'] ) : nil
+	link_text       = ''
+
+	if type == 'TEXT' || type == 'IMAGE'
+		link_attrs.merge!({
+			'data-record' => link_record
+		})
+	end
+
+	if edmProvider && edmProvider['def'] && edmProvider['def'][0]
+		edmProvider = edmProvider['def'][0]
+	end
+
+	if !(
+		params[:controller] == 'federated_search/dpla' ||
+		params[:controller] == 'federated_search/trove' ||
+		params[:controller] == 'federated_search/digitalnz'
+	) ||
+		link_text = content_tag( 'p', t( 'common.links.view-image' ), :class => 'view-item' )
+	end
+
+
+	html = '<div class="col-cell">'
+		html += '<div class="img-panel">'
+			html += '<div id="institution-featured" class="carousel">'
+				html += '<ul>'
+
+					# add multiple images
+					# lightbox
+					if carouselImages.present? && carouselImages.size > 1
+						link_attrs.merge!({
+							:title => t( 'common.links.view-image' ),
+							'data-edmpreview' => edmPreview
+						})
+
+						html += render :partial => 'edm/images/carousel-images',
+							:locals => {
+								:carouselImages => carouselImages,
+								:link_attrs => link_attrs,
+								:link_text => link_text,
+								:title => title,
+								:unknown_image => unknown_image,
+								:annotatable => annotatable,
+								:data_summary => edm_proxy_field( proxy, 'dcDescription', :concepts => record['concepts'] )
+							}
+
+					# single image
+					# view at provider’s website
+					# no lightbox
+					elsif edmIsShownAt && (
+						params[:controller] == 'federated_search/dpla' ||
+						params[:controller] == 'federated_search/trove' ||
+						params[:controller] == 'federated_search/digitalnz'
+					)
+						html += render :partial => 'edm/images/edm-is-shown-at',
+							:locals => {
+								:aggregation => aggregation,
+								:link_attrs => link_attrs,
+								:link_image => link_image,
+								:link_text => link_text
+							}
+
+					# single image
+					# show the edmIsShownBy image
+					# lightbox
+					elsif edmIsShownBy
+						html += render :partial => 'edm/images/edm-is-shown-by',
+							:locals => {
+								:edmIsShownBy => edmIsShownBy,
+								:edmProvider => edmProvider,
+								:link_attrs => link_attrs,
+								:link_image => link_image,
+								:link_record => link_record,
+								:link_text => link_text,
+								:oembed => oembed,
+								:type => type,
+								:annotatable => annotatable
+							}
+
+					# single image
+					# show the edmPreview
+					# no lightbox
+					else
+						html += render :partial => 'edm/images/edm-preview',
+							:locals => {
+								:link_image => link_image
+							}
+					end
+
+				html += '</ul>'
+				html += content_tag( 'div', '', :class => 'carousel-overlay' )
+			html += '</div>' # end carousel
+		html += '</div>' # end carousel image panel
+		html += render :partial => 'edm/pagination'
+	html += '</div>' # end carousel col-cell
+
+-%>
+<%= html.html_safe -%>

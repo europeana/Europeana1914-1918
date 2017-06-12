@@ -1,0 +1,26 @@
+<%
+  provide :javascripts_page, 'about'
+  provide :stylesheets_item, true
+  provide :title, t('common.menus.main.about')
+-%>
+  <div class="container">
+    <div class="col left">
+	    <div class="col -cell">
+	      &nbsp;
+		</div>
+    </div>
+    <div class="col middle">
+	    <div class="col-cell">
+	      <%=
+					render :partial => 'blog_posts/list',
+					:locals => {
+						:blog => 'europeana',
+						:category => 'about',
+						:relocale => true
+					}
+	      %>
+			</div>
+    </div>
+  </div>
+
+
