@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   # session.
   theme :theme_resolver
 
-  # Always use the v2.1 theme
-  #theme 'v2.1'
+  # Always use the full theme
+  #theme "full"
 
   #
   ##
@@ -284,14 +284,13 @@ protected
   # @see https://github.com/lucasefe/themes_for_rails
   #
   def theme_resolver
-    if params[:theme]
-      session[:theme] = params[:theme]
-    elsif session[:theme].nil?
-      session[:theme] = 'v2.1'
-    end
+    valid_themes = [ "full", "minimal" ]
+    default_theme = "full"
 
-    if session[:theme] == 'v2'
-      session[:theme] = 'v2.1'
+    if params[:theme] && valid_themes.include?(params[:theme])
+      session[:theme] = params[:theme]
+    elsif !valid_themes.include?(session[:theme])
+      session[:theme] = default_theme
     end
 
     session[:theme]
@@ -595,6 +594,4 @@ protected
 
     edm
   end
-
-
 end

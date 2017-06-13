@@ -13,8 +13,7 @@ class AttachmentsController < ApplicationController
     end
     respond_to do |format|
       format.html do
-        # @todo Does this need to respond similarly for theme v3?
-        if params[:carousel] && [ 'v2', 'v2.1' ].include?(session[:theme])
+        if params[:carousel]
           render :partial => 'attachments/carousel', :locals => {
             :attachments => @attachments,
             :contribution => @contribution
