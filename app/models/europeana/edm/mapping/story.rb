@@ -139,6 +139,7 @@ module Europeana
           graph << [ uri, RDF::EDM.type, "TEXT" ]
           graph << [ uri, RDF::DCElement.description, meta["description"] ] unless meta["description"].blank?
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
+          graph << [ uri, RDF::DCElement.subject, "World War I" ]
           graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DCElement.type, meta["content"].first ] unless meta["content"].blank?
           graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
@@ -232,7 +233,6 @@ module Europeana
           
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
-          graph << [ uri, RDF::EDM.isShownAt, web_resource_uri ]
 
           unless @source.cover_image.blank?
             graph << [ uri, RDF::EDM.isShownBy, @source.cover_image.edm.web_resource_uri ]
