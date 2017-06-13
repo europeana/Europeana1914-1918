@@ -1,7 +1,0 @@
-<% provide :title, t('views.contributions.index.title') %>
-
-<% if @contributions.present? -%>
-  <%= render :partial => 'listing', :locals => { :contributions => @contributions } %>
-<% else -%>
-  <p><%= t('views.contributions.index.empty') %></p>
-<% end -%>
