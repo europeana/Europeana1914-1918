@@ -19,7 +19,7 @@
 		placeholder: {
 			alt_attr: 'data-title',
 			src_attr: 'data-image-preview',
-			src_loading: '/assets/v2.1/images/icons/loading-animation.gif'
+			src_loading: '/assets/full/images/icons/loading-animation.gif'
 		},
 
 		/**

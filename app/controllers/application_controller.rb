@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   # session.
   theme :theme_resolver
 
-  # Always use the v2.1 theme
-  #theme 'v2.1'
+  # Always use the full theme
+  #theme "full"
 
   #
   ##

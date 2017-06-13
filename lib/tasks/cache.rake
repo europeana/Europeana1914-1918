@@ -60,7 +60,7 @@ namespace :cache do
       desc "Clears cached Contribution search result partials. Limit to one theme with THEME=name."
       task :contributions => :environment do
         print "Clearing cached Contribution search result partials... "
-        themes = [ ENV['THEME']|| [ "v2.1", "v3" ] ].flatten
+        themes = [ ENV['THEME']|| [ "full", "minimal" ] ].flatten
         Contribution.select("id").find_in_batches do |batch|
           print "."
           batch.each do |contribution|
@@ -78,7 +78,7 @@ namespace :cache do
       desc "Clears cached EuropeanaRecord search result partials. Limit to one theme with THEME=name."
       task :europeana_records => :environment do
         print "Clearing cached EuropeanaRecord search result partials... "
-        themes = [ ENV['THEME']|| [ "v2.1", "v3" ] ].flatten
+        themes = [ ENV['THEME']|| [ "full", "minimal" ] ].flatten
         EuropeanaRecord.select("id, record_id").find_in_batches do |batch|
           print "."
           batch.each do |er|

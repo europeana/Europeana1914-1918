@@ -26,7 +26,7 @@ private
     end
       
     I18n.available_locales.each do |locale|
-      [ "v2", "v2.1", "v3" ].each do |theme|
+      [ "full", "minimal" ].each do |theme|
         fragments.push("#{theme}/#{locale}/contributions/search_result/#{contribution.id}")
         fragments.push("#{theme}/#{locale}/search/result/contributions/#{contribution.id}")
         fragments.push("#{theme}/#{locale}/search/result/collection/#{contribution.id}")

@@ -213,10 +213,10 @@
 			
 			this.options = {
 				
-				uploader				: RunCoCo.relativeUrlRoot + '/assets/v2.1/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.swf',
+				uploader				: RunCoCo.relativeUrlRoot + '/assets/minimal/javascripts/com/jquery/plugins/uploadify/2.1.4/uploadify.swf',
 				script					: RunCoCo.uploadify_settings.script,
 				multi						: true, 
-				cancelImg				: RunCoCo.relativeUrlRoot + '/assets/v2.1/javascripts/com/jquery/plugins/uploadify/2.1.4/cancel.png',
+				cancelImg				: RunCoCo.relativeUrlRoot + '/assets/minimal/javascripts/com/jquery/plugins/uploadify/2.1.4/cancel.png',
 				sizeLimit				: RunCoCo.uploadify_settings.maxUploadSize,
 				fileExt					: RunCoCo.uploadify_settings.fileExt,
 				fileDesc				: RunCoCo.uploadify_settings.fileDesc,
