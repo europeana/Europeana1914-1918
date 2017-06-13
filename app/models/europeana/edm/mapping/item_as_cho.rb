@@ -50,7 +50,6 @@ module Europeana
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
           graph << [ uri, RDF::DCElement.description, meta["object_side"].first ] unless meta["object_side"].blank?
           graph << [ uri, RDF::DCElement.format, meta["format"].first ] unless meta["format"].blank?
-          graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
           graph << [ uri, RDF::DCElement.source, meta["source"].first ] unless meta["source"].blank?
           graph << [ uri, RDF::DCElement.subject, "World War I" ]
           graph << [ uri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
@@ -65,9 +64,14 @@ module Europeana
           graph << [ uri, RDF::EDM.isNextInSequence, previous_in_sequence.edm.provided_cho_uri ] unless previous_in_sequence.blank?
           graph << [ uri, RDF::EDM.type, meta["file_type"].first ] unless meta["file_type"].blank?
           
-          unless meta["lang"].blank?
-            meta["lang"].each do |lang|
-              graph << [ uri, RDF::DCElement.language, lang ]
+          if [ meta["lang"], meta["lang_other"] ].all?(&:blank?)
+            graph << [ uri, RDF::DCElement.language, "und" ]
+          else
+            graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
+            unless meta["lang"].blank?
+              meta["lang"].each do |lang|
+                graph << [ uri, RDF::DCElement.language, lang ]
+              end
             end
           end
           
