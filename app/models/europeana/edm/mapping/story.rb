@@ -142,13 +142,17 @@ module Europeana
           graph << [ uri, RDF::DCElement.subject, "World War I" ]
           graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DCElement.type, meta["content"].first ] unless meta["content"].blank?
-          graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
           graph << [ uri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
           graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
           
-          unless meta["lang"].blank?
-            meta["lang"].each do |lang|
-              graph << [ uri, RDF::DCElement.language, lang ]
+          if [ meta["lang"], meta["lang_other"] ].all?(&:blank?)
+            graph << [ uri, RDF::DCElement.language, "und" ]
+          else
+            graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
+            unless meta["lang"].blank?
+              meta["lang"].each do |lang|
+                graph << [ uri, RDF::DCElement.language, lang ]
+              end
             end
           end
           
