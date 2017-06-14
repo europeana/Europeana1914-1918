@@ -148,7 +148,7 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.spatial)
           end
           
-          unless [ meta['date_from'], meta['date_to'], meta['date'].blank? ].all?(&:blank?)
+          unless [ meta['date_from'], meta['date_to'], meta['date'] ].all?(&:blank?)
             EDM::Resource::TimeSpan.new({
               RDF::EDM.begin => meta['date_from'],
               RDF::EDM.end => (meta['date_to'].present? ? meta['date_to'] : meta['date_from']),
