@@ -165,11 +165,17 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => meta["creator"]).append_to(graph, uri, RDF::DCElement.creator)
           end
           
-          [ "keywords", "forces", "extended_subjects" ].each do |subject_field|
+          [ "keywords", "forces" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
                 EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
               end
+            end
+          end
+          
+          unless meta["extended_subjects"].blank?
+            meta["extended_subjects"].each do |subject|
+              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :fr)).append_to(graph, uri, RDF::DCElement.subject)
             end
           end
           
