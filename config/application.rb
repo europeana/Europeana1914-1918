@@ -41,10 +41,10 @@ module RunCoCo
     # the I18n.default_locale when a translation can not be found)
     config.i18n.fallbacks = true
 
-    # For deployment through an iframe as part of the europeana portal, the application needs to load a JS file
+    # For deployment through an iframe as part of the europeana portal, the application needs to load a JS and CSS file
     # The value provided here is not a stable version, you should specify a fixed version in:
     # config/initializers/e7a_1418_iframe.rb
-    config.e7a_1418_iframe_source = 'http://styleguide.europeana.eu/js/modules/eu/e7a_1418_iframe.js'
+    config.e7a_1418_iframe_source = 'http://styleguide.europeana.eu'
 
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
