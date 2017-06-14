@@ -115,11 +115,17 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => contributor_full_name).append_to(graph, uri, RDF::DCElement.contributor)
           end
           
-          [ "keywords", "forces", "extended_subjects" ].each do |subject_field|
+          [ "keywords", "forces" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
                 EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
               end
+            end
+          end
+          
+          unless meta["extended_subjects"].blank?
+            meta["extended_subjects"].each do |subject|
+              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :fr)).append_to(graph, uri, RDF::DCElement.subject)
             end
           end
           
@@ -136,13 +142,13 @@ module Europeana
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
           unless [ lat, lng, meta['location_placename'] ].all?(&:blank?)
             EDM::Resource::Place.new({
-              RDF::WGS84Pos.lat => lat.to_f,
-              RDF::WGS84Pos.long => lng.to_f,
+              RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_f),
+              RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_f),
               RDF::SKOS.prefLabel => meta['location_placename']
             }).append_to(graph, uri, RDF::DC.spatial)
           end
           
-          unless [ meta['date_from'], meta['date_to'], meta['date'].blank? ].all?(&:blank?)
+          unless [ meta['date_from'], meta['date_to'], meta['date'] ].all?(&:blank?)
             EDM::Resource::TimeSpan.new({
               RDF::EDM.begin => meta['date_from'],
               RDF::EDM.end => (meta['date_to'].present? ? meta['date_to'] : meta['date_from']),
