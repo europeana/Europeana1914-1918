@@ -136,8 +136,8 @@ module Europeana
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
           unless [ lat, lng, meta['location_placename'] ].all?(&:blank?)
             EDM::Resource::Place.new({
-              RDF::WGS84Pos.lat => lat.to_f,
-              RDF::WGS84Pos.long => lng.to_f,
+              RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_f),
+              RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_f),
               RDF::SKOS.prefLabel => meta['location_placename']
             }).append_to(graph, uri, RDF::DC.spatial)
           end
