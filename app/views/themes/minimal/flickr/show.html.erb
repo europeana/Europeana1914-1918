@@ -1,0 +1,15 @@
+<% provide :title, 'Flickr' %>
+
+<div class="section top">
+
+  <h2><%= yield :title %></h2>
+
+  <% if @login %>
+    <p><%= t 'views.flickr.show.status.linked', :username => ('<strong>' + h(@login.username) + '</strong>').html_safe %></p>
+    <p><%= link_to t('views.flickr.show.action.link'), unauth_flickr_path %></p>
+  <% else %>
+    <p><%= t 'views.flickr.show.status.unlinked' %></p>
+    <p><%= link_to t('views.flickr.show.action.link'), auth_flickr_path %></p>
+  <% end %>
+
+</div>

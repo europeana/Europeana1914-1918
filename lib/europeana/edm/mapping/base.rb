@@ -62,10 +62,11 @@ module Europeana
             :edm => "http://www.europeana.eu/schemas/edm/",
             :ore => "http://www.openarchives.org/ore/terms/",
             :skos => "http://www.w3.org/2004/02/skos/core#",
-            :geo => "http://www.w3.org/2003/01/geo/wgs84_pos#"
+            :wgs84_pos => "http://www.w3.org/2003/01/geo/wgs84_pos#",
+            :rdaGr2 => "http://rdvocab.info/ElementsGr2/"
           }
           
-          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 1, :haml => RDF::RDFXML::Writer::ENCODED_HAML)) do |writer|
+          RDF::RDFXML::Writer.buffer(options.reverse_merge(:prefixes => namespace_prefixes, :max_depth => 0)) do |writer|
             writer << to_rdf_graph
           end
         end

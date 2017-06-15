@@ -1,0 +1,50 @@
+<%
+  provide :title, t('views.admin.annotations.index.title')
+%>
+<div class="section top">
+
+  <h2><%= yield :title %></h2>
+  
+  <%- if @annotations.present? -%>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col"><%= link_to_table_sort t('attributes.created_at'), 'annotations.created_at' %></th>
+          <th scope="col"><%= link_to_table_sort t('attributes.updated_at'), 'annotations.updated_at' %></th>
+          <th scope="col"><%= t('activerecord.models.user') %></th>
+          <th scope="col"><%= 'Annotated item' %></th>
+          <th scope="col"><%= link_to_table_sort t('views.admin.annotations.table.header.text'), 'annotations.text' %></th>
+          <th scope="col"><%= link_to_table_sort t('attributes.status'), 'current_statuses.name' %></th>
+          <th scope="col" colspan="2"><%= t 'views.table.header.actions' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- for annotation in @annotations -%>
+          <tr>
+            <td><%= l annotation.created_at, :format => :short %></td>
+            <td><%= l annotation.updated_at, :format => :short %></td>
+            <td>
+              <%- if annotation.user.contact.full_name.present? -%>
+                <%= link_to annotation.user.contact.full_name, admin_user_path(annotation.user) %>
+              <%- else -%>
+                <%= link_to (t('activerecord.models.user') + ' ' + annotation.user.id.to_s), admin_user_path(annotation.user) %>
+              <%- end -%>
+            </td>
+            <td>
+              <%= link_to truncate(annotatable_title(annotation.annotatable), :length => 140, :separator => ' '), annotatable_path(annotation.annotatable), :target => '_blank' %>
+            </td>
+            <td><%= truncate annotation.text, :length => 140, :separator => ' ' %></td>
+            <td><%= annotation.current_status.name %></td>
+            <td><%= link_to t('actions.edit'), edit_annotation_path(annotation, :redirect => admin_annotations_path), :class => 'edit-member' %></td>
+            <td><%= link_to t('actions.depublish'), depublish_annotation_path(annotation, :redirect => admin_annotations_path), :class => 'edit-member' %></td>
+          </tr>
+        <%- end -%>
+      </tbody>
+    </table>
+    
+    <%= will_paginate @annotations %>
+  <%- else -%>
+    
+  <%- end -%>
+
+</div>

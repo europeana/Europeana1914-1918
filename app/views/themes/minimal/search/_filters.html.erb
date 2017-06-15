@@ -1,0 +1,66 @@
+<%
+	html = '<h2>' + t('views.search.facets.matches_for' ) + '</h2>'
+	html += '<ul class="filters">'
+
+	for link in links_for_selected_filters(query, facets)
+    html += '<li>'
+
+      # link_to link[:reduce][:text], link[:reduce][:url], {'data-value' => link[:data][:val_remove]}
+      linkText = link[:reduce][:text]
+
+      # if provider == '/europeana'
+	    #     if( linkText.index('Language:')  )
+	    #       linkText = 'Language: ' + languageLabel( linkText.sub 'Language: ', '' )
+	    #     elsif( linkText.index('Rights:')  )
+	    #       linkText = 'Rights: ' + rightsLabel( linkText.sub 'Rights: ', '' )
+	    #     end
+			# end
+
+      if provider == '/collection'
+        label = linkText.split(': ')[0]
+        value = linkText.split(': ')[1]
+        lookupRights   = rightsLabel(value)
+
+        if ( lookupRights != value )
+          linkText = label + ': ' + lookupRights
+        else
+          lookupLanguage = languageLabel(value)
+
+          if ( lookupLanguage != value )
+            linkText = label + ': ' + lookupLanguage
+          end
+        end
+      end
+
+    if ( linkText.index('Country:') || linkText.index('Type:') )
+			linkText = linkText.titlecase
+    end
+
+    # html += link_to linkText, link[:reduce][:url], {'data-value' => link[:data][:val], :class => 'filter-crop' }
+
+    if link[:remove][:url]
+			remove_link_text = linkText + content_tag(:span, '', :class => 'icon-remove')
+			html += link_to(
+				remove_link_text.html_safe,
+				link[:remove][:url],
+				{
+					:title => t('actions.remove') + ' ' + linkText,
+					:class => 'remove-filter',
+					'data-value' => link[:data][:val_remove]
+				}
+			)
+    else
+			html += linkText
+		end
+
+    if link[:form][:field]
+      html += link[:form][:field]
+    end
+
+    html += '</li>'
+
+	end
+
+	html += '</ul>'
+%>
+<%= html.html_safe -%>

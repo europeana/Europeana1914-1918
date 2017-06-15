@@ -1,0 +1,22 @@
+<%
+	title = ''
+
+	if content_for?(:search_query)
+		title += content_for(:search_query)
+		title += ' - '
+	end
+
+	if content_for?(:search_term)
+		title += content_for(:search_term)
+		title += ' - '
+	end
+
+	title += h(configuration(:site_name))
+
+	if content_for?(:title)
+		title += ' - '
+		title += content_for(:title)
+	end
+
+%>
+<%= raw title -%>

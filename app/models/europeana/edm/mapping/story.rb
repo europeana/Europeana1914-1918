@@ -6,7 +6,7 @@ module Europeana
       #
       class Story < Base
       
-        has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation
+        has_rdf_graph_methods :provided_cho, :ore_aggregation, :child_items
         
         ##
         # The edm:ProvidedCHO URI of this contribution
@@ -107,8 +107,8 @@ module Europeana
           graph.query(:predicate => RDF::DC.alternative) do |solution|
             result["dctermsAlternative"] = [ solution.object.to_s ]
           end
-          if cover_image = @source.attachments.cover_image
-            result["edmPreview"] = [ cover_image.thumbnail_url(:preview) ]
+          if @source.cover_image.present?
+            result["edmPreview"] = [ @source.cover_image.thumbnail_url(:preview) ]
           else
             result["edmPreview"] = ""
           end
@@ -127,6 +127,7 @@ module Europeana
         #
         def provided_cho
           graph = RDF::Graph.new
+          
           meta = @source.metadata.fields
           uri = provided_cho_uri
           
@@ -138,15 +139,20 @@ module Europeana
           graph << [ uri, RDF::EDM.type, "TEXT" ]
           graph << [ uri, RDF::DCElement.description, meta["description"] ] unless meta["description"].blank?
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
+          graph << [ uri, RDF::DCElement.subject, "World War I" ]
           graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DCElement.type, meta["content"].first ] unless meta["content"].blank?
-          graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
           graph << [ uri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
           graph << [ uri, RDF::DC.provenance, meta["collection_day"].first ] unless meta["collection_day"].blank?
           
-          unless meta["lang"].blank?
-            meta["lang"].each do |lang|
-              graph << [ uri, RDF::DCElement.language, lang ]
+          if [ meta["lang"], meta["lang_other"] ].all?(&:blank?)
+            graph << [ uri, RDF::DCElement.language, "und" ]
+          else
+            graph << [ uri, RDF::DCElement.language, meta["lang_other"] ] unless meta["lang_other"].blank?
+            unless meta["lang"].blank?
+              meta["lang"].each do |lang|
+                graph << [ uri, RDF::DCElement.language, lang ]
+              end
             end
           end
           
@@ -159,7 +165,7 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => meta["creator"]).append_to(graph, uri, RDF::DCElement.creator)
           end
           
-          [ "keywords", "theatres", "forces", "extended_subjects" ].each do |subject_field|
+          [ "keywords", "forces" ].each do |subject_field|
             unless meta[subject_field].blank?
               meta[subject_field].each do |subject|
                 EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
@@ -167,13 +173,25 @@ module Europeana
             end
           end
           
+          unless meta["extended_subjects"].blank?
+            meta["extended_subjects"].each do |subject|
+              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :fr)).append_to(graph, uri, RDF::DCElement.subject)
+            end
+          end
+          
+          unless meta["theatres"].blank?
+            meta["theatres"].each do |spatial|
+              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(spatial, :language => :en)).append_to(graph, uri, RDF::DC.spatial)
+            end
+          end
+
           [ '1', '2' ].each do |cn|
             character_full_name = Contact.full_name(meta["character#{cn}_given_name"], meta["character#{cn}_family_name"])
-            unless character_full_name.blank? && meta["character#{cn}_dob"].blank? && meta["character#{cn}_dod"].blank? && meta["character#{cn}_pob"].blank? && meta["character#{cn}_pod"].blank?
-              character = EDM::Resource::Concept.new({
+            unless [ character_full_name, meta["character#{cn}_dob"], meta["character#{cn}_dod"], meta["character#{cn}_pob"], meta["character#{cn}_pod"] ].all?(&:blank?)
+              character = EDM::Resource::Agent.new({
                 RDF::SKOS.prefLabel => character_full_name,
-                RDF::EDM.begin => meta["character#{cn}_dob"],
-                RDF::EDM.end => meta["character#{cn}_dod"]
+                RDF::RDAGr2.dateOfBirth => meta["character#{cn}_dob"],
+                RDF::RDAGr2.dateOfDeath => meta["character#{cn}_dod"]
               })
               character.append_to(graph, uri, RDF::DCElement.subject)
               
@@ -181,28 +199,28 @@ module Europeana
                 character_pob = EDM::Resource::Place.new({
                   RDF::SKOS.prefLabel => meta["character#{cn}_pob"]
                 })
-                character_pob.append_to(graph, character.id, RDF::EDM.hasMet)
+                character_pob.append_to(graph, character.id, RDF::RDAGr2.placeOfBirth)
               end
               
               unless meta["character#{cn}_pod"].blank?
                 character_pod = EDM::Resource::Place.new({
                   RDF::SKOS.prefLabel => meta["character#{cn}_pod"]
                 })
-                character_pod.append_to(graph, character.id, RDF::EDM::hasMet)
+                character_pod.append_to(graph, character.id, RDF::RDAGr2.placeOfDeath)
               end
             end
           end
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
-          unless lat.blank? && lng.blank? && meta['location_placename'].blank?
+          unless [ lat, lng, meta['location_placename'] ].all?(&:blank?)
             EDM::Resource::Place.new({
-              RDF::GEO.lat => lat.to_f,
-              RDF::GEO.long => lng.to_f,
+              RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_f),
+              RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_f),
               RDF::SKOS.prefLabel => meta['location_placename']
             }).append_to(graph, uri, RDF::DC.spatial)
           end
           
-          unless meta['date_from'].blank? && meta['date_to'].blank? && meta['date'].blank?
+          unless [ meta['date_from'], meta['date_to'], meta['date'] ].all?(&:blank?)
             EDM::Resource::TimeSpan.new({
               RDF::EDM.begin => meta['date_from'],
               RDF::EDM.end => (meta['date_to'].present? ? meta['date_to'] : meta['date_from']),
@@ -210,26 +228,7 @@ module Europeana
             }).append_to(graph, uri, RDF::DC.temporal)
           end
           
-          if @source.attachments.size > 1
-            @source.attachments[1..-1].each do |attachment|
-              graph << [ uri, RDF::DC.hasPart, RDF::URI.parse(attachment.edm.provided_cho_uri) ]
-            end
-          end
-          
           graph
-        end
-        
-        ##
-        # Constructs the edm:WebResource for this story
-        #
-        # @return [RDF::Graph] RDF graph of the edm:WebResource
-        #
-        def web_resource
-          if @source.attachments.first.present?
-            @source.attachments.first.edm.web_resource
-          else
-            RDF::Graph.new
-          end
         end
         
         ##
@@ -244,20 +243,32 @@ module Europeana
           
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
-          graph << [ uri, RDF::EDM.isShownAt, web_resource_uri ]
-          graph << [ uri, RDF::EDM.isShownBy, @source.attachments.first.edm.web_resource_uri ] unless @source.attachments.first.blank?
-          if meta["license"].blank?
-            graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
-          else
-            graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] 
+
+          unless @source.cover_image.blank?
+            graph << [ uri, RDF::EDM.isShownBy, @source.cover_image.edm.web_resource_uri ]
+            graph << [ uri, RDF::EDM.object, @source.cover_image.edm.web_resource_uri ]
           end
+          license = meta["license"].blank? ? "http://creativecommons.org/publicdomain/zero/1.0/" : meta["license"].first
+          graph << [ uri, RDF::EDM.rights, RDF::URI.parse(license) ] 
           graph << [ uri, RDF::EDM.ugc, "TRUE" ]
           graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
           graph << [ uri, RDF::EDM.dataProvider, "Europeana 1914-1918" ]
-          
+
           graph
         end
-        
+
+        def child_items
+          graph = RDF::Graph.new
+
+          @source.attachments.includes(:metadata => :taxonomy_terms).find_each do |attachment|
+            attachment.contribution = @source
+            attachment.edm.to_rdf_graph.each do |statement|
+              graph << statement
+            end
+          end
+
+          graph
+        end
       end
     end
   end

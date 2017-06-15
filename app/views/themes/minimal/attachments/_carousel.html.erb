@@ -1,0 +1,39 @@
+<%
+	html = '<div class="img-panel">'
+		html += '<div id="contributions-featured" class="carousel">'
+			html += '<ul>'
+
+			if local_assigns[:attachments].present?
+				html += render :partial => 'attachments/display-images',
+					:locals => {
+						:attachments => attachments,
+						:contribution => contribution,
+						:prettyphoto => true,
+						:size => :medium
+					}
+			end
+
+			html += '</ul>'
+			html +=  '<div class="carousel-overlay"></div>'
+		html += '</div>'
+	html += '</div>'
+
+	if local_assigns[:attachments].present? && local_assigns[:attachments].size > 1
+		html += '<div class="col-cell">'
+			html += '<ul id="pagination-counts"></ul>'
+		html += '</div>'
+
+		html += '<div id="carousel-pagination">'
+
+			pagination = attachments.respond_to?(:total_pages) ? will_paginate(attachments) : nil
+
+			if pagination
+				html += will_paginate(attachments)
+			end
+
+			total = attachments.respond_to?(:total_entries) ? attachments.total_entries : attachments.count
+			html += 'Total: <span id="pagination-total">' + total.to_s + '</span>'
+		html += '</div>'
+	end
+-%>
+<%= html.html_safe -%>

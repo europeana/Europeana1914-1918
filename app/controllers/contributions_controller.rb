@@ -184,7 +184,7 @@ class ContributionsController < ApplicationController
         @contribution.change_status_to(:revised, current_user.id)
       end
       flash[:notice] = t('flash.contributions.draft.update.notice')
-      redirect_to (@contribution.draft? ? new_contribution_attachment_path(@contribution) : @contribution)
+      redirect_to (@contribution.draft? ? new_contribution_attachment_path(@contribution) : contributor_dashboard_path)
     else
       flash.now[:alert] = t('flash.contributions.draft.update.alert')
       render :action => 'edit'
@@ -226,12 +226,14 @@ class ContributionsController < ApplicationController
   def approve
     current_user.may_approve_contributions!
     if @contribution.approve_by(current_user)
-      if @contribution.statuses.select { |s| s.to_sym == :approved }.size == 1
-        email = @contribution.by_guest? ? @contribution.contact.email : @contribution.contributor.email
-        if email.present?
-          ContributionsMailer.published(email, @contribution).deliver
-        end
-      end
+      # Approval emails not relevant while the app is deployed through an Iframe
+      #
+      # if @contribution.statuses.select { |s| s.to_sym == :approved }.size == 1
+      #  email = @contribution.by_guest? ? @contribution.contact.email : @contribution.contributor.email
+      #  if email.present?
+      #    ContributionsMailer.published(email, @contribution).deliver
+      #  end
+      # end
       flash[:notice] = t('flash.contributions.approve.notice')
       redirect_to admin_contributions_url
     else
@@ -417,7 +419,7 @@ class ContributionsController < ApplicationController
         when :nt
           contribution.edm.to_ntriples
         when :xml
-          contribution.edm.to_rdfxml
+          contribution.to_rdfxml
       end
       write_fragment(cache_key, data.to_yaml)
     end

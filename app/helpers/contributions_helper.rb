@@ -86,7 +86,7 @@ module ContributionsHelper
       contribution.cataloguer ? contribution.cataloguer.contact.full_name : ''
     elsif field_name == 'title'
       title_text = (contribution.title.present? ? truncate(contribution.title, :length => 50) : raw('<em>' + t('views.contributions.no_title') + '</em>'))
-      link_to(title_text, contribution)
+      current_user.may_administer_contributions? ? link_to(title_text, contribution) : title_text
     elsif field_name == 'created_at'
       l contribution.created_at, :format => :timestamp
     elsif contribution.respond_to? field_name

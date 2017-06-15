@@ -17,7 +17,7 @@ puts "  Username: #{admin.username}"
 puts
 
 puts 'Initialising settings:'
-{
+RunCoCo::Configuration::DEFAULTS.merge({
   :site_url => 'http://www.example.com',
   :registration_required => true,
   :uploadify => true,
@@ -29,9 +29,9 @@ puts 'Initialising settings:'
   :site_name => 'Europeana 1914-1918',
   :banner_active => false,
   :search_engine => :solr
-}.each_pair do |setting, value|
+}).each_pair do |setting, value|
   puts "  #{setting.to_s} => #{value.to_s}"
-  RunCoCo.configuration.send("#{setting.to_s}=", value)
+  RunCoCo.configuration.send("#{setting.to_s}=", value.nil? ? '' : value)
 end
 RunCoCo.configuration.save
 

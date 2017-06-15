@@ -1,0 +1,113 @@
+<%
+  @attachment_upload_class = 'collapsible'
+  @attachment_upload_style = ''
+  
+  @fieldset_class = 'collapsed'
+  @fieldset_style = ''
+  
+  @submit_class = 'collapsed'
+  @submit_wrapper_style = ''
+  
+  option_single_item_class = 'highlighted-option'
+  option_multiple_item_class = ''
+  option_submit_class = ''
+  
+  @single_upload_style = ''
+  
+  if 'cataloguer' === current_user.role.name
+  option_single_item_class = ''
+  option_multiple_item_class = 'highlighted-option'
+  option_submit_class = ''
+  @single_upload_style = 'display:none;'
+  end
+  
+  if @contribution.ready_to_submit?  
+  option_single_item_class = ''
+  option_multiple_item_class = ''
+  option_submit_class = 'highlighted-option'
+  
+  @attachment_upload_class = 'collapsed'
+  @fieldset_class = 'collapsed'
+  @submit_class = 'collapsible'
+  end
+  
+  provide :title, t('views.contributions.digital_object.step2')
+  provide :javascripts_page , 'attachments-new'
+  provide :javascripts_uploadify, true
+  
+%>
+<div class="section top">
+  
+  <h2><%= yield :title %></h2>
+  
+  <div class="action-links">
+    <ul>
+      <li><%= link_to t('views.contributions.digital_object.links.edit_story'), edit_contribution_path(@contribution), :class => 'edit-member' %></li>
+      <li><%= link_to t('formtastic.actions.contribution.delete'), delete_contribution_path(@contribution) %></li>
+      <%- if current_user.may_view_contribution_status_log?(@contribution) -%>
+        <li><%= link_to( t('views.contributions.status.title'), status_contribution_path(@contribution) ) %></li>
+      <%- end -%>
+    </ul>
+  </div>
+  
+  <h3><%= t 'activerecord.options.user.role_name.contributor' %> : <%= @contribution.contributor.contact.full_name %></h3>
+
+  <h2 id="attachments"><%= t('views.contributions.digital_object.heading') %></h2>
+
+  <p><%= t('views.contributions.digital_object.help_text.summary') %></p>
+
+  <% if @contribution.attachments.present? -%>
+      <%= render :partial => 'table', :locals => { :attachments => @contribution.attachments } %>
+  <% else -%>
+      <p><%= t 'views.attachments.index.empty' %></p><p><%= raw t('views.contributions.digital_object.help_text.add_attachment') %></p>
+  <% end -%>
+  <p><%= t('views.attachments.attachment_help.one-of-the-following') %></p>
+
+  
+    <ol id="attachment-help">
+    
+      
+    <li><a href="#single-item" id="single-item" class="<%= option_single_item_class %>"><%= t('views.attachments.attachment_help.item1') %></a>
+    <ul>
+      <li><%= t('views.attachments.attachment_help.item1-subitem1') %></li>
+      <li><%= t('views.attachments.attachment_help.item1-subitem2') %></li>
+    </ul>
+    </li>
+    
+    <li><a href="#multiple-items" id="multiple-items" class="<%= option_multiple_item_class %>"><%= t('views.attachments.attachment_help.item2') %></a>
+    <ul>
+      <li><%= t('views.attachments.attachment_help.item2-subitem1') %></li>
+    </ul>
+    </li>
+    
+    <%- if flickr_configured? -%>
+      <li><%= link_to t('views.attachments.attachment_help.flickr.link'), flickr_contribution_attachments_path(@contribution) %>
+        <ul>
+          <li><%= t 'views.attachments.attachment_help.flickr.description' %></li>
+        </ul>
+      </li>
+    <%- end -%>
+    
+    <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
+    <li><a href="#submit-story" id="submit-story" class="<%= option_submit_class %>"><%= t('formtastic.titles.submit') %></a></li>
+    <% end %>
+    
+    </ol>
+  
+  
+  <% if @contribution.ready_to_submit? || @contribution.attachment_files_uploading? -%>
+    <%= render :partial => 'contributions/submit_form', :locals => { :contribution => @contribution } %>
+  <%- end %>
+  
+  
+  <% if @attachment.file.dirty? -%>
+  <%= render :partial => 'summary', :locals => { :attachment => @attachment, :caption => t('views.attachments.new.caption') } %>
+  <% end -%>
+  
+  <%= render :partial => 'form', :locals => { :attachment => @attachment } %>
+
+  <% unless @contribution.submitted? -%>
+    <%= render :partial => 'contributions/progress', :locals => { :step => 2 } %>
+  <% end -%>
+
+</div>

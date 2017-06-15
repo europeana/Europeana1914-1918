@@ -1,0 +1,103 @@
+<%
+	html = form_tag({}, { :method => :get }) do
+		form = '<ul id="facets">'
+			if search_filters_present?
+				form += '<li class="filter-section">'
+					form += render :partial => 'search/filters', :locals => { :query => query, :facets => facets, :provider => provider }
+				form += '</li>'
+			end
+
+			unless facets.blank?
+				form += '<li class="refine-section"><h2>' + t('views.search.facets.refine_results') + ':</h2></li>'
+
+				# keywords
+				form += '<li class="facet-section">'
+					form += '<h3 class="icon-arrow-6">' + t('common.labels.add-keywords') + '</h3>'
+					form += '<ul>'
+						form += '<li><input type="text" name="qf[q][]" autocomplete="off"/><input type="submit" value="' + t('actions.add') + '" class="button"/></li>'
+					form += '</ul>'
+				form += '</li>'
+
+				# facets
+				for facet in facets
+					if facet['fields'].present?
+						form += '<li class="facet-section">'
+							form += %Q(<h3 class="icon-arrow-6" data-filter-name="#{facet['label']}">) + facet['label']
+							form += '</h3>'
+
+							form += '<ul class="noscript">'
+								showInfo = false
+								for row in facet['fields']
+									form += '<li>'
+										form += '<h4>'
+
+											# pre-parse facet names and handle various adjustments
+											if provider == '/collection' && facet["name"].upcase == 'RIGHTS'
+												rowLabel = rightsLabel( row['label'] )
+											elsif provider == '/collection' && facet["name"].upcase == 'LANGUAGE'
+												rowLabel = languageLabel( row['label'] )
+											elsif provider == '/collection' && facet["name"].upcase == 'COUNTRY'
+												#rowLabel = row['label'].split.map(&:capitalize)*' '
+												rowLabel = row['label'].titlecase
+											elsif provider == '/federated_search/canadiana' && facet["name"] == 'contributor'
+												rowLabel = row['label']
+											else
+												rowLabel = row['label'].humanize
+											end
+
+											# radio-buttons - single selection pseudo-facet
+											if facet_is_single_select?(facet["name"])
+
+												if (facet_row_selected?(facet["name"], row["search"]) && (provider == '/collection') && row['search'].to_s == 'a' )
+													showInfo = true
+												end
+
+												if facet_row_selected?(facet["name"], row["search"])
+													form += link_to_remove_facet_row(
+														facet['name'], row['search'], rowLabel,
+														{ :title => t('actions.remove'), :class => 'remove-facet bold checked-radiobutton' }
+													)
+												else
+													form += link_to_facet_row(
+														facet['name'], row['search'],
+														row['label'],
+														{ :class => 'unchecked-radiobutton' }
+													)
+												end
+
+											# checkboxes
+											else
+
+												if facet_row_selected?(facet['name'], row['search'])
+													form += link_to_remove_facet_row(
+														facet['name'], row['search'],
+														rowLabel,
+														{ :title => t('actions.remove'), :class => 'remove-facet bold checked-checkbox' }
+													)
+												else
+													form += link_to_facet_row(
+														facet['name'], row['search'],
+														rowLabel + ' (' + row['count'].to_s + ')',
+														{ :class => 'unchecked-checkbox' }
+													)
+												end
+
+											end # if facet_is_single_select?(facet["name"])
+										form += '</h4>'
+									form += '</li>'
+								end # for row in facet['fields']
+
+								if showInfo
+									form += '<li class="facet-info">' + t('views.search.facets.europeana.source_info') + '</li>'
+								end
+							form += '</ul>'
+						form += '</li>'
+					end # if facet['fields'].present?
+				end # for facet in facets
+				form += submit_tag t('actions.submit'), :name => nil, :class => 'noscript'
+			end # unless facets.blank?
+		form += '</ul>'
+		form.html_safe
+	end # form_tag({}, { :method => :get }) do
+-%>
+<%= html.html_safe -%>

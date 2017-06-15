@@ -13,8 +13,7 @@ class AttachmentsController < ApplicationController
     end
     respond_to do |format|
       format.html do
-        # @todo Does this need to respond similarly for theme v3?
-        if params[:carousel] && [ 'v2', 'v2.1' ].include?(session[:theme])
+        if params[:carousel]
           render :partial => 'attachments/carousel', :locals => {
             :attachments => @attachments,
             :contribution => @contribution
@@ -107,11 +106,7 @@ class AttachmentsController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:notice] = t('flash.attachments.create.notice') + ' ' + t('flash.attachments.links.view-attachments_html')
-          if @contribution.submitted?
-            redirect_to @attachment.contribution
-          else
-            redirect_to new_contribution_attachment_path(@contribution)
-          end
+          redirect_to new_contribution_attachment_path(@contribution)
         end
         format.json  { render :json => { :result => 'success', :url => contribution_attachment_path(@contribution, @attachment) } }
       end
@@ -187,11 +182,7 @@ class AttachmentsController < ApplicationController
         @attachment.contribution.change_status_to(:revised, current_user.id)
       end
       flash[:notice] = t('flash.attachments.update.notice')
-      if @contribution.status == :draft
-        redirect_to new_contribution_attachment_path(@contribution)
-      else
-        redirect_to @attachment.contribution
-      end
+      redirect_to new_contribution_attachment_path(@contribution)
     else
       flash.now[:alert] = t('flash.attachments.update.alert')
       render :action => 'edit'

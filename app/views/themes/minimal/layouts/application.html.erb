@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+lang='<%= I18n.locale %>'
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:og="http://ogp.me/ns#"
+xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+<%= render :partial => 'layouts/meta', :locals => { :record => @object } %>
+<%= render :partial => 'layouts/links' %>
+<title><%= render :partial => 'layouts/title' %></title>
+</head>
+<body>
+
+	<% if configuration(:banner_active) -%>
+		<div id="maintenance-banner" class="portlet-msg-alert"><%= configuration(:banner_text) %></div>
+	<% end -%>
+
+	<div id='content' class='section'>
+
+		<%= flash_message(:alert) unless flash[:alert].blank? %>
+		<%= flash_message(:notice) unless flash[:notice].blank? %>
+		<%= yield :layout %>
+
+	</div>
+
+	<%= render :partial => 'layouts/scripts' %>
+
+  <script type="text/javascript">var userLoggedIn=<%= current_user.role.name != 'guest' ? 'true' : 'false' %>;</script>
+  <script src="<%= RunCoCo::Application.config.e7a_1418_iframe_source %>/js/modules/eu/e7a_1418_iframe.js" type="text/javascript"></script>
+
+</body>
+</html>

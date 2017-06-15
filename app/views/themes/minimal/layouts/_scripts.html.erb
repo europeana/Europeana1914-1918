@@ -1,0 +1,225 @@
+<%
+
+  #script
+  script = "\n" + 'var' + "\n"
+  script += "themePath = '/assets/" + session[:theme] + "/'," + "\n"
+  script += 'switchTo5x = true;' + "\n\n" # for share-this
+
+  script += 'window.RunCoCo = {};' + "\n"
+  script += "RunCoCo.siteUrl = '" + configuration(:site_url) + "';" + "\n"
+  script += "RunCoCo.relativeUrlRoot = '" + configuration(:relative_url_root) + "';" + "\n"
+  script += "RunCoCo.gaId = '" + configuration(:google_analytics_key) + "';" + "\n"
+  script += "RunCoCo.locale = '" + I18n.locale.to_s + "';" + "\n"
+
+  if @iframe_parent_domains.present?
+    script += "RunCoCo.iframeParentDomains = [" + @iframe_parent_domains.map { |domain| "'#{domain}'" }.join(',') + "];\n"
+  end
+
+	if @contribution && @contribution.ready_to_submit?
+    script += "RunCoCo.ready_for_submit = true;" + "\n"
+  end
+
+  if content_for?(:javascripts_translate)
+    script += "RunCoCo.bing_translate_key = '" + configuration(:bing_translate_key) + "';" + "\n"
+    script += "RunCoCo.bing_access_token = " + @bing_access_token.to_json + ";" + "\n"
+    script += "RunCoCo.bing_translate_locale_supported = " + @bing_translate_locale_supported.to_s + ";" + "\n"
+  end
+
+  if @attachment
+    script += "RunCoCo.contribution = {" + "\n"
+      script += "\ttitle: '" + @attachment.contribution.title.gsub("'", "\\\\'") + "'," + "\n"
+      script += "\tmetadata: " + raw( metadata_json(@attachment.contribution) ) + "\n"
+    script += "};\n"
+  end
+
+  if content_for?(:javascripts_uploadify) && configuration(:uploadify)
+    script += "RunCoCo.uploadify_settings = {" + "\n"
+      script += "\tmaxUploadSize: " + configuration(:max_upload_size).to_s + ",\n"
+      script += "\tfileExt: '" + uploadify_file_extensions + "',\n"
+      script += "\tfileDesc: '" + uploadify_file_desc + "',\n"
+      script += "\tscript: '" + contribution_attachments_path(@contribution) + "'\n"
+    script += "};\n"
+
+    if protect_against_forgery?
+      script += "RunCoCo.authenticityToken = '" + form_authenticity_token + "';" + "\n"
+    end
+
+    script += "RunCoCo.sessionKeyName = '" + session_key_name + "';" + "\n"
+    script += "RunCoCo.sessionKey = '" + cookies[session_key_name] + "';" + "\n"
+  end
+
+  if content_for?( :map_latlng ) || content_for?( :map_zoom ) || content_for?( :map_placename )
+    script += 'RunCoCo.leaflet = {};' + "\n"
+
+    if content_for?( :map_latlng )
+      script += 'RunCoCo.leaflet.map_options = {'
+      script += '"center":[' + content_for( :map_latlng ) + '],'
+      if content_for?( :map_zoom )
+        script += '"zoom":' + content_for( :map_zoom )
+      else
+        script = script[0...-1]
+      end
+      script += '};' + "\n"
+
+      if content_for?( :javascripts_page ) && content_for( :javascripts_page ) != 'collection-days'
+        script += 'RunCoCo.leaflet.markers = [{'
+        script += '"latlng":[' + content_for( :map_latlng ) + '],'
+
+        if content_for?( :map_placename )
+          script += '"popup":{'
+          script += '"content":"' + content_for( :map_placename ) + '",'
+          script += '"open":true'
+          script += '},'
+        end
+
+        script = script[0...-1]
+        script += '}];' + "\n"
+      end
+
+			if content_for?( :collection_day_upcoming )
+				script += 'RunCoCo.get_directions = true;' + "\n"
+			end
+		end
+  end
+
+	if content_for?( :collection_day_has_stories )
+		if content_for( :collection_day_has_stories ) == 'true'
+			script += 'RunCoCo.collection_day_has_stories = true;' + "\n"
+		else
+			script += 'RunCoCo.collection_day_has_stories = false;' + "\n"
+		end
+	end
+
+  if content_for?( :javascripts_page ) && content_for( :javascripts_page ) == 'collection-days'
+    script += render :partial => 'collection_days/as-json'
+  end
+
+  if current_user.role.name === 'cataloguer'
+    script += "RunCoCo.cataloguer = true;" + "\n"
+  end
+
+  # lightbox buttons
+  if content_for?( :javascripts_lightbox )
+    script += 'RunCoCo.lightbox = {'
+      if content_for?( :lightbox_add_embedly )
+        script += 'add_embedly:true,'
+      else
+        script += 'add_embedly:false,'
+      end
+
+      if content_for?( :lightbox_add_metadata )
+        script += 'add_metadata:true,'
+      else
+        script += 'add_metadata:false,'
+      end
+
+      if content_for?( :lightbox_add_sharethis )
+        script += 'add_sharethis:true'
+      else
+        script += 'add_sharethis:false'
+      end
+    script += '};' + "\n"
+  end
+
+	# remove console if not in development or test context
+  if Rails.env != 'development' && Rails.env != 'test'
+		script += "if ( window.console && window.console.log ) { window.console.log = function() {}; }" + "\n"
+	end
+
+
+  # script includes
+  script_includes = ( theme_javascript_include_tag 'application' ) + "\n"
+
+  if content_for?(:javascripts_translate)
+    script_includes += ( theme_javascript_include_tag 'microsoft.translator' ) + "\n"
+  end
+
+  if content_for?(:javascripts_gmap)
+    script_includes += ( javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places' ) + "\n"
+    script_includes += ( theme_javascript_include_tag 'gmap' ) + "\n"
+  end
+
+  if configuration(:uploadify) && content_for?(:javascripts_uploadify)
+    script_includes += ( theme_javascript_include_tag 'uploadify' ) + "\n"
+  end
+
+  if content_for?(:javascripts_shares)
+    script_includes += ( javascript_include_tag '//w.sharethis.com/button/buttons.js' ) + "\n"
+  end
+
+  if content_for?(:javascripts_lightbox)
+    script_includes += ( theme_javascript_include_tag 'lightbox' ) + "\n"
+    script_includes += ( theme_javascript_include_tag 'sharethis' ) + "\n"
+  end
+
+  if content_for?(:javascripts_europeana_carousel)
+    script_includes += ( theme_javascript_include_tag 'europeana-carousel' ) + "\n"
+  end
+
+  if content_for?(:javascripts_annotorious)
+    script_includes += ( theme_javascript_include_tag 'annotorious' ) + "\n"
+  end
+
+  if content_for?(:javascripts_europeana_leaflet)
+    script_includes += ( theme_javascript_include_tag 'europeana-leaflet' ) + "\n"
+  end
+
+  if content_for?(:map_google)
+    script_includes += ( javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.2&sensor=false' ) + "\n"
+  end
+
+  if content_for?( :map_latlng )
+    script_includes += ( theme_javascript_include_tag 'leaflet' ) + "\n"
+
+    if content_for?( :collection_days )
+      script_includes += ( theme_javascript_include_tag 'leaflet-marker-cluster' ) + "\n"
+		end
+  end
+
+  if content_for?( :reveal )
+    script_includes += ( theme_javascript_include_tag 'reveal' ) + "\n"
+  end
+
+  if content_for?(:javascripts_chosen)
+    script_includes += ( theme_javascript_include_tag 'chosen' ) + "\n"
+  end
+
+  if content_for?( :embedly )
+    script_includes += ( javascript_include_tag '//cdn.embedly.com/widgets/platform.js' ) + "\n"
+    script_includes += ( theme_javascript_include_tag 'europeana-embedly' ) + "\n"
+  end
+
+
+  # script2
+  # need this here because loading I18n will overwrite this value
+  # if value is set before I18n is loaded
+  script2 = "\n" + "I18n.locale = '" + I18n.locale.to_s + "';" + "\n"
+
+  # for share this
+  # http://support.sharethis.com/customer/portal/articles/961937-copynshare-settings
+  script2 += "if ( window.stLight ) {\n"
+    script2 += "\tstLight.options({\n"
+      script2 += "\t\tpublisher: '" + configuration(:sharethis_id) + "',\n"
+      script2 += "\t\tonhover: false\n"
+      #script2 += "\t\tdoNotHash: false,\n"
+      #script2 += "\t\tdoNotCopy: false,\n"
+      #script2 += "\t\thashAddressBar: false\n"
+    script2 += "\t});\n"
+  script2 += "}" + "\n"
+
+  script2 += "if ( ( /iPad/.test( navigator.platform ) && navigator.userAgent.indexOf( \"AppleWebKit\" ) > -1 ) ) { $('.remix').hide(); }" + "\n"
+
+
+  # script_includes2
+  script_includes2 = "\n"
+
+  if content_for?(:javascripts_page)
+    script_includes2 += theme_javascript_include_tag "eu/europeana/pages/" + content_for(:javascripts_page)
+  end
+
+%>
+
+<%= javascript_tag( script ) + "\n" %>
+<%= script_includes.html_safe %>
+<%= javascript_tag( script2 ) %>
+<%= script_includes2.html_safe %>

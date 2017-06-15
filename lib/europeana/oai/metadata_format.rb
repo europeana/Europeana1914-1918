@@ -48,7 +48,7 @@ module Europeana
         
         def header_specification
           {
-            'xmlns:oai_europeana19141918' => @namespace,
+            'xmlns:oai_edm' => @namespace,
             'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
             'xsi:schemaLocation' => @namespace + ' ' + @schema
           }

@@ -1,0 +1,96 @@
+<%
+
+  html = ''
+  tags = [] unless local_assigns[:tags].present?
+  taggable_type = taggable_type(taggable)
+
+  html += '<div class="add-tags">'
+  html += '<span class="icon-tag">' + t( 'views.contributions.show.headings.tags' ) +  '</span>'
+  html += '</div>'
+  html += '<div class="add-tag-panel">'
+
+  if current_user.may_tag_object?( taggable )
+    html += form_tag send(:"#{taggable_type}_tags_path", taggable), :method => :post, :id => "add_tags_form" do
+        form = '<div class="h-flex-container">'
+          form += '<div class="h-flex-fill">'
+            # :size => 50 breaks layout
+            #= text_field_tag "tags", "", :size => 50
+            form += text_field_tag( "tags", "" )
+          form += '</div>'
+          form += '<div class="h-flex-fixed">'
+            form += '<input type="submit" value="' + t( 'views.tags.add' ) + '" class="button">'
+          form += '</div>'
+        form += '</div>'
+        form += '<span class="tag-info">' + t( 'views.tags.info' ) + '</span>'
+      form.html_safe
+    end
+  else
+    html += '<p>'
+    html += '<em>' + t('views.tags.login') + '</em> '
+    html += link_to(t('common.menus.main.sign_in'), page_url('users/sign-in', :redirect => request.fullpath))
+    html += '</p>'
+  end
+
+  html += '</div>'
+
+  if (tags.length > 0)
+
+    html += '<div class="tags-panel">'
+      html += '<ul class="tags">'
+
+        # add tags to tags-panel
+        for tag in tags
+          html += '<li>'
+
+            # tag link
+            # an <a> element that links to a search using the actual tag text
+            html += link_to(
+              tag.name,
+              search_collection_path( :tag => tag.name ),
+              :class => 'search-tags',
+              :title => tag.name
+            )
+
+            # delete tag
+            # an <a> element that links to a delete action
+            if current_user.may_untag_object?( taggable, tag )
+              link_content = '<span class="icon-remove"></span>'
+              link_url = send(:"delete_#{taggable_type}_tag_path", taggable, tag)
+
+              html +=  link_to(
+                link_content.html_safe,
+                link_url,
+                :title => t( 'actions.delete' ),
+                :class => 'delete'
+              )
+            end
+
+            # flag tag
+            # an <a> element that links to a flag action
+            if current_user.may_flag_object_tag?( taggable, tag ) &&
+              !current_user.may_untag_object?( taggable, tag )
+              link_url = send(:"flag_#{taggable_type}_tag_path", taggable, tag)
+
+              link_content = image_tag(
+                '/assets/ait/annotorious/plugins/flag/flag-red.png',
+                :width => 13,
+                :height => 13,
+                :alt => t( 'formtastic.actions.tag.flag' ),
+                :class => 'icon-flag'
+              )
+
+              html += link_to(
+                link_content.html_safe,
+                link_url,
+                :title => t( 'formtastic.actions.tag.flag' )
+              )
+            end
+
+          html += '</li>'
+        end
+      html += '</ul>'
+    html += '</div>'
+
+  end
+-%>
+<%= html.html_safe -%>

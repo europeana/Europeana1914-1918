@@ -1,0 +1,43 @@
+<%
+
+	# data-description
+	# add the buttons that will be available in the lightbox
+	# placed in the lightbox under the mediafile
+	# in the reverse order as specified below
+	#
+	# intentionally added a string rather than as html tag
+	@data_description = ''
+
+	# embedly
+		provide :lightbox_add_embedly, true
+		@data_description += '<span class="lightbox-embedly"></span>'
+
+	# sharethis
+		provide :lightbox_add_sharethis, true
+		@data_description += '<span class="st_sharethis_custom"></span>'
+
+	# metadata
+		provide :lightbox_add_metadata, true
+
+		@data_description +=
+			'<a ' +
+				'href="#inline-' + @item_count.to_s + '" ' +
+				'class="lightbox-info" ' +
+				'title="' + t('common.additional-information') + '"' +
+			'>' +
+			'</a>'
+
+	# download
+		if ( defined? attachment.file.url )
+			provide :lightbox_add_download, true
+
+			@data_description +=
+				'<a ' +
+					'href="' + attachment.file.url + '" ' +
+					'class="lightbox-download" ' +
+					'title="' + t('common.download-item') + '" ' +
+					'target="_blank">' +
+				'</a>'
+		end
+
+-%>

@@ -1,0 +1,33 @@
+<%
+
+	html = ''
+
+	# link available at provider’s website
+	if readVal = edm_proxy_field( aggregation, 'edmIsShownAt', :link => false )
+		developer_content = '<!--view on provider’s site-->'
+		link_content = link_image + link_text + developer_content.html_safe
+
+		link_attrs.merge!({
+			:class => 'original-context',
+			:target => '_blank',
+			:rel => nil
+		})
+
+		html += content_tag(
+			'li',
+			link_to( link_content, readVal, link_attrs )
+		)
+
+	# do not view on provider’s website
+	else
+		developer_content = '<!--do not view on provider’s site-->'
+		link_content = link_image + developer_content.html_safe
+
+		html += content_tag(
+			'li',
+			link_content
+		)
+	end
+
+%>
+<%= html.html_safe -%>

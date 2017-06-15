@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   # session.
   theme :theme_resolver
 
-  # Always use the v2.1 theme
-  #theme 'v2.1'
+  # Always use the full theme
+  #theme "full"
 
   #
   ##
@@ -177,7 +177,7 @@ protected
   # @return [String] URL to redirect to
   #
   def after_sign_out_path_for(resource_or_scope)
-    home_path
+    contributor_dashboard_path(:theme => @theme)
   end
 
   ##
@@ -230,6 +230,12 @@ protected
     #   <% @stylesheets[:index] = true -%>
     #
     @stylesheets = {}
+
+    @iframe_parent_domains = if RunCoCo::Application.config.respond_to?(:iframe_parent_domains)
+                               RunCoCo::Application.config.iframe_parent_domains
+                             else
+                               nil
+                             end
   end
 
   def init_configuration
@@ -278,15 +284,16 @@ protected
   # @see https://github.com/lucasefe/themes_for_rails
   #
   def theme_resolver
-    if params[:theme]
+    valid_themes = [ "full", "minimal" ]
+    default_theme = "full"
+
+    if params[:theme] && valid_themes.include?(params[:theme])
       session[:theme] = params[:theme]
-    elsif session[:theme].nil?
-      session[:theme] = 'v2.1'
+    elsif !valid_themes.include?(session[:theme])
+      session[:theme] = default_theme
     end
 
-    if session[:theme] == 'v2'
-      session[:theme] = 'v2.1'
-    end
+    @theme = session[:theme]
 
     session[:theme]
   end
@@ -589,6 +596,4 @@ protected
 
     edm
   end
-
-
 end

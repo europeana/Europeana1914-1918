@@ -1,0 +1,54 @@
+<%
+	html = ''
+	count = 0
+	more_objects = more_like_this( object, :per_page => 12 )
+
+	if more_objects.present?
+		html += '<h3>' + t( 'views.common.more-like-this' ) + '</h3>'
+		html += '<div id="more-like-this" class="carousel">'
+			html += '<ul>'
+
+			more_objects.each do |item|
+				record = search_result_to_edm(item)
+				alt = ''
+				title = ''
+				caption = ''
+
+				if record["title"].present? && !record["title"].first.blank?
+				  alt = h( record["title"].first )
+				  title = ' title="' + h( record["title"].first ) + '"'
+				  caption = '<div class="caption">' + truncate( h( record["title"].first ), :length => 90 ) + '</div>'
+				end
+
+				if record["edmPreview"].present? && !record["edmPreview"].first.blank?
+					# if count <= 3
+						image = image_tag( h( record["edmPreview"].first ), :alt => alt )
+						open_li = '<li>'
+					# else
+					# 	image = image_tag(
+					# 		'/assets/minimal/images/icons/loading-animation.gif',
+					# 		:alt => t( 'views.common.loading' ),
+					# 		'data-src' => h( record["edmPreview"].first )
+					# 	)
+					# 	open_li = '<li class="item-placeholder">'
+					# end
+
+					html += open_li
+						html += '<a href="' + h( record["guid"] ) + '"' + title + '>'
+							html += image
+						html += '</a>'
+						html += caption
+					html += '</li>'
+
+					count += 1
+				end
+			end
+
+			html += '</ul>'
+			html += '<div class="carousel-overlay"></div>'
+		html += '</div>'
+	end
+
+
+%>
+<%= html.html_safe %>

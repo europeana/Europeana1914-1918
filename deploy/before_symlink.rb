@@ -7,8 +7,14 @@ run "ln -nfs #{config.shared_path}/config/initializers/action_mailer.rb #{config
 # Europeana API
 run "ln -nfs #{config.shared_path}/config/initializers/europeana.rb #{config.release_path}/config/initializers/europeana.rb"
 
-# Europeana API
+# ReCAPTCHA
 run "ln -nfs #{config.shared_path}/config/initializers/recaptcha.rb #{config.release_path}/config/initializers/recaptcha.rb"
+
+# iframe domains
+run "ln -nfs #{config.shared_path}/config/initializers/iframe_parent_domains.rb #{config.release_path}/config/initializers/iframe_parent_domains.rb"
+
+# iframe embed .js source
+run "ln -nfs #{config.shared_path}/config/initializers/e7a_1418_iframe.rb #{config.release_path}/config/initializers/e7a_1418_iframe.rb"
 
 # Solr
 run "mkdir #{config.release_path}/solr"

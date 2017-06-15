@@ -1,0 +1,161 @@
+<%
+
+	provide :javascripts_lightbox, true
+	provide :javascripts_translate, true
+	provide :javascripts_annotorious, true
+	provide :javascripts_shares, true
+	provide :javascripts_page, 'EuEdmObjectPage'
+	provide :stylesheets_item, true
+	provide :javascripts_europeana_carousel, true
+
+	if record['aggregations'].first['edmProvider'].blank? ||
+		( !record['aggregations'].first['edmProvider'].values.include?("Europeana 1914 - 1918") )
+
+	# variable setup
+
+		aggregation     = record['aggregations'] ? record['aggregations'][0] : {}
+		euAggregation   = record['europeanaAggregation'] || {}
+		edmIsShownAt    = aggregation['edmIsShownAt'] ? aggregation['edmIsShownAt'] : nil
+		edmIsShownBy    = aggregation['edmIsShownBy'] ? aggregation['edmIsShownBy'] : nil
+		edmPreview      = euAggregation['edmPreview'] ? euAggregation['edmPreview'] : asset_path('style/icons/mimetypes/unknown.png')
+		edmProvider     = aggregation['edmProvider'] ? edm_proxy_field(aggregation, 'edmProvider', :link => false) : nil
+		type            = record['type'] ? record['type'] : nil
+		html            = ''
+		oembed          = oembed_fields( record )
+		places          = record['places'] ? record['places'] : {}
+		proxy           = record['proxies']
+		title           = proxy ? edm_proxy_field(proxy, 'dcTitle') ? edm_proxy_field(proxy, 'dcTitle') : 'unknown' : 'unknown'
+		object          = local_assigns[:object].present? ? local_assigns[:object] : false
+
+		provide :title, title
+		provide :map_latlng, edm_places_latlng(record['places'])
+
+		if content_for?( :map_latlng )
+			provide :map_google, true
+			provide :javascripts_europeana_leaflet, true
+		end
+
+	# end variable setup
+
+	# begin html build
+
+		if referred_by_search?
+		  html += '<div class="back-link-row hide-on-item-collapsed">'
+				html += back_to_search_link
+  		html += '</div>'
+		end
+
+		html += '<div class="container">'
+
+			html += '<div class="col left">'
+
+				html += '<div class="col-cell show-on-item-collapsed">'
+					html += '<h2 class="dcTitle translate"> ' + title + '</h2>'
+				html += '</div>'
+
+				# add carousel
+				html += render :partial => 'edm/carousel', :locals => { :record => record, :annotatable => object }
+
+				# add view at provider’s website text link
+				if edmIsShownAt
+
+					if(
+						  params[:controller] == 'federated_search/dpla'  ||
+						  params[:controller] == 'federated_search/trove' ||
+						  params[:controller] == 'federated_search/digitalnz'
+					)
+						html += '<div class="col-cell">'
+					    	html += '<span class="icon-external"></span>'
+							html += '<div class="external-link">'
+								html += link_to(
+													t('formtastic.labels.content.metadata.edm.external_partner_site'),
+													edmIsShownAt,
+													:target => '_blank'
+												)
+							html += '</div>'
+						html += '</div>'
+
+					else
+						if edmIsShownAt.match(/^http:\/\/europeana.eu\/api\/[^\/]+\/redirect\?shownAt=http%253A%252F%252F/)
+							edmIsShownAt = CGI.unescape(edmIsShownAt)
+						end
+
+						html += '<div class="col-cell">'
+					    	html += '<span class="icon-external"></span>'
+							html += '<div class="external-link">'
+								if readLabel = edm_proxy_field(aggregation, 'edmDataProvider', :link => false)
+									html += t('formtastic.labels.content.metadata.edm.partner_site')
+									html += link_to(
+														': ' + readLabel,
+														edmIsShownAt,
+														:target => '_blank'
+													)
+								else
+									html += link_to(
+														t('formtastic.labels.content.metadata.edm.external_partner_site'),
+														edmIsShownAt,
+														:target => '_blank'
+													)
+								end
+							html += '</div>'
+						html += '</div>'
+					end
+				end
+
+				html += '<div class="col-cell share-on">'
+					html += render :partial => 'layouts/navigation/share', :locals => { :title => title }
+ 				html += '</div>'
+
+				html += '<div class="col-cell translate-area" >'
+			    	html += '<span class="icon-translate"></span>'
+ 				html += '</div>'
+
+				if object
+					html += '<div class="col-cell">'
+						html += render :partial => 'tags/form', :locals => { :tags => object.visible_tags, :taggable => object }
+					html += '</div>'
+				end
+
+			html += '</div>'
+
+			# story metadata
+			html += '<div class="col middle">'
+				html += '<div id="story-metadata" class="metadata">'
+					html += '<h2 class="dcTitle hide-on-item-collapsed translate"> ' + title + '</h2>'
+
+						# add metadata
+						html +=	render :partial => 'metadata/display_edm',
+							:locals => {
+								:proxy => proxy,
+								:aggregation => aggregation,
+								:euAggregation => euAggregation,
+								:record => record
+							}
+
+						# add map
+						if content_for?( :map_latlng )
+							html += content_tag(
+								'div',
+								content_tag(
+									'div',
+									content_tag(
+										'div',
+										'',
+										:id => 'map'
+									),
+									:id => 'map-container'
+								),
+								:class => 'col-cell'
+							)
+						end
+
+				html += '</div>'
+			html += '</div>'
+			if object.present?
+				html += render :partial => 'more-like-this/display', :locals => { :object => object }
+			end
+		html += '</div>'
+	end
+
+-%>
+<%= html.html_safe -%>

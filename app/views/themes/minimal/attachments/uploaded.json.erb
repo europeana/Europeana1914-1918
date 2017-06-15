@@ -1,0 +1,9 @@
+<% data = {
+  'uploaded' => @attachment.file.present?
+}
+if data['uploaded']
+  data['downloadLink'] = link_to(I18n.t('actions.download'), @attachment.file.url, :class => 'download-file')
+  data['thumbnailLink'] = link_to(attachment_preview(@attachment), @attachment.file.url, :class => 'preview', :rel => (@attachment.image? ? "prettyPhoto[gal]" : nil))
+end
+-%>
+<%= data.to_json.html_safe %>

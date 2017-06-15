@@ -1,0 +1,27 @@
+<%
+
+	# main use is for the lightbox information overlay
+	# @see /app/views/themes/full/edm/images/_carousel-images.html.erb
+
+	# this simple metadata element contains only the title of the main record
+	# however a possible @todo is to cycle through the metadata of eacj
+	# individual item within the record and add its own unique metadata
+	# instead of only the title of the main record
+	html_metadata = '<dt><b>' + t( 'attributes.title' ) + ':</b></dt>'
+	html_metadata += '<dd>' + title + '</dd>'
+
+	# data attributes contain metadata for sharethis and other js services
+	html = content_tag(
+		'dl',
+		html_metadata.html_safe,
+		:class => 'lightbox-metadata',
+		:id => 'inline-' + @item_count.to_s,
+		'data-title' => title,
+		'data-url' => url_for( :only_path => false ),
+		'data-image' => img_src,
+		'data-image-preview' => img_src,
+		'data-summary' => data_summary
+	)
+
+-%>
+<%= html.html_safe -%>

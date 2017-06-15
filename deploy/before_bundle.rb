@@ -5,7 +5,9 @@ if [ "app", "util" ].include?(config.current_role)
   [
     "#{config.shared_path}/config/initializers/action_mailer.rb",
     "#{config.shared_path}/config/initializers/devise.rb",
+    "#{config.shared_path}/config/initializers/e7a_1418_iframe.rb",
     "#{config.shared_path}/config/initializers/europeana.rb",
+    "#{config.shared_path}/config/initializers/iframe_parent_domains.rb",
     "#{config.shared_path}/config/initializers/paperclip.rb",
     "#{config.shared_path}/config/initializers/secret_token.rb",
     "#{config.shared_path}/config/initializers/recaptcha.rb",
