@@ -177,7 +177,7 @@ protected
   # @return [String] URL to redirect to
   #
   def after_sign_out_path_for(resource_or_scope)
-    contributor_dashboard_path
+    contributor_dashboard_path(:theme => @theme)
   end
 
   ##
@@ -292,6 +292,8 @@ protected
     elsif !valid_themes.include?(session[:theme])
       session[:theme] = default_theme
     end
+
+    @theme = session[:theme]
 
     session[:theme]
   end
