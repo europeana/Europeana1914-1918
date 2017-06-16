@@ -78,26 +78,13 @@ module Europeana
           [ '1', '2' ].each do |cn|
             character_full_name = Contact.full_name(meta["character#{cn}_given_name"], meta["character#{cn}_family_name"])
             unless [ character_full_name, meta["character#{cn}_dob"], meta["character#{cn}_dod"], meta["character#{cn}_pob"], meta["character#{cn}_pod"] ].all?(&:blank?)
-              character = EDM::Resource::Agent.new({
+              EDM::Resource::Agent.new({
                 RDF::SKOS.prefLabel => character_full_name,
                 RDF::RDAGr2.dateOfBirth => meta["character#{cn}_dob"],
-                RDF::RDAGr2.dateOfDeath => meta["character#{cn}_dod"]
-              })
-              character.append_to(graph, uri, RDF::DCElement.subject)
-              
-              unless meta["character#{cn}_pob"].blank?
-                character_pob = EDM::Resource::Place.new({
-                  RDF::SKOS.prefLabel => meta["character#{cn}_pob"]
-                })
-                character_pob.append_to(graph, character.id, RDF::RDAGr2.placeOfBirth)
-              end
-              
-              unless meta["character#{cn}_pod"].blank?
-                character_pod = EDM::Resource::Place.new({
-                  RDF::SKOS.prefLabel => meta["character#{cn}_pod"]
-                })
-                character_pod.append_to(graph, character.id, RDF::RDAGr2.placeOfDeath)
-              end
+                RDF::RDAGr2.dateOfDeath => meta["character#{cn}_dod"],
+                RDF::RDAGr2.placeOfBirth => meta["character#{cn}_pob"],
+                RDF::RDAGr2.placeOfDeath => meta["character#{cn}_pod"]
+              }).append_to(graph, uri, RDF::DCElement.subject)
             end
           end
           
@@ -131,11 +118,15 @@ module Europeana
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
           unless [ lat, lng, meta['location_placename'] ].all?(&:blank?)
-            EDM::Resource::Place.new({
-              RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_f),
-              RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_f),
-              RDF::SKOS.prefLabel => meta['location_placename']
-            }).append_to(graph, uri, RDF::DC.spatial)
+            if [ lat, lng ].all?(&:blank?)
+              graph << [ uri, RDF::DC.spatial, meta['location_placename'] ]
+            else
+              EDM::Resource::Place.new({
+                RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_f),
+                RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_f),
+                RDF::SKOS.prefLabel => meta['location_placename']
+              }).append_to(graph, uri, RDF::DC.spatial)
+            end
           end
           
           unless [ meta['date_from'], meta['date_to'], meta['date'] ].all?(&:blank?)
