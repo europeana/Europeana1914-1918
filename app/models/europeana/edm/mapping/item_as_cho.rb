@@ -115,28 +115,18 @@ module Europeana
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => contributor_full_name).append_to(graph, uri, RDF::DCElement.contributor)
           end
           
-          [ "keywords", "forces" ].each do |subject_field|
-            unless meta[subject_field].blank?
-              meta[subject_field].each do |subject|
-                EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :en)).append_to(graph, uri, RDF::DCElement.subject)
+          [
+            { :field => "keywords", :predicate => RDF::DCElement.subject, :language => :en },
+            { :field => "forces", :predicate => RDF::DCElement.subject, :language => :en },
+            { :field => "extended_subjects", :predicate => RDF::DCElement.subject, :language => :fr },
+            { :field => "theatres", :predicate => RDF::DC.spatial, :language => :en },
+            { :field => "content", :predicate => RDF::DCElement.type, :language => :en }
+          ].each do |concept|
+            unless meta[concept[:field]].blank?
+              meta[concept[:field]].each do |value|
+                graph << [ uri, concept[:predicate], RDF::Literal.new(value, :language => concept[:language]) ]
               end
             end
-          end
-          
-          unless meta["extended_subjects"].blank?
-            meta["extended_subjects"].each do |subject|
-              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(subject, :language => :fr)).append_to(graph, uri, RDF::DCElement.subject)
-            end
-          end
-          
-          unless meta["theatres"].blank?
-            meta["theatres"].each do |spatial|
-              EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(spatial, :language => :en)).append_to(graph, uri, RDF::DC.spatial)
-            end
-          end
-          
-          unless meta["content"].blank?
-            EDM::Resource::Concept.new(RDF::SKOS.prefLabel => RDF::Literal.new(meta["content"].first, :language => :en)).append_to(graph, uri, RDF::DCElement.type)
           end
           
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
