@@ -250,7 +250,7 @@ module Europeana
           end
           license = meta["license"].blank? ? "http://creativecommons.org/publicdomain/zero/1.0/" : meta["license"].first
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(license) ] 
-          graph << [ uri, RDF::EDM.ugc, "TRUE" ]
+          graph << [ uri, RDF::EDM.ugc, "true" ]
           graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
           graph << [ uri, RDF::EDM.dataProvider, "Europeana 1914-1918" ]
 
