@@ -140,7 +140,7 @@ module Europeana
           graph << [ uri, RDF::DCElement.type, RDF::Literal.new("Story", :language => :en) ]
           graph << [ uri, RDF::DCElement.description, meta["description"] ] unless meta["description"].blank?
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
-          graph << [ uri, RDF::DCElement.subject, "World War I" ]
+          graph << [ uri, RDF::DCElement.subject, RDF::Literal.new("World War I", :language => :en) ]
           graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DCElement.type, meta["content"].first ] unless meta["content"].blank?
           graph << [ uri, RDF::DC.alternative, RDF::Literal.new(meta["alternative"], :language => :en) ] unless meta["alternative"].blank?
