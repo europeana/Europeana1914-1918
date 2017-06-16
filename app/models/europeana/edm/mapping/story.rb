@@ -137,6 +137,7 @@ module Europeana
           graph << [ uri, RDF::DCElement.date, meta['date'] ] unless meta["date"].blank?
           graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
           graph << [ uri, RDF::EDM.type, "TEXT" ]
+          graph << [ uri, RDF::DCElement.source, "UGC" ]
           graph << [ uri, RDF::DCElement.type, RDF::Literal.new("Story", :language => :en) ]
           graph << [ uri, RDF::DCElement.description, meta["description"] ] unless meta["description"].blank?
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?

@@ -50,6 +50,7 @@ module Europeana
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
           graph << [ uri, RDF::DCElement.description, meta["object_side"].first ] unless meta["object_side"].blank?
           graph << [ uri, RDF::DCElement.format, meta["format"].first ] unless meta["format"].blank?
+          graph << [ uri, RDF::DCElement.source, "UGC" ]
           graph << [ uri, RDF::DCElement.source, meta["source"].first ] unless meta["source"].blank?
           graph << [ uri, RDF::DCElement.subject, RDF::Literal.new("World War I", :language => :en) ]
           graph << [ uri, RDF::DC.alternative, RDF::Literal.new(meta["alternative"], :language => :en) ] unless meta["alternative"].blank?
