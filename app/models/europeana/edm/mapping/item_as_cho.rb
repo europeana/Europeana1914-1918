@@ -52,7 +52,7 @@ module Europeana
           graph << [ uri, RDF::DCElement.format, meta["format"].first ] unless meta["format"].blank?
           graph << [ uri, RDF::DCElement.source, meta["source"].first ] unless meta["source"].blank?
           graph << [ uri, RDF::DCElement.subject, "World War I" ]
-          graph << [ uri, RDF::DC.alternative, meta["alternative"] ] unless meta["alternative"].blank?
+          graph << [ uri, RDF::DC.alternative, RDF::Literal.new(meta["alternative"], :language => :en) ] unless meta["alternative"].blank?
           graph << [ uri, RDF::DCElement.subject, meta["subject"] ] unless meta["subject"].blank?
           graph << [ uri, RDF::DC.extent, meta["page_total"] ] unless meta["page_total"].blank?
           graph << [ uri, RDF::DC.extent, meta["page_number"] ] unless meta["page_number"].blank?
