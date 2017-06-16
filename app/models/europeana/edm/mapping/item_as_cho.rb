@@ -45,7 +45,9 @@ module Europeana
           graph << [ uri, RDF::DCElement.title, @source.title ]
           graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
 
-          graph << [ uri, RDF::DCElement.date, meta["date"] ] unless meta["date"].blank?
+          graph << [ uri, RDF::DCElement.date, meta['date'] ] unless meta["date"].blank?
+          graph << [ uri, RDF::DCElement.date, meta['date_from'] ] unless meta["date_from"].blank?
+          graph << [ uri, RDF::DCElement.date, meta['date_to'] ] unless meta["date_to"].blank?
           graph << [ uri, RDF::DCElement.description, meta["attachment_description"] ] unless meta["attachment_description"].blank?
           graph << [ uri, RDF::DCElement.description, meta["summary"] ] unless meta["summary"].blank?
           graph << [ uri, RDF::DCElement.description, meta["object_side"].first ] unless meta["object_side"].blank?
