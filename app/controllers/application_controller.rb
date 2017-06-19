@@ -162,9 +162,9 @@ protected
     if params[:redirect] && (params[:redirect] =~ /^\//)
       params[:redirect]
     elsif resource_or_scope.is_a?(User) && resource_or_scope.may_access_admin_area?
-      admin_root_url
+      admin_root_url(locale: session[:locale])
     elsif resource_or_scope.is_a?(User) && resource_or_scope.role_name == 'contributor'
-      contributor_dashboard_url
+      contributor_dashboard_url(locale: session[:locale])
     else
       super
     end
