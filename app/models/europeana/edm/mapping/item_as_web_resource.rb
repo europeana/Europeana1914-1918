@@ -18,6 +18,7 @@ module Europeana
           uri = web_resource_uri
           
           graph << [ uri, RDF.type, RDF::EDM.WebResource ]
+          graph << [ uri, RDF::DCElement.source, "UGC" ]
           graph << [ uri, RDF::DCElement.format, meta["file_type"].first ] unless meta["file_type"].blank?
           graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
           graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] unless meta["license"].blank?
