@@ -4,6 +4,7 @@
 class FederatedSearchController < SearchController
   include EuropeanaHelper
 
+  before_filter :disable_federated_search
   before_filter :load_api_key
   before_filter :configured?
 
@@ -340,5 +341,9 @@ private
         pager.replace(results)
       end
     end
+  end
+
+  def disable_federated_search
+    fail ActionController::RoutingError
   end
 end
