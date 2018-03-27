@@ -344,6 +344,6 @@ private
   end
 
   def disable_federated_search
-    fail ActionController::RoutingError
+    fail AbstractController::ActionNotFound
   end
 end
