@@ -1,5 +1,6 @@
 #!/bin/bash
-docker exec -i -t docker_web_1 bundle exec rake db:schema:load
-docker exec -i -t docker_web_1 bundle exec rake db:seed
-docker exec -i -t docker_web_1 bundle exec rake sunspot:reindex
-docker restart docker_web_1
+
+docker-compose up -d db search
+docker-compose run web bundle exec rake db:seed
+docker-compose run web bundle exec rake sunspot:reindex
+docker-compose down

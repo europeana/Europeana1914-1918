@@ -6,12 +6,14 @@ Docker for Europeana 1914-1918
 1. Copy all files in `docker/web/config/` to `config/` in your cloned repo:
   `cp -r docker/web/config/. config`
 
+## Initialisation
+
+From this directory, run `init-db.sh`
+
 ## Usage
 
-1. Change to this directory (`docker`), then run: `docker-compose up`
-2. The first time you have it running, you will need to init the db with
-  `init-db.sh`
-3. The web application will be accessible at http://localhost:30000/
+1. From this directory, run: `docker-compose up`
+2. The web application will be accessible at http://localhost:30000/
 
 ## Services
 

@@ -3,7 +3,7 @@ services:
   web:
     image: 1418-web
     build:
-      context: ./web
+      context: ..
     depends_on:
       - db
       - search
@@ -11,22 +11,24 @@ services:
     - "30000:3000"
     links:
       - db
-    volumes:
-      - ..:/app
     environment:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+    volumes:
+      - ../config:/app/config
   worker:
     image: 1418-worker
     build:
       context: ./worker
+    command: bundle exec script/delayed_job run
     depends_on:
       - db
+      - web
     links:
       - db
-    volumes:
-    - ..:/app
     environment:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+    volumes:
+      - ../config:/app/config
   db:
     image: 1418-db
     build:
@@ -34,7 +36,7 @@ services:
     ports:
     - "30001:3306"
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes" # 
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_DATABASE: europeana_1418
       MYSQL_USER: 1418
       MYSQL_PASSWORD: 1418pass
@@ -44,5 +46,3 @@ services:
       context: ./search
     ports:
     - "30002:8983"
-    volumes:
-      - ..:/app
