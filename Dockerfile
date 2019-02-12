@@ -11,13 +11,13 @@ RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/so
 
 WORKDIR /app
 
-RUN mkdir log vendor
-COPY Gemfile Gemfile.lock ./
+RUN mkdir log tmp
+
 COPY vendor vendor
+COPY Gemfile Gemfile.lock ./
 
 RUN bundle install --system --full-index
 
 COPY . .
 
 CMD bundle exec thin start -p 3000
-#CMD tail -f /dev/null
