@@ -15,8 +15,8 @@ services:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
     volumes:
       - ../config:/app/config
-      - /app/log
-      - /app/tmp
+      - 1418-web-log:/app/log
+      - 1418-web-tmp:/app/tmp
   worker:
     image: 1418-worker
     build:
@@ -31,8 +31,8 @@ services:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
     volumes:
       - ../config:/app/config
-      - /app/log
-      - /app/tmp
+      - 1418-worker-log:/app/log
+      - 1418-worker-tmp:/app/tmp
   db:
     image: 1418-db
     build:
@@ -45,7 +45,7 @@ services:
       MYSQL_USER: 1418
       MYSQL_PASSWORD: 1418pass
     volumes:
-      - /var/lib/mysql
+      - 1418-db-mysql:/var/lib/mysql
   search:
     image: 1418-search
     build:
@@ -53,4 +53,11 @@ services:
     ports:
     - "30002:8983"
     volumes:
-      - /solr-4.10.0/server/1418/data
+      - 1418-search-solr:/solr-4.10.0/server/1418/data
+volumes:
+  1418-web-log:
+  1418-web-tmp:
+  1418-worker-log:
+  1418-worker-tmp:
+  1418-db-mysql:
+  1418-search-solr:
