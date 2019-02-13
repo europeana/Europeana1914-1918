@@ -8,7 +8,7 @@ Docker for Europeana 1914-1918
 
 ## Initialisation
 
-From this directory, run `init-db.sh`
+From this directory, run `init.sh`
 
 ## Usage
 
