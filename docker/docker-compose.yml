@@ -15,6 +15,7 @@ services:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
     volumes:
       - ../config:/app/config
+      - 1418-web-assets:/app/public/assets
       - 1418-web-log:/app/log
       - 1418-web-tmp:/app/tmp
   worker:
@@ -55,6 +56,7 @@ services:
     volumes:
       - 1418-search-solr:/solr-4.10.0/server/1418/data
 volumes:
+  1418-web-assets:
   1418-web-log:
   1418-web-tmp:
   1418-worker-log:

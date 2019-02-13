@@ -20,4 +20,6 @@ RUN bundle install --system --full-index
 
 COPY . .
 
+RUN bundle exec rake assets:precompile
+
 CMD bundle exec thin start -p 3000
