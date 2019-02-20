@@ -18,5 +18,6 @@ From this directory, run `init.sh`
 ## Services
 
 * web: 1914-1918 application (Rails / Thin), on host port 30000
+* worker: 1914-1918 application (Rails / Delayed::Job)
 * db: MySQL 5.5, on host port 30001
 * search: Solr 4.1, on host port 30002
