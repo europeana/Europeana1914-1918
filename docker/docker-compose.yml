@@ -1,5 +1,26 @@
 version: "3"
 services:
+  db:
+    image: 1418-db
+    build:
+      context: ./db
+    ports:
+    - "30001:3306"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: europeana_1418
+      MYSQL_USER: 1418
+      MYSQL_PASSWORD: 1418pass
+    volumes:
+      - 1418-db-mysql:/var/lib/mysql
+  search:
+    image: 1418-search
+    build:
+      context: ./search
+    ports:
+    - "30002:8983"
+    volumes:
+      - 1418-search-solr:/solr-4.10.0/server/1418/data
   web:
     image: 1418-web
     build:
@@ -34,27 +55,6 @@ services:
       - ../config:/app/config
       - 1418-worker-log:/app/log
       - 1418-worker-tmp:/app/tmp
-  db:
-    image: 1418-db
-    build:
-      context: ./db
-    ports:
-    - "30001:3306"
-    environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_DATABASE: europeana_1418
-      MYSQL_USER: 1418
-      MYSQL_PASSWORD: 1418pass
-    volumes:
-      - 1418-db-mysql:/var/lib/mysql
-  search:
-    image: 1418-search
-    build:
-      context: ./search
-    ports:
-    - "30002:8983"
-    volumes:
-      - 1418-search-solr:/solr-4.10.0/server/1418/data
 volumes:
   1418-web-assets:
   1418-web-log:
