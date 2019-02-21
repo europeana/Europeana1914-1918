@@ -5,7 +5,7 @@ services:
     build:
       context: ./db
     ports:
-    - "30001:3306"
+    - "3306:3306"
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_DATABASE: europeana_1418
@@ -13,12 +13,22 @@ services:
       MYSQL_PASSWORD: 1418pass
     volumes:
       - 1418-db-mysql:/var/lib/mysql
+  gateway:
+    image: 1418-gateway
+    build:
+      context: ./gateway
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+    volumes:
+      - ../public:/usr/share/nginx/html
   search:
     image: 1418-search
     build:
       context: ./search
     ports:
-    - "30002:8983"
+    - "8983:8983"
     volumes:
       - 1418-search-solr:/solr-4.10.0/server/1418/data
   web:
@@ -29,14 +39,16 @@ services:
       - db
       - search
     ports:
-    - "30000:3000"
+    - "8080:8080"
     links:
       - db
     environment:
       DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+      RAILS_ENV: production
+      PORT: 8080
     volumes:
       - ../config:/app/config
-      - 1418-web-assets:/app/public/assets
+      - ../public:/app/public
       - 1418-web-log:/app/log
       - 1418-web-tmp:/app/tmp
   worker:
@@ -56,7 +68,6 @@ services:
       - 1418-worker-log:/app/log
       - 1418-worker-tmp:/app/tmp
 volumes:
-  1418-web-assets:
   1418-web-log:
   1418-web-tmp:
   1418-worker-log:

@@ -1,13 +1,14 @@
 FROM ruby:1.9.3
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV RAILS_ENV development
-
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list \
   && apt-get update \
   && apt-get install -y libcurl4-gnutls-dev libmysqlclient-dev curl git file \
      ffmpeg ghostscript imagemagick sendmail nodejs \
   && rm -rf /var/lib/apt/lists/*
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV RAILS_ENV development
+ENV PORT 3000
 
 WORKDIR /app
 
@@ -20,4 +21,4 @@ RUN bundle install --system --full-index
 
 COPY . .
 
-CMD bundle exec thin start -p 3000
+CMD bundle exec thin start -p ${PORT}

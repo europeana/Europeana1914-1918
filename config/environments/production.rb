@@ -31,13 +31,13 @@ RunCoCo::Application.configure do
     # pass the servers to dalli setup
     config.cache_store = :dalli_store, *memcached_hosts
   else
+    # parse the memcached.yml
     config.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache')
   end
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  #config.serve_static_assets = false
-  # parse the memcached.yml
+  config.serve_static_assets = false
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -54,7 +54,7 @@ RunCoCo::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
   # Compress JavaScript and CSS
   config.assets.compress = true
 

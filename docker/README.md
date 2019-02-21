@@ -13,11 +13,12 @@ From this directory, run `init.sh`
 ## Usage
 
 1. From this directory, run: `docker-compose up`
-2. The web application will be accessible at http://localhost:30000/
+2. The web application will be accessible at http://localhost/ (port 80)
 
 ## Services
 
-* web: 1914-1918 application (Rails / Thin), on host port 30000
+* db: MySQL 5.5
+* gateway: NGINX stable
+* search: Solr 4.1
+* web: 1914-1918 application (Rails / Thin)
 * worker: 1914-1918 application (Rails / Delayed::Job)
-* db: MySQL 5.5, on host port 30001
-* search: Solr 4.1, on host port 30002
