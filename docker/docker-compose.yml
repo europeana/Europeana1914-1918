@@ -58,6 +58,7 @@ services:
     command: bundle exec script/delayed_job run
     depends_on:
       - db
+      - search
       - web
     links:
       - db
