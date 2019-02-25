@@ -12,7 +12,7 @@ ENV PORT 3000
 
 WORKDIR /app
 
-RUN mkdir log tmp
+RUN mkdir -p log tmp/files
 
 COPY vendor vendor
 COPY Gemfile Gemfile.lock ./
