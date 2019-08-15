@@ -3,42 +3,20 @@ module Europeana
     class ContributionRecord < Contribution
       include ContributionsHelper
       include Rails.application.routes.url_helpers
-      
+
       default_scope published.includes(:metadata => :taxonomy_terms)
-      
+
       ##
-      # Returns the OAI sets supported
+      # OAI sets are not implemented
       #
       def self.sets
-        unless @sets.present?
-          @sets = [ 
-            OAI::Set.new(:spec => 'story', :name => 'Stories'),
-            OAI::Set.new(:spec => 'story:institution', :name => 'Institutional providers'),
-            OAI::Set.new(:spec => 'story:ugc', :name => 'UGC')
-          ]
-          Institution.all.each do |institution|
-            @sets << institution.oai_set('story:institution:')
-          end
-        end
-        @sets
+        nil
       end
-      
-      ##
-      # Returns the OAI sets this contribution belongs to
-      #
+
       def sets
-        unless @sets.present?
-          @sets = [ OAI::Set.new(:spec => 'story', :name => 'Stories') ]
-          if contributor.institution.present?
-            @sets << OAI::Set.new(:spec => 'story:institution', :name => 'Institutional providers')
-            @sets << contributor.institution.oai_set('story:institution:')
-          else
-            @sets << OAI::Set.new(:spec => 'story:ugc', :name => 'UGC')
-          end
-        end
-        @sets
+        self.class.sets
       end
-      
+
       ##
       # Outputs metadata record for OAI Dublin Core
       #
@@ -46,7 +24,7 @@ module Europeana
       #
       def to_oai_dc
         xml = ::Builder::XmlMarkup.new
-        xml.tag!('oai_dc:dc', 
+        xml.tag!('oai_dc:dc',
          OAI::Provider::Metadata::DublinCore.instance.header_specification.merge(
           { 'xmlns:dcterms' => "http://purl.org/dc/terms/" }
          )
@@ -99,7 +77,7 @@ module Europeana
         end
         xml.target!
       end
-      
+
       ##
       # Outputs metadata record for OAI in custom Europeana 1914-1918 XML format
       #
@@ -118,7 +96,7 @@ module Europeana
         end
         xml.target!
       end
-      
+
       def to_oai_edm
         to_rdfxml.sub(/<\?xml .*? ?>/, "")
       end
