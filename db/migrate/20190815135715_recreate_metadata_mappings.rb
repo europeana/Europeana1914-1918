@@ -5,7 +5,7 @@ class RecreateMetadataMappings < ActiveRecord::Migration
     Contribution.published.find_each do |contribution|
       print '.'
       job = EDMMetadataMappingJob.new(contribution.id)
-      job.perform
+      Delayed::Job.enqueue EDMMetadataMappingJob.new(contribution.id), :queue => 'mapping'
     end
 
     puts ' DONE.'

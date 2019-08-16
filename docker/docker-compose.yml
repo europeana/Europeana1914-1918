@@ -51,7 +51,6 @@ services:
       - ../config:/app/config
       - ../public:/app/public
       - 1418-web-log:/app/log
-      - 1418-web-tmp:/app/tmp
   worker:
     image: 1418-worker
     build:
@@ -68,7 +67,6 @@ services:
     volumes:
       - ../config:/app/config
       - 1418-worker-log:/app/log
-      - 1418-worker-tmp:/app/tmp
 volumes:
   1418-web-log:
   1418-web-tmp:
