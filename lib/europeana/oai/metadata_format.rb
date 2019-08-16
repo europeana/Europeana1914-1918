@@ -8,33 +8,13 @@ module Europeana
             #   schema is published to that host.
             if (@schema_host = Rails.application.routes.default_url_options[:host].clone).present?
               if (schema_port = Rails.application.routes.default_url_options[:port]).present?
-                @schema_host << ":#{schema_port}" 
+                @schema_host << ":#{schema_port}"
               end
-            else 
+            else
               @schema_host = 'www.europeana1914-1918.eu'
             end
           end
           @schema_host
-        end
-      end
-      
-      ##
-      # Custom OAI metadata format 
-      #
-      class Europeana19141918 < Base
-        def initialize
-          @prefix = 'oai_europeana19141918'
-          @schema = "http://#{schema_host}/oai/oai_europeana19141918.xsd"
-          @namespace = "http://#{schema_host}/oai/oai_europeana19141918/"
-          @element_namespace = 'europeana19141918'
-        end
-        
-        def header_specification
-          {
-            'xmlns:oai_europeana19141918' => @namespace,
-            'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
-            'xsi:schemaLocation' => @namespace + ' ' + @schema
-          }
         end
       end
       
@@ -45,7 +25,7 @@ module Europeana
           @namespace = "http://#{schema_host}/oai/oai_edm/"
           @element_namespace = 'edm'
         end
-        
+
         def header_specification
           {
             'xmlns:oai_edm' => @namespace,

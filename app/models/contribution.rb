@@ -17,10 +17,10 @@ class Contribution < ActiveRecord::Base
   belongs_to :contributor, :class_name => 'User'
   belongs_to :cataloguer, :class_name => 'User', :foreign_key => 'catalogued_by'
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
-  has_many :mappings, :class_name => 'MetadataMapping', :as => :mappable
+  has_many :mappings, :class_name => 'MetadataMapping', :as => :mappable, :dependent => :destroy
   #--
-  # @fixme: Destroy associated contact when contribution destroyed, 
-  # *IF* this is a guest contribution, *AND* there are no other associated 
+  # @fixme: Destroy associated contact when contribution destroyed,
+  # *IF* this is a guest contribution, *AND* there are no other associated
   # contributions
   #++
   belongs_to :guest
@@ -29,7 +29,7 @@ class Contribution < ActiveRecord::Base
     def with_file
       select { |attachment| attachment.file.present? }
     end
-    
+
     def with_file_uploaded
       select { |attachment| attachment.file_file_size.present? && attachment.file_file_name.present? && attachment.file_content_type.present? }
     end
@@ -37,12 +37,12 @@ class Contribution < ActiveRecord::Base
     def to_json(options = nil)
       proxy_owner.attachments.collect { |a| a.to_hash }.to_json(options)
     end
-    
+
     def cover_image
       candidates = with_file
       candidates.select { |attachment| attachment.metadata.field_cover_image.present? }.first || candidates.first
     end
-    
+
     def with_books
       attachments_with_books = []
       book_index = nil
@@ -60,9 +60,9 @@ class Contribution < ActiveRecord::Base
       attachments_with_books
     end
   end
-  
+
   has_record_statuses :draft, :submitted, :approved, :rejected, :revised, :withdrawn
-  
+
   accepts_nested_attributes_for :metadata
 
   validates_presence_of :contributor_id, :if => Proc.new { RunCoCo.configuration.registration_required? }
@@ -77,7 +77,7 @@ class Contribution < ActiveRecord::Base
   attr_accessible :metadata_attributes, :title
 
   after_create :set_draft_status
-  
+
   after_initialize :build_metadata_unless_present
 
   # Number of contributions to show per page when paginating
@@ -87,13 +87,13 @@ class Contribution < ActiveRecord::Base
   def self.published
     with_status(published_status)
   end
-  
+
   ##
   # Returns the status code(s) indicating that a contribution is published on this
   # installation of RunCoCo.
   #
   # The return value(s) will vary depending on the values of the configuration
-  # settings {RunCoCo.configuration.publish_contributions} and 
+  # settings {RunCoCo.configuration.publish_contributions} and
   # {RunCoCo.configuration.contribution_approval_required}.
   #
   # @return [Array<Symbol>] Status codes for published contributions
@@ -111,7 +111,7 @@ class Contribution < ActiveRecord::Base
   def contact
     by_guest? ? guest : contributor.contact
   end
-  
+
   def by_guest?
     contributor.blank?
   end
@@ -140,7 +140,7 @@ class Contribution < ActiveRecord::Base
       false
     end
   end
-  
+
   def submitting?
     @submitting == true
   end
@@ -162,7 +162,7 @@ class Contribution < ActiveRecord::Base
     end
     @ready_to_submit
   end
-  
+
   def draft?
     status == :draft
   end
@@ -179,11 +179,11 @@ class Contribution < ActiveRecord::Base
       false
     end
   end
-  
+
   def pending_approval?
     [ :submitted, :revised, :withdrawn ].include?(status)
   end
-  
+
   def rejected?
     status == :rejected
   end
@@ -191,50 +191,50 @@ class Contribution < ActiveRecord::Base
   def reject_by(rejecter)
     change_status_to(:rejected, rejecter.id)
   end
-  
+
   def published?
     self.class.published_status.include?(current_status.to_sym)
   end
-  
+
   def validate_contributor_or_contact
     if self.contributor_id.blank? && self.guest_id.blank?
       self.errors.add(:guest_id, I18n.t('activerecord.errors.models.contribution.attributes.guest_id.present'))
     end
   end
-  
+
   def validate_attachment_file_presence
     self.errors.add(:base, I18n.t('views.contributions.digital_object.help_text.add_attachment')) unless attachments.present?
   end
-  
+
   def validate_attachment_files_uploaded
     self.errors.add(:base, I18n.t('activerecord.errors.models.contribution.attachments.uploaded')) unless attachment_files_uploaded?
   end
-  
+
   def attachment_files_uploaded?
     attachments.with_file_uploaded.count == attachments.count
   end
-  
+
   def attachment_files_uploading?
     ! attachment_files_uploaded?
   end
-  
+
   def validate_cataloguer_role
     self.errors.add(:catalogued_by, I18n.t('activerecord.errors.models.contribution.attributes.catalogued_by.role_name')) unless [ 'administrator', 'cataloguer' ].include?(User.find(catalogued_by).role_name)
   end
-  
+
   alias :"rails_metadata_attributes=" :"metadata_attributes="
   def metadata_attributes=(*args)
     self.send(:"rails_metadata_attributes=", *args)
     self.metadata.for_contribution = true
   end
-  
+
   alias :rails_build_metadata :build_metadata
   def build_metadata(*args)
     rails_build_metadata(*args)
     self.metadata.for_contribution = true
     self.metadata.set_default_collection_day
   end
-  
+
   ##
   # Fetches and yields approved & published contributions for export.
   #
@@ -244,13 +244,13 @@ class Contribution < ActiveRecord::Base
   #   end
   #
   # @param [Hash] options Export options
-  # @option options [String] :exclude Exclude attachment records with files 
+  # @option options [String] :exclude Exclude attachment records with files
   #   having this extension
-  # @option options [DateTime] :start_date only yield contributions published 
+  # @option options [DateTime] :start_date only yield contributions published
   #   on or after this date & time
-  # @option options [DateTime] :end_date only yield contributions published on 
+  # @option options [DateTime] :end_date only yield contributions published on
   #   or before this date & time
-  # @option options [Integer] :batch_size (50) export in batches of this size; 
+  # @option options [Integer] :batch_size (50) export in batches of this size;
   #   passed to {#find_each}
   # @option options [Integer] :institution_id Restrict to contributions made by
   #   this institution
@@ -259,24 +259,24 @@ class Contribution < ActiveRecord::Base
   def self.export(options)
     options.assert_valid_keys(:exclude, :start_date, :end_date, :batch_size, :set, :institution_id)
     options.reverse_merge!(:batch_size => 50)
-    
+
     if options[:exclude].present?
       ext = options[:exclude].exclude
       unless ext[0] == '.'
         ext = '.' + ext
       end
     end
-    
+
     query = Contribution.published
-    
+
     if options[:start_date].present?
       query = query.where("current_statuses.updated_at >= ?", options[:start_date])
     end
-    
+
     if options[:end_date].present?
       query = query.where("current_statuses.updated_at <= ?", options[:end_date])
     end
-    
+
     if options[:set].present?
       case options[:set]
       when "ugc"
@@ -289,27 +289,27 @@ class Contribution < ActiveRecord::Base
         end
       end
     end
-    
+
     includes = [:contributor] # do not add lots of includes; they use too much memory
 
     query.includes(includes).find_in_batches(
       :batch_size => options[:batch_size]
     ) do |batch|
-    
+
       batch.each do |contribution|
-        
+
         class << contribution
           alias :all_attachments :attachments
-          
+
           def export_attachments
             all_attachments.select { |a| a.file.present? }
           end
-          
+
           def attachments
             export_attachments
           end
         end
-        
+
         if options[:exclude]
           eval(<<-EVAL)
             def contribution.attachments
@@ -317,22 +317,22 @@ class Contribution < ActiveRecord::Base
             end
           EVAL
         end
-      
+
         yield contribution
-        
+
       end
-      
+
       ::ActiveRecord::Base.connection.clear_query_cache
     end
   end
-  
+
   def oai_record
     unless @oai_record.present?
       @oai_record = Europeana::OAI::Record.new(self)
     end
     @oai_record
   end
-  
+
   ##
   # Triggers syncing of public status of attachments to contribution's
   # published status.
@@ -342,26 +342,26 @@ class Contribution < ActiveRecord::Base
   alias_method :hrs_change_status_to, :change_status_to
   def change_status_to(status, user_id)
     success = false
-    
+
     Contribution.transaction do
       was_published     = current_status.nil? ? false : self.class.published_status.include?(current_status.to_sym)
       will_be_published = self.class.published_status.include?(status)
-    
+
       raise ActiveRecord::Rollback unless hrs_change_status_to(status, user_id)
-    
+
       unless was_published == will_be_published
         attachments.each do |a|
           a.set_public
           raise ActiveRecord::Rollback unless a.save
         end
       end
-      
+
       success = true
     end
-    
+
     success
   end
- 
+
   ##
   # Returns the tags on this contribution that are visible to all users.
   #
@@ -415,7 +415,7 @@ protected
       self.build_metadata
     end
   end
-  
+
   ##
   # Creates a {RecrdStatus} record with status = 'draft'
   #
@@ -423,4 +423,3 @@ protected
     change_status_to(:draft, contributor_id)
   end
 end
-

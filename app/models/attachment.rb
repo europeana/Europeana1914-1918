@@ -11,7 +11,7 @@
 # * title: Optional attachment title
 # * file: Attached file (as a Paperclip attachment).
 # * metadata: Associated metadata record
-# 
+#
 # Files may be stored in one of two paths, dependent on the public
 # attribute. If public is true, they will be stored in the app's public
 # directory. If public is false, they will be stored in the private
@@ -21,22 +21,23 @@
 class Attachment < ActiveRecord::Base
   belongs_to :contribution
   belongs_to :metadata, :class_name => 'MetadataRecord', :foreign_key => 'metadata_record_id', :dependent => :destroy
-  
+
   has_many :annotations, :as => :annotatable, :dependent => :destroy
-  
+  has_many :mappings, :class_name => 'MetadataMapping', :as => :mappable, :dependent => :destroy
+
   accepts_nested_attributes_for :metadata
-  
+
   attr_accessible :title, :file, :metadata_attributes, :dropbox_path
 
   attr_accessor :post_process
 
   # Custom Paperclip interpolations for has_attached_file
-  
+
   # :contribution_id => ID of associated contribution
   Paperclip.interpolates :contribution_id do |attachment, style|
     attachment.instance.contribution_id
   end
-  
+
   # :env_file_root => Base directory for all attachments
   #
   # For test & cucumber environments, files saved beneath Rails' "tmp"
@@ -44,13 +45,13 @@ class Attachment < ActiveRecord::Base
   Paperclip.interpolates :env_file_root do |attachment, style|
     [ 'test', 'cucumber' ].include?(Rails.env) ? "#{Rails.root}/tmp/#{Rails.env}" : Rails.root
   end
-  
+
   # :access_dir => Sub-directory to store all attachments in, based on
   # access status (as per +public+ attribute). 'public'/'private'
   Paperclip.interpolates :access_dir do |attachment, style|
     attachment.instance.public? ? 'public' : 'private'
   end
-  
+
   # :s3_acl_url => If the file is public, the S3 URL; if private, the local URL
   # which retrieves the file over the S3 API if the user is permitted to view it.
   Paperclip.interpolates :s3_acl_url do |attachment, style|
@@ -61,7 +62,7 @@ class Attachment < ActiveRecord::Base
     end
     Paperclip::Interpolations.interpolate(pattern, attachment, style)
   end
-  
+
   # Paperclip attachment
   # add sizes via :styles
   #     e.g. :new_size => "500x500>"
@@ -78,14 +79,14 @@ class Attachment < ActiveRecord::Base
   before_save :relocate_files, :if => Proc.new { |a| (a.file.options[:storage] == :filesystem) && a.public_changed? }, :unless => Proc.new { |a| a.new_record? }
 
   before_save :set_public, :if => Proc.new { |a| a.new_record? }
-  
+
   after_save :delete_old_file_dir, :if => Proc.new { |a| a.file.options[:storage] == :filesystem }, :unless => Proc.new { |a| a.old_file_dir.blank? }
-  
+
   # Paperclip's built-in post-processing for thumbnails should only
 
   # be run on certain file types.
   before_post_process :make_thumbnails?
-  
+
   before_post_process :post_process?
 
   validates_associated :metadata
@@ -96,10 +97,10 @@ class Attachment < ActiveRecord::Base
   # Europeana 1914-1918 metadata specific validations
   validate :validate_max_one_cover_image_per_contribution
 
-  # Old file directory queued for deletion after public/private change  
+  # Old file directory queued for deletion after public/private change
   attr_reader :old_file_dir #:nodoc:
-  
-  # Path of Dropbox file to copy. 
+
+  # Path of Dropbox file to copy.
   # User and session dependent, so handled by controller logic.
   attr_accessor :dropbox_path
 
@@ -126,7 +127,7 @@ class Attachment < ActiveRecord::Base
   def image?
     !(file.content_type =~ /^image.*/).nil?
   end
-  
+
   ##
   # Returns true if the attached file is a video.
   #
@@ -135,7 +136,7 @@ class Attachment < ActiveRecord::Base
   def video?
     !(file.content_type =~ /^video\//).nil?
   end
-  
+
   ##
   # Returns true if the attached file is of a video content type recognised by
   # ImageMagick's identify command.
@@ -145,7 +146,7 @@ class Attachment < ActiveRecord::Base
   def identifyable_video?
     [ 'video/mp4', 'video/mpeg', 'video/vnd.objectvideo' ].include?(file.content_type)
   end
-  
+
   ##
   # Returns true if the attached file is audio.
   #
@@ -154,7 +155,7 @@ class Attachment < ActiveRecord::Base
   def audio?
     !(file.content_type =~ /^audio\//).nil?
   end
-  
+
   ##
   # Returns true if the attached file is a PDF.
   #
@@ -174,7 +175,7 @@ class Attachment < ActiveRecord::Base
     end
     @post_process
   end
-  
+
   def set_public
     return unless self.contribution_id.present?
     self.public = self.contribution.published?
@@ -186,24 +187,24 @@ class Attachment < ActiveRecord::Base
         end
       end
     end
-    
+
     true
   end
-  
+
   def s3_acl
     self.contribution.published? ? "public_read" : "private"
   end
-  
+
   def public?
     self.public == true
   end
-  
+
   ##
   # Cached array of content types, derived from +RunCoCo.configuration.allowed_upload_extensions+.
   # @see .paperclip_content_types
   #
   @@paperclip_content_types = nil
-  
+
   ##
   # Returns an array of the content types to be accepted by Paperclip,
   # based on the permitted file name extensions configured through
@@ -213,7 +214,7 @@ class Attachment < ActiveRecord::Base
   # extensions. For IE compatibility, adds "image/pjpeg" for .jpg &
   # .jpeg files, and "image/x-png" for .png files.
   #
-  # @param [Boolean] reload If +true+, force a reload of content types, 
+  # @param [Boolean] reload If +true+, force a reload of content types,
   #   otherwise they are cached.
   # @return [Array<String>] Content type strings.
   #
@@ -246,21 +247,21 @@ class Attachment < ActiveRecord::Base
     end
     @@paperclip_content_types
   end
-  
+
   validates_attachment_content_type :file, :content_type => Attachment.paperclip_content_types, :unless => Proc.new { Attachment.paperclip_content_types.blank? }, :message => I18n.t('activerecord.errors.models.attachment.attributes.file.content_type')
-  
+
   alias :"rails_metadata_attributes=" :"metadata_attributes="
   def metadata_attributes=(*args)
     self.send(:"rails_metadata_attributes=", *args)
     self.metadata.for_attachment = true
   end
-  
+
   alias :rails_build_metadata :build_metadata
   def build_metadata(*args)
     rails_build_metadata(*args)
     self.metadata.for_attachment = true
   end
-  
+
   def to_hash
     hash = { :title => title }
     MetadataField.where(:attachment => true).each do |field|
@@ -268,7 +269,7 @@ class Attachment < ActiveRecord::Base
     end
     hash
   end
-  
+
   def to_json(options = nil)
     ActiveSupport::JSON.encode(to_hash, options)
   end
@@ -278,7 +279,7 @@ class Attachment < ActiveRecord::Base
       file.url(size)
     end
   end
-  
+
   ##
   # Returns the annotations on this attachment that are visible to all users.
   #
@@ -290,7 +291,7 @@ class Attachment < ActiveRecord::Base
   def visible_annotations
     annotations.with_status(:published, :flagged, :revised)
   end
-  
+
   def index!
     if contribution.respond_to?(:index!)
       contribution.index!
@@ -358,7 +359,7 @@ protected
     self.public = new_public
     true
   end
-  
+
   # Deletes old file directory
   def delete_old_file_dir #:nodoc:
     return unless @old_file_dir.present?
@@ -377,10 +378,9 @@ protected
       others.reject! { |a| a.id == self.id } unless new_record?
       others.reject! { |a| a.metadata.field_cover_image_terms.blank? || (a.metadata.field_cover_image_terms.first.term != 'yes') }
       unless others.blank?
-        self.errors.add('field_cover_image_terms', I18n.t('activerecord.errors.models.metadata_record.one_cover_image')) 
+        self.errors.add('field_cover_image_terms', I18n.t('activerecord.errors.models.metadata_record.one_cover_image'))
         metadata.errors.add('field_cover_image_terms', I18n.t('activerecord.errors.models.metadata_record.one_cover_image'))
       end
     end
-  end  
+  end
 end
-
