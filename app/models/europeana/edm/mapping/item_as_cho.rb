@@ -6,9 +6,9 @@ module Europeana
       #
       # For items with rich metadata distinct from parent story's.
       class ItemAsCHO < Item
-      
+
         has_rdf_graph_methods :provided_cho, :web_resource, :ore_aggregation, :parent_story_web_resource
-        
+
         ##
         # The edm:ProvidedCHO URI of this attachment
         #
@@ -17,7 +17,7 @@ module Europeana
         def provided_cho_uri
           @provided_cho_uri ||= RDF::URI.parse(RunCoCo.configuration.site_url + "/contributions/" + @source.contribution_id.to_s + "/attachments/" + @source.id.to_s)
         end
-        
+
         ##
         # The ore:Aggregation URI of this attachment
         #
@@ -26,7 +26,7 @@ module Europeana
         def ore_aggregation_uri
           @ore_aggregation_uri ||= RDF::URI.parse("europeana19141918:aggregation/attachment/" + @source.id.to_s)
         end
-        
+
         ##
         # Constructs the edm:ProvidedCHO for this item
         #
@@ -39,7 +39,7 @@ module Europeana
           previous_in_sequence_id = @source.contribution.attachment_ids[item_index - 1]
           previous_in_sequence = (item_index == 0 ? nil : @source.contribution.attachments.detect { |a| a.id == previous_in_sequence_id })
           uri = provided_cho_uri
-          
+
           graph << [ uri, RDF.type, RDF::EDM.ProvidedCHO ]
           graph << [ uri, RDF::DCElement.identifier, @source.id.to_s ]
           graph << [ uri, RDF::DCElement.title, @source.title ]
@@ -66,7 +66,7 @@ module Europeana
           graph << [ uri, RDF::DC.tableOfContents, meta["attachment_description"] ] unless meta["attachment_description"].blank?
           graph << [ uri, RDF::EDM.isNextInSequence, previous_in_sequence.edm.provided_cho_uri ] unless previous_in_sequence.blank?
           graph << [ uri, RDF::EDM.type, meta["file_type"].first ] unless meta["file_type"].blank?
-          
+
           if [ meta["lang"], meta["lang_other"] ].all?(&:blank?)
             graph << [ uri, RDF::DCElement.language, "und" ]
           else
@@ -77,7 +77,7 @@ module Europeana
               end
             end
           end
-          
+
           [ '1', '2' ].each do |cn|
             character_full_name = Contact.full_name(meta["character#{cn}_given_name"], meta["character#{cn}_family_name"])
             unless [ character_full_name, meta["character#{cn}_dob"], meta["character#{cn}_dod"], meta["character#{cn}_pob"], meta["character#{cn}_pod"] ].all?(&:blank?)
@@ -90,21 +90,21 @@ module Europeana
               }).append_to(graph, uri, RDF::DCElement.subject)
             end
           end
-          
+
           creator_full_name = Contact.full_name(meta["creator_given_name"], meta["creator_family_name"])
           unless creator_full_name.blank?
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => creator_full_name).append_to(graph, uri, RDF::DCElement.creator)
           end
-          
+
           unless meta["creator"].blank?
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => meta["creator"]).append_to(graph, uri, RDF::DCElement.creator)
           end
-          
+
           contributor_full_name = meta["contributor_behalf"].present? ? meta["contributor_behalf"] : @source.contribution.contributor.contact.full_name
           unless contributor_full_name.blank?
             EDM::Resource::Agent.new(RDF::SKOS.prefLabel => contributor_full_name).append_to(graph, uri, RDF::DCElement.contributor)
           end
-          
+
           [
             { :field => "keywords", :predicate => RDF::DCElement.subject, :language => :en },
             { :field => "forces", :predicate => RDF::DCElement.subject, :language => :en },
@@ -118,20 +118,20 @@ module Europeana
               end
             end
           end
-          
+
           lat, lng = (meta["location_map"].present? ? meta["location_map"].split(',') : [ nil, nil ])
           unless [ lat, lng, meta['location_placename'] ].all?(&:blank?)
             if [ lat, lng ].all?(&:blank?)
               graph << [ uri, RDF::DC.spatial, meta['location_placename'] ]
             else
               EDM::Resource::Place.new({
-                RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_f),
-                RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_f),
+                RDF::WGS84Pos.lat => (lat.blank? ? nil : lat.to_s),
+                RDF::WGS84Pos.long => (lng.blank? ? nil : lng.to_s),
                 RDF::SKOS.prefLabel => meta['location_placename']
               }).append_to(graph, uri, RDF::DC.spatial)
             end
           end
-          
+
           unless [ meta['date_from'], meta['date_to'], meta['date'] ].all?(&:blank?)
             EDM::Resource::TimeSpan.new({
               RDF::EDM.begin => meta['date_from'],
@@ -142,7 +142,7 @@ module Europeana
 
           graph
         end
-        
+
         ##
         # Constructs the edm:WebResource for this item
         #
@@ -152,7 +152,7 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           uri = web_resource_uri
-          
+
           graph << [ uri, RDF.type, RDF::EDM.WebResource ]
           graph << [ uri, RDF::DCElement.format, meta["file_type"].first ] unless meta["file_type"].blank?
           graph << [ uri, RDF::DC.created, @source.created_at.to_s ]
@@ -160,7 +160,7 @@ module Europeana
 
           graph
         end
-        
+
         ##
         # Constructs the ore:Aggregation for this item
         #
@@ -170,14 +170,14 @@ module Europeana
           graph = RDF::Graph.new
           meta = @source.metadata.fields
           uri = ore_aggregation_uri
-          
+
           graph << [ uri, RDF.type, RDF::ORE.Aggregation ]
           graph << [ uri, RDF::EDM.aggregatedCHO, provided_cho_uri ]
           graph << [ uri, RDF::EDM.isShownBy, web_resource_uri ]
           if meta["license"].blank?
             graph << [ uri, RDF::EDM.rights, RDF::URI.parse("http://creativecommons.org/publicdomain/zero/1.0/") ]
           else
-            graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ] 
+            graph << [ uri, RDF::EDM.rights, RDF::URI.parse(meta["license"].first) ]
           end
           graph << [ uri, RDF::EDM.ugc, "true" ]
           graph << [ uri, RDF::EDM.provider, "Europeana 1914-1918" ]
@@ -186,7 +186,7 @@ module Europeana
 
           graph
         end
-        
+
 
         def parent_story_web_resource
           graph = RDF::Graph.new

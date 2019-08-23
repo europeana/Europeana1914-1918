@@ -1,48 +1,76 @@
 version: "3"
 services:
-  web:
-    image: 1418-web
-    build:
-      context: ./web
-    depends_on:
-      - db
-      - search
-    ports:
-    - "30000:3000"
-    links:
-      - db
-    volumes:
-      - ..:/app
-    environment:
-      DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
-  worker:
-    image: 1418-worker
-    build:
-      context: ./worker
-    depends_on:
-      - db
-    links:
-      - db
-    volumes:
-    - ..:/app
-    environment:
-      DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
   db:
     image: 1418-db
     build:
       context: ./db
-    ports:
-    - "30001:3306"
+    expose:
+    - "3306"
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes" # 
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       MYSQL_DATABASE: europeana_1418
       MYSQL_USER: 1418
       MYSQL_PASSWORD: 1418pass
+    volumes:
+      - 1418-db-mysql:/var/lib/mysql
+  gateway:
+    image: 1418-gateway
+    build:
+      context: ./gateway
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../public:/usr/share/nginx/html
   search:
     image: 1418-search
     build:
       context: ./search
-    ports:
-    - "30002:8983"
+    expose:
+    - "8983"
     volumes:
-      - ..:/app
+      - 1418-search-solr:/solr-4.10.0/server/1418/data
+  web:
+    image: 1418-web
+    build:
+      context: ..
+    depends_on:
+      - db
+      - search
+    expose:
+    - "8080"
+    links:
+      - db
+    environment:
+      DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+      RAILS_ENV: production
+      PORT: 8080
+    volumes:
+      - ../config:/app/config
+      - ../public:/app/public
+      - 1418-web-log:/app/log
+  worker:
+    image: 1418-worker
+    build:
+      context: ./worker
+    command: bundle exec script/delayed_job run
+    depends_on:
+      - db
+      - search
+    links:
+      - db
+    environment:
+      DATABASE_URL: mysql2://1418:1418pass@db/europeana_1418?utf8=true
+      RAILS_ENV: production
+    volumes:
+      - ../config:/app/config
+      - 1418-worker-log:/app/log
+volumes:
+  1418-web-log:
+  1418-web-tmp:
+  1418-worker-log:
+  1418-worker-tmp:
+  1418-db-mysql:
+  1418-search-solr:
