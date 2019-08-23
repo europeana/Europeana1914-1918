@@ -41,6 +41,6 @@ protected
 
   def queue_job_for_contribution(contribution)
     return if contribution.current_status.nil? || !contribution.published?
-    Delayed::Job.enqueue EDMMetadataMappingJob.new(contribution), :queue => 'mapping'
+    Delayed::Job.enqueue EDMMetadataMappingJob.new(contribution.id), :queue => 'mapping'
   end
 end
